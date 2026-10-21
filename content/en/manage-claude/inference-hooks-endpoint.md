@@ -158,7 +158,7 @@ Every request carries these fixed headers, along with any [custom request header
 | `User-Agent`      | `anthropic-dlp/1`  |
 | `Accept-Encoding` | `identity`         |
 
-There are two hook events, told apart by the top-level `type` field. The prompt frame is sent once per governed inference request, before inference begins. The tool call frame is sent when a model response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on. Either way, Anthropic waits until your AI security server responds or the verdict timeout elapses.
+There are two hook events, told apart by the top-level `type` field. The prompt frame is sent once for each governed inference request, before inference starts. The tool call frame is sent when a model response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on. Either way, Anthropic waits until your AI security server responds or the verdict timeout elapses.
 
 ## The prompt frame
 
@@ -236,7 +236,7 @@ The transcript is the conversation as the end user sees it, up to the point of i
 
 A turn whose every block is excluded is omitted entirely, so don't assume strict user and assistant alternation.
 
-Transcripts are sent untruncated, so a long conversation with large attachments produces a large request body. In practice the model's context window keeps bodies under about 10 MB, but the protocol allows up to 64 MiB. Several common defaults are much smaller, including nginx `client_max_body_size` at 1 MB and Express `express.json()` at 100 kB, and a rejected body counts as a webhook failure, so under **Allow the request** failure handling an oversized prompt would reach the model uninspected.
+Transcripts are sent untruncated, so a long conversation with large attachments produces a large request body. In practice the model's context window keeps bodies under about 10 MB, but the protocol allows up to 64 MiB. Several common defaults are much smaller, including nginx `client_max_body_size` at 1 MB and Express `express.json()` at 100 kB, and a rejected body counts as a webhook failure, so under **Allow the request** failure handling an oversized prompt would reach the model uninspected.
 
 ### Source values
 
@@ -251,7 +251,7 @@ When Claude produces tool calls, Anthropic sends one tool call frame that lists 
 It differs from the prompt frame in three ways:
 
 * `type` is `"tool_call"`.
-* `messages` holds only the latest message, the `assistant` message Claude just produced: any `text` blocks and one `tool_use` block per tool call the frame lists, in the order the model produced them. Earlier conversation is left out, because the prompt frame sent before that model call carried it. Read the last entry of `messages`, because the protocol may later add earlier messages before it.
+* `messages` holds only the latest message, the `assistant` message Claude just produced: any `text` blocks and one `tool_use` block for each tool call the frame lists, in the order the model produced them. Earlier conversation is left out, because the prompt frame sent before that model call carried it. Read the last entry of `messages`, because the protocol may later add earlier messages before it.
 * Each `tool_use` block carries a `tool_info` object that says who runs or provides the tool.
 
 Where `session_id` is set, it is the same on both frames. The tool call frame has its own `request_id`, which is opaque like the prompt frame's.
@@ -407,18 +407,18 @@ The reverse doesn't hold. Anything other than HTTP 200 with a parseable verdict 
 * Don't signal a deny with an error status. A non-200 response is a failure, not a deny.
 * Any `action` value other than `allow` or `deny` is treated as a webhook failure.
 
-Anthropic reads at most 64 KiB of the response body, and the body must be uncompressed. Redirects are not followed, and cookies are ignored. Unknown fields in the verdict body are ignored, so you can return a richer object alongside the fields documented here.
+Anthropic reads at most 64 KiB of the response body, and the body must be uncompressed. Redirects are not followed, and cookies are ignored. Unknown fields in the verdict body are ignored, so you can return a richer object alongside the fields documented here.
 
 A tool call frame takes the same verdict body, and every rule in this section applies to it unchanged. `allow` lets the tool calls run and the response continues; `deny` stops all of them and ends the response with the same error as a denied prompt, including your `deny_reason`. Text delivered before the first tool call is not taken back.
 
 ## Verify the signature
 
-Requests are signed per the [Standard Webhooks](https://www.standardwebhooks.com/) specification, using three headers. Anthropic sends the header names in lowercase, and proxies are free to re-case them, so look them up case-insensitively.
+Requests are signed according to the [Standard Webhooks](https://www.standardwebhooks.com/) specification, using three headers. Anthropic sends the header names in lowercase, and proxies are free to re-case them, so look them up case-insensitively.
 
 | Header              | Contents                                                                                                                                                                                                         |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `webhook-id`        | Unique identifier for this delivery. Equals the body's `request_id`. Use it as an idempotency key and as the first component of the signed payload.                                                              |
-| `webhook-timestamp` | Unix time in seconds, as a decimal string, when the request was signed. Reject a timestamp more than five minutes from your server's clock, in either direction.                                                 |
+| `webhook-timestamp` | Unix time in seconds, as a decimal string, when the request was signed. Reject a timestamp more than 5 minutes from your server's clock, in either direction.                                                    |
 | `webhook-signature` | One or more space-separated `v1,<base64>` values, each an HMAC-SHA256 over `{webhook-id}.{webhook-timestamp}.{raw body bytes}`. Accept the request if any value matches yours, using a constant-time comparison. |
 
 Two details cause most verification bugs:
@@ -813,7 +813,7 @@ Anthropic retries exactly once, after a 100ms delay, and only when the connectio
 
 ### Webhook failures
 
-Timeouts, non-200 statuses (redirects included), unparseable or oversized response bodies, and unreachable endpoints are all webhook failures. A webhook failure never becomes a deny; instead, your organization's [failure handling](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) setting decides whether the affected request is blocked or proceeds without inspection.
+Timeouts, non-200 statuses (redirects included), unparseable or oversized response bodies, and unreachable endpoints are all webhook failures. A webhook failure never becomes a deny; instead, your organization's [failure handling](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) setting determines whether the affected request is blocked or proceeds without inspection.
 
 ### Circuit breaker
 
@@ -823,7 +823,7 @@ Starting 10 minutes after the trip, Anthropic checks whether your server has rec
 
 Prompt frames and tool call frames share one circuit breaker, and failures on either count toward it.
 
-Each trip is recorded as an `inference_hooks_circuit_breaker_tripped` activity in the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), one activity per trip. While the breaker is tripped, no per-request Inference hooks activities are recorded, so the trip activity is the feed's only record of the tripped window.
+Each trip is recorded as an `inference_hooks_circuit_breaker_tripped` activity in the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), one activity for each trip. While the breaker is tripped, no per-request Inference hooks activities are recorded, so the trip activity is the feed's only record of the tripped window.
 
 ### Latency
 
@@ -852,7 +852,7 @@ Other hook event types will be introduced in the future. A new event type is an 
 
 A production AI security server makes a few design choices beyond the wire protocol.
 
-**Deduplicate on `webhook-id`.** The `webhook-id` header is unique per delivery and equals the body's `request_id`, and a connection-failure retry reuses it, so it works as an idempotency key. If you record verdicts, key the records on it.
+**Deduplicate on `webhook-id`.** The `webhook-id` header is unique for each delivery and equals the body's `request_id`, and a connection-failure retry reuses it, so it works as an idempotency key. If you record verdicts, key the records on it.
 
 **Record verdicts and join denials.** Store each verdict you return along with its `reference_id`. Every denial is recorded as an `inference_hooks_request_denied` compliance activity carrying the `reference_id` your server returned, so you can join denials in the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) to the matching records in your own system.
 

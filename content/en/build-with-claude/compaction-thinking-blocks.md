@@ -51,7 +51,7 @@ Compactions from before a thinking block was produced don't count against it. Th
 
 ## Change the system prompt or tools
 
-A later request can use a different `system`, different `tools`, or a different model than the compaction request, and the API still accepts the block. Such a change can invalidate the thinking in the kept turns, but it has no other effect.
+A later request can use a different `system`, different `tools`, or a different model from the compaction request, and the API still accepts the block. Such a change can invalidate the thinking in the kept turns, but it has no other effect.
 
 To change `system` or `tools` without invalidating any kept thinking, compact the whole conversation first, so no turns are kept. Then change them on the next request.
 
@@ -68,7 +68,7 @@ The compaction response doesn't say whether the kept thinking holds. The first r
 3. Send the next request, with the block first, then the kept turn, then a new `user` message, and with `thinking.block_binding.prefix_mismatch_behavior` set to `"error"`.
 4. Read the result. A 200 response whose `input_transformations` array is empty means no thinking block failed the check or was dropped. A 400 error that says the block is bound to a different conversation means one did. The message starts with the path of the first block that failed, and [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) shows it in full.
 
-The `prefix_mismatch_behavior` field needs the `thinking-binding-controls-2026-08-01` beta header in addition to [the `compact-2026-09-04` beta header](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#request-a-summary). Setting the field also opts the request into the check on accounts where the check isn't on by default.
+The `prefix_mismatch_behavior` field needs the `thinking-binding-controls-2026-08-01` beta header in addition to the [`compact-2026-09-04` beta header](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#request-a-summary). Setting the field also opts the request into the check on accounts where the check isn't on by default.
 
 The following program runs the four steps. It prints how many thinking blocks the kept turn holds and how many entries `input_transformations` has; no entries means the kept thinking held:
 
@@ -252,7 +252,7 @@ The following program runs the four steps. It prints how many thinking blocks th
   // 1. Have a short conversation with thinking on.
   List<BetaMessageParam> history =
   [
-      new() { Role = Role.User, Content = "What are the main entities in the app's data model?" },
+      new BetaUserMessageParam { Content = "What are the main entities in the app's data model?" },
   ];
   var first = await client.Beta.Messages.Create(new MessageCreateParams
   {
@@ -265,14 +265,12 @@ The following program runs the four steps. It prints how many thinking blocks th
   });
   history.AddRange(
   [
-      new()
+      new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = first.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
       },
-      new()
+      new BetaUserMessageParam
       {
-          Role = Role.User,
           Content = "Testing starts on Tuesday, March 3, 2026, takes 10 weekdays, and pauses on March 9 and March 16. On which date does it end?",
       },
   ]);
@@ -285,9 +283,8 @@ The following program runs the four steps. It prints how many thinking blocks th
       Thinking = thinking,
       Messages = history,
   });
-  history.Add(new()
+  history.Add(new BetaAssistantMessageParam
   {
-      Role = Role.Assistant,
       Content = second.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
   });
   var thinkingBlocks = second.Content.Count(block => block.TryPickThinking(out _));
@@ -312,13 +309,12 @@ The following program runs the four steps. It prints how many thinking blocks th
   // 3. Put the block in front of the kept turn and ask the next question.
   history =
   [
-      new()
+      new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = summary.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
       },
       .. history[2..],
-      new() { Role = Role.User, Content = "Which day should the release go out?" },
+      new BetaUserMessageParam { Content = "Which day should the release go out?" },
   ];
   var third = await client.Beta.Messages.Create(new MessageCreateParams
   {
@@ -464,10 +460,7 @@ The following program runs the four steps. It prints how many thinking blocks th
 
       // 1. Have a short conversation with thinking on.
       var history = new ArrayList<BetaMessageParam>();
-      history.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.USER)
-          .content("What are the main entities in the app's data model?")
-          .build());
+      history.add(BetaMessageParam.ofUser("What are the main entities in the app's data model?"));
       var firstParams = MessageCreateParams.builder()
           .model(MODEL)
           .maxTokens(8192)
@@ -478,10 +471,8 @@ The following program runs the four steps. It prints how many thinking blocks th
           .build();
       var first = client.beta().messages().create(firstParams);
       history.add(first.toParam());
-      history.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.USER)
-          .content("Testing starts on Tuesday, March 3, 2026, takes 10 weekdays, and pauses on March 9 and March 16. On which date does it end?")
-          .build());
+      history.add(BetaMessageParam.ofUser(
+          "Testing starts on Tuesday, March 3, 2026, takes 10 weekdays, and pauses on March 9 and March 16. On which date does it end?"));
       var secondParams = MessageCreateParams.builder()
           .model(MODEL)
           .maxTokens(8192)
@@ -514,10 +505,7 @@ The following program runs the four steps. It prints how many thinking blocks th
       // 3. Put the block in front of the kept turn and ask the next question.
       firstTurn.clear();
       history.addFirst(summary.toParam());
-      history.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.USER)
-          .content("Which day should the release go out?")
-          .build());
+      history.add(BetaMessageParam.ofUser("Which day should the release go out?"));
       var thirdParams = MessageCreateParams.builder()
           .model(MODEL)
           .maxTokens(8192)

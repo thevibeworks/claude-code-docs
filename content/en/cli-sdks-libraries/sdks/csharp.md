@@ -38,14 +38,7 @@ AnthropicClient client = new();
 MessageCreateParams parameters = new()
 {
     MaxTokens = 1024,
-    Messages =
-    [
-        new()
-        {
-            Role = Role.User,
-            Content = "Hello, Claude",
-        },
-    ],
+    Messages = [new UserMessageParam { Content = "Hello, Claude" }],
     Model = Model.ClaudeOpus5_5,
 };
 
@@ -60,7 +53,7 @@ foreach (var block in message.Content)
 }
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) with access to multiple workspaces, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ## Client configuration
 
@@ -111,7 +104,7 @@ var message = await client
 Console.WriteLine(message);
 ```
 
-Using a [`with` expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) makes it easy to construct the modified options.
+You can use a [`with` expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) to construct the modified options.
 
 The `WithOptions` method does not affect the original client or service.
 
@@ -130,14 +123,7 @@ using Anthropic.Models.Messages;
 MessageCreateParams parameters = new()
 {
     MaxTokens = 1024,
-    Messages =
-    [
-        new()
-        {
-            Role = Role.User,
-            Content = "Hello, Claude",
-        },
-    ],
+    Messages = [new UserMessageParam { Content = "Hello, Claude" }],
     Model = Model.ClaudeOpus5_5,
 };
 
@@ -166,7 +152,7 @@ The SDK throws custom unchecked exception types:
 
 Additionally, all 4xx errors inherit from `Anthropic4xxException`.
 
-* `AnthropicSseException`: thrown for errors encountered during SSE streaming after a successful initial HTTP response.
+* `AnthropicSseException`: Errors encountered during SSE streaming after a successful initial HTTP response.
 
 * `AnthropicIOException`: I/O networking errors.
 
@@ -186,7 +172,7 @@ Only the following error types are retried:
 * 429 Rate Limit
 * 5xx Internal
 
-The API may also explicitly instruct the SDK to retry or not retry a request.
+The API might also explicitly instruct the SDK to retry or not retry a request.
 
 To set a custom number of retries, configure the client using the `MaxRetries` property:
 
@@ -277,7 +263,7 @@ while (true)
 
 ## Response validation
 
-In rare cases, the API may return a response that doesn't match the expected type. By default, the SDK does not throw an exception in this case. It throws `AnthropicInvalidDataException` only if you directly access the property.
+In rare cases, the API might return a response that doesn't match the expected type. By default, the SDK does not throw an exception in this case. It throws `AnthropicInvalidDataException` only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `Validate`:
 
@@ -310,7 +296,7 @@ Console.WriteLine(message);
 
 ## IChatClient integration
 
-The SDK provides an implementation of the `IChatClient` interface from the `Microsoft.Extensions.AI.Abstractions` library. This enables `AnthropicClient` (and `Anthropic.Services.IBetaService`) to be used with other libraries that integrate with these core abstractions. For example, tools in the MCP C# SDK (`ModelContextProtocol`) library can be used directly with an `AnthropicClient` exposed through `IChatClient`.
+The SDK provides an implementation of the `IChatClient` interface from the `Microsoft.Extensions.AI.Abstractions` library. This allows `AnthropicClient` (and `Anthropic.Services.IBetaService`) to be used with other libraries that integrate with these core abstractions. For example, tools in the MCP C# SDK (`ModelContextProtocol`) library can be used directly with an `AnthropicClient` exposed through `IChatClient`.
 
 ```csharp
 using Anthropic;
@@ -338,13 +324,13 @@ Console.WriteLine(await chatClient.GetResponseAsync("Tell me about IChatClient",
 
 To send a request to the Claude API, build an instance of a `Params` class and pass it to the corresponding client method. When the response is received, it's deserialized into an instance of a C# class.
 
-For example, `client.Messages.Create` should be called with an instance of `MessageCreateParams`, and it will return an instance of `Task<Message>`.
+For example, `client.Messages.Create` should be called with an instance of `MessageCreateParams`, and it returns an instance of `Task<Message>`.
 
 ## Advanced usage
 
 ### Binary responses
 
-The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
+The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, such as non-JSON data.
 
 These methods return `HttpResponse`:
 
@@ -443,6 +429,8 @@ The C# SDK supports the following platforms through separate NuGet packages:
 Use `AnthropicBedrockMantleClient` for new projects; `AnthropicBedrockClient` remains for existing applications using the Bedrock `InvokeModel` API.
 
 ## Semantic versioning
+
+Each major version of this SDK sends one API version in the `anthropic-version` header by default, and a new major version comes with each new API version. The first major version that sends `2026-10-21` is 13.0.0; see [Migrating to API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 

@@ -1,7 +1,7 @@
 ---
 title: Vision
 url: https://platform.claude.com/docs/en/build-with-claude/vision
-description: Claude's vision capabilities allow it to understand and analyze images, opening up exciting possibilities for multimodal interaction.
+description: Claude's vision capabilities allow it to process and analyze images, opening up exciting possibilities for multimodal interaction.
 ---
 
 This guide describes how to send images to Claude, the limits and costs that apply, and where to find guidance for [coordinate-based workflows](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates).
@@ -13,7 +13,7 @@ This guide describes how to send images to Claude, the limits and costs that app
 Use Claude's vision capabilities through:
 
 * [claude.ai](https://claude.ai/). Upload an image like you would a file, or drag and drop an image directly into the chat window.
-* [Playground](https://platform.claude.com/playground) in the Claude Console. Add images directly to any User message block.
+* [Playground](https://platform.claude.com/playground) in the Claude Console. Add images directly to any **User** message block.
 * API request. See the following examples.
 
 On the API, provide images to Claude as `image` content blocks using one of three source types:
@@ -158,10 +158,9 @@ On the API, provide images to Claude as `image` content blocks using one of thre
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
-              Content = new MessageParamContent(new List<ContentBlockParam>
+              Content = new List<ContentBlockParam>
               {
                   new ContentBlockParam(new ImageBlockParam(
                       new ImageBlockParamSource(new Base64ImageSource()
@@ -171,7 +170,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
                       })
                   )),
                   new ContentBlockParam(new TextBlockParam("Describe this image.")),
-              }),
+              },
           }
       ]
   });
@@ -225,7 +224,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
       MessageCreateParams.builder()
         .model(Model.CLAUDE_OPUS_5_5)
         .maxTokens(1024)
-        .addUserMessageOfBlockParams(contentBlockParams)
+        .addUserMessageOfContentBlockParams(contentBlockParams)
         .build()
     );
 
@@ -405,10 +404,9 @@ On the API, provide images to Claude as `image` content blocks using one of thre
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
-              Content = new MessageParamContent(new List<ContentBlockParam>
+              Content = new List<ContentBlockParam>
               {
                   new ContentBlockParam(new ImageBlockParam(
                       new ImageBlockParamSource(new UrlImageSource()
@@ -417,7 +415,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
                       })
                   )),
                   new ContentBlockParam(new TextBlockParam("Describe this image.")),
-              }),
+              },
           }
       ]
   });
@@ -468,7 +466,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
       MessageCreateParams.builder()
         .model(Model.CLAUDE_OPUS_5_5)
         .maxTokens(1024)
-        .addUserMessageOfBlockParams(contentBlockParams)
+        .addUserMessageOfContentBlockParams(contentBlockParams)
         .build()
     );
   System.out.println(message);
@@ -691,16 +689,15 @@ For images you'll use repeatedly or when you want to avoid encoding overhead, us
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
-              Content = new MessageParamContent(new List<ContentBlockParam>
+              Content = new List<ContentBlockParam>
               {
                   new ContentBlockParam(new ImageBlockParam(
                       new ImageBlockParamSource(new FileImageSource(fileUpload.ID))
                   )),
                   new ContentBlockParam(new TextBlockParam("Describe this image.")),
-              }),
+              },
           }
       ]
   });
@@ -773,7 +770,7 @@ For images you'll use repeatedly or when you want to avoid encoding overhead, us
       MessageCreateParams params = MessageCreateParams.builder()
         .model(Model.CLAUDE_OPUS_5_5)
         .maxTokens(1024)
-        .addUserMessageOfBlockParams(
+        .addUserMessageOfContentBlockParams(
           List.of(
             ContentBlockParam.ofImage(imageParam),
             ContentBlockParam.ofText(
@@ -1031,10 +1028,9 @@ You can include multiple images in a single request, and Claude analyzes them jo
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
-              Content = new MessageParamContent(new List<ContentBlockParam>
+              Content = new List<ContentBlockParam>
               {
                   new ContentBlockParam(new TextBlockParam("Image 1:")),
                   new ContentBlockParam(new ImageBlockParam(
@@ -1053,7 +1049,7 @@ You can include multiple images in a single request, and Claude analyzes them jo
                       })
                   )),
                   new ContentBlockParam(new TextBlockParam("How are these images different?")),
-              }),
+              },
           }
       ]
   });
@@ -1127,7 +1123,7 @@ You can include multiple images in a single request, and Claude analyzes them jo
           MessageCreateParams.builder()
               .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(1024)
-              .addUserMessageOfBlockParams(contentBlockParams)
+              .addUserMessageOfContentBlockParams(contentBlockParams)
               .build()
       );
 
@@ -1223,13 +1219,13 @@ In a multi-turn conversation, add new images in later `user` turns the same way.
 
 ### Request limits
 
-The maximum number of images per message or request is:
+The maximum number of images for each message or request is:
 
-* 20 per message on [claude.ai](https://claude.ai/).
-* 100 per request on the API, for models with a 200k-token context window.
-* 600 per request on the API, for all other models.
+* 20 for each message on [claude.ai](https://claude.ai/)
+* 100 for each request on the API, for models with a 200k-token context window
+* 600 for each request on the API, for all other models
 
-The maximum dimensions per image are 8000x8000 px.
+The maximum dimensions for each image are 8000x8000 px.
 
 If a single API request contains more than 20 images, a stricter per-image dimension limit applies to every image in that request. All `image` blocks in the request count toward this threshold, including images from earlier conversation turns that you resend and images nested inside `tool_result` content (for example, screenshots returned to the computer use tool). On Amazon Bedrock and Google Cloud, document blocks such as PDFs also count toward this threshold. Images exceeding the stricter limit are rejected with an `invalid_request_error` whose message references "many-image requests" and states the current limit in pixels. To stay under the limit on all platforms, either resize each image so that neither dimension exceeds 2000 px, or keep the request to 20 or fewer image and document blocks.
 
@@ -1251,7 +1247,7 @@ Claude supports JPEG, PNG, GIF, and WebP images (`image/jpeg`, `image/png`, `ima
 
 ### Resolution and token cost
 
-Claude views images in patches instead of pixels. Each patch is a 28×28-pixel block of the image, referred to as a visual token. An image, therefore, costs `⌈width / 28⌉ × ⌈height / 28⌉` visual tokens.
+Claude processes images in patches instead of pixels. Each patch is a 28×28-pixel block of the image, referred to as a visual token. An image, therefore, costs `⌈width / 28⌉ × ⌈height / 28⌉` visual tokens.
 
 Each model has a maximum native image resolution, expressed as a long-edge limit and a visual-token limit. Images larger than either limit are downscaled before processing; see [How Claude resizes and pads images](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images) for the exact rule. The exception is screenshots and zoom images that you return to the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#targets-and-coordinates) toolsets: the API rejects a `tool_result` image that exceeds the model's limits with a validation error instead of downscaling it, so resize those images in your application before returning them. To have any other oversized image rejected with an error instead of downscaled, set the image block's [`transformations` field](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error).
 
@@ -1292,20 +1288,20 @@ When providing images to Claude, keep the following in mind for best results:
 
 ## Coordinates and bounding boxes
 
-For bounding boxes, points, and pixel coordinates, see [Coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). Claude returns absolute pixel coordinates relative to the image it sees after resizing; that guide covers how Claude resizes and pads images and how to pre-resize or rescale so coordinates line up with your original image.
+For bounding boxes, points, and pixel coordinates, see [Coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates). Claude returns absolute pixel coordinates relative to the image it processes after resizing; that guide covers how Claude resizes and pads images and how to pre-resize or rescale so coordinates line up with your original image.
 
 ***
 
 ## Limitations
 
-Although Claude's image understanding capabilities are cutting-edge, there are some limitations to be aware of:
+Although Claude's image understanding capabilities are advanced, there are some limitations to be aware of:
 
-* **People identification:** Claude [cannot be used](https://www.anthropic.com/legal/aup) to name people in images and refuses to do so.
+* **People identification:** Claude cannot be used to name people in images and refuses to do so (see the [Usage Policy](https://www.anthropic.com/legal/aup)).
 * **Accuracy:** Claude might hallucinate or make mistakes when interpreting low-quality, rotated, or very small images under 200 pixels.
 * **Spatial reasoning:** Claude's coordinate and localization outputs are approximate. Follow the guidance in [Coordinates and bounding boxes](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates) and verify outputs before relying on them.
 * **Counting:** Claude can give approximate counts of objects in an image but might not always be precisely accurate, especially with large numbers of small objects.
 * **AI-generated images:** Claude cannot determine whether an image is AI-generated and might be incorrect if asked. Do not rely on it to detect fake or synthetic images.
-* **Inappropriate content:** Claude does not process inappropriate or explicit images that violate the [Acceptable Use Policy](https://www.anthropic.com/legal/aup).
+* **Inappropriate content:** Claude does not process inappropriate or explicit images that violate the [Usage Policy](https://www.anthropic.com/legal/aup).
 * **Healthcare applications:** Although Claude can analyze general medical images, it is not designed to interpret complex diagnostic scans such as CTs or MRIs. Claude's outputs should not be considered a substitute for professional medical advice or diagnosis.
 
 Always carefully review and verify Claude's image interpretations, especially for high-stakes use cases. Do not use Claude for tasks requiring perfect precision or sensitive image analysis without human oversight.
@@ -1328,7 +1324,7 @@ Always carefully review and verify Claude's image interpretations, especially fo
   </Accordion>
 
   <Accordion title="How many images can I include in one request?">
-    Up to 600 per API request (100 for models with a 200k-token context window) and 20 per turn on claude.ai. See [Request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) for details and the lower per-image dimension limit that applies above 20 images.
+    Up to 600 for each API request (100 for models with a 200k-token context window) and 20 for each turn on claude.ai. See [Request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) for details and the lower per-image dimension limit that applies above 20 images.
   </Accordion>
 
   <Accordion title="Does Claude read image metadata?">
@@ -1339,7 +1335,7 @@ Always carefully review and verify Claude's image interpretations, especially fo
     No. Image uploads are ephemeral and not stored beyond the duration of the API request. Uploaded images are automatically deleted after they have been processed.
   </Accordion>
 
-  <Accordion title="Where can I find details on data privacy for image uploads?">
+  <Accordion title="Where are the details on data privacy for image uploads?">
     Refer to the Anthropic privacy policy page for information on how uploaded images and other data are handled. Anthropic does not use uploaded images to train models.
   </Accordion>
 
@@ -1363,7 +1359,7 @@ Always carefully review and verify Claude's image interpretations, especially fo
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Multimodal cookbook" icon="image" href="https://platform.claude.com/cookbook/multimodal-getting-started-with-vision">
+  <Card title="Multimodal recipe" icon="image" href="https://platform.claude.com/cookbook/multimodal-getting-started-with-vision">
     Get tips and best-practice techniques for tasks such as interpreting charts and extracting content from forms.
   </Card>
 

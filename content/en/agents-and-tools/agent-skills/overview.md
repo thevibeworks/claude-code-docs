@@ -41,7 +41,7 @@ Anthropic provides pre-built Agent Skills for common document tasks (PowerPoint,
 
 Skills use Claude's VM environment to provide capabilities beyond what's possible with prompts alone. Claude operates in a virtual machine with filesystem access, allowing Skills to exist as directories containing instructions, executable code, and reference materials, organized like an onboarding guide you'd create for a new team member.
 
-This filesystem-based architecture enables **progressive disclosure:** Claude loads information in stages as needed, rather than consuming context upfront.
+This filesystem-based architecture allows **progressive disclosure:** Claude loads information in stages as needed, rather than consuming context upfront.
 
 Skills can contain three types of content, each loaded at a different time:
 
@@ -60,7 +60,7 @@ Claude loads this metadata at startup and includes it in the system prompt. The 
 
 ### Level 2: Instructions (loaded when triggered)
 
-The main body of SKILL.md contains procedural knowledge: workflows, best practices, and guidance:
+The main body of `SKILL.md` contains procedural knowledge: workflows, best practices, and guidance:
 
 ````markdown
 # PDF Processing
@@ -79,7 +79,7 @@ with pdfplumber.open("document.pdf") as pdf:
 For advanced form filling, see [FORMS.md](FORMS.md).
 ````
 
-When you request something that matches a Skill's description, Claude reads SKILL.md from the filesystem using bash. Only then does this content enter the context window.
+When you request something that matches a Skill's description, Claude reads `SKILL.md` from the filesystem using bash. Only then does this content enter the context window.
 
 ### Level 3: Resources and code (loaded as needed)
 
@@ -93,19 +93,19 @@ Skills can bundle additional materials:
   * `scripts/`
     * `fill_form.py` (utility script)
 
-**Instructions:** Additional markdown files (FORMS.md, REFERENCE.md) containing specialized guidance and workflows
+**Instructions:** Additional markdown files (`FORMS.md`, `REFERENCE.md`) containing specialized guidance and workflows
 
-**Code:** Executable scripts (fill\_form.py, validate.py) that Claude runs using bash, providing deterministic operations without loading their code into context
+**Code:** Executable scripts (`fill_form.py`, `validate.py`) that Claude runs using bash, providing deterministic operations without loading their code into context
 
 **Resources:** Reference materials such as database schemas, API documentation, templates, or examples
 
 Claude accesses these files only when referenced. The filesystem model means each content type has different strengths: instructions for flexible guidance, code for reliability, resources for factual lookup.
 
-| Level                     | When loaded             | Token cost             | Content                                                                                                                    |
-| ------------------------- | ----------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Level 1: Metadata**     | Always (at startup)     | \~100 tokens per Skill | `name` and `description` from YAML frontmatter                                                                             |
-| **Level 2: Instructions** | When Skill is triggered | Under 5k tokens        | SKILL.md body with instructions and guidance                                                                               |
-| **Level 3+: Resources**   | As needed               | None until accessed    | Bundled files. Reference files load into context when read. Scripts run through bash, and only their output enters context |
+| Level                     | When loaded             | Token cost             | Content                                                                                                                     |
+| ------------------------- | ----------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Level 1: Metadata**     | Always (at startup)     | \~100 tokens per Skill | `name` and `description` from YAML frontmatter                                                                              |
+| **Level 2: Instructions** | When Skill is triggered | Under 5k tokens        | `SKILL.md` body with instructions and guidance                                                                              |
+| **Level 3+: Resources**   | As needed               | None until accessed    | Bundled files. Reference files load into context when read. Scripts run through bash, and only their output enters context. |
 
 Progressive disclosure ensures only relevant content occupies the context window at any given time.
 
@@ -114,17 +114,17 @@ Progressive disclosure ensures only relevant content occupies the context window
 Skills run in a code execution environment where Claude has filesystem access, bash commands, and code execution capabilities. Skills exist as directories on a virtual machine, and Claude interacts with them using the same bash commands you'd use to navigate files on your computer.
 
 <Frame>
-  ![Agent Skills Architecture - showing how Skills integrate with the agent's configuration and virtual machine](https://platform.claude.com/docs/images/agent-skills-architecture.svg)
+  ![Agent Skills architecture - showing how Skills integrate with the agent's configuration and virtual machine](https://platform.claude.com/docs/images/agent-skills-architecture.svg)
 </Frame>
 
 **How Claude accesses Skill content:**
 
-When a Skill is triggered, Claude uses bash to read SKILL.md from the filesystem, bringing its instructions into the context window. If those instructions reference other files (such as FORMS.md or a database schema), Claude reads those files too using additional bash commands. When instructions mention executable scripts, Claude runs them through bash and receives only the output (the script code itself never enters context).
+When a Skill is triggered, Claude uses bash to read `SKILL.md` from the filesystem, bringing its instructions into the context window. If those instructions reference other files (such as `FORMS.md` or a database schema), Claude reads those files too using additional bash commands. When instructions mention executable scripts, Claude runs them through bash and receives only the output (the script code itself never enters context).
 
-**What this architecture enables:**
+**What this architecture makes possible:**
 
 * **On-demand file access:** Claude reads only the files each task needs. A Skill can include dozens of reference files, but if your task only needs the sales schema, that's the one file Claude loads. The rest stay on the filesystem and cost zero tokens.
-* **Efficient script execution:** When Claude runs `validate_form.py`, the script's code never loads into the context window. Only its output (such as "Validation passed" or a specific error message) consumes tokens, which makes scripts far more efficient than having Claude generate equivalent code on the fly.
+* **Efficient script execution:** When Claude runs `validate_form.py`, the script's code never loads into the context window. Only its output (such as "Validation passed" or a specific error message) consumes tokens, which makes scripts far more efficient than having Claude generate equivalent code during the task.
 * **No practical limit on bundled content:** Files don't consume context until accessed, so Skills can include comprehensive API documentation, large datasets, or extensive examples. There's no context penalty for bundled content that isn't used.
 
 ### Example: Loading a PDF processing Skill
@@ -133,9 +133,9 @@ Here's how Claude loads and uses the custom `pdf-processing` Skill from the earl
 
 1. **Startup:** System prompt includes: `pdf-processing - Extract text and tables from PDF files, fill forms, merge documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.`
 2. **User request:** "Extract the text from this PDF and summarize it"
-3. **Claude invokes:** `bash: cat pdf-processing/SKILL.md` → Instructions loaded into context
-4. **Claude determines:** Form filling is not needed, so FORMS.md is not read
-5. **Claude executes:** Uses instructions from SKILL.md to complete the task
+3. **Claude calls:** `bash: cat pdf-processing/SKILL.md` → Instructions loaded into context
+4. **Claude determines:** Form filling is not needed, so `FORMS.md` is not read
+5. **Claude executes:** Uses instructions from `SKILL.md` to complete the task
 
 <Frame>
   ![Skills loading into context window - showing the progressive loading of skill metadata and content](https://platform.claude.com/docs/images/agent-skills-context-window.svg)
@@ -165,7 +165,7 @@ To learn more, see [Using Agent Skills with the API](https://platform.claude.com
 
 [Claude Code](https://code.claude.com/docs/en/overview) supports custom Skills. The pre-built document Skills (PowerPoint, Excel, Word, PDF) are not available in Claude Code, though the open-source [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) comes bundled with it. See the full list of [built-in commands and Skills](https://code.claude.com/docs/en/commands) that ship with Claude Code.
 
-**Custom Skills:** Create Skills as directories with SKILL.md files. Claude discovers and uses them automatically.
+**Custom Skills:** Create Skills as directories with `SKILL.md` files. Claude discovers and uses them automatically.
 
 Custom Skills in Claude Code are filesystem-based and don't require API uploads: place them in `~/.claude/skills/` (personal) or `.claude/skills/` (project).
 
@@ -219,26 +219,26 @@ description: Brief description of what this Skill does and when to use it
 `description`:
 
 * Must be non-empty
-* Maximum 1024 characters
+* Maximum 1,024 characters
 * Cannot contain XML tags
 
 The `description` must include both what the Skill does and when Claude should use it. For complete authoring guidance, see [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
 
 ## Security considerations
 
-Use Skills only from trusted sources: those you created yourself or obtained from Anthropic. Skills give Claude new capabilities through instructions and code, which also means a malicious Skill can direct Claude to invoke tools or execute code in ways that don't match the Skill's stated purpose.
+Use Skills only from trusted sources: those you created yourself or obtained from Anthropic. Skills give Claude new capabilities through instructions and code, which also means a malicious Skill can direct Claude to call tools or run code in ways that don't match the Skill's stated purpose.
 
 <Warning>
-  If you must use a Skill from an untrusted or unknown source, exercise extreme caution and thoroughly audit it before use. Depending on what access Claude has when executing the Skill, malicious Skills could lead to data exfiltration, unauthorized system access, or other security risks.
+  If you must use a Skill from an untrusted or unknown source, exercise extreme caution and thoroughly audit it before use. Depending on what access Claude has when running the Skill, malicious Skills could lead to data exfiltration, unauthorized system access, or other security risks.
 </Warning>
 
 **Key security considerations:**
 
-* **Audit thoroughly:** Review all files bundled in the Skill: SKILL.md, scripts, images, and other resources. Look for unusual patterns such as unexpected network calls, file access patterns, or operations that don't match the Skill's stated purpose
-* **External sources are risky:** Skills that fetch data from external URLs pose particular risk, as fetched content may contain malicious instructions. Even trustworthy Skills can be compromised if their external dependencies change over time
-* **Tool misuse:** Malicious Skills can invoke tools (file operations, bash commands, code execution) in harmful ways
-* **Data exposure:** Skills with access to sensitive data could be designed to leak information to external systems
-* **Treat like installing software:** Be especially careful when integrating Skills into production systems with access to sensitive data or critical operations
+* **Audit thoroughly:** Review all files bundled in the Skill: `SKILL.md`, scripts, images, and other resources. Look for unusual patterns such as unexpected network calls, file access patterns, or operations that don't match the Skill's stated purpose.
+* **External sources are risky:** Skills that fetch data from external URLs pose particular risk, as fetched content might contain malicious instructions. Even trustworthy Skills can be compromised if their external dependencies change over time.
+* **Tool misuse:** Malicious Skills can call tools (file operations, bash commands, code execution) in harmful ways.
+* **Data exposure:** Skills with access to sensitive data could be designed to leak information to external systems.
+* **Treat like installing software:** Be especially careful when integrating Skills into production systems with access to sensitive data or critical operations.
 
 For organization-scale governance, vetting, and deployment guidance, see [Skills for enterprise](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise). Claude Enterprise organizations can also turn on [Skill content scanning](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise#skill-content-scanning) for custom Skills uploaded in claude.ai and Claude Cowork. Scanning doesn't cover Skills uploaded through the Skills API or the Claude Console.
 
@@ -263,7 +263,7 @@ Anthropic also publishes open-source Skills in the [skills repository](https://g
 
 ### Custom Skills examples
 
-For complete examples of custom Skills, see the [Skills cookbook](https://platform.claude.com/cookbook/skills-notebooks-01-skills-introduction).
+For complete examples of custom Skills, see the [Agent Skills Cookbook](https://platform.claude.com/cookbook/skills-notebooks-01-skills-introduction).
 
 ## Data retention
 
@@ -281,9 +281,9 @@ Claude Platform on AWS and Microsoft Foundry follow the same limitations as the 
 
 **Custom Skills do not sync across surfaces**. Skills uploaded to one surface are not automatically available on others:
 
-* Skills uploaded to claude.ai must be separately uploaded to the API
-* Skills uploaded through the API are not available on claude.ai
-* Claude Code Skills are filesystem-based and separate from both claude.ai and API
+* Skills uploaded to claude.ai must be separately uploaded to the API.
+* Skills uploaded through the API are not available on claude.ai.
+* Claude Code Skills are filesystem-based and separate from both claude.ai and the API.
 
 Manage and upload Skills separately for each surface where you want to use them.
 
@@ -302,7 +302,7 @@ claude.ai does not support centralized admin management or org-wide distribution
 The exact runtime environment available to your Skill depends on the product surface where you use it.
 
 * **claude.ai:**
-  * **Varying network access:** Depending on user/admin settings, Skills may have full, partial, or no network access. For more details, see the [Create and Edit Files](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_6b7e833898) support article.
+  * **Varying network access:** Depending on user/admin settings, Skills might have full, partial, or no network access. For more details, see the [Create and Edit Files](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_6b7e833898) support article.
 
 * **Claude API:**
 

@@ -20,13 +20,13 @@ A request through the tunnel can fail at one of three layers; diagnose them in o
 | Proxy logs `IP validation failed: <ip> is not a private address`                                                                                               | Upstream MCP server resolves outside RFC1918.                                                       | See [Upstream IP validation](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/troubleshooting#upstream-ip-validation).                                |
 | Proxy exits with `cannot unmarshal !!seq into map[string]string`                                                                                               | `routes` is a YAML list.                                                                            | Use `routes: { name: http://host:port }`.                                                                                                                             |
 | Proxy exits with `open /data/tls.key: permission denied`                                                                                                       | The key is `0600`; the proxy container runs non-root.                                               | `chmod 644 data/tls.key`.                                                                                                                                             |
-| `curl https://<proxy>:8080` fails with `wrong version number`                                                                                                  | Expected; the listener is plaintext WebSocket. TLS happens inside the WS stream.                    | Verify through a [Managed Agent or the Messages API](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview#use-the-tunneled-mcp-servers) instead. |
+| `curl https://<proxy>:8080` fails with `wrong version number`                                                                                                  | Expected; the listener is plaintext WebSocket. TLS occurs inside the WS stream.                     | Verify through a [Managed Agent or the Messages API](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview#use-the-tunneled-mcp-servers) instead. |
 
 The following sections cover failures that need more than a one-line fix.
 
 ## OAuth fails behind a source-IP allowlist
 
-OAuth flows fail when your authorization server's source-IP allowlist blocks Anthropic's backend from reaching `/token`, `/register`, and the discovery endpoints. If you'd rather not allowlist Anthropic's egress ranges, you can route the backend-to-backend OAuth calls through the tunnel while keeping the browser-facing `/authorize` endpoint on your existing public hostname.
+OAuth flows fail when your authorization server's source-IP allowlist blocks Anthropic's back end from reaching `/token`, `/register`, and the discovery endpoints. If you'd rather not allowlist Anthropic's egress ranges, you can route the backend-to-backend OAuth calls through the tunnel while keeping the browser-facing `/authorize` endpoint on your existing public hostname.
 
 <Steps>
   <Step title="Add a proxy route for the authorization server">
@@ -65,7 +65,7 @@ OAuth flows fail when your authorization server's source-IP allowlist blocks Ant
   </Step>
 </Steps>
 
-With this configuration, the user's browser hits `/authorize` on your existing hostname (which your allowlist already permits), while Anthropic's backend reaches `/token`, `/register`, and the discovery documents through the tunnel.
+With this configuration, the user's browser requests `/authorize` on your existing hostname (which your allowlist already includes), whereas Anthropic's back end reaches `/token`, `/register`, and the discovery documents through the tunnel.
 
 ## Setup component authentication failures
 
@@ -90,7 +90,7 @@ Check the cloudflared logs first. Common causes:
 * The `TUNNEL_TOKEN` is missing, expired, or copied incorrectly.
 * A firewall is blocking outbound TCP/UDP on port 7844 to the tunnel edge.
 
-cloudflared may also log warnings about UDP receive buffer sizes; this is a QUIC tuning hint, not an error.
+cloudflared might also log warnings about UDP receive buffer sizes; this is a QUIC tuning hint, not an error.
 
 ## Certificate errors
 

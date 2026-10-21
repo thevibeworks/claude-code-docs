@@ -70,7 +70,7 @@ Claude models are available on [Amazon Bedrock](https://platform.claude.com/docs
   * **Bedrock** offers two endpoint types: global endpoints (dynamic routing for maximum availability) and regional endpoints (guaranteed data routing through specific geographic regions).
   * **Google Cloud** offers global endpoints and multi-region endpoints (dynamic routing within a geographic area) for these models, and regional endpoints for Claude Sonnet 4.6 and earlier models.
 
-  Regional and multi-region endpoints include a 10% premium over global endpoints. The Claude API (first-party) is global by default; for first-party data residency options and pricing, see [Data residency pricing](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing).
+  Regional and multi-region endpoints include a 10 percent premium over global endpoints. The Claude API (first-party) is global by default; for first-party data residency options and pricing, see [Data residency pricing](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing).
 
   **Scope:** This pricing structure applies to Claude Sonnet 4.5 (deprecated), Haiku 4.5, Opus 4.5, and all future models. Earlier models (Claude Opus 4.1 and prior releases) retain their existing pricing.
 
@@ -82,7 +82,7 @@ Claude models are available on [Amazon Bedrock](https://platform.claude.com/docs
 
 ## Claude Platform on AWS pricing
 
-[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) bills through AWS Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 per CCU, and reports the CCU quantity to AWS Marketplace hourly. Your AWS bill shows a single CCU line item.
+[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) bills through AWS Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 USD per CCU, and reports the CCU quantity to AWS Marketplace hourly. Your AWS bill shows a single CCU line item.
 
 | Concept             | Details                                                                                                                                                                                                           |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,7 +111,7 @@ When you sign up on the AWS Console **Claude Platform on AWS** service page, the
 
 ## Claude in Microsoft Foundry pricing
 
-[Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) bills through the Azure Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 per CCU, and reports the CCU quantity to the Azure Marketplace hourly. Your Azure bill shows a single CCU line item.
+[Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) bills through the Azure Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 USD per CCU, and reports the CCU quantity to the Azure Marketplace hourly. Your Azure bill shows a single CCU line item.
 
 | Concept             | Details                                                                                                                                                                                                           |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -174,8 +174,8 @@ For more information, see [Data residency](https://platform.claude.com/docs/en/m
 
 Fast mode pricing stacks with other pricing modifiers:
 
-* [Prompt caching multipliers](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) apply on top of fast mode pricing
-* [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) multipliers apply on top of fast mode pricing
+* [Prompt caching multipliers](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) apply on top of fast mode pricing.
+* [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) multipliers apply on top of fast mode pricing.
 
 Fast mode is not available with the [Batch API](https://platform.claude.com/docs/en/about-claude/pricing#batch-processing).
 
@@ -183,7 +183,7 @@ For more information, see [Fast mode](https://platform.claude.com/docs/en/build-
 
 ### Batch processing
 
-The Batch API allows asynchronous processing of large volumes of requests with a 50% discount on both input and output tokens.
+The Batch API allows asynchronous processing of large volumes of requests with a 50 percent discount on both input and output tokens.
 
 | Model                                                                                                                                | Batch input  | Batch output  |
 | :----------------------------------------------------------------------------------------------------------------------------------- | :----------- | :------------ |
@@ -219,7 +219,7 @@ For more information about batch processing, see [Batch processing](https://plat
 
 Claude 4.6 and later models (except Claude Haiku 5.5) and [Claude Mythos Preview](https://anthropic.com/glasswing) include the full [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) at standard pricing. (A 900k-token request is billed at the same per-token rate as a 9k-token request.) Prompt caching and batch processing discounts apply at standard rates across the full context window.
 
-Claude Haiku 5.5 is priced by prompt length: a request whose prompt is over 100,000 tokens pays higher prices. A request's prompt length counts all of its input tokens, including cache reads and cache writes. Each request is priced on its own: a request over the threshold pays the higher prices even when part of its prompt is a cache hit, and earlier requests keep the prices they were billed at. [Model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing) and [Batch processing](https://platform.claude.com/docs/en/about-claude/pricing#batch-processing) list both sets of prices.
+Claude Haiku 5.5 is priced by prompt length: a request whose prompt is over 100,000 tokens pays higher prices. A request's prompt length counts all of its input tokens, including cache reads and cache writes. Each request is priced on its own: a request over the threshold pays the higher prices even when part of its prompt is a cache hit, and earlier requests keep the prices they were billed at. The [model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing) and [batch processing pricing](https://platform.claude.com/docs/en/about-claude/pricing#batch-processing) sections list both sets of prices.
 
 ### Tool use pricing
 
@@ -293,10 +293,10 @@ See [tool use pricing](https://platform.claude.com/docs/en/about-claude/pricing#
 
 When used without these tools, code execution is billed by execution time, tracked separately from token usage:
 
-* Execution time has a minimum of 5 minutes
-* Each organization receives **1,550 free hours** of usage per month
-* Additional usage beyond 1,550 hours is billed at **$0.05 USD per hour, per container**
-* If files are included in the request, execution time is billed even if the tool is not called, because files are preloaded onto the container
+* Execution time has a minimum of 5 minutes.
+* Each organization receives **1,550 free hours** of usage per month.
+* Additional usage beyond 1,550 hours is billed at **$0.05 USD per hour, per container**.
+* If files are included in the request, execution time is billed even if the tool is not called, because files are preloaded onto the container.
 
 Code execution usage is tracked in the response:
 
@@ -343,7 +343,7 @@ Web search usage is charged in addition to token usage:
 }
 ```
 
-Web search is available on the Claude API for **$10 per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations executed during a single turn and in subsequent conversation turns.
+Web search is available on the Claude API for **$10 USD per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations executed during a single turn and in subsequent conversation turns.
 
 Each web search counts as one use, regardless of the number of results returned. If an error occurs during web search, the web search will not be billed.
 
@@ -371,7 +371,7 @@ To protect against inadvertently fetching large content that would consume exces
 
 Example token usage for typical content:
 
-* Average web page (10 kB): \~2,500 tokens
+* Average webpage (10 kB): \~2,500 tokens
 * Large documentation page (100 kB): \~25,000 tokens
 * Research paper PDF (500 kB): \~125,000 tokens
 
@@ -416,7 +416,7 @@ Browser use follows the standard [tool use pricing](https://platform.claude.com/
 
 ### Tokens
 
-All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing). [Prompt caching](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches. On [Claude Platform on AWS](https://platform.claude.com/docs/en/about-claude/pricing#claude-platform-on-aws-pricing), session token and runtime charges convert to Claude Consumption Units at the standard rate. [Fast mode](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing) premium pricing applies when an agent's `model.speed` is set to `"fast"`.
+All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing). [Prompt caching](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 USD per 1,000 searches. On [Claude Platform on AWS](https://platform.claude.com/docs/en/about-claude/pricing#claude-platform-on-aws-pricing), session token and runtime charges convert to Claude Consumption Units at the standard rate. [Fast mode](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing) premium pricing applies when an agent's `model.speed` is set to `"fast"`.
 
 The [data residency multiplier](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing) also applies: when an agent's `model.inference_geo` is pinned to `"us"`, tokens consumed by sessions running that agent are billed at 1.1x the standard rates, the same multiplier that applies to US-only inference on the Messages API.
 
@@ -441,7 +441,7 @@ Runtime is measured to the millisecond and accrues only while the session's stat
 
 ### Worked example
 
-A one-hour coding session using Claude Opus 5.5 that consumes 50,000 input tokens and 15,000 output tokens:
+A 1-hour coding session using Claude Opus 5.5 that consumes 50,000 input tokens and 15,000 output tokens:
 
 | Line item       | Calculation              | Cost      |
 | --------------- | ------------------------ | --------- |
@@ -466,10 +466,10 @@ If prompt caching is active and 40,000 of the input tokens are cache reads:
 
 When building agents with Claude:
 
-1. **Use appropriate models:** Choose Haiku for simple tasks, Sonnet for most production workloads, and Opus for the most complex reasoning
-2. **Implement prompt caching:** Reduce costs for repeated context
-3. **Batch operations:** Use the Batch API for non-time-sensitive tasks
-4. **Monitor usage patterns:** Track token consumption to identify optimization opportunities
+1. **Use appropriate models:** Choose Haiku for simple tasks, Sonnet for most production workloads, and Opus for the most complex reasoning.
+2. **Implement prompt caching:** Reduce costs for repeated context.
+3. **Batch operations:** Use the Batch API for non-time-sensitive tasks.
+4. **Monitor usage patterns:** Track token consumption to identify optimization opportunities.
 
 <Tip>
   For high-volume agent applications, contact the [enterprise sales team](https://claude.com/contact-sales) for custom pricing arrangements.
@@ -489,11 +489,11 @@ For limits beyond the Scale tier or custom pricing arrangements, [contact the sa
 
 ### Volume discounts
 
-Volume discounts may be available for high-volume users. These are negotiated on a case-by-case basis.
+Volume discounts might be available for high-volume users. These are negotiated on a case-by-case basis.
 
 * Standard usage tiers use the pricing shown in [Model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing)
 * Enterprise customers can [contact sales](mailto:sales@anthropic.com) for custom pricing
-* Academic and research discounts may be available
+* Academic and research discounts might be available
 
 ### Enterprise pricing
 
@@ -511,7 +511,7 @@ Contact the sales team at [sales@anthropic.com](mailto:sales@anthropic.com) or t
 * Billing is based on actual monthly usage
 * All payments are in USD
 * Credit card and invoicing options available
-* Usage tracking available in the [Claude Console](https://platform.claude.com/)
+* Usage tracking available in the Claude Console at [platform.claude.com](https://platform.claude.com/)
 
 ## Frequently asked questions
 

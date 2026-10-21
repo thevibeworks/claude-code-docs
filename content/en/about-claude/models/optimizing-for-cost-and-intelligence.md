@@ -43,7 +43,7 @@ These results are Anthropic-internal ([Benchmarks referenced](https://platform.c
 
 ## Cut spend without losing quality
 
-Prompt caching, token hygiene, batch processing, and a prompt audit against your current model all lower what you pay without lowering output quality. Two caveats apply: batch processing trades latency for its discount, and context editing, a token-hygiene lever, cost more than it saved in the run measured in this section.
+Prompt caching, token hygiene, batch processing, and a prompt audit against your current model all lower what you pay without lowering output quality. Two caveats apply: batch processing trades latency for its discount, and context editing, a token-hygiene lever, cost more than it saved on the short run measured in this section and changed nothing on the long one.
 
 ### Cache repeated context
 
@@ -146,7 +146,7 @@ To keep the cache warm:
 
 1. Take the previous request, set `max_tokens` to 0, and drop `stream` if it was set. Do not change a byte of the prefix.
 2. Re-send the request's headers with its body. Without the original request's `anthropic-beta` header, the beta-gated fields in the replayed body are rejected.
-3. Send it within 4 minutes of the previous request's start, and every 4 minutes after that. Count from the request's start, because the [cache's 5-minute lifetime](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#how-prompt-caching-works) runs from there.
+3. Send it within 4 minutes of the previous request's start, and every 4 minutes after that, until the next turn arrives or the session ends. Count from the request's start, because the [cache's 5-minute lifetime](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#how-prompt-caching-works) runs from there.
 
 That is the [pre-warming request](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache): it refreshes the cache's lifetime, returns no output, and costs little more than the cache read. Once the cache has expired, the next request, keep-alive or not, re-writes the prefix at the cache write price[16](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs).
 
@@ -252,7 +252,7 @@ When the model has to compute over a table, upload it with the [Files API](https
   ![Scatter chart: file uploaded with code execution, 25 of 25 correct at $0.40 USD; pasted into the prompt, 7 of 25 at $5.01 USD](https://platform.claude.com/docs/images/cost-intel/data-files.svg)
 </Frame>
 
-Pasted into the prompt, the table is about 91,000 input tokens on every request, and Claude Sonnet 5 answered 7 of 25 questions correctly. Uploaded, with code execution, it answered all 25, and the run cost about a twelfth as much. Claude Opus 5 showed the same pattern.
+Pasted into the prompt, the table is about 91,000 input tokens on every request, and Claude Sonnet 5 answered 7 of 25 questions correctly. Uploaded, with code execution, it answered all 25, and the run cost about a twelfth as much. Claude Opus 5 showed the same pattern. Neither approach used prompt caching.
 
 #### Manage the context lifecycle
 
@@ -381,7 +381,7 @@ The same patterns tend to appear in tool descriptions and skills, which are wort
 
 ## Trade cost against intelligence
 
-These levers set where a single model sits between cost and intelligence: model choice, effort, re-running failures at a higher setting, the budgets and caps it works within, and whether it can see how much time has passed. Start with an effort sweep on your current model ([Tune effort](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#tune-effort)). From lowest to highest cost and capability, the current models are Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5, and Claude Fable 5.1 (the frontier model); [Models overview](https://platform.claude.com/docs/en/models/overview) has the full lineup and prices.
+These levers set where a single model sits between cost and intelligence: model choice, effort, re-running failures at a higher setting, the budgets and caps it works within, and whether it can see how much time has passed. If you are a model or two behind, upgrade first ([Upgrade the model](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#upgrade-the-model)); otherwise, start with an effort sweep on your current model ([Tune effort](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#tune-effort)). From lowest to highest cost and capability, the current models are Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5, and Claude Fable 5.1 (the frontier model); [Models overview](https://platform.claude.com/docs/en/models/overview) has the full lineup and prices.
 
 ### Compare models on cost per task
 
@@ -532,6 +532,12 @@ The following table shows what each model solved and what a solved task cost at 
 
 Compare the caps within each model. The two models were run a month apart, and their costs are priced on different bases.
 
+On the internal repository tasks[12](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs), almost every turn finishes far below a 16,384-token cap. The rare long turn is what a higher cap buys:
+
+<Frame>
+  ![Dot plot of per-turn output for Opus 5.5 and Fable 5.1: medians a few hundred tokens, longest 61k and 128k, against the caps](https://platform.claude.com/docs/images/cost-intel/max-tokens-ladder-opus-5-5.svg)
+</Frame>
+
 Ask for shorter answers. Output tokens cost five times input tokens on Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5, and Claude Fable 5.1, and in an agent loop every token the model writes comes back as input on every later turn, so you pay for a long answer again and again.
 
 In a measurement on an earlier model[26](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs), Anthropic ran a small agent that triages bug reports ([Trim input and context tokens](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#trim-input-and-context-tokens)) under three final-answer instructions, three runs each, with the same model and tools:
@@ -547,12 +553,6 @@ The following chart plots the cost per run of each format:
 </Frame>
 
 All three scored within run-to-run noise of each other against the correct labels, so the formats differ in what you pay far more than in what they get right. Ask for the answer you will read, not the one that looks thorough.
-
-On the internal repository tasks[12](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs), almost every turn finishes far below a 16,384-token cap. The rare long turn is what a higher cap buys:
-
-<Frame>
-  ![Dot plot of per-turn output for Opus 5.5 and Fable 5.1: medians a few hundred tokens, longest 61k and 128k, against the caps](https://platform.claude.com/docs/images/cost-intel/max-tokens-ladder-opus-5-5.svg)
-</Frame>
 
 ### Show the model elapsed time
 
@@ -615,7 +615,7 @@ On the coding benchmark, the pairing's gain is at the edge of run-to-run noise, 
 
 * Measure the consult rate on your own tasks. The advisor tool's definition, about 1,000 prompt tokens per request, adds cost even when the executor never consults. With [prompt caching](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#cache-repeated-context), a multi-turn agent loop pays for the definition at the cache-read price after the first request, so this overhead matters most for short, single-request tasks.
 * If the executor rarely consults, see [Prompting for coding and agent tasks](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#prompting-for-coding-and-agent-tasks) for system prompts that ask for consultations, and measure again after you add one. On 20 SWE-bench Pro[3](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs) problems, the suggested prompt made no clear difference for Claude Sonnet 5.5.
-* Restore the executor's effort if the consult rate collapses. In measurements on earlier models, one pairing that consulted on most tasks at the default effort consulted on few when effort was lowered, and then scored below the executor alone (SWE-bench Pro[3](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs)).
+* Restore the executor's effort if the consult rate collapses. In measurements on earlier models, one pairing that consulted on most tasks at the default effort consulted on few when effort was lowered, and then scored below the executor alone at its default effort (SWE-bench Pro[3](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs)).
 * Recheck at every model release, because releases move both the capability gap and the price ratio.
 
 ### Orchestrator strategy: delegate bulk work
@@ -728,7 +728,7 @@ The following example computes one request's cost at Claude Opus 5.5's list pric
       {
           Model = Model.ClaudeOpus5_5,
           MaxTokens = 1024,
-          Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+          Messages = [new UserMessageParam { Content = "Hello, Claude" }],
       }
   );
   var usage = response.Usage;
@@ -828,7 +828,7 @@ The following example computes one request's cost at Claude Opus 5.5's list pric
 
   client = Anthropic::Client.new
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }]
   )
@@ -858,7 +858,7 @@ The following table lists the levers in the order to try them. The figures are f
 | Input trimming                              | A further 21% to 26% off a small triage agent's bill                                                                          | None                                                                               | Neutral                                                                                                                          | [Trim input and context tokens](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#trim-input-and-context-tokens)                     |
 | Prune stale tool results at task boundaries | 39% on a long agent task; nothing on short ones. On the models named in that section, use compaction instead                  | None measured                                                                      | Neutral                                                                                                                          | [Manage the context lifecycle](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#manage-the-context-lifecycle)                       |
 | Tool search                                 | 45% with 500 tool definitions attached; 20% from deferring a GitHub MCP server's toolset                                      | None                                                                               | Neutral                                                                                                                          | [Trim input and context tokens](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#trim-input-and-context-tokens)                     |
-| Data files through code execution           | 92% on a data task of 25 questions                                                                                            | A gain: 25 of 25 correct instead of 7                                              | Faster                                                                                                                           | [Trim input and context tokens](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#trim-input-and-context-tokens)                     |
+| Data files through code execution           | 92% on a data task of 25 questions, with prompt caching off                                                                   | A gain: 25 of 25 correct instead of 7                                              | Faster                                                                                                                           | [Trim input and context tokens](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#trim-input-and-context-tokens)                     |
 | Batch API                                   | 50%                                                                                                                           | None                                                                               | Results within 24 hours                                                                                                          | [Batch work that can wait](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#batch-work-that-can-wait)                               |
 | Prompt audit against the current model      | 14% on both model upgrades tested                                                                                             | None; a gain on one                                                                | Faster (fewer tool rounds)                                                                                                       | [Audit prompts against the current model](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#audit-prompts-against-the-current-model) |
 | Upgrade the model                           | Usually less per solved task: up to 87% less on a coding benchmark                                                            | None; a gain on most                                                               | Neutral                                                                                                                          | [Upgrade the model](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#upgrade-the-model)                                             |
@@ -918,7 +918,7 @@ Except where a reference says otherwise, measurements are Anthropic-internal run
    * **The 478 problems:** The Opus 5.5 runs used a version of the benchmark whose grading containers can reach only internal package mirrors. That version drops one problem whose test needs a live website, and on three more the reference solution fails there, so Opus 5.5 comparisons, and the Claude Fable 5.1 figures set beside them, use the remaining 478 problems.
    * **Claude Sonnet 5.5 runs:** Claude Sonnet 5.5 ran the same version of the benchmark: two runs at its default, `high`, and two at `medium`, all on September 24, 2026, with the same 16,384-token cap per turn, which cut off none of its attempts. Its figures use the 478 problems, and so do the Claude Sonnet 5 figures set beside them, counted over those problems from their August runs.
    * **Claude Opus 5 runs:** The Claude Opus 5 SWE-bench Pro figures in [Upgrade the model](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#upgrade-the-model) and in this reference average two runs at its default effort and use one run at `low`, all run August 4, 2026.
-   * **Advisor, Claude Sonnet 5 pairings:** The Claude Sonnet 5 executor pairings with a Claude Opus 5 advisor behind the consult-rate examples in [Advisor strategy](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#advisor-strategy-escalate-hard-decisions) come from the same measurement series on this subset: the pairing at the default effort was run twice (August 7 and August 8, 2026, a run and an exact replication), the low-effort pairing once (August 8, 2026), and Claude Sonnet 5 alone twice (77.4%, the baseline for both pairings).
+   * **Advisor, Claude Sonnet 5 pairings:** The Claude Sonnet 5 executor pairings with a Claude Opus 5 advisor behind the consult-rate examples in [Advisor strategy](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#advisor-strategy-escalate-hard-decisions) ran on this subset through the same test setup: the pairing at the default effort was run twice (August 7 and August 8, 2026, a run and an exact replication), the low-effort pairing once (August 8, 2026), and, ten days later, Claude Sonnet 5 alone twice at its default effort (77.4%, the baseline for both pairings).
    * **Advisor, Claude Sonnet 5.5 consult check:** The Claude Sonnet 5.5 consult check cited in [Advisor strategy](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#advisor-strategy-escalate-hard-decisions) ran one attempt on each of 20 of the 478 problems, on September 24, 2026, with a Claude Opus 5.5 advisor through the advisor tool. Four configurations ran: `high` and `xhigh`, each with and without the advisor tool documentation's suggested system prompt for coding tasks. At its default effort, `high`, Claude Sonnet 5.5 did not consult the advisor on any of the 20 problems, with or without the prompt. At `xhigh`, it consulted on 3 of the 20 problems without the prompt and 4 with it, each time on its attempts with the most turns.
    * **Escalation figures:** Escalation figures come task by task from the Opus 5.5 runs: `low` first, then `high` on its failures, solved 96.4% to 97.5% across run pairings for about $0.17 USD; `medium` first, 96.0% to 97.1% for about $0.24 USD; `high` re-run on its own failures, 96.9% for $0.31 USD; everything at `high`, 94.8% to 95.8% for $0.29 USD.
    * **Compare models:** The Claude Fable 5.1 figure in [Compare models](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#compare-models-on-cost-per-task) comes from one run on the same subset at the default effort, run August 26, 2026: counted over the 478 problems, it solved 92.3% for $1.19 USD per solved task. That section's chart and its Claude Opus 5.5 and Claude Sonnet 5.5 figures pool the two runs at each setting plotted, all counted over the 478 problems: Claude Opus 5.5 at `low`, `medium`, and `high`, and Claude Sonnet 5.5 at `medium` and `high`.
@@ -1101,7 +1101,7 @@ Except where a reference says otherwise, measurements are Anthropic-internal run
     * **Also in the instructions as sent:** As sent, the two-line instruction also said "Be concise." and the memo instruction "Be thorough and explicit."
     * **When:** The two-line and one-line instructions ran on August 18, 2026, with `max_tokens` at 700, and the memo instruction on August 19, 2026, with `max_tokens` at 3,000. No response reached its cap.
     * **How scored and priced:** Figures are the mean of the three runs at Claude Sonnet 5's list prices, and accuracy is exact match against the gold labels.
-    * **Results:** The one-line answer used 39% fewer output tokens than the two-line original and cost 14% less per run (from the chart's rounded costs, $0.49 USD and $0.57 USD; the unrounded means give 13%). The memo used six times the output tokens of the two-line original and cost 2.8 times the one-line answer.
+    * **Results:** The one-line answer used 39% fewer output tokens than the two-line original and cost 13% less per run (from the unrounded means; the chart's rounded costs, $0.49 USD and $0.57 USD, give 14%). The memo used six times the output tokens of the two-line original and cost 2.8 times the one-line answer.
     * **Thinking:** About half of the responses included thinking, and its tokens are counted in the output tokens.
 
 27. **Tool search measurement:**

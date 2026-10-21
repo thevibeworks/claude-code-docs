@@ -8,7 +8,7 @@
 
 > **Who this is for:** Tenant administrators and organization owners who deliver plugins and connectors to the members they manage.
 
-You add plugins on the **Plugins** card and connectors on the **Connectors** card of the **Config** page in the admin portal. The card controls themselves are described under [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards), and this page covers the tasks around them, from choosing between a plugin and a connector to keeping plugins up to date. To distribute skills to members, bundle them in a plugin, as described under [Skills for administrators](/docs/government/desktop/skills#skills-for-administrators).
+You add plugins on the **Plugins** card and connectors on the **Connectors** card of the **Config** page in the admin portal. The cards themselves are listed under [Integrations](/docs/government/config/settings#integrations) in Available settings, and this page covers the tasks around them, from choosing between a plugin and a connector to keeping plugins up to date. To distribute skills to members, bundle them in a plugin, as described under [Skills for administrators](/docs/government/desktop/skills#skills-for-administrators).
 
 ## Plugins versus connectors
 
@@ -44,7 +44,7 @@ A package is marked **Runs code** when it declares components that can run code 
 
 The upload preview marks any plugin that declares components that can run code on the member's machine, for example hooks or an [MCP server](/docs/connectors/getting-started), and you confirm that you trust such a package before it is added. For a marketplace archive, one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps a **Runs code** marker, so you can see at a glance which of the plugins you have added contain these components.
 
-The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one. If a plugin's remote MCP server does not connect, check the **Member-added connectors** setting on the **Connectors** card, described under **Claude Code** in [Available settings](/docs/government/config/settings).
+The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one. If a plugin's remote MCP server does not connect, check [**Member-added connectors**](/docs/government/config/settings#member-added-connectors) and the **Blocked connectors** list on the **Connectors** card.
 
 Treat the marker as a prompt to review the package yourself. You are responsible for the plugins you distribute to members, so read each plugin's contents before you upload it.
 
@@ -54,17 +54,17 @@ Each plugin on the **Plugins** card has an install behavior that you set when yo
 
 You do not need to push anything for a plugin to reach members. Claude Desktop syncs your organization's plugin list when it starts and periodically while it runs, so an auto-installed plugin appears on its own, and a member who already has the application open receives it at the next sync. A member can remove a plugin you installed automatically, and it stays removed on the device where they removed it.
 
-Two switches, **Let members add plugin marketplaces** and **Let members add their own plugins**, control whether members can also add plugins of their own in Claude Desktop, as described under [Member-added plugins and marketplaces](/docs/government/config/settings#member-added-plugins-and-marketplaces). Both are off by default. Plugins that members add are separate from the ones you add and do not appear on the **Plugins** card.
+Two switches, **Let members add plugin marketplaces** and **Let members add their own plugins**, control whether members can also add plugins of their own in Claude Desktop, as described under [Integrations](/docs/government/config/settings#member-added-plugins-and-marketplaces) in Available settings. Both are off by default. Plugins that members add are separate from the ones you add and do not appear on the **Plugins** card.
 
 ## Where plugins are added
 
-Plugins are added at the tenant or organization level. Plugins the tenant adds flow to every organization and appear on each organization's **Plugins** card under **From levels above**, as described under [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards). A tenant administrator can lock the plugin list, which makes it read-only for organizations, following the lock behavior in [How Config works](/docs/government/config/overview#locks). [Group levels](/docs/government/config/overview#group-specific-settings) inherit the plugins of their tenant or organization, so the **Plugins** card is read-only when you view a group.
+Plugins are added at the tenant or organization level. Plugins the tenant adds flow to every organization and appear on each organization's **Plugins** card under **From levels above**. A tenant administrator can lock the plugin list, which makes it read-only for organizations, following the lock behavior in [How Config works](/docs/government/config/overview#locks). [Group levels](/docs/government/config/overview#group-specific-settings) inherit the plugins of their tenant or organization, so the **Plugins** card is read-only when you view a group.
 
 ## Update or remove a plugin
 
 To update a plugin, upload the new version's archive. Because its name matches the plugin you added, the upload updates that plugin, the preview marks the update before you save, and members who have the plugin receive the new version automatically.
 
-To remove a plugin, click its remove icon and save the change. Removing a plugin stops delivering it, and there is not currently a way to uninstall a plugin remotely from members' devices, so members who already installed it keep their copy until they remove it themselves, as described under [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards).
+To remove a plugin, click its remove icon and save the change. Claude for Government stops delivering the plugin, and Claude Desktop removes it for members who have it the next time it [syncs your organization's plugin list](#install-behavior). After that sync the plugin's hooks no longer run. A new chat cannot use the plugin's skills or commands, but a chat the member was using at the time can still use them.
 
 ## Connector tool policies for members
 

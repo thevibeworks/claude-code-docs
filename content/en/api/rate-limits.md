@@ -13,7 +13,7 @@ There are two types of limits:
 1. **Spend limits** set a maximum monthly cost an organization can incur for API usage.
 2. **Rate limits** set the maximum number of API requests an organization can make over a defined period of time.
 
-The API enforces service-configured limits at the organization level, but you may also set user-configurable limits for your organization's workspaces.
+The API enforces service-configured limits at the organization level, but you can also set user-configurable limits for your organization's workspaces.
 
 ## About rate limits
 
@@ -80,21 +80,21 @@ You can also set your own spend limit below your tier's cap to control costs:
   </Step>
 </Steps>
 
-When usage reaches a spend limit you set, requests return HTTP 400 with error type `invalid_request_error`. The message begins `You have reached your specified API usage limits`, or `You have reached your specified workspace API usage limits` for a workspace limit, and states when access resumes. Raise or remove the limit to restore access sooner.
+When usage reaches a spend limit you set, requests return HTTP 400 with error type `invalid_request_error`. The message starts with `You have reached your specified API usage limits`, or `You have reached your specified workspace API usage limits` for a workspace limit, and states when access resumes. Raise or remove the limit to restore access sooner.
 
 Limits on the [Claude Code workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#claude-code-workspace) are checked separately: Claude Code requests over that workspace's limit can instead receive a 429 that carries a `retry-after` header.
 
 ## Rate limits
 
-The rate limits for the Messages API are measured in requests per minute (RPM), input tokens per minute (ITPM), and output tokens per minute (OTPM) for each model class. If you exceed any of the rate limits you will get a [429 error](https://platform.claude.com/docs/en/api/errors) describing which rate limit was exceeded. When the response has a `retry-after` header, wait that many seconds before retrying.
+The rate limits for the Messages API are measured in requests per minute (RPM), input tokens per minute (ITPM), and output tokens per minute (OTPM) for each model class. If you exceed any of the rate limits, you will get a [429 error](https://platform.claude.com/docs/en/api/errors) describing which rate limit was exceeded. When the response has a `retry-after` header, wait that many seconds before retrying.
 
 <Note>
-  You might also encounter 429 errors because of acceleration limits on the API if your organization has a sharp increase in usage. To avoid hitting acceleration limits, ramp up your traffic gradually and maintain consistent usage patterns.
+  You might also encounter 429 errors because of acceleration limits on the API if your organization has a sharp increase in usage. To avoid hitting acceleration limits, increase your traffic gradually and maintain consistent usage patterns.
 </Note>
 
 ### Cache-aware ITPM
 
-Many API providers use a combined "tokens per minute" (TPM) limit that may include all tokens, both cached and uncached, input and output. **For most Claude models, only uncached input tokens count toward your ITPM rate limits.** This is a key advantage that makes the rate limits effectively higher than they might initially appear.
+Many API providers use a combined "tokens per minute" (TPM) limit that might include all tokens, both cached and uncached, input and output. **For most Claude models, only uncached input tokens count toward your ITPM rate limits.** This is a key advantage that makes the rate limits effectively higher than they might initially appear.
 
 ITPM rate limits are estimated at the beginning of each request, and the estimate is adjusted during the request to reflect the actual number of input tokens used.
 
@@ -111,12 +111,12 @@ Here's what counts toward ITPM:
   total_input_tokens = cache_read_input_tokens + cache_creation_input_tokens + input_tokens
   ```
 
-  This means when you have cached content, `input_tokens` will typically be much smaller than your total input. For example, with a 200k token cached document and a 50 token user question, you'd see `input_tokens: 50` even though the total input is 200,050 tokens.
+  This means when you have cached content, `input_tokens` will typically be much smaller than your total input. For example, with a 200k-token cached document and a 50-token user question, you'd see `input_tokens: 50` even though the total input is 200,050 tokens.
 
   For rate limit purposes on most models, only `input_tokens` + `cache_creation_input_tokens` count toward your ITPM limit, making [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) an effective way to increase your effective throughput.
 </Note>
 
-**Example:** With a 2,000,000 ITPM limit and an 80% cache hit rate, you could effectively process 10,000,000 total input tokens per minute (2M uncached + 8M cached), because cached tokens don't count toward your rate limit.
+**Example:** With a 2,000,000 ITPM limit and an 80 percent cache hit rate, you could effectively process 10,000,000 total input tokens per minute (2M uncached + 8M cached), because cached tokens don't count toward your rate limit.
 
 <Note>
   Claude Haiku 3.5 (marked with footnote 4 in the following rate limit tables) also counts `cache_read_input_tokens` toward ITPM rate limits.
@@ -124,7 +124,7 @@ Here's what counts toward ITPM:
   For all other models, cached input tokens do not count toward rate limits and are billed at the [cache read rate](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing), a fraction of the base input price. This means you can achieve significantly higher effective throughput by using [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 </Note>
 
-To make the most of your rate limits, cache repeated content such as system instructions and prompts, large context documents, tool definitions, and conversation history; see [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for guidance. With effective caching, you can substantially increase your actual throughput without raising your rate limits. Monitor your cache hit rate on the [Usage page](https://platform.claude.com/usage) in the Claude Console to tune your caching strategy.
+To get the highest throughput within your rate limits, cache repeated content such as system instructions and prompts, large context documents, tool definitions, and conversation history; see [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for guidance. With effective caching, you can substantially increase your actual throughput without raising your rate limits. Monitor your cache hit rate on the [Usage](https://platform.claude.com/usage) page in the Claude Console to tune your caching strategy.
 
 OTPM rate limits are evaluated in real time as output tokens are produced, counting only the actual tokens generated. The `max_tokens` parameter does not factor into OTPM rate limit calculations, so there is no rate limit downside to setting a higher `max_tokens` value.
 
@@ -195,7 +195,7 @@ Each row in the following tables has its own RPM, ITPM, and OTPM limits. Some ro
 
 ### Message Batches API
 
-The Message Batches API has its own set of rate limits which are shared across all models. These include a requests per minute (RPM) limit to all API endpoints and a limit on the number of batch requests that can be in the processing queue at the same time. A "batch request" here refers to part of a Message Batch. You may create a Message Batch containing thousands of batch requests, each of which count toward this limit. A batch request is considered part of the processing queue when it has yet to be successfully processed by the model.
+The Message Batches API has its own set of rate limits, which are shared across all models. These include a requests per minute (RPM) limit to all API endpoints and a limit on the number of batch requests that can be in the processing queue at the same time. A "batch request" here refers to part of a Message Batch. You can create a Message Batch containing thousands of batch requests, each of which counts toward this limit. A batch request is considered part of the processing queue when it has yet to be successfully processed by the model.
 
 <Tabs>
   <Tab title="Start tier">
@@ -223,7 +223,7 @@ The Message Batches API has its own set of rate limits which are shared across a
 
 ### Managed Agents
 
-[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) endpoints are rate-limited per organization. These limits are separate from the Messages API rate limits above.
+[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) endpoints are rate-limited for each organization. These limits are separate from the Messages API rate limits described earlier on this page.
 
 | Operation                                                          | Limit                     |
 | ------------------------------------------------------------------ | ------------------------- |
@@ -244,7 +244,7 @@ The response includes `anthropic-fast-*` headers that indicate your fast mode ra
 
 You can monitor your rate limit usage on the [Usage](https://platform.claude.com/usage) page of the [Claude Console](https://platform.claude.com/).
 
-In addition to providing token and request charts, the Usage page provides two separate rate limit charts. Use these charts to see what headroom you have to grow, identify when you may be hitting peak use, understand what rate limits to request, and learn how to improve your caching rates. The charts visualize a number of metrics for a given rate limit (for example, per model):
+In addition to providing token and request charts, the Usage page provides two separate rate limit charts. Use these charts to see what headroom you have to grow, identify when you might be hitting peak use, understand what rate limits to request, and learn how to improve your caching rates. The charts visualize a number of metrics for a given rate limit (for example, for each model):
 
 * The **Rate Limit - Input Tokens** chart includes:
 
@@ -265,11 +265,11 @@ To request higher rate limits or a higher monthly spend cap, use **Request tier 
   **[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws):** The **Request tier increase** flow is not available. Contact your Anthropic account representative or [Anthropic support](https://support.claude.com), and include the models you need raised, your peak input and output tokens per minute for each model, and roughly what share of your input is cached or repeated context. See [Rate limits and quotas on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#rate-limits-and-quotas).
 </Note>
 
-## Setting lower limits for Workspaces
+## Setting lower limits for workspaces
 
 For more about workspaces, see [Workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces).
 
-To protect Workspaces in your Organization from potential overuse, you can set custom spend and rate limits per Workspace.
+To protect Workspaces in your Organization from potential overuse, you can set custom spend and rate limits for each Workspace.
 
 Example: If your Organization's limit is 40,000 input tokens per minute and 8,000 output tokens per minute, you might limit one Workspace to 30,000 input tokens per minute. This protects other Workspaces from potential overuse and ensures a more equitable distribution of resources across your Organization. The remaining unused tokens per minute (or more, if that Workspace doesn't use the limit) are then available for other Workspaces to use.
 
@@ -277,7 +277,7 @@ Note:
 
 * You can't set spend limits on the default Workspace.
 * If not set, Workspace limits match the Organization's limit.
-* Workspace limits are set per limiter type (such as requests per minute, input tokens per minute, or output tokens per minute).
+* Workspace limits are set for each limiter type (such as requests per minute, input tokens per minute, or output tokens per minute).
 * Organization-wide limits always apply, even if Workspace limits add up to more.
 
 To read your current organization and workspace rate limits programmatically, use the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).

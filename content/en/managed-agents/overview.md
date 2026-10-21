@@ -68,7 +68,7 @@ Claude Managed Agents is built around four concepts:
   </Step>
 
   <Step title="Steer or interrupt">
-    Send additional user events to guide the agent mid-execution, or interrupt it to change direction.
+    Send additional user events to guide the agent while it runs, or interrupt it to change direction.
   </Step>
 </Steps>
 

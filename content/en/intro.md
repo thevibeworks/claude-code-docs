@@ -32,7 +32,7 @@ If you're unsure which model to use, start with [Claude Opus 5.5](https://platfo
 
 ## Recommended path for new developers
 
-Follow these steps to go from zero to a working Claude integration.
+Follow these steps to build a working Claude integration.
 
 <Steps>
   <Step title="Make your first API call">
@@ -77,7 +77,7 @@ Anthropic provides developer tools to help you build and scale applications with
     Explore and understand the API in your browser with playground.
   </Card>
 
-  <Card title="API Reference" icon="code" href="https://platform.claude.com/docs/en/api/overview">
+  <Card title="API reference" icon="code" href="https://platform.claude.com/docs/en/api/overview">
     Explore the full Claude API and client SDK documentation.
   </Card>
 
@@ -90,7 +90,7 @@ Anthropic provides developer tools to help you build and scale applications with
 
 ## Key capabilities
 
-Claude can assist with many tasks that involve text, code, and images.
+Claude can help with many tasks that involve text, code, and images.
 
 <CardGroup cols={2}>
   <Card title="Text and code generation" icon="text-aa" href="https://platform.claude.com/docs/en/build-with-claude/overview">
@@ -111,7 +111,7 @@ Claude can assist with many tasks that involve text, code, and images.
     Find answers to frequently asked account and billing questions.
   </Card>
 
-  <Card title="Service Status" icon="chart" href="https://status.claude.com">
+  <Card title="Service status" icon="chart" href="https://status.claude.com">
     Check the status of Anthropic services.
   </Card>
 </CardGroup>

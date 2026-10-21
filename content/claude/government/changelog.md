@@ -6,6 +6,20 @@
 
 > Release notes for Claude for Government
 
+**2026.10.21.1**
+
+* Fixed the tenant portal's Identity and access page so that it says its SCIM details couldn't load instead of looking as if SCIM had never been set up.
+* (breaking) Changed **Claude Desktop home** where a setting enforced at a higher level conflicts with the choice: members on Claude Desktop 1.52386.0 or later may lose Chat, Advanced file analysis or Cowork after a required relaunch.
+* Changed Claude Desktop for members who have **Cowork in Claude Desktop** off and no **Claude Desktop home** chosen: from November 9, 2026 (UTC), they may be asked to relaunch and then see the new home screen, still without Cowork.
+* Changed the Code tab in Claude Desktop to ask the member before each command Claude runs in its Terminal panel, even in bypass-permissions or Auto mode, while **Blocked shell commands** lists any command.
+* Improved directory sync (SCIM) so that one tenant's very large sync no longer holds up directory changes in other tenants.
+* Added a **Chat only** choice to the **Claude Desktop home** setting on the Config pages, which gives members Chat without Advanced file analysis or Cowork; with this choice the new home screen shows on Claude Desktop 2.2553.0 or later.
+
+**2026.10.18.1**
+
+* Changed the scope bar dropdown on the Config pages to list **A directory group** before any group has synced.
+* Changed the browser page at the end of app sign-in to tell a member with no seat that an administrator has to assign one.
+
 **Claude Code 2.1.302**
 
 * Changed unattended runs of the Claude Code command-line tool, such as `claude -p`, where **Auto mode** is set to **Allowed**: on Claude Code 2.1.302 or later they start in Auto mode only when Auto mode is chosen for them.
@@ -14,9 +28,42 @@
 
 * Changed **Managed hooks** on Windows devices without Git for Windows: on Claude Code 2.1.299 or later, a managed hook written as a Bash command that checks a tool call or a permission request blocks that action when the command fails.
 
+**2026.10.14.2**
+
+* Added **Callback port** and **Callback host** to the **OAuth (pre-registered app)** option for connectors under Config > Integrations, for sign-in providers that accept the redirect only on a registered port or host; the Compliance API records both.
+
+**2026.10.14.1**
+
+* Fixed sign-in sending some tenants' members to a page that does not exist when single sign-on had never been connected: sign-in now shows a message instead, and the tenant portal's Identity and access page shows single sign-on as Not configured.
+* Fixed the seat tier form losing what was typed in Name and Sort order when a save was refused.
+* Changed the Compliance API to return only the most recent 30 days of activity; requests reaching further back succeed and return only events from the last 30 days.
+* Changed the error for a chat or token-count request that is over the size limit for a single request: it is now a 413 `request_too_large` error whose "Request too large" message says to start a new conversation or send fewer or smaller attachments.
+* Changed the tenant Config page to make a tenant admin choose whether organizations may set their own value the first time they set **Telemetry endpoint**, **Telemetry headers**, or **Connectors**; **Connectors** didn't offer this choice before.
+* Added a **Default model** setting to seat tiers, with an **Always start with the default model** option that needs Claude Desktop 2.110.0 or later; seat tier create and update activities from the Compliance API include both settings.
+* Added the **Scheduled tasks** setting under Config > Product availability, on by default; turning it off stops scheduled tasks in Cowork and Code on Claude Desktop 2.110.0 or later.
+
+**2026.10.07.1**
+
+* Improved screen reader support for the seat tier picker on the Admin Console's Users page.
+* Changed usage limits, spend caps and usage pages to count requests with long prompts at a model's higher price for them, where a model has one.
+* Added the **Terminal panel tools** setting under Integrations, which lets Claude run commands in the Code tab's Terminal panel and open, list or stop its tabs; it is on by default and off while Shell commands is off.
+
+**2026.10.02.1**
+
+* Changed the tenant portal's Seats and Billing pages and its billing-account picker to list billing accounts A to Z by name.
+* Added an **Open Claude Desktop** button to the Account tab of the web portal: it opens Claude Desktop on the member's computer, and shows for members who have a seat tier and have Claude Desktop turned on.
+
 **2026.10.01.1**
 
 * Added a **New members start here** option to self-managed seat tiers, so you can pick the tier new members start on.
+
+**2026.09.30.1**
+
+* Fixed the Config page describing an empty **Restart deadline for configuration changes** as 1 hour; an empty field uses Claude Desktop's default, which is 24 hours on up-to-date versions.
+* Changed the Config page's Product availability rows to read "Coming soon" for a product Anthropic has not yet made available to your tenant, instead of showing a switch that could be turned on without effect.
+* Changed Claude Desktop's Claude for Government Web import banner so that it can come back a few days after a member skips it, until they run the import or have skipped it a few times; this needs Claude Desktop 2.16120.0 or later.
+* Improved the User email addresses pages in the organization portal and the tenant portal: a list of more than 450 addresses is shown in parts of up to 450, each with its own Copy button.
+* Added the `People.Read`, `Team.ReadBasic.All` and `Channel.ReadBasic.All` permissions to the Microsoft 365 connector's **Read access** list under Config > Integrations, which let Claude search for people and list a member's teams and channels; they require Claude Desktop 1.32885.1 or later.
 
 **2026.09.29.1**
 
@@ -24,6 +71,10 @@
 * Added the ability for tenant administrators to grant and remove the Primary Owner role in an organization that doesn't manage its own billing account.
 * Added a **Copy user email addresses** button to the tenant portal's Organizations page: it opens a page where tenant admins can copy the email addresses of everyone in the tenant who has not been deactivated, all together or one organization at a time.
 * Added **Move up**, **Move down**, **Move to top**, and **Move to bottom** to each sign-in rule, provisioning rule, and directory group row in the tenant portal, so they can be reordered without dragging.
+
+**2026.09.25.1**
+
+* Added the **Block reads outside workspace folders** setting under Sessions and access, which stops Claude's file tools in a Claude Desktop Code session from reading outside its project folder and the Allowed workspace folders.
 
 **2026.09.24.2**
 

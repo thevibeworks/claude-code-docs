@@ -51,7 +51,7 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello" }]
+      Messages = [new UserMessageParam { Content = "Hello" }]
   };
 
   await foreach (var msg in client.Messages.CreateStreaming(parameters))
@@ -191,7 +191,7 @@ If you don't need to process text as it arrives, the SDK provides a way to use s
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 128000,
-      Messages = [new() { Role = Role.User, Content = "Write a detailed analysis..." }]
+      Messages = [new UserMessageParam { Content = "Write a detailed analysis..." }]
   };
 
   // To handle events as they arrive as well, pass a MessageContentAggregator to CollectAsync() instead.
@@ -284,7 +284,7 @@ If you don't need to process text as it arrives, the SDK provides a way to use s
   ```
 </CodeGroup>
 
-The `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) call keeps the HTTP connection alive with server-sent events, then the SDK's message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), collects all events into the complete `Message` object.
+The `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) call keeps the HTTP connection alive with server-sent events, and then the SDK's message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), collects all events into the complete `Message` object.
 
 ## Event types
 
@@ -303,11 +303,11 @@ Each stream uses the following event flow:
 
 ### Ping events
 
-Event streams may also include any number of `ping` events.
+Event streams might also include any number of `ping` events.
 
 ### Error events
 
-The API may occasionally send [errors](https://platform.claude.com/docs/en/api/errors) in the event stream. For example, during periods of high usage, you may receive an `overloaded_error`, which would normally correspond to an HTTP 529 in a non-streaming context:
+The API might occasionally send [errors](https://platform.claude.com/docs/en/api/errors) in the event stream. For example, during periods of high usage, you might receive an `overloaded_error`, which would normally correspond to an HTTP 529 in a non-streaming context:
 
 ```sse Example error
 event: error
@@ -335,7 +335,7 @@ data: {"type": "content_block_delta","index": 0,"delta": {"type": "text_delta", 
 
 The deltas for `tool_use` content blocks correspond to updates for the `input` field of the block. To support maximum granularity, the deltas are *partial JSON strings*, whereas the final `tool_use.input` is always an *object*.
 
-You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library like [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the SDK's [streaming helpers](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks). In the Python and TypeScript SDKs, these helpers also give you access to the parsed `input` incrementally, as it streams.
+You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library such as [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the SDK's [streaming helpers](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks). In the Python and TypeScript SDKs, these helpers also give you access to the parsed `input` incrementally, as it streams.
 
 A `tool_use` content block delta looks like:
 
@@ -344,7 +344,7 @@ event: content_block_delta
 data: {"type": "content_block_delta","index": 1,"delta": {"type": "input_json_delta","partial_json": "{\"location\": \"San Fra"}}}
 ```
 
-Note: Current models only support emitting one complete key and value property from `input` at a time. As such, when using tools, there may be delays between streaming events while the model is working. Once an `input` key and value are accumulated, they are emitted as multiple `content_block_delta` events with chunked partial JSON so that the format can automatically support finer granularity in future models.
+Note: Current models only support emitting one complete key and value property from `input` at a time. As such, when using tools, there might be delays between streaming events while the model is working. Once an `input` key and value are accumulated, they are emitted as multiple `content_block_delta` events with chunked partial JSON so that the format can automatically support finer granularity in future models.
 
 ### Thinking delta
 
@@ -386,7 +386,7 @@ A stream response consists of:
 
 4. A `message_stop` event
 
-There may be `ping` events dispersed throughout the response as well. See [Event types](https://platform.claude.com/docs/en/build-with-claude/streaming#event-types) for more details on the format.
+There might be `ping` events dispersed throughout the response as well. See [Event types](https://platform.claude.com/docs/en/build-with-claude/streaming#event-types) for more details on the format.
 
 ### Basic streaming request
 
@@ -446,7 +446,7 @@ There may be `ping` events dispersed throughout the response as well. See [Event
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 256,
-      Messages = [new() { Role = Role.User, Content = "Hello" }]
+      Messages = [new UserMessageParam { Content = "Hello" }]
   };
 
   await foreach (var msg in client.Messages.CreateStreaming(parameters))
@@ -560,45 +560,45 @@ data: {"type": "message_stop"}
 ### Streaming request with tool use
 
 <Tip>
-  Tool use supports [fine-grained streaming](https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming) for parameter values. Enable it per tool with `eager_input_streaming`.
+  Tool use supports [fine-grained streaming](https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming) for parameter values. Enable it on individual tools with `eager_input_streaming`.
 </Tip>
 
 This request asks Claude to use a tool to report the weather.
 
 <CodeGroup>
   ```bash cURL
-    curl https://api.anthropic.com/v1/messages \
-      -H "content-type: application/json" \
-      -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
-      -d '{
-        "model": "claude-opus-5",
-        "max_tokens": 1024,
-        "tools": [
-          {
-            "name": "get_weather",
-            "description": "Get the current weather in a given location",
-            "input_schema": {
-              "type": "object",
-              "properties": {
-                "location": {
-                  "type": "string",
-                  "description": "The city and state, e.g. San Francisco, CA"
-                }
-              },
-              "required": ["location"]
-            }
+  curl https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -d '{
+      "model": "claude-opus-5",
+      "max_tokens": 1024,
+      "tools": [
+        {
+          "name": "get_weather",
+          "description": "Get the current weather in a given location",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "The city and state, e.g. San Francisco, CA"
+              }
+            },
+            "required": ["location"]
           }
-        ],
-        "tool_choice": {"type": "any"},
-        "messages": [
-          {
-            "role": "user",
-            "content": "What is the weather like in San Francisco?"
-          }
-        ],
-        "stream": true
-      }'
+        }
+      ],
+      "tool_choice": {"type": "any"},
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the weather like in San Francisco?"
+        }
+      ],
+      "stream": true
+    }'
   ```
 
   ```bash CLI
@@ -720,9 +720,7 @@ This request asks Claude to use a tool to report the weather.
           }),
       ],
       ToolChoice = new ToolChoiceAny(),
-      Messages = [
-          new() { Role = Role.User, Content = "What is the weather like in San Francisco?" }
-      ]
+      Messages = [new UserMessageParam { Content = "What is the weather like in San Francisco?" }]
   };
 
   await foreach (var msg in client.Messages.CreateStreaming(parameters))
@@ -1056,7 +1054,7 @@ This request enables thinking with streaming. The `display: "summarized"` settin
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 20000,
       Thinking = new ThinkingConfigAdaptive { Display = Display.Summarized },
-      Messages = [new() { Role = Role.User, Content = "What is the greatest common divisor of 1071 and 462?" }]
+      Messages = [new UserMessageParam { Content = "What is the greatest common divisor of 1071 and 462?" }]
   };
 
   await foreach (var msg in client.Messages.CreateStreaming(parameters))
@@ -1289,7 +1287,7 @@ This request asks Claude to search the web for current weather information.
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       Tools = [new ToolUnion(new WebSearchTool20250305() { MaxUses = 5 })],
-      Messages = [new() { Role = Role.User, Content = "What is the weather like in New York City today?" }]
+      Messages = [new UserMessageParam { Content = "What is the weather like in New York City today?" }]
   };
 
   await foreach (var msg in client.Messages.CreateStreaming(parameters))
@@ -1505,7 +1503,7 @@ For Claude 4.6 and later models, the same capture-and-resume strategy applies, b
 
 ### Error recovery best practices
 
-1. **Use SDK features:** Leverage the SDK's built-in message accumulation and error handling capabilities.
+1. **Use SDK features:** Rely on the SDK's built-in message accumulation and error handling capabilities.
 2. **Handle content types:** Be aware that messages can contain multiple content blocks (`text`, `tool_use`, `thinking`). Tool use and thinking blocks cannot be partially recovered. You can resume streaming from the most recent text block.
 
 ## Next steps

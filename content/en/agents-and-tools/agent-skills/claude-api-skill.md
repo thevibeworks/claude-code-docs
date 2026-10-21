@@ -6,8 +6,8 @@ description: An open-source Agent Skill that provides Claude with up-to-date API
 
 The `claude-api` skill is an open-source [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) that provides Claude with detailed, up-to-date reference material for building applications on two Anthropic surfaces:
 
-* **Messages API:** The primary surface for single requests, streaming chat, tool use, batch processing, prompt caching, structured outputs, and custom agent loops.
-* **Claude Managed Agents (beta):** An Anthropic-hosted surface for server-managed stateful agents with Anthropic-hosted tool execution, persistent agent configs, and per-session sandboxes.
+* **Messages API:** The primary surface for single requests, streaming chat, tool use, batch processing, prompt caching, structured outputs, and custom agent loops
+* **Claude Managed Agents (beta):** An Anthropic-hosted surface for server-managed stateful agents with Anthropic-hosted tool execution, persistent agent configs, and per-session sandboxes
 
 It covers eight programming languages for both the Messages API and Managed Agents: Python, TypeScript, C#, Go, Java, PHP, Ruby, and cURL.
 
@@ -24,7 +24,7 @@ When triggered, the skill equips Claude with:
 * **Language-specific SDK documentation:** Installation, quick start, common patterns, and error handling for your project's language
 * **Tool use guidance:** Language-specific examples and [conceptual foundations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for function calling, including the beta tool runner where available
 * **Streaming patterns:** Implementation details for building chat UIs and handling incremental display
-* **Batch processing:** Offline batch processing at 50% cost
+* **Batch processing:** Offline batch processing at 50 percent cost
 * **Prompt caching:** Prefix-stability design, breakpoint placement, and silent-invalidator audit
 * **Model migration:** Step-by-step guidance for migrating to newer Claude models (including the breaking changes and behavior shifts on [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-5), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-claude-sonnet-5), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide), and [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide))
 * **Preserved thinking migration:** Finding, measuring, and fixing the history edits that invalidate `thinking` blocks, available through the `/claude-api preserved-thinking-migration` subcommand
@@ -33,7 +33,7 @@ When triggered, the skill equips Claude with:
 
 **For Managed Agents (beta):**
 
-* **Onboarding flow:** An interview-driven walkthrough for setting up a new Managed Agent from scratch, available through the `/claude-api managed-agents-onboard` subcommand
+* **Onboarding flow:** An interview-driven walkthrough for setting up a new Managed Agent, available through the `/claude-api managed-agents-onboard` subcommand
 * **Security guide check:** A read-only check of an agent's settings against [Secure your Managed Agents deployment](https://platform.claude.com/docs/en/managed-agents/secure-deployment), available through the `/claude-api managed-agents-secure` subcommand of the skill bundled with Claude Code
 * **Language-specific Managed Agents docs:** Creating persistent agents, starting sessions, streaming events, and handling tool confirmations for Python, TypeScript, C#, Go, Java, PHP, Ruby, and cURL
 * **Client patterns:** Lossless stream reconnect, `processed_at` queued/processed gate, interrupt handling, file-mount gotchas, and credential handling
@@ -49,7 +49,7 @@ The skill activates in two ways:
 * You ask Claude to help build, debug, or optimize something with the Claude API, an Anthropic SDK, or Managed Agents
 * You add, modify, or tune a Claude feature in a file (prompt caching, adaptive thinking, compaction, tool use, batch, files, citations, memory) or a model reference
 
-**Manual invocation** by typing `/claude-api` (with optional subcommand or prose) in any environment where the skill is installed.
+**Manual invocation** occurs when you type `/claude-api` (with optional subcommand or prose) in any environment where the skill is installed.
 
 The skill does not activate for general programming tasks, ML/data-science work, or code that imports other AI SDKs (such as OpenAI).
 
@@ -133,17 +133,17 @@ Let Claude Code migrate your code for you
 /claude-api migrate apps/api.py and apps/worker.py to the latest Claude Opus model
 ```
 
-When the scope is ambiguous (for example, a bare `/claude-api migrate to claude-opus-5-5`), the skill asks you to choose between the entire working directory, a specific subdirectory, or an explicit file list before editing any files. This applies to both Messages API and Managed Agents callers.
+When the scope is ambiguous (for example, a bare `/claude-api migrate to claude-opus-5-5`), the skill asks you to choose among the entire working directory, a specific subdirectory, or an explicit file list before editing any files. This applies to both Messages API and Managed Agents callers.
 
 The skill handles:
 
-* **Model ID swaps**, including typed SDK constants (`Model.CLAUDE_OPUS_4_8` → `Model.CLAUDE_OPUS_5_5`) across all supported languages, and classifies each file as a caller, a model definer, or an opaque string reference before editing
+* **Model ID swaps**, including typed SDK constants (`Model.CLAUDE_OPUS_4_8` → `Model.CLAUDE_OPUS_5_5`) across all supported languages, and classifying each file as a caller, a model definer, or an opaque string reference before editing
 * **Cloud platform detection**, preserving platform-specific model ID formats (for example, the `anthropic.` prefix on Amazon Bedrock) and skipping changes for features that are unavailable on partner-operated platforms
 * **Breaking parameter changes**, such as removing `temperature`, `top_p`, and `top_k` for Claude Opus 4.8 and Claude Opus 4.7, and converting `thinking: {type: "enabled", budget_tokens: N}` to `thinking: {type: "adaptive"}`
 * **Prefill replacement**, converting assistant-message prefill patterns to [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) where applicable
 * **Beta header cleanup**, removing beta headers that the target model doesn't require (for example, `effort-2025-11-24`, `fine-grained-tool-streaming-2025-05-14`, `interleaved-thinking-2025-05-14`) and switching back from `client.beta.messages.create()` (go: `client.Beta.Messages.New()`; java: `client.beta().messages().create()`; csharp: `client.Beta.Messages.Create()`; php: `$client->beta->messages->create()`) to `client.messages.create()` (go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`)
 * **Effort calibration**, recommending an `output_config.effort` starting point for the target model (for example, the default `high` on Claude Opus 5, and `xhigh` for coding and agentic use cases on Claude Opus 4.8 and Claude Opus 4.7)
-* **Prompt-behavior tuning**, flagging length-control, tool-triggering, subagent, and instruction-following prompts that may behave differently on the target model
+* **Prompt-behavior tuning**, flagging length-control, tool-triggering, subagent, and instruction-following prompts that might behave differently on the target model
 * **Silent default handling**, opting back into thinking summarization (`thinking.display: "summarized"`) when reasoning is surfaced to users on Claude Opus 4.8 and Claude Opus 4.7
 * **Refusal fallback configuration**, adding `stop_reason: "refusal"` handling before reading response content and setting up a [fallback retry path](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) when the target is Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, or Claude Sonnet 5.5 (the server-side `fallbacks` parameter, typically in its `"default"` mode, the SDK refusal-fallback middleware, or a fallback-credit retry), and updating fallback code written against earlier preview shapes
 
@@ -175,7 +175,7 @@ The test requests and replays are real Messages API requests, billed at the mode
 
 ## Setting up a Managed Agent
 
-To scaffold a new Managed Agent from scratch, invoke the `managed-agents-onboard` subcommand:
+To scaffold a new Managed Agent, invoke the `managed-agents-onboard` subcommand:
 
 Let Claude Code set up your agent for you
 
@@ -234,7 +234,7 @@ In each case, the skill loads the relevant language-specific documentation and g
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Agent Skills overview" icon="graduation-cap" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">
+  <Card title="Agent Skills" icon="graduation-cap" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">
     Learn about how Agent Skills work and the progressive disclosure model
   </Card>
 

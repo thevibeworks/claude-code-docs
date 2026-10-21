@@ -117,8 +117,7 @@ Set `output_config.effort` on the request. The following example runs one reques
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       Messages = [
-          new() {
-              Role = Role.User,
+          new UserMessageParam {
               Content = "Analyze the trade-offs between microservices and monolithic architectures"
           }
       ],
@@ -200,7 +199,7 @@ Set `output_config.effort` on the request. The following example runs one reques
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: [
       { role: "user", content: "Analyze the trade-offs between microservices and monolithic architectures" }
@@ -230,7 +229,7 @@ The effort parameter affects **all tokens** in the response, including:
 * Tool calls and function arguments
 * Thinking (when active)
 
-Because effort applies to every output token, it works whether or not thinking is enabled. Lower effort also means fewer and terser tool calls.
+Because effort applies to every output token, it works with or without thinking. Lower effort also means fewer and terser tool calls.
 
 ### Effort levels
 
@@ -302,7 +301,7 @@ The API default is `high`. To use `xhigh`, set `effort` explicitly. The value yo
 | `xhigh`  | The recommended starting point for coding and agentic work, and for exploratory tasks such as repeated tool calling, detailed web search, and knowledge-base search. Expect meaningfully higher token usage than `high`. |
 | `max`    | Reserve for frontier problems. On most workloads `max` adds significant cost for relatively small quality gains, and on some structured-output or less intelligence-sensitive tasks it can lead to overthinking.         |
 
-Claude Opus 4.7 also respects effort levels more strictly than Claude Opus 4.6, especially at `low` and `medium`. At lower effort levels, the model scopes its work to what was asked rather than doing more than requested. If you observe shallow reasoning on complex problems with Claude Opus 4.7, raise effort rather than prompting around it. If you must keep effort low for latency, add targeted guidance like "This task involves multistep reasoning. Think carefully before responding."
+Claude Opus 4.7 also respects effort levels more strictly than Claude Opus 4.6, especially at `low` and `medium`. At lower effort levels, the model scopes its work to what was asked rather than doing more than requested. If you observe shallow reasoning on complex problems with Claude Opus 4.7, raise effort rather than prompting around it. If you must keep effort low for latency, add targeted guidance such as "This task involves multistep reasoning. Think carefully before responding."
 
 When running Claude Opus 4.7 at `xhigh` or `max` effort, set a large `max_tokens` so the model has room to think and act across subagents and tool calls. Starting at 64k tokens and tuning from there is a reasonable default.
 
@@ -312,7 +311,7 @@ Claude Sonnet 5.5 supports all five effort levels, and `high` is the default on 
 
 To turn off up-front thinking, send `thinking: {"type": "between_tools"}` instead of `"disabled"`. It's the lowest thinking setting on Claude Sonnet 5.5, and it works at `low`, `medium`, and `high` effort. At `xhigh` or `max`, a request with it returns a 400 error, so use adaptive thinking at those levels: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. See [Running without up-front thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#running-without-up-front-thinking).
 
-Claude Sonnet 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. With `between_tools`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking. See [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort).
+Claude Sonnet 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. With `between_tools`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking. See [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort).
 
 ### Recommended effort levels for Claude Sonnet 5
 
@@ -328,7 +327,7 @@ Claude Sonnet 5 defaults to `high` effort on the Claude API and Claude Code.
 
 Sonnet 4.6 defaults to `high` effort. Explicitly set effort when using Sonnet 4.6 to avoid unexpected latency:
 
-* **Medium effort** (recommended default): Best balance of speed, cost, and performance for most applications. Suitable for agentic coding, tool-heavy workflows, and code generation.
+* **Medium effort (recommended default):** Best balance of speed, cost, and performance for most applications. Suitable for agentic coding, tool-heavy workflows, and code generation.
 * **Low effort:** For high-volume or latency-sensitive workloads. Suitable for chat and non-coding use cases where faster turnaround is prioritized.
 * **High effort:** For complex reasoning and tasks where quality matters more than speed or cost.
 * **Max effort:** For tasks requiring the absolute highest capability with no constraints on token spending.
@@ -350,7 +349,7 @@ When using tools, the effort parameter affects both the explanations around tool
 * Proceed directly to action without preamble
 * Use terse confirmation messages after completion
 
-Higher effort levels may:
+Higher effort levels might:
 
 * Make more tool calls
 * Explain the plan before taking action
@@ -375,7 +374,7 @@ You can run later turns of a conversation at a different effort level in two way
 
 Per-message effort is in beta. On the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), it's available on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5. On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it's available on Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5.5. It requires the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `mid-conversation-output-config-2026-07-01`. With the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), it's available on Claude Fable 5.1 and Claude Opus 5.5, and you send that value in the `anthropic_beta` array of the request body instead.
 
-Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}` and on Claude Haiku 5.5 with `thinking: {"type": "disabled"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
+Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}` and on Claude Haiku 5.5 with `thinking: {"type": "disabled"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
 
 Add a `role: "system"` message with empty `content` and the new level in `output_config.effort`. Placed directly after a `user` turn with new input, it sets the level for Claude's reply to that turn. Placed anywhere else, such as between an `assistant` turn and the next `user` turn as in the following example, it takes effect from the next `user` turn with new input. A `user` turn that holds only `tool_result` blocks doesn't count as new input, so a change placed after one in a tool-use loop waits for the next `user` turn with new input. The new level then holds until a later message changes it. Everything before that message is unchanged, so the cached prefix still matches.
 
@@ -496,16 +495,15 @@ The following example starts at `high`, then drops to `low` for a routine follow
       OutputConfig = new() { Effort = Effort.High },
       Messages =
       [
-          new() { Role = Role.User, Content = "Plan a migration from SQLite to PostgreSQL in three short steps." },
-          new() { Role = Role.Assistant, Content = "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts." },
+          new BetaUserMessageParam { Content = "Plan a migration from SQLite to PostgreSQL in three short steps." },
+          new BetaAssistantMessageParam { Content = "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts." },
           // Effort-only system message: the new level takes effect from the next user turn.
-          new()
+          new BetaSystemMessageParam
           {
-              Role = Role.System,
               Content = new([]),
               OutputConfig = new() { Effort = BetaSystemMessageOutputConfigEffort.Low },
           },
-          new() { Role = Role.User, Content = "Summarize the plan in one sentence." },
+          new BetaUserMessageParam { Content = "Summarize the plan in one sentence." },
       ],
       Betas = [AnthropicBeta.MidConversationOutputConfig2026_07_01],
   });
@@ -556,9 +554,9 @@ The following example starts at `high`, then drops to `low` for a routine follow
   ```java Java
   import com.anthropic.models.beta.AnthropicBeta;
   import com.anthropic.models.beta.messages.BetaMessage;
-  import com.anthropic.models.beta.messages.BetaMessageParam;
   import com.anthropic.models.beta.messages.BetaOutputConfig;
   import com.anthropic.models.beta.messages.BetaSystemMessageOutputConfig;
+  import com.anthropic.models.beta.messages.BetaSystemMessageParam;
   import com.anthropic.models.beta.messages.MessageCreateParams;
   import com.anthropic.models.messages.Model;
 
@@ -575,9 +573,8 @@ The following example starts at `high`, then drops to `low` for a routine follow
           .addUserMessage("Plan a migration from SQLite to PostgreSQL in three short steps.")
           .addAssistantMessage("1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts.")
           // Effort-only system message: the new level takes effect from the next user turn.
-          .addMessage(BetaMessageParam.builder()
-              .role(BetaMessageParam.Role.SYSTEM)
-              .contentOfBetaContentBlockParams(List.of())
+          .addMessage(BetaSystemMessageParam.builder()
+              .contentOfBlocks(List.of())
               .outputConfig(BetaSystemMessageOutputConfig.builder()
                   .effort(BetaSystemMessageOutputConfig.Effort.LOW)
                   .build())
@@ -630,7 +627,7 @@ The following example starts at `high`, then drops to `low` for a routine follow
   client = Anthropic::Client.new
 
   response = client.beta.messages.create(
-    model: "claude-fable-5-1",
+    model: Anthropic::Model::CLAUDE_FABLE_5_1,
     max_tokens: 4096,
     output_config: {effort: :high},
     messages: [
@@ -662,7 +659,7 @@ The top-level `output_config.effort` applies to the whole request. To run a late
 1. **Set effort explicitly:** The API defaults to `high` (`medium` on Claude Opus 5.5 and Claude Haiku 5.5), but the right starting point depends on your model and workload.
 2. **Use low for speed-sensitive or simple tasks:** When latency matters or tasks are straightforward, low effort can significantly reduce response times and costs.
 3. **Test your use case:** The impact of effort levels varies by task type. Evaluate performance on your specific use cases before deploying.
-4. **Consider dynamic effort:** Adjust effort based on task complexity. Simple queries may warrant low effort while agentic coding and complex reasoning benefit from high effort. See the next item before varying it within one conversation.
+4. **Consider dynamic effort:** Adjust effort based on task complexity. Simple queries might warrant low effort, whereas agentic coding and complex reasoning benefit from high effort. See the next item before varying it within one conversation.
 5. **Hold top-level effort constant within cached conversations:** Changing the top-level effort value between requests invalidates [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so vary it across workloads rather than within a conversation that relies on cache hits. On models that support it, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) instead, which preserves the cache. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
 
 ## Next steps

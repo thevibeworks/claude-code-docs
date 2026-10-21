@@ -19,20 +19,20 @@ You can ask Claude about any text, pictures, charts, and tables in PDFs you prov
 
 * Analyzing financial reports and understanding charts/tables
 * Extracting key information from legal documents
-* Assisting with document translation
+* Helping with document translation
 * Converting document information into structured formats
 
-## Before you begin
+## Before you start
 
 ### Check PDF requirements
 
 Claude works with any standard PDF. Ensure your request size meets these requirements:
 
-| Requirement               | Limit                                                                                              |
-| ------------------------- | -------------------------------------------------------------------------------------------------- |
-| Maximum request size      | 32 MB ([varies by platform](https://platform.claude.com/docs/en/api/overview#request-size-limits)) |
-| Maximum pages per request | 600 (100 when the request's context window is under 1M tokens)                                     |
-| Format                    | Standard PDF (no passwords/encryption)                                                             |
+| Requirement               | Limit                                                                                                                       |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Maximum request size      | 32 MB (varies by platform; see [request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits)) |
+| Maximum pages per request | 600 (100 when the request's context window is under 1M tokens)                                                              |
+| Format                    | Standard PDF (no passwords/encryption)                                                                                      |
 
 Both limits are on the entire request payload, including any other content sent alongside PDFs. For large PDFs, consider uploading with the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) and referencing by `file_id` to keep request payloads small.
 
@@ -116,20 +116,20 @@ The simplest approach is to reference a PDF directly from a URL:
       "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "messages": [{
-          "role": "user",
-          "content": [{
-              "type": "document",
-              "source": {
-                  "type": "url",
-                  "url": "https://assets.anthropic.com/m/1cd9d098ac3e6467/original/Claude-3-Model-Card-October-Addendum.pdf"
-              }
-          },
-          {
-              "type": "text",
-              "text": "What are the key findings in this document?"
-          }]
+        "role": "user",
+        "content": [{
+          "type": "document",
+          "source": {
+            "type": "url",
+            "url": "https://assets.anthropic.com/m/1cd9d098ac3e6467/original/Claude-3-Model-Card-October-Addendum.pdf"
+          }
+        },
+        {
+          "type": "text",
+          "text": "What are the key findings in this document?"
+        }]
       }]
-  }'
+    }'
   ```
 
   ```bash CLI
@@ -221,9 +221,8 @@ The simplest approach is to reference a PDF directly from a URL:
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = new List<ContentBlockParam>
               {
                   documentParam,
@@ -276,7 +275,7 @@ The simplest approach is to reference a PDF directly from a URL:
   MessageCreateParams params = MessageCreateParams.builder()
     .model(Model.CLAUDE_OPUS_5_5)
     .maxTokens(1024)
-    .addUserMessageOfBlockParams(
+    .addUserMessageOfContentBlockParams(
       List.of(
         ContentBlockParam.ofDocument(documentParam),
         ContentBlockParam.ofText(
@@ -533,9 +532,8 @@ If you need to send PDFs from your local system or when a URL isn't available:
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = new List<ContentBlockParam>
               {
                   documentParam,
@@ -615,7 +613,7 @@ If you need to send PDFs from your local system or when a URL isn't available:
   MessageCreateParams params = MessageCreateParams.builder()
     .model(Model.CLAUDE_OPUS_5_5)
     .maxTokens(1024)
-    .addUserMessageOfBlockParams(
+    .addUserMessageOfContentBlockParams(
       List.of(
         ContentBlockParam.ofDocument(documentParam),
         ContentBlockParam.ofText(
@@ -854,9 +852,8 @@ For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = new List<ContentBlockParam>
               {
                   new DocumentBlockParam
@@ -921,7 +918,7 @@ For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use
   MessageCreateParams params = MessageCreateParams.builder()
     .model(Model.CLAUDE_OPUS_5_5)
     .maxTokens(1024)
-    .addUserMessageOfBlockParams(
+    .addUserMessageOfContentBlockParams(
       List.of(
         ContentBlockParam.ofDocument(
           DocumentBlockParam.builder().fileSource(file.id()).build()
@@ -1027,7 +1024,7 @@ When you send a PDF to Claude, the following steps occur:
     Claude can reference both textual and visual content when it responds. You can further improve performance by integrating PDF support with:
 
     * [Use prompt caching](https://platform.claude.com/docs/en/build-with-claude/pdf-support#use-prompt-caching): To improve performance for repeated analysis.
-    * [Process document batches](https://platform.claude.com/docs/en/build-with-claude/pdf-support#process-document-batches): For high-volume document processing.
+    * [Process document batches](https://platform.claude.com/docs/en/build-with-claude/pdf-support#process-document-batches): To process documents at high volume.
     * [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview): To extract specific information from documents for use as tool inputs.
   </Step>
 </Steps>
@@ -1200,9 +1197,8 @@ Cache PDFs with [prompt caching](https://platform.claude.com/docs/en/build-with-
       MaxTokens = 1024,
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = new List<ContentBlockParam>
               {
                   new DocumentBlockParam
@@ -1279,7 +1275,7 @@ Cache PDFs with [prompt caching](https://platform.claude.com/docs/en/build-with-
   MessageCreateParams params = MessageCreateParams.builder()
     .model(Model.CLAUDE_OPUS_5_5)
     .maxTokens(1024)
-    .addUserMessageOfBlockParams(
+    .addUserMessageOfContentBlockParams(
       List.of(
         ContentBlockParam.ofDocument(
           DocumentBlockParam.builder()
@@ -1639,9 +1635,8 @@ Use the [Message Batches API](https://platform.claude.com/docs/en/build-with-cla
                   MaxTokens = 1024,
                   Messages =
                   [
-                      new()
+                      new UserMessageParam
                       {
-                          Role = Role.User,
                           Content = new List<ContentBlockParam>
                           {
                               new DocumentBlockParam
@@ -1663,9 +1658,8 @@ Use the [Message Batches API](https://platform.claude.com/docs/en/build-with-cla
                   MaxTokens = 1024,
                   Messages =
                   [
-                      new()
+                      new UserMessageParam
                       {
-                          Role = Role.User,
                           Content = new List<ContentBlockParam>
                           {
                               new DocumentBlockParam
@@ -1764,7 +1758,7 @@ Use the [Message Batches API](https://platform.claude.com/docs/en/build-with-cla
           BatchCreateParams.Request.Params.builder()
             .model(Model.CLAUDE_OPUS_5_5)
             .maxTokens(1024)
-            .addUserMessageOfBlockParams(
+            .addUserMessageOfContentBlockParams(
               List.of(
                 ContentBlockParam.ofDocument(
                   DocumentBlockParam.builder()
@@ -1791,7 +1785,7 @@ Use the [Message Batches API](https://platform.claude.com/docs/en/build-with-cla
           BatchCreateParams.Request.Params.builder()
             .model(Model.CLAUDE_OPUS_5_5)
             .maxTokens(1024)
-            .addUserMessageOfBlockParams(
+            .addUserMessageOfContentBlockParams(
               List.of(
                 ContentBlockParam.ofDocument(
                   DocumentBlockParam.builder()
@@ -1959,7 +1953,7 @@ Batches process asynchronously. To check progress and retrieve results once proc
 
 <CardGroup cols={2}>
   <Card title="Vision" icon="image" href="https://platform.claude.com/docs/en/build-with-claude/vision">
-    Claude's vision capabilities allow it to understand and analyze images, opening up exciting possibilities for multimodal interaction.
+    Claude's vision capabilities allow it to process and analyze images, opening up exciting possibilities for multimodal interaction.
   </Card>
 
   <Card title="Try PDF examples" icon="file" href="https://platform.claude.com/cookbook/multimodal-getting-started-with-vision">

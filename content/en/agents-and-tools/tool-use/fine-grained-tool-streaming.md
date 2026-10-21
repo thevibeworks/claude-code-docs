@@ -212,9 +212,8 @@ The following example turns on fine-grained streaming for a `make_file` tool and
       ],
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = "Can you write a long poem and make a file called poem.txt?",
           },
       ],
@@ -487,11 +486,11 @@ Where your SDK provides an accumulator helper (as the Python, TypeScript, Go, Ja
 
 The accumulation contract:
 
-1. On `content_block_start` with `type: "tool_use"`, initialize an empty string: `input_json = ""`
-2. For each `content_block_delta` with `type: "input_json_delta"`, append: `input_json += event.delta.partial_json`
-3. On `content_block_stop`, parse the accumulated string
+1. On `content_block_start` with `type: "tool_use"`, initialize an empty string: `input_json = ""`.
+2. For each `content_block_delta` with `type: "input_json_delta"`, append: `input_json += event.delta.partial_json`.
+3. On `content_block_stop`, parse the accumulated string.
 
-Guard the parse, as the following SDK examples do. A response can also stop at `max_tokens` midway through a parameter. Check the [stop reason](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons) and decide whether to retry the request with a higher `max_tokens` or repair the partial input.
+Guard the parse, as the following example does. A response can also stop at `max_tokens` midway through a parameter. Check the [stop reason](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons) and decide whether to retry the request with a higher `max_tokens` or repair the partial input.
 
 The type mismatch between the initial `input: {}` (object) and `partial_json` (string) is by design. The empty object marks the slot in the content array. The delta strings build the real value.
 
@@ -622,7 +621,7 @@ The type mismatch between the initial `input: {}` (object) and `partial_json` (s
               },
           },
       ],
-      Messages = [new() { Role = Role.User, Content = "Weather in Paris?" }],
+      Messages = [new UserMessageParam { Content = "Weather in Paris?" }],
   };
 
   // Block index -> accumulated JSON fragments
@@ -932,7 +931,7 @@ Return the wrapper, serialized to a string, as the `content` of a [tool result](
   </Card>
 
   <Card title="Handle tool calls" icon="arrows-left-right" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls">
-    Parse tool\_use blocks, format tool\_result responses, and handle errors with is\_error.
+    Parse `tool_use` blocks, format `tool_result` responses, and handle errors with `is_error`.
   </Card>
 
   <Card title="Tool reference" icon="book" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference">

@@ -17,7 +17,7 @@ The current version of the tool is `bash_20250124`. For model support, beta head
 ## Use cases
 
 * **Development workflows:** Run build commands, tests, and development tools
-* **System automation:** Execute scripts, manage files, automate tasks
+* **System automation:** Run scripts, manage files, automate tasks
 * **Data processing:** Process files, run analysis scripts, manage datasets
 * **Environment setup:** Install packages, configure environments
 
@@ -99,11 +99,7 @@ The current version of the tool is `bash_20250124`. For model support, beta head
           Tools = [new ToolBash20250124()],
           Messages =
           [
-              new()
-              {
-                  Role = Role.User,
-                  Content = "List all Python files in the current directory.",
-              },
+              new UserMessageParam { Content = "List all Python files in the current directory." },
           ],
       }
   );
@@ -220,7 +216,7 @@ Each tool call is one round trip between Claude and your application:
 
 Claude can also return several `tool_use` blocks in one response. Run them in order in the same session and return all of the results in one `user` message. See [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use).
 
-The API is stateless. Nothing about your shell session travels between requests, so your application decides when the session starts, how long it lives, and when to restart it. For the full request and response cycle, see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
+The API is stateless. Nothing about your shell session travels between requests, so your application determines when the session starts, how long it lives, and when to restart it. For the full request and response cycle, see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
 ## Parameters
 
@@ -683,7 +679,7 @@ Claude determines which command to run. Your application owns everything else: t
       ```
     </CodeGroup>
 
-    The session interleaves stderr with stdout, so error messages land where they happened. The example leaves out what a complete implementation also needs: a timeout that kills the shell and every process it started when a command hangs, then restarts the session. The [Use command timeouts](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool#follow-implementation-best-practices) best practice shows one way to add it.
+    The session interleaves stderr with stdout, so error messages land where they occurred. The example leaves out what a complete implementation also needs: a timeout that kills the shell and every process it started when a command hangs, then restarts the session. The [Use command timeouts](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool#follow-implementation-best-practices) best practice shows one way to add it.
   </Step>
 
   <Step title="Process Claude's tool calls">
@@ -832,7 +828,7 @@ Claude determines which command to run. Your application owns everything else: t
   </Step>
 
   <Step title="Return the result to Claude">
-    Send the `tool_result` back in a `user` message that continues the same conversation. Claude either requests another command in the same session or finishes its answer:
+    Send the `tool_result` back in a `user` message that continues the same conversation. Claude either requests another command in the same session or completes its answer:
 
     <CodeGroup>
       ```bash cURL
@@ -994,15 +990,10 @@ Claude determines which command to run. Your application owns everything else: t
               Tools = [new ToolBash20250124()],
               Messages =
               [
-                  new()
+                  new UserMessageParam { Content = "List all Python files in the current directory." },
+                  new AssistantMessageParam
                   {
-                      Role = Role.User,
-                      Content = "List all Python files in the current directory.",
-                  },
-                  new()
-                  {
-                      Role = Role.Assistant,
-                      Content = new MessageParamContent(new List<ContentBlockParam>
+                      Content = new List<ContentBlockParam>
                       {
                           new ContentBlockParam(new ToolUseBlockParam()
                           {
@@ -1013,19 +1004,18 @@ Claude determines which command to run. Your application owns everything else: t
                                   ["command"] = JsonSerializer.SerializeToElement("ls *.py"),
                               },
                           }),
-                      }),
+                      },
                   },
-                  new()
+                  new UserMessageParam
                   {
-                      Role = Role.User,
-                      Content = new MessageParamContent(new List<ContentBlockParam>
+                      Content = new List<ContentBlockParam>
                       {
                           new ContentBlockParam(new ToolResultBlockParam()
                           {
                               ToolUseID = "toolu_01A09q90qw90lq917835lq9",
                               Content = "analysis.py\nprocess_data.py\n",
                           }),
-                      }),
+                      },
                   },
               ],
           }
@@ -1083,7 +1073,7 @@ Claude determines which command to run. Your application owns everything else: t
               .maxTokens(1024)
               .addTool(ToolBash20250124.builder().build())
               .addUserMessage("List all Python files in the current directory.")
-              .addAssistantMessageOfBlockParams(
+              .addAssistantMessageOfContentBlockParams(
                   List.of(
                       ContentBlockParam.ofToolUse(
                           ToolUseBlockParam.builder()
@@ -1098,7 +1088,7 @@ Claude determines which command to run. Your application owns everything else: t
                       )
                   )
               )
-              .addUserMessageOfBlockParams(
+              .addUserMessageOfContentBlockParams(
                   List.of(
                       ContentBlockParam.ofToolResult(
                           ToolResultBlockParam.builder()
@@ -1442,11 +1432,11 @@ Claude determines which command to run. Your application owns everything else: t
 
 ### Handle errors
 
-When a command fails or the session breaks, tell Claude what happened. Return the message as the `tool_result` content and set `is_error` to `true`, which marks the tool call as failed. See [Handling errors with is\_error](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls#handling-errors-with-is-error).
+When a command fails or the session breaks, tell Claude what occurred. Return the message as the `tool_result` content and set `is_error` to `true`, which marks the tool call as failed. See [Handling errors with is\_error](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls#handling-errors-with-is-error).
 
 <AccordionGroup>
   <Accordion title="Command execution timeout">
-    If a command takes too long to execute:
+    If a command takes too long to run:
 
     ```json
     {
@@ -1504,7 +1494,7 @@ When a command fails or the session breaks, tell Claude what happened. Return th
 
 <AccordionGroup>
   <Accordion title="Use command timeouts">
-    A command that never finishes, such as one that waits for input, blocks the session forever because its sentinel line never arrives. Give every command a deadline. When the deadline passes, stop the shell and everything the command started, then restart the session:
+    A command that never completes, such as one that waits for input, blocks the session forever because its sentinel line never arrives. Give every command a deadline. When the deadline passes, stop the shell and everything the command started, then restart the session:
 
     <CodeGroup exclude="shell">
       ```python Python
@@ -1813,7 +1803,7 @@ When a command fails or the session breaks, tell Claude what happened. Return th
   </Accordion>
 
   <Accordion title="Log all commands">
-    Keep an audit trail. Route every command through one wrapper that records the command before it runs and the output after it finishes. A command that hangs or breaks the session still leaves a record:
+    Keep an audit trail. Route every command through one wrapper that records the command before it runs and the output after it completes. A command that hangs or breaks the session still leaves a record:
 
     <CodeGroup exclude="shell">
       ```python Python
@@ -1939,9 +1929,9 @@ See [tool use pricing](https://platform.claude.com/docs/en/agents-and-tools/tool
 
 * Running tests: `pytest && coverage report`
 * Building projects: `npm install && npm run build`
-* Git operations: `git status && git add . && git commit -m "message"`
+* Running Git operations: `git status && git add . && git commit -m "message"`
 
-For guidance on using git as a checkpoint-and-recovery mechanism in long-running agent workflows, see [state management best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#state-management-best-practices).
+For guidance on using Git as a checkpoint-and-recovery mechanism in long-running agent workflows, see [state management best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#state-management-best-practices).
 
 ### File operations
 
@@ -1952,8 +1942,8 @@ For guidance on using git as a checkpoint-and-recovery mechanism in long-running
 ### System tasks
 
 * Checking resources: `df -h && free -m`
-* Process management: `ps aux | grep python`
-* Environment setup: `export PATH=$PATH:/new/path && echo $PATH`
+* Managing processes: `ps aux | grep python`
+* Setting up the environment: `export PATH=$PATH:/new/path && echo $PATH`
 
 ## Limitations
 
@@ -1979,6 +1969,6 @@ The bash tool pairs well with the [Text editor tool](https://platform.claude.com
   </Card>
 
   <Card title="Tool use with Claude" icon="tool" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">
-    Connect Claude to external tools and APIs. See where tools execute, when Claude calls them, and which tool fits your task.
+    Connect Claude to external tools and APIs. See where tools run, when Claude calls them, and which tool fits your task.
   </Card>
 </CardGroup>

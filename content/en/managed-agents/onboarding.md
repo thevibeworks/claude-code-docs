@@ -1,7 +1,7 @@
 ---
 title: Build in Console
 url: https://platform.claude.com/docs/en/managed-agents/onboarding
-description: Create, test, and iterate on agents visually in Console, then run them from your code with the API.
+description: Create, test, and iterate on agents visually in the Claude Console, then run them from your code with the API.
 featureMetadata:
   topic:
     title: Managed Agents
@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-[Console](https://platform.claude.com/workspaces/default/agent-quickstart/) provides a visual interface for creating and configuring agents. It lets you iterate on configuration interactively before writing code.
+The [Claude Console](https://platform.claude.com/workspaces/default/agent-quickstart/) provides a visual interface for creating and configuring agents. It lets you iterate on configuration interactively before writing code.
 
 ## How to build an agent
 
@@ -27,7 +27,7 @@ As you configure, Console shows the equivalent API request so you can copy it in
 
 Console includes an inline session runner. After configuring your agent, you can start a test session directly, send messages, and watch the event stream without leaving the page. This is the fastest way to check that your system prompt and tool selection produce the behavior you expect.
 
-## From Console to your codebase
+## From Console to your code base
 
 Once your agent works as expected:
 

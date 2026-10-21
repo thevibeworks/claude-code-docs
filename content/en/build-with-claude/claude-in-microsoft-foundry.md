@@ -27,7 +27,7 @@ Claude Sonnet 5.5 supports only Global Standard deployments.
 
 ## Prerequisites
 
-Before you begin, ensure you have:
+Before you start, ensure you have:
 
 * An active Azure subscription
 * Access to the [Foundry portal](https://ai.azure.com/)
@@ -36,7 +36,7 @@ Before you begin, ensure you have:
 
 ## Install an SDK
 
-Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Foundry through a platform-specific package or client class. The examples on this page also show requests with cURL and the ant CLI. To set up the CLI, see [CLI quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart).
+Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Foundry through a platform-specific package or client class. The examples on this page also show requests with cURL and the `ant` CLI. To set up the CLI, see [CLI quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart).
 
 <Note>
   Foundry is supported by the C#, Go, Java, PHP, Python, and TypeScript SDKs. Foundry is not currently available in the Ruby SDK.
@@ -80,8 +80,8 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:2.75.0")
-        implementation("com.anthropic:anthropic-java-foundry:2.75.0")
+        implementation("com.anthropic:anthropic-java:3.0.0")
+        implementation("com.anthropic:anthropic-java-foundry:3.0.0")
 
         // For Entra ID authentication, also add the Azure Identity library
         implementation("com.azure:azure-identity:1.18.3")
@@ -93,12 +93,12 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>2.75.0</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-foundry</artifactId>
-            <version>2.75.0</version>
+            <version>3.0.0</version>
         </dependency>
         <!-- For Entra ID authentication, also add the Azure Identity library -->
         <dependency>
@@ -129,7 +129,7 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
 
 ## Provisioning
 
-Foundry uses a two-level hierarchy: **resources** contain your security and billing configuration, while **deployments** are the model instances you call through the API. You'll first create a Foundry resource, then create one or more Claude deployments within it.
+Foundry uses a two-level hierarchy: **resources** contain your security and billing configuration, whereas **deployments** are the model instances you call through the API. You'll first create a Foundry resource, then create one or more Claude deployments within it.
 
 ### Provisioning Foundry resources
 
@@ -151,14 +151,14 @@ After creating your resource, deploy a Claude model to make it available for API
 
 2. Search for and select a Claude model (for example, claude-opus-5-5). Each model appears once in the catalog regardless of how many hosting options it supports.
 
-3. On the model card, select **Deploy**, then **Custom settings** to open the deployment settings pane. If you choose **Default settings** instead, the deployment is automatically configured as Hosted on Azure for models available in both hosting options.
+3. On the model card, select **Deploy**, then **Custom settings** to open the deployment settings pane. If you select **Default settings** instead, the deployment is automatically configured as Hosted on Azure for models available in both hosting options.
 
 4. On your first Claude deployment, review the Azure Marketplace terms, select an industry, and select **Agree and Proceed** to accept the terms and subscribe to the Azure Marketplace offer.
 
 5. Configure the deployment:
 
    * **Deployment name:** Defaults to the model ID, but you can customize it (for example, `my-claude-deployment`). The deployment name cannot be changed after creation.
-   * **Region scope:** Select Global, or for models hosted on Azure, Data Zone. Selecting Data Zone creates a US Data Zone Standard deployment, which keeps inference within the United States and is equivalent to setting [`inference_geo: "us"`](https://platform.claude.com/docs/en/manage-claude/data-residency#inference-geo) on the Claude API. For Claude Sonnet 5.5, select Global.
+   * **Region scope:** Select **Global**, or for models hosted on Azure, **Data Zone**. Selecting **Data Zone** creates a US Data Zone Standard deployment, which keeps inference within the United States and is equivalent to setting [`inference_geo: "us"`](https://platform.claude.com/docs/en/manage-claude/data-residency#inference-geo) on the Claude API. For Claude Sonnet 5.5, select **Global**.
    * **Model version:** Expand **Model version settings** and select a version from the **Model version** dropdown menu. Each [hosting option](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) is listed as a separate model version, labeled with its hosting option (for example, version 1 for Hosted on Anthropic, version 2 for Hosted on Azure).
 
 6. Select **Deploy** and wait for provisioning to complete.
@@ -272,7 +272,7 @@ The SDK's Foundry client requires an API key and either a resource name or base 
   {
       Model = "claude-opus-5-5",
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello!" }],
+      Messages = [new UserMessageParam { Content = "Hello!" }],
   });
 
   Console.WriteLine(
@@ -489,7 +489,7 @@ Entra ID authentication lets you manage access with Azure RBAC, integrate with y
   {
       Model = "claude-opus-5-5",
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello!" }],
+      Messages = [new UserMessageParam { Content = "Hello!" }],
   });
 
   Console.WriteLine(
@@ -757,7 +757,7 @@ Anthropic recommends logging your activity on at least a 30-day rolling basis to
 
 **Error:** `403 Forbidden`
 
-* **Solution:** Your Azure account may lack the necessary permissions. Ensure you have the appropriate Azure RBAC role assigned (for example, **Foundry User** (formerly Azure AI User) or **Cognitive Services User**).
+* **Solution:** Your Azure account might lack the necessary permissions. Ensure you have the appropriate Azure RBAC role assigned (for example, **Foundry User** (formerly Azure AI User) or **Cognitive Services User**).
 
 ### Rate limiting
 
@@ -779,7 +779,7 @@ Foundry does not include Anthropic's standard rate limit headers (`anthropic-rat
 
 **Error:** `Invalid model parameter`
 
-* **Solution:** The model parameter should contain your deployment name, which can be customized in the Foundry portal. Verify the deployment exists and is properly configured.
+* **Solution:** The `model` parameter should contain your deployment name, which can be customized in the Foundry portal. Verify the deployment exists and is properly configured.
 
 ## Next steps
 

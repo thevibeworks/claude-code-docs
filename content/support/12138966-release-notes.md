@@ -2,6 +2,12 @@
 
 ## October 2026
 
+### October 21, 2026
+
+**Claude Duet research preview for Pro and Max plans**
+
+We just opened a research preview for users on Pro and Max plans: Claude Duet, a new app where Claude works as a proactive agent. For more information, see our blog post: **[Introducing Claude Duet](https://claude.com/resources/articles/claude-duet)**.
+
 ### October 7, 2026
 
 **Claude Haiku 5.5 launch**

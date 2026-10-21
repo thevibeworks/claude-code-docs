@@ -25,7 +25,7 @@ Check your integration if, between two requests in one conversation, it does any
 * [Summarizes or drops old turns on the client](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client) and keeps recent turns with their thinking
 * [Adds, removes, or edits entries in `tools`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#tool-changes)
 * [Adds a reminder to a user turn](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#per-turn-reminders) and removes or rewrites it later
-* [Drops some `thinking` blocks and keeps later ones](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned), or removes them and [later puts them back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check)
+* [Drops some `thinking` blocks and keeps later ones](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned), or removes them and [later restores those blocks](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check)
 * [Rebuilds a saved session from templates](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#faq) instead of replaying what it sent
 
 On an older account, none of these produces an error unless the request sets `prefix_mismatch_behavior`, so a run with no errors on your own key doesn't show whether your code is affected. If people run your tool with their own API keys, those on newer accounts get the 400 error before you do. To see what they see without changing how your requests behave, send the `thinking-binding-controls-2026-08-01` beta header. On an older account, each response then flags blocks that fail the check, and the model still reads them (see [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls)).
@@ -45,7 +45,7 @@ Claude Haiku 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Cl
 * **A conversation that moves to Claude Fable 5.1 from an earlier model, or from Claude Opus 5.5 on the Claude API, keeps its reasoning.** The earlier model's thinking blocks stay readable, so the model thinks as usual from the first turn after the switch.
 * **A conversation that moves from Claude Fable 5.1 to any model other than Claude Mythos 5.1 loses Claude Fable 5.1's reasoning for that request.** This occurs when a router sends a turn to a cheaper model, after a [classifier refusal fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback), or during a [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). The API removes the unreadable blocks before the prompt reaches the model. They aren't billed and don't count toward `input_tokens`.
 
-Keep sending the full history on every request, thinking blocks included, and let the API drop what the current model can't read. The API never edits your `messages` array, so the dropped blocks stay in your history. When the same history goes back to Claude Fable 5.1, its blocks are readable again, along with the earlier model's thinking. The reasoning is lost for good only if your client removes the blocks itself, for example a harness that strips thinking on a model switch or rebuilds the history from what each model used.
+Keep sending the full history on every request, thinking blocks included, and let the API drop what the current model can't read. The API never edits your `messages` array, so the dropped blocks stay in your history. When the same history goes back to Claude Fable 5.1, its blocks are readable again, along with the earlier model's thinking. The reasoning is permanently lost only if your client removes the blocks itself, for example a harness that strips thinking on a model switch or rebuilds the history from what each model used.
 
 <Frame>
   ![Animation: switching to Claude Opus skips Claude Fable 5.1's thinking for that turn; switching back, everything is read again](https://platform.claude.com/docs/images/preserved-thinking-model-switch.svg)
@@ -87,7 +87,7 @@ Request parameters outside those three fields, such as `effort`, `max_tokens`, `
 
 Earlier thinking blocks aren't in the prefix, but each thinking block records which thinking block came before it, across turns. You can remove thinking blocks from the start of the history (oldest first), from the end, or all of them. What fails is a gap: the thinking blocks you keep must be an unbroken run of the original sequence, so removing one from the middle invalidates the thinking blocks after it. Once you remove a block, leave it out. Putting it back invalidates the thinking blocks produced while it was gone.
 
-Keep `system` and `tools` fixed for the session and treat `messages` as append-only. The same discipline keeps the prefix stable for [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching): the edits that invalidate thinking are the edits that restart the cache.
+Keep `system` and `tools` fixed for the session and treat `messages` as append-only. The same discipline keeps the prefix stable for [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching): most edits that invalidate thinking also restart the cache.
 
 ### What the API does with an invalid block
 
@@ -97,14 +97,14 @@ You choose with `thinking.block_binding.prefix_mismatch_behavior`:
 * **`"drop_block"`:** the API drops each failing block and every thinking block after it, and the request succeeds. Dropped blocks aren't billed. The model answers that turn without using reasoning from dropped blocks, and the prompt cache restarts at the edit. The response lists each dropped block in `input_transformations` (on the `message_start` event when streaming) with `reason: "prefix_binding_mismatch"`.
 
 <Warning>
-  `"drop_block"` keeps requests succeeding, but it doesn't fix the edit that caused the mismatch, and it has a cost. Dropping blocks can significantly increase the output tokens generated, especially at higher effort levels or when blocks are dropped on every turn. For more information, see [Output-token cost of `"drop_block"`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost). Dropped blocks aren't billed, but Claude re-creates the reasoning it can no longer read, so it generates more output tokens. Output quality might also change on tasks where later turns build on earlier reasoning. Use `"drop_block"` as a stopgap while you fix the edit, but not as a long-term setting.
+  `"drop_block"` keeps requests succeeding, but it doesn't fix the edit that caused the mismatch, and it has a cost. Dropping blocks can significantly increase the output tokens generated, especially when blocks are dropped on every turn. For more information, see [Output-token cost of `"drop_block"`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost). Dropped blocks aren't billed, but Claude re-creates the reasoning it can no longer read, so it generates more output tokens. Output quality might also change on tasks where later turns build on earlier reasoning. Use `"drop_block"` as a stopgap while you fix the edit, but not as a long-term setting.
 </Warning>
 
 Count the responses in each session whose `input_transformations` has a `prefix_binding_mismatch` entry, alert on them, and replace each edit with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). In the Message Batches API, an item that leaves the field unset doesn't fail. Where the API enforces the check by default, it drops the failing blocks instead. Set `"error"` explicitly there if you want batch items to fail.
 
 Both the field and the `input_transformations` array require the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers). [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls) shows the request in each SDK.
 
-The 400 message begins:
+The 400 message starts:
 
 ```text wrap
 messages.1.content.0: Invalid `signature` in `thinking` block. The block is bound to a different conversation. Remove the block, or set `thinking.block_binding.prefix_mismatch_behavior` to "drop_block".
@@ -121,8 +121,6 @@ It usually ends with a sentence naming what changed, for example that the `syste
 A tampered or undecryptable signature is a different failure. It always returns a 400 (``Invalid `signature` in `thinking` block`` with no sentence about the conversation), and `prefix_mismatch_behavior` doesn't apply to it.
 
 #### Output-token cost of `"drop_block"`
-
-In Anthropic's testing on a multi-turn coding benchmark, dropping thinking blocks once per session increased output tokens by 2.5% at low effort, 3.9% at medium, 4.5% at high, and 20.1% at max. Dropping them on every turn after the first increased output tokens by 4.6% at low effort, 9.7% at medium, 10.3% at high, and 67.1% at max. These figures are estimates with wide error bars, and the impact on your workload depends on your harness.
 
 When Claude can no longer read reasoning from earlier turns, it re-creates that reasoning, so requests that drop thinking blocks generate more output tokens and can take longer to respond. A drop on every turn costs more than an occasional drop, and how much more depends on your harness: how often it edits the prefix and how much each turn builds on earlier reasoning.
 
@@ -250,9 +248,8 @@ The following request opts into dropping rather than rejecting. On a first turn 
           },
           Messages =
           [
-              new()
+              new BetaUserMessageParam
               {
-                  Role = Role.User,
                   Content = "What is the greatest common divisor of 1071 and 462?",
               },
           ],
@@ -371,7 +368,7 @@ The following request opts into dropping rather than rejecting. On a first turn 
   client = Anthropic::Client.new
 
   response = client.beta.messages.create(
-    model: "claude-fable-5-1",
+    model: Anthropic::Model::CLAUDE_FABLE_5_1,
     max_tokens: 16_000,
     thinking: {
       type: "adaptive",
@@ -418,26 +415,27 @@ To find out which group your account is in, take a Claude Fable 5.1 conversation
 
 Each row compares two consecutive requests:
 
-| Change between requests                                                                                                                                                    | Later thinking blocks                                                                                                                                                                                                                                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Append messages at the end                                                                                                                                                 | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| Add a tool with `defer_loading: true` that nothing has referenced yet                                                                                                      | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| Remove `thinking` blocks from the start of the history, from the end, or all of them                                                                                       | Valid (the model loses that reasoning)                                                                                                                                                                                                                                                                                                                   |
-| Change any request parameter outside `system`, `tools`, and `messages` (`effort`, `max_tokens`, `output_config`, `tool_choice`, `metadata`, `thinking.display`, and so on) | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| Add, move, or remove `cache_control` markers                                                                                                                               | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| A rotating signed URL that returns the same bytes                                                                                                                          | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| Server-side compaction or context editing removes or replaces content                                                                                                      | Valid (the check compares what you sent, not the server's edited copy)                                                                                                                                                                                                                                                                                   |
-| A cleared [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#per-turn-reminders) left in place                          | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| Edit, reorder, or delete any earlier `user`, `assistant`, or `system` message                                                                                              | Invalid, except when the signed block from [on-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) replaces the messages it summarizes, under the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) |
-| Re-render the context you put in the first user message with a changed value                                                                                               | Invalid for every thinking block                                                                                                                                                                                                                                                                                                                         |
-| Clear or shorten an earlier `tool_result`, re-encode an earlier image, or change an earlier `tool_use` input                                                               | Invalid for every later thinking block                                                                                                                                                                                                                                                                                                                   |
-| Add a text block to an earlier user turn, or remove one you added last time                                                                                                | Invalid                                                                                                                                                                                                                                                                                                                                                  |
-| Change the top-level `system` string or blocks                                                                                                                             | Invalid                                                                                                                                                                                                                                                                                                                                                  |
-| Add, remove, rename, or edit a tool in `tools`                                                                                                                             | Invalid                                                                                                                                                                                                                                                                                                                                                  |
-| Remove a `thinking` block from the middle of the history and keep later ones                                                                                               | Invalid for every later thinking block                                                                                                                                                                                                                                                                                                                   |
-| Put back a `thinking` block you removed on an earlier request                                                                                                              | Invalid for thinking blocks produced while it was gone                                                                                                                                                                                                                                                                                                   |
-| An image or document URL that returns different bytes on the next request                                                                                                  | Invalid                                                                                                                                                                                                                                                                                                                                                  |
-| The same turn-scoped message deleted or reworded on a later request                                                                                                        | Invalid                                                                                                                                                                                                                                                                                                                                                  |
+| Change between requests                                                                                                                                                             | Later thinking blocks                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Append messages at the end                                                                                                                                                          | Valid                                                                                                                                                                                                                                                                                                                                                    |
+| Add a tool with `defer_loading: true` that nothing has referenced yet                                                                                                               | Valid                                                                                                                                                                                                                                                                                                                                                    |
+| Remove `thinking` blocks from the start of the history, from the end, or all of them                                                                                                | Valid (the model loses that reasoning)                                                                                                                                                                                                                                                                                                                   |
+| Change any request parameter outside `model`, `system`, `tools`, and `messages` (`effort`, `max_tokens`, `output_config`, `tool_choice`, `metadata`, `thinking.display`, and so on) | Valid                                                                                                                                                                                                                                                                                                                                                    |
+| Change `model`                                                                                                                                                                      | Valid for blocks that the new model can read; the API drops the others without an error (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models))                                                                                                                             |
+| Add, move, or remove `cache_control` markers                                                                                                                                        | Valid                                                                                                                                                                                                                                                                                                                                                    |
+| A rotating signed URL that returns the same bytes                                                                                                                                   | Valid                                                                                                                                                                                                                                                                                                                                                    |
+| Server-side compaction or context editing removes or replaces content                                                                                                               | Valid (the check compares what you sent, not the server's edited copy)                                                                                                                                                                                                                                                                                   |
+| A cleared [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#per-turn-reminders) left in place                                   | Valid                                                                                                                                                                                                                                                                                                                                                    |
+| Edit, reorder, or delete any earlier `user`, `assistant`, or `system` message                                                                                                       | Invalid, except when the signed block from [on-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) replaces the messages it summarizes, under the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) |
+| Re-render the context you put in the first user message with a changed value                                                                                                        | Invalid for every thinking block                                                                                                                                                                                                                                                                                                                         |
+| Clear or shorten an earlier `tool_result`, re-encode an earlier image, or change an earlier `tool_use` input                                                                        | Invalid for every later thinking block                                                                                                                                                                                                                                                                                                                   |
+| Add a text block to an earlier user turn, or remove one you added last time                                                                                                         | Invalid                                                                                                                                                                                                                                                                                                                                                  |
+| Change the top-level `system` string or blocks                                                                                                                                      | Invalid                                                                                                                                                                                                                                                                                                                                                  |
+| Add, remove, rename, or edit a tool in `tools`                                                                                                                                      | Invalid                                                                                                                                                                                                                                                                                                                                                  |
+| Remove a `thinking` block from the middle of the history and keep later ones                                                                                                        | Invalid for every later thinking block                                                                                                                                                                                                                                                                                                                   |
+| Put back a `thinking` block you removed on an earlier request                                                                                                                       | Invalid for thinking blocks produced while it was gone                                                                                                                                                                                                                                                                                                   |
+| An image or document URL that returns different bytes on the next request                                                                                                           | Invalid                                                                                                                                                                                                                                                                                                                                                  |
+| The same turn-scoped message deleted or reworded on a later request                                                                                                                 | Invalid                                                                                                                                                                                                                                                                                                                                                  |
 
 ### Check whether your code edits the prefix
 
@@ -536,7 +534,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
   List<BetaMessageParam> messages = [];
   foreach (var userTurn in userTurns)
   {
-      messages.Add(new() { Role = Role.User, Content = userTurn });
+      messages.Add(new BetaUserMessageParam { Content = userTurn });
       var response = await client.Beta.Messages.Create(
           new()
           {
@@ -553,9 +551,8 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
               Betas = [AnthropicBeta.ThinkingBindingControls2026_08_01],
           }
       );
-      messages.Add(new()
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
       });
       var thinkingBlocks = response.Content.Count(block => block.TryPickThinking(out _));
@@ -693,7 +690,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
   user_turns.each do |user_turn|
     messages << {role: "user", content: user_turn}
     response = client.beta.messages.create(
-      model: "claude-fable-5-1",
+      model: Anthropic::Model::CLAUDE_FABLE_5_1,
       max_tokens: 16_000,
       thinking: {
         type: "adaptive",
@@ -848,7 +845,7 @@ Run the following example from an [older account](https://platform.claude.com/do
   List<BetaMessageParam> messages = [];
   for (var turnIndex = 0; turnIndex < userTurns.Length; turnIndex++)
   {
-      messages.Add(new() { Role = Role.User, Content = userTurns[turnIndex] });
+      messages.Add(new BetaUserMessageParam { Content = userTurns[turnIndex] });
       var response = await client.Beta.Messages.Create(
           new()
           {
@@ -861,9 +858,8 @@ Run the following example from an [older account](https://platform.claude.com/do
               Betas = [AnthropicBeta.ThinkingBindingControls2026_08_01],
           }
       );
-      messages.Add(new()
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
       });
       var thinkingBlocks = response.Content.Count(block => block.TryPickThinking(out _));
@@ -1019,7 +1015,7 @@ Run the following example from an [older account](https://platform.claude.com/do
     # Only the last request adds a system prompt, which changes the prefix on purpose
     system_param = (turn_index == user_turns.length - 1) ? {system_: "Answer briefly."} : {}
     response = client.beta.messages.create(
-      model: "claude-fable-5-1",
+      model: Anthropic::Model::CLAUDE_FABLE_5_1,
       max_tokens: 16_000,
       thinking: {type: "adaptive"},
       messages: messages,
@@ -1042,9 +1038,9 @@ thinking blocks: 1, flagged: 0
 thinking blocks: 1, flagged: 2
 ```
 
-The third response flags every thinking block from the earlier turns, one per turn in this run, because the new system prompt comes before all of them. The model still read them.
+The third response flags every thinking block from the earlier turns, one for each turn in this run, because the new system prompt comes before all of them. The model still read them.
 
-Handle these entries as you would `prefix_binding_mismatch` drops. The edit is before the first block listed: diff `system`, `tools`, and `messages` up to that block's `path` against the previous request to find it, then replace it with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). On a new account, or on any request that sets `prefix_mismatch_behavior`, the API instead rejects the request or drops the failing blocks. The entries are a lower bound on what enforcement would remove: with `"drop_block"`, a failing block also takes the rest of that turn's thinking blocks with it, and removing one block can make the next one fail too. When the API only records the check, it judges each block on its own and lists a block only if that block fails.
+Handle these entries as you would `prefix_binding_mismatch` drops. The edit is before the first block listed: diff `system`, `tools`, and `messages` up to that block's `path` against the previous request to find it, then replace it with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). On a new account, or on any request that sets `prefix_mismatch_behavior`, the API instead rejects the request or drops the failing blocks. The entries are a lower bound on what enforcement would remove: with `"drop_block"`, a failing block also takes the rest of that turn's thinking blocks with it, and removing one block can make the next one fail too. When the API only records the check, it evaluates each block on its own and lists a block only if that block fails.
 
 ## Make changes without editing the prefix
 
@@ -1161,7 +1157,7 @@ A common prefix edit is the per-turn nudge: a line such as "request independent 
 ]
 ```
 
-A user message that contains only `tool_result` blocks counts as the "next user message", so `messages[3]` is already cleared. It adds nothing to what the model sees and costs no input tokens, but because it's still in the array, the thinking in `messages[4]` stays valid. `messages[6]` is the copy the model sees this turn. On later requests, keep both where they are and append a fresh copy after the next `tool_result` message.
+A user message that contains only `tool_result` blocks counts as the "next user message," so `messages[3]` is already cleared. It adds nothing to what the model receives and costs no input tokens, but because it's still in the array, the thinking in `messages[4]` stays valid. `messages[6]` is the copy the model receives this turn. On later requests, keep both where they are and append a fresh copy after the next `tool_result` message.
 
 ### Add or remove tools with `tool_addition` and `tool_removal`
 
@@ -1169,8 +1165,8 @@ Editing the `tools` array mid-session invalidates preserved thinking blocks. Lea
 
 You have two ways to use these blocks:
 
-* **Declare every tool up front.** Put every tool the session might need in `tools` on the first request, with `defer_loading: true` on any the model shouldn't see yet. Then turn tools on and off with `tool_addition` and `tool_removal` blocks that name them.
-* **Start with a snapshot and add tools as you go.** Put the tools you know about in `tools` on the first request. When a new tool comes along, define it inside a `tool_addition` block instead of editing `tools`.
+* **Declare every tool up front.** Put every tool the session might need in `tools` on the first request, with `defer_loading: true` on any that shouldn't be offered to the model yet. Then turn tools on and off with `tool_addition` and `tool_removal` blocks that name them.
+* **Start with a snapshot and add tools as you go.** Put the tools you know about in `tools` on the first request. When you learn about another tool, define it inside a `tool_addition` block instead of editing `tools`.
 
 Either way, `tools` never changes, so earlier thinking stays valid and the prompt cache still hits, with the one exception noted later in this section.
 
@@ -1246,7 +1242,7 @@ When the new level takes effect depends on where you put the message. Directly a
 Another common prefix edit is client-side trimming: dropping or summarizing the oldest turns and keeping the recent ones verbatim. The kept turns' thinking blocks were produced while the removed history was still in place, so they fail the check. The server-side equivalents don't count as edits, because the check compares the conversation as you sent it:
 
 * [On-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) (beta) returns the summary from a separate request, which can [run in the background](https://platform.claude.com/docs/en/build-with-claude/compaction-background), and you send the returned block in place of the messages it summarizes. The check accepts that swap, so the turns you keep can stay valid with their thinking, under the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid). [Request a summary](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#request-a-summary) shows the request and names the beta header it needs.
-* [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) summarizes older turns into a compaction block when the context approaches a threshold you set, and the checked prefix restarts from that block. Its [`instructions` parameter](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#custom-summarization-instructions) takes your own summarization prompt, such as "preserve every ticker, position size, and stated assumption".
+* [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) summarizes older turns into a compaction block when the context approaches a threshold you set, and the checked prefix restarts from that block. Its [`instructions` parameter](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#custom-summarization-instructions) takes your own summarization prompt, such as "preserve every ticker, position size, and stated assumption."
 * [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) clears old tool results or old thinking blocks by rule, oldest first. The strategies are `clear_tool_uses_20250919` and `clear_thinking_20251015`.
 
 ### Compact on the client
@@ -1258,7 +1254,7 @@ You can still compact on the client. If you write the summary yourself, don't se
 When the conversation grows too long, summarize the whole session into one user message and send only that message plus the next instruction. Nothing earlier is replayed, so there's no thinking left to fail the check, and the model reasons afresh from the summary.
 
 <Frame>
-  ![Simple compaction: request 4 sends the full history with thinking on each assistant turn; request 5 sends one user message holding a summary of turns 1 to 4 plus the next instruction, so no earlier thinking is sent and nothing is checked](https://platform.claude.com/docs/images/preserved-thinking-simple-compaction.svg)
+  ![Simple compaction: request 4 sends the full history with thinking; request 5 sends one summary message, so nothing is checked](https://platform.claude.com/docs/images/preserved-thinking-simple-compaction.svg)
 </Frame>
 
 ```json
@@ -1270,18 +1266,18 @@ When the conversation grows too long, summarize the whole session into one user 
 ]
 ```
 
-Claude models are trained on long-horizon tasks with this scheme and for most workloads it performs well.
+Claude models are trained on long-horizon tasks with this scheme, and for most workloads it performs well.
 
 #### Keep-tail compaction
 
-Keep-tail compaction summarizes the older turns and keeps the most recent turns verbatim, so the model still sees the last few exchanges word for word. If you write the summary yourself, it breaks the rule: the kept assistant turns still carry thinking blocks that were produced when the original turns, not the summary, came before them. Those blocks fail.
+Keep-tail compaction summarizes the older turns and keeps the most recent turns verbatim, so the model still receives the last few exchanges word for word. If you write the summary yourself, it breaks the rule: the kept assistant turns still carry thinking blocks that were produced when the original turns, not the summary, came before them. Those blocks fail.
 
 To keep that thinking, have the API write the summary with on-demand compaction. [Compaction that keeps recent turns](https://platform.claude.com/docs/en/build-with-claude/compaction-keep-recent-turns) shows how, and [Conditions for kept thinking to stay valid](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) lists when the kept thinking stays valid.
 
 The rest of this section covers a summary you write yourself.
 
 <Frame>
-  ![Keep-tail compaction: the history is replaced by a summary of turns 1 and 2 followed by turns 3 to 5 verbatim; the thinking on assistant turns 3 and 4 was produced after the original turns, not the summary, so it fails; the same request sent with prefix\_mismatch\_behavior drop\_block succeeds, the API drops those two blocks and lists them in input\_transformations](https://platform.claude.com/docs/images/preserved-thinking-keep-tail-compaction.svg)
+  ![Keep-tail compaction: thinking on kept turns 3 and 4 fails; with drop\_block, the API drops it and the request succeeds](https://platform.claude.com/docs/images/preserved-thinking-keep-tail-compaction.svg)
 </Frame>
 
 Fix: keep the turns exactly as they are and send `prefix_mismatch_behavior: "drop_block"`. The API drops the stale thinking blocks, the model reads the kept turns' `text` and `tool_use` blocks, and the request succeeds.
@@ -1477,7 +1473,7 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
   ```
 </CodeGroup>
 
-The response carries the new assistant turn as usual, plus one `input_transformations` entry per dropped block. For the history in the diagram, that's the thinking on assistant turns 3 and 4:
+The response carries the new assistant turn as usual, plus one `input_transformations` entry for each dropped block. For the history in the diagram, that's the thinking on assistant turns 3 and 4:
 
 ```json
 {
@@ -1507,7 +1503,7 @@ A summary you build yourself breaks the rule the same way keep-tail does, with a
 #### Patterns that don't work with preserved thinking
 
 * **Cutting turns out of the middle.** Removing individual turns invalidates every thinking block after them, and no compaction scheme avoids that. If you were cutting a turn to change an instruction, append a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions) instead. To remove old tool results or old thinking selectively, use server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing).
-* **Compacting in the middle of a tool round.** Don't compact between an assistant turn's `tool_use` and the `tool_result` that answers it. Send that assistant turn back with its thinking intact so the model finishes the round with its reasoning. See [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks).
+* **Compacting in the middle of a tool round.** Don't compact between an assistant turn's `tool_use` and the `tool_result` that answers it. Send that assistant turn back with its thinking intact so the model completes the round with its reasoning. See [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks).
 
 ### Reference files by ID, not by a URL whose content changes
 
@@ -1572,7 +1568,7 @@ A library, proxy, or gateway sits between someone else's history and the API, so
 
 <CardGroup cols={2}>
   <Card title="Troubleshooting thinking" icon="hammer" href="https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting">
-    Diagnose and fix the most common thinking failures: configuration 400 errors, empty or missing thinking blocks, max\_tokens stops, and cache misses.
+    Diagnose and fix the most common thinking failures: configuration 400 errors, empty or missing thinking blocks, `max_tokens` stops, and cache misses.
   </Card>
 
   <Card title="Mid-conversation system messages and tool changes" icon="messages" href="https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages">

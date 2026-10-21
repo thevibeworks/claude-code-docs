@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-The [quickstart](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#quickstart) runs one `ant` CLI worker that polls continuously and runs every session in one process. This page covers the other ways to run a worker and how to choose between them.
+The [quickstart](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#quickstart) runs one `ant` CLI worker that polls continuously and runs every session in one process. This page covers the other ways to run a worker and how to choose among them.
 
 ## Choose a deployment pattern
 
@@ -161,7 +161,7 @@ Start a worker that polls the queue continuously. It authenticates with the [env
   </Step>
 
   <Step title="Export the webhook signing key">
-    Along with the environment ID and key from the [quickstart](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session), export the webhook signing key on your handler host. The handler uses it to verify incoming payloads.
+    Along with the environment ID and key from [Run your first session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session), export the webhook signing key on your handler host. The handler uses it to verify incoming payloads.
 
     ```bash
     export ANTHROPIC_WEBHOOK_SIGNING_KEY="whsec_..."
@@ -169,7 +169,7 @@ Start a worker that polls the queue continuously. It authenticates with the [env
   </Step>
 
   <Step title="Implement the webhook handler">
-    Invoke the worker when `session.status_run_started` fires. The handler drains the queue and hands each claimed work item to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`), which downloads skills, executes tool calls, posts results back, and returns.
+    Start the worker when `session.status_run_started` fires. The handler drains the queue and hands each claimed work item to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`), which downloads skills, runs tool calls, posts results back, and returns.
 
     <CodeGroup exclude="shell, csharp, java, php, ruby">
       <CodeGroupItem>
@@ -429,7 +429,7 @@ This handler runs every claimed item in one process on one host. If your session
 
 ## Run one sandbox per session
 
-A poller on the host claims work and calls your script once per work item. The script launches a sandbox for that one session.
+A poller on the host claims work and calls your script once for each work item. The script launches a sandbox for that one session.
 
 <Steps>
   <Step title="Build the sandbox image">
@@ -437,7 +437,7 @@ A poller on the host claims work and calls your script once per work item. The s
 
     ```dockerfile
     FROM your-base-image
-    ARG ANT_VERSION=1.44.0
+    ARG ANT_VERSION=2.0.0
     ARG TARGETARCH
     RUN ARCH=$([ "$TARGETARCH" = "arm64" ] && echo arm64 || echo amd64) && \
         curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${ANT_VERSION}/ant_${ANT_VERSION}_linux_${ARCH}.tar.gz" \
@@ -493,7 +493,7 @@ Pass the secret only into the sandbox that serves that session, and never log it
 
 ### Launch sandboxes from the SDK poller
 
-To claim work from your own code instead of `ant beta:worker poll --on-work`, use `work.poller()` (go: `environments.NewWorkPoller()`). It polls the queue and gives you each claimed session, and you launch the sandbox:
+To claim work from your own code instead of `ant beta:worker poll --on-work`, use `work.poller()` (typescript: `new WorkPoller()`; go: `environments.NewWorkPoller()`). It polls the queue and gives you each claimed session, and you launch the sandbox:
 
 <CodeGroup exclude="shell, csharp, java, php, ruby">
   <CodeGroupItem language="cURL">
@@ -801,7 +801,7 @@ Anthropic doesn't mount files or GitHub repositories into self-hosted sandboxes.
 
 1. Pass file references, such as an S3 path or commit SHA, in the session's `metadata` field.
 2. In your spawn script or `--on-work` handler, retrieve the session (`GET /v1/sessions/{session_id}`) and read `metadata`. The claimed work item carries the session ID but not the metadata.
-3. Stage the files into the working directory before tool execution begins.
+3. Stage the files into the working directory before any tool runs.
 
 <CodeGroup>
   ```bash cURL

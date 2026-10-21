@@ -20,7 +20,7 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
 
 | Before                                                                                           | After                                                                                                                      |
 | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| You maintain the conversation history array and pass it back on every turn.                      | The session stores history server-side. Send events, receive events.                                                       |
+| You maintain the conversation history array and pass it back on every turn.                      | The session stores history server-side. You send events and receive events.                                                |
 | You iterate `tool_use` content blocks, run each tool, and loop back with `tool_result` messages. | Pre-built tools run inside the sandbox automatically. You only handle custom tools through `agent.custom_tool_use` events. |
 | You provision your own sandbox for running agent-generated code.                                 | The session sandbox handles code execution, file operations, and bash.                                                     |
 | You decide when the loop is done.                                                                | The session emits `session.status_idle` when the agent has nothing more to do.                                             |
@@ -91,7 +91,7 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
   ```
 
   ```csharp C#
-  List<MessageParam> messages = [new() { Role = Role.User, Content = task }];
+  List<MessageParam> messages = [new UserMessageParam { Content = task }];
   while (true)
   {
       var response = await client.Messages.Create(new()
@@ -101,9 +101,8 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
           Messages = messages,
           Tools = tools,
       });
-      messages.Add(new()
+      messages.Add(new AssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = new([.. response.Content.Select(block => new ContentBlockParam(block.Json))]),
       });
       if (response.StopReason == StopReason.EndTurn)
@@ -115,9 +114,8 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
           if (block.Value is ToolUseBlock toolUse)
           {
               var result = ExecuteTool(toolUse.Name, toolUse.Input);
-              messages.Add(new()
+              messages.Add(new UserMessageParam
               {
-                  Role = Role.User,
                   Content = new([new ToolResultBlockParam { ToolUseID = toolUse.ID, Content = result }]),
               });
           }
@@ -156,10 +154,7 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
 
   ```java Java
   var messages = new ArrayList<MessageParam>();
-  messages.add(MessageParam.builder()
-      .role(MessageParam.Role.USER)
-      .content(task)
-      .build());
+  messages.add(MessageParam.ofUser(task));
   while (true) {
       var response = client.messages().create(MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
@@ -174,14 +169,11 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
       for (var block : response.content()) {
           block.toolUse().ifPresent(toolUse -> {
               var result = executeTool(toolUse.name(), toolUse._input());
-              messages.add(MessageParam.builder()
-                  .role(MessageParam.Role.USER)
-                  .contentOfBlockParams(List.of(
-                      ContentBlockParam.ofToolResult(ToolResultBlockParam.builder()
-                          .toolUseId(toolUse.id())
-                          .content(result)
-                          .build())))
-                  .build());
+              messages.add(MessageParam.ofUserOfContentBlockParams(List.of(
+                  ContentBlockParam.ofToolResult(ToolResultBlockParam.builder()
+                      .toolUseId(toolUse.id())
+                      .content(result)
+                      .build()))));
           });
       }
   }
@@ -315,20 +307,13 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
   {
       Name = "Task Runner",
       Model = BetaManagedAgentsModel.ClaudeOpus5_5,
-      Tools =
-      [
-          new BetaManagedAgentsAgentToolset20260401Params
-          {
-              Type = "agent_toolset_20260401",
-          },
-      ],
+      Tools = [new BetaManagedAgentsAgentToolset20260401Params()],
   });
 
   var session = await client.Beta.Sessions.Create(new()
   {
       Agent = new BetaManagedAgentsAgentParams
       {
-          Type = "agent",
           ID = agent.ID,
           Version = agent.Version,
       },
@@ -343,8 +328,7 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
       [
           new BetaManagedAgentsUserMessageEventParams
           {
-              Type = "user.message",
-              Content = [new BetaManagedAgentsTextBlock { Type = "text", Text = task }],
+              Content = [new BetaManagedAgentsTextBlock { Text = task }],
           },
       ],
   });
@@ -424,11 +408,7 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
           AgentCreateParams.builder()
               .name("Task Runner")
               .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
-              .addTool(
-                  BetaManagedAgentsAgentToolset20260401Params.builder()
-                      .type(BetaManagedAgentsAgentToolset20260401Params.Type.AGENT_TOOLSET_20260401)
-                      .build()
-              )
+              .addTool(BetaManagedAgentsAgentToolset20260401Params.builder().build())
               .build()
       );
 
@@ -436,7 +416,6 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
           SessionCreateParams.builder()
               .agent(
                   BetaManagedAgentsAgentParams.builder()
-                      .type(BetaManagedAgentsAgentParams.Type.AGENT)
                       .id(agent.id())
                       .version(agent.version())
                       .build()
@@ -451,7 +430,6 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
               EventSendParams.builder()
                   .addEvent(
                       BetaManagedAgentsUserMessageEventParams.builder()
-                          .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
                           .addTextContent(task)
                           .build()
                   )
@@ -468,15 +446,12 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
       name: 'Task Runner',
       model: 'claude-opus-5-5',
       tools: [
-          BetaManagedAgentsAgentToolset20260401Params::with(
-              type: 'agent_toolset_20260401',
-          ),
+          BetaManagedAgentsAgentToolset20260401Params::with(),
       ],
   );
 
   $session = $client->beta->sessions->create(
       agent: BetaManagedAgentsAgentParams::with(
-          type: 'agent',
           id: $agent->id,
           version: $agent->version,
       ),
@@ -534,7 +509,7 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
 
 ## From the Claude Agent SDK
 
-If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview), you're already working with agents, tools, and sessions as concepts. The difference is where they run: the SDK runs in a process you operate, while Managed Agents runs in Anthropic's infrastructure. Most of the migration is mapping SDK configuration objects to their API-side equivalents.
+If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview), you're already working with agents, tools, and sessions as concepts. The difference is where they run: the SDK runs in a process you operate, whereas Managed Agents runs in Anthropic's infrastructure. Most of the migration is mapping SDK configuration objects to their API-side equivalents.
 
 ### What changes
 
@@ -788,7 +763,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
       [
           new BetaManagedAgentsCustomToolParams
           {
-              Type = "custom",
               Name = "get_weather",
               Description = "Get the current weather for a city.",
               InputSchema = new()
@@ -815,7 +789,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
   {
       Agent = new BetaManagedAgentsAgentParams
       {
-          Type = "agent",
           ID = agent.ID,
           Version = agent.Version,
       },
@@ -832,8 +805,7 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
       [
           new BetaManagedAgentsUserMessageEventParams
           {
-              Type = "user.message",
-              Content = [new BetaManagedAgentsTextBlock { Type = "text", Text = "What's the weather in Tokyo?" }],
+              Content = [new BetaManagedAgentsTextBlock { Text = "What's the weather in Tokyo?" }],
           },
       ],
   });
@@ -855,16 +827,8 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
               [
                   new BetaManagedAgentsUserCustomToolResultEventParams
                   {
-                      Type = "user.custom_tool_result",
                       CustomToolUseID = toolUse.ID,
-                      Content =
-                      [
-                          new BetaManagedAgentsTextBlock
-                          {
-                              Type = "text",
-                              Text = result,
-                          },
-                      ],
+                      Content = [new BetaManagedAgentsTextBlock { Text = result }],
                   },
               ],
           });
@@ -1024,7 +988,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
       .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
       .system("You are a concise weather assistant.")
       .addTool(BetaManagedAgentsCustomToolParams.builder()
-          .type(BetaManagedAgentsCustomToolParams.Type.CUSTOM)
           .name("get_weather")
           .description("Get the current weather for a city.")
           .inputSchema(BetaManagedAgentsCustomToolInputSchema.builder()
@@ -1046,7 +1009,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
 
   var session = client.beta().sessions().create(SessionCreateParams.builder()
       .agent(BetaManagedAgentsAgentParams.builder()
-          .type(BetaManagedAgentsAgentParams.Type.AGENT)
           .id(agent.id())
           .version(agent.version())
           .build())
@@ -1060,7 +1022,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
           session.id(),
           EventSendParams.builder()
               .addEvent(BetaManagedAgentsUserMessageEventParams.builder()
-                  .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
                   .addTextContent("What's the weather in Tokyo?")
                   .build())
               .build());
@@ -1081,7 +1042,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
                       session.id(),
                       EventSendParams.builder()
                           .addEvent(BetaManagedAgentsUserCustomToolResultEventParams.builder()
-                              .type(BetaManagedAgentsUserCustomToolResultEventParams.Type.USER_CUSTOM_TOOL_RESULT)
                               .customToolUseId(toolUse.id())
                               .addTextContent(result)
                               .build())
@@ -1116,7 +1076,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
       system: 'You are a concise weather assistant.',
       tools: [
           BetaManagedAgentsCustomToolParams::with(
-              type: 'custom',
               name: 'get_weather',
               description: 'Get the current weather for a city.',
               inputSchema: BetaManagedAgentsCustomToolInputSchema::with(
@@ -1136,7 +1095,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
 
   $session = $client->beta->sessions->create(
       agent: BetaManagedAgentsAgentParams::with(
-          type: 'agent',
           id: $agent->id,
           version: $agent->version,
       ),
@@ -1283,7 +1241,7 @@ The tradeoff for Anthropic running the agent loop is that a few things the SDK h
 
 ## Migrating between model versions
 
-When a new Claude model is released, migrating a Claude Managed Agents integration is typically a one-field change: update `model` (csharp, go: `Model`) on your [agent definition](https://platform.claude.com/docs/en/managed-agents/agent-setup) and the change takes effect on the next session you create.
+When a new Claude model is released, migrating a Claude Managed Agents integration is typically a one-field change: update `model` (csharp, go: `Model`) on your [agent definition](https://platform.claude.com/docs/en/managed-agents/agent-setup), and the change takes effect on the next session you create.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL

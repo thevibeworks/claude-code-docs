@@ -32,7 +32,7 @@ The terminal view shows the conversation live: messages and tool calls, with eac
 | Page Up, Page Down | Scroll through the transcript. Scrolling up pauses following; End resumes it.                                              |
 | Ctrl+C             | Detach. Ctrl+D on an empty input line also detaches.                                                                       |
 
-When a tool call is waiting for your approval, the input line changes to **Allow tool call?** This happens under an `always_ask` policy, or under `auto` when the server reaches no determination. Choose **Yes**, **No**, or **No, and tell the agent why**. The CLI sends your choice as a [`user.tool_confirmation`](https://platform.claude.com/docs/en/managed-agents/permission-policies#respond-to-confirmation-requests) event, with any reason you type as its `deny_message`.
+When a tool call is waiting for your approval, the input line changes to **Allow tool call?** This occurs under an `always_ask` policy, or under `auto` when the server reaches no determination. Select **Yes**, **No**, or **No, and tell the agent why**. The CLI sends your choice as a [`user.tool_confirmation`](https://platform.claude.com/docs/en/managed-agents/permission-policies#respond-to-confirmation-requests) event, with any reason you type as its `deny_message`.
 
 If the session is `terminated` or deleted, the view is read-only.
 
@@ -44,4 +44,4 @@ ant beta:sessions connect sesn_011CZkZAtmR3yMPDzynEDxu7 --web
 
 `--web` serves the Console's session viewer from a local server on `127.0.0.1`, prints its URL, and opens it in your browser. Add `--no-browser` to skip opening the browser. You can also send messages, interrupt the agent, and allow or deny a tool call from the browser. Unlike the terminal view, the browser viewer follows every thread of a multiagent session.
 
-The URL can be opened once, within two minutes of being printed. Reloading that tab works, but to open the viewer anywhere else, run the command again. Your credentials never leave the CLI: the page sends requests only to the local `ant` process, which makes the API requests. The server runs until you press Ctrl+C.
+The URL can be opened once, within 2 minutes of being printed. Reloading that tab works, but to open the viewer anywhere else, run the command again. Your credentials never leave the CLI: the page sends requests only to the local `ant` process, which makes the API requests. The server runs until you press Ctrl+C.

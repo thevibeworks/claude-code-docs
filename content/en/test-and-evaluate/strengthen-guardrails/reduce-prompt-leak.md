@@ -4,16 +4,16 @@ url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails
 description: Reduce the risk of prompt leaks by separating context from user queries, filtering Claude's outputs, and auditing prompts, without degrading task performance.
 ---
 
-Prompt leaks can expose sensitive information that you expect to be "hidden" in your prompt. While no method is foolproof, the strategies below can significantly reduce the risk.
+Prompt leaks can expose sensitive information that you expect to be "hidden" in your prompt. Although no method is foolproof, the following strategies can significantly reduce the risk.
 
 ## Before you try to reduce prompt leak
 
-Consider using leak-resistant prompt engineering strategies only when **absolutely necessary**. Attempts to leak-proof your prompt can add complexity that may degrade performance in other parts of the task due to increasing the complexity of the LLM’s overall task.
+Consider using leak-resistant prompt engineering strategies only when **absolutely necessary**. Attempts to leak-proof your prompt can make the LLM’s overall task more complex, which might degrade performance in other parts of the task.
 
 If you decide to implement leak-resistant techniques, be sure to test your prompts thoroughly to ensure that the added complexity does not negatively impact the model’s performance or the quality of its outputs.
 
 <Tip>
-  Try monitoring techniques first, like output screening and post-processing, to try to catch instances of prompt leak.
+  Try monitoring techniques first, such as output screening and post-processing, to try to catch instances of prompt leak.
 </Tip>
 
 ***
@@ -53,7 +53,7 @@ If you decide to implement leak-resistant techniques, be sure to test your promp
   <Note>
     You can also use a prompted LLM to filter outputs for more nuanced leaks.
   </Note>
-* **Avoid unnecessary proprietary details:** If Claude doesn't need it to perform the task, don't include it. Extra content distracts Claude from focusing on "no leak" instructions.
-* **Regular audits:** Periodically review your prompts and Claude's outputs for potential leaks.
+* **Avoid unnecessary proprietary details:** If Claude doesn't need it to perform the task, don't include it. Extra content reduces Claude's adherence to "no leak" instructions.
+* **Audit regularly:** Periodically review your prompts and Claude's outputs for potential leaks.
 
 Remember, the goal is not just to prevent leaks but to maintain Claude's performance. Overly complex leak-prevention can degrade results. Balance is key.

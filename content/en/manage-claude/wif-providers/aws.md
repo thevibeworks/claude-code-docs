@@ -23,7 +23,7 @@ The AWS STS `GetWebIdentityToken` API returns an OIDC token signed by AWS that a
 
 <Steps>
   <Step title="Enable outbound web identity federation for the account">
-    This is an account-level flag, off by default. In the AWS console, open **IAM**, choose **Account settings**, and enable **Outbound web identity federation**. To enable it programmatically:
+    This is an account-level flag, off by default. In the AWS console, open **IAM**, select **Account settings**, and enable **Outbound web identity federation**. To enable it programmatically:
 
     ```bash
     python3 -c "import boto3; boto3.client('iam').enable_outbound_web_identity_federation()"
@@ -50,7 +50,7 @@ The AWS STS `GetWebIdentityToken` API returns an OIDC token signed by AWS that a
   </Step>
 
   <Step title="Find your account's STS issuer URL">
-    After enabling outbound federation, the **IAM > Account settings** page shows a **Get Token Issuer URL** field with a value of the form `https://<uuid>.tokens.sts.global.api.aws`. This URL is unique to your AWS account; copy it for the next step. To retrieve it programmatically:
+    After you enable outbound federation, the **IAM > Account settings** page shows a **Get Token Issuer URL** field with a value of the form `https://<uuid>.tokens.sts.global.api.aws`. This URL is unique to your AWS account; copy it for the next step. To retrieve it programmatically:
 
     ```bash
     python3 -c "import boto3; print(boto3.client('iam').get_outbound_web_identity_federation_info())"
@@ -95,7 +95,7 @@ Be as specific as the workload allows. Match the exact role ARN, and only broade
 
 ### Acquire and use the token
 
-Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK re-invokes STS on each refresh.
+Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK calls STS again on each refresh.
 
 <Note>
   `GetWebIdentityToken` is available only on regional STS endpoints. If you receive `'STS' object has no attribute 'get_web_identity_token'` or a similar error, pin your STS client to a region (for example, `boto3.client("sts", region_name="us-east-1")`) and ensure your AWS SDK is recent enough to include the API.
@@ -112,7 +112,7 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
 
   ACCESS_TOKEN=$(curl -sS https://api.anthropic.com/v1/oauth/token \
     -H "content-type: application/json" \
-    --data @- <<JSON | jq -r .access_token
+    -d @- <<JSON | jq -r .access_token
   {
     "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
     "assertion": "$JWT",
@@ -335,7 +335,7 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello from AWS" }],
+      Messages = [new UserMessageParam { Content = "Hello from AWS" }],
   });
   foreach (var block in message.Content)
   {
@@ -371,7 +371,7 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
     --duration-seconds 900 \
     --query WebIdentityToken --output text > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
 
-  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID, and
+  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
   # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment
   ant messages create \
     --model claude-opus-5-5 \
@@ -466,7 +466,7 @@ JWT=$(aws sts get-web-identity-token \
 
 curl -sS https://api.anthropic.com/v1/oauth/token \
   -H "content-type: application/json" \
-  --data @- <<JSON
+  -d @- <<JSON
 {
   "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
   "assertion": "$JWT",
@@ -482,7 +482,7 @@ A successful exchange returns an `access_token` beginning with `sk-ant-oat01-` a
 
 ## Use EKS projected service-account tokens
 
-If your workload runs in an EKS pod, you can skip the STS call and read a Kubernetes-projected service-account token directly from disk. Kubernetes natively projects an OIDC-compatible token into the pod, and the SDK can read it from a file path, so no token-provider callable is required. This path has two fewer AWS configuration steps than the STS path but only works inside a pod; the underlying mechanism is the same as the [generic Kubernetes integration](https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes).
+If your workload runs in an EKS pod, you can skip the STS call and read a Kubernetes-projected service-account token directly from disk. Kubernetes natively projects an OIDC-compatible token into the pod, and the SDK can read it from a file path. This path has two fewer AWS configuration steps than the STS path but only works inside a pod; the underlying mechanism is the same as the [generic Kubernetes integration](https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes).
 
 This path additionally requires an EKS cluster with an [IAM OIDC provider enabled](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) and `kubectl` access to the cluster.
 
@@ -579,7 +579,7 @@ In the Claude Console, go to the [Workload identity](https://platform.claude.com
 
 The wizard creates these resources for you. Use the following values whether you enter them in the wizard or send them to the [Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api):
 
-**Federation issuer:** EKS issuers expose a public JWKS endpoint, so use discovery mode. The issuer URL must exactly match the token's `iss` claim. Register one issuer per cluster.
+**Federation issuer:** EKS issuers expose a public JWKS endpoint, so use discovery mode. The issuer URL must exactly match the token's `iss` claim. Register one issuer for each cluster.
 
 ```json
 {
@@ -618,7 +618,7 @@ Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token`
 
   ACCESS_TOKEN=$(curl -sS https://api.anthropic.com/v1/oauth/token \
     -H "content-type: application/json" \
-    --data @- <<JSON | jq -r .access_token
+    -d @- <<JSON | jq -r .access_token
   {
     "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
     "assertion": "$JWT",
@@ -756,7 +756,7 @@ Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token`
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello from EKS" }],
+      Messages = [new UserMessageParam { Content = "Hello from EKS" }],
   });
   foreach (var block in message.Content)
   {
@@ -821,7 +821,7 @@ JWT=$(cat "$ANTHROPIC_IDENTITY_TOKEN_FILE")
 
 curl -sS https://api.anthropic.com/v1/oauth/token \
   -H "content-type: application/json" \
-  --data @- <<JSON
+  -d @- <<JSON
 {
   "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
   "assertion": "$JWT",
@@ -846,7 +846,7 @@ Lock the rule's `match` block to the narrowest scope that fits your use case:
 * **Pin the full role ARN:** Use `subject_prefix: "arn:aws:iam::<account>:role/<role-name>"` with no trailing `*` so other roles in the account do not match.
 * **Pin the account ID:** Match the `aws_account` field of the token's `https://sts.amazonaws.com/` claim with the `claims` map or a CEL `condition` as a defense-in-depth check against a misconfigured prefix.
 * **Pin namespace and service account on EKS:** Use the exact `system:serviceaccount:<namespace>:<name>` value with no `*` after the `system:serviceaccount:` prefix.
-* **Use a separate rule per environment:** Create distinct rules for production, staging, and development workloads rather than widening one prefix to cover them all.
+* **Use a separate rule for each environment:** Create distinct rules for production, staging, and development workloads rather than widening one prefix to cover them all.
 
 ## Next steps
 

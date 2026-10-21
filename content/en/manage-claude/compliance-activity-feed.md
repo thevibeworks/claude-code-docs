@@ -19,8 +19,8 @@ The Activity Feed records authentication, chat, file, project, administrative, a
 ```bash cURL
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/activities?limit=1" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -61,8 +61,8 @@ curl --fail-with-body -sS -G \
   --data-urlencode "activity_types[]=claude_file_uploaded" \
   --data-urlencode "activity_types[]=claude_chat_created" \
   --data-urlencode "created_at.gte=2026-04-01T00:00:00Z" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 The Activity Feed produces hundreds of distinct activity types. See [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list) in the API reference for the full list of values that `activity_types[]` accepts.
@@ -102,14 +102,14 @@ The cursor parameter sets the page direction; the endpoint's sort order sets the
 # Fetch the first page (newest activities first).
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/activities?limit=2" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 
 # LAST_ID is the last_id from the first response. Pass it back unchanged to fetch the next (older) page.
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/activities" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01" \
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   --data-urlencode "limit=2" \
   --data-urlencode "after_id=$LAST_ID"
 ```

@@ -40,7 +40,7 @@ Your new Workspace will now appear in the list of Workspaces.
 
 4. After making your changes, click "Save" to apply them.
 
-**Note:** The default Workspace is not editable and cannot be removed.
+**Note:** You can’t rename the default Workspace or change its color, and you can’t archive or delete it.
 
 ## Add members to a Workspace
 
@@ -116,7 +116,7 @@ Your new Workspace will now appear in the list of Workspaces.
 
   - Select "Change limit" under **Monthly limit** to set a specific spend limit for this Workspace.
 
-    - **Note:** You can only set a spend limit that is lower than your organization’s limit. If unset, your spend limit defaults to the organization’s limit.
+    - **Note:** You can only set a spend limit that is lower than your organization’s limit. If unset, your spend limit defaults to the organization’s limit. You can’t set a spend limit for the default Workspace.
 
   - Select "+ Add notification" under **Email notification** to set up an email notification when the Workspace spend reaches a specific amount.
 
@@ -139,8 +139,6 @@ If you no longer need a Workspace but want to retain its historical data:
 ## Manage the Default Workspace
 
 Go to the **API keys** page (platform.claude.com/settings/keys) and select "Default" from the **Workspace** dropdown menu.
-
-**Note:** You can view your default Workspace’s limits on the **Rate limits** page (platform.claude.com/usage/limits).
 
 ---
 

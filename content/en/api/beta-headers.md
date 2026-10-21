@@ -22,9 +22,9 @@ anthropic-beta: BETA_FEATURE_NAME
 content-type: application/json
 ```
 
-Each feature's documentation states the exact beta name to send. The [API overview](https://platform.claude.com/docs/en/api/overview) lists the APIs currently in beta.
+Each feature's documentation states the exact beta name to send. The [API overview](https://platform.claude.com/docs/en/api/overview) lists the APIs in beta.
 
-The following examples show the same request with cURL, the `ant` CLI, and the SDK, using the [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) beta as the example. The SDK takes beta names through `betas` (csharp, go: `Betas`; java: `.addBeta()`) and sends the `anthropic-beta` header for you:
+The following example sends a request with the [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) beta. The SDK takes beta names through `betas` (csharp, go: `Betas`; java: `.addBeta()`) and sends the `anthropic-beta` header for you:
 
 <CodeGroup>
   ```bash cURL
@@ -84,7 +84,7 @@ The following examples show the same request with cURL, the `ant` CLI, and the S
       {
           Model = Model.ClaudeOpus5_5,
           MaxTokens = 1024,
-          Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+          Messages = [new BetaUserMessageParam { Content = "Hello, Claude" }],
           Betas = ["context-management-2025-06-27"],
       }
   );
@@ -141,7 +141,7 @@ The following examples show the same request with cURL, the `ant` CLI, and the S
   client = Anthropic::Client.new
 
   message = client.beta.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{role: "user", content: "Hello, Claude"}],
     betas: ["context-management-2025-06-27"]
@@ -185,7 +185,7 @@ Beta names are the same on every platform that accepts them, but not every platf
 On Amazon Bedrock, where beta names go depends on the API you call:
 
 * [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) (`bedrock-mantle` endpoints) takes them in the `anthropic-beta` header.
-* The [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy) reads them from the request body, not from a header. List them in the body's `anthropic_beta` array, one name per element, for example `"anthropic_beta": ["feature1", "feature2"]`.
+* The [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy) reads them from the request body, not from a header. List them in the body's `anthropic_beta` array, one name for each element, for example `"anthropic_beta": ["feature1", "feature2"]`.
 
 ### Endpoint-specific headers
 
@@ -232,6 +232,6 @@ For updates to beta features, see the [release notes](https://platform.claude.co
   </Card>
 
   <Card title="API overview" icon="compass" href="https://platform.claude.com/docs/en/api/overview">
-    Explore the Claude API's features, including the APIs currently in beta.
+    Explore the Claude API's features, including the APIs in beta.
   </Card>
 </CardGroup>

@@ -4,9 +4,9 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool
 description: Pair a faster executor model with a higher-intelligence advisor model that provides strategic guidance mid-generation.
 ---
 
-The advisor tool lets a faster, lower-cost **executor model** consult a higher-intelligence **advisor model** mid-generation for strategic guidance. The advisor reads the full conversation, produces a plan or course correction, and the executor continues with the task.
+The advisor tool lets a faster, lower-cost **executor model** consult a higher-intelligence **advisor model** mid-generation for strategic guidance. The advisor reads the full conversation and produces a plan or course correction, and the executor continues with the task.
 
-This pattern fits long-horizon agentic workloads (coding agents, computer use, multistep research pipelines) where most turns are mechanical but having an excellent plan is crucial. You get close to advisor-solo quality while the bulk of token generation happens at executor-model rates. For measured results, including how the benefit shrinks as the executor's own capability approaches the advisor's, see [Optimizing for cost and intelligence](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence).
+This pattern fits long-horizon agentic workloads (coding agents, computer use, multistep research pipelines) where most turns are mechanical but having an excellent plan is crucial. You get close to advisor-solo quality while the bulk of token generation occurs at executor-model rates. For measured results, including how the benefit shrinks as the executor's own capability approaches the advisor's, see [Optimizing for cost and intelligence](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence).
 
 ```mermaid
 sequenceDiagram
@@ -153,9 +153,8 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
       },
       Messages =
       [
-          new BetaMessageParam
+          new BetaUserMessageParam
           {
-              Role = Role.User,
               Content = "Build a concurrent worker pool in Go with graceful shutdown."
           }
       ],
@@ -395,7 +394,7 @@ If the advisor call fails, the result carries an error:
 }
 ```
 
-The executor sees the error and continues without further advice. The request itself does not fail.
+The executor receives the error and continues without further advice. The request itself does not fail.
 
 | `error_code`              | Meaning                                                                                                                         |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -511,7 +510,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
 
   var messages = new List<BetaMessageParam>
   {
-      new() { Role = Role.User, Content = "Build a concurrent worker pool in Go with graceful shutdown." }
+      new BetaUserMessageParam { Content = "Build a concurrent worker pool in Go with graceful shutdown." }
   };
 
   var response = await client.Beta.Messages.Create(new MessageCreateParams
@@ -524,14 +523,13 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
   });
 
   // Append the full response content, including any advisor_tool_result blocks
-  messages.Add(new BetaMessageParam
+  messages.Add(new BetaAssistantMessageParam
   {
-      Role = Role.Assistant,
       Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
   });
 
   // Continue the conversation
-  messages.Add(new BetaMessageParam { Role = Role.User, Content = "Now add a max-in-flight limit of 10." });
+  messages.Add(new BetaUserMessageParam { Content = "Now add a max-in-flight limit of 10." });
 
   var followUp = await client.Beta.Messages.Create(new MessageCreateParams
   {
@@ -591,7 +589,6 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
 
   ```java Java
   import com.anthropic.models.beta.messages.BetaAdvisorTool20260301;
-  import com.anthropic.models.beta.messages.BetaContentBlock;
   import com.anthropic.models.beta.messages.BetaMessage;
   import com.anthropic.models.beta.messages.BetaMessageParam;
   import com.anthropic.models.beta.messages.BetaToolUnion;
@@ -606,10 +603,8 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
               BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5_5).build()));
 
       List<BetaMessageParam> messages = new ArrayList<>();
-      messages.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.USER)
-          .content("Build a concurrent worker pool in Go with graceful shutdown.")
-          .build());
+      messages.add(BetaMessageParam.ofUser(
+          "Build a concurrent worker pool in Go with graceful shutdown."));
 
       BetaMessage response = client.beta().messages().create(MessageCreateParams.builder()
           .model(Model.CLAUDE_SONNET_5)
@@ -620,17 +615,10 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
           .build());
 
       // Append the full response content, including any advisor_tool_result blocks
-      messages.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.ASSISTANT)
-          .contentOfBetaContentBlockParams(
-              response.content().stream().map(BetaContentBlock::toParam).toList())
-          .build());
+      messages.add(response.toParam());
 
       // Continue the conversation
-      messages.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.USER)
-          .content("Now add a max-in-flight limit of 10.")
-          .build());
+      messages.add(BetaMessageParam.ofUser("Now add a max-in-flight limit of 10."));
 
       BetaMessage followUp = client.beta().messages().create(MessageCreateParams.builder()
           .model(Model.CLAUDE_SONNET_5)
@@ -905,7 +893,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       // ... your other tools
   };
   var task = "Build a concurrent worker pool in Go with graceful shutdown.";
-  var messages = new List<BetaMessageParam> { new() { Role = Role.User, Content = task } };
+  var messages = new List<BetaMessageParam> { new BetaUserMessageParam { Content = task } };
   var advisorCalled = false;
 
   for (var turn = 1; turn <= MaxTurns; turn++)
@@ -918,9 +906,8 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
           Messages = messages,
           Betas = ["advisor-tool-2026-03-01"]
       });
-      messages.Add(new BetaMessageParam
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
       });
       advisorCalled =
@@ -941,12 +928,12 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       var results = RunYourTools(response.Content); // list of tool_result blocks
       if (results.Count > 0)
       {
-          messages.Add(new BetaMessageParam { Role = Role.User, Content = results });
+          messages.Add(new BetaUserMessageParam { Content = results });
       }
       // Skip this if your system prompt already tells the model to call sparingly.
       if (turn == NudgeTurn - 1 && !advisorCalled)
       {
-          messages.Add(new BetaMessageParam { Role = Role.User, Content = NudgeText });
+          messages.Add(new BetaUserMessageParam { Content = NudgeText });
       }
   }
   ```
@@ -1074,10 +1061,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       );
       String task = "Build a concurrent worker pool in Go with graceful shutdown.";
       List<BetaMessageParam> messages = new ArrayList<>();
-      messages.add(BetaMessageParam.builder()
-          .role(BetaMessageParam.Role.USER)
-          .content(task)
-          .build());
+      messages.add(BetaMessageParam.ofUser(task));
       boolean advisorCalled = false;
 
       for (int turn = 1; turn <= MAX_TURNS; turn++) {
@@ -1088,11 +1072,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
               .messages(messages)
               .addBeta("advisor-tool-2026-03-01")
               .build());
-          messages.add(BetaMessageParam.builder()
-              .role(BetaMessageParam.Role.ASSISTANT)
-              .contentOfBetaContentBlockParams(
-                  response.content().stream().map(BetaContentBlock::toParam).toList())
-              .build());
+          messages.add(response.toParam());
           advisorCalled = advisorCalled
               || response.content().stream().anyMatch(block ->
                   block.isServerToolUse()
@@ -1107,17 +1087,11 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
           List<BetaContentBlockParam> results = runYourTools(response.content()); // list of tool_result blocks
           if (!results.isEmpty()) {
-              messages.add(BetaMessageParam.builder()
-                  .role(BetaMessageParam.Role.USER)
-                  .contentOfBetaContentBlockParams(results)
-                  .build());
+              messages.add(BetaMessageParam.ofUserOfContentBlockParams(results));
           }
           // Skip this if your system prompt already tells the model to call sparingly.
           if (turn == NUDGE_TURN - 1 && !advisorCalled) {
-              messages.add(BetaMessageParam.builder()
-                  .role(BetaMessageParam.Role.USER)
-                  .content(NUDGE_TEXT)
-                  .build());
+              messages.add(BetaMessageParam.ofUser(NUDGE_TEXT));
           }
       }
   }
@@ -1251,7 +1225,7 @@ To force a consult on a specific request instead of nudging, set `tool_choice` t
 
 The advisor sub-inference does not stream. The executor's stream pauses while the advisor runs; then the full result arrives in a single event.
 
-The `server_tool_use` block with `name: "advisor"` signals that an advisor call is starting. The pause begins when that block closes (`content_block_stop`). During the pause, the stream is quiet except for standard SSE `ping` keepalives emitted roughly every 30 seconds. Short advisor calls might show no pings.
+The `server_tool_use` block with `name: "advisor"` signals that an advisor call is starting. The pause starts when that block closes (`content_block_stop`). During the pause, the stream is quiet except for standard SSE `ping` keepalives emitted roughly every 30 seconds. Short advisor calls might show no pings.
 
 When the advisor finishes, the `advisor_tool_result` arrives fully formed in a single `content_block_start` event (no deltas). Executor output then resumes streaming.
 
@@ -1404,12 +1378,12 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
 
 The advisor's prompt on the Nth call is the (N-1)th call's prompt with one more segment appended, so the prefix is stable across calls. With `caching` enabled, each advisor call writes a cache entry, and the next call reads up to that point and pays only for the delta. You'll see `cache_read_input_tokens` become non-zero on the second and later `advisor_message` iterations.
 
-**When to enable it:** The cache write costs more than the reads save when the advisor is called two or fewer times per conversation. Caching breaks even at roughly three advisor calls and improves from there. Enable it for long agent loops, and keep it off for short tasks.
+**When to enable it:** The cache write costs more than the reads save when the advisor is called two or fewer times in each conversation. Caching breaks even at roughly three advisor calls and improves from there. Enable it for long agent loops, and keep it off for short tasks.
 
 **Keep it consistent:** Set `caching` once and leave it for the whole conversation. Toggling it off and on mid-conversation causes cache misses.
 
 <Warning>
-  [`clear_thinking`](https://platform.claude.com/docs/en/build-with-claude/context-editing) with a `keep` value other than `"all"` shifts the advisor's quoted transcript each turn, causing advisor-side cache misses. This is a cost degradation only. Advice quality is unaffected. When thinking is on without explicit `clear_thinking` configuration, the API defaults to `keep: {type: "thinking_turns", value: 1}`, which triggers this behavior (the default on earlier Opus and Sonnet models and on Haiku models through Claude Haiku 4.5; on Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, and Claude Haiku 5.5, the default is to keep all turns). Set `keep: "all"` to preserve advisor cache stability.
+  [`clear_thinking`](https://platform.claude.com/docs/en/build-with-claude/context-editing) with a `keep` value other than `"all"` shifts the advisor's quoted transcript each turn, causing advisor-side cache misses. This is a cost degradation only. Advice quality is unaffected. When thinking is on without explicit `clear_thinking` configuration, the API defaults to `keep: {type: "thinking_turns", value: 1}`, which triggers this behavior (the default on earlier Opus and Sonnet models and on Haiku models through Claude Haiku 4.5, whereas on Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, and Claude Haiku 5.5, the default is to keep all turns). Set `keep: "all"` to preserve advisor cache stability.
 </Warning>
 
 ## Combining with other tools
@@ -1630,7 +1604,7 @@ If you've already retrieved data pointing one way and the advisor points another
 
 #### Alternative system prompt for Haiku on coding workloads
 
-Claude Haiku 4.5 applies the default advisor guidance conservatively. That keeps its call rate appropriately low on research and lookup workloads but gives up quality on coding workloads, where an early advisor consult reliably pays for itself. On an internal coding benchmark, a close variant of the following block (the read-only carve-out in the Hard rule was added after measurement) raised Haiku pass rates by roughly 7.5 percentage points over the built-in default.
+Claude Haiku 4.5 applies the default advisor guidance conservatively. That keeps its call rate appropriately low on research and lookup workloads but gives up quality on coding workloads, where an early advisor consult is reliably worth its cost. On an internal coding benchmark, a close variant of the following block (the read-only carve-out in the Hard rule was added after measurement) raised Haiku pass rates by roughly 7.5 percentage points over the built-in default.
 
 Use this block in place of the earlier timing and advice blocks when your Haiku executor runs predominantly coding or write-task workloads:
 
@@ -1673,7 +1647,7 @@ Hard rule: your first write_file, edit_file, or state-changing bash call on a ta
 
 #### Trimming advisor output length
 
-Advisor output is the advisor's largest cost driver, and the top-level `max_tokens` does not bound it. The advisor sees both your system prompt and your user messages as quoted context about the executor's task, so instructions that address the advisor directly are followed much more reliably than third-person descriptions. The most effective placement Anthropic tested is a line in the user message:
+Advisor output is the advisor's largest cost driver, and the top-level `max_tokens` does not bound it. The advisor receives both your system prompt and your user messages as quoted context about the executor's task, so instructions that address the advisor directly are followed much more reliably than third-person descriptions. The most effective placement Anthropic tested is a line in the user message:
 
 ```text wrap
 (Advisor: please keep your guidance under 80 words — I need a focused starting point, not a comprehensive plan.)
@@ -1689,7 +1663,7 @@ Pair this approach with the timing guidance in [Suggested system prompt for codi
 
 ### Capping advisor output
 
-Set `max_tokens` on the tool definition to cap the advisor's total output (thinking plus text) per call:
+Set `max_tokens` on the tool definition to cap the advisor's total output (thinking plus text) for each call:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -1776,7 +1750,7 @@ The minimum value is 1024. Setting `max_tokens` above the advisor model's own ou
 
 This is not a hard truncation alone. The server also passes the advisor its remaining-token budget, so the advisor shapes its response to fit.
 
-**Recommended starting point:** `max_tokens: 2048`. In Anthropic's testing on a hard reasoning benchmark (n = 40 per configuration), this reduced mean advisor output by roughly 7x compared with leaving the cap unset, with near-zero truncation and no detectable quality degradation. The minimum value of 1024 reduced output roughly 10x but truncated around 10 percent of calls. Accuracy differences across all configurations were within noise at this sample size. Validate on your own workload.
+**Recommended starting point:** `max_tokens: 2048`. In Anthropic's testing on a hard reasoning benchmark (n = 40 for each configuration), this reduced mean advisor output by roughly 7x compared with leaving the cap unset, with near-zero truncation and no detectable quality degradation. The minimum value of 1024 reduced output roughly 10x but truncated around 10 percent of calls. Accuracy differences across all configurations were within noise at this sample size. Validate on your own workload.
 
 | `max_tokens` | Mean advisor output tokens | Calls truncated |
 | ------------ | -------------------------- | --------------- |
@@ -1786,7 +1760,7 @@ This is not a hard truncation alone. The server also passes the advisor its rema
 
 Hard reasoning tasks elicit substantially longer advisor output than the [typical 1,400 to 1,800 tokens](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#usage-and-billing) quoted earlier for lighter workloads. Use this table to size the savings ratio, not as a universal baseline for advisor output.
 
-When the advisor does hit the cap, the result block carries `stop_reason: "max_tokens"` on both [result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants), whichever advisor model you use. Use `stop_reason` to detect truncated advice and decide whether to raise the cap or let the executor proceed with partial guidance. The API also appends `[Advisor output truncated at max_tokens=2048.]` (naming your cap) to the advice text, so the executor sees the truncation in its own context; with a plaintext `advisor_result` advisor that marker is visible to your client as well. Both signals appear only when you set `max_tokens` on the tool definition.
+When the advisor does hit the cap, the result block carries `stop_reason: "max_tokens"` on both [result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants), whichever advisor model you use. Use `stop_reason` to detect truncated advice and decide whether to raise the cap or let the executor proceed with partial guidance. The API also appends `[Advisor output truncated at max_tokens=2048.]` (naming your cap) to the advice text, so the executor receives the truncation notice in its own context; with a plaintext `advisor_result` advisor that marker is visible to your client as well. Both signals appear only when you set `max_tokens` on the tool definition.
 
 ```json
 {
@@ -1852,7 +1826,7 @@ The advisor tool is available in beta on the Claude API and on [Claude Platform 
   </Card>
 
   <Card title="Server tools" icon="tool" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools">
-    Work with Anthropic-executed tools: server\_tool\_use blocks, pause\_turn continuation, and domain filtering.
+    Work with tools that Anthropic runs: `server_tool_use` blocks, `pause_turn` continuation, and domain filtering.
   </Card>
 
   <Card title="Tool reference" icon="book" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference">
@@ -1860,6 +1834,6 @@ The advisor tool is available in beta on the Claude API and on [Claude Platform 
   </Card>
 
   <Card title="Effort" icon="gauge" href="https://platform.claude.com/docs/en/build-with-claude/effort">
-    Control how many tokens Claude uses when responding with the effort parameter, trading off between response thoroughness and token efficiency.
+    Control how many tokens Claude uses when responding with the `effort` parameter, trading off between response thoroughness and token efficiency.
   </Card>
 </CardGroup>

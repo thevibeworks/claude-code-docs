@@ -29,16 +29,16 @@ The Files API provides a create-once, use-many-times approach for working with f
 * **Manage your files** with list, retrieve, and delete operations
 
 <Warning id="workspace-scoped-access">
-  **Uploaded files are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key with access to a workspace can access any files uploaded to that workspace. Every service account, and every user whose organization role allows API access, can use the Default Workspace in addition to any workspace you add them to, so keep files that must stay separate in their own [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping) and access them only with keys scoped to that workspace. Never accept `file_id` values from end users or other untrusted sources: a user-supplied file ID would let one user of your application read content that another user uploaded. Treat file IDs as server-side references, and keep the mapping between your users and their files in your application.
+  **Uploaded files are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key with access to a workspace can access any files uploaded to that workspace. Every service account, and every user whose organization role allows API access, can use the Default Workspace in addition to any workspace you add them to, so keep files that must stay separate in their own workspace and access them only with [keys scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping). Never accept `file_id` values from end users or other untrusted sources: a user-supplied file ID would let one user of your application read content that another user uploaded. Treat file IDs as server-side references, and keep the mapping between your users and their files in your application.
 
-  If you are building a multi-tenant application on the Files API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for files, so a workspace per tenant gives each tenant's data hard isolation from every other tenant. Each organization can have up to 100 workspaces; contact your account team if you need more.
+  If you are building a multitenant application on the Files API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for files, so a workspace for each tenant gives that tenant's data hard isolation from every other tenant. Each organization can have up to 100 workspaces; contact your account team if you need more.
 </Warning>
 
 ## How to use the Files API
 
 ### Uploading a file
 
-Upload a file to be referenced in future API calls:
+Upload a file to reference in future API calls:
 
 <CodeGroup>
   ```bash cURL
@@ -266,9 +266,8 @@ Once uploaded, reference the file by passing the `id` from the upload response a
           MaxTokens = 1024,
           Messages =
           [
-              new MessageParam
+              new UserMessageParam
               {
-                  Role = Role.User,
                   Content = new List<ContentBlockParam>
                   {
                       new TextBlockParam { Text = "Please summarize this document for me." },
@@ -309,7 +308,7 @@ Once uploaded, reference the file by passing the `id` from the upload response a
   MessageCreateParams params = MessageCreateParams.builder()
       .model(Model.CLAUDE_OPUS_5_5)
       .maxTokens(1024)
-      .addUserMessageOfBlockParams(List.of(
+      .addUserMessageOfContentBlockParams(List.of(
           ContentBlockParam.ofText(TextBlockParam.builder()
               .text("Please summarize this document for me.")
               .build()),
@@ -376,12 +375,12 @@ Once uploaded, reference the file by passing the `id` from the upload response a
 
 The Files API supports different file types that correspond to different content block types:
 
-| File type                                                                                                                               | MIME type                                            | Content block type | Use case                            |
-| --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ | ----------------------------------- |
-| PDF                                                                                                                                     | `application/pdf`                                    | `document`         | Text analysis, document processing  |
-| Plain text                                                                                                                              | `text/plain`                                         | `document`         | Text analysis, processing           |
-| Images                                                                                                                                  | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks        |
-| [Datasets, others](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) | Varies                                               | `container_upload` | Analyze data, create visualizations |
+| File type                                                                                                                               | MIME type                                            | Content block type | Use case                           |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ | ---------------------------------- |
+| PDF                                                                                                                                     | `application/pdf`                                    | `document`         | Text analysis, document processing |
+| Plain text                                                                                                                              | `text/plain`                                         | `document`         | Text analysis, processing          |
+| Images                                                                                                                                  | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks       |
+| [Datasets, others](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) | Varies                                               | `container_upload` | Data analysis, visualization       |
 
 #### Document blocks
 
@@ -543,9 +542,8 @@ The following examples read a text file and send its contents as plain text:
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new()
+      Messages = [new UserMessageParam
       {
-          Role = Role.User,
           Content = $"Here's the document content:\n\n{textContent}\n\nPlease summarize this document."
       }]
   };
@@ -754,8 +752,7 @@ Retrieve information about a specific file:
   ```
 
   ```bash CLI
-  ant files retrieve-metadata \
-    --file-id "$FILE_ID"
+  ant files retrieve-metadata --file-id "$FILE_ID"
   ```
 
   ```python Python
@@ -801,7 +798,7 @@ Retrieve information about a specific file:
 
 #### Delete a file
 
-Remove a file from your workspace:
+Delete a file from your workspace:
 
 <CodeGroup>
   ```bash cURL
@@ -811,8 +808,7 @@ Remove a file from your workspace:
   ```
 
   ```bash CLI
-  ant files delete \
-    --file-id "$FILE_ID"
+  ant files delete --file-id "$FILE_ID"
   ```
 
   ```python Python
@@ -856,13 +852,11 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
   curl -X GET "https://api.anthropic.com/v1/files/$FILE_ID/content" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    --output downloaded_file.txt
+    -o downloaded_file.txt
   ```
 
   ```bash CLI
-  ant files download \
-    --file-id "$FILE_ID" \
-    --output downloaded_file.txt
+  ant files download --file-id "$FILE_ID" --output downloaded_file.txt
   ```
 
   ```python Python
@@ -936,17 +930,17 @@ On the Claude API, supported image, video, and audio files that Claude produces 
 
 ### Storage limits
 
-* **Maximum file size:** 500 MB per file
-* **Total storage:** 1 TB per organization
+* **Maximum file size:** 500 MB for each file
+* **Total storage:** 1 TB for each organization
 
 ### File lifecycle
 
-* Files are scoped to the workspace they were uploaded in. Any request in the same workspace can reference them; never accept file IDs from untrusted sources (see the [workspace access warning](https://platform.claude.com/docs/en/build-with-claude/files#workspace-scoped-access))
-* Files cannot be modified or renamed after upload. To change a file's content, upload a new file and delete the old one
-* Files persist until you delete them with the `DELETE /v1/files/{file_id}` endpoint or they reach their `expires_at`
-* Deleted files cannot be recovered
-* Files are inaccessible through the API shortly after deletion, but they may persist in active Messages API calls and associated tool uses
-* Files that users delete will be deleted in accordance with Anthropic's [data retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data). For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention)
+* Files are scoped to the workspace they were uploaded in. Any request in the same workspace can reference them; never accept file IDs from untrusted sources (see the [workspace access warning](https://platform.claude.com/docs/en/build-with-claude/files#workspace-scoped-access)).
+* Files cannot be modified or renamed after upload. To change a file's content, upload a new file and delete the old one.
+* Files persist until you delete them with the `DELETE /v1/files/{file_id}` endpoint or they reach their `expires_at`.
+* Deleted files cannot be recovered.
+* Files are inaccessible through the API shortly after deletion, but they may persist in active Messages API calls and associated tool uses.
+* Files that users delete will be deleted in accordance with Anthropic's [data retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data). For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ### File expiration
 
@@ -954,15 +948,15 @@ To have a file expire automatically, include an `expires_in_seconds` form field 
 
 When a file reaches its `expires_at`:
 
-* Downloading its content (`GET /v1/files/{file_id}/content`) returns a 404 error
-* A Messages request that references the file fails before inference
-* Its metadata (`GET /v1/files/{file_id}`) remains readable for up to 30 days, with `expires_at` in the past
-* It continues to appear in list responses during that window; compare `expires_at` to the current time to filter expired files
+* Downloading its content (`GET /v1/files/{file_id}/content`) returns a 404 error.
+* A Messages request that references the file fails before inference.
+* Its metadata (`GET /v1/files/{file_id}`) remains readable for up to 30 days, with `expires_at` in the past.
+* It continues to appear in list responses during that window; compare `expires_at` to the current time to filter expired files.
 
 Deleting an expired file with `DELETE /v1/files/{file_id}` removes its metadata immediately instead of waiting for the 30-day window to elapse.
 
 <Note>
-  Expiration is a lifecycle feature, not a guaranteed-deletion control. After `expires_at`, file content is no longer retrievable through the API and is released from your storage quota; the underlying content may be retained for a limited period thereafter for safety review before permanent deletion, and file metadata remains visible for up to 30 days after expiration. To remove a file before its scheduled expiration, use `DELETE /v1/files/{file_id}`.
+  Expiration is a lifecycle feature, not a guaranteed-deletion control. After `expires_at`, file content is no longer retrievable through the API and is released from your storage quota; the underlying content may be retained for a limited period thereafter for safety review before permanent deletion, and file metadata remains visible for up to 30 days after expiration. To delete a file before its scheduled expiration, use `DELETE /v1/files/{file_id}`.
 </Note>
 
 ### Audit logging
@@ -982,13 +976,13 @@ The Files API is out of beta and needs no beta header. Migrating off `files-api-
 
 To migrate:
 
-1. **Remove the beta header.** Drop `anthropic-beta: files-api-2025-04-14` from your requests. In the SDKs, call `client.files` instead of `client.beta.files`; keeping `client.beta.files` works only on the [SDK releases that no longer send the header](https://platform.claude.com/docs/en/build-with-claude/files#sdk-beta-namespace). Earlier releases send it from `client.beta.files` even with no `betas` argument.
+1. **Remove the beta header.** Drop `anthropic-beta: files-api-2025-04-14` from your requests. With the SDK, call `client.files` (csharp, go: `client.Files`; java: `client.files()`; php: `$client->files`) instead of `client.beta.files` (csharp, go: `client.Beta.Files`; java: `client.beta().files()`; php: `$client->beta->files`); keeping `client.beta.files` (csharp, go: `client.Beta.Files`; java: `client.beta().files()`; php: `$client->beta->files`) works only on the [SDK releases that no longer send the header](https://platform.claude.com/docs/en/build-with-claude/files#sdk-beta-namespace). Earlier releases send it from `client.beta.files` (csharp, go: `client.Beta.Files`; java: `client.beta().files()`; php: `$client->beta->files`) even when you pass no beta names.
 2. **Update pagination.** Replace `after_id`/`before_id` loops with the `page`/`next_page` cursor, or use the SDK auto-pagination helpers shown in [Managing files](https://platform.claude.com/docs/en/build-with-claude/files#managing-files).
 3. **Read `expires_at`.** The field appears only without the header; `null` means the file has no expiration (see [File expiration](https://platform.claude.com/docs/en/build-with-claude/files#file-expiration)).
 
 ### SDK beta namespace
 
-Starting with Python SDK 1.2.0, TypeScript SDK 0.122.0, Go SDK 1.68.0, Java SDK 2.59.0, Ruby SDK 1.67.0, and C# SDK 12.44.0, `client.beta.files` no longer sends `files-api-2025-04-14` and returns the same shapes as `client.files`, with `Beta`-prefixed type names. It accepts a `betas` argument for Files features that are still in beta, such as `scope_id` filtering under a [Managed Agents](https://platform.claude.com/docs/en/managed-agents/files) beta header. Earlier SDK releases are typed to the beta shapes; if you depend on those types, stay on an earlier release until you migrate.
+Starting with Python SDK 1.2.0, TypeScript SDK 0.122.0, Go SDK 1.68.0, Java SDK 2.59.0, PHP SDK 0.45.0, Ruby SDK 1.67.0, and C# SDK 12.44.0, `client.beta.files` (csharp, go: `client.Beta.Files`; java: `client.beta().files()`; php: `$client->beta->files`) no longer sends `files-api-2025-04-14` and returns the same shapes as `client.files` (csharp, go: `client.Files`; java: `client.files()`; php: `$client->files`), with `Beta`-prefixed type names (in PHP, classes in the `Anthropic\Beta` namespace). It takes beta names through `betas` (csharp, go: `Betas`; java: `.addBeta()`) for Files features that are in beta, such as `scope_id` filtering under a [Managed Agents](https://platform.claude.com/docs/en/managed-agents/files) beta header. Earlier SDK releases are typed to the beta shapes; if you depend on those types, stay on an earlier release until you migrate.
 
 Requests that carry `anthropic-beta: managed-agents-2026-04-01` without `files-api-2025-04-14` receive the shapes on this page with one compatibility affordance on `GET /v1/files`: `before_id` and `after_id` are still accepted (not combinable with `page` or `ids[]`), and the list response includes `has_more`, `first_id`, and `last_id` alongside `next_page`. Later Managed Agents beta versions receive the plain shape.
 
@@ -1000,9 +994,9 @@ Common errors when using the Files API include:
 * **Invalid file type (400):** The file type doesn't match the content block type (for example, using an image file in a document block)
 * **Not downloadable (400):** Files you upload have `"downloadable": false` and cannot be downloaded. Only files created by skills or the code execution tool can be downloaded
 * **Exceeds context window size (400):** The file is larger than the context window size (for example, using a 500 MB plain text file in a `/v1/messages` request)
-* **Invalid filename (400):** The file name doesn't meet the length requirements (1-255 characters) or contains forbidden characters (`<`, `>`, `:`, `"`, `|`, `?`, `*`, `\`, `/`, or Unicode characters 0-31)
+* **Invalid file name (400):** The file name doesn't meet the length requirements (1–255 characters) or contains forbidden characters (`<`, `>`, `:`, `"`, `|`, `?`, `*`, `\`, `/`, or Unicode characters 0–31)
 * **File too large (413):** File exceeds the 500 MB limit
-* **Storage limit exceeded (400):** Your organization has reached the 1 TB storage limit
+* **Storage limit exceeded (400):** Your organization has reached the 1 TB storage limit
 
 ```json Output
 {
@@ -1039,7 +1033,7 @@ File-related API calls are limited to approximately 500 requests per minute. To 
   </Card>
 
   <Card title="Code execution tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool">
-    Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
+    Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
   </Card>
 
   <Card title="Vision" icon="image" href="https://platform.claude.com/docs/en/build-with-claude/vision">

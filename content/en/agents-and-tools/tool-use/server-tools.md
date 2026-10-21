@@ -1,10 +1,10 @@
 ---
 title: Server tools
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools
-description: "Work with Anthropic-executed tools: server_tool_use blocks, pause_turn continuation, mixed server and client tool turns, and domain filtering."
+description: "Work with tools that Anthropic runs: server_tool_use blocks, pause_turn continuation, mixed server and client tool turns, and domain filtering."
 ---
 
-Server-executed tools share these mechanics: the `server_tool_use` block, `pause_turn` continuation, turns that mix server and client tools, Zero Data Retention (ZDR) eligibility, and domain filtering. For individual tools, see the [tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference).
+Server-executed tools share these mechanics: the `server_tool_use` block, `pause_turn` continuation, turns that mix server and client tools, Zero Data Retention (ZDR) eligibility, and domain filtering. For individual tools, see the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference).
 
 ## The server\_tool\_use block
 
@@ -19,7 +19,7 @@ The `server_tool_use` block appears in Claude's response when a server-executed 
 }
 ```
 
-The API executes the tool internally. You see the call and its result in the response, but you don't handle execution. Unlike client `tool_use` blocks, you don't need to respond with a `tool_result`. The tool's result block (for example, `web_search_tool_result` for web search) follows the `server_tool_use` block in the same assistant turn, paired by `tool_use_id`. If Claude calls one of your client tools at the same time, the `server_tool_use` block appears without its result, and the response ends with `stop_reason: "tool_use"`. The API runs the tool when you return the client `tool_result` blocks in your next request.
+The API runs the tool internally. You see the call and its result in the response, but you don't handle execution. Unlike client `tool_use` blocks, you don't need to respond with a `tool_result`. The tool's result block (for example, `web_search_tool_result` for web search) follows the `server_tool_use` block in the same assistant turn, paired by `tool_use_id`. If Claude calls one of your client tools at the same time, the `server_tool_use` block appears without its result, and the response ends with `stop_reason: "tool_use"`. The API runs the tool when you return the client `tool_result` blocks in your next request.
 
 ## The server-side loop and pause\_turn
 
@@ -164,8 +164,7 @@ Here's how to handle the `pause_turn` stop reason:
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       Messages = [
-          new() {
-              Role = Role.User,
+          new UserMessageParam {
               Content = "Search for comprehensive information about quantum computing breakthroughs in 2025"
           }
       ],
@@ -182,12 +181,10 @@ Here's how to handle the `pause_turn` stop reason:
           Model = Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           Messages = [
-              new() {
-                  Role = Role.User,
+              new UserMessageParam {
                   Content = "Search for comprehensive information about quantum computing breakthroughs in 2025"
               },
-              new() {
-                  Role = Role.Assistant,
+              new AssistantMessageParam {
                   Content = response.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
               }
           ],
@@ -398,14 +395,14 @@ For the other `stop_reason` values and general handling patterns, see [Stop reas
 
 ## Mixing server tools and client tools in one turn
 
-Claude can call a server tool and a client tool in the same group of parallel tool calls, for example, `web_fetch` together with a user-defined tool. A client tool is any tool that your code executes and that produces a `tool_use` block, whether it is user-defined or an Anthropic-schema client tool such as the [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool). When that happens, the API does not run the server tool. It returns immediately so that you can run the client tool first:
+Claude can call a server tool and a client tool in the same group of parallel tool calls, for example, `web_fetch` together with a user-defined tool. A client tool is any tool that your code runs and that produces a `tool_use` block, whether it is user-defined or an Anthropic-schema client tool such as the [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool). When that occurs, the API does not run the server tool. It returns immediately so that you can run the client tool first:
 
 * `stop_reason` is `"tool_use"`, not `"pause_turn"`.
-* `content` contains the `server_tool_use` block and the client `tool_use` block, but no result block for the server tool: that call is not finished.
+* `content` contains the `server_tool_use` block and the client `tool_use` block, but no result block for the server tool: that call is not complete.
 * There is no other marker. Detect the state by looking for a `server_tool_use` block whose `id` has no matching result block in the response. An `mcp_tool_use` block from the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) behaves the same way. Server tool calls that already have their result block in the same response are complete and need nothing from you.
 
 <Note>
-  With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block's own result block arrives once the code finishes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response's `container` field, as that page shows.
+  With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block's own result block arrives once the code completes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response's `container` field, as that page shows.
 </Note>
 
 ```json
@@ -447,7 +444,7 @@ To continue the turn, run the client tools and send a user message whose content
 }
 ```
 
-The API attaches your results to the still-open assistant turn, runs the deferred server tool (for paused code execution, resumes it), and then lets Claude continue. For a server tool Claude called directly, the next response begins with the result block that answers the previous response's `server_tool_use` `id`, followed by the newly generated content and a fresh `stop_reason`:
+The API attaches your results to the still-open assistant turn, runs the deferred server tool (for paused code execution, resumes it), and then lets Claude continue. For a server tool Claude called directly, the next response starts with the result block that answers the previous response's `server_tool_use` `id`, followed by the newly generated content and a fresh `stop_reason`:
 
 ```json
 {
@@ -703,9 +700,8 @@ The following example enables web fetch together with a user-defined `run_comman
           },
       }),
   ];
-  MessageParam userMessage = new()
+  MessageParam userMessage = new UserMessageParam
   {
-      Role = Role.User,
       Content = "Summarize https://example.com/article and run uname -a to tell me what system this is on."
   };
 
@@ -743,12 +739,11 @@ The following example enables web fetch together with a user-defined `run_comman
           Messages =
           [
               userMessage,
-              new()
+              new AssistantMessageParam
               {
-                  Role = Role.Assistant,
                   Content = response.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
               },
-              new() { Role = Role.User, Content = new MessageParamContent(toolResults) }
+              new UserMessageParam { Content = toolResults }
           ]
       });
       // If a web_fetch was deferred, it runs on this request and its
@@ -875,7 +870,7 @@ The following example enables web fetch together with a user-defined `run_comman
               .addTool(runCommandTool)
               .addUserMessage(prompt)
               .addMessage(response)
-              .addUserMessageOfBlockParams(toolResults)
+              .addUserMessageOfContentBlockParams(toolResults)
               .build());
           // If a web_fetch was deferred, it runs on this request and its
           // web_fetch_tool_result is the first block of continuation.content().
@@ -1026,9 +1021,9 @@ To use a `_20260209` or later server tool with ZDR, disable dynamic filtering by
 }
 ```
 
-This restricts the tool to direct invocation only, bypassing the internal code execution step.
+This restricts the tool to direct calls only, bypassing the internal code execution step.
 
-`allowed_callers` controls how a tool can be invoked: directly by Claude (`"direct"`), from inside a code execution container (for example, `"code_execution_20260120"`), or both. The `_20260209` versions of the web tools default to the code execution caller only; earlier versions default to `["direct"]`. On models that don't support programmatic tool calling, these versions require `allowed_callers: ["direct"]`; without it the API returns a validation error that says to set it.
+`allowed_callers` controls how a tool can be called: directly by Claude (`"direct"`), from inside a code execution container (for example, `"code_execution_20260120"`), or both. The `_20260209` versions of the web tools default to the code execution caller only; earlier versions default to `["direct"]`. On models that don't support programmatic tool calling, these versions require `allowed_callers: ["direct"]`; without it the API returns a validation error that says to set it.
 
 <Note>
   Even when web fetch is used in a ZDR-eligible configuration, website publishers might retain any parameters passed to the URL if Claude fetches content from their site.
@@ -1111,7 +1106,7 @@ Common batch workloads include enriching a dataset with information from the web
   </Card>
 
   <Card title="Code execution tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool">
-    Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
+    Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
   </Card>
 
   <Card title="Tool search tool" icon="compass" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">

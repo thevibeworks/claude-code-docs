@@ -152,7 +152,7 @@ Enable compaction by adding the `compact_20260112` strategy to `context_manageme
 
   var messages = new List<BetaMessageParam>
   {
-      new() { Role = Role.User, Content = "Help me build a website" }
+      new BetaUserMessageParam { Content = "Help me build a website" }
   };
 
   var parameters = new MessageCreateParams
@@ -170,9 +170,8 @@ Enable compaction by adding the `compact_20260112` strategy to `context_manageme
   var response = await client.Beta.Messages.Create(parameters);
 
   // Append the response (including any compaction block) to continue the conversation
-  messages.Add(new BetaMessageParam
+  messages.Add(new BetaAssistantMessageParam
   {
-      Role = Role.Assistant,
       Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
   });
 
@@ -264,7 +263,7 @@ Enable compaction by adding the `compact_20260112` strategy to `context_manageme
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -384,7 +383,7 @@ Configure when compaction triggers using the `trigger` parameter:
 
   ```csharp C#
   AnthropicClient client = new();
-  List<BetaMessageParam> messages = [new() { Role = Role.User, Content = "Hello" }];
+  List<BetaMessageParam> messages = [new BetaUserMessageParam { Content = "Hello" }];
 
   var parameters = new MessageCreateParams
   {
@@ -484,7 +483,7 @@ Configure when compaction triggers using the `trigger` parameter:
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -608,9 +607,9 @@ You can provide custom instructions through the `instructions` parameter. Custom
       MaxTokens = 4096,
       Messages =
       [
-          new BetaMessageParam { Role = Role.User, Content = "Help me build a Python web scraper" },
-          new BetaMessageParam { Role = Role.Assistant, Content = "I'll help you build a web scraper..." },
-          new BetaMessageParam { Role = Role.User, Content = "Add support for JavaScript-rendered pages" }
+          new BetaUserMessageParam { Content = "Help me build a Python web scraper" },
+          new BetaAssistantMessageParam { Content = "I'll help you build a web scraper..." },
+          new BetaUserMessageParam { Content = "Add support for JavaScript-rendered pages" }
       ],
       ContextManagement = new BetaContextManagementConfig
       {
@@ -705,7 +704,7 @@ You can provide custom instructions through the `instructions` parameter. Custom
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: [
       { role: "user", content: "Help me build a Python web scraper" },
@@ -858,7 +857,7 @@ When enabled, the API returns a message with the `compaction` stop reason after 
   var client = new AnthropicClient();
   var messages = new List<BetaMessageParam>
   {
-      new() { Role = Role.User, Content = "Hello, Claude" }
+      new BetaUserMessageParam { Content = "Hello, Claude" }
   };
 
   var parameters = new MessageCreateParams
@@ -880,9 +879,8 @@ When enabled, the API returns a message with the `compaction` stop reason after 
 
   if (response.StopReason == BetaStopReason.Compaction)
   {
-      messages.Add(new BetaMessageParam
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
       });
 
@@ -1039,7 +1037,7 @@ When enabled, the API returns a message with the `compaction` stop reason after 
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -1057,7 +1055,7 @@ When enabled, the API returns a message with the `compaction` stop reason after 
 
     response = client.beta.messages.create(
       betas: ["compact-2026-01-12"],
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 4096,
       messages: messages,
       context_management: {
@@ -1072,7 +1070,7 @@ When enabled, the API returns a message with the `compaction` stop reason after 
 
 #### Enforcing a total token budget
 
-When a model works on long tasks with many tool-use iterations, total token consumption can grow significantly. You can combine `pause_after_compaction` with a compaction counter to estimate cumulative usage and gracefully wrap up the task once a budget is reached.
+When a model works on long tasks with many tool-use iterations, total token consumption can grow significantly. You can combine `pause_after_compaction` with a compaction counter to estimate cumulative usage and gracefully end the task once a budget is reached.
 
 This example appears in the SDK languages only: its value is the budget-tracking logic around the request. The raw request combines the `trigger` from [Trigger configuration](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#trigger-configuration) with `pause_after_compaction` from [Pausing after compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#pausing-after-compaction).
 
@@ -1155,7 +1153,7 @@ This example appears in the SDK languages only: its value is the budget-tracking
 
   ```csharp C#
   AnthropicClient client = new();
-  List<BetaMessageParam> messages = [new() { Role = Role.User, Content = "Hello, Claude" }];
+  List<BetaMessageParam> messages = [new BetaUserMessageParam { Content = "Hello, Claude" }];
 
   const int TriggerThreshold = 100_000;
   const int TotalTokenBudget = 3_000_000;
@@ -1180,18 +1178,16 @@ This example appears in the SDK languages only: its value is the budget-tracking
   if (response.StopReason == BetaStopReason.Compaction)
   {
       compactionCount += 1;
-      messages.Add(new()
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(b => new BetaContentBlockParam(b.Json)).ToList()
       });
 
       // Estimate total tokens consumed; prompt wrap-up if over budget
       if (compactionCount * TriggerThreshold >= TotalTokenBudget)
       {
-          messages.Add(new()
+          messages.Add(new BetaUserMessageParam
           {
-              Role = Role.User,
               Content = "Please wrap up your current work and summarize the final state."
           });
       }
@@ -1252,10 +1248,7 @@ This example appears in the SDK languages only: its value is the budget-tracking
           int compactionCount = 0;
 
           List<BetaMessageParam> messages = new ArrayList<>();
-          messages.add(BetaMessageParam.builder()
-              .role(BetaMessageParam.Role.USER)
-              .content("Hello, Claude")
-              .build());
+          messages.add(BetaMessageParam.ofUser("Hello, Claude"));
 
           MessageCreateParams params = MessageCreateParams.builder()
               .addBeta("compact-2026-01-12")
@@ -1281,10 +1274,8 @@ This example appears in the SDK languages only: its value is the budget-tracking
 
               // Estimate total tokens consumed; prompt wrap-up if over budget
               if (compactionCount * triggerThreshold >= totalTokenBudget) {
-                  messages.add(BetaMessageParam.builder()
-                      .role(BetaMessageParam.Role.USER)
-                      .content("Please wrap up your current work and summarize the final state.")
-                      .build());
+                  messages.add(BetaMessageParam.ofUser(
+                      "Please wrap up your current work and summarize the final state."));
               }
           }
 
@@ -1339,7 +1330,7 @@ This example appears in the SDK languages only: its value is the budget-tracking
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -1468,7 +1459,7 @@ You must pass the `compaction` block back to the API on subsequent requests to c
 
   var messages = new List<BetaMessageParam>
   {
-      new() { Role = Role.User, Content = "Help me build a web scraper" }
+      new BetaUserMessageParam { Content = "Help me build a web scraper" }
   };
 
   var response = await client.Beta.Messages.Create(new()
@@ -1483,13 +1474,12 @@ You must pass the `compaction` block back to the API on subsequent requests to c
       }
   });
 
-  messages.Add(new BetaMessageParam
+  messages.Add(new BetaAssistantMessageParam
   {
-      Role = Role.Assistant,
       Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
   });
 
-  messages.Add(new BetaMessageParam { Role = Role.User, Content = "Now add error handling" });
+  messages.Add(new BetaUserMessageParam { Content = "Now add error handling" });
 
   var nextResponse = await client.Beta.Messages.Create(new()
   {
@@ -1627,7 +1617,7 @@ You must pass the `compaction` block back to the API on subsequent requests to c
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -1641,7 +1631,7 @@ You must pass the `compaction` block back to the API on subsequent requests to c
 
   next_response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -1658,7 +1648,7 @@ In Python, use `client.beta.messages`, as the samples on this page do. If you ca
 When the API receives a `compaction` block, all content blocks before it are ignored. You can either:
 
 * Keep the original messages in your list and let the API handle removing the compacted content
-* Manually drop the compacted messages and only include the compaction block onwards
+* Manually drop the compacted messages and only include the compaction block onward
 
 On Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, thinking blocks from before a `compaction` block aren't carried forward, so the summary is all the model has of that earlier work. If you write your own `instructions`, tell the model what the summary must retain; see [Tell the model what to preserve in compaction summaries](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#tell-the-model-what-to-preserve-in-compaction-summaries).
 
@@ -1794,7 +1784,7 @@ The compaction block streams differently from text blocks. You receive a `conten
 
   ```csharp C#
   var client = new AnthropicClient();
-  List<BetaMessageParam> messages = [new() { Role = Role.User, Content = "Hello" }];
+  List<BetaMessageParam> messages = [new BetaUserMessageParam { Content = "Hello" }];
 
   var parameters = new MessageCreateParams
   {
@@ -1969,7 +1959,7 @@ The compaction block streams differently from text blocks. You receive a `conten
 
   stream = client.beta.messages.stream(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: messages,
     context_management: {
@@ -2143,7 +2133,7 @@ To maximize cache hit rates, add a `cache_control` breakpoint at the end of your
               CacheControl = new BetaCacheControlEphemeral()
           }
       },
-      Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+      Messages = [new BetaUserMessageParam { Content = "Hello, Claude" }],
       ContextManagement = new BetaContextManagementConfig
       {
           Edits = [new BetaCompact20260112Edit()]
@@ -2239,7 +2229,7 @@ To maximize cache hit rates, add a `cache_control` breakpoint at the end of your
 
   response = client.beta.messages.create(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     system: [
       {
@@ -2377,7 +2367,7 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
 
   ```csharp C#
   AnthropicClient client = new();
-  List<BetaMessageParam> messages = [new() { Role = Role.User, Content = "Hello" }];
+  List<BetaMessageParam> messages = [new BetaUserMessageParam { Content = "Hello" }];
 
   var countParams = new MessageCountTokensParams
   {
@@ -2464,7 +2454,7 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
 
   count_response = client.beta.messages.count_tokens(
     betas: ["compact-2026-01-12"],
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     messages: messages,
     context_management: {
       edits: [{ type: "compact_20260112" }]
@@ -2575,7 +2565,7 @@ Here's a complete example of a long-running conversation with compaction:
 
   static async Task<string> Chat(AnthropicClient client, List<BetaMessageParam> messages, string userMessage)
   {
-      messages.Add(new() { Role = Role.User, Content = userMessage });
+      messages.Add(new BetaUserMessageParam { Content = userMessage });
 
       var parameters = new MessageCreateParams
       {
@@ -2594,9 +2584,8 @@ Here's a complete example of a long-running conversation with compaction:
 
       var response = await client.Beta.Messages.Create(parameters);
 
-      messages.Add(new()
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
       });
 
@@ -2676,10 +2665,7 @@ Here's a complete example of a long-running conversation with compaction:
       }
 
       private static String chat(String userMessage) {
-          messages.add(BetaMessageParam.builder()
-              .role(BetaMessageParam.Role.USER)
-              .content(userMessage)
-              .build());
+          messages.add(BetaMessageParam.ofUser(userMessage));
 
           MessageCreateParams params = MessageCreateParams.builder()
               .addBeta("compact-2026-01-12")
@@ -2754,7 +2740,7 @@ Here's a complete example of a long-running conversation with compaction:
 
     response = client.beta.messages.create(
       betas: ["compact-2026-01-12"],
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 4096,
       messages: messages,
       context_management: {
@@ -2966,7 +2952,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
 
   async Task<string> Chat(string userMessage)
   {
-      messages.Add(new() { Role = Role.User, Content = userMessage });
+      messages.Add(new BetaUserMessageParam { Content = userMessage });
 
       var response = await client.Beta.Messages.Create(new()
       {
@@ -2991,25 +2977,29 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
 
           // Preserve the prior exchange + current user message (3 messages),
           // without thinking blocks; an assistant turn left empty is dropped
-          var preserved = messages
-              .Skip(Math.Max(0, messages.Count - 3))
-              .Select(message => message.Content.TryPickBetaContentBlockParams(out var blocks)
-                  ? new BetaMessageParam
-                  {
-                      Role = message.Role,
-                      Content = blocks
-                          .Where(block => block.Type.GetString() is not ("thinking" or "redacted_thinking"))
-                          .ToList()
-                  }
-                  : message)
-              .Where(message => !message.Content.TryPickBetaContentBlockParams(out var blocks) || blocks.Count > 0)
-              .ToList();
+          var preserved = new List<BetaMessageParam>();
+          foreach (var message in messages.Skip(Math.Max(0, messages.Count - 3)))
+          {
+              if (!message.TryPickAssistant(out var assistant)
+                  || !assistant.Content.TryPickBetaContentBlockParams(out var blocks))
+              {
+                  preserved.Add(message);
+                  continue;
+              }
+
+              var kept = blocks
+                  .Where(block => block.Type.Raw() is not ("thinking" or "redacted_thinking"))
+                  .ToList();
+              if (kept.Count > 0)
+              {
+                  preserved.Add(assistant with { Content = kept });
+              }
+          }
 
           var messagesAfterCompaction = new List<BetaMessageParam>
           {
-              new()
+              new BetaAssistantMessageParam
               {
-                  Role = Role.Assistant,
                   Content = new List<BetaContentBlockParam> { new BetaContentBlockParam(response.Content[0].Json) }
               }
           };
@@ -3030,9 +3020,8 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
           messages = messagesAfterCompaction;
       }
 
-      messages.Add(new()
+      messages.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
       });
 
@@ -3153,10 +3142,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
       private static final List<BetaMessageParam> messages = new ArrayList<>();
 
       public static String chat(String userMessage) {
-          messages.add(BetaMessageParam.builder()
-              .role(BetaMessageParam.Role.USER)
-              .content(userMessage)
-              .build());
+          messages.add(BetaMessageParam.ofUser(userMessage));
 
           MessageCreateParams params = MessageCreateParams.builder()
               .addBeta("compact-2026-01-12")
@@ -3182,15 +3168,14 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
               // without thinking blocks; an assistant turn left empty is dropped
               List<BetaMessageParam> preservedMessages = new ArrayList<>();
               for (BetaMessageParam message : messages.subList(Math.max(0, messages.size() - 3), messages.size())) {
-                  if (message.content().isBetaContentBlockParams()) {
-                      message = message.toBuilder()
-                          .contentOfBetaContentBlockParams(message.content().asBetaContentBlockParams().stream()
-                              .filter(block -> !block.isThinking() && !block.isRedactedThinking())
-                              .toList())
-                          .build();
-                      if (message.content().asBetaContentBlockParams().isEmpty()) {
+                  if (message.isAssistant() && message.asAssistant().content().isContentBlockParams()) {
+                      var keptBlocks = message.asAssistant().content().asContentBlockParams().stream()
+                          .filter(block -> !block.isThinking() && !block.isRedactedThinking())
+                          .toList();
+                      if (keptBlocks.isEmpty()) {
                           continue;
                       }
+                      message = BetaMessageParam.ofAssistantOfContentBlockParams(keptBlocks);
                   }
                   preservedMessages.add(message);
               }
@@ -3315,7 +3300,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
 
     response = client.beta.messages.create(
       betas: ["compact-2026-01-12"],
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 4096,
       messages: messages,
       context_management: {
@@ -3346,7 +3331,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
 
       response = client.beta.messages.create(
         betas: ["compact-2026-01-12"],
-        model: "claude-opus-5-5",
+        model: Anthropic::Model::CLAUDE_OPUS_5_5,
         max_tokens: 4096,
         messages: messages_after_compaction,
         context_management: {
@@ -3390,7 +3375,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
     Learn about context window sizes and management strategies.
   </Card>
 
-  <Card title="Session memory compaction cookbook" icon="book" href="https://platform.claude.com/cookbook/misc-session-memory-compaction">
+  <Card title="Session memory compaction recipe" icon="book" href="https://platform.claude.com/cookbook/misc-session-memory-compaction">
     Explore a practical implementation that manages long-running conversations with instant session memory compaction using background threading and prompt caching.
   </Card>
 </CardGroup>

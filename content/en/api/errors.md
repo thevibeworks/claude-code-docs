@@ -31,9 +31,9 @@ The API follows a predictable HTTP error code format:
 * 529 - `overloaded_error`: The API is temporarily overloaded.
 
   <Warning>
-    529 errors can occur when the API experiences high traffic across all users.
+    A 529 error can occur when the API experiences high traffic across all users.
 
-    In rare cases, if your organization has a sharp increase in usage, you might see 429 errors because of acceleration limits on the API. To avoid hitting acceleration limits, ramp up your traffic gradually and maintain consistent usage patterns.
+    In rare cases, if your organization has a sharp increase in usage, you might see 429 errors because of acceleration limits on the API. To avoid hitting acceleration limits, increase your traffic gradually and maintain consistent usage patterns.
   </Warning>
 
 The official SDK automatically retries transient failures (such as connection errors, rate limits, and 5xx server errors) with exponential backoff, twice by default, honoring the `retry-after` header when present. The SDK client accepts `max_retries` (typescript, java, php: `maxRetries`; csharp: `MaxRetries`; go: `option.WithMaxRetries`) to configure or disable this behavior.
@@ -135,7 +135,7 @@ The Python and TypeScript SDKs expose the request ID as a `_request_id` property
   {
       Model = Model.ClaudeSonnet5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello, Claude" }]
+      Messages = [new UserMessageParam { Content = "Hello, Claude" }]
   });
   Console.WriteLine($"Request ID: {response.RequestID}");
   ```
@@ -260,12 +260,12 @@ For Claude Platform on AWS request-ID examples in other languages, see [Request 
 
 Avoid setting a large `max_tokens` value without using the [streaming Messages API](https://platform.claude.com/docs/en/build-with-claude/streaming) or [Message Batches API](https://platform.claude.com/docs/en/api/messages/batches/create):
 
-* Some networks may drop idle connections after a variable period of time, which can cause the request to fail or time out without receiving a response from Anthropic.
+* Some networks might drop idle connections after a variable period of time, which can cause the request to fail or time out without receiving a response from Anthropic.
 * Networks differ in reliability. The [Message Batches API](https://platform.claude.com/docs/en/api/messages/batches/create) can help you manage the risk of network issues by allowing you to poll for results rather than requiring an uninterrupted network connection.
 
 If you are building a direct API integration, setting a [TCP socket keep-alive](https://tldp.org/HOWTO/TCP-Keepalive-HOWTO/programming.html) can reduce the impact of idle connection timeouts on some networks.
 
-The [SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) validate that your non-streaming Messages API requests are not expected to exceed a 10-minute timeout. They also set a socket option for TCP keep-alive.
+The [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) validates that your non-streaming Messages API requests are not expected to exceed a 10-minute timeout. It also sets a socket option for TCP keep-alive.
 
 If you don't need to process events incrementally, the SDK can consume the stream for you and return the complete `Message` object, identical to what a non-streaming call returns:
 
@@ -321,7 +321,7 @@ If you don't need to process events incrementally, the SDK can consume the strea
   {
       Model = Model.ClaudeSonnet5,
       MaxTokens = 128000,
-      Messages = [new() { Role = Role.User, Content = "Write a detailed analysis..." }]
+      Messages = [new UserMessageParam { Content = "Write a detailed analysis..." }]
   };
 
   var message = await client.Messages.CreateStreaming(parameters).Aggregate();
@@ -422,7 +422,7 @@ If you don't need to process events incrementally, the SDK can consume the strea
   ```
 </CodeGroup>
 
-See [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming#get-the-final-message-without-handling-events) for more details.
+See [Streaming messages](https://platform.claude.com/docs/en/build-with-claude/streaming#get-the-final-message-without-handling-events) for more details.
 
 ## Common validation errors
 
@@ -450,7 +450,7 @@ If the most recent assistant message contains `thinking` or `redacted_thinking` 
 `thinking` or `redacted_thinking` blocks in the latest assistant message cannot be modified. These blocks must remain as they were in the original response.
 ```
 
-With tool use, every `thinking` and `redacted_thinking` block from the assistant turn must be passed back exactly as received, including blocks whose `thinking` field is empty. Pass thinking blocks back unchanged, and if your application filters content blocks by type before resending, include both `thinking` and `redacted_thinking`. See [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified), [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks), and [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking).
+With tool use, every `thinking` and `redacted_thinking` block from the assistant turn must be passed back exactly as received, including blocks whose `thinking` field is empty. Pass thinking blocks back unchanged, and if your application filters content blocks by type before resending, include both `thinking` and `redacted_thinking`. See the [fix for modified thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified) in Troubleshooting thinking, and also [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks) and [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking).
 
 ### Extended thinking not supported
 
@@ -460,7 +460,7 @@ Claude 4.7 and later models have removed extended thinking. Sending `thinking: {
 "thinking.type.enabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
 ```
 
-Use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead. [Migrating to adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#migrating-to-adaptive-thinking) shows the parameter mapping, and [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-enabled) covers the symptom-first fix.
+Use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead. [Migrating to adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#migrating-to-adaptive-thinking) shows the parameter mapping, and Troubleshooting thinking covers the [symptom-first fix for the extended thinking error](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-enabled).
 
 ### Adaptive thinking not supported
 
@@ -470,7 +470,7 @@ Models that support only extended thinking (Claude 4.5 and earlier models) rejec
 adaptive thinking is not supported on this model
 ```
 
-Use `thinking: {"type": "enabled", "budget_tokens": N}` on these models; see [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for the configuration and [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-adaptive) for the symptom-first fix.
+Use `thinking: {"type": "enabled", "budget_tokens": N}` on these models; see [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for the configuration and the [symptom-first fix for the adaptive thinking error](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-adaptive) in Troubleshooting thinking.
 
 ### Thinking cannot be disabled
 
@@ -506,7 +506,7 @@ messages.N: output_config.effort 'low' differs from the 'high' in effect before 
 
 Claude Haiku 5.5 accepts `thinking: {"type": "disabled"}` and holds it to the same two effort limits that apply to `between_tools`: at `xhigh` or `max` effort, or with a per-message `output_config.effort` that differs from the level in effect, the request returns a 400 `invalid_request_error` with the matching message shown earlier.
 
-In both messages, "enable thinking" means adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. Claude Sonnet 5.5 and Claude Haiku 5.5 reject `"enabled"` with a 400 error. To vary effort per turn, use adaptive thinking.
+In both messages, "enable thinking" means adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. Claude Sonnet 5.5 and Claude Haiku 5.5 reject `"enabled"` with a 400 error. To vary effort for each turn, use adaptive thinking.
 
 Sending `thinking: {"type": "between_tools"}` to any model other than Claude Sonnet 5.5 returns a 400 `invalid_request_error`:
 
@@ -514,9 +514,9 @@ Sending `thinking: {"type": "between_tools"}` to any model other than Claude Son
 "thinking.type.between_tools" is not supported for this model.
 ```
 
-For the fixes, see [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-between-tools), which covers the `between_tools` and effort errors.
+For the fixes, see the [`between_tools` and effort errors](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-between-tools) in Troubleshooting thinking.
 
-Omit the `thinking` parameter and the request runs with adaptive thinking. To keep thinking content out of responses without turning thinking off, set `display: "omitted"` on the thinking configuration. See [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-disabled).
+Omit the `thinking` parameter and the request runs with adaptive thinking. To keep thinking content out of responses without turning thinking off, set `display: "omitted"` on the thinking configuration. See the [fix for the disabled thinking error](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-type-disabled) in Troubleshooting thinking.
 
 ### Forced tool use not supported
 
@@ -546,7 +546,7 @@ On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, t
 messages.{i}.content.{j}: Invalid `signature` in `thinking` block. The block is bound to a different conversation. Remove the block, or set `thinking.block_binding.prefix_mismatch_behavior` to "drop_block".
 ```
 
-Without the `thinking-binding-controls-2026-08-01` beta header the message also names that header. Keep the conversation history append-only, or send the beta header with `prefix_mismatch_behavior: "drop_block"` to drop the block and continue. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on. A block from a model the target model can't read is dropped rather than rejected. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check) and [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-block-signature).
+Without the `thinking-binding-controls-2026-08-01` beta header, the message also names that header. Keep the conversation history append-only, or send the beta header with `prefix_mismatch_behavior: "drop_block"` to drop the block and continue. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on. A block from a model the target model can't read is dropped rather than rejected. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check) and the [fix for an invalid thinking block signature](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-block-signature) in Troubleshooting thinking.
 
 Sending `thinking.block_binding` without the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers) returns a 400 `invalid_request_error` whose message ends in:
 
@@ -558,7 +558,7 @@ Add the header, or remove the field.
 
 ### Outbound web identity federation disabled (Claude Platform on AWS)
 
-If every request to [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) returns `"Outbound web identity federation is disabled for your account"`, run `aws iam enable-outbound-web-identity-federation` once per AWS account. See [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation) for details.
+If every request to [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) returns `"Outbound web identity federation is disabled for your account"`, run `aws iam enable-outbound-web-identity-federation` once for each AWS account. See [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation) for details.
 
 ## Next steps
 

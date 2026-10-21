@@ -27,7 +27,7 @@ Pre-built Agent Skills extend Claude's capabilities with specialized expertise f
 
 ## Step 1: List available Skills
 
-First, check what Skills are available. Use the Skills API to list all Anthropic-managed Skills. Each language tab is an excerpt from one continuous script, with any imports and client setup at the top:
+First, check what Skills are available. Use the Skills API to list all Anthropic-managed Skills. The example is an excerpt from one continuous script, with any imports and client setup at the top:
 
 <CodeGroup>
   ```bash cURL
@@ -223,9 +223,8 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
       },
       Messages =
       [
-          new MessageParam
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = "Create a presentation about renewable energy with 5 slides",
           },
       ],
@@ -685,9 +684,8 @@ Try these variations:
           },
           Messages =
           [
-              new MessageParam
+              new UserMessageParam
               {
-                  Role = Role.User,
                   Content = "Create a quarterly sales tracking spreadsheet with sample data",
               },
           ],
@@ -878,9 +876,8 @@ Try these variations:
           },
           Messages =
           [
-              new MessageParam
+              new UserMessageParam
               {
-                  Role = Role.User,
                   Content = "Write a 2-page report on the benefits of renewable energy",
               },
           ],
@@ -1069,14 +1066,7 @@ Try these variations:
                   },
               ],
           },
-          Messages =
-          [
-              new MessageParam
-              {
-                  Role = Role.User,
-                  Content = "Generate a PDF invoice template",
-              },
-          ],
+          Messages = [new UserMessageParam { Content = "Generate a PDF invoice template" }],
           Tools = [new CodeExecutionTool20260521()],
       }
   );

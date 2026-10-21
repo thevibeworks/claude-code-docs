@@ -10,12 +10,12 @@ description: Programmatically access your organization's API usage and cost data
 
 The Usage and Cost Admin API provides programmatic and granular access to historical API usage and cost data for your organization. This data is similar to the information available on the [Usage](https://platform.claude.com/usage) page (`platform.claude.com/usage`) and the [Cost](https://platform.claude.com/cost) page (`platform.claude.com/cost`) in the Claude Console.
 
-This API enables you to better monitor, analyze, and optimize your Claude implementations:
+This API allows you to better monitor, analyze, and optimize your Claude implementations:
 
 * **Accurate usage tracking:** Get precise token counts and usage patterns instead of relying solely on response token counting
 * **Cost reconciliation:** Match internal records with Anthropic billing for finance and accounting teams
 * **Product performance and improvement:** Monitor product performance while measuring if changes to the system have improved it, or set up alerting
-* **[Rate limit](https://platform.claude.com/docs/en/api/rate-limits) optimization:** Optimize features like [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) or specific prompts to make the most of your allocated capacity.
+* **[Rate limit](https://platform.claude.com/docs/en/api/rate-limits) optimization:** Optimize features such as [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) or specific prompts to use your allocated capacity efficiently.
 * **Advanced analysis:** Perform deeper data analysis than what's available in Console
 
 <Check>
@@ -286,7 +286,7 @@ page=page_xyz..." \
 
 ## Common use cases
 
-Explore detailed implementations in [Claude Cookbook](https://platform.claude.com/cookbook):
+Explore detailed implementations in the [Claude Cookbook](https://platform.claude.com/cookbook):
 
 * **Daily usage reports:** Track token consumption trends
 * **Cost attribution:** Allocate expenses by workspace for chargebacks
@@ -298,7 +298,7 @@ Explore detailed implementations in [Claude Cookbook](https://platform.claude.co
 
 ### How fresh is the data?
 
-Usage and cost data typically appears within 5 minutes of API request completion, though delays may occasionally be longer.
+Usage and cost data typically appears within 5 minutes of API request completion, though delays might occasionally be longer.
 
 ### What's the recommended polling frequency?
 
@@ -314,7 +314,7 @@ Filter or group by `service_tier` in the usage endpoint and look for the `priori
 
 ### What happens with playground usage?
 
-API usage from playground in the Claude Console (and from the legacy Workbench before it) is not associated with an API key, so `api_key_id` will be `null` even when grouping by that dimension.
+API usage from playground in the Claude Console (and from the legacy Anthropic Workbench before it) is not associated with an API key, so `api_key_id` is `null` even when grouping by that dimension.
 
 ### How is the default workspace represented?
 
@@ -333,7 +333,7 @@ Use the Usage and Cost APIs to deliver a better experience for your users, manag
 * [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api) - Which analytics API and key type your organization needs
 * [Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
 * [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) - Optimize costs with caching
-* [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) - 50% discount on batch requests
+* [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) - 50 percent discount on batch requests
 * [Rate limits](https://platform.claude.com/docs/en/api/rate-limits) - Understand usage tiers
 * [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api) - Read your configured rate limits
 * [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) - Control inference geography

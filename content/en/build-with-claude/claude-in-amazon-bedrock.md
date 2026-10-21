@@ -16,10 +16,10 @@ Amazon Bedrock sets access criteria for each Claude model individually. Claude F
 
 ## Prerequisites
 
-Before you begin, ensure you have:
+Before you start, ensure you have:
 
-* An AWS account with [Amazon Bedrock model access](https://console.aws.amazon.com/bedrock/home#/modelaccess) enabled for the Claude models you intend to use.
-* The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed and configured (optional, for credential management).
+* An AWS account with [Amazon Bedrock model access](https://console.aws.amazon.com/bedrock/home#/modelaccess) enabled for the Claude models you intend to use
+* The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed and configured (optional, for credential management)
 
 Claude Mythos Preview additionally requires a dedicated AWS account that has been allowlisted by the Bedrock Marketplace team. Your Anthropic account executive can submit your account ID for allowlisting (typically processed within 24 hours), and AWS sends a welcome email once it's complete.
 
@@ -37,7 +37,7 @@ Use a Bedrock service role with AWS-managed keys for the most secure, long-lived
   </Step>
 
   <Step title="Developer: pass the role">
-    When calling the API, Bedrock assumes the service role on your behalf. See the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html) for how to associate the role with your requests.
+    When you call the API, Bedrock assumes the service role on your behalf. See the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html) for how to associate the role with your requests.
   </Step>
 </Steps>
 
@@ -102,8 +102,8 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:2.75.0")
-        implementation("com.anthropic:anthropic-java-bedrock:2.75.0")
+        implementation("com.anthropic:anthropic-java:3.0.0")
+        implementation("com.anthropic:anthropic-java-bedrock:3.0.0")
         ```
       </Tab>
 
@@ -112,12 +112,12 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>2.75.0</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-bedrock</artifactId>
-            <version>2.75.0</version>
+            <version>3.0.0</version>
         </dependency>
         ```
       </Tab>
@@ -216,7 +216,7 @@ The SDK resolves credentials and region using the standard AWS precedence: const
     {
         Model = "anthropic.claude-opus-5-5",
         MaxTokens = 1024,
-        Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+        Messages = [new UserMessageParam { Content = "Hello, Claude" }],
     });
 
     foreach (var item in message.Content)
@@ -390,7 +390,7 @@ For the full feature list with Amazon Bedrock availability, see [Features overvi
 Claude in Amazon Bedrock is available in the following AWS regions. Amazon Bedrock offers two endpoint types:
 
 * **Global:** dynamic routing across all available regions for maximum availability. No pricing premium.
-* **Regional:** the endpoint resolves to the single AWS region you specify, for data-residency requirements. Regional endpoints carry a 10% pricing premium over global endpoints. To route across multiple regions within a geography, use an [inference profile](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) (US, EU, JP, or AU). Regions marked **In-region only** in the table support direct single-region routing without an inference profile.
+* **Regional:** the endpoint resolves to the single AWS region you specify, for data-residency requirements. Regional endpoints carry a 10 percent pricing premium over global endpoints. To route across multiple regions within a geography, use an [inference profile](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) (US, EU, JP, or AU). Regions marked **In-region only** in the table support direct single-region routing without an inference profile.
 
 The global endpoint is available for Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5.5, Claude Sonnet 5, Claude Haiku 5.5, and Claude Haiku 4.5. For Claude Fable 5.1, regional endpoints are currently available in `us-east-1` only. Claude Mythos Preview is regional only and is available in `us-east-1`.
 

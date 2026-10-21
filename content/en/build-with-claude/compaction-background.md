@@ -41,7 +41,7 @@ The compaction request and the block it returns are the same as in the loop. You
 For example, if the compaction request held messages 1 to 5 and the conversation gained messages 6 to 8 while it ran, after the swap your history is the block followed by messages 6 to 8.
 
 <Frame>
-  ![Background compaction timeline: the compaction request is sent with messages 1 to 5 while the conversation continues on its full history and gains messages 6 to 8; when the block arrives, it replaces messages 1 to 5 at the front of the history, and the history becomes the block followed by messages 6 to 8](https://platform.claude.com/docs/images/compaction-background-timeline.svg)
+  ![Background compaction: while a compaction request for messages 1 to 5 runs, 6 to 8 arrive; then the block replaces 1 to 5](https://platform.claude.com/docs/images/compaction-background-timeline.svg)
 </Frame>
 
 If the response has any other `stop_reason`, no summary was produced, which counts as a failure in step 2. Keep the full history; [Handle a missing summary or an error](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#when-no-summary-comes-back) lists the causes and what to do for each.
@@ -241,9 +241,8 @@ The following program is the loop from [Compact in a loop](https://platform.clau
       // Replace exactly the messages the compaction request held. Later turns stay after the block.
       return
       [
-          new()
+          new BetaAssistantMessageParam
           {
-              Role = Role.Assistant,
               Content = summary.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
           },
           .. history[sent..],
@@ -262,7 +261,7 @@ The following program is the loop from [Compact in a loop](https://platform.clau
           pending = null;
       }
 
-      history.Add(new() { Role = Role.User, Content = question });
+      history.Add(new BetaUserMessageParam { Content = question });
       var response = await client.Beta.Messages.Create(new MessageCreateParams
       {
           Model = Model.ClaudeOpus5_5,
@@ -271,9 +270,8 @@ The following program is the loop from [Compact in a loop](https://platform.clau
           Betas = [AnthropicBeta.Compact2026_09_04],
           Messages = history,
       });
-      history.Add(new()
+      history.Add(new BetaAssistantMessageParam
       {
-          Role = Role.Assistant,
           Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
       });
 
@@ -430,10 +428,7 @@ The following program is the loop from [Compact in a loop](https://platform.clau
               pending = null;
           }
 
-          history.add(BetaMessageParam.builder()
-              .role(BetaMessageParam.Role.USER)
-              .content(questions.get(turn - 1))
-              .build());
+          history.add(BetaMessageParam.ofUser(questions.get(turn - 1)));
           var params = MessageCreateParams.builder()
               .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(8192)
@@ -540,8 +535,8 @@ The following program is the loop from [Compact in a loop](https://platform.clau
 </CodeGroup>
 
 * **Deciding when to compact:** The size check also requires that no compaction request is pending.
-* **Starting the request:** Where the loop waits for the compaction response, this version records how many messages the history holds, starts the request on a copy of the history with each language's own concurrency tool, and goes on to the next turn without waiting.
-* **Checking for the result:** At the top of each turn, the program checks whether the pending request has finished. If it has, the program makes the swap before it sends that turn's request.
+* **Starting the request:** Where the loop waits for the compaction response, this version records how many messages the history holds, starts the request on a copy of the history with the language's own concurrency tool, and goes on to the next turn without waiting.
+* **Checking for the result:** At the top of each turn, the program checks whether the pending request has completed. If it has, the program makes the swap before it sends that turn's request.
 * **Making the swap:** Where the loop replaces the whole history with the returned message, this version's swap function replaces only the messages the request held, counted from the front, and keeps everything appended since.
 * **Ending the loop:** If the compaction request is still pending when the loop ends, the program waits for it and makes the swap, so a summary that is still on its way isn't lost before you save or continue the conversation.
 

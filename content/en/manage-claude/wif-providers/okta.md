@@ -31,7 +31,7 @@ At a high level you need to:
 The exact navigation depends on your Okta org configuration and admin console version. The following numbered steps walk through one common path:
 
 1. **Create a service app integration.** In the Okta Admin Console, create a new app integration of type **API Services** (OIDC, machine-to-machine). Note the generated **Client ID**.
-2. **Configure client authentication.** For a keyless setup, choose **Public key / Private key** (`private_key_jwt`) and register your workload's public JWK. Alternatively, use a client secret if your environment can store one securely. For the following example you may need to disable the DPoP requirement on the application; ensure that your production setup adheres to your organization's security requirements.
+2. **Configure client authentication.** For a keyless setup, select **Public key / Private key** (`private_key_jwt`) and register your workload's public JWK. Alternatively, use a client secret if your environment can store one securely. For the following example you might need to disable the DPoP requirement on the application; ensure that your production setup adheres to your organization's security requirements.
 3. **Set the audience.** On your custom authorization server, set the audience to `https://api.anthropic.com` so issued access tokens carry that `aud` claim. Anthropic validates `aud` against this fixed value.
 4. **Grant a scope.** On your custom authorization server, ensure at least one scope exists that the service app is allowed to request (for example, `anthropic.access`). Okta rejects `client_credentials` requests that do not include a granted scope.
 5. **Create an access policy.** On your custom authorization server, create an access policy with at least one rule that allows your service app to request the scope you granted in step 4.
@@ -354,7 +354,7 @@ Unlike platform-native providers (AWS, Google Cloud, Kubernetes), which make a t
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+      Messages = [new UserMessageParam { Content = "Hello, Claude" }],
   });
   foreach (var block in message.Content)
   {
@@ -509,9 +509,9 @@ Lock the rule's `match` block to the narrowest scope that fits your use case:
 * **Pin the exact Client ID:** Set `subject_prefix` to the service app's full Client ID with no trailing `*`.
 * **Pin the audience:** Match the `audience` value you configured on the authorization server so tokens minted for a different audience are rejected.
 * **Match on custom claims:** For finer-grained scoping, add claims in the authorization server's **Claims** tab and match them with the rule's `claims` map or a CEL `condition`.
-* **Use one rule per service app:** Create a separate federation rule for each service app rather than sharing one rule across apps.
+* **Use one rule for each service app:** Create a separate federation rule for each service app rather than sharing one rule across apps.
 
 ## Next steps
 
 * Review the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference) for the full credential resolution order and profile configuration.
-* See the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference#rule-matching-semantics) to match on custom Okta claims with CEL expressions.
+* See [Rule matching semantics](https://platform.claude.com/docs/en/manage-claude/wif-reference#rule-matching-semantics) to match on custom Okta claims with CEL expressions.

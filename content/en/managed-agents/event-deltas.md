@@ -10,13 +10,13 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-By default, the agent's response text reaches the [session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as buffered `agent.message` events. Each one is emitted only after the model request that produced it finishes. Event deltas let you render that text incrementally, as a live preview, while the model is still generating it.
+By default, the agent's response text reaches the [session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as buffered `agent.message` events. Each one is emitted only after the model request that produced it completes. Event deltas let you render that text incrementally, as a live preview, while the model is still generating it.
 
 Previews are a best-effort display aid, and the buffered `agent.message` is always the authoritative record. A client that ignores previews still receives a complete, correct stream.
 
 ## Opt in to previews
 
-Previews are opt-in per stream connection. Add the `event_deltas[]` query parameter to the stream you're reading, and repeat it once for each event type you want previewed. The accepted values are `agent.message` and `agent.thinking`. Any other value returns a 400 error, as does a request with more than 100 values.
+Previews are opt-in for each stream connection. Add the `event_deltas[]` query parameter to the stream you're reading, and repeat it once for each event type you want previewed. The accepted values are `agent.message` and `agent.thinking`. Any other value returns a 400 error, as does a request with more than 100 values.
 
 Both stream endpoints accept the parameter:
 
@@ -29,7 +29,7 @@ A subagent's previews appear on [that subagent's own thread stream](https://plat
 
 ### Preview events
 
-When a previewed event begins, the stream emits an `event_start` carrying the upcoming event's type and `id`:
+When a previewed event starts, the stream emits an `event_start` carrying the upcoming event's type and `id`:
 
 ```json
 {
@@ -70,7 +70,7 @@ Unlike persisted events, `event_start` and `event_delta` have no `id` or `proces
 
 Every SDK that supports event deltas includes an [accumulator helper](https://platform.claude.com/docs/en/managed-agents/event-deltas#sdk-accumulator-helpers) that handles the `index` bookkeeping for you. The manual pattern in this section works in every language when you need custom bookkeeping. Apply it to the generated event types.
 
-In the manual pattern, hold preview text in a temporary map keyed by `(event_id, index)`, and treat the buffered event as the record. Reconcile the two per model request.
+In the manual pattern, hold preview text in a temporary map keyed by `(event_id, index)`, and treat the buffered event as the record. Reconcile the two for each model request.
 
 A turn opens with a single `session.status_running` event. On a turn that completes normally, each model request then produces these events, in order:
 
@@ -78,7 +78,7 @@ A turn opens with a single `session.status_running` event. On a turn that comple
 2. `event_start`
 3. The `event_delta` events
 4. The buffered `agent.message`
-5. [`span.model_request_end`](https://platform.claude.com/docs/en/managed-agents/reference#event-types) (in the Span events tab)
+5. [`span.model_request_end`](https://platform.claude.com/docs/en/managed-agents/reference#event-types) (in the **Span events** tab)
 
 On the wire, this is the previewed portion of that sequence, interleaved with the connection's other buffered events:
 
@@ -89,7 +89,7 @@ event_delta     {"event_id": "sevt_01abc...", "delta": {"type": "content_delta",
 agent.message   {"id": "sevt_01abc...", "content": [...]}
 ```
 
-The `event_delta` line repeats once per text fragment. Process each event as it arrives:
+The `event_delta` line repeats once for each text fragment. Process each event as it arrives:
 
 1. On `event_start`, note the announced `id`. The identifiers always line up: `event_start.event.id`, every `event_delta.event_id`, and the buffered `agent.message`'s `id` are the same value.
 2. On each `event_delta`, append `delta.content.text` to the entry at `(event_id, delta.index)` and render the running text. The first delta for an `index` creates that entry.
@@ -99,7 +99,7 @@ The `event_delta` line repeats once per text fragment. Process each event as it 
 The pattern relies on two guarantees:
 
 * Concatenating a preview's deltas in arrival order, keyed by `(event_id, index)`, gives a prefix of `content[index].text` in the buffered event. It is not necessarily the whole text, because deltas might be [shed under load](https://platform.claude.com/docs/en/managed-agents/event-deltas#limitations).
-* A connection emits at most one `event_start` per `event_id`, and the buffered event is the last thing that connection delivers for that `id`.
+* A connection emits at most one `event_start` for each `event_id`, and the buffered event is the last thing that connection delivers for that `id`.
 
 ### SDK accumulator helpers
 
@@ -248,14 +248,9 @@ The following examples opt in to `agent.message` previews and reconcile them wit
       [
           new BetaManagedAgentsUserMessageEventParams
           {
-              Type = BetaManagedAgentsUserMessageEventParamsType.UserMessage,
               Content =
               [
-                  new BetaManagedAgentsTextBlock
-                  {
-                      Type = BetaManagedAgentsTextBlockType.Text,
-                      Text = "Write a haiku about event streams.",
-                  },
+                  new BetaManagedAgentsTextBlock { Text = "Write a haiku about event streams." },
               ],
           },
       ],
@@ -275,7 +270,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
           // so other preview types (including ones added later) are skipped.
           if (start.Event.TryPickAgentMessage(out var preview))
           {
-              Console.WriteLine($"event_start             {preview.Type.Raw()} {preview.ID}");
+              Console.WriteLine($"event_start             {preview.Type.GetString()} {preview.ID}");
           }
       }
       else if (streamEvent.TryPickDeltaEvent(out var delta))
@@ -385,7 +380,6 @@ The following examples opt in to `agent.message` previews and reconcile them wit
           session.id(),
           EventSendParams.builder()
               .addEvent(BetaManagedAgentsUserMessageEventParams.builder()
-                  .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
                   .addTextContent("Describe the repo in one sentence.")
                   .build())
               .build()
@@ -398,7 +392,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
               case EVENT_START -> {
                   if (event.asEventStart().event().isAgentMessage()) {
                       var preview = event.asEventStart().event().asAgentMessage();
-                      IO.println("event_start             " + preview.type().asString() + " " + preview.id());
+                      IO.println("event_start             " + preview._type() + " " + preview.id());
                   }
               }
               case EVENT_DELTA -> {
@@ -570,7 +564,7 @@ A connection previews only the thread it's reading. The session-level stream pre
 
 A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` exists only at the session level, so there is no `/threads/{thread_id}/events/stream` endpoint.
 
-`event_start` and `event_delta` have the same shape on a thread stream as on the session-level stream, and the [accumulate and reconcile](https://platform.claude.com/docs/en/managed-agents/event-deltas#accumulate-and-reconcile) pattern applies as written. Run one accumulator instance per stream connection.
+`event_start` and `event_delta` have the same shape on a thread stream as on the session-level stream, and the [accumulate and reconcile](https://platform.claude.com/docs/en/managed-agents/event-deltas#accumulate-and-reconcile) pattern applies as written. Run one accumulator instance for each stream connection.
 
 <CodeGroup>
   ```bash cURL
@@ -861,7 +855,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 </CodeGroup>
 
-The read loop exits on [`session.thread_status_idle`](https://platform.claude.com/docs/en/managed-agents/reference#event-types), the event emitted when the session thread's turn finishes and the thread goes idle.
+The read loop exits on [`session.thread_status_idle`](https://platform.claude.com/docs/en/managed-agents/reference#event-types), the event emitted when the session thread's turn completes and the thread goes idle.
 
 ## Limitations
 
@@ -883,7 +877,7 @@ The read loop exits on [`session.thread_status_idle`](https://platform.claude.co
 
 <CardGroup cols={2}>
   <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
-    Send events, stream responses, and interrupt or redirect your session mid-execution.
+    Send events, stream responses, and interrupt or redirect your session while it runs.
   </Card>
 
   <Card title="Multiagent orchestration" icon="stack" href="https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration">

@@ -13,7 +13,7 @@ featureMetadata:
 An environment sets where your agent's tools and code run. They run in a sandbox. A sandbox is an isolated workspace, such as a container, where the agent runs commands and works on files. You have two options:
 
 * **Cloud environment:** Anthropic runs the sandbox for you. Each session gets its own fresh Linux container on Anthropic-managed infrastructure, with common languages, databases, and utilities already installed. You choose its network rules and any extra packages to install.
-* **Self-hosted sandbox:** You run the sandbox on your own infrastructure. Claude still runs on Anthropic's side and decides which tool to call next. A program that you run, called a worker, carries out the agent's bash and file tool calls on your machines and sends each result back. It can also serve custom tools.
+* **Self-hosted sandbox:** You run the sandbox on your own infrastructure. Claude still runs on Anthropic's side and determines which tool to call next. A program that you run, called a worker, carries out the agent's bash and file tool calls on your machines and sends each result back. It can also serve custom tools.
 
 The agent definition is the same whichever you choose. You set the model, prompt, and tools on the [agent](https://platform.claude.com/docs/en/managed-agents/agent-setup), not on the environment.
 
