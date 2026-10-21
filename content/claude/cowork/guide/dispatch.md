@@ -64,7 +64,7 @@ Each child task shows its current state in the sidebar. Select any task to open 
 
 When a child task needs permission to take an action (such as running a command or writing a file outside its workspace), the prompt is forwarded to you. If you don't respond within ten minutes, the request is automatically denied and the task continues without that action.
 
-Permission prompts behave the same as in a normal Cowork session.
+Permission prompts behave the same as in a normal Cowork session. A tool that is marked as needing a person's approval can ask on every call, even if you chose to always allow it. If nobody can be asked, the call can be refused.
 
 ## Continue from a finished task
 
