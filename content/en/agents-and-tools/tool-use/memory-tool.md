@@ -8,10 +8,10 @@ The memory tool lets Claude store and retrieve information across conversations 
 
 Memory supports just-in-time context retrieval. Rather than loading all relevant information up front, an agent records what it learns in memory files and reads them back on demand. This keeps the active context focused on the current task, which matters for long-running sessions that would otherwise overwhelm the context window. See [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) for the broader pattern.
 
-The memory tool operates client-side: Claude requests file operations, and your application executes them. You control where and how the data is stored through your own infrastructure.
+The memory tool operates client-side: Claude requests file operations, and your application runs them. You control where and how the data is stored through your own infrastructure.
 
 <Note>
-  Reach out through the [feedback form](https://forms.gle/YXC2EKGMhjN1c4L88) to share your feedback on this feature.
+  Use the [feedback form](https://forms.gle/YXC2EKGMhjN1c4L88) to share your feedback on this feature.
 </Note>
 
 <Note>
@@ -28,7 +28,7 @@ The memory tool operates client-side: Claude requests file operations, and your 
 
 When the memory tool is enabled, Claude automatically checks its memory directory before starting a task. As it works, Claude stores what it learns in files under `/memories` and reads them back in later conversations to continue earlier work.
 
-Because the memory tool is client-side, Claude only requests memory operations. Your application executes each request against storage you control and returns the result in a `tool_result` block (see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)). The `/memories` path is a prefix that your handler maps onto real storage, such as a per-user directory or keys in a database. Memory lives entirely in your application. A later conversation continues from the same memory when it sends the same `tools` entry and your handler serves the same store. For security, restrict all memory operations to the `/memories` directory (see [Path traversal protection](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#path-traversal-protection)).
+Because the memory tool is client-side, Claude only requests memory operations. Your application runs each request against storage you control and returns the result in a `tool_result` block (see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)). The `/memories` path is a prefix that your handler maps onto real storage, such as a per-user directory or keys in a database. Memory lives entirely in your application. A later conversation continues from the same memory when it sends the same `tools` entry and your handler serves the same store. For security, restrict all memory operations to the `/memories` directory (see [Path traversal protection](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#path-traversal-protection)).
 
 ### Example: How memory tool calls work
 
@@ -192,11 +192,7 @@ Using the memory tool takes two steps:
           MaxTokens = 2048,
           Messages =
           [
-              new()
-              {
-                  Role = Role.User,
-                  Content = "Help me respond to this customer service ticket.",
-              },
+              new UserMessageParam { Content = "Help me respond to this customer service ticket." },
           ],
           Tools = [new MemoryTool20250818()],
       }
@@ -283,7 +279,7 @@ Using the memory tool takes two steps:
 
 ## Implement the memory handler
 
-Claude's reply to a request like the previous one ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application executes the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard [tool-use loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
+Claude's reply to a request like the previous one ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application runs the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard [tool-use loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
 Four SDKs provide memory tool helpers that handle the tool interface and the loop. Subclass `BetaAbstractMemoryTool` (Python and C#), use `betaMemoryTool` (TypeScript), or implement `BetaMemoryToolHandler` (Java) to back memory with your own storage, such as files on disk, a database, cloud storage, or encrypted files. Python and TypeScript also ship a ready-made local-filesystem implementation, `BetaLocalFilesystemMemoryTool`. The helper and tool-runner surfaces live in your SDK's beta namespace even though the memory tool itself doesn't require a beta header. The Go and Ruby SDKs have no memory helper, so those examples run the tool-use loop themselves, and PHP wraps your handler closure in its generic `BetaRunnableTool`. All three use an in-memory store that you replace with your own storage.
 
@@ -356,9 +352,8 @@ Four SDKs provide memory tool helpers that handle the tool interface and the loo
           MaxTokens = 1024,
           Messages =
           [
-              new()
+              new BetaUserMessageParam
               {
-                  Role = Role.User,
                   Content = "Remember that customer Acme Corp prefers email follow-ups.",
               },
           ],
@@ -738,7 +733,7 @@ Shows directory contents or file contents with optional line ranges:
 
 #### Return values
 
-**For directories:** Return a listing that shows files and directories with their sizes:
+**For directories:** Return a list that shows files and directories with their sizes:
 
 ```text
 Here're the files and directories up to 2 levels deep in {path}, excluding hidden items and node_modules:
@@ -752,7 +747,7 @@ Here're the files and directories up to 2 levels deep in {path}, excluding hidde
 * Excludes hidden items (files starting with `.`) and `node_modules`
 * Uses a tab character between the size and the path
 
-The first `view` of `/memories` on an empty store is not an error. Where your SDK ships a local-filesystem memory tool, `BetaLocalFilesystemMemoryTool`, it creates the memory root before Claude's first call and returns the listing header followed by a single size-and-path line for the empty directory itself.
+The first `view` of `/memories` on an empty store is not an error. Where your SDK ships a local-filesystem memory tool, `BetaLocalFilesystemMemoryTool`, it creates the memory root before Claude's first call and returns the list header followed by a single size-and-path line for the empty directory itself.
 
 **For files:** Return file contents with a header and line numbers:
 
@@ -934,7 +929,7 @@ You can also guide what Claude writes to memory. For example: "Only write down i
 
 ## Security considerations
 
-Your application executes every file operation Claude requests, so these safeguards are your responsibility:
+Your application runs every file operation Claude requests, so these safeguards are your responsibility:
 
 ### Sensitive information
 
@@ -991,7 +986,7 @@ For software projects that span multiple agent sessions, set up memory files del
 
 ### How the pattern works
 
-1. **Initializer session:** The first session sets up the memory files before any substantive work begins. This includes a progress log (tracking what has been done and what comes next), a feature checklist (defining the scope of work), and a reference to any startup or initialization script the project needs.
+1. **Initializer session:** The first session sets up the memory files before any substantive work starts. This includes a progress log (tracking what has been done and what comes next), a feature checklist (defining the scope of work), and a reference to any startup or initialization script the project needs.
 
 2. **Subsequent sessions:** Each new session opens by reading those memory files. This restores the project state without re-exploring the code base or retracing earlier decisions.
 
@@ -1002,14 +997,14 @@ For software projects that span multiple agent sessions, set up memory files del
 Work on one feature at a time. Mark a feature complete only after end-to-end verification confirms it works, not when the code is written. This keeps the progress log accurate from session to session.
 
 <Tip>
-  For a detailed case study of this pattern in practice, including the initializer script, progress file structure, and git-based recovery, see [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
+  For a detailed case study of this pattern in practice, including the initializer script, progress file structure, and Git-based recovery, see [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 </Tip>
 
 ## Next steps
 
 <CardGroup cols={2}>
   <Card title="Bash tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool">
-    Execute shell commands in a persistent bash session.
+    Run shell commands in a persistent bash session.
   </Card>
 
   <Card title="Context editing" icon="edit" href="https://platform.claude.com/docs/en/build-with-claude/context-editing">

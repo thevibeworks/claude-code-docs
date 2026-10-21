@@ -12,7 +12,7 @@ Claude Sonnet 5 has particular strengths in coding and agentic tasks. It perform
 
 Claude Sonnet 5 calibrates response length to the complexity of the task rather than defaulting to a fixed verbosity. This usually means shorter answers on simple lookups and longer ones on open-ended analysis.
 
-If your product depends on a certain style or verbosity of output, you may need to tune your prompts. As an example, to decrease verbosity, you might add:
+If your product depends on a certain style or verbosity of output, you might need to tune your prompts. As an example, to decrease verbosity, you might add:
 
 ```text wrap
 Provide concise, focused responses. Skip non-essential context, and keep examples minimal.
@@ -32,7 +32,7 @@ The [effort parameter](https://platform.claude.com/docs/en/build-with-claude/eff
 
 As a rough cross-model mapping when migrating: Claude Sonnet 5 at medium is comparable in intelligence to Claude Sonnet 4.6 at high, and Claude Sonnet 5 at high is comparable to Claude Sonnet 4.6 at max. When benchmarking, match by observed thinking length rather than effort name.
 
-Claude Sonnet 5 respects effort levels strictly, especially at the low end. At `low` and `medium`, the model scopes its work to what was asked rather than going above and beyond. This is good for latency and cost, but on moderately complex tasks running at `low` effort there is some risk of under-thinking.
+Claude Sonnet 5 respects effort levels strictly, especially at the low end. At `low` and `medium`, the model scopes its work to what was asked rather than going beyond the request. This is good for latency and cost, but on moderately complex tasks running at `low` effort there is some risk of under-thinking.
 
 If you observe shallow reasoning on complex problems, raise effort to `high` or `xhigh` rather than prompting around it. If you need to keep effort at `low` for latency, add targeted guidance:
 
@@ -42,7 +42,7 @@ This task involves multistep reasoning. Think carefully through the problem befo
 
 On Claude Sonnet 5, [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is on by default. Requests without a `thinking` field run with adaptive thinking. This is a change from Claude Sonnet 4.6, where the same requests ran without thinking. To turn thinking off entirely, pass `thinking: {type: "disabled"}`. Because `max_tokens` is a hard limit on total output (thinking plus response text), revisit it for workloads that ran without thinking on Claude Sonnet 4.6. If you were previously using thinking off with Claude Sonnet 4.6, try thinking on with lower effort levels for Claude Sonnet 5.
 
-The triggering behavior for adaptive thinking is steerable. If you find the model emitting thinking blocks more often than you'd like, which can happen with large or complex system prompts, add guidance to steer it. As always, measure the effect of any prompting changes on performance. Example:
+The triggering behavior for adaptive thinking is steerable. If you find the model emitting thinking blocks more often than you'd like, which can occur with large or complex system prompts, add guidance to steer it. As always, measure the effect of any prompting changes on performance. Example:
 
 ```text wrap
 Thinking adds latency and should only be used when it will meaningfully improve answer quality, typically for problems that require multistep reasoning. When in doubt, respond directly.
@@ -53,12 +53,12 @@ Conversely, if you're running hard workloads at `medium` and seeing under-thinki
 Manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) is not supported on Claude Sonnet 5 and returns a 400 error. It was deprecated on Claude Sonnet 4.6 and is now removed. Use adaptive thinking with the effort parameter instead.
 
 <Note>
-  If you are running Claude Sonnet 5 at `high`, `xhigh`, or `max` effort, leave headroom in `max_tokens` so the model has room for thinking and tool calls. On long tasks, adaptive thinking can use a large share of the budget; if the budget is tight, you may see a response that is almost entirely thinking followed by a truncated answer and `stop_reason: "max_tokens"`. Raising `max_tokens` or dropping to `medium` effort resolves this. Because Claude Sonnet 5 uses a new tokenizer that produces approximately 30% more tokens for the same text, `max_tokens` limits tuned for Claude Sonnet 4.6 may truncate equivalent output. The exact increase depends on the content and workload shape.
+  If you are running Claude Sonnet 5 at `high`, `xhigh`, or `max` effort, leave headroom in `max_tokens` so the model has room for thinking and tool calls. On long tasks, adaptive thinking can use a large share of the budget; if the budget is tight, you might see a response that is almost entirely thinking followed by a truncated answer and `stop_reason: "max_tokens"`. Raising `max_tokens` or dropping to `medium` effort resolves this. Because Claude Sonnet 5 uses a new tokenizer that produces approximately 30 percent more tokens for the same text, `max_tokens` limits tuned for Claude Sonnet 4.6 might truncate equivalent output. The exact increase depends on the content and workload shape.
 </Note>
 
 ## Tool use triggering
 
-Claude Sonnet 5 is more agentic than Claude Sonnet 4.6 by default and will reach for tools and run self-verification loops more readily. With thinking disabled, the model is less likely to reach for tools or consider searching; if you rely on tool calls with thinking off, add an explicit nudge in the system prompt. Effort is also a lever for tool usage: `high` or `xhigh` effort settings show substantially more tool usage in agentic search and coding. For scenarios where you want more tool use, you can also adjust your prompt to explicitly instruct the model about when and how to properly use its tools. For instance, if you find that the model is not using your web search tools, clearly describe why and how it should.
+Claude Sonnet 5 is more agentic than Claude Sonnet 4.6 by default and reaches for tools and runs self-verification loops more readily. With thinking disabled, the model is less likely to reach for tools or consider searching; if you rely on tool calls with thinking off, add an explicit nudge in the system prompt. Effort is also a lever for tool usage: `high` or `xhigh` effort settings show substantially more tool usage in agentic search and coding. For scenarios where you want more tool use, you can also adjust your prompt to explicitly instruct the model about when and how to properly use its tools. For instance, if you find that the model is not using your web search tools, clearly describe why and how it should.
 
 ## User-facing progress updates
 
@@ -70,7 +70,7 @@ Claude Sonnet 5 interprets prompts literally and explicitly, particularly at low
 
 ## Tone and writing style
 
-As with any new model, prose style on long-form writing may shift. If your product relies on a specific voice, re-evaluate style prompts against the new baseline.
+As with any new model, prose style on long-form writing might shift. If your product relies on a specific voice, re-evaluate style prompts against the new baseline.
 
 For instance, if your product voice is warmer or more conversational, add:
 
@@ -78,11 +78,11 @@ For instance, if your product voice is warmer or more conversational, add:
 Use a warm, collaborative tone. Acknowledge the user's framing before answering.
 ```
 
-If you previously relied on `temperature` for stylistic variety, note that setting `temperature`, `top_p`, or `top_k` to a non-default value returns a 400 error on Claude Sonnet 5. This constraint is new for Sonnet-class models. Remove these parameters when migrating, and use system-prompt instructions to guide tone and variety instead.
+If you previously relied on `temperature` for stylistic variety, note that setting `temperature`, `top_p`, or `top_k` returns a 400 error on Claude Sonnet 5. This constraint is new for Sonnet-class models. Remove these parameters when migrating, and use system-prompt instructions to guide tone and variety instead.
 
 ## Design and frontend defaults
 
-Claude Sonnet 5 may settle into a consistent default visual style on open-ended frontend and design briefs. A default house style can read well for some briefs but feel off for dashboards, dev tools, fintech, healthcare, or enterprise apps.
+Claude Sonnet 5 might settle into a consistent default visual style on open-ended frontend and design briefs. A default house style can read well for some briefs but feel off for dashboards, dev tools, fintech, healthcare, or enterprise apps.
 
 Generic instructions ("don't use that color," "make it clean and minimal") tend to shift the model to a different fixed palette rather than producing variety. Two approaches work reliably:
 
@@ -127,13 +127,13 @@ NEVER use generic AI-generated aesthetics like overused font families (Inter, Ro
 
 ## Interactive coding products
 
-Token usage and behavior can differ between autonomous, asynchronous coding agents with a single user turn and interactive, synchronous coding agents with multiple user turns. To maximize both performance and token efficiency in coding products, use `xhigh` or `high` effort, add autonomous features like an auto mode, and reduce the number of human interactions required from your users.
+Token usage and behavior can differ between autonomous, asynchronous coding agents with a single user turn and interactive, synchronous coding agents with multiple user turns. To maximize both performance and token efficiency in coding products, use `xhigh` or `high` effort, add autonomous features such as an auto mode, and reduce the number of human interactions required from your users.
 
 When limiting the number of required user interactions, it's important to specify the task, intent, and relevant constraints upfront in the first human turn. Providing well-specified, clear, and accurate task descriptions upfront can help maximize autonomy and intelligence while minimizing extra token usage after user turns. In contrast, ambiguous or underspecified prompts conveyed progressively over multiple user turns tend to relatively reduce token efficiency and sometimes performance.
 
 ## Code review harnesses
 
-If your code-review harness was tuned for an earlier model, you may initially see lower recall on Claude Sonnet 5. This is likely a harness effect, not a capability regression. When a review prompt says things like "only report high-severity issues," "be conservative," or "don't nitpick," Claude Sonnet 5 may follow that instruction more faithfully than earlier models did: it may investigate the code just as thoroughly, identify the bugs, and then not report findings it judges to be below your stated bar. This can show up as the model doing the same depth of investigation but converting fewer investigations into reported findings, especially on lower-severity bugs. Precision typically rises, but measured recall can fall even though the model's underlying bug-finding ability has improved.
+If your code-review harness was tuned for an earlier model, you may initially see lower recall on Claude Sonnet 5. This is likely a harness effect, not a capability regression. When a review prompt says things like "only report high-severity issues," "be conservative," or "don't nitpick," Claude Sonnet 5 may follow that instruction more faithfully than earlier models did: it may investigate the code just as thoroughly, identify the bugs, and then not report findings it determines to be below your stated bar. This can show up as the model doing the same depth of investigation but converting fewer investigations into reported findings, especially on lower-severity bugs. Precision typically rises, but measured recall can fall even though the model's underlying bug-finding ability has improved.
 
 Some recommended prompt language:
 
@@ -143,7 +143,7 @@ Report every issue you find, including ones you are uncertain about or consider 
 
 This prompt can be used without having an actual second step, but moving confidence filtering out of the finding step often helps. If your harness has a separate verification, deduplication, or ranking stage, tell the model explicitly that its job at the finding stage is coverage rather than filtering.
 
-If you do want the model to self-filter in a single pass, be concrete about where the bar is rather than using qualitative terms like "important": for example, "report any bugs that could cause incorrect behavior, a test failure, or a misleading result; only omit nits like pure style or naming preferences."
+If you do want the model to self-filter in a single pass, be concrete about where the bar is rather than using qualitative terms such as "important": for example, "report any bugs that could cause incorrect behavior, a test failure, or a misleading result; only omit nits like pure style or naming preferences."
 
 Iterate on prompts against a subset of your evals or test cases to validate recall or F1 score gains.
 

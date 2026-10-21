@@ -10,9 +10,15 @@ The Salesforce plugin and Salesforce's hosted MCP server let Claude work with yo
 
 ## Set up Salesforce
 
+> [!NOTE]
+>
+> If your org runs on Salesforce Government Cloud, confirm with Salesforce whether its hosted MCP servers are available there before you start.
+
 **1. Prepare your Salesforce org**
 
-In Salesforce Setup, turn on **Enable MCP Service**, then create an External Client App for Claude Desktop with these OAuth settings:
+In Salesforce Setup, turn on **Enable MCP Service**. Then enter `MCP Servers` in the **Quick Find** box, select **MCP Servers** under **API Catalog**, click the **Salesforce Servers** tab, and activate the **headless-360** server. Until the server is active, Claude Desktop can't connect to it through the entry you add in step 3, even when a user's Salesforce sign-in succeeds. Salesforce's [Activate MCP Servers](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/activate-mcp-servers.html) guide covers activation.
+
+Also in Setup, create an External Client App for Claude Desktop with these OAuth settings:
 
 * The callback URL `http://127.0.0.1:53280/callback`
 * The OAuth scopes `mcp_api` and `refresh_token`
@@ -69,7 +75,7 @@ Keep the name exactly as shown. The Salesforce plugin defines an MCP server with
 
 Enter exactly one URL as the authorization server. To send users to your org's My Domain login page instead of the shared Salesforce login page, enter that URL, for example `["https://yourorg.my.salesforce.com"]`.
 
-For a Salesforce sandbox org, create the External Client App in the sandbox and enter the sandbox's login URL as the authorization server, for example `["https://test.salesforce.com"]`. Set the URL to `https://api.salesforce.com/platform/mcp/v1/sandbox/platform/headless-360`.
+For a Salesforce sandbox org, complete step 1 in the sandbox and enter the sandbox's login URL as the authorization server, for example `["https://test.salesforce.com"]`. Set the URL to `https://api.salesforce.com/platform/mcp/v1/sandbox/platform/headless-360`.
 
 Devices need git installed to fetch the marketplace, and outbound HTTPS access to `github.com`, `api.salesforce.com`, and your Salesforce login host.
 

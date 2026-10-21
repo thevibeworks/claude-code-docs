@@ -31,8 +31,8 @@ The chat list endpoint defaults to organization-wide scope: leave off `user_ids[
 ```bash cURL
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/apps/chats" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01" \
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   --data-urlencode "order_by=updated_at" \
   --data-urlencode "updated_at.gte=2025-06-01T00:00:00Z" \
   --data-urlencode "limit=100"
@@ -69,7 +69,7 @@ That forward walk is also how you keep an export current across runs: persist th
 
 A few constraints apply to these organization-wide queries. Cursors are opaque and bound to the sort key, so an `after_id` issued under one `order_by` value is rejected with a 400 error under the other. Time-filter bounds must match the sort key too: pair `updated_at.*` bounds with `order_by=updated_at`, and `created_at.*` bounds with the default `order_by=created_at`. Backward pagination with `before_id` is not supported, and the `project_ids[]` filter is not available. See [List chats](https://platform.claude.com/docs/en/api/compliance/apps/chats/list) for the full filter reference.
 
-To scope the list to specific users instead (for example, a legal hold on named custodians), pass 1–10 `user_ids[]` values. Obtain the IDs from [List organization users](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users). User-filtered queries always sort by `created_at` (passing `order_by=updated_at` returns a 400 error) and support both `after_id` and `before_id`. Filtering by `project_ids[]` is only available in this user-filtered form. Combining `user_ids[]` with any `updated_at.*` bound is deprecated and will be rejected with a 400 error after 2026-09-22; to keep a custodian set current by update time, run the org-wide `order_by=updated_at` walk without `user_ids[]` and select the custodians' chats from its results, and keep the user-filtered listing for `created_at`-ordered exports.
+To scope the list to specific users instead (for example, a legal hold on named custodians), pass 1–10 `user_ids[]` values. Obtain the IDs from [List organization users](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users). User-filtered queries always sort by `created_at` (passing `order_by=updated_at` returns a 400 error) and support both `after_id` and `before_id`. Filtering by `project_ids[]` is only available in this user-filtered form. Combining `user_ids[]` with any `updated_at.*` bound is deprecated and will be rejected with a 400 error after 2026-09-22; to keep a custodian set current by update time, run the organization-wide `order_by=updated_at` walk without `user_ids[]` and select the custodians' chats from its results, and keep the user-filtered listing for `created_at`-ordered exports.
 
 ```bash cURL
 curl --fail-with-body -sS -G \
@@ -86,8 +86,8 @@ The list response carries chat metadata only. To pull the actual chat content, a
 ```bash cURL
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/apps/chats/claude_chat_01H5CWunD7RpVJ5bHa8RCkja/messages" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 The messages endpoint returns the chat's metadata plus a `chat_messages` array sorted by `created_at`. When `limit` is omitted, the full message set is returned in one response; pass `limit`, `after_id`, or `before_id` to page through very long chats. The endpoint also accepts `created_at.*` and `updated_at.*` range bounds (`gt`, `gte`, `lt`, `lte`) and an `order` parameter (`asc` or `desc`). See [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) for the full parameter list. For user messages, `created_at` is when the message was sent; for assistant messages, it is when Claude finished generating the message. Each message carries its text content and, when present, any uploaded files (typically on user messages), any tool-generated files, and any artifacts the assistant produced or updated (typically on assistant messages):
@@ -195,8 +195,8 @@ The response carries these headers:
 ```bash cURL
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/apps/chats/files/claude_file_01UaT9wBcDfGhJkLmNpQrSv7/content" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01" \
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   --output "dashboard_mockup_v1.pdf"
 ```
 
@@ -228,8 +228,8 @@ A consumer that walks the attachment list must branch on `type` and call the mat
 ```bash cURL
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/apps/projects/claude_proj_01KGp4eZNug9ri4kE35RSppq/attachments" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -265,9 +265,9 @@ curl --fail-with-body -sS -G \
 
 The Compliance API exposes hard-delete endpoints for chats, files, project documents, and entire projects. A hard-deleted chat cannot be restored, and it stops appearing in list responses afterward.
 
-* [Delete chat](https://platform.claude.com/docs/en/api/compliance/apps/chats/delete): also removes the chat's messages and any files attached to those messages.
+* [Delete chat](https://platform.claude.com/docs/en/api/compliance/apps/chats/delete): also deletes the chat's messages and any files attached to those messages.
 * [Delete file](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/delete): handles both chat files and project files.
-* [Delete project document](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/delete): removes a single project document by ID.
+* [Delete project document](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/delete): deletes a single project document by ID.
 * [Delete project](https://platform.claude.com/docs/en/api/compliance/apps/projects/delete): see [Detach chats before deleting a project](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#detach-chats-before-deleting-a-project).
 
 For a chat in the unified Claude experience, [Delete chat](https://platform.claude.com/docs/en/api/compliance/apps/chats/delete) also deletes the sessions in the cloud that were started for the chat. It does not delete sessions that those sessions started.
@@ -285,8 +285,8 @@ The following request deletes one chat. The same pattern applies to the other de
 
 curl --fail-with-body -sS -X DELETE \
   "https://api.anthropic.com/v1/compliance/apps/chats/claude_chat_01H5CWunD7RpVJ5bHa8RCkja" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2023-06-01"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response

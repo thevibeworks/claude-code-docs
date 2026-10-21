@@ -123,19 +123,12 @@ First, create an agent that declares the GitHub MCP server. The agent definition
       System = "You are a code review assistant with access to GitHub.",
       McpServers =
       [
-          new() { Type = "url", Name = "github", Url = "https://api.githubcopilot.com/mcp/" },
+          new() { Name = "github", Url = "https://api.githubcopilot.com/mcp/" },
       ],
       Tools =
       [
-          new BetaManagedAgentsAgentToolset20260401Params
-          {
-              Type = "agent_toolset_20260401",
-          },
-          new BetaManagedAgentsMcpToolsetParams
-          {
-              Type = "mcp_toolset",
-              McpServerName = "github",
-          },
+          new BetaManagedAgentsAgentToolset20260401Params(),
+          new BetaManagedAgentsMcpToolsetParams { McpServerName = "github" },
       ],
   });
   ```
@@ -179,15 +172,11 @@ First, create an agent that declares the GitHub MCP server. The agent definition
       .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
       .system("You are a code review assistant with access to GitHub.")
       .addMcpServer(BetaManagedAgentsUrlMcpServerParams.builder()
-          .type(BetaManagedAgentsUrlMcpServerParams.Type.URL)
           .name("github")
           .url("https://api.githubcopilot.com/mcp/")
           .build())
-      .addTool(BetaManagedAgentsAgentToolset20260401Params.builder()
-          .type(BetaManagedAgentsAgentToolset20260401Params.Type.AGENT_TOOLSET_20260401)
-          .build())
+      .addTool(BetaManagedAgentsAgentToolset20260401Params.builder().build())
       .addTool(BetaManagedAgentsMcpToolsetParams.builder()
-          .type(BetaManagedAgentsMcpToolsetParams.Type.MCP_TOOLSET)
           .mcpServerName("github")
           .build())
       .build());
@@ -314,7 +303,6 @@ Then create a session that mounts the GitHub repository. With a `limited` [envir
       [
           new BetaManagedAgentsGitHubRepositoryResourceParams
           {
-              Type = "github_repository",
               Url = "https://github.com/org/repo",
               MountPath = "/workspace/repo",
               AuthorizationToken = "ghp_your_github_token",
@@ -348,7 +336,6 @@ Then create a session that mounts the GitHub repository. With a `limited` [envir
       .agent(agent.id())
       .environmentId(environment.id())
       .addResource(BetaManagedAgentsGitHubRepositoryResourceParams.builder()
-          .type(BetaManagedAgentsGitHubRepositoryResourceParams.Type.GITHUB_REPOSITORY)
           .url("https://github.com/org/repo")
           .mountPath("/workspace/repo")
           .authorizationToken("ghp_your_github_token")
@@ -397,7 +384,7 @@ A `github_repository` resource accepts the following fields:
 | `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`)                            | Optional. The directory under `/workspace` to clone the repository into. Defaults to `/workspace/<repo-name>`.                                                                                                                                                                                                                                                                                                  |
 | `checkout` (csharp, go: `Checkout`)                                                       | Optional. A branch (`{"type": "branch", "name": "main"}`) or commit (`{"type": "commit", "sha": "..."}`) to check out. Defaults to the repository's default branch.                                                                                                                                                                                                                                             |
 
-Mounting a repository also loads any skills stored in its root `.claude/skills` directory. Skills are discovered once per session, from the repository state checked out at session start. See [Load skills from a GitHub repository](https://platform.claude.com/docs/en/managed-agents/skills#load-skills-from-a-github-repository).
+Mounting a repository also loads any skills stored in its root `.claude/skills` directory. Skills are discovered once for each session, from the repository state checked out at session start. See [Load skills from a GitHub repository](https://platform.claude.com/docs/en/managed-agents/skills#load-skills-from-a-github-repository).
 
 ## Token permissions
 
@@ -502,14 +489,12 @@ Mount multiple repositories by adding entries to the `resources` (csharp, go: `R
   [
       new()
       {
-          Type = "github_repository",
           Url = "https://github.com/org/frontend",
           MountPath = "/workspace/frontend",
           AuthorizationToken = "ghp_your_github_token",
       },
       new()
       {
-          Type = "github_repository",
           Url = "https://github.com/org/backend",
           MountPath = "/workspace/backend",
           AuthorizationToken = "ghp_your_github_token",
@@ -541,13 +526,11 @@ Mount multiple repositories by adding entries to the `resources` (csharp, go: `R
   ```java Java
   var resources = List.of(
       BetaManagedAgentsGitHubRepositoryResourceParams.builder()
-          .type(BetaManagedAgentsGitHubRepositoryResourceParams.Type.GITHUB_REPOSITORY)
           .url("https://github.com/org/frontend")
           .mountPath("/workspace/frontend")
           .authorizationToken("ghp_your_github_token")
           .build(),
       BetaManagedAgentsGitHubRepositoryResourceParams.builder()
-          .type(BetaManagedAgentsGitHubRepositoryResourceParams.Type.GITHUB_REPOSITORY)
           .url("https://github.com/org/backend")
           .mountPath("/workspace/backend")
           .authorizationToken("ghp_your_github_token")
@@ -806,12 +789,10 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
       [
           new BetaManagedAgentsUserMessageEventParams
           {
-              Type = "user.message",
               Content =
               [
                   new BetaManagedAgentsTextBlock
                   {
-                      Type = "text",
                       Text = "Fix the type error in src/utils.ts, commit it to a new branch, and push it.",
                   },
               ],
@@ -846,9 +827,7 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
   ```java Java
   client.beta().sessions().events().send(session.id(), EventSendParams.builder()
       .addEvent(BetaManagedAgentsUserMessageEventParams.builder()
-          .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
           .addContent(BetaManagedAgentsTextBlock.builder()
-              .type(BetaManagedAgentsTextBlock.Type.TEXT)
               .text("Fix the type error in src/utils.ts, commit it to a new branch, and push it.")
               .build())
           .build())

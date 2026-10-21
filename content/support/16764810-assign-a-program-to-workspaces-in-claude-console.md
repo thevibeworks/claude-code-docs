@@ -20,7 +20,7 @@ Follow these steps:
 
 1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin.
 
-2. Go to **[Organization settings > Programs](https://platform.claude.com/settings/organization/programs)**.
+2. Go to **[Organization settings > Programs](https://platform.claude.com/settings/programs)**.
 
 3. Select the program to open its page. The **Workspaces** table shows each workspace's status. A workspace marked with an issue does not meet a requirement yet.
 

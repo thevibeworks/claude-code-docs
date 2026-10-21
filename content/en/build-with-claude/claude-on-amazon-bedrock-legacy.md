@@ -8,6 +8,10 @@ description: The legacy Amazon Bedrock integration for Claude models, using Invo
   This page covers the legacy Amazon Bedrock integration: the `InvokeModel` and `Converse` APIs with ARN-versioned model identifiers and AWS event-stream encoding. For models available on the Messages-API Bedrock endpoint, see [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), which uses the Messages API at `/anthropic/v1/messages` with SSE streaming. For an Anthropic-operated alternative with AWS Marketplace billing and typically same-day feature access, see [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). Existing Bedrock users can follow the [migration guide](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#migrating-from-amazon-bedrock).
 </Note>
 
+<Warning>
+  The latest version of the SDK sends API version `2026-10-21` by default, including through Amazon Bedrock. The ARN-versioned models in the model table on this page don't support `2026-10-21` on Bedrock, and requests to them that send it can return a 400 error. If you call them through the SDK, keep the SDK on the version you use today, and pin that version where you install it so a later install doesn't upgrade it. The Boto3 example sets `anthropic_version` in its request body and isn't affected.
+</Warning>
+
 Calling Claude through Bedrock slightly differs from how you would call Claude on the Claude API directly. This guide walks you through completing an API call to Claude on Bedrock using one of Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview).
 
 Note that this guide assumes you have already signed up for an [AWS account](https://portal.aws.amazon.com/billing/signup) and configured programmatic access.
@@ -15,7 +19,7 @@ Note that this guide assumes you have already signed up for an [AWS account](htt
 ## Install and configure the AWS CLI
 
 1. [Install a version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) at or newer than version `2.13.23`.
-2. Configure your AWS credentials using the AWS configure command (see [Configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)) or find your credentials by navigating to "Command line or programmatic access" within your AWS dashboard and following the directions in the modal window.
+2. Configure your AWS credentials using the AWS configure command (see [Configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)) or find your credentials by navigating to **Command line or programmatic access** within your AWS dashboard and following the directions in the modal window.
 3. Verify that your credentials are working:
 
 ```bash AWS CLI
@@ -24,7 +28,7 @@ aws sts get-caller-identity
 
 ## Install an SDK for accessing Bedrock
 
-Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Bedrock. You can also use an AWS SDK like `boto3` directly.
+Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Bedrock. You can also use an AWS SDK such as `boto3` directly.
 
 <Tabs>
   <Tab title="Python">
@@ -52,22 +56,22 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
   </Tab>
 
   <Tab title="Java">
-    <CodeGroup>
+    <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
       ```groovy Gradle
-      implementation("com.anthropic:anthropic-java:2.75.0")
-      implementation("com.anthropic:anthropic-java-bedrock:2.75.0")
+      implementation("com.anthropic:anthropic-java:3.0.0")
+      implementation("com.anthropic:anthropic-java-bedrock:3.0.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java</artifactId>
-          <version>2.75.0</version>
+          <version>3.0.0</version>
       </dependency>
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java-bedrock</artifactId>
-          <version>2.75.0</version>
+          <version>3.0.0</version>
       </dependency>
       ```
 
@@ -126,7 +130,7 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
 
 ### Subscribe to Anthropic models
 
-Go to the [AWS Console > Bedrock > Model Access](https://console.aws.amazon.com/bedrock/home?region=us-west-2#/modelaccess) and request access to Anthropic models. Note that Anthropic model availability varies by region. See [AWS documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/models-regions.html) for latest information.
+Go to the [AWS Console > Bedrock > Model Access](https://console.aws.amazon.com/bedrock/home?region=us-west-2#/modelaccess) and request access to Anthropic models. Note that Anthropic model availability varies by region. See the [AWS documentation on model availability by region](https://docs.aws.amazon.com/bedrock/latest/userguide/models-regions.html) for the latest information.
 
 #### API model IDs
 
@@ -142,7 +146,7 @@ AWS offers newer Claude models through [cross-region inference](https://docs.aws
 Invocation of model ID anthropic.claude-sonnet-4-5-20250929-v1:0 with on-demand throughput isn't supported. Retry your request with the ID or ARN of an inference profile that contains this model.
 ```
 
-To invoke these models, pass an inference profile instead of the base model ID. The inference profile ID is the base model ID with a prefix from a column marked "Yes" in the following table, for example us.anthropic.claude-sonnet-4-5-20250929-v1:0. You can also pass the full inference profile ARN, in the form `arn:aws:bedrock:{region}:{account-id}:inference-profile/{inference-profile-id}`. For AWS's authoritative list of available inference profiles, see [Supported Regions and models for inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html). To learn how the prefixes affect routing and pricing, see the [Global versus regional endpoints](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#global-vs-regional-endpoints) section.
+To call these models, pass an inference profile instead of the base model ID. The inference profile ID is the base model ID with a prefix from a column marked "Yes" in the following table, for example us.anthropic.claude-sonnet-4-5-20250929-v1:0. You can also pass the full inference profile ARN, in the form `arn:aws:bedrock:{region}:{account-id}:inference-profile/{inference-profile-id}`. For AWS's authoritative list of available inference profiles, see [Supported Regions and models for inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html). To learn how the prefixes affect routing and pricing, see the [Global versus regional endpoints](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#global-vs-regional-endpoints) section.
 
 | Model                                                                                                 | Base Bedrock model ID                       | `global` | `us` | `eu` | `jp` | `apac` |
 | :---------------------------------------------------------------------------------------------------- | :------------------------------------------ | :------- | :--- | :--- | :--- | :----- |
@@ -158,7 +162,7 @@ To invoke these models, pass an inference profile instead of the base model ID. 
 
 The following examples show how to print a list of all the Claude models available through Bedrock:
 
-<CodeGroup>
+<CodeGroup exclude="shell">
   ```bash AWS CLI
   aws bedrock list-foundation-models --region=us-west-2 --by-provider anthropic --query "modelSummaries[*].modelId"
   ```
@@ -307,7 +311,7 @@ The following examples show how to generate text from Claude on Bedrock:
 <Tabs>
   <Tab title="cURL">
     <Note>
-      Calling the `InvokeModel` API with AWS credentials requires SigV4 request signing, which the SDKs in the other tabs handle automatically. For a Bedrock endpoint you can call with a self-contained cURL command, see [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#making-your-first-request).
+      Calling the `InvokeModel` API with AWS credentials requires SigV4 request signing, which the SDK handles automatically. For a Bedrock endpoint you can call with a self-contained cURL command, see [Making your first request with Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#making-your-first-request).
     </Note>
   </Tab>
 
@@ -765,7 +769,7 @@ A `role: "system"` message can also set `output_config.effort` to [change effort
 
 Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, and Claude Haiku 5.5 have a [1M-token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) on Amazon Bedrock. Other Claude models, including Sonnet 4.5 (deprecated) and Sonnet 4 (deprecated), have a 200k-token context window.
 
-Bedrock limits request payloads to 20 MB. When sending large documents or many images, you may reach this limit before the token limit.
+Bedrock limits request payloads to 20 MB. When sending large documents or many images, you might reach this limit before the token limit.
 
 ## Global versus regional endpoints
 
@@ -774,7 +778,7 @@ Starting with **Claude Sonnet 4.5 and all future models**, Bedrock offers two en
 * **Global endpoints:** Dynamic routing for maximum availability
 * **Regional endpoints:** Guaranteed data routing through specific geographic regions
 
-Regional endpoints include a 10% pricing premium over global endpoints.
+Regional endpoints include a 10 percent pricing premium over global endpoints.
 
 <Note>
   This applies to Claude Sonnet 4.5 (deprecated) and future models only. Older models (Claude Sonnet 4 (deprecated) and earlier) maintain their existing pricing structures.
@@ -786,15 +790,15 @@ Regional endpoints include a 10% pricing premium over global endpoints.
 
 * Provide maximum availability and uptime
 * Dynamically route requests to regions with available capacity
-* No pricing premium
-* Best for applications where data residency is flexible
+* Carry no pricing premium
+* Work best for applications where data residency is flexible
 
 **Regional endpoints (CRIS):**
 
 * Route traffic through specific geographic regions
 * Required for data residency and compliance requirements
 * Available for US, EU, Japan, and Asia-Pacific
-* 10% pricing premium reflects infrastructure costs for dedicated regional capacity
+* 10 percent pricing premium reflects infrastructure costs for dedicated regional capacity
 
 ### Implementation
 
@@ -805,7 +809,7 @@ The model IDs for Claude Opus 4.6, Sonnet 4.6, and Sonnet 4.5 (deprecated) alrea
 <Tabs>
   <Tab title="cURL">
     <Note>
-      Calling the `InvokeModel` API with AWS credentials requires SigV4 request signing, which the SDKs in the other tabs handle automatically. For a Bedrock endpoint you can call with a self-contained cURL command, see [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#making-your-first-request).
+      Calling the `InvokeModel` API with AWS credentials requires SigV4 request signing, which the SDK handles automatically. For a Bedrock endpoint you can call with a self-contained cURL command, see [Making your first request with Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#making-your-first-request).
     </Note>
   </Tab>
 
@@ -956,7 +960,7 @@ To use regional endpoints, replace the `global.` prefix with a regional prefix s
 <Tabs>
   <Tab title="cURL">
     <Note>
-      Calling the `InvokeModel` API with AWS credentials requires SigV4 request signing, which the SDKs in the other tabs handle automatically. For a Bedrock endpoint you can call with a self-contained cURL command, see [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#making-your-first-request).
+      Calling the `InvokeModel` API with AWS credentials requires SigV4 request signing, which the SDK handles automatically. For a Bedrock endpoint you can call with a self-contained cURL command, see [Making your first request with Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#making-your-first-request).
     </Note>
   </Tab>
 

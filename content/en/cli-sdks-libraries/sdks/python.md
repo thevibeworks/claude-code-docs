@@ -69,7 +69,7 @@ for block in message.content:
   Consider using [python-dotenv](https://pypi.org/project/python-dotenv/) to add `ANTHROPIC_API_KEY="my-anthropic-api-key"` to your `.env` file so that your API key isn't stored in source control.
 </Tip>
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) with access to multiple workspaces, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ## Async usage
 
@@ -202,7 +202,7 @@ asyncio.run(main())
 
 Streaming with `client.messages.stream(...)` exposes various helpers including accumulation and SDK-specific events.
 
-Alternatively, you can use `client.messages.create(..., stream=True)` which only returns an iterable of the events in the stream and uses less memory (it doesn't build up a final message object for you).
+Alternatively, you can use `client.messages.create(..., stream=True)`, which only returns an iterable of the events in the stream and uses less memory (it doesn't build up a final message object for you).
 
 ## Token counting
 
@@ -347,7 +347,7 @@ The async client uses the exact same interface. If you pass a `PathLike` instanc
 
 ## Handling errors
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (that is, 4xx or 5xx response), a subclass of `APIError` is raised:
+When the library is unable to connect to the API, or if the API returns a non-success status code (that is, a 4xx or 5xx response), a subclass of `APIError` is raised:
 
 ```python
 import anthropic
@@ -392,7 +392,7 @@ Error codes are as follows:
 
 > For more information on debugging requests, see [Request ID](https://platform.claude.com/docs/en/api/errors#request-id).
 
-All object responses in the SDK provide a `_request_id` property which is added from the `request-id` response header so that you can quickly log failing requests and report them back to Anthropic.
+All object responses in the SDK provide a `_request_id` property, which is added from the `request-id` response header so that you can log failing requests and report them back to Anthropic.
 
 ```python
 message = client.messages.create(
@@ -400,7 +400,7 @@ message = client.messages.create(
     messages=[{"role": "user", "content": "Hello, Claude"}],
     model="claude-opus-5-5",
 )
-print(message._request_id)  # e.g., req_018EeWyXxfu5pfWkrYcMdjWG
+print(message._request_id)  # for example, req_018EeWyXxfu5pfWkrYcMdjWG
 ```
 
 <Note>
@@ -460,14 +460,14 @@ Note that requests that time out are [retried twice by default](https://platform
 ## Long requests
 
 <Warning>
-  Consider using the streaming [Messages API](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#streaming-responses) for longer running requests.
+  Consider using the [streaming Messages API](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#streaming-responses) for longer-running requests.
 </Warning>
 
-Avoid setting a large `max_tokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#timeouts) without receiving a response from Anthropic.
+Avoid setting a large `max_tokens` value without using streaming. Some networks might drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#timeouts) without receiving a response from Anthropic.
 
 The SDK will throw a `ValueError` if a non-streaming request is expected to take longer than approximately 10 minutes. Passing `stream=True` or overriding the `timeout` option at the client or request level disables this error.
 
-An expected request latency longer than the [timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#timeouts) for a non-streaming request will result in the client terminating the connection and retrying without receiving a response.
+An expected request latency longer than the [timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#timeouts) for a non-streaming request will result in the client ending the connection and retrying without receiving a response.
 
 The SDK sets a [TCP socket keep-alive](https://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html) option to reduce the impact of idle connection timeouts on some networks. This can be overridden by passing a custom `http_client` option to the client.
 
@@ -525,12 +525,12 @@ for batch in first_page.data:
 
 ## Default headers
 
-The SDK automatically sends the `anthropic-version` header set to `2023-06-01`.
+The SDK automatically sends the `anthropic-version` header set to the API version for this major version of the SDK (see [Semantic versioning](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#semantic-versioning)).
 
 If you need to, you can override it by setting default headers on the client object or per-request.
 
 <Warning>
-  Overriding default headers may result in incorrect types and other unexpected or undefined behavior in the SDK.
+  Overriding default headers might result in incorrect types and other unexpected or undefined behavior in the SDK.
 </Warning>
 
 ```python
@@ -552,9 +552,9 @@ client.messages.with_raw_response.create(
 
 ### Request parameters
 
-Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also have helper methods for things like serializing back into JSON ([`v1`](https://docs.pydantic.dev/1.10/usage/models/), [`v2`](https://docs.pydantic.dev/latest/concepts/serialization/)).
+Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev), which also have helper methods for things such as serializing back into JSON ([Pydantic `v1`](https://docs.pydantic.dev/1.10/usage/models/), [Pydantic `v2`](https://docs.pydantic.dev/latest/concepts/serialization/)).
 
-Typed requests and responses provide autocomplete and documentation within your editor. If you'd like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+Typed requests and responses provide auto-complete and documentation within your editor. If you'd like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
 ### Response models
 
@@ -570,7 +570,7 @@ json_str = message.to_json()
 data = message.to_dict()
 ```
 
-### Handling null vs missing fields
+### Handling null versus missing fields
 
 In responses, you can distinguish between fields that are explicitly `null` versus fields that were not returned (missing):
 
@@ -627,7 +627,7 @@ with client.messages.with_streaming_response.create(
         print(line)
 ```
 
-The context manager is required so that the response will reliably be closed.
+The context manager is required so that the response is reliably closed.
 
 ### Logging
 
@@ -641,7 +641,7 @@ export ANTHROPIC_LOG=debug
 
 ### Making custom/undocumented requests
 
-This library is typed for convenient access to the documented API. If you need to access undocumented endpoints, params, or response properties, the library can still be used.
+This library is typed for convenient access to the documented API. If you need to access undocumented endpoints, parameters, or response properties, the library can still be used.
 
 #### Undocumented endpoints
 
@@ -659,17 +659,17 @@ response = client.post(
 print(response.json())
 ```
 
-#### Undocumented request params
+#### Undocumented request parameters
 
 If you want to explicitly send an extra parameter, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request options.
 
 <Warning>
-  The `extra_` parameters override documented parameters of the same name. For security reasons, ensure these methods are only used with trusted input data.
+  The `extra_` parameters override documented parameters of the same name. For security reasons, use these methods only with trusted input data.
 </Warning>
 
 #### Undocumented response properties
 
-To access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You can also get all extra fields on the Pydantic model as a dict with `response.model_extra`.
+To access undocumented response properties, you can access the extra fields such as `response.unknown_prop`. You can also get all extra fields on the Pydantic model as a dict with `response.model_extra`.
 
 ### Configuring the HTTP client
 
@@ -703,7 +703,7 @@ Tracing and mocking tools that patch `httpx` itself, such as OpenTelemetry's `HT
 
 ### Managing HTTP resources
 
-By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
+By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if you want to, or with a context manager that closes when exiting.
 
 ```python
 with Anthropic() as client:
@@ -759,10 +759,12 @@ Use `AnthropicBedrockMantle` for new projects; `AnthropicBedrock` remains for ex
 
 ## Semantic versioning
 
+Each major version of this SDK sends one API version in the `anthropic-version` header by default, and a new major version comes with each new API version. The first major version that sends `2026-10-21` is 2.0.0; see [Migrating to API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
+
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use.
+2. Changes to library internals that are technically public but not intended or documented for external use.
 3. Changes that aren't expected to impact the vast majority of users in practice.
 
 ### Determining the installed version

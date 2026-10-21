@@ -1,15 +1,15 @@
 ---
 title: Embeddings
 url: https://platform.claude.com/docs/en/build-with-claude/embeddings
-description: Text embeddings are numerical representations of text that enable measuring semantic similarity. This guide introduces embeddings, their applications, and how to use embedding models for tasks like search, recommendations, and anomaly detection.
+description: Text embeddings are numerical representations of text that let you measure semantic similarity. This guide introduces embeddings, their applications, and how to use embedding models for tasks such as search, recommendations, and anomaly detection.
 ---
 
 ## Before implementing embeddings
 
 When selecting an embeddings provider, there are several factors you can consider depending on your needs and preferences:
 
-* Dataset size & domain specificity: size of the model training dataset and its relevance to the domain you want to embed. Larger or more domain-specific data generally produces better in-domain embeddings
-* Inference performance: embedding lookup speed and end-to-end latency. This is a particularly important consideration for large scale production deployments
+* Dataset size and domain specificity: size of the model training dataset and its relevance to the domain you want to embed. Larger or more domain-specific data generally produces better in-domain embeddings
+* Inference performance: embedding lookup speed and end-to-end latency. This is a particularly important consideration for large-scale production deployments
 * Customization: options for continued training on private data, or specialization of models for very specific domains. This can improve performance on unique vocabularies
 
 ## How to get embeddings with Anthropic
@@ -140,7 +140,7 @@ curl https://ai.mongodb.com/v1/embeddings \
   }'
 ```
 
-The response you would get is a JSON object containing the embeddings and the token usage:
+The response is a JSON object containing the embeddings and the token usage:
 
 ```json
 {
@@ -176,7 +176,7 @@ Voyage AI models are also available on AWS Marketplace through [MongoDB's seller
 
 The following brief example shows how to use embeddings.
 
-Suppose you have a small corpus of six documents to retrieve from
+Suppose you have a small corpus of six documents to retrieve from:
 
 ```python
 documents = [
@@ -200,7 +200,7 @@ vo = voyageai.Client()
 doc_embds = vo.embed(documents, model="voyage-4", input_type="document").embeddings
 ```
 
-The embeddings allow you to do semantic search / retrieval in the vector space. Given an example query,
+The embeddings allow you to do semantic search / retrieval in the vector space. Consider the following example query:
 
 ```python
 query = "When is Apple's conference call scheduled?"
@@ -231,7 +231,7 @@ The output is the fifth document, which is indeed the most relevant to the query
 Apple's conference call to discuss fourth fiscal quarter results and business updates is scheduled for Thursday, November 2, 2023 at 2:00 p.m. PT / 5:00 p.m. ET.
 ```
 
-If you are looking for a detailed set of recipes on how to do RAG with embeddings, including vector databases, check out the [RAG recipe](https://platform.claude.com/cookbook/third-party-pinecone-rag-using-pinecone).
+If you are looking for a detailed set of recipes on how to do RAG with embeddings, including vector databases, see the [RAG recipe](https://platform.claude.com/cookbook/third-party-pinecone-rag-using-pinecone).
 
 ## FAQ
 
@@ -272,7 +272,7 @@ If you are looking for a detailed set of recipes on how to do RAG with embedding
 
     Voyage AI embeddings are normalized to length 1, which means that:
 
-    * Cosine similarity is equivalent to dot-product similarity, while the latter can be computed more quickly.
+    * Cosine similarity is equivalent to dot-product similarity, although the latter can be computed more quickly.
     * Cosine similarity and Euclidean distance result in identical rankings.
   </Accordion>
 

@@ -66,11 +66,11 @@ Replace the Claude Haiku 4.5 model ID with the Claude Haiku 5.5 ID for your plat
 
 ## Recount tokens
 
-Claude Haiku 5.5 uses the same newer tokenizer as Claude 4.7 and later models. As with all models that use this tokenizer, the same input text produces approximately 30% more tokens on Claude Haiku 5.5 than on Claude Haiku 4.5. The exact increase depends on the content. Requests, responses, and streaming events keep the same shape. What changes is anything you measure or budget in tokens:
+Claude Haiku 5.5 uses the same newer tokenizer as Claude 4.7 and later models. As with all models that use this tokenizer, the same input text produces approximately 30 percent more tokens on Claude Haiku 5.5 than on Claude Haiku 4.5. The exact increase depends on the content. Requests, responses, and streaming events keep the same shape. What changes is anything you measure or budget in tokens:
 
 * `usage` fields and [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) results are higher for the same text.
 * A given number of tokens holds less text.
-* A `max_tokens` limit tuned for Claude Haiku 4.5 may cut off equivalent output.
+* A `max_tokens` limit tuned for Claude Haiku 4.5 might cut off equivalent output.
 * Cost estimates made from Claude Haiku 4.5's token counts need recomputing with Claude Haiku 5.5's counts and [prices](https://platform.claude.com/docs/en/about-claude/pricing), including its higher prices for long prompts. See [Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing).
 
 Large images can also cost more tokens. Claude Haiku 5.5 uses the high-resolution image tier, which downscales images above 2,576 pixels on the long edge or 4,784 visual tokens. Claude Haiku 4.5 and earlier Haiku models use the standard tier, which downscales images above 1,568 pixels on the long edge or 1,568 visual tokens. An image of 2,000 by 1,500 pixels costs about 2.5 times as many visual tokens on Claude Haiku 5.5 as on Claude Haiku 4.5. See [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size).
@@ -104,13 +104,13 @@ After, the same request to Claude Haiku 5.5 uses adaptive thinking. The `thinkin
 }
 ```
 
-Adaptive thinking is on by default, so a response can begin with one or more `thinking` blocks even when the request doesn't set `thinking`. Leave `thinking` unset or set it to `{"type": "adaptive"}`, and use [effort](https://platform.claude.com/docs/en/build-with-claude/effort) as the lever: where Claude Haiku 4.5 ran without thinking, or with a small budget to save tokens, choose a lower effort level. At a lower level the model thinks less, and it can skip thinking entirely on simpler requests. For prompting guidance, see [Use effort to control thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking). Select content blocks by their `type` field rather than by position, and pass `thinking` blocks back unmodified with tool results.
+Adaptive thinking is on by default, so a response can start with one or more `thinking` blocks even when the request doesn't set `thinking`. Leave `thinking` unset or set it to `{"type": "adaptive"}`, and use [effort](https://platform.claude.com/docs/en/build-with-claude/effort) as the control: where Claude Haiku 4.5 ran without thinking, or with a small budget to save tokens, choose a lower effort level. At a lower level the model thinks less, and it can skip thinking entirely on simpler requests. For prompting guidance, see [Use effort to control thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking). Select content blocks by their `type` field rather than by position, and pass `thinking` blocks back unmodified with tool results.
 
 Thinking tokens count toward `max_tokens`, so a request with a small `max_tokens` can stop with `stop_reason: "max_tokens"` after a `thinking` block and before any text. If you set a small `max_tokens` for Claude Haiku 4.5, raise it to leave room for thinking, or choose a lower [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level.
 
-Thinking blocks from earlier assistant turns stay in context and count as input tokens, where Claude Haiku 4.5 kept only the latest turn's. Multi-turn conversations therefore carry more input tokens than the tokenizer change alone explains. To remove older blocks, use [thinking block clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing). See [Thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model).
+Thinking blocks from earlier assistant turns stay in context and count as input tokens, where Claude Haiku 4.5 keeps only the latest turn's. Multi-turn conversations therefore carry more input tokens than the tokenizer change alone explains. To remove older blocks, use [thinking block clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing). See [Thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model).
 
-By default, Claude Haiku 5.5 returns each `thinking` block with an empty `thinking` field and only a `signature`, where Claude Haiku 4.5 returned summarized thinking. To receive summarized thinking, set `thinking: {"type": "adaptive", "display": "summarized"}`.
+By default, Claude Haiku 5.5 returns each `thinking` block with an empty `thinking` field and only a `signature`, where Claude Haiku 4.5 returns summarized thinking. To receive summarized thinking, set `thinking: {"type": "adaptive", "display": "summarized"}`.
 
 Claude Haiku 5.5 accepts a forced `tool_choice` (`any` or a named tool), but the response starts with the tool call and has no `thinking` block. To let the model think before it calls a tool, use `tool_choice: {"type": "auto"}` and say in the prompt when to use the tool.
 
@@ -118,7 +118,7 @@ Claude Haiku 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Cl
 
 ## Remove sampling parameters
 
-Claude Haiku 4.5 accepts `temperature`, `top_p`, and `top_k`. On Claude Haiku 5.5, omit all three and use prompting to guide the model's behavior instead. If a request includes `temperature`, it must be `1`. If it includes `top_p`, it must be `0.99`, its default. Any other `temperature` or `top_p` value returns a 400 error, including a `top_p` of `1`. So does any `top_k` value, and so does a request that includes both `temperature` and `top_p`.
+On Claude Haiku 5.5, omit `temperature`, `top_p`, and `top_k` and use prompting to guide the model's behavior instead.
 
 ## Replace assistant prefill
 
@@ -139,7 +139,7 @@ On the Claude API and Google Cloud, Claude Haiku 5.5 also supports the [browser 
 
 ## Replay thinking blocks through the account that produced them
 
-Thinking blocks from Claude Haiku 5.5 work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model sees it, and the request succeeds without that reasoning. This affects code that stores conversations and replays them through a different account, for example a service that serves several customers from one conversation store. Replay each conversation through the account that produced it. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
+Thinking blocks from Claude Haiku 5.5 work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model receives it, and the request succeeds without that reasoning. This affects code that stores conversations and replays them through a different account, for example a service that serves several customers from one conversation store. Replay each conversation through the account that produced it. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
 ## Keep earlier turns unchanged
 

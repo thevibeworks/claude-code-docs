@@ -173,7 +173,7 @@ In the Go SDK, repeated `option.WithMiddleware` calls concatenate (client first,
 
 ## Replacing the HTTP client
 
-The SDK also accepts a custom HTTP client (for proxy configuration, custom TLS, or connection pooling). Only one HTTP client is used per SDK client; setting it replaces the default. The custom HTTP client receives requests after all middleware has run.
+The SDK also accepts a custom HTTP client (for proxy configuration, custom TLS, or connection pooling). Only one HTTP client is used for each SDK client; setting it replaces the default. The custom HTTP client receives requests after all middleware has run.
 
 ## Built-in middleware
 

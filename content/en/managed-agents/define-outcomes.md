@@ -23,7 +23,7 @@ A rubric is a markdown document describing per-criterion scoring. The rubric is 
 <Accordion title="Tips for writing effective rubrics">
   Structure the rubric as explicit, gradeable criteria, such as "The CSV contains a price column with numeric values" rather than "The data looks good." The grader scores each criterion independently, so vague criteria produce noisy evaluations.
 
-  If you don't have a rubric on hand, try giving Claude an example of a known-good artifact and asking it to analyze what makes that content good, then turn that analysis into a rubric. This middle-ground approach often produces better results than writing criteria from scratch.
+  If you don't have a rubric, try giving Claude an example of a known-good artifact and asking it to analyze what makes that content good, then turn that analysis into a rubric. This middle-ground approach often produces better results than writing criteria with no example to start from.
 </Accordion>
 
 Example rubric:
@@ -285,7 +285,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
 
 ## Create a session with an outcome
 
-The following examples create a [session](https://platform.claude.com/docs/en/managed-agents/sessions) for an existing [agent](https://platform.claude.com/docs/en/managed-agents/agent-setup) and [environment](https://platform.claude.com/docs/en/managed-agents/environments) (both created separately), then send a `user.define_outcome` event. The agent begins work immediately. No additional user message event is required.
+The following examples create a [session](https://platform.claude.com/docs/en/managed-agents/sessions) for an existing [agent](https://platform.claude.com/docs/en/managed-agents/agent-setup) and [environment](https://platform.claude.com/docs/en/managed-agents/environments) (both created separately), then send a `user.define_outcome` event. The agent starts work immediately. No additional user message event is required.
 
 <CodeGroup>
   ```bash cURL
@@ -347,7 +347,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
       title="Financial analysis on Costco",
   )
 
-  # Define the outcome — agent starts working on receipt
+  # Define the outcome. The agent starts working on receipt.
   client.beta.sessions.events.send(
       session_id=session.id,
       events=[
@@ -370,7 +370,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     title: "Financial analysis on Costco"
   });
 
-  // Define the outcome — agent starts working on receipt
+  // Define the outcome. The agent starts working on receipt.
   await client.beta.sessions.events.send(session.id, {
     events: [
       {
@@ -400,15 +400,9 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
       [
           new BetaManagedAgentsUserDefineOutcomeEventParams
           {
-              Type = BetaManagedAgentsUserDefineOutcomeEventParamsType.UserDefineOutcome,
               Description = "Build a DCF model for Costco in .xlsx",
-              Rubric = new BetaManagedAgentsTextRubricParams
-              {
-                  Type = BetaManagedAgentsTextRubricParamsType.Text,
-                  Content = Rubric,
-              },
-              // or: Rubric = new BetaManagedAgentsFileRubricParams
-              //     { Type = BetaManagedAgentsFileRubricParamsType.File, FileID = rubric.ID },
+              Rubric = new BetaManagedAgentsTextRubricParams { Content = Rubric },
+              // or: Rubric = new BetaManagedAgentsFileRubricParams { FileID = rubric.ID },
               MaxIterations = 5, // optional; default 3, max 20
           },
       ],
@@ -465,14 +459,11 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
       session.id(),
       EventSendParams.builder()
           .addEvent(BetaManagedAgentsUserDefineOutcomeEventParams.builder()
-              .type(BetaManagedAgentsUserDefineOutcomeEventParams.Type.USER_DEFINE_OUTCOME)
               .description("Build a DCF model for Costco in .xlsx")
               .rubric(BetaManagedAgentsTextRubricParams.builder()
-                  .type(BetaManagedAgentsTextRubricParams.Type.TEXT)
                   .content(RUBRIC)
                   .build())
-              // or: .rubric(BetaManagedAgentsFileRubricParams.builder()
-              //     .type(BetaManagedAgentsFileRubricParams.Type.FILE).fileId(rubric.id()).build())
+              // or: .rubric(BetaManagedAgentsFileRubricParams.builder().fileId(rubric.id()).build())
               .maxIterations(5) // optional; default 3, max 20
               .build())
           .build());
@@ -509,7 +500,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     title: "Financial analysis on Costco"
   )
 
-  # Define the outcome — agent starts working on receipt
+  # Define the outcome. The agent starts working on receipt.
   client.beta.sessions.events.send_(
     session.id,
     events: [
@@ -536,13 +527,13 @@ Progress on an outcome-oriented session is surfaced on the events [stream](https
 * `agent.*` events (such as messages and tool use) show progress toward the outcome.
 * `span.outcome_evaluation_*` events are only emitted for outcome-oriented sessions and show the number of iteration loops and the grader's feedback process.
 * You can also send `user.message` [events](https://platform.claude.com/docs/en/managed-agents/reference#event-types) to an outcome-oriented session to direct the agent's work as it progresses, but it isn't required: the agent works toward the outcome on its own, iterating until it succeeds or runs out of iterations.
-* A `user.interrupt` event pauses work on the current outcome and marks the `result` (csharp, go: `Result`) of the `span.outcome_evaluation_end` event as `interrupted`, allowing you to kick off a new outcome.
+* A `user.interrupt` event pauses work on the current outcome and marks the `result` (csharp, go: `Result`) of the `span.outcome_evaluation_end` event as `interrupted`, allowing you to start a new outcome.
 * After the final outcome evaluation, the session can be continued as a conversational session, or a new outcome can be started. The session retains history of the prior outcome.
 
 ### Define outcome user event
 
 <Note>
-  Only one outcome is supported at a time, but you may chain outcomes in sequence. To do this, send a new `user.define_outcome` event after the terminal `span.outcome_evaluation_end` event of the previous outcome.
+  Only one outcome is supported at a time, but you can chain outcomes in sequence. To do this, send a new `user.define_outcome` event after the terminal `span.outcome_evaluation_end` event of the previous outcome.
 </Note>
 
 This is the event you send to initiate an outcome. It is echoed back on receipt, including a `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) timestamp and `outcome_id` (java: `outcomeId`; php: `outcomeID`; csharp, go: `OutcomeID`).
@@ -586,7 +577,7 @@ Heartbeat emitted while the grader runs. The grader's internal reasoning is opaq
 
 ### Outcome evaluation end
 
-Emitted when an outcome evaluation cycle ends: after the grader finishes evaluating one iteration, or when the session is interrupted while an outcome is active. The `result` field indicates what happens next.
+Emitted when an outcome evaluation cycle ends: after the grader finishes evaluating one iteration, or when the session is interrupted while an outcome is active. The `result` field indicates what occurs next.
 
 | Result                   | Next                                                                                                                                                                                                                      |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -872,7 +863,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. To 
   </Card>
 
   <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
-    Send events, stream responses, and interrupt or redirect your session mid-execution.
+    Send events, stream responses, and interrupt or redirect your session while it runs.
   </Card>
 
   <Card title="Adding files" icon="file" href="https://platform.claude.com/docs/en/managed-agents/files">

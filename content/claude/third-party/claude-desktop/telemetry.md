@@ -24,7 +24,7 @@ Crash reports, error stack traces, and performance timings. Contains diagnostic 
 | - | - | - |
 | `disableEssentialTelemetry` | `false` | No crash or error data leaves the device. |
 
-On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and restrictions on disk**](/docs/third-party/claude-desktop/admin-console#configuration-kept-on-devices) switch in the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) also stops the app's crash and performance reports, even while `disableEssentialTelemetry` is `false`.
+On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and restrictions on disk**](/docs/third-party/claude-desktop/admin-console#configuration-kept-on-devices) switch in the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) also stops the app's crash reports, even while `disableEssentialTelemetry` is `false`. Error stack traces and performance timings still leave the device while `disableEssentialTelemetry` is `false`.
 
 > [!WARNING]
 >

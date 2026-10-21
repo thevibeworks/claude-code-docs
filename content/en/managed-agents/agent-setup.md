@@ -34,7 +34,7 @@ You can also override `model` (csharp, go: `Model`), `system` (csharp, go: `Syst
 
 The following example defines a coding agent that uses the newest Claude Opus model with access to the pre-built agent toolset. The toolset lets the agent write code, read files, search the web, and more. See the [agent tools reference](https://platform.claude.com/docs/en/managed-agents/tools) for the full list of supported tools.
 
-The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one up, the [quickstart](https://platform.claude.com/docs/en/managed-agents/quickstart#install-the-cli) covers installation and client setup.
+The examples use curl, the `ant` CLI, or the SDK. If you haven't set one up, the [quickstart](https://platform.claude.com/docs/en/managed-agents/quickstart#install-the-cli) covers installation and client setup.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -98,13 +98,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
       Name = "Coding Assistant",
       Model = BetaManagedAgentsModel.ClaudeOpus5_5,
       System = "You are a helpful coding agent.",
-      Tools =
-      [
-          new BetaManagedAgentsAgentToolset20260401Params
-          {
-              Type = "agent_toolset_20260401",
-          },
-      ],
+      Tools = [new BetaManagedAgentsAgentToolset20260401Params()],
   });
   ```
 
@@ -132,11 +126,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
           .name("Coding Assistant")
           .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
           .system("You are a helpful coding agent.")
-          .addTool(
-              BetaManagedAgentsAgentToolset20260401Params.builder()
-                  .type(BetaManagedAgentsAgentToolset20260401Params.Type.AGENT_TOOLSET_20260401)
-                  .build()
-          )
+          .addTool(BetaManagedAgentsAgentToolset20260401Params.builder().build())
           .build()
   );
   ```
@@ -147,9 +137,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
       model: 'claude-opus-5-5',
       system: 'You are a helpful coding agent.',
       tools: [
-          BetaManagedAgentsAgentToolset20260401Params::with(
-              type: 'agent_toolset_20260401',
-          ),
+          BetaManagedAgentsAgentToolset20260401Params::with(),
       ],
   );
   ```
@@ -844,7 +832,7 @@ Archiving makes the agent read-only and cannot be undone. Existing sessions cont
   </Card>
 
   <Card title="Start a session" icon="play" href="https://platform.claude.com/docs/en/managed-agents/sessions">
-    Create a session to run your agent and begin executing tasks.
+    Create a session to run your agent and start running tasks.
   </Card>
 
   <Card title="Reference" icon="book" href="https://platform.claude.com/docs/en/managed-agents/reference">

@@ -93,7 +93,7 @@ The first `ant apply` writes `claude-lock.json`, the lockfile, in the directory 
 }
 ```
 
-Commit it with your files. It's how the next run, on your machine or in CI, finds these resources instead of creating them again, and it's where you read an agent's ID to [start a session](https://platform.claude.com/docs/en/managed-agents/sessions). The two hashes fingerprint what was last sent and what the API returned. That's how a later run notices an edited file, or a resource changed outside these files.
+Commit it with your files. It's how the next run, on your machine or in CI, finds these resources instead of creating them again, and it's where you read an agent's ID to [start a session](https://platform.claude.com/docs/en/managed-agents/sessions). The two hashes fingerprint what was last sent and what the API returned. That's how a later run detects an edited file, or a resource changed outside these files.
 
 ## Grow it into a project
 

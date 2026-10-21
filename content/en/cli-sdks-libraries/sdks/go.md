@@ -63,7 +63,7 @@ func main() {
 }
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) with access to multiple workspaces, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 <AccordionGroup>
   <Accordion title="Conversations">
@@ -277,7 +277,7 @@ param.IsNull(p.Name)  // true
 param.IsNull(p.Point) // true
 ```
 
-Request structs contain a `.SetExtraFields(map[string]any)` method which can send non-conforming fields in the request body. Extra fields overwrite any struct fields with a matching key.
+Request structs contain a `.SetExtraFields(map[string]any)` method that can send non-conforming fields in the request body. Extra fields overwrite any struct fields with a matching key.
 
 <Warning>
   For security reasons, only use `SetExtraFields` with trusted data.
@@ -298,7 +298,7 @@ custom := param.Override[anthropic.FooParams](12)
 
 ### Request unions
 
-Unions are represented as a struct with fields prefixed by "Of" for each of its variants. Only one field can be non-zero. The non-zero field will be serialized.
+Unions are represented as a struct with fields prefixed by "Of" for each of its variants. Only one field can be non-zero. The non-zero field is serialized.
 
 Subproperties of the union can be accessed through methods on the union struct. These methods return a pointer to the value, if present.
 
@@ -324,15 +324,15 @@ if address := animal.GetOwner().GetAddress(); address != nil {
 }
 ```
 
-### Deserializing params
+### Deserializing parameters
 
 <Note>
   `param.SetJSON` requires SDK v1.20.0 or later.
 </Note>
 
-Param types (types ending in `Param`, such as `MessageNewParams` or `ToolUnionParam`) are designed for outgoing requests only. They marshal correctly to JSON but do not fully support round-trip deserialization. If you unmarshal raw JSON into a param struct, typed union fields like `OfBashTool20250124` will be nil even when the underlying JSON is valid.
+Parameter types (types ending in `Param`, such as `MessageNewParams` or `ToolUnionParam`) are designed for outgoing requests only. They marshal correctly to JSON but do not fully support round-trip deserialization. If you unmarshal raw JSON into a parameter struct, typed union fields such as `OfBashTool20250124` will be nil even when the underlying JSON is valid.
 
-If you need to reconstruct params from raw JSON (for example, from a database, middleware, or a previous request), call `UnmarshalJSON` to populate non-union fields, then use `param.SetJSON` to attach the raw bytes for correct re-serialization:
+If you need to reconstruct parameters from raw JSON (for example, from a database, middleware, or a previous request), call `UnmarshalJSON` to populate non-union fields, then use `param.SetJSON` to attach the raw bytes for correct re-serialization:
 
 ```go
 // Serialize params (for example, for storage or forwarding)
@@ -415,7 +415,7 @@ body := res.JSON.ExtraFields["my_unexpected_field"].Raw()
 
 ### Response unions
 
-In responses, unions are represented by a flattened struct containing all possible fields from each of the object variants. To convert it to a variant use the `.AsFooVariant()` method or the `.AsAny()` method if present.
+In responses, unions are represented by a flattened struct containing all possible fields from each of the object variants. To convert it to a variant, use the `.AsFooVariant()` method or the `.AsAny()` method if present.
 
 If a response value union contains primitive values, primitive fields will be alongside the properties but prefixed with `Of` and feature the tag `json:"...,inline"`.
 
@@ -483,7 +483,7 @@ When other errors occur, they are returned unwrapped; for example, if HTTP trans
 
 ## Retries
 
-Certain errors will be automatically retried 2 times by default, with a short exponential backoff. The SDK retries by default all connection errors, 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors.
+Certain errors are automatically retried 2 times by default, with a short exponential backoff. The SDK retries by default all connection errors, 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors.
 
 You can use the `WithMaxRetries` option to configure or disable this:
 
@@ -546,16 +546,16 @@ defer cancel()
 ## Long requests
 
 <Warning>
-  Consider using the streaming Messages API for longer running requests.
+  Consider using the streaming Messages API for longer-running requests.
 </Warning>
 
-Avoid setting a large `MaxTokens` value without using streaming as some networks may drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#timeouts) without receiving a response from Anthropic.
+Avoid setting a large `MaxTokens` value without using streaming as some networks might drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#timeouts) without receiving a response from Anthropic.
 
 This SDK will also return an error if a non-streaming request is expected to be above roughly 10 minutes long. Calling `.Messages.NewStreaming()` or [setting a custom timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#timeouts) disables this error.
 
 ## File uploads
 
-Request parameters that correspond to file uploads in multipart requests are typed as `io.Reader`. The contents of the `io.Reader` will by default be sent as a multipart form part with the file name of `anonymous_file` and content type of `application/octet-stream`, so the recommended approach is to specify a custom content type with the `anthropic.File(reader io.Reader, filename string, contentType string)` helper, which wraps any `io.Reader` with the appropriate file name and content type.
+Request parameters that correspond to file uploads in multipart requests are typed as `io.Reader`. The contents of the `io.Reader` are sent by default as a multipart form part with the file name of `anonymous_file` and content type of `application/octet-stream`, so the recommended approach is to specify a custom content type with the `anthropic.File(reader io.Reader, filename string, contentType string)` helper, which wraps any `io.Reader` with the appropriate file name and content type.
 
 ```go
 // A file from the file system
@@ -570,7 +570,7 @@ anthropic.FileUploadParams{
 }
 ```
 
-The file name and content type can also be customized by implementing `Name() string` or `ContentType() string` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a file returned by `os.Open` will be sent with the file name on disk.
+The file name and content type can also be customized by implementing `Name() string` or `ContentType() string` on the runtime type of `io.Reader`. Note that `os.File` implements `Name() string`, so a file returned by `os.Open` is sent with the file name on disk.
 
 ## Pagination
 
@@ -592,7 +592,7 @@ if err := iter.Err(); err != nil {
 }
 ```
 
-Or you can use simple `.List()` methods to fetch a single page and receive a standard response object with additional helper methods like `.GetNextPage()`:
+Or you can use simple `.List()` methods to fetch a single page and receive a standard response object with additional helper methods such as `.GetNextPage()`:
 
 ```go
 page, err := client.Messages.Batches.List(context.TODO(), anthropic.MessageBatchListParams{
@@ -627,7 +627,7 @@ client.Messages.New(context.TODO(), // ...,
 )
 ```
 
-The request option `option.WithDebugLog(nil)` may be helpful while debugging.
+The request option `option.WithDebugLog(nil)` might be helpful while debugging.
 
 See the [full list of request options](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go/option).
 
@@ -692,11 +692,11 @@ fmt.Printf("Headers: %+#v\n", response.Header)
 
 ### Making custom/undocumented requests
 
-This library is typed for convenient access to the documented API. If you need to access undocumented endpoints, params, or response properties, the library can still be used.
+This library is typed for convenient access to the documented API. If you need to access undocumented endpoints, parameters, or response properties, the library can still be used.
 
 #### Undocumented endpoints
 
-To make requests to undocumented endpoints, you can use `client.Get`, `client.Post`, and other HTTP verbs. `RequestOptions` on the client, such as retries, will be respected when making these requests.
+To make requests to undocumented endpoints, you can use `client.Get`, `client.Post`, and other HTTP verbs. `RequestOptions` on the client, such as retries, are respected when making these requests.
 
 ```go
 var (
@@ -714,9 +714,9 @@ if err != nil {
 }
 ```
 
-#### Undocumented request params
+#### Undocumented request parameters
 
-To make requests using undocumented parameters, you may use either the `option.WithQuerySet()` or the `option.WithJSONSet()` methods.
+To make requests using undocumented parameters, you can use either the `option.WithQuerySet()` or the `option.WithJSONSet()` functions.
 
 ```go
 params := FooNewParams{
@@ -730,11 +730,13 @@ client.Foo.New(context.Background(), params, option.WithJSONSet("data.last_name"
 
 #### Undocumented response properties
 
-To access undocumented response properties, you may either access the raw JSON of the response as a string with `result.JSON.RawJSON()`, or get the raw JSON of a particular field on the result with `result.JSON.Foo.Raw()`.
+To access undocumented response properties, you can either access the raw JSON of the response as a string with `result.JSON.RawJSON()`, or get the raw JSON of a particular field on the result with `result.JSON.Foo.Raw()`.
 
 Any fields that are not present on the response struct are saved and can be accessed through `result.JSON.ExtraFields`, which is a `map[string]respjson.Field`.
 
 ## Semantic versioning
+
+Each major version of this SDK sends one API version in the `anthropic-version` header by default, and a new major version comes with each new API version. The first major version that sends `2026-10-21` is 2.0.0, whose module path is `github.com/anthropics/anthropic-sdk-go/v2`; see [Migrating to API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 

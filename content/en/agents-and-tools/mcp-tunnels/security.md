@@ -12,7 +12,7 @@ The tunnel architecture provides strong defaults (outbound-only connectivity, en
 
 ## Best practices
 
-* **Require OAuth on every MCP server.** Configure each [upstream MCP server](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) to require OAuth as described in the [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization). OAuth provides defense in depth on top of the tunnel's transport authentication and enables user-level authorization at the data layer.
+* **Require OAuth on every MCP server.** Configure each [upstream MCP server](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) to require OAuth as described in the [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization). OAuth provides defense in depth on top of the tunnel's transport authentication and allows user-level authorization at the data layer.
 * **Enable SSO for your organization.** Tunnels, federation rules, and service accounts are managed in the Claude Console. SSO enforces your identity provider's session controls on the admins who can change them.
 * **Restrict `upstream.allowed_ips`.** Use the smallest CIDR ranges that cover your MCP servers. This is the [proxy](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components)'s primary SSRF defense.
 * **Monitor logs.** Alert on warnings, errors, and unusual traffic patterns from the tunnel stack.

@@ -16,7 +16,7 @@ In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/mul
 
 The **session-level event stream** (`/v1/sessions/{session_id}/events/stream`) is considered the **primary thread**, containing a condensed view of all activity across all threads. You don't see the full activity from [subagents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#delegate-to-subagents), but you do see the start and end of their work, and blocking events such as tool permission requests.
 
-**Session threads** are where you drill into a specific agent's activity.
+**Session threads** are where you examine a specific agent's activity.
 
 The session `status` (csharp, go: `Status`) is an aggregation of all agent activity; if at least one thread is `running`, then the overall session status is `running` as well. A [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs) that's running can keep the session `running` too, even while none of its threads is working. When no thread is working and a thread waits on your client, the session is `idle`; see [Know when the work is done](https://platform.claude.com/docs/en/managed-agents/workflow-runs#know-when-the-work-is-done).
 
@@ -142,14 +142,7 @@ Send `user.interrupt` with `session_thread_id` (java: `sessionThreadId`; php: `s
   ```csharp C#
   await client.Beta.Sessions.Events.Send(session.ID, new()
   {
-      Events =
-      [
-          new BetaManagedAgentsUserInterruptEventParams
-          {
-              Type = BetaManagedAgentsUserInterruptEventParamsType.UserInterrupt,
-              SessionThreadID = thread.ID,
-          },
-      ],
+      Events = [new BetaManagedAgentsUserInterruptEventParams { SessionThreadID = thread.ID }],
   });
   ```
 
@@ -171,7 +164,6 @@ Send `user.interrupt` with `session_thread_id` (java: `sessionThreadId`; php: `s
       session.id(),
       EventSendParams.builder()
           .addEvent(BetaManagedAgentsUserInterruptEventParams.builder()
-              .type(BetaManagedAgentsUserInterruptEventParams.Type.USER_INTERRUPT)
               .sessionThreadId(thread.id())
               .build())
           .build());
@@ -311,14 +303,7 @@ Archive only succeeds if the thread is `idle`. A thread parked on `requires_acti
   ```csharp C#
   await client.Beta.Sessions.Events.Send(session.ID, new()
   {
-      Events =
-      [
-          new BetaManagedAgentsUserInterruptEventParams
-          {
-              Type = BetaManagedAgentsUserInterruptEventParamsType.UserInterrupt,
-              SessionThreadID = thread.ID,
-          },
-      ],
+      Events = [new BetaManagedAgentsUserInterruptEventParams { SessionThreadID = thread.ID }],
   });
   archived = await client.Beta.Sessions.Threads.Archive(thread.ID, new() { SessionID = session.ID });
   Console.WriteLine($"{archived.Status} {archived.ArchivedAt}");
@@ -350,7 +335,6 @@ Archive only succeeds if the thread is `idle`. A thread parked on `requires_acti
       session.id(),
       EventSendParams.builder()
           .addEvent(BetaManagedAgentsUserInterruptEventParams.builder()
-              .type(BetaManagedAgentsUserInterruptEventParams.Type.USER_INTERRUPT)
               .sessionThreadId(thread.id())
               .build())
           .build());
@@ -728,7 +712,6 @@ The following example goes inside the event loop of the [tool confirmation handl
           [
               new BetaManagedAgentsUserToolConfirmationEventParams
               {
-                  Type = BetaManagedAgentsUserToolConfirmationEventParamsType.UserToolConfirmation,
                   ToolUseID = eventId,
                   Result = BetaManagedAgentsUserToolConfirmationEventParamsResult.Allow,
               },
@@ -758,7 +741,6 @@ The following example goes inside the event loop of the [tool confirmation handl
           session.id(),
           EventSendParams.builder()
               .addEvent(BetaManagedAgentsUserToolConfirmationEventParams.builder()
-                  .type(BetaManagedAgentsUserToolConfirmationEventParams.Type.USER_TOOL_CONFIRMATION)
                   .toolUseId(eventId)
                   .result(BetaManagedAgentsUserToolConfirmationEventParams.Result.ALLOW)
                   .build())

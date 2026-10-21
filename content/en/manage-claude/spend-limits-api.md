@@ -186,21 +186,21 @@ The `source` field on each member's row tells you which level their spend limit 
 
 ### Amounts and currency
 
-All monetary values are strings in **minor units of the organization's billing currency** (cents, for USD). For example, `"50000"` represents 500.00 USD. Parse as a decimal and divide by 100 to display dollars; avoid binary floating-point for large values.
+All monetary values are strings in **minor units of the organization's billing currency** (cents, for USD). For example, `"50000"` represents $500.00 USD. Parse as a decimal and divide by 100 to display dollars; avoid binary floating-point for large values.
 
 `amount` is **nullable**. In a member's effective row, `null` means **unlimited** (no spend limit) and `"0"` means the member cannot use Claude beyond their plan's included usage. On a configured spend-limit row (as returned by `GET /v1/organizations/spend_limits/{id}`), `null` only means no numeric spend limit is set; read the member's effective row to distinguish unlimited from included-usage-only.
 
-`period_to_date_spend` is the member's spend accrued since the start of the current `period`, in the same minor-unit format; it may include a fractional part (for example, `"41280.125"`). It may read as `"0"` if the spend reading is temporarily unavailable; treat it as informational, not transactional.
+`period_to_date_spend` is the member's spend accrued since the start of the current `period`, in the same minor-unit format; it might include a fractional part (for example, `"41280.125"`). It might read as `"0"` if the spend reading is temporarily unavailable; treat it as informational, not transactional.
 
 ### Increase request lifecycle
 
 A **spend limit increase request** is created when a member clicks **Request more usage** in claude.ai. Requests are not created through this API. A request's `status` is one of:
 
-| Status     | Meaning                                                                                                                                                                                                                                  |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pending`  | Awaiting admin action. The request normally carries a live `spend_summary` so you can see the member's current effective spend limit and period-to-date spend while deciding; `spend_summary` may be `null` if it could not be computed. |
-| `approved` | The request was resolved with approval: either an admin approved it explicitly, another admin action raised the member's spend limit, or Anthropic support raised a spend limit on the organization's behalf. `spend_summary` is `null`. |
-| `denied`   | An admin declined. `spend_summary` is `null`. The member can send a new request right away; only a `pending` request blocks a new one. An admin can still raise the member's spend limit directly at any time.                           |
+| Status     | Meaning                                                                                                                                                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `pending`  | Awaiting admin action. The request normally carries a live `spend_summary` so you can see the member's current effective spend limit and period-to-date spend while deciding; `spend_summary` might be `null` if it could not be computed. |
+| `approved` | The request was resolved with approval: either an admin approved it explicitly, another admin action raised the member's spend limit, or Anthropic support raised a spend limit on the organization's behalf. `spend_summary` is `null`.   |
+| `denied`   | An admin declined. `spend_summary` is `null`. The member can send a new request right away; only a `pending` request blocks a new one. An admin can still raise the member's spend limit directly at any time.                             |
 
 Both `approved` and `denied` are terminal. A member has at most one `pending` request at a time.
 
@@ -232,7 +232,7 @@ user_ids[]=user_01AbCdEfGh&user_ids[]=user_01JkLmNoPq
 
 ## Error responses
 
-Error responses follow the standard shape documented in [Errors](https://platform.claude.com/docs/en/api/errors). Quote the `request_id` from the response body when contacting support.
+Error responses follow the standard shape documented in [Claude API errors](https://platform.claude.com/docs/en/api/errors). Quote the `request_id` from the response body when contacting support.
 
 ## Spend limits
 
@@ -1434,7 +1434,7 @@ Run a scheduled job that fetches pending requests, applies your organization's a
 
 Find members approaching their cap so you can raise it before they're blocked.
 
-1. Pull each member's month-to-date spend from the Analytics API (one row per member, highest spend first by default):
+1. Pull each member's month-to-date spend from the Analytics API (one row for each member, highest spend first by default):
 
    <CodeGroup>
      ```bash cURL
@@ -1706,13 +1706,13 @@ Find members approaching their cap so you can raise it before they're blocked.
 
 3. For each member with a positive cap, compute `period_to_date_spend / amount` and flag those at or above your threshold (for example, 80 percent). Treat a `"0"` cap as already at-limit. There is no server-side filter for this ratio.
 
-4. Act on flagged members: raise the cap with `POST /v1/organizations/spend_limits`, approve a pending increase request if one exists, or reach out to the member.
+4. Act on flagged members: raise the cap with `POST /v1/organizations/spend_limits`, approve a pending increase request if one exists, or contact the member.
 
 ### Find members with rapidly changing usage
 
 Surface members whose spend has jumped week over week.
 
-1. Pull per-member daily cost for the trailing two weeks from the Analytics API:
+1. Pull per-member daily cost for the trailing 2 weeks from the Analytics API:
 
    <CodeGroup>
      ```bash cURL
@@ -1851,15 +1851,15 @@ Surface members whose spend has jumped week over week.
      ```
    </CodeGroup>
 
-   With `bucket_width` set, each member spans one row per day with usage. Page through `next_page` to collect every member's full series.
+   With `bucket_width` set, each member spans one row for each day with usage. Page through `next_page` to collect every member's full series.
 
-2. Group rows by `actor.user_id`. For each member, sum the most recent seven days and the prior seven days. Flag members whose recent week exceeds the prior week by your chosen multiple (for example, three). Recent-day cost is provisional and can be revised upward; for repeatable comparisons, set `ending_at` at or before a previously returned `data_refreshed_at` (see [Data availability and freshness](https://platform.claude.com/docs/en/manage-claude/analytics-api#data-availability-and-freshness)).
+2. Group rows by `actor.user_id`. For each member, sum the most recent 7 days and the prior 7 days. Flag members whose recent week exceeds the prior week by your chosen multiple (for example, three). Recent-day cost is provisional and can be revised upward; for repeatable comparisons, set `ending_at` at or before a previously returned `data_refreshed_at` (see [Data availability and freshness](https://platform.claude.com/docs/en/manage-claude/analytics-api#data-availability-and-freshness)).
 
-3. Act on flagged members: adjust the cap with `POST /v1/organizations/spend_limits`, or reach out.
+3. Act on flagged members: adjust the cap with `POST /v1/organizations/spend_limits`, or contact the member.
 
 ### Temporarily raise a member's spend limit during an incident
 
-Give an incident responder room to work while an incident is open: raise their spend cap when the incident starts, and roll it back after the incident closes. Gate the raise on your incident management system, for example by requiring a live incident ID with the member assigned to it.
+Give an incident responder room to work while an incident is open: raise their spend cap when the incident starts, and roll it back after the incident closes. Gate the raise on your incident management system, for example, by requiring a live incident ID with the member assigned to it.
 
 1. Read the member's current cap, and record it for the rollback:
 

@@ -1,7 +1,7 @@
 ---
 title: Supported regions
 url: https://platform.claude.com/docs/en/api/supported-regions
-description: "Here are the countries, regions, and territories we can currently support access from:"
+description: "Here are the countries, regions, and territories Anthropic can support access from:"
 ---
 
 * Albania

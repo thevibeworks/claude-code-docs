@@ -152,8 +152,7 @@ with Claude"
       .Create(new() {
         Model = Model.ClaudeOpus5_5,
         MaxTokens = 1024,
-        Messages = [new() {
-          Role = Role.User,
+        Messages = [new UserMessageParam {
           Content = "Hello, Claude"
         }]
       });

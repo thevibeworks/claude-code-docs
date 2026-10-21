@@ -7,7 +7,7 @@ description: Manage where model inference runs and where data is stored with geo
 Data residency controls let you manage where your data is processed and stored. Two independent settings govern this:
 
 * **Inference geo:** Controls where model inference runs, on a per-request basis. Set through the `inference_geo` API parameter or as a workspace default.
-* **Workspace geo:** Controls where data is stored at rest and where endpoint processing (such as image transcoding and code execution) happens. Configured at the workspace level in the [Claude Console](https://platform.claude.com).
+* **Workspace geo:** Controls where data is stored at rest and where endpoint processing (such as image transcoding and code execution) occurs. Configured at the workspace level in the [Claude Console](https://platform.claude.com).
 
 <Note>
   [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) supports geographic pinning at the agent level: `inference_geo` on an [agent's model configuration](https://platform.claude.com/docs/en/managed-agents/agent-setup#pin-the-inference-geo) pins the geography that serves model requests for sessions running that agent, with [per-session overrides](https://platform.claude.com/docs/en/managed-agents/sessions#pin-the-inference-geo-for-a-session) at session create. Agents without a pin follow the workspace's default inference geo on each request. Managed Agents also respects the Workspace geo configured in Console, and with [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes), tool execution and the sandbox filesystem stay on infrastructure you control; the contents of attached [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory) remain stored by Anthropic and are copied to your sandbox for the session.
@@ -104,7 +104,7 @@ The `inference_geo` parameter controls where model inference runs for a specific
           InferenceGeo = "us",
           Messages =
           [
-              new() { Role = Role.User, Content = "Summarize the key points of this document." },
+              new UserMessageParam { Content = "Summarize the key points of this document." },
           ],
       }
   );
@@ -254,8 +254,8 @@ To set workspace geo, create a new workspace in the [Console](https://platform.c
 Data residency pricing varies by model generation:
 
 * **Claude 4.6 and later models:** US-only inference (`inference_geo: "us"`) is priced at 1.1x the standard rate across all token pricing categories (input tokens, output tokens, cache writes, and cache reads). On Claude Haiku 5.5, the multiplier also applies to the higher prices for prompts over 100,000 tokens (see [Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing)).
-* **Global routing** (`inference_geo: "global"`): Standard pricing applies.
-* **Older models:** Don't support `inference_geo` (see [Model availability](https://platform.claude.com/docs/en/manage-claude/data-residency#model-availability)); standard pricing applies. Requests that include the parameter return a 400 error.
+* **Global routing (`inference_geo: "global"`):** Standard pricing applies.
+* **Older models:** Don't support `inference_geo` (see [Model availability](https://platform.claude.com/docs/en/manage-claude/data-residency#model-availability)). Standard pricing applies. Requests that include the parameter return a 400 error.
 
 This pricing applies to the Claude API (first-party) and Claude Platform on AWS. On Claude in Microsoft Foundry, the same 1.1x multiplier applies to deployments hosted on Azure that use the US Data Zone Standard deployment type. Partner-operated platforms (Bedrock and Google Cloud) have their own regional pricing. See [Data residency pricing](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing) for details.
 
@@ -271,7 +271,7 @@ The `inference_geo` parameter is supported on the [Batch API](https://platform.c
 
 ## Migration from legacy opt-outs
 
-If your organization previously opted out of global routing to keep inference in the US, your workspace has been automatically configured with `allowed_inference_geos: ["us"]` and `default_inference_geo: "us"`. No code changes are required. Your existing data residency requirements continue to be enforced through the new geo controls.
+If your organization previously opted out of global routing to keep inference in the US, your workspace has been automatically configured with `allowed_inference_geos: ["us"]` and `default_inference_geo: "us"`. No code changes are needed. Your existing data residency requirements continue to be enforced through the new geo controls.
 
 ### What changed
 

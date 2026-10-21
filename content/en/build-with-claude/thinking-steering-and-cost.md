@@ -8,29 +8,29 @@ description: Steer how often and how deeply Claude thinks with effort levels, sy
   To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
-Claude's thinking is adaptive: the model evaluates each request and determines whether to think and how much. You set an intent, optionally specify the effort, and the model allocates reasoning where it judges reasoning will help.
+Claude's thinking is adaptive: the model evaluates each request and determines whether to think and how much. You set an intent, optionally specify the effort, and the model allocates reasoning where reasoning is likely to help.
 
 This makes thinking a strong fit for workloads that mix trivial and complex requests, and for long-horizon agentic workflows where the right amount of reasoning varies from step to step.
 
-To learn how to turn thinking on, how to read thinking output, and about [thinking output on Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-output-on-claude-fable-5-and-claude-mythos-5), see the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview. This page covers how Claude determines when to think, how to steer thinking, and the caching, cost, and pricing mechanics that follow from it.
+To learn how to turn thinking on and how to read thinking output, see the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview. This page covers how Claude determines when to think, how to steer thinking, and the caching, cost, and pricing mechanics that follow from it.
 
 ## How Claude determines when to think
 
-Thinking is optional for the model. On each request, Claude weighs the complexity of the input and determines whether deeper reasoning would improve the answer. A simple factual question may get a direct response with no thinking block at all; a multistep math problem or a tricky debugging task triggers deeper reasoning.
+Thinking is optional for the model. On each request, Claude evaluates the complexity of the input and determines whether deeper reasoning would improve the answer. A simple factual question may get a direct response with no thinking block at all; a multistep math problem or a tricky debugging task triggers deeper reasoning.
 
-The decision happens per request. The same conversation can contain turns with and without thinking, and a turn where Claude chose not to think contains no thinking block. Don't build application logic that assumes every assistant turn starts with one.
+This determination happens per request. The same conversation can contain turns with and without thinking, and a turn where Claude skips thinking contains no thinking block. Don't build application logic that assumes every assistant turn starts with one.
 
-The primary control over this decision is the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter, which acts as soft guidance for how willing Claude should be to think and how deeply; see [Effort levels](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#effort-levels) on this page for what each level does.
+The primary control over this determination is the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter, which acts as soft guidance for how often and how deeply Claude uses thinking; see [Effort levels](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#effort-levels) on this page for what each level does.
 
 If you want Claude to think less often, lower the effort level before reaching for prompt-based steering.
 
-Thinking also interleaves with tool use automatically: Claude can think between tool calls, reflecting on each tool result before determining what to do next ([interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)). You don't need a beta header or any additional configuration for this.
+Thinking also interleaves with tool use automatically: Claude can think between tool calls, evaluating each tool result before determining what to do next ([interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)). You don't need a beta header or any additional configuration for this.
 
-For the full picture of how the thinking configuration and the effort parameter interact, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort).
+For full details on how the thinking configuration and the effort parameter interact, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort).
 
 ## Steering how often Claude thinks
 
-Whether Claude thinks on a given turn is promptable. Effort sets the overall posture, but you can also shape the decision directly with natural-language guidance, either globally in the system prompt or per message from the user turn.
+Whether Claude thinks on a given turn is promptable. Effort sets the overall posture, but you can also shape that behavior directly with natural-language guidance, either globally in the system prompt or per message from the user turn.
 
 Use the two levers together in this order:
 
@@ -52,14 +52,14 @@ Effort is the primary steering lever for thinking. Each level sets a different d
 | `max`                                                      | Claude thinks the most readily and at the greatest depth, with no constraint on thinking length. |
 | `xhigh`                                                    | Claude thinks more readily and at greater depth than at `high`, suited to extended exploration.  |
 | `high` (default on most models)                            | Claude thinks on most requests that benefit from it. Provides deep reasoning on complex tasks.   |
-| `medium` (default on Claude Opus 5.5 and Claude Haiku 5.5) | Claude uses moderate thinking. May skip thinking for simple queries.                             |
+| `medium` (default on Claude Opus 5.5 and Claude Haiku 5.5) | Claude uses moderate thinking. Might skip thinking for simple queries.                           |
 | `low`                                                      | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most.             |
 
-At every level, Claude determines per request whether to think. In a tool-use loop, the first request after new user input typically carries most of the reasoning, and follow-up requests that only process tool results can skip thinking, including at `xhigh` and `max`. Thinking per request also tends to decrease as a conversation grows longer. No level guarantees a thinking block on every request.
+At every level, Claude determines for each request whether to think. In a tool-use loop, the first request after new user input typically carries most of the reasoning, and follow-up requests that only process tool results can skip thinking, including at `xhigh` and `max`. Thinking per request also tends to decrease as a conversation grows longer. No level guarantees a thinking block on every request.
 
 This table describes how each level changes thinking behavior. For guidance on which level to choose for a given workload, including per-model recommendations, see [When to adjust the effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort#when-to-adjust-the-effort-parameter) on the effort page.
 
-Effort is set at `output_config.effort`, not inside the `thinking` object; for full per-language examples, see [Effort](https://platform.claude.com/docs/en/build-with-claude/effort#basic-usage).
+Effort is set at `output_config.effort`, not inside the `thinking` object; for full per-language examples, see [Set the effort level](https://platform.claude.com/docs/en/build-with-claude/effort#basic-usage).
 
 ```json
 {
@@ -82,7 +82,7 @@ will meaningfully improve answer quality, typically for problems
 that require multistep reasoning. When in doubt, respond directly.
 ```
 
-To encourage thinking instead, use a phrase like:
+To encourage thinking instead, use a phrase such as:
 
 ```text wrap
 This task involves multistep reasoning. Think carefully before responding.
@@ -103,7 +103,7 @@ On Claude Haiku 5.5, the discouraging phrase doesn't reliably reduce thinking. O
 Prompt-based steering changes model behavior, so treat it like any other prompt change: measure before you ship. Run a representative sample of your traffic with and without the guidance, and compare how often thinking triggers (the presence of thinking blocks in responses), output token usage, latency, and answer quality on the cases that matter to you.
 
 <Warning>
-  Steering Claude to think less often may reduce quality on tasks that benefit from reasoning. Lowering the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level is usually the better first lever, since it is a calibrated control rather than a wording-sensitive instruction. Measure the impact on your specific workloads before deploying prompt-based tuning to production.
+  Steering Claude to think less often might reduce quality on tasks that benefit from reasoning. Lowering the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level is usually the better first lever, because it is a calibrated control rather than a wording-sensitive instruction. Measure the impact on your specific workloads before deploying prompt-based tuning to production.
 </Warning>
 
 ## Mechanics
@@ -112,11 +112,11 @@ Three mechanics follow from Claude managing its own thinking: turn validation, p
 
 ### Turn validation
 
-Assistant turns don't need to start with a thinking block. (Models using a legacy manual thinking budget enforce that the final assistant turn of a thinking-enabled request begins with one; see [Turn structure in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#turn-structure-in-manual-mode).)
+Assistant turns don't need to start with a thinking block. (Models using a legacy manual thinking budget enforce that the final assistant turn of a thinking-enabled request starts with one; see [Turn structure in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#turn-structure-in-manual-mode).)
 
 For multi-turn applications, this means you can pass back conversation history in whatever shape you have it:
 
-* Assistant turns where Claude chose not to think are valid history as-is.
+* Assistant turns without thinking are valid history as-is.
 * You can resume a conversation that began without thinking, or that used a different thinking configuration, without rewriting its history.
 * History assembled from mixed sources doesn't need thinking blocks reinserted at the start of each assistant turn to pass validation.
 
@@ -126,7 +126,7 @@ The relaxation is about validation, not about what you should send. When you hav
 
 Consecutive requests that keep the same thinking configuration and effort level preserve prompt caching; see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching) for the full rules. The resolved effort value is rendered into the prompt, so changing it between requests invalidates cache breakpoints, just as changing the legacy [`budget_tokens`](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#extended-thinking-with-prompt-caching) parameter does on models that use it. Setting `effort` explicitly to the model's default is equivalent to omitting it and does not break the cache.
 
-The practical consequence: pick a thinking configuration and a top-level effort level per conversation and keep them. If some turns need more or less thinking, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) on models that support it, or steer with [per-message prompting](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#tuning-thinking-behavior). Both leave earlier cache breakpoints intact, where a change to the thinking configuration or the top-level effort level does not.
+The practical consequence: pick a thinking configuration and a top-level effort level for each conversation and keep them. If some turns need more or less thinking, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) on models that support it, or steer with [per-message prompting](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#tuning-thinking-behavior). Both leave earlier cache breakpoints intact, where a change to the thinking configuration or the top-level effort level does not.
 
 The following example demonstrates the invalidation with a multi-turn script you can run yourself:
 
@@ -134,13 +134,13 @@ The following example demonstrates the invalidation with a multi-turn script you
   <Tabs>
     <Tab title="cURL">
       <Note>
-        This workflow doesn't translate well to a one-off shell command. See the SDK tabs for the multi-turn pattern; per-turn HTTP requests follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
+        This workflow doesn't translate well to a one-off shell command. Use the Claude SDK to run it; per-turn HTTP requests follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
       </Note>
     </Tab>
 
     <Tab title="CLI">
       <Note>
-        This workflow doesn't translate well to a one-off shell command. See the SDK tabs for the multi-turn pattern; per-turn CLI invocations follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
+        This workflow doesn't translate well to a one-off shell command. Use the Claude SDK to run it; per-turn CLI commands follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
       </Note>
     </Tab>
 
@@ -316,10 +316,9 @@ The following example demonstrates the invalidation with a multi-turn script you
           Thinking = new ThinkingConfigAdaptive(),
           Messages =
           [
-              new()
+              new UserMessageParam
               {
-                  Role = Role.User,
-                  Content = new MessageParamContent(new List<ContentBlockParam>
+                  Content = new List<ContentBlockParam>
                   {
                       new ContentBlockParam(new TextBlockParam()
                       {
@@ -330,7 +329,7 @@ The following example demonstrates the invalidation with a multi-turn script you
                       {
                           Text = "Analyze the tone of this passage."
                       }),
-                  })
+                  }
               }
           ]
       };
@@ -346,10 +345,9 @@ The following example demonstrates the invalidation with a multi-turn script you
           Thinking = new ThinkingConfigAdaptive(),
           Messages =
           [
-              new()
+              new UserMessageParam
               {
-                  Role = Role.User,
-                  Content = new MessageParamContent(new List<ContentBlockParam>
+                  Content = new List<ContentBlockParam>
                   {
                       new ContentBlockParam(new TextBlockParam()
                       {
@@ -360,18 +358,13 @@ The following example demonstrates the invalidation with a multi-turn script you
                       {
                           Text = "Analyze the tone of this passage."
                       }),
-                  })
+                  }
               },
-              new()
+              new AssistantMessageParam
               {
-                  Role = Role.Assistant,
                   Content = response1.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
               },
-              new()
-              {
-                  Role = Role.User,
-                  Content = "Analyze the characters in this passage."
-              }
+              new UserMessageParam { Content = "Analyze the characters in this passage." }
           ]
       };
 
@@ -390,10 +383,9 @@ The following example demonstrates the invalidation with a multi-turn script you
           },
           Messages =
           [
-              new()
+              new UserMessageParam
               {
-                  Role = Role.User,
-                  Content = new MessageParamContent(new List<ContentBlockParam>
+                  Content = new List<ContentBlockParam>
                   {
                       new ContentBlockParam(new TextBlockParam()
                       {
@@ -404,28 +396,18 @@ The following example demonstrates the invalidation with a multi-turn script you
                       {
                           Text = "Analyze the tone of this passage."
                       }),
-                  })
+                  }
               },
-              new()
+              new AssistantMessageParam
               {
-                  Role = Role.Assistant,
                   Content = response1.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
               },
-              new()
+              new UserMessageParam { Content = "Analyze the characters in this passage." },
+              new AssistantMessageParam
               {
-                  Role = Role.User,
-                  Content = "Analyze the characters in this passage."
-              },
-              new()
-              {
-                  Role = Role.Assistant,
                   Content = response2.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
               },
-              new()
-              {
-                  Role = Role.User,
-                  Content = "Analyze the setting in this passage."
-              }
+              new UserMessageParam { Content = "Analyze the setting in this passage." }
           ]
       };
 
@@ -540,7 +522,7 @@ The following example demonstrates the invalidation with a multi-turn script you
               .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(16000L)
               .thinking(ThinkingConfigAdaptive.builder().build())
-              .addUserMessageOfBlockParams(List.of(
+              .addUserMessageOfContentBlockParams(List.of(
                   ContentBlockParam.ofText(TextBlockParam.builder()
                       .text(largeText)
                       .cacheControl(CacheControlEphemeral.builder().build())
@@ -560,7 +542,7 @@ The following example demonstrates the invalidation with a multi-turn script you
               .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(16000L)
               .thinking(ThinkingConfigAdaptive.builder().build())
-              .addUserMessageOfBlockParams(List.of(
+              .addUserMessageOfContentBlockParams(List.of(
                   ContentBlockParam.ofText(TextBlockParam.builder()
                       .text(largeText)
                       .cacheControl(CacheControlEphemeral.builder().build())
@@ -569,7 +551,7 @@ The following example demonstrates the invalidation with a multi-turn script you
                       .text("Analyze the tone of this passage.")
                       .build())
               ))
-              .addAssistantMessageOfBlockParams(response1.content().stream()
+              .addAssistantMessageOfContentBlockParams(response1.content().stream()
                   .map(block -> block.toParam())
                   .collect(Collectors.toList()))
               .addUserMessage("Analyze the characters in this passage.")
@@ -587,7 +569,7 @@ The following example demonstrates the invalidation with a multi-turn script you
               .outputConfig(OutputConfig.builder()
                   .effort(OutputConfig.Effort.LOW)
                   .build())
-              .addUserMessageOfBlockParams(List.of(
+              .addUserMessageOfContentBlockParams(List.of(
                   ContentBlockParam.ofText(TextBlockParam.builder()
                       .text(largeText)
                       .cacheControl(CacheControlEphemeral.builder().build())
@@ -596,11 +578,11 @@ The following example demonstrates the invalidation with a multi-turn script you
                       .text("Analyze the tone of this passage.")
                       .build())
               ))
-              .addAssistantMessageOfBlockParams(response1.content().stream()
+              .addAssistantMessageOfContentBlockParams(response1.content().stream()
                   .map(block -> block.toParam())
                   .collect(Collectors.toList()))
               .addUserMessage("Analyze the characters in this passage.")
-              .addAssistantMessageOfBlockParams(response2.content().stream()
+              .addAssistantMessageOfContentBlockParams(response2.content().stream()
                   .map(block -> block.toParam())
                   .collect(Collectors.toList()))
               .addUserMessage("Analyze the setting in this passage.")
@@ -865,7 +847,7 @@ The following example demonstrates the invalidation with a multi-turn script you
     </Tab>
   </Tabs>
 
-  Here is the output of the script (you may see slightly different numbers):
+  Here is the output of the script (you might see slightly different numbers):
 
   ```text Output wrap
   First request - establishing cache
@@ -890,7 +872,7 @@ You don't set a thinking token budget. Two controls bound cost:
 
 Because thinking counts toward `max_tokens`, set it high enough to leave room for both the reasoning and the answer. A `max_tokens` sized for a response with no thinking is often too small once Claude starts thinking on hard requests.
 
-At `high` effort and above, Claude may think extensively and is more likely to exhaust the budget. If you see [`stop_reason: "max_tokens"`](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#stopped-at-max-tokens) in responses, you have two remedies:
+At `high` effort and above, Claude might think extensively and is more likely to exhaust the budget. If you see [`stop_reason: "max_tokens"`](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#stopped-at-max-tokens) in responses, you have two remedies:
 
 * Raise `max_tokens` to give the model more room for thinking plus the answer.
 * Lower the effort level so Claude thinks less and leaves more of the budget for response text.
@@ -902,7 +884,7 @@ Which one is right depends on whether the truncated responses needed the reasoni
 Thinking incurs charges for:
 
 * Tokens Claude uses while thinking (billed as output tokens)
-* Thinking blocks from prior assistant turns that remain in context, per the [preservation default](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model): all turns by default on keep-all models, only the last turn elsewhere (billed as input tokens)
+* Thinking blocks from prior assistant turns that remain in context, according to the [preservation default](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model): all turns by default on keep-all models, only the last turn elsewhere (billed as input tokens)
 * Standard text output tokens
 
 <Note>
@@ -950,6 +932,6 @@ To see how many billed output tokens were spent on internal reasoning, read `usa
   </Card>
 
   <Card title="Effort" icon="sliders" href="https://platform.claude.com/docs/en/build-with-claude/effort">
-    Control how much thinking and output Claude allocates per request.
+    Control how much thinking and output Claude allocates for each request.
   </Card>
 </CardGroup>

@@ -72,7 +72,7 @@ The CLI is designed to compose with standard shell tooling.
 
 ### Chain list output into a second command
 
-`--transform id --raw-output` on a list endpoint emits one bare ID per line, so standard tools such as `head` and `xargs` apply directly. Capture the first result, then pass it to a follow-up command:
+`--transform id --raw-output` on a list endpoint emits one bare ID on each line, so standard tools such as `head` and `xargs` apply directly. Capture the first result, then pass it to a follow-up command:
 
 ```bash
 FIRST_AGENT=$(ant beta:agents list --transform id --raw-output | head -1)
@@ -104,7 +104,7 @@ Agent not found.
 * "Upload every PDF in `./reports` to the Files API and print the resulting IDs."
 * "Pull the events for session `session_01...` and tell me where the agent got stuck."
 
-Claude Code shells out to `ant`, parses the structured output, and reasons over the results (no custom integration code required).
+Claude Code runs `ant` commands, parses the structured output, and reasons over the results (no custom integration code required).
 
 ## Authenticate curl requests with CLI credentials
 

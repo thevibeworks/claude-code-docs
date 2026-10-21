@@ -7,11 +7,11 @@ description: Federate Azure managed identities and Entra Workload Identity with 
 Azure workloads authenticate to the Claude API by presenting a JSON Web Token (JWT) issued by Microsoft Entra ID, then exchanging it for a short-lived Anthropic access token. The setup follows the same shape on every Azure platform:
 
 1. **Register the token audience:** Create one app registration in your Microsoft Entra tenant to represent the Claude API audience. Every workload in the tenant requests Entra tokens for it.
-2. **Set up the identity for your platform:** A managed identity on VMs, VM Scale Sets, App Service, Functions, and Container Apps, or Entra Workload Identity on AKS.
+2. **Set up the identity for your platform:** Use a managed identity on VMs, VM Scale Sets, App Service, Functions, and Container Apps, or Entra Workload Identity on AKS.
 3. **Configure Anthropic:** Register your tenant's Entra issuer, create a service account, and write a federation rule that matches the token's claims.
 4. **Exchange at runtime:** Your workload exchanges its Entra-issued token at `POST /v1/oauth/token` for an `sk-ant-oat01-...` Anthropic access token and calls Claude with it.
 
-On both paths the token you present to Anthropic carries your tenant-specific Entra issuer and the managed identity's object ID in the `sub` and `oid` claims; only how the workload obtains that token differs. Pick the section for where your workload runs: [Use a managed identity](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#use-a-managed-identity) for VMs, VM Scale Sets, App Service, Functions, or Container Apps; [Use Entra Workload Identity on AKS](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#use-entra-workload-identity-on-aks) for AKS.
+On both paths the token you present to Anthropic carries your tenant-specific Entra issuer and the managed identity's object ID in the `sub` and `oid` claims; only how the workload obtains that token differs. Pick the section for where your workload runs: [Use a managed identity](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#use-a-managed-identity) for VMs, VM Scale Sets, App Service, Functions, and Container Apps, or [Use Entra Workload Identity on AKS](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#use-entra-workload-identity-on-aks) for AKS.
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ In the Claude Console, go to the [Workload identity](https://platform.claude.com
 
 The wizard creates these resources for you. Use the following values whether you enter them in the wizard or send them to the [Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api):
 
-**Federation issuer:** Choose **v2.0 (login.microsoftonline.com)** in the wizard's **Token issuer** selector. (The selector defaults to v1; that default exists for tenants reusing older registrations that still emit v1.0 tokens.) Entra publishes an OIDC discovery document at the per-tenant issuer URL, so use discovery mode. Each Microsoft Entra tenant you federate needs its own issuer record.
+**Federation issuer:** Select **v2.0 (login.microsoftonline.com)** in the wizard's **Token issuer** selector. (The selector defaults to v1; that default exists for tenants reusing older registrations that still emit v1.0 tokens.) Entra publishes an OIDC discovery document at the per-tenant issuer URL, so use discovery mode. Each Microsoft Entra tenant you federate needs its own issuer record.
 
 ```json
 {
@@ -109,10 +109,10 @@ The wizard creates these resources for you. Use the following values whether you
 ```
 
 <Warning>
-  Managed identity workloads need `max_jwt_lifetime_seconds: 86400`. Azure issues managed identity tokens with up to 24 hours between `iat` and `exp` because it caches each resource's token for that window and offers no way to force an early refresh, and the issuer's 1-hour default rejects those tokens, so the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`). The Connect workload wizard's Microsoft Entra tile creates the issuer with `max_jwt_lifetime_seconds` set to `7500` and provides no field to change it during creation, so finish the wizard, then open the **Issuers** tab on the [Workload identity](https://platform.claude.com/settings/workload-identity-federation) page in the Claude Console, edit the issuer, and raise the value to `86400`. You can also update the issuer through the Admin API.
+  Managed identity workloads need `max_jwt_lifetime_seconds: 86400`. Azure issues managed identity tokens with up to 24 hours between `iat` and `exp` because it caches each resource's token for that window and offers no way to force an early refresh, and the issuer's 1-hour default rejects those tokens, so the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`). The **Connect workload** wizard's **Microsoft Entra** tile creates the issuer with `max_jwt_lifetime_seconds` set to `7500` and provides no field to change it during creation, so complete the wizard, then open the **Issuers** tab on the [Workload identity](https://platform.claude.com/settings/workload-identity-federation) page in the Claude Console, edit the issuer, and raise the value to `86400`. You can also update the issuer through the Admin API.
 </Warning>
 
-A longer accepted lifetime means a leaked Entra token stays exchangeable for longer. If a token leaks, the lever is disabling the federation rule; a tight `oid` match limits which identities can exchange a token in the first place, as described in [Scope your rule](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#scope-your-rule).
+A longer accepted lifetime means a leaked Entra token stays exchangeable for longer. If a token leaks, disable the federation rule; a tight `oid` match limits which identities can exchange a token in the first place, as described in [Scope your rule](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#scope-your-rule).
 
 **Federation rule:** Match on the managed identity's object ID and your tenant ID. For the v2.0 tokens this guide configures, the `audience` value is the audience app registration's client ID (the `<APP_ID>` GUID from [Register the token audience](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#register-the-token-audience)). Use the exact `aud` value from your decoded token.
 
@@ -194,6 +194,26 @@ The samples fetch the managed identity token from the platform's token endpoint:
       "max_tokens": 1024,
       "messages": [{"role": "user", "content": "Hello from Azure"}]
     }'
+  ```
+
+  ```bash CLI
+  # Write the Entra-issued access token to a file the CLI can read.
+  # Shown for a VM or VM Scale Set (IMDS). On App Service, Functions, or
+  # Container Apps, fetch from "$IDENTITY_ENDPOINT?api-version=2019-08-01&resource=api://<APP_ID>"
+  # with -H "X-IDENTITY-HEADER: $IDENTITY_HEADER" instead.
+  # With multiple user-assigned identities, append &client_id=<IDENTITY_CLIENT_ID>.
+  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
+  trap 'rm -f "$ANTHROPIC_IDENTITY_TOKEN_FILE"' EXIT
+  curl -sS -H "Metadata: true" \
+    "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=api://<APP_ID>" \
+    | jq -r .access_token > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+
+  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
+  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment.
+  ant messages create \
+    --model claude-opus-5-5 \
+    --max-tokens 1024 \
+    --message '{role: user, content: "Hello from Azure"}'
   ```
 
   ```python Python
@@ -455,7 +475,7 @@ The samples fetch the managed identity token from the platform's token endpoint:
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello from Azure" }],
+      Messages = [new UserMessageParam { Content = "Hello from Azure" }],
   });
   foreach (var block in message.Content)
   {
@@ -590,26 +610,6 @@ The samples fetch the managed identity token from the platform's token endpoint:
   )
   puts message.content.find { it.type == :text }.text
   ```
-
-  ```bash CLI
-  # Write the Entra-issued access token to a file the CLI can read.
-  # Shown for a VM or VM Scale Set (IMDS). On App Service, Functions, or
-  # Container Apps, fetch from "$IDENTITY_ENDPOINT?api-version=2019-08-01&resource=api://<APP_ID>"
-  # with -H "X-IDENTITY-HEADER: $IDENTITY_HEADER" instead.
-  # With multiple user-assigned identities, append &client_id=<IDENTITY_CLIENT_ID>.
-  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
-  trap 'rm -f "$ANTHROPIC_IDENTITY_TOKEN_FILE"' EXIT
-  curl -sS -H "Metadata: true" \
-    "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=api://<APP_ID>" \
-    | jq -r .access_token > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
-
-  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment.
-  ant messages create \
-    --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --message '{role: user, content: "Hello from Azure"}'
-  ```
 </CodeGroup>
 
 ### Verify the setup
@@ -735,7 +735,7 @@ Use this path when your workload runs in an AKS pod. Entra Workload Identity fed
     }
     ```
 
-    `sub` and `oid` are the managed identity's object ID, `aud` is the audience app registration's client ID, and `azp` is the managed identity's client ID (the value of `AZURE_CLIENT_ID`). The lifetime differs from the managed identity path: `client_credentials` tokens default to a random 60 to 90 minute window between `iat` and `exp`, not 24 hours.
+    `sub` and `oid` are the managed identity's object ID, `aud` is the audience app registration's client ID, and `azp` is the managed identity's client ID (the value of `AZURE_CLIENT_ID`). The lifetime differs from the managed identity path: `client_credentials` tokens default to a random 60- to 90-minute window between `iat` and `exp`, not 24 hours.
   </Step>
 </Steps>
 
@@ -745,7 +745,7 @@ In the Claude Console, go to the [Workload identity](https://platform.claude.com
 
 The wizard creates these resources for you. Use the following values whether you enter them in the wizard or send them to the [Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api):
 
-**Federation issuer:** Choose **v2.0 (login.microsoftonline.com)** in the wizard's **Token issuer** selector. (The selector defaults to v1; that default exists for tenants reusing older registrations that still emit v1.0 tokens.) Entra publishes an OIDC discovery document at the per-tenant issuer URL, so use discovery mode. Each Microsoft Entra tenant you federate needs its own issuer record.
+**Federation issuer:** Select **v2.0 (login.microsoftonline.com)** in the wizard's **Token issuer** selector. (The selector defaults to v1; that default exists for tenants reusing older registrations that still emit v1.0 tokens.) Entra publishes an OIDC discovery document at the per-tenant issuer URL, so use discovery mode. Each Microsoft Entra tenant you federate needs its own issuer record.
 
 ```json
 {
@@ -757,10 +757,10 @@ The wizard creates these resources for you. Use the following values whether you
 ```
 
 <Warning>
-  The Connect workload wizard's Microsoft Entra tile creates the issuer with `max_jwt_lifetime_seconds` set to `7500` (just over 2 hours), which covers the default 60 to 90 minute lifetime of `client_credentials` tokens. A tenant token-lifetime policy or Continuous Access Evaluation (CAE) can extend that lifetime. If your decoded token's `exp` minus `iat` exceeds 7500 seconds, edit the issuer on the **Issuers** tab of the [Workload identity](https://platform.claude.com/settings/workload-identity-federation) page in the Claude Console and raise `max_jwt_lifetime_seconds` to match, or exchanges fail with the opaque `401` `authentication_error` response (message `Authentication failed`). If your tenant also runs managed-identity workloads from [Use a managed identity](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#use-a-managed-identity), use that section's `86400` value, which covers both paths.
+  The **Connect workload** wizard's **Microsoft Entra** tile creates the issuer with `max_jwt_lifetime_seconds` set to `7500` (just over 2 hours), which covers the default 60- to 90-minute lifetime of `client_credentials` tokens. A tenant token-lifetime policy or Continuous Access Evaluation (CAE) can extend that lifetime. If your decoded token's `exp` minus `iat` exceeds 7,500 seconds, edit the issuer on the **Issuers** tab of the [Workload identity](https://platform.claude.com/settings/workload-identity-federation) page in the Claude Console and raise `max_jwt_lifetime_seconds` to match, or exchanges fail with the opaque `401` `authentication_error` response (message `Authentication failed`). If your tenant also runs managed-identity workloads from [Use a managed identity](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#use-a-managed-identity), use that section's `86400` value, which covers both paths.
 </Warning>
 
-A longer accepted lifetime means a leaked Entra token stays exchangeable for longer. If a token leaks, the lever is disabling the federation rule; a tight `oid` match limits which identities can exchange a token in the first place, as described in [Scope your rule](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#scope-your-rule).
+A longer accepted lifetime means a leaked Entra token stays exchangeable for longer. If a token leaks, disable the federation rule; a tight `oid` match limits which identities can exchange a token in the first place, as described in [Scope your rule](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#scope-your-rule).
 
 **Federation rule:** Match on the managed identity's object ID and your tenant ID. For the v2.0 tokens this guide configures, the `audience` value is the audience app registration's client ID (the `<APP_ID>` GUID from [Register the token audience](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#register-the-token-audience)). Use the exact `aud` value from your decoded token.
 
@@ -834,6 +834,28 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
       "max_tokens": 1024,
       "messages": [{"role": "user", "content": "Hello from Azure"}]
     }'
+  ```
+
+  ```bash CLI
+  # 1. Exchange the Kubernetes-projected token for an Entra-issued access
+  # token and write it to a temp file the CLI can read.
+  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
+  trap 'rm -f "$ANTHROPIC_IDENTITY_TOKEN_FILE"' EXIT
+  curl -sS "https://login.microsoftonline.com/$AZURE_TENANT_ID/oauth2/v2.0/token" \
+    -d client_id="$AZURE_CLIENT_ID" \
+    -d grant_type=client_credentials \
+    --data-urlencode "scope=api://<APP_ID>/.default" \
+    -d client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer \
+    --data-urlencode client_assertion@"$AZURE_FEDERATED_TOKEN_FILE" \
+    | jq -r .access_token > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+
+  # 2. Call the Claude API. ANTHROPIC_FEDERATION_RULE_ID,
+  # ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read
+  # from the environment.
+  ant messages create \
+    --model claude-opus-5-5 \
+    --max-tokens 1024 \
+    --message '{role: user, content: "Hello from Azure"}'
   ```
 
   ```python Python
@@ -1093,7 +1115,7 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello from Azure" }],
+      Messages = [new UserMessageParam { Content = "Hello from Azure" }],
   });
   foreach (var block in message.Content)
   {
@@ -1215,28 +1237,6 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
   )
   puts message.content.find { it.type == :text }.text
   ```
-
-  ```bash CLI
-  # 1. Exchange the Kubernetes-projected token for an Entra-issued access
-  # token and write it to a temp file the CLI can read.
-  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
-  trap 'rm -f "$ANTHROPIC_IDENTITY_TOKEN_FILE"' EXIT
-  curl -sS "https://login.microsoftonline.com/$AZURE_TENANT_ID/oauth2/v2.0/token" \
-    -d client_id="$AZURE_CLIENT_ID" \
-    -d grant_type=client_credentials \
-    --data-urlencode "scope=api://<APP_ID>/.default" \
-    -d client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer \
-    --data-urlencode client_assertion@"$AZURE_FEDERATED_TOKEN_FILE" \
-    | jq -r .access_token > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
-
-  # 2. Call the Claude API. ANTHROPIC_FEDERATION_RULE_ID,
-  # ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read
-  # from the environment.
-  ant messages create \
-    --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --message '{role: user, content: "Hello from Azure"}'
-  ```
 </CodeGroup>
 
 ### Verify the setup
@@ -1244,7 +1244,7 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
 From inside a labeled pod, run the cURL exchange shown in [Acquire and use the token](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) and confirm that `POST /v1/oauth/token` returns a `200` with an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason, then decode the Entra-issued token from step 1 (see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange) for the command) and check the most common Azure-side causes:
 
 * **Issuer mismatch:** The registered `issuer_url` must match the token's `iss` claim exactly. A v2.0 token carries `https://login.microsoftonline.com/<TENANT_ID>/v2.0`; if the decoded `ver` claim is `1.0`, see [If your tokens are v1.0](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#if-your-tokens-are-v1-0).
-* **Token lifetime:** If a tenant token-lifetime policy or CAE extends the `client_credentials` token past 7500 seconds, raise the issuer's `max_jwt_lifetime_seconds` as described in [Configure Anthropic](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#configure-anthropic-2).
+* **Token lifetime:** If a tenant token-lifetime policy or CAE extends the `client_credentials` token past 7,500 seconds, raise the issuer's `max_jwt_lifetime_seconds` as described in [Configure Anthropic](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#configure-anthropic-2).
 * **Audience mismatch:** The rule's `audience` must equal the token's `aud` exactly: the audience app registration's client ID for the v2.0 tokens this guide configures.
 * **Claim name mismatch:** A rule that matches on a claim the token does not carry never passes. v1.0 tokens carry the client ID in `appid`, not `azp`; see [If your tokens are v1.0](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#if-your-tokens-are-v1-0).
 
@@ -1253,7 +1253,7 @@ From inside a labeled pod, run the cURL exchange shown in [Acquire and use the t
 This guide configures the audience app registration with `api.requestedAccessTokenVersion: 2`, so every token it shows is v2.0. If you reuse an existing registration that leaves `requestedAccessTokenVersion` unset, Entra issues v1.0 tokens instead. Decode a sample token and check its `ver` claim; if it is `1.0`, four things change:
 
 * **Issuer:** The `iss` claim is `https://sts.windows.net/<TENANT_ID>/` instead of `https://login.microsoftonline.com/<TENANT_ID>/v2.0`. Register the issuer URL exactly as your token's `iss` claim carries it. The two URLs share the same JWKS, so discovery mode works for either.
-* **Wizard selector:** Pick **v1 (sts.windows.net)** in the Connect workload wizard's **Token issuer** selector instead of **v2.0 (login.microsoftonline.com)**.
+* **Wizard selector:** Select **v1 (sts.windows.net)** in the **Connect workload** wizard's **Token issuer** selector instead of **v2.0 (login.microsoftonline.com)**.
 * **Audience:** The `aud` claim is the identifier URI you passed as `resource` (for example, `api://<APP_ID>`), not the registration's client ID. Set the federation rule's `audience` to the exact `aud` value from your decoded token.
 * **Client ID claim:** The calling identity's client ID appears in `appid`, not `azp`. The two claims never appear in the same token, so a rule that matches on `azp` never passes against a v1.0 token.
 

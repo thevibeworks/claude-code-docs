@@ -1,7 +1,7 @@
 ---
 title: Start a session
 url: https://platform.claude.com/docs/en/managed-agents/sessions
-description: Create a session to run your agent and begin executing tasks.
+description: Create a session to run your agent and start running tasks.
 featureMetadata:
   topic:
     title: Managed Agents
@@ -135,7 +135,6 @@ To pin a session to a specific agent version, pass an object. This lets you cont
   {
       Agent = new BetaManagedAgentsAgentParams
       {
-          Type = BetaManagedAgentsAgentParamsType.Agent,
           ID = agent.ID,
           Version = 1,
       },
@@ -162,7 +161,6 @@ To pin a session to a specific agent version, pass an object. This lets you cont
   ```java Java
   var pinnedSession = client.beta().sessions().create(SessionCreateParams.builder()
       .agent(BetaManagedAgentsAgentParams.builder()
-          .type(BetaManagedAgentsAgentParams.Type.AGENT)
           .id(agent.id())
           .version(1)
           .build())
@@ -278,12 +276,10 @@ The following example creates a session with a single `user.message` in `initial
       [
           new BetaManagedAgentsUserMessageEventParams
           {
-              Type = BetaManagedAgentsUserMessageEventParamsType.UserMessage,
               Content =
               [
                   new BetaManagedAgentsTextBlock
                   {
-                      Type = BetaManagedAgentsTextBlockType.Text,
                       Text = "List the files in the working directory.",
                   },
               ],
@@ -352,7 +348,6 @@ The following example creates a session with a single `user.message` in `initial
       .agent(agent.id())
       .environmentId(environment.id())
       .addInitialEvent(BetaManagedAgentsUserMessageEventParams.builder()
-          .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
           .addTextContent("List the files in the working directory.")
           .build())
       .build());
@@ -520,7 +515,6 @@ The following example starts a session that overrides the model and clears the s
   {
       Agent = new BetaManagedAgentsAgentWithOverridesParams
       {
-          Type = BetaManagedAgentsAgentWithOverridesParamsType.AgentWithOverrides,
           ID = agent.ID,
           Model = new BetaManagedAgentsModelConfigParams
           {
@@ -561,7 +555,6 @@ The following example starts a session that overrides the model and clears the s
   ```java Java
   var overrideSession = client.beta().sessions().create(SessionCreateParams.builder()
       .agent(BetaManagedAgentsAgentWithOverridesParams.builder()
-          .type(BetaManagedAgentsAgentWithOverridesParams.Type.AGENT_WITH_OVERRIDES)
           .id(agent.id())
           .model(BetaManagedAgentsModelConfigParams.builder()
               .id(BetaManagedAgentsModel.CLAUDE_SONNET_5_5)
@@ -578,7 +571,6 @@ The following example starts a session that overrides the model and clears the s
   ```php PHP
   $overrides = BetaManagedAgentsAgentWithOverridesParams::with(
       id: $agent->id,
-      type: 'agent_with_overrides',
       model: ['id' => 'claude-sonnet-5-5'],
   );
   // Clear the system prompt for this session. Array access is load-bearing here:
@@ -680,7 +672,6 @@ The following example starts a session from an agent whose model has no geo pin,
   {
       Agent = new BetaManagedAgentsAgentWithOverridesParams
       {
-          Type = BetaManagedAgentsAgentWithOverridesParamsType.AgentWithOverrides,
           ID = agent.ID,
           // Replaces the agent's `model` in full: restate `id`, add `inference_geo` to pin.
           Model = new BetaManagedAgentsModelConfigParams
@@ -718,7 +709,6 @@ The following example starts a session from an agent whose model has no geo pin,
   ```java Java
   var session = client.beta().sessions().create(SessionCreateParams.builder()
       .agent(BetaManagedAgentsAgentWithOverridesParams.builder()
-          .type(BetaManagedAgentsAgentWithOverridesParams.Type.AGENT_WITH_OVERRIDES)
           .id(agent.id())
           // Replaces the agent's `model` in full: restate `id`, add `inference_geo` to pin.
           .model(BetaManagedAgentsModelConfigParams.builder()
@@ -735,7 +725,6 @@ The following example starts a session from an agent whose model has no geo pin,
   $session = $client->beta->sessions->create(
       agent: BetaManagedAgentsAgentWithOverridesParams::with(
           id: $agent->id,
-          type: 'agent_with_overrides',
           // Replaces the agent's `model` in full: restate `id`, add `inference_geo` to pin.
           model: BetaManagedAgentsModelConfigParams::with(
               id: 'claude-opus-5-5',
@@ -767,9 +756,9 @@ The following example starts a session from an agent whose model has no geo pin,
 
 ### Set a session budget
 
-To cap what a session can spend, pass the optional `budget` (csharp, go: `Budget`) object when you create it. A budget is a hard ceiling on the session's list cost: the platform prices everything the session consumes at public list rates, and the session stops issuing new model requests once that running total reaches `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`). The budget's `type` (csharp, go: `Type`) is always `limit`. Give `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`) an `amount` (csharp, go: `Amount`) and a `currency` (csharp, go: `Currency`). `amount` (csharp, go: `Amount`) is a whole number of US cents written as a string, such as `"125"` for $1.25. The API takes a string rather than a number so no floating-point rounding is ever applied. `USD` is the only currency currently supported. When the session reaches the cap, it pauses and goes idle with the stop reason `budget_reached`. The cap is enforced between model requests, so the request that crosses it finishes first and the session's final list cost can land [a fraction past the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). A budget can only be attached at creation: you can [change or remove](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-session-budget) it later, but you can't add one to a session created without it.
+To cap what a session can spend, pass the optional `budget` (csharp, go: `Budget`) object when you create it. A budget is a hard ceiling on the session's list cost: the platform prices everything the session consumes at public list rates, and the session stops issuing new model requests once that running total reaches `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`). The budget's `type` (csharp, go: `Type`) is always `limit`. Give `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`) an `amount` (csharp, go: `Amount`) and a `currency` (csharp, go: `Currency`). `amount` (csharp, go: `Amount`) is a whole number of US cents written as a string, such as `"125"` for $1.25 USD. The API takes a string rather than a number so no floating-point rounding is ever applied. `USD` is the only currency currently supported. When the session reaches the cap, it pauses and goes idle with the stop reason `budget_reached`. The cap is enforced between model requests, so the request that crosses it completes first and the session's final list cost can land [a fraction past the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). A budget can only be attached at creation: you can [change or remove](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-session-budget) it later, but you can't add one to a session created without it.
 
-The following example creates a session with a $1.25 budget:
+The following example creates a session with a $1.25 USD budget:
 
 <CodeGroup>
   ```bash cURL
@@ -827,7 +816,6 @@ The following example creates a session with a $1.25 budget:
       EnvironmentID = environment.ID,
       Budget = new()
       {
-          Type = BetaManagedAgentsBudgetLimitType.Limit,
           MaxListCost = new() { Amount = "125", Currency = BetaCurrency.Usd },
       },
   });
@@ -859,7 +847,6 @@ The following example creates a session with a $1.25 budget:
       .agent(agent.id())
       .environmentId(environment.id())
       .budget(BetaManagedAgentsBudgetLimit.builder()
-          .type(BetaManagedAgentsBudgetLimit.Type.LIMIT)
           .maxListCost(BetaMonetaryAmount.builder()
               .amount("125")
               .currency(BetaCurrency.USD)
@@ -1050,12 +1037,10 @@ Creating a session without `initial_events` (java, php: `initialEvents`; csharp,
       [
           new BetaManagedAgentsUserMessageEventParams
           {
-              Type = BetaManagedAgentsUserMessageEventParamsType.UserMessage,
               Content =
               [
                   new BetaManagedAgentsTextBlock
                   {
-                      Type = BetaManagedAgentsTextBlockType.Text,
                       Text = "List the files in the working directory.",
                   },
               ],
@@ -1087,7 +1072,6 @@ Creating a session without `initial_events` (java, php: `initialEvents`; csharp,
       session.id(),
       EventSendParams.builder()
           .addEvent(BetaManagedAgentsUserMessageEventParams.builder()
-              .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
               .addTextContent("List the files in the working directory.")
               .build())
           .build());
@@ -1130,7 +1114,7 @@ See [Session statuses](https://platform.claude.com/docs/en/managed-agents/sessio
   </Card>
 
   <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
-    Send events, stream responses, and interrupt or redirect your session mid-execution.
+    Send events, stream responses, and interrupt or redirect your session while it runs.
   </Card>
 
   <Card title="Scheduled deployments" icon="arrows-clockwise" href="https://platform.claude.com/docs/en/managed-agents/scheduled-deployments">

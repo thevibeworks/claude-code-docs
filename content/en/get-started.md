@@ -15,7 +15,7 @@ description: Make your first API call to Claude and build a simple web search as
   <Tab title="cURL">
     <Steps>
       <Step title="Set your API key">
-        Export your API key as an environment variable. The cURL command below reads it from `$ANTHROPIC_API_KEY`.
+        Export your API key as an environment variable. The cURL command in the following step reads it from `$ANTHROPIC_API_KEY`.
 
         ```bash
         export ANTHROPIC_API_KEY="your-api-key-here"
@@ -290,9 +290,8 @@ description: Make your first API call to Claude and build a simple web search as
             MaxTokens = 1000,
             Messages =
             [
-                new()
+                new UserMessageParam
                 {
-                    Role = Role.User,
                     Content = "What should I search for to find the latest developments in renewable energy?",
                 },
             ],
@@ -436,7 +435,7 @@ description: Make your first API call to Claude and build a simple web search as
             }
 
             dependencies {
-                implementation("com.anthropic:anthropic-java:2.75.0")
+                implementation("com.anthropic:anthropic-java:3.0.0")
             }
 
             application {
@@ -462,7 +461,7 @@ description: Make your first API call to Claude and build a simple web search as
                 <dependency>
                   <groupId>com.anthropic</groupId>
                   <artifactId>anthropic-java</artifactId>
-                  <version>2.75.0</version>
+                  <version>3.0.0</version>
                 </dependency>
               </dependencies>
             </project>

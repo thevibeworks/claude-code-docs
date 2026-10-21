@@ -15,7 +15,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
 <Tabs>
   <Tab title="Gradle">
     ```kotlin
-    implementation("com.anthropic:anthropic-java:2.75.0")
+    implementation("com.anthropic:anthropic-java:3.0.0")
     ```
   </Tab>
 
@@ -24,7 +24,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
     <dependency>
         <groupId>com.anthropic</groupId>
         <artifactId>anthropic-java</artifactId>
-        <version>2.75.0</version>
+        <version>3.0.0</version>
     </dependency>
     ```
   </Tab>
@@ -99,7 +99,7 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
   .build();
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) with access to multiple workspaces, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ### Configuration options
 
@@ -316,7 +316,7 @@ For complete structured outputs documentation including Java examples, see [Stru
 
 [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model's responses. Instead of producing plain text, the model can output instructions (with parameters) for calling a tool or function when appropriate. You define JSON schemas for tools, and the model uses the schemas to determine when and how to use these tools.
 
-The tool use feature supports a "strict" mode that guarantees that the JSON output from the AI model will conform to the JSON schema you provide in the input parameters.
+The tool use feature supports a "strict" mode that guarantees that the JSON output from the AI model conforms to the JSON schema you provide in the input parameters.
 
 The SDK can derive a tool and its parameters automatically from the structure of an arbitrary Java class: the class's name (converted to snake case) provides the tool name, and the class's fields define the tool's parameters.
 
@@ -381,7 +381,7 @@ static class Weather {
 
 ### Calling tools
 
-When your tool classes are defined, add them to the message parameters using `MessageCreateParams.Builder.addTool(Class<T>)` and then call them if requested to do so in the AI model's response. `BetaToolUseBlock.input(Class<T>)` can be used to parse a tool's parameters in JSON form to an instance of your tool-defining class.
+After you define your tool classes, add them to the message parameters using `MessageCreateParams.Builder.addTool(Class<T>)` and then call them if requested to do so in the AI model's response. `BetaToolUseBlock.input(Class<T>)` can be used to parse a tool's parameters in JSON form to an instance of your tool-defining class.
 
 After calling the tool, use `BetaToolResultBlockParam.Builder.contentAsJson(Object)` to pass the tool's result back to the AI model:
 
@@ -403,14 +403,14 @@ client.beta().messages().create(createParamsBuilder.build()).content().stream()
         .flatMap(contentBlock -> contentBlock.toolUse().stream())
         .forEach(toolUseBlock -> createParamsBuilder
               // Add a message indicating that the tool use was requested.
-              .addAssistantMessageOfBetaContentBlockParams(
+              .addAssistantMessageOfContentBlockParams(
                       List.of(BetaContentBlockParam.ofToolUse(BetaToolUseBlockParam.builder()
                               .name(toolUseBlock.name())
                               .id(toolUseBlock.id())
                               .input(toolUseBlock._input())
                               .build())))
               // Add a message with the result of the requested tool use.
-              .addUserMessageOfBetaContentBlockParams(
+              .addUserMessageOfContentBlockParams(
                       List.of(BetaContentBlockParam.ofToolResult(BetaToolResultBlockParam.builder()
                               .toolUseId(toolUseBlock.id())
                               .contentAsJson(callTool(toolUseBlock))
@@ -432,7 +432,7 @@ private static Object callTool(BetaToolUseBlock toolUseBlock) {
 
 ### Tool name conversion
 
-Tool names are derived from the camel case tool class names (for example, `GetWeather`) and converted to snake case (for example, `get_weather`). Word boundaries begin where the current character is not the first character, is uppercase, and either the preceding character is lowercase, or the following character is lowercase. For example, `MyJSONParser` becomes `my_json_parser` and `ParseJSON` becomes `parse_json`. This conversion can be overridden using the `@JsonTypeName` annotation.
+Tool names are derived from the camel case tool class names (for example, `GetWeather`) and converted to snake case (for example, `get_weather`). Word boundaries start where the current character is not the first character, is uppercase, and either the preceding character is lowercase, or the following character is lowercase. For example, `MyJSONParser` becomes `my_json_parser` and `ParseJSON` becomes `parse_json`. This conversion can be overridden using the `@JsonTypeName` annotation.
 
 ### Local tool JSON schema validation
 
@@ -565,11 +565,11 @@ try (HttpResponse response = client.files().download(params)) {
 
 The SDK throws custom unchecked exception types:
 
-* `AnthropicServiceException` - Base class for HTTP errors.
-* `AnthropicIoException` - I/O networking errors.
-* `AnthropicRetryableException` - Generic error indicating a failure that could be retried.
-* `AnthropicInvalidDataException` - Failure to interpret successfully parsed data (for example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it).
-* `AnthropicException` - Base class for all exceptions.
+* `AnthropicServiceException` - Base class for HTTP errors
+* `AnthropicIoException` - I/O networking errors
+* `AnthropicRetryableException` - Generic error indicating a failure that could be retried
+* `AnthropicInvalidDataException` - Failure to interpret successfully parsed data (for example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it)
+* `AnthropicException` - Base class for all exceptions
 
 ### Status code mapping
 
@@ -615,7 +615,7 @@ HttpResponseFor<Message> message = client.messages().withRawResponse().create(pa
 Optional<String> requestId = message.requestId();
 ```
 
-This can be used to quickly log failing requests and report them back to Anthropic. For more information on debugging requests, see [Request ID](https://platform.claude.com/docs/en/api/errors#request-id).
+This can be used to log failing requests and report them back to Anthropic. For more information on debugging requests, see [Request ID](https://platform.claude.com/docs/en/api/errors#request-id).
 
 ## Retries
 
@@ -629,7 +629,7 @@ Only the following error types are retried:
 * 429 Rate Limit
 * 5xx Internal
 
-The API may also explicitly instruct the SDK to retry or not retry a request.
+The API might also explicitly instruct the SDK to retry or not retry a request.
 
 To set a custom number of retries, configure the client using the `maxRetries` method:
 
@@ -687,10 +687,10 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
 ## Long requests
 
 <Warning>
-  Consider using [streaming](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#streaming) for longer running requests.
+  Consider using [streaming](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#streaming) for longer-running requests.
 </Warning>
 
-Avoid setting a large `maxTokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#timeouts) without receiving a response from Anthropic. The SDK periodically pings the API to keep the connection alive and reduce the impact of these networks.
+Avoid setting a large `maxTokens` value without using streaming. Some networks might drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#timeouts) without receiving a response from Anthropic. The SDK periodically pings the API to keep the connection alive and reduce the impact of these networks.
 
 The SDK throws an error if a non-streaming request is expected to take longer than 10 minutes. Using a [streaming method](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#streaming) or [overriding the timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#timeouts) at the client or request level disables the error.
 
@@ -832,10 +832,10 @@ MessageCreateParams params = MessageCreateParams.builder()
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
 <Warning>
-  The values passed to these methods overwrite values passed to earlier methods. For security reasons, ensure these methods are only used with trusted input data.
+  The values passed to these methods overwrite values passed to earlier methods. For security reasons, use these methods only with trusted input data.
 </Warning>
 
-To set undocumented parameters on nested headers, query params, or body classes:
+To set undocumented parameters on nested headers, query parameters, or body classes:
 
 ```java
 import com.anthropic.core.JsonValue;
@@ -1037,7 +1037,7 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
 
 The SDK consists of three artifacts:
 
-* `anthropic-java-core` - Contains core SDK logic, does not depend on OkHttp. Exposes `AnthropicClient`, `AnthropicClientAsync`, and their implementation classes, all of which can work with any HTTP client.
+* `anthropic-java-core` - Contains core SDK logic and does not depend on OkHttp. Exposes `AnthropicClient`, `AnthropicClientAsync`, and their implementation classes, all of which can work with any HTTP client.
 * `anthropic-java-client-okhttp` - Depends on OkHttp. Exposes `AnthropicOkHttpClient` and `AnthropicOkHttpClientAsync`.
 * `anthropic-java` - Depends on and exposes the APIs of both `anthropic-java-core` and `anthropic-java-client-okhttp`. Does not have its own logic.
 
@@ -1192,13 +1192,13 @@ MessageCreateParams params = MessageCreateParams.builder()
   .build();
 ```
 
-Prefer the well-typed constants (for example, `Model.CLAUDE_OPUS_5`) so you get autocomplete and deprecation warnings. The `String` overloads and `of(...)` are primarily for setting the field to an undocumented or not yet supported value while waiting for an SDK release that includes it.
+Prefer the well-typed constants (for example, `Model.CLAUDE_OPUS_5`) so you get auto-complete and deprecation warnings. The `String` overloads and `of(...)` are primarily for setting the field to an undocumented or not yet supported value while waiting for an SDK release that includes it.
 
 ## Beta features
 
 Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
-You can access most beta API features through the `beta()` method on the client. To enable a particular beta feature, add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) with `.addBeta()` when building the message params.
+You can access most beta API features through the `beta()` method on the client. To enable a particular beta feature, add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) with `.addBeta()` when building the message parameters.
 
 For example, to enable [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing):
 
@@ -1234,7 +1234,7 @@ void main() {
 
     * Allowing usage of undocumented API functionality
     * Lazily validating the API response against the expected shape
-    * Representing absent vs explicitly null values
+    * Representing absent versus explicitly null values
   </Accordion>
 
   <Accordion title="Why doesn't the SDK use data classes?">
@@ -1249,15 +1249,17 @@ void main() {
     * Are verbose to handle
     * Encourage error handling at the wrong level of abstraction, where nothing can be done about the error
     * Are tedious to propagate because of the function coloring problem
-    * Don't play well with lambdas (also because of the function coloring problem)
+    * Don't work well with lambdas (also because of the function coloring problem)
   </Accordion>
 </AccordionGroup>
 
 ## Semantic versioning
 
+Each major version of this SDK sends one API version in the `anthropic-version` header by default, and a new major version comes with each new API version. The first major version that sends `2026-10-21` is 3.0.0; see [Migrating to API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
+
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
-1. Changes to library internals which are technically public but not intended or documented for external use.
+1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
 ## Additional resources

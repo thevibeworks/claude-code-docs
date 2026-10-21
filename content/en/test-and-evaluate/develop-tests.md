@@ -35,7 +35,7 @@ Good success criteria are:
     **Quantitative methods:**
 
     * A/B testing: Compare performance against a baseline model or earlier version.
-    * User feedback: Implicit measures like task completion rates.
+    * User feedback: Implicit measures such as task completion rates.
     * Edge case analysis: Percentage of edge cases handled without errors.
 
     **Qualitative scales:**
@@ -63,7 +63,7 @@ Here are some criteria that might be important for your use case. This list is n
 
 <AccordionGroup>
   <Accordion title="Task fidelity">
-    How well does the model need to perform on the task? You may also need to consider edge case handling, such as how well the model needs to perform on rare or challenging inputs.
+    How well does the model need to perform on the task? You might also need to consider edge case handling, such as how well the model needs to perform on rare or challenging inputs.
   </Accordion>
 
   <Accordion title="Consistency">
@@ -71,7 +71,7 @@ Here are some criteria that might be important for your use case. This list is n
   </Accordion>
 
   <Accordion title="Relevance and coherence">
-    How well does the model directly address the user's questions or instructions? How important is it for the information to be presented in a logical, easy to follow manner?
+    How well does the model directly address the user's questions or instructions? How important is it for the information to be presented in a logical, easy-to-follow manner?
   </Accordion>
 
   <Accordion title="Tone and style">
@@ -91,7 +91,7 @@ Here are some criteria that might be important for your use case. This list is n
   </Accordion>
 
   <Accordion title="Price">
-    What is your budget for running the model? Consider factors like the cost for each API call, the size of the model, and the frequency of usage.
+    What is your budget for running the model? Consider factors such as the cost for each API call, the size of the model, and the frequency of usage.
   </Accordion>
 </AccordionGroup>
 
@@ -126,7 +126,7 @@ Most use cases need multidimensional evaluation along several success criteria.
 
 <AccordionGroup>
   <Accordion title="Task fidelity (sentiment analysis) - exact match evaluation">
-    **What it measures:** Exact match evals measure whether the model's output matches a predefined correct answer, typically after normalizing whitespace and case. It's a simple, unambiguous metric that's perfect for tasks with clear-cut, categorical answers like sentiment analysis (positive, negative, neutral).
+    **What it measures:** Exact match evals measure whether the model's output matches a predefined correct answer, typically after normalizing whitespace and case. It's a simple, unambiguous metric that's perfect for tasks with clear-cut, categorical answers such as sentiment analysis (positive, negative, neutral).
 
     **Example eval test cases:** 1,000 tweets with human-labeled sentiments.
 
@@ -238,7 +238,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [new() { Role = Role.User, Content = prompt }],
+              Messages = [new UserMessageParam { Content = prompt }],
           });
           return ContentText(message);
       }
@@ -664,7 +664,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 2048,
-              Messages = [new() { Role = Role.User, Content = prompt }],
+              Messages = [new UserMessageParam { Content = prompt }],
           });
           foreach (var block in message.Content)
           {
@@ -1180,7 +1180,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [new() { Role = Role.User, Content = prompt }],
+              Messages = [new UserMessageParam { Content = prompt }],
           });
           return ContentText(message);
       }
@@ -1561,7 +1561,7 @@ Most use cases need multidimensional evaluation along several success criteria.
   </Accordion>
 
   <Accordion title="Tone and style (customer service) - LLM-based Likert scale">
-    **What it measures:** The LLM-based Likert scale is a psychometric scale that uses an LLM to judge subjective attitudes or perceptions. Here, it's used to rate the tone of responses on a scale from 1 to 5. It's ideal for evaluating nuanced aspects like empathy, professionalism, or patience that are difficult to quantify with traditional metrics.
+    **What it measures:** The LLM-based Likert scale is a psychometric scale that uses an LLM to judge subjective attitudes or perceptions. Here, it's used to rate the tone of responses on a scale from 1 to 5. It's ideal for evaluating nuanced aspects such as empathy, professionalism, or patience that are difficult to quantify with traditional metrics.
 
     **Example eval test cases:** 100 customer inquiries with target tone (empathetic, patient, professional).
 
@@ -1706,7 +1706,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 2048,
-              Messages = [new() { Role = Role.User, Content = prompt }],
+              Messages = [new UserMessageParam { Content = prompt }],
           });
           return ContentText(message);
       }
@@ -1726,7 +1726,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [new() { Role = Role.User, Content = tonePrompt }],
+              Messages = [new UserMessageParam { Content = tonePrompt }],
           });
           return int.Parse(ContentText(response).Trim());
       }
@@ -2032,7 +2032,7 @@ Most use cases need multidimensional evaluation along several success criteria.
   </Accordion>
 
   <Accordion title="Privacy preservation (medical chatbot) - LLM-based binary classification">
-    **What it measures:** Binary classification determines if an input belongs to one of two classes. Here, it's used to classify whether a response contains PHI or not. This method can account for context and identify subtle or implicit forms of PHI that rule-based systems might miss.
+    **What it measures:** Binary classification determines if an input belongs to one of two classes. Here, it's used to classify whether a response contains PHI. This method can account for context and identify subtle or implicit forms of PHI that rule-based systems might miss.
 
     **Example eval test cases:** 500 simulated patient queries, some with PHI.
 
@@ -2202,7 +2202,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [new() { Role = Role.User, Content = prompt }],
+              Messages = [new UserMessageParam { Content = prompt }],
           });
           return ContentText(message);
       }
@@ -2232,7 +2232,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [new() { Role = Role.User, Content = binaryPrompt }],
+              Messages = [new UserMessageParam { Content = binaryPrompt }],
           });
           return ContentText(response).Trim().ToLowerInvariant() == "no";
       }
@@ -2806,11 +2806,10 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [.. conversation.Select(turn => new MessageParam
-              {
-                  Role = turn.Role == "user" ? Role.User : Role.Assistant,
-                  Content = turn.Content,
-              })],
+              Messages = [.. conversation.Select<Turn, MessageParam>(turn =>
+                  turn.Role == "user"
+                      ? new UserMessageParam { Content = turn.Content }
+                      : new AssistantMessageParam { Content = turn.Content })],
           });
           return ContentText(message);
       }
@@ -2835,7 +2834,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           {
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 1024,
-              Messages = [new() { Role = Role.User, Content = ordinalPrompt }],
+              Messages = [new UserMessageParam { Content = ordinalPrompt }],
           });
           return int.Parse(ContentText(response).Trim());
       }
@@ -3233,13 +3232,13 @@ When deciding which method to use to grade evals, choose the fastest, most relia
 
 2. **Human grading:** Most flexible and high quality, but slow and expensive. Avoid if possible.
 
-3. **LLM-based grading:** Fast and flexible, scalable and suitable for complex judgment. Test to ensure reliability first then scale.
+3. **LLM-based grading:** Fast and flexible, scalable and suitable for complex judgment. Test to ensure reliability first, then scale.
 
 ### Tips for LLM-based grading
 
 * **Have detailed, clear rubrics:** "The answer should always mention 'Acme Inc.' in the first sentence. If it does not, the answer is automatically graded as 'incorrect.'"
   <Note>
-    A given use case, or even a specific success criteria for that use case, might require several rubrics for holistic evaluation.
+    A given use case, or even a specific success criterion for that use case, might require several rubrics for holistic evaluation.
   </Note>
 * **Empirical or specific:** For example, instruct the LLM to output only 'correct' or 'incorrect', or to judge from a scale of 1–5. Purely qualitative evaluations are hard to assess quickly and at scale.
 * **Encourage reasoning:** Use a grader model with [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on, so that it reasons before it produces an evaluation score. This increases evaluation performance, particularly for tasks requiring complex judgment.
@@ -3379,7 +3378,7 @@ When deciding which method to use to grade evals, choose the fastest, most relia
         {
             Model = Model.ClaudeOpus5_5,
             MaxTokens = 2048,
-            Messages = [new() { Role = Role.User, Content = BuildGraderPrompt(output, goldenAnswer) }],
+            Messages = [new UserMessageParam { Content = BuildGraderPrompt(output, goldenAnswer) }],
         });
         return ContentText(graderResponse).ToLowerInvariant().Contains("<result>correct</result>")
             ? "correct"
@@ -3401,7 +3400,7 @@ When deciding which method to use to grade evals, choose the fastest, most relia
         {
             Model = Model.ClaudeOpus5_5,
             MaxTokens = 1024,
-            Messages = [new() { Role = Role.User, Content = prompt }],
+            Messages = [new UserMessageParam { Content = prompt }],
         });
         return ContentText(message);
     }
@@ -3717,7 +3716,7 @@ When deciding which method to use to grade evals, choose the fastest, most relia
     **Tip:** Drop this page into the chat as guidance for Claude!
   </Card>
 
-  <Card title="Evals cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-building-evals">
+  <Card title="Evals recipe" icon="link" href="https://platform.claude.com/cookbook/misc-building-evals">
     More code examples of human-, code-, and LLM-graded evals.
   </Card>
 </CardGroup>

@@ -12,7 +12,7 @@ Inference hooks let a Claude Enterprise organization route every governed prompt
 
 Because the hook runs on Anthropic's servers, after the request leaves the client and before the model runs, it applies to every governed request uniformly, across all Claude products in your organization, with nothing to install or deploy on user devices.
 
-There are two hook events. `prompt` fires once per governed inference request, before inference begins. `tool_call` fires when Claude's response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on.
+There are two hook events. `prompt` fires once for each governed inference request, before inference starts. `tool_call` fires when Claude's response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on.
 
 ***
 
@@ -35,11 +35,11 @@ Your AI security server sees what the user sees: transcript text, tool calls and
 
 The Inference hooks system doesn't keep its own copy of prompt or response content. It stores only your hook configuration and metadata about hook activity, such as verdicts, timestamps, and request identifiers. The Claude product you use stores prompts and responses under its own data retention rules, whether or not hooks are on. For example, a message that a hook blocks on claude.ai stays in the conversation.
 
-If your AI security server is unreachable, returns an error, or doesn't respond within the timeout, your organization's failure handling setting decides the outcome: block the request, or allow it to proceed without inspection. Sustained failures attributable to your server trip a circuit breaker: Anthropic stops contacting it and applies your failure handling setting to every request, then resets the breaker automatically once it detects that your server is returning verdicts again; see [Circuit breaker](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#circuit-breaker).
+If your AI security server is unreachable, returns an error, or doesn't respond within the timeout, your organization's failure handling setting determines the outcome: block the request, or allow it to proceed without inspection. Sustained failures attributable to your server trip a circuit breaker: Anthropic stops contacting it and applies your failure handling setting to every request, then resets the breaker automatically once it detects that your server is returning verdicts again; see [Circuit breaker](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#circuit-breaker).
 
 Enforcement can roll out at your pace, so nobody has to be blocked on day one: shadow mode observes verdicts on live traffic without blocking anything, a rollout percentage inspects a chosen fraction of requests, and exclusions exempt members of chosen roles entirely. See [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration).
 
-For the full request and response schemas, signature verification, and operational details, see [Develop an integration](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint).
+For the full request and response schemas, signature verification, and operational details, see [Develop an Inference hooks integration](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint).
 
 ***
 
@@ -69,7 +69,7 @@ The steps depend on the app:
 
 * Attachments are represented by metadata and extracted text. Raw file and image bytes are never sent, so image-only content (for example, a screenshot of a document) is not inspected.
 * Verdicts are allow or deny. Rewriting or redacting a prompt is not supported.
-* Platform organizations (API access through the Claude Platform) are out of scope.
+* Claude Platform organizations (API access through the Platform) are out of scope.
 
 ***
 
@@ -101,7 +101,7 @@ Both features serve security, legal, and compliance teams at Claude Enterprise o
 | What it does | Allows or denies each governed request in real time | Retrieves activity, chats, files, projects, session transcripts, and users for audit and export |
 | Direction    | Anthropic calls your AI security server             | You call Anthropic's API                                                                        |
 
-Use Inference hooks to stop a request before it reaches the model, and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) to audit what happened afterward.
+Use Inference hooks to stop a request before it reaches the model, and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) to audit what occurred afterward.
 
 ***
 

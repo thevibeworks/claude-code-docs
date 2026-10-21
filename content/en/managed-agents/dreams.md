@@ -1,7 +1,7 @@
 ---
 title: Dreams
 url: https://platform.claude.com/docs/en/managed-agents/dreams
-description: Let Claude reflect on past sessions to curate an agent's memory and surface new insights.
+description: Let Claude review past sessions to curate an agent's memory and surface new insights.
 ---
 
 <Tip>
@@ -36,7 +36,7 @@ The dream produces another **output memory store**, separate from the input. The
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01,dreaming-2026-04-21" \
     -H "content-type: application/json" \
-    --data '{
+    -d '{
       "inputs": [
         { "type": "memory_store", "memory_store_id": "'"$store_id"'" },
         { "type": "sessions", "session_ids": ["'"$session_a"'", "'"$session_b"'"] }
@@ -87,16 +87,8 @@ The dream produces another **output memory store**, separate from the input. The
   {
       Inputs =
       [
-          new BetaDreamMemoryStoreInput
-          {
-              Type = BetaDreamMemoryStoreInputType.MemoryStore,
-              MemoryStoreID = storeID,
-          },
-          new BetaDreamSessionsInput
-          {
-              Type = BetaDreamSessionsInputType.Sessions,
-              SessionIds = [sessionA, sessionB],
-          },
+          new BetaDreamMemoryStoreInput { MemoryStoreID = storeID },
+          new BetaDreamSessionsInput { SessionIds = [sessionA, sessionB] },
       ],
       Model = "claude-opus-5-5",
       Instructions = "Focus on coding-style preferences; ignore one-off debugging notes.",
@@ -196,7 +188,7 @@ The response is the full `dream` resource with `status: "pending"`:
 
 The optional `instructions` (csharp, go: `Instructions`) field steers what the dreaming pipeline synthesizes. It is applied throughout the pipeline: what to read closely, what to merge or drop, and how to structure the output store.
 
-Use `instructions` (csharp, go: `Instructions`) for high-level synthesis guidance such as focus areas ("focus on coding-style preferences"), content to preserve unchanged, or output conventions you want applied across the store. The pipeline is a synthesis pass over the inputs, not an editor applied to the text of the store, so imperative directives that target specific lines ("change sentence X to Y", "fix the count in section Z") generally produce no change. To make targeted edits to individual memories, use the [Memory Stores API](https://platform.claude.com/docs/en/managed-agents/memory#view-and-edit-memories) on the output store directly.
+Use `instructions` (csharp, go: `Instructions`) for high-level synthesis guidance such as focus areas ("focus on coding-style preferences"), content to preserve unchanged, or output conventions you want applied across the store. The pipeline is a synthesis pass over the inputs, not an editor applied to the text of the store, so imperative directives that target specific lines ("change sentence X to Y," "fix the count in section Z") generally produce no change. To make targeted edits to individual memories, use the [Memory Stores API](https://platform.claude.com/docs/en/managed-agents/memory#view-and-edit-memories) on the output store directly.
 
 ## Track progress
 
@@ -291,9 +283,9 @@ Once a dream is `running`, its `session_id` (java: `sessionId`; php: `sessionID`
 
 ## Use the output
 
-When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` entry in `outputs` (csharp, go: `Outputs`) references a fully populated store. It's an ordinary memory store in your workspace. Review it with the [Memory Stores API](https://platform.claude.com/docs/en/managed-agents/memory#view-and-edit-memories) or in the Console, then either:
+When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` entry in `outputs` (csharp, go: `Outputs`) references a fully populated store. It's an ordinary memory store in your workspace. Review it with the [Memory Stores API](https://platform.claude.com/docs/en/managed-agents/memory#view-and-edit-memories) or in the Claude Console, then either:
 
-* **Leverage it:** attach it to future sessions as a `memory_store` resource in place of (or alongside) the input memory store, or
+* **Use it:** attach it to future sessions as a `memory_store` resource in place of (or alongside) the input memory store, or
 * **Discard it:** [delete the memory store](https://platform.claude.com/docs/en/api/beta/memory_stores/delete) or [archive the memory store](https://platform.claude.com/docs/en/api/beta/memory_stores/archive).
 
 <CodeGroup>
@@ -304,7 +296,7 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    --data '{
+    -d '{
       "agent": "'"$agent_id"'",
       "environment_id": "'"$environment_id"'",
       "resources": [
@@ -352,7 +344,7 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
   ```
 
   ```csharp C#
-  var output = dream.Outputs.FirstOrDefault(entry => entry.Type == "memory_store");
+  var output = dream.Outputs.FirstOrDefault(entry => entry.Type.GetString() == "memory_store");
   if (output is { MemoryStoreID: var outputStoreID })
   {
       await client.Beta.Sessions.Create(new()
@@ -361,11 +353,7 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
           EnvironmentID = environmentID,
           Resources =
           [
-              new BetaManagedAgentsMemoryStoreResourceParam
-              {
-                  Type = BetaManagedAgentsMemoryStoreResourceParamType.MemoryStore,
-                  MemoryStoreID = outputStoreID,
-              },
+              new BetaManagedAgentsMemoryStoreResourceParam { MemoryStoreID = outputStoreID },
           ],
       });
   }
@@ -400,7 +388,7 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
 
   ```java Java
   var output = dream.outputs().stream()
-      .filter(entry -> entry.type().equals(BetaDreamOutput.Type.MEMORY_STORE))
+      .filter(entry -> entry._type().equals(JsonValue.from("memory_store")))
       .findFirst();
   if (output.isPresent()) {
       var outputStoreId = output.get().memoryStoreId();

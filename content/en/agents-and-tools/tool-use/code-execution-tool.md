@@ -1,7 +1,7 @@
 ---
 title: Code execution tool
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool
-description: Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
+description: Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
 featureMetadata:
   status: ga
   zdr: not-eligible
@@ -40,7 +40,7 @@ Claude can analyze data, create visualizations, perform complex calculations, ru
 Code execution also powers dynamic filtering in the [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) and [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool) tools: Claude filters results inside the code execution environment before they reach the context window. When dynamic filtering runs, the API provisions the code execution it needs for the request automatically, so you don't add the code execution tool to your request for it.
 
 <Note>
-  Reach out through the [feedback form](https://forms.gle/LTAU6Xn2puCJMi1n6) to share your feedback on this feature.
+  Use the [feedback form](https://forms.gle/LTAU6Xn2puCJMi1n6) to share your feedback on this feature.
 </Note>
 
 ## Tool versions
@@ -49,7 +49,7 @@ The code execution tool has three current versions, and every [supported model](
 
 * `code_execution_20250825` supports Bash commands and file operations.
 * `code_execution_20260120` adds REPL state persistence and [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) from within the sandbox. Claude Haiku 4.5 accepts the `code_execution_20260120` and `code_execution_20260521` tool types, but programmatic tool calling and the REPL state persistence that depends on it aren't available on it, so the newer versions behave like `code_execution_20250825` there.
-* `code_execution_20260521` is the same runtime as `code_execution_20260120`. The difference is that the tool description tells Claude about the 90-second wall-clock limit on each Python cell in programmatic tool calling, so Claude can budget long-running cells. A cell that exceeds the limit returns a normal code execution result with a non-zero `return_code` and a `detection_timeout` status message in its output. This is separate from the `execution_time_exceeded` [error code](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#errors), which the API returns when a whole tool invocation exceeds the maximum execution time.
+* `code_execution_20260521` is the same runtime as `code_execution_20260120`. The difference is that the tool description tells Claude about the 90-second wall-clock limit on each Python cell in programmatic tool calling, so Claude can budget long-running cells. A cell that exceeds the limit returns a normal code execution result with a non-zero `return_code` and a `detection_timeout` status message in its output. This is separate from the `execution_time_exceeded` [error code](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#errors), which the API returns when a whole tool call exceeds the maximum execution time.
 
 None of the three tool versions requires an `anthropic-beta` header. The legacy code execution beta headers remain valid opt-ins.
 
@@ -147,7 +147,7 @@ Here's an example that asks Claude to perform a calculation:
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Use the code execution tool to calculate the mean and standard deviation of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" }],
+      Messages = [new UserMessageParam { Content = "Use the code execution tool to calculate the mean and standard deviation of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" }],
       Tools = [new CodeExecutionTool20250825()]
   });
 
@@ -230,22 +230,22 @@ The response interleaves `server_tool_use` blocks (the commands Claude ran) with
 
 When you add the code execution tool to your API request:
 
-1. Claude evaluates whether code execution would help answer your question
+1. Claude evaluates whether code execution would help answer your question.
 
 2. The tool automatically provides Claude with the following capabilities:
 
    * **Bash commands:** Run shell commands for system operations
    * **File operations:** Create, view, and edit files directly, including writing code
 
-3. Claude can use any combination of these capabilities in a single request
+3. Claude can use any combination of these capabilities in a single request.
 
-4. All operations run in a secure, sandboxed container. The container has no internet access, so Claude can't download packages at runtime: only the [pre-installed libraries](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#pre-installed-libraries) are available
+4. All operations run in a secure, sandboxed container. The container has no internet access, so Claude can't download packages at runtime: only the [pre-installed libraries](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#pre-installed-libraries) are available.
 
-5. The API runs every command server-side and returns the results to Claude within the same request, so you never execute code or send back `tool_result` blocks yourself. One exception is when Claude calls one of your client tools alongside code execution: the API returns the code execution call without its result. The result arrives in a later response, after you send back the `tool_result` blocks for your client tools
+5. The API runs every command server-side and returns the results to Claude within the same request, so you never run code or send back `tool_result` blocks yourself. One exception is when Claude calls one of your client tools alongside code execution: the API returns the code execution call without its result. The result arrives in a later response, after you send back the `tool_result` blocks for your client tools.
 
-6. Each request runs in a new container unless you pass an earlier response's container ID back (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse))
+6. Each request runs in a new container unless you pass an earlier response's container ID back (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse)).
 
-7. Claude provides results with any generated charts, calculations, or analysis
+7. Claude provides results with any generated charts, calculations, or analysis.
 
 The container has Python pre-installed. Claude writes Python with the file operations sub-tool and runs it with a Bash command. With `code_execution_20260120` or later and [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the Python interpreter state (such as variable bindings) also persists across requests that reuse the container.
 
@@ -256,7 +256,7 @@ Claude runs code when the request benefits from computation or file handling:
 * Non-trivial math (large numbers, many steps, precision-sensitive results)
 * Data analysis, file parsing, or visualization
 * Algorithm execution or simulation
-* Explicit requests to "run", "compute", or "execute"
+* Explicit requests to "run," "compute," or "execute"
 
 Claude answers directly without running code for:
 
@@ -283,9 +283,9 @@ The Python environment can process various file types uploaded through the Files
 
 #### Upload and analyze files
 
-1. **Upload your file** using the [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
-2. **Reference the file** in your message using a `container_upload` content block
-3. **Include the code execution tool** in your API request
+1. **Upload your file** using the [Files API](https://platform.claude.com/docs/en/build-with-claude/files).
+2. **Reference the file** in your message using a `container_upload` content block.
+3. **Include the code execution tool** in your API request.
 
 <CodeGroup>
   ```bash cURL
@@ -412,9 +412,8 @@ The Python environment can process various file types uploaded through the Files
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       Messages = [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = new([
                   new TextBlockParam { Text = "Analyze this CSV data" },
                   new ContainerUploadBlockParam { FileID = fileObject.ID }
@@ -482,7 +481,7 @@ The Python environment can process various file types uploaded through the Files
       MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(4096L)
-          .addUserMessageOfBlockParams(List.of(
+          .addUserMessageOfContentBlockParams(List.of(
               ContentBlockParam.ofText(TextBlockParam.builder()
                   .text("Analyze this CSV data")
                   .build()),
@@ -652,7 +651,7 @@ When Claude saves files to its output directory during code execution (see [How 
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Create a matplotlib visualization and save it as output.png" }],
+      Messages = [new UserMessageParam { Content = "Create a matplotlib visualization and save it as output.png" }],
       Tools = [new CodeExecutionTool20250825()]
   };
 
@@ -895,9 +894,9 @@ When Claude saves files to its output directory during code execution (see [How 
 
 #### How generated files are captured
 
-Each `bash_code_execution` call gets a new, empty directory, available to the command as `$OUTPUT_DIR`. When the command finishes, the files at the top level of that directory are captured and returned as the `file_id` entries in the result's `content` list. Files written anywhere else stay in the container and aren't returned.
+Each `bash_code_execution` call gets a new, empty directory, available to the command as `$OUTPUT_DIR`. When the command completes, the files at the top level of that directory are captured and returned as the `file_id` entries in the result's `content` list. Files written anywhere else stay in the container and aren't returned.
 
-The tool description tells Claude to share files by copying them into `$OUTPUT_DIR`. If your application depends on receiving a file, prompt Claude to copy it into `$OUTPUT_DIR` and list the directory in the same command, so the `ls` output confirms the capture (Claude doesn't see the `content` list):
+The tool description tells Claude to share files by copying them into `$OUTPUT_DIR`. If your application depends on receiving a file, prompt Claude to copy it into `$OUTPUT_DIR` and list the directory in the same command, so the `ls` output confirms the capture (Claude doesn't receive the `content` list):
 
 ```bash
 python /tmp/make_report.py && cp /tmp/report.pdf "$OUTPUT_DIR/" && ls "$OUTPUT_DIR"
@@ -1074,14 +1073,14 @@ Each tool type can return specific errors:
 
 **Error codes by tool type:**
 
-| Tool         | Error code                | Description                                             |
-| ------------ | ------------------------- | ------------------------------------------------------- |
-| All tools    | `unavailable`             | The tool is temporarily unavailable                     |
-| All tools    | `execution_time_exceeded` | The tool invocation exceeded the maximum execution time |
-| All tools    | `invalid_tool_input`      | Invalid parameters provided to the tool                 |
-| All tools    | `too_many_requests`       | Rate limit exceeded for tool usage                      |
-| bash         | `output_file_too_large`   | Command output exceeded the maximum size                |
-| text\_editor | `file_not_found`          | File doesn't exist (for view/edit operations)           |
+| Tool         | Error code                | Description                                       |
+| ------------ | ------------------------- | ------------------------------------------------- |
+| All tools    | `unavailable`             | The tool is temporarily unavailable               |
+| All tools    | `execution_time_exceeded` | The tool call exceeded the maximum execution time |
+| All tools    | `invalid_tool_input`      | Invalid parameters provided to the tool           |
+| All tools    | `too_many_requests`       | Rate limit exceeded for tool usage                |
+| bash         | `output_file_too_large`   | Command output exceeded the maximum size          |
+| text\_editor | `file_not_found`          | File doesn't exist (for view/edit operations)     |
 
 An expired container can't be reused: requests that reference it return an error instead of restoring it. Send the request again without the `container` parameter to get a new container.
 
@@ -1104,12 +1103,12 @@ The code execution tool runs in a secure, containerized environment designed spe
 * **Memory:** 5 GiB RAM
 * **Disk space:** 5 GiB workspace storage
 * **CPU:** 1 CPU
-* **Execution time:** A tool invocation that runs past the maximum execution time returns an `execution_time_exceeded` [error](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#errors). With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), each REPL cell also has a 90-second wall-clock limit
+* **Execution time:** A tool call that runs past the maximum execution time returns an `execution_time_exceeded` [error](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#errors). With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), each REPL cell also has a 90-second wall-clock limit
 
 ### Networking and security
 
 * **Internet access:** Completely disabled for security
-* **External connections:** No outbound network requests permitted
+* **External connections:** No outbound network requests allowed
 * **Sandbox isolation:** Full isolation from host system and other containers
 * **File access:** Limited to workspace directory only
 * **Workspace scoping:** Like the [Files API](https://platform.claude.com/docs/en/build-with-claude/files), containers are scoped to the request's workspace
@@ -1272,7 +1271,7 @@ Containers expire 30 days after creation. After about 5 minutes of inactivity a 
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Write a file with a random number and save it to '/tmp/number.txt'" }],
+      Messages = [new UserMessageParam { Content = "Write a file with a random number and save it to '/tmp/number.txt'" }],
       Tools = [new CodeExecutionTool20250825()]
   });
 
@@ -1282,7 +1281,7 @@ Containers expire 30 days after creation. After about 5 minutes of inactivity a 
       Container = response1.Container!.ID,
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Read the number from '/tmp/number.txt' and calculate its square" }],
+      Messages = [new UserMessageParam { Content = "Read the number from '/tmp/number.txt' and calculate its square" }],
       Tools = [new CodeExecutionTool20250825()]
   });
 
@@ -1424,7 +1423,7 @@ Containers expire 30 days after creation. After about 5 minutes of inactivity a 
 
 ## Using code execution with other execution tools
 
-When you provide code execution alongside client-provided tools that also run code (such as a [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool) or custom REPL), Claude is operating in a multicomputer environment. The code execution tool runs in Anthropic's sandboxed container, while your client-provided tools run in a separate environment that you control. Claude can sometimes confuse these environments, attempting to use the wrong tool or assuming state is shared between them.
+When you provide code execution alongside client-provided tools that also run code (such as a [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool) or custom REPL), Claude is operating in a multicomputer environment. The code execution tool runs in Anthropic's sandboxed container, whereas your client-provided tools run in a separate environment that you control. Claude can sometimes use the wrong tool or act as if state is shared between these environments.
 
 To avoid this, add instructions to your system prompt that clarify the distinction:
 
@@ -1436,7 +1435,7 @@ When multiple code execution environments are available, be aware that:
 - If you need to pass results between environments, explicitly include outputs in subsequent tool calls rather than assuming shared state
 ```
 
-This is especially important when combining code execution with [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) or [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool), which enable code execution automatically. If your application already provides a client-side shell tool, the automatic code execution creates a second execution environment that Claude needs to distinguish between.
+This is especially important when combining code execution with [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) or [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool), which enable code execution automatically. If your application already provides a client-side shell tool, the automatic code execution creates a second execution environment that Claude needs to distinguish from the first.
 
 When Claude calls one of your client tools alongside code execution, the API returns the code execution call without its result. The result arrives in a later response, after you send back the `tool_result` blocks for your client tools.
 
@@ -1469,10 +1468,10 @@ You can include the code execution tool in the [Messages Batches API](https://pl
 
 When used without these tools, code execution is billed by execution time, tracked separately from token usage:
 
-* Execution time has a minimum of 5 minutes
-* Each organization receives **1,550 free hours** of usage per month
-* Additional usage beyond 1,550 hours is billed at **$0.05 USD per hour, per container**
-* If files are included in the request, execution time is billed even if the tool is not called, because files are preloaded onto the container
+* Execution time has a minimum of 5 minutes.
+* Each organization receives **1,550 free hours** of usage per month.
+* Additional usage beyond 1,550 hours is billed at **$0.05 USD per hour, per container**.
+* If files are included in the request, execution time is billed even if the tool is not called, because files are preloaded onto the container.
 
 Code execution usage is tracked in the response:
 
@@ -1519,8 +1518,8 @@ To upgrade, update the tool type in your API requests:
 
 **Review response handling** (if parsing responses programmatically):
 
-* The API no longer sends the previous blocks for Python execution responses
-* Instead, the API sends new response types for Bash and file operations (see [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format))
+* The API no longer sends the previous blocks for Python execution responses.
+* Instead, the API sends new response types for Bash and file operations (see [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format)).
 
 ## Data retention
 

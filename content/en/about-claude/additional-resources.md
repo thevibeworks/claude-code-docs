@@ -15,7 +15,7 @@ description: Learning resources and documentation formats optimized for AI inges
     Step-by-step lessons on building with Claude.
   </Card>
 
-  <Card title="Cookbook" icon="fork-knife" href="https://platform.claude.com/cookbook">
+  <Card title="Claude Cookbook" icon="fork-knife" href="https://platform.claude.com/cookbook">
     Replicable code samples and implementations.
   </Card>
 

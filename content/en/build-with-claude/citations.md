@@ -151,10 +151,9 @@ The following example shows how to enable citations on a plain text document wit
           MaxTokens = 1024,
           Messages =
           [
-              new()
+              new UserMessageParam
               {
-                  Role = Role.User,
-                  Content = new MessageParamContent(new List<ContentBlockParam>
+                  Content = new List<ContentBlockParam>
                   {
                       new ContentBlockParam(new DocumentBlockParam(
                           new DocumentBlockParamSource(new PlainTextSource()
@@ -168,7 +167,7 @@ The following example shows how to enable citations on a plain text document wit
                           Citations = new CitationsConfigParam { Enabled = true },
                       }),
                       new ContentBlockParam(new TextBlockParam("What color is the grass and sky?")),
-                  }),
+                  },
               },
           ],
       }
@@ -228,7 +227,7 @@ The following example shows how to enable citations on a plain text document wit
   MessageCreateParams params = MessageCreateParams.builder()
       .model(Model.CLAUDE_OPUS_5_5)
       .maxTokens(1024)
-      .addUserMessageOfBlockParams(
+      .addUserMessageOfContentBlockParams(
           List.of(
               ContentBlockParam.ofDocument(documentParam),
               ContentBlockParam.ofText(textBlockParam)
@@ -312,7 +311,7 @@ The following example shows how to enable citations on a plain text document wit
 
   Compared to prompting Claude to cite sources, the citations feature offers the following advantages:
 
-  * **Cost savings:** If your prompt-based approach asks Claude to output direct quotes, you may see cost savings because `cited_text` does not count toward your output tokens.
+  * **Cost savings:** If your prompt-based approach asks Claude to output direct quotes, you might see cost savings because `cited_text` does not count toward your output tokens.
   * **Better citation reliability:** Because the API parses citations into the response formats described in the following sections and extracts `cited_text` directly, citations are guaranteed to contain valid pointers to the provided documents.
   * **Improved citation quality:** In Anthropic's evaluations, the citations feature is significantly more likely to cite the most relevant quotes from documents than purely prompt-based approaches.
 </Tip>
@@ -339,7 +338,7 @@ Integrate citations with Claude in these steps:
   </Step>
 
   <Step title="Claude provides cited response">
-    * Responses may now include multiple text blocks where each text block can contain a claim that Claude is making and a list of citations that support the claim.
+    * Responses might now include multiple text blocks where each text block can contain a claim that Claude is making and a list of citations that support the claim.
 
     * Citations reference specific locations in source documents. The format of these citations is dependent on the type of document being cited from.
 
@@ -536,10 +535,9 @@ The citation blocks generated in responses cannot be cached directly, but the so
           MaxTokens = 1024,
           Messages =
           [
-              new()
+              new UserMessageParam
               {
-                  Role = Role.User,
-                  Content = new MessageParamContent(new List<ContentBlockParam>
+                  Content = new List<ContentBlockParam>
                   {
                       new ContentBlockParam(new DocumentBlockParam(
                           new DocumentBlockParamSource(new PlainTextSource() { Data = longDocument })
@@ -549,7 +547,7 @@ The citation blocks generated in responses cannot be cached directly, but the so
                           CacheControl = new CacheControlEphemeral(), // Cache the document content
                       }),
                       new ContentBlockParam(new TextBlockParam("What does this document say about API features?")),
-                  }),
+                  },
               },
           ],
       }
@@ -610,7 +608,7 @@ The citation blocks generated in responses cannot be cached directly, but the so
   MessageCreateParams params = MessageCreateParams.builder()
       .model(Model.CLAUDE_OPUS_5_5)
       .maxTokens(1024)
-      .addUserMessageOfBlockParams(
+      .addUserMessageOfContentBlockParams(
           List.of(
               ContentBlockParam.ofDocument(documentParam),
               ContentBlockParam.ofText(textBlockParam)
@@ -853,9 +851,8 @@ Plain text documents are automatically chunked into sentences. You can provide t
               MaxTokens = 1024,
               Messages =
               [
-                  new MessageParam
+                  new UserMessageParam
                   {
-                      Role = Role.User,
                       Content = new List<ContentBlockParam>
                       {
                           new DocumentBlockParam
@@ -905,7 +902,7 @@ Plain text documents are automatically chunked into sentences. You can provide t
       MessageCreateParams citedParams = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
-          .addUserMessageOfBlockParams(List.of(
+          .addUserMessageOfContentBlockParams(List.of(
               ContentBlockParam.ofDocument(DocumentBlockParam.builder()
                   .fileSource(fileId)
                   .title("Document Title")
@@ -991,7 +988,7 @@ Plain text documents are automatically chunked into sentences. You can provide t
 
 ### PDF documents
 
-PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PDF text is extracted and chunked into sentences. As image citations are not yet supported, PDFs that are scans of documents and do not contain extractable text are not citable.
+PDF documents can be provided as base64-encoded data, as a URL, or by `file_id`. PDF text is extracted and chunked into sentences. As image citations are not yet supported, PDFs that are scans of documents and do not contain extractable text are not citable.
 
 <Tabs>
   <Tab title="Base64">
@@ -1131,10 +1128,9 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
               MaxTokens = 1024,
               Messages =
               [
-                  new()
+                  new UserMessageParam
                   {
-                      Role = Role.User,
-                      Content = new MessageParamContent(new List<ContentBlockParam>
+                      Content = new List<ContentBlockParam>
                       {
                           new ContentBlockParam(new DocumentBlockParam(
                               new DocumentBlockParamSource(new Base64PdfSource() { Data = pdfBase64 })
@@ -1145,7 +1141,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
                               Citations = new CitationsConfigParam { Enabled = true },
                           }),
                           new ContentBlockParam(new TextBlockParam("Summarize this document.")),
-                      }),
+                      },
                   },
               ],
           }
@@ -1206,7 +1202,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
       MessageCreateParams params = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
-          .addUserMessageOfBlockParams(
+          .addUserMessageOfContentBlockParams(
               List.of(
                   ContentBlockParam.ofDocument(documentParam),
                   ContentBlockParam.ofText(TextBlockParam.builder().text("Summarize this document.").build())
@@ -1413,10 +1409,9 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
               MaxTokens = 1024,
               Messages =
               [
-                  new()
+                  new UserMessageParam
                   {
-                      Role = Role.User,
-                      Content = new MessageParamContent(new List<ContentBlockParam>
+                      Content = new List<ContentBlockParam>
                       {
                           new ContentBlockParam(new DocumentBlockParam(
                               new DocumentBlockParamSource(new UrlPdfSource()
@@ -1430,7 +1425,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
                               Citations = new CitationsConfigParam { Enabled = true },
                           }),
                           new ContentBlockParam(new TextBlockParam("Summarize this document.")),
-                      }),
+                      },
                   },
               ],
           }
@@ -1484,7 +1479,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
       MessageCreateParams params = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
-          .addUserMessageOfBlockParams(
+          .addUserMessageOfContentBlockParams(
               List.of(
                   ContentBlockParam.ofDocument(documentParam),
                   ContentBlockParam.ofText(TextBlockParam.builder().text("Summarize this document.").build())
@@ -1672,9 +1667,8 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
               MaxTokens = 1024,
               Messages =
               [
-                  new MessageParam
+                  new UserMessageParam
                   {
-                      Role = Role.User,
                       Content = new List<ContentBlockParam>
                       {
                           new DocumentBlockParam
@@ -1724,7 +1718,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
       MessageCreateParams citedParams = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
-          .addUserMessageOfBlockParams(List.of(
+          .addUserMessageOfContentBlockParams(List.of(
               ContentBlockParam.ofDocument(DocumentBlockParam.builder()
                   .fileSource(fileId)
                   .title("Document Title")
@@ -1947,10 +1941,9 @@ Custom content documents give you control over citation granularity. No addition
           MaxTokens = 1024,
           Messages =
           [
-              new()
+              new UserMessageParam
               {
-                  Role = Role.User,
-                  Content = new MessageParamContent(new List<ContentBlockParam>
+                  Content = new List<ContentBlockParam>
                   {
                       new ContentBlockParam(new DocumentBlockParam(
                           new DocumentBlockParamSource(new ContentBlockSource()
@@ -1968,7 +1961,7 @@ Custom content documents give you control over citation granularity. No addition
                           Citations = new CitationsConfigParam { Enabled = true },
                       }),
                       new ContentBlockParam(new TextBlockParam("Summarize this document.")),
-                  }),
+                  },
               },
           ],
       }
@@ -2032,7 +2025,7 @@ Custom content documents give you control over citation granularity. No addition
   MessageCreateParams params = MessageCreateParams.builder()
       .model(Model.CLAUDE_OPUS_5_5)
       .maxTokens(1024)
-      .addUserMessageOfBlockParams(
+      .addUserMessageOfContentBlockParams(
           List.of(
               ContentBlockParam.ofDocument(documentParam),
               ContentBlockParam.ofText(TextBlockParam.builder().text("Summarize this document.").build())

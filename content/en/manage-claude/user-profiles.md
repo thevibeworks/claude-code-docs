@@ -25,11 +25,11 @@ What a profile stands for depends on how you sell Claude: a person who uses your
 
 ## What a profile contains and how Anthropic uses it
 
-A profile contains only what you send about the end customer, plus any [program status](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal#after-the-end-customer-links-the-profile) that Anthropic sets. It doesn't contain conversation content. Anthropic uses the details you send to attribute requests, to monitor for abuse, for enforcement of the [Usage Policy](https://www.anthropic.com/legal/aup), and to enable application and access to trusted access programs. Anthropic doesn't verify the details.
+A profile contains only what you send about the end customer, plus any [program status](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal#after-the-end-customer-links-the-profile) or enforcement status that Anthropic sets. It doesn't contain conversation content. Anthropic uses the details you send to attribute requests, to monitor for abuse, for enforcement of the [Usage Policy](https://www.anthropic.com/legal/aup), and to enable application and access to trusted access programs. Anthropic doesn't verify the details.
 
 Anthropic processes profiles in accordance with the [Privacy Policy](https://www.anthropic.com/legal/privacy).
 
-## Before you begin
+## Before you start
 
 You create and manage profiles in one of the following:
 
@@ -206,7 +206,7 @@ The response is the new profile:
 }
 ```
 
-Store the `id` on your customer record, and have your service instances read it from there instead of creating their own profile. You retrieve, update, and delete a profile by that `id`. The `programs` field is read-only, and attribution doesn't use it. It holds the end customer's status in each program that Anthropic runs. For what its values mean, see [which programs apply to a profile](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal#after-the-end-customer-links-the-profile).
+Store the `id` on your customer record, and have your service instances read it from there instead of creating their own profile. You retrieve, update, and delete a profile by that `id`. The `programs` field is read-only, and attribution doesn't use it. It holds the end customer's status in each program that Anthropic runs. For what its values mean, see [which programs apply to a profile](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal#after-the-end-customer-links-the-profile). [Check whether Anthropic has restricted or banned a profile](https://platform.claude.com/docs/en/manage-claude/user-profiles#check-whether-anthropic-has-restricted-or-banned-a-profile) explains the `enforcement_status` and `enforcement_actions` fields.
 
 There's no cap on the number of profiles in an organization, but profile creation is rate limited. Before you register an existing customer base in bulk, contact your Anthropic account team.
 
@@ -284,7 +284,7 @@ Send the profile ID in the `anthropic-user-profile-id` header on every request y
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+      Messages = [new UserMessageParam { Content = "Hello, Claude" }],
       UserProfileID = profileId
   };
   var message = await client.Messages.Create(parameters);
@@ -399,6 +399,53 @@ Claude in Amazon Bedrock and Google Cloud check the format of the ID but don't l
 
 A `passthrough` profile identifies a company, not the person making the request. If a request comes from one identifiable person, also send an identifier for that person in the [`metadata.user_id`](https://platform.claude.com/docs/en/api/messages/create) field of the Messages request. This is the request's own `metadata` object, not the profile's `metadata` field. The identifier is optional, and it helps Anthropic detect misuse by one person.
 
+## Check whether Anthropic has restricted or banned a profile
+
+A profile's `enforcement_status` and `enforcement_actions` fields report the enforcement actions that Anthropic has open on the end customer. An enforcement action is a restriction or a ban. Every response that returns a profile includes both fields: create, retrieve, update, and each profile in a list. Send these requests with no `user-profiles-` value in the `anthropic-beta` header, because `user-profiles-2026-09-04` and earlier values leave the fields out. The following example shows the fields on a retrieved profile, with the other fields left out:
+
+```json
+{
+  "type": "user_profile",
+  "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
+  "enforcement_status": "restricted",
+  "enforcement_actions": [
+    {
+      "type": "restriction",
+      "id": "enac_011CZkZEq4TnWb7xLfRgPm2v",
+      "reason": "fraud_or_abuse",
+      "action": null,
+      "opened_at": "2026-10-02T19:30:00Z",
+      "expires_at": null
+    }
+  ]
+}
+```
+
+`enforcement_status` summarizes the open actions in one value:
+
+* `unrestricted`: No action is open.
+* `restricted`: At least one action is open and none of them is a ban.
+* `banned`: A ban is open.
+
+While an action is open, Anthropic refuses some or all inference requests that carry the profile's ID.
+
+`enforcement_actions` lists the open actions and is empty when there are none. An action that ends leaves the list. Each action has these fields:
+
+* `type`: `restriction` or `ban`.
+* `id`: The action's ID, which starts with `enac_`.
+* `reason`: Why Anthropic opened the action. It's one of `unsupported_region`, `fraud_or_abuse`, `high_harm`, `usage_policy_violation`, `account_compromise`, or `unspecified`.
+* `action`: What the end customer can do to clear the action, or `null` when there's nothing they can do.
+* `opened_at`: When Anthropic opened the action.
+* `expires_at`: When the action ends by itself, or `null` when it has no end date.
+
+To check a profile, retrieve it with [`GET /v1/user_profiles/{id}`](https://platform.claude.com/docs/en/api/user_profiles/retrieve). To find the profiles that have an open action, [list your profiles](https://platform.claude.com/docs/en/api/user_profiles/list) with `enforcement_status[]=restricted` and `enforcement_status[]=banned`. To get an event when an action opens or ends, see [Organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks). Without events, compare both fields with the values you last saw. A change doesn't reliably move `updated_at`.
+
+Anthropic sets both fields. If a create or update request includes either one, the API returns a `400`. `enforcement_status` is separate from `external_user_details.account_status`, which records your own decision about the account.
+
+Anthropic can add values. Treat an `enforcement_status` you don't recognize as `restricted`, a `type` you don't recognize as `restriction`, a `reason` you don't recognize as `unspecified`, and an `action` you don't recognize as `null`.
+
+On Claude Platform on AWS, the two fields don't report enforcement actions: `enforcement_status` is always `unrestricted`, and `enforcement_actions` is always empty. Anthropic doesn't refuse requests there because of an open action.
+
 ## Keep profiles current
 
 Update a profile when the end customer's details or account status change, and delete it when they close their account or ask you to erase their data.
@@ -411,7 +458,7 @@ Update a profile when the end customer's details or account status change, and d
 * Each field you send in `external_user_details` replaces the stored value. You can't clear a value. The API rejects `null` with a `400`.
 * `metadata` merges key by key. A key you send overwrites the stored value, an empty string deletes the key, and keys you leave out stay as they are.
 
-The following example marks the account as suspended and removes a `trial_cohort` metadata key.
+The following example marks the account as suspended and deletes a `trial_cohort` metadata key.
 
 <CodeGroup>
   ```bash cURL

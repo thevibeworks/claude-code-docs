@@ -10,7 +10,7 @@ Claude Max and Team plans include monthly credits for the Claude API. To claim t
   Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry: These credits apply only to the Claude API in the Claude Console. They can't be used on other platforms.
 </Note>
 
-## At a glance
+## Summary
 
 | Topic                                  | Details                                                                   |
 | -------------------------------------- | ------------------------------------------------------------------------- |
@@ -22,7 +22,7 @@ Claude Max and Team plans include monthly credits for the Claude API. To claim t
 | **Expiry**                             | End of each billing cycle (or monthly for annual plans), with no rollover |
 | **Payment method for Claude Platform** | Not required                                                              |
 
-## API credits amounts
+## API credit amounts
 
 | Plan                                          | Monthly credit                                                       |
 | --------------------------------------------- | -------------------------------------------------------------------- |
@@ -43,7 +43,7 @@ Claude Max and Team plans include monthly credits for the Claude API. To claim t
 
 ## Claim your credits
 
-### Before you begin
+### Before you start
 
 You need both of the following roles:
 
@@ -62,7 +62,7 @@ If you don't have a Claude Console organization, create one in the Console at [p
   </Step>
 
   <Step title="Link a Console organization">
-    In the **API credits** section, choose the Console organization that should receive the credits, then accept the [program terms](https://www.anthropic.com/legal/credit-terms) by linking.
+    In the **API credits** section, select the Console organization that should receive the credits, then accept the [program terms](https://www.anthropic.com/legal/credit-terms) by linking.
   </Step>
 
   <Step title="Start building">
@@ -74,7 +74,7 @@ If you don't have a Claude Console organization, create one in the Console at [p
   Each plan links to one Console organization, and each Console organization can receive credits from one plan. You can't change the linked organization yourself, so link the organization you plan to build in. To change it later, [contact support](https://support.claude.com/en/articles/9015913-how-to-get-support).
 </Warning>
 
-Subscribers who aren't eligible don't see API credits in their settings page. If you think you should be eligible but don't see the API credits, [reach out to support](https://support.claude.com/en/articles/9015913-how-to-get-support).
+Subscribers who aren't eligible don't see API credits in their settings page. If you think you should be eligible but don't see the API credits, [contact support](https://support.claude.com/en/articles/9015913-how-to-get-support).
 
 ## What the credits cover
 
@@ -103,7 +103,7 @@ These API credits can only be used on the Claude Platform. The following table s
 
 Credits don't change how [rate limits and spend limits](https://platform.claude.com/docs/en/api/rate-limits) work:
 
-* Usage paid with credits counts toward your organization's [monthly spend cap](https://platform.claude.com/docs/en/api/rate-limits#spend-limits). Spend caps reset on the first of each calendar month, while credits refresh on your billing cycle (or monthly for annual plans).
+* Usage paid with credits counts toward your organization's [monthly spend cap](https://platform.claude.com/docs/en/api/rate-limits#spend-limits). Spend caps reset on the first of each calendar month, whereas credits refresh on your billing cycle (or monthly for annual plans).
 * Organizations linked to an eligible plan move up to at least the Start tier. If their monthly credits are over $200 USD, they move up to at least the Build tier.
 * Claiming credits doesn't otherwise change your [usage tier](https://platform.claude.com/docs/en/api/rate-limits#about-rate-limits), and these credits don't count toward moving to a higher tier.
 
@@ -134,9 +134,9 @@ Credit balance too low · Add funds: https://platform.claude.com/settings/billin
 | Upgrade from Max to Team                           | The Max link ends. A Team owner can claim the team's credits after the Team plan has been active for 7 days.                                                                                         |
 | Add or remove Team seats                           | Seats added to your plan count from the next billing month's credit. Seats you remove stay on your plan until it renews, so the credit might be lower after that. The pool stays capped at $500 USD. |
 
-## Make your credits go further
+## Use your credits efficiently
 
-Your monthly cost depends mainly on the model you choose and how often your application runs. To stretch your credits:
+Your monthly cost depends mainly on the model you choose and how often your application runs. To use fewer credits:
 
 * Choose a model that fits each task. To learn how, see [Choosing the right model](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model).
 * Use [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for repeated context.

@@ -9,8 +9,8 @@ Agent Skills extend Claude's capabilities through organized folders of instructi
 <Note>
   For complete API reference including request/response schemas and all parameters, see:
 
-  * [Skill Management API Reference](https://platform.claude.com/docs/en/api/skills/list) - CRUD operations for Skills
-  * [Skill Versions API Reference](https://platform.claude.com/docs/en/api/skills/versions/list) - Version management
+  * [Skill management API reference](https://platform.claude.com/docs/en/api/skills/list) - CRUD operations for Skills
+  * [Skill versions API reference](https://platform.claude.com/docs/en/api/skills/versions/list) - Version management
 </Note>
 
 <Note>
@@ -184,7 +184,7 @@ The structure is identical for both Anthropic and custom Skills. Specify the req
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Create a presentation about renewable energy" }],
+      Messages = [new UserMessageParam { Content = "Create a presentation about renewable energy" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -432,7 +432,7 @@ To provide input files for Skills to work on, [upload them with the Files API](h
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Create an Excel file with a simple budget spreadsheet" }],
+      Messages = [new UserMessageParam { Content = "Create an Excel file with a simple budget spreadsheet" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -977,7 +977,7 @@ The response's `container` object carries the container's `id` and `expires_at` 
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Create a sample sales dataset and analyze it" }],
+      Messages = [new UserMessageParam { Content = "Create a sample sales dataset and analyze it" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -1009,9 +1009,9 @@ The response's `container` object carries the container's `id` and `expires_at` 
       },
       Messages =
       [
-          new() { Role = Role.User, Content = "Create a sample sales dataset and analyze it" },
-          new() { Role = Role.Assistant, Content = assistantText },
-          new() { Role = Role.User, Content = "What was the total revenue?" },
+          new UserMessageParam { Content = "Create a sample sales dataset and analyze it" },
+          new AssistantMessageParam { Content = assistantText },
+          new UserMessageParam { Content = "What was the total revenue?" },
       ],
       Tools = [new CodeExecutionTool20250825()],
   };
@@ -1237,7 +1237,7 @@ The response's `container` object carries the container's `id` and `expires_at` 
 
 ### Long-running operations
 
-Skills may perform operations that require multiple turns. Handle `pause_turn` stop reasons:
+Skills might perform operations that require multiple turns. Handle `pause_turn` stop reasons:
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
@@ -1343,7 +1343,7 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
 
   List<MessageParam> messages =
   [
-      new() { Role = Role.User, Content = "Generate and process a large sample dataset" },
+      new UserMessageParam { Content = "Generate and process a large sample dataset" },
   ];
 
   var maxRetries = 10;
@@ -1398,7 +1398,7 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
       var assistantContent = JsonSerializer.SerializeToElement(
           response.Content.Select(block => block.Json).ToArray()
       );
-      messages.Add(new() { Role = Role.Assistant, Content = new MessageParamContent(assistantContent) });
+      messages.Add(new AssistantMessageParam { Content = new MessageContentParam(assistantContent) });
   }
   ```
 
@@ -1478,12 +1478,7 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       List<MessageParam> messages = new ArrayList<>();
-      messages.add(
-          MessageParam.builder()
-              .role(MessageParam.Role.USER)
-              .content("Generate and process a large sample dataset")
-              .build()
-      );
+      messages.add(MessageParam.ofUser("Generate and process a large sample dataset"));
       int maxRetries = 10;
 
       Message response = client.messages().create(
@@ -1628,7 +1623,7 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
 </CodeGroup>
 
 <Note>
-  The response may include a `pause_turn` stop reason, which indicates that the API paused a long-running Skill operation. You can provide the response back as-is in a subsequent request to let Claude continue its turn, or modify the content if you want to interrupt the conversation and provide additional guidance.
+  The response might include a `pause_turn` stop reason, which indicates that the API paused a long-running Skill operation. You can provide the response back as-is in a subsequent request to let Claude continue its turn, or modify the content if you want to interrupt the conversation and provide additional guidance.
 </Note>
 
 ### Using multiple Skills
@@ -1793,7 +1788,7 @@ Combine multiple Skills in a single request to handle complex workflows:
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Analyze sales data and create a presentation" }],
+      Messages = [new UserMessageParam { Content = "Analyze sales data and create a presentation" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -1957,9 +1952,9 @@ Combine multiple Skills in a single request to handle complex workflows:
 ## Managing custom Skills
 
 <Warning id="workspace-scoped-access">
-  **Custom Skills are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key with access to a workspace can read, invoke, and delete every custom Skill uploaded to that workspace. Every service account, and every user whose organization role allows API access, can use the Default Workspace in addition to any workspace you add them to, so keep Skills that must stay separate in their own [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping) and access them only with keys scoped to that workspace.
+  **Custom Skills are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key with access to a workspace can read, use, and delete every custom Skill uploaded to that workspace. Every service account, and every user whose organization role allows API access, can use the Default Workspace in addition to any workspace you add them to, so keep Skills that must stay separate in their own workspace and access them only with [keys scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping).
 
-  If you are building a multi-tenant platform on the Skills API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for custom Skills, so a workspace per tenant gives each tenant's Skills hard isolation from every other tenant. Each organization can have up to 100 workspaces by default (see [How workspaces work](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work)); if you need more for tenant isolation, contact your account team.
+  If you are building a multitenant platform on the Skills API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for custom Skills, so a workspace for each tenant gives that tenant's Skills hard isolation from every other tenant. Each organization can have up to 100 workspaces by default (see [How workspaces work](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work)); if you need more for tenant isolation, contact your account team.
 </Warning>
 
 ### Creating a Skill
@@ -1968,7 +1963,7 @@ A Skill bundle is a directory containing a `SKILL.md` file at the top level with
 
 Upload your custom Skill to make it available in your workspace. You can upload a zip archive or individual file objects. The Python SDK also provides a `files_from_dir` helper that accepts a directory path, and the CLI's `ant apply` uploads the directory itself.
 
-Files are identified by the filename you attach (the `;filename=` suffix in the cURL example and the filename arguments in the SDK examples). For the walkthrough's skill, create a zip with `zip -r financial_skill.zip financial_skill/` and substitute it for the `example_skill.zip` placeholder in the zip-upload options.
+Files are identified by the file name you attach (the `;filename=` suffix in the cURL example and the file name arguments in the SDK examples). For the walkthrough's skill, create a zip with `zip -r financial_skill.zip financial_skill/` and substitute it for the `example_skill.zip` placeholder in the zip-upload options.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -2266,9 +2261,9 @@ Files are identified by the filename you attach (the `;filename=` suffix in the 
 * YAML frontmatter requirements:
 
   * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words ("anthropic", "claude")
-  * `description`: Maximum 1024 characters, non-empty, no XML tags
+  * `description`: Maximum 1,024 characters, non-empty, no XML tags
 
-For complete request/response schemas, see the [Create Skill API reference](https://platform.claude.com/docs/en/api/skills/create).
+For complete request/response schemas, see the [Create Skill](https://platform.claude.com/docs/en/api/skills/create) API reference.
 
 ### Listing Skills
 
@@ -2822,7 +2817,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Use updated Skill" }],
+      Messages = [new UserMessageParam { Content = "Use updated Skill" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -2846,7 +2841,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Use latest Skill version" }],
+      Messages = [new UserMessageParam { Content = "Use latest Skill version" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -3121,7 +3116,7 @@ See the [Create Skill Version API reference](https://platform.claude.com/docs/en
 
 When you specify Skills in a container:
 
-1. **Metadata discovery:** Claude sees metadata for each Skill (name, description) in the system prompt.
+1. **Metadata discovery:** Claude receives metadata for each Skill (name, description) in the system prompt.
 2. **File loading:** Skill files are copied into the container at `/skills/{skill-name}/`. The directory is the Skill's name (`pptx` for an Anthropic Skill, the `SKILL.md` `name` for a custom Skill), not its `skill_01...` ID.
 3. **Automatic use:** Claude automatically loads and uses Skills when relevant to your request.
 4. **Composition:** Multiple Skills compose together for complex workflows.
@@ -3406,7 +3401,7 @@ Then use it with the Excel Skill to create a financial model. Pass the ID of the
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Build a DCF valuation model for a SaaS company" }],
+      Messages = [new UserMessageParam { Content = "Build a DCF valuation model for a SaaS company" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -3555,7 +3550,7 @@ Then use it with the Excel Skill to create a financial model. Pass the ID of the
 * **YAML frontmatter requirements:**
 
   * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words ("anthropic", "claude")
-  * `description`: Maximum 1024 characters, non-empty, no XML tags
+  * `description`: Maximum 1,024 characters, non-empty, no XML tags
 
 ### Environment constraints
 
@@ -3589,7 +3584,7 @@ Combine Skills when tasks involve multiple document types or domains:
 
 The SDK tabs in this section show the `container` value to include in a Messages request. The cURL and CLI tabs show the full request.
 
-**For production:** pin a specific version, so Skill updates never change your deployed behavior. If you omit `version` or set it to `"latest"`, requests use the newest version of the Skill, so a version uploaded by anyone in the [workspace](https://platform.claude.com/docs/en/build-with-claude/skills-guide#workspace-scoped-access) immediately changes what your production agents run. The version ID comes from the create-version response in [Versioning](https://platform.claude.com/docs/en/build-with-claude/skills-guide#versioning) or from the [List Skill Versions API](https://platform.claude.com/docs/en/api/skills/versions/list). The ID is always a string, so quote it in JSON or YAML even when it looks numeric.
+**For production:** pin a specific version, so Skill updates never change your deployed behavior. If you omit `version` or set it to `"latest"`, requests use the newest version of the Skill, so a version uploaded by [anyone in the workspace](https://platform.claude.com/docs/en/build-with-claude/skills-guide#workspace-scoped-access) immediately changes what your production agents run. The version ID comes from the create-version response in [Versioning](https://platform.claude.com/docs/en/build-with-claude/skills-guide#versioning) or from the [List Skill Versions API](https://platform.claude.com/docs/en/api/skills/versions/list). The ID is always a string, so quote it in JSON or YAML even when it looks numeric.
 
 <CodeGroup>
   ```bash cURL
@@ -4034,7 +4029,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Analyze sales data" }],
+      Messages = [new UserMessageParam { Content = "Analyze sales data" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -4064,7 +4059,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
               },
           ],
       },
-      Messages = [new() { Role = Role.User, Content = "Create a presentation" }],
+      Messages = [new UserMessageParam { Content = "Create a presentation" }],
       Tools = [new CodeExecutionTool20250825()],
   };
 
@@ -4354,7 +4349,7 @@ Handle Skill-related errors gracefully:
                   },
               ],
           },
-          Messages = [new() { Role = Role.User, Content = "Process data" }],
+          Messages = [new UserMessageParam { Content = "Process data" }],
           Tools = [new CodeExecutionTool20250825()],
       };
 
@@ -4527,20 +4522,20 @@ The Skills API is out of beta and needs no beta header. Migrating off `skills-20
 
 To migrate:
 
-1. **Remove the beta header.** Drop `anthropic-beta: skills-2025-10-02` from your requests. In the SDKs, call `client.skills` instead of `client.beta.skills`; keeping `client.beta.skills` works only on the [SDK releases that no longer send the header](https://platform.claude.com/docs/en/build-with-claude/skills-guide#sdk-beta-namespace). Earlier releases send it from `client.beta.skills` even with no `betas` argument.
+1. **Remove the beta header.** Drop `anthropic-beta: skills-2025-10-02` from your requests. With the SDK, call `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) instead of `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`); keeping `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) works only on the [SDK releases that no longer send the header](https://platform.claude.com/docs/en/build-with-claude/skills-guide#sdk-beta-namespace). Earlier releases send it from `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) even when you pass no beta names.
 2. **Rename fields** in your code: `display_title` to `display_name`, `latest_version` to `latest_version_id`, and read `source.type` instead of comparing `source` to a string.
 3. **Use version IDs.** Wherever you stored an epoch-microsecond version, store the version's `id` instead, or use `latest`. Skill references in Messages requests accept a version ID, `latest`, or (for Anthropic Skills) the catalog version.
-4. **Review delete calls.** `DELETE /v1/skills/{skill_id}` now removes every version with the Skill. If you relied on the beta's refusal as a safeguard, add your own check.
+4. **Review delete calls.** `DELETE /v1/skills/{skill_id}` now deletes every version with the Skill. If you relied on the beta's refusal as a safeguard, add your own check.
 
 <Warning>
-  After migrating, `client.skills.delete(skill_id)` and `client.beta.skills.delete(skill_id)` delete the Skill together with all of its versions in one call.
+  After migrating, deleting a Skill through `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) or `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) removes the Skill together with all of its versions in one call.
 </Warning>
 
 A Skill whose versions were all deleted under the beta has no current version to return: `GET /v1/skills/{skill_id}` returns a 400 error and the Skill is omitted from list responses until you upload a version to it. You can still delete it.
 
 ### SDK beta namespace
 
-Starting with Python SDK 1.2.0, TypeScript SDK 0.122.0, Go SDK 1.68.0, Java SDK 2.59.0, Ruby SDK 1.67.0, and C# SDK 12.44.0, `client.beta.skills` no longer sends `skills-2025-10-02` and returns the same shapes as `client.skills`, with `Beta`-prefixed type names (`BetaSkill`, `BetaSkillVersion`, `BetaDeletedSkill`, `BetaDeletedSkillVersion`). It accepts a `betas` argument for Skills features that are still in beta. In the beta Messages types, the container Skill reference type is renamed from `BetaSkill` to `BetaContainerSkill` (same fields: `type`, `skill_id`, `version`); `BetaSkill` now names the Skill resource, matching `Skill` and `ContainerSkill` in the non-beta types. Earlier SDK releases are typed to the beta shapes; if you depend on those types, stay on an earlier release until you migrate.
+Starting with Python SDK 1.2.0, TypeScript SDK 0.122.0, Go SDK 1.68.0, Java SDK 2.59.0, PHP SDK 0.45.0, Ruby SDK 1.67.0, and C# SDK 12.44.0, `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) no longer sends `skills-2025-10-02` and returns the same shapes as `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`), with beta type names (`BetaSkill`, `BetaSkillVersion` (php: `SkillVersion`), `BetaDeletedSkill`, `BetaDeletedSkillVersion` (php: `DeletedSkillVersion`)). It takes beta names through `betas` (csharp, go: `Betas`; java: `.addBeta()`) for Skills features that are in beta. In the beta Messages types, the container Skill reference type is renamed from `BetaSkill` to `BetaContainerSkill` (same fields: `type`, `skill_id`, `version`); `BetaSkill` now names the Skill resource, matching `Skill` and `ContainerSkill` in the non-beta types. Earlier SDK releases are typed to the beta shapes; if you depend on those types, stay on an earlier release until you migrate.
 
 ## Data retention
 
@@ -4564,6 +4559,6 @@ If your organization has the [Compliance API](https://platform.claude.com/docs/e
   </Card>
 
   <Card title="Code execution tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool">
-    Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
+    Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
   </Card>
 </CardGroup>

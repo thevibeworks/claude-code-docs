@@ -18,7 +18,7 @@ featureMetadata:
     - claude-haiku-5-5
 ---
 
-Task budgets let you tell Claude how many tokens it has for a full agentic loop, including thinking, tool calls, tool results, and output. The model sees a running countdown and uses it to prioritize work and finish gracefully as the budget is consumed.
+Task budgets let you tell Claude how many tokens it has for a full agentic loop, including thinking, tool calls, tool results, and output. The model receives a running countdown and uses it to prioritize work and finish gracefully as the budget is consumed.
 
 ## When to use task budgets
 
@@ -28,7 +28,7 @@ Task budgets work best for agentic workflows where Claude makes multiple tool ca
 * You have a predictable per-task cost or latency ceiling to enforce.
 * You want the model to finish gracefully (summarize findings, report progress) as it approaches the budget rather than cutting off mid-action.
 
-Task budgets complement the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort): effort controls how thoroughly Claude reasons about each step, while task budgets cap the total work Claude can do across an agentic loop.
+Task budgets complement the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort): effort controls how thoroughly Claude reasons about each step, whereas task budgets cap the total work Claude can do across an agentic loop.
 
 ## Setting a task budget
 
@@ -119,7 +119,7 @@ Add `task_budget` to `output_config` and include the beta header:
   {
       Model = Messages::Model.ClaudeOpus5_5,
       MaxTokens = 128000,
-      Messages = [new() { Role = Role.User, Content = "Review the codebase and propose a refactor plan." }],
+      Messages = [new BetaUserMessageParam { Content = "Review the codebase and propose a refactor plan." }],
       OutputConfig = new BetaOutputConfig
       {
           Effort = Effort.High,
@@ -250,14 +250,14 @@ The `task_budget` object has three fields:
 
 ## How the budget countdown works
 
-Claude sees a budget-countdown marker injected server-side throughout the conversation. The marker shows how many tokens remain in the current agentic loop and updates as the model generates thinking, tool calls, and output, and as it processes tool results. Claude uses this signal to pace itself and finish gracefully as the budget is consumed.
+Claude receives a budget-countdown marker injected server-side throughout the conversation. The marker shows how many tokens remain in the current agentic loop and updates as the model generates thinking, tool calls, and output, and as it processes tool results. Claude uses this signal to pace itself and finish gracefully as the budget is consumed.
 
 <Note>
   **The countdown is visible only to the model.** API responses do not include a remaining-budget field: there is no `task_budget` information in the response `usage` object, and the SDK has no accessor for it. To track spend client-side, sum token usage across the requests in your loop as shown in [Measure your current usage](https://platform.claude.com/docs/en/build-with-claude/task-budgets#measure-your-current-usage), or pass your own figure forward with `remaining` when [carrying a budget across compaction](https://platform.claude.com/docs/en/build-with-claude/task-budgets#carrying-a-budget-across-compaction-with-remaining).
 </Note>
 
 <Warning>
-  **The countdown reflects tokens Claude has processed in the current agentic loop, not tokens you resend between requests.** If your client sends the full conversation history on every follow-up request, your client-side token count might differ from the budget Claude is tracking. If you also decrement `remaining` while resending full history, the model sees an under-reported budget and the countdown drops faster than it should, causing Claude to wrap up earlier than the budget actually allows. Set a generous budget and let the model self-regulate against the countdown rather than trying to mirror it client-side.
+  **The countdown reflects tokens Claude has processed in the current agentic loop, not tokens you resend between requests.** If your client sends the full conversation history on every follow-up request, your client-side token count might differ from the budget Claude is tracking. If you also decrement `remaining` while resending full history, the model receives an under-reported budget and the countdown drops faster than it should, causing Claude to finish earlier than the budget actually allows. Set a generous budget and let the model self-regulate against the countdown rather than trying to mirror it client-side.
 </Warning>
 
 ### What counts as a turn
@@ -293,7 +293,7 @@ That holds even when the message adds new content alongside the tool results:
 }
 ```
 
-Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) during a turn does not reset the budget: tokens the turn consumed before the compaction still count against it. Tokens from before the turn began do not count, even when a compaction at the start of a turn summarizes them. Today, that exclusion applies only to the budget carried across a server-side compaction; earlier turns' history still counts while it remains in the context.
+Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) during a turn does not reset the budget: tokens the turn consumed before the compaction still count against it. Tokens from before the turn do not count, even when a compaction at the start of a turn summarizes them. Today, that exclusion applies only to the budget carried across a server-side compaction; earlier turns' history still counts while it remains in the context.
 
 ### Worked example: budget counting across requests
 
@@ -331,7 +331,7 @@ Claude thinks, then emits a tool call and stops with `stop_reason: "tool_use"`:
 }
 ```
 
-Suppose this assistant message (thinking plus the tool call) totals 5,000 generated tokens. The countdown Claude saw during generation ended near `remaining` ≈ 95,000.
+Suppose this assistant message (thinking plus the tool call) totals 5,000 generated tokens. The countdown Claude received during generation ended near `remaining` ≈ 95,000.
 
 **Request 2.** Your client runs the tool, then resends the full history with the tool result appended:
 
@@ -483,7 +483,7 @@ If your own code compacts or rewrites the message history between requests (for 
   ```
 </CodeGroup>
 
-In this example, the tokens spent before compaction are the usage of all the messages you have removed from the history so far, measured as in [Measure your current usage](https://platform.claude.com/docs/en/build-with-claude/task-budgets#measure-your-current-usage). Leave out anything still present in the messages you send, including any summary you added, because the server counts those tokens itself. Update this figure only when you replace the history this way; don't decrement it per request. Pass the resulting `remaining` on every request, not only the one that compacts.
+In this example, the tokens spent before compaction are the usage of all the messages you have removed from the history so far, measured as in [Measure your current usage](https://platform.claude.com/docs/en/build-with-claude/task-budgets#measure-your-current-usage). Leave out anything still present in the messages you send, including any summary you added, because the server counts those tokens itself. Update this figure only when you replace the history this way; don't decrement it on each request. Pass the resulting `remaining` on every request, not only the one that compacts.
 
 For loops that resend the full uncompacted history on every request, omit `remaining` and let the server track the countdown.
 
@@ -493,17 +493,17 @@ For loops that resend the full uncompacted history on every request, omit `remai
 
 ## Task budgets are advisory, not enforced
 
-Task budgets are a **soft hint, not a hard cap**. Claude may occasionally exceed the budget if it is in the middle of an action that would be more disruptive to interrupt than to finish. The enforced limit on total output tokens is still `max_tokens`, which truncates the response with `stop_reason: "max_tokens"` when reached.
+Task budgets are a **soft hint, not a hard cap**. Claude might occasionally exceed the budget if it is in the middle of an action that would be more disruptive to interrupt than to complete. The enforced limit on total output tokens is still `max_tokens`, which truncates the response with `stop_reason: "max_tokens"` when reached.
 
 For a hard cap on cost or latency, combine task budgets with a reasonable `max_tokens` value:
 
 * Use `task_budget` to give Claude a target to pace against.
 * Use `max_tokens` as the absolute ceiling that prevents runaway generation.
 
-Because `task_budget` spans the full agentic loop (potentially many requests) while `max_tokens` caps each individual request, the two values are independent; one is not required to be at or below the other.
+Because `task_budget` spans the full agentic loop (potentially many requests) whereas `max_tokens` caps each individual request, the two values are independent; one is not required to be at or below the other.
 
 <Warning>
-  **A budget that is too small for the task can cause refusal-like behavior.** When Claude sees a budget that is clearly insufficient for the work being asked (for example, a 20,000-token budget for a multihour agentic coding task), it may decline to attempt the task at all, scope it down aggressively, or stop early with a partial result rather than start work it cannot finish. If you observe unexpected refusals or premature stops after setting a budget, raise the budget before debugging other parameters. Size budgets against your actual task-length distribution rather than a fixed default; see [Choosing a budget](https://platform.claude.com/docs/en/build-with-claude/task-budgets#choosing-a-budget).
+  **A budget that is too small for the task can cause refusal-like behavior.** When Claude sees a budget that is clearly insufficient for the work being asked (for example, a 20,000-token budget for a multihour agentic coding task), it might decline to attempt the task at all, scope it down aggressively, or stop early with a partial result rather than start work it cannot complete. If you observe unexpected refusals or premature stops after setting a budget, raise the budget before debugging other parameters. Size budgets against your actual task-length distribution rather than a fixed default; see [Choosing a budget](https://platform.claude.com/docs/en/build-with-claude/task-budgets#choosing-a-budget).
 </Warning>
 
 ## Choosing a budget
@@ -512,7 +512,7 @@ The right budget depends on how much work your agentic loop currently does. Rath
 
 ### Measure your current usage
 
-Run a representative sample of tasks **without** `task_budget` set and record the total tokens Claude spends per task. For an agentic loop, sum `usage.output_tokens` across every request in the loop, plus the tokens of the tool results you append between requests:
+Run a representative sample of tasks **without** `task_budget` set and record the total tokens Claude spends for each task. For an agentic loop, sum `usage.output_tokens` across every request in the loop, plus the tokens of the tool results you append between requests:
 
 <CodeGroup>
   ```bash cURL
@@ -576,7 +576,7 @@ Run a representative sample of tasks **without** `task_budget` set and record th
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Review the codebase and propose a refactor plan." }],
+      Messages = [new UserMessageParam { Content = "Review the codebase and propose a refactor plan." }],
   });
 
   // Sum OutputTokens (text + thinking + tool calls) across every request in your loop.
@@ -652,8 +652,8 @@ The minimum accepted `task_budget.total` is **20,000 tokens** on every model tha
 
 ## Interaction with other parameters
 
-* **`max_tokens`:** Orthogonal to task budgets. `max_tokens` is a hard per-request cap on generated tokens, while `task_budget` is an advisory cap across the full agentic loop (potentially spanning many requests). At `xhigh` or `max` effort, set `max_tokens` to at least 64k to give Claude room to think and act on each request.
-* **[Effort](https://platform.claude.com/docs/en/build-with-claude/effort):** Effort controls how deeply Claude reasons per step. Task budgets control how much total work Claude does across an agentic loop. The two are complementary: effort tunes depth, task budgets tune breadth.
+* **`max_tokens`:** Orthogonal to task budgets. `max_tokens` is a hard per-request cap on generated tokens, whereas `task_budget` is an advisory cap across the full agentic loop (potentially spanning many requests). At `xhigh` or `max` effort, set `max_tokens` to at least 64k to give Claude room to think and act on each request.
+* **[Effort](https://platform.claude.com/docs/en/build-with-claude/effort):** Effort controls how deeply Claude reasons about each step. Task budgets control how much total work Claude does across an agentic loop. The two are complementary: effort tunes depth, and task budgets tune breadth.
 * **[Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking):** Task budgets include thinking tokens in the count, so adaptive thinking scales down as the budget depletes.
 * **[Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching):** The budget-countdown marker is injected server-side on each request, so it does not match across requests. If your client decrements `task_budget.remaining` on each follow-up request, the changed value invalidates any cache prefix that contains it. To preserve caching, set the budget once on the initial request and let the model self-regulate against the server-side countdown rather than mutating the budget client-side.
 

@@ -17,14 +17,14 @@ description: Specify tool schemas, write effective descriptions, and control whe
 
 Client tools are specified in the `tools` top-level parameter of the API request. Anthropic-schema client tools, such as the bash and text editor tools, are declared by a date-versioned `type`; see each tool's page, linked from the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference), for the fields it accepts. The computer use and browser use tools are [client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets): a single entry with no `name` that declares a fixed set of member tools. A user-defined tool definition includes:
 
-| Parameter        | Description                                                                                                                                                                                                                            |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`           | The name of the tool. Must match the regex `^[a-zA-Z0-9_-]{1,128}$`.                                                                                                                                                                   |
-| `description`    | A detailed plaintext description of what the tool does, when it should be used, and how it behaves.                                                                                                                                    |
-| `input_schema`   | A [JSON Schema](https://json-schema.org/) object defining the expected parameters for the tool.                                                                                                                                        |
-| `input_examples` | (Optional) An array of example input objects to help Claude understand how to use the tool. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples). |
+| Parameter        | Description                                                                                                                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`           | The name of the tool. Must match the regex `^[a-zA-Z0-9_-]{1,128}$`.                                                                                                                                                          |
+| `description`    | A detailed plain text description of what the tool does, when it should be used, and how it behaves.                                                                                                                          |
+| `input_schema`   | A [JSON Schema](https://json-schema.org/) object defining the expected parameters for the tool.                                                                                                                               |
+| `input_examples` | (Optional) An array of example input objects that show Claude how to use the tool. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples). |
 
-For the full set of optional properties available on any single tool definition, including `cache_control`, `strict`, `defer_loading`, and `allowed_callers`, see the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties). A client toolset entry accepts `cache_control` and `allowed_callers` on the entry and sets `defer_loading` per member; see [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets).
+For the full set of optional properties available on any single tool definition, including `cache_control`, `strict`, `defer_loading`, and `allowed_callers`, see [Tool definition properties](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties). A client toolset entry accepts `cache_control` and `allowed_callers` on the entry and sets `defer_loading` for each member; see [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets).
 
 <Accordion title="Example simple tool definition">
   ```json JSON
@@ -85,7 +85,7 @@ To get the best performance out of Claude when using tools, follow these guideli
 
 * **Design tool responses to return only high-signal information.** Return semantic, stable identifiers (for example, slugs or UUIDs) rather than opaque internal references, and include only the fields Claude needs to reason about its next step. Bloated responses waste context and make it harder for Claude to extract what matters.
 
-* **Ask for an explanation, not reasoning.** If a parameter asks Claude why it is making the call, ask for a short explanation or the supporting evidence. A parameter that asks for the model's thinking or step-by-step reasoning may lead to a `reasoning_extraction` refusal. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
+* **Ask for an explanation, not reasoning.** If a parameter asks Claude why it is making the call, ask for a short explanation or the supporting evidence. A parameter that asks for the model's thinking or step-by-step reasoning might lead to a `reasoning_extraction` refusal. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
 
 <AccordionGroup>
   <Accordion title="Example of a good tool description">
@@ -134,7 +134,7 @@ The good description clearly explains what the tool does, when to use it, what d
 
 ## Providing tool use examples
 
-You can provide concrete examples of valid tool inputs to help Claude understand how to use your tools more effectively. This is particularly useful for complex tools with nested objects, optional parameters, or format-sensitive inputs.
+You can provide concrete examples of valid tool inputs to show Claude how to use your tools more effectively. This is particularly useful for complex tools with nested objects, optional parameters, or format-sensitive inputs.
 
 ### Basic usage
 
@@ -338,9 +338,7 @@ Add an optional `input_examples` field to your tool definition with an array of 
               ],
           }),
       ],
-      Messages = [
-          new() { Role = Role.User, Content = "What's the weather like in San Francisco?" }
-      ]
+      Messages = [new UserMessageParam { Content = "What's the weather like in San Francisco?" }]
   };
 
   var message = await client.Messages.Create(parameters);
@@ -540,21 +538,21 @@ Add an optional `input_examples` field to your tool definition with an array of 
   ```
 </CodeGroup>
 
-Examples are included in the prompt alongside your tool schema, showing Claude concrete patterns for well-formed tool calls. This helps Claude understand when to include optional parameters, what formats to use, and how to structure complex inputs.
+Examples are included in the prompt alongside your tool schema, showing Claude concrete patterns for well-formed tool calls. These patterns indicate when to include optional parameters, what formats to use, and how to structure complex inputs.
 
 ### Requirements and limitations
 
-* **Schema validation** - Each example must be valid according to the tool's `input_schema`. Invalid examples return a 400 error
-* **Not supported for server-side tools or client toolsets** - Input examples work on user-defined and Anthropic-schema client tools other than the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolsets, but not on server tools such as web search or code execution
-* **Token cost** - Examples add to prompt tokens: \~20–50 tokens for simple examples, \~100–200 tokens for complex nested objects
+* **Schema validation** - Each example must be valid according to the tool's `input_schema`. Invalid examples return a 400 error.
+* **Not supported for server-side tools or client toolsets** - Input examples work on user-defined and Anthropic-schema client tools other than the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolsets, but not on server tools such as web search or code execution.
+* **Token cost** - Examples add to prompt tokens: \~20–50 tokens for simple examples, \~100–200 tokens for complex nested objects.
 
 ## Controlling Claude's output
 
 ### Forcing tool use
 
-In some cases, you may want Claude to use a specific tool to answer the user's question, even if Claude would otherwise answer directly without calling a tool. You can do this by specifying the tool in the `tool_choice` field of the request.
+In some cases, you might want Claude to use a specific tool to answer the user's question, even if Claude would otherwise answer directly without calling a tool. You can do this by specifying the tool in the `tool_choice` field of the request.
 
-Not every model and setting supports forced tool use. Where it isn't supported, `tool_choice: {"type": "any"}` and `tool_choice: {"type": "tool", "name": "..."}` fail, while `tool_choice: {"type": "auto"}` (the default) and `tool_choice: {"type": "none"}` still work:
+Not every model and setting supports forced tool use. Where it isn't supported, `tool_choice: {"type": "any"}` and `tool_choice: {"type": "tool", "name": "..."}` fail, whereas `tool_choice: {"type": "auto"}` (the default) and `tool_choice: {"type": "none"}` still work:
 
 | Model or setting                                                                                                                              | Restriction                                                                                                         | What to use instead                                                                                                                                                                                                                                                                                                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -701,9 +699,7 @@ On models that support it, the highlighted lines are the only difference from a 
           }),
       ],
       ToolChoice = new ToolChoiceTool { Name = "get_weather" },
-      Messages = [
-          new() { Role = Role.User, Content = "What's the weather like in San Francisco?" }
-      ]
+      Messages = [new UserMessageParam { Content = "What's the weather like in San Francisco?" }]
   };
 
   var message = await client.Messages.Create(parameters);
@@ -840,7 +836,7 @@ On models that support it, the highlighted lines are the only difference from a 
 
 When working with the `tool_choice` parameter, there are four possible options:
 
-* `auto` allows Claude to determine whether to call any provided tools or not. This is the default value when `tools` are provided.
+* `auto` allows Claude to determine whether to call any provided tools. This is the default value when `tools` are provided.
 * `any` tells Claude that it must use one of the provided tools, but doesn't force a particular tool.
 * `tool` forces Claude to always use a particular tool.
 * `none` prevents Claude from using any tools. This is the default value when no `tools` are provided.
@@ -893,16 +889,16 @@ For example, given the prompt "What's the weather like in San Francisco right no
 
 This natural response style helps users understand what Claude is doing and creates a more conversational interaction. You can guide the style and content of these responses through your system prompts and by providing `<examples>` in your prompts.
 
-It's important to note that Claude may use various phrasings and approaches when explaining its actions. Your code should treat these responses like any other assistant-generated text, and not rely on specific formatting conventions.
+It's important to note that Claude might use various phrasings and approaches when explaining its actions. Your code should treat these responses like any other assistant-generated text, and not rely on specific formatting conventions.
 
 ## Next steps
 
 <CardGroup>
   <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls" title="Handle tool calls">
-    Parse tool\_use blocks and format tool\_result responses.
+    Parse `tool_use` blocks and format `tool_result` responses.
   </Card>
 
-  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner" title="Tool Runner (SDK)">
+  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner" title="Tool runner (SDK)">
     Let the SDK handle the agentic loop automatically.
   </Card>
 

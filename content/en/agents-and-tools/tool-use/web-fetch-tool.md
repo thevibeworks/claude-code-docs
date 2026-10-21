@@ -8,7 +8,7 @@ description: Fetch and read content from specific URLs to augment Claude's conte
   To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
-The web fetch tool allows Claude to retrieve full content from specified web pages and PDF documents.
+The web fetch tool allows Claude to retrieve full content from specified webpages and PDF documents.
 
 The latest web fetch tool version (`web_fetch_20260318`) supports **dynamic filtering**: Claude can write and execute code to filter fetched content before it reaches the context window, keeping only relevant information and discarding the rest. This reduces token consumption while maintaining response quality. Dynamic filtering is available with Claude 4.6 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing). `web_fetch_20260318` also adds [response inclusion](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#response-inclusion) control for agentic workflows. The previous versions (`web_fetch_20260309` for dynamic filtering and [cache bypass](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#cache-bypass), `web_fetch_20260209` for dynamic filtering only, `web_fetch_20250910` for basic fetch) remain available.
 
@@ -67,12 +67,12 @@ Claude does **not** fetch for general-knowledge or open-ended questions that don
 
 ### Dynamic filtering
 
-Fetching full web pages and PDFs can quickly consume tokens, especially when only specific information is needed from large documents. With `web_fetch_20260209` or later, Claude can write and execute code to filter the fetched content before loading it into context.
+Fetching full webpages and PDFs can quickly consume tokens, especially when only specific information is needed from large documents. With `web_fetch_20260209` or later, Claude can write and run code to filter the fetched content before loading it into context.
 
 This dynamic filtering is particularly useful for:
 
 * Extracting specific sections from long documents
-* Processing structured data from web pages
+* Processing structured data from webpages
 * Filtering relevant information from PDFs
 * Reducing token costs when working with large documents
 
@@ -162,7 +162,7 @@ To enable dynamic filtering, use `web_fetch_20260209` or any later version. The 
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Fetch the content at https://example.com/research-paper and extract the key findings." }],
+      Messages = [new UserMessageParam { Content = "Fetch the content at https://example.com/research-paper and extract the key findings." }],
       Tools = [new ToolUnion(new WebFetchTool20260318())]
   };
 
@@ -325,7 +325,7 @@ Provide the web fetch tool in your API request:
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Please analyze the content at https://example.com/article" }],
+      Messages = [new UserMessageParam { Content = "Please analyze the content at https://example.com/article" }],
       Tools = [new ToolUnion(new WebFetchTool20250910() { MaxUses = 5 })]
   };
 
@@ -508,7 +508,7 @@ The `response_inclusion` parameter controls how fetch result blocks appear in th
 
 ### Citations
 
-Unlike web search where citations are always enabled, citations are optional for web fetch and disabled by default. Set `"citations": {"enabled": true}` to enable Claude to cite specific passages from fetched documents.
+Unlike web search, where citations are always enabled, citations are optional for web fetch and disabled by default. Set `"citations": {"enabled": true}` to allow Claude to cite specific passages from fetched documents.
 
 <Note>
   When displaying API outputs directly to end users, include citations to the original source. If you are making modifications to API outputs, including by reprocessing or combining them with your own material before displaying them to end users, display citations as appropriate based on consultation with your legal team.
@@ -597,7 +597,7 @@ Fetch results include:
 * `retrieved_at`: Timestamp when the content was retrieved
 
 <Note>
-  The web fetch tool caches results to improve performance and reduce redundant requests. The content returned may not always reflect the latest version available at the URL. The cache behavior is managed automatically and may change over time to optimize for different content types and usage patterns. To fetch fresh content, set `"use_cache": false` (see [Cache bypass](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#cache-bypass)).
+  The web fetch tool caches results to improve performance and reduce redundant requests. The content returned might not always reflect the latest version available at the URL. The cache behavior is managed automatically and may change over time to optimize for different content types and usage patterns. To fetch fresh content, set `"use_cache": false` (see [Cache bypass](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#cache-bypass)).
 </Note>
 
 For PDF documents, content is returned as base64-encoded data:
@@ -625,7 +625,7 @@ For PDF documents, content is returned as base64-encoded data:
 
 ### Errors
 
-When the web fetch tool encounters an error, the Claude API returns a 200 (success) response with the error represented in the response body. Claude sees the error result and continues the turn. For example:
+When the web fetch tool encounters an error, the Claude API returns a 200 (success) response with the error represented in the response body. Claude receives the error result and continues the turn. For example:
 
 ```json Output
 {
@@ -668,7 +668,7 @@ The tool also refuses a URL that appears to contain a credential, such as an API
   Works with `web_fetch_20250910`, `web_fetch_20260209`, `web_fetch_20260309`, and `web_fetch_20260318`.
 </Note>
 
-The optional `url_sources` parameter lets you turn off any of the three allowed sources, or limit tool results to certain tools. It has one key per source, and each key defaults to `{"type": "all"}`:
+The optional `url_sources` parameter lets you turn off any of the three allowed sources, or limit tool results to certain tools. It has one key for each source, and every key defaults to `{"type": "all"}`:
 
 * `user_input`: URLs in user messages. Its `type` is `"all"` or `"none"`.
 * `client_tool_results`: URLs in client-side tool results. Its `type` is `"all"`, `"none"`, or an `"only"` or `"except"` filter that names tools, as in the following example.
@@ -823,7 +823,7 @@ When both the web search and web fetch tools are enabled, and the user names a s
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
-      Messages = [new() { Role = Role.User, Content = "Find recent articles about quantum computing and analyze the most relevant one in detail" }],
+      Messages = [new UserMessageParam { Content = "Find recent articles about quantum computing and analyze the most relevant one in detail" }],
       Tools = [
           new ToolUnion(new WebSearchTool20250305() { MaxUses = 3 }),
           new ToolUnion(new WebFetchTool20250910() { MaxUses = 5, Citations = new() { Enabled = true } })
@@ -970,7 +970,7 @@ data: {"type": "content_block_start", "index": 1, "content_block": {"type": "ser
 event: content_block_delta
 data: {"type": "content_block_delta", "index": 1, "delta": {"type": "input_json_delta", "partial_json": "{\"url\":\"https://example.com/article\"}"}}
 
-// Pause while fetch executes
+// Pause while fetch runs
 
 // Fetch results streamed
 event: content_block_start
@@ -1007,7 +1007,7 @@ To protect against inadvertently fetching large content that would consume exces
 
 Example token usage for typical content:
 
-* Average web page (10 kB): \~2,500 tokens
+* Average webpage (10 kB): \~2,500 tokens
 * Large documentation page (100 kB): \~25,000 tokens
 * Research paper PDF (500 kB): \~125,000 tokens
 
@@ -1015,11 +1015,11 @@ Example token usage for typical content:
 
 <CardGroup>
   <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool" title="Code execution tool" icon="code">
-    Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
+    Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
   </Card>
 
   <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools" title="Server tools" icon="cloud">
-    Work with Anthropic-executed tools: server\_tool\_use blocks, pause\_turn continuation, and domain filtering.
+    Work with tools that Anthropic runs: `server_tool_use` blocks, `pause_turn` continuation, and domain filtering.
   </Card>
 
   <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference" title="Tool reference" icon="book">

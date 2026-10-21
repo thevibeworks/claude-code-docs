@@ -78,7 +78,7 @@ description: Answers to common questions about Compliance API access, scopes, re
   </Accordion>
 
   <Accordion title="What do session transcripts include?">
-    Local and remote session transcripts both carry user prompts, assistant responses, and tool calls and results. For local sessions (on users' machines), that is what Claude was asked to do and what it returned, not what happened on the device.
+    Local and remote session transcripts both carry user prompts, assistant responses, and tool calls and results. For local sessions (on users' machines), that is what Claude was asked to do and what it returned, not what occurred on the device.
 
     | Data                              | Local sessions (on users' machines)                                                                                                                                                                                                                    | Remote sessions (in the cloud)                                                                                                                                                                           |
     | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -97,7 +97,7 @@ description: Answers to common questions about Compliance API access, scopes, re
   </Accordion>
 
   <Accordion title="How does session coverage compare with OpenTelemetry logging (OTEL) for Cowork and Claude Code?">
-    [Cowork's OpenTelemetry logging](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry) and [Claude Code monitoring](https://code.claude.com/docs/en/monitoring-usage) overlap with the session endpoints but answer different needs: OTEL streams per-event telemetry to infrastructure you run as activity happens, whereas the Compliance API lets you retrieve retained per-session transcripts from Anthropic after the fact. OTEL can also capture prompts and responses, but Anthropic recommends the Compliance API for retrieving the content of Cowork and Claude Code sessions. For a table comparing local sessions, remote sessions, and OTEL, see the introduction to [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions).
+    [Cowork's OpenTelemetry logging](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry) and [Claude Code monitoring](https://code.claude.com/docs/en/monitoring-usage) overlap with the session endpoints but answer different needs: OTEL streams per-event telemetry to infrastructure you run as activity occurs, whereas the Compliance API lets you retrieve retained per-session transcripts from Anthropic after the fact. OTEL can also capture prompts and responses, but Anthropic recommends the Compliance API for retrieving the content of Cowork and Claude Code sessions. For a table comparing local sessions, remote sessions, and OTEL, see the introduction to [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions).
 
     OTEL events and Compliance API records share organization and user identifiers, so you can join them.
   </Accordion>
@@ -123,7 +123,7 @@ description: Answers to common questions about Compliance API access, scopes, re
   </Accordion>
 
   <Accordion title="Can one customer have multiple organizations under one parent?">
-    Yes. A Claude Enterprise parent organization can have many linked organizations, including a mix of claude.ai organizations and Claude Console organizations (for example, separate production and staging Claude Console organizations). Identity, SSO, and SCIM are shared across the parent; billing, members, projects, and API keys remain separate for each organization. Compliance API enablement happens at the parent organization level and cascades to all linked organizations, and a Compliance Access Key that covers the parent organization and carries `read:compliance_org_data` can enumerate every organization beneath the parent through `GET /v1/compliance/organizations`.
+    Yes. A Claude Enterprise parent organization can have many linked organizations, including a mix of claude.ai organizations and Claude Console organizations (for example, separate production and staging Claude Console organizations). Identity, SSO, and SCIM are shared across the parent; billing, members, projects, and API keys remain separate for each organization. Compliance API enablement occurs at the parent organization level and cascades to all linked organizations, and a Compliance Access Key that covers the parent organization and carries `read:compliance_org_data` can enumerate every organization beneath the parent through `GET /v1/compliance/organizations`.
   </Accordion>
 
   <Accordion title="Are activities returned in order, and how do I detect when I have caught up to real time?">

@@ -12,7 +12,7 @@ This guide assumes that you have:
 2. Some ways to empirically test against those criteria
 3. A first draft prompt you want to improve
 
-If not, spend time establishing that first. Check out [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) for tips and guidance.
+If not, spend time establishing that first. See [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) for tips and guidance.
 
 <CardGroup cols={2}>
   <Card title="Prompt generator notebook" icon="link" href="https://colab.research.google.com/github/anthropics/claude-cookbooks/blob/main/misc/metaprompt.ipynb">
@@ -28,7 +28,7 @@ If not, spend time establishing that first. Check out [Define success criteria a
 
 ## When to prompt engineer
 
-This guide focuses on success criteria that are controllable through prompt engineering. Not every success criteria or failing eval is best solved by prompt engineering. For example, you can sometimes improve latency and cost more easily by selecting a different model.
+This guide focuses on success criteria that are controllable through prompt engineering. Not every success criterion or failing eval is best solved by prompt engineering. For example, you can sometimes improve latency and cost more easily by choosing a different model.
 
 ***
 

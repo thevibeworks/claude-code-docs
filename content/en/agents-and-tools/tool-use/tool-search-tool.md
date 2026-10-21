@@ -73,7 +73,7 @@ When you enable the tool search tool:
 2. You provide every tool definition in the `tools` array and set `defer_loading: true` on the tools that shouldn't load up front. At least one tool, normally the tool search tool itself, must stay non-deferred.
 3. Initially, Claude's context contains only the tool search tool and any non-deferred tools.
 4. When Claude needs additional tools, it searches using a tool search tool.
-5. The API runs the search and returns the matching tools as `tool_reference` blocks (up to 5 by default; Claude can set a `limit` in its search input).
+5. The API runs the search and returns the matching tools as `tool_reference` blocks (up to 5 by default, although Claude can set a `limit` in its search input).
 6. The API automatically expands these references into full tool definitions.
 7. Claude selects from the discovered tools and calls them.
 
@@ -278,12 +278,7 @@ The following example includes the tool search tool and two deferred tools:
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 2048,
-      Messages = [
-          new() {
-              Role = Role.User,
-              Content = "What is the weather in San Francisco?"
-          }
-      ],
+      Messages = [new UserMessageParam { Content = "What is the weather in San Francisco?" }],
       Tools = [
           new ToolUnion(new ToolSearchToolRegex20251119
           {
@@ -533,7 +528,7 @@ The following example includes the tool search tool and two deferred tools:
   ```
 </CodeGroup>
 
-Claude searches the catalog, discovers `get_weather`, and calls it. The response ends with `stop_reason: "tool_use"`. Execute the discovered tool and return a `tool_result` as in [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls). [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#response-format) shows the blocks you get back and what to send next.
+Claude searches the catalog, discovers `get_weather`, and calls it. The response ends with `stop_reason: "tool_use"`. Run the discovered tool and return a `tool_result` as in [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls). [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#response-format) shows the blocks you get back and what to send next.
 
 ## Tool definition
 
@@ -599,7 +594,7 @@ Mark tools for on-demand loading by adding `defer_loading: true`:
 * Never set `defer_loading: true` on the tool search tool itself.
 * Keep your 3–5 most frequently used tools non-deferred so Claude can call them without searching first.
 
-The computer use and browser use toolsets (`computer_toolset_20260801` and `browser_toolset_20260801`) take `defer_loading` per member tool inside the entry's `configs` object, not on the entry itself; a request that sets it at the entry level is rejected. Because a toolset defers and expands as a unit, `defer_loading` must resolve to the same value on every enabled member, and when Claude discovers the toolset through search, every enabled member loads at once. See [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets) for the `configs` format.
+The computer use and browser use toolsets (`computer_toolset_20260801` and `browser_toolset_20260801`) take `defer_loading` for each member tool inside the entry's `configs` object, not on the entry itself; a request that sets it at the entry level is rejected. Because a toolset defers and expands as a unit, `defer_loading` must resolve to the same value on every enabled member, and when Claude discovers the toolset through search, every enabled member loads at once. See [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets) for the `configs` format.
 
 Both tool search variants (`regex` and `bm25`) search tool names, descriptions, argument names, and argument descriptions.
 
@@ -651,10 +646,10 @@ When Claude uses the tool search tool, the response includes the following block
 
 ### Understanding the response
 
-* **`server_tool_use`:** Claude's call to the tool search tool. The search runs on Anthropic's servers. Never return a `tool_result` for its `srvtoolu_...` ID. The `input` holds the search (`pattern` for the regex variant, `query` for BM25) and may include an optional `limit`, an integer from 1 to 10,000 that caps how many matching tools the search returns (default: 5).
+* **`server_tool_use`:** Claude's call to the tool search tool. The search runs on Anthropic's servers. Never return a `tool_result` for its `srvtoolu_...` ID. The `input` holds the search (`pattern` for the regex variant, `query` for BM25) and might include an optional `limit`, an integer from 1 to 10,000 that caps how many matching tools the search returns (default: 5).
 * **`tool_search_tool_result`:** the search results, in a nested `tool_search_tool_search_result` object. Keep it in the message history as is.
 * **`tool_references`:** an array of `tool_reference` objects pointing to discovered tools. The API expands these for Claude. You never expand them yourself.
-* **`tool_use`:** Claude's call to a discovered tool. Execute it and return a `tool_result` exactly as in standard tool use.
+* **`tool_use`:** Claude's call to a discovered tool. Run it and return a `tool_result` exactly as in standard tool use.
 
 The API automatically expands `tool_reference` blocks into full tool definitions before showing them to Claude. You don't need to handle this expansion yourself, as long as you provide all matching tool definitions in the `tools` parameter.
 
@@ -823,7 +818,7 @@ You can include the tool search tool in the [Messages Batches API](https://platf
 
 ### Limits
 
-* **Maximum deferred tools:** 10,000 tools with `defer_loading: true` per request
+* **Maximum deferred tools:** 10,000 tools with `defer_loading: true` for each request
 * **Search results:** each search returns up to 5 matching tools by default; Claude can set `limit` in its search input to any integer from 1 to 10,000
 * **Pattern and query length:** maximum 200 characters for regex patterns and 500 characters for BM25 queries
 * **Model support:** see [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#model-compatibility)

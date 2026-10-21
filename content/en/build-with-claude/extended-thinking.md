@@ -24,7 +24,7 @@ To learn how thinking itself works, including thinking blocks and the response s
 
 ## Supported models
 
-Extended thinking availability per model, including the models where extended thinking is the only mode, is listed in the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#supported-models).
+Extended thinking availability for each model, including the models where extended thinking is the only mode, is listed in the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#supported-models).
 
 ## How to use extended thinking
 
@@ -131,9 +131,8 @@ Here is an example of using extended thinking in the Messages API:
       Thinking = new ThinkingConfigEnabled(budgetTokens: 10000),
       Messages =
       [
-          new()
+          new UserMessageParam
           {
-              Role = Role.User,
               Content = "Are there an infinite number of prime numbers such that n mod 4 == 3?",
           },
       ],
@@ -265,23 +264,23 @@ Here is an example of using extended thinking in the Messages API:
 
 To turn on manual extended thinking, add a `thinking` object with `type` set to `enabled` and a `budget_tokens` value.
 
-The `budget_tokens` parameter sets a target for how many tokens Claude can use for its internal reasoning process. Larger budgets can improve response quality by enabling more thorough analysis for complex problems.
+The `budget_tokens` parameter sets a target for how many tokens Claude can use for its internal reasoning process. Larger budgets can improve response quality by allowing more thorough analysis for complex problems.
 
 ## Budget rules and tuning
 
 `budget_tokens` must satisfy these constraints:
 
 * **Minimum of 1,024 tokens.** The API rejects smaller values.
-* **Less than `max_tokens`.** Thinking tokens count toward the `max_tokens` limit for the turn, so the budget must leave room for the final response. The one exception is [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#interleaved-thinking), where `budget_tokens` can exceed `max_tokens` because the budget spans all thinking blocks within one assistant turn.
+* **Less than `max_tokens`.** Thinking tokens count toward the `max_tokens` limit for the turn, so the budget must leave room for the final response. The one exception is [interleaved thinking in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#interleaved-thinking), where `budget_tokens` can exceed `max_tokens` because the budget spans all thinking blocks within one assistant turn.
 * **No cache pre-warming.** Because `budget_tokens` must be less than `max_tokens`, extended thinking cannot be combined with `max_tokens: 0` ([cache pre-warming](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)).
 
-The budget is a target rather than a strict cap. Actual token usage varies with the task, and Claude may stop reasoning well before the budget is exhausted; `max_tokens` remains the hard ceiling on total output.
+The budget is a target rather than a strict cap. Actual token usage varies with the task, and Claude might stop reasoning well before the budget is exhausted; `max_tokens` remains the hard ceiling on total output.
 
-On Claude Opus 4.5, the only extended-thinking-only model that supports [effort](https://platform.claude.com/docs/en/build-with-claude/effort), effort shapes the overall response while `budget_tokens` sets thinking depth; set both.
+On Claude Opus 4.5, the only extended-thinking-only model that supports [effort](https://platform.claude.com/docs/en/build-with-claude/effort), effort shapes the overall response whereas `budget_tokens` sets thinking depth; set both.
 
 To tune the budget:
 
-* Match the starting point to the task. For simple tasks, start near the 1,024-token minimum and increase incrementally to find the optimal range for your use case. For complex tasks, start with a larger budget of 16,000 tokens or more and adjust to your latency and quality needs. Higher budgets enable more comprehensive reasoning, with diminishing returns that depend on the task, and at the cost of increased latency. For critical tasks, test different settings to find the right balance.
+* Match the starting point to the task. For simple tasks, start near the 1,024-token minimum and increase incrementally to find the optimal range for your use case. For complex tasks, start with a larger budget of 16,000 tokens or more and adjust to your latency and quality needs. Higher budgets allow more comprehensive reasoning, with diminishing returns that depend on the task, and at the cost of increased latency. For critical tasks, test different settings to find the right balance.
 * For thinking budgets above 32k, use [batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) to avoid networking issues. Pushing the model to think beyond 32k tokens produces long-running requests that can hit system timeouts and open-connection limits.
 
 To track what a budget actually costs you, monitor the `usage.output_tokens_details.thinking_tokens` field in the response, which reports how many of the billed output tokens were internal reasoning. When streaming, this breakdown appears only on the final `message_delta` event.
@@ -314,7 +313,7 @@ Partner-operated platforms ([Amazon Bedrock](https://platform.claude.com/docs/en
 
 The general turn-structure rules, including the single-turn tool-use loop, mid-turn conflict handling, and toggling thinking between turns, are on [Thinking with tool use](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-with-tool-use).
 
-Manual mode adds one requirement: the final assistant turn of a thinking-enabled request must begin with a thinking block ([adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) drops that requirement). Changing the thinking configuration between turns also invalidates prompt caching; see the following section.
+Manual mode adds one requirement: the final assistant turn of a thinking-enabled request must start with a thinking block ([adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) drops that requirement). Changing the thinking configuration between turns also invalidates prompt caching; see the following section.
 
 ## Prompt caching in manual mode
 
@@ -386,7 +385,7 @@ becomes:
 
 `effort: "high"` is the default on Claude Sonnet 4.6, so omitting it here produces identical behavior; it appears only to show where the depth control lives in adaptive mode. Claude Opus 5.5 and Claude Haiku 5.5 default to `"medium"`, and other models that support effort default to `"high"` (see [Effort levels](https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels)).
 
-Expect a behavioral difference, not just a syntax change. With a fixed budget, Claude thinks on every request. With adaptive thinking, Claude determines whether and how much to think on each request, and at lower [effort](https://platform.claude.com/docs/en/build-with-claude/effort) settings it may skip thinking entirely on easy inputs. You can also remove the `interleaved-thinking-2025-05-14` beta header after migrating: adaptive thinking interleaves automatically, and the Claude API ignores the header on these models. Thinking block preservation changes too: Claude Opus 4.5 and models numbered 4.6 and higher keep prior turns' thinking blocks in context and bill them as input, where Claude Sonnet 4.5 (deprecated), Claude Haiku 4.5, and earlier models stripped them; see [thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model).
+Expect a behavioral difference, not just a syntax change. With a fixed budget, Claude thinks on every request. With adaptive thinking, Claude determines whether and how much to think on each request, and at lower [effort](https://platform.claude.com/docs/en/build-with-claude/effort) settings it might skip thinking entirely on easy inputs. You can also remove the `interleaved-thinking-2025-05-14` beta header after migrating: adaptive thinking interleaves automatically, and the Claude API ignores the header on these models. Thinking block preservation changes too: Claude Opus 4.5 and models numbered 4.6 and higher keep prior turns' thinking blocks in context and bill them as input, where Claude Sonnet 4.5 (deprecated), Claude Haiku 4.5, and earlier models strip them; see [thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model).
 
 Switching modes is a thinking-configuration change, so the first request after the switch invalidates cache breakpoints, as described in [Prompt caching in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#extended-thinking-with-prompt-caching).
 

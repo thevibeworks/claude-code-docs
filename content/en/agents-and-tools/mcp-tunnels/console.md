@@ -1,5 +1,5 @@
 ---
-title: Manage tunnels in the Console
+title: Manage tunnels in the Claude Console
 url: https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console
 description: Create tunnels, register CA certificates, retrieve the tunnel token, and attach tunneled MCP servers to agents from the Claude Console.
 ---
@@ -29,7 +29,7 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
   </Step>
 
   <Step title="Name the tunnel">
-    Click **New tunnel** and enter a name in the **Create tunnel** dialog. The name is required and identifies the tunnel in the list, on the detail page, and in the agent MCP server picker. A domain of the form `abcd1234.tunnel.anthropic.com` is assigned automatically.
+    Click **New tunnel** and enter a name in the **Create tunnel** dialog box. The name is required and identifies the tunnel in the list, on the detail page, and in the agent MCP server picker. A domain of the form `abcd1234.tunnel.anthropic.com` is assigned automatically.
   </Step>
 
   <Step title="Optionally set up programmatic access">
@@ -38,7 +38,7 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
     Programmatic access relies on [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation); read that page first if federation issuers, rules, and service accounts are unfamiliar. To turn the toggle on you need:
 
     1. **A registered OIDC issuer** for the identity provider your stack presents tokens from (such as a Kubernetes cluster, AWS IAM, Google Cloud, or GitHub Actions). Register one on the **Issuers** tab of the [Workload identity](https://platform.claude.com/settings/workload-identity-federation) page (`platform.claude.com/settings/workload-identity-federation`) in the Claude Console if your organization doesn't have one.
-    2. **A federation rule with the `workspace:manage_tunnels` scope.** Turning on the toggle reveals a **Federation rule** picker. Choose an existing rule with that scope, or click **Create federation rule** to create one inline.
+    2. **A federation rule with the `workspace:manage_tunnels` scope.** Turning on the toggle reveals a **Federation rule** picker. Select an existing rule with that scope, or click **Create federation rule** to create one inline.
     3. **The rule's service account added to this workspace.** The Tunnels API authorizes against the service account's workspace memberships. If you're creating the tunnel in a workspace other than the organization's default, [add the service account to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#role-inheritance) and pass the workspace ID at deploy time (`api.wif.workspaceId` for Helm, `ANTHROPIC_WORKSPACE_ID` for Compose).
 
     Skipping this step is fully supported; both deploy guides have a **Without programmatic access** tab.
@@ -65,7 +65,7 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
   </Step>
 </Steps>
 
-Your organization can have up to 10 active tunnels. Creating a tunnel does not establish any connectivity; that happens once your stack dials in with the tunnel token and a CA certificate is registered.
+Your organization can have up to 10 active tunnels. Creating a tunnel does not establish any connectivity; that occurs once your stack dials in with the tunnel token and a CA certificate is registered.
 
 ## Get the connection details
 
@@ -90,7 +90,7 @@ Anthropic verifies [inner TLS](https://platform.claude.com/docs/en/agents-and-to
   </Step>
 
   <Step title="Provide the certificate">
-    Click **Choose file** to select a `.pem`, `.crt`, or `.cer` file, drag the file onto the text area, or paste the PEM block directly. The modal rejects private-key material and content that isn't a `-----BEGIN CERTIFICATE-----` block. The file must be 8 kB or smaller.
+    Click **Choose file** to select a `.pem`, `.crt`, or `.cer` file, drag the file onto the text area, or paste the PEM block directly. The modal window rejects private-key material and content that isn't a `-----BEGIN CERTIFICATE-----` block. The file must be 8 kB or smaller.
   </Step>
 
   <Step title="Add the certificate">
@@ -119,20 +119,20 @@ The tunnel exists in the Console, but no traffic flows until the tunnel stack is
 Once your stack is running and has one or more MCP servers configured, attach an upstream MCP server to a Managed Agent session. To call the same servers from the Messages API instead, see [Use the tunneled MCP servers](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview#use-the-tunneled-mcp-servers).
 
 <Note>
-  The picker only shows tunnels with at least one active certificate. A tunnel that still shows **Needs certificate** in the **MCP tunnels** list does not appear in the dropdown; register a CA certificate first. The picker is also workspace-scoped: it lists tunnels in the same workspace as the session, not other workspaces.
+  The picker only shows tunnels with at least one active certificate. A tunnel that still shows **Needs certificate** in the **MCP tunnels** list does not appear in the dropdown menu; register a CA certificate first. The picker is also workspace-scoped: it lists tunnels in the same workspace as the session, not other workspaces.
 </Note>
 
 <Steps>
-  <Step title="Open the Create session dialog">
+  <Step title="Open the Create session dialog box">
     In the Claude Console, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) and click **Create session**.
   </Step>
 
   <Step title="Define an inline agent">
-    In the agent picker, choose **Create new agent** so you can edit the MCP server list directly.
+    In the agent picker, select **Create new agent** so you can edit the MCP server list directly.
   </Step>
 
   <Step title="Add the MCP server">
-    Click **+ MCP Server** and open the dropdown. Tunnels created in the current workspace appear at the top of the list, above the public connector catalog. Select the tunnel that fronts the server you want to reach.
+    Click **+ MCP Server** and open the dropdown menu. Tunnels created in the current workspace appear at the top of the list, above the public connector catalog. Select the tunnel that fronts the server you want to reach.
   </Step>
 
   <Step title="Supply the routing">
@@ -141,14 +141,14 @@ Once your stack is running and has one or more MCP servers configured, attach an
 </Steps>
 
 <Note>
-  The tunnel carries traffic; it does not authenticate to the upstream MCP server. Configure OAuth or bearer auth on the MCP server the same way as for any other MCP server.
+  The tunnel carries traffic; it does not authenticate to the upstream MCP server. Configure OAuth or bearer authentication on the MCP server the same way as for any other MCP server.
 </Note>
 
 ## Archive a tunnel
 
 Archiving immediately stops the tunnel from accepting connections and is permanent.
 
-In the Claude Console, go to the [MCP tunnels](https://platform.claude.com/settings/workspaces/default/mcp-tunnels) page (`platform.claude.com/settings/workspaces/default/mcp-tunnels`). In the workspace picker in the sidebar, select the workspace that holds the tunnel. Open the row menu for the tunnel and choose **Archive**. Archived tunnels remain visible when you filter the list by **Archived** or **All**.
+In the Claude Console, go to the [MCP tunnels](https://platform.claude.com/settings/workspaces/default/mcp-tunnels) page (`platform.claude.com/settings/workspaces/default/mcp-tunnels`). In the workspace picker in the sidebar, select the workspace that holds the tunnel. Open the row menu for the tunnel and select **Archive**. Archived tunnels remain visible when you filter the list by **Archived** or **All**.
 
 ## Next steps
 

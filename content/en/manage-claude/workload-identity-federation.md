@@ -8,7 +8,7 @@ Workload Identity Federation (WIF) lets your workloads authenticate to the Claud
 
 Your workload presents a signed JWT from your identity provider. Anthropic validates it against trust rules you configure in the Claude Console and returns a short-lived Anthropic access token bound to a service account in your organization. There are no static secrets to mint, store in CI, rotate, or leak.
 
-Workload Identity Federation strengthens your security posture by replacing static API keys with tokens that expire in minutes rather than never. It is not a complete security story on its own: federated authentication is only as strong as the upstream identity provider that signs the JWT. Pair Workload Identity Federation with the controls your IdP already supports (workload identity binding, conditional access, audit logging) for defense in depth.
+Workload Identity Federation strengthens your security posture by replacing static API keys with tokens that expire in minutes rather than never. It is not a complete security solution on its own: federated authentication is only as strong as the upstream identity provider that signs the JWT. Pair Workload Identity Federation with the controls your IdP already supports (workload identity binding, conditional access, audit logging) for defense in depth.
 
 ## Concepts
 
@@ -18,7 +18,7 @@ You configure three resources in the Claude Console before any workload can fede
 
 A **service account** (`svac_...`) is a named, non-human identity inside your Anthropic organization. It is the principal that a [service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) or a federated token acts as. Service accounts live at the organization level and become active in a workspace when you add them as members of that workspace. At exchange time, Anthropic checks that the federation rule's workspace matches one of the service account's workspace memberships; the minted token then follows that workspace's rate limits and usage attribution, the same as an API key. Unlike a human user, a service account has no email, no password, and no Console login. Every service account is implicitly a member of your organization's default workspace; add explicit memberships for any other workspace it should act in. To let an all-workspaces service account key act in a workspace, add the service account to that workspace.
 
-The key distinction versus a workspace API key: a workspace API key *is* a credential, while a service account *has* credentials. You can more easily audit which workloads acted as which service account.
+The key distinction versus a workspace API key: a workspace API key *is* a credential, whereas a service account *has* credentials. You can more easily audit which workloads acted as which service account.
 
 ### Federation issuers
 
@@ -31,7 +31,7 @@ An issuer has two pieces of configuration:
 
 Issuer and JWKS URLs must be `https`, on port 443, and use a public DNS hostname that resolves to public IP addresses; IP literals are not accepted. These constraints apply only to URLs Anthropic fetches; in `explicit_url` and `inline` modes the `issuer_url` is compared as a string and may reference an internal hostname.
 
-You typically register one issuer per environment: your production EKS cluster, your staging cluster, and GitHub Actions are three separate issuers.
+You typically register one issuer for each environment: your production EKS cluster, your staging cluster, and GitHub Actions are three separate issuers.
 
 ### Federation rules
 
@@ -43,7 +43,7 @@ A rule defines match conditions, a target, and the authorization scope and token
 * **Target:** The service account the matched JWT maps to.
 * **Authorization:** The OAuth `scope` granted on the minted token. The default is `workspace:developer`, which grants the same access as a workspace API key. Some products lock the scope when you create a rule from their flow; for example, the [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) create-tunnel modal creates rules scoped to `workspace:manage_tunnels`. See [OAuth scopes](https://platform.claude.com/docs/en/manage-claude/wif-reference#oauth-scopes). The rule also sets `token_lifetime_seconds` (60 to 86400, default 3600).
 
-A single issuer can have many rules: one per team, namespace, or permission level. Rules are evaluated by ID: the client specifies which rule to use in the exchange request, and Anthropic verifies the JWT satisfies that rule's match criteria. There is no implicit rule search.
+A single issuer can have many rules: one for each team, namespace, or permission level. Rules are evaluated by ID: the client specifies which rule to use in the exchange request, and Anthropic verifies the JWT satisfies that rule's match criteria. There is no implicit rule search.
 
 ## How it works
 
@@ -87,7 +87,7 @@ With federation configured, your workload exchanges its IdP-issued JWT for an An
 
 ### Construct the SDK client
 
-You can construct the client with explicit credentials or with no arguments. With no arguments, the SDK resolves credentials from environment variables or the active profile, as described under [Credential precedence](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#credential-precedence). The zero-argument form is the recommended pattern for production workloads: ship the same container image everywhere and inject `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID`, and `ANTHROPIC_IDENTITY_TOKEN_FILE` per environment.
+You can construct the client with explicit credentials or with no arguments. With no arguments, the SDK resolves credentials from environment variables or the active profile, as described under [Credential precedence](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#credential-precedence). The zero-argument form is the recommended pattern for production workloads: ship the same container image everywhere and inject `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID`, and `ANTHROPIC_IDENTITY_TOKEN_FILE` for each environment.
 
 <CodeGroup>
   ```bash cURL
@@ -276,7 +276,7 @@ You can construct the client with explicit credentials or with no arguments. Wit
   {
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
-      Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+      Messages = [new UserMessageParam { Content = "Hello, Claude" }],
   });
   foreach (var block in message.Content)
   {
@@ -357,7 +357,7 @@ To switch an existing workload from a static API key to federation without downt
 
 1. **Configure federation in parallel.** Complete the [setup walkthrough](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#set-up-federation) and confirm the federation rule matches your workload's token. Leave the existing `ANTHROPIC_API_KEY` in place for now.
 2. **Smoke-test which credential wins.** Run `ant auth status` from inside the workload (or inspect SDK debug logs). Because `ANTHROPIC_API_KEY` sits above the federation tiers in the precedence chain, the API key still wins at this stage.
-3. **Unset `ANTHROPIC_API_KEY` everywhere it is injected.** Remove it from CI secrets, container environment, and shell profiles (see the preceding warning). Re-run `ant auth status` and confirm the federation source is now selected.
+3. **Unset `ANTHROPIC_API_KEY` everywhere it is injected.** Remove it from CI secrets, container environment, and shell profiles (see the preceding warning). Re-run `ant auth status` and confirm the federation source now wins.
 4. **Delete the API key.** Once the workload is running on the federated token, delete the key on the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Claude Console.
 
 ## Token lifetime and refresh

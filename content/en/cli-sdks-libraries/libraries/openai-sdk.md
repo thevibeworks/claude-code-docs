@@ -1,35 +1,35 @@
 ---
 title: OpenAI SDK compatibility
 url: https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk
-description: Anthropic provides a compatibility layer that enables you to use the OpenAI SDK to test the Claude API. With a few code changes, you can quickly evaluate Anthropic model capabilities.
+description: Anthropic provides a compatibility layer that lets you use the OpenAI SDK to test the Claude API. With a few code changes, you can quickly evaluate Anthropic model capabilities.
 ---
 
 <Note>
-  This compatibility layer is primarily intended to test and compare model capabilities, and is not considered a long-term or production-ready solution for most use cases. While it is intended to remain fully functional and not have breaking changes, the priority is the reliability and effectiveness of the [Claude API](https://platform.claude.com/docs/en/api/overview).
+  This compatibility layer is primarily intended to test and compare model capabilities, and is not considered a long-term or production-ready solution for most use cases. Although it is intended to remain fully functional and not have breaking changes, the priority is the reliability and effectiveness of the [Claude API](https://platform.claude.com/docs/en/api/overview).
 
   For more information on known compatibility limitations, see [Important OpenAI compatibility limitations](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk#important-openai-compatibility-limitations).
 
-  If you encounter any issues with the OpenAI SDK compatibility feature, please share your feedback via this [compatibility feedback form](https://forms.gle/oQV4McQNiuuNbz9n8).
+  If you encounter any issues with the OpenAI SDK compatibility feature, share your feedback through this [compatibility feedback form](https://forms.gle/oQV4McQNiuuNbz9n8).
 </Note>
 
 <Tip>
-  For the best experience and access to Claude API full feature set ([PDF processing](https://platform.claude.com/docs/en/build-with-claude/pdf-support), [citations](https://platform.claude.com/docs/en/build-with-claude/citations), [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking), and [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)), use the native [Claude API](https://platform.claude.com/docs/en/api/overview).
+  For the best experience and access to the full Claude API feature set ([PDF processing](https://platform.claude.com/docs/en/build-with-claude/pdf-support), [citations](https://platform.claude.com/docs/en/build-with-claude/citations), [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking), and [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)), use the native [Claude API](https://platform.claude.com/docs/en/api/overview).
 </Tip>
 
 ## Getting started with the OpenAI SDK
 
 To use the OpenAI SDK compatibility feature, you'll need to:
 
-1. Use an official OpenAI SDK
+1. Use an official OpenAI SDK.
 
 2. Change the following
 
    * Update your base URL to point to the Claude API
    * Replace your API key with a [Claude API key](https://platform.claude.com/settings/keys) from the Claude Console
-   * If your key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) with access to multiple workspaces, also send the `anthropic-workspace-id` header on every request (for example, `default_headers` in the Python SDK or `defaultHeaders` in TypeScript); see [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace)
+   * If your key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, also send the `anthropic-workspace-id` header on every request (for example, `default_headers` in the Python SDK or `defaultHeaders` in TypeScript); see [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace)
    * Update your model name to use a [Claude model](https://platform.claude.com/docs/en/models/overview)
 
-3. Review the following sections for what features are supported
+3. Review the following sections for what features are supported.
 
 ### Quick start example
 
@@ -184,19 +184,19 @@ To use the OpenAI SDK compatibility feature, you'll need to:
 Here are the most substantial differences from using OpenAI:
 
 * The `strict` parameter for function calling is ignored, which means the tool use JSON is not guaranteed to follow the supplied schema. For guaranteed schema conformance, use the native [Claude API with Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).
-* Audio input is not supported; it will be ignored and stripped from input
-* Prompt caching is not supported, but it is supported in the [Anthropic SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview)
+* Audio input is not supported; it is ignored and stripped from input.
+* Prompt caching is not supported, but it is supported in the [Anthropic SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview).
 * System/developer messages are hoisted and concatenated into the top-level `system` field, wherever they appear in the conversation. To add system instructions partway through a conversation, use [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) in the native Claude API.
 
 Most unsupported fields are silently ignored rather than producing errors. These are all documented in the following sections.
 
 ### Output quality considerations
 
-If you’ve done lots of tweaking to your prompt, it’s likely to be well-tuned to OpenAI specifically. Consider reworking it for Claude using the [prompting best practices guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
+If you’ve adjusted your prompt extensively, it’s likely to be well-tuned to OpenAI specifically. Consider reworking it for Claude using the [prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) guide.
 
 ### System / developer message hoisting
 
-Most of the inputs to the OpenAI SDK clearly map directly to Anthropic’s API parameters, but one distinct difference is the handling of system / developer prompts. These two prompts can be put throughout a chat conversation via OpenAI. The compatibility layer takes all system/developer messages and concatenates them together with a single newline (`\n`) in between them. This full string is then supplied as the top-level `system` field, ahead of every message.
+Most of the inputs to the OpenAI SDK clearly map directly to Claude API parameters, but one distinct difference is the handling of system / developer prompts. These two prompts can be put throughout a chat conversation in the OpenAI API. The compatibility layer takes all system/developer messages and concatenates them together with a single newline (`\n`) in between them. This full string is then supplied as the top-level `system` field, ahead of every message.
 
 ### Thinking support
 
@@ -297,7 +297,7 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
 | `n`                     | Must be exactly 1                                                                                                                                                                                                                                                                                                                                      |
 | `logprobs`              | Ignored                                                                                                                                                                                                                                                                                                                                                |
 | `metadata`              | Ignored                                                                                                                                                                                                                                                                                                                                                |
-| `response_format`       | Ignored. For JSON output, use [Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API                                                                                                                                                                                                |
+| `response_format`       | Ignored. For JSON output, use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API                                                                                                                                                                                                |
 | `prediction`            | Ignored                                                                                                                                                                                                                                                                                                                                                |
 | `presence_penalty`      | Ignored                                                                                                                                                                                                                                                                                                                                                |
 | `frequency_penalty`     | Ignored                                                                                                                                                                                                                                                                                                                                                |
@@ -318,27 +318,27 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
     <Tab title="Tools">
       `tools[n].function` fields
 
-      | Field         | Support status                                                                                                                                                  |
-      | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-      | `name`        | Fully supported                                                                                                                                                 |
-      | `description` | Fully supported                                                                                                                                                 |
-      | `parameters`  | Fully supported                                                                                                                                                 |
-      | `strict`      | Ignored. Use [Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with native Claude API for strict schema validation |
+      | Field         | Support status                                                                                                                                                      |
+      | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+      | `name`        | Fully supported                                                                                                                                                     |
+      | `description` | Fully supported                                                                                                                                                     |
+      | `parameters`  | Fully supported                                                                                                                                                     |
+      | `strict`      | Ignored. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API for strict schema validation |
     </Tab>
 
     <Tab title="Functions">
       `functions[n]` fields
 
       <Info>
-        OpenAI has deprecated the `functions` field and suggests using `tools` instead.
+        OpenAI has deprecated the `functions` field and recommends using `tools` instead.
       </Info>
 
-      | Field         | Support status                                                                                                                                                  |
-      | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-      | `name`        | Fully supported                                                                                                                                                 |
-      | `description` | Fully supported                                                                                                                                                 |
-      | `parameters`  | Fully supported                                                                                                                                                 |
-      | `strict`      | Ignored. Use [Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with native Claude API for strict schema validation |
+      | Field         | Support status                                                                                                                                                      |
+      | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+      | `name`        | Fully supported                                                                                                                                                     |
+      | `description` | Fully supported                                                                                                                                                     |
+      | `parameters`  | Fully supported                                                                                                                                                     |
+      | `strict`      | Ignored. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API for strict schema validation |
     </Tab>
   </Tabs>
 </Accordion>
@@ -351,7 +351,7 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
       Fields for `messages[n].role == "developer"`
 
       <Info>
-        Developer messages are hoisted to beginning of conversation as part of the initial system message
+        Developer messages are hoisted to the beginning of the conversation as part of the initial system message.
       </Info>
 
       | Field     | Support status               |
@@ -364,7 +364,7 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
       Fields for `messages[n].role == "system"`
 
       <Info>
-        System messages are hoisted to beginning of conversation as part of the initial system message
+        System messages are hoisted to the beginning of the conversation as part of the initial system message.
       </Info>
 
       | Field     | Support status               |
@@ -428,40 +428,40 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
 
 ### Response fields
 
-| Field                             | Support status                 |
-| --------------------------------- | ------------------------------ |
-| `id`                              | Fully supported                |
-| `choices[]`                       | Will always have a length of 1 |
-| `choices[].finish_reason`         | Fully supported                |
-| `choices[].index`                 | Fully supported                |
-| `choices[].message.role`          | Fully supported                |
-| `choices[].message.content`       | Fully supported                |
-| `choices[].message.tool_calls`    | Fully supported                |
-| `object`                          | Fully supported                |
-| `created`                         | Fully supported                |
-| `model`                           | Fully supported                |
-| `finish_reason`                   | Fully supported                |
-| `content`                         | Fully supported                |
-| `usage.completion_tokens`         | Fully supported                |
-| `usage.prompt_tokens`             | Fully supported                |
-| `usage.total_tokens`              | Fully supported                |
-| `usage.completion_tokens_details` | Always empty                   |
-| `usage.prompt_tokens_details`     | Always empty                   |
-| `choices[].message.refusal`       | Always empty                   |
-| `choices[].message.audio`         | Always empty                   |
-| `logprobs`                        | Always empty                   |
-| `service_tier`                    | Always empty                   |
-| `system_fingerprint`              | Always empty                   |
+| Field                             | Support status           |
+| --------------------------------- | ------------------------ |
+| `id`                              | Fully supported          |
+| `choices[]`                       | Always has a length of 1 |
+| `choices[].finish_reason`         | Fully supported          |
+| `choices[].index`                 | Fully supported          |
+| `choices[].message.role`          | Fully supported          |
+| `choices[].message.content`       | Fully supported          |
+| `choices[].message.tool_calls`    | Fully supported          |
+| `object`                          | Fully supported          |
+| `created`                         | Fully supported          |
+| `model`                           | Fully supported          |
+| `finish_reason`                   | Fully supported          |
+| `content`                         | Fully supported          |
+| `usage.completion_tokens`         | Fully supported          |
+| `usage.prompt_tokens`             | Fully supported          |
+| `usage.total_tokens`              | Fully supported          |
+| `usage.completion_tokens_details` | Always empty             |
+| `usage.prompt_tokens_details`     | Always empty             |
+| `choices[].message.refusal`       | Always empty             |
+| `choices[].message.audio`         | Always empty             |
+| `logprobs`                        | Always empty             |
+| `service_tier`                    | Always empty             |
+| `system_fingerprint`              | Always empty             |
 
 ### Error message compatibility
 
-The compatibility layer maintains consistent error formats with the OpenAI API. However, the detailed error messages will not be equivalent. Only use the error messages for logging and debugging.
+The compatibility layer maintains consistent error formats with the OpenAI API. However, the detailed error messages are not equivalent. Only use the error messages for logging and debugging.
 
 ### Header compatibility
 
-While the OpenAI SDK automatically manages headers, here is the complete list of headers supported by the Claude API for developers who need to work with them directly.
+Although the OpenAI SDK automatically manages headers, here is the complete list of headers supported by the Claude API for developers who need to work with them directly.
 
-| Header                           | Support Status      |
+| Header                           | Support status      |
 | -------------------------------- | ------------------- |
 | `x-ratelimit-limit-requests`     | Fully supported     |
 | `x-ratelimit-limit-tokens`       | Fully supported     |

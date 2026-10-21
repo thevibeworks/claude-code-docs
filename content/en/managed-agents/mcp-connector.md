@@ -115,15 +115,12 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
       Model = BetaManagedAgentsModel.ClaudeOpus5_5,
       McpServers =
       [
-          new() { Type = "url", Name = "github", Url = "https://api.githubcopilot.com/mcp/" },
+          new() { Name = "github", Url = "https://api.githubcopilot.com/mcp/" },
       ],
       Tools =
       [
-          new BetaManagedAgentsAgentToolset20260401Params
-          {
-              Type = "agent_toolset_20260401",
-          },
-          new BetaManagedAgentsMcpToolsetParams { Type = "mcp_toolset", McpServerName = "github" },
+          new BetaManagedAgentsAgentToolset20260401Params(),
+          new BetaManagedAgentsMcpToolsetParams { McpServerName = "github" },
       ],
   });
   ```
@@ -165,19 +162,13 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
           .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
           .addMcpServer(
               BetaManagedAgentsUrlMcpServerParams.builder()
-                  .type(BetaManagedAgentsUrlMcpServerParams.Type.URL)
                   .name("github")
                   .url("https://api.githubcopilot.com/mcp/")
                   .build()
           )
-          .addTool(
-              BetaManagedAgentsAgentToolset20260401Params.builder()
-                  .type(BetaManagedAgentsAgentToolset20260401Params.Type.AGENT_TOOLSET_20260401)
-                  .build()
-          )
+          .addTool(BetaManagedAgentsAgentToolset20260401Params.builder().build())
           .addTool(
               BetaManagedAgentsMcpToolsetParams.builder()
-                  .type(BetaManagedAgentsMcpToolsetParams.Type.MCP_TOOLSET)
                   .mcpServerName("github")
                   .build()
           )
@@ -191,17 +182,13 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
       model: 'claude-opus-5-5',
       mcpServers: [
           BetaManagedAgentsURLMCPServerParams::with(
-              type: 'url',
               name: 'github',
               url: 'https://api.githubcopilot.com/mcp/',
           ),
       ],
       tools: [
-          BetaManagedAgentsAgentToolset20260401Params::with(
-              type: 'agent_toolset_20260401',
-          ),
+          BetaManagedAgentsAgentToolset20260401Params::with(),
           BetaManagedAgentsMCPToolsetParams::with(
-              type: 'mcp_toolset',
               mcpServerName: 'github',
           ),
       ],
@@ -228,7 +215,7 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
 </CodeGroup>
 
 <Tip>
-  The MCP toolset defaults to a permission policy of `always_ask`, which requires user approval before each tool call. See [permission policies](https://platform.claude.com/docs/en/managed-agents/permission-policies) to configure this behavior.
+  The MCP toolset defaults to a permission policy of `always_ask`, which requires user approval before each tool call. See [Permission policies](https://platform.claude.com/docs/en/managed-agents/permission-policies) to configure this behavior.
 </Tip>
 
 ### `mcp_servers` field reference
@@ -379,10 +366,10 @@ Credentials are matched by URL, so the vault must contain a credential whose `mc
 
 Session creation does not validate MCP connectivity or credentials. It does check each declared server's host against the environment's networking: with a `limited` environment, session creation fails with a 400 error when a host is not allowed, as described under [Provide authentication at session creation](https://platform.claude.com/docs/en/managed-agents/mcp-connector#provide-authentication-at-session-creation). If an MCP server is unreachable or rejects the supplied credential, the session still starts and interaction remains possible. A [`session.error`](https://platform.claude.com/docs/en/managed-agents/reference#event-types) event is emitted with the `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) of the affected server and a `retry_status` (java, php: `retryStatus`; csharp, go: `RetryStatus`):
 
-| Error type                        | Meaning                                                                                                                                                                                                      |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `mcp_connection_failed_error`     | The MCP server could not be reached (network error, timeout, or non-authentication HTTP failure).                                                                                                            |
-| `mcp_authentication_failed_error` | Authentication with the MCP server failed: the server rejected the credential from the attached vault, required authentication when no matching credential was configured, or an OAuth token refresh failed. |
+| Error type                        | Meaning                                                                                                                                                                                                                 |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mcp_connection_failed_error`     | The MCP server could not be reached (network error, timeout, or non-authentication HTTP failure).                                                                                                                       |
+| `mcp_authentication_failed_error` | Authentication with the MCP server failed: the server rejected the credential from the attached vault, the server required authentication when no matching credential was configured, or an OAuth token refresh failed. |
 
 You can decide whether to block further interaction on this error, trigger a credential rotation, or let the session continue without the affected server's tools. The connection is retried on the next `session.status_idle` to `session.status_running` transition.
 
@@ -394,7 +381,7 @@ You can decide whether to block further interaction on this error, trigger a cre
   </Card>
 
   <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
-    Send events, stream responses, and interrupt or redirect your session mid-execution.
+    Send events, stream responses, and interrupt or redirect your session while it runs.
   </Card>
 
   <Card title="Supported MCP server types" icon="book" href="https://platform.claude.com/docs/en/managed-agents/reference#supported-mcp-server-types">
