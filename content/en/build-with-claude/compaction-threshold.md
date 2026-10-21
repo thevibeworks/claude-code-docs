@@ -2918,7 +2918,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
               }
             : message
         )
-        .filter((message) => message.content.length > 0);
+        .filter((message) => message.role !== "assistant" || message.content.length > 0);
 
       // Build new message list: compaction + preserved messages
       const messagesAfterCompaction: Anthropic.Beta.Messages.BetaMessageParam[] = [

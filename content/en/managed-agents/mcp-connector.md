@@ -21,7 +21,7 @@ This separation keeps secrets out of reusable agent definitions while letting ea
 
 ## Declare MCP servers on the agent
 
-Specify MCP servers in the `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) array when creating an agent. Each server needs a `type` (csharp, go: `Type`), a unique `name` (csharp, go: `Name`), and a `url` (csharp: `Url`; go: `URL`). No authentication tokens are provided at this stage.
+Specify MCP servers in the `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) array when creating an agent. Each server has a `type` (csharp, go: `Type`) of `url`, a unique `name` (csharp, go: `Name`), and a `url` (csharp: `Url`; go: `URL`). No authentication tokens are provided at this stage.
 
 Each declared server also needs a matching `mcp_toolset` entry in the `tools` (csharp, go: `Tools`) array. The toolset's `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) must match the server's `name` (csharp, go: `Name`).
 
