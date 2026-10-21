@@ -10,7 +10,7 @@ The HIPAA configuration is an organization setting on Enterprise plans. It bring
 
 With the configuration applied, members can use both products with protected health information (PHI), on the conditions in **[Check what your BAA covers](#h_eba343b314)**. Applying it also turns off certain features across your organization.
 
-Available on Enterprise plans only. Only the Primary Owner can apply the HIPAA configuration.
+Available on Enterprise plans with an Anthropic account team. Only the Primary Owner can apply the HIPAA configuration.
 
 This article is for the Primary Owner, who applies the configuration, and for any Owner who helps decide whether to apply it, prepare for it, and confirm it.
 
@@ -56,9 +56,9 @@ Ask your IT team to **[deploy managed settings](https://code.claude.com/docs/en/
 
 ## Ask Anthropic to turn on the HIPAA configuration
 
-You apply the configuration with the "Apply HIPAA configuration" button in **Organization settings > Data and privacy**. The button is grayed out until Anthropic turns it on for your organization. Ask your Anthropic account team to turn it on.
+You apply the configuration with the "Apply HIPAA configuration" button in **Organization settings > Data and privacy**. The button is grayed out until Anthropic turns it on for your organization. Ask your Anthropic account team to turn it on. The HIPAA configuration is only available to organizations with an Anthropic account team at this time. Anthropic Support can’t turn it on for your organization.
 
-If your organization doesn't have an account team, you can't apply the configuration. See **[Coverage until you apply the configuration](#h_415ff36247)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** for what your BAA covers if you haven't applied it.
+See **[Coverage until you apply the configuration](#h_415ff36247)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** for what your BAA covers if you haven't applied it.
 
 ### Coverage until you apply the configuration
 
@@ -184,4 +184,4 @@ These tools show what happens in Claude Code (local mode) and Cowork (local mode
 
 ## Get help
 
-For questions about the BAA, the Implementation Guide for HIPAA Entities, or the configuration, contact your Anthropic account team. Do not include PHI in a support request.
+For questions about the BAA, the Implementation Guide for HIPAA Entities, or the configuration, contact your Anthropic account team. If your organization doesn’t have an account team, contact **[our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**. Do not include PHI in a support request.

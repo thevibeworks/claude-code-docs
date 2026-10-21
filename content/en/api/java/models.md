@@ -161,6 +161,8 @@ The Models API response can be used to determine which models are available for 
 
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
 ### Returns
 
 - `class ModelInfo`
@@ -609,6 +611,8 @@ The Models API response can be used to determine information about a specific mo
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
+
+    - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
 ### Returns
 

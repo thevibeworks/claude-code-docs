@@ -141,6 +141,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Body parameters
 
 - `issuer_id: string`

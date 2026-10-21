@@ -821,6 +821,34 @@ url: https://platform.claude.com/docs/en/api/go/beta/webhooks
 
       - `WorkspaceID string`
 
+    - `type BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `Type UserProfileEnforcementActionOpened`
+
+      - `ID string`
+
+        ID of the user profile the enforcement action is on.
+
+      - `EnforcementActionID string`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `Type UserProfileEnforcementActionResolved`
+
+      - `ID string`
+
+        ID of the user profile the enforcement action is on.
+
+      - `EnforcementActionID string`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `OrganizationID string`
+
 ### Beta Webhook Event Data
 
 - `type BetaWebhookEventDataUnion interface{…}`
@@ -1381,6 +1409,34 @@ url: https://platform.claude.com/docs/en/api/go/beta/webhooks
 
     - `WorkspaceID string`
 
+  - `type BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+    - `Type UserProfileEnforcementActionOpened`
+
+    - `ID string`
+
+      ID of the user profile the enforcement action is on.
+
+    - `EnforcementActionID string`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `OrganizationID string`
+
+  - `type BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+    - `Type UserProfileEnforcementActionResolved`
+
+    - `ID string`
+
+      ID of the user profile the enforcement action is on.
+
+    - `EnforcementActionID string`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `OrganizationID string`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `type BetaWebhookMemoryStoreArchivedEventData`
@@ -1672,6 +1728,38 @@ url: https://platform.claude.com/docs/en/api/go/beta/webhooks
   - `OrganizationID string`
 
   - `WorkspaceID string`
+
+### Beta Webhook User Profile Enforcement Action Opened Event Data
+
+- `type BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+  - `Type UserProfileEnforcementActionOpened`
+
+  - `ID string`
+
+    ID of the user profile the enforcement action is on.
+
+  - `EnforcementActionID string`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `OrganizationID string`
+
+### Beta Webhook User Profile Enforcement Action Resolved Event Data
+
+- `type BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+  - `Type UserProfileEnforcementActionResolved`
+
+  - `ID string`
+
+    ID of the user profile the enforcement action is on.
+
+  - `EnforcementActionID string`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `OrganizationID string`
 
 ### Beta Webhook Vault Archived Event Data
 

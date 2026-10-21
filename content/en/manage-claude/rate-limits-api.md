@@ -1096,7 +1096,9 @@ By default, the workspace response lists only overrides, so a missing group has 
 
 ### Can I update rate limits with this API?
 
-No. To set workspace rate limits, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
+**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace's overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint's response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. You can also set workspace rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console: select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
+
+**For an organization:** No. To request higher limits, see [Requesting higher limits](https://platform.claude.com/docs/en/api/rate-limits#requesting-higher-limits).
 
 ## See also
 

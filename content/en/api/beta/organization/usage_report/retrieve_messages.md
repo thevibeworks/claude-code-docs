@@ -249,6 +249,8 @@ Get Messages Usage Report
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `BetaMessagesUsageReport object`

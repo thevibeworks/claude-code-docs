@@ -821,6 +821,34 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `workspace_id: str`
 
+    - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `type: Literal["user_profile.enforcement_action_opened"]`
+
+      - `id: str`
+
+        ID of the user profile the enforcement action is on.
+
+      - `enforcement_action_id: str`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `type: Literal["user_profile.enforcement_action_resolved"]`
+
+      - `id: str`
+
+        ID of the user profile the enforcement action is on.
+
+      - `enforcement_action_id: str`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `organization_id: str`
+
 ### Beta Webhook Event Data
 
 - `type BetaWebhookEventData = ...`
@@ -1381,6 +1409,34 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `workspace_id: str`
 
+  - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+    - `type: Literal["user_profile.enforcement_action_opened"]`
+
+    - `id: str`
+
+      ID of the user profile the enforcement action is on.
+
+    - `enforcement_action_id: str`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `organization_id: str`
+
+  - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+    - `type: Literal["user_profile.enforcement_action_resolved"]`
+
+    - `id: str`
+
+      ID of the user profile the enforcement action is on.
+
+    - `enforcement_action_id: str`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `organization_id: str`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `class BetaWebhookMemoryStoreArchivedEventData`
@@ -1672,6 +1728,38 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `workspace_id: str`
+
+### Beta Webhook User Profile Enforcement Action Opened Event Data
+
+- `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+  - `type: Literal["user_profile.enforcement_action_opened"]`
+
+  - `id: str`
+
+    ID of the user profile the enforcement action is on.
+
+  - `enforcement_action_id: str`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: str`
+
+### Beta Webhook User Profile Enforcement Action Resolved Event Data
+
+- `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+  - `type: Literal["user_profile.enforcement_action_resolved"]`
+
+  - `id: str`
+
+    ID of the user profile the enforcement action is on.
+
+  - `enforcement_action_id: str`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: str`
 
 ### Beta Webhook Vault Archived Event Data
 

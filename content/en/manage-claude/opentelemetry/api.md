@@ -59,11 +59,11 @@ The API emits spans for your Messages API requests and Managed Agents sessions. 
 
 ### Admin API and CLI
 
-You can also add a destination with the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) instead of the Console. Sign in to the CLI as an admin, or use an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) in `ANTHROPIC_API_KEY`. On Claude Platform on AWS, send the requests to `https://aws-external-anthropic.{region}.api.aws` instead, signed with your AWS credentials as in [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests). There, your [IAM policy](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions) determines who can manage destinations. A request can include only the workspaces of your AWS account in that Region.
+You can also add a destination with the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) instead of the Console. Sign in to the CLI as an admin, or use another [Admin API credential](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication), such as an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) or a service account key in `ANTHROPIC_API_KEY`. On Claude Platform on AWS, send the requests to `https://aws-external-anthropic.{region}.api.aws` instead, signed with your AWS credentials as in [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests). There, your [IAM policy](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions) determines who can manage destinations. A request can include only the workspaces of your AWS account in that Region.
 
 <CodeGroup>
   ```bash CLI
-  # Sign in once as an admin, which opens a browser. Leave ANTHROPIC_API_KEY unset, because it overrides the profile.
+  # Sign in once as an admin, which opens a browser.
   ant auth login --profile admin --scope "org:admin"
   ant --profile admin beta:organization:telemetry-destinations create \
     --endpoint-url https://gateway.example.com/otlp \
@@ -170,7 +170,7 @@ You can also add a destination with the [Admin API](https://platform.claude.com/
 
       var params = TelemetryDestinationCreateParams.builder()
           .endpointUrl("https://gateway.example.com/otlp")
-          .headers(TelemetryDestinationCreateParams.Headers.builder()
+          .headers(TelemetryDestinationCreateParams.DestinationHeaders.builder()
               .putAdditionalProperty("authorization", JsonValue.from("Bearer YOUR_OBSERVABILITY_API_KEY"))
               .build())
           .traces(BetaTelemetryDestinationTracesParams.builder()
@@ -288,8 +288,9 @@ The API reads each request's trace context from the W3C [`traceparent` header](h
 
       ```csharp C#
       using System.Diagnostics;
+      // ...
 
-      // Add this source to your tracer provider, next to com.anthropic.sdk.csharp.
+      // Add this source to your tracer provider, next to com.anthropic.sdk.csharp*.
       var source = new ActivitySource("MyService");
 
       using (source.StartActivity("summarize_issues"))
@@ -619,7 +620,7 @@ The API reads each request's trace context from the W3C [`traceparent` header](h
   </Tab>
 </Tabs>
 
-The Messages API also passes the trace on to your MCP server when you connect it with the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector), so that it can put its own spans under the API spans. Each request and notification that the API sends to your MCP server has a W3C `traceparent` in `params._meta`. In a `tools/call` request, it references the [`anthropic.mcp_tool_use`](https://platform.claude.com/docs/en/api/opentelemetry/spans#anthropic-tool-use-anthropic-mcp-tool-use-and-anthropic-custom-tool-use) span of that tool use. In the other messages, it references the [`anthropic.messages.create`](https://platform.claude.com/docs/en/api/opentelemetry/spans#anthropic-messages-create) span. For a request that the API doesn't trace, such as one whose `traceparent` header has the sampled flag off, the API sends no `traceparent`.
+When you connect your MCP server with the [Messages API's MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) or the [Managed Agents MCP connector](https://platform.claude.com/docs/en/managed-agents/mcp-connector), the API also passes the trace on to your server. The server can then put its own spans under the API spans. In `params._meta` of a `tools/call` request, the API sends a W3C `traceparent` that references the [`anthropic.mcp_tool_use`](https://platform.claude.com/docs/en/api/opentelemetry/spans#anthropic-tool-use-anthropic-mcp-tool-use-and-anthropic-custom-tool-use) span for that tool use. With the Messages API's MCP connector, the other requests and notifications to your MCP server have a `traceparent` too, which references the [`anthropic.messages.create`](https://platform.claude.com/docs/en/api/opentelemetry/spans#anthropic-messages-create) span. If the API doesn't trace your Messages API request, such as when its `traceparent` header has the sampled flag off, your MCP server gets no `traceparent`.
 
 ## Next steps
 
@@ -639,9 +640,9 @@ The following rules apply to the spans that the API sends to your destinations.
 
 * **At least once:** A destination can receive the same span more than once. To remove duplicates, use the trace ID and span ID.
 * **Best effort:** A span can be lost before delivery. The API can't send a lost span again.
-* **Compression:** The API compresses every delivery's first request with gzip and sets the header `Content-Encoding: gzip`. If your endpoint answers that request with a `400` or `415` response, the API sends the same spans again right away without compression.
-* **Retries:** The API retries a delivery later, a limited number of times, after a timeout, a connection, TLS, or DNS failure, or a `408`, `429`, or `5xx` response. It doesn't retry other failures.
-* **Timeouts:** For each request, your endpoint must complete the TLS handshake within 5 seconds and send the response headers within 5 seconds. Each delivery times out after 10 seconds in total, including the resend without compression.
+* **Compression:** The API compresses requests with gzip and sets the header `Content-Encoding: gzip`. If your endpoint answers a compressed request with a `400`, `406`, `415`, or `422` response, the API sends the same spans again right away without compression. It then usually sends that destination's later requests without compression for about a day.
+* **Retries:** The API retries a delivery later, a limited number of times, after a timeout, a connection, TLS, or DNS failure, an invalid address, or a `408`, `429`, or `5xx` response. It doesn't retry other failures.
+* **Timeouts:** For each request, your endpoint must complete the TLS handshake within 5 seconds and send the response headers within 5 seconds. Each delivery times out after 10 seconds in total, including any resend.
 * **User agent:** Each request has the header `User-Agent: Claude-Platform`.
 
 The **Delivery** column shows each destination's state. The state can be up to a minute late.
@@ -656,10 +657,9 @@ The **Delivery** column shows each destination's state. The state can be up to a
 The API disables a destination when:
 
 * The endpoint sends a `3xx` redirect.
-* The endpoint's hostname resolves to an IP address that isn't public.
 * All deliveries fail for 24 hours.
 
-The API doesn't send spans to a disabled destination. To resume export, fix the cause. Then, on the [OpenTelemetry settings page](https://platform.claude.com/settings/telemetry-destinations) in the Console, click **Enable** in the destination's **More actions** menu while the **Workspace** filter shows **All**. Export starts again within about a minute.
+While a destination is disabled, the API drops the spans for it, and they aren't sent after you enable it again. To resume export, fix the cause and check the fix with **Test** in the destination's **More actions** menu. Then, on the [OpenTelemetry settings page](https://platform.claude.com/settings/telemetry-destinations) in the Console, click **Enable** in the same menu while the **Workspace** filter shows **All**. Export starts again within about a minute. Until the next delivery, the **Delivery** column can still show **Failing** with the old error.
 
 To change a destination, open its **More actions** menu while the **Workspace** filter shows **All**. Then click **Edit**, **Disable**, **Enable**, or **Delete**. If you change the host of the **OTLP endpoint URL**, enter the header values again. If the destination has an **OTLP traces endpoint URL**, give it the same new host, or clear it.
 
@@ -692,7 +692,11 @@ When a delivery fails, the **Delivery** column shows **Failing**. Hover over it 
 | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | HTTP error (status 401) or HTTP error (status 403) | A wrong authentication header                                                                                                                             |
 | HTTP error (status 404)                            | A wrong path in the **OTLP endpoint URL** or the **OTLP traces endpoint URL**                                                                             |
-| DNS resolution failure                             | The endpoint's hostname doesn't resolve                                                                                                                   |
+| Invalid address                                    | The endpoint's hostname doesn't exist or doesn't resolve to a public IP address                                                                           |
+| Temporary DNS failure                              | The DNS lookup of the endpoint's hostname failed, for example because its DNS server returned an error                                                    |
 | TLS failure                                        | A TLS problem, for example with the endpoint's certificate                                                                                                |
 | Timeout                                            | The endpoint didn't respond in time. See [the delivery timeouts](https://platform.claude.com/docs/en/manage-claude/opentelemetry/api#delivery-and-health) |
 | Connection failure                                 | The API couldn't connect to the endpoint                                                                                                                  |
+| Redirect (status 3xx)                              | The endpoint redirected the request. The API doesn't follow redirects, so use the URL it redirects to                                                     |
+| HTTP error (status 408, 429, or 5xx)               | The endpoint was overloaded, limited the rate of requests, or had an error                                                                                |
+| HTTP error (another 4xx status)                    | The endpoint refused the request, for example because of its size or format                                                                               |

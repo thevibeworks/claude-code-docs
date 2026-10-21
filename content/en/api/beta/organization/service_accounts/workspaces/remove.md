@@ -145,6 +145,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `type: "service_account_workspace_member_deleted"`

@@ -159,6 +159,8 @@ The Models API response can be used to determine which models are available for 
 
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
 ## Returns
 
 - `class ModelInfo`

@@ -50,6 +50,9 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnelToken = $client->beta->tunnels->revealToken(

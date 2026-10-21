@@ -54,6 +54,21 @@ Anthropic provides three kinds of official tooling for building with the Claude 
   </Card>
 </CardGroup>
 
+## Latest versions
+
+| Tool       | Latest version | Package                                                                                               |
+| ---------- | -------------- | ----------------------------------------------------------------------------------------------------- |
+| ant CLI    | `1.44.0`       | [`github.com/anthropics/anthropic-cli`](https://github.com/anthropics/anthropic-cli/releases)         |
+| Python     | `1.17.0`       | [`anthropic`](https://pypi.org/project/anthropic/)                                                    |
+| TypeScript | `0.137.0`      | [`@anthropic-ai/sdk`](https://www.npmjs.com/package/@anthropic-ai/sdk)                                |
+| C#         | `12.60.0`      | [`Anthropic`](https://www.nuget.org/packages/Anthropic)                                               |
+| Go         | `1.84.0`       | [`github.com/anthropics/anthropic-sdk-go`](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go) |
+| Java       | `2.75.0`       | [`com.anthropic:anthropic-java`](https://central.sonatype.com/artifact/com.anthropic/anthropic-java)  |
+| PHP        | `0.61.0`       | [`anthropic-ai/sdk`](https://packagist.org/packages/anthropic-ai/sdk)                                 |
+| Ruby       | `1.82.0`       | [`anthropic`](https://rubygems.org/gems/anthropic)                                                    |
+
+The same versions are available as JSON at `https://platform.claude.com/docs/sdk-versions.json`.
+
 ## Libraries and integrations
 
 Libraries and integrations expose Claude through another framework's API surface. They are not general-purpose Messages API clients.

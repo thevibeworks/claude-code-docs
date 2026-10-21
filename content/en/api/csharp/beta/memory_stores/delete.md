@@ -1,15 +1,15 @@
 ---
-title: Delete a memory store
+title: Delete a Memory Store
 url: https://platform.claude.com/docs/en/api/csharp/beta/memory_stores/delete
 ---
 
-# Delete a memory store
+# Delete a Memory Store
 
 `BetaManagedAgentsDeletedMemoryStore Beta.MemoryStores.Delete(parameters, cancellationToken = default)`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}`
 
-Delete a memory store
+Delete a Memory Store
 
 ## Parameters
 
@@ -17,7 +17,9 @@ Delete a memory store
 
   - `required string memoryStoreID` (path parameter)
 
-    ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
+    The ID of the memory store to delete (`memstore_...`).
+
+    Deleting a store also deletes all its memories and memory versions. It can't be undone.
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
@@ -125,6 +127,8 @@ Delete a memory store
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -146,6 +150,9 @@ Delete a memory store
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.MemoryStores;
+
 MemoryStoreDeleteParams parameters = new()
 {
     MemoryStoreID = "memory_store_id"

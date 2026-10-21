@@ -131,6 +131,8 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `BetaTelemetryDestinationTestResponse object`

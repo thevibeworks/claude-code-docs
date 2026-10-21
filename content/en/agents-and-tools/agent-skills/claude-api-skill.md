@@ -34,6 +34,7 @@ When triggered, the skill equips Claude with:
 **For Managed Agents (beta):**
 
 * **Onboarding flow:** An interview-driven walkthrough for setting up a new Managed Agent from scratch, available through the `/claude-api managed-agents-onboard` subcommand
+* **Security guide check:** A read-only check of an agent's settings against [Secure your Managed Agents deployment](https://platform.claude.com/docs/en/managed-agents/secure-deployment), available through the `/claude-api managed-agents-secure` subcommand of the skill bundled with Claude Code
 * **Language-specific Managed Agents docs:** Creating persistent agents, starting sessions, streaming events, and handling tool confirmations for Python, TypeScript, C#, Go, Java, PHP, Ruby, and cURL
 * **Client patterns:** Lossless stream reconnect, `processed_at` queued/processed gate, interrupt handling, file-mount gotchas, and credential handling
 * **Deployment constraints:** Managed Agents is available on the Claude API and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) only (not on Amazon Bedrock, Google Cloud, or Microsoft Foundry). The skill routes other deployments to the Messages API and tool use instead.
@@ -185,6 +186,20 @@ Let Claude Code set up your agent for you
 The skill runs an interview that walks you through the Managed Agents mental model (Agent configs versus Sessions), templates an agent config, configures environments and tools, sets up the session loop, and emits runnable code for your language. The skill also covers the mandatory **Agent (once) → Session (every run)** flow: `model`, `system`, and `tools` live on the agent, never on the session, and agents should be created once and referenced by ID.
 
 Managed Agents requires the `managed-agents-2026-04-01` beta header, which the SDK sets automatically for all `client.beta.agents.*`, `client.beta.environments.*`, `client.beta.sessions.*`, and `client.beta.vaults.*` calls.
+
+## Checking a Managed Agents deployment
+
+To compare an agent's settings with the guide [Secure your Managed Agents deployment](https://platform.claude.com/docs/en/managed-agents/secure-deployment), invoke the `managed-agents-secure` subcommand of the skill bundled with Claude Code:
+
+Let Claude Code check your agent against the security guide
+
+```text
+/claude-api managed-agents-secure
+```
+
+Add the agent's ID after the subcommand, or the skill asks for it. The skill fetches the guide, then reads the agent, its recent sessions and [scheduled deployments](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments), and the environments and vaults they use. Unless you ask it not to, it also searches the current folder's files for text that looks like a secret key. It lists only the names of matching files. It changes nothing. The report lists each setting to change with its recommended value, the questions only you can answer, and what it did not read.
+
+The skill reads the agent with the `ant` CLI, so first set up the CLI for the agent's workspace, as the [CLI quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) shows. It needs a current version of Claude Code; run `claude update` to upgrade.
 
 ## Example usage
 

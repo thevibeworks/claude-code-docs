@@ -821,6 +821,34 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
+    - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `JsonValue type = "user_profile.enforcement_action_opened"`
+
+      - `String id`
+
+        ID of the user profile the enforcement action is on.
+
+      - `String enforcementActionId`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `String organizationId`
+
+    - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `JsonValue type = "user_profile.enforcement_action_resolved"`
+
+      - `String id`
+
+        ID of the user profile the enforcement action is on.
+
+      - `String enforcementActionId`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `String organizationId`
+
 ### Beta Webhook Event Data
 
 - `class BetaWebhookEventData: union`
@@ -1381,6 +1409,34 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
+  - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+    - `JsonValue type = "user_profile.enforcement_action_opened"`
+
+    - `String id`
+
+      ID of the user profile the enforcement action is on.
+
+    - `String enforcementActionId`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `String organizationId`
+
+  - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+    - `JsonValue type = "user_profile.enforcement_action_resolved"`
+
+    - `String id`
+
+      ID of the user profile the enforcement action is on.
+
+    - `String enforcementActionId`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `String organizationId`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `class BetaWebhookMemoryStoreArchivedEventData`
@@ -1672,6 +1728,38 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
   - `String organizationId`
 
   - `String workspaceId`
+
+### Beta Webhook User Profile Enforcement Action Opened Event Data
+
+- `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+  - `JsonValue type = "user_profile.enforcement_action_opened"`
+
+  - `String id`
+
+    ID of the user profile the enforcement action is on.
+
+  - `String enforcementActionId`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `String organizationId`
+
+### Beta Webhook User Profile Enforcement Action Resolved Event Data
+
+- `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+  - `JsonValue type = "user_profile.enforcement_action_resolved"`
+
+  - `String id`
+
+    ID of the user profile the enforcement action is on.
+
+  - `String enforcementActionId`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `String organizationId`
 
 ### Beta Webhook Vault Archived Event Data
 

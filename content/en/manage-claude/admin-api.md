@@ -1730,6 +1730,10 @@ Read the rate limits configured for your organization and its workspaces with th
 
 Retrieve audit and activity data for your organization with the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api). Admin API keys can read only the Activity Feed. For full access, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 
+## Organization webhooks
+
+Register webhook endpoints for events about enforcement actions on your organization's user profiles with [organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks).
+
 ## Best practices
 
 * Use meaningful names and descriptions for workspaces and API keys

@@ -135,6 +135,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
 ## Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`

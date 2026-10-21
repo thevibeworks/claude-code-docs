@@ -28,6 +28,16 @@ This guide lists the settings that limit what an agent on Claude Managed Agents 
 
 [Security risks and sandbox boundaries](https://platform.claude.com/docs/en/managed-agents/secure-deployment-risks) explains why these settings matter and what they do not protect against. To review and monitor sessions, see [Review and monitor agent sessions](https://platform.claude.com/docs/en/managed-agents/secure-deployment-monitoring).
 
+The [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) that ships with Claude Code has a `managed-agents-secure` command that checks an agent, its environments, and its vaults against this guide:
+
+Let Claude Code check your agent against this guide
+
+```text
+/claude-api managed-agents-secure
+```
+
+The command changes nothing, and its report lists each setting to change with its recommended value and the questions only you can answer. Before you run it, update Claude Code and set up the `ant` CLI for the agent's workspace, as the [CLI quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) shows.
+
 ## Choose where the agent runs
 
 Where the agent's tools run decides who secures the sandbox: Anthropic, with a cloud environment, or you, with a self-hosted sandbox. To choose between them and learn what reaches Anthropic with each, see [Choosing an agent environment](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment).

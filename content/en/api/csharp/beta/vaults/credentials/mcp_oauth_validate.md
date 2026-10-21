@@ -129,6 +129,8 @@ Validate an MCP OAuth Credential
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -238,6 +240,9 @@ Validate an MCP OAuth Credential
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Vaults.Credentials;
+
 CredentialMcpOAuthValidateParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",

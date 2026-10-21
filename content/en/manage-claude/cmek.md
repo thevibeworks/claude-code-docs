@@ -67,6 +67,7 @@ What CMEK covers depends on which product you use.
 
 * Chat content, including skills and plugins.
 * Chat attachments and project attachments.
+* Artifacts, including Claude Design, Claude Slides, and Claude Docs in conversations and the **Artifacts** tab.
 * Claude Code on the CLI, including message content.
 * Cowork in Claude Desktop.
 * Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) captured from sessions on users' machines. If your key cannot be used, the messages endpoint returns [503 Service Unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable) instead of transcript content. Session metadata is still listed.
@@ -91,12 +92,13 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 * Chat search is disabled because chat titles and content are encrypted under your key. Members cannot search past chats, and the **Search and reference chats** toggle stays off, so Claude cannot search them either.
 * [Project knowledge search](https://support.claude.com/en/articles/11473015-retrieval-augmented-generation-rag-for-projects) (retrieval-augmented generation, or RAG) is disabled. Project knowledge loads directly into each conversation's context instead of being indexed and searched. As a result, a project can use substantially less knowledge than it could without CMEK. Knowledge beyond what can be loaded is left out of the conversation.
 * Claude Code on the web and Claude in Slack are unavailable: new sessions cannot be started and Claude in Slack declines requests, even if an admin turns these products on. Claude Code Desktop remains available for local sessions but is off unless an admin turns it on under [claude.ai > Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code).
+* Artifacts, including Claude Design, Claude Slides, and Claude Docs in conversations and the **Artifacts** tab, cannot be turned on in organizations that also use ZDR. In organizations with HIPAA readiness, an Owner must first accept the terms for using them.
 * Claude Code cannot [publish artifacts](https://code.claude.com/docs/en/artifacts#availability). However, artifacts made in chat or Cowork can be shared within your organization, but not publicly.
 * Certain analytics are disabled, regardless of admin settings: Claude smart reports (beta, under claude.ai/analytics/insights) and Claude Code contribution metrics from GitHub (beta, under claude.ai/analytics/claude-code). Admin analytics for skills and connectors, in the claude.ai analytics dashboard and through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api), don't include usage in chat, and hide the names of custom skills, plugins, and connectors.
 * Organization data exports and audit log exports, both under [claude.ai > Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls), are disabled.
 * Response ratings (thumbs up and thumbs down on Claude's responses) are disabled.
 * [Skill and plugin security scanning](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise#skill-content-scanning) is unavailable: the setting cannot be turned on, and skills and plugins are installed without a scan.
-* The following beta and research preview features are unavailable in CMEK organizations, regardless of admin settings: Claude Design, Claude Slides, and Claude Docs in conversations and the **Artifacts** tab, and routines.
+* The following beta and research preview features are unavailable in CMEK organizations, regardless of admin settings: Claude Security and routines.
 
 ### Encrypted with Anthropic key
 
@@ -109,12 +111,12 @@ These features remain available, but their data is not encrypted under your key.
 * Claude Managed Agents [vault credential](https://platform.claude.com/docs/en/managed-agents/vaults) values, such as OAuth tokens and client secrets. These are stored under Anthropic-managed encryption, are write-only, and are never returned in API responses.
 * [User profiles](https://platform.claude.com/docs/en/api/beta/user_profiles): the `name`, `external_id`, and `metadata` fields are stored under Anthropic-managed encryption, not your key. Do not store sensitive personal data in profile `metadata`.
 * Ratings and comments about the Claude Console that members send with its **Feedback** option. No setting turns these off; members send them only when they choose to.
-
-- [OpenTelemetry destination](https://platform.claude.com/docs/en/manage-claude/opentelemetry#add-a-destination) request headers, such as the API key header of your observability backend. These are stored under Anthropic-managed encryption. Their values are write-only and are never returned in API responses.
+* [OpenTelemetry destination](https://platform.claude.com/docs/en/manage-claude/opentelemetry/api#add-a-destination) request headers, such as the API key header of your observability backend. These are stored under Anthropic-managed encryption. Their values are write-only and are never returned in API responses.
 
 **Claude Enterprise**
 
-* Beta and research preview features might not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and the Claude Design app at claude.ai/design.
+* Beta and research preview features might not be covered by CMEK and can break in CMEK organizations.
+* The standalone Claude Design app at claude.ai/design is not supported with CMEK, and its data might not be encrypted under your key. The standalone app is closing. Claude Design in conversations and the **Artifacts** tab is encrypted under your key, as listed under [Encrypted with CMEK key](https://platform.claude.com/docs/en/manage-claude/cmek#encrypted).
 * [Personal preferences - Instructions for Claude section](https://claude.ai/new#settings/account) and Cowork Global instructions. These are set at the account level and shared across all of a user's organizations.
 
 On both products, account data for users in your organization (such as names, email addresses, and profile pictures) is not encrypted under your key.

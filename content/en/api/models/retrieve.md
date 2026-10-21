@@ -141,6 +141,8 @@ The Models API response can be used to determine information about a specific mo
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `ModelInfo object`

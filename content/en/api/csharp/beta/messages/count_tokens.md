@@ -3736,9 +3736,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string userProfileID` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `string workspaceID` (header parameter)
 
@@ -3773,6 +3775,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Messages;
+using Messages = Anthropic.Models.Messages;
+
 MessageCountTokensParams parameters = new()
 {
     Messages =
@@ -3782,10 +3788,13 @@ MessageCountTokensParams parameters = new()
             Content = "Hello, world",
             Role = Role.User,
             ClearAt = ClearAt.NextUserMessage,
-            OutputConfig = new() { Effort = Effort.Low },
+            OutputConfig = new()
+            {
+                Effort = BetaSystemMessageOutputConfigEffort.Low
+            },
         },
     ],
-    Model = Model.ClaudeOpus5_5,
+    Model = Messages::Model.ClaudeOpus5_5,
 };
 
 var betaMessageTokensCount = await client.Beta.Messages.CountTokens(parameters);

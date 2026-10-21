@@ -133,6 +133,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `BetaFederationIssuer object`

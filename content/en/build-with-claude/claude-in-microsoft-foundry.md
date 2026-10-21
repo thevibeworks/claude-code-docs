@@ -80,8 +80,8 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:2.74.0")
-        implementation("com.anthropic:anthropic-java-foundry:2.74.0")
+        implementation("com.anthropic:anthropic-java:2.75.0")
+        implementation("com.anthropic:anthropic-java-foundry:2.75.0")
 
         // For Entra ID authentication, also add the Azure Identity library
         implementation("com.azure:azure-identity:1.18.3")
@@ -93,12 +93,12 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>2.74.0</version>
+            <version>2.75.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-foundry</artifactId>
-            <version>2.74.0</version>
+            <version>2.75.0</version>
         </dependency>
         <!-- For Entra ID authentication, also add the Azure Identity library -->
         <dependency>
@@ -212,7 +212,7 @@ The SDK's Foundry client requires an API key and either a resource name or base 
   ```
 
   ```bash CLI
-  # ant reads ANTHROPIC_API_KEY and sends it as x-api-key, which Foundry accepts
+  # ant reads ANTHROPIC_API_KEY
   export ANTHROPIC_API_KEY="YOUR_AZURE_API_KEY"
 
   ant messages create \

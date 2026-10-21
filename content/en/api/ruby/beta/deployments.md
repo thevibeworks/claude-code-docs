@@ -523,6 +523,8 @@ Create Deployment
 
   - `:"telemetry-destinations-2026-08-11"`
 
+  - `:"webhooks-2026-10-07"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1293,6 +1295,8 @@ List Deployments
 
   - `:"telemetry-destinations-2026-08-11"`
 
+  - `:"webhooks-2026-10-07"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2024,6 +2028,8 @@ Get Deployment
   - `:"spend-limit-reads-2026-09-26"`
 
   - `:"telemetry-destinations-2026-08-11"`
+
+  - `:"webhooks-2026-10-07"`
 
 - `workspace_id: String` (header parameter)
 
@@ -3152,6 +3158,8 @@ Update Deployment
 
   - `:"telemetry-destinations-2026-08-11"`
 
+  - `:"webhooks-2026-10-07"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3878,6 +3886,8 @@ Archive Deployment
   - `:"spend-limit-reads-2026-09-26"`
 
   - `:"telemetry-destinations-2026-08-11"`
+
+  - `:"webhooks-2026-10-07"`
 
 - `workspace_id: String` (header parameter)
 
@@ -4606,6 +4616,8 @@ Run Deployment Now
 
   - `:"telemetry-destinations-2026-08-11"`
 
+  - `:"webhooks-2026-10-07"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4994,6 +5006,8 @@ Pause Deployment
   - `:"spend-limit-reads-2026-09-26"`
 
   - `:"telemetry-destinations-2026-08-11"`
+
+  - `:"webhooks-2026-10-07"`
 
 - `workspace_id: String` (header parameter)
 
@@ -5721,6 +5735,8 @@ Unpause Deployment
   - `:"spend-limit-reads-2026-09-26"`
 
   - `:"telemetry-destinations-2026-08-11"`
+
+  - `:"webhooks-2026-10-07"`
 
 - `workspace_id: String` (header parameter)
 

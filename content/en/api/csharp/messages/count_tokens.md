@@ -2747,7 +2747,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `string userProfileID` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `string workspaceID` (header parameter)
 
@@ -2766,6 +2766,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Messages;
+
 MessageCountTokensParams parameters = new()
 {
     Messages =

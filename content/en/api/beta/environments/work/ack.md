@@ -133,6 +133,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `BetaSelfHostedWork object`

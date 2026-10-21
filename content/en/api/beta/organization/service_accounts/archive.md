@@ -138,6 +138,8 @@ those rules first or change their target to another service account.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `BetaServiceAccount object`

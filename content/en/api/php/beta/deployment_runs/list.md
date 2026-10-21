@@ -100,6 +100,10 @@ List Deployment Runs
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\DeploymentRuns\BetaManagedAgentsTriggerType;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->deploymentRuns->list(

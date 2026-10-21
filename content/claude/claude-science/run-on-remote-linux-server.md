@@ -12,7 +12,7 @@ Claude Science runs on a remote Linux server (a cloud VM or a lab machine) the s
 >
 > This page covers running all of Claude Science on a remote machine. To keep Claude Science on your own computer and have it run jobs on a machine you reach over SSH, see [Remote compute clusters](/docs/claude-science/remote-compute-clusters).
 
-The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 5 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Team, or Enterprise plan; see [Requirements](/docs/claude-science/overview#requirements).
+The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 10 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Team, or Enterprise plan; see [Requirements](/docs/claude-science/overview#requirements).
 
 ## Install dependencies
 
@@ -44,7 +44,7 @@ If you run Claude Science on a cluster's login node, these points differ from a 
 * Check your site's rules first. Claude runs its analysis code on the machine where Claude Science runs, and many sites limit long-running or heavy work on login nodes.
 * Choose your own port, because someone else may already be using the default port, 8000. [Start Claude Science](#start-claude-science) shows how to pass a port. After you start it, `claude-science url` prints both ports. Forward each one with that number on both sides.
 * If the cluster's address sends you to one of several login nodes, connect the tunnel to the node where Claude Science is running. Running `hostname` on that node prints its name.
-* Claude Science needs about 5 GB in your home folder for its environments, even if you keep your projects elsewhere.
+* Claude Science needs about 10 GB free in your home folder for its first launch, and more for each environment Claude creates, even if you keep your projects elsewhere.
 
 ## Install Claude Science
 
@@ -81,7 +81,7 @@ On the server:
 claude-science serve --no-browser
 ```
 
-First launch prints the sign-in link, of the form `http://localhost:8000/?nonce=...`, right away, and continues setting up its starter Python and R environments; the setup can take a few minutes and about 5 GB of disk. If port 8000 or 8001 is taken on either machine, pass a different port to serve (for example `--port 8765`) and change the `ssh -L` forwards to match. Previews then use the next port up, 8766, if it is free.
+First launch prints the sign-in link, of the form `http://localhost:8000/?nonce=...`, right away, and continues setting up its starter Python and R environments; the setup can take a few minutes and about 9 GB of disk. If port 8000 or 8001 is taken on either machine, pass a different port to serve (for example `--port 8765`) and change the `ssh -L` forwards to match. Previews then use the next port up, 8766, if it is free.
 
 To run it in the background instead, use `claude-science serve --no-browser --detached`. `claude-science status` reports whether it's running, and `claude-science stop` stops it.
 

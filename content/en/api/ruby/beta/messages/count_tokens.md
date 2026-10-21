@@ -4000,9 +4000,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `:"telemetry-destinations-2026-08-11"`
 
+  - `:"webhooks-2026-10-07"`
+
 - `user_profile_id: String` (header parameter)
 
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
 - `workspace_id: String` (header parameter)
 

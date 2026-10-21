@@ -137,6 +137,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Body parameters
 
 - `issuer_url: string`
