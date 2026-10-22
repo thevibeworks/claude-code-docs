@@ -6,19 +6,19 @@
 
 > The core design principles that guide the development of the Model Context Protocol.
 
-These principles guide how we evaluate protocol proposals, weigh tradeoffs, and evolve MCP. They reflect lessons from building and maintaining the project. They are meant as guidance by and for the community when developing [Spec Enhancement Proposals](/community/sep-guidelines) (SEPs) and [extensions](/extensions/overview).
+These principles guide how we evaluate protocol proposals, weigh tradeoffs, and evolve MCP. They reflect lessons from building and maintaining the project. They are meant as guidance by and for the community when developing [Spec Enhancement Proposals](/community/sep-guidelines.md) (SEPs) and [extensions](/extensions/overview.md).
 
 ## Convergence over choice
 
 There should be one way to solve a problem in MCP. Rather than supporting multiple approaches that fragment the ecosystem, we choose a single well-designed path — accepting harder decisions upfront to deliver a more cohesive protocol.
 
-[Extensions](/extensions/overview) are where convergence gets tested; the specification is where it gets committed.
+[Extensions](/extensions/overview.md) are where convergence gets tested; the specification is where it gets committed.
 
 ## Composability over specificity
 
 MCP provides foundational primitives: resources, tools, and prompts. We don't add protocol features for use cases that can be constructed from these existing building blocks. This keeps the surface area small and implementations simple.
 
-When someone asks why MCP doesn't support a feature directly, the answer is usually that it can be built from what MCP already provides. Extensions like [MCP Apps](/extensions/apps/overview) and [Tasks](/extensions/tasks/overview) capture the patterns that emerge.
+When someone asks why MCP doesn't support a feature directly, the answer is usually that it can be built from what MCP already provides. Extensions like [MCP Apps](/extensions/apps/overview.md) and [Tasks](/extensions/tasks/overview.md) capture the patterns that emerge.
 
 ## Interoperability over optimization
 
@@ -48,4 +48,4 @@ MCP makes practical tradeoffs in service of adoption and usability. We don't pur
 
 MCP standardizes patterns that have already proven valuable. We look for conventions that work across multiple implementations and codify them, rather than inventing new paradigms and hoping they'll be adopted.
 
-We encourage the use of [MCP extensions](/extensions/overview) as a way to experiment with new patterns that may eventually lead to standardization.
+We encourage the use of [MCP extensions](/extensions/overview.md) as a way to experiment with new patterns that may eventually lead to standardization.

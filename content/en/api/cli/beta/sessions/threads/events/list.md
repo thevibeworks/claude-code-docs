@@ -3113,7 +3113,6 @@ List Session Thread Events
 
 ```bash
 ant beta:sessions:threads:events list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```

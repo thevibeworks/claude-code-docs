@@ -32,7 +32,7 @@ Click any tier to open it. An Anthropic-managed tier opens as a read-only summar
 
 If your tenant lets organizations manage their own tiers, an **Add seat tier** button appears below the list so you can create one here. If that button is missing, your tenant has not turned on **Let organizations manage their own seat tiers**, and only Anthropic can create or change tiers for your organization.
 
-The step is checked once at least one of your tiers has at least one model allowed. See [Seat tiers](/docs/government/org-admin/seat-tiers) for more on creating and editing tiers.
+The step is checked once at least one of your tiers has at least one model allowed. See [Seat tiers](/docs/government/org-admin/seat-tiers.md) for more on creating and editing tiers.
 
 ## Step 3: Seats and credits
 
@@ -40,8 +40,8 @@ This step shows whether your organization has the seats and credits it needs. Se
 
 Two status lines are shown:
 
-* **Add credits** is complete once the billing account your organization draws from has enough balance to serve at least one request. This is funded by Anthropic through your tenant administrator, so when it is incomplete the line shows **Waiting on your tenant admin**. Use **View billing** to open the [Billing](/docs/government/org-admin/billing) page and see the current balance and any spend caps set on your organization.
-* **Allocate seats** is complete once your organization has been allocated at least one seat. Use **View seats** to open the [Seats](/docs/government/org-admin/seats) page and see the counts.
+* **Add credits** is complete once the billing account your organization draws from has enough balance to serve at least one request. This is funded by Anthropic through your tenant administrator, so when it is incomplete the line shows **Waiting on your tenant admin**. Use **View billing** to open the [Billing](/docs/government/org-admin/billing.md) page and see the current balance and any spend caps set on your organization.
+* **Allocate seats** is complete once your organization has been allocated at least one seat. Use **View seats** to open the [Seats](/docs/government/org-admin/seats.md) page and see the counts.
 
 The step is checked only when both lines are complete. If either one is still waiting, contact a tenant administrator.
 
@@ -51,7 +51,7 @@ These are the Claude products your members sign in to, such as Claude Desktop, C
 
 This step is marked **Optional** in the step list, and you can leave every product off and still complete setup. A product that is not available appears with its switch disabled and a note to contact Anthropic if you would like it enabled.
 
-You can change these switches later from the [Config](/docs/government/org-admin/configuration) page.
+You can change these switches later from the [Config](/docs/government/org-admin/configuration.md) page.
 
 ## Step 5: Finish
 

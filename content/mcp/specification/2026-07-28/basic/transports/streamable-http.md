@@ -17,7 +17,7 @@
 > * Removal of the GET stream endpoint.
 > * Removal of protocol-level sessions.
 >
-> See the [changelog](/specification/2026-07-28/changelog) and
+> See the [changelog](/specification/2026-07-28/changelog.md) and
 > [Backward Compatibility](#backward-compatibility) below.
 
 In the **Streamable HTTP** transport, the server operates as an independent
@@ -44,7 +44,7 @@ The server **MUST** provide a single HTTP endpoint path (hereafter referred to
 as the **MCP endpoint**) that supports POST. For example, this could be a URL
 like `https://example.com/mcp`.
 
-[http-sse]: /specification/2024-11-05/basic/transports#http-with-sse
+[http-sse]: /specification/2024-11-05/basic/transports.md#http-with-sse
 
 [sse]: https://en.wikipedia.org/wiki/Server-sent_events
 
@@ -92,7 +92,7 @@ request to the MCP endpoint.
 > This revision of the core protocol defines no client-to-server
 > *notifications* over Streamable HTTP. The only client-sent notification in
 > the core protocol, `notifications/cancelled`, is used only on the
-> [stdio](/specification/2026-07-28/basic/transports/stdio) transport; on
+> [stdio](/specification/2026-07-28/basic/transports/stdio.md) transport; on
 > Streamable HTTP, closing the SSE response stream is itself the cancellation
 > signal and no `notifications/cancelled` message is expected (see
 > \[Cancellation]\[cancellation]). The notification rules above describe the
@@ -149,17 +149,17 @@ real-time nature of SSE communication.
 
 Resumable SSE streams via `Last-Event-ID` are not supported.
 
-[notifications-progress]: /specification/2026-07-28/basic/patterns/progress
+[notifications-progress]: /specification/2026-07-28/basic/patterns/progress.md
 
-[notifications-message]: /specification/2026-07-28/server/utilities/logging
+[notifications-message]: /specification/2026-07-28/server/utilities/logging.md
 
-[input-required-result]: /specification/2026-07-28/schema#inputrequiredresult
+[input-required-result]: /specification/2026-07-28/schema.md#inputrequiredresult
 
-[mrtr]: /specification/2026-07-28/basic/patterns/mrtr
+[mrtr]: /specification/2026-07-28/basic/patterns/mrtr.md
 
-[sep-2322]: /seps/2322-MRTR
+[sep-2322]: /seps/2322-MRTR.md
 
-[subscriptions-listen]: /specification/2026-07-28/basic/patterns/subscriptions
+[subscriptions-listen]: /specification/2026-07-28/basic/patterns/subscriptions.md
 
 ## Message Flow
 
@@ -237,7 +237,7 @@ stop work on the cancelled request as soon as practical and **MUST NOT** send
 any further messages for it. See
 [Cancellation][cancellation] for the full rules.
 
-[cancellation]: /specification/2026-07-28/basic/patterns/cancellation
+[cancellation]: /specification/2026-07-28/basic/patterns/cancellation.md
 
 ## Request Metadata
 
@@ -278,9 +278,9 @@ treat a request that omits the header as protocol version `2025-03-26`. A
 server that does not support such clients **MUST** reject a request without
 the header per [Server Validation](#server-validation).
 
-[unsupported-version]: /specification/2026-07-28/schema#unsupportedprotocolversionerror
+[unsupported-version]: /specification/2026-07-28/schema.md#unsupportedprotocolversionerror
 
-[lifecycle-version]: /specification/2026-07-28/basic/versioning#protocol-version-negotiation
+[lifecycle-version]: /specification/2026-07-28/basic/versioning.md#protocol-version-negotiation
 
 ### Standard Request Headers
 
@@ -365,7 +365,7 @@ support this feature. When a server's tool definition includes
 `x-mcp-header` annotations, conforming clients **MUST** mirror the
 designated parameter values into HTTP headers.
 
-[tool-definitions]: /specification/2026-07-28/server/tools#x-mcp-header
+[tool-definitions]: /specification/2026-07-28/server/tools.md#x-mcp-header
 
 #### Schema Extension
 
@@ -601,7 +601,7 @@ response using the following error code:
 
 This error code is allocated from the sub-range the MCP specification
 reserves for protocol-defined errors. See
-[Error Codes](/specification/2026-07-28/basic/index#error-codes).
+[Error Codes](/specification/2026-07-28/basic/index.md#error-codes).
 
 **Example error response:**
 
@@ -682,7 +682,7 @@ older client **SHOULD** respond as follows:
 Servers and clients that need to interoperate with counterparts speaking
 those protocol versions implement the behavior described in the corresponding
 revision (for example,
-[2025-11-25: Streamable HTTP](/specification/2025-11-25/basic/transports#streamable-http)),
+[2025-11-25: Streamable HTTP](/specification/2025-11-25/basic/transports.md#streamable-http)),
 in addition to the version-negotiation fallback described above.
 
 ### HTTP+SSE Transport (2024-11-05)
@@ -692,13 +692,13 @@ in addition to the version-negotiation fallback described above.
 > **Deprecated**: The \[HTTP+SSE transport]\[http-sse] from protocol version
 > 2024-11-05 has been deprecated since protocol version `2025-03-26` and is
 > classified as Deprecated under the [feature lifecycle
-> policy](/community/feature-lifecycle#deprecating-a-feature)
+> policy](/community/feature-lifecycle.md#deprecating-a-feature)
 > ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596)).
 > New implementations **SHOULD NOT** adopt it; existing implementations
 > **SHOULD** migrate to [Streamable
-> HTTP](/specification/2026-07-28/basic/transports/streamable-http). It is
+> HTTP](/specification/2026-07-28/basic/transports/streamable-http.md). It is
 > eligible for removal in a future revision; see the [deprecated features
-> registry](/specification/2026-07-28/deprecated).
+> registry](/specification/2026-07-28/deprecated.md).
 
 Clients and servers can maintain backward compatibility with the
 deprecated [HTTP+SSE transport][http-sse] (from
@@ -729,4 +729,4 @@ protocol version 2024-11-05) as follows:
        server running the old HTTP+SSE transport, and should use that
        transport for all subsequent communication.
 
-[lifecycle-compat]: /specification/2026-07-28/basic/versioning#backward-compatibility-with-initialization-based-versions
+[lifecycle-compat]: /specification/2026-07-28/basic/versioning.md#backward-compatibility-with-initialization-based-versions

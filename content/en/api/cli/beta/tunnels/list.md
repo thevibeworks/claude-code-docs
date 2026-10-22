@@ -82,8 +82,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 ## Example
 
 ```bash
-ant beta:tunnels list \
-  --api-key my-anthropic-api-key
+ant beta:tunnels list
 ```
 
 ### Response (200)

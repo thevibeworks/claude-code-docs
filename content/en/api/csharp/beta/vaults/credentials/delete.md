@@ -143,7 +143,7 @@ Delete a Credential
 
   Confirmation of a deleted credential.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential_deleted"`
 
   - `required string ID`
 

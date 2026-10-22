@@ -8,11 +8,15 @@
 
 **0.1.70**
 
+October 21, 2026
+
 * Bug fixes and reliability improvements
 
 **0.1.69**
 
-* A new **Trouble updating?** link opens [Update Claude Science](/docs/claude-science/update-claude-science), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
+October 21, 2026
+
+* A new **Trouble updating?** link opens [Update Claude Science](/docs/claude-science/update-claude-science.md), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
 * Cloud storage in Settings now works with Google Cloud Storage HMAC keys on computers where no AWS region is set
 * Mac: if `config.toml` has `auto_update = false` under `[update]`, Claude Science in its own window no longer checks for updates in the background. You can still check with **Claude Science > Check for App Updates…** in the menu bar
 * Linux: fixed updates from 0.1.66 or earlier failing with "restart aborted" when Claude Science was started by typing only `claude-science`
@@ -21,6 +25,8 @@
 
 **0.1.68**
 
+October 20, 2026
+
 * **Export session** files now list the approval decisions made in the session from this version on: whether each action was approved, how it was settled, and when
 * From this version on, when an update is required while sessions are running, you can stop them and update in one step, and resume them afterwards
 * Mac and Linux: the starter Python and R environments, and the environments Claude Science sets up for connectors and compute providers, now keep their own downloaded packages. The first conda install into them after you update downloads packages again, so it needs a network connection and takes longer, and Claude Science can use about 3 GB more disk space
@@ -28,6 +34,8 @@
 * Bug fixes and reliability improvements
 
 **0.1.67**
+
+October 19, 2026
 
 * The Example project now holds nine new example sessions from various scientific fields
 * If Claude Science opens in its own window, on Windows or on a Mac, you can now search the page you're on with Ctrl+F (Cmd+F on a Mac)
@@ -40,9 +48,13 @@
 
 **0.1.66**
 
+October 18, 2026
+
 * Bug fixes and reliability improvements
 
 **0.1.63**
+
+October 14, 2026
 
 * Tabs in the right pane are now all one width, and the tab you're viewing always shows its close button
 * Newly saved artifacts now list more of their input files in Provenance when the code that created them read many files
@@ -52,6 +64,8 @@
 
 **0.1.62**
 
+October 13, 2026
+
 * Linux: if Claude Science won't start after updating to 0.1.61, run `claude-science update` in a terminal to get 0.1.62 or later, then start it again. If it's still running and the "Update available" notice shows "restart aborted", select "Check for updates" in **Settings > General > About** so it finds the newer version, then "Restart to update"
 * Linux: Claude Science starts again when bubblewrap or socat comes from conda, Homebrew, or a folder in your home directory. 0.1.61's requirement that both be installed for the whole system is withdrawn for now, though installing them that way is still recommended
 * Fixed the app sometimes becoming unresponsive after Claude saves results from an analysis that read large files
@@ -59,20 +73,26 @@
 
 **0.1.61**
 
+October 13, 2026
+
 * Sessions you start in the Example project now show on the home screen
 * A GitHub token you paste in **Settings > Credentials** now stays after a restart, instead of switching back to the token found on your computer; if yours switched back, paste it again
 * Linux: fixed Featured connectors that run on your computer sometimes failing to start right after your first sign-in
 * Linux: Claude Science now needs bubblewrap and socat installed for the whole system, from your distribution's packages or by an administrator. If yours came from conda, Homebrew, or a folder in your home directory, the app refuses to start and its message says what to do
-* Windows: Claude Science is now signed with a renewed certificate from the same publisher, Anthropic, PBC. If your IT team allows the app by certificate thumbprint, add the new SHA-1 thumbprint `60C2D9C51F09822FFF4F194DE9EEDB67451292D1` and keep the previous one, both listed under [Windows signing certificate](/docs/claude-science/manage-on-devices#windows-signing-certificate)
+* Windows: Claude Science is now signed with a renewed certificate from the same publisher, Anthropic, PBC. If your IT team allows the app by certificate thumbprint, add the new SHA-1 thumbprint `60C2D9C51F09822FFF4F194DE9EEDB67451292D1` and keep the previous one, both listed under [Windows signing certificate](/docs/claude-science/manage-on-devices.md#windows-signing-certificate)
 * Security hardening of the analysis sandbox on Mac, Windows, and Linux
 * Various bug fixes and security improvements
 
 **0.1.60**
 
+October 7, 2026
+
 * Mac: fixed a problem introduced in 0.1.59 where Python, R, and some shell commands could fail to run when Claude Science has access to many folders
 * **Settings > Network > Package mirror** now shows a mirror credential file your organization deployed, instead of asking for a token
 
 **0.1.59**
+
+October 6, 2026
 
 * Saved approvals for tools from your organization's plugins are cleared, so Claude asks again; new approvals apply only to the plugin that added the tool
 * Skills from plugins your organization's admin uploads now appear under Organization in **Settings > Skills**, instead of under Featured
@@ -83,6 +103,8 @@
 * Various bug fixes and security improvements
 
 **0.1.56**
+
+October 2, 2026
 
 * When safeguards flag a message for life sciences content, Claude Science can now retry it once on another model automatically, depending on the model; turn this off with **Switch models when a message is flagged** in **Settings > General > Model**
 * Excel (.xlsx) previews now show cell colors, bold text, and color-scale heat maps
@@ -100,10 +122,14 @@
 
 **0.1.55**
 
+September 29, 2026
+
 * New sessions on an organization's default model with more life sciences restrictions now show a notice with a one-click switch to another model
 * Fixed an error Claude ran into when outlining an existing multi-panel figure or drafting a paper's brief from its abstract and figure captions
 
 **0.1.54**
+
+September 28, 2026
 
 * Sessions on Claude Sonnet 5.5 now default to Extra high reasoning effort
 * Windows: after an update, the app window reopens on the new version by itself
@@ -115,6 +141,8 @@
 
 **0.1.53**
 
+September 24, 2026
+
 * Paste a list of domains in **Settings > Network** to allow them all at once
 * In Markdown files, editing table cells in place now works in files with up to 2,500 table cells, however long their text
 * **Settings > Connectors**: a Featured connector that was turned off during setup now shows as off, and turning it back on lets Claude use it again
@@ -125,6 +153,8 @@
 
 **0.1.52**
 
+September 22, 2026
+
 * Clicking a figure in Claude's answer now opens it beside the chat; Ctrl/Cmd-click or the new "Open fullscreen" button opens it full screen
 * Opening or closing the right pane now keeps your place in a long answer
 * Markdown files no longer rotate in Safari after they load
@@ -134,6 +164,8 @@
 * Various bug fixes and security improvements
 
 **0.1.51**
+
+September 22, 2026
 
 * Pinned sessions (formerly starred) from across all your projects now appear at the top of the session list; a new switch in **Settings > General > Appearance** lets you limit them to the open project
 * In Markdown files, click a plain-text cell in a table to edit it in place
@@ -149,6 +181,8 @@
 
 **0.1.50**
 
+September 17, 2026
+
 * Tables in Markdown files now show as a compact grid; a long table keeps its header row in view, and row labels stay in view when you scroll sideways
 * Tabs in the right pane can be reordered by dragging, or with Ctrl/Cmd+Shift+Left/Right
 * Pasted images are now saved to your uploads, so Claude can keep working with them later in the conversation
@@ -160,7 +194,9 @@
 
 **0.1.49**
 
-* If your organization is in Anthropic's Life Sciences Verification Program (beta), you can now [choose a use case](/docs/claude-science/safeguards#choose-a-use-case) for your sessions
+September 16, 2026
+
+* If your organization is in Anthropic's Life Sciences Verification Program (beta), you can now [choose a use case](/docs/claude-science/safeguards.md#choose-a-use-case) for your sessions
 * Saved credentials now reach Claude's code only when it asks for them and you approve. They're no longer present in every cell
 * Access Claude Science work saved on your computer from other sign-ins, from Home or Settings. Admins control it on Team and Enterprise plans
 * Claude can send you a short message, such as a link to a file, while it keeps working on a task
@@ -175,22 +211,30 @@
 
 **0.1.48**
 
+September 14, 2026
+
 * On Windows, environment setup now handles user folders with accented or non-Latin names, tries again if Windows briefly refuses to start the environment installer, and no longer needs the Microsoft Visual C++ Redistributable
 * The app now warns you a few days before your sign-in expires and offers a "Sign in again" button
 * Various bug fixes and security improvements
 
 **0.1.47**
 
-* Claude Science is now available for Windows: download it from [claude.com/product/claude-science](https://claude.com/product/claude-science), and see [Get started](/docs/claude-science/get-started) for setup
+September 10, 2026
+
+* Claude Science is now available for Windows: download it from [claude.com/product/claude-science](https://claude.com/product/claude-science), and see [Get started](/docs/claude-science/get-started.md) for setup
 * Various bug fixes and improvements
 
 **0.1.43**
+
+August 31, 2026
 
 * On Linux, commands, notebook cells, and local connectors work again on systems with bubblewrap's recent security update
 * Cloud storage in Settings (Amazon S3, S3-compatible services, and Google Cloud Storage with HMAC keys) now works behind a TLS-inspecting proxy such as Zscaler or Netskope, trusting the same corporate root certificate as sign-in and the Claude API
 * Various bug fixes and security improvements
 
 **0.1.41**
+
+August 27, 2026
 
 * Messages now show when they were sent: hover one of your messages to see the time, and Claude's replies show it next to their copy and feedback buttons
 * Reviewer findings now appear as cards directly under the message they refer to, instead of a single summary card; click a card to open the reviewer's reasoning
@@ -205,6 +249,8 @@
 
 **0.1.27**
 
+August 7, 2026
+
 * On macOS, installs that showed an environment setup error in their first session now repair themselves automatically after updating; the Featured connectors become available once the repair finishes, which can take a few minutes
 * Star a session from its menu to keep it in a Starred section at the top of your project's session list
 * Get notified when any of your sessions finishes or needs your input, even while you work in another project. In-app notifications are on by default; sound and desktop notifications are under Settings > General > Notifications
@@ -214,6 +260,8 @@
 * Lots of other miscellaneous improvements and fixes
 
 **0.1.21**
+
+July 21, 2026
 
 **New**
 
@@ -237,6 +285,8 @@
 
 **0.1.18**
 
+July 9, 2026
+
 **Features**
 
 * Sessions now pause and ask for your confirmation before spending extra usage. Billed usage credits are never drawn on a dismissible warning alone.
@@ -255,10 +305,14 @@
 
 **0.1.17**
 
+July 8, 2026
+
 * **Fixed a bug where idle sessions were consuming usage.**
 * Lots of other miscellaneous improvements and fixes.
 
 **0.1.16**
+
+July 7, 2026
 
 **Features**
 
@@ -282,6 +336,8 @@
 
 **0.1.15**
 
+July 1, 2026
+
 * Corporate networks: environment builds now work behind TLS-inspecting proxies (such as Zscaler or Netskope). On macOS, corporate root CAs in your keychain are picked up automatically for conda/pip package downloads; on macOS or Linux you can also point at a CA-bundle file under Settings > Network > Package mirror. The mirror card's Check button now verifies TLS trust with the same bundle the builds use. (In-session `pip`/`curl` and the Desktop app's guest-VM builds are not covered)
 * Package mirrors: point conda and pip at your organization's internal mirror (Artifactory/Nexus) via Settings > Network > Package mirror. Setting a mirror also drops the public package hosts from the sandbox network allowlist
 * OpenAlex now requires a free API key for full-text access. Claude Science resolves access automatically or asks you in the session when a key is needed; you can also add and validate a key anytime under Settings > Credentials
@@ -289,5 +345,7 @@
 * Lots of other miscellaneous improvements and fixes
 
 **0.1.14**
+
+June 30, 2026
 
 * Public launch of Claude Science

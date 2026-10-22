@@ -8,9 +8,11 @@
 
 > **Who this is for:** Anyone who uses Claude Desktop in Claude for Government and wants to find, install, or create plugins.
 
-A plugin is a package that adds capabilities to Claude in a single step, such as skills, slash commands, sub-agents, and hooks. Plugins work in Cowork and in Code. See the [Plugins overview](/docs/plugins/overview) for more on what a plugin can contain.
+A plugin is a package that adds capabilities to Claude in a single step, such as skills, slash commands, sub-agents, and hooks. Plugins work in Cowork and in Code. See the [Plugins overview](/docs/plugins/overview.md) for more on what a plugin can contain.
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
+
+Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >

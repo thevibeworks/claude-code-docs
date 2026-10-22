@@ -17,9 +17,7 @@ Add Session Resource
 
 - `ResourceAddParams parameters`
 
-  - `required Type type`
-
-    - `File("file")`
+  - `JsonElement type = "file"`
 
   - `required string sessionID` (path parameter)
 
@@ -153,7 +151,7 @@ Add Session Resource
 
 - `class BetaManagedAgentsFileResource`
 
-  - `required BetaManagedAgentsFileResourceType Type`
+  - `JsonElement Type = "file"`
 
   - `required string ID`
 
@@ -177,13 +175,14 @@ Add Session Resource
 
 ```csharp
 using System;
-using Resources = Anthropic.Models.Beta.Sessions.Resources;
+using System.Text.Json;
+using Anthropic.Models.Beta.Sessions.Resources;
 
-Resources::ResourceAddParams parameters = new()
+ResourceAddParams parameters = new()
 {
     SessionID = "sesn_011CZkZAtmR3yMPDzynEDxu7",
     FileID = "file_011CNha8iCJcU1wXNR6q4V8w",
-    Type = Resources::Type.File,
+    Type = JsonSerializer.SerializeToElement("file"),
 };
 
 var betaManagedAgentsFileResource = await client.Beta.Sessions.Resources.Add(parameters);
@@ -348,7 +347,7 @@ List Session Resources
 
   - `class BetaManagedAgentsGitHubRepositoryResource`
 
-    - `required BetaManagedAgentsGitHubRepositoryResourceType Type`
+    - `JsonElement Type = "github_repository"`
 
     - `required string ID`
 
@@ -372,7 +371,7 @@ List Session Resources
 
       - `class BetaManagedAgentsBranchCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "branch"`
 
         - `required string Name`
 
@@ -382,7 +381,7 @@ List Session Resources
 
       - `class BetaManagedAgentsCommitCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "commit"`
 
         - `required string Sha`
 
@@ -392,7 +391,7 @@ List Session Resources
 
   - `class BetaManagedAgentsFileResource`
 
-    - `required BetaManagedAgentsFileResourceType Type`
+    - `JsonElement Type = "file"`
 
     - `required string ID`
 
@@ -416,7 +415,7 @@ List Session Resources
 
     A memory store attached to an agent session.
 
-    - `required BetaManagedAgentsMemoryStoreResourceType Type`
+    - `JsonElement Type = "memory_store"`
 
     - `required string MemoryStoreID`
 
@@ -634,7 +633,7 @@ Get Session Resource
 
   - `class BetaManagedAgentsGitHubRepositoryResource`
 
-    - `required BetaManagedAgentsGitHubRepositoryResourceType Type`
+    - `JsonElement Type = "github_repository"`
 
     - `required string ID`
 
@@ -658,7 +657,7 @@ Get Session Resource
 
       - `class BetaManagedAgentsBranchCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "branch"`
 
         - `required string Name`
 
@@ -668,7 +667,7 @@ Get Session Resource
 
       - `class BetaManagedAgentsCommitCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "commit"`
 
         - `required string Sha`
 
@@ -678,7 +677,7 @@ Get Session Resource
 
   - `class BetaManagedAgentsFileResource`
 
-    - `required BetaManagedAgentsFileResourceType Type`
+    - `JsonElement Type = "file"`
 
     - `required string ID`
 
@@ -702,7 +701,7 @@ Get Session Resource
 
     A memory store attached to an agent session.
 
-    - `required BetaManagedAgentsMemoryStoreResourceType Type`
+    - `JsonElement Type = "memory_store"`
 
     - `required string MemoryStoreID`
 
@@ -912,7 +911,7 @@ Update Session Resource
 
   - `class BetaManagedAgentsGitHubRepositoryResource`
 
-    - `required BetaManagedAgentsGitHubRepositoryResourceType Type`
+    - `JsonElement Type = "github_repository"`
 
     - `required string ID`
 
@@ -936,7 +935,7 @@ Update Session Resource
 
       - `class BetaManagedAgentsBranchCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "branch"`
 
         - `required string Name`
 
@@ -946,7 +945,7 @@ Update Session Resource
 
       - `class BetaManagedAgentsCommitCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "commit"`
 
         - `required string Sha`
 
@@ -956,7 +955,7 @@ Update Session Resource
 
   - `class BetaManagedAgentsFileResource`
 
-    - `required BetaManagedAgentsFileResourceType Type`
+    - `JsonElement Type = "file"`
 
     - `required string ID`
 
@@ -980,7 +979,7 @@ Update Session Resource
 
     A memory store attached to an agent session.
 
-    - `required BetaManagedAgentsMemoryStoreResourceType Type`
+    - `JsonElement Type = "memory_store"`
 
     - `required string MemoryStoreID`
 
@@ -1183,7 +1182,7 @@ Delete Session Resource
 
   Confirmation of resource deletion.
 
-  - `required BetaManagedAgentsDeleteSessionResourceType Type`
+  - `JsonElement Type = "session_resource_deleted"`
 
   - `required string ID`
 
@@ -1221,7 +1220,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
   Confirmation of resource deletion.
 
-  - `required BetaManagedAgentsDeleteSessionResourceType Type`
+  - `JsonElement Type = "session_resource_deleted"`
 
   - `required string ID`
 
@@ -1229,7 +1228,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
 - `class BetaManagedAgentsFileResource`
 
-  - `required BetaManagedAgentsFileResourceType Type`
+  - `JsonElement Type = "file"`
 
   - `required string ID`
 
@@ -1253,7 +1252,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
 - `class BetaManagedAgentsGitHubRepositoryResource`
 
-  - `required BetaManagedAgentsGitHubRepositoryResourceType Type`
+  - `JsonElement Type = "github_repository"`
 
   - `required string ID`
 
@@ -1277,7 +1276,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
     - `class BetaManagedAgentsBranchCheckout`
 
-      - `required Type Type`
+      - `JsonElement Type = "branch"`
 
       - `required string Name`
 
@@ -1287,7 +1286,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
     - `class BetaManagedAgentsCommitCheckout`
 
-      - `required Type Type`
+      - `JsonElement Type = "commit"`
 
       - `required string Sha`
 
@@ -1301,7 +1300,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
   A memory store attached to an agent session.
 
-  - `required BetaManagedAgentsMemoryStoreResourceType Type`
+  - `JsonElement Type = "memory_store"`
 
   - `required string MemoryStoreID`
 
@@ -1339,7 +1338,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
   - `class BetaManagedAgentsGitHubRepositoryResource`
 
-    - `required BetaManagedAgentsGitHubRepositoryResourceType Type`
+    - `JsonElement Type = "github_repository"`
 
     - `required string ID`
 
@@ -1363,7 +1362,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
       - `class BetaManagedAgentsBranchCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "branch"`
 
         - `required string Name`
 
@@ -1373,7 +1372,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
       - `class BetaManagedAgentsCommitCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "commit"`
 
         - `required string Sha`
 
@@ -1383,7 +1382,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
   - `class BetaManagedAgentsFileResource`
 
-    - `required BetaManagedAgentsFileResourceType Type`
+    - `JsonElement Type = "file"`
 
     - `required string ID`
 
@@ -1407,7 +1406,7 @@ Console.WriteLine(betaManagedAgentsDeleteSessionResource);
 
     A memory store attached to an agent session.
 
-    - `required BetaManagedAgentsMemoryStoreResourceType Type`
+    - `JsonElement Type = "memory_store"`
 
     - `required string MemoryStoreID`
 

@@ -181,7 +181,7 @@ List Deployment Runs
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
 
-  - `required Type Type`
+  - `JsonElement Type = "deployment_run"`
 
   - `required string ID`
 
@@ -191,7 +191,7 @@ List Deployment Runs
 
     Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
-    - `required Type Type`
+    - `JsonElement Type = "agent"`
 
     - `required string ID`
 
@@ -217,7 +217,7 @@ List Deployment Runs
 
       The deployment's environment was archived.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_archived_error"`
 
       - `required string Message`
 
@@ -227,7 +227,7 @@ List Deployment Runs
 
       The deployment's agent was archived.
 
-      - `required Type Type`
+      - `JsonElement Type = "agent_archived_error"`
 
       - `required string Message`
 
@@ -237,7 +237,7 @@ List Deployment Runs
 
       The deployment's environment no longer exists.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_not_found_error"`
 
       - `required string Message`
 
@@ -247,7 +247,7 @@ List Deployment Runs
 
       A vault referenced by the deployment no longer exists.
 
-      - `required Type Type`
+      - `JsonElement Type = "vault_not_found_error"`
 
       - `required string Message`
 
@@ -257,7 +257,7 @@ List Deployment Runs
 
       A vault referenced by the deployment is archived.
 
-      - `required Type Type`
+      - `JsonElement Type = "vault_archived_error"`
 
       - `required string Message`
 
@@ -267,7 +267,7 @@ List Deployment Runs
 
       A file resource referenced by the deployment no longer exists.
 
-      - `required Type Type`
+      - `JsonElement Type = "file_not_found_error"`
 
       - `required string Message`
 
@@ -277,7 +277,7 @@ List Deployment Runs
 
       A memory store referenced by the deployment is archived.
 
-      - `required Type Type`
+      - `JsonElement Type = "memory_store_archived_error"`
 
       - `required string Message`
 
@@ -287,7 +287,7 @@ List Deployment Runs
 
       A skill referenced by the deployment's agent no longer exists.
 
-      - `required Type Type`
+      - `JsonElement Type = "skill_not_found_error"`
 
       - `required string Message`
 
@@ -297,7 +297,7 @@ List Deployment Runs
 
       A referenced resource no longer exists and its kind was not reported.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_resource_not_found_error"`
 
       - `required string Message`
 
@@ -307,7 +307,7 @@ List Deployment Runs
 
       The deployment's workspace was archived.
 
-      - `required Type Type`
+      - `JsonElement Type = "workspace_archived_error"`
 
       - `required string Message`
 
@@ -317,7 +317,7 @@ List Deployment Runs
 
       The deployment's organization is disabled.
 
-      - `required Type Type`
+      - `JsonElement Type = "organization_disabled_error"`
 
       - `required string Message`
 
@@ -327,7 +327,7 @@ List Deployment Runs
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_rate_limited_error"`
 
       - `required string Message`
 
@@ -337,7 +337,7 @@ List Deployment Runs
 
       The session create request was rejected with a non-retryable validation error.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_creation_rejected_error"`
 
       - `required string Message`
 
@@ -347,7 +347,7 @@ List Deployment Runs
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
-      - `required Type Type`
+      - `JsonElement Type = "unknown_error"`
 
       - `required string Message`
 
@@ -357,7 +357,7 @@ List Deployment Runs
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
-      - `required Type Type`
+      - `JsonElement Type = "self_hosted_resources_unsupported_error"`
 
       - `required string Message`
 
@@ -367,7 +367,7 @@ List Deployment Runs
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_egress_blocked_error"`
 
       - `required string Message`
 
@@ -385,7 +385,7 @@ List Deployment Runs
 
       The run was fired by the deployment's cron schedule.
 
-      - `required Type Type`
+      - `JsonElement Type = "schedule"`
 
       - `required DateTimeOffset ScheduledAt`
 
@@ -397,7 +397,7 @@ List Deployment Runs
 
       The run was started manually by creating a session directly against the deployment.
 
-      - `required Type Type`
+      - `JsonElement Type = "manual"`
 
 ## Example
 

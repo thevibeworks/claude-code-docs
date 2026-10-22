@@ -6,7 +6,7 @@
 
 > Watch short narrated walkthroughs of setting up and running Claude for Government for your agency.
 
-> **Who this is for:** Tenant administrators, organization owners, and IT administrators who set up and run Claude for Government. If you use Claude Desktop but don't administer it, see [Video walkthroughs for Claude Desktop](/docs/government/desktop/video-walkthroughs) instead.
+> **Who this is for:** Tenant administrators, organization owners, and IT administrators who set up and run Claude for Government. If you use Claude Desktop but don't administer it, see [Video walkthroughs for Claude Desktop](/docs/government/desktop/video-walkthroughs.md) instead.
 
 Each video is one to three minutes long and narrated, with on-screen captions.
 
@@ -16,9 +16,11 @@ The videos follow the order of a first setup.
 
 ### Finding your way around
 
-How a tenant, its organizations, and their users fit together, how administrators sign in to the web portal, and how to move between the admin, tenant, and account views. Read more: [The three views](/docs/government/overview#the-three-views).
+How a tenant, its organizations, and their users fit together, how administrators sign in to the web portal, and how to move between the admin, tenant, and account views. Read more: [The three views](/docs/government/overview.md#the-three-views).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-01-finding-your-way-around.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e815e7d6b488de1c9629bfaa2f1354ab" aria-label="Video walkthrough: Finding your way around" />
+
+Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -58,9 +60,11 @@ How a tenant, its organizations, and their users fit together, how administrator
 
 ### Verify your domain and connect single sign-on
 
-Claiming and verifying your agency's email domain, then connecting your identity provider with OIDC or SAML in the setup wizard. Read more: [Step 2: Domains](/docs/government/tenant-admin/setup-wizard#step-2-domains) and [Single sign-on](/docs/government/tenant-admin/identity-and-access#single-sign-on).
+Claiming and verifying your agency's email domain, then connecting your identity provider with OIDC or SAML in the setup wizard. Read more: [Step 2: Domains](/docs/government/tenant-admin/setup-wizard.md#step-2-domains) and [Single sign-on](/docs/government/tenant-admin/identity-and-access.md#single-sign-on).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bf307a4d18d646cbce35d3c269be51b7" aria-label="Video walkthrough: Verify your domain and connect single sign-on" />
+
+Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -92,9 +96,11 @@ Claiming and verifying your agency's email domain, then connecting your identity
 
 ### Organizations, seats, and routing rules
 
-Adding a sign-in routing rule that places new people in the right organization, adding an organization, and giving it seats. Read more: [Routing rules](/docs/government/tenant-admin/identity-and-access#routing-rules).
+Adding a sign-in routing rule that places new people in the right organization, adding an organization, and giving it seats. Read more: [Routing rules](/docs/government/tenant-admin/identity-and-access.md#routing-rules).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
+
+Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -122,9 +128,11 @@ Adding a sign-in routing rule that places new people in the right organization, 
 
 ### Directory sync (SCIM) and group mappings
 
-Connecting SCIM provisioning, routing directory groups to organizations, and mapping groups to seat tiers and roles. Read more: [SCIM provisioning](/docs/government/tenant-admin/identity-and-access#scim-provisioning) and [Group mappings](/docs/government/org-admin/provisioning).
+Connecting SCIM provisioning, routing directory groups to organizations, and mapping groups to seat tiers and roles. Read more: [SCIM provisioning](/docs/government/tenant-admin/identity-and-access.md#scim-provisioning) and [Group mappings](/docs/government/org-admin/provisioning.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e254e02786c5f309b5c5c240c7752c4e" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
+
+Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -150,9 +158,11 @@ Connecting SCIM provisioning, routing directory groups to organizations, and map
 
 ### Users, seat tiers, and Readiness for organization owners
 
-Checking the **Readiness** page, assigning seat tiers and roles on the **Users** page, and reviewing the **Tiers** page. Read more: [Organization administration](/docs/government/org-admin/overview).
+Checking the **Readiness** page, assigning seat tiers and roles on the **Users** page, and reviewing the **Tiers** page. Read more: [Organization administration](/docs/government/org-admin/overview.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=d235ae566a0056c409a1b59b2a9623e7" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
+
+Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -174,9 +184,11 @@ Checking the **Readiness** page, assigning seat tiers and roles on the **Users**
 
 ### Config essentials
 
-Editing settings on the **Config** page for an organization or for one directory group, turning on web search, reviewing the session idle timeout, and locking a value for every organization from the tenant. Read more: [How Config works](/docs/government/config/overview).
+Editing settings on the **Config** page for an organization or for one directory group, turning on web search, reviewing the session idle timeout, and locking a value for every organization from the tenant. Read more: [How Config works](/docs/government/config/overview.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-06-config-essentials.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=8624805f501e6ca7e01e12e6e94602ab" aria-label="Video walkthrough: Config essentials" />
+
+Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -200,9 +212,11 @@ Editing settings on the **Config** page for an organization or for one directory
 
 ### Connectors and plugins
 
-Setting up the Microsoft 365 connector, adding a connector of your own with a tool policy, and adding a plugin. Read more: [Connectors](/docs/government/connectors/overview) and [Manage plugins and connectors](/docs/government/config/plugins-and-connectors).
+Setting up the Microsoft 365 connector, adding a connector of your own with a tool policy, and adding a plugin. Read more: [Connectors](/docs/government/connectors/overview.md) and [Manage plugins and connectors](/docs/government/config/plugins-and-connectors.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-07-connectors-and-plugins.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=43f78d15928eea46d27229f8dbc04db6" aria-label="Video walkthrough: Connectors and plugins" />
+
+Video: Connectors and plugins (2 min 8 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -226,9 +240,11 @@ Setting up the Microsoft 365 connector, adding a connector of your own with a to
 
 ### Pilot Claude Desktop on one machine
 
-Connecting one copy of Claude Desktop to Claude for Government with the bootstrap address, signing in, and exporting the configuration for your fleet. Read more: [Configure a single machine](/docs/government/deploy-desktop/configure#configure-a-single-machine).
+Connecting one copy of Claude Desktop to Claude for Government with the bootstrap address, signing in, and exporting the configuration for your fleet. Read more: [Configure a single machine](/docs/government/deploy-desktop/configure.md#configure-a-single-machine).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-08-pilot-claude-desktop-on-one-machine.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=753d21fb976775a19f3cca9521b738b3" aria-label="Video walkthrough: Pilot Claude Desktop on one machine" />
+
+Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -250,9 +266,11 @@ Connecting one copy of Claude Desktop to Claude for Government with the bootstra
 
 ### Deploy to your fleet
 
-Delivering the bootstrap address and the setting that hides the claude.ai sign-in option as device policy, installing the Windows package, enabling the **Virtual Machine Platform** feature that Cowork needs, allowing network access, and deciding on automatic updates. Read more: [Deploy to your fleet](/docs/government/deploy-desktop/configure#deploy-to-your-fleet).
+Delivering the bootstrap address and the setting that hides the claude.ai sign-in option as device policy, installing the Windows package, enabling the **Virtual Machine Platform** feature that Cowork needs, allowing network access, and deciding on automatic updates. Read more: [Deploy to your fleet](/docs/government/deploy-desktop/configure.md#deploy-to-your-fleet).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-09-deploy-to-your-fleet.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bde163c8a3661fd5393106756950713c" aria-label="Video walkthrough: Deploy to your fleet" />
+
+Video: Deploy to your fleet (1 min 31 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -270,9 +288,11 @@ Delivering the bootstrap address and the setting that hides the claude.ai sign-i
 
 ### Verify a managed device and spot common failures
 
-What a correctly managed device shows, and the usual causes of an empty model picker, a claude.ai sign-in screen, a repeated settings prompt, and an expired session. Read more: [Confirm it worked](/docs/government/deploy-desktop/configure#confirm-it-worked) and [Troubleshooting](/docs/government/deploy-desktop/configure#troubleshooting).
+What a correctly managed device shows, and the usual causes of an empty model picker, a claude.ai sign-in screen, a repeated settings prompt, and an expired session. Read more: [Confirm it worked](/docs/government/deploy-desktop/configure.md#confirm-it-worked) and [Troubleshooting](/docs/government/deploy-desktop/configure.md#troubleshooting).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3a725133f700322bdfcf0d684f9fd1c8" aria-label="Video walkthrough: Verify a managed device and spot common failures" />
+
+Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >

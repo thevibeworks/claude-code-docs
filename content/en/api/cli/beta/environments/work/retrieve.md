@@ -113,7 +113,6 @@ Retrieve detailed information about a specific work item.
 
 ```bash
 ant beta:environments:work retrieve \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```

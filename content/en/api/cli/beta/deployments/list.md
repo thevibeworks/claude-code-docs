@@ -588,8 +588,7 @@ List Deployments
 ## Example
 
 ```bash
-ant beta:deployments list \
-  --api-key my-anthropic-api-key
+ant beta:deployments list
 ```
 
 ### Response (200)

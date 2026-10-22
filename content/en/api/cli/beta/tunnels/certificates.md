@@ -79,7 +79,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 ```bash
 ant beta:tunnels:certificates create \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --ca-certificate-pem ca_certificate_pem
 ```
@@ -170,7 +169,6 @@ Fetches a tunnel certificate by ID.
 
 ```bash
 ant beta:tunnels:certificates retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```
@@ -279,7 +277,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ```bash
 ant beta:tunnels:certificates list \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -374,7 +371,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 ```bash
 ant beta:tunnels:certificates archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```

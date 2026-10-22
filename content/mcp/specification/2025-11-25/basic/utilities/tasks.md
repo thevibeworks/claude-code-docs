@@ -181,7 +181,7 @@ When a receiver accepts a task-augmented request, it returns a [`CreateTaskResul
 >
 > In the Streamable HTTP (SSE) transport, clients **MAY** disconnect from an SSE stream opened by the server in response to a `tasks/get` request at any time.
 >
-> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
+> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](/specification/2025-11-25/basic/transports.md#sending-messages-to-the-server).
 
 Requestors poll for task completion by sending [`tasks/get`](/specification/2025-11-25/schema#tasks%2Fget) requests.
 Requestors **SHOULD** respect the `pollInterval` provided in responses when determining polling frequency.
@@ -225,7 +225,7 @@ Requestors **SHOULD** continue polling until the task reaches a terminal status 
 >
 > In the Streamable HTTP (SSE) transport, clients **MAY** disconnect from an SSE stream opened by the server in response to a `tasks/result` request at any time.
 >
-> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
+> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](/specification/2025-11-25/basic/transports.md#sending-messages-to-the-server).
 
 After a task completes the operation result is retrieved via [`tasks/result`](/specification/2025-11-25/schema#tasks%2Fresult). This is distinct from the initial `CreateTaskResult` response, which contains only task data. The result structure matches the original request type (e.g., `CallToolResult` for `tools/call`).
 
@@ -432,7 +432,7 @@ stateDiagram-v2
 > One possible approach is maintaining an SSE stream on `tasks/result` (see notes on the `input_required` status).
 > Where possible, servers **SHOULD NOT** upgrade to an SSE stream in response to a `tasks/get` request, as the client has indicated it wishes to poll for a result.
 >
-> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
+> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](/specification/2025-11-25/basic/transports.md#sending-messages-to-the-server).
 
 1. When the task receiver has messages for the requestor that are necessary to complete the task, the receiver **SHOULD** move the task to the `input_required` status.
 2. The receiver **MUST** include the `io.modelcontextprotocol/related-task` metadata in the request to associate it with the task.
@@ -470,7 +470,7 @@ stateDiagram-v2
 
 ### Task Progress Notifications
 
-Task-augmented requests support progress notifications as defined in the [progress](./progress) specification. The `progressToken` provided in the initial request remains valid throughout the task lifetime.
+Task-augmented requests support progress notifications as defined in the [progress](/specification/2025-11-25/basic/utilities/progress.md) specification. The `progressToken` provided in the initial request remains valid throughout the task lifetime.
 
 ### Task Listing
 

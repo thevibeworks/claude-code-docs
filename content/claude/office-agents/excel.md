@@ -99,7 +99,7 @@ For environments where "Let users access the Office Store" is disabled,
 deploy using the custom manifest XML file instead. Download the
 [Excel manifest XML file](https://pivot.claude.ai/manifest-excel.xml),
 then follow
-[Deploy with a custom manifest](/docs/office-agents/word#deploy-with-a-custom-manifest)
+[Deploy with a custom manifest](/docs/office-agents/word.md#deploy-with-a-custom-manifest)
 for the upload steps. The flow is identical apart from which manifest
 file you upload in Step 1.
 
@@ -108,7 +108,7 @@ file you upload in Step 1.
 If your organization routes AI traffic through Amazon Bedrock, Google Cloud
 Vertex AI, Azure AI Foundry, or an LLM gateway, your admin can deploy
 the add-in without individual Claude accounts. See
-[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms).
+[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md).
 
 ## Key features
 
@@ -164,7 +164,7 @@ directly.
 
 Claude for Excel supports connectors for pulling external context into
 your workbook, and Skills for applying reusable task recipes. See
-[Connectors and Skills](/docs/office-agents/connectors-and-skills) for
+[Connectors and Skills](/docs/office-agents/connectors-and-skills.md) for
 details.
 
 ## Set persistent instructions
@@ -184,7 +184,7 @@ from Instructions you set in PowerPoint or Word.
 Claude for Excel shares context with Claude for PowerPoint, Word, and
 Outlook, so a single conversation can span your open workbook,
 presentation, document, and inbox. See
-[Work across M365 apps](/docs/office-agents/work-across-apps).
+[Work across M365 apps](/docs/office-agents/work-across-apps.md).
 
 ## Context and session management
 
@@ -212,7 +212,7 @@ for how those settings interact with each product. If you connect
 through Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an
 LLM gateway, the available models come from that platform and your
 admin's configuration instead of your Claude.ai model access settings.
-See [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms)
+See [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md)
 for details.
 
 ## Data handling
@@ -227,7 +227,7 @@ Chat history is stored locally in your browser using IndexedDB.
 Conversations are not stored on Anthropic's servers, are not synced
 across devices, and can be cleared from Settings at any time.
 Reinstalling the add-in or switching between Claude add-ins does not
-remove it. See [Data storage and retention](/docs/office-agents/data-storage)
+remove it. See [Data storage and retention](/docs/office-agents/data-storage.md)
 for where it sits on disk and how long it is kept.
 
 Claude for Excel does not inherit custom data retention settings your

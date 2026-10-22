@@ -28,7 +28,7 @@ model.
 ## Capabilities
 
 Servers that support prompts **MUST** declare the `prompts` capability during
-[initialization](/specification/2024-11-05/basic/lifecycle#initialization):
+[initialization](/specification/2024-11-05/basic/lifecycle.md#initialization):
 
 ```json theme={null}
 {
@@ -49,7 +49,7 @@ available prompts changes.
 
 To retrieve available prompts, clients send a `prompts/list` request. This operation
 supports
-[pagination](/specification/2024-11-05/server/utilities/pagination).
+[pagination](/specification/2024-11-05/server/utilities/pagination.md).
 
 **Request:**
 
@@ -92,7 +92,7 @@ supports
 ### Getting a Prompt
 
 To retrieve a specific prompt, clients send a `prompts/get` request. Arguments may be
-auto-completed through [the completion API](/specification/2024-11-05/server/utilities/completion).
+auto-completed through [the completion API](/specification/2024-11-05/server/utilities/completion.md).
 
 **Request:**
 

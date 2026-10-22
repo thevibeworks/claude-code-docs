@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview.md). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
 
 ```text Prompt wrap theme={null}
 In 1971 the economist Thomas Schelling showed, with chips on a checkerboard, that a city can segregate sharply even when nobody asks for more than an even mix. Recreate the textbook computer version, which segregates at even milder demands. Fill a 50 × 50 grid at random with 1,125 blue and 1,125 orange households, leaving 250 cells empty. A household is content if at least 30 % of its occupied neighboring cells (the 8 around it, fewer at the edges) hold its own color. With 8 occupied neighbors, that means at least 3 of its own color, so it accepts 5 of the other. Each discontent household moves to a random empty cell; repeat until everyone is content. Show the grid before and after and measure the average share of like-colored neighbors: it starts near 50 %. Where does it end? How many points is that above the random board, and how many above the 30 % they asked for?

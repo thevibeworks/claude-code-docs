@@ -90,7 +90,7 @@ memory use.<sup id="cite-ref-3-e">[\[3\]](#cite-note-3)</sup>
 * Close the files you are not working in.
 * For large files, work in one file at a time.
 * When Claude works across Office apps, ask it to finish in one app before it
-  moves to the next. See [Work across M365 apps](/docs/office-agents/work-across-apps).
+  moves to the next. See [Work across M365 apps](/docs/office-agents/work-across-apps.md).
 * If Excel runs out of memory with several workbooks open, open Excel in a new
   instance.<sup id="cite-ref-8-b">[\[8\]](#cite-note-8)</sup>
 
@@ -276,7 +276,7 @@ After you turn on the policy, open this folder:
 
 Claude sends one trace for every user turn, including steps that failed.
 Search your collector for traces at the time of the problem. See
-[Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry).
+[Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry.md).
 
 ## References
 

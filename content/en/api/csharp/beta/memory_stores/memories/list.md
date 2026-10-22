@@ -179,7 +179,7 @@ List Memories
 
     See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#view-and-edit-memories) to learn more about working with memories.
 
-    - `required Type Type`
+    - `JsonElement Type = "memory"`
 
     - `required string ID`
 
@@ -239,7 +239,7 @@ List Memories
 
     It stands for one or more memories whose paths start with `path`. It isn't a stored object and doesn't have an ID. Each marker counts toward the page `limit`.
 
-    - `required Type Type`
+    - `JsonElement Type = "memory_prefix"`
 
     - `required string Path`
 

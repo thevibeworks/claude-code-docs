@@ -22,23 +22,23 @@ Revisions may be marked as:
   receive backwards compatible changes.
 * **Final**: past, complete specifications that will not be changed.
 
-The **current** protocol version is [**2026-07-28**](/specification/2026-07-28/).
+The **current** protocol version is [**2026-07-28**](/specification/2026-07-28.md).
 
 ## Feature States
 
 Individual features of the specification may additionally be marked as
 **Deprecated** under the
-[feature lifecycle and deprecation policy](/community/feature-lifecycle):
+[feature lifecycle and deprecation policy](/community/feature-lifecycle.md):
 the feature remains part of the specification, but is scheduled for removal.
 Deprecated features document a migration path (or state that none is required)
 and remain in the specification for at least twelve months, or at least
 ninety days under the policy's
-[expedited-removal exception](/community/feature-lifecycle#expedited-removal),
+[expedited-removal exception](/community/feature-lifecycle.md#expedited-removal),
 before they become eligible for removal, after which they may be **Removed**
 in a future revision.
 
 Features that are currently Deprecated are listed in the
-[deprecated features registry](/specification/draft/deprecated).
+[deprecated features registry](/specification/draft/deprecated.md).
 
 ## Negotiation
 
@@ -63,4 +63,4 @@ and handle a version error if one comes back.
 
 For interoperability with servers and clients that implement the
 handshake-based protocol revisions (`2025-11-25` and earlier), see
-[Backward Compatibility](/specification/draft/basic/versioning#backward-compatibility-with-initialization-based-versions).
+[Backward Compatibility](/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions).

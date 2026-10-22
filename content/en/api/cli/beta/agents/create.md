@@ -887,7 +887,6 @@ Create Agent
 
 ```bash
 ant beta:agents create \
-  --api-key my-anthropic-api-key \
   --model claude-opus-5-5 \
   --name 'My First Agent'
 ```

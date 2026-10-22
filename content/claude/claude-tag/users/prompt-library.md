@@ -54,7 +54,7 @@ To hand over a discussion too long to forward, paste the thread's link instead:
 @Claude read the thread linked below and take over the fix it describes. Post your plan here before changing anything.
 ```
 
-**Why it works**: Claude works in the thread where you pasted the link, not in the thread you linked, so it uses this channel's connections and this channel can see the result. By asking Claude to post its plan first, you can redirect it before it starts. To read a linked thread in a public channel, Claude must be a member of that channel, and it can read a private channel's threads [only from inside that channel](/docs/claude-tag/users/good-habits#pick-the-right-surface). If Claude says it can't read the link, `/invite @Claude` in the linked public channel, or forward the messages instead.
+**Why it works**: Claude works in the thread where you pasted the link, not in the thread you linked, so it uses this channel's connections and this channel can see the result. By asking Claude to post its plan first, you can redirect it before it starts. To read a linked thread in a public channel, Claude must be a member of that channel, and it can read a private channel's threads [only from inside that channel](/docs/claude-tag/users/good-habits.md#pick-the-right-surface). If Claude says it can't read the link, `/invite @Claude` in the linked public channel, or forward the messages instead.
 
 ## Shape how the channel works
 
@@ -76,7 +76,7 @@ Use the prompts below to set channel-wide behavior that applies to every thread,
 @Claude remember for this channel: treat every top-level post as a task and pick it up without waiting for a mention.
 ```
 
-**Why it works**: Claude already [picks up untagged posts when it judges a reply is warranted](/docs/claude-tag/users/when-claude-responds), and it weighs this channel-memory rule in that judgment, so teammates don't have to remember to tag Claude on posts with a concrete ask. If you don't specify a need, or if a teammate has already claimed the task, Claude may not respond to the message. In [a channel Claude has stopped reading](/docs/claude-tag/users/when-claude-responds#when-claude-stops-reading-a-channel), mention `@Claude` so that it replies and starts reading the channel again.
+**Why it works**: Claude already [picks up untagged posts when it judges a reply is warranted](/docs/claude-tag/users/when-claude-responds.md), and it weighs this channel-memory rule in that judgment, so teammates don't have to remember to tag Claude on posts with a concrete ask. If you don't specify a need, or if a teammate has already claimed the task, Claude may not respond to the message. In [a channel Claude has stopped reading](/docs/claude-tag/users/when-claude-responds.md#when-claude-stops-reading-a-channel), mention `@Claude` so that it replies and starts reading the channel again.
 
 ## Check and correct memory
 
@@ -100,7 +100,7 @@ Use the prompts below to set channel-wide behavior that applies to every thread,
 
 ## Manage routines
 
-Create, audit, and stop the scheduled jobs Claude runs in this channel. For paste-ready schedules by scenario, like a daily standup summary or a weekly digest, see [Routine recipes](/docs/claude-tag/users/proactivity#routine-recipes).
+Create, audit, and stop the scheduled jobs Claude runs in this channel. For paste-ready schedules by scenario, like a daily standup summary or a weekly digest, see [Routine recipes](/docs/claude-tag/users/proactivity.md#routine-recipes).
 
 ```text wrap theme={null}
 @Claude every Friday at 3pm, post a summary of this week's requests: how many, top themes, and anything still unrouted.
@@ -128,7 +128,7 @@ Give Claude a list of independent tasks in a channel thread, and ask it to open 
 @Claude for each of these issues, start a new thread in this channel and fix it there. Open a draft PR in each, and post the links here when the threads are up.
 ```
 
-**Why it works**: each new thread [runs its own session](/docs/claude-tag/users/good-habits#start-a-new-thread-for-a-new-task) in its own sandbox, so the tasks run at the same time and you can review each one on its own. To continue one existing discussion in a new thread instead, use [`!fork`](/docs/claude-tag/users/commands#fork-a-thread).
+**Why it works**: each new thread [runs its own session](/docs/claude-tag/users/good-habits.md#start-a-new-thread-for-a-new-task) in its own sandbox, so the tasks run at the same time and you can review each one on its own. To continue one existing discussion in a new thread instead, use [`!fork`](/docs/claude-tag/users/commands#fork-a-thread).
 
 ## Steer work mid-thread
 
@@ -150,7 +150,7 @@ Change of plan: target the staging config instead, and post the diff here before
 Post the draft to the thread, or commit and push what you have, then keep going.
 ```
 
-**Why it works**: the thread is durable but [the isolated workspace behind it isn't](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies). Anything Claude posts to the thread or pushes to a branch survives idle recycling; files that exist only in that workspace don't.
+**Why it works**: the thread is durable but [the isolated workspace behind it isn't](/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies). Anything Claude posts to the thread or pushes to a branch survives idle recycling; files that exist only in that workspace don't.
 
 ## Task starters, by shape
 
@@ -158,18 +158,18 @@ Each entry in the use case library gets one starter here; the linked page has th
 
 | To do this | Paste this |
 | :- | :- |
-| [Triage requests](/docs/claude-tag/users/use-cases/triage-requests) | "remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary. Track recurring themes." |
-| [Catch up](/docs/claude-tag/users/use-cases/catch-up) | "what got decided in this thread, and what's still open?" |
-| [Create an artifact](/docs/claude-tag/users/use-cases/create-artifacts) | "turn this thread into a one-page decision doc" |
-| [Track a project](/docs/claude-tag/users/use-cases/track-projects) | "where are we on the migration? What's blocked and on whom?" |
-| [Answer a data question](/docs/claude-tag/users/use-cases/answer-data-questions) | "show signup growth by week, and explain the dips discussed above" |
-| [Find an answer in the docs](/docs/claude-tag/users/use-cases/find-answers) | "what's our policy on data retention, and which doc says so?" |
-| [Pull deal state](/docs/claude-tag/users/use-cases/pull-deal-state) | "what's the state of the Acme renewal?" |
-| [Watch monitors](/docs/claude-tag/users/use-cases/watch-monitors) | "every morning at 7, check the dashboards and post one line per service" |
-| [Fix a bug](/docs/claude-tag/users/use-cases/fix-bugs) | "in acme/data-pipeline, reproduce the bug in this thread, fix it, and open a draft PR" |
+| [Triage requests](/docs/claude-tag/users/use-cases/triage-requests.md) | "remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary. Track recurring themes." |
+| [Catch up](/docs/claude-tag/users/use-cases/catch-up.md) | "what got decided in this thread, and what's still open?" |
+| [Create an artifact](/docs/claude-tag/users/use-cases/create-artifacts.md) | "turn this thread into a one-page decision doc" |
+| [Track a project](/docs/claude-tag/users/use-cases/track-projects.md) | "where are we on the migration? What's blocked and on whom?" |
+| [Answer a data question](/docs/claude-tag/users/use-cases/answer-data-questions.md) | "show signup growth by week, and explain the dips discussed above" |
+| [Find an answer in the docs](/docs/claude-tag/users/use-cases/find-answers.md) | "what's our policy on data retention, and which doc says so?" |
+| [Pull deal state](/docs/claude-tag/users/use-cases/pull-deal-state.md) | "what's the state of the Acme renewal?" |
+| [Watch monitors](/docs/claude-tag/users/use-cases/watch-monitors.md) | "every morning at 7, check the dashboards and post one line per service" |
+| [Fix a bug](/docs/claude-tag/users/use-cases/fix-bugs.md) | "in acme/data-pipeline, reproduce the bug in this thread, fix it, and open a draft PR" |
 
 ## Related resources
 
-* [Use case library](/docs/claude-tag/users/use-cases): the full setup behind each starter
-* [Good habits](/docs/claude-tag/users/good-habits): the habits these prompts are built from
-* [Getting started](/docs/claude-tag/users/getting-started): the basics, if you haven't sent a first message yet
+* [Use case library](/docs/claude-tag/users/use-cases.md): the full setup behind each starter
+* [Good habits](/docs/claude-tag/users/good-habits.md): the habits these prompts are built from
+* [Getting started](/docs/claude-tag/users/getting-started.md): the basics, if you haven't sent a first message yet

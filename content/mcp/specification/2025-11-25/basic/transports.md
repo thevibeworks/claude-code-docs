@@ -54,7 +54,7 @@ sequenceDiagram
 > [!NOTE]
 >
 > This replaces the [HTTP+SSE
-> transport](/specification/2024-11-05/basic/transports#http-with-sse) from
+> transport](/specification/2024-11-05/basic/transports.md#http-with-sse) from
 > protocol version 2024-11-05. See the [backwards compatibility](#backwards-compatibility)
 > guide below.
 
@@ -190,7 +190,7 @@ act as a cursor within that particular stream.
 ### Session Management
 
 An MCP "session" consists of logically related interactions between a client and a
-server, beginning with the [initialization phase](/specification/2025-11-25/basic/lifecycle). To support
+server, beginning with the [initialization phase](/specification/2025-11-25/basic/lifecycle.md). To support
 servers which want to establish stateful sessions:
 
 1. A server using the Streamable HTTP transport **MAY** assign a session ID at
@@ -200,7 +200,7 @@ servers which want to establish stateful sessions:
      securely generated UUID, a JWT, or a cryptographic hash).
    * The session ID **MUST** only contain visible ASCII characters (ranging from 0x21 to
      0x7E).
-   * The client **MUST** handle the session ID in a secure manner, see [Session Hijacking mitigations](/specification/2025-11-25/basic/security_best_practices#session-hijacking) for more details.
+   * The client **MUST** handle the session ID in a secure manner, see [Session Hijacking mitigations](/specification/2025-11-25/basic/security_best_practices.md#session-hijacking) for more details.
 2. If an `MCP-Session-Id` is returned by the server during initialization, clients using
    the Streamable HTTP transport **MUST** include it in the `MCP-Session-Id` header on
    all of their subsequent HTTP requests.
@@ -266,7 +266,7 @@ server, allowing the MCP server to respond based on the MCP protocol version.
 For example: `MCP-Protocol-Version: 2025-11-25`
 
 The protocol version sent by the client **SHOULD** be the one [negotiated during
-initialization](/specification/2025-11-25/basic/lifecycle#version-negotiation).
+initialization](/specification/2025-11-25/basic/lifecycle.md#version-negotiation).
 
 For backwards compatibility, if the server does *not* receive an `MCP-Protocol-Version`
 header, and has no other way to identify the version - for example, by relying on the
@@ -279,7 +279,7 @@ If the server receives a request with an invalid or unsupported
 ### Backwards Compatibility
 
 Clients and servers can maintain backwards compatibility with the deprecated [HTTP+SSE
-transport](/specification/2024-11-05/basic/transports#http-with-sse) (from
+transport](/specification/2024-11-05/basic/transports.md#http-with-sse) (from
 protocol version 2024-11-05) as follows:
 
 **Servers** wanting to support older clients should:

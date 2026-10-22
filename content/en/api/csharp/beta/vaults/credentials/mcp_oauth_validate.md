@@ -143,7 +143,7 @@ Validate an MCP OAuth Credential
 
   Result of live-probing a credential against its configured MCP server.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential_validation"`
 
   - `required string CredentialID`
 

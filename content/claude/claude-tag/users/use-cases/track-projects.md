@@ -18,7 +18,7 @@ Each prompt below is a Slack message. You paste it in the project channel, Claud
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -45,7 +45,7 @@ One message sets up a digest that posts every weekday.
 @Claude every weekday at 5pm, post a project digest: what moved today, what's blocked, and what hasn't been touched in three days.
 ```
 
-Name the format in the prompt, like the three sections here, so every digest comes back in the same readable shape. "Hasn't been touched in three days" is a number, so stalled work surfaces itself instead of depending on someone's sense of what counts as stale. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Name the format in the prompt, like the three sections here, so every digest comes back in the same readable shape. "Hasn't been touched in three days" is a number, so stalled work surfaces itself instead of depending on someone's sense of what counts as stale. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ### Chase an approval
 
@@ -55,16 +55,16 @@ A contract sits with legal, a design review has no comments, a pull request wait
 @Claude every weekday, check the design review discussed in this thread. If it's gone two weekdays with no reviewer reply, nudge them here; when an approval lands, post that it's done. Done means approved, not just commented on.
 ```
 
-Define what "done" includes; see [the babysit caution](/docs/claude-tag/users/good-habits#give-every-task-a-definition-of-done).
+Define what "done" includes; see [the babysit caution](/docs/claude-tag/users/good-habits.md#give-every-task-a-definition-of-done).
 
 Code approvals need the code connection. Scheduled follow-ups on repositories use that same GitHub connection, with nothing extra to set up.
 
 ## Related resources
 
-> **[Set up routines](/docs/claude-tag/users/proactivity)**
+> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
 >
 > Schedules and event triggers
 
-> **[Good habits](/docs/claude-tag/users/good-habits)**
+> **[Good habits](/docs/claude-tag/users/good-habits.md)**
 >
 > Definitions of done that close threads

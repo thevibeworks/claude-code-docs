@@ -155,7 +155,6 @@ List Session Resources
 
 ```bash
 ant beta:sessions:resources list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 

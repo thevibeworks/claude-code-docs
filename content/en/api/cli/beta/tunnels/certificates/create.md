@@ -77,7 +77,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 ```bash
 ant beta:tunnels:certificates create \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --ca-certificate-pem ca_certificate_pem
 ```

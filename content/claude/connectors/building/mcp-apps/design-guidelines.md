@@ -10,7 +10,7 @@ MCP Apps are interactive interfaces that appear within Claude's conversational f
 
 > [!NOTE]
 >
-> If you haven't built and connected an MCP App yet, see [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started).
+> If you haven't built and connected an MCP App yet, see [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started.md).
 
 Use the guidelines to [pick a display mode](#display-modes), [adapt to mobile](#mobile-guidelines), match Claude's [visual design](#visual-design) with the host's [style variables](#style-variables), and decide which [interactions](#interaction-patterns) belong in your app and which belong in chat.
 
@@ -291,7 +291,7 @@ Prefer controls with visible options, such as segmented buttons, toggle chips, a
 
 ## Style variables
 
-MCP Apps automatically receive style variables from the host client. Reference these CSS custom properties to create interfaces that feel native to Claude. [Blend your MCP App with Claude's theme](/docs/connectors/building/mcp-apps/transparent-theming) shows how to apply them at runtime.
+MCP Apps automatically receive style variables from the host client. Reference these CSS custom properties to create interfaces that feel native to Claude. [Blend your MCP App with Claude's theme](/docs/connectors/building/mcp-apps/transparent-theming.md) shows how to apply them at runtime.
 
 ### Color tokens
 
@@ -440,6 +440,6 @@ This CSS applies the host tokens to an app container, a card, and a button:
 
 ## Related resources
 
-* [Blend your MCP App with Claude's theme](/docs/connectors/building/mcp-apps/transparent-theming): apply the style variables and keep your background transparent
+* [Blend your MCP App with Claude's theme](/docs/connectors/building/mcp-apps/transparent-theming.md): apply the style variables and keep your background transparent
 * [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): compute the sandbox origin Claude expects for your app
-* [Submit a connector](/docs/connectors/building/submission#carousel-screenshots-for-mcp-apps): screenshot specifications for listing an MCP App in the directory
+* [Submit a connector](/docs/connectors/building/submission.md#carousel-screenshots-for-mcp-apps): screenshot specifications for listing an MCP App in the directory

@@ -8,11 +8,11 @@
 
 The [ext-skills repository](https://github.com/modelcontextprotocol/ext-skills)
 contains the published specification for the official Skills extension
-(`io.modelcontextprotocol/skills`). [SEP-2640](/seps/2640-skills-extension) is Final.
+(`io.modelcontextprotocol/skills`). [SEP-2640](/seps/2640-skills-extension.md) is Final.
 
-The [Skills Over MCP Working Group](/community/working-groups/skills-over-mcp)
+The [Skills Over MCP Working Group](/community/working-groups/skills-over-mcp.md)
 maintains the extension. SDK and host support is still being implemented;
-see the [client support matrix](/extensions/client-matrix) and
+see the [client support matrix](/extensions/client-matrix.md) and
 [implementations list](https://github.com/modelcontextprotocol/ext-skills/blob/main/docs/implementations.md)
 for current coverage.
 
@@ -76,15 +76,15 @@ indicates support without directory reading. Clients issue `skills/list` and
 >
 > These examples use protocol revision `2026-07-28` or later. For brevity, the
 > request examples omit `_meta`. Every request **MUST** include the required
-> [request metadata](/specification/draft/basic/index#_meta).
+> [request metadata](/specification/draft/basic/index.md#_meta).
 
 ## Protocol Messages
 
 ### Listing Skills
 
 To discover available skills, clients send a `skills/list` request. This
-operation supports [pagination](/specification/draft/server/utilities/pagination)
-and [caching](/specification/draft/server/utilities/caching).
+operation supports [pagination](/specification/draft/server/utilities/pagination.md)
+and [caching](/specification/draft/server/utilities/caching.md).
 
 **Request:**
 
@@ -432,10 +432,10 @@ They are handled as described in [Integrity and Verification](#integrity-and-ver
 
 ## Client Support
 
-See the [client matrix](/extensions/client-matrix) for Skills support and links
+See the [client matrix](/extensions/client-matrix.md) for Skills support and links
 to implementation documentation.
 
 ## Specification
 
 The full specification is in the [ext-skills repository](https://github.com/modelcontextprotocol/ext-skills/blob/main/specification/stable/skills.mdx).
-Development is coordinated by the [Skills Over MCP Working Group](/community/working-groups/skills-over-mcp).
+Development is coordinated by the [Skills Over MCP Working Group](/community/working-groups/skills-over-mcp.md).

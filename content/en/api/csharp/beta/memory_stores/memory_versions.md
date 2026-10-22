@@ -199,7 +199,7 @@ List Memory Versions
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#audit-memory-changes) to learn more about memory versions.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_version"`
 
   - `required string ID`
 
@@ -263,7 +263,7 @@ List Memory Versions
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_actor"`
 
       - `required string SessionID`
 
@@ -275,7 +275,7 @@ List Memory Versions
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `required Type Type`
+      - `JsonElement Type = "api_actor"`
 
       - `required string ApiKeyID`
 
@@ -287,7 +287,7 @@ List Memory Versions
 
       A human user, for example acting through the Anthropic Console.
 
-      - `required Type Type`
+      - `JsonElement Type = "user_actor"`
 
       - `required string UserID`
 
@@ -526,7 +526,7 @@ Retrieve a Memory Version
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#audit-memory-changes) to learn more about memory versions.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_version"`
 
   - `required string ID`
 
@@ -590,7 +590,7 @@ Retrieve a Memory Version
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_actor"`
 
       - `required string SessionID`
 
@@ -602,7 +602,7 @@ Retrieve a Memory Version
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `required Type Type`
+      - `JsonElement Type = "api_actor"`
 
       - `required string ApiKeyID`
 
@@ -614,7 +614,7 @@ Retrieve a Memory Version
 
       A human user, for example acting through the Anthropic Console.
 
-      - `required Type Type`
+      - `JsonElement Type = "user_actor"`
 
       - `required string UserID`
 
@@ -841,7 +841,7 @@ Redact a Memory Version
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#audit-memory-changes) to learn more about memory versions.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_version"`
 
   - `required string ID`
 
@@ -905,7 +905,7 @@ Redact a Memory Version
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_actor"`
 
       - `required string SessionID`
 
@@ -917,7 +917,7 @@ Redact a Memory Version
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `required Type Type`
+      - `JsonElement Type = "api_actor"`
 
       - `required string ApiKeyID`
 
@@ -929,7 +929,7 @@ Redact a Memory Version
 
       A human user, for example acting through the Anthropic Console.
 
-      - `required Type Type`
+      - `JsonElement Type = "user_actor"`
 
       - `required string UserID`
 
@@ -1022,7 +1022,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
     An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-    - `required Type Type`
+    - `JsonElement Type = "session_actor"`
 
     - `required string SessionID`
 
@@ -1034,7 +1034,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
     A direct caller of the public API, identified by the API key that authenticated the request.
 
-    - `required Type Type`
+    - `JsonElement Type = "api_actor"`
 
     - `required string ApiKeyID`
 
@@ -1046,7 +1046,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
     A human user, for example acting through the Anthropic Console.
 
-    - `required Type Type`
+    - `JsonElement Type = "user_actor"`
 
     - `required string UserID`
 
@@ -1072,7 +1072,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
   A direct caller of the public API, identified by the API key that authenticated the request.
 
-  - `required Type Type`
+  - `JsonElement Type = "api_actor"`
 
   - `required string ApiKeyID`
 
@@ -1092,7 +1092,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#audit-memory-changes) to learn more about memory versions.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_version"`
 
   - `required string ID`
 
@@ -1156,7 +1156,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_actor"`
 
       - `required string SessionID`
 
@@ -1168,7 +1168,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `required Type Type`
+      - `JsonElement Type = "api_actor"`
 
       - `required string ApiKeyID`
 
@@ -1180,7 +1180,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
       A human user, for example acting through the Anthropic Console.
 
-      - `required Type Type`
+      - `JsonElement Type = "user_actor"`
 
       - `required string UserID`
 
@@ -1258,7 +1258,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
   An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-  - `required Type Type`
+  - `JsonElement Type = "session_actor"`
 
   - `required string SessionID`
 
@@ -1272,7 +1272,7 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
   A human user, for example acting through the Anthropic Console.
 
-  - `required Type Type`
+  - `JsonElement Type = "user_actor"`
 
   - `required string UserID`
 

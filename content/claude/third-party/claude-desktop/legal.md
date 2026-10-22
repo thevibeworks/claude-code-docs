@@ -18,7 +18,7 @@ Claude Desktop on 3P routes model inference through the provider you configure (
 
 ### Enterprise Admin Console for Desktop 3P
 
-If your organization manages Claude Desktop on 3P from the [Enterprise Admin Console for Desktop 3P](/docs/third-party/claude-desktop/admin-console) (**Organization settings** on claude.ai), rather than authoring the configuration in MDM or hosting your own bootstrap server, Anthropic hosts that console. Your use of the Enterprise Admin Console for Desktop 3P is subject to Anthropic's [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms). When you access Claude through a third-party provider (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or a compatible gateway), the Commercial Terms apply only to your use of the Enterprise Admin Console, unless we've mutually agreed otherwise.
+If your organization manages Claude Desktop on 3P from the [Enterprise Admin Console for Desktop 3P](/docs/third-party/claude-desktop/admin-console.md) (**Organization settings** on claude.ai), rather than authoring the configuration in MDM or hosting your own bootstrap server, Anthropic hosts that console. Your use of the Enterprise Admin Console for Desktop 3P is subject to Anthropic's [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms). When you access Claude through a third-party provider (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or a compatible gateway), the Commercial Terms apply only to your use of the Enterprise Admin Console, unless we've mutually agreed otherwise.
 
 ## Compliance
 
@@ -30,11 +30,11 @@ Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure a
 
 Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
-See the [Overview](/docs/third-party/claude-desktop/overview) for the architecture and [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider) for each provider's data path.
+See the [Overview](/docs/third-party/claude-desktop/overview.md) for the architecture and [Data handling by provider](/docs/third-party/claude-desktop/overview.md#data-handling-by-provider) for each provider's data path.
 
 For Anthropic's certifications and compliance reports, see the [Anthropic Trust Center](https://trust.anthropic.com).
 
-For HIPAA, see [HIPAA](/docs/third-party/claude-desktop/overview#hipaa) on the Overview page. For Google Cloud's Agent Platform and Amazon Bedrock, Anthropic does not interact with PHI; the BAA relationship is between you and your cloud service provider, and any remote MCP servers you connect need your own HIPAA review. Anthropic's API accessed through Microsoft Foundry (Hosted on Anthropic or Hosted on Azure) is an Eligible Service, as long as you have the HIPAA configuration enabled. Either option requires a BAA with Anthropic. See our [Trust Center](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6\&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide) for more detail on implementation.
+For HIPAA, see [HIPAA](/docs/third-party/claude-desktop/overview.md#hipaa) on the Overview page. For Google Cloud's Agent Platform and Amazon Bedrock, Anthropic does not interact with PHI; the BAA relationship is between you and your cloud service provider, and any remote MCP servers you connect need your own HIPAA review. Anthropic's API accessed through Microsoft Foundry (Hosted on Anthropic or Hosted on Azure) is an Eligible Service, as long as you have the HIPAA configuration enabled. Either option requires a BAA with Anthropic. See our [Trust Center](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6\&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide) for more detail on implementation.
 
 ## Usage policy
 
@@ -42,9 +42,9 @@ Use of Claude models, including via Claude Desktop on 3P, is subject to the [Ant
 
 ## Privacy and telemetry
 
-The Claude Desktop application sends operational telemetry (crash reports and product analytics) to Anthropic by default. This telemetry contains no prompt or response content. You can fully disable it through managed configuration, or from the console for an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console). See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for what each category contains and how to disable it.
+The Claude Desktop application sends operational telemetry (crash reports and product analytics) to Anthropic by default. This telemetry contains no prompt or response content. You can fully disable it through managed configuration, or from the console for an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md). See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md) for what each category contains and how to disable it.
 
-An organization managed from the Enterprise Admin Console can also turn on usage analytics. Users' apps then report session, token, and estimated-cost counts to Anthropic, and the organization's administrators can see each user's sessions, tokens, and estimated cost. The reports contain no prompt, response, or file content. [Usage analytics](/docs/third-party/claude-desktop/admin-console#usage-analytics) lists who can see the counts and exactly what each report contains.
+An organization managed from the Enterprise Admin Console can also turn on usage analytics. Users' apps then report session, token, and estimated-cost counts to Anthropic, and the organization's administrators can see each user's sessions, tokens, and estimated cost. The reports contain no prompt, response, or file content. [Usage analytics](/docs/third-party/claude-desktop/admin-console.md#usage-analytics) lists who can see the counts and exactly what each report contains.
 
 Anthropic's [Privacy Policy](https://www.anthropic.com/legal/privacy) describes how Anthropic handles data it receives.
 

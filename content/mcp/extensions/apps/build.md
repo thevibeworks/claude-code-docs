@@ -9,8 +9,8 @@
 ## Prerequisites
 
 You'll need [Node.js](https://nodejs.org/en/download) 18 or higher. Familiarity
-with [MCP tools](/specification/latest/server/tools) and
-[resources](/specification/latest/server/resources) is recommended since MCP
+with [MCP tools](/specification/latest/server/tools.md) and
+[resources](/specification/latest/server/resources.md) is recommended since MCP
 Apps combine both primitives. Experience with the
 [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 will help you better understand the server-side patterns.
@@ -102,6 +102,8 @@ The agent will recognize the `create-mcp-app` skill is relevant, load its instru
 
 ![Creating a new MCP App with Claude Code](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/create-mcp-app-skill.gif?s=6c3a3b8a7590b5e97b5c3d8480a9ab12)
 
+Creating a new MCP App with Claude Code
+
 **3. Run your app**
 
 ```bash macOS/Linux theme={null}
@@ -121,6 +123,8 @@ npm install; npm run build; npm run serve
 Follow the instructions in [Testing your app](#testing-your-app) below. For the color picker example, start a new chat and ask Claude to provide you a color picker.
 
 ![Testing the color picker in Claude](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/test-color-picker.gif?s=09413b99bc31d7edc7f9aa22df4faa6a)
+
+Testing the color picker in Claude
 
 ### Manual setup
 
@@ -430,6 +434,8 @@ finally **Add custom connector**.
 
 ![Adding a custom connector in Claude](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/add-custom-connector.gif?s=c4ec0750413ff7575c7f9492e2713212)
 
+Adding a custom connector in Claude
+
 ### Testing with the basic-host
 
 The `ext-apps` repository includes a test host for development. Clone the repo and
@@ -465,6 +471,8 @@ resource and renders it in a sandboxed iframe. You can then interact with your
 app and verify that tool calls work correctly.
 
 ![Example of the QR code MCP App running with the basic host](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/qr-code-server.gif?s=48a3b47239b8394017c0949162d63de9)
+
+Testing the QR code MCP App with the basic host
 
 ## Learn more
 

@@ -103,7 +103,6 @@ Upload File
 
 ```bash
 ant beta:files upload \
-  --api-key my-anthropic-api-key \
   --file 'Example data'
 ```
 
@@ -239,8 +238,7 @@ List Files
 ### Example
 
 ```bash
-ant beta:files list \
-  --api-key my-anthropic-api-key
+ant beta:files list
 ```
 
 #### Response (200)
@@ -299,7 +297,6 @@ Download File
 
 ```bash
 ant beta:files download \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 
@@ -393,7 +390,6 @@ Get File Metadata
 
 ```bash
 ant beta:files retrieve-metadata \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 
@@ -458,7 +454,6 @@ Delete File
 
 ```bash
 ant beta:files delete \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 

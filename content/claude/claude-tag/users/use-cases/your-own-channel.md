@@ -16,14 +16,14 @@ A channel with just you and Claude in it works the same way any other channel do
 
 A one-to-one DM is the other place to work alone with Claude, and the two surfaces run on different accounts. A DM session runs with your own claude.ai connectors, the work is attributed to you (pull requests excepted; the Claude GitHub App authors those), and usage bills to your seat. What Claude does there sits outside channel and workspace memory.
 
-Your own channel runs with the connections an admin set for it, usage bills to the organization, and what Claude learns there accumulates as [channel memory](/docs/claude-tag/users/memory) that later threads build on. [Routines](/docs/claude-tag/users/proactivity) can post there on a schedule. When scratch work turns into a team task, the thread is ready to [hand to a teammate](#hand-a-thread-to-a-teammate).
+Your own channel runs with the connections an admin set for it, usage bills to the organization, and what Claude learns there accumulates as [channel memory](/docs/claude-tag/users/memory.md) that later threads build on. [Routines](/docs/claude-tag/users/proactivity.md) can post there on a schedule. When scratch work turns into a team task, the thread is ready to [hand to a teammate](#hand-a-thread-to-a-teammate).
 
-Pick a DM for personal tasks on your own connections, or for data that shouldn't run through a shared channel connection. Pick your own channel for standing work, and for anything you might later hand off or show someone. [Pick the right surface](/docs/claude-tag/users/good-habits#pick-the-right-surface) compares both against a team channel.
+Pick a DM for personal tasks on your own connections, or for data that shouldn't run through a shared channel connection. Pick your own channel for standing work, and for anything you might later hand off or show someone. [Pick the right surface](/docs/claude-tag/users/good-habits.md#pick-the-right-surface) compares both against a team channel.
 
 ## Set up the channel
 
-1. Create a Slack channel and add Claude with `/invite @Claude`. Make the channel public unless the work needs to be private, so teammates can find and join the work. Either way, the channel keeps its own [memory](/docs/claude-tag/users/memory).
-2. Ask `@Claude what can you access from this channel?`. None of the prompts below require a connection, and an admin can [add a connection](/docs/claude-tag/admins/add-connections) your work needs, like the issue tracker or GitHub.
+1. Create a Slack channel and add Claude with `/invite @Claude`. Make the channel public unless the work needs to be private, so teammates can find and join the work. Either way, the channel keeps its own [memory](/docs/claude-tag/users/memory.md).
+2. Ask `@Claude what can you access from this channel?`. None of the prompts below require a connection, and an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) your work needs, like the issue tracker or GitHub.
 3. Tell Claude how the channel should behave and ask it to remember, as in `@Claude remember for this channel: keep replies short, and format digests as tables`. Later sessions in the channel start from what you saved.
 
 ## Prompts to paste
@@ -58,7 +58,7 @@ Open threads pile up here the way they do in any project channel. A scheduled di
 @Claude every Friday at 3pm Pacific, post a digest of this channel: what closed this week, what's still open, and what hasn't moved in five days. Skip anything with a ✅ reaction.
 ```
 
-Give the digest a concrete threshold, like five days without movement, and stalled work shows up without you asking for it. React ✅ to anything you consider done, and the digest drops it. Include the timezone in the message, since schedules run in UTC. To list, edit, or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Give the digest a concrete threshold, like five days without movement, and stalled work shows up without you asking for it. React ✅ to anything you consider done, and the digest drops it. Include the timezone in the message, since schedules run in UTC. To list, edit, or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ### Hand a thread to a teammate
 
@@ -76,7 +76,7 @@ If the work belongs in a team channel rather than yours, fork the thread there i
 @Claude !fork #export-team summarize the export-flow bug for the team: what's been tried, what's decided, and what's still open.
 ```
 
-The target must be a public channel that both you and Claude are in, and your own channel must be public for the fork to run. See [Fork a thread](/docs/claude-tag/users/commands#fork-a-thread).
+The target must be a public channel that both you and Claude are in, and your own channel must be public for the fork to run. See [Fork a thread](/docs/claude-tag/users/commands.md#fork-a-thread).
 
 ### Chase your open follow-ups
 
@@ -98,9 +98,9 @@ Your channel can cover for you while you're out. Before you leave, post one hand
 @Claude I'm out next week and Marta is covering. Where things stand: the billing migration is waiting on legal, the dashboard rebuild is paused until the design review closes, and the onboarding runbook is pinned in this channel. Leave the pricing config alone until I'm back. While I'm out, when anyone asks here, answer from this message and the channel's history. Pause this channel's scheduled posts until I say I'm back.
 ```
 
-While you're out, a teammate who needs to know where a piece of work stands, or who owns it, tags `@Claude` in your channel and gets the answer from the pinned handoff message, the channel's history, and [channel memory](/docs/claude-tag/users/memory). If you set a Slack status or an out-of-office reply, point people to this channel in it.
+While you're out, a teammate who needs to know where a piece of work stands, or who owns it, tags `@Claude` in your channel and gets the answer from the pinned handoff message, the channel's history, and [channel memory](/docs/claude-tag/users/memory.md). If you set a Slack status or an out-of-office reply, point people to this channel in it.
 
-The pause covers this channel's own routines, like the Friday digest and the Monday sweep this page sets up, so scheduled posts stop piling up unread. Anyone in the channel can [list, edit, or disable its standing work](/docs/claude-tag/users/proactivity#manage-standing-work), so a teammate can turn a routine back on early if the coverage needs it.
+The pause covers this channel's own routines, like the Friday digest and the Monday sweep this page sets up, so scheduled posts stop piling up unread. Anyone in the channel can [list, edit, or disable its standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work), so a teammate can turn a routine back on early if the coverage needs it.
 
 On your first morning back, ask Claude to catch you up.
 
@@ -112,10 +112,10 @@ The reply is one list of everything that happened here while you were away, orde
 
 ## Related resources
 
-> **[Set up routines](/docs/claude-tag/users/proactivity)**
+> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
 >
 > List, edit, or disable the standing work this page sets up
 
-> **[Good habits](/docs/claude-tag/users/good-habits)**
+> **[Good habits](/docs/claude-tag/users/good-habits.md)**
 >
 > Pick the right surface and write tasks that close

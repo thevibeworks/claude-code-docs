@@ -181,7 +181,6 @@ Create a new environment with the specified configuration.
 
 ```bash
 ant beta:environments create \
-  --api-key my-anthropic-api-key \
   --name python-data-analysis
 ```
 

@@ -43,7 +43,7 @@ The setup component authenticates to the Tunnels API with the key in `API_TOKEN`
 
 ### Setup fails with `Organization already has the maximum of 10 non-archived Tunnels`
 
-Each organization can have at most 10 tunnels that are not archived, and every setup run with an empty `tunnel.id` (Helm) or no `--tunnel-id` (Docker Compose) creates a new one. Archive tunnels you no longer use, as described in [Remove a tunnel](/docs/connectors/mcp-tunnels/setup#remove-a-tunnel), then run setup again. To attach a new deployment to an existing tunnel instead of creating one, set `tunnel.id` in `values.yaml` or pass `--tunnel-id` to the setup command.
+Each organization can have at most 10 tunnels that are not archived, and every setup run with an empty `tunnel.id` (Helm) or no `--tunnel-id` (Docker Compose) creates a new one. Archive tunnels you no longer use, as described in [Remove a tunnel](/docs/connectors/mcp-tunnels/setup.md#remove-a-tunnel), then run setup again. To attach a new deployment to an existing tunnel instead of creating one, set `tunnel.id` in `values.yaml` or pass `--tunnel-id` to the setup command.
 
 ### Helm install fails with a hook error
 
@@ -98,7 +98,7 @@ A route value includes a path or omits the port. Each upstream must be exactly `
 
 ### Proxy logs `tls handshake failed`
 
-Anthropic rejected the certificate the proxy presented. Check that the server certificate has not passed its 90-day validity, that its Subject Alternative Name covers `*.<your-tunnel-domain>`, and that it was signed by the CA the setup component registered for this tunnel. On Docker Compose, also confirm the files in `data/` are readable by user ID `65532`. To renew an expired certificate, see [Rotate credentials](/docs/connectors/mcp-tunnels/setup#rotate-credentials).
+Anthropic rejected the certificate the proxy presented. Check that the server certificate has not passed its 90-day validity, that its Subject Alternative Name covers `*.<your-tunnel-domain>`, and that it was signed by the CA the setup component registered for this tunnel. On Docker Compose, also confirm the files in `data/` are readable by user ID `65532`. To renew an expired certificate, see [Rotate credentials](/docs/connectors/mcp-tunnels/setup.md#rotate-credentials).
 
 ## Connectors and tools
 
@@ -108,7 +108,7 @@ Work through these checks in order.
 
 **1. Confirm the stack is connected**
 
-Confirm the stack is connected, using the log checks in [Verify the connection](/docs/connectors/mcp-tunnels/setup#verify-the-connection).
+Confirm the stack is connected, using the log checks in [Verify the connection](/docs/connectors/mcp-tunnels/setup.md#verify-the-connection).
 
 **2. Confirm the tunnel's organization**
 
@@ -124,11 +124,11 @@ Watch the proxy logs while you retry. `no route for host` and `IP validation fai
 
 ## OAuth sign-in
 
-See [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth) for how the sign-in flow splits between the member's browser and Claude's servers.
+See [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth.md) for how the sign-in flow splits between the member's browser and Claude's servers.
 
 ### Sign-in redirects to a tunnel address that does not load
 
-The authorization server's metadata advertises an authorization endpoint on the `tunnel.anthropic.com` hostname or an internal hostname, and the member's browser can't load it. Turn on **Tunnel OAuth configuration** for the connector and set **Authorization endpoint** to the sign-in URL members' browsers can reach, or publish split metadata from the authorization server. Both are described on the [OAuth page](/docs/connectors/mcp-tunnels/oauth#set-the-tunnel-oauth-configuration).
+The authorization server's metadata advertises an authorization endpoint on the `tunnel.anthropic.com` hostname or an internal hostname, and the member's browser can't load it. Turn on **Tunnel OAuth configuration** for the connector and set **Authorization endpoint** to the sign-in URL members' browsers can reach, or publish split metadata from the authorization server. Both are described on the [OAuth page](/docs/connectors/mcp-tunnels/oauth.md#set-the-tunnel-oauth-configuration).
 
 ### Sign-in succeeds in the browser but the connector never connects
 
@@ -136,7 +136,7 @@ Claude could not complete the token exchange, usually because the token endpoint
 
 ### The Token endpoint field rejects the URL
 
-**Token endpoint** and **Registration endpoint** accept an `https://` URL that is either under `tunnel.anthropic.com` or on the same origin (scheme, host, and port) as the **Authorization endpoint**. Any other URL is rejected, because Claude sends the token exchange and the client credentials to it. Add a route for your authorization server as shown in [Route the authorization server through the tunnel](/docs/connectors/mcp-tunnels/oauth#route-the-authorization-server-through-the-tunnel) and enter the resulting tunnel URL. The **Authorization endpoint** field has no such restriction, because browsers load it directly.
+**Token endpoint** and **Registration endpoint** accept an `https://` URL that is either under `tunnel.anthropic.com` or on the same origin (scheme, host, and port) as the **Authorization endpoint**. Any other URL is rejected, because Claude sends the token exchange and the client credentials to it. Add a route for your authorization server as shown in [Route the authorization server through the tunnel](/docs/connectors/mcp-tunnels/oauth.md#route-the-authorization-server-through-the-tunnel) and enter the resulting tunnel URL. The **Authorization endpoint** field has no such restriction, because browsers load it directly.
 
 ### The Tunnel OAuth configuration toggle is missing
 
@@ -148,6 +148,6 @@ If these steps don't resolve the problem, contact your Anthropic account team wi
 
 ## Related resources
 
-* [Set up an MCP tunnel](/docs/connectors/mcp-tunnels/setup): the deployment, verification, and credential rotation steps
-* [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth): the Tunnel OAuth configuration fields and the split-metadata alternative
+* [Set up an MCP tunnel](/docs/connectors/mcp-tunnels/setup.md): the deployment, verification, and credential rotation steps
+* [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth.md): the Tunnel OAuth configuration fields and the split-metadata alternative
 * [MCP tunnels reference](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference): proxy configuration fields, certificate requirements, and the setup component

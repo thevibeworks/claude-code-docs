@@ -139,7 +139,7 @@ Create Enrollment URL
 
   A URL to give to the entity that a user profile represents, so that the entity can enroll in a program.
 
-  - `Type BetaUserProfileEnrollmentURLType`
+  - `Type EnrollmentURL`
 
     Object type. Always `enrollment_url`.
 
@@ -162,8 +162,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {

@@ -79,7 +79,6 @@ Create Skill Version
 
 ```bash
 ant beta:skills:versions create \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --file 'Example data'
 ```

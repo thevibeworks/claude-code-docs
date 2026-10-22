@@ -14,7 +14,7 @@ If your organization already used the earlier Claude in Slack, including [Claude
 
 > [!NOTE]
 >
-> If your Team plan organization has the single [**Respond in channels** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan), it has no **Claude Tag version** controls and there is nothing to migrate.
+> If your Team plan organization has the single [**Respond in channels** switch](/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-on-the-team-plan), it has no **Claude Tag version** controls and there is nothing to migrate.
 
 ## Switch your workspace to Claude Tag
 
@@ -32,23 +32,23 @@ Pairing defaults every workspace and channel to **New**, so this is usually quic
 
 **3. Give Claude its connections**
 
-The New version starts with no access of its own. GitHub repositories and other connections do not carry over from individual users' linked accounts, so code requests in a switched channel have nothing to clone until you configure them. Follow the [setup overview](/docs/claude-tag/admins/setup-overview) to add connections, and [GitHub access](/docs/claude-tag/admins/configure-github) for code work specifically.
+The New version starts with no access of its own. GitHub repositories and other connections do not carry over from individual users' linked accounts, so code requests in a switched channel have nothing to clone until you configure them. Follow the [setup overview](/docs/claude-tag/admins/setup-overview) to add connections, and [GitHub access](/docs/claude-tag/admins/configure-github.md) for code work specifically.
 
-If your teams keep custom skills in a repository's `.claude/skills/` folder, those skills apply only in threads that have the repository. Add the repository to a [bundle](/docs/claude-tag/concepts/glossary#access-bundle) that applies to the channel, and have users name it in the first message. To give skills to every channel in a workspace or in all of Slack, add them through a [skills repository](/docs/claude-tag/admins/skills-repo).
+If your teams keep custom skills in a repository's `.claude/skills/` folder, those skills apply only in threads that have the repository. Add the repository to a [bundle](/docs/claude-tag/concepts/glossary.md#access-bundle) that applies to the channel, and have users name it in the first message. To give skills to every channel in a workspace or in all of Slack, add them through a [skills repository](/docs/claude-tag/admins/skills-repo.md).
 
 **4. Tell your users**
 
-Send them [Get started](/docs/claude-tag/users/getting-started). The visible change is that work now belongs to the channel; see [What existing users notice after the switch](#what-existing-users-notice-after-the-switch) below.
+Send them [Get started](/docs/claude-tag/users/getting-started.md). The visible change is that work now belongs to the channel; see [What existing users notice after the switch](#what-existing-users-notice-after-the-switch) below.
 
 **You'll see:** the workspace under **Connected workspaces** on the **Slack** page, **New** as the **Slack** page's **Claude Tag version**, and no row on the **Channels** tab showing **legacy Claude in Slack**.
 
 ### If `@Claude` doesn't respond at all
 
-On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace and [pair the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) with the new code.
+On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting.md#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace and [pair the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) with the new code.
 
 > [!WARNING]
 >
-> Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy** in admin settings, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro and Max users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](/docs/claude-tag/admins/troubleshooting#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.
+> Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy** in admin settings, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro and Max users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](/docs/claude-tag/admins/troubleshooting.md#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.
 
 ## What stays the same
 
@@ -68,7 +68,7 @@ The earlier app linked each user's own claude.ai account, so it answered as that
 | Standing work | None | Routines and channel watching |
 | Who sets it up | Each user, individually | An Owner, once |
 
-The **Claude Tag version** setting on each workspace's and channel's page chooses whether the New or Legacy version answers there, and the page's enable switch turns both off. In a paired workspace, Legacy no longer answers in channels. Bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for both controls and where to set them.
+The **Claude Tag version** setting on each workspace's and channel's page chooses whether the New or Legacy version answers there, and the page's enable switch turns both off. In a paired workspace, Legacy no longer answers in channels. Bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for both controls and where to set them.
 
 ## Two versions of the same Slack app
 
@@ -80,10 +80,10 @@ To tell which version answered in a channel, look at who authored the work. The 
 
 In channels, the visible difference is that work belongs to the channel, not to whoever asked. Anyone can reply in a thread to steer it, and the result stays where the team can see and pick it up. Code work is authored by the Claude GitHub App rather than as the requesting user.
 
-A user who never linked a claude.ai account can now hand Claude work in channels, by default. Whether that stays open or narrows to organization members is the admin's [access restriction](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude) setting.
+A user who never linked a claude.ai account can now hand Claude work in channels, by default. Whether that stays open or narrows to organization members is the admin's [access restriction](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude) setting.
 
 ## Related resources
 
-* [Glossary: the earlier Claude in Slack](/docs/claude-tag/concepts/glossary#the-earlier-claude-in-slack): what each term meant in the old app versus now
+* [Glossary: the earlier Claude in Slack](/docs/claude-tag/concepts/glossary.md#the-earlier-claude-in-slack): what each term meant in the old app versus now
 * [Set up Claude Tag](/docs/claude-tag/admins/setup-overview): the new admin-side setup, since per-user setup no longer applies
-* [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access): limit Claude to specific channels, for example during a pilot
+* [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access.md): limit Claude to specific channels, for example during a pilot

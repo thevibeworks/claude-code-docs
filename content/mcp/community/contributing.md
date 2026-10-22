@@ -16,7 +16,7 @@ community. This guide walks you through everything you need to get started.
 You don't need to have a change ready to get involved. Join the
 [MCP Contributor Discord](https://discord.gg/6CSzBmMkjX) to connect with contributors and
 maintainers, ask questions, and find out where help is needed. See the
-[Contributor Communication](/community/communication) guide for all channels - including
+[Contributor Communication](/community/communication.md) guide for all channels - including
 [live calls](https://meet.modelcontextprotocol.io/) and GitHub Discussions - and when to use
 each one, or jump to [Getting Help](#getting-help) below.
 
@@ -66,16 +66,16 @@ a few notable sub-projects worth checking out:
 
 Throughout this guide, **specification repository** refers to
 `modelcontextprotocol/modelcontextprotocol`, which contains the protocol spec, this documentation
-site, and [Spec Enhancement Proposals (SEPs)](/community/sep-guidelines).
+site, and [Spec Enhancement Proposals (SEPs)](/community/sep-guidelines.md).
 
 ### Project Roles
 
-MCP follows a [governance model](/community/governance) with different levels of responsibility:
+MCP follows a [governance model](/community/governance.md) with different levels of responsibility:
 
 * **Contributors** - Anyone who files issues, submits PRs, or participates in discussions (that's
   you!)
 * **Maintainers** - Steward specific areas like SDKs, documentation, or
-  [Working Groups](/community/working-interest-groups)
+  [Working Groups](/community/working-interest-groups.md)
 * **Core Maintainers** - Guide overall project direction, review SEPs, and oversee the specification
 
 You can find the current list of maintainers in the
@@ -226,7 +226,7 @@ Different contributions follow different processes depending on their scope.
 > [!TIP]
 >
 > Not sure which category your change falls into? Ask in the [MCP Contributor
-> Discord](/community/communication#discord) before starting any significant
+> Discord](/community/communication.md#discord) before starting any significant
 > work.
 
 ### Small Changes (Direct PR)
@@ -242,7 +242,7 @@ Simply submit a pull request directly to the repo for:
 ### Major Changes (SEP Required)
 
 Anything that changes the MCP specification requires following the
-[Specification Enhancement Proposal (SEP)](/community/sep-guidelines) process. This includes, but
+[Specification Enhancement Proposal (SEP)](/community/sep-guidelines.md) process. This includes, but
 is not limited to:
 
 * New protocol features or API methods
@@ -329,12 +329,12 @@ This validates formatting, broken links, and other common issues.
 
 ### Major Protocol Changes
 
-For significant changes, follow the [SEP process](/community/sep-guidelines). Prior to spending a
+For significant changes, follow the [SEP process](/community/sep-guidelines.md). Prior to spending a
 lot of time on a spec proposal, make sure to follow these best practices.
 
 **1. Validate your idea first**
 
-Discuss in an [Interest Group](/community/working-interest-groups) or on
+Discuss in an [Interest Group](/community/working-interest-groups.md) or on
 [Discord](https://discord.gg/6CSzBmMkjX).
 
 **2. Build a prototype**
@@ -350,7 +350,7 @@ SEPs](#finding-a-sponsor-for-seps) below.
 
 **4. Write the SEP**
 
-Follow the [SEP Guidelines](/community/sep-guidelines).
+Follow the [SEP Guidelines](/community/sep-guidelines.md).
 
 ### Finding a Sponsor for SEPs
 
@@ -455,7 +455,7 @@ prevents regressions.
 
 Got questions or need guidance? The MCP community is here to help.
 
-* **[Discord](/community/communication#discord)** - Real-time discussion with contributors and
+* **[Discord](/community/communication.md#discord)** - Real-time discussion with contributors and
   maintainers, focused on MCP contributions (not general MCP support)
 * **[GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions)**
   \- Exploration and conversation: **feature requests**, questions, roadmap planning, and proposals
@@ -466,10 +466,10 @@ Got questions or need guidance? The MCP community is here to help.
 
 This separation helps maintainers focus on work that's ready for implementation while giving ideas
 room to develop. If you're unsure whether something is ready to be an issue, start with a
-discussion. For a complete guide, see our [Contributor Communication](/community/communication)
+discussion. For a complete guide, see our [Contributor Communication](/community/communication.md)
 documentation.
 
-For protocol discussions, join [Working Group](/community/working-interest-groups) channels like
+For protocol discussions, join [Working Group](/community/working-interest-groups.md) channels like
 `#auth-wg` or `#server-identity-wg`. For SDK help, find your language's channel (e.g.,
 `#typescript-sdk-dev`).
 
@@ -477,7 +477,7 @@ For protocol discussions, join [Working Group](/community/working-interest-group
 
 Sometimes things don't go as planned - that's completely normal! Here are solutions to common
 issues. If you're still stuck, don't hesitate to ask for help in
-[Discord](/community/communication#discord). The community is friendly and happy to help you get
+[Discord](/community/communication.md#discord). The community is friendly and happy to help you get
 unstuck.
 
 ### `npm run check` fails
@@ -529,12 +529,12 @@ and documentation.
 Building your own MCP servers, clients, or tools is **not** covered here. For guidance on building
 with MCP, see our documentation:
 
-* [Build a Server](/docs/develop/build-server)
-* [Build a Client](/docs/develop/build-client)
-* [Example Servers](/examples)
+* [Build a Server](/docs/develop/build-server.md)
+* [Build a Client](/docs/develop/build-client.md)
+* [Example Servers](/examples.md)
 
 If you build something you'd like to share with the community, you can submit it to the
-[MCP Registry](/registry/about).
+[MCP Registry](/registry/about.md).
 
 ## AI Contributions
 

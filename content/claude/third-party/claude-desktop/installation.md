@@ -23,9 +23,9 @@ On Windows, Cowork requires the `.msix` package: fleets provisioned with the leg
 Check these on Windows devices before rollout:
 
 * **Log on as a service**: Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace).
-* **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](/docs/third-party/claude-desktop/extensions#hooks-on-windows-devices-without-git-for-windows).
+* **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](/docs/third-party/claude-desktop/extensions.md#hooks-on-windows-devices-without-git-for-windows).
 
-With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a message sent from the home screen starts a Cowork session on a device that can run Cowork, and a Chat conversation on a device that can't.
+With [Unified Claude](/docs/third-party/claude-desktop/unified-claude.md) on, a message sent from the home screen starts a Cowork session on a device that can run Cowork, and a Chat conversation on a device that can't.
 
 ## Check device readiness
 
@@ -67,17 +67,17 @@ Choose the Enterprise Admin Console when you want to manage the configuration ce
 
 Choose an MDM profile when one configuration, or a few group-scoped profiles, covers your fleet and no device should depend on a sign-in to Anthropic. Most MDMs support role-based distribution, so per-group configuration doesn't require a bootstrap server.
 
-Building the configuration in the app is optional. The [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) can also export schema-only templates (an ADMX template for Windows, a Profile Manifest `.plist` for macOS) from its **Export** menu, so you can enter values directly in your management console instead. See [Export the profile](/docs/third-party/claude-desktop/mdm#2-export-the-profile) for all formats.
+Building the configuration in the app is optional. The [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md) can also export schema-only templates (an ADMX template for Windows, a Profile Manifest `.plist` for macOS) from its **Export** menu, so you can enter values directly in your management console instead. See [Export the profile](/docs/third-party/claude-desktop/mdm.md#2-export-the-profile) for all formats.
 
 Choose a bootstrap server when your organization doesn't use MDM, or when per-user credentials or frequently changing settings would make per-group profiles unwieldy. The tradeoff is that you operate the endpoint.
 
-A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) uses that configuration, except as described under [Devices with a managed profile](/docs/third-party/claude-desktop/admin-console#devices-with-a-managed-profile). When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration)).
+A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) uses that configuration, except as described under [Devices with a managed profile](/docs/third-party/claude-desktop/admin-console.md#devices-with-a-managed-profile). When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration.md)).
 
 Pick your path:
 
-* [Deploy with Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) covers provisioning, configuring the app in the console, and onboarding users.
-* [Deploy with MDM](/docs/third-party/claude-desktop/mdm) covers authoring the configuration in the app, exporting the profile, and deploying it to your fleet.
-* [Deploy with a bootstrap server](/docs/third-party/claude-desktop/bootstrap) covers getting the bootstrap keys onto devices and running the server.
+* [Deploy with Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md) covers provisioning, configuring the app in the console, and onboarding users.
+* [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) covers authoring the configuration in the app, exporting the profile, and deploying it to your fleet.
+* [Deploy with a bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) covers getting the bootstrap keys onto devices and running the server.
 
 On the MDM and bootstrap paths, deploy the configuration before the app so users open Claude for the first time and land directly in the third-party deployment. With the Enterprise Admin Console, save a configuration in the console first, and users then install the app and sign in.
 
@@ -86,13 +86,13 @@ On the MDM and bootstrap paths, deploy the configuration before the app so users
 For evaluating before a fleet rollout, for pilots, or for organizations that don't use MDM, a single machine can be configured directly in the app.
 
 1. Install Claude Desktop from [claude.com/download](https://claude.com/download).
-2. Launch the app. **Do not sign in or create an Anthropic account.** From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration).
+2. Launch the app. **Do not sign in or create an Anthropic account.** From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md).
 3. Enter the provider, endpoint, and credential values supplied by your administrator.
 4. Click **Apply Changes**, then click **Save & Restart**. The app relaunches and the sign-in screen now offers the option to start in Claude Desktop on 3P using the configuration you entered.
 
 The configuration is written to the application's local config file and applies only to that device and user account. It can be edited from the same window at any time. To return to standard Claude Desktop, choose the Anthropic sign-in option on the sign-in screen instead.
 
-If your organization runs a [bootstrap server](/docs/third-party/claude-desktop/bootstrap) but doesn't use MDM, your administrator can instead supply a small configuration file containing only the bootstrap keys. Load it with **Import configuration** in the same window; the bootstrap server supplies everything else after you sign in.
+If your organization runs a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) but doesn't use MDM, your administrator can instead supply a small configuration file containing only the bootstrap keys. Load it with **Import configuration** in the same window; the bootstrap server supplies everything else after you sign in.
 
 When the configuration works on a single machine, roll it out to the fleet with the [delivery model you chose](#choose-a-configuration-delivery-model); on the MDM path, you can export the tested configuration as the profile you deploy.
 
@@ -100,7 +100,7 @@ When the configuration works on a single machine, roll it out to the fleet with 
 
 On any configured device, open Claude Desktop, go to **Help → Troubleshooting → Generate Diagnostic Report**, and click **Export to file**. In the saved `.zip` file, `managed-config.txt` shows where the configuration was read from and every key the app applied, with secret values redacted and anything it could not parse listed under `Parse errors`. `provider-status.txt` shows whether the provider settings are complete and valid, and `deployment-mode.txt` shows whether the app is running in third-party mode.
 
-Also confirm that the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) (**Developer → Configure Third-Party Inference…**) opens read-only on a managed device. The app reads managed keys from the profile by name and silently ignores a misspelled key rather than reporting an error. On macOS, a window that is still editable means no recognized key reached the app, even if your MDM shows the profile as delivered. On Windows, even a misspelled value under `HKLM\SOFTWARE\Policies\Claude` counts as machine policy and locks the window, so check `managed-config.txt` in the diagnostic report to see which keys were actually read. If your profile deliberately sets [only app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) (the update, relaunch window, configuration re-check, or network proxy keys), an editable window is expected.
+Also confirm that the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md) (**Developer → Configure Third-Party Inference…**) opens read-only on a managed device. The app reads managed keys from the profile by name and silently ignores a misspelled key rather than reporting an error. On macOS, a window that is still editable means no recognized key reached the app, even if your MDM shows the profile as delivered. On Windows, even a misspelled value under `HKLM\SOFTWARE\Policies\Claude` counts as machine policy and locks the window, so check `managed-config.txt` in the diagnostic report to see which keys were actually read. If your profile deliberately sets [only app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) (the update, relaunch window, configuration re-check, or network proxy keys), an editable window is expected.
 
 If the app shows the standard claude.ai sign-in screen instead of Cowork, the configuration was not read. Common causes:
 
@@ -123,7 +123,7 @@ Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude
 
 Restarting the app tries the download again, which is enough when an earlier attempt was only interrupted. When the same message returns on every attempt, the usual cause is a proxy, secure web gateway, or web filter between the device and `downloads.claude.ai`. Such equipment can block the app's requests, cut off the transfer partway (the workspace bundle is more than 1 GB), or return its own page in place of the file. Less often, security software on the device locks or quarantines the downloaded files.
 
-* Allow Claude Desktop itself, not only browsers, to reach `downloads.claude.ai`, as listed under [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths). The download follows the app's proxy settings, described under [Network proxy](/docs/third-party/claude-desktop/network-proxy).
+* Allow Claude Desktop itself, not only browsers, to reach `downloads.claude.ai`, as listed under [Required egress paths](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths). The download follows the app's proxy settings, described under [Network proxy](/docs/third-party/claude-desktop/network-proxy.md).
 * If a proxy or secure web gateway inspects this traffic, make sure files from `downloads.claude.ai` reach the device complete and unchanged.
 * On a network that cannot allow these downloads, deploy the [offline installer](#offline-installation), which includes both components.
 
@@ -131,7 +131,7 @@ Once the device can download from `downloads.claude.ai`, have the user restart C
 
 ### Windows security policy blocks the Cowork workspace
 
-On Windows, the app shows **A Windows security policy is blocking Claude's workspace** when a user-rights policy stops the virtual machine that Cowork runs in from starting. Cowork tasks don't start on that device, and [advanced file analysis](/docs/third-party/claude-desktop/chat#advanced-file-analysis) in Chat, which uses the same virtual machine, fails too. The banner's **Copy details** button copies a description of the error that includes the code `0x80070569`. Standard (non-3P) installs show this banner too.
+On Windows, the app shows **A Windows security policy is blocking Claude's workspace** when a user-rights policy stops the virtual machine that Cowork runs in from starting. Cowork tasks don't start on that device, and [advanced file analysis](/docs/third-party/claude-desktop/chat.md#advanced-file-analysis) in Chat, which uses the same virtual machine, fails too. The banner's **Copy details** button copies a description of the error that includes the code `0x80070569`. Standard (non-3P) installs show this banner too.
 
 The virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group (SID `S-1-5-83-0`), and that group needs the **Log on as a service** user right. Microsoft's [Starting or live migrating Hyper-V VMs fails](https://learn.microsoft.com/en-us/troubleshoot/windows-server/virtualization/starting-or-live-migrating-hyper-v-vms-fails) describes the same error for Hyper-V virtual machines when the group is missing that right. A Group Policy that defines **Log on as a service** replaces the list of accounts on each device instead of adding to it. When the policy's list leaves this group out, or a policy lists the group under **Deny log on as a service**, the virtual machine can't start.
 
@@ -204,7 +204,7 @@ If the offline installer for the version the URL serves is not yet available, th
 
 Download the installer from a connected machine and bring it across your boundary with your usual software-distribution process.
 
-Pair the offline installer with [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates). The app cannot reach the update feed from an air-gapped network, and you update the fleet by distributing each new offline installer through your MDM. Also set [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false`, or point [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) at a mirror inside your network. Otherwise the app tries to fetch the signed model catalog from `downloads.claude.ai` at launch and every 5 to 15 minutes after that, and while those requests fail the model picker keeps the names and effort options that ship with the app. With updates and the catalog fetch handled this way, the only egress an air-gapped deployment needs is your inference provider; see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths).
+Pair the offline installer with [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates). The app cannot reach the update feed from an air-gapped network, and you update the fleet by distributing each new offline installer through your MDM. Also set [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false`, or point [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) at a mirror inside your network. Otherwise the app tries to fetch the signed model catalog from `downloads.claude.ai` at launch and every 5 to 15 minutes after that, and while those requests fail the model picker keeps the names and effort options that ship with the app. With updates and the catalog fetch handled this way, the only egress an air-gapped deployment needs is your inference provider; see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths).
 
 ## Updates
 
@@ -222,10 +222,10 @@ In 3P deployments you can:
 
 Set `releaseChannel` in the first of these that the device has:
 
-* **An MDM profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence)**, such as an update policy, a restart window, or a network proxy: put the key in that profile
-* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap) or the [admin console](/docs/third-party/claude-desktop/admin-console)**: return the key in the server's response, or set it in the console
+* **An MDM profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)**, such as an update policy, a restart window, or a network proxy: put the key in that profile
+* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) or the [admin console](/docs/third-party/claude-desktop/admin-console.md)**: return the key in the server's response, or set it in the console
 * **Any other configuration**, such as an MDM profile that sets the inference provider: put the key with the rest of that configuration
 
-`releaseChannel` has no effect on devices where something else installs updates, such as Linux devices, which [update through apt](/docs/third-party/claude-desktop/telemetry#auto-updates), and devices that installed Claude Desktop from the Microsoft Store.
+`releaseChannel` has no effect on devices where something else installs updates, such as Linux devices, which [update through apt](/docs/third-party/claude-desktop/telemetry.md#auto-updates), and devices that installed Claude Desktop from the Microsoft Store.
 
-See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for the network paths the updater uses.
+See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md) for the network paths the updater uses.

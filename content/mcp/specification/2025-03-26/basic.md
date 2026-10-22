@@ -100,7 +100,7 @@ batches, but **MUST** support receiving JSON-RPC batches.
 
 ## Auth
 
-MCP provides an [Authorization](/specification/2025-03-26/basic/authorization) framework for use with HTTP.
+MCP provides an [Authorization](/specification/2025-03-26/basic/authorization.md) framework for use with HTTP.
 Implementations using an HTTP-based transport **SHOULD** conform to this specification,
 whereas implementations using STDIO transport **SHOULD NOT** follow this specification,
 and instead retrieve credentials from the environment.

@@ -6,9 +6,9 @@
 
 This page defines the message patterns of the core protocol: the ways a
 client and server compose JSON-RPC
-[requests, responses, and notifications](/specification/2026-07-28/basic/index#messages)
+[requests, responses, and notifications](/specification/2026-07-28/basic/index.md#messages)
 into interactions. Every
-[transport](/specification/2026-07-28/basic/transports) carries all of these
+[transport](/specification/2026-07-28/basic/transports.md) carries all of these
 patterns; transports differ only in how messages are framed and delivered.
 
 Every interaction begins with the client:
@@ -44,7 +44,7 @@ When a server needs client input (sampling, elicitation, or roots) to
 complete a request, it answers with an
 [`InputRequiredResult`](/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult)
 and the client retries the request with the matching `inputResponses`. See
-[Multi Round-Trip Requests](/specification/2026-07-28/basic/patterns/mrtr).
+[Multi Round-Trip Requests](/specification/2026-07-28/basic/patterns/mrtr.md).
 
 ```mermaid theme={null}
 sequenceDiagram

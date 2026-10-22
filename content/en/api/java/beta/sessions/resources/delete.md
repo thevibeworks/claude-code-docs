@@ -139,7 +139,7 @@ Delete Session Resource
 
   Confirmation of resource deletion.
 
-  - `Type type`
+  - `JsonValue type = "session_resource_deleted"`
 
   - `String id`
 

@@ -12,7 +12,7 @@ This page is for developers who have an MCP server, or are building one, and wan
 
 > [!NOTE]
 >
-> If you haven't built the server yet, see [Build an MCP server for Claude](/docs/connectors/building/index).
+> If you haven't built the server yet, see [Build an MCP server for Claude](/docs/connectors/building/index.md).
 
 To see how an MCP App looks and behaves, [try an example in Claude Desktop](#try-an-example-mcp-app-in-claude-desktop) first, then [build your own](#build-your-own-mcp-app) from the SDK quickstart, the examples, or the agent skills.
 
@@ -103,7 +103,7 @@ Claude asks for permission to display the app. Click **Allow**, or **Always allo
 
 To add an MCP App to your own MCP server, start from the SDK documentation and examples:
 
-* [Add an interactive UI to your MCP server](/docs/connectors/building/mcp-apps/quickstart): add a one-tool MCP App to the quickstart server on this site, in plain JavaScript with no build step
+* [Add an interactive UI to your MCP server](/docs/connectors/building/mcp-apps/quickstart.md): add a one-tool MCP App to the quickstart server on this site, in plain JavaScript with no build step
 * [MCP Apps Quickstart](https://modelcontextprotocol.github.io/ext-apps/api/documents/Quickstart.html): step-by-step guide to building your first MCP App
 * [SDK API documentation](https://modelcontextprotocol.github.io/ext-apps/api/index.html): full API reference
 * [Example implementations](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples): vanilla JS, React, Vue, Svelte, and more
@@ -130,7 +130,7 @@ For `https://example.com/mcp`, the command prints:
 c3d80a4ed901ee05b21755a88273b4a4.claudemcpcontent.com
 ```
 
-If Claude reports `Invalid ui.domain format` or `ui.domain mismatch`, see [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting#ui-domain-validation-fails).
+If Claude reports `Invalid ui.domain format` or `ui.domain mismatch`, see [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting.md#ui-domain-validation-fails).
 
 ### Build with an AI coding agent
 
@@ -153,6 +153,6 @@ To report a problem or suggest a change to MCP Apps, email [mcp-apps@anthropic.c
 
 ## Next steps
 
-* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines): display modes, mobile layout, and style variables for an app that feels native to Claude
-* [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting): developer tools and fixes for an app that doesn't render
-* [Submit a connector](/docs/connectors/building/submission): list your server and its MCP App screenshots in the directory
+* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines.md): display modes, mobile layout, and style variables for an app that feels native to Claude
+* [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting.md): developer tools and fixes for an app that doesn't render
+* [Submit a connector](/docs/connectors/building/submission.md): list your server and its MCP App screenshots in the directory

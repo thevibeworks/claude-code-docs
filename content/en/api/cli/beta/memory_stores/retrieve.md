@@ -81,7 +81,6 @@ Retrieve a Memory Store
 
 ```bash
 ant beta:memory-stores retrieve \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 

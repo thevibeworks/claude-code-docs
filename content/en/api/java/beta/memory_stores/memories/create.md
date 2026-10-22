@@ -163,7 +163,7 @@ Create a Memory
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=java#view-and-edit-memories) to learn more about working with memories.
 
-  - `Type type`
+  - `JsonValue type = "memory"`
 
   - `String id`
 

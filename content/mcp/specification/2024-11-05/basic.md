@@ -39,17 +39,17 @@ support exactly the features they need.
 
 See the following pages for more details on the different components:
 
-> **[Lifecycle](/specification/2024-11-05/basic/lifecycle)**
+> **[Lifecycle](/specification/2024-11-05/basic/lifecycle.md)**
 
-> **[Resources](/specification/2024-11-05/server/resources)**
+> **[Resources](/specification/2024-11-05/server/resources.md)**
 
-> **[Prompts](/specification/2024-11-05/server/prompts)**
+> **[Prompts](/specification/2024-11-05/server/prompts.md)**
 
-> **[Tools](/specification/2024-11-05/server/tools)**
+> **[Tools](/specification/2024-11-05/server/tools.md)**
 
-> **[Logging](/specification/2024-11-05/server/utilities/logging)**
+> **[Logging](/specification/2024-11-05/server/utilities/logging.md)**
 
-> **[Sampling](/specification/2024-11-05/client/sampling)**
+> **[Sampling](/specification/2024-11-05/client/sampling.md)**
 
 ## Auth
 

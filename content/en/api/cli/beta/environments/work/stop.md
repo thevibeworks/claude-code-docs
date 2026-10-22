@@ -117,7 +117,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
 ```bash
 ant beta:environments:work stop \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```

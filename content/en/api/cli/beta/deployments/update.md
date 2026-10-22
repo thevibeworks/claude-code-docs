@@ -597,7 +597,6 @@ Update Deployment
 
 ```bash
 ant beta:deployments update \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 

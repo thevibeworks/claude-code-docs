@@ -148,5 +148,5 @@ Claude couldn't reach the repository you picked or pasted. If the repository exi
 
 ## Next steps
 
-* [Add a connector from the directory](/docs/connectors/getting-started#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
-* [Connectors directory](/docs/connectors/directory): browse verified and community integrations
+* [Add a connector from the directory](/docs/connectors/getting-started.md#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
+* [Connectors directory](/docs/connectors/directory.md): browse verified and community integrations

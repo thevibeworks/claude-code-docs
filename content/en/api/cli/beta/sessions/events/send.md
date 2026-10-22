@@ -479,7 +479,6 @@ Send Events
 
 ```bash
 ant beta:sessions:events send \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}'
 ```

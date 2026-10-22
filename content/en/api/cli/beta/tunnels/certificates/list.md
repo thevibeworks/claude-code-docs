@@ -93,7 +93,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ```bash
 ant beta:tunnels:certificates list \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 

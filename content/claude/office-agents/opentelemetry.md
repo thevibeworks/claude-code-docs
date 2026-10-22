@@ -120,7 +120,7 @@ settings are available:
 Deployments that authenticate against Bedrock, Vertex AI, Foundry, or a
 gateway supply the same two keys through the customer-configuration
 channels described in
-[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms).
+[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md).
 
 | Key | Format | Description |
 | - | - | - |
@@ -133,7 +133,7 @@ earlier ones: manifest parameters are read first, then Entra claims,
 then the bootstrap response.
 
 **Manifest URL parameter.** Append the keys to the taskpane URL in your
-custom manifest, with `otlp_headers` after `#` so the credential stays out of [server request logs](/docs/office-agents/third-party-platforms#keep-credentials-out-of-the-manifest-url-query-string).
+custom manifest, with `otlp_headers` after `#` so the credential stays out of [server request logs](/docs/office-agents/third-party-platforms.md#keep-credentials-out-of-the-manifest-url-query-string).
 
 ```text theme={null}
 https://pivot.claude.ai/taskpane.html?otlp_endpoint=https://otel-collector.example.com#otlp_headers=Authorization=Bearer%20<token>

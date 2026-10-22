@@ -6,7 +6,89 @@
 
 > Release notes for Claude Desktop
 
+**v3.6556.1**
+
+2026-10-22
+
+Bundled Claude Code version: 2.1.308.
+
+**General**
+
+* Changed read-only `allowedWorkspaceFolders` entries with an unset or unsupported `%VAR%` (any on SSH hosts): the folder holding it turns read-only (`~/Work` for `~/Work/%X%/a`), or every allowed folder if it starts the entry. Another system’s variable (`%APPDATA%` on macOS or SSH) is still ignored.
+* Fixed chats from an interrupted bulk delete coming back with no notice; the next launch now lists them.
+* Fixed dictation problems: keyboard focus being lost or jumping behind an open dialog when a recording starts or ends, a click or Enter meant to finish a dictation sending your message when the recording had just failed, and an empty recording moving the cursor to the start of your draft.
+* Fixed editing a new chat’s first message while it was still sending, which sent the edit to a chat that did not exist and lost it. Edit now appears once Claude starts to reply.
+* Fixed renaming an open artifact from its title menu reloading it and clearing anything you had typed or selected in it.
+* Fixed Reset App Data on Windows sometimes deleting files outside Claude’s data folder.
+
+**Code**
+
+* Added SSH connections in the macOS and Linux apps that get their host from your own command: add an entry with an `id`, `name` and `command` under `sshHostCommands` in your Claude Code settings, then choose "Create" with its name in the environment menu. Not in third-party deployments.
+* Added the ability for Claude to press keys such as Return, Delete and the arrows, rotate the simulator, and show or hide the on-screen keyboard in the iOS Simulator.
+* Changed `allowedWorkspaceFolders` on SSH hosts: an entry is left out, and allows nothing, unless it is a full path for that host (`~/work`, not `work`; on Windows `C:\work`, not `\work`) with no `..`. A symbolic link listed inside another listed folder is left out too: list the folder it points to.
+* Changed a folder’s permission mode to be saved separately for this computer, each SSH host, and each WSL distribution. Folders set to Bypass permissions start in their default mode until you pick it again and confirm; on SSH and WSL, earlier picks more permissive than their default no longer apply.
+* Fixed deleting a session right after opening it, which left its transcript on this computer.
+* Fixed SSH sessions being ended or auto-archived while their task was still running, messages sent during a connection loss never being delivered, sessions opening with only part of their history, and refused sign-ins being retried in the background, which could count toward the host’s lock-out.
+* Fixed the cloud environment editor losing, changing or reordering environment variables, and adding backslashes, when a value mixes quotes and backslashes or contains both kinds of quote.
+
+**Cowork**
+
+* Changed MCP tools that their server marks as needing a person to ask only on the in-app card, so their notifications have no Allow button and scheduled tasks go on without those calls.
+* Removed `/schedule` from the slash menu; typing it now fills in a request to schedule the task, like the Schedule button.
+* Fixed Claude not finding your plugins and skills in scheduled tasks and other tasks not open on screen, except in third-party deployments.
+* Fixed earlier tasks missing from the list on some Windows computers where an older version of the app had started blank and signed out. They come back the next time the app starts.
+* Fixed screen readers saying only “Claude wants to use:” when focus moves to a request to use your computer, without naming the apps or access it asks for.
+* Fixed the notice for a failed workspace start sometimes not appearing, and tasks started from a plugin’s setup card, a connector’s suggested prompts or an onboarding suggestion being silently dropped after Claude’s workspace failed to start.
+
+**3P**
+
+* Added `headersHelperArgs` and `envHelperArgs` to `managedMcpServers` entries: arguments for the entry’s `headersHelper` or `envHelper`, so one helper script can serve several servers.
+* Added `installedUpdateEnforcementEnabled` and `installedUpdateEnforcementHours`. With `disableAutoUpdates` and the first `true`, Claude restarts into a version installed while open after the second’s hours (1 to 72; unset: 72, then once idle). On Windows (MSIX) it may stay closed until reopened.
+* Added `quickEntryScreenshotsEnabled` and `quickEntryFileSharingEnabled` on macOS. Set to `false`, they turn off screenshots (and the Screen Recording request) and attaching the file open in another app (and the Accessibility request), in Quick Entry and in @-mentions of an app’s window.
+* Added a “Relaunch to update” notice on macOS, Linux and Windows (MSIX installs) when a newer version is installed while the app is open on a device with `disableAutoUpdates` set.
+* Added cached token counts, read and written, to each tab on Settings > Usage, so that the tokens behind the estimated cost can be seen.
+* Added Storage to Settings > This computer > System: it shows the disk space Claude uses, lets you free up space by deleting inactive chats and Cowork tasks and cleaning up inactive Code sessions, and opens from the new low-disk-space warning or with `/storage` in Chat, Cowork and Code.
+* Changed `sshClientPath` (beta) on Windows to accept Git for Windows’ `ssh.exe` or another OpenSSH 8.5 or newer under Program Files. Device management, or the bootstrap server it names, must set the key and also set `sshTransport` to `system-openssh`.
+* Changed the approval prompt for `managedMcpServers` from a bootstrap server: for a remote connector with a helper script, it now shows where the helper’s output is sent and asks again when that address changes. People who approved such a connector are asked once more after updating.
+* Changed the built-in GitHub connector to ask before every call of `issue_write`, `sub_issue_write`, `pull_request_review_write`, `add_reply_to_pull_request_comment` and five write tools that `toolsets` can enable. An exact `toolPolicy` key, or `"*"`, can still allow them.
+* Changed the built-in GitHub connector’s `actions_run_trigger` tool to ask before every call whatever `toolPolicy` says. `toolPolicy` can still block it.
+* Changed the built-in Microsoft 365 connector’s tool for reading files, messages and folders to ask for approval once more in Chat and Cowork after this update, where “Always allow” had been chosen.
+* Changed the Setup window’s firewall allowlist to list `hcaptcha.com` and `*.hcaptcha.com` for sign-ins on Anthropic’s pages (Claude Console, admin console, Claude.ai import) and the hosts of MCP servers and plugin marketplaces that a bootstrap server or the admin console delivers. Export it again.
+* Changed update checks to use `releases.claude.com` when `bootstrapUrl` is on `config.claude.com` and `bootstrapEnabled` is not off, even with `updateViaUpdatesHost` off.
+* Improved how quickly Cowork lists recent tasks and chats at launch when many sessions are saved: recent ones appear first, with a placeholder row at the end of the list while older ones load.
+* Fixed Cowork and Code showing empty session, project and scheduled-task lists when the app starts while the bootstrap server is unreachable, on devices that fetched their configuration before and whose profile sets no `inferenceProvider`. Scheduled tasks now wait until the connection is restored.
+* Fixed Cowork’s live list of steps and progress notes showing only when a reply began with steps. It now follows whichever steps Claude is working on, also after text or an answered question.
+* Fixed gateway sessions quietly running a newer Opus when Opus 4 or 4.1 was picked. The picked model is now requested. If your gateway, or the provider behind it, no longer serves it, sessions and scheduled tasks on it now fail: remove it from your model list and move those tasks to another model.
+* Fixed plugins being uninstalled when an admin moves an `allowedPluginMarketplaces` entry to a new source: in the same change, set the new entry’s `expectedName` to the old marketplace’s name. Plugins that the marketplace takes from another repository are still uninstalled.
+* Fixed plugins installed from a marketplace folder on this computer having no Settings tab on their page in Customize, so Code tab sessions ran them without the values they ask for. Values entered earlier in a terminal must be entered again in that tab.
+* Fixed Quick Entry not starting anything; a Quick Entry prompt now starts a session.
+
+**v3.1623.4**
+
+2026-10-22
+
+Bundled Claude Code version: 2.1.308.
+
+**General**
+
+* Changed plugins that the app loads to ask before using the tools they pre-approve when your organization's Claude Code managed settings, such as `managed-settings.json`, set `allowManagedPermissionRulesOnly`.
+
+**Code**
+
+* Fixed GitHub's MCP server write tools showing a form that closed without creating anything.
+
+**Cowork**
+
+* No user-facing changes.
+
+**3P**
+
+* Changed which servers in Claude Code's `managed-mcp.json` are stopped by `isLocalDevMcpEnabled` set to `false` or by `allowedPluginMcpServers`: a local MCP server that uses `${VAR}` only in its `env` values now runs. One with a variable in its command or arguments is still stopped.
+* Fixed every request failing when a gateway or cloud provider rejects tool search; the request is now sent again without it.
+
 **v3.1623.1**
+
+2026-10-21
 
 Bundled Claude Code version: 2.1.304.
 
@@ -27,6 +109,8 @@ Bundled Claude Code version: 2.1.304.
 * No user-facing changes.
 
 **v3.1623.0**
+
+2026-10-20
 
 Bundled Claude Code version: 2.1.304.
 
@@ -88,6 +172,8 @@ Bundled Claude Code version: 2.1.304.
 
 **v2.42304.2**
 
+2026-10-19
+
 Bundled Claude Code version: 2.1.299.
 
 **General**
@@ -107,6 +193,8 @@ Bundled Claude Code version: 2.1.299.
 * No user-facing changes.
 
 **v2.42304.0**
+
+2026-10-15
 
 Bundled Claude Code version: 2.1.299.
 
@@ -165,6 +253,8 @@ Bundled Claude Code version: 2.1.299.
 * Fixed connectors losing their saved sign-in when Claude starts while the macOS keychain is locked; the connector now says what to do.
 
 **v2.37337.1**
+
+2026-10-13
 
 Bundled Claude Code version: 2.1.295.
 
@@ -228,6 +318,8 @@ Bundled Claude Code version: 2.1.295.
 
 **v2.31226.1**
 
+2026-10-09
+
 Bundled Claude Code version: 2.1.295.
 
 **General**
@@ -248,6 +340,8 @@ Bundled Claude Code version: 2.1.295.
 * Fixed every request failing on a 1M-context model when the inference gateway or cloud provider refuses the 1M-context capability; the request is now resent without it.
 
 **v2.31226.0**
+
+2026-10-08
 
 Bundled Claude Code version: 2.1.293.
 
@@ -298,6 +392,8 @@ Bundled Claude Code version: 2.1.293.
 
 **v2.26454.2**
 
+2026-10-07
+
 Bundled Claude Code version: 2.1.293.
 
 **General**
@@ -317,6 +413,8 @@ Bundled Claude Code version: 2.1.293.
 * No user-facing changes.
 
 **v2.26454.0**
+
+2026-10-06
 
 Bundled Claude Code version: 2.1.289.
 
@@ -362,6 +460,8 @@ Bundled Claude Code version: 2.1.289.
 
 **v2.19675.1**
 
+2026-10-05
+
 Bundled Claude Code version: 2.1.288.
 
 **General**
@@ -383,6 +483,8 @@ Bundled Claude Code version: 2.1.288.
 * Fixed skills with names in other scripts or with punctuation not being found by Cowork and Code sessions, and skill uploads being refused when the zip holds very compressible files or keeps `SKILL.md` deep inside a repository download.
 
 **v2.19675.0**
+
+2026-10-01
 
 Bundled Claude Code version: 2.1.286.
 
@@ -419,6 +521,8 @@ Bundled Claude Code version: 2.1.286.
 * Changed the default context window for Opus 4.7 and later, Sonnet 5 and later, and Fable 5 and later to 1M tokens behind a gateway or custom base URL; previously 200K unless the "1M context" option was picked.
 
 **v2.16120.0**
+
+2026-09-29
 
 Bundled Claude Code version: 2.1.284.
 
@@ -466,6 +570,8 @@ Bundled Claude Code version: 2.1.284.
 
 **v2.9939.4**
 
+2026-09-27
+
 Bundled Claude Code version: 2.1.284.
 
 **General**
@@ -486,6 +592,8 @@ Bundled Claude Code version: 2.1.284.
 * No user-facing changes.
 
 **v2.9939.2**
+
+2026-09-24
 
 Bundled Claude Code version: 2.1.281.
 
@@ -540,6 +648,8 @@ Bundled Claude Code version: 2.1.281.
 
 **v2.7032.0**
 
+2026-09-22
+
 Bundled Claude Code version: 2.1.280.
 
 **General**
@@ -586,6 +696,8 @@ Bundled Claude Code version: 2.1.280.
 
 **v2.2553.13**
 
+2026-09-21
+
 Bundled Claude Code version: 2.1.280.
 
 **General**
@@ -609,6 +721,8 @@ Bundled Claude Code version: 2.1.280.
 
 **v2.2553.1**
 
+2026-09-18
+
 Bundled Claude Code version: 2.1.275.
 
 **General**
@@ -628,6 +742,8 @@ Bundled Claude Code version: 2.1.275.
 * No user-facing changes.
 
 **v2.2553.0**
+
+2026-09-17
 
 Bundled Claude Code version: 2.1.274.
 
@@ -678,6 +794,8 @@ Bundled Claude Code version: 2.1.274.
 
 **v2.110.0**
 
+2026-09-15
+
 **General**
 
 * Added a `chromiumFlags` setting in `claude_desktop_config.json` for GPU-related switches such as `--disable-gpu`, applied before graphics start up, so users can work around GPU driver crashes and rendering issues on launch, including on Microsoft Store installs where command-line flags cannot be passed.
@@ -724,9 +842,13 @@ Bundled Claude Code version: 2.1.274.
 
 **Resolved: Cowork on Windows**
 
+2026-09-14
+
 Microsoft has released a Windows update that fixes the issue where Cowork could not reach your files on Windows PCs. Install the latest Windows update and restart your PC. On Windows 11 24H2 and 25H2 the fix is [KB5129195](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129195-windows-11-24h2-25h2-security-update). On Windows 11 23H2 the fix is [KB5129242](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129242-windows-11-23h2-update). On Windows 10 21H2 and 22H2 the fix is [KB5129236](https://support.microsoft.com/en-us/servicing/os/windows-10/2026/09/kb5129236-windows-10-21h2-22h2-update). No Claude Desktop update is needed.
 
 **v1.52386.6**
+
+2026-09-13
 
 **General**
 
@@ -748,6 +870,8 @@ Microsoft has released a Windows update that fixes the issue where Cowork could 
 
 **v1.52386.3**
 
+2026-09-11
+
 **General**
 
 * No user-facing changes.
@@ -766,6 +890,8 @@ Microsoft has released a Windows update that fixes the issue where Cowork could 
 * No user-facing changes.
 
 **v1.52386.0**
+
+2026-09-10
 
 **General**
 
@@ -806,11 +932,15 @@ Microsoft has released a Windows update that fixes the issue where Cowork could 
 
 **Known issue: Cowork on Windows**
 
+2026-09-10
+
 **Resolved September 14, 2026.** Microsoft has released a Windows update that fixes this issue. Install the latest Windows update and restart your PC.
 
 A Windows update released September 8, 2026 (including KB5124008) stops Cowork from reaching your files when it runs on your Windows PC, so tasks fail or the workspace does not start. This affects Cowork on third-party inference deployments and Cowork sessions that run on your computer rather than in the cloud. Cloud sessions and Claude Code, including the Code tab, are not affected. Chat cloud sessions are not affected, but Chat sessions on third-party inference deployments are affected if using advanced file analysis. The cause is a change in Windows, so restarting or reinstalling Claude does not help.
 
 **v1.49585.0**
+
+2026-09-08
 
 **General**
 
@@ -849,6 +979,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.46388.4**
 
+2026-09-05
+
 **General**
 
 * No user-facing changes.
@@ -866,6 +998,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.46388.3**
+
+2026-09-04
 
 **General**
 
@@ -885,6 +1019,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.46388.2**
 
+2026-09-04
+
 **General**
 
 * No user-facing changes.
@@ -902,6 +1038,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.46388.1**
+
+2026-09-04
 
 **General**
 
@@ -953,6 +1091,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.44121.4**
 
+2026-09-02
+
 **General**
 
 * No user-facing changes.
@@ -974,6 +1114,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.44121.2**
 
+2026-09-02
+
 **General**
 
 * No user-facing changes.
@@ -991,6 +1133,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.44121.1**
+
+2026-09-02
 
 **General**
 
@@ -1046,6 +1190,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.40609.1**
 
+2026-08-30
+
 **General**
 
 * Updated the bundled Claude Code CLI to version 2.1.255.
@@ -1063,6 +1209,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.40609.0**
+
+2026-08-27
 
 **General**
 
@@ -1110,6 +1258,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.37937.3**
 
+2026-08-26
+
 **General**
 
 * No user-facing changes.
@@ -1127,6 +1277,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.37937.2**
+
+2026-08-26
 
 **General**
 
@@ -1146,6 +1298,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.37937.1**
 
+2026-08-25
+
 **General**
 
 * Updated the bundled Claude Code CLI to version 2.1.246.
@@ -1164,6 +1318,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Added support for the `inferenceModelPricing` rates and the `inferenceModelPricingMultiplier` discount in the Usage page's cost estimate; in 1.37937.0 the estimate always used Anthropic list price.
 
 **v1.37937.0**
+
+2026-08-25
 
 **General**
 
@@ -1215,6 +1371,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.34493.1**
 
+2026-08-21
+
 **General**
 
 * No user-facing changes.
@@ -1232,6 +1390,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed prompt caching not being applied in sessions that use an inference gateway or custom endpoint.
 
 **v1.34493.0**
+
+2026-08-20
 
 **General**
 
@@ -1262,6 +1422,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed Cowork file previews showing "Preview unavailable" until the app was restarted once a preview pane had been closed for a few minutes.
 
 **v1.32885.1**
+
+2026-08-18
 
 **General**
 
@@ -1297,6 +1459,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.32352.1**
 
+2026-08-18
+
 **General**
 
 * Fixed a rare Windows startup failure where the first window could fail to initialize on a fresh install.
@@ -1314,6 +1478,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.32352.0**
+
+2026-08-17
 
 **General**
 
@@ -1359,6 +1525,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.30096.5**
 
+2026-08-14
+
 **General**
 
 * No user-facing changes.
@@ -1376,6 +1544,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.30096.1**
+
+2026-08-13
 
 **General**
 
@@ -1413,6 +1583,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.28929.0**
 
+2026-08-11
+
 **General**
 
 * Added the standard macOS full-screen keyboard shortcut, with an Enter Full Screen and Exit Full Screen item in the View menu.
@@ -1448,6 +1620,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed the model picker reverting to the standard-context variant in new sessions, after relaunch, and when switching between Chat and Cowork once the 1M-context variant had been chosen.
 
 **v1.26832.0**
+
+2026-08-06
 
 **General**
 
@@ -1487,6 +1661,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed the published `bootstrap-config-v2.schema.json` describing flat keys instead of the nested shape the app's own configuration export uses.
 
 **v1.25927.0**
+
+2026-08-04
 
 **General**
 
@@ -1534,6 +1710,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.24012.11**
 
+2026-08-03
+
 **General**
 
 * No user-facing changes.
@@ -1553,6 +1731,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.24012.9**
 
+2026-07-24
+
 **General**
 
 * No user-facing changes.
@@ -1571,6 +1751,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Added the five-level effort selector for Claude Opus 5 in the model picker. Extended thinking is always on for Opus 5.
 
 **v1.24012.0**
+
+2026-07-21
 
 **General**
 
@@ -1621,6 +1803,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.22209.3**
 
+2026-07-19
+
 **General**
 
 * Fixed sessions on Windows failing on every turn with a "Socket is closed" error when traffic passed through a corporate proxy that inspects encrypted connections, by updating the bundled Claude Code CLI to 2.1.215. Interrupted responses now retry on a fresh connection instead of ending the turn.
@@ -1638,6 +1822,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.22209.0**
+
+2026-07-16
 
 **General**
 
@@ -1676,6 +1862,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.21459.3**
 
+2026-07-16
+
 **General**
 
 * Fixed installed extensions failing to load and showing an endless loading state.
@@ -1693,6 +1881,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.21459.0**
+
+2026-07-14
 
 **General**
 
@@ -1738,11 +1928,15 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.20186.9**
 
+2026-07-14
+
 **General**
 
 * Fixed an issue where permission prompts and in-session questions could silently stop appearing after an input-handling error — if Claude asked a question or requested permission and the prompt never showed up, this release fixes that. (Updates the bundled Claude Code CLI to 2.1.209.)
 
 **v1.20186.0**
+
+2026-07-09
 
 **General**
 
@@ -1779,6 +1973,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed third-party settings ignoring managed configuration: the Claude Code pane now follows `isClaudeCodeForDesktopEnabled`, the Developer tab hides when `isLocalDevMcpEnabled` is off, and the Capabilities and Voice settings no longer appear.
 
 **v1.19367.0**
+
+2026-07-07
 
 **General**
 
@@ -1824,6 +2020,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.18286.2**
 
+2026-07-07
+
 **General**
 
 * Updated the embedded Claude Code engine to the latest version.
@@ -1841,6 +2039,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.18286.0**
+
+2026-07-02
 
 **General**
 
@@ -1876,6 +2076,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.17377.2**
 
+2026-07-01
+
 **General**
 
 * No user-facing changes.
@@ -1893,6 +2095,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Added Claude Fable 5 to the model picker for organizations with access.
 
 **v1.17377.1**
+
+2026-06-30
 
 **General**
 
@@ -1935,6 +2139,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.15962.2**
 
+2026-06-30
+
 **General**
 
 * Updated the embedded Claude Code engine to the latest version.
@@ -1952,6 +2158,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * No user-facing changes.
 
 **v1.15962.1**
+
+2026-06-26
 
 **General**
 
@@ -1972,6 +2180,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed Microsoft 365 brokered sign-in failing with "No reply address provided" on managed Macs.
 
 **v1.15962.0**
+
+2026-06-25
 
 **General**
 
@@ -2008,6 +2218,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.15200.0**
 
+2026-06-23
+
 **General**
 
 * No user-facing changes.
@@ -2034,6 +2246,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed the model picker dropping to "Default model" mid-session when a gateway's model-list response was temporarily degraded.
 
 **v1.14271.0**
+
+2026-06-18
 
 **General**
 
@@ -2063,6 +2277,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Added a per-folder pre-select option to `allowedWorkspaceFolders` so an administrator-configured folder can appear as a ready chip when users start a new task, and removed the "Create workspace folder?" prompt for administrator-configured folders.
 
 **v1.13576.0**
+
+2026-06-16
 
 **General**
 
@@ -2099,6 +2315,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **v1.12603.1**
 
+2026-06-11
+
 **General**
 
 * Added Find Next and Find Previous keyboard shortcuts to in-app search.
@@ -2127,6 +2345,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Added the inferenceVertexOAuthLoginHint managed configuration key to pre-fill the Google account chooser when signing in to Vertex AI, so users in organizations federated to a third-party identity provider land on the right account automatically.
 
 **v1.11847.5**
+
+2026-06-09
 
 **General**
 
@@ -2157,6 +2377,8 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 * Fixed sign-in failing with external identity providers that reject the offline\_access scope — admins can now disable the automatic append.
 
 **v1.11187.4**
+
+2026-06-05
 
 **General**
 

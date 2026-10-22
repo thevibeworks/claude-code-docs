@@ -16,6 +16,8 @@ visualizations, forms, dashboards) that render directly in the chat.
 
 ![An Excalidraw MCP App drawing a sequence diagram inside a Claude conversation](https://mintcdn.com/mcp/jbEkS7m9mV8aY_kB/images/apps/excalidraw.gif?s=c783b088f3c687e4dd4cf05c0d20f325)
 
+Excalidraw MCP App, running in Claude
+
 ## Why not just build a web app?
 
 You could build a standalone web app and send users a link. However, MCP Apps
@@ -169,12 +171,12 @@ best for your use case.
 
 > [!NOTE]
 >
-> MCP Apps is an extension to the [core MCP specification](/specification/latest). Host support varies by client.
+> MCP Apps is an extension to the [core MCP specification](/specification/latest.md). Host support varies by client.
 
 MCP Apps are currently supported by [Claude](https://claude.ai),
 [Claude Desktop](https://claude.ai/download),
 [VS Code GitHub Copilot](https://code.visualstudio.com/), [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot), [Goose](https://block.github.io/goose/), [Postman](https://postman.com), [MCPJam](https://www.mcpjam.com/), and [Archestra.AI](https://www.archestra.ai/). See the
-[client matrix](/extensions/client-matrix) for the full list of extension support across clients.
+[client matrix](/extensions/client-matrix.md) for the full list of extension support across clients.
 
 If you're building an MCP client and want to support MCP Apps, you have two options:
 
@@ -231,4 +233,4 @@ includes ready-to-run examples demonstrating different use cases:
   [Solid](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/basic-server-solid),
   [vanilla JavaScript](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/basic-server-vanillajs)
 
-To start building your own MCP App, see the [build guide](/extensions/apps/build).
+To start building your own MCP App, see the [build guide](/extensions/apps/build.md).

@@ -71,7 +71,6 @@ Record a heartbeat for a work item to maintain the lease.
 
 ```bash
 ant beta:environments:work heartbeat \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```

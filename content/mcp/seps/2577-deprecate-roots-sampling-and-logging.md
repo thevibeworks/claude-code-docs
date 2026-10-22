@@ -15,7 +15,7 @@ Standards Track
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -112,7 +112,7 @@ protocol:
 
 [discussion-2536]: https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/2536
 
-[feature-matrix]: https://modelcontextprotocol.io/clients#feature-support-matrix
+[feature-matrix]: https://modelcontextprotocol.io/clients.md#feature-support-matrix
 
 ## Specification
 

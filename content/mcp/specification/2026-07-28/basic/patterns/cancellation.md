@@ -58,7 +58,7 @@ SDKs and other middleware **SHOULD** allow these timeouts to be configured on a
 per-request basis.
 
 Implementations **MAY** choose to reset the timeout clock when receiving a
-[progress notification](/specification/2026-07-28/basic/patterns/progress) corresponding to
+[progress notification](/specification/2026-07-28/basic/patterns/progress.md) corresponding to
 the request, as this implies that work is actually happening. However, implementations
 **SHOULD** always enforce a maximum timeout, regardless of progress notifications, to
 limit the impact of a misbehaving client or server.
@@ -119,4 +119,4 @@ Invalid cancellation notifications **SHOULD** be ignored:
 This maintains the "fire and forget" nature of notifications while allowing for race
 conditions in asynchronous communication.
 
-[subscriptions]: /specification/2026-07-28/basic/patterns/subscriptions
+[subscriptions]: /specification/2026-07-28/basic/patterns/subscriptions.md

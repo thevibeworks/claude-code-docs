@@ -163,4 +163,4 @@ subscriptions — the server holds no subscription state across reconnections.
 
 See [Cancellation][cancellation] for the full rules.
 
-[cancellation]: /specification/draft/basic/patterns/cancellation
+[cancellation]: /specification/draft/basic/patterns/cancellation.md

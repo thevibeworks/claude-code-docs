@@ -18,11 +18,11 @@ Amazon Bedrock supports several ways to authenticate, and the right one depends 
 | Broad rollout to users without AWS tooling | [In-app AWS sign-in](#in-app-aws-sign-in) (`inferenceBedrockSso*`) | None | Yes | Users sign in through IAM Identity Center inside the app. No AWS CLI required. Requires app version 1.6259.0 or later. |
 | Developers who already use the AWS CLI | [Named profile](#named-profile) (`inferenceBedrockProfile`) | AWS CLI v2 and a pushed `~/.aws/config` | Yes | IT can distribute the AWS config file directly; the app runs `aws sso login` for the user when the session expires. |
 | You run an authenticating proxy in front of Amazon Bedrock | [Identity provider sign-in](#sign-in-with-your-identity-provider) (`inferenceIdpOidc`) | None | At your proxy | Users sign in with your identity provider; the proxy calls Amazon Bedrock with its own AWS credentials. Requires app version 2.7032.0 or later. |
-| You already operate an LLM gateway (Anthropic Messages API) | [Gateway provider](/docs/third-party/claude-desktop/gateway) instead of Amazon Bedrock | None | At your gateway | The gateway holds the AWS credentials; the app authenticates only to the gateway. |
+| You already operate an LLM gateway (Anthropic Messages API) | [Gateway provider](/docs/third-party/claude-desktop/gateway.md) instead of Amazon Bedrock | None | At your gateway | The gateway holds the AWS credentials; the app authenticates only to the gateway. |
 
 If a static credential in the managed profile is acceptable but an Amazon Bedrock API key is not, you can also set [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) to an executable that prints an Amazon Bedrock bearer token to stdout at runtime.
 
-When more than one credential is configured, the app uses the first one present in this order: identity provider sign-in, in-app AWS sign-in, named profile, credential helper, bearer token. To remove ambiguity, set `inferenceCredentialKind` explicitly (see the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencecredentialkind)).
+When more than one credential is configured, the app uses the first one present in this order: identity provider sign-in, in-app AWS sign-in, named profile, credential helper, bearer token. To remove ambiguity, set `inferenceCredentialKind` explicitly (see the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencecredentialkind)).
 
 ## Set up AWS
 
@@ -89,7 +89,7 @@ When all four `inferenceBedrockSso*` keys are set, the app shows a **Sign in wit
 
 On success, the app stores the IAM Identity Center access token and refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows), dismisses the sign-in page, and shows Cowork.
 
-At the start of each Cowork or Code session, the app exchanges the stored token with IAM Identity Center for short-lived AWS credentials scoped to the configured account and permission set, and writes them to the session's AWS credentials files, described under [Transient credential files](/docs/third-party/claude-desktop/data-storage#transient-credential-files). The session reads them through `AWS_SHARED_CREDENTIALS_FILE` and `AWS_PROFILE`, so the secret values are never passed as environment variables. This is the same credential shape that `aws sso login` produces, obtained without the AWS CLI.
+At the start of each Cowork or Code session, the app exchanges the stored token with IAM Identity Center for short-lived AWS credentials scoped to the configured account and permission set, and writes them to the session's AWS credentials files, described under [Transient credential files](/docs/third-party/claude-desktop/data-storage.md#transient-credential-files). The session reads them through `AWS_SHARED_CREDENTIALS_FILE` and `AWS_PROFILE`, so the secret values are never passed as environment variables. This is the same credential shape that `aws sso login` produces, obtained without the AWS CLI.
 
 If the stored token expires or is revoked, the app shows a **Sign in again** prompt; clicking it reopens the AWS access portal in the browser. If you deploy a different `inferenceBedrockSsoStartUrl`, the app finds no stored token for the new URL and shows the sign-in page on next launch.
 
@@ -156,7 +156,7 @@ Set `inferenceCredentialKind` to `external-idp` (in the in-app configuration win
 <string>["us.anthropic.claude-sonnet-5"]</string>
 ```
 
-[`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) takes the same fields as the gateway provider's [`inferenceGatewayOidc`](/docs/third-party/claude-desktop/gateway#single-sign-on-configuration-keys), and you register the identity-provider application the same way; see [Set up single sign-on](/docs/third-party/claude-desktop/gateway#set-up-single-sign-on). To sign in through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker) instead of the browser (Microsoft Entra ID only), set `inferenceIdpAuthFlow` to `broker`.
+[`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) takes the same fields as the gateway provider's [`inferenceGatewayOidc`](/docs/third-party/claude-desktop/gateway#single-sign-on-configuration-keys), and you register the identity-provider application the same way; see [Set up single sign-on](/docs/third-party/claude-desktop/gateway.md#set-up-single-sign-on). To sign in through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker.md) instead of the browser (Microsoft Entra ID only), set `inferenceIdpAuthFlow` to `broker`.
 
 Notes:
 
@@ -166,7 +166,7 @@ Notes:
 
 ## Configure the app
 
-With AWS set up and devices prepared, open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**) on an evaluation device. In the **Connection** section, set **Inference provider** to **Bedrock** and fill in the **Bedrock credentials** card with the values for whichever authentication approach you chose:
+With AWS set up and devices prepared, open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**) on an evaluation device. In the **Connection** section, set **Inference provider** to **Bedrock** and fill in the **Bedrock credentials** card with the values for whichever authentication approach you chose:
 
 | Field | Bearer token | In-app AWS sign-in | Named profile |
 | - | - | - | - |
@@ -184,7 +184,7 @@ With AWS set up and devices prepared, open the [in-app configuration window](/do
 
 Under **Models**, add a **Model list** entry using the Amazon Bedrock inference-profile ID (optional for bearer-token or credential-helper auth, which auto-discover models; required otherwise), for example `us.anthropic.claude-sonnet-5`.
 
-Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) for the export and deployment workflow.
+Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
 ### Configuration keys
 
@@ -208,7 +208,7 @@ The full set of `inferenceBedrock*` keys is below. Set `inferenceProvider` to `b
 >
 > Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
 
-Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for example `us.anthropic.claude-sonnet-5`. When using a bearer token or credential helper, Claude Desktop auto-discovers available Claude models from your account if this is unset; otherwise the list is required. Application-inference-profile ARNs and provisioned-throughput ARNs are also accepted; pair them with a [`labelOverride`](/docs/third-party/claude-desktop/configuration#inferencemodels) so the picker shows a readable name instead of the raw ARN. See the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencemodels).
+Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for example `us.anthropic.claude-sonnet-5`. When using a bearer token or credential helper, Claude Desktop auto-discovers available Claude models from your account if this is unset; otherwise the list is required. Application-inference-profile ARNs and provisioned-throughput ARNs are also accepted; pair them with a [`labelOverride`](/docs/third-party/claude-desktop/configuration#inferencemodels) so the picker shows a readable name instead of the raw ARN. See the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
 
@@ -227,4 +227,4 @@ If the app cannot locate the AWS CLI, it cannot drive the login itself; it instr
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage#where-data-lives).
+To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage.md#where-data-lives).

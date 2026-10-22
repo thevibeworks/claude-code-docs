@@ -55,7 +55,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ```bash
 ant beta:tunnels rotate-token \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 

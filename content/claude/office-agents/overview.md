@@ -15,36 +15,36 @@ and Outlook without leaving the app.
 
 The pages below cover each surface and the features that span them.
 
-* [Claude for Excel](/docs/office-agents/excel): read and write cells,
+* [Claude for Excel](/docs/office-agents/excel.md): read and write cells,
   formulas, formatting, pivot tables, and charts.
-* [Claude for PowerPoint](/docs/office-agents/powerpoint): read, edit,
+* [Claude for PowerPoint](/docs/office-agents/powerpoint.md): read, edit,
   and generate slides using your existing templates.
-* [Claude for Word](/docs/office-agents/word): draft, redline, and
+* [Claude for Word](/docs/office-agents/word.md): draft, redline, and
   review documents with tracked changes and comment-driven editing.
-* [Claude for Outlook](/docs/office-agents/outlook): triage your inbox,
+* [Claude for Outlook](/docs/office-agents/outlook.md): triage your inbox,
   draft replies in your voice, summarize threads, and find meeting times.
   Admins must complete a one-time
-  [Microsoft Graph consent](/docs/office-agents/outlook#grant-microsoft-graph-consent)
+  [Microsoft Graph consent](/docs/office-agents/outlook.md#grant-microsoft-graph-consent)
   before deployment.
-* [Work across M365 apps](/docs/office-agents/work-across-apps):
+* [Work across M365 apps](/docs/office-agents/work-across-apps.md):
   Claude for Excel, PowerPoint, Word, and Outlook share conversation
   state, so actions in one app are informed by what happened in the
   others.
-* [Connectors and Skills](/docs/office-agents/connectors-and-skills):
+* [Connectors and Skills](/docs/office-agents/connectors-and-skills.md):
   extend Claude with external context and reusable task recipes.
-* [Dictation](/docs/office-agents/dictation): speak prompts instead
+* [Dictation](/docs/office-agents/dictation.md): speak prompts instead
   of typing them.
 
 ## Deployment
 
 These pages cover enterprise admin setup and observability.
 
-* [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms):
+* [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md):
   connect through Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry,
   or an LLM gateway.
-* [Security, admin auditability, and analytics](/docs/office-agents/enterprise-readiness):
+* [Security, admin auditability, and analytics](/docs/office-agents/enterprise-readiness.md):
   security architecture diagrams, OpenTelemetry audit, usage analytics,
   and spend tracking.
-* [Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry):
+* [Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry.md):
   route the full audit trail to a collector you operate, with the
   configuration keys and span reference.

@@ -22,9 +22,13 @@
 
 **Claude Code 2.1.302**
 
+2026-10-16
+
 * Changed unattended runs of the Claude Code command-line tool, such as `claude -p`, where **Auto mode** is set to **Allowed**: on Claude Code 2.1.302 or later they start in Auto mode only when Auto mode is chosen for them.
 
 **Claude Code 2.1.299**
+
+2026-10-14
 
 * Changed **Managed hooks** on Windows devices without Git for Windows: on Claude Code 2.1.299 or later, a managed hook written as a Bash command that checks a tool call or a permission request blocks that action when the command fails.
 

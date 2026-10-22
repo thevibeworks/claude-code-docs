@@ -49,7 +49,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ```bash
 ant beta:tunnels reveal-token \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 

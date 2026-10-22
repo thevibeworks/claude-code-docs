@@ -153,7 +153,7 @@ Delete a Memory
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#audit-memory-changes) to learn more about how long versions are kept.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_deleted"`
 
   - `required string ID`
 

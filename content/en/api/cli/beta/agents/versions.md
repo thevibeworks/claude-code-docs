@@ -865,7 +865,6 @@ List Agent Versions
 
 ```bash
 ant beta:agents:versions list \
-  --api-key my-anthropic-api-key \
   --agent-id agent_011CZkYpogX7uDKUyvBTophP
 ```
 

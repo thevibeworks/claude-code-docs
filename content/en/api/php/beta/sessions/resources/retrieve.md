@@ -33,7 +33,7 @@ Get Session Resource
 
   - `class ManagedAgentsGitHubRepositoryResource`
 
-    - `Type type`
+    - `"github_repository" type`
 
     - `string id`
 
@@ -53,7 +53,7 @@ Get Session Resource
 
   - `class ManagedAgentsFileResource`
 
-    - `Type type`
+    - `"file" type`
 
     - `string id`
 
@@ -71,7 +71,7 @@ Get Session Resource
 
   - `class ManagedAgentsMemoryStoreResource`
 
-    - `Type type`
+    - `"memory_store" type`
 
     - `string memoryStoreID`
 

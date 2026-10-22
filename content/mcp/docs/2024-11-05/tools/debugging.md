@@ -14,11 +14,11 @@ available in the MCP ecosystem.
 
 MCP provides several tools for debugging at different levels:
 
-1. **[MCP Inspector](/docs/2024-11-05/tools/inspector)**: interactive, transport-agnostic
+1. **[MCP Inspector](/docs/2024-11-05/tools/inspector.md)**: interactive, transport-agnostic
    testing UI. Connect to stdio or HTTP with SSE servers, invoke
-   [tools](/specification/2024-11-05/server/tools),
-   [prompts](/specification/2024-11-05/server/prompts), and
-   [resources](/specification/2024-11-05/server/resources), and watch the
+   [tools](/specification/2024-11-05/server/tools.md),
+   [prompts](/specification/2024-11-05/server/prompts.md), and
+   [resources](/specification/2024-11-05/server/resources.md), and watch the
    notification stream. This should be your first stop.
 2. **Server logging**: structured logs to stderr (stdio transport) or via
    [`notifications/message`](/specification/2024-11-05/server/utilities/logging#log-message-notifications)
@@ -32,7 +32,7 @@ MCP provides several tools for debugging at different levels:
 ### Server-side logging
 
 When building a server that uses the local
-[stdio transport](/specification/2024-11-05/basic/transports#stdio), all messages
+[stdio transport](/specification/2024-11-05/basic/transports.md#stdio), all messages
 logged to stderr (standard error) will be captured by the host application
 automatically.
 
@@ -42,12 +42,12 @@ automatically.
 > will interfere with protocol operation.
 
 For servers using the
-[HTTP with SSE transport](/specification/2024-11-05/basic/transports#http-with-sse),
+[HTTP with SSE transport](/specification/2024-11-05/basic/transports.md#http-with-sse),
 stderr is not captured by the client. Use the log message notifications below,
 your own server-side log aggregation, or standard HTTP tooling (curl, browser
 DevTools Network panel) to inspect requests and SSE streams.
 
-For all [transports](/specification/2024-11-05/basic/transports), you can also
+For all [transports](/specification/2024-11-05/basic/transports.md), you can also
 provide logging to the client by sending a log message notification:
 
 ```python Python theme={null}
@@ -68,7 +68,7 @@ await server.sendLoggingMessage({
 ```
 
 MCP defines eight
-[RFC 5424 severity levels](/specification/2024-11-05/server/utilities/logging#log-levels)
+[RFC 5424 severity levels](/specification/2024-11-05/server/utilities/logging.md#log-levels)
 (`debug` through `emergency`). Clients can adjust the minimum level at runtime
 via the
 [`logging/setLevel`](/specification/2024-11-05/server/utilities/logging#setting-log-level)
@@ -166,15 +166,15 @@ When servers fail to connect:
 
 1. Check client logs
 2. Verify server process is running
-3. Test standalone with [Inspector](/docs/2024-11-05/tools/inspector)
+3. Test standalone with [Inspector](/docs/2024-11-05/tools/inspector.md)
 4. Verify
-   [protocol compatibility](/specification/2024-11-05/basic/lifecycle#version-negotiation)
+   [protocol compatibility](/specification/2024-11-05/basic/lifecycle.md#version-negotiation)
 5. Check
-   [capability negotiation](/specification/2024-11-05/basic/lifecycle#capability-negotiation):
+   [capability negotiation](/specification/2024-11-05/basic/lifecycle.md#capability-negotiation):
    error [`-32602`](/specification/2024-11-05/basic/lifecycle#error-handling) is
    the standard JSON-RPC "Invalid params" code and is returned in many
    contexts. One common cause is a server sending
-   [sampling](/specification/2024-11-05/client/sampling) requests to a
+   [sampling](/specification/2024-11-05/client/sampling.md) requests to a
    client that hasn't declared that capability. Inspect the
    [`initialize` exchange](/specification/2024-11-05/basic/lifecycle#initialization)
    to verify both sides declared what you expect
@@ -248,7 +248,7 @@ Use the Network panel to inspect:
 ### Development cycle
 
 1. Initial Development
-   * Use [Inspector](/docs/2024-11-05/tools/inspector) for basic testing
+   * Use [Inspector](/docs/2024-11-05/tools/inspector.md) for basic testing
    * Implement core functionality
    * Add logging points
 
@@ -264,7 +264,7 @@ To test changes efficiently:
 * **Configuration changes**: Restart the MCP client
 * **Server code changes**: Restart the client (for Claude Desktop, fully quit
   and reopen; closing the window is not enough)
-* **Quick iteration**: Use [Inspector](/docs/2024-11-05/tools/inspector) during
+* **Quick iteration**: Use [Inspector](/docs/2024-11-05/tools/inspector.md) during
   development
 
 ## Best practices
@@ -304,7 +304,7 @@ When debugging:
    * Monitor access patterns
 
 For a full treatment of MCP attack vectors and mitigations, see
-[Security Best Practices](/docs/2024-11-05/tutorials/security/security_best_practices).
+[Security Best Practices](/docs/2024-11-05/tutorials/security/security_best_practices.md).
 
 ## Getting help
 
@@ -312,7 +312,7 @@ When encountering issues:
 
 1. **First Steps**
    * Check server logs
-   * Test with [Inspector](/docs/2024-11-05/tools/inspector)
+   * Test with [Inspector](/docs/2024-11-05/tools/inspector.md)
    * Review configuration
    * Verify environment
 
@@ -328,14 +328,14 @@ When encountering issues:
 
 ## Next steps
 
-> **[MCP Inspector](/docs/2024-11-05/tools/inspector)**
+> **[MCP Inspector](/docs/2024-11-05/tools/inspector.md)**
 >
 > Learn to use the MCP Inspector
 
-> **[Build an MCP server](/docs/2024-11-05/develop/build-server)**
+> **[Build an MCP server](/docs/2024-11-05/develop/build-server.md)**
 >
 > Walk through building a server from scratch
 
-> **[Connect local servers](/docs/2024-11-05/develop/connect-local-servers)**
+> **[Connect local servers](/docs/2024-11-05/develop/connect-local-servers.md)**
 >
 > Full claude\_desktop\_config.json reference and troubleshooting

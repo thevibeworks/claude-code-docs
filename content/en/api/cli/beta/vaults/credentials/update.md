@@ -205,7 +205,6 @@ Update a Credential
 
 ```bash
 ant beta:vaults:credentials update \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```

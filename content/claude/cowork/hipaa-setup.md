@@ -18,11 +18,11 @@ The HIPAA configuration is an organization setting on Claude Enterprise plans, f
 >
 > The Claude Code extensions for VS Code and JetBrains aren't part of (local mode). They keep working with the HIPAA configuration applied, but your BAA doesn't cover them. See the [Implementation Guide](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6\&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide) for the full list of Eligible Services.
 
-This page is for the IT or security administrator who manages the macOS and Windows computers where members run [Cowork](/docs/cowork/overview) in Claude Desktop. Other readers start on a different page:
+This page is for the IT or security administrator who manages the macOS and Windows computers where members run [Cowork](/docs/cowork/overview.md) in Claude Desktop. Other readers start on a different page:
 
 * **The Primary Owner, who applies the HIPAA configuration**: see [Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731) for what your BAA covers and how to apply the configuration
 * **Administrators who prepare computers for Claude Code in the terminal**: see [Set up Claude Code (local mode) for a HIPAA-ready organization](https://code.claude.com/docs/en/hipaa-setup)
-* **Administrators of a third-party deployment**: see [Legal and compliance](/docs/third-party/claude-desktop/legal). The HIPAA configuration doesn't apply to [Claude Desktop on third-party platforms](/docs/third-party/claude-desktop/overview)
+* **Administrators of a third-party deployment**: see [Legal and compliance](/docs/third-party/claude-desktop/legal.md). The HIPAA configuration doesn't apply to [Claude Desktop on third-party platforms](/docs/third-party/claude-desktop/overview.md)
 
 The table shows when to do each part of the setup:
 
@@ -66,7 +66,7 @@ Allow the Anthropic hosts listed in [Desktop network access requirements](https:
 
 ### Deploy the Claude Desktop policy
 
-A Claude Desktop policy is a set of settings that your device management tool installs on each computer, as a configuration profile on macOS or as registry values on Windows. You can use one to restrict sign-in to your organization, turn off local MCP servers and desktop extensions, and keep session content out of [Cowork monitoring](/docs/cowork/monitoring) events.
+A Claude Desktop policy is a set of settings that your device management tool installs on each computer, as a configuration profile on macOS or as registry values on Windows. You can use one to restrict sign-in to your organization, turn off local MCP servers and desktop extensions, and keep session content out of [Cowork monitoring](/docs/cowork/monitoring.md) events.
 
 The policy in this section is a sample that we recommend as a starting point. Your organization is responsible for deciding what its own environment needs and for confirming that its configuration meets those needs.
 
@@ -101,7 +101,7 @@ Windows Registry Editor Version 5.00
 "otlpContentCapture"="[]"
 ```
 
-The sample writes every value as a string, including `false` and `[]`. [Value types](/docs/third-party/claude-desktop/configuration#value-types) lists the other encodings Claude Desktop accepts.
+The sample writes every value as a string, including `false` and `[]`. [Value types](/docs/third-party/claude-desktop/configuration.md#value-types) lists the other encodings Claude Desktop accepts.
 
 > [!NOTE]
 >
@@ -109,7 +109,7 @@ The sample writes every value as a string, including `false` and `[]`. [Value ty
 
 #### What each Claude Desktop key does
 
-The table shows what to set each key to and what Claude Desktop enforces for it. The key names link to the [configuration reference](/docs/third-party/claude-desktop/configuration), which describes third-party deployments. Some of its keys apply only to third-party deployments, such as `coworkEgressAllowedHosts` and `otlpEndpoint`.
+The table shows what to set each key to and what Claude Desktop enforces for it. The key names link to the [configuration reference](/docs/third-party/claude-desktop/configuration.md), which describes third-party deployments. Some of its keys apply only to third-party deployments, such as `coworkEgressAllowedHosts` and `otlpEndpoint`.
 
 | Key | Value | What Claude Desktop enforces |
 | :- | :- | :- |
@@ -136,7 +136,7 @@ Claude Desktop applies these keys when it starts, so quit Claude Desktop on a ma
 | `isLocalDevMcpEnabled` | Open **Settings** in Claude Desktop. The list of entries has no **Developer** entry |
 | `isDesktopExtensionEnabled` | Open **Settings** in Claude Desktop. The list of entries has no **Extensions** entry |
 | `forceLoginOrgUUID` | Sign in with an account that isn't in your organization. Claude Desktop shows "This account is not approved by your enterprise admin" |
-| `otlpContentCapture` | Run a Cowork task and read the events your [Cowork monitoring](/docs/cowork/monitoring) collector receives. They contain no prompt text, model responses, or tool inputs |
+| `otlpContentCapture` | Run a Cowork task and read the events your [Cowork monitoring](/docs/cowork/monitoring.md) collector receives. They contain no prompt text, model responses, or tool inputs |
 
 ### Check which Claude Code managed settings apply in Cowork
 
@@ -172,7 +172,7 @@ Cowork runs shell commands in a virtual machine (VM) on the member's computer. A
 
 To restrict which hosts the VM reaches, you can ask an Owner to go to [**Organization settings > Capabilities**](https://claude.ai/admin-settings/capabilities) and turn off the **Allow network egress** toggle under **Code execution**. Turning the toggle off has these effects:
 
-* **Cowork**: the VM reaches only `anthropic.com` and `claude.com` hosts, plus your OpenTelemetry collector if [Cowork monitoring](/docs/cowork/monitoring) is set up
+* **Cowork**: the VM reaches only `anthropic.com` and `claude.com` hosts, plus your OpenTelemetry collector if [Cowork monitoring](/docs/cowork/monitoring.md) is set up
 * **Chat**: the toggle also applies to code execution in chat
 * **[Web search](#turn-off-web-search-in-cowork) and connectors**: neither goes through the VM, so the toggle doesn't limit them
 
@@ -233,7 +233,7 @@ Confirm that the title bar shows a **HIPAA configured** label. On a Mac, open th
 
 **4. Check your monitoring events**
 
-If your organization uses [Cowork monitoring](/docs/cowork/monitoring), run a Cowork task. Confirm that the events your collector receives contain no prompt text, model responses, or tool inputs.
+If your organization uses [Cowork monitoring](/docs/cowork/monitoring.md), run a Cowork task. Confirm that the events your collector receives contain no prompt text, model responses, or tool inputs.
 
 The [HIPAA feature availability table](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers) lists which Cowork features are off with the HIPAA configuration applied, and which ones an Owner can turn back on.
 
@@ -318,5 +318,5 @@ Restart Claude Desktop. After Claude Desktop has run under the HIPAA configurati
 ## Related resources
 
 * [Set up Claude Code (local mode) for a HIPAA-ready organization](https://code.claude.com/docs/en/hipaa-setup)
-* [Cowork monitoring](/docs/cowork/monitoring)
+* [Cowork monitoring](/docs/cowork/monitoring.md)
 * [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings)

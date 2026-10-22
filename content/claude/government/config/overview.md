@@ -8,9 +8,11 @@
 
 > **Who this is for:** Tenant administrators and organization owners who set product behavior for the people they manage.
 
-The **Config** page in the admin portal is where you set product behavior such as the session timeout, Claude Desktop banner, product availability, and telemetry for the people you manage. The same page appears at both the tenant and the organization level, with the same list of settings, and this page explains how the two levels fit together. For the settings themselves, see [Available settings](/docs/government/config/settings).
+The **Config** page in the admin portal is where you set product behavior such as the session timeout, Claude Desktop banner, product availability, and telemetry for the people you manage. The same page appears at both the tenant and the organization level, with the same list of settings, and this page explains how the two levels fit together. For the settings themselves, see [Available settings](/docs/government/config/settings.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-06-config-essentials.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=8624805f501e6ca7e01e12e6e94602ab" aria-label="Video walkthrough: Config essentials" />
+
+Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -61,7 +63,7 @@ Settings that may contain secrets, such as telemetry headers, are never echoed b
 
 ## When changes take effect
 
-Settings that govern the admin portal, such as whether organizations may manage seat tiers, apply immediately. Settings that govern the Claude applications themselves, such as the Claude Desktop banner, product availability, and telemetry endpoint, are delivered to each member's application the next time it refreshes its configuration, which happens when the application is launched, when the member signs in, and periodically while the application runs. You do not need to push anything. Most changes take effect when the member restarts the application. Claude Desktop prompts for that restart, and requires it once the [Restart deadline for configuration changes](/docs/government/config/settings#restart-deadline-for-configuration-changes) has passed. On Claude Desktop 2.2553.0 and later, a few settings take effect in a running application without a restart, such as the **Claude Desktop banner** and the [two switches that let members add plugins](/docs/government/config/settings#member-added-plugins-and-marketplaces).
+Settings that govern the admin portal, such as whether organizations may manage seat tiers, apply immediately. Settings that govern the Claude applications themselves, such as the Claude Desktop banner, product availability, and telemetry endpoint, are delivered to each member's application the next time it refreshes its configuration, which happens when the application is launched, when the member signs in, and periodically while the application runs. You do not need to push anything. Most changes take effect when the member restarts the application. Claude Desktop prompts for that restart, and requires it once the [Restart deadline for configuration changes](/docs/government/config/settings.md#restart-deadline-for-configuration-changes) has passed. On Claude Desktop 2.2553.0 and later, a few settings take effect in a running application without a restart, such as the **Claude Desktop banner** and the [two switches that let members add plugins](/docs/government/config/settings.md#member-added-plugins-and-marketplaces).
 
 Lowering the session idle timeout applies to new sign-ins only, and so does raising or removing the maximum session length. Lowering the maximum session length, or setting one for the first time, also reaches members who are already signed in, taking up to one idle timeout period to do so.
 
@@ -101,7 +103,7 @@ Click any row to expand a plain-English explanation of how the final value was r
 
 ## Group-specific settings
 
-In addition to setting values for your whole tenant or organization, you can set values for the members of a directory group. A directory group is a group that your identity provider has pushed to Claude for Government over SCIM, as described on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page.
+In addition to setting values for your whole tenant or organization, you can set values for the members of a directory group. A directory group is a group that your identity provider has pushed to Claude for Government over SCIM, as described on the [Identity and access](/docs/government/tenant-admin/identity-and-access.md) page.
 
 There are two kinds of group level:
 
@@ -110,7 +112,7 @@ There are two kinds of group level:
 
 To edit settings for a group, open the scope bar above the settings list and choose the group's name from the dropdown. The page switches to show the same settings editor, now scoped to that group. Editing, saving, resetting, and locking all work the same way as at the other levels. Anything locked at a higher level still shows as **Managed** here and cannot be changed.
 
-You can also add connectors for a group's members from the **Connectors** card while the page is scoped to the group. See [Who receives a connector](/docs/government/connectors/overview#who-receives-a-connector) for which members a group's connectors reach.
+You can also add connectors for a group's members from the **Connectors** card while the page is scoped to the group. See [Who receives a connector](/docs/government/connectors/overview.md#who-receives-a-connector) for which members a group's connectors reach.
 
 ### When someone belongs to more than one group
 
@@ -118,7 +120,7 @@ Only one group's settings apply to any given person. When someone is a member of
 
 When a higher-priority group gains configuration for someone, it takes the place of the lower-priority group that applied to them before, and the lower-priority group's settings, including locked ones, stop applying to them. Removing a group's last setting, changing the priority order, or changing someone's group memberships in your identity provider can change which group applies to a person in the same way.
 
-A tenant administrator sets the priority order on the [Identity and access](/docs/government/tenant-admin/identity-and-access#directory-groups) page. The same priority order is used wherever configuration is resolved for a person; seat-tier group mappings on the [Provisioning](/docs/government/org-admin/provisioning) page use a separate fixed order. At the organization level the priority order is shown for reference and cannot be reordered there.
+A tenant administrator sets the priority order on the [Identity and access](/docs/government/tenant-admin/identity-and-access.md#directory-groups) page. The same priority order is used wherever configuration is resolved for a person; seat-tier group mappings on the [Provisioning](/docs/government/org-admin/provisioning.md) page use a separate fixed order. At the organization level the priority order is shown for reference and cannot be reordered there.
 
 If no groups appear in the scope bar dropdown, none have been synced from the identity provider yet. Connect SCIM on the Identity and access page and push groups from your directory, and they will appear automatically.
 
@@ -130,15 +132,15 @@ If no groups appear in the scope bar dropdown, none have been synced from the id
 
 The Config page shows the same list of settings at both levels, and almost all of them can be set at either level. The genuine differences are:
 
-* **Two settings can be set only by a tenant administrator.** [Let organizations manage their own seat tiers](/docs/government/config/settings#let-organizations-manage-their-own-seat-tiers) and [Compliance API](/docs/government/config/settings#compliance-api) appear on both pages, but are always read-only at the organization level.
+* **Two settings can be set only by a tenant administrator.** [Let organizations manage their own seat tiers](/docs/government/config/settings.md#let-organizations-manage-their-own-seat-tiers) and [Compliance API](/docs/government/config/settings.md#compliance-api) appear on both pages, but are always read-only at the organization level.
 * **Preview impact appears only at the tenant level.** See [Previewing impact](#previewing-impact) above.
 * **Group priority is set at the tenant level.** Organization owners see the priority order for reference but cannot change it.
 * **Tenant administrators can open any organization's Config page** and act on that organization's behalf. Organization owners see only their own organization.
-* **Inherited connectors and plugins are labeled at the organization level.** Connectors and plugins the tenant has added appear on the organization page with an **Inherited from your tenant** badge; see [The Connectors card](/docs/government/connectors/overview#the-connectors-card).
+* **Inherited connectors and plugins are labeled at the organization level.** Connectors and plugins the tenant has added appear on the organization page with an **Inherited from your tenant** badge; see [The Connectors card](/docs/government/connectors/overview.md#the-connectors-card).
 
-For more detail see [Config at the tenant level](/docs/government/tenant-admin/configuration) and [Config at the organization level](/docs/government/org-admin/configuration).
+For more detail see [Config at the tenant level](/docs/government/tenant-admin/configuration.md) and [Config at the organization level](/docs/government/org-admin/configuration.md).
 
 ## Things to know
 
-* Some settings can only be changed by tenant administrators (and not by organization owners at all), regardless of whether they are locked. These are noted in the [Available settings](/docs/government/config/settings) descriptions.
+* Some settings can only be changed by tenant administrators (and not by organization owners at all), regardless of whether they are locked. These are noted in the [Available settings](/docs/government/config/settings.md) descriptions.
 * Resetting a setting removes only that level's value. Values set at other levels are unaffected and remain in effect once yours is gone.

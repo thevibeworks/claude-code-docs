@@ -6,22 +6,22 @@
 
 > Browse nine example prompts from nine fields of science, each the start of a complete analysis in Claude Science.
 
-Copy an example's prompt into a new session in [Claude Science](/docs/claude-science/overview) and compare your result with its reference analysis.
+Copy an example's prompt into a new session in [Claude Science](/docs/claude-science/overview.md) and compare your result with its reference analysis.
 
-> **[Genetic drift in a bottle: Buri's 107 fruit-fly populations](/docs/claude-science/example-gallery/bio-drift)**
+> **[Genetic drift in a bottle: Buri's 107 fruit-fly populations](/docs/claude-science/example-gallery/bio-drift.md)**
 
-> **[A titration curve from the full equilibrium: which indicator finds the equivalence point?](/docs/claude-science/example-gallery/chem-titration)**
+> **[A titration curve from the full equilibrium: which indicator finds the equivalence point?](/docs/claude-science/example-gallery/chem-titration.md)**
 
-> **[A first Kaplan–Meier curve: the 1963 leukemia trial of 6-MP](/docs/claude-science/example-gallery/clin-km)**
+> **[A first Kaplan–Meier curve: the 1963 leukemia trial of 6-MP](/docs/claude-science/example-gallery/clin-km.md)**
 
-> **[PageRank on a web of 11 pages: why 1 good link beats 6 weak ones](/docs/claude-science/example-gallery/cs-pagerank-tiny)**
+> **[PageRank on a web of 11 pages: why 1 good link beats 6 weak ones](/docs/claude-science/example-gallery/cs-pagerank-tiny.md)**
 
-> **[A first finite-element model: a clamped steel ruler bends and vibrates](/docs/claude-science/example-gallery/eng-beam)**
+> **[A first finite-element model: a clamped steel ruler bends and vibrates](/docs/claude-science/example-gallery/eng-beam.md)**
 
-> **[A first X-ray diffraction pattern: why silicon shows 6 peaks and salt 9](/docs/claude-science/example-gallery/mat-xrd)**
+> **[A first X-ray diffraction pattern: why silicon shows 6 peaks and salt 9](/docs/claude-science/example-gallery/mat-xrd.md)**
 
-> **[The Ulam spiral: are the primes' diagonal streaks real?](/docs/claude-science/example-gallery/math-ulam)**
+> **[The Ulam spiral: are the primes' diagonal streaks real?](/docs/claude-science/example-gallery/math-ulam.md)**
 
-> **[The double slit, one electron at a time](/docs/claude-science/example-gallery/phys-doubleslit)**
+> **[The double slit, one electron at a time](/docs/claude-science/example-gallery/phys-doubleslit.md)**
 
-> **[Schelling's segregation model: ask for 30% same-color neighbors, end up with 75%](/docs/claude-science/example-gallery/soc-schelling-small)**
+> **[Schelling's segregation model: ask for 30% same-color neighbors, end up with 75%](/docs/claude-science/example-gallery/soc-schelling-small.md)**

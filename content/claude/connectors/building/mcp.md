@@ -6,9 +6,9 @@
 
 > Get oriented to the Model Context Protocol, the open standard behind Claude's connectors: local and remote servers, tools, resources, and prompts.
 
-The Model Context Protocol (MCP) is an open standard created by Anthropic for AI applications to connect with tools and data sources. When you build an MCP server and someone adds it to Claude, they see it as a [connector](/docs/connectors/getting-started).
+The Model Context Protocol (MCP) is an open standard created by Anthropic for AI applications to connect with tools and data sources. When you build an MCP server and someone adds it to Claude, they see it as a [connector](/docs/connectors/getting-started.md).
 
-This page is a short orientation for developers who are new to MCP. The [MCP documentation](https://modelcontextprotocol.io/docs) is the source of truth for building MCP servers, and [Build an MCP server for Claude](/docs/connectors/building/index) lists what Claude's client supports once you're ready to build.
+This page is a short orientation for developers who are new to MCP. The [MCP documentation](https://modelcontextprotocol.io/docs) is the source of truth for building MCP servers, and [Build an MCP server for Claude](/docs/connectors/building/index.md) lists what Claude's client supports once you're ready to build.
 
 ## Understand what MCP provides
 
@@ -69,11 +69,11 @@ The [MCP documentation](https://modelcontextprotocol.io/docs) is the source of t
 * [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) and [Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 * Cloudflare hosting support with OAuth
 
-Organizations can [submit MCP servers](/docs/connectors/building/submission) to the Connectors Directory for broader availability.
+Organizations can [submit MCP servers](/docs/connectors/building/submission.md) to the Connectors Directory for broader availability.
 
 ## Next steps
 
-* [Build an MCP server for Claude](/docs/connectors/building/index): the transports, authentication, protocol features, and limits Claude's client supports
-* [Authentication for connectors](/docs/connectors/building/authentication): OAuth requirements and supported auth types
+* [Build an MCP server for Claude](/docs/connectors/building/index.md): the transports, authentication, protocol features, and limits Claude's client supports
+* [Authentication for connectors](/docs/connectors/building/authentication.md): OAuth requirements and supported auth types
 * [MCP in Claude Code](https://code.claude.com/docs/en/mcp): connect MCP servers to Claude Code from the command line
-* [Submitting to the Connectors Directory](/docs/connectors/building/submission): review requirements and submit your connector
+* [Submitting to the Connectors Directory](/docs/connectors/building/submission.md): review requirements and submit your connector

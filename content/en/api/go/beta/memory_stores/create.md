@@ -157,7 +157,7 @@ Create a Memory Store
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
-  - `Type BetaManagedAgentsMemoryStoreType`
+  - `Type MemoryStore`
 
   - `ID string`
 
@@ -210,8 +210,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {

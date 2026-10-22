@@ -31,7 +31,7 @@ The [MCP Contributor Discord](https://discord.gg/6CSzBmMkjX) is for real-time co
 **Primary use cases:**
 
 * SDK and tooling development (e.g., `#typescript-sdk-dev`, `#inspector-dev`)
-* [Working Group and Interest Group](/community/working-interest-groups) discussions (e.g., `#auth-wg`, `#security-ig`)
+* [Working Group and Interest Group](/community/working-interest-groups.md) discussions (e.g., `#auth-wg`, `#security-ig`)
 * Community onboarding and contribution guidance
 * Community feedback and collaborative brainstorming
 * Public office hours and maintainer availability
@@ -83,14 +83,14 @@ Use for bug reports and actionable development tasks. Feature requests should go
 * CI/CD problems and infrastructure issues
 * Release tasks and milestone tracking
 
-**Note:** SEP proposals are submitted as pull requests to the [`seps/` directory](https://github.com/modelcontextprotocol/modelcontextprotocol/tree/main/seps), not as GitHub Issues. See the [SEP Guidelines](/community/sep-guidelines).
+**Note:** SEP proposals are submitted as pull requests to the [`seps/` directory](https://github.com/modelcontextprotocol/modelcontextprotocol/tree/main/seps), not as GitHub Issues. See the [SEP Guidelines](/community/sep-guidelines.md).
 
 ## Security Issues
 
 **Do not post security issues publicly.**
 
 1. Use the private security reporting process in [SECURITY.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/SECURITY.md)
-2. Contact Lead or [Core Maintainers](/community/governance#current-core-maintainers) directly
+2. Contact Lead or [Core Maintainers](/community/governance.md#current-core-maintainers) directly
 3. Follow responsible disclosure guidelines
 
 ## Decision Records
@@ -100,8 +100,8 @@ All MCP decisions are documented in public channels:
 | Type | Location |
 | - | - |
 | Technical decisions | [GitHub Issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues) and SEPs |
-| Specification changes | [Changelog](https://modelcontextprotocol.io/specification/draft/changelog) |
-| Process changes | [Community documentation](https://modelcontextprotocol.io/community/governance) |
+| Specification changes | [Changelog](https://modelcontextprotocol.io/specification/draft/changelog.md) |
+| Process changes | [Community documentation](https://modelcontextprotocol.io/community/governance.md) |
 | Governance decisions | [GitHub Issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues) and SEPs |
 
 When documenting decisions, we retain as much context as possible:

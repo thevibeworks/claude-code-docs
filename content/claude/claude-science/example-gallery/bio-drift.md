@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview.md). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
 
 ```text Prompt wrap theme={null}
 In a 1956 paper, Peter Buri described keeping 107 bottles of fruit flies for 19 generations, restarting each bottle every generation with 8 males and 8 females picked at random. Every founder carried one copy each of two neutral eye-color alleles, bw and bw75, so bw75 started at a frequency of 0.5 in every bottle.

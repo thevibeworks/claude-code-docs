@@ -22,21 +22,21 @@ The broker also removes the need for a `localhost` or `127.0.0.1` loopback redir
 
 | Feature | How to enable it | Page |
 | - | - | - |
-| Microsoft Foundry inference provider | Set `inferenceFoundryAuthFlow` to `broker` | [Microsoft Foundry](/docs/third-party/claude-desktop/foundry#in-app-entra-id-sign-in) |
-| LLM gateway single sign-on | Set `inferenceGatewayOidcAuthFlow` to `broker` | [LLM gateway](/docs/third-party/claude-desktop/gateway#single-sign-on-configuration-keys) |
-| Workforce Identity sign-in for Google Cloud's Agent Platform | Set `inferenceVertexWorkforceAuthFlow` to `broker` | [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex#in-app-workforce-identity-sign-in) |
-| Amazon Bedrock identity provider sign-in (through a proxy) | Set `inferenceIdpAuthFlow` to `broker` | [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider) |
-| Managed MCP server | Set `authFlow` to `broker` in the entry's `oauth` object | [Managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin) |
+| Microsoft Foundry inference provider | Set `inferenceFoundryAuthFlow` to `broker` | [Microsoft Foundry](/docs/third-party/claude-desktop/foundry.md#in-app-entra-id-sign-in) |
+| LLM gateway single sign-on | Set `inferenceGatewayOidcAuthFlow` to `broker` | [LLM gateway](/docs/third-party/claude-desktop/gateway.md#single-sign-on-configuration-keys) |
+| Workforce Identity sign-in for Google Cloud's Agent Platform | Set `inferenceVertexWorkforceAuthFlow` to `broker` | [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex.md#in-app-workforce-identity-sign-in) |
+| Amazon Bedrock identity provider sign-in (through a proxy) | Set `inferenceIdpAuthFlow` to `broker` | [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock.md#sign-in-with-your-identity-provider) |
+| Managed MCP server | Set `authFlow` to `broker` in the entry's `oauth` object | [Managed MCP servers](/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin) |
 
 For the gateway, Amazon Bedrock, and Workforce Identity flows, the broker is available only when your identity provider is Microsoft Entra ID: the `issuer` in `inferenceGatewayOidc`, `inferenceIdpOidc`, or `inferenceVertexWorkforceOidc` must have the form `https://login.microsoftonline.com/TENANT_ID/v2.0`. For a managed MCP server, the `oauth` object must also set `tenantId`, `clientId`, and `scope`.
 
-The [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#how-users-sign-in) also uses the OS broker for its own Entra sign-in. Its broker setup is documented on that page, and its app registration needs the same settings described under [Register the Entra ID application](#register-the-entra-id-application).
+The [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) also uses the OS broker for its own Entra sign-in. Its broker setup is documented on that page, and its app registration needs the same settings described under [Register the Entra ID application](#register-the-entra-id-application).
 
 ## Platform support
 
 Brokered sign-in is available on Windows and macOS. Linux has no OS identity broker.
 
-What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, Amazon Bedrock, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#how-users-sign-in) fall back to the system browser instead. To make the Microsoft 365 connector's sign-in fail rather than fall back, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `required` (Claude Desktop 1.49585.0 or later).
+What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, Amazon Bedrock, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) fall back to the system browser instead. To make the Microsoft 365 connector's sign-in fail rather than fall back, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `required` (Claude Desktop 1.49585.0 or later).
 
 ## Register the Entra ID application
 
@@ -75,4 +75,4 @@ If sign-in fails with error code `AADSTS50011` or `AADSTS900971`, the platform's
 
 If sign-in fails with a message that the OS identity broker is unavailable, the device does not meet the requirements under [Prepare devices](#prepare-devices). On macOS, confirm Company Portal is installed and the Enterprise SSO configuration profile is deployed. On Windows, confirm the device is Entra joined or registered.
 
-The broker writes its own diagnostic log outside the app. On Windows, WAM events appear in Event Viewer under **Applications and Services Logs → Microsoft → Windows → AAD → Operational**. On macOS, Company Portal writes to the unified log; view it with `log show --predicate 'subsystem == "com.microsoft.CompanyPortalMac"' --last 1h` in Terminal. The app's own log records when a brokered sign-in was attempted and the error it returned; see [User identity and local data](/docs/third-party/claude-desktop/data-storage#where-data-lives) for the log location.
+The broker writes its own diagnostic log outside the app. On Windows, WAM events appear in Event Viewer under **Applications and Services Logs → Microsoft → Windows → AAD → Operational**. On macOS, Company Portal writes to the unified log; view it with `log show --predicate 'subsystem == "com.microsoft.CompanyPortalMac"' --last 1h` in Terminal. The app's own log records when a brokered sign-in was attempted and the error it returned; see [User identity and local data](/docs/third-party/claude-desktop/data-storage.md#where-data-lives) for the log location.

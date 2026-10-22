@@ -65,7 +65,6 @@ Fetches a tunnel by ID.
 
 ```bash
 ant beta:tunnels retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 

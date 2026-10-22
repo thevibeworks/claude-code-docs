@@ -140,7 +140,6 @@ $messageBatch = $client->messages->batches->create(
             ],
           ],
         ],
-        'temperature' => 1,
         'thinking' => ['type' => 'adaptive', 'display' => 'summarized'],
         'toolChoice' => ['type' => 'auto', 'disableParallelToolUse' => true],
         'tools' => [
@@ -161,8 +160,6 @@ $messageBatch = $client->messages->batches->create(
             'type' => 'custom',
           ],
         ],
-        'topK' => 5,
-        'topP' => 0.7,
       ],
     ],
   ],

@@ -255,7 +255,6 @@ Run Deployment Now
 
 ```bash
 ant beta:deployments run \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 

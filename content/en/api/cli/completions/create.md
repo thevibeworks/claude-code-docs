@@ -5,21 +5,145 @@ url: https://platform.claude.com/docs/en/api/cli/completions/create
 
 # Create a Text Completion
 
-`$ ant completions create`
-
 **POST** `/v1/complete`
 
 **Deprecated**: Use the [Messages API](https://platform.claude.com/docs/en/api/messages/create) instead.
 
 [Legacy] Create a Text Completion.
 
-The Text Completions API is a legacy API. We recommend using the [Messages API](https://platform.claude.com/docs/en/api/messages?sdk_languages=cli) going forward.
+The Text Completions API is a legacy API. We recommend using the [Messages API](https://platform.claude.com/docs/en/api/messages?sdk_languages=http) going forward.
 
-Future models and features will not be compatible with Text Completions. See our [migration guide](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=cli) for guidance in migrating from Text Completions to Messages.
+Future models and features will not be compatible with Text Completions. See our [migration guide](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=http) for guidance in migrating from Text Completions to Messages.
 
-## Parameters
+## Headers
 
-- `--max-tokens-to-sample: number`
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
+
+  Optional header to specify the beta version(s) you want to use.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+## Body parameters
+
+- `max_tokens_to_sample: number`
 
   The maximum number of tokens to generate before stopping.
 
@@ -27,13 +151,97 @@ Future models and features will not be compatible with Text Completions. See our
 
   minimum: 1
 
-- `--model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+- `model: Model`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `--prompt: string`
+  - `"claude-haiku-5-5"`
+
+    Fastest model for high-volume, real-time tasks
+
+  - `"claude-sonnet-5-5"`
+
+    Efficient model for coding and agents
+
+  - `"claude-fable-5-1"`
+
+    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+  - `"claude-opus-5-5"`
+
+    Powerful intelligence for coding, knowledge work, and long-running agents
+
+  - `"claude-mythos-5-1"`
+
+    Our most capable model for cybersecurity and biology research, available through trusted access programs
+
+  - `"claude-sonnet-5"`
+
+    Efficient model for coding and agents
+
+  - `"claude-fable-5"`
+
+    Next generation of intelligence for the hardest knowledge work and coding problems
+
+  - `"claude-mythos-5"`
+
+    Most capable model for cybersecurity and biology research
+
+  - `"claude-opus-5"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-opus-4-8"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-opus-4-7"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-opus-4-6"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-sonnet-4-6"`
+
+    Best combination of speed and intelligence
+
+  - `"claude-haiku-4-5"`
+
+  - `"claude-haiku-4-5-20251001"`
+
+  - `"claude-opus-4-5"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-opus-4-5-20251101"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-mythos-preview"`
+
+    **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+    New class of intelligence, strongest in coding and cybersecurity
+
+  - `"claude-sonnet-4-5"`
+
+    **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+    High-performance model for agents and coding
+
+  - `"claude-sonnet-4-5-20250929"`
+
+    **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+    High-performance model for agents and coding
+
+  - `string`
+
+- `prompt: string`
 
   The prompt that you want Claude to complete.
 
@@ -51,15 +259,23 @@ Future models and features will not be compatible with Text Completions. See our
   Assistant:"
   ```
 
-  See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=cli) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview?sdk_languages=cli) for more details.
+  See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=http) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview?sdk_languages=http) for more details.
 
   minLength: 1
 
-- `--metadata: optional object`
+- `metadata: optional Metadata`
 
   An object describing metadata about the request.
 
-- `--stop-sequence: optional array of string`
+  - `user_id: optional string or null`
+
+    An external identifier for the user who is associated with the request.
+
+    This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+    maxLength: 512
+
+- `stop_sequences: optional array of string`
 
   Sequences that will cause the model to stop generating.
 
@@ -67,13 +283,13 @@ Future models and features will not be compatible with Text Completions. See our
 
   Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
 
-- `--workspace-id: optional string` (header parameter)
+- `stream: optional boolean`
 
-  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Whether to incrementally stream the response using server-sent events.
 
-  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+  See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming?sdk_languages=http) for details.
 
-- `--temperature: optional number`
+- `temperature: optional number`
 
   **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
@@ -85,7 +301,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   minimum: 0, maximum: 1
 
-- `--top-k: optional number`
+- `top_k: optional number`
 
   **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
@@ -97,7 +313,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   minimum: 0
 
-- `--top-p: optional number`
+- `top_p: optional number`
 
   **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
@@ -109,21 +325,17 @@ Future models and features will not be compatible with Text Completions. See our
 
   minimum: 0, maximum: 1
 
-- `--beta: optional array of AnthropicBeta` (header parameter)
-
-  **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
-
-  Optional header to specify the beta version(s) you want to use.
-
 ## Returns
 
-- `completion: object`
+- `Completion object`
 
   - `type: "completion"`
 
     Object type.
 
     For Text Completions, this is always `"completion"`.
+
+    default: completion
 
   - `id: string`
 
@@ -135,7 +347,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     The resulting completion up to and excluding the stop sequences.
 
-  - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+  - `model: Model`
 
     The model that will complete your prompt.
 
@@ -223,7 +435,9 @@ Future models and features will not be compatible with Text Completions. See our
 
       High-performance model for agents and coding
 
-  - `stop_reason: string`
+    - `string`
+
+  - `stop_reason: string or null`
 
     The reason that we stopped.
 
@@ -235,15 +449,19 @@ Future models and features will not be compatible with Text Completions. See our
 ## Example
 
 ```bash
-ant completions create \
-  --api-key my-anthropic-api-key \
-  --max-tokens-to-sample 256 \
-  --model claude-haiku-5-5 \
-  --prompt '
-
-Human: Hello, world!
-
-Assistant:'
+curl https://api.anthropic.com/v1/complete \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY" \
+    --max-time 600 \
+    -d '{
+          "max_tokens_to_sample": 256,
+          "model": "claude-2.1",
+          "prompt": "\n\nHuman: Hello, world!\n\nAssistant:",
+          "temperature": 1,
+          "top_k": 5,
+          "top_p": 0.7
+        }'
 ```
 
 ### Response (200)

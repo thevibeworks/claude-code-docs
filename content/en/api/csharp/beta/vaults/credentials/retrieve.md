@@ -143,7 +143,7 @@ Retrieve a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -163,7 +163,7 @@ Retrieve a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -193,19 +193,19 @@ Retrieve a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -219,7 +219,7 @@ Retrieve a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -229,7 +229,7 @@ Retrieve a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -251,13 +251,13 @@ Retrieve a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 

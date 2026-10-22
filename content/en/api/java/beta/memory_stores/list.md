@@ -161,7 +161,7 @@ List Memory Stores
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
-  - `Type type`
+  - `JsonValue type = "memory_store"`
 
   - `String id`
 

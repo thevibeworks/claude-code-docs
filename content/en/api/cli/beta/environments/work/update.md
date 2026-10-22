@@ -117,7 +117,6 @@ Update work item metadata with merge semantics.
 
 ```bash
 ant beta:environments:work update \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id \
   --metadata '{foo: string}'

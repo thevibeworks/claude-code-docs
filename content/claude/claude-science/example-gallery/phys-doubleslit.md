@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview.md). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
 
 ```text Prompt wrap theme={null}
 In 1989 Akira Tonomura's team at Hitachi sent electrons one at a time past an electron biprism, the electron version of a double slit, and filmed an interference pattern building up dot by dot. Recreate that with an ideal double slit. Say nothing else about the 1989 experiment.

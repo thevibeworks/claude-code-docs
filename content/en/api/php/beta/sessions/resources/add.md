@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/add
 
 # Add Session Resource
 
-`$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsFileResource`
+`$client->beta->sessions->resources->add(string sessionID, string fileID, "file" type, ?string mountPath, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsFileResource`
 
 **POST** `/v1/sessions/{session_id}/resources`
 
@@ -19,7 +19,7 @@ Add Session Resource
 
   ID of a previously uploaded file.
 
-- `type: Type`
+- `type: "file"`
 
 - `mountPath?:optional string`
 
@@ -39,7 +39,7 @@ Add Session Resource
 
 - `class ManagedAgentsFileResource`
 
-  - `Type type`
+  - `"file" type`
 
   - `string id`
 

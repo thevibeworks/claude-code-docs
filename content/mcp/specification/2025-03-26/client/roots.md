@@ -25,7 +25,7 @@ interaction model.
 ## Capabilities
 
 Clients that support roots **MUST** declare the `roots` capability during
-[initialization](/specification/2025-03-26/basic/lifecycle#initialization):
+[initialization](/specification/2025-03-26/basic/lifecycle.md#initialization):
 
 ```json theme={null}
 {

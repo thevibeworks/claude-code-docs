@@ -6,11 +6,13 @@
 
 > Manage the people, seats, and settings for a single organization within your agency.
 
-> **Who this portal is for:** Organization owners. If you manage multiple organizations across your agency, see the [Tenant administration](/docs/government/tenant-admin/overview) guide instead.
+> **Who this portal is for:** Organization owners. If you manage multiple organizations across your agency, see the [Tenant administration](/docs/government/tenant-admin/overview.md) guide instead.
 
 The organization admin portal is where you manage the people, seats, and settings for a single organization in Claude for Government. It covers the day-to-day work of administering who has access, how much they can use, and how the Claude products behave for your users.
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=d235ae566a0056c409a1b59b2a9623e7" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
+
+Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -65,25 +67,25 @@ The navigation groups the pages into three sections.
 
 | Page | What it's for |
 | - | - |
-| [Users](/docs/government/org-admin/users) | Find users, change their role or seat tier, check their usage, and reset their rate limits. |
-| [Seats](/docs/government/org-admin/seats) | See how many seats of each tier your organization has and how many are currently in use. |
-| [Tiers](/docs/government/org-admin/seat-tiers) | Review the Anthropic-managed seat tiers and create your own tiers with custom model access and spend limits. |
-| [Group mappings](/docs/government/org-admin/provisioning) | Map directory groups to seat tiers and roles so that users added through your directory land in the right place automatically. |
+| [Users](/docs/government/org-admin/users.md) | Find users, change their role or seat tier, check their usage, and reset their rate limits. |
+| [Seats](/docs/government/org-admin/seats.md) | See how many seats of each tier your organization has and how many are currently in use. |
+| [Tiers](/docs/government/org-admin/seat-tiers.md) | Review the Anthropic-managed seat tiers and create your own tiers with custom model access and spend limits. |
+| [Group mappings](/docs/government/org-admin/provisioning.md) | Map directory groups to seat tiers and roles so that users added through your directory land in the right place automatically. |
 
 **Usage**
 
 | Page | What it's for |
 | - | - |
-| [Analytics](/docs/government/org-admin/analytics) | Review requests, tokens, spend, top users, and credit balance over time across your organization. |
-| [Compliance API](/docs/government/org-admin/compliance-api) | Create and manage read-only API keys that stream your organization's audit events to a SIEM or log management system. |
-| [Billing](/docs/government/org-admin/billing) | See the billing account that funds your organization, its balance and any spend caps, and adjust your seat allocation. |
+| [Analytics](/docs/government/org-admin/analytics.md) | Review requests, tokens, spend, top users, and credit balance over time across your organization. |
+| [Compliance API](/docs/government/org-admin/compliance-api.md) | Create and manage read-only API keys that stream your organization's audit events to a SIEM or log management system. |
+| [Billing](/docs/government/org-admin/billing.md) | See the billing account that funds your organization, its balance and any spend caps, and adjust your seat allocation. |
 
 **Settings**
 
 | Page | What it's for |
 | - | - |
-| [Config](/docs/government/org-admin/configuration) | Adjust product settings such as telemetry, the Claude Desktop banner, and product availability for everyone in your organization. |
-| [Readiness](/docs/government/org-admin/readiness) | See what is blocking users from using Claude and where each item is resolved. |
+| [Config](/docs/government/org-admin/configuration.md) | Adjust product settings such as telemetry, the Claude Desktop banner, and product availability for everyone in your organization. |
+| [Readiness](/docs/government/org-admin/readiness.md) | See what is blocking users from using Claude and where each item is resolved. |
 
 > [!WARNING]
 >
@@ -95,10 +97,10 @@ The navigation groups the pages into three sections.
 
 > [!NOTE]
 >
-> Single sign-on and the SCIM provisioning connection are configured at the tenant level, so they are managed on the [tenant portal's Identity and access page](/docs/government/tenant-admin/identity-and-access) rather than here.
+> Single sign-on and the SCIM provisioning connection are configured at the tenant level, so they are managed on the [tenant portal's Identity and access page](/docs/government/tenant-admin/identity-and-access.md) rather than here.
 
 ## How changes take effect
 
 Most changes you make in this portal take effect immediately. Changing a user's seat tier, updating a spend limit, or resetting a user's rate limits applies to their very next request. Group mapping changes trigger an immediate re-sync so you do not need to wait for a scheduled cycle.
 
-Settings on the [Config](/docs/government/org-admin/configuration) page that govern the Claude applications themselves, such as the Claude Desktop banner and telemetry, reach each user's application the next time it starts or the user signs in. Claude Desktop also checks for changes about every 10 minutes (about every 30 minutes on Claude Desktop versions earlier than 1.46388.1) while it is running and prompts the user to relaunch when a change needs a restart.
+Settings on the [Config](/docs/government/org-admin/configuration.md) page that govern the Claude applications themselves, such as the Claude Desktop banner and telemetry, reach each user's application the next time it starts or the user signs in. Claude Desktop also checks for changes about every 10 minutes (about every 30 minutes on Claude Desktop versions earlier than 1.46388.1) while it is running and prompts the user to relaunch when a change needs a restart.

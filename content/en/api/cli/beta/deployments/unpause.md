@@ -551,7 +551,6 @@ Unpause Deployment
 
 ```bash
 ant beta:deployments unpause \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 

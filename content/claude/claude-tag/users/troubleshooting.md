@@ -10,7 +10,7 @@
 >
 > Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-When something goes wrong mid-conversation, the cause is usually one of a small set. Each entry below has the same three parts: what you see, what it means, and how to resolve it. For setup and credential errors, see the [admin troubleshooting page](/docs/claude-tag/admins/troubleshooting).
+When something goes wrong mid-conversation, the cause is usually one of a small set. Each entry below has the same three parts: what you see, what it means, and how to resolve it. For setup and credential errors, see the [admin troubleshooting page](/docs/claude-tag/admins/troubleshooting.md).
 
 Many fixes end with something to send your admin. On this page that means whoever manages your organization's Claude account at claude.ai, and it's often not the same person as your Slack administrator. If you don't know who that is, ask whoever set Claude up in your workspace.
 
@@ -34,10 +34,10 @@ Work through these in order. Each step says what success looks like and where to
 2. **Is Claude in this channel?** Type `/invite @Claude` in the channel's message box, not in a thread reply. Slack rejects `/invite` inside threads ("/invite is not supported in threads. Sorry!"). **Works**: Slack posts "Claude was added to #channel" (or "is already in this channel"). Mention it again. **Fails**: Slack says you can't add apps to this channel (a Slack Connect or guest-restricted channel); try an internal channel instead. If Slack says "You don't have permission to invite people to this channel", the channel or workspace limits who can add people. In Slack, open **Channel details** → **Agents & apps** (called **Integrations** in some Slack versions), select **Add**, and pick **Claude**. Or ask someone who can add people to the channel to add Claude.
 3. **Is Claude Tag turned on for this channel?** Mention it again now that it's invited. **Works**: it reacts and replies. **Fails**: Claude replies in one of these ways, and each needs your admin:
    * **A notice that starts "Claude isn't on in this channel yet"**: your admin hasn't finished setting up Claude Tag. Send them [Launch Claude Tag](/docs/claude-tag/admins/setup-overview#launch-claude-tag).
-   * **A notice that says "Claude is disabled in this channel"**: Claude Tag is turned off for the channel, its workspace, or the organization. Send them [Claude is disabled in this channel](/docs/claude-tag/admins/troubleshooting#claude-is-disabled-in-this-channel).
-   * **A notice that the legacy Claude in Slack bot is retired**: the channel is still set to **Legacy**. Send them [The legacy Claude in Slack bot is retired](/docs/claude-tag/admins/troubleshooting#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026).
+   * **A notice that says "Claude is disabled in this channel"**: Claude Tag is turned off for the channel, its workspace, or the organization. Send them [Claude is disabled in this channel](/docs/claude-tag/admins/troubleshooting.md#claude-is-disabled-in-this-channel).
+   * **A notice that the legacy Claude in Slack bot is retired**: the channel is still set to **Legacy**. Send them [The legacy Claude in Slack bot is retired](/docs/claude-tag/admins/troubleshooting.md#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026).
 
-If `@Claude` still gets no reaction and no reply after all three, send the [admin entries for a silent workspace](/docs/claude-tag/admins/troubleshooting#nothing-responds) to an admin. For silence in one channel, send them to your Claude admin. For silence across a whole workspace or a whole Enterprise Grid, send them to whoever administers Slack for you, because the fix usually needs a Slack admin.
+If `@Claude` still gets no reaction and no reply after all three, send the [admin entries for a silent workspace](/docs/claude-tag/admins/troubleshooting.md#nothing-responds) to an admin. For silence in one channel, send them to your Claude admin. For silence across a whole workspace or a whole Enterprise Grid, send them to whoever administers Slack for you, because the fix usually needs a Slack admin.
 
 ### Claude replies to me but not to a teammate
 
@@ -47,7 +47,7 @@ Claude answers your mentions in a channel, and a teammate's mentions in the same
 
 **What it means**
 
-Mentioning Claude in a channel doesn't require the sender to have a Claude account or seat, so by default anyone in the workspace can use it. Your organization can restrict that with the [member access setting](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude), in which case members outside the restriction are declined.
+Mentioning Claude in a channel doesn't require the sender to have a Claude account or seat, so by default anyone in the workspace can use it. Your organization can restrict that with the [member access setting](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude), in which case members outside the restriction are declined.
 
 **How to resolve**
 
@@ -55,7 +55,7 @@ Have the teammate mention `@Claude` themselves and report the exact text of any 
 
 * No reaction and no reply at all: unusual when it works for you in the same channel; send your admin the exact channel and person.
 * A message about guests: see [the guest entry below](#claude-doesn%E2%80%99t-respond-in-channels-that-include-guests).
-* A message about permissions or access: your organization restricts who can use Claude; send your admin [the member access setting](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude).
+* A message about permissions or access: your organization restricts who can use Claude; send your admin [the member access setting](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude).
 
 ### Claude reacted or started thinking, then never replied
 
@@ -96,7 +96,7 @@ The second message means the session didn't start at all. The failure is usually
 
 **How to resolve**
 
-* For the capacity message, wait a few minutes. To add context while waiting, @-mention Claude in the same thread rather than starting a new one. A new thread only queues a second session behind the first. If Claude still hasn't started after several more minutes, send your admin [Still waiting for available capacity](/docs/claude-tag/admins/troubleshooting#still-waiting-for-available-capacity).
+* For the capacity message, wait a few minutes. To add context while waiting, @-mention Claude in the same thread rather than starting a new one. A new thread only queues a second session behind the first. If Claude still hasn't started after several more minutes, send your admin [Still waiting for available capacity](/docs/claude-tag/admins/troubleshooting.md#still-waiting-for-available-capacity).
 * For the failed-start message, mention Claude in the same thread to retry. If the session fails to start again, ask an admin.
 
 ### Claude didn't react to a message I edited
@@ -123,7 +123,7 @@ A mention in a Slack Connect channel, one shared with another company, gets no a
 
 Find what you saw in this list:
 
-* **No answer and no notice.** By default, Claude is off in Slack Connect channels and posts no notice there. An Owner or a Claude Tag admin can [turn Claude on for Slack Connect channels](/docs/claude-tag/admins/restrict-access#slack-connect-channels). If your admin has turned Claude on and it still doesn't answer, your admin can check the cases listed there.
+* **No answer and no notice.** By default, Claude is off in Slack Connect channels and posts no notice there. An Owner or a Claude Tag admin can [turn Claude on for Slack Connect channels](/docs/claude-tag/admins/restrict-access.md#slack-connect-channels). If your admin has turned Claude on and it still doesn't answer, your admin can check the cases listed there.
 * **A reply only you can see.** If Claude's reply starts "This is a shared Slack Connect channel, and here I only act on requests from people in the host organization with a connected Claude account", the company that set up Claude in this channel has limited it to its own members.
 * **A notice about the thread's earlier session.** The notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here" means Claude was working in this thread before the channel was shared. Mention `@Claude` in a new thread.
 
@@ -131,11 +131,11 @@ A channel shared across workspaces inside your Enterprise Grid is different. Whe
 
 Where guest access is restricted, you may first see "This channel is shared across multiple workspaces, and Claude can't verify whether it includes guests, so Claude can't respond here." If you ask Claude from another conversation to act in one of these channels, such as posting a message there, you see a reply that ends "Claude isn't available in channels shared across your Enterprise Grid".
 
-Each of these Enterprise Grid messages means the channel spans more than one workspace. The [admin entries on these messages](/docs/claude-tag/admins/troubleshooting#this-channel-is-shared-across-multiple-workspaces) explain what causes each one and what an admin can change.
+Each of these Enterprise Grid messages means the channel spans more than one workspace. The [admin entries on these messages](/docs/claude-tag/admins/troubleshooting.md#this-channel-is-shared-across-multiple-workspaces) explain what causes each one and what an admin can change.
 
 **How to resolve**
 
-Move the conversation to an internal channel that belongs to a single workspace, or to a DM, and mention Claude there. For a Slack Connect channel, you can also ask your admin to [turn Claude on there](/docs/claude-tag/admins/restrict-access#slack-connect-channels).
+Move the conversation to an internal channel that belongs to a single workspace, or to a DM, and mention Claude there. For a Slack Connect channel, you can also ask your admin to [turn Claude on there](/docs/claude-tag/admins/restrict-access.md#slack-connect-channels).
 
 ### Couldn't check this channel just now
 
@@ -151,7 +151,7 @@ When your organization restricts Claude in channels that include guests (the def
 
 **How to resolve**
 
-Mention Claude again; the check usually passes on retry. If the same channel hits this repeatedly, send your admin [the admin entry on this message](/docs/claude-tag/admins/troubleshooting#couldn%E2%80%99t-check-this-channel-just-now).
+Mention Claude again; the check usually passes on retry. If the same channel hits this repeatedly, send your admin [the admin entry on this message](/docs/claude-tag/admins/troubleshooting.md#couldn%E2%80%99t-check-this-channel-just-now).
 
 ### Claude doesn't respond in channels that include guests
 
@@ -171,7 +171,7 @@ Any of these fixes works:
 
 * Remove the guests from the channel. In Slack, open **Channel details** → **Members** and filter by "guests"; guests show a **guest** badge on their Slack profile.
 * Move the conversation to a channel with no guests.
-* Ask a claude.ai organization owner to change the guest setting for this channel, and send them [the guest access setting](/docs/claude-tag/admins/restrict-access#restrict-guest-channels). They can let Claude reply with only the channel's own setup, or with full access. If you don't know who your organization's owners are, ask whoever set Claude up in your workspace.
+* Ask a claude.ai organization owner to change the guest setting for this channel, and send them [the guest access setting](/docs/claude-tag/admins/restrict-access.md#restrict-guest-channels). They can let Claude reply with only the channel's own setup, or with full access. If you don't know who your organization's owners are, ask whoever set Claude up in your workspace.
 
 The guest access setting restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even when it's allowed to respond there. Removing the guests or moving the conversation to a channel with no guests restores search as well.
 
@@ -193,7 +193,7 @@ Claude can be wrong, including when it sounds certain. The most common wrong ans
 
 Before you share or act on a result, check the source links it posted, and ask it to show its work ("which channels did you search?" or "show me the query you ran"). If the answer is wrong, say so in the same thread with the correct answer; correcting it there is also how you steer the next attempt.
 
-For numbers and facts that matter, the [definition-of-done habit](/docs/claude-tag/users/good-habits#give-every-task-a-definition-of-done) helps. Make "include the source for every figure" or "show me the query" part of the ask.
+For numbers and facts that matter, the [definition-of-done habit](/docs/claude-tag/users/good-habits.md#give-every-task-a-definition-of-done) helps. Make "include the source for every figure" or "show me the query" part of the ask.
 
 ### Claude replies to every message in a thread
 
@@ -217,9 +217,9 @@ Someone posts a top-level message in the channel without mentioning Claude, and 
 
 **What it means**
 
-The channel's [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) setting is on. The setting is on by default.
+The channel's [**Respond automatically**](/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting is on. The setting is on by default.
 
-In a channel where someone has [told Claude which kinds of untagged messages to answer](/docs/claude-tag/users/when-claude-responds#what-claude-does-with-a-channel-message), it answers those kinds as well.
+In a channel where someone has [told Claude which kinds of untagged messages to answer](/docs/claude-tag/users/when-claude-responds.md#what-claude-does-with-a-channel-message), it answers those kinds as well.
 
 **How to resolve**
 
@@ -233,7 +233,7 @@ If Claude doesn't confirm the change, turn the setting off on the channel's Conf
 2. Turn off the **Respond automatically** toggle.
 3. Click **Save**.
 
-If the Configure page says an admin has locked the channel's settings, ask an admin to [turn automatic replies off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) for the channel.
+If the Configure page says an admin has locked the channel's settings, ask an admin to [turn automatic replies off](/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) for the channel.
 
 The **Respond automatically** setting doesn't quiet a thread Claude has already posted in. To quiet one of those threads, reply in it with an instruction such as "only respond when I @-mention you".
 
@@ -259,7 +259,7 @@ Claude posted a message in a conversation you're in, and you want it removed.
 
 **What it means**
 
-Claude can delete only messages that the conversation's current [session](/docs/claude-tag/concepts/glossary#session) posted, so it can't delete your messages, anyone else's, or a message it posted before that session started.
+Claude can delete only messages that the conversation's current [session](/docs/claude-tag/concepts/glossary.md#session) posted, so it can't delete your messages, anyone else's, or a message it posted before that session started.
 
 **How to resolve**
 
@@ -269,7 +269,7 @@ Deleting a message this way has the following effects:
 
 * The deletion is permanent.
 * When the deleted message started a thread that has replies, Slack keeps the replies.
-* Deleting the message from Slack doesn't remove it from the session's transcript. See [What Anthropic stores](/docs/claude-tag/concepts/data-lifecycle#what-anthropic-stores).
+* Deleting the message from Slack doesn't remove it from the session's transcript. See [What Anthropic stores](/docs/claude-tag/concepts/data-lifecycle.md#what-anthropic-stores).
 
 ### This conversation is too long for me to process
 
@@ -347,7 +347,7 @@ Your organization's usage credit balance can't cover the request, so the turn st
 
 **How to resolve**
 
-An admin enables or purchases usage credits in claude.ai for your organization. Once that's done, mention Claude in the same thread to retry (adding credits doesn't restart the work on its own). The retry continues with the thread's conversation and context. [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies) covers what else carries over.
+An admin enables or purchases usage credits in claude.ai for your organization. Once that's done, mention Claude in the same thread to retry (adding credits doesn't restart the work on its own). The retry continues with the thread's conversation and context. [What survives between replies](/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies) covers what else carries over.
 
 ### Claude couldn't clone a repository for this session
 
@@ -363,7 +363,7 @@ The clone failed when the session started. A one-off failure is transient; the s
 
 **How to resolve**
 
-Wait a few minutes, then mention Claude in the same thread to retry. If the same repository fails every time, send your admin [the GitHub access entry](/docs/claude-tag/admins/troubleshooting#github-doesn%E2%80%99t-work-in-this-channel).
+Wait a few minutes, then mention Claude in the same thread to retry. If the same repository fails every time, send your admin [the GitHub access entry](/docs/claude-tag/admins/troubleshooting.md#github-doesn%E2%80%99t-work-in-this-channel).
 
 ### I got disconnected partway through
 
@@ -421,7 +421,7 @@ The isolated workspace where Claude works on a thread is recycled after a period
 
 **How to resolve**
 
-Ask Claude to recreate the file, and for long-running work, ask it to commit and push early, or to post drafts into the thread as it goes, so nothing lives only in that workspace. The [definition-of-done habit](/docs/claude-tag/users/good-habits#give-every-task-a-definition-of-done) helps here. Make "push the branch" or "post the file" part of the task.
+Ask Claude to recreate the file, and for long-running work, ask it to commit and push early, or to post drafts into the thread as it goes, so nothing lives only in that workspace. The [definition-of-done habit](/docs/claude-tag/users/good-habits.md#give-every-task-a-definition-of-done) helps here. Make "push the branch" or "post the file" part of the task.
 
 ### My old thread stopped working, but new threads are fine
 
@@ -467,7 +467,7 @@ Channel memory is a small, curated note, not a transcript, and Claude decides wh
 
 To make an instruction stick, say so explicitly, as in `remember for this channel: always post reports as a table`. Keep saved instructions short; the per-channel memory budget is limited, and long entries crowd out everything else. For longer playbooks, store them in a repository Claude can read.
 
-Verify what stuck by asking what it remembers about the channel. See [What Claude Tag remembers](/docs/claude-tag/users/memory).
+Verify what stuck by asking what it remembers about the channel. See [What Claude Tag remembers](/docs/claude-tag/users/memory.md).
 
 ### A session link Claude posted shows a not-found page
 
@@ -527,11 +527,11 @@ Claude says it has no connection for a service you expected it to reach.
 
 **What it means**
 
-The channel likely hasn't been given a connection for that service; see [what each connection adds](/docs/claude-tag/admins/add-connections).
+The channel likely hasn't been given a connection for that service; see [what each connection adds](/docs/claude-tag/admins/add-connections.md).
 
 **How to resolve**
 
-Ask your admin to add one for this channel and send them [the connection scope entry](/docs/claude-tag/admins/troubleshooting#a-connection-works-in-one-channel-but-not-another). Once they have, ask Claude to use the service by name, or start a new thread, which picks up the connection on its own. If the fix worked, asking `@Claude what can you access from this channel?` in a new thread lists the service.
+Ask your admin to add one for this channel and send them [the connection scope entry](/docs/claude-tag/admins/troubleshooting.md#a-connection-works-in-one-channel-but-not-another). Once they have, ask Claude to use the service by name, or start a new thread, which picks up the connection on its own. If the fix worked, asking `@Claude what can you access from this channel?` in a new thread lists the service.
 
 ### A connector works on claude.ai but not in Slack
 
@@ -541,26 +541,26 @@ A connector you use on claude.ai is missing when you work with Claude in Slack, 
 
 **What it means**
 
-Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. Claude can also [use your personal connectors there](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. A one-to-one DM runs on your own claude.ai account and uses that account's connectors.
+Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. Claude can also [use your personal connectors there](/docs/claude-tag/concepts/personal-connectors.md) for your own tasks, after you allow it. A one-to-one DM runs on your own claude.ai account and uses that account's connectors.
 
-You set up and authenticate connectors on claude.ai under **Customize > Connectors**; Slack has no connector settings of its own. The [settings map](/docs/claude-tag/concepts/settings-map) covers every settings surface.
+You set up and authenticate connectors on claude.ai under **Customize > Connectors**; Slack has no connector settings of its own. The [settings map](/docs/claude-tag/concepts/settings-map.md) covers every settings surface.
 
 **How to resolve**
 
-For a channel, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections) for the service. Claude can also use your [personal connectors](/docs/claude-tag/concepts/personal-connectors) for your own tasks in the channel, after you allow it.
+For a channel, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections.md) for the service. Claude can also use your [personal connectors](/docs/claude-tag/concepts/personal-connectors.md) for your own tasks in the channel, after you allow it.
 
 For a DM, work through these in order:
 
 1. Check that your Claude account is connected. DM `@Claude` and it prompts you to connect if it isn't.
 2. Check that the connector shows as connected under **Customize > Connectors** on claude.ai.
-3. For a custom connector on a Team or Enterprise plan, an Owner adds it to the organization before you can connect it; see [add a connector by URL](/docs/connectors/custom/add-unlisted#add-a-connector-by-url).
+3. For a custom connector on a Team or Enterprise plan, an Owner adds it to the organization before you can connect it; see [add a connector by URL](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url).
 4. After connecting or reconnecting the connector on claude.ai, send Claude a new top-level direct message. A session loads its connectors when it starts, so your existing DM threads keep the set they started with and don't pick up the change.
 
 ### Claude says it needs Claude Opus 5 to use my personal connectors
 
 **What you see**
 
-You ask Claude in a channel to do something that needs one of your [personal connectors](/docs/claude-tag/concepts/personal-connectors). Claude replies that it can't, because your Claude organization has turned off Claude Opus 5, which it needs to use your personal connectors in Slack.
+You ask Claude in a channel to do something that needs one of your [personal connectors](/docs/claude-tag/concepts/personal-connectors.md). Claude replies that it can't, because your Claude organization has turned off Claude Opus 5, which it needs to use your personal connectors in Slack.
 
 **What it means**
 
@@ -568,7 +568,7 @@ Tasks that use your personal connectors need Claude Opus 5 turned on for your or
 
 **How to resolve**
 
-Ask your admin to turn Claude Opus 5 back on for your organization, and send them [the admin controls for personal connectors](/docs/claude-tag/concepts/personal-connectors#admin-controls-for-personal-connectors). Once it's on, ask Claude again in the thread. Your thread keeps running on the model it was already using.
+Ask your admin to turn Claude Opus 5 back on for your organization, and send them [the admin controls for personal connectors](/docs/claude-tag/concepts/personal-connectors.md#admin-controls-for-personal-connectors). Once it's on, ask Claude again in the thread. Your thread keeps running on the model it was already using.
 
 ### Claude says it has no internet access or can't open a link
 
@@ -582,7 +582,7 @@ Searching and opening a page take different paths. Web search runs on Anthropic'
 
 **How to resolve**
 
-Send your admin the link you tried to open along with [the blocked host entry](/docs/claude-tag/admins/troubleshooting#claude-says-a-host-isn%E2%80%99t-allowed-or-it-can%E2%80%99t-reach-the-internet). While you wait, ask Claude to search for the page instead; a search often brings back enough of the content to answer. Once your admin has allowed the website, retry; if it's still blocked, start a fresh thread.
+Send your admin the link you tried to open along with [the blocked host entry](/docs/claude-tag/admins/troubleshooting.md#claude-says-a-host-isn%E2%80%99t-allowed-or-it-can%E2%80%99t-reach-the-internet). While you wait, ask Claude to search for the page instead; a search often brings back enough of the content to answer. Once your admin has allowed the website, retry; if it's still blocked, start a fresh thread.
 
 ### Claude can't connect over SSH
 
@@ -592,11 +592,11 @@ Claude reports it can't reach a host over SSH, or a database's native protocol t
 
 **What it means**
 
-Every request Claude makes from a channel passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy), which carries HTTP and HTTPS only. A protocol that isn't HTTP, such as SSH or a database's native wire protocol, can't cross the proxy to any host, so this isn't a connection your admin can add.
+Every request Claude makes from a channel passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy), which carries HTTP and HTTPS only. A protocol that isn't HTTP, such as SSH or a database's native wire protocol, can't cross the proxy to any host, so this isn't a connection your admin can add.
 
 **How to resolve**
 
-If the service exposes an HTTP API, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections) for that instead.
+If the service exposes an HTTP API, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections.md) for that instead.
 
 ### You've reached a Claude Tag spend limit
 
@@ -624,7 +624,7 @@ In a DM or a channel, when your organization's extra usage limit is the cap rath
 
 **What it means**
 
-Usage hit a cap. For the **Claude Tag spend limit** message, the cap is a spend limit an admin set, either for the whole organization or [for this channel](/docs/claude-tag/admins/restrict-access#set-spend-limits), and the message reads the same for both.
+Usage hit a cap. For the **Claude Tag spend limit** message, the cap is a spend limit an admin set, either for the whole organization or [for this channel](/docs/claude-tag/admins/restrict-access.md#set-spend-limits), and the message reads the same for both.
 
 A rate limit looks similar but is a different problem, and raising the spend limit doesn't clear it. If your message instead says "That message didn't get through to Claude." or begins "Rate-limited delivering that message", requests arrived faster than Claude accepts them at that moment. Wait a few seconds, then send your message again.
 
@@ -673,7 +673,7 @@ One-to-one DMs run on your own claude.ai account rather than the organization's 
 1. Mention Claude again; the retry usually clears it.
 2. If it keeps happening, the environment your account is set to use may no longer be available; check it at [`claude.ai/code`](https://claude.ai/code).
 
-If a channel (not a DM) shows session-start failures that mention an environment, send your admin [the environment scope entry](/docs/claude-tag/admins/troubleshooting#channel-sessions-use-the-wrong-environment-or-can%E2%80%99t-find-one).
+If a channel (not a DM) shows session-start failures that mention an environment, send your admin [the environment scope entry](/docs/claude-tag/admins/troubleshooting.md#channel-sessions-use-the-wrong-environment-or-can%E2%80%99t-find-one).
 
 ### Your Claude account is connected, but it doesn't have access in this organization
 
@@ -691,7 +691,7 @@ Your seat doesn't qualify for one-to-one DMs. A seat that includes Claude Code a
 
 **How to resolve**
 
-Channels keep working while you wait, so mention `@Claude` there if you need an answer now. Then ask your admin (whoever manages your organization's Claude account at claude.ai) about your seat assignment; the [admin entry on this message](/docs/claude-tag/admins/troubleshooting#your-claude-account-is-connected-but-it-doesn%E2%80%99t-have-access-in-this-organization) covers the fix.
+Channels keep working while you wait, so mention `@Claude` there if you need an answer now. Then ask your admin (whoever manages your organization's Claude account at claude.ai) about your seat assignment; the [admin entry on this message](/docs/claude-tag/admins/troubleshooting.md#your-claude-account-is-connected-but-it-doesn%E2%80%99t-have-access-in-this-organization) covers the fix.
 
 ### Your Claude admin has disabled sending direct messages to Claude
 
@@ -707,7 +707,7 @@ DMs are turned off organization-wide, which covers group DMs too.
 
 **How to resolve**
 
-Use a channel instead, or ask an Owner of your Claude organization to [turn DMs back on](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+Use a channel instead, or ask an Owner of your Claude organization to [turn DMs back on](/docs/claude-tag/admins/restrict-access.md#allow-or-disable-direct-messages).
 
 ### Group DMs aren't supported yet
 
@@ -726,7 +726,7 @@ Claude can't answer in this group DM. These are the usual causes:
 
 **How to resolve**
 
-Ask Claude in a channel or a one-to-one DM instead. If you're an admin, [Group DMs](/docs/claude-tag/admins/restrict-access#group-dms) covers how who is in a group DM, and how Slack shares it, can change whether Claude answers.
+Ask Claude in a channel or a one-to-one DM instead. If you're an admin, [Group DMs](/docs/claude-tag/admins/restrict-access.md#group-dms) covers how who is in a group DM, and how Slack shares it, can change whether Claude answers.
 
 ### Agents can only be added at the start of direct messages
 
@@ -749,6 +749,6 @@ Choose where to continue with Claude:
 
 ## Related resources
 
-* [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds): what makes Claude reply without an @-mention, and the controls that turn those replies off
-* [How Claude Tag works](/docs/claude-tag/concepts/how-it-works): why behavior differs by channel and thread
+* [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds.md): what makes Claude reply without an @-mention, and the controls that turn those replies off
+* [How Claude Tag works](/docs/claude-tag/concepts/how-it-works.md): why behavior differs by channel and thread
 * [Give feedback](https://support.claude.com): report a bug from the thread where it happened

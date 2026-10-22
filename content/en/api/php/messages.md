@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/messages
 
 ## Create a Message
 
-`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?DiagnosticsParam diagnostics, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID, ?string workspaceID): Message`
+`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?DiagnosticsParam diagnostics, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?string userProfileID, ?string workspaceID): Message`
 
 **POST** `/v1/messages`
 
@@ -76,7 +76,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=php).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -227,36 +227,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-- `temperature?:optional float`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-- `topK?:optional int`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-  Only sample from the top K options for each subsequent token.
-
-  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-  Recommended for advanced use cases only.
-
-- `topP?:optional float`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Use nucleus sampling.
-
-  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-  Recommended for advanced use cases only.
 
 ### Returns
 
@@ -467,7 +437,6 @@ $message = $client->messages->create(
       ],
     ],
   ],
-  temperature: 1,
   thinking: ['type' => 'adaptive', 'display' => 'summarized'],
   toolChoice: ['type' => 'auto', 'disableParallelToolUse' => true],
   tools: [
@@ -488,8 +457,6 @@ $message = $client->messages->create(
       'type' => 'custom',
     ],
   ],
-  topK: 5,
-  topP: 0.7,
   userProfileID: 'anthropic-user-profile-id',
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
@@ -630,7 +597,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=php).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -828,6 +795,14 @@ var_dump($messageTokensCount);
 ```
 
 ## Domain types
+
+### Assistant Message Param
+
+- `class AssistantMessageParam`
+
+  - `MessageContentParam content`
+
+  - `"assistant" role`
 
 ### Base64 Image Source
 
@@ -5835,6 +5810,234 @@ var_dump($messageTokensCount);
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+### Message Content Param
+
+- `class MessageContentParam`
+
+  - `string`
+
+  - `list<ContentBlockParam>`
+
+    - `class TextBlockParam`
+
+      - `"text" type`
+
+      - `string text`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?list<TextCitationParam> citations`
+
+    - `class ImageBlockParam`
+
+      - `"image" type`
+
+      - `Source source`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?ImageTransformationsParam transformations`
+
+        Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+    - `class DocumentBlockParam`
+
+      - `"document" type`
+
+      - `Source source`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?CitationsConfigParam citations`
+
+      - `?string context`
+
+      - `?string title`
+
+    - `class SearchResultBlockParam`
+
+      - `"search_result" type`
+
+      - `list<TextBlockParam> content`
+
+      - `string source`
+
+      - `string title`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?CitationsConfigParam citations`
+
+    - `class ThinkingBlockParam`
+
+      - `"thinking" type`
+
+      - `string signature`
+
+        The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+        Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+      - `string thinking`
+
+        The `thinking` text of this block as returned by the API.
+
+    - `class RedactedThinkingBlockParam`
+
+      - `"redacted_thinking" type`
+
+      - `string data`
+
+        The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+    - `class ToolUseBlockParam`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `array<string,mixed> input`
+
+      - `string name`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+      - `?string toolsetName`
+
+        For a toolset member tool_use, the toolset family this member belongs to.
+
+    - `class ToolResultBlockParam`
+
+      - `"tool_result" type`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Content content`
+
+      - `?bool isError`
+
+      - `?string toolsetName`
+
+        For a toolset member tool_result, the toolset family of the paired tool_use.
+
+    - `class ServerToolUseBlockParam`
+
+      - `"server_tool_use" type`
+
+      - `string id`
+
+      - `array<string,mixed> input`
+
+      - `Name name`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+    - `class WebSearchToolResultBlockParam`
+
+      - `"web_search_tool_result" type`
+
+      - `WebSearchToolResultBlockParamContent content`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+    - `class WebFetchToolResultBlockParam`
+
+      - `"web_fetch_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+    - `class CodeExecutionToolResultBlockParam`
+
+      - `"code_execution_tool_result" type`
+
+      - `CodeExecutionToolResultBlockParamContent content`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BashCodeExecutionToolResultBlockParam`
+
+      - `"bash_code_execution_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class TextEditorCodeExecutionToolResultBlockParam`
+
+      - `"text_editor_code_execution_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class ToolSearchToolResultBlockParam`
+
+      - `"tool_search_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class ContainerUploadBlockParam`
+
+      - `"container_upload" type`
+
+      - `string fileID`
+
+      - `?CacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
 ### Message Count Tokens Tool
 
 - `class MessageCountTokensTool`
@@ -6564,9 +6767,23 @@ var_dump($messageTokensCount);
 
 - `class MessageParam`
 
-  - `Content content`
+  - `class UserMessageParam`
 
-  - `Role role`
+    - `MessageContentParam content`
+
+    - `"user" role`
+
+  - `class AssistantMessageParam`
+
+    - `MessageContentParam content`
+
+    - `"assistant" role`
+
+  - `class SystemMessageParam`
+
+    - `Content content`
+
+    - `"system" role`
 
 ### Message Tokens Count
 
@@ -7030,6 +7247,14 @@ var_dump($messageTokensCount);
   - `"refusal"`
 
   - `"model_context_window_exceeded"`
+
+### System Message Param
+
+- `class SystemMessageParam`
+
+  - `Content content`
+
+  - `"system" role`
 
 ### Text Block
 
@@ -9686,6 +9911,14 @@ var_dump($messageTokensCount);
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+### User Message Param
+
+- `class UserMessageParam`
+
+  - `MessageContentParam content`
+
+  - `"user" role`
+
 ### Web Fetch Block
 
 - `class WebFetchBlock`
@@ -10451,7 +10684,6 @@ $messageBatch = $client->messages->batches->create(
             ],
           ],
         ],
-        'temperature' => 1,
         'thinking' => ['type' => 'adaptive', 'display' => 'summarized'],
         'toolChoice' => ['type' => 'auto', 'disableParallelToolUse' => true],
         'tools' => [
@@ -10472,8 +10704,6 @@ $messageBatch = $client->messages->batches->create(
             'type' => 'custom',
           ],
         ],
-        'topK' => 5,
-        'topP' => 0.7,
       ],
     ],
   ],

@@ -14,9 +14,9 @@ In Settings > Compute > **Cloud providers**, click Connect on the Modal card. If
 
 ### Workspace restrictions set by your organization
 
-On Team and Enterprise plans, your organization's admin can limit Modal to specific workspaces. When Claude uses your Modal token, the app checks the workspace that Modal reports for that token, not the label in your `~/.modal.toml`. If that workspace isn't on your organization's list, the app tells you that this Modal workspace is not allowed by your admin, and Claude can't run jobs there until you connect a token from an allowed workspace. Your admin can also turn Modal on or off for the organization (see [Modal](/docs/claude-science/admin-controls#modal)).
+On Team and Enterprise plans, your organization's admin can limit Modal to specific workspaces. When Claude uses your Modal token, the app checks the workspace that Modal reports for that token, not the label in your `~/.modal.toml`. If that workspace isn't on your organization's list, the app tells you that this Modal workspace is not allowed by your admin, and Claude can't run jobs there until you connect a token from an allowed workspace. Your admin can also turn Modal on or off for the organization (see [Modal](/docs/claude-science/admin-controls.md#modal)).
 
-If your organization manages the network allowlist, set **Network restrictions** on the Modal page under **Settings** > **Compute** to **Allowlist** or **No network** before you run jobs. Jobs from a Modal setup with unrestricted network access are refused while your organization manages the list (see [Network allowlist](/docs/claude-science/admin-controls#network-allowlist)).
+If your organization manages the network allowlist, set **Network restrictions** on the Modal page under **Settings** > **Compute** to **Allowlist** or **No network** before you run jobs. Jobs from a Modal setup with unrestricted network access are refused while your organization manages the list (see [Network allowlist](/docs/claude-science/admin-controls.md#network-allowlist)).
 
 ## Running cloud jobs
 
@@ -42,7 +42,7 @@ Claude derives a container image from the environment a job needs and builds it 
 
 Claude Science can connect to a model server (hosted, or a container you run) that serves a scientific model over HTTP, and call it directly from analyses.
 
-On Team and Enterprise plans, your organization's admin can turn off scientific model endpoints for the organization. When your admin turns them off, you can't connect these providers or use endpoints you set up earlier, and the settings you entered are kept. Turning them off doesn't change which Claude models you can use (see [Scientific model endpoints](/docs/claude-science/admin-controls#scientific-model-endpoints)). If your organization manages the network allowlist, an endpoint at a public or internal host name works only while that list includes the host.
+On Team and Enterprise plans, your organization's admin can turn off scientific model endpoints for the organization. When your admin turns them off, you can't connect these providers or use endpoints you set up earlier, and the settings you entered are kept. Turning them off doesn't change which Claude models you can use (see [Scientific model endpoints](/docs/claude-science/admin-controls.md#scientific-model-endpoints)). If your organization manages the network allowlist, an endpoint at a public or internal host name works only while that list includes the host.
 
 ### NVIDIA BioNeMo NIM
 

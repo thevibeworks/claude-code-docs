@@ -35,7 +35,7 @@ Create a Vault
 
 - `class BetaManagedAgentsVault`
 
-  - `Type type`
+  - `"vault" type`
 
   - `string id`
 

@@ -5,7 +5,7 @@
 # Key Changes
 
 This document lists changes made to the Model Context Protocol (MCP) specification since
-the previous revision, [2025-06-18](/specification/2025-06-18).
+the previous revision, [2025-06-18](/specification/2025-06-18.md).
 
 ## Major changes
 
@@ -14,17 +14,17 @@ the previous revision, [2025-06-18](/specification/2025-06-18).
 3. Enhance authorization flows with incremental scope consent via `WWW-Authenticate` ([SEP-835](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/835))
 4. Provide guidance on tool names ([SEP-986](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1603))
 5. Update `ElicitResult` and `EnumSchema` to use a more standards-based approach and support titled, untitled, single-select, and multi-select enums ([SEP-1330](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1330)).
-6. Added support for [URL mode elicitation](/specification/2025-11-25/client/elicitation#url-elicitation-requests) ([SEP-1036](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/887))
+6. Added support for [URL mode elicitation](/specification/2025-11-25/client/elicitation.md#url-elicitation-requests) ([SEP-1036](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/887))
 7. Add tool calling support to sampling via `tools` and `toolChoice` parameters ([SEP-1577](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1577))
 8. Add support for OAuth Client ID Metadata Documents as a recommended client registration mechanism ([SEP-991](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/991), PR [#1296](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1296))
-9. Add experimental support for [tasks](/specification/2025-11-25/basic/utilities/tasks) to enable tracking durable requests with polling and deferred result retrieval ([SEP-1686](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1686)).
+9. Add experimental support for [tasks](/specification/2025-11-25/basic/utilities/tasks.md) to enable tracking durable requests with polling and deferred result retrieval ([SEP-1686](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1686)).
 
 ## Minor changes
 
 1. Clarify that servers using stdio transport may use stderr for all types of logging, not just error messages (PR [#670](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/670)).
 2. Add optional `description` field to `Implementation` interface to align with MCP registry server.json format and provide human-readable context during initialization.
 3. Clarify that servers must respond with HTTP 403 Forbidden for invalid Origin headers in Streamable HTTP transport. (PR [#1439](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1439))
-4. Updated the [Security Best Practices guidance](https://modelcontextprotocol.io/specification/draft/basic/security_best_practices).
+4. Updated the [Security Best Practices guidance](https://modelcontextprotocol.io/specification/draft/basic/security_best_practices.md).
 5. Clarify that input validation errors should be returned as Tool Execution Errors rather than Protocol Errors to enable model self-correction ([SEP-1303](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1303)).
 6. Support polling SSE streams by allowing servers to disconnect at will ([SEP-1699](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1699)).
 7. Clarify SEP-1699: GET streams support polling, resumption always via GET regardless of stream origin, event IDs should encode stream identity, disconnection includes server-initiated closure (Issue [#1847](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1847)).

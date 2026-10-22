@@ -189,7 +189,6 @@ Redact a Memory Version
 
 ```bash
 ant beta:memory-stores:memory-versions redact \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-version-id memory_version_id
 ```

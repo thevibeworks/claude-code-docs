@@ -551,7 +551,6 @@ Archive Deployment
 
 ```bash
 ant beta:deployments archive \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 

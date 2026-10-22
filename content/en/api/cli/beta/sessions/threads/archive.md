@@ -913,7 +913,6 @@ Archive Session Thread
 
 ```bash
 ant beta:sessions:threads archive \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```

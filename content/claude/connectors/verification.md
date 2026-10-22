@@ -6,7 +6,7 @@
 
 > How Anthropic reviews connectors in the directory, what the Verified, Community, and Custom labels mean, and how to stay safe with third-party connectors.
 
-The [Connectors Directory](/docs/connectors/directory) lists connectors from Anthropic and from third-party developers, and each one shows how much Anthropic has reviewed it. Use this page to understand what those labels mean before you connect one.
+The [Connectors Directory](/docs/connectors/directory.md) lists connectors from Anthropic and from third-party developers, and each one shows how much Anthropic has reviewed it. Use this page to understand what those labels mean before you connect one.
 
 > [!NOTE]
 >
@@ -30,13 +30,13 @@ Community connectors show a **Community** label in the directory and in [**Custo
 
 ### Custom
 
-You added a Custom connector yourself, and Anthropic hasn't reviewed it. [Custom connectors](/docs/connectors/custom/add-unlisted#add-a-connector-by-url) explains how to add one.
+You added a Custom connector yourself, and Anthropic hasn't reviewed it. [Custom connectors](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) explains how to add one.
 
 ## Directory listing versus custom connectors
 
 The directory is a catalog of connectors, and listing is optional. Connectors in the directory and custom connectors you add yourself use the same technology, so if you have a connector's URL, you can add it as a custom connector whether or not it's in the directory.
 
-Listing a connector in the directory makes it discoverable by other people and gives it a review label: a checkmark if Anthropic has verified it, or **Community** if Anthropic has screened it but not reviewed it in depth. Listing doesn't change the tools the connector exposes. [Directory vs custom](/docs/connectors/building/directory-vs-custom) has a detailed comparison.
+Listing a connector in the directory makes it discoverable by other people and gives it a review label: a checkmark if Anthropic has verified it, or **Community** if Anthropic has screened it but not reviewed it in depth. Listing doesn't change the tools the connector exposes. [Directory vs custom](/docs/connectors/building/directory-vs-custom.md) has a detailed comparison.
 
 ## Stay safe with third-party connectors
 
@@ -49,16 +49,16 @@ Whatever the label, this advice applies to any connector built by someone other 
 * Stay aware of prompt injection risks, even though Claude has built-in protections
 * Monitor for unexpected changes in tool behavior
 
-For more, see [security and privacy](/docs/connectors/custom/add-unlisted#security-and-privacy) for custom connectors.
+For more, see [security and privacy](/docs/connectors/custom/add-unlisted.md#security-and-privacy) for custom connectors.
 
 ## List your own connector
 
-If you build connectors and want yours in the directory, start with the [connector pre-submission checklist](/docs/connectors/building/review-criteria) and then [submit your connector](/docs/connectors/building/submission).
+If you build connectors and want yours in the directory, start with the [connector pre-submission checklist](/docs/connectors/building/review-criteria.md) and then [submit your connector](/docs/connectors/building/submission.md).
 
 When you submit a server, Anthropic scans it automatically for policy compliance and, by default, lists it in the directory as a Community connector. Anthropic may then escalate listings flagged as highly useful to Claude users to Verified review, which is higher touch and slower, and in which reviewers run a functional test of each tool. That escalation is assessed automatically. There's no separate application for the **Verified** label, and you don't need to take any action.
 
 ## Related resources
 
-* [Connectors Directory](/docs/connectors/directory): browse and connect Verified and Community connectors
-* [Custom connectors](/docs/connectors/custom/add-unlisted#add-a-connector-by-url): add a connector by URL, and the security and privacy guidance that applies
-* [Publish to the directory](/docs/directory/publish): the developer's overview of submitting a connector or plugin
+* [Connectors Directory](/docs/connectors/directory.md): browse and connect Verified and Community connectors
+* [Custom connectors](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url): add a connector by URL, and the security and privacy guidance that applies
+* [Publish to the directory](/docs/directory/publish.md): the developer's overview of submitting a connector or plugin

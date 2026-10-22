@@ -51,7 +51,6 @@ Create Enrollment URL
 
 ```bash
 ant beta:user-profiles create-enrollment-url \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 

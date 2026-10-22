@@ -20,7 +20,7 @@ Usage figures on this page are compiled from the same metering that enforces you
 
 ## Managed and self-managed views
 
-A control at the top switches between **Anthropic-managed tiers** and **Self-managed tiers**. The two are shown separately because their economics differ: managed-tier seats are purchased as seats, while **self-managed tiers** (tiers your organization created itself on the [Tiers](/docs/government/org-admin/seat-tiers) page) draw down the billing account's balance. Spend figures and the credit panel are therefore shown only in the **Self-managed** view.
+A control at the top switches between **Anthropic-managed tiers** and **Self-managed tiers**. The two are shown separately because their economics differ: managed-tier seats are purchased as seats, while **self-managed tiers** (tiers your organization created itself on the [Tiers](/docs/government/org-admin/seat-tiers.md) page) draw down the billing account's balance. Spend figures and the credit panel are therefore shown only in the **Self-managed** view.
 
 If your organization has only one kind of tier, the control does not appear and the page shows only the matching view. If all of your seat tiers are Anthropic-managed, you see only the managed view, with no spend figures, credit panel, or burndown chart.
 
@@ -74,9 +74,9 @@ The top users file lists every user the **Top users** table can show, whether or
 
 ## Things to know
 
-* Claude for Government does not currently offer a programmatic usage or analytics API. Usage data is available through this admin portal page. The [Compliance API](/docs/government/org-admin/compliance-api) returns governance and audit events, not usage metrics.
+* Claude for Government does not currently offer a programmatic usage or analytics API. Usage data is available through this admin portal page. The [Compliance API](/docs/government/org-admin/compliance-api.md) returns governance and audit events, not usage metrics.
 * A user counts as **active** in the selected window if they made at least one request in it, regardless of which seat tier they were on at the time.
 * The **spend** column appears only in the self-managed view and is the amount debited from your billing account's balance. The managed view has no spend column because managed-tier usage is covered by the seat price rather than by credit drawdown.
-* To see how close each user is to their 5-hour and 7-day limits, use the **Usage** bars on the [Users](/docs/government/org-admin/users) page. The **Top users** table on this page shows how much each listed user consumed in the window, not how close they are to a limit.
+* To see how close each user is to their 5-hour and 7-day limits, use the **Usage** bars on the [Users](/docs/government/org-admin/users.md) page. The **Top users** table on this page shows how much each listed user consumed in the window, not how close they are to a limit.
 * If the credit panel is missing from the self-managed view, credit data for your organization's billing account is unavailable. The rest of the page will still load.
-* Usage that was cleared with **Reset usage limits** on the [Users](/docs/government/org-admin/users) page still appears here. The reset only clears the counter that enforces a user's limit; it does not remove the activity from analytics.
+* Usage that was cleared with **Reset usage limits** on the [Users](/docs/government/org-admin/users.md) page still appears here. The reset only clears the counter that enforces a user's limit; it does not remove the activity from analytics.

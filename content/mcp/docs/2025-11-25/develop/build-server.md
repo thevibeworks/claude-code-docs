@@ -16,15 +16,15 @@ We'll build a server that exposes two tools: `get_alerts` and `get_forecast`. Th
 
 > [!NOTE]
 >
-> Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/2025-11-25/develop/build-client).
+> Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/2025-11-25/develop/build-client.md).
 
 ### Core MCP Concepts
 
 MCP servers can provide three main types of capabilities:
 
-1. **[Resources](/docs/2025-11-25/learn/server-concepts#resources)**: File-like data that can be read by clients (like API responses or file contents)
-2. **[Tools](/docs/2025-11-25/learn/server-concepts#tools)**: Functions that can be called by the LLM (with user approval)
-3. **[Prompts](/docs/2025-11-25/learn/server-concepts#prompts)**: Pre-written templates that help users accomplish specific tasks
+1. **[Resources](/docs/2025-11-25/learn/server-concepts.md#resources)**: File-like data that can be read by clients (like API responses or file contents)
+2. **[Tools](/docs/2025-11-25/learn/server-concepts.md#tools)**: Functions that can be called by the LLM (with user approval)
+3. **[Prompts](/docs/2025-11-25/learn/server-concepts.md#prompts)**: Pre-written templates that help users accomplish specific tasks
 
 This tutorial will primarily focus on tools.
 
@@ -257,7 +257,7 @@ Let's now test your server from an existing MCP host, Claude for Desktop.
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version
 here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
@@ -721,7 +721,7 @@ Let's now test your server from an existing MCP host, Claude for Desktop.
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version
 here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
@@ -1362,7 +1362,7 @@ Let's now test your server from an existing MCP host, Claude for Desktop.
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version
 here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
@@ -1619,7 +1619,7 @@ This will start the server and listen for incoming requests on standard input/ou
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version
 here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
@@ -1913,7 +1913,7 @@ Let's now test your server from an existing MCP host, Claude for Desktop.
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -2329,7 +2329,7 @@ Let's now test your server from an existing MCP host, Claude for Desktop.
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -2756,7 +2756,7 @@ Let's now test your server from an existing MCP host, Claude for Desktop.
 
 > [!NOTE]
 >
-> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
+> Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2025-11-25/develop/build-client.md) tutorial to build an MCP client that connects to the server we just built.
 
 First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -2888,7 +2888,7 @@ When you ask a question:
 >
 > **None of this is working. What do I do?**
 >
-> Please refer to our [debugging guide](/docs/2025-11-25/tools/debugging) for better debugging tools and more detailed guidance.
+> Please refer to our [debugging guide](/docs/2025-11-25/tools/debugging.md) for better debugging tools and more detailed guidance.
 
 > **Weather API Issues**
 >
@@ -2912,22 +2912,22 @@ When you ask a question:
 
 > [!NOTE]
 >
-> For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/2025-11-25/tools/debugging)
+> For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/2025-11-25/tools/debugging.md)
 
 ## Next steps
 
-> **[Building a client](/docs/2025-11-25/develop/build-client)**
+> **[Building a client](/docs/2025-11-25/develop/build-client.md)**
 >
 > Learn how to build your own MCP client that can connect to your server
 
-> **[Example servers](/examples)**
+> **[Example servers](/examples.md)**
 >
 > Check out our gallery of official MCP servers and implementations
 
-> **[Debugging Guide](/docs/2025-11-25/tools/debugging)**
+> **[Debugging Guide](/docs/2025-11-25/tools/debugging.md)**
 >
 > Learn how to effectively debug MCP servers and integrations
 
-> **[Build with Agent Skills](/docs/2025-11-25/develop/build-with-agent-skills)**
+> **[Build with Agent Skills](/docs/2025-11-25/develop/build-with-agent-skills.md)**
 >
 > Use agent skills to guide AI coding assistants through server design

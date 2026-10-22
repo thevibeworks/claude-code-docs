@@ -127,7 +127,7 @@ Retrieve information about a single API key in your organization, looked up by i
 
       - `workspace_id: string`
 
-        ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+        ID of the Workspace the API key belongs to, including when it is the organization's default Workspace.
 
   - `status: "active" or "archived" or "expired" or "inactive"`
 
@@ -141,18 +141,12 @@ Retrieve information about a single API key in your organization, looked up by i
 
     - `"inactive"`
 
-  - `workspace_id: string or null`
-
-    **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
-
-    Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
-
 ## Example
 
 ```bash
 curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY"
 ```
 
 ### Response (200)
@@ -177,7 +171,6 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
     "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   },
   "status": "active",
-  "type": "api_key",
-  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  "type": "api_key"
 }
 ```

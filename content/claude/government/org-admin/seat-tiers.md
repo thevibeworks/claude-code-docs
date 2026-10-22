@@ -48,19 +48,19 @@ A tier's detail page shows its current values along with an **Allowed models** s
 >
 > The **Edit** form and **Delete** button only appear on self-managed tiers. For an Anthropic-managed tier the page is read-only.
 
-For a self-managed tier the **Edit** form lets you update any of the fields above. Changes to spend limits and allowed models take effect immediately for every user on the tier: if you lower the spend limit, a user who is already over the new limit will be blocked on their next request until their window rolls forward, and if you remove a model from the allowlist it becomes unavailable to every user on the tier straight away. Changes to **Default model** and **Always start with the default model** reach users when Claude Desktop next [refreshes its configuration](/docs/government/config/overview#when-changes-take-effect), and a new default appears the next time they start Claude Desktop.
+For a self-managed tier the **Edit** form lets you update any of the fields above. Changes to spend limits and allowed models take effect immediately for every user on the tier: if you lower the spend limit, a user who is already over the new limit will be blocked on their next request until their window rolls forward, and if you remove a model from the allowlist it becomes unavailable to every user on the tier straight away. Changes to **Default model** and **Always start with the default model** reach users when Claude Desktop next [refreshes its configuration](/docs/government/config/overview.md#when-changes-take-effect), and a new default appears the next time they start Claude Desktop.
 
-When you set or change a tier's **Default model**, Claude Desktop prompts users on that tier who have the app open to restart. Claude Desktop requires the restart once the [**Restart deadline for configuration changes**](/docs/government/config/settings#restart-deadline-for-configuration-changes) passes, 24 hours by default. If you also select **Always start with the default model**, those users start new chats on the first model in their model picker until they restart. To avoid the prompt, set a tier's **Default model** before its users first open Claude Desktop.
+When you set or change a tier's **Default model**, Claude Desktop prompts users on that tier who have the app open to restart. Claude Desktop requires the restart once the [**Restart deadline for configuration changes**](/docs/government/config/settings.md#restart-deadline-for-configuration-changes) passes, 24 hours by default. If you also select **Always start with the default model**, those users start new chats on the first model in their model picker until they restart. To avoid the prompt, set a tier's **Default model** before its users first open Claude Desktop.
 
 ## Deleting a tier
 
 The **Delete** button removes a self-managed tier entirely. Deletion is permanent and cannot be undone from this portal.
 
-You can only delete a tier that nothing references. If any users are still assigned to it, any API keys are bound to it, or any group mapping on the [Group mappings](/docs/government/org-admin/provisioning) page points at it, the delete is refused with a message telling you so. Reassign or remove those references first, then delete the tier.
+You can only delete a tier that nothing references. If any users are still assigned to it, any API keys are bound to it, or any group mapping on the [Group mappings](/docs/government/org-admin/provisioning.md) page points at it, the delete is refused with a message telling you so. Reassign or remove those references first, then delete the tier.
 
 ## Things to know
 
 * Changing a tier's **Sort order** affects where newly provisioned users land, but it does not move anyone who already has a seat.
 * The spend limits are per user, not per tier. Ten users on a tier with a \$20 seven-day limit can together spend up to \$200 from the billing account over seven days.
 * Moving a user between tiers does not reset their usage counters. A user who has spent \$15 in the current 5-hour window carries that spend with them, and it is measured against the new tier's limit on their next request.
-* Users choose among a tier's allowed models in the Claude Desktop model picker, described in [Models in Claude Desktop](/docs/government/desktop/models). Some models also offer a 1M context window, which Anthropic sets per model and which is not part of the tier.
+* Users choose among a tier's allowed models in the Claude Desktop model picker, described in [Models in Claude Desktop](/docs/government/desktop/models.md). Some models also offer a 1M context window, which Anthropic sets per model and which is not part of the tier.

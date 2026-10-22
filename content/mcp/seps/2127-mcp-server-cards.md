@@ -15,7 +15,7 @@ Extensions Track
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -35,7 +35,7 @@ Extensions Track
 
 This SEP proposes adding a standardized, self-contained format to describe MCP servers for pre-connection discovery. This enables clients to automatically discover available transports, protocol versions, and connection guidance before establishing a connection.
 
-As an Extensions Track SEP (per [SEP-2133](./2133-extensions.md)), this document charters the **Server Card** extension and names its Working Group and maintainers. The detailed, normative wire format — the Server Card schema, field definitions, the discovery mechanics, and the full security analysis — is maintained in the [experimental-ext-server-card](https://github.com/modelcontextprotocol/experimental-ext-server-card) repository rather than inline here, following the precedent set by [SEP-1865 (MCP Apps)](./1865-mcp-apps-interactive-user-interfaces-for-mcp.md).
+As an Extensions Track SEP (per [SEP-2133](/seps/2133-extensions.md)), this document charters the **Server Card** extension and names its Working Group and maintainers. The detailed, normative wire format — the Server Card schema, field definitions, the discovery mechanics, and the full security analysis — is maintained in the [experimental-ext-server-card](https://github.com/modelcontextprotocol/experimental-ext-server-card) repository rather than inline here, following the precedent set by [SEP-1865 (MCP Apps)](/seps/1865-mcp-apps-interactive-user-interfaces-for-mcp.md).
 
 ## Motivation
 
@@ -96,7 +96,7 @@ is the single source of truth; the generated [`schema.json`](https://github.com/
 and the discovery mechanics in [`docs/discovery.md`](https://github.com/modelcontextprotocol/experimental-ext-server-card/blob/main/docs/discovery.md)
 are derived from it.
 
-For purposes of SEP review, [extension repository snapshot `526201bb`](https://github.com/modelcontextprotocol/experimental-ext-server-card/tree/526201bbc80231daa40ffcdecfc9da4e54e5dc93) captures the contract considered by this proposal. After acceptance, implementers should follow the current, versioned extension specification rather than this historical snapshot. As defined by [SEP-2133](./2133-extensions.md#iteration), extension maintainers may evolve the specification independently while preserving backward compatibility; breaking changes require a new extension identifier.
+For purposes of SEP review, [extension repository snapshot `526201bb`](https://github.com/modelcontextprotocol/experimental-ext-server-card/tree/526201bbc80231daa40ffcdecfc9da4e54e5dc93) captures the contract considered by this proposal. After acceptance, implementers should follow the current, versioned extension specification rather than this historical snapshot. As defined by [SEP-2133](/seps/2133-extensions.md#iteration), extension maintainers may evolve the specification independently while preserving backward compatibility; breaking changes require a new extension identifier.
 
 At a high level, the Server Card extension introduces:
 
@@ -192,8 +192,8 @@ installation in the Goose CLI and Desktop client.
 
 ## References
 
-* [SEP-1865: MCP Apps (Extensions Track precedent)](./1865-mcp-apps-interactive-user-interfaces-for-mcp.md)
-* [SEP-2133: Extensions](./2133-extensions.md)
+* [SEP-1865: MCP Apps (Extensions Track precedent)](/seps/1865-mcp-apps-interactive-user-interfaces-for-mcp.md)
+* [SEP-2133: Extensions](/seps/2133-extensions.md)
 * [RFC 8414: OAuth 2.0 Authorization Server Metadata](https://datatracker.ietf.org/doc/html/rfc8414)
 * [RFC 8615: Well-Known URIs](https://datatracker.ietf.org/doc/html/rfc8615)
 * [MCP Protocol Specification](https://modelcontextprotocol.io/specification)

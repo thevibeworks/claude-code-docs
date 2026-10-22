@@ -67,7 +67,6 @@ Add Session Resource
 
 ```bash
 ant beta:sessions:resources add \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --file-id file_011CNha8iCJcU1wXNR6q4V8w \
   --type file

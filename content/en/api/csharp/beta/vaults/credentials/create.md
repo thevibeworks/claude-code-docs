@@ -27,7 +27,7 @@ Create a Credential
 
       Parameters for creating an MCP OAuth credential.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string AccessToken`
 
@@ -77,13 +77,13 @@ Create a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
             - `required string ClientSecret`
 
@@ -95,7 +95,7 @@ Create a Credential
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
             - `required string ClientSecret`
 
@@ -119,7 +119,7 @@ Create a Credential
 
       Parameters for creating a static bearer token credential.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string Token`
 
@@ -137,7 +137,7 @@ Create a Credential
 
       Parameters for creating an environment variable credential.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsCredentialNetworkingParams Networking`
 
@@ -147,13 +147,13 @@ Create a Credential
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -315,7 +315,7 @@ Create a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -335,7 +335,7 @@ Create a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -365,19 +365,19 @@ Create a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -391,7 +391,7 @@ Create a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -401,7 +401,7 @@ Create a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -423,13 +423,13 @@ Create a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -478,7 +478,6 @@ CredentialCreateParams parameters = new()
     {
         Token = "bearer_exampletoken",
         McpServerUrl = "https://example-server.modelcontextprotocol.io/sse",
-        Type = BetaManagedAgentsStaticBearerCreateParamsType.StaticBearer,
     },
 };
 

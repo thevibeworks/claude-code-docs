@@ -155,7 +155,7 @@ Retrieve a Memory Version
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=java#audit-memory-changes) to learn more about memory versions.
 
-  - `Type type`
+  - `JsonValue type = "memory_version"`
 
   - `String id`
 
@@ -219,7 +219,7 @@ Retrieve a Memory Version
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `Type type`
+      - `JsonValue type = "session_actor"`
 
       - `String sessionId`
 
@@ -231,7 +231,7 @@ Retrieve a Memory Version
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `Type type`
+      - `JsonValue type = "api_actor"`
 
       - `String apiKeyId`
 
@@ -243,7 +243,7 @@ Retrieve a Memory Version
 
       A human user, for example acting through the Anthropic Console.
 
-      - `Type type`
+      - `JsonValue type = "user_actor"`
 
       - `String userId`
 

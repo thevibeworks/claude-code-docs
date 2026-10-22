@@ -18,13 +18,13 @@ Read the findings before you act on them, in proportion to what's at stake. If a
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
 | Knowledge and docs | Google Drive, Notion, Confluence | Required. Claude reads the documents under review, and the checklist or policy they're checked against, from these tools |
 
-Claude can reach only what the connected account can see in that tool. If a document is missing from a review, ask an admin to [share it with the connected account](/docs/claude-tag/admins/add-connections#limit-access-to-specific-resources).
+Claude can reach only what the connected account can see in that tool. If a document is missing from a review, ask an admin to [share it with the connected account](/docs/claude-tag/admins/add-connections.md#limit-access-to-specific-resources).
 
 ## Prompts to paste
 
@@ -76,16 +76,16 @@ New documents arrive every week, and the same check applies to each. Schedule th
 @Claude every Monday at 9am Pacific, check the shared folder for documents added in the past week, review each against the review checklist, and post the findings here.
 ```
 
-Include the timezone in the message, since schedules run in UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Include the timezone in the message, since schedules run in UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
-Keep the checklist as a document Claude can read, in the connected tool or linked in the channel, rather than re-describing its contents in [channel memory](/docs/claude-tag/users/memory).
+Keep the checklist as a document Claude can read, in the connected tool or linked in the channel, rather than re-describing its contents in [channel memory](/docs/claude-tag/users/memory.md).
 
 ## Related resources
 
-> **[Find answers in your docs](/docs/claude-tag/users/use-cases/find-answers)**
+> **[Find answers in your docs](/docs/claude-tag/users/use-cases/find-answers.md)**
 >
 > The same connections pointed at a single question
 
-> **[Set up routines](/docs/claude-tag/users/proactivity)**
+> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
 >
 > How the recurring review runs on a schedule

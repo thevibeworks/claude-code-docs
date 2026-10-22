@@ -152,8 +152,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 ## Example
 
 ```bash
-ant messages:batches list \
-  --api-key my-anthropic-api-key
+ant messages:batches list
 ```
 
 ### Response (200)

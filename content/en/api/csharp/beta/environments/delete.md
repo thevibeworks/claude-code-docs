@@ -137,7 +137,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Response after deleting an environment.
 
-  - `required Type Type`
+  - `JsonElement Type = "environment_deleted"`
 
     The type of response
 

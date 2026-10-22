@@ -34,7 +34,7 @@ Every artifact version records how it was made. Open **Provenance** from an arti
 * **Code**: a reproducible script, downloadable as a script or notebook.
 * **Execution Log**: every command that ran.
 * **Environment**: the environment name, language version, and every installed package with its version.
-* **Review**: findings from [the reviewer](/docs/claude-science/the-reviewer).
+* **Review**: findings from [the reviewer](/docs/claude-science/the-reviewer.md).
 
 The **Execution Log** is the authoritative record of what ran. If the **Code** tab and the log disagree, trust the log.
 

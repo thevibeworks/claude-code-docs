@@ -15,7 +15,7 @@
 The Financial Services Interest Group brings together stakeholders from regulated financial
 institutions to identify where MCP needs to adapt for compliance, auditability, and risk-controlled
 deployment. It gathers use cases and requirements from the financial sector, develops and validates
-domain-specific extensions, and scopes problems with broad applicability into [SEPs](/community/sep-guidelines)
+domain-specific extensions, and scopes problems with broad applicability into [SEPs](/community/sep-guidelines.md)
 or Working Groups so that innovations proven in regulated environments can benefit the wider MCP
 ecosystem.
 
@@ -48,12 +48,12 @@ ecosystem.
 ### Out of Scope
 
 * **Competitively sensitive or non-public business information**: pricing, costs, margins, customer
-  lists, market segmentation, and competitive strategy, per the [MCP Antitrust Policy](/community/antitrust)
+  lists, market segmentation, and competitive strategy, per the [MCP Antitrust Policy](/community/antitrust.md)
 * **General security threat modeling**: MCP-wide attack-surface analysis belongs to the
-  [Security IG](/community/interest-groups/security). This group provides financial-sector requirements as
+  [Security IG](/community/interest-groups/security.md). This group provides financial-sector requirements as
   input and consumes its threat models
 * **Authorization protocol mechanics**: OAuth flows, scopes, client registration, and token handling
-  belong to the [Authorization IG](/community/interest-groups/auth)
+  belong to the [Authorization IG](/community/interest-groups/auth.md)
 * **Product-specific compliance guides**: step-by-step configuration for an individual host
   application, cloud platform, or institution is documentation for that product rather than protocol
   work
@@ -61,16 +61,16 @@ ecosystem.
 
 ### Related Groups
 
-* **[Security IG](/community/interest-groups/security)**: attestation, auditability, and guardrails are
+* **[Security IG](/community/interest-groups/security.md)**: attestation, auditability, and guardrails are
   shared concerns; the FSIG supplies regulated-deployment requirements and consumes the IG's threat
   models
-* **[Authorization IG](/community/interest-groups/auth)**: identity and access control for sensitive
+* **[Authorization IG](/community/interest-groups/auth.md)**: identity and access control for sensitive
   financial data sit at the boundary between the two groups
-* **[Tool Annotations IG](/community/interest-groups/tool-annotations)**: trust and sensitivity annotations
+* **[Tool Annotations IG](/community/interest-groups/tool-annotations.md)**: trust and sensitivity annotations
   are directly relevant to financial tool exposure; the FSIG provides requirements as input
-* **[Interceptors WG](/community/working-groups/interceptors)**: interceptors are a primary enforcement point
+* **[Interceptors WG](/community/working-groups/interceptors.md)**: interceptors are a primary enforcement point
   for the policy and guardrail requirements surfaced here
-* **[Registry WG](/community/working-groups/registry)**: server provenance and publishing metadata intersect
+* **[Registry WG](/community/working-groups/registry.md)**: server provenance and publishing metadata intersect
   with financial supply-chain and admission concerns
 
 ## Leadership
@@ -89,7 +89,7 @@ ecosystem.
 | King Yew Choo | True Primary | [@kychooo](https://github.com/kychooo) | kychooo | Participant |
 
 Open to anyone. Join the `#financial-services-ig` channel on the
-[MCP Contributors Discord](/community/communication#discord). Calls are open and no approval is
+[MCP Contributors Discord](/community/communication.md#discord). Calls are open and no approval is
 required to attend or contribute. The group especially welcomes contributors from regulated
 institutions who can bring real-world deployment constraints and help drive proposals forward.
 

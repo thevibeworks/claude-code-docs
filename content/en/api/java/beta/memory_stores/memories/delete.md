@@ -153,7 +153,7 @@ Delete a Memory
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=java#audit-memory-changes) to learn more about how long versions are kept.
 
-  - `Type type`
+  - `JsonValue type = "memory_deleted"`
 
   - `String id`
 

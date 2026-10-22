@@ -173,7 +173,7 @@ List User Profiles
 
   A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
 
-  - `required Type Type`
+  - `JsonElement Type = "user_profile"`
 
     Object type. Always `user_profile`.
 

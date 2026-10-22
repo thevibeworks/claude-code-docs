@@ -12,7 +12,7 @@ To get going, [connect Google Drive](#connect-google-drive) and then [try a firs
 
 > [!NOTE]
 >
-> If you want Claude to search your email or calendar rather than your files, see [Gmail](/docs/connectors/google/gmail) or [Google Calendar](/docs/connectors/google/calendar).
+> If you want Claude to search your email or calendar rather than your files, see [Gmail](/docs/connectors/google/gmail.md) or [Google Calendar](/docs/connectors/google/calendar.md).
 
 ## Connect Google Drive
 
@@ -32,7 +32,7 @@ Sign in to your Google account and grant the requested permissions.
 
 When the connection succeeds, the **Connect** button on the Google Drive connector changes to **Disconnect**.
 
-On Team and Enterprise plans, Google Drive doesn't appear in your connector list until an Owner adds it for your organization. Each member then connects their own Google account. For the full walkthrough, including troubleshooting, see [Get started with connectors](/docs/connectors/getting-started).
+On Team and Enterprise plans, Google Drive doesn't appear in your connector list until an Owner adds it for your organization. Each member then connects their own Google account. For the full walkthrough, including troubleshooting, see [Get started with connectors](/docs/connectors/getting-started.md).
 
 ## What Claude can read from Drive
 
@@ -123,8 +123,8 @@ If a reconnection error keeps coming back, select **Disconnect**, then **Connect
 
 ## Next steps
 
-* [Gmail](/docs/connectors/google/gmail): search and analyze your emails
-* [Google Calendar](/docs/connectors/google/calendar): access your calendar information
-* [Get started with connectors](/docs/connectors/getting-started#manage-or-disconnect-a-connector): set tool permissions and manage any connector
-* [Add a connector from the directory](/docs/connectors/getting-started#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
-* [Connectors directory](/docs/connectors/directory): browse verified and community integrations
+* [Gmail](/docs/connectors/google/gmail.md): search and analyze your emails
+* [Google Calendar](/docs/connectors/google/calendar.md): access your calendar information
+* [Get started with connectors](/docs/connectors/getting-started.md#manage-or-disconnect-a-connector): set tool permissions and manage any connector
+* [Add a connector from the directory](/docs/connectors/getting-started.md#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
+* [Connectors directory](/docs/connectors/directory.md): browse verified and community integrations

@@ -67,12 +67,6 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
     format: date-time
 
-  - `name: string`
-
-    **Deprecated**: Use `display_name` instead; `name` always has the same value.
-
-    Deprecated: use `display_name` instead. Name of the RBAC Role; always the same value as `display_name`.
-
 - `has_more: boolean`
 
   Indicates whether there are more results beyond this page.
@@ -86,8 +80,8 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY"
 ```
 
 #### Response (200)
@@ -99,7 +93,6 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles \
       "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
       "created_at": "2024-10-30T23:58:27.427722Z",
       "display_name": "Project Editor",
-      "name": "Project Editor",
       "type": "rbac_role",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
@@ -163,18 +156,12 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
     format: date-time
 
-  - `name: string`
-
-    **Deprecated**: Use `display_name` instead; `name` always has the same value.
-
-    Deprecated: use `display_name` instead. Name of the RBAC Role; always the same value as `display_name`.
-
 ### Example
 
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY"
 ```
 
 #### Response (200)
@@ -184,7 +171,6 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID \
   "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
   "created_at": "2024-10-30T23:58:27.427722Z",
   "display_name": "Project Editor",
-  "name": "Project Editor",
   "type": "rbac_role",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
@@ -223,12 +209,6 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID \
     RFC 3339 datetime string indicating when the RBAC Role was last updated.
 
     format: date-time
-
-  - `name: string`
-
-    **Deprecated**: Use `display_name` instead; `name` always has the same value.
-
-    Deprecated: use `display_name` instead. Name of the RBAC Role; always the same value as `display_name`.
 
 ## RBAC Roles › Permissions
 
@@ -394,8 +374,8 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permissions \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY"
 ```
 
 ##### Response (200)

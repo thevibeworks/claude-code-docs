@@ -179,7 +179,7 @@ List Memories
 
     See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=java#view-and-edit-memories) to learn more about working with memories.
 
-    - `Type type`
+    - `JsonValue type = "memory"`
 
     - `String id`
 
@@ -239,7 +239,7 @@ List Memories
 
     It stands for one or more memories whose paths start with `path`. It isn't a stored object and doesn't have an ID. Each marker counts toward the page `limit`.
 
-    - `Type type`
+    - `JsonValue type = "memory_prefix"`
 
     - `String path`
 

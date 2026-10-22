@@ -8,14 +8,14 @@ This overview of the Model Context Protocol (MCP) discusses its [scope](#scope) 
 
 Because MCP SDKs abstract away many concerns, most developers will likely find the [data layer protocol](#data-layer-protocol) section to be the most useful. It discusses how MCP servers can provide context to an AI application.
 
-For specific implementation details, please refer to the documentation for your [language-specific SDK](/docs/2025-03-26/sdk).
+For specific implementation details, please refer to the documentation for your [language-specific SDK](/docs/2025-03-26/sdk.md).
 
 ## Scope
 
 The Model Context Protocol includes the following projects:
 
-* [MCP Specification](https://modelcontextprotocol.io/specification/latest): A specification of MCP that outlines the implementation requirements for clients and servers.
-* [MCP SDKs](/docs/2025-03-26/sdk): SDKs for different programming languages that implement MCP.
+* [MCP Specification](https://modelcontextprotocol.io/specification/latest.md): A specification of MCP that outlines the implementation requirements for clients and servers.
+* [MCP SDKs](/docs/2025-03-26/sdk.md): SDKs for different programming languages that implement MCP.
 * **MCP Development Tools**: Tools for developing MCP servers and clients, including the [MCP Inspector](https://github.com/modelcontextprotocol/inspector)
 * [MCP Reference Server Implementations](https://github.com/modelcontextprotocol/servers): Reference implementations of MCP servers.
 
@@ -108,7 +108,7 @@ MCP uses [JSON-RPC 2.0](https://www.jsonrpc.org/) as its underlying RPC protocol
 
 #### Lifecycle management
 
-MCP is a stateful protocol (A subset of MCP can be made stateless using the Streamable HTTP transport) that requires lifecycle management. The purpose of lifecycle management is to negotiate the capabilities (Features and operations that a client or server supports, such as tools, resources, or prompts) that both client and server support. Detailed information can be found in the [specification](/specification/2025-03-26/basic/lifecycle), and the [example](#example) showcases the initialization sequence.
+MCP is a stateful protocol (A subset of MCP can be made stateless using the Streamable HTTP transport) that requires lifecycle management. The purpose of lifecycle management is to negotiate the capabilities (Features and operations that a client or server supports, such as tools, resources, or prompts) that both client and server support. Detailed information can be found in the [specification](/specification/2025-03-26/basic/lifecycle.md), and the [example](#example) showcases the initialization sequence.
 
 #### Primitives
 
@@ -125,14 +125,14 @@ MCP clients will use the `*/list` methods to discover available primitives. For 
 
 As a concrete example, consider an MCP server that provides context about a database. It can expose tools for querying the database, a resource that contains the schema of the database, and a prompt that includes few-shot examples for interacting with the tools.
 
-For more details about server primitives see [server concepts](./server-concepts).
+For more details about server primitives see [server concepts](/docs/2025-03-26/learn/server-concepts.md).
 
 MCP also defines primitives that *clients* can expose. These primitives allow MCP server authors to build richer interactions.
 
 * **Sampling**: Allows servers to request language model completions from the client's AI application. This is useful when server authors want access to a language model, but want to stay model-independent and not include a language model SDK in their MCP server. They can use the `sampling/createMessage` method to request a language model completion from the client's AI application.
 * **Logging**: Enables servers to send log messages to clients for debugging and monitoring purposes.
 
-For more details about client primitives see [client concepts](./client-concepts).
+For more details about client primitives see [client concepts](/docs/2025-03-26/learn/client-concepts.md).
 
 Besides server and client primitives, the protocol offers cross-cutting utility primitives that augment how requests are executed:
 

@@ -163,7 +163,7 @@ Create a Memory
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#view-and-edit-memories) to learn more about working with memories.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory"`
 
   - `required string ID`
 

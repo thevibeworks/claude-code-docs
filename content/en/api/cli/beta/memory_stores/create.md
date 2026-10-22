@@ -99,7 +99,6 @@ Create a Memory Store
 
 ```bash
 ant beta:memory-stores create \
-  --api-key my-anthropic-api-key \
   --name x
 ```
 

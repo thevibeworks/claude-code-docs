@@ -12,7 +12,7 @@ By the end of this page you have connected your Google account and asked Claude 
 
 > [!NOTE]
 >
-> If your organization uses Outlook or Teams calendars, see [Microsoft 365](/docs/connectors/microsoft/365) instead.
+> If your organization uses Outlook or Teams calendars, see [Microsoft 365](/docs/connectors/microsoft/365.md) instead.
 
 ## Connect Google Calendar
 
@@ -32,7 +32,7 @@ Sign in to your Google account and grant the requested permissions.
 
 When the connection succeeds, the **Connect** button on the Google Calendar connector changes to **Disconnect**.
 
-On Team and Enterprise plans, Google Calendar doesn't appear in your connector list until an Owner or Primary Owner enables it for your organization. For the full walkthrough, including troubleshooting, see [Get started with connectors](/docs/connectors/getting-started).
+On Team and Enterprise plans, Google Calendar doesn't appear in your connector list until an Owner or Primary Owner enables it for your organization. For the full walkthrough, including troubleshooting, see [Get started with connectors](/docs/connectors/getting-started.md).
 
 ## Try the connector
 
@@ -64,7 +64,7 @@ The connector is read-only:
 
 ## Next steps
 
-* [Gmail](/docs/connectors/google/gmail): search and analyze your emails
-* [Google Drive](/docs/connectors/google/drive): search and read your Drive files
-* [Add a connector from the directory](/docs/connectors/getting-started#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
-* [Connectors directory](/docs/connectors/directory): browse verified and community integrations
+* [Gmail](/docs/connectors/google/gmail.md): search and analyze your emails
+* [Google Drive](/docs/connectors/google/drive.md): search and read your Drive files
+* [Add a connector from the directory](/docs/connectors/getting-started.md#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
+* [Connectors directory](/docs/connectors/directory.md): browse verified and community integrations

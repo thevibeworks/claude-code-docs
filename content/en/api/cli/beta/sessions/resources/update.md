@@ -145,7 +145,6 @@ Update Session Resource
 
 ```bash
 ant beta:sessions:resources update \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht \
   --authorization-token ghp_exampletoken

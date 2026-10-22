@@ -18,7 +18,7 @@ Each prompt below is a Slack message. You paste it in the channel where that wor
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing. Each recipe below names the connection it uses.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing. Each recipe below names the connection it uses.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -45,7 +45,7 @@ To answer requests as they arrive instead of prompting each time, give the chann
 @Claude remember for this channel: when someone tags you on a request, answer it from the brand guidelines and the marketing process docs, name the doc you used, and route anything the docs don't cover to the right owner with a one-line summary.
 ```
 
-"Remember for this channel" saves the role to [channel memory](/docs/claude-tag/users/memory), so it applies to everyone's threads, not just yours. [Triage requests](/docs/claude-tag/users/use-cases/triage-requests) adds a weekly rollup that also sweeps posts that never tagged Claude.
+"Remember for this channel" saves the role to [channel memory](/docs/claude-tag/users/memory.md), so it applies to everyone's threads, not just yours. [Triage requests](/docs/claude-tag/users/use-cases/triage-requests.md) adds a weekly rollup that also sweeps posts that never tagged Claude.
 
 Some questions have no doc to cite, and a person on the team answers in the thread. When that answer will come up again, tell Claude to save it:
 
@@ -69,7 +69,7 @@ The time window bounds the recap, so it comes back in a shape you can check.
 @Claude turn this thread into an announcement draft I can send to the customer list. Keep it under 200 words and match the messaging doc linked above.
 ```
 
-Name the format, the length, and the source the draft should match. The same prompt shape produces a decision doc or a status memo; [Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts) lists the variants.
+Name the format, the length, and the source the draft should match. The same prompt shape produces a decision doc or a status memo; [Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts.md) lists the variants.
 
 ### Check lead and campaign state in the CRM
 
@@ -85,7 +85,7 @@ Asking how long each has waited tells you which lead to chase first.
 @Claude compare the leads the June campaign created against the ones that reached a queue, and post which ones stalled and at what stage.
 ```
 
-The reply lists the stalled records and the stage where each stopped. The [HubSpot connection](/docs/claude-tag/admins/connections/hubspot) is created with read scopes, so prompts in this channel pull records and don't change them. For account questions, pre-call briefs, and a pipeline digest, see [Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state).
+The reply lists the stalled records and the stage where each stopped. The [HubSpot connection](/docs/claude-tag/admins/connections/hubspot.md) is created with read scopes, so prompts in this channel pull records and don't change them. For account questions, pre-call briefs, and a pipeline digest, see [Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state.md).
 
 ### Schedule a weekly campaign metrics digest
 
@@ -95,7 +95,7 @@ When the team checks the same campaign numbers at the start of every week, sched
 @Claude every Monday at 9am Eastern, post last week's campaign metrics as a chart: signups by campaign, week-over-week change, and a two-line note on anything unusual.
 ```
 
-Name the timezone in the message, since schedules run in UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Name the timezone in the message, since schedules run in UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ### Save brand voice rules to channel memory
 
@@ -105,14 +105,14 @@ Claude follows the tone and terminology rules saved to a channel's memory, so a 
 @Claude remember for this channel: headlines use sentence case, "sign up" is the verb and "signup" is the noun, and the product is never called a platform.
 ```
 
-Keep saved entries short, since long entries crowd out everything else. For a full style guide, link the document in the channel or store it in a connected tool Claude can read, instead of re-describing its contents in memory. [What Claude Tag remembers](/docs/claude-tag/users/memory) covers how to check and correct what's saved.
+Keep saved entries short, since long entries crowd out everything else. For a full style guide, link the document in the channel or store it in a connected tool Claude can read, instead of re-describing its contents in memory. [What Claude Tag remembers](/docs/claude-tag/users/memory.md) covers how to check and correct what's saved.
 
 ## Related resources
 
-> **[Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state)**
+> **[Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state.md)**
 >
 > The full set of go-to-market prompts
 
-> **[Set up routines](/docs/claude-tag/users/proactivity)**
+> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
 >
 > How the scheduled digest runs, and more recipes

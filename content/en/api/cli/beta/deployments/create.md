@@ -593,7 +593,6 @@ Create Deployment
 
 ```bash
 ant beta:deployments create \
-  --api-key my-anthropic-api-key \
   --agent string \
   --environment-id x \
   --initial-event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}' \

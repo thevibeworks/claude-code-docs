@@ -68,7 +68,7 @@ per-request input, not connection state.
 ### Listing Prompts
 
 To retrieve available prompts, clients send a `prompts/list` request. This operation
-supports [pagination](/specification/draft/server/utilities/pagination) and [caching](/specification/draft/server/utilities/caching).
+supports [pagination](/specification/draft/server/utilities/pagination.md) and [caching](/specification/draft/server/utilities/caching.md).
 
 **Request:**
 
@@ -122,7 +122,7 @@ supports [pagination](/specification/draft/server/utilities/pagination) and [cac
 ### Getting a Prompt
 
 To retrieve a specific prompt, clients send a `prompts/get` request. Arguments may be
-auto-completed through [the completion API](/specification/draft/server/utilities/completion).
+auto-completed through [the completion API](/specification/draft/server/utilities/completion.md).
 
 **Request:**
 
@@ -162,7 +162,7 @@ auto-completed through [the completion API](/specification/draft/server/utilitie
 }
 ```
 
-Servers **MAY** also respond to `prompts/get` with an [`InputRequiredResult`](/specification/draft/basic/patterns/mrtr#inputrequiredresult) to indicate that additional input is needed before the prompt can be resolved. This follows the [multi round-trip requests](/specification/draft/basic/patterns/mrtr#multi-round-trip-requests) mechanism. When retrying the request, clients include `inputResponses` and, if provided by the server, `requestState` in the request parameters.
+Servers **MAY** also respond to `prompts/get` with an [`InputRequiredResult`](/specification/draft/basic/patterns/mrtr#inputrequiredresult) to indicate that additional input is needed before the prompt can be resolved. This follows the [multi round-trip requests](/specification/draft/basic/patterns/mrtr.md#multi-round-trip-requests) mechanism. When retrying the request, clients include `inputResponses` and, if provided by the server, `requestState` in the request parameters.
 
 ### List Changed Notification
 
@@ -225,7 +225,7 @@ Messages in a prompt can contain:
 > [!NOTE]
 >
 > All content types in prompt messages support optional
-> [annotations](/specification/draft/server/resources#annotations) for metadata
+> [annotations](/specification/draft/server/resources.md#annotations) for metadata
 > about audience, priority, and modification times.
 
 #### Text Content
@@ -274,7 +274,7 @@ multi-modal interactions where audio context is important.
 #### Resource Links
 
 Prompt messages **MAY** include links to
-[Resources](/specification/draft/server/resources), to provide additional context or
+[Resources](/specification/draft/server/resources.md), to provide additional context or
 data without embedding the resource contents directly. In this case, the prompt message
 returns a URI that can be fetched by the client:
 
@@ -288,7 +288,7 @@ returns a URI that can be fetched by the client:
 }
 ```
 
-Resource links support the same [Resource annotations](/specification/draft/server/resources#annotations)
+Resource links support the same [Resource annotations](/specification/draft/server/resources.md#annotations)
 as regular resources to help clients understand how to use them.
 
 #### Embedded Resources

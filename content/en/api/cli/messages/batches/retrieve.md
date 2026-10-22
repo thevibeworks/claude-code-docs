@@ -127,7 +127,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant messages:batches retrieve \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 

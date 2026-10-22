@@ -39,7 +39,7 @@ List Agent Versions
 
 - `class BetaManagedAgentsAgent`
 
-  - `Type type`
+  - `"agent" type`
 
   - `string id`
 

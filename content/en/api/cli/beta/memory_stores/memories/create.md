@@ -115,7 +115,6 @@ Create a Memory
 
 ```bash
 ant beta:memory-stores:memories create \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --content content \
   --path xx

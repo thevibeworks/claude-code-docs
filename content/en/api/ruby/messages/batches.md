@@ -98,290 +98,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=ruby).
 
-      Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=ruby#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+      Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=ruby#give-claude-a-role), you can use the top-level `system` parameter.
 
       There is a limit of 100,000 messages in a single request.
 
-      - `content: String | Array[ContentBlockParam]`
+      - `class UserMessageParam`
 
-        - `String = String`
+        - `content: MessageContentParam`
 
-        - `UnionMember1 = Array[ContentBlockParam]`
+          - `String = String`
 
-          - `class TextBlockParam`
+          - `UnionMember1 = Array[ContentBlockParam]`
 
-            - `type: :text`
-
-            - `text: String`
-
-              minLength: 1
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-              - `type: :ephemeral`
-
-              - `ttl: :"5m" | :"1h"`
-
-                The time-to-live for the cache control breakpoint.
-
-                This may be one the following values:
-
-                - `5m`: 5 minutes
-                - `1h`: 1 hour
-
-                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=ruby) for details.
-
-                - `:"5m"`
-
-                - `:"1h"`
-
-            - `citations: Array[TextCitationParam]`
-
-              - `class CitationCharLocationParam`
-
-                - `type: :char_location`
-
-                - `cited_text: String`
-
-                - `document_index: Integer`
-
-                  minimum: 0
-
-                - `document_title: String`
-
-                  minLength: 1, maxLength: 500
-
-                - `end_char_index: Integer`
-
-                - `start_char_index: Integer`
-
-                  minimum: 0
-
-              - `class CitationPageLocationParam`
-
-                - `type: :page_location`
-
-                - `cited_text: String`
-
-                - `document_index: Integer`
-
-                  minimum: 0
-
-                - `document_title: String`
-
-                  minLength: 1, maxLength: 500
-
-                - `end_page_number: Integer`
-
-                - `start_page_number: Integer`
-
-                  minimum: 1
-
-              - `class CitationContentBlockLocationParam`
-
-                - `type: :content_block_location`
-
-                - `cited_text: String`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `document_index: Integer`
-
-                  minimum: 0
-
-                - `document_title: String`
-
-                  minLength: 1, maxLength: 500
-
-                - `end_block_index: Integer`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `start_block_index: Integer`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                  minimum: 0
-
-              - `class CitationWebSearchResultLocationParam`
-
-                - `type: :web_search_result_location`
-
-                - `cited_text: String`
-
-                - `encrypted_index: String`
-
-                - `title: String`
-
-                  minLength: 1, maxLength: 512
-
-                - `url: String`
-
-                  minLength: 1
-
-              - `class CitationSearchResultLocationParam`
-
-                - `type: :search_result_location`
-
-                - `cited_text: String`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `end_block_index: Integer`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `search_result_index: Integer`
-
-                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                  Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                  minimum: 0
-
-                - `source: String`
-
-                - `start_block_index: Integer`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                  minimum: 0
-
-                - `title: String`
-
-          - `class ImageBlockParam`
-
-            - `type: :image`
-
-            - `source: Base64ImageSource | URLImageSource | FileImageSource`
-
-              - `class Base64ImageSource`
-
-                - `type: :base64`
-
-                - `data: String`
-
-                  format: byte
-
-                - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
-
-                  - `:"image/jpeg"`
-
-                  - `:"image/png"`
-
-                  - `:"image/gif"`
-
-                  - `:"image/webp"`
-
-              - `class URLImageSource`
-
-                - `type: :url`
-
-                - `url: String`
-
-              - `class FileImageSource`
-
-                - `type: :file`
-
-                - `file_id: String`
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-            - `transformations: ImageTransformationsParam`
-
-              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-              - `oversized_image: :downsize | :error`
-
-                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-                - `:downsize`
-
-                - `:error`
-
-          - `class DocumentBlockParam`
-
-            - `type: :document`
-
-            - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
-
-              - `class Base64PDFSource`
-
-                - `type: :base64`
-
-                - `data: String`
-
-                  format: byte
-
-                - `media_type: :"application/pdf"`
-
-              - `class PlainTextSource`
-
-                - `type: :text`
-
-                - `data: String`
-
-                - `media_type: :"text/plain"`
-
-              - `class ContentBlockSource`
-
-                - `type: :content`
-
-                - `content: String | Array[ContentBlockSourceContent]`
-
-                  - `String = String`
-
-                  - `ContentBlockSourceContent = Array[ContentBlockSourceContent]`
-
-                    - `class TextBlockParam`
-
-                    - `class ImageBlockParam`
-
-              - `class URLPDFSource`
-
-                - `type: :url`
-
-                - `url: String`
-
-              - `class FileDocumentSource`
-
-                - `type: :file`
-
-                - `file_id: String`
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-            - `citations: CitationsConfigParam`
-
-              - `enabled: bool`
-
-            - `context: String`
-
-              minLength: 1
-
-            - `title: String`
-
-              minLength: 1, maxLength: 500
-
-          - `class SearchResultBlockParam`
-
-            - `type: :search_result`
-
-            - `content: Array[TextBlockParam]`
+            - `class TextBlockParam`
 
               - `type: :text`
 
@@ -393,691 +122,986 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
+                - `type: :ephemeral`
+
+                - `ttl: :"5m" | :"1h"`
+
+                  The time-to-live for the cache control breakpoint.
+
+                  This may be one the following values:
+
+                  - `5m`: 5 minutes
+                  - `1h`: 1 hour
+
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=ruby) for details.
+
+                  - `:"5m"`
+
+                  - `:"1h"`
+
               - `citations: Array[TextCitationParam]`
 
-            - `source: String`
+                - `class CitationCharLocationParam`
 
-            - `title: String`
+                  - `type: :char_location`
 
-            - `cache_control: CacheControlEphemeral`
+                  - `cited_text: String`
 
-              Create a cache control breakpoint at this content block.
+                  - `document_index: Integer`
 
-            - `citations: CitationsConfigParam`
+                    minimum: 0
 
-          - `class ThinkingBlockParam`
+                  - `document_title: String`
 
-            - `type: :thinking`
+                    minLength: 1, maxLength: 500
 
-            - `signature: String`
+                  - `end_char_index: Integer`
 
-              The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+                  - `start_char_index: Integer`
 
-              Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+                    minimum: 0
 
-            - `thinking: String`
+                - `class CitationPageLocationParam`
 
-              The `thinking` text of this block as returned by the API.
+                  - `type: :page_location`
 
-          - `class RedactedThinkingBlockParam`
+                  - `cited_text: String`
 
-            - `type: :redacted_thinking`
+                  - `document_index: Integer`
 
-            - `data: String`
+                    minimum: 0
 
-              The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+                  - `document_title: String`
 
-          - `class ToolUseBlockParam`
+                    minLength: 1, maxLength: 500
 
-            - `type: :tool_use`
+                  - `end_page_number: Integer`
 
-            - `id: String`
+                  - `start_page_number: Integer`
 
-              pattern: ^[a-zA-Z0-9_-]+$
+                    minimum: 1
 
-            - `input: Hash[Symbol, untyped]`
+                - `class CitationContentBlockLocationParam`
 
-            - `name: String`
+                  - `type: :content_block_location`
 
-              minLength: 1, maxLength: 200
+                  - `cited_text: String`
 
-            - `cache_control: CacheControlEphemeral`
+                    The full text of the cited block range, concatenated.
 
-              Create a cache control breakpoint at this content block.
+                    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-            - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+                  - `document_index: Integer`
 
-              - `class DirectCaller`
+                    minimum: 0
 
-                Tool invocation directly from the model.
+                  - `document_title: String`
 
-                - `type: :direct`
+                    minLength: 1, maxLength: 500
 
-              - `class ServerToolCaller`
+                  - `end_block_index: Integer`
 
-                Tool invocation generated by a server-side tool.
+                    Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-                - `type: :code_execution_20250825`
+                    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                - `tool_id: String`
+                  - `start_block_index: Integer`
 
-                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                    0-based index of the first cited block in the source's `content` array.
 
-              - `class ServerToolCaller20260120`
+                    minimum: 0
 
-                - `type: :code_execution_20260120`
+                - `class CitationWebSearchResultLocationParam`
 
-                - `tool_id: String`
+                  - `type: :web_search_result_location`
 
-                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                  - `cited_text: String`
 
-            - `toolset_name: String`
+                  - `encrypted_index: String`
 
-              For a toolset member tool_use, the toolset family this member belongs to.
+                  - `title: String`
 
-              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                    minLength: 1, maxLength: 512
 
-          - `class ToolResultBlockParam`
+                  - `url: String`
 
-            - `type: :tool_result`
+                    minLength: 1
 
-            - `tool_use_id: String`
+                - `class CitationSearchResultLocationParam`
 
-              pattern: ^[a-zA-Z0-9_-]+$
+                  - `type: :search_result_location`
 
-            - `cache_control: CacheControlEphemeral`
+                  - `cited_text: String`
 
-              Create a cache control breakpoint at this content block.
+                    The full text of the cited block range, concatenated.
 
-            - `content: String | Array[TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more]`
+                    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-              - `String = String`
+                  - `end_block_index: Integer`
 
-              - `Content = Array[TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more]`
+                    Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-                - `class TextBlockParam`
+                    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                - `class ImageBlockParam`
+                  - `search_result_index: Integer`
 
-                - `class SearchResultBlockParam`
+                    0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
-                - `class DocumentBlockParam`
+                    Counted separately from `document_index`; server-side web search results are not included in this count.
 
-                - `class ToolReferenceBlockParam`
+                    minimum: 0
 
-                  Tool reference block that can be included in tool_result content.
+                  - `source: String`
 
-                  - `type: :tool_reference`
+                  - `start_block_index: Integer`
 
-                  - `tool_name: String`
+                    0-based index of the first cited block in the source's `content` array.
 
-                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minimum: 0
 
-                  - `cache_control: CacheControlEphemeral`
+                  - `title: String`
 
-                    Create a cache control breakpoint at this content block.
+            - `class ImageBlockParam`
 
-                - `class BrowserStateBlockParam`
+              - `type: :image`
 
-                  The caller's browser state after a browser toolset member call —
-                  the full inventory of open tabs, which tab is active, and any side
-                  effects (tabs opened, download state changes) the call produced.
+              - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
-                  At most one per `tool_result`, only on a non-error result answering a
-                  browser toolset member `tool_use`. The server renders the
-                  model-visible text from it; the model never sees the raw fields.
+                - `class Base64ImageSource`
 
-                  - `type: :browser_state`
+                  - `type: :base64`
 
-                  - `tabs: Array[BrowserStateTabEntry]`
+                  - `data: String`
 
-                    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+                    format: byte
 
-                    maxItems: 100
+                  - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
-                    - `tab_id: String`
+                    - `:"image/jpeg"`
 
-                      The caller-assigned identifier for this tab, unique within the inventory.
+                    - `:"image/png"`
 
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `:"image/gif"`
 
-                    - `title: String`
+                    - `:"image/webp"`
 
-                      The title of the page the tab is showing. May be empty.
+                - `class URLImageSource`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  - `type: :url`
 
-                    - `url: String`
+                  - `url: String`
 
-                      The URL of the page the tab is showing. May be empty.
+                - `class FileImageSource`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  - `type: :file`
 
-                    - `active: bool`
+                  - `file_id: String`
 
-                      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+              - `cache_control: CacheControlEphemeral`
 
-                  - `cache_control: CacheControlEphemeral`
+                Create a cache control breakpoint at this content block.
 
-                    Create a cache control breakpoint at this content block.
+              - `transformations: ImageTransformationsParam`
 
-                  - `state_changes: Array[BrowserStateChange]`
+                Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-                    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+                - `oversized_image: :downsize | :error`
 
-                    minItems: 1, maxItems: 200
+                  What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
-                    - `class BrowserStateChangeTabOpened`
+                  - `:downsize`
 
-                      A tab this call's execution opened that remains open at its end —
-                      the creation delta of the `tabs` inventory, not an event log.
+                  - `:error`
 
-                      Carries only the `tab_id`; the tab's `title` and `url` live on its
-                      `tabs` entry, which must include the same `tab_id`. A tab opened
-                      during a failed call gets no deferred `tab_opened`; it simply appears
-                      in the next result's `tabs` inventory.
+            - `class DocumentBlockParam`
 
-                      - `type: :tab_opened`
+              - `type: :document`
+
+              - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
+
+                - `class Base64PDFSource`
+
+                  - `type: :base64`
+
+                  - `data: String`
+
+                    format: byte
+
+                  - `media_type: :"application/pdf"`
+
+                - `class PlainTextSource`
+
+                  - `type: :text`
+
+                  - `data: String`
+
+                  - `media_type: :"text/plain"`
+
+                - `class ContentBlockSource`
+
+                  - `type: :content`
+
+                  - `content: String | Array[ContentBlockSourceContent]`
+
+                    - `String = String`
+
+                    - `ContentBlockSourceContent = Array[ContentBlockSourceContent]`
+
+                      - `class TextBlockParam`
+
+                      - `class ImageBlockParam`
+
+                - `class URLPDFSource`
+
+                  - `type: :url`
+
+                  - `url: String`
+
+                - `class FileDocumentSource`
+
+                  - `type: :file`
+
+                  - `file_id: String`
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `citations: CitationsConfigParam`
+
+                - `enabled: bool`
+
+              - `context: String`
+
+                minLength: 1
+
+              - `title: String`
+
+                minLength: 1, maxLength: 500
+
+            - `class SearchResultBlockParam`
+
+              - `type: :search_result`
+
+              - `content: Array[TextBlockParam]`
+
+                - `type: :text`
+
+                - `text: String`
+
+                  minLength: 1
+
+                - `cache_control: CacheControlEphemeral`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `citations: Array[TextCitationParam]`
+
+              - `source: String`
+
+              - `title: String`
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `citations: CitationsConfigParam`
+
+            - `class ThinkingBlockParam`
+
+              - `type: :thinking`
+
+              - `signature: String`
+
+                The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+                Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+              - `thinking: String`
+
+                The `thinking` text of this block as returned by the API.
+
+            - `class RedactedThinkingBlockParam`
+
+              - `type: :redacted_thinking`
+
+              - `data: String`
+
+                The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+            - `class ToolUseBlockParam`
+
+              - `type: :tool_use`
+
+              - `id: String`
+
+                pattern: ^[a-zA-Z0-9_-]+$
+
+              - `input: Hash[Symbol, untyped]`
+
+              - `name: String`
+
+                minLength: 1, maxLength: 200
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+
+                - `class DirectCaller`
+
+                  Tool invocation directly from the model.
+
+                  - `type: :direct`
+
+                - `class ServerToolCaller`
+
+                  Tool invocation generated by a server-side tool.
+
+                  - `type: :code_execution_20250825`
+
+                  - `tool_id: String`
+
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `class ServerToolCaller20260120`
+
+                  - `type: :code_execution_20260120`
+
+                  - `tool_id: String`
+
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `toolset_name: String`
+
+                For a toolset member tool_use, the toolset family this member belongs to.
+
+                minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+            - `class ToolResultBlockParam`
+
+              - `type: :tool_result`
+
+              - `tool_use_id: String`
+
+                pattern: ^[a-zA-Z0-9_-]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `content: String | Array[TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more]`
+
+                - `String = String`
+
+                - `Content = Array[TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more]`
+
+                  - `class TextBlockParam`
+
+                  - `class ImageBlockParam`
+
+                  - `class SearchResultBlockParam`
+
+                  - `class DocumentBlockParam`
+
+                  - `class ToolReferenceBlockParam`
+
+                    Tool reference block that can be included in tool_result content.
+
+                    - `type: :tool_reference`
+
+                    - `tool_name: String`
+
+                      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                    - `cache_control: CacheControlEphemeral`
+
+                      Create a cache control breakpoint at this content block.
+
+                  - `class BrowserStateBlockParam`
+
+                    The caller's browser state after a browser toolset member call —
+                    the full inventory of open tabs, which tab is active, and any side
+                    effects (tabs opened, download state changes) the call produced.
+
+                    At most one per `tool_result`, only on a non-error result answering a
+                    browser toolset member `tool_use`. The server renders the
+                    model-visible text from it; the model never sees the raw fields.
+
+                    - `type: :browser_state`
+
+                    - `tabs: Array[BrowserStateTabEntry]`
+
+                      All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                      maxItems: 100
 
                       - `tab_id: String`
 
-                        The `tab_id` of the opened tab, present in `tabs`.
+                        The caller-assigned identifier for this tab, unique within the inventory.
 
                         minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `class BrowserStateChangeDownloadStarted`
+                      - `title: String`
 
-                      A file download that started during this call.
+                        The title of the page the tab is showing. May be empty.
 
-                      - `type: :download_started`
-
-                      - `download_id: String`
-
-                        The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: String`
 
-                        The final post-redirect URL the download was served from.
+                        The URL of the page the tab is showing. May be empty.
 
                         maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `class BrowserStateChangeDownloadCompleted`
+                      - `active: bool`
 
-                      A file download that finished during this call, reported with the
-                      same `download_id` as its `download_started` — or without a prior
-                      `download_started`, when the download finished during the call that
-                      started it (at most one state change per `download_id` per result).
+                        Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                      - `type: :download_completed`
+                    - `cache_control: CacheControlEphemeral`
 
-                      - `download_id: String`
+                      Create a cache control breakpoint at this content block.
 
-                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+                    - `state_changes: Array[BrowserStateChange]`
 
-                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                      - `url: String`
+                      minItems: 1, maxItems: 200
 
-                        The final post-redirect URL the download was served from.
+                      - `class BrowserStateChangeTabOpened`
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        A tab this call's execution opened that remains open at its end —
+                        the creation delta of the `tabs` inventory, not an event log.
 
-                      - `path: String`
+                        Carries only the `tab_id`; the tab's `title` and `url` live on its
+                        `tabs` entry, which must include the same `tab_id`. A tab opened
+                        during a failed call gets no deferred `tab_opened`; it simply appears
+                        in the next result's `tabs` inventory.
 
-                        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+                        - `type: :tab_opened`
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        - `tab_id: String`
 
-                      - `size_bytes: Integer`
+                          The `tab_id` of the opened tab, present in `tabs`.
 
-                        The completed download's size.
+                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        minimum: 0
+                      - `class BrowserStateChangeDownloadStarted`
 
-                    - `class BrowserStateChangeDownloadFailed`
+                        A file download that started during this call.
 
-                      A file download that failed — or was cancelled — during this call.
+                        - `type: :download_started`
 
-                      - `type: :download_failed`
+                        - `download_id: String`
 
-                      - `download_id: String`
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        - `url: String`
 
-                      - `url: String`
+                          The final post-redirect URL the download was served from.
 
-                        The final post-redirect URL the download was served from.
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `class BrowserStateChangeDownloadCompleted`
 
-                      - `error: String`
+                        A file download that finished during this call, reported with the
+                        same `download_id` as its `download_started` — or without a prior
+                        `download_started`, when the download finished during the call that
+                        started it (at most one state change per `download_id` per result).
 
-                        The failure or cancellation detail, when known.
+                        - `type: :download_completed`
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        - `download_id: String`
 
-            - `is_error: bool`
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-            - `toolset_name: String`
+                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              For a toolset member tool_result, the toolset family of the paired tool_use.
+                        - `url: String`
 
-              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                          The final post-redirect URL the download was served from.
 
-          - `class ServerToolUseBlockParam`
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `type: :server_tool_use`
+                        - `path: String`
 
-            - `id: String`
+                          Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `input: Hash[Symbol, untyped]`
+                        - `size_bytes: Integer`
 
-            - `name: :web_search | :web_fetch | :code_execution | 4 more`
+                          The completed download's size.
 
-              - `:web_search`
+                          minimum: 0
 
-              - `:web_fetch`
+                      - `class BrowserStateChangeDownloadFailed`
 
-              - `:code_execution`
+                        A file download that failed — or was cancelled — during this call.
 
-              - `:bash_code_execution`
+                        - `type: :download_failed`
 
-              - `:text_editor_code_execution`
+                        - `download_id: String`
 
-              - `:tool_search_tool_regex`
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              - `:tool_search_tool_bm25`
+                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `url: String`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `error: String`
+
+                          The failure or cancellation detail, when known.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `is_error: bool`
+
+              - `toolset_name: String`
+
+                For a toolset member tool_result, the toolset family of the paired tool_use.
+
+                minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+            - `class ServerToolUseBlockParam`
+
+              - `type: :server_tool_use`
+
+              - `id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `input: Hash[Symbol, untyped]`
+
+              - `name: :web_search | :web_fetch | :code_execution | 4 more`
+
+                - `:web_search`
+
+                - `:web_fetch`
+
+                - `:code_execution`
+
+                - `:bash_code_execution`
+
+                - `:text_editor_code_execution`
+
+                - `:tool_search_tool_regex`
+
+                - `:tool_search_tool_bm25`
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+
+                - `class DirectCaller`
+
+                  Tool invocation directly from the model.
+
+                - `class ServerToolCaller`
+
+                  Tool invocation generated by a server-side tool.
+
+                - `class ServerToolCaller20260120`
+
+            - `class WebSearchToolResultBlockParam`
+
+              - `type: :web_search_tool_result`
+
+              - `content: WebSearchToolResultBlockParamContent`
+
+                - `WebSearchToolResultBlockItem = Array[WebSearchResultBlockParam]`
+
+                  - `type: :web_search_result`
+
+                  - `encrypted_content: String`
+
+                  - `title: String`
+
+                  - `url: String`
+
+                  - `page_age: String`
+
+                - `class WebSearchToolRequestError`
+
+                  - `type: :web_search_tool_result_error`
+
+                  - `error_code: WebSearchToolResultErrorCode`
+
+                    - `:invalid_tool_input`
+
+                    - `:unavailable`
+
+                    - `:max_uses_exceeded`
+
+                    - `:too_many_requests`
+
+                    - `:query_too_long`
+
+                    - `:request_too_large`
+
+              - `tool_use_id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+
+                - `class DirectCaller`
+
+                  Tool invocation directly from the model.
+
+                - `class ServerToolCaller`
+
+                  Tool invocation generated by a server-side tool.
+
+                - `class ServerToolCaller20260120`
+
+            - `class WebFetchToolResultBlockParam`
+
+              - `type: :web_fetch_tool_result`
+
+              - `content: WebFetchToolResultErrorBlockParam | WebFetchBlockParam`
+
+                - `class WebFetchToolResultErrorBlockParam`
+
+                  - `type: :web_fetch_tool_result_error`
+
+                  - `error_code: WebFetchToolResultErrorCode`
+
+                    - `:invalid_tool_input`
+
+                    - `:url_too_long`
+
+                    - `:url_not_allowed`
+
+                    - `:url_not_in_prior_context`
+
+                    - `:url_not_accessible`
+
+                    - `:unsupported_content_type`
+
+                    - `:too_many_requests`
+
+                    - `:max_uses_exceeded`
+
+                    - `:unavailable`
+
+                    - `:content_too_large`
+
+                - `class WebFetchBlockParam`
+
+                  - `type: :web_fetch_result`
+
+                  - `content: DocumentBlockParam`
+
+                  - `url: String`
+
+                    Fetched content URL
+
+                  - `retrieved_at: String`
+
+                    ISO 8601 timestamp when the content was retrieved
+
+              - `tool_use_id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+
+                - `class DirectCaller`
+
+                  Tool invocation directly from the model.
+
+                - `class ServerToolCaller`
+
+                  Tool invocation generated by a server-side tool.
+
+                - `class ServerToolCaller20260120`
+
+            - `class CodeExecutionToolResultBlockParam`
+
+              - `type: :code_execution_tool_result`
+
+              - `content: CodeExecutionToolResultBlockParamContent`
+
+                - `class CodeExecutionToolResultErrorParam`
+
+                  - `type: :code_execution_tool_result_error`
+
+                  - `error_code: CodeExecutionToolResultErrorCode`
+
+                    - `:invalid_tool_input`
+
+                    - `:unavailable`
+
+                    - `:too_many_requests`
+
+                    - `:execution_time_exceeded`
+
+                - `class CodeExecutionResultBlockParam`
+
+                  - `type: :code_execution_result`
+
+                  - `content: Array[CodeExecutionOutputBlockParam]`
+
+                    - `type: :code_execution_output`
+
+                    - `file_id: String`
+
+                  - `return_code: Integer`
+
+                  - `stderr: String`
+
+                  - `stdout: String`
+
+                - `class EncryptedCodeExecutionResultBlockParam`
+
+                  Code execution result with encrypted stdout for PFC + web_search results.
+
+                  - `type: :encrypted_code_execution_result`
+
+                  - `content: Array[CodeExecutionOutputBlockParam]`
+
+                    - `type: :code_execution_output`
+
+                    - `file_id: String`
+
+                  - `encrypted_stdout: String`
+
+                  - `return_code: Integer`
+
+                  - `stderr: String`
+
+              - `tool_use_id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+            - `class BashCodeExecutionToolResultBlockParam`
+
+              - `type: :bash_code_execution_tool_result`
+
+              - `content: BashCodeExecutionToolResultErrorParam | BashCodeExecutionResultBlockParam`
+
+                - `class BashCodeExecutionToolResultErrorParam`
+
+                  - `type: :bash_code_execution_tool_result_error`
+
+                  - `error_code: BashCodeExecutionToolResultErrorCode`
+
+                    - `:invalid_tool_input`
+
+                    - `:unavailable`
+
+                    - `:too_many_requests`
+
+                    - `:execution_time_exceeded`
+
+                    - `:output_file_too_large`
+
+                - `class BashCodeExecutionResultBlockParam`
+
+                  - `type: :bash_code_execution_result`
+
+                  - `content: Array[BashCodeExecutionOutputBlockParam]`
+
+                    - `type: :bash_code_execution_output`
+
+                    - `file_id: String`
+
+                  - `return_code: Integer`
+
+                  - `stderr: String`
+
+                  - `stdout: String`
+
+              - `tool_use_id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+            - `class TextEditorCodeExecutionToolResultBlockParam`
+
+              - `type: :text_editor_code_execution_tool_result`
+
+              - `content: TextEditorCodeExecutionToolResultErrorParam | TextEditorCodeExecutionViewResultBlockParam | TextEditorCodeExecutionCreateResultBlockParam | TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+                - `class TextEditorCodeExecutionToolResultErrorParam`
+
+                  - `type: :text_editor_code_execution_tool_result_error`
+
+                  - `error_code: TextEditorCodeExecutionToolResultErrorCode`
+
+                    - `:invalid_tool_input`
+
+                    - `:unavailable`
+
+                    - `:too_many_requests`
+
+                    - `:execution_time_exceeded`
+
+                    - `:file_not_found`
+
+                  - `error_message: String`
+
+                - `class TextEditorCodeExecutionViewResultBlockParam`
+
+                  - `type: :text_editor_code_execution_view_result`
+
+                  - `content: String`
+
+                  - `file_type: :text | :image | :pdf`
+
+                    - `:text`
+
+                    - `:image`
+
+                    - `:pdf`
+
+                  - `num_lines: Integer`
+
+                  - `start_line: Integer`
+
+                  - `total_lines: Integer`
+
+                - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+                  - `type: :text_editor_code_execution_create_result`
+
+                  - `is_file_update: bool`
+
+                - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+                  - `type: :text_editor_code_execution_str_replace_result`
+
+                  - `lines: Array[String]`
+
+                  - `new_lines: Integer`
+
+                  - `new_start: Integer`
+
+                  - `old_lines: Integer`
+
+                  - `old_start: Integer`
+
+              - `tool_use_id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+            - `class ToolSearchToolResultBlockParam`
+
+              - `type: :tool_search_tool_result`
+
+              - `content: ToolSearchToolResultErrorParam | ToolSearchToolSearchResultBlockParam`
+
+                - `class ToolSearchToolResultErrorParam`
+
+                  - `type: :tool_search_tool_result_error`
+
+                  - `error_code: ToolSearchToolResultErrorCode`
+
+                    - `:invalid_tool_input`
+
+                    - `:unavailable`
+
+                    - `:too_many_requests`
+
+                    - `:execution_time_exceeded`
+
+                  - `error_message: String`
+
+                - `class ToolSearchToolSearchResultBlockParam`
+
+                  - `type: :tool_search_tool_search_result`
+
+                  - `tool_references: Array[ToolReferenceBlockParam]`
+
+                    - `type: :tool_reference`
+
+                    - `tool_name: String`
+
+                      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                    - `cache_control: CacheControlEphemeral`
+
+                      Create a cache control breakpoint at this content block.
+
+              - `tool_use_id: String`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+            - `class ContainerUploadBlockParam`
+
+              A content block that represents a file to be uploaded to the container
+              Files uploaded via this block will be available in the container's input directory.
+
+              - `type: :container_upload`
+
+              - `file_id: String`
+
+              - `cache_control: CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+        - `role: :user`
+
+      - `class AssistantMessageParam`
+
+        - `content: MessageContentParam`
+
+        - `role: :assistant`
+
+      - `class SystemMessageParam`
+
+        - `content: String | Array[TextBlockParam]`
+
+          - `String = String`
+
+          - `Blocks = Array[TextBlockParam]`
+
+            - `type: :text`
+
+            - `text: String`
+
+              minLength: 1
 
             - `cache_control: CacheControlEphemeral`
 
               Create a cache control breakpoint at this content block.
 
-            - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+            - `citations: Array[TextCitationParam]`
 
-              - `class DirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `class ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `class ServerToolCaller20260120`
-
-          - `class WebSearchToolResultBlockParam`
-
-            - `type: :web_search_tool_result`
-
-            - `content: WebSearchToolResultBlockParamContent`
-
-              - `WebSearchToolResultBlockItem = Array[WebSearchResultBlockParam]`
-
-                - `type: :web_search_result`
-
-                - `encrypted_content: String`
-
-                - `title: String`
-
-                - `url: String`
-
-                - `page_age: String`
-
-              - `class WebSearchToolRequestError`
-
-                - `type: :web_search_tool_result_error`
-
-                - `error_code: WebSearchToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:max_uses_exceeded`
-
-                  - `:too_many_requests`
-
-                  - `:query_too_long`
-
-                  - `:request_too_large`
-
-            - `tool_use_id: String`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-            - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              - `class DirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `class ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `class ServerToolCaller20260120`
-
-          - `class WebFetchToolResultBlockParam`
-
-            - `type: :web_fetch_tool_result`
-
-            - `content: WebFetchToolResultErrorBlockParam | WebFetchBlockParam`
-
-              - `class WebFetchToolResultErrorBlockParam`
-
-                - `type: :web_fetch_tool_result_error`
-
-                - `error_code: WebFetchToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:url_too_long`
-
-                  - `:url_not_allowed`
-
-                  - `:url_not_in_prior_context`
-
-                  - `:url_not_accessible`
-
-                  - `:unsupported_content_type`
-
-                  - `:too_many_requests`
-
-                  - `:max_uses_exceeded`
-
-                  - `:unavailable`
-
-                  - `:content_too_large`
-
-              - `class WebFetchBlockParam`
-
-                - `type: :web_fetch_result`
-
-                - `content: DocumentBlockParam`
-
-                - `url: String`
-
-                  Fetched content URL
-
-                - `retrieved_at: String`
-
-                  ISO 8601 timestamp when the content was retrieved
-
-            - `tool_use_id: String`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-            - `caller_: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              - `class DirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `class ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `class ServerToolCaller20260120`
-
-          - `class CodeExecutionToolResultBlockParam`
-
-            - `type: :code_execution_tool_result`
-
-            - `content: CodeExecutionToolResultBlockParamContent`
-
-              - `class CodeExecutionToolResultErrorParam`
-
-                - `type: :code_execution_tool_result_error`
-
-                - `error_code: CodeExecutionToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-              - `class CodeExecutionResultBlockParam`
-
-                - `type: :code_execution_result`
-
-                - `content: Array[CodeExecutionOutputBlockParam]`
-
-                  - `type: :code_execution_output`
-
-                  - `file_id: String`
-
-                - `return_code: Integer`
-
-                - `stderr: String`
-
-                - `stdout: String`
-
-              - `class EncryptedCodeExecutionResultBlockParam`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
-
-                - `type: :encrypted_code_execution_result`
-
-                - `content: Array[CodeExecutionOutputBlockParam]`
-
-                  - `type: :code_execution_output`
-
-                  - `file_id: String`
-
-                - `encrypted_stdout: String`
-
-                - `return_code: Integer`
-
-                - `stderr: String`
-
-            - `tool_use_id: String`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-          - `class BashCodeExecutionToolResultBlockParam`
-
-            - `type: :bash_code_execution_tool_result`
-
-            - `content: BashCodeExecutionToolResultErrorParam | BashCodeExecutionResultBlockParam`
-
-              - `class BashCodeExecutionToolResultErrorParam`
-
-                - `type: :bash_code_execution_tool_result_error`
-
-                - `error_code: BashCodeExecutionToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                  - `:output_file_too_large`
-
-              - `class BashCodeExecutionResultBlockParam`
-
-                - `type: :bash_code_execution_result`
-
-                - `content: Array[BashCodeExecutionOutputBlockParam]`
-
-                  - `type: :bash_code_execution_output`
-
-                  - `file_id: String`
-
-                - `return_code: Integer`
-
-                - `stderr: String`
-
-                - `stdout: String`
-
-            - `tool_use_id: String`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-          - `class TextEditorCodeExecutionToolResultBlockParam`
-
-            - `type: :text_editor_code_execution_tool_result`
-
-            - `content: TextEditorCodeExecutionToolResultErrorParam | TextEditorCodeExecutionViewResultBlockParam | TextEditorCodeExecutionCreateResultBlockParam | TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-              - `class TextEditorCodeExecutionToolResultErrorParam`
-
-                - `type: :text_editor_code_execution_tool_result_error`
-
-                - `error_code: TextEditorCodeExecutionToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                  - `:file_not_found`
-
-                - `error_message: String`
-
-              - `class TextEditorCodeExecutionViewResultBlockParam`
-
-                - `type: :text_editor_code_execution_view_result`
-
-                - `content: String`
-
-                - `file_type: :text | :image | :pdf`
-
-                  - `:text`
-
-                  - `:image`
-
-                  - `:pdf`
-
-                - `num_lines: Integer`
-
-                - `start_line: Integer`
-
-                - `total_lines: Integer`
-
-              - `class TextEditorCodeExecutionCreateResultBlockParam`
-
-                - `type: :text_editor_code_execution_create_result`
-
-                - `is_file_update: bool`
-
-              - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-                - `type: :text_editor_code_execution_str_replace_result`
-
-                - `lines: Array[String]`
-
-                - `new_lines: Integer`
-
-                - `new_start: Integer`
-
-                - `old_lines: Integer`
-
-                - `old_start: Integer`
-
-            - `tool_use_id: String`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-          - `class ToolSearchToolResultBlockParam`
-
-            - `type: :tool_search_tool_result`
-
-            - `content: ToolSearchToolResultErrorParam | ToolSearchToolSearchResultBlockParam`
-
-              - `class ToolSearchToolResultErrorParam`
-
-                - `type: :tool_search_tool_result_error`
-
-                - `error_code: ToolSearchToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                - `error_message: String`
-
-              - `class ToolSearchToolSearchResultBlockParam`
-
-                - `type: :tool_search_tool_search_result`
-
-                - `tool_references: Array[ToolReferenceBlockParam]`
-
-                  - `type: :tool_reference`
-
-                  - `tool_name: String`
-
-                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `cache_control: CacheControlEphemeral`
-
-                    Create a cache control breakpoint at this content block.
-
-            - `tool_use_id: String`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-          - `class ContainerUploadBlockParam`
-
-            A content block that represents a file to be uploaded to the container
-            Files uploaded via this block will be available in the container's input directory.
-
-            - `type: :container_upload`
-
-            - `file_id: String`
-
-            - `cache_control: CacheControlEphemeral`
-
-              Create a cache control breakpoint at this content block.
-
-      - `role: :user | :assistant | :system`
-
-        - `:user`
-
-        - `:assistant`
-
-        - `:system`
+        - `role: :system`
 
     - `model: Model`
 
@@ -3064,42 +3088,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `strict: bool`
 
           When true, guarantees schema validation on tool names and inputs
-
-    - `temperature: Float`
-
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-      Amount of randomness injected into the response.
-
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-      minimum: 0, maximum: 1
-
-    - `top_k: Integer`
-
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-      Only sample from the top K options for each subsequent token.
-
-      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-      Recommended for advanced use cases only.
-
-      minimum: 0
-
-    - `top_p: Float`
-
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-      Use nucleus sampling.
-
-      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-      Recommended for advanced use cases only.
-
-      minimum: 0, maximum: 1
 
 - `user_profile_id: String` (header parameter)
 

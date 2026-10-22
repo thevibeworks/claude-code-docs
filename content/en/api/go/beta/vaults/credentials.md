@@ -29,7 +29,7 @@ Create a Credential
 
       Parameters for creating an MCP OAuth credential.
 
-      - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
+      - `Type MCPOAuth`
 
       - `AccessToken string`
 
@@ -79,13 +79,13 @@ Create a Credential
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneParamType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicParam`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+            - `Type ClientSecretBasic`
 
             - `ClientSecret string`
 
@@ -97,7 +97,7 @@ Create a Credential
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+            - `Type ClientSecretPost`
 
             - `ClientSecret string`
 
@@ -121,7 +121,7 @@ Create a Credential
 
       Parameters for creating a static bearer token credential.
 
-      - `Type BetaManagedAgentsStaticBearerCreateParamsType`
+      - `Type StaticBearer`
 
       - `Token string`
 
@@ -139,7 +139,7 @@ Create a Credential
 
       Parameters for creating an environment variable credential.
 
-      - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
+      - `Type EnvironmentVariable`
 
       - `Networking BetaManagedAgentsCredentialNetworkingParamsUnion`
 
@@ -149,13 +149,13 @@ Create a Credential
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -317,7 +317,7 @@ Create a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `Type BetaManagedAgentsCredentialType`
+  - `Type VaultCredential`
 
   - `ID string`
 
@@ -337,7 +337,7 @@ Create a Credential
 
       OAuth credential details for an MCP server.
 
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+      - `Type MCPOAuth`
 
       - `MCPServerURL string`
 
@@ -367,19 +367,19 @@ Create a Credential
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+            - `Type ClientSecretBasic`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+            - `Type ClientSecretPost`
 
         - `Resource string Optional`
 
@@ -393,7 +393,7 @@ Create a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+      - `Type StaticBearer`
 
       - `MCPServerURL string`
 
@@ -403,7 +403,7 @@ Create a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -425,13 +425,13 @@ Create a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -476,8 +476,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -492,7 +492,6 @@ func main() {
 				OfStaticBearer: &anthropic.BetaManagedAgentsStaticBearerCreateParams{
 					Token:        "bearer_exampletoken",
 					MCPServerURL: "https://example-server.modelcontextprotocol.io/sse",
-					Type:         anthropic.BetaManagedAgentsStaticBearerCreateParamsTypeStaticBearer,
 				},
 			},
 		},
@@ -675,7 +674,7 @@ List Credentials
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `Type BetaManagedAgentsCredentialType`
+  - `Type VaultCredential`
 
   - `ID string`
 
@@ -695,7 +694,7 @@ List Credentials
 
       OAuth credential details for an MCP server.
 
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+      - `Type MCPOAuth`
 
       - `MCPServerURL string`
 
@@ -725,19 +724,19 @@ List Credentials
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+            - `Type ClientSecretBasic`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+            - `Type ClientSecretPost`
 
         - `Resource string Optional`
 
@@ -751,7 +750,7 @@ List Credentials
 
       Static bearer token credential details for an MCP server.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+      - `Type StaticBearer`
 
       - `MCPServerURL string`
 
@@ -761,7 +760,7 @@ List Credentials
 
       Environment variable credential details. The secret value is never returned.
 
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -783,13 +782,13 @@ List Credentials
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -834,8 +833,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -1020,7 +1019,7 @@ Retrieve a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `Type BetaManagedAgentsCredentialType`
+  - `Type VaultCredential`
 
   - `ID string`
 
@@ -1040,7 +1039,7 @@ Retrieve a Credential
 
       OAuth credential details for an MCP server.
 
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+      - `Type MCPOAuth`
 
       - `MCPServerURL string`
 
@@ -1070,19 +1069,19 @@ Retrieve a Credential
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+            - `Type ClientSecretBasic`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+            - `Type ClientSecretPost`
 
         - `Resource string Optional`
 
@@ -1096,7 +1095,7 @@ Retrieve a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+      - `Type StaticBearer`
 
       - `MCPServerURL string`
 
@@ -1106,7 +1105,7 @@ Retrieve a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -1128,13 +1127,13 @@ Retrieve a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -1179,8 +1178,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -1250,7 +1249,7 @@ Update a Credential
 
       Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
-      - `Type BetaManagedAgentsMCPOAuthUpdateParamsType`
+      - `Type MCPOAuth`
 
       - `AccessToken string Optional`
 
@@ -1290,7 +1289,7 @@ Update a Credential
 
             Updated HTTP Basic authentication parameters for the token endpoint.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicUpdateParamType`
+            - `Type ClientSecretBasic`
 
             - `ClientSecret string Optional`
 
@@ -1304,7 +1303,7 @@ Update a Credential
 
             Updated POST body authentication parameters for the token endpoint.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostUpdateParamType`
+            - `Type ClientSecretPost`
 
             - `ClientSecret string Optional`
 
@@ -1318,7 +1317,7 @@ Update a Credential
 
       Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
-      - `Type BetaManagedAgentsStaticBearerUpdateParamsType`
+      - `Type StaticBearer`
 
       - `Token string Optional`
 
@@ -1330,7 +1329,7 @@ Update a Credential
 
       Parameters for updating an environment variable credential. `secret_name` is immutable.
 
-      - `Type BetaManagedAgentsEnvironmentVariableUpdateParamsType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationUpdateParams Optional`
 
@@ -1352,13 +1351,13 @@ Update a Credential
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -1502,7 +1501,7 @@ Update a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `Type BetaManagedAgentsCredentialType`
+  - `Type VaultCredential`
 
   - `ID string`
 
@@ -1522,7 +1521,7 @@ Update a Credential
 
       OAuth credential details for an MCP server.
 
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+      - `Type MCPOAuth`
 
       - `MCPServerURL string`
 
@@ -1552,19 +1551,19 @@ Update a Credential
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+            - `Type ClientSecretBasic`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+            - `Type ClientSecretPost`
 
         - `Resource string Optional`
 
@@ -1578,7 +1577,7 @@ Update a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+      - `Type StaticBearer`
 
       - `MCPServerURL string`
 
@@ -1588,7 +1587,7 @@ Update a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -1610,13 +1609,13 @@ Update a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -1661,8 +1660,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -1844,7 +1843,7 @@ Delete a Credential
 
   Confirmation of a deleted credential.
 
-  - `Type BetaManagedAgentsDeletedCredentialType`
+  - `Type VaultCredentialDeletedResponseType`
 
   - `ID string`
 
@@ -1859,8 +1858,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -2030,7 +2029,7 @@ Archive a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `Type BetaManagedAgentsCredentialType`
+  - `Type VaultCredential`
 
   - `ID string`
 
@@ -2050,7 +2049,7 @@ Archive a Credential
 
       OAuth credential details for an MCP server.
 
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+      - `Type MCPOAuth`
 
       - `MCPServerURL string`
 
@@ -2080,19 +2079,19 @@ Archive a Credential
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+            - `Type ClientSecretBasic`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+            - `Type ClientSecretPost`
 
         - `Resource string Optional`
 
@@ -2106,7 +2105,7 @@ Archive a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+      - `Type StaticBearer`
 
       - `MCPServerURL string`
 
@@ -2116,7 +2115,7 @@ Archive a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -2138,13 +2137,13 @@ Archive a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -2189,8 +2188,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -2372,7 +2371,7 @@ Validate an MCP OAuth Credential
 
   Result of live-probing a credential against its configured MCP server.
 
-  - `Type BetaManagedAgentsCredentialValidationType`
+  - `Type VaultCredentialValidation`
 
   - `CredentialID string`
 
@@ -2475,8 +2474,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -2536,7 +2535,7 @@ func main() {
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `Type BetaManagedAgentsCredentialType`
+  - `Type VaultCredential`
 
   - `ID string`
 
@@ -2556,7 +2555,7 @@ func main() {
 
       OAuth credential details for an MCP server.
 
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+      - `Type MCPOAuth`
 
       - `MCPServerURL string`
 
@@ -2586,19 +2585,19 @@ func main() {
 
             Token endpoint requires no client authentication.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+            - `Type None`
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+            - `Type ClientSecretBasic`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+            - `Type ClientSecretPost`
 
         - `Resource string Optional`
 
@@ -2612,7 +2611,7 @@ func main() {
 
       Static bearer token credential details for an MCP server.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+      - `Type StaticBearer`
 
       - `MCPServerURL string`
 
@@ -2622,7 +2621,7 @@ func main() {
 
       Environment variable credential details. The secret value is never returned.
 
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+      - `Type EnvironmentVariable`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -2644,13 +2643,13 @@ func main() {
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+          - `Type Unrestricted`
 
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+          - `Type Limited`
 
           - `AllowedHosts []string`
 
@@ -2694,13 +2693,13 @@ func main() {
 
     Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-    - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
+    - `Type Unrestricted`
 
   - `type BetaManagedAgentsLimitedCredentialNetworkingParams`
 
     Substitute the secret only on requests to the listed hosts.
 
-    - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+    - `Type Limited`
 
     - `AllowedHosts []string`
 
@@ -2714,7 +2713,7 @@ func main() {
 
   Result of live-probing a credential against its configured MCP server.
 
-  - `Type BetaManagedAgentsCredentialValidationType`
+  - `Type VaultCredentialValidation`
 
   - `CredentialID string`
 
@@ -2832,7 +2831,7 @@ func main() {
 
   Confirmation of a deleted credential.
 
-  - `Type BetaManagedAgentsDeletedCredentialType`
+  - `Type VaultCredentialDeletedResponseType`
 
   - `ID string`
 
@@ -2844,7 +2843,7 @@ func main() {
 
   Environment variable credential details. The secret value is never returned.
 
-  - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
+  - `Type EnvironmentVariable`
 
   - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -2866,13 +2865,13 @@ func main() {
 
       The secret is substituted on any host the session's Environment network policy permits egress to.
 
-      - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+      - `Type Unrestricted`
 
     - `type BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
       The secret is substituted only on requests to the listed hosts.
 
-      - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+      - `Type Limited`
 
       - `AllowedHosts []string`
 
@@ -2890,7 +2889,7 @@ func main() {
 
   Parameters for creating an environment variable credential.
 
-  - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
+  - `Type EnvironmentVariable`
 
   - `Networking BetaManagedAgentsCredentialNetworkingParamsUnion`
 
@@ -2900,13 +2899,13 @@ func main() {
 
       Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-      - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
+      - `Type Unrestricted`
 
     - `type BetaManagedAgentsLimitedCredentialNetworkingParams`
 
       Substitute the secret only on requests to the listed hosts.
 
-      - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+      - `Type Limited`
 
       - `AllowedHosts []string`
 
@@ -2944,7 +2943,7 @@ func main() {
 
   Parameters for updating an environment variable credential. `secret_name` is immutable.
 
-  - `Type BetaManagedAgentsEnvironmentVariableUpdateParamsType`
+  - `Type EnvironmentVariable`
 
   - `InjectionLocation BetaManagedAgentsInjectionLocationUpdateParams Optional`
 
@@ -2966,13 +2965,13 @@ func main() {
 
       Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-      - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
+      - `Type Unrestricted`
 
     - `type BetaManagedAgentsLimitedCredentialNetworkingParams`
 
       Substitute the secret only on requests to the listed hosts.
 
-      - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+      - `Type Limited`
 
       - `AllowedHosts []string`
 
@@ -3038,7 +3037,7 @@ func main() {
 
   Substitute the secret only on requests to the listed hosts.
 
-  - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+  - `Type Limited`
 
   - `AllowedHosts []string`
 
@@ -3052,7 +3051,7 @@ func main() {
 
   The secret is substituted only on requests to the listed hosts.
 
-  - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+  - `Type Limited`
 
   - `AllowedHosts []string`
 
@@ -3066,7 +3065,7 @@ func main() {
 
   OAuth credential details for an MCP server.
 
-  - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+  - `Type MCPOAuth`
 
   - `MCPServerURL string`
 
@@ -3096,19 +3095,19 @@ func main() {
 
         Token endpoint requires no client authentication.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+        - `Type None`
 
       - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+        - `Type ClientSecretBasic`
 
       - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
         Token endpoint uses POST body authentication with client credentials.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+        - `Type ClientSecretPost`
 
     - `Resource string Optional`
 
@@ -3124,7 +3123,7 @@ func main() {
 
   Parameters for creating an MCP OAuth credential.
 
-  - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
+  - `Type MCPOAuth`
 
   - `AccessToken string`
 
@@ -3174,13 +3173,13 @@ func main() {
 
         Token endpoint requires no client authentication.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthNoneParamType`
+        - `Type None`
 
       - `type BetaManagedAgentsTokenEndpointAuthBasicParam`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+        - `Type ClientSecretBasic`
 
         - `ClientSecret string`
 
@@ -3192,7 +3191,7 @@ func main() {
 
         Token endpoint uses POST body authentication with client credentials.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+        - `Type ClientSecretPost`
 
         - `ClientSecret string`
 
@@ -3242,13 +3241,13 @@ func main() {
 
       Token endpoint requires no client authentication.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthNoneParamType`
+      - `Type None`
 
     - `type BetaManagedAgentsTokenEndpointAuthBasicParam`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+      - `Type ClientSecretBasic`
 
       - `ClientSecret string`
 
@@ -3260,7 +3259,7 @@ func main() {
 
       Token endpoint uses POST body authentication with client credentials.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+      - `Type ClientSecretPost`
 
       - `ClientSecret string`
 
@@ -3300,19 +3299,19 @@ func main() {
 
       Token endpoint requires no client authentication.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+      - `Type None`
 
     - `type BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+      - `Type ClientSecretBasic`
 
     - `type BetaManagedAgentsTokenEndpointAuthPostResponse`
 
       Token endpoint uses POST body authentication with client credentials.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+      - `Type ClientSecretPost`
 
   - `Resource string Optional`
 
@@ -3346,7 +3345,7 @@ func main() {
 
       Updated HTTP Basic authentication parameters for the token endpoint.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthBasicUpdateParamType`
+      - `Type ClientSecretBasic`
 
       - `ClientSecret string Optional`
 
@@ -3360,7 +3359,7 @@ func main() {
 
       Updated POST body authentication parameters for the token endpoint.
 
-      - `Type BetaManagedAgentsTokenEndpointAuthPostUpdateParamType`
+      - `Type ClientSecretPost`
 
       - `ClientSecret string Optional`
 
@@ -3376,7 +3375,7 @@ func main() {
 
   Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
-  - `Type BetaManagedAgentsMCPOAuthUpdateParamsType`
+  - `Type MCPOAuth`
 
   - `AccessToken string Optional`
 
@@ -3416,7 +3415,7 @@ func main() {
 
         Updated HTTP Basic authentication parameters for the token endpoint.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthBasicUpdateParamType`
+        - `Type ClientSecretBasic`
 
         - `ClientSecret string Optional`
 
@@ -3430,7 +3429,7 @@ func main() {
 
         Updated POST body authentication parameters for the token endpoint.
 
-        - `Type BetaManagedAgentsTokenEndpointAuthPostUpdateParamType`
+        - `Type ClientSecretPost`
 
         - `ClientSecret string Optional`
 
@@ -3550,7 +3549,7 @@ func main() {
 
   Static bearer token credential details for an MCP server.
 
-  - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+  - `Type StaticBearer`
 
   - `MCPServerURL string`
 
@@ -3562,7 +3561,7 @@ func main() {
 
   Parameters for creating a static bearer token credential.
 
-  - `Type BetaManagedAgentsStaticBearerCreateParamsType`
+  - `Type StaticBearer`
 
   - `Token string`
 
@@ -3582,7 +3581,7 @@ func main() {
 
   Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
-  - `Type BetaManagedAgentsStaticBearerUpdateParamsType`
+  - `Type StaticBearer`
 
   - `Token string Optional`
 
@@ -3596,7 +3595,7 @@ func main() {
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+  - `Type ClientSecretBasic`
 
   - `ClientSecret string`
 
@@ -3610,7 +3609,7 @@ func main() {
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
+  - `Type ClientSecretBasic`
 
 ### Beta Managed Agents Token Endpoint Auth Basic Update Param
 
@@ -3618,7 +3617,7 @@ func main() {
 
   Updated HTTP Basic authentication parameters for the token endpoint.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthBasicUpdateParamType`
+  - `Type ClientSecretBasic`
 
   - `ClientSecret string Optional`
 
@@ -3634,7 +3633,7 @@ func main() {
 
   Token endpoint requires no client authentication.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthNoneParamType`
+  - `Type None`
 
 ### Beta Managed Agents Token Endpoint Auth None Response
 
@@ -3642,7 +3641,7 @@ func main() {
 
   Token endpoint requires no client authentication.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
+  - `Type None`
 
 ### Beta Managed Agents Token Endpoint Auth Post Param
 
@@ -3650,7 +3649,7 @@ func main() {
 
   Token endpoint uses POST body authentication with client credentials.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+  - `Type ClientSecretPost`
 
   - `ClientSecret string`
 
@@ -3664,7 +3663,7 @@ func main() {
 
   Token endpoint uses POST body authentication with client credentials.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
+  - `Type ClientSecretPost`
 
 ### Beta Managed Agents Token Endpoint Auth Post Update Param
 
@@ -3672,7 +3671,7 @@ func main() {
 
   Updated POST body authentication parameters for the token endpoint.
 
-  - `Type BetaManagedAgentsTokenEndpointAuthPostUpdateParamType`
+  - `Type ClientSecretPost`
 
   - `ClientSecret string Optional`
 
@@ -3688,7 +3687,7 @@ func main() {
 
   Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-  - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
+  - `Type Unrestricted`
 
 ### Beta Managed Agents Unrestricted Credential Networking Response
 
@@ -3696,4 +3695,4 @@ func main() {
 
   The secret is substituted on any host the session's Environment network policy permits egress to.
 
-  - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
+  - `Type Unrestricted`

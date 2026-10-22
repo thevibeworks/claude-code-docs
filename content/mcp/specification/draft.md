@@ -74,16 +74,16 @@ Clients may offer the following features to servers:
 
 ### Extensions
 
-Beyond the core protocol, MCP defines optional [extensions](/extensions/overview)
+Beyond the core protocol, MCP defines optional [extensions](/extensions/overview.md)
 that add modular, specialized, or experimental functionality. Extensions
 are always opt-in and require explicit support from both client and server, negotiated
 during initialization. Notable extensions include:
 
-* **[Tasks](/extensions/tasks/overview)**: Asynchronous execution of long-running
+* **[Tasks](/extensions/tasks/overview.md)**: Asynchronous execution of long-running
   operations, with polling, mid-flight input, and durable handles
-* **[Skills over MCP](/community/working-groups/skills-over-mcp)**: Rich, structured
+* **[Skills over MCP](/community/working-groups/skills-over-mcp.md)**: Rich, structured
   instructions for agent workflows, discovered and consumed through MCP
-* **[MCP Apps](/extensions/apps/overview)**: Interactive UI elements (charts, forms,
+* **[MCP Apps](/extensions/apps/overview.md)**: Interactive UI elements (charts, forms,
   video players) rendered inline within conversations
 
 ## Security and Trust & Safety
@@ -127,12 +127,12 @@ implementors **SHOULD**:
 
 Explore the detailed specification for each protocol component:
 
-> **[Architecture](/specification/draft/architecture)**
+> **[Architecture](/specification/draft/architecture.md)**
 
-> **[Base Protocol](/specification/draft/basic)**
+> **[Base Protocol](/specification/draft/basic.md)**
 
-> **[Server Features](/specification/draft/server)**
+> **[Server Features](/specification/draft/server.md)**
 
 > **[Client Features](/specification/draft/client)**
 
-> **[Contributing](/community/contributing)**
+> **[Contributing](/community/contributing.md)**

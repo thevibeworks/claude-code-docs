@@ -54,7 +54,7 @@ Claude posts a morning rollup of open threads and anything waiting on someone, b
 @Claude every weekday at 9am Pacific, post a summary of open threads in this channel and anything that looks like it's waiting on someone.
 ```
 
-"Waiting on someone" makes the rollup surface actions, not just a recap; [Catch up](/docs/claude-tag/users/use-cases/catch-up) has the one-off version.
+"Waiting on someone" makes the rollup surface actions, not just a recap; [Catch up](/docs/claude-tag/users/use-cases/catch-up.md) has the one-off version.
 
 ### Weekly channel digest
 
@@ -64,7 +64,7 @@ Claude posts one recap at the end of each week, so the channel has a single plac
 @Claude every Friday at 3pm Eastern, post a digest of this week in this channel: what got decided, what's still open, and anything waiting on someone.
 ```
 
-For an intake channel, the [Triage requests](/docs/claude-tag/users/use-cases/triage-requests) version of this rollup also sweeps posts that never tagged Claude.
+For an intake channel, the [Triage requests](/docs/claude-tag/users/use-cases/triage-requests.md) version of this rollup also sweeps posts that never tagged Claude.
 
 ### Watch a pull request until it merges
 
@@ -78,7 +78,7 @@ Claude subscribes to a single pull request and posts as it moves through CI, rev
 
 ### Alert investigation when a monitor fires
 
-Claude checks the alerting dashboard on a schedule and posts a first pass at diagnosis for anything new, so the investigation is underway before anyone asks. This recipe needs a monitoring connection such as Datadog or PagerDuty; [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors) has the full setup.
+Claude checks the alerting dashboard on a schedule and posts a first pass at diagnosis for anything new, so the investigation is underway before anyone asks. This recipe needs a monitoring connection such as Datadog or PagerDuty; [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors.md) has the full setup.
 
 ```text wrap theme={null}
 @Claude every two hours, check the alerting dashboard against its last state. For anything new, post when it started, what changed around then, and what to look at first.
@@ -88,19 +88,19 @@ The routine posts only when something changed, not on every check.
 
 ### Automatic triage for new requests
 
-Claude answers, deduplicates, and routes requests as they arrive. This recipe is a standing role rather than a schedule; "remember for this channel" saves it to [channel memory](/docs/claude-tag/users/memory), so it applies to everyone's threads.
+Claude answers, deduplicates, and routes requests as they arrive. This recipe is a standing role rather than a schedule; "remember for this channel" saves it to [channel memory](/docs/claude-tag/users/memory.md), so it applies to everyone's threads.
 
 ```text wrap theme={null}
 @Claude remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary.
 ```
 
-Pair it with a weekly rollup so untagged posts are still swept; [Triage requests](/docs/claude-tag/users/use-cases/triage-requests) has both messages.
+Pair it with a weekly rollup so untagged posts are still swept; [Triage requests](/docs/claude-tag/users/use-cases/triage-requests.md) has both messages.
 
 ## Where a routine posts its results
 
-A routine you set up from inside a thread usually reports back in that thread each time it runs, for as long as the thread's [session](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies) lasts. To keep the results in the thread, ask Claude to report back there when you set the routine up. If you send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in the thread, the routine moves to the thread's new session and keeps reporting there.
+A routine you set up from inside a thread usually reports back in that thread each time it runs, for as long as the thread's [session](/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies) lasts. To keep the results in the thread, ask Claude to report back there when you set the routine up. If you send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in the thread, the routine moves to the thread's new session and keeps reporting there.
 
-If the thread's session [gets stuck](/docs/claude-tag/users/troubleshooting#claude-reacted-or-started-thinking-then-never-replied), the routine doesn't move to the session that replaces it, and its later runs usually post at the channel's top level instead. To bring the results back into a thread, disable the routine and set it up again from that thread.
+If the thread's session [gets stuck](/docs/claude-tag/users/troubleshooting.md#claude-reacted-or-started-thinking-then-never-replied), the routine doesn't move to the session that replaces it, and its later runs usually post at the channel's top level instead. To bring the results back into a thread, disable the routine and set it up again from that thread.
 
 For a routine you set up at the channel's top level, Claude usually announces each run in a short top-level message and does the work in the thread under it. To follow up on any routine post, mention `@Claude` in a reply under it.
 
@@ -118,14 +118,14 @@ A few boundaries apply:
 
 * A job runs with the channel's connections, the same as an interactive request.
 * Claude can post a job's output into another public channel in the same workspace only if the job's own channel is public and Claude has been added to the target channel. It labels the message with the channel it came from.
-* A routine you set up in a [group DM](/docs/claude-tag/users/group-dms) posts its output in that group DM only.
+* A routine you set up in a [group DM](/docs/claude-tag/users/group-dms.md) posts its output in that group DM only.
 * Claude doesn't post a channel job's output into a different channel that's private or externally shared, or into a DM or group DM, and doesn't message people directly. Claude does send a completion or failure notice to whoever set up the routine, when that person's Slack account is connected to their Claude account.
 * Schedules run in UTC. Name the timezone when you set a schedule, as in "every weekday at 9am Pacific". With no timezone in your message, Claude uses the one on your Slack profile. To confirm the time Claude set, send [`@Claude !routines`](/docs/claude-tag/users/commands#list-the-routines-in-a-channel), which lists schedules in UTC.
 * A routine runs at a fixed UTC time, so each daylight saving change shifts its local time by an hour, in the same direction the clocks move. A routine running at 9am Pacific moves to 10am after the clocks go forward, or to 8am after they go back. Ask Claude to reschedule the routine to the local time you want.
-* A scheduled job that touches a github.com repository uses the same GitHub connection your admin set up for interactive work. See [Configure GitHub access](/docs/claude-tag/admins/configure-github#scheduled-work-uses-the-same-connection).
+* A scheduled job that touches a github.com repository uses the same GitHub connection your admin set up for interactive work. See [Configure GitHub access](/docs/claude-tag/admins/configure-github.md#scheduled-work-uses-the-same-connection).
 
 ## Related resources
 
-* [Use case library](/docs/claude-tag/users/use-cases): every entry has a proactive form to copy
-* [Prompt library](/docs/claude-tag/users/prompt-library#manage-routines): prompts to create, audit, and stop routines
-* [Good habits](/docs/claude-tag/users/good-habits): write schedules that keep working
+* [Use case library](/docs/claude-tag/users/use-cases.md): every entry has a proactive form to copy
+* [Prompt library](/docs/claude-tag/users/prompt-library.md#manage-routines): prompts to create, audit, and stop routines
+* [Good habits](/docs/claude-tag/users/good-habits.md): write schedules that keep working

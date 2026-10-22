@@ -83,7 +83,6 @@ Archive a Memory Store
 
 ```bash
 ant beta:memory-stores archive \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 

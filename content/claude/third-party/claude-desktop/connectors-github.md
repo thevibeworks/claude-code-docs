@@ -34,7 +34,7 @@ GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Deskt
 }
 ```
 
-The `headersHelper` executable prints the request headers as a flat JSON object to stdout, for example `{"Authorization": "Bearer GITHUB_PAT"}`, and follows the execution model described under [short-lived credentials with a headers helper](/docs/third-party/claude-desktop/extensions#short-lived-credentials-with-a-headers-helper). Use it to fetch a per-user fine-grained token from your secrets manager. A static `headers` object also works, but it puts the same token on every device, so every session acts as that one identity; prefer the helper, a narrowly scoped fine-grained token, or the [local connector](#local-connector), which needs no tokens at all.
+The `headersHelper` executable prints the request headers as a flat JSON object to stdout, for example `{"Authorization": "Bearer GITHUB_PAT"}`, and follows the execution model described under [short-lived credentials with a headers helper](/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper). Use it to fetch a per-user fine-grained token from your secrets manager. A static `headers` object also works, but it puts the same token on every device, so every session acts as that one identity; prefer the helper, a narrowly scoped fine-grained token, or the [local connector](#local-connector), which needs no tokens at all.
 
 Check the endpoint URL, the supported authentication methods, and the token scopes your tools need against [GitHub's github-mcp-server documentation](https://github.com/github/github-mcp-server), which is the source of truth for the hosted server. GitHub Enterprise Server instances are not reachable through GitHub's hosted endpoint; use the local connector instead.
 
@@ -59,7 +59,7 @@ A GitHub App works in place of an OAuth app: put its client ID in the same field
 
 **2. Add the managed entry**
 
-In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
+In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
 
 If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `github`:
 
@@ -86,7 +86,7 @@ In the in-app configuration window, the GitHub form offers the client ID, GitHub
 
 **3. Allow the required network hosts**
 
-The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), devices need outbound HTTPS access to:
+The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
 
 | Host | Purpose |
 | - | - |

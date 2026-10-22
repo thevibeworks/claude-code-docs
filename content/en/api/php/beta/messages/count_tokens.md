@@ -64,7 +64,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=php).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -235,14 +235,7 @@ use Anthropic\Messages\Model;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageTokensCount = $client->beta->messages->countTokens(
-  messages: [
-    [
-      'content' => 'Hello, world',
-      'role' => 'user',
-      'clearAt' => 'next_user_message',
-      'outputConfig' => ['effort' => 'low'],
-    ],
-  ],
+  messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],

@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/models
 
 ## List Models
 
-`$client->models->list(?string afterID, ?string beforeID, ?list<Lifecycle> lifecycle, ?int limit, ?list<AnthropicBeta> betas, ?string workspaceID): Page<ModelInfo>`
+`$client->models->list(?string afterID, ?string beforeID, ?list<Lifecycle> lifecycle, ?int limit, ?string workspaceID): Page<ModelInfo>`
 
 **GET** `/v1/models`
 
@@ -42,12 +42,6 @@ The Models API response can be used to determine which models are available for 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-- `betas?:optional list<AnthropicBeta>` (header parameter)
-
-  **Deprecated**: Deprecated. This parameter will be removed from this method in a future release. To use beta features, call the beta models methods (`client.beta.models`) instead.
-
-  Optional header to specify the beta version(s) you want to use.
 
 ### Returns
 
@@ -111,7 +105,6 @@ The Models API response can be used to determine which models are available for 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
-use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -120,7 +113,6 @@ $page = $client->models->list(
   beforeID: 'before_id',
   lifecycle: ['active'],
   limit: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -229,7 +221,7 @@ var_dump($page);
 
 ## Get a Model
 
-`$client->models->retrieve(string modelID, ?list<AnthropicBeta> betas, ?string workspaceID): ModelInfo`
+`$client->models->retrieve(string modelID, ?string workspaceID): ModelInfo`
 
 **GET** `/v1/models/{model_id}`
 
@@ -248,12 +240,6 @@ The Models API response can be used to determine information about a specific mo
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-- `betas?:optional list<AnthropicBeta>` (header parameter)
-
-  **Deprecated**: Deprecated. This parameter will be removed from this method in a future release. To use beta features, call the beta models methods (`client.beta.models`) instead.
-
-  Optional header to specify the beta version(s) you want to use.
 
 ### Returns
 
@@ -317,14 +303,11 @@ The Models API response can be used to determine information about a specific mo
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
-use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $modelInfo = $client->models->retrieve(
-  'model_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
-  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
+  'model_id', workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy'
 );
 
 var_dump($modelInfo);

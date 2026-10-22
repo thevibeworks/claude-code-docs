@@ -14,9 +14,9 @@ If you already know which connector you want, open [**Customize > Connectors**](
 
 > [!NOTE]
 >
-> * If the service you want isn't in the directory and you have its server URL, see [Add a connector that isn't in the directory](/docs/connectors/custom/add-unlisted#add-a-connector-by-url)
-> * If you're building a connector, see [Build an MCP server for Claude](/docs/connectors/building/index)
-> * If you're a Team or Enterprise Owner deciding which connectors your organization offers, see [Browse the directory](/docs/connectors/directory#browse-the-directory) to add them from organization settings and handle member requests
+> * If the service you want isn't in the directory and you have its server URL, see [Add a connector that isn't in the directory](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url)
+> * If you're building a connector, see [Build an MCP server for Claude](/docs/connectors/building/index.md)
+> * If you're a Team or Enterprise Owner deciding which connectors your organization offers, see [Browse the directory](/docs/connectors/directory.md#browse-the-directory) to add them from organization settings and handle member requests
 
 ## Before you begin
 
@@ -39,7 +39,7 @@ Go to [**Customize > Connectors**](https://claude.ai/customize/connectors). In t
 
 Select **Discover** to browse the directory. Enter a service name in **Search connectors**, or look through the categories, then select a connector to open its page.
 
-Each listing carries a Verified or Community label. [Connector verification](/docs/connectors/verification) explains what each one means.
+Each listing carries a Verified or Community label. [Connector verification](/docs/connectors/verification.md) explains what each one means.
 
 **3. Start the connection**
 
@@ -47,7 +47,7 @@ Select **Connect to Claude**. Some connectors first ask for details such as a se
 
 On a Team or Enterprise plan, what you see depends on whether the connector has been added for your organization:
 
-* If it hasn't, you see **Request** or a note to ask an organization Owner instead of a connect button. [Request a connector on a Team plan](/docs/connectors/directory#request-a-connector-on-a-team-plan) covers what happens next
+* If it hasn't, you see **Request** or a note to ask an organization Owner instead of a connect button. [Request a connector on a Team plan](/docs/connectors/directory.md#request-a-connector-on-a-team-plan) covers what happens next
 * If you're an Owner, the button reads **Connect for your team** and adds the connector for everyone in your organization. You then connect your own account with **Connect to Claude**. To try the connector without adding it for everyone, select the arrow next to **Connect for your team**, then **Connect just for me**
 
 **4. Sign in to the service**
@@ -103,11 +103,11 @@ Connectors work across the Claude apps. Each app supports these kinds:
 * **Claude Code**: the connectors you add in claude.ai are available in Claude Code, in the terminal and in cloud sessions, when you sign in with your Claude account. See [Use MCP servers from claude.ai](https://code.claude.com/docs/en/mcp#use-mcp-servers-from-claude-ai)
 * **Cowork**: connectors and plugins
 
-Most connectors are remote services that you sign in to, as the steps on this page describe. A local connector is a desktop extension, packaged as an MCP Bundle (MCPB), that runs on your computer in the Claude desktop app. To add one, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted#install-a-local-connector-in-the-desktop-app).
+Most connectors are remote services that you sign in to, as the steps on this page describe. A local connector is a desktop extension, packaged as an MCP Bundle (MCPB), that runs on your computer in the Claude desktop app. To add one, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app).
 
 ## Next steps
 
-* [Connectors directory](/docs/connectors/directory): how the directory is organized and how requests work on a Team plan
-* [Add a connector that isn't in the directory](/docs/connectors/custom/add-unlisted): connect Claude to any remote MCP server by its URL, or install a desktop extension
-* [Install and use plugins](/docs/plugins/overview#bundled-connectors): add a plugin that bundles connectors with the skills that use them
-* [Connectors, skills, and plugins](/docs/extend/overview): decide which of the three fits what you want Claude to do
+* [Connectors directory](/docs/connectors/directory.md): how the directory is organized and how requests work on a Team plan
+* [Add a connector that isn't in the directory](/docs/connectors/custom/add-unlisted.md): connect Claude to any remote MCP server by its URL, or install a desktop extension
+* [Install and use plugins](/docs/plugins/overview.md#bundled-connectors): add a plugin that bundles connectors with the skills that use them
+* [Connectors, skills, and plugins](/docs/extend/overview.md): decide which of the three fits what you want Claude to do

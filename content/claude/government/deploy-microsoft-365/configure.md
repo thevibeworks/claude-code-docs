@@ -14,24 +14,24 @@ Claude for Microsoft 365 is an Office add-in that opens Claude in a pane beside 
 
 Microsoft 365 Government tenants can't use the public add-in store, so you deploy the manifest yourself (see Microsoft's [guidance for Office Add-ins on government clouds](https://learn.microsoft.com/en-us/office/dev/add-ins/publish/government-cloud-guidance)).
 
-This page covers the add-in that runs inside Office. The [Microsoft 365 connector](/docs/government/connectors/microsoft-365), which lets Claude Desktop read your agency's Outlook, OneDrive, SharePoint, and Teams content, is a separate feature with its own setup.
+This page covers the add-in that runs inside Office. The [Microsoft 365 connector](/docs/government/connectors/microsoft-365.md), which lets Claude Desktop read your agency's Outlook, OneDrive, SharePoint, and Teams content, is a separate feature with its own setup.
 
 ## Before you begin
 
 Confirm each of the following before you deploy the manifest.
 
-* **Claude for Microsoft 365 is turned on for the organization.** Check the **Claude for Microsoft 365** switch under [Product availability](/docs/government/config/settings#product-availability). It is off by default. While it is off, users who sign in from the add-in are told that Claude for Microsoft 365 is not turned on for their organization.
-* **User accounts exist.** The add-in signs users in to the same accounts as this portal. Each user needs a [routing rule](/docs/government/tenant-admin/identity-and-access) that covers them and a [seat tier](/docs/government/org-admin/seat-tiers) with at least one model enabled.
-* **Office is a supported version.** The add-in needs the Office builds listed under supported versions for [Excel](/docs/office-agents/excel#supported-versions), [Word](/docs/office-agents/word#supported-versions), and [PowerPoint](/docs/office-agents/powerpoint#supported-versions).
+* **Claude for Microsoft 365 is turned on for the organization.** Check the **Claude for Microsoft 365** switch under [Product availability](/docs/government/config/settings.md#product-availability). It is off by default. While it is off, users who sign in from the add-in are told that Claude for Microsoft 365 is not turned on for their organization.
+* **User accounts exist.** The add-in signs users in to the same accounts as this portal. Each user needs a [routing rule](/docs/government/tenant-admin/identity-and-access.md) that covers them and a [seat tier](/docs/government/org-admin/seat-tiers.md) with at least one model enabled.
+* **Office is a supported version.** The add-in needs the Office builds listed under supported versions for [Excel](/docs/office-agents/excel.md#supported-versions), [Word](/docs/office-agents/word.md#supported-versions), and [PowerPoint](/docs/office-agents/powerpoint.md#supported-versions).
 * **Devices can reach your Claude for Government host.** Office on every device must reach your Claude for Government host over HTTPS (port 443). That host serves the add-in and carries its sign-in requests and chat traffic.
 * **Devices can reach Microsoft's Office add-in library.** At startup the pane loads Microsoft's `office.js` library from one of these Microsoft hosts, chosen by the `?officecdn=` parameter you add when you [download the manifest](#download-the-manifest):
   * no `?officecdn=` parameter: `appsforoffice.microsoft.com`
   * `?officecdn=gcc`: `appsforoffice.gcc.cdn.office.net`
   * `?officecdn=gcch`: `appsforoffice.gcch.cdn.office.net`
   * `?officecdn=dod`: `appsforoffice.dod.cdn.office.net`
-* **Your telemetry collector accepts the add-in's requests.** When a [**Telemetry endpoint**](/docs/government/config/settings#telemetry-endpoint) is set, the pane on each device sends its telemetry directly to that collector. The collector must be reachable from users' networks and must accept cross-origin requests from your Claude for Government host, which is the add-in's origin.
-* **Your connectors accept the add-in's requests.** The pane on each device connects directly to every connector that applies to Claude for Microsoft 365 (see the [**Connectors** card](/docs/government/config/settings#tool-and-connector-cards)). Each connector must be reachable from users' networks and must accept cross-origin requests from your Claude for Government host, which is the add-in's origin.
-* **Browsers can reach sign-in.** Sign-in happens in the user's default web browser, not in the pane. Browsers on each device must reach your Claude for Government host, the Claude for Government sign-in service (a separate host that your Anthropic representative provides), and your agency's identity provider. These are the same hosts [Claude Desktop sign-in](/docs/government/deploy-desktop/configure#before-you-begin) needs.
+* **Your telemetry collector accepts the add-in's requests.** When a [**Telemetry endpoint**](/docs/government/config/settings.md#telemetry-endpoint) is set, the pane on each device sends its telemetry directly to that collector. The collector must be reachable from users' networks and must accept cross-origin requests from your Claude for Government host, which is the add-in's origin.
+* **Your connectors accept the add-in's requests.** The pane on each device connects directly to every connector that applies to Claude for Microsoft 365 (see the [**Connectors** card](/docs/government/config/settings.md#tool-and-connector-cards)). Each connector must be reachable from users' networks and must accept cross-origin requests from your Claude for Government host, which is the add-in's origin.
+* **Browsers can reach sign-in.** Sign-in happens in the user's default web browser, not in the pane. Browsers on each device must reach your Claude for Government host, the Claude for Government sign-in service (a separate host that your Anthropic representative provides), and your agency's identity provider. These are the same hosts [Claude Desktop sign-in](/docs/government/deploy-desktop/configure.md#before-you-begin) needs.
 * **You can deploy add-ins in the Microsoft 365 admin center.** Users need the Microsoft 365 Apps versions and Exchange Online mailboxes listed in Microsoft's [requirements for Centralized Deployment](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-of-add-ins).
 
 ## Download the manifest
@@ -135,7 +135,7 @@ When the user selects **Log in**, the pane shows a short code and opens the Clau
 3. Acknowledges the U.S. Government system-use notification.
 4. Checks that the code shown matches the one in the pane, then selects **Approve**.
 
-When the user returns to the pane it shows **You're signed in**, and selecting **Continue** opens Claude. On a user's first sign-in the pane shows a short welcome and a notice to acknowledge before the chat box appears. For what users can do once signed in, see the Claude for Microsoft 365 guides for [Excel](/docs/office-agents/excel), [Word](/docs/office-agents/word), and [PowerPoint](/docs/office-agents/powerpoint).
+When the user returns to the pane it shows **You're signed in**, and selecting **Continue** opens Claude. On a user's first sign-in the pane shows a short welcome and a notice to acknowledge before the chat box appears. For what users can do once signed in, see the Claude for Microsoft 365 guides for [Excel](/docs/office-agents/excel.md), [Word](/docs/office-agents/word.md), and [PowerPoint](/docs/office-agents/powerpoint.md).
 
 ## Confirm the deployment
 

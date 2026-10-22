@@ -576,8 +576,7 @@ The Models API response can be used to determine which models are available for 
 #### Example
 
 ```bash
-ant beta:models list \
-  --api-key my-anthropic-api-key
+ant beta:models list
 ```
 
 ##### Response (200)
@@ -1011,7 +1010,6 @@ The Models API response can be used to determine information about a specific mo
 
 ```bash
 ant beta:models retrieve \
-  --api-key my-anthropic-api-key \
   --model-id model_id
 ```
 
@@ -1192,7 +1190,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=cli).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -1392,42 +1390,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-- `--temperature: optional number`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-  minimum: 0, maximum: 1
-
-- `--top-k: optional number`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-  Only sample from the top K options for each subsequent token.
-
-  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-  Recommended for advanced use cases only.
-
-  minimum: 0
-
-- `--top-p: optional number`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Use nucleus sampling.
-
-  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-  Recommended for advanced use cases only.
-
-  minimum: 0, maximum: 1
 
 #### Returns
 
@@ -6909,7 +6871,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 ```bash
 ant beta:messages create \
-  --api-key my-anthropic-api-key \
   --max-tokens 1024 \
   --message '{content: [{text: x, type: text}], role: user}' \
   --model claude-opus-5-5
@@ -7086,7 +7047,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=cli).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -7250,7 +7211,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ```bash
 ant beta:messages count-tokens \
-  --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
   --model claude-opus-5-5
 ```
@@ -7404,7 +7364,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant beta:messages:batches create \
-  --api-key my-anthropic-api-key \
   --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5-5}}'
 ```
 
@@ -7559,7 +7518,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant beta:messages:batches retrieve \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -7739,8 +7697,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 #### Example
 
 ```bash
-ant beta:messages:batches list \
-  --api-key my-anthropic-api-key
+ant beta:messages:batches list
 ```
 
 ##### Response (200)
@@ -7903,7 +7860,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant beta:messages:batches cancel \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -7976,7 +7932,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant beta:messages:batches delete \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -12729,7 +12684,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant beta:messages:batches results \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -13619,7 +13573,6 @@ Create Agent
 
 ```bash
 ant beta:agents create \
-  --api-key my-anthropic-api-key \
   --model claude-opus-5-5 \
   --name 'My First Agent'
 ```
@@ -14597,8 +14550,7 @@ List Agents
 #### Example
 
 ```bash
-ant beta:agents list \
-  --api-key my-anthropic-api-key
+ant beta:agents list
 ```
 
 ##### Response (200)
@@ -15556,7 +15508,6 @@ Get Agent
 
 ```bash
 ant beta:agents retrieve \
-  --api-key my-anthropic-api-key \
   --agent-id agent_011CZkYpogX7uDKUyvBTophP
 ```
 
@@ -16556,7 +16507,6 @@ Update Agent
 
 ```bash
 ant beta:agents update \
-  --api-key my-anthropic-api-key \
   --agent-id agent_011CZkYpogX7uDKUyvBTophP
 ```
 
@@ -17504,7 +17454,6 @@ Archive Agent
 
 ```bash
 ant beta:agents archive \
-  --api-key my-anthropic-api-key \
   --agent-id agent_011CZkYpogX7uDKUyvBTophP
 ```
 
@@ -18472,7 +18421,6 @@ List Agent Versions
 
 ```bash
 ant beta:agents:versions list \
-  --api-key my-anthropic-api-key \
   --agent-id agent_011CZkYpogX7uDKUyvBTophP
 ```
 
@@ -18763,7 +18711,6 @@ Create a new environment with the specified configuration.
 
 ```bash
 ant beta:environments create \
-  --api-key my-anthropic-api-key \
   --name python-data-analysis
 ```
 
@@ -18994,8 +18941,7 @@ List environments with pagination support.
 #### Example
 
 ```bash
-ant beta:environments list \
-  --api-key my-anthropic-api-key
+ant beta:environments list
 ```
 
 ##### Response (200)
@@ -19208,7 +19154,6 @@ Retrieve a specific environment by ID.
 
 ```bash
 ant beta:environments retrieve \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -19441,7 +19386,6 @@ Update an existing environment's configuration.
 
 ```bash
 ant beta:environments update \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -19534,7 +19478,6 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ```bash
 ant beta:environments delete \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -19703,7 +19646,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ```bash
 ant beta:environments archive \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -19868,7 +19810,6 @@ Retrieve detailed information about a specific work item.
 
 ```bash
 ant beta:environments:work retrieve \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
@@ -20016,7 +19957,6 @@ Long poll for work items in the queue.
 
 ```bash
 ant beta:environments:work poll \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -20149,7 +20089,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ```bash
 ant beta:environments:work ack \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
@@ -20247,7 +20186,6 @@ Record a heartbeat for a work item to maintain the lease.
 
 ```bash
 ant beta:environments:work heartbeat \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
@@ -20378,7 +20316,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
 ```bash
 ant beta:environments:work stop \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
@@ -20524,7 +20461,6 @@ List work items in an environment.
 
 ```bash
 ant beta:environments:work list \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -20672,7 +20608,6 @@ Update work item metadata with merge semantics.
 
 ```bash
 ant beta:environments:work update \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id \
   --metadata '{foo: string}'
@@ -20757,7 +20692,6 @@ Get statistics about the work queue for an environment.
 
 ```bash
 ant beta:environments:work stats \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
@@ -22037,7 +21971,6 @@ Create Session
 
 ```bash
 ant beta:sessions create \
-  --api-key my-anthropic-api-key \
   --agent agent_011CZkYpogX7uDKUyvBTophP \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
@@ -23543,8 +23476,7 @@ List Sessions
 #### Example
 
 ```bash
-ant beta:sessions list \
-  --api-key my-anthropic-api-key
+ant beta:sessions list
 ```
 
 ##### Response (200)
@@ -24981,7 +24913,6 @@ Get Session
 
 ```bash
 ant beta:sessions retrieve \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -26435,7 +26366,6 @@ Update Session
 
 ```bash
 ant beta:sessions update \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -26675,7 +26605,6 @@ Delete Session
 
 ```bash
 ant beta:sessions delete \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -27916,7 +27845,6 @@ Archive Session
 
 ```bash
 ant beta:sessions archive \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -31264,7 +31192,6 @@ List Events
 
 ```bash
 ant beta:sessions:events list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -31776,7 +31703,6 @@ Send Events
 
 ```bash
 ant beta:sessions:events send \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}'
 ```
@@ -34957,7 +34883,6 @@ Stream Events
 
 ```bash
 ant beta:sessions:events stream \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -35043,7 +34968,6 @@ Add Session Resource
 
 ```bash
 ant beta:sessions:resources add \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --file-id file_011CNha8iCJcU1wXNR6q4V8w \
   --type file
@@ -35214,7 +35138,6 @@ List Session Resources
 
 ```bash
 ant beta:sessions:resources list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -35384,7 +35307,6 @@ Get Session Resource
 
 ```bash
 ant beta:sessions:resources retrieve \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht
 ```
@@ -35548,7 +35470,6 @@ Update Session Resource
 
 ```bash
 ant beta:sessions:resources update \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht \
   --authorization-token ghp_exampletoken
@@ -35609,7 +35530,6 @@ Delete Session Resource
 
 ```bash
 ant beta:sessions:resources delete \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht
 ```
@@ -36557,7 +36477,6 @@ List Session Threads
 
 ```bash
 ant beta:sessions:threads list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -37569,7 +37488,6 @@ Get Session Thread
 
 ```bash
 ant beta:sessions:threads retrieve \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -38577,7 +38495,6 @@ Archive Session Thread
 
 ```bash
 ant beta:sessions:threads archive \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -41787,7 +41704,6 @@ List Session Thread Events
 
 ```bash
 ant beta:sessions:threads:events list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -44982,7 +44898,6 @@ Stream Session Thread Events
 
 ```bash
 ant beta:sessions:threads:events stream \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -45595,7 +45510,6 @@ Create Deployment
 
 ```bash
 ant beta:deployments create \
-  --api-key my-anthropic-api-key \
   --agent string \
   --environment-id x \
   --initial-event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}' \
@@ -46254,8 +46168,7 @@ List Deployments
 #### Example
 
 ```bash
-ant beta:deployments list \
-  --api-key my-anthropic-api-key
+ant beta:deployments list
 ```
 
 ##### Response (200)
@@ -46878,7 +46791,6 @@ Get Deployment
 
 ```bash
 ant beta:deployments retrieve \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 
@@ -47543,7 +47455,6 @@ Update Deployment
 
 ```bash
 ant beta:deployments update \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 
@@ -48162,7 +48073,6 @@ Archive Deployment
 
 ```bash
 ant beta:deployments archive \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 
@@ -48485,7 +48395,6 @@ Run Deployment Now
 
 ```bash
 ant beta:deployments run \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 
@@ -49062,7 +48971,6 @@ Pause Deployment
 
 ```bash
 ant beta:deployments pause \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 
@@ -49681,7 +49589,6 @@ Unpause Deployment
 
 ```bash
 ant beta:deployments unpause \
-  --api-key my-anthropic-api-key \
   --deployment-id depl_011CZkZcDH3vPqd7xnEfwTai
 ```
 
@@ -50055,8 +49962,7 @@ List Deployment Runs
 #### Example
 
 ```bash
-ant beta:deployment-runs list \
-  --api-key my-anthropic-api-key
+ant beta:deployment-runs list
 ```
 
 ##### Response (200)
@@ -50341,7 +50247,6 @@ Get Deployment Run
 
 ```bash
 ant beta:deployment-runs retrieve \
-  --api-key my-anthropic-api-key \
   --deployment-run-id deployment_run_id
 ```
 
@@ -50444,7 +50349,6 @@ Create a Vault
 
 ```bash
 ant beta:vaults create \
-  --api-key my-anthropic-api-key \
   --display-name 'Example vault'
 ```
 
@@ -50547,8 +50451,7 @@ List Vaults
 #### Example
 
 ```bash
-ant beta:vaults list \
-  --api-key my-anthropic-api-key
+ant beta:vaults list
 ```
 
 ##### Response (200)
@@ -50638,7 +50541,6 @@ Retrieve a Vault
 
 ```bash
 ant beta:vaults retrieve \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
@@ -50734,7 +50636,6 @@ Update a Vault
 
 ```bash
 ant beta:vaults update \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
@@ -50794,7 +50695,6 @@ Delete a Vault
 
 ```bash
 ant beta:vaults delete \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
@@ -50873,7 +50773,6 @@ Archive a Vault
 
 ```bash
 ant beta:vaults archive \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
@@ -51093,7 +50992,6 @@ Create a Credential
 
 ```bash
 ant beta:vaults:credentials create \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --auth '{token: bearer_exampletoken, mcp_server_url: https://example-server.modelcontextprotocol.io/sse, type: static_bearer}'
 ```
@@ -51325,7 +51223,6 @@ List Credentials
 
 ```bash
 ant beta:vaults:credentials list \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
@@ -51543,7 +51440,6 @@ Retrieve a Credential
 
 ```bash
 ant beta:vaults:credentials retrieve \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```
@@ -51771,7 +51667,6 @@ Update a Credential
 
 ```bash
 ant beta:vaults:credentials update \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```
@@ -51841,7 +51736,6 @@ Delete a Credential
 
 ```bash
 ant beta:vaults:credentials delete \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```
@@ -52043,7 +51937,6 @@ Archive a Credential
 
 ```bash
 ant beta:vaults:credentials archive \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```
@@ -52219,7 +52112,6 @@ Validate an MCP OAuth Credential
 
 ```bash
 ant beta:vaults:credentials mcp-oauth-validate \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```
@@ -52353,7 +52245,6 @@ Create a Memory Store
 
 ```bash
 ant beta:memory-stores create \
-  --api-key my-anthropic-api-key \
   --name x
 ```
 
@@ -52481,8 +52372,7 @@ List Memory Stores
 #### Example
 
 ```bash
-ant beta:memory-stores list \
-  --api-key my-anthropic-api-key
+ant beta:memory-stores list
 ```
 
 ##### Response (200)
@@ -52583,7 +52473,6 @@ Retrieve a Memory Store
 
 ```bash
 ant beta:memory-stores retrieve \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
@@ -52704,7 +52593,6 @@ Update a Memory Store
 
 ```bash
 ant beta:memory-stores update \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
@@ -52767,7 +52655,6 @@ Delete a Memory Store
 
 ```bash
 ant beta:memory-stores delete \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
@@ -52860,7 +52747,6 @@ Archive a Memory Store
 
 ```bash
 ant beta:memory-stores archive \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
@@ -52995,7 +52881,6 @@ Create a Memory
 
 ```bash
 ant beta:memory-stores:memories create \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --content content \
   --path xx
@@ -53166,7 +53051,6 @@ List Memories
 
 ```bash
 ant beta:memory-stores:memories list \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
@@ -53294,7 +53178,6 @@ Retrieve a Memory
 
 ```bash
 ant beta:memory-stores:memories retrieve \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-id memory_id
 ```
@@ -53436,7 +53319,6 @@ Update a Memory
 
 ```bash
 ant beta:memory-stores:memories update \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-id memory_id
 ```
@@ -53512,7 +53394,6 @@ Delete a Memory
 
 ```bash
 ant beta:memory-stores:memories delete \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-id memory_id
 ```
@@ -53764,7 +53645,6 @@ List Memory Versions
 
 ```bash
 ant beta:memory-stores:memory-versions list \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
@@ -53991,7 +53871,6 @@ Retrieve a Memory Version
 
 ```bash
 ant beta:memory-stores:memory-versions retrieve \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-version-id memory_version_id
 ```
@@ -54208,7 +54087,6 @@ Redact a Memory Version
 
 ```bash
 ant beta:memory-stores:memory-versions redact \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-version-id memory_version_id
 ```
@@ -54339,7 +54217,6 @@ Upload File
 
 ```bash
 ant beta:files upload \
-  --api-key my-anthropic-api-key \
   --file 'Example data'
 ```
 
@@ -54475,8 +54352,7 @@ List Files
 #### Example
 
 ```bash
-ant beta:files list \
-  --api-key my-anthropic-api-key
+ant beta:files list
 ```
 
 ##### Response (200)
@@ -54535,7 +54411,6 @@ Download File
 
 ```bash
 ant beta:files download \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 
@@ -54629,7 +54504,6 @@ Get File Metadata
 
 ```bash
 ant beta:files retrieve-metadata \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 
@@ -54694,7 +54568,6 @@ Delete File
 
 ```bash
 ant beta:files delete \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 
@@ -54813,7 +54686,6 @@ Create Skill
 
 ```bash
 ant beta:skills create \
-  --api-key my-anthropic-api-key \
   --file 'Example data'
 ```
 
@@ -54957,8 +54829,7 @@ List Skills
 #### Example
 
 ```bash
-ant beta:skills list \
-  --api-key my-anthropic-api-key
+ant beta:skills list
 ```
 
 ##### Response (200)
@@ -55080,7 +54951,6 @@ Get Skill
 
 ```bash
 ant beta:skills retrieve \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
@@ -55146,7 +55016,6 @@ Delete Skill
 
 ```bash
 ant beta:skills delete \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
@@ -55237,7 +55106,6 @@ Create Skill Version
 
 ```bash
 ant beta:skills:versions create \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --file 'Example data'
 ```
@@ -55347,7 +55215,6 @@ List Skill Versions
 
 ```bash
 ant beta:skills:versions list \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
@@ -55409,7 +55276,6 @@ Download a skill version's content as a zip archive.
 
 ```bash
 ant beta:skills:versions download \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
@@ -55490,7 +55356,6 @@ Get Skill Version
 
 ```bash
 ant beta:skills:versions retrieve \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
@@ -55559,7 +55424,6 @@ Delete Skill Version
 
 ```bash
 ant beta:skills:versions delete \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
@@ -55754,8 +55618,7 @@ Create User Profile
 #### Example
 
 ```bash
-ant beta:user-profiles create \
-  --api-key my-anthropic-api-key
+ant beta:user-profiles create
 ```
 
 ##### Response (200)
@@ -55963,8 +55826,7 @@ List User Profiles
 #### Example
 
 ```bash
-ant beta:user-profiles list \
-  --api-key my-anthropic-api-key
+ant beta:user-profiles list
 ```
 
 ##### Response (200)
@@ -56156,7 +56018,6 @@ Get User Profile
 
 ```bash
 ant beta:user-profiles retrieve \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -56374,7 +56235,6 @@ Update User Profile
 
 ```bash
 ant beta:user-profiles update \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -56448,7 +56308,6 @@ Delete User Profile
 
 ```bash
 ant beta:user-profiles delete \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -56509,7 +56368,6 @@ Create Enrollment URL
 
 ```bash
 ant beta:user-profiles create-enrollment-url \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -56577,7 +56435,6 @@ Create Action URL
 
 ```bash
 ant beta:user-profiles:action-urls create \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9 \
   --action '{type: enroll_end_user}'
 ```
@@ -56870,7 +56727,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ```bash
 ant beta:dreams create \
-  --api-key my-anthropic-api-key \
   --input '{memory_store_id: x, type: memory_store}' \
   --model string
 ```
@@ -57208,8 +57064,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 #### Example
 
 ```bash
-ant beta:dreams list \
-  --api-key my-anthropic-api-key
+ant beta:dreams list
 ```
 
 ##### Response (200)
@@ -57517,7 +57372,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ```bash
 ant beta:dreams retrieve \
-  --api-key my-anthropic-api-key \
   --dream-id dream_id
 ```
 
@@ -57821,7 +57675,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ```bash
 ant beta:dreams cancel \
-  --api-key my-anthropic-api-key \
   --dream-id dream_id
 ```
 
@@ -58125,7 +57978,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ```bash
 ant beta:dreams archive \
-  --api-key my-anthropic-api-key \
   --dream-id dream_id
 ```
 
@@ -58238,8 +58090,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 #### Example
 
 ```bash
-ant beta:tunnels create \
-  --api-key my-anthropic-api-key
+ant beta:tunnels create
 ```
 
 ##### Response (200)
@@ -58317,7 +58168,6 @@ Fetches a tunnel by ID.
 
 ```bash
 ant beta:tunnels retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -58413,8 +58263,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 #### Example
 
 ```bash
-ant beta:tunnels list \
-  --api-key my-anthropic-api-key
+ant beta:tunnels list
 ```
 
 ##### Response (200)
@@ -58497,7 +58346,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 ```bash
 ant beta:tunnels archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -58560,7 +58408,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ```bash
 ant beta:tunnels reveal-token \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -58626,7 +58473,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ```bash
 ant beta:tunnels rotate-token \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -58716,7 +58562,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 ```bash
 ant beta:tunnels:certificates create \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --ca-certificate-pem ca_certificate_pem
 ```
@@ -58807,7 +58652,6 @@ Fetches a tunnel certificate by ID.
 
 ```bash
 ant beta:tunnels:certificates retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```
@@ -58916,7 +58760,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ```bash
 ant beta:tunnels:certificates list \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -59011,7 +58854,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 ```bash
 ant beta:tunnels:certificates archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```
@@ -59063,8 +58905,7 @@ Retrieve information about the organization associated with the authenticated AP
 #### Example
 
 ```bash
-ant beta:organization retrieve \
-  --api-key my-anthropic-api-key
+ant beta:organization retrieve
 ```
 
 ##### Response (200)
@@ -59213,7 +59054,7 @@ List API Keys
 
         - `workspace_id: string`
 
-          ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+          ID of the Workspace the API key belongs to, including when it is the organization's default Workspace.
 
     - `status: "active" or "archived" or "expired" or "inactive"`
 
@@ -59226,12 +59067,6 @@ List API Keys
       - `"expired"`
 
       - `"inactive"`
-
-    - `workspace_id: string`
-
-      **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
-
-      Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
 
   - `first_id: string`
 
@@ -59248,8 +59083,7 @@ List API Keys
 #### Example
 
 ```bash
-ant beta:organization:api-keys list \
-  --api-key my-anthropic-api-key
+ant beta:organization:api-keys list
 ```
 
 ##### Response (200)
@@ -59276,8 +59110,7 @@ ant beta:organization:api-keys list \
         "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
       },
       "status": "active",
-      "type": "api_key",
-      "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+      "type": "api_key"
     }
   ],
   "first_id": "first_id",
@@ -59394,7 +59227,7 @@ Retrieve information about a single API key in your organization, looked up by i
 
       - `workspace_id: string`
 
-        ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+        ID of the Workspace the API key belongs to, including when it is the organization's default Workspace.
 
   - `status: "active" or "archived" or "expired" or "inactive"`
 
@@ -59408,17 +59241,10 @@ Retrieve information about a single API key in your organization, looked up by i
 
     - `"inactive"`
 
-  - `workspace_id: string`
-
-    **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
-
-    Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
-
 #### Example
 
 ```bash
 ant beta:organization:api-keys retrieve \
-  --api-key my-anthropic-api-key \
   --api-key-id api_key_id
 ```
 
@@ -59444,8 +59270,7 @@ ant beta:organization:api-keys retrieve \
     "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   },
   "status": "active",
-  "type": "api_key",
-  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  "type": "api_key"
 }
 ```
 
@@ -59567,7 +59392,7 @@ Update API Key
 
       - `workspace_id: string`
 
-        ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+        ID of the Workspace the API key belongs to, including when it is the organization's default Workspace.
 
   - `status: "active" or "archived" or "expired" or "inactive"`
 
@@ -59581,17 +59406,10 @@ Update API Key
 
     - `"inactive"`
 
-  - `workspace_id: string`
-
-    **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
-
-    Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
-
 #### Example
 
 ```bash
 ant beta:organization:api-keys update \
-  --api-key my-anthropic-api-key \
   --api-key-id api_key_id
 ```
 
@@ -59617,8 +59435,7 @@ ant beta:organization:api-keys update \
     "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   },
   "status": "active",
-  "type": "api_key",
-  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  "type": "api_key"
 }
 ```
 
@@ -59748,7 +59565,6 @@ Create an external key config owned by the caller's organization.
 
 ```bash
 ant beta:organization:external-keys create \
-  --api-key my-anthropic-api-key \
   --provider-config '{kms_arn: arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222, type: aws}'
 ```
 
@@ -59898,8 +59714,7 @@ Results are ordered by creation time (newest first). Use the
 #### Example
 
 ```bash
-ant beta:organization:external-keys list \
-  --api-key my-anthropic-api-key
+ant beta:organization:external-keys list
 ```
 
 ##### Response (200)
@@ -60045,7 +59860,6 @@ Retrieve a single external key config in the caller's organization by ID.
 
 ```bash
 ant beta:organization:external-keys retrieve \
-  --api-key my-anthropic-api-key \
   --external-key-id external_key_id
 ```
 
@@ -60205,7 +60019,6 @@ encrypted data requires the original key identity to decrypt.
 
 ```bash
 ant beta:organization:external-keys update \
-  --api-key my-anthropic-api-key \
   --external-key-id external_key_id
 ```
 
@@ -60263,7 +60076,6 @@ The request is rejected if any workspace still references this config.
 
 ```bash
 ant beta:organization:external-keys delete \
-  --api-key my-anthropic-api-key \
   --external-key-id external_key_id
 ```
 
@@ -60324,7 +60136,6 @@ message if it failed or timed out.
 
 ```bash
 ant beta:organization:external-keys validate \
-  --api-key my-anthropic-api-key \
   --external-key-id external_key_id
 ```
 
@@ -60533,7 +60344,6 @@ matched as the JWT's `iss` claim and is not fetched.
 
 ```bash
 ant beta:organization:federation:issuers create \
-  --api-key my-anthropic-api-key \
   --issuer-url x \
   --name x
 ```
@@ -60741,8 +60551,7 @@ Archived issuers are excluded unless `include_archived=true`.
 #### Example
 
 ```bash
-ant beta:organization:federation:issuers list \
-  --api-key my-anthropic-api-key
+ant beta:organization:federation:issuers list
 ```
 
 ##### Response (200)
@@ -60941,7 +60750,6 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
 ```bash
 ant beta:organization:federation:issuers retrieve \
-  --api-key my-anthropic-api-key \
   --federation-issuer-id federation_issuer_id
 ```
 
@@ -61173,7 +60981,6 @@ session.
 
 ```bash
 ant beta:organization:federation:issuers update \
-  --api-key my-anthropic-api-key \
   --federation-issuer-id federation_issuer_id
 ```
 
@@ -61373,7 +61180,6 @@ issuer cannot be changed), or recreate them against another issuer.
 
 ```bash
 ant beta:organization:federation:issuers archive \
-  --api-key my-anthropic-api-key \
   --federation-issuer-id federation_issuer_id
 ```
 
@@ -61622,7 +61428,6 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
 ```bash
 ant beta:organization:federation:rules create \
-  --api-key my-anthropic-api-key \
   --issuer-id issuer_id \
   --match '{}' \
   --name x \
@@ -61838,8 +61643,7 @@ unless `include_archived=true`.
 #### Example
 
 ```bash
-ant beta:organization:federation:rules list \
-  --api-key my-anthropic-api-key
+ant beta:organization:federation:rules list
 ```
 
 ##### Response (200)
@@ -62044,7 +61848,6 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
 ```bash
 ant beta:organization:federation:rules retrieve \
-  --api-key my-anthropic-api-key \
   --federation-rule-id federation_rule_id
 ```
 
@@ -62305,7 +62108,6 @@ Console session.
 
 ```bash
 ant beta:organization:federation:rules update \
-  --api-key my-anthropic-api-key \
   --federation-rule-id federation_rule_id
 ```
 
@@ -62514,7 +62316,6 @@ other scopes require a Console session.
 
 ```bash
 ant beta:organization:federation:rules archive \
-  --api-key my-anthropic-api-key \
   --federation-rule-id federation_rule_id
 ```
 
@@ -62627,7 +62428,6 @@ other scopes require a Console session.
 
 ```bash
 ant beta:organization:federation:rules:workspaces add \
-  --api-key my-anthropic-api-key \
   --federation-rule-id federation_rule_id \
   --workspace-id workspace_id
 ```
@@ -62719,7 +62519,6 @@ rules with `applies_to_all_workspaces` or a legacy single
 
 ```bash
 ant beta:organization:federation:rules:workspaces list \
-  --api-key my-anthropic-api-key \
   --federation-rule-id federation_rule_id
 ```
 
@@ -62788,7 +62587,6 @@ Console session.
 
 ```bash
 ant beta:organization:federation:rules:workspaces remove \
-  --api-key my-anthropic-api-key \
   --federation-rule-id federation_rule_id \
   --workspace-id workspace_id
 ```
@@ -62913,7 +62711,6 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
 ```bash
 ant beta:organization:invites create \
-  --api-key my-anthropic-api-key \
   --email user@emaildomain.com \
   --role user
 ```
@@ -63069,8 +62866,7 @@ List the organization's invites.
 #### Example
 
 ```bash
-ant beta:organization:invites list \
-  --api-key my-anthropic-api-key
+ant beta:organization:invites list
 ```
 
 ##### Response (200)
@@ -63190,7 +62986,6 @@ Retrieve an invite by ID.
 
 ```bash
 ant beta:organization:invites retrieve \
-  --api-key my-anthropic-api-key \
   --invite-id invite_id
 ```
 
@@ -63244,7 +63039,6 @@ Delete a pending invite.
 
 ```bash
 ant beta:organization:invites delete \
-  --api-key my-anthropic-api-key \
   --invite-id invite_id
 ```
 
@@ -63364,7 +63158,6 @@ accounts.
 
 ```bash
 ant beta:organization:service-accounts create \
-  --api-key my-anthropic-api-key \
   --name ci-deploy-bot
 ```
 
@@ -63485,8 +63278,7 @@ archived service accounts.
 #### Example
 
 ```bash
-ant beta:organization:service-accounts list \
-  --api-key my-anthropic-api-key
+ant beta:organization:service-accounts list
 ```
 
 ##### Response (200)
@@ -63597,7 +63389,6 @@ Retrieve a service account by its ID (`svac_...`).
 
 ```bash
 ant beta:organization:service-accounts retrieve \
-  --api-key my-anthropic-api-key \
   --service-account-id service_account_id
 ```
 
@@ -63719,7 +63510,6 @@ interactive credential (a user OAuth token or a Console session).
 
 ```bash
 ant beta:organization:service-accounts update \
-  --api-key my-anthropic-api-key \
   --service-account-id service_account_id
 ```
 
@@ -63831,7 +63621,6 @@ those rules first or change their target to another service account.
 
 ```bash
 ant beta:organization:service-accounts archive \
-  --api-key my-anthropic-api-key \
   --service-account-id service_account_id
 ```
 
@@ -63930,7 +63719,6 @@ rejected.
 
 ```bash
 ant beta:organization:service-accounts:workspaces add \
-  --api-key my-anthropic-api-key \
   --service-account-id service_account_id \
   --workspace-id workspace_id \
   --workspace-role workspace_admin
@@ -64039,7 +63827,6 @@ page to recover.
 
 ```bash
 ant beta:organization:service-accounts:workspaces list \
-  --api-key my-anthropic-api-key \
   --service-account-id service_account_id
 ```
 
@@ -64111,7 +63898,6 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
 ```bash
 ant beta:organization:service-accounts:workspaces remove \
-  --api-key my-anthropic-api-key \
   --service-account-id service_account_id \
   --workspace-id workspace_id
 ```
@@ -64233,8 +64019,7 @@ List the organization's members.
 #### Example
 
 ```bash
-ant beta:organization:users list \
-  --api-key my-anthropic-api-key
+ant beta:organization:users list
 ```
 
 ##### Response (200)
@@ -64325,7 +64110,6 @@ Retrieve a member of the organization by user ID.
 
 ```bash
 ant beta:organization:users retrieve \
-  --api-key my-anthropic-api-key \
   --user-id user_id
 ```
 
@@ -64416,7 +64200,6 @@ Update a member's organization role.
 
 ```bash
 ant beta:organization:users update \
-  --api-key my-anthropic-api-key \
   --user-id user_id \
   --role user
 ```
@@ -64466,7 +64249,6 @@ Remove a member from the organization.
 
 ```bash
 ant beta:organization:users remove \
-  --api-key my-anthropic-api-key \
   --user-id user_id
 ```
 
@@ -64626,8 +64408,7 @@ List Workspaces
 #### Example
 
 ```bash
-ant beta:organization:workspaces list \
-  --api-key my-anthropic-api-key
+ant beta:organization:workspaces list
 ```
 
 ##### Response (200)
@@ -64807,7 +64588,6 @@ Create Workspace
 
 ```bash
 ant beta:organization:workspaces create \
-  --api-key my-anthropic-api-key \
   --name x
 ```
 
@@ -64947,7 +64727,6 @@ Get Workspace
 
 ```bash
 ant beta:organization:workspaces retrieve \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id
 ```
 
@@ -65119,7 +64898,6 @@ Update Workspace
 
 ```bash
 ant beta:organization:workspaces update \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id
 ```
 
@@ -65257,7 +65035,6 @@ Archive Workspace
 
 ```bash
 ant beta:organization:workspaces archive \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id
 ```
 
@@ -65345,7 +65122,7 @@ the remaining entries.
 
     - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
 
-      The rate-limit group this entry's limits apply to. Its `type` equals `group_type`.
+      The rate-limit group this entry's limits apply to.
 
       - `beta_organization_rate_limit_model_group: object`
 
@@ -65445,7 +65222,7 @@ the remaining entries.
 
     - `models: array of string`
 
-      Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
+      Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`.
 
     - `rate_limit_id: string`
 
@@ -65455,24 +65232,6 @@ the remaining entries.
 
       ID of the Workspace this entry applies to.
 
-    - `group_type: "batch" or "files" or "model_group" or 3 more`
-
-      **Deprecated**: Use `group.type` instead. `group_type` is still returned and always equals `group.type`.
-
-      Deprecated: use `group.type` instead. The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`. Always equal to `group.type`.
-
-      - `"batch"`
-
-      - `"files"`
-
-      - `"model_group"`
-
-      - `"skills"`
-
-      - `"token_count"`
-
-      - `"web_search"`
-
   - `next_page: string`
 
     Opaque cursor for the next page of results, or `null` when no entries remain beyond this response.
@@ -65481,7 +65240,6 @@ the remaining entries.
 
 ```bash
 ant beta:organization:workspaces:rate-limits list \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id
 ```
 
@@ -65496,7 +65254,6 @@ ant beta:organization:workspaces:rate-limits list \
         "display_name": "display_name",
         "type": "model_group"
       },
-      "group_type": "batch",
       "limits": [
         {
           "org_limit": 0,
@@ -65563,7 +65320,7 @@ Changes take effect within about an hour.
 
   - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
 
-    The rate-limit group this entry's limits apply to. Its `type` equals `group_type`.
+    The rate-limit group this entry's limits apply to.
 
     - `beta_organization_rate_limit_model_group: object`
 
@@ -65663,7 +65420,7 @@ Changes take effect within about an hour.
 
   - `models: array of string`
 
-    Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
+    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`.
 
   - `rate_limit_id: string`
 
@@ -65673,29 +65430,10 @@ Changes take effect within about an hour.
 
     ID of the Workspace this entry applies to.
 
-  - `group_type: "batch" or "files" or "model_group" or 3 more`
-
-    **Deprecated**: Use `group.type` instead. `group_type` is still returned and always equals `group.type`.
-
-    Deprecated: use `group.type` instead. The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`. Always equal to `group.type`.
-
-    - `"batch"`
-
-    - `"files"`
-
-    - `"model_group"`
-
-    - `"skills"`
-
-    - `"token_count"`
-
-    - `"web_search"`
-
 #### Example
 
 ```bash
 ant beta:organization:workspaces:rate-limits update \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --rate-limit-id rate_limit_id \
   --limit '{type: fast_itpmca, value: 0}'
@@ -65710,7 +65448,6 @@ ant beta:organization:workspaces:rate-limits update \
     "display_name": "display_name",
     "type": "model_group"
   },
-  "group_type": "batch",
   "limits": [
     {
       "org_limit": 0,
@@ -65812,7 +65549,6 @@ List Workspace Members
 
 ```bash
 ant beta:organization:workspaces:members list \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id
 ```
 
@@ -65892,7 +65628,6 @@ Create Workspace Member
 
 ```bash
 ant beta:organization:workspaces:members add \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --user-id user_01WCz1FkmYMm4gnmykNKUu3Q \
   --workspace-role workspace_admin
@@ -65963,7 +65698,6 @@ Get Workspace Member
 
 ```bash
 ant beta:organization:workspaces:members retrieve \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --user-id user_id
 ```
@@ -66037,7 +65771,6 @@ Update Workspace Member
 
 ```bash
 ant beta:organization:workspaces:members update \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --user-id user_id \
   --workspace-role workspace_admin
@@ -66094,7 +65827,6 @@ Delete Workspace Member
 
 ```bash
 ant beta:organization:workspaces:members remove \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --user-id user_id
 ```
@@ -66194,7 +65926,6 @@ omitted from the results.
 
 ```bash
 ant beta:organization:workspaces:service-accounts list \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id
 ```
 
@@ -66293,7 +66024,6 @@ accounts cannot be added and are rejected.
 
 ```bash
 ant beta:organization:workspaces:service-accounts add \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --service-account-id service_account_id \
   --workspace-role workspace_admin
@@ -66383,7 +66113,6 @@ account returns 404.
 
 ```bash
 ant beta:organization:workspaces:service-accounts retrieve \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --service-account-id service_account_id
 ```
@@ -66476,7 +66205,6 @@ rejected.
 
 ```bash
 ant beta:organization:workspaces:service-accounts update \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --service-account-id service_account_id \
   --workspace-role workspace_admin
@@ -66543,7 +66271,6 @@ membership. Archived workspaces return 400.
 
 ```bash
 ant beta:organization:workspaces:service-accounts remove \
-  --api-key my-anthropic-api-key \
   --workspace-id workspace_id \
   --service-account-id service_account_id
 ```
@@ -66616,7 +66343,7 @@ the remaining entries.
 
     - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
 
-      The rate-limit group this entry's limits apply to. Its `type` equals `group_type`.
+      The rate-limit group this entry's limits apply to.
 
       - `beta_organization_rate_limit_model_group: object`
 
@@ -66696,25 +66423,7 @@ the remaining entries.
 
     - `models: array of string`
 
-      Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
-
-    - `group_type: "batch" or "files" or "model_group" or 3 more`
-
-      **Deprecated**: Use `group.type` instead. `group_type` is still returned and always equals `group.type`.
-
-      Deprecated: use `group.type` instead. The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`. Always equal to `group.type`.
-
-      - `"batch"`
-
-      - `"files"`
-
-      - `"model_group"`
-
-      - `"skills"`
-
-      - `"token_count"`
-
-      - `"web_search"`
+      Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`.
 
   - `next_page: string`
 
@@ -66723,8 +66432,7 @@ the remaining entries.
 #### Example
 
 ```bash
-ant beta:organization:rate-limits list \
-  --api-key my-anthropic-api-key
+ant beta:organization:rate-limits list
 ```
 
 ##### Response (200)
@@ -66739,7 +66447,6 @@ ant beta:organization:rate-limits list \
         "display_name": "display_name",
         "type": "model_group"
       },
-      "group_type": "batch",
       "limits": [
         {
           "type": "type",
@@ -66792,8 +66499,7 @@ organization reads the state inherited from the parent's configuration.
 #### Example
 
 ```bash
-ant beta:organization:compliance-settings retrieve \
-  --api-key my-anthropic-api-key
+ant beta:organization:compliance-settings retrieve
 ```
 
 ##### Response (200)
@@ -66856,7 +66562,6 @@ compliance settings.
 
 ```bash
 ant beta:organization:compliance-settings update \
-  --api-key my-anthropic-api-key \
   --state '{type: enabled}'
 ```
 
@@ -67072,7 +66777,6 @@ Enterprise plan. Requires an API key with the `read:analytics` scope.
 
 ```bash
 ant beta:organization:analytics:summaries list \
-  --api-key my-anthropic-api-key \
   --starting-date ''\''2019-12-27'\'''
 ```
 
@@ -67116,43 +66820,7 @@ ant beta:organization:analytics:summaries list \
       "science_weekly_active_user_count": 0
     }
   ],
-  "next_page": "next_page",
-  "summaries": [
-    {
-      "assigned_seat_count": 0,
-      "cowork_daily_active_user_count": 0,
-      "cowork_monthly_active_user_count": 0,
-      "cowork_weekly_active_user_count": 0,
-      "daily_active_user_count": 0,
-      "daily_adoption_rate": 0,
-      "ending_at": "2019-12-27T18:11:19.117Z",
-      "monthly_active_user_count": 0,
-      "monthly_adoption_rate": 0,
-      "pending_invite_count": 0,
-      "starting_at": "2019-12-27T18:11:19.117Z",
-      "weekly_active_user_count": 0,
-      "weekly_adoption_rate": 0,
-      "chat_cowork_unified_daily_active_user_count": 0,
-      "chat_cowork_unified_monthly_active_user_count": 0,
-      "chat_cowork_unified_weekly_active_user_count": 0,
-      "chat_daily_active_user_count": 0,
-      "chat_monthly_active_user_count": 0,
-      "chat_weekly_active_user_count": 0,
-      "claude_code_daily_active_user_count": 0,
-      "claude_code_monthly_active_user_count": 0,
-      "claude_code_weekly_active_user_count": 0,
-      "claude_design_daily_active_user_count": 0,
-      "claude_design_monthly_active_user_count": 0,
-      "claude_design_weekly_active_user_count": 0,
-      "office_agent_daily_active_user_count": 0,
-      "office_agent_monthly_active_user_count": 0,
-      "office_agent_weekly_active_user_count": 0,
-      "science_daily_active_user_count": 0,
-      "science_entitled_user_count": 0,
-      "science_monthly_active_user_count": 0,
-      "science_weekly_active_user_count": 0
-    }
-  ]
+  "next_page": "next_page"
 }
 ```
 
@@ -67777,8 +67445,7 @@ the `read:analytics` scope.
 #### Example
 
 ```bash
-ant beta:organization:analytics:users list \
-  --api-key my-anthropic-api-key
+ant beta:organization:analytics:users list
 ```
 
 ##### Response (200)
@@ -68087,8 +67754,7 @@ plan. Requires an API key with the `read:analytics` scope.
 #### Example
 
 ```bash
-ant beta:organization:analytics:apps:chat:projects list \
-  --api-key my-anthropic-api-key
+ant beta:organization:analytics:apps:chat:projects list
 ```
 
 ##### Response (200)
@@ -68332,8 +67998,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 #### Example
 
 ```bash
-ant beta:organization:analytics:connectors list \
-  --api-key my-anthropic-api-key
+ant beta:organization:analytics:connectors list
 ```
 
 ##### Response (200)
@@ -68538,8 +68203,7 @@ range-rollup mode like `/skills`.
 #### Example
 
 ```bash
-ant beta:organization:analytics:plugins list \
-  --api-key my-anthropic-api-key
+ant beta:organization:analytics:plugins list
 ```
 
 ##### Response (200)
@@ -68794,8 +68458,7 @@ on a Claude Enterprise plan. Requires an API key with the
 #### Example
 
 ```bash
-ant beta:organization:analytics:skills list \
-  --api-key my-anthropic-api-key
+ant beta:organization:analytics:skills list
 ```
 
 ##### Response (200)
@@ -68957,7 +68620,6 @@ can be broken out per product, per member, or per RBAC group via
 
 ```bash
 ant beta:organization:analytics:artifacts list \
-  --api-key my-anthropic-api-key \
   --date ''\''2019-12-27'\'''
 ```
 
@@ -69235,7 +68897,6 @@ key with the `read:analytics` scope.
 
 ```bash
 ant beta:organization:analytics:usage-report list \
-  --api-key my-anthropic-api-key \
   --starting-at ''\''2019-12-27T18:11:19.117Z'\'''
 ```
 
@@ -69572,7 +69233,6 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
 ```bash
 ant beta:organization:analytics:user-usage-report list \
-  --api-key my-anthropic-api-key \
   --starting-at ''\''2019-12-27T18:11:19.117Z'\'''
 ```
 
@@ -69584,7 +69244,6 @@ ant beta:organization:analytics:user-usage-report list \
     {
       "actor": {
         "deleted": true,
-        "email": "jane@example.com",
         "email_address": "jane@example.com",
         "name": "Jane Smith",
         "type": "user_actor",
@@ -69875,7 +69534,6 @@ Requires an API key with the `read:analytics` scope.
 
 ```bash
 ant beta:organization:analytics:cost-report list \
-  --api-key my-anthropic-api-key \
   --starting-at ''\''2019-12-27T18:11:19.117Z'\'''
 ```
 
@@ -70203,7 +69861,6 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
 ```bash
 ant beta:organization:analytics:user-cost-report list \
-  --api-key my-anthropic-api-key \
   --starting-at ''\''2019-12-27T18:11:19.117Z'\'''
 ```
 
@@ -70215,7 +69872,6 @@ ant beta:organization:analytics:user-cost-report list \
     {
       "actor": {
         "deleted": true,
-        "email": "jane@example.com",
         "email_address": "jane@example.com",
         "name": "Jane Smith",
         "type": "user_actor",
@@ -70395,7 +70051,6 @@ Anthropic account team.
 
 ```bash
 ant beta:organization:spend-limits set \
-  --api-key my-anthropic-api-key \
   --amount 50000 \
   --scope '{type: user, user_id: user_01WCz1FkmYMm4gnmykNKUu3Q}'
 ```
@@ -70547,7 +70202,6 @@ Retrieve a spend limit by ID.
 
 ```bash
 ant beta:organization:spend-limits retrieve \
-  --api-key my-anthropic-api-key \
   --spend-limit-id spend_limit_id
 ```
 
@@ -70603,7 +70257,6 @@ workspace limits through the API is in an early access preview.
 
 ```bash
 ant beta:organization:spend-limits delete \
-  --api-key my-anthropic-api-key \
   --spend-limit-id spend_limit_id
 ```
 
@@ -70624,10 +70277,12 @@ ant beta:organization:spend-limits delete \
 
 List the organization's spend limits.
 
-Limits are grouped by scope type, in the order `organization`, `seat_tier`,
-`rbac_group`, `organization_service`, `user`; within a type they come in a
-fixed order that is not creation order. Supported for Claude Enterprise
-organizations only, not for Claude Console organizations.
+A Claude Console organization's limits, including any read-only `usage_tier`
+limit, come newest first. Listing them is in an early access preview. To
+request access, contact your Anthropic account team. A Claude Enterprise
+organization's limits are grouped by scope type, in the order `organization`,
+`seat_tier`, `rbac_group`, `organization_service`, `user`; within a type they
+come in a fixed order that is not creation order.
 
 #### Parameters
 
@@ -70641,11 +70296,15 @@ organizations only, not for Claude Console organizations.
 
   Opaque cursor from a previous response's `next_page` field.
 
-- `--scope-type: optional array of "organization" or "organization_service" or "rbac_group" or 3 more` (query parameter)
+- `--scope-type: optional array of "organization" or "organization_service" or "rbac_group" or 4 more` (query parameter)
 
-  Return only limits with these scope types. Omit for all.
+  Return only limits with these scope types. Omit for all. A scope type that doesn't apply to the organization gets a 400 error.
 
   maxItems: 100
+
+- `--workspace-id: optional string` (query parameter)
+
+  Return only the limits whose `scope.workspace_id` is this workspace (`wrkspc_...`). Claude Console organizations only; other organizations get a 400 error.
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
@@ -70766,8 +70425,7 @@ organizations only, not for Claude Console organizations.
 #### Example
 
 ```bash
-ant beta:organization:spend-limits list \
-  --api-key my-anthropic-api-key
+ant beta:organization:spend-limits list
 ```
 
 ##### Response (200)
@@ -70991,8 +70649,7 @@ organizations.
 #### Example
 
 ```bash
-ant beta:organization:spend-limits:effective list \
-  --api-key my-anthropic-api-key
+ant beta:organization:spend-limits:effective list
 ```
 
 ##### Response (200)
@@ -71271,8 +70928,7 @@ Requests whose requester is no longer a member are excluded.
 #### Example
 
 ```bash
-ant beta:organization:spend-limits:increase-requests list \
-  --api-key my-anthropic-api-key
+ant beta:organization:spend-limits:increase-requests list
 ```
 
 ##### Response (200)
@@ -71556,7 +71212,6 @@ requester at the request's period.
 
 ```bash
 ant beta:organization:spend-limits:increase-requests retrieve \
-  --api-key my-anthropic-api-key \
   --spend-limit-increase-request-id spend_limit_increase_request_id
 ```
 
@@ -71920,7 +71575,6 @@ the member was blocked on. Anthropic emails the requester unless
 
 ```bash
 ant beta:organization:spend-limits:increase-requests approve \
-  --api-key my-anthropic-api-key \
   --spend-limit-increase-request-id spend_limit_increase_request_id \
   --amount 50000
 ```
@@ -72217,7 +71871,6 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
 ```bash
 ant beta:organization:spend-limits:increase-requests deny \
-  --api-key my-anthropic-api-key \
   --spend-limit-increase-request-id spend_limit_increase_request_id
 ```
 
@@ -72336,7 +71989,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups create \
-  --api-key my-anthropic-api-key \
   --name Engineering
 ```
 
@@ -72348,9 +72000,6 @@ ant beta:organization:rbac-groups create \
   "created_at": "2024-10-30T23:58:27.427722Z",
   "name": "Engineering",
   "role_ids": [
-    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
-  ],
-  "roles": [
     "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
   ],
   "source_type": "direct",
@@ -72438,8 +72087,7 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 #### Example
 
 ```bash
-ant beta:organization:rbac-groups list \
-  --api-key my-anthropic-api-key
+ant beta:organization:rbac-groups list
 ```
 
 ##### Response (200)
@@ -72452,9 +72100,6 @@ ant beta:organization:rbac-groups list \
       "created_at": "2024-10-30T23:58:27.427722Z",
       "name": "Engineering",
       "role_ids": [
-        "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
-      ],
-      "roles": [
         "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
       ],
       "source_type": "direct",
@@ -72529,7 +72174,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups retrieve \
-  --api-key my-anthropic-api-key \
   --rbac-group-id rbac_group_id
 ```
 
@@ -72541,9 +72185,6 @@ ant beta:organization:rbac-groups retrieve \
   "created_at": "2024-10-30T23:58:27.427722Z",
   "name": "Engineering",
   "role_ids": [
-    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
-  ],
-  "roles": [
     "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
   ],
   "source_type": "direct",
@@ -72620,7 +72261,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups update \
-  --api-key my-anthropic-api-key \
   --rbac-group-id rbac_group_id
 ```
 
@@ -72632,9 +72272,6 @@ ant beta:organization:rbac-groups update \
   "created_at": "2024-10-30T23:58:27.427722Z",
   "name": "Engineering",
   "role_ids": [
-    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
-  ],
-  "roles": [
     "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
   ],
   "source_type": "direct",
@@ -72677,7 +72314,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups delete \
-  --api-key my-anthropic-api-key \
   --rbac-group-id rbac_group_id
 ```
 
@@ -72762,7 +72398,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups:members list \
-  --api-key my-anthropic-api-key \
   --rbac-group-id rbac_group_id
 ```
 
@@ -72774,7 +72409,6 @@ ant beta:organization:rbac-groups:members list \
     {
       "created_at": "2024-10-30T23:58:27.427722Z",
       "email": "user@emaildomain.com",
-      "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "type": "rbac_group_member",
       "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
@@ -72837,7 +72471,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups:members add \
-  --api-key my-anthropic-api-key \
   --rbac-group-id rbac_group_id \
   --user-id user_01WCz1FkmYMm4gnmykNKUu3Q
 ```
@@ -72848,7 +72481,6 @@ ant beta:organization:rbac-groups:members add \
 {
   "created_at": "2024-10-30T23:58:27.427722Z",
   "email": "user@emaildomain.com",
-  "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "type": "rbac_group_member",
   "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
@@ -72895,7 +72527,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-groups:members remove \
-  --api-key my-anthropic-api-key \
   --rbac-group-id rbac_group_id \
   --user-id user_id
 ```
@@ -72904,7 +72535,6 @@ ant beta:organization:rbac-groups:members remove \
 
 ```json
 {
-  "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "type": "rbac_group_member_deleted",
   "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
@@ -72969,12 +72599,6 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
       format: date-time
 
-    - `name: string`
-
-      **Deprecated**: Use `display_name` instead; `name` always has the same value.
-
-      Deprecated: use `display_name` instead. Name of the RBAC Role; always the same value as `display_name`.
-
   - `has_more: boolean`
 
     Indicates whether there are more results beyond this page.
@@ -72987,8 +72611,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 #### Example
 
 ```bash
-ant beta:organization:rbac-roles list \
-  --api-key my-anthropic-api-key
+ant beta:organization:rbac-roles list
 ```
 
 ##### Response (200)
@@ -73000,7 +72623,6 @@ ant beta:organization:rbac-roles list \
       "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
       "created_at": "2024-10-30T23:58:27.427722Z",
       "display_name": "Project Editor",
-      "name": "Project Editor",
       "type": "rbac_role",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
@@ -73056,17 +72678,10 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
     format: date-time
 
-  - `name: string`
-
-    **Deprecated**: Use `display_name` instead; `name` always has the same value.
-
-    Deprecated: use `display_name` instead. Name of the RBAC Role; always the same value as `display_name`.
-
 #### Example
 
 ```bash
 ant beta:organization:rbac-roles retrieve \
-  --api-key my-anthropic-api-key \
   --rbac-role-id rbac_role_id
 ```
 
@@ -73077,7 +72692,6 @@ ant beta:organization:rbac-roles retrieve \
   "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
   "created_at": "2024-10-30T23:58:27.427722Z",
   "display_name": "Project Editor",
-  "name": "Project Editor",
   "type": "rbac_role",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
@@ -73229,7 +72843,6 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
 ```bash
 ant beta:organization:rbac-roles:permissions list \
-  --api-key my-anthropic-api-key \
   --rbac-role-id rbac_role_id
 ```
 
@@ -73496,11 +73109,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `served_version_pinned: boolean`
 
-    False while the served version follows each new version; true once it has been pinned to one.
+    True once the served version has been pinned, through Update Plugin or in claude.ai. While false, a new version normally becomes the served version when it is stored. While the newest version is not the served version, as when a version saved in claude.ai is waiting for its content scan, `served_version_id` differs from `latest_version_id`.
 
   - `updated_at: string`
 
-    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+    RFC 3339. Moves on a served-version change (including pinning an unpinned Plugin to the version it already serves) and, normally, on a new version. A version saved in claude.ai that waits for its content scan moves it when it becomes the served version, and not necessarily when it is stored. A change to the Plugin's installation settings or shares does not move it.
 
     format: date-time
 
@@ -73508,7 +73121,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins create \
-  --api-key my-anthropic-api-key \
   --file 'Example data'
 ```
 
@@ -73764,11 +73376,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `served_version_pinned: boolean`
 
-    False while the served version follows each new version; true once it has been pinned to one.
+    True once the served version has been pinned, through Update Plugin or in claude.ai. While false, a new version normally becomes the served version when it is stored. While the newest version is not the served version, as when a version saved in claude.ai is waiting for its content scan, `served_version_id` differs from `latest_version_id`.
 
   - `updated_at: string`
 
-    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+    RFC 3339. Moves on a served-version change (including pinning an unpinned Plugin to the version it already serves) and, normally, on a new version. A version saved in claude.ai that waits for its content scan moves it when it becomes the served version, and not necessarily when it is stored. A change to the Plugin's installation settings or shares does not move it.
 
     format: date-time
 
@@ -73776,7 +73388,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins retrieve \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id
 ```
 
@@ -74052,11 +73663,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `served_version_pinned: boolean`
 
-    False while the served version follows each new version; true once it has been pinned to one.
+    True once the served version has been pinned, through Update Plugin or in claude.ai. While false, a new version normally becomes the served version when it is stored. While the newest version is not the served version, as when a version saved in claude.ai is waiting for its content scan, `served_version_id` differs from `latest_version_id`.
 
   - `updated_at: string`
 
-    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+    RFC 3339. Moves on a served-version change (including pinning an unpinned Plugin to the version it already serves) and, normally, on a new version. A version saved in claude.ai that waits for its content scan moves it when it becomes the served version, and not necessarily when it is stored. A change to the Plugin's installation settings or shares does not move it.
 
     format: date-time
 
@@ -74064,7 +73675,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins update \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id \
   --served-version-id pluginver_01KaZmQpRsTuVwXyZ2b4c6d8
 ```
@@ -74375,11 +73985,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `served_version_pinned: boolean`
 
-      False while the served version follows each new version; true once it has been pinned to one.
+      True once the served version has been pinned, through Update Plugin or in claude.ai. While false, a new version normally becomes the served version when it is stored. While the newest version is not the served version, as when a version saved in claude.ai is waiting for its content scan, `served_version_id` differs from `latest_version_id`.
 
     - `updated_at: string`
 
-      RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+      RFC 3339. Moves on a served-version change (including pinning an unpinned Plugin to the version it already serves) and, normally, on a new version. A version saved in claude.ai that waits for its content scan moves it when it becomes the served version, and not necessarily when it is stored. A change to the Plugin's installation settings or shares does not move it.
 
       format: date-time
 
@@ -74390,8 +74000,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 #### Example
 
 ```bash
-ant beta:organization:plugins list \
-  --api-key my-anthropic-api-key
+ant beta:organization:plugins list
 ```
 
 ##### Response (200)
@@ -74490,7 +74099,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins delete \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id
 ```
 
@@ -74694,7 +74302,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:versions create \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id \
   --file 'Example data'
 ```
@@ -74919,7 +74526,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:versions list \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id
 ```
 
@@ -75129,7 +74735,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:versions retrieve \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id \
   --version version
 ```
@@ -75221,7 +74826,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:versions download \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id \
   --version version
 ```
@@ -75353,7 +74957,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:installation-settings list \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id
 ```
 
@@ -75493,7 +75096,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:installation-settings set \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id \
   --target target \
   --installation-preference required
@@ -75605,7 +75207,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:installation-settings remove \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id \
   --target target
 ```
@@ -75733,7 +75334,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugins:shares list \
-  --api-key my-anthropic-api-key \
   --plugin-id plugin_id
 ```
 
@@ -75910,8 +75510,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 #### Example
 
 ```bash
-ant beta:organization:plugin-marketplaces list \
-  --api-key my-anthropic-api-key
+ant beta:organization:plugin-marketplaces list
 ```
 
 ##### Response (200)
@@ -76062,7 +75661,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugin-marketplaces retrieve \
-  --api-key my-anthropic-api-key \
   --marketplace-id marketplace_id
 ```
 
@@ -76214,7 +75812,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugin-marketplaces update \
-  --api-key my-anthropic-api-key \
   --marketplace-id marketplace_id \
   --default-installation-preference available
 ```
@@ -76358,7 +75955,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugin-marketplaces validate-repository \
-  --api-key my-anthropic-api-key \
   --repository-url https://github.com/example-org/example-marketplace
 ```
 
@@ -76508,7 +76104,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ```bash
 ant beta:organization:plugin-marketplaces validate-archive \
-  --api-key my-anthropic-api-key \
   --archive 'Example data'
 ```
 
@@ -76770,7 +76365,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations create \
-  --api-key my-anthropic-api-key \
   --endpoint-url x \
   --workspaces '{type: all}'
 ```
@@ -77021,8 +76615,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 #### Example
 
 ```bash
-ant beta:organization:telemetry-destinations list \
-  --api-key my-anthropic-api-key
+ant beta:organization:telemetry-destinations list
 ```
 
 ##### Response (200)
@@ -77257,7 +76850,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations retrieve \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id
 ```
 
@@ -77530,7 +77122,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations update \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id
 ```
 
@@ -77605,7 +77196,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations delete \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id
 ```
 
@@ -77668,7 +77258,6 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
 ```bash
 ant beta:organization:telemetry-destinations test \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id
 ```
 
@@ -77751,7 +77340,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations:workspaces list \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id
 ```
 
@@ -77827,7 +77415,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations:workspaces add \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id \
   --workspace-id workspace_id
 ```
@@ -77891,7 +77478,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 ```bash
 ant beta:organization:telemetry-destinations:workspaces remove \
-  --api-key my-anthropic-api-key \
   --destination-id destination_id \
   --workspace-id workspace_id
 ```
@@ -78010,7 +77596,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
 ```bash
 ant beta:organization:webhooks create \
-  --api-key my-anthropic-api-key \
   --enabled-event user_profile.enforcement_action_opened \
   --url x
 ```
@@ -78144,8 +77729,7 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 #### Example
 
 ```bash
-ant beta:organization:webhooks list \
-  --api-key my-anthropic-api-key
+ant beta:organization:webhooks list
 ```
 
 ##### Response (200)
@@ -78254,7 +77838,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
 ```bash
 ant beta:organization:webhooks retrieve \
-  --api-key my-anthropic-api-key \
   --webhook-endpoint-id webhook_endpoint_id
 ```
 
@@ -78379,7 +77962,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
 ```bash
 ant beta:organization:webhooks update \
-  --api-key my-anthropic-api-key \
   --webhook-endpoint-id webhook_endpoint_id
 ```
 
@@ -78441,7 +78023,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
 ```bash
 ant beta:organization:webhooks delete \
-  --api-key my-anthropic-api-key \
   --webhook-endpoint-id webhook_endpoint_id
 ```
 
@@ -78491,7 +78072,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
 ```bash
 ant beta:organization:webhooks regenerate-signing-secret \
-  --api-key my-anthropic-api-key \
   --webhook-endpoint-id webhook_endpoint_id
 ```
 

@@ -119,7 +119,6 @@ List work items in an environment.
 
 ```bash
 ant beta:environments:work list \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 

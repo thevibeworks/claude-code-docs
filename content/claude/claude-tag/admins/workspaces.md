@@ -20,7 +20,7 @@ You can connect multiple Slack workspaces to one Claude organization.
 
 A Slack workspace or Enterprise Grid pairs with one Claude organization at a time.
 
-To move a pairing to a different Claude organization, an Owner in the organization that currently holds it must [disconnect it](#revoke-a-pairing) first. Until then, Claude Tag refuses the new pairing as [already connected to a different organization](/docs/claude-tag/admins/troubleshooting#already-connected-to-a-different-organization). Once the pairing moves, changes the previous organization's admins make in their settings no longer reach that workspace.
+To move a pairing to a different Claude organization, an Owner in the organization that currently holds it must [disconnect it](#revoke-a-pairing) first. Until then, Claude Tag refuses the new pairing as [already connected to a different organization](/docs/claude-tag/admins/troubleshooting.md#already-connected-to-a-different-organization). Once the pairing moves, changes the previous organization's admins make in their settings no longer reach that workspace.
 
 If your company has more than one Claude organization (a subsidiary with its own, for example), agree on which one holds the pairing before connecting.
 
@@ -32,7 +32,7 @@ Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/
 
 In any channel of the new workspace, send `@Claude connect` with no other text, as a new top-level message or in a thread where Claude isn't already working, then paste the code Claude sends you into the dialog.
 
-Pick a channel that belongs to just the new workspace. Claude can decline to reply in [guest and shared channels](/docs/claude-tag/admins/troubleshooting#guest-and-shared-channels).
+Pick a channel that belongs to just the new workspace. Claude can decline to reply in [guest and shared channels](/docs/claude-tag/admins/troubleshooting.md#guest-and-shared-channels).
 
 **3. Finish the dialog and launch**
 
@@ -58,7 +58,7 @@ As a Slack Org Owner or Org Admin, sign in to one of the Grid's workspaces rathe
 
 On the [Claude for Slack](https://claude.com/claude-for-slack) listing, select **Add to Slack > Install to entire organization**.
 
-If some workspaces in the Grid already installed the app on their own, leave those installations in place and choose **Install to entire organization** anyway. Don't uninstall first, because uninstalling the app from a workspace [deletes that workspace's Claude data](/docs/claude-tag/concepts/data-lifecycle#actions-in-slack).
+If some workspaces in the Grid already installed the app on their own, leave those installations in place and choose **Install to entire organization** anyway. Don't uninstall first, because uninstalling the app from a workspace [deletes that workspace's Claude data](/docs/claude-tag/concepts/data-lifecycle.md#actions-in-slack).
 
 **3. Add the app to each workspace**
 
@@ -94,18 +94,18 @@ The **Claude Tag version** setting is on the page's **Advanced** tab and is unav
 | Label | Effect |
 | :- | :- |
 | **New** | Claude Tag. Bundles, skills, and custom instructions apply |
-| **Legacy** | The earlier per-user Claude in Slack. In channels it replies only with a retirement notice, and you can't switch a scope to it; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier) |
+| **Legacy** | The earlier per-user Claude in Slack. In channels it replies only with a retirement notice, and you can't switch a scope to it; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier.md) |
 | **Inherit** | Use the parent's value. Not shown on the **Slack** page |
 
 Turning off **Respond in all channels** doesn't stop Claude in a workspace or channel whose own enable switch is on. On the Enterprise plan, launching setup for a single workspace turns on that workspace's enable switch, so Claude keeps responding in that workspace. The switch is at the top of the **General** tab on the **Slack** page, which sets the default for every workspace and channel. Direct messages from members who have connected a Claude account are unaffected.
 
 Both versions answer through the same @Claude app, so turning off a workspace's or channel's enable switch silences the Legacy version there too.
 
-Switching a workspace or channel between **New** and **Inherit** is reversible; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier).
+Switching a workspace or channel between **New** and **Inherit** is reversible; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier.md).
 
 ### What each Claude Tag switch turns off
 
-Each of these switches turns Claude off in a different part of Slack. To stop only direct messages, see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+Each of these switches turns Claude off in a different part of Slack. To stop only direct messages, see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access.md#allow-or-disable-direct-messages).
 
 | Switch | Where it is | When it's off |
 | :- | :- | :- |
@@ -130,11 +130,11 @@ For those controls, see [Turn Claude Tag on or off and set the version for a sco
 
 ### Turn Claude off in channels
 
-Turn off **Respond in channels** on the **Slack** page. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. One-to-one direct messages from members who have connected a Claude account keep working. To stop those too, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), click **Edit** on the **Direct messages** row, and turn off [**Allow direct messages**](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages). For members who haven't connected an account, see [Stop direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#stop-direct-messages-from-members-without-a-claude-account).
+Turn off **Respond in channels** on the **Slack** page. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. One-to-one direct messages from members who have connected a Claude account keep working. To stop those too, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), click **Edit** on the **Direct messages** row, and turn off [**Allow direct messages**](/docs/claude-tag/admins/restrict-access.md#allow-or-disable-direct-messages). For members who haven't connected an account, see [Stop direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access.md#stop-direct-messages-from-members-without-a-claude-account).
 
 ### Turn Claude back on
 
-Turn on **Respond in channels** on the **Slack** page. Everything you set on the **Slack** page and on each workspace's and channel's page, such as [bundles](/docs/claude-tag/admins/attach-to-scope) and [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions), applies again. A workspace that was turned off on its own stays off, along with its channels.
+Turn on **Respond in channels** on the **Slack** page. Everything you set on the **Slack** page and on each workspace's and channel's page, such as [bundles](/docs/claude-tag/admins/attach-to-scope.md) and [custom instructions](/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions), applies again. A workspace that was turned off on its own stays off, along with its channels.
 
 ### Turn Claude off for the whole organization
 
@@ -142,7 +142,7 @@ Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/c
 
 ### Keep Claude out of specific channels
 
-The switch has no per-channel setting. Add [blocked channel patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for the channels instead.
+The switch has no per-channel setting. Add [blocked channel patterns](/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) for the channels instead.
 
 ### Notices that settings aren't applied
 
@@ -176,10 +176,10 @@ Bundles belong to your organization, not to a workspace, so they stay available 
 
 After you disconnect, the workspace leaves the **Connected workspaces** list. If it was your only connected workspace, the top of Claude Tag admin settings shows that it was disconnected from Slack, with a **Reconnect** button. **Reconnect** reopens the pairing dialog, where you redeem a fresh code from `@Claude connect`.
 
-The Slack app stays installed, so a workspace admin can pair the workspace again by sending `@Claude connect` in it, to the same Claude organization or a different one. If you intend the data to be deleted, wait a few minutes before pairing the workspace to the same organization again, because a new pairing that arrives while the deletion is still starting can cancel it. Once the deletion has run, the new pairing starts without the deleted data. Uninstalling the app from the workspace in Slack deletes the same data, whether or not you disconnected first; see [Quiet or remove Claude Tag](/docs/claude-tag/admins/restrict-access#quiet-or-remove-claude-tag).
+The Slack app stays installed, so a workspace admin can pair the workspace again by sending `@Claude connect` in it, to the same Claude organization or a different one. If you intend the data to be deleted, wait a few minutes before pairing the workspace to the same organization again, because a new pairing that arrives while the deletion is still starting can cancel it. Once the deletion has run, the new pairing starts without the deleted data. Uninstalling the app from the workspace in Slack deletes the same data, whether or not you disconnected first; see [Quiet or remove Claude Tag](/docs/claude-tag/admins/restrict-access.md#quiet-or-remove-claude-tag).
 
 ## Related resources
 
-* [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle): what disconnecting deletes, what it keeps, and what other actions do to Claude-side data
-* [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier): the upgrade path and what changes for existing users
+* [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle.md): what disconnecting deletes, what it keeps, and what other actions do to Claude-side data
+* [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier.md): the upgrade path and what changes for existing users
 * [Pair your Slack workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace): the first pairing, with the Slack-admin handoff

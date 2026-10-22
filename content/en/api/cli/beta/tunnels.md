@@ -68,8 +68,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 ### Example
 
 ```bash
-ant beta:tunnels create \
-  --api-key my-anthropic-api-key
+ant beta:tunnels create
 ```
 
 #### Response (200)
@@ -147,7 +146,6 @@ Fetches a tunnel by ID.
 
 ```bash
 ant beta:tunnels retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -243,8 +241,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 ### Example
 
 ```bash
-ant beta:tunnels list \
-  --api-key my-anthropic-api-key
+ant beta:tunnels list
 ```
 
 #### Response (200)
@@ -327,7 +324,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 ```bash
 ant beta:tunnels archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -390,7 +386,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ```bash
 ant beta:tunnels reveal-token \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -456,7 +451,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ```bash
 ant beta:tunnels rotate-token \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -596,7 +590,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 ```bash
 ant beta:tunnels:certificates create \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --ca-certificate-pem ca_certificate_pem
 ```
@@ -687,7 +680,6 @@ Fetches a tunnel certificate by ID.
 
 ```bash
 ant beta:tunnels:certificates retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```
@@ -796,7 +788,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ```bash
 ant beta:tunnels:certificates list \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
@@ -891,7 +882,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 ```bash
 ant beta:tunnels:certificates archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```

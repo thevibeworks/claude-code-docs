@@ -22,11 +22,11 @@ On Windows and macOS, the program is in these places:
 * **Windows**: the program itself installs per user to `%LOCALAPPDATA%\Programs\ClaudeScience` and registers under the signed-in user's **Settings** > **Apps** > **Installed apps** rather than machine-wide. The app also writes launch logs and state to `%LOCALAPPDATA%\ClaudeScience` and keeps a sandbox state folder under `%LOCALAPPDATA%`, and it unpacks components it runs, such as the app window engine and the sandbox launcher, under the data folder, so allow-listing by path needs both the program folder and the data folder. Uninstalling removes the program and sandbox state; `claude-science uninstall --purge` also removes the data and state folders.
 * **macOS**: the app is **Claude Science** in the **Applications** folder, or in the **Applications** folder inside the member's home folder. When Claude Science opens in a browser tab, it runs its program from a copy at `~/.claude-science/bin/claude-science`. When it opens in its own window, it runs the program from inside the app. In its own window, Claude Science also keeps window settings, logs, and the window's page storage, which includes unsent message drafts, in `~/Library/Application Support/Claude Science` (see [Macs where Claude Science opens in its own window](#macs-where-claude-science-opens-in-its-own-window)).
 
-Your endpoint tooling governs these folders the same way it governs any other local application data. Anthropic doesn't host a copy of these folders, so Custom Data Retention and Org Data Export don't reach them. [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data) covers what Anthropic does receive from the app, including the session transcripts available to Enterprise organizations with the Compliance API enabled.
+Your endpoint tooling governs these folders the same way it governs any other local application data. Anthropic doesn't host a copy of these folders, so Custom Data Retention and Org Data Export don't reach them. [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data.md) covers what Anthropic does receive from the app, including the session transcripts available to Enterprise organizations with the Compliance API enabled.
 
 ## Deploy configuration with device management
 
-To set configuration keys organization-wide, deploy the per-member config.toml (at the path given under [Where the app stores data](#where-the-app-stores-data)) through your MDM or endpoint tool. Claude Science doesn't read its settings from a system-level managed-preferences file or registry policy keys, so there's no native MDM configuration channel on any operating system. Deploying the per-member config.toml is the supported approach. The sandbox network allowlist and the package mirror can instead be set once for every member under **Organization settings** > **Claude Science** (see [Organization settings](/docs/claude-science/admin-controls#organization-settings)). The keys most relevant to admins are:
+To set configuration keys organization-wide, deploy the per-member config.toml (at the path given under [Where the app stores data](#where-the-app-stores-data)) through your MDM or endpoint tool. Claude Science doesn't read its settings from a system-level managed-preferences file or registry policy keys, so there's no native MDM configuration channel on any operating system. Deploying the per-member config.toml is the supported approach. The sandbox network allowlist and the package mirror can instead be set once for every member under **Organization settings** > **Claude Science** (see [Organization settings](/docs/claude-science/admin-controls.md#organization-settings)). The keys most relevant to admins are:
 
 | Key | Effect |
 | - | - |
@@ -35,7 +35,7 @@ To set configuration keys organization-wide, deploy the per-member config.toml (
 | `auto_update = false` under `[update]` | Turns off the background check for updates; pair with your own distribution channel. On a Mac where Claude Science opens in its own window, the key requires version 0.1.69 or later. A member can still check for and install an update from inside Claude Science. |
 | `enabled = false` under `[sandbox.network]` | Blocks network access from the app's local code-execution sandbox. The similarly named `network_isolated` key under `[sandbox]` doesn't control this. |
 
-The [configuration file reference](/docs/claude-science/configuration-file-reference) documents the network-related keys and their defaults, and [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks) covers the proxy, TLS-inspection, and mirror settings.
+The [configuration file reference](/docs/claude-science/configuration-file-reference.md) documents the network-related keys and their defaults, and [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks.md) covers the proxy, TLS-inspection, and mirror settings.
 
 ## Macs where Claude Science opens in its own window
 
@@ -48,7 +48,7 @@ Claude Science in a browser tab and in its own window get updates in different w
 | What differs | In a browser tab | In its own window |
 | - | - | - |
 | Updates | Checks in the background and shows **Update available** | Downloads updates by itself and installs them when the app quits |
-| Connections for updates | Use the app's proxy settings | Use the proxy in macOS network settings and the certificates that macOS trusts (see [Proxy and certificates for updates in the Mac app window](/docs/claude-science/corporate-networks#proxy-and-certificates-for-updates-in-the-mac-app-window)) |
+| Connections for updates | Use the app's proxy settings | Use the proxy in macOS network settings and the certificates that macOS trusts (see [Proxy and certificates for updates in the Mac app window](/docs/claude-science/corporate-networks.md#proxy-and-certificates-for-updates-in-the-mac-app-window)) |
 
 If the member's account can't write to the app or its folder, Claude Science in its own window doesn't check for updates in the background. The member can still choose **Claude Science > Check for App Updates…**, and macOS then asks for an administrator's password to install the update.
 
@@ -63,7 +63,7 @@ When the app runs into an error, it also sends an error report to the error-repo
 To turn telemetry and error reports off on managed devices, use either of:
 
 Set disable\_telemetry = true in config.toml (deployable through MDM).\
-Set the DO\_NOT\_TRACK environment variable (for example to 1) where the app reads it at launch. See [How the environment variables reach the app](/docs/claude-science/corporate-networks#how-the-environment-variables-reach-the-app).
+Set the DO\_NOT\_TRACK environment variable (for example to 1) where the app reads it at launch. See [How the environment variables reach the app](/docs/claude-science/corporate-networks.md#how-the-environment-variables-reach-the-app).
 
 Both are device-level settings. There's no per-member or per-organization telemetry toggle in Organization settings.
 

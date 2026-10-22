@@ -23,13 +23,13 @@ Install each Claude for M365 add-in and confirm your plan before turning
 on cross-app mode.
 
 * A paid Claude plan: Pro, Max, Team, or Enterprise.
-* [Claude for Excel](/docs/office-agents/excel) installed from the
+* [Claude for Excel](/docs/office-agents/excel.md) installed from the
   Microsoft AppSource.
-* [Claude for PowerPoint](/docs/office-agents/powerpoint) installed
+* [Claude for PowerPoint](/docs/office-agents/powerpoint.md) installed
   from the Microsoft AppSource.
-* [Claude for Word](/docs/office-agents/word) installed from the
+* [Claude for Word](/docs/office-agents/word.md) installed from the
   Microsoft AppSource.
-* [Claude for Outlook](/docs/office-agents/outlook) installed from the
+* [Claude for Outlook](/docs/office-agents/outlook.md) installed from the
   Microsoft AppSource.
 
 ## Enable cross-app mode
