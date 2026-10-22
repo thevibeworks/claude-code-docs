@@ -102,10 +102,10 @@ Track token consumption across your organization with detailed breakdowns by mod
 
 ### Key concepts
 
-* **Time buckets:** Aggregate usage data in fixed intervals (`1m`, `1h`, or `1d`)
-* **Token tracking:** Measure uncached input, cached input, cache creation, and output tokens
-* **Filtering & grouping:** Filter by API key, workspace, model, service tier, context window, [data residency](https://platform.claude.com/docs/en/manage-claude/data-residency), or speed, and group results by these dimensions
-* **Server tool usage:** Track usage of server-side tools such as web search
+* **Time buckets:** Aggregate usage data in fixed intervals (`1m`, `1h`, or `1d`).
+* **Token tracking:** Measure uncached input, cached input, cache creation, and output tokens.
+* **Filtering & grouping:** Filter by API key, workspace, model, service tier, context window, [data residency](https://platform.claude.com/docs/en/manage-claude/data-residency), or speed, and group results by these dimensions.
+* **Server tool usage:** Track usage of server-side tools such as web search.
 
 For complete parameter details and response schemas, see the [Usage API reference](https://platform.claude.com/docs/en/api/beta/organization/usage_report/retrieve_messages).
 
@@ -232,10 +232,10 @@ Retrieve service-level cost breakdowns in USD with the `/v1/organizations/cost_r
 
 ### Key concepts
 
-* **Currency:** All costs in USD, reported as decimal strings in lowest units (cents)
-* **Cost types:** Track token usage, web search, and code execution costs
-* **Grouping:** Group costs by workspace or description for detailed breakdowns. When grouping by `description`, responses include parsed fields such as `model` and `inference_geo`
-* **Time buckets:** Daily granularity only (`1d`)
+* **Currency:** All costs are in USD, reported as decimal strings in lowest units (cents).
+* **Cost types:** Track token usage, web search, and code execution costs.
+* **Grouping:** Group costs by workspace or description for detailed breakdowns. When grouping by `description`, responses include parsed fields such as `model` and `inference_geo`.
+* **Time buckets:** Only daily granularity (`1d`) is available.
 
 For complete parameter details and response schemas, see the [Cost API reference](https://platform.claude.com/docs/en/api/beta/organization/cost_report/retrieve).
 

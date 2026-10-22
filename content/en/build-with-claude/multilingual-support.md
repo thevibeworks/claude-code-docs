@@ -161,7 +161,7 @@ Claude infers the response language from the conversation, but for production ap
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     system: "Always respond in French, regardless of the language the user writes in.",
     messages: [

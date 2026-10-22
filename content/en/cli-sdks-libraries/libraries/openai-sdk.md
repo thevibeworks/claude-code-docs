@@ -1,7 +1,7 @@
 ---
 title: OpenAI SDK compatibility
 url: https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk
-description: Anthropic provides a compatibility layer that lets you use the OpenAI SDK to test the Claude API. With a few code changes, you can quickly evaluate Anthropic model capabilities.
+description: Anthropic provides a compatibility layer that lets you use the OpenAI SDK to test the Claude API. With a few code changes, you can evaluate Anthropic model capabilities.
 ---
 
 <Note>
@@ -22,12 +22,12 @@ To use the OpenAI SDK compatibility feature, you'll need to:
 
 1. Use an official OpenAI SDK.
 
-2. Change the following
+2. Change the following:
 
-   * Update your base URL to point to the Claude API
-   * Replace your API key with a [Claude API key](https://platform.claude.com/settings/keys) from the Claude Console
-   * If your key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, also send the `anthropic-workspace-id` header on every request (for example, `default_headers` in the Python SDK or `defaultHeaders` in TypeScript); see [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace)
-   * Update your model name to use a [Claude model](https://platform.claude.com/docs/en/models/overview)
+   * Update your base URL to point to the Claude API.
+   * Replace your API key with a [Claude API key](https://platform.claude.com/settings/keys) from the Claude Console.
+   * If your key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, also send the `anthropic-workspace-id` header on every request (for example, `default_headers` in the Python SDK or `defaultHeaders` in TypeScript); see [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace).
+   * Update your model name to use a [Claude model](https://platform.claude.com/docs/en/models/overview).
 
 3. Review the following sections for what features are supported.
 
@@ -183,7 +183,7 @@ To use the OpenAI SDK compatibility feature, you'll need to:
 
 Here are the most substantial differences from using OpenAI:
 
-* The `strict` parameter for function calling is ignored, which means the tool use JSON is not guaranteed to follow the supplied schema. For guaranteed schema conformance, use the native [Claude API with Structured Outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).
+* The `strict` parameter for function calling is ignored, which means the tool use JSON is not guaranteed to follow the supplied schema. For guaranteed schema conformance, use the native [Claude API with structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).
 * Audio input is not supported; it is ignored and stripped from input.
 * Prompt caching is not supported, but it is supported in the [Anthropic SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview).
 * System/developer messages are hoisted and concatenated into the top-level `system` field, wherever they appear in the conversation. To add system instructions partway through a conversation, use [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) in the native Claude API.
@@ -297,7 +297,7 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
 | `n`                     | Must be exactly 1                                                                                                                                                                                                                                                                                                                                      |
 | `logprobs`              | Ignored                                                                                                                                                                                                                                                                                                                                                |
 | `metadata`              | Ignored                                                                                                                                                                                                                                                                                                                                                |
-| `response_format`       | Ignored. For JSON output, use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API                                                                                                                                                                                                |
+| `response_format`       | Ignored. For JSON output, use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API.                                                                                                                                                                                               |
 | `prediction`            | Ignored                                                                                                                                                                                                                                                                                                                                                |
 | `presence_penalty`      | Ignored                                                                                                                                                                                                                                                                                                                                                |
 | `frequency_penalty`     | Ignored                                                                                                                                                                                                                                                                                                                                                |
@@ -318,12 +318,12 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
     <Tab title="Tools">
       `tools[n].function` fields
 
-      | Field         | Support status                                                                                                                                                      |
-      | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-      | `name`        | Fully supported                                                                                                                                                     |
-      | `description` | Fully supported                                                                                                                                                     |
-      | `parameters`  | Fully supported                                                                                                                                                     |
-      | `strict`      | Ignored. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API for strict schema validation |
+      | Field         | Support status                                                                                                                                                       |
+      | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+      | `name`        | Fully supported                                                                                                                                                      |
+      | `description` | Fully supported                                                                                                                                                      |
+      | `parameters`  | Fully supported                                                                                                                                                      |
+      | `strict`      | Ignored. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API for strict schema validation. |
     </Tab>
 
     <Tab title="Functions">
@@ -333,12 +333,12 @@ Rate limits follow Anthropic's [standard limits](https://platform.claude.com/doc
         OpenAI has deprecated the `functions` field and recommends using `tools` instead.
       </Info>
 
-      | Field         | Support status                                                                                                                                                      |
-      | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-      | `name`        | Fully supported                                                                                                                                                     |
-      | `description` | Fully supported                                                                                                                                                     |
-      | `parameters`  | Fully supported                                                                                                                                                     |
-      | `strict`      | Ignored. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API for strict schema validation |
+      | Field         | Support status                                                                                                                                                       |
+      | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+      | `name`        | Fully supported                                                                                                                                                      |
+      | `description` | Fully supported                                                                                                                                                      |
+      | `parameters`  | Fully supported                                                                                                                                                      |
+      | `strict`      | Ignored. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) with the native Claude API for strict schema validation. |
     </Tab>
   </Tabs>
 </Accordion>

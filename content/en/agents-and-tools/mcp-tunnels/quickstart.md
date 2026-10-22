@@ -17,7 +17,7 @@ A two-container [tunnel stack](https://platform.claude.com/docs/en/agents-and-to
 ## What you need
 
 * [Docker and Docker Compose](https://docs.docker.com/get-docker/) on a machine with outbound internet access.
-* A role in the [Claude Console](https://platform.claude.com) that can manage MCP tunnels. See the [Console guide prerequisites](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#prerequisites).
+* A role in the [Claude Console](https://platform.claude.com/) that can manage MCP tunnels. See the [Console guide prerequisites](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#prerequisites).
 * [OpenSSL](https://openssl-library.org/source/) 1.1.1 or later. Preinstalled on macOS and most Linux distributions. On Windows, install it separately (the `openssl` binary must be on your `PATH`).
 
 <Steps>

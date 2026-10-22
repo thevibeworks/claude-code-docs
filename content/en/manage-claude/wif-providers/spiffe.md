@@ -85,10 +85,10 @@ Each workload that calls the Claude API needs a SPIRE registration entry that ma
 # Replace NODE_UID with the node's UID:
 #   kubectl get node <node-name> -o jsonpath='{.metadata.uid}'
 spire-server entry create \
-    -spiffeID spiffe://prod.example.com/ns/inference/sa/worker \
-    -parentID spiffe://prod.example.com/spire/agent/k8s_psat/prod-cluster/NODE_UID \
-    -selector k8s:ns:inference \
-    -selector k8s:sa:worker
+  -spiffeID spiffe://prod.example.com/ns/inference/sa/worker \
+  -parentID spiffe://prod.example.com/spire/agent/k8s_psat/prod-cluster/NODE_UID \
+  -selector k8s:ns:inference \
+  -selector k8s:sa:worker
 ```
 
 <Note>
@@ -453,9 +453,9 @@ Before integrating the SDK, fetch a JWT-SVID directly from SPIRE Agent and confi
 
 ```bash CLI
 spire-agent api fetch jwt \
-    -audience https://api.anthropic.com \
-    -socketPath /run/spire/sockets/agent.sock \
-    -output json \
+  -audience https://api.anthropic.com \
+  -socketPath /run/spire/sockets/agent.sock \
+  -output json \
   | jq -r '.[0].svids[0].svid' \
   | jq -rR 'split(".")[1] | gsub("-";"+") | gsub("_";"/") | @base64d | fromjson'
 ```
@@ -475,7 +475,7 @@ Lock the rule's `match` block to the narrowest scope that fits your use case:
 * **Pin to one workload:** Set `subject_prefix` to the full SPIFFE ID with no trailing `*`.
 * **Always set an audience:** Require `audience` on the rule and configure spiffe-helper (or the Workload API call) with the same value so SVIDs minted for other relying parties are rejected.
 * **Scope by path segment:** Use `spiffe://prod.example.com/ns/inference/*` to grant every workload registered under a namespace, and create a separate rule and Anthropic service account for each namespace rather than widening one rule.
-* **One issuer for each trust domain:** Each SPIRE trust domain has its own signing keys and OIDC Discovery Provider. Register each as a separate federation issuer and bind rules to the issuer that owns the SPIFFE IDs they match.
+* **Register one issuer for each trust domain:** Each SPIRE trust domain has its own signing keys and OIDC Discovery Provider. Register each as a separate federation issuer and bind rules to the issuer that owns the SPIFFE IDs they match.
 
 ## Next steps
 

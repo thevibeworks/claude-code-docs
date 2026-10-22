@@ -20,7 +20,7 @@ Writing your own driver is an advanced case, covered in [Implement a driver](htt
 
 ## Use a driver from a provider
 
-With a driver from a provider, such as one under [Partner integrations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#partner-integrations), you can build an agent in a few lines of code. The provider in this example is made up. Replace `example_browser_provider` (typescript: `example-browser-provider`) and `ExampleBrowser` with [a real provider's](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#partner-integrations) package and driver class, and set them up as the provider's docs describe.
+With a driver from a provider, such as one under [Partner integrations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#partner-integrations), you can build an agent in a few lines of code. The provider in this example is made up. Replace `example_browser_provider` (typescript: `example-browser-provider`) and `ExampleBrowser` with a real provider's package and driver class, and set them up as the provider's docs describe.
 
 <CodeGroup exclude="shell:cURL, shell:CLI, csharp, go, java, php, ruby">
   ```python Python
@@ -587,7 +587,7 @@ The SDK applies steps 1, 4, and 5 through the policies and the callable you pass
 <Warning>
   Without a URL policy, the SDK checks no URL, and the API doesn't filter the URLs Claude opens. Even with a policy, a link Claude clicks or a redirect can take the browser to loopback (`localhost`, `127.0.0.1`), to link-local addresses such as the cloud metadata address `169.254.169.254`, and to private network ranges. [Egress rules on the container](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#put-egress-policy-on-the-container) can block the link-local and private addresses. Rules enforced outside the container can't block loopback.
 
-  The SDK doesn't check a URL's scheme, so your driver must refuse every scheme it doesn't mean to open, such as `javascript:`, `view-source:`, `data:`, and `file:`. Most drivers need only `http` and `https`. The example policy later in this section allows only `http` and `https` URLs, plus `about:blank`.
+  The SDK doesn't check a URL's scheme, so your driver must refuse every scheme that you don't intend it to open, such as `javascript:`, `view-source:`, `data:`, and `file:`. Most drivers need only `http` and `https`. The example policy later in this section allows only `http` and `https` URLs, plus `about:blank`.
 
   A `file:` URL lets Claude read files on the browser host. A `javascript:` URL runs script in the current page, even when `javascript_exec` is off. Egress rules don't stop either one.
 </Warning>
@@ -669,7 +669,7 @@ The example isn't production grade. A production policy needs much more, in area
 * Links Claude clicks, forms it submits, redirects, and the requests a page makes on its own. Only your driver sees them. See [Intercept requests in the driver](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#intercept-requests-in-the-driver).
 * Hostnames and URLs that come from page content, which an attacker can choose.
 * Parsing each URL the way the browser does, not finding the hostname with a plain string split.
-* URL schemes. The SDK doesn't check them, so refuse every scheme your driver doesn't mean to open.
+* URL schemes. The SDK doesn't check them, so refuse every scheme that you don't intend your driver to open.
 * Egress rules on the container, for what no URL check can see. See [Put egress policy on the container](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#put-egress-policy-on-the-container).
 
 If you pass `url_policy=None` (typescript: `urlPolicy: null`), the SDK refuses every `navigate` to a URL, so a `None` (typescript: `null`) read from your configuration can't leave URLs unchecked by accident. In TypeScript, `undefined` leaves the option unset, the same as not passing it.
@@ -914,7 +914,7 @@ The class takes `configs`, `confirm`, and `tool_configs` (typescript: `toolConfi
 * **Browser-only options:** The class has no [URL policy](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#write-a-url-policy), no [file policy](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#confine-uploads-and-downloads), and no [state report](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#report-browser-state).
 * **`configs`:** Every tool you implement is on by default. The per-tool settings are listed under [Tool parameters](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#tool-parameters).
 * **`confirm`:** If your class implements `type`, `key`, or `hold_key`, the constructor raises a configuration error unless you pass a `confirm` callable or turn those tools off with `configs`. A class that overrides `execute` counts as implementing all three.
-* **Skipped calls:** After a failed computer call, the tool runner answers the turn's later computer calls with `Not executed: an earlier computer action in this turn failed.` Browser calls get a different text. In a loop you write, answer the skipped computer calls with that exact text ([Batch actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions)).
+* **Skipped calls:** After a failed computer call, the tool runner answers the turn's later computer calls with `Not executed: an earlier computer action in this turn failed.` Browser calls get a different text. In a loop you write, answer the skipped computer calls with that exact text ([Batch actions in the computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions)).
 * **`execute`:** In TypeScript, an `execute` override types `name` as `BetaComputerMemberName` and `input` as `BetaComputerMemberInput`. Both come from `@anthropic-ai/sdk/resources/beta`.
 * **Error text:** The SDK doesn't hide local paths in a computer tool's error text or in the text a tool returns. Claude reads both, cut at 4,096 characters. Catch exceptions in your tools, and raise `ToolError` (throw it in TypeScript) with your own text.
 
@@ -1191,7 +1191,7 @@ Before you run a driver against anything but a throwaway machine, take these fiv
 4. Refuse input your desktop shouldn't honor, such as a point outside the screenshot, a `wait` of several minutes, or a very large `repeat` or `scroll_amount`. Raise `ToolError` (throw it in TypeScript) instead of moving the value into range.
 5. Treat everything on the screen as untrusted, including window titles and clipboard text. Don't run it or pass it on unchecked.
 
-The SDK applies step 2 through the callable you pass. The other steps are up to your driver and your deployment. The precautions under [Security considerations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#security-considerations) apply as well.
+The SDK applies step 2 through the callable you pass. The other steps are up to your driver and your deployment. The precautions under [Security considerations for the computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#security-considerations) apply as well.
 
 The following `confirm` asks a person before any keyboard input, through your own `ask_user` (typescript: `askUser`) function, and approves every other call. `context.member` (typescript: `ctx.member`) is the tool's name. To have a person approve clicks too, set `ASK_FIRST` to `KEYBOARD | CLICKS` (typescript: `new Set([...KEYBOARD, ...CLICKS])`).
 

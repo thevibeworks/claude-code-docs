@@ -117,7 +117,11 @@ Send `user.interrupt` with `session_thread_id` (java: `sessionThreadId`; php: `s
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d '{"events": [{"type": "user.interrupt", "session_thread_id": "'"$THREAD_ID"'"}]}'
+    -d '{
+      "events": [
+        {"type": "user.interrupt", "session_thread_id": "'"$THREAD_ID"'"}
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -263,7 +267,11 @@ Archive only succeeds if the thread is `idle`. A thread parked on `requires_acti
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d '{"events": [{"type": "user.interrupt", "session_thread_id": "'"$THREAD_ID"'"}]}'
+    -d '{
+      "events": [
+        {"type": "user.interrupt", "session_thread_id": "'"$THREAD_ID"'"}
+      ]
+    }'
 
   curl -fsS -X POST "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -645,7 +653,7 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
 
 If a subagent needs something from your client, such as [permission](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#tool-confirmation) to run a tool call or the [result of a custom tool](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#handling-custom-tool-calls), the event is cross-posted to the **primary thread** with `session_thread_id` identifying the originating session thread. A tool call needs your permission under `always_ask`, or under [`auto`](https://platform.claude.com/docs/en/managed-agents/permission-policies#let-the-server-evaluate-each-call-with-auto) when the server reaches no determination.
 
-```json
+```text wrap
 {
   "type": "session.thread_status_idle",
   "id": "sevt_01ABC...",

@@ -37,7 +37,7 @@ This release does not include standalone skills (skills a member writes in the s
 ## Prerequisites
 
 * Your organization must be on a Claude Enterprise plan.
-* Your primary owner creates an Admin API key with the `read:plugins` scope, the `write:plugins` scope, or both in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization).
+* Your primary owner creates an Admin API key with the `read:plugins` scope, the `write:plugins` scope, or both in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). See [Create a key for a Claude Enterprise organization](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization).
 * Every request carries three headers: `x-api-key`, `anthropic-version: 2023-06-01`, and `anthropic-beta: ce-plugins-2026-09-01`.
 
 The SDK exposes these endpoints under `client.beta.organization` (csharp, go: `client.Beta.Organization`; java: `client.beta().organization()`; php: `$client->beta->organization`), and the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under `ant beta:organization`; they send the `anthropic-version` and `anthropic-beta` headers for you. The examples on this page use the SDK's default client, which, like the CLI, reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable; the curl examples read the key from the same variable and pass it in the `x-api-key` header. Where an SDK or the CLI fetches more pages for you, `limit` sets the page size, not the total (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)).
@@ -161,7 +161,7 @@ List the plugins in your organization's own marketplaces, newest first:
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "data": [
     {
@@ -216,7 +216,7 @@ Each of these read scopes (`read:plugins`, `read:org_audit`, and `read:complianc
 
 ### Reading another organization under the same parent
 
-`read:plugins` and `write:plugins` keys read and write only the organization they were created in. If your company has several Claude organizations linked under one parent organization, a `read:org_audit` or `read:compliance_org_data` key that the parent's primary owner created for all linked organizations (see [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization)) can also read any of them that has access to this API: pass that organization's ID in the `organization_id` query parameter on any `GET` endpoint on this page. The ID is the organization UUID shown in claude.ai's settings (its `org_`-prefixed form is accepted too). Without the parameter, the key reads the organization it was created in. A `404` means the named organization is not under the key's parent or the API is not available to it; a value that is not a UUID or `org_` ID returns `400`. Any other key that names an organization other than its own gets `404`. Writes do not accept `organization_id`.
+`read:plugins` and `write:plugins` keys read and write only the organization they were created in. If your company has several Claude organizations linked under one parent organization, a `read:org_audit` or `read:compliance_org_data` key that the parent's primary owner created for all linked organizations (see [Create a key for a Claude Enterprise organization](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization)) can also read any of them that has access to this API: pass that organization's ID in the `organization_id` query parameter on any `GET` endpoint on this page. The ID is the organization UUID shown in claude.ai's settings (its `org_`-prefixed form is accepted too). Without the parameter, the key reads the organization it was created in. A `404` means the named organization is not under the key's parent or the API is not available to it; a value that is not a UUID or `org_` ID returns `400`. Any other key that names an organization other than its own gets `404`. Writes do not accept `organization_id`.
 
 ## Key concepts
 
@@ -260,11 +260,11 @@ Every upload creates a new, immutable **version**, whether it comes from this AP
 * `latest_version_id`: the newest version
 * `served_version_id`: the version members are served
 
-By default `served_version_pinned` is `false`: the served version normally follows the newest one. When content scanning is on, a version saved in claude.ai might **wait** for its content scan: it is stored but not served at once. This page uses "wait" only for a version saved in claude.ai, not for one that a member or an administrator publishes into a plugin. While scanning is on, a waiting version is served only after its scan completes with `pass` or `warn`. While a version waits, `served_version_id` names an earlier version than `latest_version_id`. Do not poll until the two IDs match: they might stay different, for example when the scan fails.
+By default `served_version_pinned` is `false`: the served version normally follows the newest one. When content scanning is on, a version saved in claude.ai might **wait** for its content scan: it is stored but not served at once. This page uses "wait" only for a version saved in claude.ai, not for one that a member or an administrator publishes into a plugin. While scanning is on, a waiting version is served only when its `content_scan` reads `completed` with `pass` or `warn`. While a version waits, `served_version_id` names an earlier version than `latest_version_id`. Do not poll until the two IDs match: they might stay different, for example when the scan fails.
 
 Choosing a version with `POST /v1/organizations/plugins/{plugin_id}` **pins** the plugin (`served_version_pinned: true`). So does an administrator choosing a version in claude.ai, or accepting a member's request to publish into the plugin. From then on, new uploads are stored and advance `latest_version_id`, but members keep the pinned version until you point `served_version_id` at another one. A plugin whose two pointers differ has a stored version that is not being served.
 
-This lets a release pipeline upload each build, test it, and then promote it. To have your pipeline determine when each build is served, pin the plugin once by setting `served_version_id` to its current version; from then on, promote each build you want served. With content scanning on, that first pin returns `409 scan_pending` until the current version's scan completes, and `400 scan_failed` if the scan completed with `fail` or `unknown`, or errored (`warn` is accepted). A pinned plugin cannot currently be unpinned, here or in claude.ai.
+This lets a release pipeline upload each build, test it, and then promote it. To have your pipeline determine when each build is served, pin the plugin once by setting `served_version_id` to its current version; from then on, promote each build you want served. With content scanning on, that first pin returns `409 scan_pending` until the current version's scan completes, and `400 scan_failed` if the scan reads `fail` or `unknown`, or errored (`warn` is accepted). A pinned plugin cannot currently be unpinned, here or in claude.ai.
 
 To roll back, set `served_version_id` to an earlier version. Roll forward the same way.
 
@@ -281,7 +281,7 @@ These rules describe organization-owned plugins. A member-owned plugin's served 
 | `available`     | The plugin can be installed on request.        |
 | `not_available` | The plugin is hidden.                          |
 
-A plugin can hold an organization-wide setting and one setting for each group (the role-based access control groups managed in [User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). A member gets a value by these rules:
+A plugin can hold an organization-wide setting and one setting for each group (the role-based access control [groups managed in User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). A member gets a value by these rules:
 
 1. The organization-wide value is the plugin's own organization-wide setting if it has one, otherwise its marketplace's default, otherwise `not_available`. The plugin reports this value in `organization_installation_preference`, with `organization_installation_preference_inherited: true` while it comes from the marketplace default.
 2. A member who belongs to no group holding a setting for the plugin gets the organization-wide value.
@@ -301,13 +301,17 @@ If your organization has turned off a kind of sharing in its claude.ai settings,
 
 Content scanning is an organization setting in claude.ai. When it is on, newly stored versions are scanned (claude.ai exempts a few) and the result is reported in `content_scan`; a version that was not scanned, for example one stored before scanning was turned on, has `content_scan: null`. Scanning is not offered to organizations that use customer-managed encryption keys or zero data retention.
 
-While scanning is on, members are served a plugin only when its served version's scan is `completed` with `pass` or `warn`. While the scan runs, or after it fails, errors, or reaches no verdict, the plugin is withheld from members, and an earlier version is not served in its place. A version that was never scanned (`content_scan: null`) is served normally.
+While scanning is on, members are served a plugin only when its served version's scan is `completed` with `pass` or `warn`. While the scan is `processing` or `errored`, or reads `fail` or `unknown`, the plugin is withheld from members, and an earlier version is not served in its place. A version that was never scanned (`content_scan: null`) is served normally.
 
-A version you upload through this API never waits for its content scan. When it becomes the served version, members lose the plugin until its scan completes with `pass` or `warn`. If members should keep the current version while a new one is scanned, pin the plugin first (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)).
+A version you upload through this API never waits for its content scan. When it becomes the served version, members lose the plugin until its `content_scan` reads `completed` with `pass` or `warn`. If members should keep the current version while a new one is scanned, pin the plugin first (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)).
 
 While a version saved in claude.ai waits for its scan, the served version does not change. When your API upload becomes the served version, any wait ends: the waiting version is served only if someone chooses it. To see a waiting version's scan, read the version (see [List a plugin's versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)).
 
-After an upload, `content_scan.status` is `processing` and the verdict arrives asynchronously. Read the version to see it; the plugin object shows only its served version's scan. Changing the served version to a version whose scan is still running returns `409 scan_pending`; to one whose scan failed, `400 scan_failed`.
+After an upload, `content_scan.status` is `processing` and the verdict arrives asynchronously. Read the version to see it; the plugin object shows only its served version's scan. While scanning is on, changing the served version to a version whose scan is still running returns `409 scan_pending`, and changing it to one whose scan reads `fail` or `unknown`, or errored, returns `400 scan_failed`.
+
+#### Failed scans an administrator allowed
+
+In claude.ai, an administrator can allow a version whose scan failed. This API can then report that scan as `completed` with `warn` and the failed scan's `reason`. While it does, the rules for `warn` apply: the version can be served to members, and you can make it the served version. Nothing in the response shows that it was allowed, so a `warn` is either a warning or a failed scan that an administrator allowed. Allowing a version whose scan reads `warn` does not change its `content_scan`. When a version stops being allowed, this API reports the verdict of its newest completed scan, and a served version whose scan reads `fail` or `unknown` is withheld from members.
 
 ### Reach
 
@@ -352,7 +356,7 @@ Upload every tagged build from CI, and let the pipeline determine when a build i
 
 ### Roll a plugin out to a pilot group, then to everyone
 
-1. Look up the pilot group's ID with `GET /v1/organizations/rbac_groups`. That call needs the `read:rbac_groups` scope, which requires a key created for all linked organizations (see [User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). The next steps need `write:plugins`, which acts only on the organization its key was created in, so in an enterprise with several linked organizations, create this key in the organization that holds the plugin and give it both scopes, or use a second key created there for those steps.
+1. Look up the pilot group's ID with `GET /v1/organizations/rbac_groups`. That call needs the `read:rbac_groups` scope, which requires a key created for all linked organizations (see [Groups in User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). The next steps need `write:plugins`, which acts only on the organization its key was created in, so in an enterprise with several linked organizations, create this key in the organization that holds the plugin and give it both scopes, or use a second key created there for those steps.
 
 2. [Give the group its own setting](https://platform.claude.com/docs/en/manage-claude/plugins-api#set-an-installation-setting), for example `auto_install`, with `POST /v1/organizations/plugins/{plugin_id}/installation_settings/{target}`, where `{target}` is the group's `rbac_group_` ID, while the organization-wide value stays `not_available`. Only the group's members get the plugin.
 
@@ -493,10 +497,10 @@ Upload every tagged build from CI, and let the pipeline determine when a build i
 
 ### Keep a security inventory in sync
 
-Run a nightly job that flags plugins reaching outside the member's session or failing their content scan.
+Run a nightly job that flags plugins that reach outside the member's session or whose content scan reads `warn`, `fail`, or `unknown`.
 
-1. Page through [`GET /v1/organizations/plugins?limit=100`](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) until `next_page` is `null` (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)). Read each plugin's `reach` and `content_scan` from that list on every run: a scan verdict that arrives later does not move `updated_at`. `updated_at` normally tells you which plugins have new content or a new served version since the last run (worth a fresh archive download). A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) moves `updated_at` when it becomes the served version, not necessarily when it is stored. To notice one, compare `latest_version_id` with the value from your last run. The full re-list is also what catches removals, because a plugin removed by a Git synchronization or an account deletion disappears without an event.
-2. Flag each plugin whose `reach` is `remote` (it declares an MCP server or a CLI), or whose `content_scan.assessment` is `fail` or `unknown`. These fields describe the served version. To also check a newer version that is not served, list the plugin's versions when `latest_version_id` differs from `served_version_id` (see [List a plugin's versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)).
+1. Page through [`GET /v1/organizations/plugins?limit=100`](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) until `next_page` is `null` (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)). Read each plugin's `reach` and `content_scan` from that list on every run: a change to `content_scan` alone, such as a verdict that arrives later, does not move `updated_at`. `updated_at` normally tells you which plugins have new content or a new served version since the last run (worth a fresh archive download). A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) moves `updated_at` when it becomes the served version, not necessarily when it is stored. To notice one, compare `latest_version_id` with the value from your last run. The full re-list is also what catches removals, because a plugin removed by a Git synchronization or an account deletion disappears without an event.
+2. Flag each plugin whose `reach` is `remote` (it declares an MCP server or a CLI), or whose `content_scan.assessment` is `warn`, `fail`, or `unknown`. A `warn` can also be a failed scan that an administrator allowed (see [Failed scans an administrator allowed](https://platform.claude.com/docs/en/manage-claude/plugins-api#failed-scans-an-administrator-allowed)); leave `warn` out only if you accept every failed scan that an administrator allows. These fields describe the served version. To also check a newer version that is not served, list the plugin's versions when `latest_version_id` differs from `served_version_id` (see [List a plugin's versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)).
 3. For each flagged plugin, download the served version's archive for review with `GET /v1/organizations/plugins/{plugin_id}/versions/{served_version_id}/content` (see [Download a version's files](https://platform.claude.com/docs/en/manage-claude/plugins-api#download-a-versions-files)). Also download any unserved version that meets step 2's test, by its ID.
 4. To take a plugin away from members while you review it, see [Delete a plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#delete-a-plugin) for the reversible (organization-owned) and permanent options.
 
@@ -518,15 +522,15 @@ The plugin object describes a plugin in one of your organization's marketplaces 
 | `content_scan`                                                                           | The served version's scan result, an object with `status`, `assessment`, and `reason` (described after this table). `null` when it was never scanned.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `components`                                                                             | The served version's components, each `{"type", "name", "description"}` with `type` one of `skill`, `mcp_server`, `command`, `agent`, `hook`, or `cli`, listed in that type order and then by name. For an MCP server, `name` is its key in the manifest; for a hook, the event it runs on; for a CLI, the executable's name. `description` is always `null` for MCP servers, hooks, and CLIs. `null` when not recorded.                                                                                                                                          |
 | `reach`                                                                                  | `contained`, `privileged`, or `remote`. See [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach).                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `updated_at`                                                                             | Changes when the served version changes, when the plugin becomes pinned, and normally when a new version is stored. A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) changes it when it becomes the served version, not necessarily when it is stored. It does not change for installation settings, shares, or new scan results.                                                                                                                         |
+| `updated_at`                                                                             | Changes when the served version changes, when the plugin becomes pinned, and normally when a new version is stored. A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) changes it when it becomes the served version, not necessarily when it is stored. It does not change for installation settings, shares, or a change to `content_scan` alone.                                                                                                         |
 
 The `content_scan` object:
 
-| Field        | Description                                                                                                                                                                                                                                                                                                                                                        |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `status`     | `processing` while the scan runs, `completed` when it finished, or `errored` when it could not finish (or, occasionally, when its result could not be read for this response, in which case a later read may report it). Members are not served a version whose scan is `processing` or `errored`; uploading the content again as a new version gets a fresh scan. |
-| `assessment` | Set when `status` is `completed`: `pass` (nothing found), `warn` (something found that does not block use), `fail` (something found that blocks use), or `unknown` (no verdict). Otherwise `null`.                                                                                                                                                                 |
-| `reason`     | For `warn` and `fail`, the main concern, from the following list. Otherwise `null`, and also `null` on an older scan that predates reason recording.                                                                                                                                                                                                               |
+| Field        | Description                                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `status`     | `processing` while the scan runs, `completed` when it finished, or `errored` when it could not finish (or, occasionally, when its result could not be read for this response, in which case a later read may report it). Members are not served a version whose scan is `processing` or `errored`; uploading the content again as a new version gets a fresh scan.                                   |
+| `assessment` | Set when `status` is `completed`: `pass` (nothing found), `warn` (something found that does not block use, or a failed scan that an administrator allowed; see [Failed scans an administrator allowed](https://platform.claude.com/docs/en/manage-claude/plugins-api#failed-scans-an-administrator-allowed)), `fail` (something found that blocks use), or `unknown` (no verdict). Otherwise `null`. |
+| `reason`     | For `warn` and `fail`, the main concern, from the following list. Otherwise `null`, and also `null` on an older scan that predates reason recording.                                                                                                                                                                                                                                                 |
 
 <Accordion title="Content scan reason values">
   | `reason`                          | Meaning                                                                                                                       |
@@ -805,7 +809,7 @@ Upload an archive:
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "type": "plugin",
   "id": "plugin_01Hq3vX8kZcN2mB7pR4tY9wL",
@@ -1252,7 +1256,7 @@ Besides a `400` for an upload that breaks the [upload requirements](https://plat
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "type": "plugin",
   "id": "plugin_01Hq3vX8kZcN2mB7pR4tY9wL",
@@ -1389,7 +1393,7 @@ Deletion cannot be undone, and there is no per-version delete. To withhold an or
   ```
 </CodeGroup>
 
-```json
+```text wrap
 { "type": "plugin_deleted", "id": "plugin_01Hq3vX8kZcN2mB7pR4tY9wL" }
 ```
 
@@ -1671,7 +1675,7 @@ A `{version}` that lacks the `pluginver_` prefix returns `400` (except the liter
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "type": "plugin_version",
   "id": "pluginver_01Jd5sK2nQ8wE4rT6yU1iO3p",
@@ -1966,7 +1970,7 @@ Downloading a **member-owned** plugin's archive records a `claude_plugin_archive
 
 ## Plugin installation settings
 
-These endpoints apply to organization-owned plugins. They return `404` for a member-owned plugin, which has [shares](https://platform.claude.com/docs/en/manage-claude/plugins-api#plugin-shares) instead. `{target}` is the literal `organization` for the plugin's organization-wide setting, or a group's `rbac_group_` ID for that group's setting; any other value returns `400`. Group IDs come from `GET /v1/organizations/rbac_groups` (scope `read:rbac_groups`; see [User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). A setting has no `id` of its own: it is addressed by `(plugin_id, target)`, and no actor is recorded on it (the actor is on its `plugin_installation_preference_updated` activity event).
+These endpoints apply to organization-owned plugins. They return `404` for a member-owned plugin, which has shares instead (see [Plugin shares](https://platform.claude.com/docs/en/manage-claude/plugins-api#plugin-shares)). `{target}` is the literal `organization` for the plugin's organization-wide setting, or a group's `rbac_group_` ID for that group's setting; any other value returns `400`. Group IDs come from `GET /v1/organizations/rbac_groups` (scope `read:rbac_groups`; see [Groups in User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). A setting has no `id` of its own: it is addressed by `(plugin_id, target)`, and no actor is recorded on it (the actor is on its `plugin_installation_preference_updated` activity event).
 
 ### List a plugin's installation settings
 
@@ -2214,7 +2218,7 @@ Send a plugin's installation-setting writes one at a time. If several writes for
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "type": "plugin_installation_setting",
   "plugin_id": "plugin_01Hq3vX8kZcN2mB7pR4tY9wL",
@@ -2334,7 +2338,7 @@ Send a plugin's installation-setting writes one at a time. If several writes for
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "type": "plugin_installation_setting_deleted",
   "plugin_id": "plugin_01Hq3vX8kZcN2mB7pR4tY9wL",
@@ -2450,7 +2454,7 @@ Shares exist only on member-owned plugins and are read-only in this API (see [Sh
   ```
 </CodeGroup>
 
-```json
+```text
 {
   "data": [
     {
@@ -2468,7 +2472,7 @@ Shares exist only on member-owned plugins and are read-only in this API (see [Sh
 
 This API reads [marketplaces](https://platform.claude.com/docs/en/manage-claude/plugins-api#marketplaces) and sets an organization marketplace's default installation setting; marketplaces themselves are created, connected to a repository, and deleted in claude.ai.
 
-```json
+```text wrap
 {
   "type": "plugin_marketplace",
   "id": "marketplace_01VbNcMxZaSdFgHjKlQwErTy",
@@ -2842,7 +2846,7 @@ Two endpoints report what a synchronization of the given marketplace content wou
 
 The repository, and any plugin source outside it on GitHub, are read anonymously, so a private repository or private plugin source is reported as not found. Plugin sources on hosts other than GitHub are not fetched; such a plugin normally gets a `marketplace_validate_source_not_checked` warning and is checked when the marketplace actually synchronizes. If the repository is, or the archive names, a marketplace that Anthropic synchronizes into every organization, stricter rules apply: every plugin source outside the marketplace must be pinned to a full commit SHA, unpinned or unsupported-host sources are reported as plugin errors, and the branch read defaults to the one that marketplace synchronizes from.
 
-`validate_repository` takes a JSON body with two fields: `repository_url`, the `https://` URL of a public repository on github.com (required), and `ref`, a branch name or a full 40-character commit SHA (optional; when it is omitted or `null`, the branch a synchronization would read, usually the repository's default branch). `validate_archive` takes `multipart/form-data` with exactly one part, `archive`, sent as a file part with a file name: a `.zip` of the marketplace directory, at most 32 MB, with its contents at the root or wrapped in one folder (as a Git host's download produces), DEFLATE or STORE compression only. No other form field is accepted.
+`validate_repository` takes a JSON body with two fields: `repository_url`, the `https://` URL of a public repository on github.com (required), and `ref`, a branch name or a full 40-character commit SHA (optional). When `ref` is omitted or `null`, it defaults to the branch a synchronization would read, usually the repository's default branch. `validate_archive` takes `multipart/form-data` with exactly one part, `archive`, sent as a file part with a file name: a `.zip` of the marketplace directory, at most 32 MB, with its contents at the root or wrapped in one folder (as a Git host's download produces), DEFLATE or STORE compression only. No other form field is accepted.
 
 Validate a public repository at a branch:
 
@@ -2961,7 +2965,7 @@ Validate a public repository at a branch:
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "type": "plugin_marketplace_validation_report",
   "valid": false,
@@ -3163,7 +3167,7 @@ Error responses follow the standard shape documented in [Claude API errors](http
 
 When one status has several causes that you would handle differently, the error also carries `error.details.error_code`, and `error.details.plugin_id` or `error.details.plugin_version_id` when the cause involves one:
 
-```json
+```text wrap
 {
   "type": "error",
   "error": {
@@ -3184,8 +3188,9 @@ When one status has several causes that you would handle differently, the error 
 | `skill_name_taken`                              | 409    | The plugin is in the library marketplace and one of its skills has the same name as an organization skill (a skill an administrator uploaded for the whole organization in claude.ai). `details.skill_name` names it. Rename or remove one of them.                                                                                                                                                                                                                                                                                                             |
 | `registration_pending`                          | 503    | The files were stored, but the plugin's skills could not yet be made available to members. See [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads).                                                                                                                                                                                                                                                                                                                                                              |
 | `scan_pending`                                  | 409    | The version's content scan is still running. Retry once it finishes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `scan_failed`                                   | 400    | The version's content scan failed, errored, or reached no verdict, so it cannot be served. Choose another version.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `scan_failed`                                   | 400    | The version's content scan reads `fail` or `unknown`, or errored, so it cannot be served. Choose another version.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `cmek_key_disabled`, `cmek_key_network_blocked` | 400    | Your organization's customer-managed encryption key is unavailable. See [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/plugins-api#customer-managed-encryption-keys).                                                                                                                                                                                                                                                                                                                                                     |
+| `unsupported_charset`                           | 400    | On an upload or `validate_archive`, the request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1, or US-ASCII. Send the request with no charset, or with one of these.                                                                                                                                                                                                                                                                                                                                                                      |
 
 New codes may be added. Treat a code you do not recognize the way you treat its status.
 

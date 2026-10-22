@@ -224,7 +224,7 @@ When creating a deployment, you pass the [session configurations](https://platfo
 
 The response includes a deployment object with a populated `schedule.upcoming_runs_at` with the next upcoming fire times, to confirm your schedule was set correctly.
 
-```json
+```text wrap
 {
   "id": "depl_01xyz",
   "status": "active",
@@ -578,7 +578,7 @@ You can additionally filter on deployment runs with errors:
 
 A failed run includes an `error` with a `type` describing why session creation was rejected (for example, `environment_archived_error`, `agent_archived_error`, or `session_rate_limited_error`). See the [List Deployment Runs](https://platform.claude.com/docs/en/api/beta/deployment_runs/list) reference for all filter parameters and the response schema.
 
-```json
+```text
 {
   "type": "deployment_run",
   "id": "drun_01abc124",

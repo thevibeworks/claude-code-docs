@@ -277,10 +277,7 @@ A `page` cursor is opaque and encodes the `order` of the request that produced i
   ```bash CLI
   # --format raw returns one page envelope with its prev_page and next_page
   # cursors; the default output auto-paginates and emits only the sessions.
-  ant beta:sessions list \
-    --agent-id "$AGENT_ID" \
-    --limit 1 \
-    --format raw
+  ant beta:sessions list --agent-id "$AGENT_ID" --limit 1 --format raw
   # Pass next_page back as --page to fetch the next page, or prev_page to go back.
   ```
 
@@ -504,8 +501,7 @@ Archive a session to prevent new events from being sent while preserving its his
   ```
 
   ```bash CLI
-  ant beta:sessions archive \
-    --session-id "$SESSION_ID"
+  ant beta:sessions archive --session-id "$SESSION_ID"
   ```
 
   ```python Python
@@ -542,7 +538,7 @@ Archive a session to prevent new events from being sent while preserving its his
 
 ## Deleting a session
 
-Delete a session to permanently remove its record, events, and associated sandbox. A `running` session cannot be deleted; to delete one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`. If a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#while-a-run-is-open) is open, deleting might return a 400 error, even when the session is `idle`, or it might succeed. After a delete that succeeds, no `workflow_run` event reports the end of the session's runs. Before you delete, send a `user.message` that [asks the agent to stop its runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open), or wait until each run has ended. Then delete the session once it's `idle`.
+Deleting a session is permanent. It deletes the session's record, events, and associated sandbox. A `running` session cannot be deleted; to delete one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`. If a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#while-a-run-is-open) is open, deleting might return a 400 error, even when the session is `idle`, or it might succeed. After a delete that succeeds, no `workflow_run` event reports the end of the session's runs. Before you delete, send a `user.message` that [asks the agent to stop its runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open), or wait until each run has ended. Then delete the session once it's `idle`.
 
 Memory stores, vaults, skills, environments, and agents are independent resources and are not affected by session deletion. Files you uploaded through the Files API are also unaffected, but files the session itself produced are scoped to it and are permanently deleted along with its filesystem. Download anything you need to keep before deleting the session. An output file written at the end of the last turn can take a few seconds after the session goes idle to appear in the [session's file list](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files), so check that the files you expect are listed first.
 
@@ -555,8 +551,7 @@ Memory stores, vaults, skills, environments, and agents are independent resource
   ```
 
   ```bash CLI
-  ant beta:sessions delete \
-    --session-id "$SESSION_ID"
+  ant beta:sessions delete --session-id "$SESSION_ID"
   ```
 
   ```python Python

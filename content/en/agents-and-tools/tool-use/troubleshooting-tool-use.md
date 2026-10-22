@@ -12,7 +12,7 @@ Symptom-to-fix tables for the most common tool-use errors. Each fix cross-refere
 | ------------------------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Claude calls tool A when you wanted tool B | Description ambiguity                        | Sharpen descriptions. Differentiate tools by WHEN to use them, not only WHAT they do. See [Define tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools). |
 | Claude never calls your tool               | Tool name collision or overly generic schema | Check for duplicate names across your tool list. Add `input_examples` to make the intended use concrete.                                                                              |
-| Claude calls with wrong parameter types    | Model guessing at ambiguous schema           | Add `strict: true` (if your schema is in the supported subset) or add `input_examples`.                                                                                               |
+| Claude calls with wrong parameter types    | Ambiguous schema                             | Add `strict: true` (if your schema is in the supported subset) or add `input_examples`.                                                                                               |
 
 ## Claude invents tool parameters
 

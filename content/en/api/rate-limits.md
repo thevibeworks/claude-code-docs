@@ -46,7 +46,7 @@ Organizations on the Custom tier have no monthly spend cap; limits are arranged 
 
 Once you reach your tier's spend cap, API usage pauses until 00:00 UTC on the first day of the next month, unless you request a higher limit sooner. While usage is paused, API requests return HTTP 429:
 
-```json
+```text
 {
   "type": "error",
   "error": {
@@ -244,7 +244,7 @@ The response includes `anthropic-fast-*` headers that indicate your fast mode ra
 
 You can monitor your rate limit usage on the [Usage](https://platform.claude.com/usage) page of the [Claude Console](https://platform.claude.com/).
 
-In addition to providing token and request charts, the Usage page provides two separate rate limit charts. Use these charts to see what headroom you have to grow, identify when you might be hitting peak use, understand what rate limits to request, and learn how to improve your caching rates. The charts visualize a number of metrics for a given rate limit (for example, for each model):
+In addition to providing token and request charts, the **Usage** page provides two separate rate limit charts. Use these charts to see what headroom you have to grow, identify when you might be hitting peak use, understand what rate limits to request, and learn how to improve your caching rates. The charts visualize a number of metrics for a given rate limit (for example, for each model):
 
 * The **Rate Limit - Input Tokens** chart includes:
 

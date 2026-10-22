@@ -6,6 +6,26 @@
 
 > Release notes for Claude Desktop
 
+**v3.1623.1**
+
+Bundled Claude Code version: 2.1.304.
+
+**General**
+
+* No user-facing changes.
+
+**Code**
+
+* No user-facing changes.
+
+**Cowork**
+
+* No user-facing changes.
+
+**3P**
+
+* No user-facing changes.
+
 **v3.1623.0**
 
 Bundled Claude Code version: 2.1.304.
@@ -52,6 +72,7 @@ Bundled Claude Code version: 2.1.304.
 * Added `quickEntryDefaultShortcut`, which sets the Quick Entry shortcut, or `off` for none, for users who have not chosen their own in Settings.
 * Added `releaseChannel`. Set it to `staggered` to have devices update to releases that Anthropic marks after they have fully rolled out on `stable`; those devices skip the releases in between, and fixes reach them later.
 * Added an optional `icon` to remote and local `managedMcpServers` entries, a PNG or JPEG image as a base64 `data:` URI of up to 4,096 characters, shown so users can tell connectors apart.
+* Added nested sessions to local and SSH sessions in the Code tab: Claude can start a task in a separate session, which appears under the original session in the sidebar and reports back to it. Each nested session sends its own requests to your inference provider.
 * Added the new Code tab: the New session page with saved environments (folders and SSH hosts), the session rail, sidebar grouping by environment, and the pickers under the message box. Anthropic-hosted cloud environments, Remote Control, voice input and worktrees for extra folders remain unavailable.
 * Added to Code tab sessions Claude's plan and a next-step box at the end of a turn, suggested next actions, `/btw` side chats in a pane, and permission requests, questions and suggested tasks shown in the conversation.
 * (breaking) Changed `sshHostAllowlist` (beta) to also cover a session's jump hosts: each `ProxyJump` host, and the host in a `ProxyCommand` written `ssh -W %h:%p host`, must be on the list by its `HostName`. The error on a refused session names the host to add.

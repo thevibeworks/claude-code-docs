@@ -115,7 +115,7 @@ A vault is the collection of `credentials` associated with an end user. Give it 
 
 The response is the full vault record:
 
-```json
+```text wrap
 {
   "type": "vault",
   "id": "vlt_01ABC...",
@@ -693,7 +693,7 @@ To get the same behavior with a self-hosted sandbox, you can run your own proxy 
 
     The credential's `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) controls which parts of an outbound request the secret is substituted into. It is an optional object, a sibling of `networking` (csharp, go: `Networking`), with two Boolean fields: `header` (csharp, go: `Header`) (request headers) and `body` (csharp, go: `Body`) (request body). `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) is independent of `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) in `networking` (csharp, go: `Networking`): `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) scopes which hosts the secret is substituted for, and `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) scopes which parts of the request it is substituted into.
 
-    `injection_location` behaves differently on create and on update:
+    `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) behaves differently on create and on update:
 
     | Operation         | `injection_location` behavior                                                                                                                                                              |
     | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -708,7 +708,7 @@ To get the same behavior with a self-hosted sandbox, you can run your own proxy 
       Credentials created in the Claude Console enable header injection only. If your client sends the secret in the request body, such as a form-encoded token request, the placeholder passes through literally and the service rejects it with its own authentication error. Enable body injection in the Console form when you create the credential, or update the credential with `{"injection_location": {"body": true}}`.
     </Note>
 
-    The substitution happens at egress, not inside the sandbox. Anything that processes the credential locally sees the opaque placeholder, not the real value: clients that validate the credential format at startup might reject it, and clients that compute a request signature from the secret (for example, AWS SigV4) produce an invalid signature. Environment variable credentials work for clients that send the secret value verbatim in an outbound request, in a location the credential's `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) enables.
+    The substitution occurs at egress, not inside the sandbox. Anything that processes the credential locally sees the opaque placeholder, not the real value: clients that validate the credential format at startup might reject it, and clients that compute a request signature from the secret (for example, AWS SigV4) produce an invalid signature. Environment variable credentials work for clients that send the secret value verbatim in an outbound request, in a location the credential's `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) enables.
 
     Substitution is outbound only. If a client uses the stored secret to fetch a session token (for example, an OAuth client-credentials grant), the returned token arrives in the sandbox unredacted. For exchange-based flows, perform the exchange yourself and store the resulting token in the vault instead.
 
@@ -1070,7 +1070,7 @@ The top-level `status` (csharp, go: `Status`) tells you what to do next:
 
 The response is a `vault_credential_validation` object. `mcp_probe` includes the failed MCP handshake step; `refresh` includes the outcome of the attempted refresh.
 
-```json
+```text wrap
 {
   "type": "vault_credential_validation",
   "credential_id": "vcrd_01ABC...",

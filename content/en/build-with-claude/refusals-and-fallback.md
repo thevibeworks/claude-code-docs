@@ -152,7 +152,7 @@ The following sections cover what a refusal response contains, when to use serve
 
 A refusal is a successful HTTP 200 response with `stop_reason: "refusal"`:
 
-```json
+```text
 {
   "id": "msg_01XFUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -645,7 +645,7 @@ The response looks like any other message, with two additions:
 
 On a refusal before any output, the `fallback` block is the first content block. For example, when default routing selects Claude Opus 4.8 for the refusal's category:
 
-```json
+```text wrap
 {
   "id": "msg_01XFUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -756,7 +756,7 @@ The SDK includes a refusal-fallback middleware. You configure it once on the cli
 
 ### Setting it up
 
-Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware`; go: `betafallback.BetaRefusalFallbackMiddleware`; csharp: `BetaRefusalFallbackHandler`; java: `BetaRefusalFallbackInterceptor`; php: `RefusalFallbackMiddleware`) to the client constructor, and share one `BetaFallbackState` instance across the requests of a conversation.
+Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware`; go: `betafallback.BetaRefusalFallbackMiddleware`; csharp: `BetaRefusalFallbackHandler`; java: `BetaRefusalFallbackInterceptor`; php: `RefusalFallbackMiddleware`) to the client constructor, and share one `BetaFallbackState` (go: `betafallback.BetaFallbackState`) instance across the requests of a conversation.
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -1102,7 +1102,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
 * When every model in the list has declined, the middleware returns the final refusal (the last model's refusal response) rather than raising an error.
 * Thinking blocks from Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, or Claude Fable 5 pass through unchanged. Each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself. The fallback model can't read Claude Fable 5.1 blocks, which only [Claude Fable 5.1 and Claude Mythos 5.1 read](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), so the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud. Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Google Cloud, and the API drops them for a fallback model that can't read them.
 * Responses served through the middleware include a `fallback` content block at each model boundary, the same as server-side fallback responses. The middleware manages those blocks for you on later requests.
-* The model that accepted is recorded in `BetaFallbackState`, so follow-up requests that share the state stay pinned to it rather than re-asking a model that refused.
+* The model that accepted is recorded in `BetaFallbackState` (go: `betafallback.BetaFallbackState`), so follow-up requests that share the state stay pinned to it rather than re-asking a model that refused.
 
 <Note>
   The middleware and the server-side `fallbacks` parameter do the same job. Configure one or the other, never both on the same request. To send a server-side `fallbacks` request from an application that installs the middleware, use a separate client instance without it.

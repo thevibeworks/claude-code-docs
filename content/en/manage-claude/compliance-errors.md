@@ -12,7 +12,7 @@ This page lists common Compliance API error responses by HTTP status code, with 
 
 The Compliance API returns errors in the standard [Anthropic error format](https://platform.claude.com/docs/en/api/errors): a non-2xx status code, a `request-id` response header, and a JSON body with an `error` object containing `type` and `message`. Include the `request-id` header value when you escalate to support.
 
-```json
+```text
 {
   "error": {
     "type": "permission_error",
@@ -423,7 +423,7 @@ Once your API key authenticates, Compliance API responses report the shared budg
 
 A 429 response also carries a `retry-after` header with the number of seconds to wait before sending the next request. This value might include a small safety margin beyond `anthropic-ratelimit-requests-reset`; honor `retry-after`.
 
-```http
+```text wrap
 HTTP/1.1 429 Too Many Requests
 date: Tue, 21 Apr 2026 14:38:02 GMT
 retry-after: 25
@@ -432,7 +432,7 @@ anthropic-ratelimit-requests-remaining: 0
 anthropic-ratelimit-requests-reset: 2026-04-21T14:38:25Z
 ```
 
-```json
+```text
 {
   "error": {
     "type": "rate_limit_error",

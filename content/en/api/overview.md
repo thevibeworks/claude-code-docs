@@ -14,7 +14,7 @@ The Claude API is a RESTful API at `https://api.anthropic.com` that provides pro
 
 To use the Claude API, you'll need:
 
-* A [Claude Console account](https://platform.claude.com)
+* A [Claude Console account](https://platform.claude.com/)
 * An [API key](https://platform.claude.com/settings/keys) from the Console, or a configured [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rule
 
 For step-by-step setup instructions, see [Get started](https://platform.claude.com/docs/en/get-started).
@@ -163,7 +163,7 @@ The API enforces rate limits and spend limits to prevent misuse and manage capac
 * **Spend limits:** Maximum monthly cost for API usage
 * **Rate limits:** Maximum number of requests per minute (RPM) and tokens per minute (TPM)
 
-In the Console, you can view your rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page and your spend limits on the [Billing](https://platform.claude.com/settings/billing) page. For higher rate limits or a higher monthly spend cap, use **Request tier increase** on the **Rate limits** page.
+You can view your rate limits under [Rate limits in the Claude Console](https://platform.claude.com/usage/limits) and your spend limits on the Console's [Billing](https://platform.claude.com/settings/billing) page. For higher rate limits or a higher monthly spend cap, use **Request tier increase** on the **Rate limits** page.
 
 For detailed information about limits, tiers, and the token bucket algorithm used for rate limiting, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
 

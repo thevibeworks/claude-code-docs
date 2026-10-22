@@ -41,7 +41,7 @@ In an interactive terminal, `ant apply` prints the plan and waits for your appro
 First apply  ./claude-lock.json does not exist yet and will be created
 
 Resources will be created with
-  credentials   API key (--api-key / ANTHROPIC_API_KEY)
+  credentials   API key (ANTHROPIC_API_KEY)
   host          api.anthropic.com
   organization  1b0c2a4d-6c1f-4f0e-9a57-2e8d1c3b4a5f
   workspace     wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ

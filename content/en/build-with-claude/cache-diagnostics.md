@@ -973,7 +973,7 @@ The `diagnostics` field on the response `Message` has three possible values:
 
 When `cache_miss_reason` is non-null, it looks like this:
 
-```json
+```text wrap
 {
   "id": "msg_01Xyz...",
   "type": "message",

@@ -31,7 +31,7 @@ A subagent's previews appear on [that subagent's own thread stream](https://plat
 
 When a previewed event starts, the stream emits an `event_start` carrying the upcoming event's type and `id`:
 
-```json
+```text wrap
 {
   "type": "event_start",
   "event": {
@@ -43,7 +43,7 @@ When a previewed event starts, the stream emits an `event_start` carrying the up
 
 For `agent.message`, the start is followed by `event_delta` events carrying incremental text. Each delta names the event it extends in `event_id` and the content block it extends in `delta.index`:
 
-```json
+```text wrap
 {
   "type": "event_delta",
   "event_id": "sevt_01abc...",
@@ -68,7 +68,7 @@ Unlike persisted events, `event_start` and `event_delta` have no `id` or `proces
 
 ## Accumulate and reconcile
 
-Every SDK that supports event deltas includes an [accumulator helper](https://platform.claude.com/docs/en/managed-agents/event-deltas#sdk-accumulator-helpers) that handles the `index` bookkeeping for you. The manual pattern in this section works in every language when you need custom bookkeeping. Apply it to the generated event types.
+Every SDK that supports event deltas includes an [accumulator helper](https://platform.claude.com/docs/en/managed-agents/event-deltas#sdk-accumulator-helpers) that handles the `index` (csharp, go: `Index`) bookkeeping for you. The manual pattern in this section works in every language when you need custom bookkeeping. Apply it to the generated event types.
 
 In the manual pattern, hold preview text in a temporary map keyed by `(event_id, index)`, and treat the buffered event as the record. Reconcile the two for each model request.
 
@@ -580,7 +580,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
 
   ```bash CLI
   # The thread stream takes the same event_deltas parameter as the session stream,
-  # one --event-delta flag per event type to preview.
+  # one --event-delta flag for each event type to preview.
   ant beta:sessions:threads:events stream \
     --session-id "$SESSION_ID" \
     --thread-id "$THREAD_ID" \

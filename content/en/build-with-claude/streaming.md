@@ -126,7 +126,7 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
   client = Anthropic::Client.new
 
   stream = client.messages.stream(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello" }]
   )
@@ -141,7 +141,7 @@ If you don't need to process text as it arrives, the SDK provides a way to use s
 
 <CodeGroup exclude="shell:cURL">
   ```bash CLI
-  # The ant CLI's --stream flag emits one event per line and does not
+  # The ant CLI's --stream flag emits one event on each line and does not
   # accumulate into a final Message. For long generations, stream the
   # raw events:
   ant messages create --stream --format jsonl <<'YAML'
@@ -273,7 +273,7 @@ If you don't need to process text as it arrives, the SDK provides a way to use s
   client = Anthropic::Client.new
 
   message = client.messages.stream(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 128000,
     messages: [{ role: "user", content: "Write a detailed analysis..." }]
   ).accumulated_message
@@ -309,7 +309,7 @@ Event streams might also include any number of `ping` events.
 
 The API might occasionally send [errors](https://platform.claude.com/docs/en/api/errors) in the event stream. For example, during periods of high usage, you might receive an `overloaded_error`, which would normally correspond to an HTTP 529 in a non-streaming context:
 
-```sse Example error
+```text Example error
 event: error
 data: {"type": "error", "error": {"type": "overloaded_error", "message": "Overloaded"}}
 ```
@@ -326,7 +326,7 @@ Each `content_block_delta` event contains a `delta` of a type that updates the `
 
 A `text` content block delta looks like:
 
-```sse Text delta
+```text Text delta
 event: content_block_delta
 data: {"type": "content_block_delta","index": 0,"delta": {"type": "text_delta", "text": "ello frien"}}
 ```
@@ -339,7 +339,7 @@ You can accumulate the string deltas and parse the JSON once you receive a `cont
 
 A `tool_use` content block delta looks like:
 
-```sse Input JSON delta
+```text Input JSON delta
 event: content_block_delta
 data: {"type": "content_block_delta","index": 1,"delta": {"type": "input_json_delta","partial_json": "{\"location\": \"San Fra"}}}
 ```
@@ -348,7 +348,7 @@ Note: Current models only support emitting one complete key and value property f
 
 ### Thinking delta
 
-When using [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking) with streaming enabled, you'll receive thinking content through `thinking_delta` events. These deltas correspond to the `thinking` field of the `thinking` content blocks.
+When using [thinking with streaming enabled](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking), you'll receive thinking content through `thinking_delta` events. These deltas correspond to the `thinking` field of the `thinking` content blocks.
 
 For thinking content, a special `signature_delta` event is sent just before the `content_block_stop` event. This signature is used to verify the integrity of the thinking block.
 
@@ -356,14 +356,14 @@ When `display: "omitted"` is set on the thinking configuration, no thinking text
 
 A typical thinking delta looks like:
 
-```sse Thinking delta
+```text Thinking delta
 event: content_block_delta
 data: {"type": "content_block_delta", "index": 0, "delta": {"type": "thinking_delta", "thinking": "I need to find the GCD of 1071 and 462 using the Euclidean algorithm.\n\n1071 = 2 × 462 + 147"}}
 ```
 
 The signature delta looks like:
 
-```sse Signature delta
+```text Signature delta
 event: content_block_delta
 data: {"type": "content_block_delta", "index": 0, "delta": {"type": "signature_delta", "signature": "EqQBCgIYAhIM1gbcDa9GJwZA2b3hGgxBdjrkzLoky3dl1pkiMOYds..."}}
 ```
@@ -521,7 +521,7 @@ There might be `ping` events dispersed throughout the response as well. See [Eve
   client = Anthropic::Client.new
 
   stream = client.messages.stream(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     messages: [{ role: "user", content: "Hello" }],
     max_tokens: 256
   )
@@ -530,7 +530,7 @@ There might be `ping` events dispersed throughout the response as well. See [Eve
   ```
 </CodeGroup>
 
-```sse Response
+```text Response
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_1nZdL29xx5MUA1yADyHTEsnR8uuvGzszyY", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null, "usage": {"input_tokens": 25, "output_tokens": 1}}}
 
@@ -859,7 +859,7 @@ This request asks Claude to use a tool to report the weather.
   ]
 
   stream = client.messages.stream(
-    model: "claude-opus-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5,
     max_tokens: 1024,
     tools: tools,
     tool_choice: { type: "any" },
@@ -872,7 +872,7 @@ This request asks Claude to use a tool to report the weather.
   ```
 </CodeGroup>
 
-```sse Response
+```text Response
 event: message_start
 data: {"type":"message_start","message":{"id":"msg_014p7gG3wDgGV9EUtLvnow3U","type":"message","role":"assistant","model":"claude-opus-5","stop_sequence":null,"usage":{"input_tokens":472,"output_tokens":2},"content":[],"stop_reason":null}}
 
@@ -1165,7 +1165,7 @@ This request enables thinking with streaming. The `display: "summarized"` settin
   ```
 </CodeGroup>
 
-```sse Response
+```text Response
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_01...", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null}}
 
@@ -1375,7 +1375,7 @@ This request asks Claude to search the web for current weather information.
   client = Anthropic::Client.new
 
   stream = client.messages.stream(
-    model: :"claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     tools: [
       {
@@ -1396,7 +1396,7 @@ This request asks Claude to search the web for current weather information.
   ```
 </CodeGroup>
 
-```sse Response
+```text Response
 event: message_start
 data: {"type":"message_start","message":{"id":"msg_01G...","type":"message","role":"assistant","model":"claude-opus-5-5","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":2679,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":3}}}
 

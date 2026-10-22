@@ -20,7 +20,7 @@ Generally, if you are using the API as documented in this reference, Anthropic w
 
 ## Version history
 
-Anthropic recommends using the latest API version whenever possible. Previous versions are considered deprecated and may be unavailable for new users.
+Anthropic recommends using the latest API version whenever possible.
 
 * `2026-10-21`
 

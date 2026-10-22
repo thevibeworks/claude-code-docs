@@ -235,7 +235,7 @@ do {
 } catch ClaudeError.missingCredential {
   // Prompt for an API key.
 } catch let error as LanguageModelError {
-  // Framework-shaped errors (rate limits, guardrails, context length, decoding).
+  // Framework-shaped errors (rate limits, guardrails, context-window overflow, decoding).
 } catch {
   // Transport errors.
 }

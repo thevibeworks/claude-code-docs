@@ -125,7 +125,7 @@ Here's a minimal example using a server tool, the [Web search tool](https://plat
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     tools: [{ type: "web_search_20260209", name: "web_search" }],
     messages: [{ role: "user", content: "What's the latest on the Mars rover?" }]
@@ -587,7 +587,7 @@ Here's that round trip in full for a client tool. The first request defines a `g
 
   # Claude replies with a tool_use block naming the tool and its arguments.
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     tools: tools,
     # Ask for at most one tool call per turn.
@@ -609,7 +609,7 @@ Here's that round trip in full for a client tool. The first request defines a `g
     }
   ]
   followup = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     tools: tools,
     tool_choice: {type: "auto", disable_parallel_tool_use: true},
@@ -627,7 +627,7 @@ Claude called get_weather with {"location": "San Francisco, CA"}
 The current weather in San Francisco is 15 degrees Celsius with partly cloudy skies.
 ```
 
-[Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) covers each step in detail, including result formatting and error signaling; [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use) covers responses that call several tools at once. To skip writing this round trip yourself, use [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner): the SDK runs your tools and sends the results back automatically.
+[Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) covers each step in detail, including result formatting and error signaling; [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use) covers responses that call several tools at once. To skip writing this round trip yourself, use the [tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner): the SDK runs your tools and sends the results back automatically.
 
 For the full conceptual model including the agentic loop and when to choose each approach, see [How tool use works](https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works).
 
@@ -654,7 +654,7 @@ Each server tool's page describes its own trigger boundary in more detail.
 
   For example, given a `get_weather` tool that requires a `location` parameter, if you ask Claude "What's the weather?" without specifying a location, Claude (particularly Claude Sonnet) might guess values you didn't supply:
 
-  ```json JSON
+  ```text JSON wrap
   {
     "type": "tool_use",
     "id": "toolu_01A09q90qw90lq917835lq9",
@@ -791,7 +791,7 @@ See the [Models overview](https://platform.claude.com/docs/en/models/overview#la
 
 When you send a tool use prompt, like any other API request, the response includes both input and output token counts in the reported `usage` metrics.
 
-Some server tools add usage-based charges on top of tokens: see [Web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#usage-and-pricing) and [Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#usage-and-pricing) for their rates.
+Some server tools add usage-based charges on top of tokens: see [Web search tool usage and pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#usage-and-pricing) and [Code execution tool usage and pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#usage-and-pricing) for their rates.
 
 ## Next steps
 

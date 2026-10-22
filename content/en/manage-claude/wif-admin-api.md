@@ -471,7 +471,7 @@ Archive a service account:
 
 The create endpoint returns the new service account:
 
-```json
+```text wrap
 {
   "id": "svac_...",
   "name": "inference-worker",
@@ -1242,7 +1242,7 @@ Archive a rule:
 
 The list endpoint returns a page of rules and the cursor for the next page:
 
-```json
+```text wrap
 {
   "data": [{ "id": "fdrl_...", "name": "gha-deploy", "...": "..." }],
   "next_page": "..."

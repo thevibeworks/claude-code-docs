@@ -222,8 +222,8 @@ Fast mode is priced at a multiplier on standard rates across the full context wi
 
 Fast mode pricing stacks with other pricing modifiers:
 
-* [Prompt caching multipliers](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) apply on top of fast mode pricing
-* [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) multipliers apply on top of fast mode pricing
+* [Prompt caching multipliers](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) apply on top of fast mode pricing.
+* [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) multipliers apply on top of fast mode pricing.
 
 For complete pricing details, see the [Pricing](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing) page.
 
@@ -373,7 +373,7 @@ The response `usage` object includes a `speed` field that indicates which speed 
   ```
 </CodeGroup>
 
-```json Output
+```text Output wrap
 {
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",

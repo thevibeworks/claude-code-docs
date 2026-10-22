@@ -23,7 +23,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json Response
+```text Response wrap
 {
   "data": [
     {

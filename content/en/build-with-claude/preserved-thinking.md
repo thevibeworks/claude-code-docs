@@ -53,7 +53,7 @@ Keep sending the full history on every request, thinking blocks included, and le
 
 With the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers), the response lists each dropped block in a top-level `input_transformations` array with `reason: "model_binding_mismatch"`:
 
-```json
+```text wrap
 {
   "input_transformations": [
     {
@@ -116,7 +116,7 @@ If the request didn't send the beta header, the message continues:
 That setting requires the `thinking-binding-controls-2026-08-01` value in the `anthropic-beta` header.
 ```
 
-It usually ends with a sentence naming what changed, for example that the `system` prompt or the `tools` list differs from when the block was created. [Troubleshooting thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-block-signature) describes what that sentence can name.
+It usually ends with a sentence naming what changed, for example that the `system` prompt or the `tools` list differs from when the block was created. For what that sentence can name, see [A 400 error says a thinking block signature is invalid](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-block-signature) in Troubleshooting thinking.
 
 A tampered or undecryptable signature is a different failure. It always returns a 400 (``Invalid `signature` in `thinking` block`` with no sentence about the conversation), and `prefix_mismatch_behavior` doesn't apply to it.
 
@@ -716,7 +716,7 @@ Neither turn drops a block because nothing earlier changed. Check that the first
 
 Log `input_transformations` on every turn of your own integration. When the API drops a block, the entry looks like the following:
 
-```json
+```text wrap
 {
   "input_transformations": [
     {
@@ -746,7 +746,7 @@ Two plain turns rarely show the problem. Run a session through each of the follo
 
 On an older account, you can also watch production traffic without opting into enforcement: send the beta header, leave `block_binding` out, and log `input_transformations`. Sending the header alone doesn't change what the model receives. Every thinking block that comes after the content you edited fails the check and gets its own `thinking_mismatch_allowed` entry, with the same `path` and `reason` fields as a `thinking_dropped` entry. Blocks before the edit still pass. An edit to `system` or `tools` comes before every block, so it fails every thinking block in the request. One entry looks like this:
 
-```json
+```text wrap
 {
   "input_transformations": [
     {
@@ -1107,7 +1107,7 @@ Once sent, that text block is part of the prefix for later thinking: leave it in
 
 ### Send per-turn reminders as turn-scoped system messages
 
-A common prefix edit is the per-turn nudge: a line such as "request independent reads together" or "you haven't updated the user in a while" that your code appends after each batch of tool results. To keep reminders from piling up, send each nudge as a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) with `clear_at: "next_user_message"`, placed after the `tool_result` user message. `clear_at` requires the beta header `mid-conversation-system-clear-at-2026-08-21`. The following `messages` array is the request after two tool calls and their results. `messages[3]` is the previous request's nudge, left in place, and `messages[6]` is this request's copy:
+A common prefix edit is the per-turn nudge: a line such as "request independent reads together" or "you haven't updated the user in a while" that your code appends after each batch of tool results. To keep reminders from piling up, send each nudge as a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions) with `clear_at: "next_user_message"`, placed after the `tool_result` user message. `clear_at` requires the beta header `mid-conversation-system-clear-at-2026-08-21`. The following `messages` array is the request after two tool calls and their results. `messages[3]` is the previous request's nudge, left in place, and `messages[6]` is this request's copy:
 
 ```json
 [
@@ -1165,7 +1165,7 @@ Editing the `tools` array mid-session invalidates preserved thinking blocks. Lea
 
 You have two ways to use these blocks:
 
-* **Declare every tool up front.** Put every tool the session might need in `tools` on the first request, with `defer_loading: true` on any that shouldn't be offered to the model yet. Then turn tools on and off with `tool_addition` and `tool_removal` blocks that name them.
+* **Declare every tool up front.** Put every tool the session might need in `tools` on the first request, with `defer_loading: true` on any that you don't want to offer to the model yet. Then turn tools on and off with `tool_addition` and `tool_removal` blocks that name them.
 * **Start with a snapshot and add tools as you go.** Put the tools you know about in `tools` on the first request. When you learn about another tool, define it inside a `tool_addition` block instead of editing `tools`.
 
 Either way, `tools` never changes, so earlier thinking stays valid and the prompt cache still hits, with the one exception noted later in this section.
@@ -1475,7 +1475,7 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
 
 The response carries the new assistant turn as usual, plus one `input_transformations` entry for each dropped block. For the history in the diagram, that's the thinking on assistant turns 3 and 4:
 
-```json
+```text wrap
 {
   "input_transformations": [
     {
@@ -1544,7 +1544,7 @@ A library, proxy, or gateway sits between someone else's history and the API, so
   </Accordion>
 
   <Accordion title="How do I handle instruction files such as AGENTS.md or CLAUDE.md that change mid-session?">
-    Load them once at session start and keep the top-level `system` prompt and `tools` fixed. When a file changes, append the new version at that point in `messages` instead of editing the original. Use a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) for instructions that come from you as the operator. For file text you treat as untrusted, which shouldn't carry system-prompt authority, put the content in the next `user` turn instead. See [Add instructions with a mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions) and [Limitations](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations).
+    Load them once at session start and keep the top-level `system` prompt and `tools` fixed. When a file changes, append the new version at that point in `messages` instead of editing the original. Use a mid-conversation system message for instructions that come from you as the operator. For file text you treat as untrusted, which shouldn't carry system-prompt authority, put the content in the next `user` turn instead. See [Add instructions with a mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions) and [Limitations](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations).
   </Accordion>
 
   <Accordion title="Can I resume a saved session later, after a restart or the next day?">

@@ -184,7 +184,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.0.0
+        VERSION=2.1.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;
@@ -313,7 +313,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
           "environment_id": "'"$ANTHROPIC_ENVIRONMENT_ID"'"
         }'
 
-      # Send it a task: SESSION_ID is the id from the create response
+      # Send it a task: SESSION_ID is the ID from the create response
       curl -sS --fail-with-body "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
@@ -340,7 +340,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
         --agent "$AGENT_ID" \
         --environment-id "$ANTHROPIC_ENVIRONMENT_ID"
 
-      # Send it a task: SESSION_ID is the id from the create response
+      # Send it a task: SESSION_ID is the ID from the create response
       ant beta:sessions:events send --session-id "$SESSION_ID" <<'YAML'
       events:
         - type: user.message
@@ -551,7 +551,7 @@ These pages describe how to build a worker on any sandboxing platform. Platform-
     Run the SDK worker, trigger workers from webhooks, or give each session its own sandbox.
   </Card>
 
-  <Card title="Memory stores" icon="brain" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory">
+  <Card title="Memory stores in self-hosted sandboxes" icon="brain" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory">
     Prepare the host, configure sync, and handle read-only stores and conflicts.
   </Card>
 

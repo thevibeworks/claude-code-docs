@@ -12,10 +12,10 @@ Every organization has a **Default Workspace** that cannot be renamed, archived,
 
 Key characteristics:
 
-* **Workspace identifiers** use the `wrkspc_` prefix (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`)
-* **Maximum 100 workspaces** for each organization by default (archived workspaces don't count); contact your account team if you need more
-* **Default Workspace** has a `wrkspc_` ID like any other workspace (returned in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response) and accepted by [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve)), but it appears in [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) results only when you pass `include_default=true`, and usage reports and cost reports show `null` for its `workspace_id` (an API key's `scope` field carries the real ID for a key bound to the Default Workspace)
-* **API keys** can be scoped to a single workspace. In this case, they can only access resources within that workspace. Other API keys aren't scoped to a workspace. With one of these keys, send a [workspace ID header](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) on each request to choose the workspace. The key's user or service account must have access to that workspace
+* **Workspace identifiers** use the `wrkspc_` prefix (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`).
+* **Maximum 100 workspaces** for each organization by default (archived workspaces don't count). Contact your account team if you need more.
+* **Default Workspace** has a `wrkspc_` ID like any other workspace (returned in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response) and accepted by [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve)), but it appears in [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) results only when you pass `include_default=true`, and usage reports and cost reports show `null` for its `workspace_id` (an API key's `scope` field carries the real ID for a key bound to the Default Workspace).
+* **API keys** can be scoped to a single workspace. In this case, they can only access resources within that workspace. Other API keys aren't scoped to a workspace. With one of these keys, send a [workspace ID header](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) on each request to choose the workspace. The key's user or service account must have access to that workspace.
 
 ### Claude Code workspace
 
@@ -25,7 +25,7 @@ The Claude Code workspace keeps Claude Code traffic separate from your other API
 
 * Claude Code mints a per-user API key in this workspace at sign-in. You cannot create keys in it manually from the Console.
 * A Claude Code key stops working if its owner is removed from the workspace or organization, unlike a workspace key.
-* Claude Code usage is rate-limited separately, and admins can cap its share of the organization's limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console.
+* Claude Code usage is rate-limited separately, and admins can cap its share of the organization's limits under [Rate limits in the Claude Console](https://platform.claude.com/usage/limits).
 * It is the only workspace that supports per-user monthly spend limits.
 
 <Warning>
@@ -122,7 +122,7 @@ To modify a workspace's name or color:
 
 You set a workspace's rate limits and spend limits in different places:
 
-* **Rate limits:** On the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu and click **Edit** next to a model to set limits for requests per minute, input tokens, or output tokens.
+* **Rate limits:** Under [Rate limits in the Claude Console](https://platform.claude.com/usage/limits), select the workspace from the **Workspace** dropdown menu and click **Edit** next to a model to set limits for requests per minute, input tokens, or output tokens.
 * **Spend limits:** On the [Workspaces](https://platform.claude.com/settings/workspaces) page in the Claude Console, select the workspace. In the panel that opens, click **Spend limits** to cap monthly spending and configure alerts when spending reaches certain thresholds.
 
 #### Archive a workspace
@@ -362,7 +362,8 @@ Archive a workspace:
   ```
 
   ```bash CLI
-  ant organization:workspaces archive --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ
+  ant organization:workspaces archive \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ
   ```
 
   ```python Python
@@ -848,7 +849,7 @@ To look up your organization's workspace IDs, call the [List Workspaces](https:/
 
 Claude API responses include an `anthropic-workspace-id` header alongside the `request-id` and `anthropic-organization-id` [response headers](https://platform.claude.com/docs/en/api/overview#response-headers). Its value is the `wrkspc_`-prefixed ID of the workspace that the request's API key or access token resolved to, including when that workspace is the Default Workspace. For example, a successful response includes headers like these:
 
-```http
+```text wrap
 HTTP/1.1 200 OK
 request-id: req_018EeWyXxfu5pfWkrYcMdjWG
 anthropic-organization-id: 0d0e7a3b-52f1-4c7e-9a51-3f6f2f7c1b9e
@@ -1022,7 +1023,7 @@ You can set custom spend and rate limits for each workspace to protect against o
 You can set workspace limits lower than (but not higher than) your organization's limits:
 
 * **Spend limits:** Cap monthly spending for a workspace. To set these, go to the [Workspaces](https://platform.claude.com/settings/workspaces) page (`platform.claude.com/settings/workspaces`) in the Claude Console and select the workspace. In the panel that opens, click **Spend limits**.
-* **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
+* **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to [Rate limits in the Claude Console](https://platform.claude.com/usage/limits), select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>
   - You cannot set spend limits on the Default Workspace.

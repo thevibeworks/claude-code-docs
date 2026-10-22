@@ -266,7 +266,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
   image_data = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC"
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [
       {
@@ -575,8 +575,7 @@ For images you'll use repeatedly or when you want to avoid encoding overhead, us
     https://platform.claude.com/docs/images/vision-example.jpg
 
   # First, upload your image to the Files API
-  ant files upload \
-    --file ./vision-example.jpg
+  ant files upload --file ./vision-example.jpg
 
   # Then use the file_id from the upload response in your message
   ant messages create <<YAML
@@ -1177,7 +1176,7 @@ You can include multiple images in a single request, and Claude analyzes them jo
   image2_data = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGNgYPgPAAEDAQAIicLsAAAAAElFTkSuQmCC"
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [
       {
@@ -1253,8 +1252,8 @@ Each model has a maximum native image resolution, expressed as a long-edge limit
 
 | Resolution tier | Models                      | Max long edge | Max visual tokens |
 | --------------- | --------------------------- | ------------- | ----------------- |
-| High-resolution | Claude 4.7 and later models | 2576 px       | 4784              |
-| Standard        | All other models            | 1568 px       | 1568              |
+| High-resolution | Claude 4.7 and later models | 2,576 px      | 4,784             |
+| Standard        | All other models            | 1,568 px      | 1,568             |
 
 High-resolution support is automatic on the listed models and requires no beta header or client-side opt-in.
 
@@ -1263,11 +1262,11 @@ The following table shows the downsized resolution and visual-token cost for sev
 | Image size                     | Standard tier: downsized to | Standard tier: tokens | High-resolution tier: downsized to | High-resolution tier: tokens |
 | ------------------------------ | --------------------------- | --------------------- | ---------------------------------- | ---------------------------- |
 | 200x200 px (0.04 megapixels)   | Not resized                 | 64                    | Not resized                        | 64                           |
-| 1000x1000 px (1 megapixel)     | Not resized                 | 1296                  | Not resized                        | 1296                         |
-| 1092x1092 px (1.19 megapixels) | Not resized                 | 1521                  | Not resized                        | 1521                         |
-| 1920x1080 px (2.07 megapixels) | 1456x819 px                 | 1560                  | Not resized                        | 2691                         |
-| 2000x1500 px (3 megapixels)    | 1269x952 px                 | 1564                  | Not resized                        | 3888                         |
-| 3840x2160 px (8.29 megapixels) | 1456x819 px                 | 1560                  | 2576x1449 px                       | 4784                         |
+| 1000x1000 px (1 megapixel)     | Not resized                 | 1,296                 | Not resized                        | 1,296                        |
+| 1092x1092 px (1.19 megapixels) | Not resized                 | 1,521                 | Not resized                        | 1,521                        |
+| 1920x1080 px (2.07 megapixels) | 1456x819 px                 | 1,560                 | Not resized                        | 2,691                        |
+| 2000x1500 px (3 megapixels)    | 1269x952 px                 | 1,564                 | Not resized                        | 3,888                        |
+| 3840x2160 px (8.29 megapixels) | 1456x819 px                 | 1,560                 | 2576x1449 px                       | 4,784                        |
 
 When an image is downsized, Claude scales it to the largest size that fits the tier's limits while preserving its aspect ratio. This caps the token cost. For the precise rule and a reference implementation, see [How Claude resizes and pads images](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images).
 
@@ -1335,7 +1334,7 @@ Always carefully review and verify Claude's image interpretations, especially fo
     No. Image uploads are ephemeral and not stored beyond the duration of the API request. Uploaded images are automatically deleted after they have been processed.
   </Accordion>
 
-  <Accordion title="Where are the details on data privacy for image uploads?">
+  <Accordion title="Where can I find details on data privacy for image uploads?">
     Refer to the Anthropic privacy policy page for information on how uploaded images and other data are handled. Anthropic does not use uploaded images to train models.
   </Accordion>
 

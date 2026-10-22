@@ -673,7 +673,7 @@ Use this path when your workload runs in an AKS pod. Entra Workload Identity fed
   </Step>
 
   <Step title="Create the annotated Kubernetes service account">
-    The `azure-workload-identity` webhook reads the `azure.workload.identity/client-id` annotation to inject `AZURE_CLIENT_ID` into the pod, which the samples in [Acquire and use the token](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) read from the environment.
+    The `azure-workload-identity` webhook reads the `azure.workload.identity/client-id` annotation to inject `AZURE_CLIENT_ID` into the pod, which the samples in [Acquire and use the token on AKS](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) read from the environment.
 
     ```yaml
     apiVersion: v1
@@ -720,7 +720,7 @@ Use this path when your workload runs in an AKS pod. Entra Workload Identity fed
   </Step>
 
   <Step title="Decode a sample token">
-    The token your Anthropic federation rule sees is not the projected file; it is the Entra-issued token returned by the `client_credentials` exchange. From inside a labeled pod, run step 1 of the cURL sample in [Acquire and use the token](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) and decode the result. It carries the same claim shape as the managed identity path:
+    The token your Anthropic federation rule sees is not the projected file; it is the Entra-issued token returned by the `client_credentials` exchange. From inside a labeled pod, run step 1 of the cURL sample in [Acquire and use the token on AKS](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) and decode the result. It carries the same claim shape as the managed identity path:
 
     ```json
     {
@@ -1241,10 +1241,10 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
 
 ### Verify the setup
 
-From inside a labeled pod, run the cURL exchange shown in [Acquire and use the token](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) and confirm that `POST /v1/oauth/token` returns a `200` with an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason, then decode the Entra-issued token from step 1 (see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange) for the command) and check the most common Azure-side causes:
+From inside a labeled pod, run the cURL exchange shown in [Acquire and use the token on AKS](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#acquire-and-use-the-token-2) and confirm that `POST /v1/oauth/token` returns a `200` with an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason, then decode the Entra-issued token from step 1 (see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange) for the command) and check the most common Azure-side causes:
 
 * **Issuer mismatch:** The registered `issuer_url` must match the token's `iss` claim exactly. A v2.0 token carries `https://login.microsoftonline.com/<TENANT_ID>/v2.0`; if the decoded `ver` claim is `1.0`, see [If your tokens are v1.0](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#if-your-tokens-are-v1-0).
-* **Token lifetime:** If a tenant token-lifetime policy or CAE extends the `client_credentials` token past 7,500 seconds, raise the issuer's `max_jwt_lifetime_seconds` as described in [Configure Anthropic](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#configure-anthropic-2).
+* **Token lifetime:** If a tenant token-lifetime policy or CAE extends the `client_credentials` token past 7,500 seconds, raise the issuer's `max_jwt_lifetime_seconds` as described in [Configure Anthropic for Entra Workload Identity on AKS](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#configure-anthropic-2).
 * **Audience mismatch:** The rule's `audience` must equal the token's `aud` exactly: the audience app registration's client ID for the v2.0 tokens this guide configures.
 * **Claim name mismatch:** A rule that matches on a claim the token does not carry never passes. v1.0 tokens carry the client ID in `appid`, not `azp`; see [If your tokens are v1.0](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#if-your-tokens-are-v1-0).
 

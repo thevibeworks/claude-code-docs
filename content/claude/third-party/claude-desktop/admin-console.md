@@ -416,9 +416,18 @@ The app doesn't fall back to the profile's provider or server when it can't reac
 On Claude Desktop 2.37337.0 or later, a user who belongs to any organization that uses the admin console can move a device to that organization's configuration by signing in. The organization doesn't have to be yours. To prevent the move, or to allow it only for your organization, set one of these keys in the device's [managed profile](#devices-with-a-managed-profile):
 
 * **Prevent the move:** set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`. The app ignores the admin console, and the sign-in screen doesn't offer **Or sign in with Claude.ai**. A device that already moved returns to the profile at its next launch. Set the key in the profile itself, not only in your bootstrap server's response.
-* **Allow only your organization:** set [`forceLoginOrgUUID`](/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to your Claude organization's ID. This ID isn't [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), which is a UUID you generate. The app ignores the admin console configuration of any other organization and limits standard Claude Desktop sign-in on the device to your organization.
+* **Allow only your organization:** set [`forceLoginOrgUUID`](/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to your Claude organization's ID. This ID isn't [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), which is a UUID you generate. Devices already on your organization's admin console configuration stay on it. The app ignores the admin console configuration of any other organization and limits standard Claude Desktop sign-in on the device to your organization.
 
 You can use `forceLoginOrgUUID` to help prevent shadow IT, which here means people using personal Claude accounts or other organizations' accounts in Claude Desktop on work computers. A user who signs in to standard Claude Desktop with an account that isn't in your organization sees a page that reads "This account is not approved by your enterprise admin" and can only log out.
+
+To deploy `forceLoginOrgUUID`:
+
+1. Update devices to Claude Desktop 2.37337.0 or later. Earlier versions ignore the admin console when this key is set.
+2. In the admin console, copy the **Key** and the **Value** from the **Allow only this organization with device management (MDM)** row, under **Desktop sign-in** on the **Connection** page.
+3. Add the key and value to the device's managed profile, in one of the [locations the app reads](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration). Enter the ID without braces or quotation marks. In the Windows registry, make it a String value (`REG_SZ`). For more than one organization, enter a JSON array of IDs, such as `["ID-1","ID-2"]`.
+4. Restart Claude Desktop after the profile reaches the device.
+
+If the value lists only other IDs, or the app can't read it, the app uses only the profile and the console's settings stop applying. Correct the value and restart Claude Desktop. If the device doesn't return to the console's configuration, its user signs in to your organization again, as described under [Devices with a managed profile](#devices-with-a-managed-profile).
 
 For the macOS and Windows locations where the app reads a managed profile's keys, see [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration).
 

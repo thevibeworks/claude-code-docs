@@ -847,7 +847,7 @@ Parallel tool use is on by default. To turn it off, set `disable_parallel_tool_u
 
 ### At most one tool call
 
-When `tool_choice` type is `auto` (the default), setting `disable_parallel_tool_use: true` means Claude calls at most one tool in each response. Claude can still answer in plain text without calling any tool. The highlighted lines are the only change from a standard tool use request:
+When the `tool_choice` type is `auto` (the default), setting `disable_parallel_tool_use: true` means Claude calls at most one tool in each response. Claude can still answer in plain text without calling any tool. The highlighted lines are the only change from a standard tool use request:
 
 <CodeGroup>
   ```bash cURL

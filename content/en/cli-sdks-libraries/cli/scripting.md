@@ -25,7 +25,7 @@ Once an agent and environment exist, you can drive a session from the shell:
       --title "Summarization task"
     ```
 
-    ```json Output
+    ```text Output wrap
     {
       "id": "session_01JZCh78XvmxJjiXVy3oSi7K",
       "status": "running"
@@ -77,9 +77,7 @@ The CLI is designed to compose with standard shell tooling.
 ```bash
 FIRST_AGENT=$(ant beta:agents list --transform id --raw-output | head -1)
 
-ant beta:agents:versions list \
-  --agent-id "$FIRST_AGENT" \
-  --format jsonl
+ant beta:agents:versions list --agent-id "$FIRST_AGENT" --format jsonl
 ```
 
 ### Inspect errors

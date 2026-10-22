@@ -33,7 +33,7 @@ This guide walks you through creating an agent, setting up an environment, start
 
 ## Prerequisites
 
-* A [Claude Console account](https://platform.claude.com)
+* A [Claude Console account](https://platform.claude.com/)
 * An [API key](https://platform.claude.com/settings/keys) from the Console
 
 ## Install the CLI
@@ -49,7 +49,7 @@ This guide walks you through creating an agent, setting up an environment, start
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=2.0.0
+    VERSION=2.1.0
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;
@@ -100,7 +100,7 @@ ant --version
 
   <Tab title="Java">
     ```groovy Gradle
-    implementation("com.anthropic:anthropic-java:3.0.0")
+    implementation("com.anthropic:anthropic-java:3.1.0")
     ```
   </Tab>
 
@@ -343,7 +343,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
 
         agent = client.beta.agents.create(
           name: "Coding Assistant",
-          model: "claude-opus-5-5",
+          model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
           system_: "You are a helpful coding assistant. Write clean, well-documented code.",
           tools: [{type: "agent_toolset_20260401"}]
         )

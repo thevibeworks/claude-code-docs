@@ -187,7 +187,7 @@ Here are criteria and benchmarks that can be used to evaluate the business impac
 
 The choice of model depends on the trade-offs among cost, accuracy, and response time.
 
-For customer support chat, Claude Opus 5.5 is well suited to balance intelligence, latency, and cost, including the most complex support scenarios that require deep reasoning across long, multistep conversations. However, for instances where you have conversation flow with multiple prompts including RAG, tool use, or long-context prompts, Claude Haiku 5.5 might be more suitable to optimize for latency. [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) is its main control for speed: `low` is the fastest level, suited to chat and short tool tasks.
+For customer support chat, Claude Opus 5.5 is well suited to balance intelligence, latency, and cost, including the most complex support scenarios that require deep reasoning across long, multistep conversations. However, for instances where you have a conversation flow with multiple prompts including RAG, tool use, or long-context prompts, Claude Haiku 5.5 might be more suitable to optimize for latency. [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) is its main control for speed: `low` is the fastest level, suited to chat and short tool tasks.
 
 ### Build a strong prompt
 
@@ -349,7 +349,7 @@ Once you provide this information, I'll use our quoting tool to generate a perso
 """
 ```
 
-You will also want to include any important instructions outlining dos and don'ts for how Claude should interact with the customer. This might draw from brand guardrails or support policies.
+Also include any important instructions outlining dos and don'ts for how Claude should interact with the customer. This might draw from brand guardrails or support policies.
 
 ```python
 ADDITIONAL_GUARDRAILS = """Please adhere to the following guardrails:
@@ -440,7 +440,7 @@ The class should have two main methods: one that calls the API to generate a mes
 
 <CodeGroup exclude="shell">
   ```python Python
-  # In your chatbot.py, import these from the config.py you wrote above:
+  # In your chatbot.py, import these from the config.py you wrote earlier:
   # from config import IDENTITY, TOOLS, MODEL, get_quote
   from anthropic import Anthropic
   from dotenv import load_dotenv
@@ -1075,7 +1075,7 @@ The class should have two main methods: one that calls the API to generate a mes
 
 ### Build your user interface
 
-Test deploying this code with Streamlit using a main method. This `main()` function sets up a Streamlit-based chat interface. Streamlit is a Python framework, so this part of the walkthrough is shown in Python only; the ChatBot class shown earlier is the piece you can port to any language.
+Test deploying this code with Streamlit using a main function. This `main()` function sets up a Streamlit-based chat interface. Streamlit is a Python framework, so this part of the walkthrough is shown in Python only; the ChatBot class shown earlier is the piece you can port to any language.
 
 Do this in a file called `app.py`:
 
@@ -1152,7 +1152,7 @@ When deploying a chatbot, especially in customer service scenarios, it's importa
 * [Reduce hallucination](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Implement fact-checking mechanisms and [citations](https://platform.claude.com/cookbook/misc-using-citations) to ground responses in provided information.
 * Cross-check information: Verify that the agent's responses align with your company's policies and known facts.
 * Avoid contractual commitments: Ensure the agent doesn't make promises or enter into agreements it's not authorized to make.
-* [Mitigate jailbreaks](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks): Use methods such as harmlessness screens and input validation to prevent users from exploiting model vulnerabilities, aiming to generate inappropriate content.
+* [Mitigate jailbreaks](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks): Use methods such as harmlessness screens and input validation to prevent users from exploiting model vulnerabilities to generate inappropriate content.
 * Avoid mentioning competitors: Implement a competitor mention filter to maintain brand focus and not mention any competitor's products or services.
 * [Increase output consistency](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/increase-consistency): Prevent Claude from changing style or going out of character, even during long, complex interactions.
 * Remove personally identifiable information (PII): Unless explicitly required and authorized, strip out any PII from responses.

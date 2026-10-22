@@ -12,6 +12,8 @@ Track Cowork usage and activity across your organization by exporting events thr
 >
 > Monitoring is available for Team and Enterprise plans. OTel monitoring requires Claude desktop app version 1.1.4173 or later.
 
+See [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions) in the Compliance API documentation to retrieve the transcripts of Cowork sessions on request. Requires an Enterprise plan.
+
 ## Setup
 
 Configure monitoring from the Cowork admin settings:

@@ -30,9 +30,7 @@ A session requires an `agent` ID and an `environment` ID. Agents are versioned r
   ```
 
   ```bash CLI
-  ant beta:sessions create \
-    --agent "$AGENT_ID" \
-    --environment-id "$ENVIRONMENT_ID"
+  ant beta:sessions create --agent "$AGENT_ID" --environment-id "$ENVIRONMENT_ID"
   ```
 
   ```python Python
@@ -436,8 +434,8 @@ Each overridable field follows the same three rules:
 
 * **Set the field to `null`, or to an empty array for list fields:** The session runs with that field cleared. This rule applies in full to `system` (csharp, go: `System`; ruby: `system_`) and `skills` (csharp, go: `Skills`). There are three exceptions:
 
-  * `model` is never clearable. A session always needs a model, so `model: null` returns a 400 `agent_model_required` error.
-  * Clearing `tools` returns a 400 error when the session's effective `skills` (csharp, go: `Skills`) is non-empty, because skills require the `read` tool. Otherwise, `tools: null` and `tools: []` clear the field.
+  * `model` (csharp, go: `Model`) is never clearable. A session always needs a model, so setting `model` (csharp, go: `Model`) to `null` returns a 400 `agent_model_required` error.
+  * Clearing `tools` (csharp, go: `Tools`) returns a 400 error when the session's effective `skills` (csharp, go: `Skills`) is non-empty, because skills require the `read` tool. Otherwise, setting `tools` (csharp, go: `Tools`) to `null` or to an empty array clears the field.
   * Clearing `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) returns a 400 error when the session's effective `tools` (csharp, go: `Tools`) still contains an `mcp_toolset` that references one of the agent's servers. Override `tools` (csharp, go: `Tools`) in the same request to remove those `mcp_toolset` entries, then clear `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`).
 
 * **Set the field to a value:** The value replaces the agent's value in full. Overrides never merge with the agent's configuration, so a `tools` (csharp, go: `Tools`) override must list every tool the session should have. Likewise, a `model` (csharp, go: `Model`) override replaces the agent's `model` (csharp, go: `Model`) object in full, so the agent's own `effort` (csharp, go: `Effort`) isn't carried over. To run the session at a specific effort level, set `effort` (csharp, go: `Effort`) inside the override's `model` (csharp, go: `Model`) object. A level the model doesn't support returns a 400 error, and a `model` (csharp, go: `Model`) override without `effort` (csharp, go: `Effort`) runs at that model's default effort level.
@@ -468,7 +466,7 @@ The following example starts a session that overrides the model and clears the s
 
   ```bash CLI
   # The response's `agent` is the resolved snapshot: each override replaces that
-  # field for this session only, and the agent resource keeps its id and version.
+  # field for this session only, and the agent resource keeps its ID and version.
   ant beta:sessions create <<YAML
   agent:
     type: agent_with_overrides
@@ -756,7 +754,7 @@ The following example starts a session from an agent whose model has no geo pin,
 
 ### Set a session budget
 
-To cap what a session can spend, pass the optional `budget` (csharp, go: `Budget`) object when you create it. A budget is a hard ceiling on the session's list cost: the platform prices everything the session consumes at public list rates, and the session stops issuing new model requests once that running total reaches `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`). The budget's `type` (csharp, go: `Type`) is always `limit`. Give `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`) an `amount` (csharp, go: `Amount`) and a `currency` (csharp, go: `Currency`). `amount` (csharp, go: `Amount`) is a whole number of US cents written as a string, such as `"125"` for $1.25 USD. The API takes a string rather than a number so no floating-point rounding is ever applied. `USD` is the only currency currently supported. When the session reaches the cap, it pauses and goes idle with the stop reason `budget_reached`. The cap is enforced between model requests, so the request that crosses it completes first and the session's final list cost can land [a fraction past the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). A budget can only be attached at creation: you can [change or remove](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-session-budget) it later, but you can't add one to a session created without it.
+To cap what a session can spend, pass the optional `budget` (csharp, go: `Budget`) object when you create it. A budget is a hard ceiling on the session's list cost: the platform prices everything the session consumes at public list rates, and the session stops issuing new model requests once that running total reaches `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`). The budget's `type` (csharp, go: `Type`) is always `limit`. Give `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`) an `amount` (csharp, go: `Amount`) and a `currency` (csharp, go: `Currency`). `amount` (csharp, go: `Amount`) is a whole number of US cents written as a string, such as `"125"` for $1.25 USD. The API takes a string rather than a number so no floating-point rounding is ever applied. `USD` is the only currency currently supported. When the session reaches the cap, it pauses and goes idle with the stop reason `budget_reached`. The cap is enforced between model requests, so the request that crosses it completes first and the session's final list cost can land [a fraction past the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). A budget can only be attached at creation: you can [change or remove the budget](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-session-budget) later, but you can't add one to a session created without it.
 
 The following example creates a session with a $1.25 USD budget:
 
@@ -995,8 +993,7 @@ Creating a session without `initial_events` (java, php: `initialEvents`; csharp,
   ```
 
   ```bash CLI
-  ant beta:sessions:events send \
-    --session-id "$SESSION_ID" <<'YAML'
+  ant beta:sessions:events send --session-id "$SESSION_ID" <<'YAML'
   events:
     - type: user.message
       content:

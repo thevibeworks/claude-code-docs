@@ -147,7 +147,7 @@ List the organization's members, newest first:
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "data": [
     {
@@ -604,7 +604,7 @@ For complete parameter details and response schemas, see [Remove user](https://p
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "type": "user_deleted",
   "id": "user_01AbCdEfGhIjKlMnOpQrSt"
@@ -764,7 +764,7 @@ For complete parameter details and response schemas, see [Create invite](https:/
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "type": "invite",
   "id": "invite_01QrStUvWxYzAbCdEfGhIj",
@@ -1161,7 +1161,7 @@ For complete parameter details and response schemas, see [List groups](https://p
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "data": [
     {
@@ -1380,7 +1380,7 @@ For complete parameter details and response schemas, see [Create group](https://
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "type": "rbac_group",
   "id": "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
@@ -1595,7 +1595,7 @@ For complete parameter details and response schemas, see [Delete group](https://
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "id": "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
   "type": "rbac_group_deleted"
@@ -1722,7 +1722,7 @@ For complete parameter details and response schemas, see [List group members](ht
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "data": [
     {
@@ -1856,7 +1856,7 @@ For complete parameter details and response schemas, see [Add group member](http
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "type": "rbac_group_member",
   "rbac_group_id": "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
@@ -1975,7 +1975,7 @@ For complete parameter details and response schemas, see [Remove group member](h
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "rbac_group_id": "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
   "group_id": "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
@@ -2091,7 +2091,7 @@ For complete parameter details and response schemas, see [List roles](https://pl
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "data": [
     {
@@ -2321,7 +2321,7 @@ For complete parameter details and response schemas, see [List role permissions]
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "data": [
     {
@@ -2474,7 +2474,7 @@ No. The API assigns only `user` and `managed`, on invite creation and role updat
 
 ### Can I create or modify groups through the API?
 
-Yes, with the `write:rbac_groups` scope: create, rename, and delete groups, and add or remove their members. Two things the API cannot change: groups provisioned by your identity provider (`source_type: "scim"`), whose name and membership are owned by the identity provider, and custom roles, which are managed in claude.ai organization settings (the API [reads them](https://platform.claude.com/docs/en/manage-claude/user-management#custom-roles)).
+Yes, with the `write:rbac_groups` scope: create, rename, and delete groups, and add or remove their members. Two things the API cannot change: groups provisioned by your identity provider (`source_type: "scim"`), whose name and membership are owned by the identity provider, and [custom roles](https://platform.claude.com/docs/en/manage-claude/user-management#custom-roles), which are managed in claude.ai organization settings (the API reads them).
 
 ### Does an unaccepted invite consume a seat?
 

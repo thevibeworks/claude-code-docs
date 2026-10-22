@@ -44,7 +44,7 @@ Previous Haiku model: Claude Haiku 4.5: claude-haiku-4-5-20251001
   ```
 </CodeGroup>
 
-```json Output
+```text Output wrap
 {
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -146,7 +146,8 @@ Claude can read both text and images in requests. Both `base64` and `url` source
 <CodeGroup exclude="shell:cURL, typescript, csharp, go, java, php, ruby">
   ```bash CLI
   # Option 1: Base64-encoded image (@ prefix auto-encodes binary files as base64)
-  curl -sSo vision-example.jpg https://platform.claude.com/docs/images/vision-example.jpg
+  curl -sSo vision-example.jpg \
+    https://platform.claude.com/docs/images/vision-example.jpg
 
   ant messages create <<'YAML'
   model: claude-opus-5-5
@@ -531,7 +532,7 @@ Client tools are specified in the `tools` top-level parameter of the API request
 * What each parameter means and how it affects the tool's behavior
 * Any important caveats or limitations
 
-**Consider using `input_examples` for complex tools.** For tools with nested objects, optional parameters, or format-sensitive inputs, you can provide concrete examples using the `input_examples` field (beta). This helps Claude understand expected input patterns. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) for details.
+**Consider using `input_examples` for complex tools.** For tools with nested objects, optional parameters, or format-sensitive inputs, you can provide concrete examples using the `input_examples` field (beta). This shows Claude the expected input patterns. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) for details.
 
 Example of a good tool description:
 
@@ -589,7 +590,7 @@ The response has a `stop_reason` of `tool_use` and one or more `tool_use` conten
 * `name`: The name of the tool being used
 * `input`: An object containing the input being passed to the tool
 
-```json
+```text wrap
 {
   "role": "assistant",
   "content": [
@@ -628,7 +629,7 @@ If Claude's response is cut off because it hits the `max_tokens` limit during to
 
 ### Handling the `pause_turn` stop reason
 
-When using server tools such as web search, the API might return a `pause_turn` stop reason. Continue the conversation by passing the paused response back as-is in a subsequent request.
+When you use server tools such as web search, the API might return a `pause_turn` stop reason. Continue the conversation by passing the paused response back as-is in a subsequent request.
 
 ## Troubleshooting errors
 
@@ -698,7 +699,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 
 #### Text delta
 
-```json
+```text wrap
 {
   "type": "content_block_delta",
   "index": 0,
@@ -710,7 +711,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 
 For `tool_use` content blocks, deltas are *partial JSON strings*:
 
-```json
+```text
 {"type": "content_block_delta","index": 1,"delta": {"type": "input_json_delta","partial_json": "{\"location\": \"San Fra"}}}
 ```
 
@@ -718,7 +719,7 @@ For `tool_use` content blocks, deltas are *partial JSON strings*:
 
 When using thinking with streaming:
 
-```json
+```text wrap
 {
   "type": "content_block_delta",
   "index": 0,
@@ -731,7 +732,7 @@ When using thinking with streaming:
 
 ### Basic streaming request example
 
-```sse
+```text
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_1nZdL29xx5MUA1yADyHTEsnR8uuvGzszyY", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null, "usage": {"input_tokens": 25, "output_tokens": 1}}}
 

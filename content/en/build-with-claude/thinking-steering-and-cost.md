@@ -16,9 +16,9 @@ To learn how to turn thinking on and how to read thinking output, see the [Think
 
 ## How Claude determines when to think
 
-Thinking is optional for the model. On each request, Claude evaluates the complexity of the input and determines whether deeper reasoning would improve the answer. A simple factual question may get a direct response with no thinking block at all; a multistep math problem or a tricky debugging task triggers deeper reasoning.
+Thinking is optional for the model. On each request, Claude evaluates the complexity of the input and determines whether deeper reasoning would improve the answer. A simple factual question might get a direct response with no thinking block at all; a multistep math problem or a tricky debugging task triggers deeper reasoning.
 
-This determination happens per request. The same conversation can contain turns with and without thinking, and a turn where Claude skips thinking contains no thinking block. Don't build application logic that assumes every assistant turn starts with one.
+This determination occurs for each request. The same conversation can contain turns with and without thinking, and a turn where Claude skips thinking contains no thinking block. Don't build application logic that assumes every assistant turn starts with one.
 
 The primary control over this determination is the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter, which acts as soft guidance for how often and how deeply Claude uses thinking; see [Effort levels](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#effort-levels) on this page for what each level does.
 
@@ -30,7 +30,7 @@ For full details on how the thinking configuration and the effort parameter inte
 
 ## Steering how often Claude thinks
 
-Whether Claude thinks on a given turn is promptable. Effort sets the overall posture, but you can also shape that behavior directly with natural-language guidance, either globally in the system prompt or per message from the user turn.
+Whether Claude thinks on a given turn is promptable. Effort sets the overall posture, but you can also shape that behavior directly with natural-language guidance, either globally in the system prompt or for individual messages in the user turn.
 
 Use the two levers together in this order:
 
@@ -74,7 +74,7 @@ Level availability varies by model; the [effort availability table](https://plat
 
 ### System prompt guidance
 
-System prompt guidance shifts Claude's thinking threshold for every request in the conversation. If Claude is thinking more often than your workload needs, add guidance like this to your system prompt:
+System prompt guidance shifts Claude's thinking threshold for every request in the conversation. If Claude is thinking more often than your workload needs, add guidance such as the following to your system prompt:
 
 ```text wrap
 Extended thinking adds latency and should only be used when it
@@ -117,7 +117,7 @@ Assistant turns don't need to start with a thinking block. (Models using a legac
 For multi-turn applications, this means you can pass back conversation history in whatever shape you have it:
 
 * Assistant turns without thinking are valid history as-is.
-* You can resume a conversation that began without thinking, or that used a different thinking configuration, without rewriting its history.
+* You can resume a conversation that started without thinking, or that used a different thinking configuration, without rewriting its history.
 * History assembled from mixed sources doesn't need thinking blocks reinserted at the start of each assistant turn to pass validation.
 
 The relaxation is about validation, not about what you should send. When you have thinking blocks, pass them back unmodified, particularly during tool use, where they carry the reasoning behind Claude's tool calls. See the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview for the full rules.
@@ -906,7 +906,7 @@ What you're billed for is the same regardless of the `display` setting; only wha
 
 To see how many billed output tokens were spent on internal reasoning, read `usage.output_tokens_details.thinking_tokens` in the response. This value reflects the raw reasoning the model generated (not the summarized text returned in the body) and is always less than or equal to `output_tokens`. Subtract it from `output_tokens` to approximate the non-reasoning portion of the output. When streaming, this breakdown appears only on the final `message_delta` event.
 
-```json
+```text wrap
 {
   "usage": {
     "input_tokens": 25,

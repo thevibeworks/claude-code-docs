@@ -279,7 +279,7 @@ The structure is identical for both Anthropic and custom Skills. Specify the req
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     container: {
       skills: [
@@ -712,8 +712,7 @@ To provide input files for Skills to work on, [upload them with the Files API](h
 
   ```bash CLI
   # Get file metadata
-  ant files retrieve-metadata \
-    --file-id "$FILE_ID"
+  ant files retrieve-metadata --file-id "$FILE_ID"
 
   # List all files
   ant files list
@@ -2602,7 +2601,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
     -F "files[]=@financial_skill/SKILL.md;filename=financial_skill/SKILL.md" \
     -F "files[]=@financial_skill/analyze.py;filename=financial_skill/analyze.py"
 
-  # Use a specific version: the id from the create response
+  # Use a specific version: the ID from the create response
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -2647,7 +2646,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
     --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv \
     --file financial_skill.zip
 
-  # Use a specific version: the id from the create response
+  # Use a specific version: the ID from the create response
   ant messages create <<YAML
   model: claude-opus-5-5
   max_tokens: 4096
@@ -3076,7 +3075,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
 
   # Use specific version
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     container: {
       skills: [{
@@ -3092,7 +3091,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
 
   # Use latest version
   latest_response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     container: {
       skills: [{
@@ -4231,7 +4230,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
 
   # Skills render into the system prompt in a fixed, cache-friendly order
   response1 = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     container: {
       skills: [{ type: "anthropic", skill_id: "xlsx", version: "latest" }]
@@ -4243,7 +4242,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
 
   # Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
   response2 = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     container: {
       skills: [
@@ -4523,12 +4522,12 @@ The Skills API is out of beta and needs no beta header. Migrating off `skills-20
 To migrate:
 
 1. **Remove the beta header.** Drop `anthropic-beta: skills-2025-10-02` from your requests. With the SDK, call `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) instead of `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`); keeping `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) works only on the [SDK releases that no longer send the header](https://platform.claude.com/docs/en/build-with-claude/skills-guide#sdk-beta-namespace). Earlier releases send it from `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) even when you pass no beta names.
-2. **Rename fields** in your code: `display_title` to `display_name`, `latest_version` to `latest_version_id`, and read `source.type` instead of comparing `source` to a string.
+2. **Rename fields** in your code: `display_title` to `display_name` and `latest_version` to `latest_version_id`. Read `source.type` instead of comparing `source` to a string.
 3. **Use version IDs.** Wherever you stored an epoch-microsecond version, store the version's `id` instead, or use `latest`. Skill references in Messages requests accept a version ID, `latest`, or (for Anthropic Skills) the catalog version.
 4. **Review delete calls.** `DELETE /v1/skills/{skill_id}` now deletes every version with the Skill. If you relied on the beta's refusal as a safeguard, add your own check.
 
 <Warning>
-  After migrating, deleting a Skill through `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) or `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) removes the Skill together with all of its versions in one call.
+  After migrating, deleting a Skill through `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) or `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) also deletes all of its versions in one call.
 </Warning>
 
 A Skill whose versions were all deleted under the beta has no current version to return: `GET /v1/skills/{skill_id}` returns a 400 error and the Skill is omitted from list responses until you upload a version to it. You can still delete it.

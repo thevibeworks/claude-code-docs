@@ -40,7 +40,7 @@ Where the two models diverge:
 
 ## Migrating to Claude Fable 5.1 from Claude Fable 5
 
-Migration is mostly drop-in. The API surface, limits, per-token pricing, tokenizer, always-on adaptive thinking, refusal handling, and `stop_details` categories all match Claude Fable 5. What changes: forced tool choice returns a 400 error; only Claude Fable 5.1 and Claude Mythos 5.1 read Claude Fable 5.1's thinking blocks, and only in the conversation that produced them; cache reads cost less; the advisor tool (beta) accepts fewer advisors; and agent-loop behavior differs in three ways. The same changes apply to [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-mythos-5-to-claude-mythos-5-1), except the conversation check on thinking blocks, which Claude Mythos 5.1 doesn't run.
+Migration is mostly drop-in. The API surface, limits, per-token pricing, tokenizer, always-on adaptive thinking, refusal handling, and `stop_details` categories all match Claude Fable 5. What changes: forced tool choice returns a 400 error; only Claude Fable 5.1 and Claude Mythos 5.1 read Claude Fable 5.1's thinking blocks, and only in the conversation that produced them; cache reads cost less; the advisor tool (beta) accepts fewer advisors; and agent-loop behavior differs in three ways. The same changes apply to the [Claude Mythos 5.1 migration](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-mythos-5-to-claude-mythos-5-1), except the conversation check on thinking blocks, which Claude Mythos 5.1 doesn't run.
 
 ### Update your model name
 
@@ -956,8 +956,7 @@ model = "claude-mythos-5-1"  # After
      ```
 
      ```bash CLI
-     ant beta:messages create \
-       --beta thinking-binding-controls-2026-08-01 <<'YAML'
+     ant beta:messages create --beta thinking-binding-controls-2026-08-01 <<'YAML'
      model: claude-fable-5-1
      max_tokens: 16000
      thinking:

@@ -114,7 +114,7 @@ Progressive disclosure ensures only relevant content occupies the context window
 Skills run in a code execution environment where Claude has filesystem access, bash commands, and code execution capabilities. Skills exist as directories on a virtual machine, and Claude interacts with them using the same bash commands you'd use to navigate files on your computer.
 
 <Frame>
-  ![Agent Skills architecture - showing how Skills integrate with the agent's configuration and virtual machine](https://platform.claude.com/docs/images/agent-skills-architecture.svg)
+  ![Agent Skills architecture, showing how Skills integrate with the agent's configuration and virtual machine](https://platform.claude.com/docs/images/agent-skills-architecture.svg)
 </Frame>
 
 **How Claude accesses Skill content:**

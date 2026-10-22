@@ -101,7 +101,7 @@ The wizard creates these resources for you. Use the following values whether you
 }
 ```
 
-**Federation rule:** Match on both the `sub` and `email` claims. `email` is the readable service-account address; `sub` is the service account's numeric unique ID, which Google never reuses, so pinning it protects the rule if the service account is deleted and a new one is later created with the same email. Find the unique ID with `gcloud iam service-accounts describe SA_EMAIL --format='value(uniqueId)'`.
+**Federation rule:** Match on both the `sub` and `email` claims. `email` is the readable service-account address; `sub` is the service account's numeric unique ID, which Google never reuses, so pinning it protects the rule if the service account is deleted and a new one is later created with the same email. Find the unique ID with `gcloud iam service-accounts describe inference-worker@my-project.iam.gserviceaccount.com --format='value(uniqueId)'`.
 
 ```json
 {

@@ -281,7 +281,7 @@ Send the conversation as it stands with `"compaction": {"type": "summarize"}`. T
   ```
 </CodeGroup>
 
-```json Response
+```text Response
 {
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "type": "message",

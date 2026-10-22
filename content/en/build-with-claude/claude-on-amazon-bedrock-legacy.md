@@ -58,20 +58,20 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
   <Tab title="Java">
     <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
       ```groovy Gradle
-      implementation("com.anthropic:anthropic-java:3.0.0")
-      implementation("com.anthropic:anthropic-java-bedrock:3.0.0")
+      implementation("com.anthropic:anthropic-java:3.1.0")
+      implementation("com.anthropic:anthropic-java-bedrock:3.1.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.0</version>
       </dependency>
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java-bedrock</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.0</version>
       </dependency>
       ```
 
@@ -326,14 +326,14 @@ The following examples show how to generate text from Claude on Bedrock:
     from anthropic import AnthropicBedrock
 
     client = AnthropicBedrock(
-        # Authenticate by either providing the keys below or use the default AWS credential providers, such as
+        # Authenticate by either providing the following keys or using the default AWS credential providers, such as
         # using ~/.aws/credentials or the "AWS_SECRET_ACCESS_KEY" and "AWS_ACCESS_KEY_ID" environment variables.
         aws_access_key="<access key>",
         aws_secret_key="<secret key>",
         # Temporary credentials can be used with aws_session_token.
         # Read more at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html.
         aws_session_token="<session_token>",
-        # aws_region changes the aws region to which the request is made. If it is not provided, the SDK reads
+        # aws_region changes the AWS region to which the request is made. If it is not provided, the SDK reads
         # AWS_REGION / AWS_DEFAULT_REGION, then the region configured for your boto3 session or AWS profile
         # (including ~/.aws/config), and raises ValueError if no region can be resolved.
         aws_region="us-west-2",
@@ -353,7 +353,7 @@ The following examples show how to generate text from Claude on Bedrock:
     import AnthropicBedrock from "@anthropic-ai/bedrock-sdk";
 
     const client = new AnthropicBedrock({
-      // Authenticate by either providing the keys below or use
+      // Authenticate by either providing the following keys or using
       // the default AWS credential providers, such as
       // ~/.aws/credentials or the "AWS_SECRET_ACCESS_KEY" and
       // "AWS_ACCESS_KEY_ID" environment variables.
@@ -364,7 +364,7 @@ The following examples show how to generate text from Claude on Bedrock:
       // Read more at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html.
       awsSessionToken: "<session_token>",
 
-      // awsRegion changes the aws region to which the request
+      // awsRegion changes the AWS region to which the request
       // is made. By default, the SDK reads AWS_REGION, and if
       // that's not present, defaults to us-east-1. Note that
       // the SDK does not read ~/.aws/config for the region.
@@ -796,9 +796,9 @@ Regional endpoints include a 10 percent pricing premium over global endpoints.
 **Regional endpoints (CRIS):**
 
 * Route traffic through specific geographic regions
-* Required for data residency and compliance requirements
-* Available for US, EU, Japan, and Asia-Pacific
-* 10 percent pricing premium reflects infrastructure costs for dedicated regional capacity
+* Are required for data residency and compliance requirements
+* Are available for US, EU, Japan, and Asia-Pacific
+* Carry a 10 percent pricing premium that reflects infrastructure costs for dedicated regional capacity
 
 ### Implementation
 

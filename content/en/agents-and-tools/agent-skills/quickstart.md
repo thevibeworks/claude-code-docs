@@ -394,7 +394,9 @@ The presentation was created in the code execution container and saved as a file
 
   if [[ -n "$file_id" ]]; then
     # Download the file and save it
-    ant files download --file-id "$file_id" --output "${TMPDIR:-/tmp}/renewable_energy.pptx"
+    ant files download \
+      --file-id "$file_id" \
+      --output "${TMPDIR:-/tmp}/renewable_energy.pptx"
   fi
   ```
 

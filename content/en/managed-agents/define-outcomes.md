@@ -300,7 +300,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
       "title": "Financial analysis on Costco"
     }'
 
-  # Define the outcome: SESSION_ID is the id from the create response
+  # Define the outcome: SESSION_ID is the ID from the create response
   # The agent starts working when it receives the event
   curl -fsSL "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -327,7 +327,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     --environment-id "$ENVIRONMENT_ID" \
     --title "Financial analysis on Costco"
 
-  # Define the outcome: SESSION_ID is the id from the create response
+  # Define the outcome: SESSION_ID is the ID from the create response
   # The agent starts working when it receives the event
   ant beta:sessions:events send --session-id "$SESSION_ID" <<YAML
   events:
@@ -551,7 +551,7 @@ This is the event you send to initiate an outcome. It is echoed back on receipt,
 
 Emitted once the grader starts an evaluation over one iteration loop. The `iteration` field is a 0-indexed revision counter: `0` is the first evaluation, `1` is the re-evaluation after the first revision, and so on.
 
-```json
+```text wrap
 {
   "type": "span.outcome_evaluation_start",
   "id": "sevt_01def...",
@@ -563,9 +563,9 @@ Emitted once the grader starts an evaluation over one iteration loop. The `itera
 
 ### Outcome evaluation ongoing
 
-Heartbeat emitted while the grader runs. The grader's internal reasoning is opaque: you see that it's working, not what it's thinking.
+Heartbeat emitted while the grader runs. The grader's internal reasoning is opaque: the event shows only that the grader is working.
 
-```json
+```text wrap
 {
   "type": "span.outcome_evaluation_ongoing",
   "id": "sevt_01ghi...",
@@ -587,7 +587,7 @@ Emitted when an outcome evaluation cycle ends: after the grader finishes evaluat
 | `failed`                 | Session transitions to `idle`. Returned when the rubric does not apply to the deliverables, for example if the description and rubric contradict each other.                                                              |
 | `interrupted`            | Emitted when the session is interrupted while an outcome is active, even if evaluation hadn't started yet. If no `outcome_evaluation_start` fired before the interrupt, `outcome_evaluation_start_id` is an empty string. |
 
-```json
+```text
 {
   "type": "span.outcome_evaluation_end",
   "id": "sevt_01jkl...",
@@ -691,7 +691,7 @@ You can either listen on the [event stream](https://platform.claude.com/docs/en/
 
 ## Retrieve deliverables
 
-The agent writes output files to `/mnt/session/outputs/` inside the sandbox. To retrieve them, list files through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) with the session ID as the `scope_id` (java: `scopeId`; php: `scopeID`; csharp, go: `ScopeID`), then download them by ID. Filtering by `scope_id` (java: `scopeId`; php: `scopeID`; csharp, go: `ScopeID`) requires the `managed-agents-2026-04-01` beta header on the list request, so the SDK and CLI examples make that call through the `beta` namespace and pass the header explicitly. Files appear in the list shortly after the agent finishes writing them, sometimes a few seconds after the session goes idle. If a file you expect is not listed yet, list again after a short delay; once it appears in the list, its upload has finished.
+The agent writes output files to `/mnt/session/outputs/` inside the sandbox. To retrieve them, list files through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) with the session ID as the `scope_id` (java: `scopeId`; php: `scopeID`; csharp, go: `ScopeID`), then download them by ID. Filtering by `scope_id` (java: `scopeId`; php: `scopeID`; csharp, go: `ScopeID`) requires the `managed-agents-2026-04-01` beta header on the list request, so the SDK and CLI examples make that call through the `beta` namespace and pass the header explicitly. Files appear in the list shortly after the agent finishes writing them, sometimes a few seconds after the session goes idle. If a file you expect is not listed yet, list again after a short delay; once it appears in the list, its upload is complete.
 
 <CodeGroup>
   ```bash cURL

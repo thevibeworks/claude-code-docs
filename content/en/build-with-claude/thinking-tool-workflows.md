@@ -281,13 +281,13 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
   </Step>
 
   <Step title="Capture the content array to echo back">
-    You should see `thinking` and `tool_use` blocks in the response content on a run that includes thinking (on simpler requests, adaptive mode may skip the thinking block). A note Claude writes before the tool call comes back as a `text` block or, on models that write [progress updates](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates), as another `thinking` block. Keep this content array intact: the next step sends it back verbatim.
+    You should see `thinking` and `tool_use` blocks in the response content on a run that includes thinking (on simpler requests, adaptive mode might skip the thinking block). A note Claude writes before the tool call comes back as a `text` block or, on models that write [progress updates](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates), as another `thinking` block. Keep this content array intact: the next step sends it back verbatim.
 
     <Note>
       To see thinking text like this output, add `display: "summarized"` to the request. On models where display defaults to omitted, including Claude Opus 5.5, the `thinking` field otherwise comes back as an empty string with only the `signature` populated. Either way, echo the content array back unchanged; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
     </Note>
 
-    ```json Output
+    ```text Output
     {
       "content": [
         {
@@ -750,7 +750,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
   <Step title="Read the final response">
     You should see Claude complete the turn with text. Because [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking) is automatic in adaptive mode, the continuation can also open with a new thinking block before the final text:
 
-    ```json Output
+    ```text Output wrap
     {
       "content": [
         {

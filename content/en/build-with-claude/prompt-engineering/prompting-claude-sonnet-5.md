@@ -82,7 +82,7 @@ If you previously relied on `temperature` for stylistic variety, note that setti
 
 ## Design and frontend defaults
 
-Claude Sonnet 5 might settle into a consistent default visual style on open-ended frontend and design briefs. A default house style can read well for some briefs but feel off for dashboards, dev tools, fintech, healthcare, or enterprise apps.
+Claude Sonnet 5 might settle into a consistent default visual style on open-ended frontend and design briefs. A default house style can read well for some briefs but be a poor fit for dashboards, dev tools, fintech, healthcare, or enterprise apps.
 
 Generic instructions ("don't use that color," "make it clean and minimal") tend to shift the model to a different fixed palette rather than producing variety. Two approaches work reliably:
 
@@ -133,7 +133,7 @@ When limiting the number of required user interactions, it's important to specif
 
 ## Code review harnesses
 
-If your code-review harness was tuned for an earlier model, you may initially see lower recall on Claude Sonnet 5. This is likely a harness effect, not a capability regression. When a review prompt says things like "only report high-severity issues," "be conservative," or "don't nitpick," Claude Sonnet 5 may follow that instruction more faithfully than earlier models did: it may investigate the code just as thoroughly, identify the bugs, and then not report findings it determines to be below your stated bar. This can show up as the model doing the same depth of investigation but converting fewer investigations into reported findings, especially on lower-severity bugs. Precision typically rises, but measured recall can fall even though the model's underlying bug-finding ability has improved.
+If your code-review harness was tuned for an earlier model, you might initially see lower recall on Claude Sonnet 5. This is likely a harness effect, not a capability regression. When a review prompt says things such as "only report high-severity issues," "be conservative," or "don't nitpick," Claude Sonnet 5 might follow that instruction more faithfully than earlier models did: it might investigate the code just as thoroughly, identify the bugs, and then not report findings it determines to be below your stated bar. This can show up as the model doing the same depth of investigation but converting fewer investigations into reported findings, especially on lower-severity bugs. Precision typically rises, but measured recall can fall even though the model's underlying bug-finding ability has improved.
 
 Some recommended prompt language:
 
@@ -143,7 +143,7 @@ Report every issue you find, including ones you are uncertain about or consider 
 
 This prompt can be used without having an actual second step, but moving confidence filtering out of the finding step often helps. If your harness has a separate verification, deduplication, or ranking stage, tell the model explicitly that its job at the finding stage is coverage rather than filtering.
 
-If you do want the model to self-filter in a single pass, be concrete about where the bar is rather than using qualitative terms such as "important": for example, "report any bugs that could cause incorrect behavior, a test failure, or a misleading result; only omit nits like pure style or naming preferences."
+If you do want the model to self-filter in a single pass, be concrete about what the reporting threshold is rather than using qualitative terms such as "important": for example, "report any bugs that could cause incorrect behavior, a test failure, or a misleading result; only omit nits like pure style or naming preferences."
 
 Iterate on prompts against a subset of your evals or test cases to validate recall or F1 score gains.
 

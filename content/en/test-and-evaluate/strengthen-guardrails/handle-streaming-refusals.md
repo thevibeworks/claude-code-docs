@@ -14,7 +14,7 @@ Starting with Claude 4 models, streaming responses from Claude's API return **`s
 
 When streaming classifiers detect content that violates Anthropic's policies, the API returns this response:
 
-```json
+```text
 {
   "role": "assistant",
   "content": [

@@ -171,7 +171,7 @@ You can control which service tiers can be used for a request by setting the `se
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-4-8",
+    model: Anthropic::Model::CLAUDE_OPUS_4_8,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude!" }],
     service_tier: :auto # Automatically use Priority Tier when available, fallback to standard
@@ -187,7 +187,7 @@ The `service_tier` parameter accepts the following values:
 
 The response `usage` object also includes the service tier assigned to the request:
 
-```json
+```text wrap
 {
   "usage": {
     "input_tokens": 410,

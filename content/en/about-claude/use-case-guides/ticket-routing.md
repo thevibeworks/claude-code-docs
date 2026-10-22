@@ -28,7 +28,7 @@ Here are some key indicators that you should use an LLM such as Claude instead o
   </Accordion>
 
   <Accordion title="Your classification rules are based on semantic understanding">
-    Traditional ML approaches often rely on bag-of-words models or simple pattern matching. Claude excels at understanding and applying underlying rules when classes are defined by conditions rather than examples.
+    Traditional ML approaches often rely on bag-of-words models or simple pattern matching. Claude excels at applying underlying rules when classes are defined by conditions rather than examples.
   </Accordion>
 
   <Accordion title="You need interpretable reasoning for classification decisions">
@@ -203,7 +203,7 @@ Here are some common success criteria that might be useful regardless of whether
   </Accordion>
 
   <Accordion title="First-contact resolution rate">
-    This measures the percentage of tickets resolved during the first interaction with the customer. Higher rates indicate efficient routing and well-prepared support teams. Industry benchmarks typically range from 70–75 percent, with top performers achieving rates of 80 percent or higher.
+    This measures the percentage of tickets resolved during the first interaction with the customer. Higher rates indicate efficient routing and well-prepared support teams. Industry benchmarks typically range from 70 to 75 percent, with top performers achieving rates of 80 percent or higher.
   </Accordion>
 
   <Accordion title="Average handling time">
@@ -689,7 +689,7 @@ Having Claude split its response into separate XML tag sections lets you use reg
 
 It’s hard to know how well your prompt works without deploying it in a test production setting and [running evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
-Build the deployment structure. Start by defining the function signature for wrapping the call to Claude. Extend the function you started writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the reasoning and the intent as output. If you have an existing automation using traditional ML, you'll want to follow that method signature instead.
+Build the deployment structure. Start by defining the function signature for wrapping the call to Claude. Extend the function you started writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the reasoning and the intent as output. If you have an existing automation using traditional ML, you'll want to follow that signature instead.
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -1033,7 +1033,7 @@ The example evaluation for this guide measures Claude’s performance along two 
 * Accuracy
 * Cost per classification
 
-You may need to assess Claude on other axes depending on which factors are important to you.
+You might need to assess Claude on other axes depending on which factors are important to you.
 
 To assess this, first modify the script so that it compares the predicted intent with the actual intent. Then have it return the API call's token usage, from which you can calculate cost.
 
@@ -1478,7 +1478,7 @@ Here are some scenarios where Claude might misclassify tickets (there might be o
   <Accordion title="Claude prioritizes emotion over intent">
     When customers express dissatisfaction, Claude might prioritize addressing the emotion over solving the underlying problem.
 
-    * **Solution:** Provide Claude with directions on when to prioritize customer sentiment or not. It can be something as simple as “Ignore all customer emotions. Focus only on analyzing the intent of the customer’s request and what information the customer might be asking for.”
+    * **Solution:** Provide Claude with directions on when to prioritize customer sentiment or not. For example: “Ignore all customer emotions. Focus only on analyzing the intent of the customer’s request and what information the customer might be asking for.”
   </Accordion>
 
   <Accordion title="Multiple issues cause issue prioritization confusion">

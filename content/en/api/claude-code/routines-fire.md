@@ -95,7 +95,7 @@ The body is optional. Unknown fields in the body are ignored.
 
 A successful request returns `200 OK` with the new session details:
 
-```json
+```text
 {
   "type": "routine_fire",
   "claude_code_session_id": "session_01HJKLMNOPQRSTUVWXYZ",
@@ -113,7 +113,7 @@ A successful request returns `200 OK` with the new session details:
 
 Errors use the standard Anthropic [error envelope](https://platform.claude.com/docs/en/api/errors):
 
-```json
+```text wrap
 {
   "type": "error",
   "error": {

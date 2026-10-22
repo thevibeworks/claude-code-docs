@@ -564,7 +564,7 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
 
     # Use the tool runner
     runner = client.beta.messages.tool_runner(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       tools: [GetWeather.new, CalculateSum.new],
       messages: [
@@ -757,7 +757,7 @@ If you don't need intermediate messages, you can get the final message directly:
     client = Anthropic::Client.new
     # ...
     runner = client.beta.messages.tool_runner(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       tools: [GetWeather.new, CalculateSum.new],
       messages: [
@@ -1068,7 +1068,7 @@ When you take over for an iteration, the runner does not append the assistant me
 
     ```ruby
     runner = client.beta.messages.tool_runner(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       max_iterations: 10,
       tools: [GetWeather.new],
@@ -1266,7 +1266,7 @@ By default, the tool runner passes tool errors back to Claude, which can then re
     client = Anthropic::Client.new
     # ...
     runner = client.beta.messages.tool_runner(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       tools: [MyTool.new],
       messages: [{role: "user", content: "Run my_tool with the query 'hello'."}]
@@ -1526,7 +1526,7 @@ You can modify tool results before they're sent back to Claude. This is useful f
     client = Anthropic::Client.new
     # ...
     runner = client.beta.messages.tool_runner(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       tools: [SearchDocuments.new],
       messages: [{role: "user", content: "Search for information about the climate of San Francisco"}]
@@ -1741,7 +1741,7 @@ Enable streaming to process each turn's response incrementally. Each iteration y
     client = Anthropic::Client.new
     # ...
     runner = client.beta.messages.tool_runner(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       tools: [CalculateSum.new],
       messages: [{role: "user", content: "What is 15 + 27?"}]

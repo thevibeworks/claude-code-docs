@@ -171,7 +171,7 @@ The simplest way to start is with automatic caching:
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     cache_control: {type: "ephemeral"},
     system: "You are an AI assistant tasked with analyzing literary works. Your goal is to provide insightful commentary on themes, characters, and writing style.",
@@ -448,7 +448,7 @@ Automatic caching is the simplest way to enable prompt caching. Instead of placi
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     cache_control: {type: "ephemeral"},
     system: "You are a helpful assistant that remembers our conversation.",
@@ -819,7 +819,7 @@ To use the extended cache, include `ttl` in the `cache_control` definition like 
 
 The response includes detailed cache information like the following:
 
-```json Output
+```text Output wrap
 {
   "usage": {
     "input_tokens": 2048,
@@ -850,7 +850,7 @@ The 1-hour cache is best used in the following scenarios:
 * When you want to improve your rate limit utilization, because cache hits are not deducted against your rate limit.
 
 <Note>
-  The 5-minute and 1-hour cache behave the same with respect to latency. You generally see improved time-to-first-token for long documents.
+  The 5-minute and 1-hour caches behave the same with respect to latency. You generally see improved time-to-first-token for long documents.
 </Note>
 
 ### Mixing different TTLs
@@ -1088,7 +1088,7 @@ Place the `cache_control` breakpoint on the last block that is shared with the f
 
 The API returns an empty `content` array:
 
-```json Output
+```text Output wrap
 {
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -1522,7 +1522,7 @@ A `max_tokens: 0` request is rejected with an `invalid_request_error` if any of 
 
 `max_tokens: 0` is also rejected inside a [Message Batches](https://platform.claude.com/docs/en/build-with-claude/batch-processing) request. Pre-warming targets time-to-first-token, which does not apply to batch processing, and a cache entry written during batch processing would likely expire before the follow-up request runs.
 
-### Replacing the max\_tokens=1 workaround
+### Replacing the `max_tokens=1` workaround
 
 Before `max_tokens: 0` was available, some applications used `max_tokens: 1` warm-up calls to achieve the same effect. The `max_tokens: 0` approach is preferred: no output is produced, so there is no single-token reply to discard, no output tokens are billed, and the intent of the request is unambiguous.
 

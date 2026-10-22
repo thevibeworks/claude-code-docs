@@ -1157,7 +1157,7 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
 
   agent = client.beta.agents.create(
     name: "weather-agent",
-    model: "claude-opus-5-5",
+    model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
     system_: "You are a concise weather assistant.",
     tools: [
       {

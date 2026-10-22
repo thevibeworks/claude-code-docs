@@ -24,7 +24,7 @@ For the full response schema, see the [Messages API reference](https://platform.
 
 The `stop_reason` field is part of every successful Messages API response. Unlike errors, which indicate failures in processing your request, `stop_reason` tells you why Claude completed its response generation.
 
-```json Example response
+```text Example response wrap
 {
   "id": "msg_01234",
   "type": "message",
@@ -191,7 +191,7 @@ The most common stop reason. Indicates Claude completed its response naturally.
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello!" }]
   )
@@ -862,7 +862,7 @@ Claude stopped because it reached the `max_tokens` limit specified in your reque
 
   # Request with limited tokens
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 10,
     messages: [{ role: "user", content: "Explain quantum physics" }]
   )
@@ -1015,7 +1015,7 @@ Claude stopped because it reached the `max_tokens` limit specified in your reque
 
     ```ruby Ruby
     response = client.messages.create(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       messages: messages,
       tools: tools
@@ -1025,7 +1025,7 @@ Claude stopped because it reached the `max_tokens` limit specified in your reque
       last_block = response.content.last
       if last_block.type == :tool_use
         response = client.messages.create(
-          model: "claude-opus-5-5",
+          model: Anthropic::Model::CLAUDE_OPUS_5_5,
           max_tokens: 4096,
           messages: messages,
           tools: tools
@@ -1164,7 +1164,7 @@ Claude encountered one of your custom stop sequences.
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     stop_sequences: ["END", "STOP"],
     messages: [{ role: "user", content: "Generate text until you say END" }]
@@ -1476,7 +1476,7 @@ A `tool_use` response can also contain a `server_tool_use` block whose `id` has 
   With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block's own result block arrives once the code completes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response's `container` field, as that page shows.
 </Note>
 
-```json A mixed tool_use response
+```text A mixed tool_use response wrap
 {
   "stop_reason": "tool_use",
   "content": [
@@ -1872,7 +1872,7 @@ Claude declined to generate a response. Safety classifiers return this stop reas
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "[Unsafe request]" }]
   )
@@ -2318,7 +2318,7 @@ When a response is truncated because of token limits or the context window, appe
 
 ### Implement retry logic for pause\_turn
 
-When using [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), the API might return `pause_turn` if the server-side sampling loop reaches its iteration limit (default 10). Handle this by continuing the conversation:
+When you use [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), the API might return `pause_turn` if the server-side sampling loop reaches its iteration limit (default 10). Handle this by continuing the conversation:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -2777,7 +2777,7 @@ It's important to distinguish between `stop_reason` values and actual errors:
 
   begin
     response = client.messages.create(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       messages: [{ role: "user", content: "Hello!" }]
     )
@@ -2946,7 +2946,7 @@ When using streaming, `stop_reason` is:
   client = Anthropic::Client.new
 
   stream = client.messages.stream(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello!" }]
   )

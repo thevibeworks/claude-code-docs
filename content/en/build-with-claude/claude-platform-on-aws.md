@@ -96,7 +96,7 @@ Setting up Claude Platform on AWS takes four phases: sign up on the AWS Console 
     Access to the Claude Console is federated through AWS IAM:
 
     1. Assume an IAM role with the `aws-external-anthropic:AssumeConsole` permission. See [Console access](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#console-access).
-    2. From the **Claude Platform on AWS** service page, choose **Open Claude Console**. The AWS Console issues a JWT and redirects you to `platform.claude.com`.
+    2. From the **Claude Platform on AWS** service page, click **Open Claude Console**. The AWS Console issues a JWT and redirects you to `platform.claude.com`.
     3. On first sign-in, you're prompted for an email address. Enter your work email. The platform provisions your Claude Console user just-in-time.
 
     When you're signed in through the AWS Console, the Claude Console scopes to your Claude Platform on AWS organization. An **Account managed by AWS** indicator appears in the bottom-left of the Claude Console sidebar.
@@ -200,7 +200,7 @@ For simpler integration paths (local development and scripts), you can authentic
 Generate API keys in the **AWS Console** under **Claude Platform on AWS → API keys**. Click **Generate a key**, then copy the key value. Grant the `aws-external-anthropic:CallWithBearerToken` IAM action to the principals that should be allowed to use API key authentication.
 
 <Note>
-  API keys for Claude Platform on AWS are managed in the AWS Console, not the Claude Console. Keys created in the standard Claude Console at [platform.claude.com](https://platform.claude.com) (for first-party API access) don't work with the Claude Platform on AWS endpoint.
+  API keys for Claude Platform on AWS are managed in the AWS Console, not the Claude Console. Keys created in the standard Claude Console at [platform.claude.com](https://platform.claude.com/) (for first-party API access) don't work with the Claude Platform on AWS endpoint.
 </Note>
 
 #### Short-term API keys
@@ -305,20 +305,20 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
 
   <Tab title="Java">
     ```kotlin Gradle
-    implementation("com.anthropic:anthropic-java:3.0.0")
-    implementation("com.anthropic:anthropic-java-aws:3.0.0")
+    implementation("com.anthropic:anthropic-java:3.1.0")
+    implementation("com.anthropic:anthropic-java-aws:3.1.0")
     ```
 
     ```xml Maven
     <dependency>
       <groupId>com.anthropic</groupId>
       <artifactId>anthropic-java</artifactId>
-      <version>3.0.0</version>
+      <version>3.1.0</version>
     </dependency>
     <dependency>
       <groupId>com.anthropic</groupId>
       <artifactId>anthropic-java-aws</artifactId>
-      <version>3.0.0</version>
+      <version>3.1.0</version>
     </dependency>
     ```
   </Tab>
@@ -794,7 +794,7 @@ Create additional workspaces, rename a workspace, or archive a workspace from th
 
 ## Using the Claude Console
 
-Claude Platform on AWS uses the standard Claude Console at [platform.claude.com](https://platform.claude.com). When you sign in from the AWS Console, an **Account managed by AWS** indicator appears in the bottom-left of the Claude Console sidebar and the Console scopes to your Claude Platform on AWS organization. It provides usage analytics, cost breakdowns, rate limit visibility, workspace management, and pages for managing files, Agent Skills, batch jobs, and Claude Managed Agents resources (agents, sessions, environments, credential vaults, memory stores, and webhooks).
+Claude Platform on AWS uses the standard Claude Console at [platform.claude.com](https://platform.claude.com/). When you sign in from the AWS Console, an **Account managed by AWS** indicator appears in the bottom-left of the Claude Console sidebar, and the Console scopes to your Claude Platform on AWS organization. It provides usage analytics, cost breakdowns, rate limit visibility, workspace management, and pages for managing files, Agent Skills, batch jobs, and Claude Managed Agents resources (agents, sessions, environments, credential vaults, memory stores, and webhooks).
 
 ### Signing in
 
@@ -805,7 +805,7 @@ Access to the Claude Console is federated through AWS IAM. See [Set up your acco
 3. Click **Open Claude Console**. The AWS Console issues a JWT and redirects you to `platform.claude.com`.
 4. On first sign-in, you're prompted for an email address. Enter your work email. The platform provisions your Claude Console user just-in-time.
 
-Two Claude Console roles are available: **Admin** and **Developer**. The Admin role grants access to all Claude Console pages and settings available for Claude Platform on AWS. The Developer role grants read access to usage, cost, rate limit, and workspace information. Contact your Anthropic account representative to assign the Admin or Developer role to a principal.
+Two Claude Console roles are available: **Admin** and **Developer**. The Admin role grants access to all Claude Console pages and settings available for Claude Platform on AWS. The Developer role grants read access to usage, cost, request log, rate limit, and workspace information. Contact your Anthropic account representative to assign the Admin or Developer role to a principal.
 
 ### Available pages
 
@@ -816,6 +816,7 @@ The **Through AWS gateway** column indicates whether the page reads and writes d
 | **Usage**             | Yes           | No                        | View token usage by model, workspace, and dimension. Data can take a few minutes to appear after a request.                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | **Cost**              | Yes           | No                        | View cost breakdowns by model and workspace. AWS Cost Explorer shows the aggregated [Claude Consumption Unit (CCU)](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#billing) line item.                                                                                                                                                                                                                                                                                                                                                                |
 | **Rate limits**       | Yes           | No                        | View rate limits (read-only). Tier increases go through your Anthropic account representative; see [Rate limits and quotas](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#rate-limits-and-quotas).                                                                                                                                                                                                                                                                                                                                                   |
+| **Logs**              | Yes           | No                        | View per-request metadata such as time, model, workspace, token counts, and status. Log entries do not include prompts or responses.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | **Workspaces**        | Yes           | Yes (except spend limits) | View per-region workspaces. With the Admin role, you can also create, rename, and archive workspaces, and set per-workspace [spend limits](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#spend-limits).                                                                                                                                                                                                                                                                                                                                              |
 | **Encryption keys**   | Yes           | Yes                       | A section of the [Data retention](https://platform.claude.com/settings/privacy#encryption-keys) page (`platform.claude.com/settings/privacy`) in the Claude Console, shown while **Organization** is selected in the dropdown menu at the top of the page. Register AWS KMS keys there (Admin role), as described in [Set up CMEK on Claude Platform on AWS](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws). To attach a registered key to a workspace, select the workspace from that dropdown menu, then select the key under **Encryption key**. |
 | **Files**             | Yes           | Yes                       | View and manage uploaded files.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -1206,7 +1207,7 @@ AWS provides five managed policies (`AnthropicFullAccess`, `AnthropicReadOnlyAcc
 ## Additional resources
 
 <CardGroup cols={2}>
-  <Card title="Claude Console" icon="browser" href="https://platform.claude.com">
+  <Card title="Claude Console" icon="browser" href="https://platform.claude.com/">
     View usage, cost, and workspaces in the Claude Console. Sign in through the AWS Console.
   </Card>
 

@@ -481,7 +481,7 @@ The following example creates an agent with the built-in toolset and one custom 
 
 A custom tool's name can't start with `mcp__` or `ant__`, or match the name of a built-in agent tool. A request that breaks this rule returns a 400 error. An agent that already has a custom tool whose name starts with `ant__` accepts an update only if the update sends `tools` (csharp, go: `Tools`) without that name, so rename or remove the tool in your next update. A new session is refused with a 400 error if such a tool is on its agent (after any [overrides](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session)), on an agent in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`), or on an agent in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `workflows` (csharp, go: `Workflows`). Sessions that already exist aren't affected.
 
-The agent calls its custom tools during a session. To receive the calls and return results, see [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#handling-custom-tool-calls).
+The agent calls its custom tools during a session. To receive the calls and return results, see [Answer tool calls that pause the session](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#handling-custom-tool-calls).
 
 For sessions that run in a self-hosted sandbox, the environment worker can [serve custom tools from the sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-custom-tools). These can include tools that wrap an MCP server inside your network.
 

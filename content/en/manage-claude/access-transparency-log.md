@@ -148,7 +148,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json
+```text
 {
   "type": "transparency_log_keys",
   "origin": "axt.anthropic.com/25f6429a-3293-49bf-afed-cb312911554b",
@@ -193,7 +193,7 @@ Anthropic publishes the fingerprint of every key that signs checkpoints here, ou
 
 A planned rotation is announced on this page at least 30 days before the new key signs its first checkpoint. During that notice period the new key is listed in `log_keys` and in this table with its switch date. Retired keys stay listed with their service dates. A key that does not appear in this table is not legitimate, whatever `GET /keys` returns. Treat a checkpoint that verifies under no listed key as a verification failure, and report it to your Anthropic account representative or [Anthropic support](https://support.claude.com).
 
-[`axt-verify`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#verify-with-axt-verify) carries the current key in each release and never reads a key from the API. Each release carries exactly one key. On the switch date, Anthropic starts signing with the new key and publishes the `axt-verify` release that carries it. On the same date Anthropic re-issues every organization's latest checkpoint under the new key, even for a log that has not grown. Upgrade on the switch date. Running the old release after the switch fails with exit status `1`, and so does running the new release before it. Either failure clears once you run the matching release. A verifier you maintain yourself needs the new fingerprint, with its switch date, added before that date.
+`axt-verify` carries the current key in each release and never reads a key from the API (see [Verify with axt-verify](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#verify-with-axt-verify)). Each release carries exactly one key. On the switch date, Anthropic starts signing with the new key and publishes the `axt-verify` release that carries it. On the same date Anthropic re-issues every organization's latest checkpoint under the new key, even for a log that has not grown. Upgrade on the switch date. Running the old release after the switch fails with exit status `1`, and so does running the new release before it. Either failure clears once you run the matching release. A verifier you maintain yourself needs the new fingerprint, with its switch date, added before that date.
 
 ### Fetch an inclusion proof
 
@@ -212,7 +212,7 @@ curl --fail-with-body -sS -G \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json
+```text
 {
   "type": "transparency_log_inclusion_proof",
   "leaf_index": 41,
@@ -258,7 +258,7 @@ curl --fail-with-body -sS -G \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json
+```text
 {
   "type": "transparency_log_consistency_proof",
   "hashes": [
@@ -337,7 +337,7 @@ The rules:
 
 For example, this access event as the Activity Feed serves it:
 
-```json
+```text wrap
 {
   "id": "activity_01GPXmAhizavrUuoXNn3tzeA",
   "type": "anthropic_access",

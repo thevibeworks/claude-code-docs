@@ -376,7 +376,7 @@ When you configure a tool to be callable from code execution and Claude determin
 This approach is particularly useful for:
 
 * **Large data processing:** Filter or aggregate tool results before they reach Claude's context.
-* **Multistep workflows:** Save tokens and latency by calling tools serially or in a loop without sampling Claude in-between tool calls.
+* **Multistep workflows:** Save tokens and latency by calling tools serially or in a loop without sampling Claude between tool calls.
 * **Conditional logic:** Make decisions based on intermediate tool results.
 
 <Note>
@@ -422,7 +422,7 @@ Every tool use block includes a `caller` field indicating how it was called:
 
 **Direct call (traditional tool use):**
 
-```json
+```text wrap
 {
   "type": "tool_use",
   "id": "toolu_abc123",
@@ -434,7 +434,7 @@ Every tool use block includes a `caller` field indicating how it was called:
 
 **Programmatic call:**
 
-```json
+```text wrap
 {
   "type": "tool_use",
   "id": "toolu_xyz789",
@@ -480,7 +480,7 @@ The request shape is identical to the [Quick start](https://platform.claude.com/
 
 Claude writes code that calls your tool. The API pauses and returns:
 
-```json Output
+```text Output
 {
   "role": "assistant",
   "content": [
@@ -1160,7 +1160,7 @@ The code picks up where it paused and processes your result. Each continuation r
 
 Once the code execution completes, Claude provides the final response:
 
-```json Output
+```text Output
 {
   "content": [
     {
@@ -1197,7 +1197,7 @@ for region in regions:
     results[region] = sum(row["revenue"] for row in rows)
 
 # Process results programmatically
-top_region = max(results.items(), key=lambda x: x[1])
+top_region = max(results.items(), key=lambda item: item[1])
 print(f"Top region: {top_region[0]} with ${top_region[1]:,} in revenue")
 ```
 
@@ -1249,7 +1249,7 @@ for error in errors[-10:]:  # Only return last 10 errors
 
 When code execution calls a tool:
 
-```json
+```text wrap
 {
   "type": "tool_use",
   "id": "toolu_abc123",
@@ -1283,7 +1283,7 @@ Your tool result is passed back to the running code:
 
 When all tool calls are satisfied and code completes:
 
-```json
+```text
 {
   "type": "code_execution_tool_result",
   "tool_use_id": "srvtoolu_xyz789",
@@ -1310,7 +1310,7 @@ When all tool calls are satisfied and code completes:
 
 If your tool result doesn't arrive within about 4 minutes, the pending call raises a `TimeoutError` inside Claude's running code. Claude receives the error in `stderr` and typically retries the call:
 
-```json
+```text
 {
   "type": "code_execution_tool_result",
   "tool_use_id": "srvtoolu_abc123",
