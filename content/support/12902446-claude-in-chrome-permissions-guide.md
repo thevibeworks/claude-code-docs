@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792667700&amp;signature=f1d71c258039d665495183c2d0fea436ffa8f6d201066cc2018e0a8bb7dbfa3c&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBL%2BoWwgN0ADj5oqFD3PA8ShrsRyuVB2hWf%0AzhFtTphXY6kraoo%2FhwU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792685700&amp;signature=b6bb87defe12dc43aa2a97cda00f4721667e1e2cf6f002045575b75da869c6aa&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBL9IewgN0ADj5oqFCLsfKPOf77p43l0MPe%0ARmnEuq24VmHl9ODYsC0%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792667700&amp;signature=e175b151653ef67d62a47063f05d1d890ffe2bed47c1d97cb8f75d0e76a1fca9&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R2jivr7A4lHPBihAX2rltYeM1uvI8ZuDGX%0AV0DpLwXbsMysq%2B1JeH8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792685700&amp;signature=24a05c5dc6303d462fd480cbd8c934a173849e00524907cec4588eab84d87241&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R2gCnr7A4lHPBihAVZ0pla%2FuU7LWjW1svx%0ARc0JEm%2FjO50ZYG4E6gQ%3D%0A)
 
 ### Permission options
 
