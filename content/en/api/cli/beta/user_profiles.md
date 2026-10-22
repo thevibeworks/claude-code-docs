@@ -184,8 +184,7 @@ Create User Profile
 ### Example
 
 ```bash
-ant beta:user-profiles create \
-  --api-key my-anthropic-api-key
+ant beta:user-profiles create
 ```
 
 #### Response (200)
@@ -393,8 +392,7 @@ List User Profiles
 ### Example
 
 ```bash
-ant beta:user-profiles list \
-  --api-key my-anthropic-api-key
+ant beta:user-profiles list
 ```
 
 #### Response (200)
@@ -586,7 +584,6 @@ Get User Profile
 
 ```bash
 ant beta:user-profiles retrieve \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -804,7 +801,6 @@ Update User Profile
 
 ```bash
 ant beta:user-profiles update \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -878,7 +874,6 @@ Delete User Profile
 
 ```bash
 ant beta:user-profiles delete \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -939,7 +934,6 @@ Create Enrollment URL
 
 ```bash
 ant beta:user-profiles create-enrollment-url \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
@@ -1299,7 +1293,6 @@ Create Action URL
 
 ```bash
 ant beta:user-profiles:action-urls create \
-  --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9 \
   --action '{type: enroll_end_user}'
 ```

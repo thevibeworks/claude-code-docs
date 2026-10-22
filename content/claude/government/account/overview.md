@@ -18,6 +18,8 @@ Every user has access to this portal regardless of what role they hold. If you a
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-05-your-account-usage-limits-and-getting-help.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=691f1dc9497295c364c0e8f81020b942" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
 
+Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with an AI-generated voice, with on-screen captions.
+
 > **Transcript**
 >
 > Your account pages are in the web portal. In a browser, open your agency's Claude for Government address and sign in. Account shows your email, organization, role, and seat tier, all read-only.
@@ -36,9 +38,9 @@ Every user has access to this portal regardless of what role they hold. If you a
 >
 > Who to ask: your organization's owner for a seat, a larger allowance, or a wrong organization or role. Your IT help desk for anything about the app on your computer. Your administrators can take it from there.
 
-* The [**Account**](/docs/government/account/profile) tab shows who you are, including your name, email address, organization, role, and seat tier. Everything on this tab is read-only. Your name and email come from your agency's directory; your organization, role, and seat tier are set by your directory or by an administrator.
-* The [**Usage**](/docs/government/account/usage) tab shows how much of your personal allowance you have used in the current 5-hour and 7-day windows, and when each one next resets. If you have hit a limit and Claude is paused, this tab is marked with a pulsing indicator in the navigation so you can spot it at a glance.
-* The [**Sessions**](/docs/government/account/sessions) tab lists every browser and desktop application where you are currently signed in, with the option to sign any of them out remotely.
+* The [**Account**](/docs/government/account/profile.md) tab shows who you are, including your name, email address, organization, role, and seat tier. Everything on this tab is read-only. Your name and email come from your agency's directory; your organization, role, and seat tier are set by your directory or by an administrator.
+* The [**Usage**](/docs/government/account/usage.md) tab shows how much of your personal allowance you have used in the current 5-hour and 7-day windows, and when each one next resets. If you have hit a limit and Claude is paused, this tab is marked with a pulsing indicator in the navigation so you can spot it at a glance.
+* The [**Sessions**](/docs/government/account/sessions.md) tab lists every browser and desktop application where you are currently signed in, with the option to sign any of them out remotely.
 
 ## The page footer
 
@@ -48,6 +50,6 @@ At the bottom of every page in this portal you will find your email address and 
 
 ## Things to know
 
-* **Nothing here is editable.** Your name, email, organization, role, and seat tier are all set in your agency's directory or by an administrator, and they flow into Claude for Government automatically. If any of these details are wrong, the [Account](/docs/government/account/profile) page explains where each one comes from and who to contact.
+* **Nothing here is editable.** Your name, email, organization, role, and seat tier are all set in your agency's directory or by an administrator, and they flow into Claude for Government automatically. If any of these details are wrong, the [Account](/docs/government/account/profile.md) page explains where each one comes from and who to contact.
 * **The three tabs are independent.** Looking at your usage or your sessions has no effect on the other tabs, and the Sign out button in the footer works from any of them.
 * **The pulsing indicator on the Usage tab is the only alert in this portal.** It appears while either of your usage limits is full and disappears on its own once the limit resets.

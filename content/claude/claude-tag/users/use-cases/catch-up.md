@@ -16,7 +16,7 @@ Each prompt below is a Slack message. You paste it in any channel Claude is in, 
 
 ## Check the channel's connections
 
-This use case needs no connections; it works on Slack history alone. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
+This use case needs no connections; it works on Slack history alone. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 ## Prompts to paste
 
@@ -46,14 +46,14 @@ If the first stretch of every morning goes to re-reading channels, schedule the 
 @Claude every weekday at 9am, post a summary of open threads in this channel and anything that looks like it's waiting on someone.
 ```
 
-"Waiting on someone" makes the rollup surface actions, not just a recap of yesterday. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+"Waiting on someone" makes the rollup surface actions, not just a recap of yesterday. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ## Related resources
 
-> **[Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts)**
+> **[Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts.md)**
 >
 > When the catch-up should become an artifact
 
-> **[Set up routines](/docs/claude-tag/users/proactivity)**
+> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
 >
 > Scheduling and triggers

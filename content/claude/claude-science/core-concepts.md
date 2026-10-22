@@ -14,7 +14,7 @@ A session is one conversation thread. Each session has its own workspace folder 
 
 ## Files stay on your computer
 
-Claude reads and writes files in place, in the folders you grant. Anthropic doesn't host or store your files; file content that Claude reads to answer a prompt is sent to Anthropic as part of the conversation, and Anthropic retains it as [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data) describes. If you sign in to Claude Science on a different computer, your files, artifacts, and conversation history don't follow you there. See [Use Claude Science on more than one computer](/docs/claude-science/multiple-computers) for what your account does carry between computers.
+Claude reads and writes files in place, in the folders you grant. Anthropic doesn't host or store your files; file content that Claude reads to answer a prompt is sent to Anthropic as part of the conversation, and Anthropic retains it as [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data.md) describes. If you sign in to Claude Science on a different computer, your files, artifacts, and conversation history don't follow you there. See [Use Claude Science on more than one computer](/docs/claude-science/multiple-computers.md) for what your account does carry between computers.
 
 The one exception to working in place is **Attach files** in the composer: attached files are copied into the application's local data folder so they stay with the conversation.
 
@@ -38,7 +38,7 @@ A permission card appears in the conversation each time Claude needs a new kind 
 
 All standing grants are listed in Settings > Permissions and can be revoked there.
 
-On Linux, a uv, conda, mamba, or pixi environment in a folder you've granted **Read & write** can still be read-only to Claude. See [Environments in granted folders](/docs/claude-science/tools-and-environments#environments-in-granted-folders).
+On Linux, a uv, conda, mamba, or pixi environment in a folder you've granted **Read & write** can still be read-only to Claude. See [Environments in granted folders](/docs/claude-science/tools-and-environments.md#environments-in-granted-folders).
 
 ## Plans
 
@@ -58,7 +58,7 @@ Memory lets Claude save short facts about you, your projects, and your files acr
 
 Saved facts are stored in the app's local database on your computer; they aren't synced to Anthropic. The Memory settings page lists every saved fact. You can edit, delete, add, or clear facts there. A per-session toggle in the session settings menu turns memory off for that session only.
 
-Facts Claude recalls for a session are sent to Anthropic as part of that session's conversation, and Anthropic retains them as [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data) describes. On Team and Enterprise plans, your organization's admin can turn memory off for the organization. Memory is then off for you whatever you chose, and your saved facts stay on your computer, where you can still review and delete them (see [Memory](/docs/claude-science/admin-controls#memory) in the admin controls).
+Facts Claude recalls for a session are sent to Anthropic as part of that session's conversation, and Anthropic retains them as [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data.md) describes. On Team and Enterprise plans, your organization's admin can turn memory off for the organization. Memory is then off for you whatever you chose, and your saved facts stay on your computer, where you can still review and delete them (see [Memory](/docs/claude-science/admin-controls.md#memory) in the admin controls).
 
 ## Composer shortcuts
 

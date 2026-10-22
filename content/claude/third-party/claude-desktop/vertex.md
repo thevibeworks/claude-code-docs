@@ -17,8 +17,8 @@ Google Cloud's Agent Platform authenticates with Google Cloud Application Defaul
 | Proof of concept, single team | [Service-account key](#credentials-file) (`inferenceVertexCredentialsFile`) | The key file on each device | No (shared service account) | A long-lived secret distributed to every device. Simplest to start; not recommended for broad rollout. |
 | Users have Google Workspace or Cloud Identity accounts | [In-app Google sign-in](#in-app-google-sign-in) (`inferenceVertexOAuth*`) | None | Yes | Users sign in with their Google account inside the app. See the session-control warning below. |
 | Users authenticate with a third-party IdP (Entra ID, Okta, Ping, …) and you don't want to provision Google identities | [In-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) (`inferenceVertexWorkforce*`) | None | Yes (workforce-pool principal) | Users sign in with their corporate identity inside the app. The app runs PKCE against your IdP and exchanges the ID token at Google STS. |
-| Your organization already has tooling that obtains a bearer token accepted by Google Cloud's Agent Platform | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | The helper executable on each device | Depends on what the helper obtains | The app sends the token the helper prints as the bearer on each inference request. |
-| You already operate an LLM proxy | [Gateway provider](/docs/third-party/claude-desktop/gateway) instead of Google Cloud's Agent Platform | None | At your gateway | The proxy holds the Google Cloud credentials; the app authenticates only to the proxy. |
+| Your organization already has tooling that obtains a bearer token accepted by Google Cloud's Agent Platform | [Credential helper](/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) (`inferenceCredentialHelper`) | The helper executable on each device | Depends on what the helper obtains | The app sends the token the helper prints as the bearer on each inference request. |
+| You already operate an LLM proxy | [Gateway provider](/docs/third-party/claude-desktop/gateway.md) instead of Google Cloud's Agent Platform | None | At your gateway | The proxy holds the Google Cloud credentials; the app authenticates only to the proxy. |
 
 > [!WARNING]
 >
@@ -231,11 +231,11 @@ Distribute the workforce-pool provider audience and the IdP OIDC client in the m
 
 The app always requests the `offline_access` scope so that the IdP returns a refresh token for silent renewal. If your IdP rejects `offline_access` on this client (for example, a PingFederate public client without the Refresh Token grant type enabled), set the `omitOfflineAccess` field of `inferenceVertexWorkforceOidc` to `true`. Without a refresh token the app cannot refresh silently, so users will be prompted to sign in again each time the IdP's ID token expires, typically about once an hour.
 
-When your IdP is Microsoft Entra ID, you can run this sign-in through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker) on Windows and macOS instead of the system browser by setting `inferenceVertexWorkforceAuthFlow` to `broker`. The `issuer` in `inferenceVertexWorkforceOidc` must then be `https://login.microsoftonline.com/TENANT_ID/v2.0`, and no loopback redirect URI is needed. The token exchange at `sts.googleapis.com` is unchanged.
+When your IdP is Microsoft Entra ID, you can run this sign-in through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker.md) on Windows and macOS instead of the system browser by setting `inferenceVertexWorkforceAuthFlow` to `broker`. The `issuer` in `inferenceVertexWorkforceOidc` must then be `https://login.microsoftonline.com/TENANT_ID/v2.0`, and no loopback redirect URI is needed. The token exchange at `sts.googleapis.com` is unchanged.
 
 ## Configure the app
 
-With Google Cloud set up and devices prepared, open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**) on an evaluation device. In the **Connection** section, set **Inference provider** to **Vertex AI** and fill in the **Vertex AI credentials** card with the values for whichever authentication approach you chose:
+With Google Cloud set up and devices prepared, open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**) on an evaluation device. In the **Connection** section, set **Inference provider** to **Vertex AI** and fill in the **Vertex AI credentials** card with the values for whichever authentication approach you chose:
 
 | Field | Service-account key | In-app Google sign-in |
 | - | - | - |
@@ -249,13 +249,13 @@ With Google Cloud set up and devices prepared, open the [in-app configuration wi
 
 Under **Models**, add at least one **Model list** entry using the publisher model ID, for example `claude-sonnet-5`.
 
-Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) for the export and deployment workflow.
+Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
 ### Configuration keys
 
 The full set of `inferenceVertex*` keys is below. Set `inferenceProvider` to `vertex`, supply a project and region, and provide exactly one credential source.
 
-The region can be a single region such as `us-east5`, the `eu` or `us` multi-region, or `global`. The app routes inference to a different endpoint host for multi-regions and `global`; if you allowlist egress by hostname, see the [inference provider egress hosts](/docs/third-party/claude-desktop/telemetry#inference-provider).
+The region can be a single region such as `us-east5`, the `eu` or `us` multi-region, or `global`. The app routes inference to a different endpoint host for multi-regions and `global`; if you allowlist egress by hostname, see the [inference provider egress hosts](/docs/third-party/claude-desktop/telemetry.md#inference-provider).
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
@@ -295,7 +295,7 @@ The region can be a single region such as `us-east5`, the `eu` or `us` multi-reg
 
 If none of `inferenceVertexCredentialsFile`, the OAuth client keys, the Workforce Identity keys, or `inferenceCredentialHelper` is set, the Google client library falls back to the standard Application Default Credentials search path on the device (`~/.config/gcloud/application_default_credentials.json`, then the environment's metadata server).
 
-You must also set `inferenceModels` to a list of publisher model IDs, for example `claude-sonnet-5`. See the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencemodels).
+You must also set `inferenceModels` to a list of publisher model IDs, for example `claude-sonnet-5`. See the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
 
@@ -310,4 +310,4 @@ For in-app Google sign-in, the browser flow runs on the host (outside the Cowork
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage#where-data-lives).
+To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage.md#where-data-lives).

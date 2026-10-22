@@ -25,8 +25,8 @@ If you already know MCP authorization, these are the places where Claude's OAuth
 
 > [!NOTE]
 >
-> * If some of your tools work without the user's account, see [Lazy authentication](/docs/connectors/building/lazy-authentication) to let people use those right away and sign in only when Claude reaches a tool that needs their account
-> * If you want enterprise users to connect through their organization's SSO without a consent screen, see [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth)
+> * If some of your tools work without the user's account, see [Lazy authentication](/docs/connectors/building/lazy-authentication.md) to let people use those right away and sign in only when Claude reaches a tool that needs their account
+> * If you want enterprise users to connect through their organization's SSO without a consent screen, see [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth.md)
 
 Use this page to [pick an authentication type](#supported-authentication-types), [register Claude as an OAuth client](#register-claude-as-an-oauth-client), [make discovery and redirects work](#oauth-discovery-and-redirect-uris), and [meet the token endpoint requirements](#token-endpoint-requirements).
 
@@ -41,7 +41,7 @@ Claude supports the following authentication types for remote MCP servers.
 | `oauth_anthropic_creds` | OAuth 2.0 with [Anthropic-held client credentials](#anthropic-held-client-credentials) | Contact `mcp-review@anthropic.com` |
 | `custom_connection` | Custom URL or OAuth client credentials [entered at connection time](#credentials-entered-at-connection-time) | Contact `mcp-review@anthropic.com` |
 | `static_headers` | Fixed credential (API key or bearer token) entered by an organization Owner as a request header when adding the connector | Beta, for a limited set of organizations |
-| `none` | No authentication (authless server) | Supported by default. To leave some tools open and require sign-in for others, see [Lazy authentication](/docs/connectors/building/lazy-authentication) |
+| `none` | No authentication (authless server) | Supported by default. To leave some tools open and require sign-in for others, see [Lazy authentication](/docs/connectors/building/lazy-authentication.md) |
 
 If your server URL varies per customer, read [Servers with per-customer URLs](#servers-with-per-customer-urls) before you pick a type.
 
@@ -52,7 +52,7 @@ With a static credential, an organization Owner enters an API key or bearer toke
 * **Read the credential from a request header**: standard authentication header names such as `authorization`, `x-api-key`, and `x-auth-token` work for every connector. If you need a different header name, Anthropic has to approve it before Owners can save the connector, so ask `mcp-review@anthropic.com` first
 * **Never accept it in the URL**: don't read tokens from query parameters such as `?token=` or `?apiKey=`. URLs end up in server logs, proxies, and browser history, and the MCP authorization specification [prohibits access tokens in the query string](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#token-requirements)
 * **Treat it as the organization's credential, not a person's**: every member's requests carry the same key, so don't use it to identify which user is calling. If your tools need to act as the individual user, use OAuth instead
-* **Tell Owners what to enter**: document the header name and where they get the key. [Authenticate with request headers](/docs/connectors/custom/add-unlisted#authenticate-with-request-headers) shows what the Owner sees when adding the connector
+* **Tell Owners what to enter**: document the header name and where they get the key. [Authenticate with request headers](/docs/connectors/custom/add-unlisted.md#authenticate-with-request-headers) shows what the Owner sees when adding the connector
 
 ### Servers with per-customer URLs
 
@@ -89,7 +89,7 @@ For the OAuth types, Claude needs a client identity at your authorization server
 If your authorization server doesn't support DCR, meaning it exposes no `registration_endpoint`, you have these options:
 
 * Expose a `registration_endpoint`
-* Support CIMD instead. Claude selects CIMD only when your authorization server metadata advertises both `"client_id_metadata_document_supported": true` and `"none"` in `token_endpoint_auth_methods_supported`. The second is required because Claude's CIMD client authenticates as a public client at your token endpoint. If either is missing, Claude falls back to DCR. See [lazy authentication](/docs/connectors/building/lazy-authentication#identify-claude-with-a-client-id-metadata-document) for a worked CIMD example
+* Support CIMD instead. Claude selects CIMD only when your authorization server metadata advertises both `"client_id_metadata_document_supported": true` and `"none"` in `token_endpoint_auth_methods_supported`. The second is required because Claude's CIMD client authenticates as a public client at your token endpoint. If either is missing, Claude falls back to DCR. See [lazy authentication](/docs/connectors/building/lazy-authentication.md#identify-claude-with-a-client-id-metadata-document) for a worked CIMD example
 * Switch to `oauth_anthropic_creds`, if your listing doesn't use a URL pattern
 
 If your server URL varies per customer and DCR isn't available, CIMD is the recommended path. Every customer's authorization server must advertise both CIMD values. Otherwise Claude falls back to DCR for that customer, which needs a `registration_endpoint`.
@@ -131,7 +131,7 @@ To use this flow, email `mcp-review@anthropic.com` with which fields you need, w
 
 Claude includes a [PKCE](https://datatracker.ietf.org/doc/html/rfc7636) `code_challenge` with `code_challenge_method=S256` on every authorization request, regardless of which registration mechanism it uses. Your authorization server must support S256 PKCE. The [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#authorization-code-protection) also requires it to advertise `"code_challenge_methods_supported": ["S256"]` in its metadata so spec-compliant clients can verify support before starting the flow.
 
-To control which scopes Claude requests, include a `scope` parameter in the `WWW-Authenticate` header on your `401` response. If you don't, Claude requests the scopes your protected resource metadata advertises in `scopes_supported`. Claude also appends `offline_access` when your authorization server metadata lists it in `scopes_supported`, to obtain a refresh token. See [lazy authentication](/docs/connectors/building/lazy-authentication#answer-a-protected-call-with-401-before-the-mcp-sdk-runs) for the canonical `401` shape.
+To control which scopes Claude requests, include a `scope` parameter in the `WWW-Authenticate` header on your `401` response. If you don't, Claude requests the scopes your protected resource metadata advertises in `scopes_supported`. Claude also appends `offline_access` when your authorization server metadata lists it in `scopes_supported`, to obtain a refresh token. See [lazy authentication](/docs/connectors/building/lazy-authentication.md#answer-a-protected-call-with-401-before-the-mcp-sdk-runs) for the canonical `401` shape.
 
 ## OAuth discovery and redirect URIs
 
@@ -146,7 +146,7 @@ Claude locates your authorization server through your [protected resource metada
 * **List your primary issuer first**: the document's `authorization_servers` field must list your authorization server's issuer URL. If you list more than one, Claude uses the first entry and doesn't fall back to later entries
 * **Serve authorization server metadata Claude can reach**: your authorization server must serve its own discovery metadata, either [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414) authorization server metadata or [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html), at its `/.well-known/` paths. That host must also be reachable from Anthropic's [published egress range](https://platform.claude.com/docs/en/api/ip-addresses). Discovery requests to the authorization server come from the same IP range as requests to your MCP server, so a WAF in front of your identity provider can break the flow even when your MCP server is reachable
 
-The `401` response carries the pointer in its `WWW-Authenticate` header. This is the same handshake described in [Answer a protected call with 401 before the MCP SDK runs](/docs/connectors/building/lazy-authentication#answer-a-protected-call-with-401-before-the-mcp-sdk-runs):
+The `401` response carries the pointer in its `WWW-Authenticate` header. This is the same handshake described in [Answer a protected call with 401 before the MCP SDK runs](/docs/connectors/building/lazy-authentication.md#answer-a-protected-call-with-401-before-the-mcp-sdk-runs):
 
 ```http theme={null}
 HTTP/1.1 401 Unauthorized
@@ -159,13 +159,13 @@ If your `401` doesn't include a `resource_metadata` pointer, Claude can still in
 
 > [!NOTE]
 >
-> If your authorization server is Microsoft Entra ID, you must also register the MCP server URL as an Application ID URI on your Entra app registration, or the token request fails with `AADSTS9010010`. By default, Entra accepts that URL as an Application ID URI only when it's on a domain your tenant has verified, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions), so an MCP server on a platform hostname such as `*.azurewebsites.net` needs a custom domain first. See [the troubleshooting entry](/docs/connectors/building/troubleshooting#microsoft-entra-id-rejects-the-resource-value) for the fix.
+> If your authorization server is Microsoft Entra ID, you must also register the MCP server URL as an Application ID URI on your Entra app registration, or the token request fails with `AADSTS9010010`. By default, Entra accepts that URL as an Application ID URI only when it's on a domain your tenant has verified, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions), so an MCP server on a platform hostname such as `*.azurewebsites.net` needs a custom domain first. See [the troubleshooting entry](/docs/connectors/building/troubleshooting.md#microsoft-entra-id-rejects-the-resource-value) for the fix.
 
 If you control both hosts, an alternative is to serve the MCP endpoint and the authorization server behind a single custom domain that can route both `/.well-known/*` and your MCP path.
 
 > [!TIP]
 >
-> A common symptom of a discovery failure is that your MCP server receives the initial request but your authorization server sees no traffic at all. That happens when neither path works: there's no `WWW-Authenticate: Bearer resource_metadata=…` header on your `401`, and the well-known paths on your MCP server's origin return `404`. With no metadata to read, Claude never learns where your authorization server is, and the connection fails with "Couldn't reach the MCP server." See [troubleshooting](/docs/connectors/building/troubleshooting) for the full diagnostic flow.
+> A common symptom of a discovery failure is that your MCP server receives the initial request but your authorization server sees no traffic at all. That happens when neither path works: there's no `WWW-Authenticate: Bearer resource_metadata=…` header on your `401`, and the well-known paths on your MCP server's origin return `404`. With no metadata to read, Claude never learns where your authorization server is, and the connection fails with "Couldn't reach the MCP server." See [troubleshooting](/docs/connectors/building/troubleshooting.md) for the full diagnostic flow.
 
 ### Callback URLs
 
@@ -183,7 +183,7 @@ For Claude Code, accept a loopback redirect on any port. Claude Code is a native
 http://localhost:3118/callback
 ```
 
-Claude Code declares `http://localhost/callback` and `http://127.0.0.1/callback` in its [Client ID Metadata Document](https://claude.ai/oauth/claude-code-client-metadata), so match both with the port component ignored. [RFC 8252 section 7.3](https://datatracker.ietf.org/doc/html/rfc8252#section-7.3) requires this for the IP-literal form (`127.0.0.1`). Apply the same port-agnostic match to `localhost` so Claude Code works, even though RFC 8252 section 8.3 discourages `localhost`. See [lazy authentication](/docs/connectors/building/lazy-authentication#match-loopback-redirect-uris-without-the-port) for implementation details.
+Claude Code declares `http://localhost/callback` and `http://127.0.0.1/callback` in its [Client ID Metadata Document](https://claude.ai/oauth/claude-code-client-metadata), so match both with the port component ignored. [RFC 8252 section 7.3](https://datatracker.ietf.org/doc/html/rfc8252#section-7.3) requires this for the IP-literal form (`127.0.0.1`). Apply the same port-agnostic match to `localhost` so Claude Code works, even though RFC 8252 section 8.3 discourages `localhost`. See [lazy authentication](/docs/connectors/building/lazy-authentication.md#match-loopback-redirect-uris-without-the-port) for implementation details.
 
 On your consent screen, display the redirect URI's hostname clearly. The [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#localhost-redirect-uri-risks) requires this and recommends an extra warning when the only registered redirect URIs are loopback addresses, because any local process can bind a port and claim to be the client.
 
@@ -214,16 +214,16 @@ You don't need a separate OAuth application for each enterprise customer, but a 
 
 Unless your listing asks for credentials at connection time, enterprise customers connect through the same OAuth application as everyone else. Scope what each user can reach with your service's own per-user permissions rather than with a per-tenant OAuth app. These cases work differently:
 
-* **SSO without a consent screen**: organizations using SSO can connect their users with an identity assertion signed by their identity provider instead of an interactive OAuth consent step. See [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth) for what your authorization server needs to support
+* **SSO without a consent screen**: organizations using SSO can connect their users with an identity assertion signed by their identity provider instead of an interactive OAuth consent step. See [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth.md) for what your authorization server needs to support
 * **Customer-supplied OAuth client**: a listing that asks for [credentials entered at connection time](#credentials-entered-at-connection-time) has each customer supply its own OAuth client, and an administrator who adds your server as a [custom connector](#custom-connectors) can enter one too
 
 ### Custom connectors
 
-When a customer adds your server by URL as a custom connector, Claude identifies itself to your authorization server in one of three ways: with the Client ID Metadata Document that Anthropic hosts for it, through Dynamic Client Registration, or with an OAuth client ID the customer registered with you and enters in the dialog. [Choose authentication settings](/docs/connectors/custom/add-unlisted#choose-authentication-settings) shows the dialog the customer sees. On your side:
+When a customer adds your server by URL as a custom connector, Claude identifies itself to your authorization server in one of three ways: with the Client ID Metadata Document that Anthropic hosts for it, through Dynamic Client Registration, or with an OAuth client ID the customer registered with you and enters in the dialog. [Choose authentication settings](/docs/connectors/custom/add-unlisted.md#choose-authentication-settings) shows the dialog the customer sees. On your side:
 
 * **Support CIMD or DCR**: customers can then connect without registering a client with you first. See [DCR and CIMD details](#dcr-and-cimd-details) for what each needs from your authorization server
 * **Require a client secret only for confidential clients**: the secret is optional in the dialog, so customers need one only if your authorization server requires confidential-client authentication
-* **Use request headers for a fixed API key or token**: for servers that authenticate with a fixed credential rather than OAuth, request header authentication (`static_headers`) is available in beta. See [Supported authentication types](#supported-authentication-types) and [Authenticate with request headers](/docs/connectors/custom/add-unlisted#authenticate-with-request-headers) for what Owners see
+* **Use request headers for a fixed API key or token**: for servers that authenticate with a fixed credential rather than OAuth, request header authentication (`static_headers`) is available in beta. See [Supported authentication types](#supported-authentication-types) and [Authenticate with request headers](/docs/connectors/custom/add-unlisted.md#authenticate-with-request-headers) for what Owners see
 
 ## Network reference
 
@@ -231,7 +231,7 @@ Anthropic's outbound traffic to your server originates from `160.79.104.0/21`. S
 
 ## Next steps
 
-* [Lazy authentication](/docs/connectors/building/lazy-authentication): let people use the tools that don't need their account right away, and ask them to sign in only when Claude reaches one that does
-* [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth): accept identity assertions from enterprise SSO instead of an interactive consent step
-* [Test your connector](/docs/connectors/building/testing): add your server as a custom connector and exercise the auth flow
-* [Troubleshoot your connector](/docs/connectors/building/troubleshooting): diagnose "Couldn't reach the MCP server" and "Authorization with the MCP server failed"
+* [Lazy authentication](/docs/connectors/building/lazy-authentication.md): let people use the tools that don't need their account right away, and ask them to sign in only when Claude reaches one that does
+* [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth.md): accept identity assertions from enterprise SSO instead of an interactive consent step
+* [Test your connector](/docs/connectors/building/testing.md): add your server as a custom connector and exercise the auth flow
+* [Troubleshoot your connector](/docs/connectors/building/troubleshooting.md): diagnose "Couldn't reach the MCP server" and "Authorization with the MCP server failed"

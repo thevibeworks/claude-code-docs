@@ -107,7 +107,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ```bash
 ant beta:environments:work ack \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```

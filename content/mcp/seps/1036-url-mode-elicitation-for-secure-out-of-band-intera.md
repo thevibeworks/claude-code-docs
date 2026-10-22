@@ -15,7 +15,7 @@ Standards Track
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -40,12 +40,12 @@ This SEP introduces a new `url` mode for the existing elicitation client capabil
 The current MCP specification (2025-06-18) provides an elicitation mechanism for gathering non-sensitive information from users through structured, in-band requests (most commonly imagined as the MCP client rendering a form to collect data from the end-user). However, several critical use cases require interactions that must not pass through the MCP client:
 
 1. Sensitive data collection: API keys, passwords, and other credentials must never transit through intermediary systems.
-2. External authorization: MCP servers often need to access third-party APIs on behalf of users. The MCP authorization specification only covers client-to-server authorization, not server-to-third-party authorization. The [Security Best Practices](https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices) document explicitly forbids token passthrough, requiring a secure mechanism for external (3rd-party) OAuth flows. This was a particularly important motivating factor emerging from discussions in #234 and #284.
+2. External authorization: MCP servers often need to access third-party APIs on behalf of users. The MCP authorization specification only covers client-to-server authorization, not server-to-third-party authorization. The [Security Best Practices](https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices.md) document explicitly forbids token passthrough, requiring a secure mechanism for external (3rd-party) OAuth flows. This was a particularly important motivating factor emerging from discussions in #234 and #284.
 3. Payment and Subscription Flows: Financial transactions require PCI compliance and secure payment processing that cannot be achieved through in-band data collection.
 
 Without a standardized mechanism for these interactions, MCP servers must resort to non-standard workarounds or insecure practices like requesting API keys through in-band, form-style elicitation. This SEP addresses these gaps by introducing a URL elicitation mode that leverages established web security patterns to handle sensitive interactions securely.
 
-URL elicitation is fundamentally different from [MCP authorization](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization). URL elicitation is not for authorizing the MCP client's access to the MCP server (that's handled directly by MCP authorization). Instead, it's used when the MCP server needs to obtain sensitive information or third-party authorization on behalf of the user. The MCP client's bearer token remains unchanged, and the client's only responsibility is to provide the user with context about the elicitation URL the server wants them to open.
+URL elicitation is fundamentally different from [MCP authorization](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization.md). URL elicitation is not for authorizing the MCP client's access to the MCP server (that's handled directly by MCP authorization). Instead, it's used when the MCP server needs to obtain sensitive information or third-party authorization on behalf of the user. The MCP client's bearer token remains unchanged, and the client's only responsibility is to provide the user with context about the elicitation URL the server wants them to open.
 
 ## Specification
 
@@ -219,7 +219,7 @@ Initially, we considered creating a separate mechanism for out-of-band interacti
 
 It is tempting to suggest that the MCP client should perform the interaction itself, e.g. act as an OAuth client to a third-party authorization server. However, there are several reasons why this is not a good idea:
 
-* If the MCP client obtains user tokens from a third-party authorization server, the MCP server becomes a [token passthrough](https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices#token-passthrough) server, which is explicitly forbidden.
+* If the MCP client obtains user tokens from a third-party authorization server, the MCP server becomes a [token passthrough](https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices.md#token-passthrough) server, which is explicitly forbidden.
 * Similarly, for payment-type flows, the MCP client would need to perform PCI-compliant payment processing, which is not a desired requirement for MCP clients.
 
 **Why doesn't the server block (wait) on the elicitation to complete?**

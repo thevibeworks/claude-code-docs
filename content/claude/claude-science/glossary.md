@@ -8,19 +8,19 @@
 
 One-sentence definitions for the terms you meet in Claude Science, from artifact to workspace.
 
-**[Artifact](/docs/claude-science/artifacts)**: any file Claude makes and saves for you, listed in its session's Files view.
+**[Artifact](/docs/claude-science/artifacts.md)**: any file Claude makes and saves for you, listed in its session's Files view.
 
 **Cell**: one block of code Claude runs in a kernel; the cell, its output, and the environment it ran in are recorded in the session's Notebook.
 
 **Cloud provider**: your own account at a cloud service where Claude can start jobs; you pay that provider directly.
 
-**[Comment](/docs/claude-science/comments)**: a note you pin to part of an artifact by selecting it; Claude reads pending comments as instructions on its next turn.
+**[Comment](/docs/claude-science/comments.md)**: a note you pin to part of an artifact by selecting it; Claude reads pending comments as instructions on its next turn.
 
 **Connector**: an outside data source or tool wired into Claude over MCP; Claude Science includes a featured set, you can access partner connectors from the Connectors Directory, and you can add your own under Settings > Connectors.
 
 **Data directory**: the `~/.claude-science` folder on your computer holding the database, artifacts, session workspaces, and logs.
 
-**[Environment](/docs/claude-science/tools-and-environments)**: a named set of installed packages (conda) that a kernel runs in, reused across sessions.
+**[Environment](/docs/claude-science/tools-and-environments.md)**: a named set of installed packages (conda) that a kernel runs in, reused across sessions.
 
 **Execution log**: the slice of a session's Notebook cells that produced a given artifact version, shown as a tab in its Provenance pane.
 
@@ -36,7 +36,7 @@ One-sentence definitions for the terms you meet in Claude Science, from artifact
 
 **Provenance (the artifact record)**: the panel behind every artifact version showing the code, cells, conversation, environment, and findings that produced it.
 
-**[Reviewer](/docs/claude-science/the-reviewer)**: the independent agent that re-examines Claude's claims and artifacts at checkpoints, recording each issue it raises as a finding on the artifact's Review tab; on some plans it runs in the background automatically.
+**[Reviewer](/docs/claude-science/the-reviewer.md)**: the independent agent that re-examines Claude's claims and artifacts at checkpoints, recording each issue it raises as a finding on the artifact's Review tab; on some plans it runs in the background automatically.
 
 **Sandbox**: the isolated environment all of Claude's code runs in; reaching outside it needs your approval.
 
@@ -50,7 +50,7 @@ One-sentence definitions for the terms you meet in Claude Science, from artifact
 
 **SSH host**: a remote machine (server, cluster node, or a job submission host) added by its SSH name, that Claude can run jobs on, or dispatch jobs from.
 
-**[Use case](/docs/claude-science/safeguards#choose-a-use-case)**: a research purpose that Anthropic has approved for your organization under the Life Sciences Verification Program (beta); if you have more than one, you choose which one a session uses.
+**[Use case](/docs/claude-science/safeguards.md#choose-a-use-case)**: a research purpose that Anthropic has approved for your organization under the Life Sciences Verification Program (beta); if you have more than one, you choose which one a session uses.
 
 **Version**: one immutable save of an artifact; saving again adds a new version on top instead of overwriting.
 

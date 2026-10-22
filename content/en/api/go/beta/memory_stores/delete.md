@@ -141,7 +141,7 @@ Delete a Memory Store
 
   Confirmation that a `memory_store` was deleted.
 
-  - `Type BetaManagedAgentsDeletedMemoryStoreType`
+  - `Type MemoryStoreDeletedResponseType`
 
   - `ID string`
 
@@ -156,8 +156,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {

@@ -6,7 +6,7 @@
 
 > How Code sessions run on a remote host over SSH in Claude Desktop on 3P, the sshHostAllowlist key that enables them, which inference credentials work on a remote host, and what to check before turning them on
 
-An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session whose Claude Code engine runs on another machine that the user reaches over SSH, while the session's interface stays in Claude Desktop on the user's device. Claude Desktop connects to the host, places the engine there, and starts the session with the inference credential and policy from your managed configuration. Users can work on code that lives on a development server, a build box, or a cloud workstation without copying it to their device. In Claude Desktop on third-party (3P), SSH remote sessions are off until you set the [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) key, because enabling them sends your inference credential to the hosts users connect to.
+An SSH remote session is a [Code](/docs/third-party/claude-desktop/code.md) session whose Claude Code engine runs on another machine that the user reaches over SSH, while the session's interface stays in Claude Desktop on the user's device. Claude Desktop connects to the host, places the engine there, and starts the session with the inference credential and policy from your managed configuration. Users can work on code that lives on a development server, a build box, or a cloud workstation without copying it to their device. In Claude Desktop on third-party (3P), SSH remote sessions are off until you set the [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) key, because enabling them sends your inference credential to the hosts users connect to.
 
 > [!NOTE]
 >
@@ -16,7 +16,7 @@ An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session
 
 1. **Connect.** The user picks an SSH host from the environment picker in Code, or adds one by entering its address, port, and an identity file. Claude Desktop connects through the device's OpenSSH client on macOS and Linux, or its built-in SSH client on Windows (see [Host requirements](#host-requirements) to change either default), applies the host's entry from the device's `~/.ssh/config` (see [SSH configuration on the device](#ssh-configuration-on-the-device)), and prompts in the app if the host asks for a password or a one-time code.
 2. **Deploy.** Claude Desktop places a remote server and the Claude Code engine under `~/.claude/remote/` in the SSH user's home directory on the host ([Host requirements](#host-requirements) lists every path) and reuses them on later connections.
-3. **Run.** The remote server starts the engine on the host with the inference credential and policy from your managed configuration. Every file read, edit, shell command, and git operation runs on the host, in the working directory the user chose there. Claude Desktop connects to [managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin) from the device and exposes them to the engine as tools.
+3. **Run.** The remote server starts the engine on the host with the inference credential and policy from your managed configuration. Every file read, edit, shell command, and git operation runs on the host, in the working directory the user chose there. Claude Desktop connects to [managed MCP servers](/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin) from the device and exposes them to the engine as tools.
 4. **Stream.** Claude's responses and tool output stream back to Claude Desktop. Permission prompts appear in Claude Desktop, and the engine waits on the host until the user answers.
 
 The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles until the user reopens the session. While Claude Desktop is closed, no new turns run and the inference credential is not refreshed, so a turn that outlives the credential fails with an authentication error. A restart of the app for an update counts as a quit.
@@ -104,16 +104,16 @@ To cover every user of a host, put the hooks in [Claude Code managed settings](h
 
 An MCP server in a remote session runs on the device or on the host, depending on how it was added.
 
-* **[Managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin), and servers from plugins in the [`org-plugins` directory](/docs/third-party/claude-desktop/extensions#organization-plugins-admin)**: the device. Claude Desktop connects to the remote (HTTP or SSE) MCP servers and starts the local (stdio) ones on the device, and exposes them to the engine as tools.
+* **[Managed MCP servers](/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin), and servers from plugins in the [`org-plugins` directory](/docs/third-party/claude-desktop/extensions#organization-plugins-admin)**: the device. Claude Desktop connects to the remote (HTTP or SSE) MCP servers and starts the local (stdio) ones on the device, and exposes them to the engine as tools.
 * **Local servers that a user adds under Settings > Developer**: the host, not the device. Claude Desktop sends the host a server's command, its arguments, and only those of its environment variables whose names start with `MCP_` or are one of a few fixed logging and runtime names, such as `DEBUG` and `NODE_ENV`. A secret in an argument or in an `MCP_` variable reaches the host. On a Linux or macOS host, Claude Desktop leaves out a server whose command is a path under a macOS or Windows folder, such as `/Applications/` or `C:\`.
 * **Servers bundled in any other plugin that Claude Desktop copies to the host**: the host. The engine starts the plugin's local servers there, and connects to its remote MCP servers from there.
 * **Servers in Claude Code's own configuration on the host**: the host. The engine reads files such as `~/.claude.json` in the SSH user's home directory and a project's `.mcp.json`, and starts their local servers and connects to their remote MCP servers from there.
 
-[`isLocalDevMcpEnabled`](/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled), `managedMcpServers`, `allowedPluginMcpServers`, and `deniedPluginMcpServers` decide which of these servers a remote session loads, as they do for a local Code session (see [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy)). If the host has its own Claude Code managed settings, those take precedence over the Claude Code policy these keys produce (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)).
+[`isLocalDevMcpEnabled`](/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled), `managedMcpServers`, `allowedPluginMcpServers`, and `deniedPluginMcpServers` decide which of these servers a remote session loads, as they do for a local Code session (see [Applied as managed policy](/docs/third-party/claude-desktop/code.md#applied-as-managed-policy)). If the host has its own Claude Code managed settings, those take precedence over the Claude Code policy these keys produce (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)).
 
 ## Enable SSH remote sessions
 
-Set [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) in your managed configuration. It appears in the **Code surface** section of the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) while Code is enabled.
+Set [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) in your managed configuration. It appears in the **Code surface** section of the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md) while Code is enabled.
 
 | Value | Behavior |
 | - | - |
@@ -144,28 +144,28 @@ For example, this Linux managed-settings file turns the feature on for one domai
 }
 ```
 
-In a `.mobileconfig` or registry policy, write the array as a JSON string as described under [Value types](/docs/third-party/claude-desktop/configuration#value-types). In a [bootstrap](/docs/third-party/claude-desktop/bootstrap) response, the key sits inside the `codeSurface` object.
+In a `.mobileconfig` or registry policy, write the array as a JSON string as described under [Value types](/docs/third-party/claude-desktop/configuration.md#value-types). In a [bootstrap](/docs/third-party/claude-desktop/bootstrap.md) response, the key sits inside the `codeSurface` object.
 
 ### Interaction with Claude Code managed settings on the device
 
 Claude Code has its own `sshHostAllowlist` setting, which you can deploy on the device through a [Claude Code managed-settings file](https://code.claude.com/docs/en/settings#settings-files) or OS policy. The app resolves the two sources in this order:
 
-1. `sshHostAllowlist` from the Claude Desktop configuration, when that configuration is delivered by an administrator: through machine-scoped device management (`HKLM` policy on Windows, a configuration profile on macOS, `/etc/claude-desktop` on Linux), through the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), or by a bootstrap server the app trusts (a `bootstrapUrl` set through device management or covered by `trustBootstrapDelivery`; see [Keys that require user consent](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent)). User-scope registry policy (`HKCU`) counts as applied locally.
+1. `sshHostAllowlist` from the Claude Desktop configuration, when that configuration is delivered by an administrator: through machine-scoped device management (`HKLM` policy on Windows, a configuration profile on macOS, `/etc/claude-desktop` on Linux), through the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md), or by a bootstrap server the app trusts (a `bootstrapUrl` set through device management or covered by `trustBootstrapDelivery`; see [Keys that require user consent](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent)). User-scope registry policy (`HKCU`) counts as applied locally.
 2. `sshHostAllowlist` from Claude Code's managed settings on the device.
-3. `sshHostAllowlist` from a Claude Desktop configuration the user applied locally in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#apply-locally-or-export-for-a-fleet).
+3. `sshHostAllowlist` from a Claude Desktop configuration the user applied locally in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#apply-locally-or-export-for-a-fleet).
 4. Off.
 
-On devices where users applied the configuration locally, deploy `sshHostAllowlist` in Claude Code's managed settings. That restricts SSH without an MDM profile taking ownership of the whole configuration (see [Update keys and managed precedence](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence)).
+On devices where users applied the configuration locally, deploy `sshHostAllowlist` in Claude Code's managed settings. That restricts SSH without an MDM profile taking ownership of the whole configuration (see [Update keys and managed precedence](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)).
 
-To turn off Code sessions that run on the device, so that users work in SSH remote sessions, set [`disableDesktopLocalSessions`](https://code.claude.com/docs/en/settings-reference#disabledesktoplocalsessions) to `true` in a [Claude Code managed-settings file](https://code.claude.com/docs/en/settings#settings-files) or OS policy on the device. Claude Desktop then refuses to start or resume a Code session that runs on the device. If the device already has Claude Code managed settings, add the key to those and leave `parentSettingsBehavior` as it is, set or unset. Changing it changes how those settings combine with the policy that Claude Desktop supplies. If the device has none yet, also set `parentSettingsBehavior` to `"merge"` in the managed settings that you create. Without `"merge"`, the new managed settings replace the policy that Claude Desktop supplies to Claude Code on the device (see [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the Code page).
+To turn off Code sessions that run on the device, so that users work in SSH remote sessions, set [`disableDesktopLocalSessions`](https://code.claude.com/docs/en/settings-reference#disabledesktoplocalsessions) to `true` in a [Claude Code managed-settings file](https://code.claude.com/docs/en/settings#settings-files) or OS policy on the device. Claude Desktop then refuses to start or resume a Code session that runs on the device. If the device already has Claude Code managed settings, add the key to those and leave `parentSettingsBehavior` as it is, set or unset. Changing it changes how those settings combine with the policy that Claude Desktop supplies. If the device has none yet, also set `parentSettingsBehavior` to `"merge"` in the managed settings that you create. Without `"merge"`, the new managed settings replace the policy that Claude Desktop supplies to Claude Code on the device (see [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the Code page).
 
 Before you deploy `disableDesktopLocalSessions`, make sure that the `sshHostAllowlist` that applies on the device, by [the order of its sources](#interaction-with-claude-code-managed-settings-on-the-device), allows the hosts that users need. While SSH remote sessions are off, a device that has `disableDesktopLocalSessions` set can start neither a local Code session nor an SSH remote session.
 
 ### Devices that move to an admin console organization
 
-A device that gets its SSH keys from a managed profile, a registry policy, or the profile's bootstrap server moves to the configuration from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) when its user signs in to an organization that uses the console and chooses that organization in the dialog that follows. The app then restarts. A device that used such an organization before its profile arrived, and whose user hasn't signed out of the app since, moves back at its first launch on Claude Desktop 2.37337.0 or later, with no new sign-in and without asking the user, even if the stored sign-in has expired. To prevent that, add `disableDeploymentModeChooser` to the profile before devices update. `forceLoginOrgUUID` prevents it only for organizations it leaves out. Before Claude Desktop 2.37337.0, a device with such a profile ignores the admin console.
+A device that gets its SSH keys from a managed profile, a registry policy, or the profile's bootstrap server moves to the configuration from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md) when its user signs in to an organization that uses the console and chooses that organization in the dialog that follows. The app then restarts. A device that used such an organization before its profile arrived, and whose user hasn't signed out of the app since, moves back at its first launch on Claude Desktop 2.37337.0 or later, with no new sign-in and without asking the user, even if the stored sign-in has expired. To prevent that, add `disableDeploymentModeChooser` to the profile before devices update. `forceLoginOrgUUID` prevents it only for organizations it leaves out. Before Claude Desktop 2.37337.0, a device with such a profile ignores the admin console.
 
-After the move, `sshHostAllowlist`, `sshTransport`, and `sshClientPath` from the profile, or from the profile's bootstrap server, don't apply, even where the console leaves them unset. For the profile's other settings, see [Which settings apply on a device with a managed profile](/docs/third-party/claude-desktop/admin-console#which-settings-apply-on-a-device-with-a-managed-profile).
+After the move, `sshHostAllowlist`, `sshTransport`, and `sshClientPath` from the profile, or from the profile's bootstrap server, don't apply, even where the console leaves them unset. For the profile's other settings, see [Which settings apply on a device with a managed profile](/docs/third-party/claude-desktop/admin-console.md#which-settings-apply-on-a-device-with-a-managed-profile).
 
 * **Which hosts**: the console's `sshHostAllowlist` applies. If the console leaves the key unset (**Not set**), or the app hasn't yet downloaded the console's configuration at this launch (the copy a device keeps of the last download holds no lists), `sshHostAllowlist` from Claude Code's managed settings on the device applies. With neither, SSH remote sessions are off.
 * **Which SSH client**: the console's `sshTransport` and `sshClientPath` apply. A key that the console leaves unset takes its default under [Host requirements](#host-requirements). Until the app has downloaded the console's configuration at a launch, both keys count as unset.
@@ -175,7 +175,7 @@ To prevent or limit the move, set one of these keys in the profile itself:
 * **Keep the device on its profile**: set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`. The app ignores the admin console, and the sign-in screen doesn't offer **Or sign in with Claude.ai**. A device that has already moved returns to its profile at its next launch.
 * **Allow only your organization**: set [`forceLoginOrgUUID`](/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to your organization ID, and set the SSH keys you rely on in the console too. The key also limits standard Claude Desktop sign-in on the device to your organization.
 
-Before you add either key to a profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence), such as `disableAutoUpdates`, read the warning under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile).
+Before you add either key to a profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), such as `disableAutoUpdates`, read the warning under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
 ## Inference credentials on the remote host
 
@@ -187,22 +187,22 @@ The remote engine uses only the credential Claude Desktop passes in its environm
 
 | Provider | Works on a remote host | Refused at session start |
 | - | - | - |
-| [LLM gateway](/docs/third-party/claude-desktop/gateway) | Static API key, single sign-on, credential helper | |
-| [Claude API](/docs/third-party/claude-desktop/claude-api) | Static API key, Sign in with Claude Console, credential helper | |
-| [Microsoft Foundry](/docs/third-party/claude-desktop/foundry) | API key, in-app Entra ID sign-in, credential helper | |
-| [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock) | Bearer token, identity provider sign-in, credential helper | In-app AWS sign-in (IAM Identity Center), named profile |
-| [Amazon Bedrock Mantle](/docs/third-party/claude-desktop/mantle) | Bearer token, credential helper | |
-| [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex) | In-app Workforce Identity sign-in, credential helper | In-app Google sign-in, service-account key or credentials file, application default credentials on the device |
+| [LLM gateway](/docs/third-party/claude-desktop/gateway.md) | Static API key, single sign-on, credential helper | |
+| [Claude API](/docs/third-party/claude-desktop/claude-api.md) | Static API key, Sign in with Claude Console, credential helper | |
+| [Microsoft Foundry](/docs/third-party/claude-desktop/foundry.md) | API key, in-app Entra ID sign-in, credential helper | |
+| [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock.md) | Bearer token, identity provider sign-in, credential helper | In-app AWS sign-in (IAM Identity Center), named profile |
+| [Amazon Bedrock Mantle](/docs/third-party/claude-desktop/mantle.md) | Bearer token, credential helper | |
+| [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex.md) | In-app Workforce Identity sign-in, credential helper | In-app Google sign-in, service-account key or credentials file, application default credentials on the device |
 
 When the configured credential is a refused kind, the session fails at session start, with the card [SSH sessions can't use your model provider settings](#ssh-sessions-can%E2%80%99t-use-your-model-provider-settings).
 
-When the remote engine's credential expires during a turn, Claude Desktop obtains a new one on the device, by re-running a [credential helper](/docs/third-party/claude-desktop/credential-helper) or using a sign-in's refresh token, and sends it over the SSH connection. When the user signs out of the inference provider in the app, Claude Desktop ends the remote engine.
+When the remote engine's credential expires during a turn, Claude Desktop obtains a new one on the device, by re-running a [credential helper](/docs/third-party/claude-desktop/credential-helper.md) or using a sign-in's refresh token, and sends it over the SSH connection. When the user signs out of the inference provider in the app, Claude Desktop ends the remote engine.
 
 The host needs its own network route to the inference endpoint and must trust the endpoint's certificate. Claude Desktop passes the endpoint address to the remote engine but not the device's proxy settings, CA certificates, or the user's shell variables such as `AWS_*` or `GOOGLE_*`. A gateway at `localhost` on the device is refused for remote sessions, because the host cannot reach it.
 
 ## Managed configuration on the remote host
 
-Most of the policy that Claude Desktop applies to a local Code session applies on the remote host too. The [Code page](/docs/third-party/claude-desktop/code#how-configuration-propagates) describes how each key reaches Claude Code.
+Most of the policy that Claude Desktop applies to a local Code session applies on the remote host too. The [Code page](/docs/third-party/claude-desktop/code.md#how-configuration-propagates) describes how each key reaches Claude Code.
 
 * `disableEssentialTelemetry` and `disableNonessentialTelemetry`.
 * `otlpEndpoint`, `otlpProtocol`, `otlpHeaders`, `otlpResourceAttributes`, and `otlpContentCapture`. Remote sessions appear in your collector under the same `service.name` as local Code sessions. A collector at `localhost` on the device is not forwarded. An `otlpHeadersHelper` runs on the device at session start, and the remote session keeps those headers for its lifetime.
@@ -211,9 +211,9 @@ Most of the policy that Claude Desktop applies to a local Code session applies o
 * [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories), evaluated on the host, so the working directories and the home directory it hides from shell commands are the SSH user's there. Hiding files from shell commands needs the host's sandbox dependencies (next item); on a host without them, or a Windows host, shell reads outside the working directories ask for approval instead, and the file-tool restriction applies regardless. Files a user attaches to a remote session stay readable, except on a Windows host, where the session's plugin files and attachments stay outside the file tools' reach under this key.
 * `coworkEgressAllowedHosts`, as Claude Code managed settings. The network and filesystem sandbox it produces with `allowedWorkspaceFolders` depends on the host having Claude Code's sandbox dependencies installed (see [Claude Code sandboxing](https://code.claude.com/docs/en/sandboxing)). Without them, commands run unsandboxed. See [Sandbox status on the remote host](#sandbox-status-on-the-remote-host) for the message the session shows.
 * `managedMcpServers`, as the Claude Code managed setting that keeps the session from loading MCP servers that users define in Claude Code's own configuration on the host. The managed servers themselves are reached from the device (see [Where MCP servers run in a remote session](#where-mcp-servers-run-in-a-remote-session)).
-* Plugins from your [allowed marketplaces](/docs/third-party/claude-desktop/extensions), copied to the host. A plugin's `hooks` directory is not copied, so its hooks do not run in a remote session, and a plugin whose manifest declares hooks elsewhere is not copied at all.
+* Plugins from your [allowed marketplaces](/docs/third-party/claude-desktop/extensions.md), copied to the host. A plugin's `hooks` directory is not copied, so its hooks do not run in a remote session, and a plugin whose manifest declares hooks elsewhere is not copied at all.
 
-If the host has its own Claude Code managed settings, those take precedence over the policy Claude Desktop supplies, as described under [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) for local sessions.
+If the host has its own Claude Code managed settings, those take precedence over the policy Claude Desktop supplies, as described under [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) for local sessions.
 
 ### Read-only folders on the remote host
 
@@ -222,7 +222,7 @@ On a Linux or macOS host, Claude Desktop applies `mode` set to `ro` on an [`allo
 A remote session doesn't enforce `mode` in these cases:
 
 * **Windows hosts.**
-* **Hosts with their own Claude Code managed settings**: Claude Code ignores the rules, and the sandbox settings that Claude Desktop supplies with them, unless those settings set `parentSettingsBehavior` to `"merge"`. Under `"merge"` the host's own values still win where the two differ, so `sandbox.enabled` set to `false` there leaves shell commands unsandboxed (see [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings)).
+* **Hosts with their own Claude Code managed settings**: Claude Code ignores the rules, and the sandbox settings that Claude Desktop supplies with them, unless those settings set `parentSettingsBehavior` to `"merge"`. Under `"merge"` the host's own values still win where the two differ, so `sandbox.enabled` set to `false` there leaves shell commands unsandboxed (see [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings)).
 * **An entry that is or contains the SSH user's `~/.claude` folder, such as `~`**: Claude Code keeps its own files there. List narrower folders.
 
 Where the rules apply, they cover the following:
@@ -234,7 +234,7 @@ The rules don't bind the SSH user, or other programs that run under that account
 
 ### Sandbox status on the remote host
 
-Claude Desktop asks Claude Code on the host whether the [sandbox](/docs/third-party/claude-desktop/code#applied-as-managed-policy) from your Claude Desktop policy is turned on and running there. The answer is Claude Code's own report, and it doesn't compare each allowed host or folder. Your policy includes the sandbox, and Claude Desktop asks, unless `coworkEgressAllowedHosts` contains `*` and `allowedWorkspaceFolders` is unset. Requires Claude Desktop 2.26454.0 or later.
+Claude Desktop asks Claude Code on the host whether the [sandbox](/docs/third-party/claude-desktop/code.md#applied-as-managed-policy) from your Claude Desktop policy is turned on and running there. The answer is Claude Code's own report, and it doesn't compare each allowed host or folder. Your policy includes the sandbox, and Claude Desktop asks, unless `coworkEgressAllowedHosts` contains `*` and `allowedWorkspaceFolders` is unset. Requires Claude Desktop 2.26454.0 or later.
 
 When the sandbox isn't confirmed, the session continues and shell commands can run outside the sandbox. To keep Claude Code from starting on a host whose operating system has no sandbox or that lacks a dependency, set [`sandbox.failIfUnavailable`](https://code.claude.com/docs/en/sandboxing#enforce-sandboxing-with-managed-settings) to `true` and [`parentSettingsBehavior`](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) to `"merge"` in the host's Claude Code managed settings. With `"merge"`, that setting applies together with your policy.
 
@@ -264,7 +264,7 @@ With [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoin
 * **`session_id`**: Claude Desktop's ID for the session
 * **`backend_kind`**: `ssh`
 
-The event doesn't name the host. To find the host, ask the user that the [user attribution](/docs/third-party/claude-desktop/telemetry#user-attribution) attributes identify.
+The event doesn't name the host. To find the host, ask the user that the [user attribution](/docs/third-party/claude-desktop/telemetry.md#user-attribution) attributes identify.
 
 ## Host requirements
 
@@ -296,12 +296,12 @@ Claude Desktop writes the following into the SSH user's home directory on the ho
 | `~/.claude/remote/run/<id>/` | The server's socket, token, and log |
 | `~/.claude/remote/plugins/<id>/` | Plugins synced from the device, in one folder for each Claude Desktop installation that connects |
 | `~/.claude/uploads/<session-id>/` | Files the user attached to a message. Not removed when the session ends |
-| `~/.claude/` and `~/.claude.json` | Claude Code's own data, including session transcripts. See [Data storage](/docs/third-party/claude-desktop/data-storage) |
+| `~/.claude/` and `~/.claude.json` | Claude Code's own data, including session transcripts. See [Data storage](/docs/third-party/claude-desktop/data-storage.md) |
 
 Each side of a remote session needs its own network access.
 
-* Devices installed with the regular installer must reach `downloads.claude.ai`: Claude Desktop downloads the remote server there and uploads it to the host over SFTP. Devices installed with the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation) don't: it bundles the remote server and the Claude Code engine for Linux x64 and arm64 hosts, and Claude Desktop uploads both over SFTP. Hosts on other platforms still need the download, so an offline-installed device that cannot reach `downloads.claude.ai` fails the session with a message saying the installer doesn't include remote components for that platform.
-* The host must reach your inference endpoint and, if configured, your OTLP collector, plus whatever the user's own work needs. With the regular installer, it downloads the Claude Code engine from `downloads.claude.ai` when it can; when that fails, Claude Desktop downloads the engine on the device and uploads it over SFTP. Unless you disabled telemetry, the engine on the host also reports to the same Anthropic hosts as a local Code session (see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry)). Blocking them does not affect the session.
+* Devices installed with the regular installer must reach `downloads.claude.ai`: Claude Desktop downloads the remote server there and uploads it to the host over SFTP. Devices installed with the [offline installer](/docs/third-party/claude-desktop/installation.md#offline-installation) don't: it bundles the remote server and the Claude Code engine for Linux x64 and arm64 hosts, and Claude Desktop uploads both over SFTP. Hosts on other platforms still need the download, so an offline-installed device that cannot reach `downloads.claude.ai` fails the session with a message saying the installer doesn't include remote components for that platform.
+* The host must reach your inference endpoint and, if configured, your OTLP collector, plus whatever the user's own work needs. With the regular installer, it downloads the Claude Code engine from `downloads.claude.ai` when it can; when that fails, Claude Desktop downloads the engine on the device and uploads it over SFTP. Unless you disabled telemetry, the engine on the host also reports to the same Anthropic hosts as a local Code session (see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md)). Blocking them does not affect the session.
 
 ### SSH configuration on the device
 
@@ -402,10 +402,10 @@ The sandbox lets shell commands that Claude runs with its Bash tool write in the
 >
 > * **An `allowedWorkspaceFolders` entry with `mode` set to `ro`**: see [Read-only folders on the remote host](#read-only-folders-on-the-remote-host)
 > * **A message with `unable to unlink old`**: see [A git command fails with `unable to unlink old`](https://code.claude.com/docs/en/sandboxing#a-git-command-fails-with-unable-to-unlink-old)
-> * **The other places that the sandbox lets these commands write to**: see [Filesystem isolation](https://code.claude.com/docs/en/sandboxing#filesystem-isolation) and the `allowedWorkspaceFolders` row under [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy)
+> * **The other places that the sandbox lets these commands write to**: see [Filesystem isolation](https://code.claude.com/docs/en/sandboxing#filesystem-isolation) and the `allowedWorkspaceFolders` row under [Applied as managed policy](/docs/third-party/claude-desktop/code.md#applied-as-managed-policy)
 
 ## Related
 
-* [Code in Claude Desktop on 3P](/docs/third-party/claude-desktop/code)
+* [Code in Claude Desktop on 3P](/docs/third-party/claude-desktop/code.md)
 * [`sshHostAllowlist` in the configuration reference](/docs/third-party/claude-desktop/configuration#sshhostallowlist)
-* [Desktop and filesystem access](/docs/third-party/claude-desktop/local-access)
+* [Desktop and filesystem access](/docs/third-party/claude-desktop/local-access.md)

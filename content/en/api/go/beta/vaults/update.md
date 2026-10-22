@@ -149,7 +149,7 @@ Update a Vault
 
   A vault that stores credentials for use by agents during sessions.
 
-  - `Type BetaManagedAgentsVaultType`
+  - `Type Vault`
 
   - `ID string`
 
@@ -190,8 +190,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {

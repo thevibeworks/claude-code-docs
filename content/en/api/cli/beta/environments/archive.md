@@ -159,7 +159,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ```bash
 ant beta:environments archive \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 

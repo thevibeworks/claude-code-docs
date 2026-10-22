@@ -8,7 +8,7 @@
 
 In this tutorial, you'll learn how to build an LLM-powered chatbot client that connects to MCP servers.
 
-Before you begin, it helps to have gone through our [Build an MCP Server](/docs/2026-07-28/develop/build-server) tutorial so you can understand how clients and servers communicate.
+Before you begin, it helps to have gone through our [Build an MCP Server](/docs/2026-07-28/develop/build-server.md) tutorial so you can understand how clients and servers communicate.
 
 **Python**
 
@@ -375,7 +375,7 @@ When you submit a query:
    * Be cautious with tool permissions
 
 4. **Tool Names**
-   * Tool names can be validated according to the format specified [here](/specification/2026-07-28/server/tools#tool-names)
+   * Tool names can be validated according to the format specified [here](/specification/2026-07-28/server/tools.md#tool-names)
    * If a tool name conforms to the specified format, it should not fail validation by an MCP client
 
 ## Troubleshooting
@@ -1985,7 +1985,7 @@ When you submit a query:
    * Be cautious with tool permissions
 
 4. **Tool Names**
-   * Tool names can be validated according to the format specified [here](/specification/2026-07-28/server/tools#tool-names)
+   * Tool names can be validated according to the format specified [here](/specification/2026-07-28/server/tools.md#tool-names)
    * If a tool name conforms to the specified format, it should not fail validation by an MCP client
 
 ## Troubleshooting
@@ -2501,6 +2501,6 @@ ANTHROPIC_API_KEY=your-api-key-goes-here
 
 ## Next steps
 
-> **[Example servers](/examples)**
+> **[Example servers](/examples.md)**
 >
 > Check out our gallery of official MCP servers and implementations

@@ -6,26 +6,26 @@
 
 > Submit a plugin from a GitHub repository to Anthropic's directory through the developer portal, follow its review, publish it, and release updates.
 
-To list a plugin in [Anthropic's directory](/docs/directory/publish), you submit it from a GitHub repository through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage). Anthropic checks each version before it can go live, and people can then add the plugin from claude.ai and use it in chat, Cowork, and Claude Code.
+To list a plugin in [Anthropic's directory](/docs/directory/publish.md), you submit it from a GitHub repository through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage). Anthropic checks each version before it can go live, and people can then add the plugin from claude.ai and use it in chat, Cowork, and Claude Code.
 
-Use this page if your plugin is already in a GitHub repository and you want it listed. If the plugin references a remote MCP server you run, submit that server as an MCP connector too, as [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector) explains.
+Use this page if your plugin is already in a GitHub repository and you want it listed. If the plugin references a remote MCP server you run, submit that server as an MCP connector too, as [Submit your plugin, and your MCP server as a connector](/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector) explains.
 
 > [!NOTE]
 >
-> * To build the plugin first, see [Plugin structure and testing](/docs/plugins/build)
-> * To share it without a public listing, see [Share a plugin with teammates](/docs/plugins/share) or [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
-> * If you submitted through the earlier Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish#move-an-earlier-submission-to-the-developer-portal)
+> * To build the plugin first, see [Plugin structure and testing](/docs/plugins/build.md)
+> * To share it without a public listing, see [Share a plugin with teammates](/docs/plugins/share.md) or [Roll out a plugin to your whole organization](/docs/plugins/org-rollout.md)
+> * If you submitted through the earlier Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish.md#move-an-earlier-submission-to-the-developer-portal)
 
 ## Before you submit a plugin
 
 You need the following to submit from the developer portal on claude.ai:
 
 * **A GitHub repository that holds the plugin, and your GitHub account connected on claude.ai.** The directory reads plugins from repositories on github.com. The portal checks that your connected GitHub account can push to the repository, so [connect it first](#connect-your-github-account). The repository can stay private while you validate and submit, and must be public before the listing goes live. See [Submit from a private repository](#submit-from-a-private-repository)
-* **A plan and role that can submit.** See [who can submit to the directory](/docs/directory/publish#confirm-you-can-submit-to-the-directory)
+* **A plan and role that can submit.** See [who can submit to the directory](/docs/directory/publish.md#confirm-you-can-submit-to-the-directory)
 
 Every plugin in the directory must comply with the [Anthropic Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms) and the [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy).
 
-Before you open the portal, work through the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist). It covers what the directory's checks look for in `plugin.json`, the README, the license, and the rest of the plugin folder. In your terminal, from the folder that contains the plugin folder, run `claude plugin validate ./<plugin-folder>` first to catch formatting and structure problems. The portal's **Validate** step runs more checks than the command does.
+Before you open the portal, work through the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md). It covers what the directory's checks look for in `plugin.json`, the README, the license, and the rest of the plugin folder. In your terminal, from the folder that contains the plugin folder, run `claude plugin validate ./<plugin-folder>` first to catch formatting and structure problems. The portal's **Validate** step runs more checks than the command does.
 
 ## Submit a plugin
 
@@ -38,7 +38,7 @@ Each plugin folder is its own submission in the developer portal at [claude.ai/d
 
 > [!NOTE]
 >
-> The other option, **MCP connector**, submits one remote MCP server as its own connector listing. If your plugin references an MCP server you built and you haven't submitted that server yet, submit it separately with **MCP connector** by following [Submit your connector](/docs/connectors/building/submission). [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector) explains why you submit both.
+> The other option, **MCP connector**, submits one remote MCP server as its own connector listing. If your plugin references an MCP server you built and you haven't submitted that server yet, submit it separately with **MCP connector** by following [Submit your connector](/docs/connectors/building/submission.md). [Submit your plugin, and your MCP server as a connector](/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector) explains why you submit both.
 
 **2. Enter the source and validate**
 
@@ -54,7 +54,7 @@ Then validate the plugin:
 2. If a finding blocks submission, fix it in the repository and push the fix.
 3. Validate again.
 
-The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) explains what each kind of finding means.
+The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md) explains what each kind of finding means.
 
 A validation result applies to one commit. If you push to the branch after validating, validate again before you continue.
 
@@ -91,7 +91,7 @@ An organization can create up to 10 submissions in any 24-hour period, and saved
 
 Your organization can have one submission for each repository and folder. To continue an existing submission, open it from **Submissions** in the developer portal instead of creating a second one.
 
-If another organization has already submitted the same repository and folder, the portal refuses **Submit for review** with **Already submitted by another organization**. If your organization owns the repository, email `directory@anthropic.com`. If the earlier submission is one you made through the Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish#move-an-earlier-submission-to-the-developer-portal).
+If another organization has already submitted the same repository and folder, the portal refuses **Submit for review** with **Already submitted by another organization**. If your organization owns the repository, email `directory@anthropic.com`. If the earlier submission is one you made through the Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish.md#move-an-earlier-submission-to-the-developer-portal).
 
 ### Connect your GitHub account
 
@@ -118,14 +118,14 @@ When you're ready to publish, make the repository public on GitHub, then select 
 
 ## After you submit a plugin
 
-When you select **Submit for review**, the directory scans the newest commit on the tracked branch or tag. Each scan validates the plugin against the directory's rules again and runs a security scan. [Prepare for the security scan](/docs/plugins/pre-submission-checklist#prepare-for-the-security-scan) describes what the security scan looks for.
+When you select **Submit for review**, the directory scans the newest commit on the tracked branch or tag. Each scan validates the plugin against the directory's rules again and runs a security scan. [Prepare for the security scan](/docs/plugins/pre-submission-checklist.md#prepare-for-the-security-scan) describes what the security scan looks for.
 
-To follow the submission, open the plugin from **Submissions** in the [developer portal](https://claude.ai/directory/manage). The **Versions** tab on the plugin's page lists each scanned commit with the result of its checks. When the newest version isn't live, the plugin's page says why. [Track your directory submission](/docs/directory/submission-status#plugin-bundle-statuses) explains what each status in the portal means and who acts next.
+To follow the submission, open the plugin from **Submissions** in the [developer portal](https://claude.ai/directory/manage). The **Versions** tab on the plugin's page lists each scanned commit with the result of its checks. When the newest version isn't live, the plugin's page says why. [Track your directory submission](/docs/directory/submission-status.md#plugin-bundle-statuses) explains what each status in the portal means and who acts next.
 
 A finished scan leaves the version in one of these states:
 
 * **Passes every check:** the version can be published, as described in [Publish a passing version](#publish-a-passing-version)
-* **Held for a reviewer:** an Anthropic reviewer reads the version, and it can go live only after the reviewer clears it. The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) lists the findings that hold a version
+* **Held for a reviewer:** an Anthropic reviewer reads the version, and it can go live only after the reviewer clears it. The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md) lists the findings that hold a version
 * **Doesn't pass:** the portal lists the rules that the version breaks. For a failed security scan, the portal shows the category of the finding when the scan recorded one, such as **Sends data to an undisclosed destination**
 
 If the directory can't fetch a commit, or a scan ends without a result, the plugin's page says whether the directory retries on its own or whether something in the repository needs fixing. After any fix, select **Check for new commits** on the plugin's page to run the scan again.
@@ -152,7 +152,7 @@ The **Auto-publish** row on the plugin's **Overview** tab says which publish set
 
 You set auto-publish with the **Auto-publish passing versions** toggle on the **Review and submit** step. After you submit, change it with the **Publish new versions automatically** toggle on the plugin's **Settings** tab. Auto-publish doesn't apply while a reviewer publishes each version.
 
-If a submission is stuck, [Contact Anthropic about a submission](/docs/directory/submission-status#contact-anthropic-about-a-submission) gives the channel for a plugin.
+If a submission is stuck, [Contact Anthropic about a submission](/docs/directory/submission-status.md#contact-anthropic-about-a-submission) gives the channel for a plugin.
 
 ## Update a published plugin
 
@@ -189,8 +189,8 @@ To bring a delisted plugin back, select **Relist plugin** on its page. Relisting
 
 ## Next steps
 
-* [Track your submission](/docs/directory/submission-status#plugin-bundle-statuses): check what the status next to your plugin's name means and who acts next
-* [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist): fix each validation and scan finding
-* [After publishing](/docs/connectors/building/after-publishing): update your plugin and listing, and delist
-* [Track published plugin usage](/docs/connectors/building/after-publishing#track-published-plugin-usage): see installs, versions, runs, and error rates on the plugin's **Usage** tab
-* [Manage your directory listing](/docs/connectors/building/managing-your-listing): for an MCP connector, check health and usage metrics and edit the listing
+* [Track your submission](/docs/directory/submission-status.md#plugin-bundle-statuses): check what the status next to your plugin's name means and who acts next
+* [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md): fix each validation and scan finding
+* [After publishing](/docs/connectors/building/after-publishing.md): update your plugin and listing, and delist
+* [Track published plugin usage](/docs/connectors/building/after-publishing.md#track-published-plugin-usage): see installs, versions, runs, and error rates on the plugin's **Usage** tab
+* [Manage your directory listing](/docs/connectors/building/managing-your-listing.md): for an MCP connector, check health and usage metrics and edit the listing

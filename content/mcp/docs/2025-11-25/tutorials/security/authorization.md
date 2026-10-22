@@ -8,7 +8,7 @@
 
 Authorization in the Model Context Protocol (MCP) secures access to sensitive resources and operations exposed by MCP servers. If your MCP server handles user data or administrative actions, authorization ensures only permitted users can access its endpoints.
 
-MCP uses standardized authorization flows to build trust between MCP clients and MCP servers. Its design doesn't focus on one specific authorization or identity system, but rather follows the conventions outlined for [OAuth 2.1](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-13). For detailed information, see the [Authorization specification](/specification/2025-11-25/basic/authorization).
+MCP uses standardized authorization flows to build trust between MCP clients and MCP servers. Its design doesn't focus on one specific authorization or identity system, but rather follows the conventions outlined for [OAuth 2.1](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-13). For detailed information, see the [Authorization specification](/specification/2025-11-25/basic/authorization.md).
 
 ## When Should You Use Authorization?
 
@@ -24,7 +24,7 @@ While authorization for MCP servers is **optional**, it is strongly recommended 
 >
 > **Authorization for Local MCP Servers**
 >
-> For MCP servers using the [STDIO transport](/specification/2025-11-25/basic/transports#stdio), you can use environment-based credentials or credentials provided by third-party libraries embedded directly in the MCP server instead. Because a STDIO-built MCP server runs locally, it has access to a range of flexible options when it comes to acquiring user credentials that may or may not rely on in-browser authentication and authorization flows.
+> For MCP servers using the [STDIO transport](/specification/2025-11-25/basic/transports.md#stdio), you can use environment-based credentials or credentials provided by third-party libraries embedded directly in the MCP server instead. Because a STDIO-built MCP server runs locally, it has access to a range of flexible options when it comes to acquiring user credentials that may or may not rely on in-browser authentication and authorization flows.
 >
 > OAuth flows, in turn, are designed for HTTP-based transports where the MCP server is remotely-hosted and the client uses OAuth to establish that a user is authorized to access said remote server.
 
@@ -246,7 +246,7 @@ Decoded, it will look like this:
 
 ### MCP Server Setup
 
-We will now set up our MCP server to use the locally-running Keycloak authorization server. Depending on your programming language preference, you can use one of the supported [MCP SDKs](/docs/2025-11-25/sdk).
+We will now set up our MCP server to use the locally-running Keycloak authorization server. Depending on your programming language preference, you can use one of the supported [MCP SDKs](/docs/2025-11-25/sdk.md).
 
 For our testing purposes, we will create an extremely simple MCP server that exposes two tools - one for addition and another for multiplication. The server will require authorization to access these.
 
@@ -1005,7 +1005,7 @@ You will be able to invoke individual tools with the help of the `#` sign in the
 
 ## Common Pitfalls and How to Avoid Them
 
-For comprehensive security guidance, including attack vectors, mitigation strategies, and implementation best practices, make sure to read through [Security Best Practices](/docs/2025-11-25/tutorials/security/security_best_practices). A few key issues are called out below.
+For comprehensive security guidance, including attack vectors, mitigation strategies, and implementation best practices, make sure to read through [Security Best Practices](/docs/2025-11-25/tutorials/security/security_best_practices.md). A few key issues are called out below.
 
 * **Do not implement token validation or authorization logic by yourself**. Use off-the-shelf, well-tested, and secure libraries for things like token validation or authorization decisions. Doing everything from scratch means that you're more likely to implement things incorrectly unless you are a security expert.
 * **Use short-lived access tokens**. Depending on the authorization server used, this setting might be customizable. We recommend to not use long-lived tokens - if a malicious actor steals them, they will be able to maintain their access for longer periods.
@@ -1034,8 +1034,8 @@ MCP authorization builds on these well-established standards:
 
 For additional details, refer to:
 
-* [Authorization Specification](/specification/2025-11-25/basic/authorization)
-* [Security Best Practices](/docs/2025-11-25/tutorials/security/security_best_practices)
-* [Available MCP SDKs](/docs/2025-11-25/sdk)
+* [Authorization Specification](/specification/2025-11-25/basic/authorization.md)
+* [Security Best Practices](/docs/2025-11-25/tutorials/security/security_best_practices.md)
+* [Available MCP SDKs](/docs/2025-11-25/sdk.md)
 
 Understanding these standards will help you implement authorization correctly and troubleshoot issues when they arise.

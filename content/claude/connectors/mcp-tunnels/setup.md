@@ -67,7 +67,7 @@ gateway:
       search: http://10.0.12.7:9000
 ```
 
-With these routes, Claude reaches the servers at `docs.<your-tunnel-domain>` and `search.<your-tunnel-domain>`. If a route targets an address outside the RFC 1918 private ranges (some managed Kubernetes distributions allocate Service IPs elsewhere), add the range under `gateway.config.upstream.allowed_ips` as described in [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting#proxy-logs-ip-validation-failed).
+With these routes, Claude reaches the servers at `docs.<your-tunnel-domain>` and `search.<your-tunnel-domain>`. If a route targets an address outside the RFC 1918 private ranges (some managed Kubernetes distributions allocate Service IPs elsewhere), add the range under `gateway.config.upstream.allowed_ips` as described in [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting.md#proxy-logs-ip-validation-failed).
 
 **3. Review the rendered manifests**
 
@@ -98,7 +98,7 @@ helm install mcp-tunnel \
   --set api.token="$API_TOKEN"
 ```
 
-The setup component runs as a pre-install hook, so `helm install` blocks until the tunnel is created, the CA is registered, and the credentials are stored in the `mcp-tunnel` Secret. If the install fails with a hook error, see [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting#helm-install-fails-with-a-hook-error).
+The setup component runs as a pre-install hook, so `helm install` blocks until the tunnel is created, the CA is registered, and the credentials are stored in the `mcp-tunnel` Secret. If the install fails with a hook error, see [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting.md#helm-install-fails-with-a-hook-error).
 
 > [!WARNING]
 >
@@ -271,7 +271,7 @@ docker compose logs cloudflared | grep "Registered tunnel connection"
 docker compose logs mcp-proxy | grep "route configured"
 ```
 
-The containers take a few seconds to start, so rerun the commands if they come back empty. If cloudflared never registers, see [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting#the-tunnel-stack-starts-but-cloudflared-never-connects). The end-to-end check happens from Claude, in the next section.
+The containers take a few seconds to start, so rerun the commands if they come back empty. If cloudflared never registers, see [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting.md#the-tunnel-stack-starts-but-cloudflared-never-connects). The end-to-end check happens from Claude, in the next section.
 
 ## Add tunneled servers as connectors
 
@@ -291,13 +291,13 @@ Enter the server URL, for example `https://docs.abc123.tunnel.anthropic.com/mcp`
 
 **4. Configure authentication**
 
-Configure authentication for the server. If its OAuth authorization server is also inside your network, turn on **Tunnel OAuth configuration** and follow [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth).
+Configure authentication for the server. If its OAuth authorization server is also inside your network, turn on **Tunnel OAuth configuration** and follow [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth.md).
 
 **5. Add the connector**
 
 Select **Add**.
 
-Members then find the connector in their own connector settings and select **Connect** to sign in, as described in [Add a connector by URL](/docs/connectors/custom/add-unlisted#add-a-connector-by-url). To confirm the tunnel end to end, connect the server yourself and ask Claude to use one of its tools while you watch the proxy logs for the request.
+Members then find the connector in their own connector settings and select **Connect** to sign in, as described in [Add a connector by URL](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url). To confirm the tunnel end to end, connect the server yourself and ask Claude to use one of its tools while you watch the proxy logs for the request.
 
 ### Add more servers later
 
@@ -468,6 +468,6 @@ If you archived the tunnel because of a suspected compromise, also notify your A
 
 ## Next steps
 
-* [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth): make OAuth sign-in work when your authorization server is inside your network
-* [Troubleshoot MCP tunnels](/docs/connectors/mcp-tunnels/troubleshooting): diagnose connection, certificate, routing, and sign-in failures
+* [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth.md): make OAuth sign-in work when your authorization server is inside your network
+* [Troubleshoot MCP tunnels](/docs/connectors/mcp-tunnels/troubleshooting.md): diagnose connection, certificate, routing, and sign-in failures
 * [MCP tunnels reference](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference): proxy configuration fields, certificate requirements, and the setup component

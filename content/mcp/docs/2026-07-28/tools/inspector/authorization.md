@@ -6,7 +6,7 @@
 
 > How the MCP Inspector performs OAuth, re-authorizes mid-session, and shares tokens between its clients
 
-Remote MCP servers usually require authorization. The Inspector implements the full [authorization](/specification/latest/basic/authorization) flow in all three clients, sharing the resulting tokens on disk so a login done once is usable everywhere.
+Remote MCP servers usually require authorization. The Inspector implements the full [authorization](/specification/latest/basic/authorization.md) flow in all three clients, sharing the resulting tokens on disk so a login done once is usable everywhere.
 
 ## The flow, end to end
 
@@ -21,19 +21,19 @@ scopes the request requires.
 
 The Inspector fetches the server's [protected-resource and
 authorization-server
-metadata](/specification/latest/basic/authorization/authorization-server-discovery)
+metadata](/specification/latest/basic/authorization/authorization-server-discovery.md)
 to learn the endpoints and the supported grants.
 
 **3. Register or identify the client**
 
 The Inspector identifies itself to the authorization server through
 whichever mechanism is configured: [dynamic client
-registration](/specification/latest/basic/authorization/client-registration#dynamic-client-registration),
+registration](/specification/latest/basic/authorization/client-registration.md#dynamic-client-registration),
 a pre-registered static client (`--client-id` / `--client-secret`), a
 [Client ID Metadata
-Document](/specification/latest/basic/authorization/client-registration#client-id-metadata-documents)
+Document](/specification/latest/basic/authorization/client-registration.md#client-id-metadata-documents)
 (`--client-metadata-url`), or an [enterprise-managed
-IdP](/extensions/auth/enterprise-managed-authorization).
+IdP](/extensions/auth/enterprise-managed-authorization.md).
 
 **4. Authorize in the browser**
 
@@ -52,6 +52,8 @@ challenge](#mid-session-re-authorization), the CLI retries the refused
 request automatically, and the web client asks you to retry the action.
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/auth-connection-info.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=01a8d11058c2d33e0069b8dec98591b5)
+
+Connection Info after a completed OAuth flow: the authorization status, the dynamically registered client, and the granted scopes.
 
 ## Callback URLs
 
@@ -89,11 +91,11 @@ For the CLI and TUI, override it with `--callback-url` or `MCP_OAUTH_CALLBACK_UR
 | - | - |
 | `~/.mcp-inspector/storage/oauth.json` | Non-secret OAuth state (discovery metadata, PKCE verifiers, granted scope, public client ids), keyed by canonicalized server URL. Written owner-only. |
 | `~/.mcp-inspector/storage/client.json` | Install-level client settings (client metadata URL, enterprise IdP). The same file the web client's **Client Settings** dialog writes. |
-| The server's `oauth` block in the [catalog file](/docs/2026-07-28/tools/inspector/configuration#catalog-file-format) | Per-server client id/secret, scopes, the enterprise-managed flag, and the [step-up](#mid-session-re-authorization) policy. |
+| The server's `oauth` block in the [catalog file](/docs/2026-07-28/tools/inspector/configuration.md#catalog-file-format) | Per-server client id/secret, scopes, the enterprise-managed flag, and the [step-up](#mid-session-re-authorization) policy. |
 
-The path to `oauth.json` is resolved in order: `MCP_INSPECTOR_OAUTH_STATE_PATH`, then `<MCP_STORAGE_DIR>/oauth.json` (see [Environment variables](/docs/2026-07-28/tools/inspector/configuration#environment-variables)), then the default above. All three clients resolve it the same way. Command-line `--client-id` / `--client-secret` / `--client-metadata-url` override `client.json`.
+The path to `oauth.json` is resolved in order: `MCP_INSPECTOR_OAUTH_STATE_PATH`, then `<MCP_STORAGE_DIR>/oauth.json` (see [Environment variables](/docs/2026-07-28/tools/inspector/configuration.md#environment-variables)), then the default above. All three clients resolve it the same way. Command-line `--client-id` / `--client-secret` / `--client-metadata-url` override `client.json`.
 
-The secrets themselves (access and refresh tokens, client secrets, registration access tokens, and IdP session tokens) are not in `oauth.json`. They go to the [secret store](/docs/2026-07-28/tools/inspector/configuration#where-secrets-are-stored), which is the OS keychain when one is reachable. `MCP_INSPECTOR_PERSIST_TOKENS` limits which acquired tokens are kept: `all` (default), `access` (no refresh tokens), or `none` (re-authorize every run). See [Secret store variables](/docs/2026-07-28/tools/inspector/configuration#secret-store-variables).
+The secrets themselves (access and refresh tokens, client secrets, registration access tokens, and IdP session tokens) are not in `oauth.json`. They go to the [secret store](/docs/2026-07-28/tools/inspector/configuration.md#where-secrets-are-stored), which is the OS keychain when one is reachable. `MCP_INSPECTOR_PERSIST_TOKENS` limits which acquired tokens are kept: `all` (default), `access` (no refresh tokens), or `none` (re-authorize every run). See [Secret store variables](/docs/2026-07-28/tools/inspector/configuration.md#secret-store-variables).
 
 ## Mid-session re-authorization
 
@@ -145,7 +147,7 @@ mcp-inspector --cli --transport http --server-url https://api.example/mcp \
   --wait-for-auth 120 --method tools/list
 ```
 
-The `deepLink` in the handoff block navigates a browser straight to a *connected* Inspector; see [Deep links](/docs/2026-07-28/tools/inspector/web#deep-links).
+The `deepLink` in the handoff block navigates a browser straight to a *connected* Inspector; see [Deep links](/docs/2026-07-28/tools/inspector/web.md#deep-links).
 
 > [!NOTE]
 >

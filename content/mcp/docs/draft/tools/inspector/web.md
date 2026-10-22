@@ -24,7 +24,7 @@ The browser recovers the token from three places, in priority order:
 2. A `?MCP_INSPECTOR_API_TOKEN=...` query string, the form used in that printed URL.
 3. `sessionStorage`, as a backstop.
 
-Set the `MCP_INSPECTOR_API_TOKEN` environment variable to pin a known token (useful for scripted launches), or set `DANGEROUSLY_OMIT_AUTH=true` to disable the check entirely, but only on a machine where nothing else can reach the port. Both are described under [Web backend environment variables](/docs/draft/tools/inspector/configuration#web-backend-environment-variables). What the token does and does not protect is described under [Security](/docs/draft/tools/inspector/security#the-web-backend-and-its-api-token).
+Set the `MCP_INSPECTOR_API_TOKEN` environment variable to pin a known token (useful for scripted launches), or set `DANGEROUSLY_OMIT_AUTH=true` to disable the check entirely, but only on a machine where nothing else can reach the port. Both are described under [Web backend environment variables](/docs/draft/tools/inspector/configuration.md#web-backend-environment-variables). What the token does and does not protect is described under [Security](/docs/draft/tools/inspector/security.md#the-web-backend-and-its-api-token).
 
 ## Dev mode
 
@@ -52,15 +52,19 @@ Production `--web` serves a built bundle. In the published package that bundle a
 | **Network** | HTTP / SSE servers | The raw HTTP view: status, headers, bodies. |
 | **Console** | stdio servers | The server process's `stderr`. |
 
-**Network** and **Console** never appear together. Legacy and modern eras are described in [Protocol eras](/docs/draft/tools/inspector/protocol-eras).
+**Network** and **Console** never appear together. Legacy and modern eras are described in [Protocol eras](/docs/draft/tools/inspector/protocol-eras.md).
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tab-bar.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=04bb61c4a45ff12e8337c701e195c386)
+
+The tab bar on a connected server. Which tabs appear depends on the capabilities the server reported.
 
 ### The monitoring sidebar
 
 **Tasks**, **Logs**, **Protocol**, **Network**, and **Console** form a *monitor group*. Pin the group and they leave the tab bar and move into a resizable right-hand column, so you can watch traffic while working in Tools or Resources. Drag the column's edge to resize it, from 320 to 720 pixels wide. The column width and the selected monitor tab persist across reloads.
 
 ![](https://mintcdn.com/mcp/pUebPdrb6PY5_mfH/images/inspector/web-monitor-sidebar.png?fit=max\&auto=format\&n=pUebPdrb6PY5_mfH\&q=85\&s=2ced9eeefa020be53fe4fe957b7d07c6)
+
+The monitoring sidebar pinned beside the Tools screen and dragged to its full width, with the tool call's request and response expanded in the Protocol stream.
 
 ## Servers
 
@@ -75,35 +79,41 @@ Where that list comes from, and whether it's editable, depends on how you launch
 | `--config <path>` | That file, read-only (never written or seeded) | No |
 | `--server-url <url>` or a positional command | One ad-hoc server, held in memory | No |
 
-On a first launch the web client seeds the catalog with three sample servers: a filesystem server scoped to `/tmp`, the canonical "everything" reference server, and the MCP org's hosted example server (Streamable HTTP, with OAuth via dynamic client registration). See [Configuration and flags](/docs/draft/tools/inspector/configuration) for the full rules, including why the CLI and TUI seed an empty catalog instead.
+On a first launch the web client seeds the catalog with three sample servers: a filesystem server scoped to `/tmp`, the canonical "everything" reference server, and the MCP org's hosted example server (Streamable HTTP, with OAuth via dynamic client registration). See [Configuration and flags](/docs/draft/tools/inspector/configuration.md) for the full rules, including why the CLI and TUI seed an empty catalog instead.
 
 ### Server Settings
 
-* **Protocol Era**: `legacy` / `auto` / `modern`. See [Protocol eras](/docs/draft/tools/inspector/protocol-eras).
-* **Log Level per Request**: the level a modern-era connection stamps on each outgoing request by default, or `off` to opt out (see [Logging](/docs/draft/tools/inspector/protocol-eras#logging)).
-* **Advertised Extensions**: which extensions the Inspector declares in `capabilities.extensions`. A debugging knob: a server may legitimately change what it registers based on what you advertise. Uncheck the Tasks extension and reconnect against the `test-servers/configs/advertised-extensions-http.json` fixture (setup in [Reproducing each era locally](/docs/draft/tools/inspector/protocol-eras#reproducing-each-era-locally)) to watch a tool disappear.
+* **Protocol Era**: `legacy` / `auto` / `modern`. See [Protocol eras](/docs/draft/tools/inspector/protocol-eras.md).
+* **Log Level per Request**: the level a modern-era connection stamps on each outgoing request by default, or `off` to opt out (see [Logging](/docs/draft/tools/inspector/protocol-eras.md#logging)).
+* **Advertised Extensions**: which extensions the Inspector declares in `capabilities.extensions`. A debugging knob: a server may legitimately change what it registers based on what you advertise. Uncheck the Tasks extension and reconnect against the `test-servers/configs/advertised-extensions-http.json` fixture (setup in [Reproducing each era locally](/docs/draft/tools/inspector/protocol-eras.md#reproducing-each-era-locally)) to watch a tool disappear.
 * **Roots**: the roots advertised via the `roots` client capability. `@modelcontextprotocol/server-filesystem`, for instance, calls `roots/list` to learn its allowed directories.
-* **Headers**, **timeouts**, and **OAuth** fields. Headers are saved in the catalog as written; OAuth client secrets and stdio `env:` values go to the [secret store](/docs/draft/tools/inspector/configuration#where-secrets-are-stored).
-* **OAuth Settings**: client ID and secret, a read-only **Redirect URI** to copy into a pre-registered client (it follows the origin you opened the Inspector at), **Scopes** (space-separated), **Request refresh token**, **Revoke tokens on clear**, additional authorization parameters, authorization and token URL overrides, and **Insufficient-scope response**, which decides whether a `403 insufficient_scope` triggers [step-up](/docs/draft/tools/inspector/authorization#mid-session-re-authorization) or surfaces the error.
+* **Headers**, **timeouts**, and **OAuth** fields. Headers are saved in the catalog as written; OAuth client secrets and stdio `env:` values go to the [secret store](/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored).
+* **OAuth Settings**: client ID and secret, a read-only **Redirect URI** to copy into a pre-registered client (it follows the origin you opened the Inspector at), **Scopes** (space-separated), **Request refresh token**, **Revoke tokens on clear**, additional authorization parameters, authorization and token URL overrides, and **Insufficient-scope response**, which decides whether a `403 insufficient_scope` triggers [step-up](/docs/draft/tools/inspector/authorization.md#mid-session-re-authorization) or surfaces the error.
 * **Fetch Lists One Page at a Time**: when off, list results are auto-aggregated across pages on connect; when on, each list loads page 1 only with a **Load next page** control and an *N pages loaded* status. Reproduce with `test-servers/configs/pagination-http.json`, which paginates 12 tools, resources, and prompts into three pages each.
 
 A footer at the bottom of **Server Settings**, **Client Settings** and the **Add / Edit / Clone server** dialogs names the secret store in use, so you see it where you type a secret. It turns into a warning when secrets are memory-only (lost on restart), in an unencrypted file, in a file with loose permissions, or in a file that can't be read.
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-server-settings.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=d42be09ee8de7e45e58a8ff1a444ba52)
 
+Server Settings with Advertised Extensions expanded. Unchecking one changes what the Inspector declares at connect.
+
 ## Tools
 
 Select a tool to see its description, its input schema rendered as a form, and its annotations. Fill the form and call it; the result renders below with structured content, embedded resources, and images handled natively.
 
-On modern-era servers this screen also shows mirrored `Mcp-Param-*` headers, excluded tools, and distinct `-32602` error panels, all covered in [Protocol eras](/docs/draft/tools/inspector/protocol-eras#tools-mirrored-headers-and-excluded-tools).
+On modern-era servers this screen also shows mirrored `Mcp-Param-*` headers, excluded tools, and distinct `-32602` error panels, all covered in [Protocol eras](/docs/draft/tools/inspector/protocol-eras.md#tools-mirrored-headers-and-excluded-tools).
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tools.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=7ef469a969f398ac0ec70cf019c133da)
 
+A tool call and its rendered result. The argument form collapses into the result panel once the call returns.
+
 ## Resources
 
-Lists resources and resource templates with their MIME types and descriptions, reads content on selection, and offers **Subscribe** on servers that support subscriptions. The subscription mechanics differ by era; see [Resource subscriptions](/docs/draft/tools/inspector/protocol-eras#resource-subscriptions).
+Lists resources and resource templates with their MIME types and descriptions, reads content on selection, and offers **Subscribe** on servers that support subscriptions. The subscription mechanics differ by era; see [Resource subscriptions](/docs/draft/tools/inspector/protocol-eras.md#resource-subscriptions).
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-resources.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=1a94ea452e1ef8aaf2c9f486ed810b28)
+
+A resource read, with an active subscription listed below the resource list.
 
 ## Prompts
 
@@ -111,29 +121,35 @@ Lists prompt templates with their arguments, and renders the generated messages 
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-prompts.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=81b16312b1adff5601622a72444b0f92)
 
+A prompt rendered with the arguments supplied.
+
 ## Apps
 
-[MCP Apps](/extensions/apps/overview) are tools that carry UI. The Apps tab renders one in a sandboxed iframe served from a **separate port**, exercises the `ui/*` bridge, and shows the view's `ui/message` submissions and its `notifications/message` logs in panels below the frame.
+[MCP Apps](/extensions/apps/overview.md) are tools that carry UI. The Apps tab renders one in a sandboxed iframe served from a **separate port**, exercises the `ui/*` bridge, and shows the view's `ui/message` submissions and its `notifications/message` logs in panels below the frame.
 
 * The sandbox listens on its own port, `6275` by default (set it with `MCP_SANDBOX_PORT`). An app whose UI resource declares `_meta.ui.domain` has its document served from a third listener, the app origin, on `6278` by default (`MCP_APP_ORIGIN_PORT`). Expose or forward both along with the web port.
 * The sandbox is gated by a `frame-ancestors` CSP, and a bracketed IPv6 literal is not a valid CSP host-source, so browse the Inspector at `localhost`, `127.0.0.1`, a hostname, or a LAN IPv4, **not** at a bare `http://[::1]:...`.
 * By default the sandbox URL is plain `http` on the bind address, so an `https://` Inspector page blocks the frame as mixed content. Behind a TLS reverse proxy, set `MCP_SANDBOX_FULL_ADDRESS` (and `MCP_APP_ORIGIN_FULL_ADDRESS`) to the public `https://` address the browser reaches each listener at. Neither may share an origin with the Inspector UI; a value that does is ignored with a warning.
 
-See [Recipes](/docs/draft/tools/inspector/recipes#reviewing-an-mcp-app) for the CLI-first automated review flow.
+See [Recipes](/docs/draft/tools/inspector/recipes.md#reviewing-an-mcp-app) for the CLI-first automated review flow.
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-apps.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=bd311848514f7d251640012986abfc4d)
+
+An MCP App rendered in its sandboxed frame, with the app's own logs below it.
 
 ## Protocol, Network, and Console
 
 The three tabs show the same traffic at different levels of detail:
 
-* **Protocol**: the JSON-RPC transcript. Requests paired with responses, notifications inline, [MRTR](/docs/draft/tools/inspector/protocol-eras#multi-round-tool-results-mrtr) rounds grouped as one conversation, and spec errors rendered by class.
+* **Protocol**: the JSON-RPC transcript. Requests paired with responses, notifications inline, [MRTR](/docs/draft/tools/inspector/protocol-eras.md#multi-round-tool-results-mrtr) rounds grouped as one conversation, and spec errors rendered by class.
 * **Network**: the HTTP layer, for SSE and Streamable HTTP servers. Status codes, request and response headers, and bodies. On modern connections the standardized `Mcp-*` headers are highlighted and sentinel values decoded.
 * **Console**: the connected stdio server process's `stderr`, which is where most stdio servers put their own diagnostics.
 
 Secrets in Network headers and bodies are masked, with a control to reveal them; Protocol and Console show traffic as sent. Entries can be cleared or exported.
 
 ![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-protocol.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=f31338c83a389c5588f11c0d5b2b97ed)
+
+The Protocol tab with an entry expanded, showing the full JSON-RPC exchange.
 
 ## Deep links
 
@@ -157,4 +173,4 @@ By default the Inspector binds `127.0.0.1` and accepts requests only from the lo
 
 Binding all interfaces (`HOST=0.0.0.0`) is **refused** unless you set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Binding a *specific* non-loopback address is allowed with no opt-in, since that's a single deliberate exposure rather than every interface at once.
 
-See the [Hosting on a network](/docs/draft/tools/inspector/recipes#hosting-on-a-network) recipe for the full matrix, and [Configuration](/docs/draft/tools/inspector/configuration#web-backend-environment-variables) for the variables.
+See the [Hosting on a network](/docs/draft/tools/inspector/recipes.md#hosting-on-a-network) recipe for the full matrix, and [Configuration](/docs/draft/tools/inspector/configuration.md#web-backend-environment-variables) for the variables.

@@ -6,7 +6,7 @@
 
 > Track submissions, monitor server health and usage metrics, and edit your directory listing
 
-Organizations that submit a connector to the [directory](/docs/connectors/directory) get a submissions dashboard in the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage). This page is for connector authors who have already [submitted a connector](/docs/connectors/building/submission). Use the dashboard to [track a submission through review](#track-submission-status), [monitor your published server's health and usage](#server-health-and-usage-metrics), and [edit your listing](#edit-your-listing).
+Organizations that submit a connector to the [directory](/docs/connectors/directory.md) get a submissions dashboard in the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage). This page is for connector authors who have already [submitted a connector](/docs/connectors/building/submission.md). Use the dashboard to [track a submission through review](#track-submission-status), [monitor your published server's health and usage](#server-health-and-usage-metrics), and [edit your listing](#edit-your-listing).
 
 > [!NOTE]
 >
@@ -14,13 +14,13 @@ Organizations that submit a connector to the [directory](/docs/connectors/direct
 
 ## Access the dashboard
 
-The dashboard uses the same access as submitting. [Who can submit to the directory](/docs/directory/publish#confirm-you-can-submit-to-the-directory) lists the plan and role requirements. That access covers everything on this page: viewing submissions, metrics, and reviewer feedback, and editing and submitting listings.
+The dashboard uses the same access as submitting. [Who can submit to the directory](/docs/directory/publish.md#confirm-you-can-submit-to-the-directory) lists the plan and role requirements. That access covers everything on this page: viewing submissions, metrics, and reviewer feedback, and editing and submitting listings.
 
 ## Track submission status
 
-The dashboard lists each of your organization's submissions with its current status. [Track your submission](/docs/directory/submission-status#mcp-connector-statuses) says what each status means and who acts next. Open a submission to see its full details and any reviewer feedback. When reviewers request changes, their feedback appears on the submission's detail page, where you address it and resubmit.
+The dashboard lists each of your organization's submissions with its current status. [Track your submission](/docs/directory/submission-status.md#mcp-connector-statuses) says what each status means and who acts next. Open a submission to see its full details and any reviewer feedback. When reviewers request changes, their feedback appears on the submission's detail page, where you address it and resubmit.
 
-A published connector is listed with the **Community** label by default. [Connector verification](/docs/connectors/verification#list-your-own-connector) explains how a listing becomes Verified.
+A published connector is listed with the **Community** label by default. [Connector verification](/docs/connectors/verification.md#list-your-own-connector) explains how a listing becomes Verified.
 
 ## Server health and usage metrics
 
@@ -91,6 +91,6 @@ For other edits or escalations, email `mcp-review@anthropic.com`.
 
 ## Next steps
 
-* [After publishing](/docs/connectors/building/after-publishing): release updates to your server, and delist
-* [Connector verification](/docs/connectors/verification#list-your-own-connector): see how a Community listing becomes Verified
-* [Troubleshoot your connector](/docs/connectors/building/troubleshooting): diagnose the errors behind a degraded health badge or high error rate
+* [After publishing](/docs/connectors/building/after-publishing.md): release updates to your server, and delist
+* [Connector verification](/docs/connectors/verification.md#list-your-own-connector): see how a Community listing becomes Verified
+* [Troubleshoot your connector](/docs/connectors/building/troubleshooting.md): diagnose the errors behind a degraded health badge or high error rate

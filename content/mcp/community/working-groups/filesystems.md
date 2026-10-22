@@ -51,8 +51,8 @@ optimistic concurrency control, and the interaction with change notification and
 
 * **File Uploads WG.** Both groups transfer content to a server. Coordination needed on where an upload-oriented flow
   ends and a resource write operation begins.
-* **[Skills Over MCP WG](/community/working-groups/skills-over-mcp).** The published
-  [Skills extension](/extensions/skills/overview) uses Resources for file reads and defines optional directory reading.
+* **[Skills Over MCP WG](/community/working-groups/skills-over-mcp.md).** The published
+  [Skills extension](/extensions/skills/overview.md) uses Resources for file reads and defines optional directory reading.
   It does not depend on filesystem write operations; coordinate on future resource operations that affect skills.
 * **Agents IG.** Multi-agent and job orchestration systems are the motivating consumers of a shared write path.
 

@@ -208,7 +208,7 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 
 > **None of this is working. What do I do?**
 >
-> Please refer to our [debugging guide](/docs/2025-06-18/tools/debugging) for better debugging tools and more detailed guidance.
+> Please refer to our [debugging guide](/docs/2025-06-18/tools/debugging.md) for better debugging tools and more detailed guidance.
 
 > **ENOENT error and `$\{APPDATA\}` in paths on Windows**
 >
@@ -248,16 +248,16 @@ Now that you've successfully connected Claude Desktop to a local MCP server, exp
 > Browse our collection of official and community-created MCP servers for
 > additional capabilities
 
-> **[Build your own server](/docs/2025-06-18/develop/build-server)**
+> **[Build your own server](/docs/2025-06-18/develop/build-server.md)**
 >
 > Create custom MCP servers tailored to your specific workflows and
 > integrations
 
-> **[Connect to remote servers](/docs/2025-06-18/develop/connect-remote-servers)**
+> **[Connect to remote servers](/docs/2025-06-18/develop/connect-remote-servers.md)**
 >
 > Learn how to connect Claude to remote MCP servers for cloud-based tools and
 > services
 
-> **[Understand the protocol](/docs/2025-06-18/learn/architecture)**
+> **[Understand the protocol](/docs/2025-06-18/learn/architecture.md)**
 >
 > Dive deeper into how MCP works and its architecture

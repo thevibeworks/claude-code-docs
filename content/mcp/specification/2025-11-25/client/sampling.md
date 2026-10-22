@@ -40,7 +40,7 @@ Clients **MUST** declare support for tool use via the `sampling.tools` capabilit
 ## Capabilities
 
 Clients that support sampling **MUST** declare the `sampling` capability during
-[initialization](/specification/2025-11-25/basic/lifecycle#initialization):
+[initialization](/specification/2025-11-25/basic/lifecycle.md#initialization):
 
 **Basic sampling:**
 

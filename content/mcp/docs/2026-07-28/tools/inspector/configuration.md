@@ -20,7 +20,7 @@ Everything below belongs to a client.
 > [!NOTE]
 >
 > The package also installs a second, separate bin, `mcpdo`, the experimental
-> [connection client](/docs/2026-07-28/tools/inspector/mcpdo). It is not reached
+> [connection client](/docs/2026-07-28/tools/inspector/mcpdo.md). It is not reached
 > through the launcher and takes no mode flag.
 
 ## Choosing servers
@@ -97,7 +97,7 @@ Defined **separately by each of web, CLI, and TUI**, so they're available in all
 | `--cwd <path>` | Working directory for a stdio server process. | None |
 | `-e <KEY=VALUE>` | Environment variables for a stdio server. Repeatable. | None |
 | `--header "Name: Value"` | HTTP headers for an HTTP/SSE server. Repeatable. | Requires an ad-hoc HTTP/SSE server on the web client. |
-| `--protocol-era <era>` | `legacy`, `auto`, or `modern`: the [protocol era](/docs/2026-07-28/tools/inspector/protocol-eras) to negotiate. | Requires an ad-hoc target on the web client. The CLI and TUI also let it override a file's `protocolEra`. |
+| `--protocol-era <era>` | `legacy`, `auto`, or `modern`: the [protocol era](/docs/2026-07-28/tools/inspector/protocol-eras.md) to negotiate. | Requires an ad-hoc target on the web client. The CLI and TUI also let it override a file's `protocolEra`. |
 | `--skill-catalog-max-skills <n>` / `--skill-catalog-max-bytes <n>` | Budget for a skills verification run (most skills, most bytes read). | **CLI and TUI only.** Overrides the file's `skillCatalogMaxSkills` / `skillCatalogMaxBytes`. |
 | `[target...]` | Positional command/URL for one ad-hoc server. | None |
 
@@ -137,7 +137,7 @@ These five are defined by the **CLI and TUI** only. The web client obtains the s
 
 ## CLI-only flags
 
-The whole scripting surface belongs to the CLI. See [CLI client](/docs/2026-07-28/tools/inspector/cli) for usage.
+The whole scripting surface belongs to the CLI. See [CLI client](/docs/2026-07-28/tools/inspector/cli.md) for usage.
 
 | Group | Flags |
 | - | - |
@@ -153,7 +153,7 @@ Environment variables split the same way as flags: two are read by the launcher 
 
 | Variable | Effect |
 | - | - |
-| `MCP_DEBUG` | Append the error stack to a top-level `--web` or `--tui` failure (a `--cli` failure always prints its [JSON error envelope](/docs/2026-07-28/tools/inspector/cli#exit-codes-and-error-envelopes) instead). Only when set to a meaningful value: `0`, `false`, and empty read as off. |
+| `MCP_DEBUG` | Append the error stack to a top-level `--web` or `--tui` failure (a `--cli` failure always prints its [JSON error envelope](/docs/2026-07-28/tools/inspector/cli.md#exit-codes-and-error-envelopes) instead). Only when set to a meaningful value: `0`, `false`, and empty read as off. |
 | `DEBUG` | Same, with the same meaningful-value rule, so a stray `DEBUG=0` doesn't turn stack traces on and `DEBUG` still works as the npm `debug` package's namespace filter. |
 
 ### CLI and TUI
@@ -173,7 +173,7 @@ Some of these are read by the web backend too, as the **Read by** column shows.
 
 | Variable | Effect |
 | - | - |
-| `MCP_INSPECTOR_API_TOKEN` | Pin the [session token](/docs/2026-07-28/tools/inspector/web#the-session-token) instead of generating a random one per launch. |
+| `MCP_INSPECTOR_API_TOKEN` | Pin the [session token](/docs/2026-07-28/tools/inspector/web.md#the-session-token) instead of generating a random one per launch. |
 | `DANGEROUSLY_OMIT_AUTH` | Disable the `/api/*` token check entirely. Only `true` or `1` turn it off. |
 | `HOST` | Bind host. Defaults to `127.0.0.1`. |
 | `CLIENT_PORT` | Web UI port. Defaults to `6274`. |
@@ -196,11 +196,11 @@ Some of these are read by the web backend too, as the **Read by** column shows.
 > The web backend spawns processes and holds OAuth tokens, so anyone who can
 > reach it can drive it.
 
-What the token does and does not protect is laid out under [The web backend and its API token](/docs/2026-07-28/tools/inspector/security#the-web-backend-and-its-api-token).
+What the token does and does not protect is laid out under [The web backend and its API token](/docs/2026-07-28/tools/inspector/security.md#the-web-backend-and-its-api-token).
 
 ### Secret store variables
 
-Read by **every** client: web, CLI, TUI, and [mcpdo](/docs/2026-07-28/tools/inspector/mcpdo). How they combine is described under [Where secrets are stored](#where-secrets-are-stored).
+Read by **every** client: web, CLI, TUI, and [mcpdo](/docs/2026-07-28/tools/inspector/mcpdo.md). How they combine is described under [Where secrets are stored](#where-secrets-are-stored).
 
 | Variable | Effect |
 | - | - |
@@ -249,9 +249,9 @@ Each process picks one store, once, the first time it needs it: the web backend 
 > * **Encrypt the file:** supply a generated key with `MCP_INSPECTOR_SECRET_KEY_FILE` (preferred) or `MCP_INSPECTOR_SECRET_KEY`.
 > * **Don't write secrets to disk at all:** `MCP_INSPECTOR_SECRET_STORE=memory`, and re-enter them each session.
 >
-> Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/2026-07-28/tools/inspector/security#what-the-file-store-protects-against).
+> Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/2026-07-28/tools/inspector/security.md#what-the-file-store-protects-against).
 
-[mcpdo](/docs/2026-07-28/tools/inspector/mcpdo) never falls back to `memory`: its commands and its daemon are separate processes, so it uses the file store instead.
+[mcpdo](/docs/2026-07-28/tools/inspector/mcpdo.md) never falls back to `memory`: its commands and its daemon are separate processes, so it uses the file store instead.
 
 ### The file store
 
@@ -296,6 +296,6 @@ A catalog or config file is the familiar MCP client config shape (a `mcpServers`
 }
 ```
 
-Fields that equal their default are omitted when the Inspector writes the file back, keeping diffs minimal. `protocolEra` (see [Protocol eras](/docs/2026-07-28/tools/inspector/protocol-eras)) defaults to `legacy` and `modernLogLevel` to `debug`.
+Fields that equal their default are omitted when the Inspector writes the file back, keeping diffs minimal. `protocolEra` (see [Protocol eras](/docs/2026-07-28/tools/inspector/protocol-eras.md)) defaults to `legacy` and `modernLogLevel` to `debug`.
 
-You do not have to hand-write these; the web client can [import an existing client config](/docs/2026-07-28/tools/inspector/recipes#importing-an-existing-client-config) from Claude Desktop, Cursor, Cline, or VS Code, or a registry `server.json`.
+You do not have to hand-write these; the web client can [import an existing client config](/docs/2026-07-28/tools/inspector/recipes.md#importing-an-existing-client-config) from Claude Desktop, Cursor, Cline, or VS Code, or a registry `server.json`.

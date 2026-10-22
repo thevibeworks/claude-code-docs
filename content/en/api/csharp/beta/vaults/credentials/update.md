@@ -31,7 +31,7 @@ Update a Credential
 
       Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `string? AccessToken`
 
@@ -71,7 +71,7 @@ Update a Credential
 
             Updated HTTP Basic authentication parameters for the token endpoint.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
             - `string? ClientSecret`
 
@@ -85,7 +85,7 @@ Update a Credential
 
             Updated POST body authentication parameters for the token endpoint.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
             - `string? ClientSecret`
 
@@ -99,7 +99,7 @@ Update a Credential
 
       Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `string? Token`
 
@@ -111,7 +111,7 @@ Update a Credential
 
       Parameters for updating an environment variable credential. `secret_name` is immutable.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `BetaManagedAgentsInjectionLocationUpdateParams InjectionLocation`
 
@@ -133,13 +133,13 @@ Update a Credential
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -283,7 +283,7 @@ Update a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -303,7 +303,7 @@ Update a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -333,19 +333,19 @@ Update a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -359,7 +359,7 @@ Update a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -369,7 +369,7 @@ Update a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -391,13 +391,13 @@ Update a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 

@@ -15,7 +15,7 @@ Standards Track
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -80,7 +80,7 @@ Even when a model provides a syntactically correct date that passes JSON schema 
 
 ### Current Behavior
 
-The [tool errors specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#error-handling) currently provides ambiguous guidance:
+The [tool errors specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools.md#error-handling) currently provides ambiguous guidance:
 
 * "Invalid arguments" should be treated as Protocol Error
 * "Invalid input data" should be treated as Tool Execution Error
@@ -198,6 +198,6 @@ Servers implementing the clarified behavior will provide better model self-recov
 
 ## References
 
-* [MCP Tools Error Handling Specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#error-handling)
+* [MCP Tools Error Handling Specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools.md#error-handling)
 * [Better MCP tools/call Error Responses: Help Your AI Recover Gracefully](https://dev.to/alpic/better-mcp-toolscall-error-responses-help-your-ai-recover-gracefully-15c7)
 * Related Issue: [https://github.com/modelcontextprotocol/typescript-sdk/pull/824](https://github.com/modelcontextprotocol/typescript-sdk/pull/824)

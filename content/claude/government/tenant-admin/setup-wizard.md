@@ -22,6 +22,8 @@ If a detail looks wrong (for example, the tenant name is misspelled), contact An
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bf307a4d18d646cbce35d3c269be51b7" aria-label="Video walkthrough: Verify your domain and connect single sign-on" />
 
+Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
+
 > **Transcript**
 >
 > Before your members can sign in, your tenant needs a verified email domain and a connection to your identity provider.
@@ -54,7 +56,7 @@ Claude for Government looks at the domain of a person's email address to decide 
 
 If Anthropic already verified the domain you plan to use, you can move straight on to the next step. To add another domain, type it into the **Claim a domain** field and click **Claim**. You will be shown a DNS TXT record to publish on that domain. Once the record is live, click **Verify now** next to the pending claim and the domain becomes active. DNS changes can take anywhere from a few minutes to an hour to propagate, so try again shortly if verification does not succeed on the first attempt.
 
-For more detail on how domains work and how to remove one later, see the [Domains section of the Identity and access page](/docs/government/tenant-admin/identity-and-access#domains).
+For more detail on how domains work and how to remove one later, see the [Domains section of the Identity and access page](/docs/government/tenant-admin/identity-and-access.md#domains).
 
 ## Step 3: Single sign-on
 
@@ -70,7 +72,7 @@ Setting this up is a two-way exchange:
 
 After you save a SAML connection, an **SP metadata URL** appears with the other values; most providers can import it to fill in the values automatically if you need to reconfigure.
 
-Until single sign-on is connected, only owners who were invited directly by email can sign in. The full field reference for both protocols is on the [Identity and access](/docs/government/tenant-admin/identity-and-access#single-sign-on) page.
+Until single sign-on is connected, only owners who were invited directly by email can sign in. The full field reference for both protocols is on the [Identity and access](/docs/government/tenant-admin/identity-and-access.md#single-sign-on) page.
 
 Once single sign-on is connected, people sign in from Claude Desktop or the web portal, and Claude for Government sends them to your provider from there. Starting from the application's tile in your provider's app portal, or from a sign-in test in its admin console, is not supported.
 
@@ -82,7 +84,7 @@ Like single sign-on, this step is unavailable until you have verified at least o
 
 Copy the **Tenant URL** shown on this step into your identity provider's SCIM connector, then click **Generate token** and paste the token into the connector's secret token field. The token is shown only once, so copy it before closing the page. If you need to rotate it later, generate a new one and revoke the old one with the **Revoke** button.
 
-You do not have to finish the provider-side setup before moving on. Once your provider has pushed at least one group, you can come back to the Routing step (or the [Identity and access](/docs/government/tenant-admin/identity-and-access#scim-provisioning) page) and add rules that place people by group membership.
+You do not have to finish the provider-side setup before moving on. Once your provider has pushed at least one group, you can come back to the Routing step (or the [Identity and access](/docs/government/tenant-admin/identity-and-access.md#scim-provisioning) page) and add rules that place people by group membership.
 
 ## Step 5: Organizations
 
@@ -94,15 +96,15 @@ Any organizations that already exist are listed at the top. To create one, fill 
 * **Primary Owner email** is the person who will manage this organization's members and seats. They will be invited by email and land in the organization admin view when they sign in.
 * **Billing account** is the account this organization draws from for seats and billed usage. Several organizations can share one account if they should be funded from a single budget.
 
-Click **Add** and the new organization appears in the list. You can create as many as you need now and add more later from the [Organizations](/docs/government/tenant-admin/organizations) page.
+Click **Add** and the new organization appears in the list. You can create as many as you need now and add more later from the [Organizations](/docs/government/tenant-admin/organizations.md) page.
 
 ## Step 6: Seats and spend caps
 
 This step lets you give each organization seats and, optionally, a spend cap.
 
-Seats control how many people in each organization can use Claude. The table shows each organization with a seat-count field for the first seat tier. Enter the number of seats each organization should have and save. Saving an organization's first seats also seats its Primary Owner, and anyone else already in it who has no seat tier, automatically. For per-tier control, use the full [Seats](/docs/government/tenant-admin/seats) page after setup.
+Seats control how many people in each organization can use Claude. The table shows each organization with a seat-count field for the first seat tier. Enter the number of seats each organization should have and save. Saving an organization's first seats also seats its Primary Owner, and anyone else already in it who has no seat tier, automatically. For per-tier control, use the full [Seats](/docs/government/tenant-admin/seats.md) page after setup.
 
-Each organization's usage spends directly from its billing account's balance, and you can add a spend cap to limit how much any one organization can use in a rolling window. Caps are optional. If you leave them blank, the billing account's balance is the only limit. You can adjust both seats and caps later from the tenant [Seats](/docs/government/tenant-admin/seats) and [Billing](/docs/government/tenant-admin/credits) pages.
+Each organization's usage spends directly from its billing account's balance, and you can add a spend cap to limit how much any one organization can use in a rolling window. Caps are optional. If you leave them blank, the billing account's balance is the only limit. You can adjust both seats and caps later from the tenant [Seats](/docs/government/tenant-admin/seats.md) and [Billing](/docs/government/tenant-admin/credits.md) pages.
 
 ## Step 7: Routing
 
@@ -115,13 +117,13 @@ Each rule reads like a sentence: a condition on the left, an arrow, and the targ
 * In the **Then place in** field, pick the organization.
 * Click **Add rule**.
 
-Rules run from top to bottom and the first match wins, so move more specific rules above broader ones. Rules that match directory groups pushed over SCIM are managed on the full [Identity and access](/docs/government/tenant-admin/identity-and-access#routing-rules) page, which also has a preview tool for testing where a specific email address would land.
+Rules run from top to bottom and the first match wins, so move more specific rules above broader ones. Rules that match directory groups pushed over SCIM are managed on the full [Identity and access](/docs/government/tenant-admin/identity-and-access.md#routing-rules) page, which also has a preview tool for testing where a specific email address would land.
 
 ## Steps 8 and 9: Seat tiers and Products (single-organization tenants only)
 
-If your tenant has exactly one organization, the wizard includes two extra steps so that you can finish the organization-level setup without switching portals. You will only see these two steps in the step list if your tenant has a single organization. Tenants with more than one organization skip straight to the Finish step, and each organization's owner completes these two steps in their own [organization setup wizard](/docs/government/org-admin/setup-wizard) instead.
+If your tenant has exactly one organization, the wizard includes two extra steps so that you can finish the organization-level setup without switching portals. You will only see these two steps in the step list if your tenant has a single organization. Tenants with more than one organization skip straight to the Finish step, and each organization's owner completes these two steps in their own [organization setup wizard](/docs/government/org-admin/setup-wizard.md) instead.
 
-* **Seat tiers** lists the seat tiers available to the organization. A seat tier bundles together which Claude models a user may access and how much they may spend. Anthropic-managed tiers are set up for you during provisioning; if your organization is allowed to create self-managed tiers, you can add one here. See the organization [Seat tiers](/docs/government/org-admin/seat-tiers) page for the full editor.
+* **Seat tiers** lists the seat tiers available to the organization. A seat tier bundles together which Claude models a user may access and how much they may spend. Anthropic-managed tiers are set up for you during provisioning; if your organization is allowed to create self-managed tiers, you can add one here. See the organization [Seat tiers](/docs/government/org-admin/seat-tiers.md) page for the full editor.
 * **Products** lets you choose which Claude products the organization's members can sign in to, for example Claude Desktop, Claude Code, and Claude for Microsoft 365. This is optional, and a product that is not available on your deployment is shown grayed out with a note to contact Anthropic.
 
 ## Final step: Finish

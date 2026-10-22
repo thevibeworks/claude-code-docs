@@ -18,11 +18,13 @@ To turn Developer mode off again, go to **Developer → Open Developer Config Fi
 
 ![Claude Desktop in-app configuration window with the sidebar of setting groups on the left and the Connection form on the right.](https://mintcdn.com/claude-ai/kVj7_7KF4fI3bEAn/images/third-party/in-app-configuration-window.png?fit=max\&auto=format\&n=kVj7_7KF4fI3bEAn\&q=85\&s=c3f15a85dea85082bc6dbc9459e6a974)
 
-The sidebar groups settings the same way the [configuration reference](/docs/third-party/claude-desktop/configuration) does. Fill in **Connection** first, then work down through the sections your deployment needs.
+The in-app configuration window, showing the Connection section for a gateway provider.
+
+The sidebar groups settings the same way the [configuration reference](/docs/third-party/claude-desktop/configuration.md) does. Fill in **Connection** first, then work down through the sections your deployment needs.
 
 ## Apply locally or export for a fleet
 
-Use **Apply Changes** to write the configuration to this device only and relaunch into it. This is the [single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup) path for evaluation and pilots.
+Use **Apply Changes** to write the configuration to this device only and relaunch into it. This is the [single-machine setup](/docs/third-party/claude-desktop/installation.md#single-machine-setup) path for evaluation and pilots.
 
 Use the **Export** menu to generate deployment artifacts for a fleet:
 
@@ -32,9 +34,9 @@ Use the **Export** menu to generate deployment artifacts for a fleet:
 | `.reg` policy file | Intune, Group Policy, or any Windows MDM |
 | ADMX template (`.zip`) | Intune or Group Policy; a schema-only template, you enter values in the management console |
 | Profile Manifest (`.plist`) | Jamf, ProfileCreator, or similar macOS tools; a schema-only template, you enter values in your tool |
-| JSON config | The response body for a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or a configuration file for a device without MDM |
+| JSON config | The response body for a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md), or a configuration file for a device without MDM |
 | Egress allowlist | Your firewall or network team |
 
-See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) or [Deploy with a bootstrap server](/docs/third-party/claude-desktop/bootstrap) to distribute what you exported.
+See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) or [Deploy with a bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) to distribute what you exported.
 
 When a managed profile is already present on the device, the window opens in read-only mode and shows the deployed values. Author new configurations from a device without a managed profile.

@@ -66,8 +66,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 ## Example
 
 ```bash
-ant beta:tunnels create \
-  --api-key my-anthropic-api-key
+ant beta:tunnels create
 ```
 
 ### Response (200)

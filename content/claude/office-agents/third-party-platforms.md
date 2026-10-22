@@ -90,7 +90,7 @@ Anthropic checks connections to `bridge.claudeusercontent.com` against your
 organization's Claude IP allowlist using the address they arrive from. If
 your proxy sends traffic for that domain out through an address that is not
 on that allowlist,
-[work across apps](/docs/office-agents/work-across-apps) stops while the rest of
+[work across apps](/docs/office-agents/work-across-apps.md) stops while the rest of
 the add-in keeps working.
 
 ### Third-party platforms (3P)
@@ -202,7 +202,7 @@ The plugin exposes the following slash commands once installed.
 | `/claude-for-msft-365-install:update-user-attrs` | Writes per-user configuration via Microsoft Graph extension attributes. |
 | `/claude-for-msft-365-install:bootstrap` | Builds a bootstrap endpoint for per-user MCP servers, skills, and dynamic config. |
 | `/claude-for-msft-365-install:debug` | Diagnoses deployment issues: stale config after a manifest update, connection failures, an add-in that does not appear, sign-in or admin-consent loops, and reading the add-in's error paste. |
-| `/claude-for-msft-365-install:export-data` | Makes a read-only copy of a user's chat history, skills, connector registrations, and settings before a device is rebuilt. See [Data storage and retention](/docs/office-agents/data-storage). |
+| `/claude-for-msft-365-install:export-data` | Makes a read-only copy of a user's chat history, skills, connector registrations, and settings before a device is rebuilt. See [Data storage and retention](/docs/office-agents/data-storage.md). |
 
 Run `/claude-for-msft-365-install:debug` whenever a connection or sign-in
 does not behave as expected. It triages from the symptom, reads the "Copy
@@ -236,6 +236,8 @@ manifest defaults, so one deployed manifest can serve teams with
 different settings.
 
 ![The add-in resolves each configuration key from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=b6c750272cf3ad9765ec2563af436806)
+
+Configuration resolution at add-in load: bootstrap, Entra ID attributes, then manifest parameters.
 
 ### Keep credentials out of the manifest URL query string
 
@@ -304,7 +306,7 @@ own custom app in the steps below.
 Claude for Outlook reads mail and calendar data through Microsoft Graph,
 which requires a one-time tenant-wide grant from a Global Administrator
 regardless of which platform serves the model. Complete the
-[Microsoft Graph admin consent](/docs/office-agents/outlook#grant-microsoft-graph-consent)
+[Microsoft Graph admin consent](/docs/office-agents/outlook.md#grant-microsoft-graph-consent)
 step before deployment so users are not prompted individually. The Graph
 token stays in the user's Outlook client and is never sent to your
 gateway or to Anthropic.
@@ -313,7 +315,7 @@ If your organization's policy does not permit consenting to a third-party
 multi-tenant application, register your own single-tenant Entra
 application with the same delegated Graph permissions and provide its
 client ID to the setup wizard as `graph_client_id`. See
-[Use your own Entra app instead](/docs/office-agents/outlook#use-your-own-entra-app-instead).
+[Use your own Entra app instead](/docs/office-agents/outlook.md#use-your-own-entra-app-instead).
 
 > [!NOTE]
 >
@@ -524,6 +526,8 @@ which forwards it to the provider you configured.
 
 ![Requests flow from the add-in to your LLM gateway, which forwards them to the configured model provider.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/gateway.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=287ef25266391992109b8673f97e3f93)
 
+LLM gateway request flow: the add-in calls your gateway, which routes to your chosen provider.
+
 ### Bedrock, Vertex AI, or Foundry direct
 
 **1. Open the add-in**
@@ -561,10 +565,14 @@ then calls Amazon Bedrock.
 
 ![The add-in uses a Microsoft Entra ID token to assume an AWS role and call Amazon Bedrock directly.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/bedrock-direct.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=51c8233f704717f0ff1c3897356621cd)
 
+Bedrock direct flow: the add-in exchanges an Entra ID token for an AWS role, then calls Bedrock.
+
 Vertex AI direct authenticates through Google OAuth, then calls Vertex
 AI.
 
 ![The add-in authenticates through Google OAuth and calls Google Cloud Vertex AI directly.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/vertex-direct.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=a33063abcecbfc36e346621f735453ef)
+
+Vertex AI direct flow: the add-in authenticates with Google OAuth, then calls Vertex AI.
 
 ### Foundry direct without an API key
 
@@ -583,7 +591,7 @@ redirect URI added. Set up:
 1. In your Entra app registration, add the **Azure Cognitive Services**
    delegated permission `user_impersonation` and grant admin consent.
    Register the add-in's redirect URI as described in
-   [Use your own Entra app instead](/docs/office-agents/outlook#use-your-own-entra-app-instead).
+   [Use your own Entra app instead](/docs/office-agents/outlook.md#use-your-own-entra-app-instead).
 2. Grant the users or groups who will sign in the **Cognitive Services
    User** role on the Foundry resource.
 3. Put these parameters in the manifest URL (no `azure_api_key`):
@@ -899,7 +907,7 @@ contact your IT team.
 
 To route a full audit trail, including prompts, tool inputs, tool
 outputs, and document references, to your own infrastructure, see
-[Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry).
+[Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry.md).
 That page covers the `otlp_endpoint`, `otlp_headers`, and
 `otlp_attr_max_chars` configuration keys, the CORS requirements for the
 collector endpoint, and the full span reference.
@@ -970,7 +978,7 @@ displaying the code for you to paste back into the add-in.
 ### Microsoft admin-consent redirects
 
 The Microsoft Graph consent link in
-[Grant Microsoft Graph consent](/docs/office-agents/outlook#grant-microsoft-graph-consent)
+[Grant Microsoft Graph consent](/docs/office-agents/outlook.md#grant-microsoft-graph-consent)
 uses Microsoft's
 [admin-consent endpoint](https://learn.microsoft.com/en-us/entra/identity-platform/v2-admin-consent).
 By Microsoft's specification, the redirect back to

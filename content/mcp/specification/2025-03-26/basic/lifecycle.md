@@ -118,11 +118,11 @@ to indicate it is ready to begin normal operations:
 ```
 
 * The client **SHOULD NOT** send requests other than
-  [pings](/specification/2025-03-26/basic/utilities/ping) before the server has responded to the
+  [pings](/specification/2025-03-26/basic/utilities/ping.md) before the server has responded to the
   `initialize` request.
 * The server **SHOULD NOT** send requests other than
-  [pings](/specification/2025-03-26/basic/utilities/ping) and
-  [logging](/specification/2025-03-26/server/utilities/logging) before receiving the `initialized`
+  [pings](/specification/2025-03-26/basic/utilities/ping.md) and
+  [logging](/specification/2025-03-26/server/utilities/logging.md) before receiving the `initialized`
   notification.
 
 #### Version Negotiation
@@ -146,14 +146,14 @@ Key capabilities include:
 
 | Category | Capability | Description |
 | - | - | - |
-| Client | `roots` | Ability to provide filesystem [roots](/specification/2025-03-26/client/roots) |
-| Client | `sampling` | Support for LLM [sampling](/specification/2025-03-26/client/sampling) requests |
+| Client | `roots` | Ability to provide filesystem [roots](/specification/2025-03-26/client/roots.md) |
+| Client | `sampling` | Support for LLM [sampling](/specification/2025-03-26/client/sampling.md) requests |
 | Client | `experimental` | Describes support for non-standard experimental features |
-| Server | `prompts` | Offers [prompt templates](/specification/2025-03-26/server/prompts) |
-| Server | `resources` | Provides readable [resources](/specification/2025-03-26/server/resources) |
-| Server | `tools` | Exposes callable [tools](/specification/2025-03-26/server/tools) |
-| Server | `logging` | Emits structured [log messages](/specification/2025-03-26/server/utilities/logging) |
-| Server | `completions` | Supports argument [autocompletion](/specification/2025-03-26/server/utilities/completion) |
+| Server | `prompts` | Offers [prompt templates](/specification/2025-03-26/server/prompts.md) |
+| Server | `resources` | Provides readable [resources](/specification/2025-03-26/server/resources.md) |
+| Server | `tools` | Exposes callable [tools](/specification/2025-03-26/server/tools.md) |
+| Server | `logging` | Emits structured [log messages](/specification/2025-03-26/server/utilities/logging.md) |
+| Server | `completions` | Supports argument [autocompletion](/specification/2025-03-26/server/utilities/completion.md) |
 | Server | `experimental` | Describes support for non-standard experimental features |
 
 Capability objects can describe sub-capabilities like:
@@ -180,7 +180,7 @@ mechanism should be used to signal connection termination:
 
 #### stdio
 
-For the stdio [transport](/specification/2025-03-26/basic/transports), the client **SHOULD** initiate
+For the stdio [transport](/specification/2025-03-26/basic/transports.md), the client **SHOULD** initiate
 shutdown by:
 
 1. First, closing the input stream to the child process (the server)
@@ -193,7 +193,7 @@ exiting.
 
 #### HTTP
 
-For HTTP [transports](/specification/2025-03-26/basic/transports), shutdown is indicated by closing the
+For HTTP [transports](/specification/2025-03-26/basic/transports.md), shutdown is indicated by closing the
 associated HTTP connection(s).
 
 ## Timeouts
@@ -201,14 +201,14 @@ associated HTTP connection(s).
 Implementations **SHOULD** establish timeouts for all sent requests, to prevent hung
 connections and resource exhaustion. When the request has not received a success or error
 response within the timeout period, the sender **SHOULD** issue a [cancellation
-notification](/specification/2025-03-26/basic/utilities/cancellation) for that request and stop waiting for
+notification](/specification/2025-03-26/basic/utilities/cancellation.md) for that request and stop waiting for
 a response.
 
 SDKs and other middleware **SHOULD** allow these timeouts to be configured on a
 per-request basis.
 
 Implementations **MAY** choose to reset the timeout clock when receiving a [progress
-notification](/specification/2025-03-26/basic/utilities/progress) corresponding to the request, as this
+notification](/specification/2025-03-26/basic/utilities/progress.md) corresponding to the request, as this
 implies that work is actually happening. However, implementations **SHOULD** always
 enforce a maximum timeout, regardless of progress notifications, to limit the impact of a
 misbehaving client or server.

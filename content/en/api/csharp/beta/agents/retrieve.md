@@ -145,7 +145,7 @@ Get Agent
 
   A Managed Agents `agent`.
 
-  - `required Type Type`
+  - `JsonElement Type = "agent"`
 
   - `required string ID`
 
@@ -185,7 +185,7 @@ Get Agent
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required Type Type`
+    - `JsonElement Type = "url"`
 
     - `required string Name`
 
@@ -279,31 +279,31 @@ Get Agent
 
         Low effort. Favors latency over reasoning depth.
 
-        - `required Type Type`
+        - `JsonElement Type = "low"`
 
       - `class BetaManagedAgentsEffortMedium`
 
         Medium effort. Balances latency and reasoning depth.
 
-        - `required Type Type`
+        - `JsonElement Type = "medium"`
 
       - `class BetaManagedAgentsEffortHigh`
 
         High effort. Favors reasoning depth.
 
-        - `required Type Type`
+        - `JsonElement Type = "high"`
 
       - `class BetaManagedAgentsEffortXhigh`
 
         Extra-high effort. Not all models accept this level.
 
-        - `required Type Type`
+        - `JsonElement Type = "xhigh"`
 
       - `class BetaManagedAgentsEffortMax`
 
         Maximum effort. Favors reasoning depth over latency.
 
-        - `required Type Type`
+        - `JsonElement Type = "max"`
 
     - `string InferenceGeo`
 
@@ -325,7 +325,7 @@ Get Agent
 
       Resolved coordinator topology with a concrete agent roster.
 
-      - `required Type Type`
+      - `JsonElement Type = "coordinator"`
 
       - `required IReadOnlyList<Agent> Agents`
 
@@ -335,7 +335,7 @@ Get Agent
 
           A resolved agent reference with a concrete version.
 
-          - `required Type Type`
+          - `JsonElement Type = "agent"`
 
           - `required string ID`
 
@@ -347,7 +347,7 @@ Get Agent
 
           Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          - `required Type Type`
+          - `JsonElement Type = "advisor"`
 
           - `required string Model`
 
@@ -409,7 +409,7 @@ Get Agent
 
             Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
 
-            - `required Type Type`
+            - `JsonElement Type = "agent"`
 
             - `required string ID`
 
@@ -441,7 +441,7 @@ Get Agent
 
             Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
 
-            - `required Type Type`
+            - `JsonElement Type = "agent"`
 
             - `required string ID`
 
@@ -463,7 +463,7 @@ Get Agent
 
       A resolved Anthropic-managed skill.
 
-      - `required Type Type`
+      - `JsonElement Type = "anthropic"`
 
       - `required string SkillID`
 
@@ -473,7 +473,7 @@ Get Agent
 
       A resolved user-created custom skill.
 
-      - `required Type Type`
+      - `JsonElement Type = "custom"`
 
       - `required string SkillID`
 
@@ -485,7 +485,7 @@ Get Agent
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
-      - `required Type Type`
+      - `JsonElement Type = "agent_toolset_20260401"`
 
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
@@ -507,13 +507,13 @@ Get Agent
 
               Tool calls are automatically approved without user confirmation.
 
-              - `required Type Type`
+              - `JsonElement Type = "always_allow"`
 
             - `class BetaManagedAgentsAlwaysAskPolicy`
 
               Tool calls require user confirmation before execution.
 
-              - `required Type Type`
+              - `JsonElement Type = "always_ask"`
 
             - `class BetaManagedAgentsAutoPolicy`
 
@@ -845,7 +845,7 @@ Get Agent
 
     - `class BetaManagedAgentsMcpToolset`
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_toolset"`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -897,7 +897,7 @@ Get Agent
 
       A custom tool as returned in API responses.
 
-      - `required Type Type`
+      - `JsonElement Type = "custom"`
 
       - `required string Description`
 

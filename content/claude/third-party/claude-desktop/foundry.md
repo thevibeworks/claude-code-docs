@@ -20,7 +20,7 @@ This page walks an IT administrator through a Microsoft Foundry deployment: crea
 | - | - | - | - |
 | Proof of concept, single team | [API key](#api-key) (`inferenceFoundryApiKey`) | No (shared key) | A long-lived secret distributed in the managed profile. Simplest to start. |
 | Broad rollout with per-user identity | [In-app Entra ID sign-in](#in-app-entra-id-sign-in) (`inferenceFoundryTenantId`, `inferenceFoundryClientId`, `inferenceFoundryAuthFlow`) | Yes | Users sign in with their Entra ID account inside the app, through a device code, the system browser, or the OS identity broker. The device-code flow requires app version 1.9255.0 or later; the browser flow requires app version 1.19367.0 or later. |
-| Your organization already has tooling that obtains a Microsoft Foundry credential | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | Depends on what the helper obtains | An executable that prints the credential to stdout at runtime. |
+| Your organization already has tooling that obtains a Microsoft Foundry credential | [Credential helper](/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) (`inferenceCredentialHelper`) | Depends on what the helper obtains | An executable that prints the credential to stdout at runtime. |
 
 ## Set up Azure
 
@@ -46,7 +46,7 @@ If you chose in-app Entra ID sign-in, register an application in the [Microsoft 
 * Under **Authentication**, complete the setup for the sign-in flow you plan to use (see [In-app Entra ID sign-in](#in-app-entra-id-sign-in) for how the flows differ):
   * For the device-code flow (the default), enable **Allow public client flows**. Entra ID rejects device-code sign-in without it.
   * For the browser flow (`inferenceFoundryAuthFlow` set to `browser`), select **Add a platform → Mobile and desktop applications** and add the redirect URI `http://127.0.0.1/callback`. Use the literal address `127.0.0.1`, not `localhost`: Entra ID matches the scheme, host, and path exactly and ignores only the port. The browser flow completes sign-in without **Allow public client flows**. Conditional Access policies that block the device-code authentication flow do not apply to the browser flow.
-  * For the broker flow (`inferenceFoundryAuthFlow` set to `broker`), enable **Allow public client flows** and add the platform's broker redirect URI under **Mobile and desktop applications**. See [Register the Entra ID application](/docs/third-party/claude-desktop/entra-broker#register-the-entra-id-application) on the OS identity broker page for the redirect URI values and why the public-client setting is required.
+  * For the broker flow (`inferenceFoundryAuthFlow` set to `broker`), enable **Allow public client flows** and add the platform's broker redirect URI under **Mobile and desktop applications**. See [Register the Entra ID application](/docs/third-party/claude-desktop/entra-broker.md#register-the-entra-id-application) on the OS identity broker page for the redirect URI values and why the public-client setting is required.
 
 Record the **Directory (tenant) ID** and **Application (client) ID**.
 
@@ -64,23 +64,23 @@ No per-device preparation is required. Place the resource's API key in the manag
 
 Distribute `inferenceFoundryTenantId` and `inferenceFoundryClientId` in the managed configuration. To use the browser or broker flow instead of the default device-code flow, also set `inferenceFoundryAuthFlow` to `browser` or `broker`.
 
-The device-code and browser flows need no per-device preparation. The broker flow signs in through the operating system's native Microsoft identity broker, so each device must meet the platform requirements on the [OS identity broker](/docs/third-party/claude-desktop/entra-broker#prepare-devices) page.
+The device-code and browser flows need no per-device preparation. The broker flow signs in through the operating system's native Microsoft identity broker, so each device must meet the platform requirements on the [OS identity broker](/docs/third-party/claude-desktop/entra-broker.md#prepare-devices) page.
 
 When the tenant and client IDs are set and `inferenceCredentialKind` is `interactive`, the app shows a **Sign in with Microsoft** page at first launch. Clicking the button starts a sign-in against `login.microsoftonline.com`; what the user sees depends on `inferenceFoundryAuthFlow`:
 
 * **Device code** (the key is unset or `device-code`): the app displays a short verification code and opens the Microsoft sign-in page in the default browser, where the user enters the code and approves access.
 * **Browser** (the key is `browser`): the app opens the Microsoft sign-in page in the default browser, where the user signs in and approves access. The browser shows a confirmation page and the user switches back to the app; there is no code to enter.
-* **Broker** (the key is `broker`): the app opens the operating system's native Microsoft account picker, where the user selects or signs in to a work account. The dialog closes and the app returns to Cowork; nothing opens in the browser. Because the broker issues the token, sign-in satisfies Conditional Access policies that require a compliant or managed device or token protection, which the other two flows cannot satisfy on their own. See [Sign in through the OS identity broker](/docs/third-party/claude-desktop/entra-broker) for what the broker is and when to choose it.
+* **Broker** (the key is `broker`): the app opens the operating system's native Microsoft account picker, where the user selects or signs in to a work account. The dialog closes and the app returns to Cowork; nothing opens in the browser. Because the broker issues the token, sign-in satisfies Conditional Access policies that require a compliant or managed device or token protection, which the other two flows cannot satisfy on their own. See [Sign in through the OS identity broker](/docs/third-party/claude-desktop/entra-broker.md) for what the broker is and when to choose it.
 
 On success, the app returns to Cowork. For the device-code and browser flows the app stores the refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows), and both flows store the same token against the same app registration, so switching between them later does not itself prompt users to sign in again. For the broker flow the operating system's broker holds the credential, and the app stores only a reference to the signed-in account.
 
 If the app can no longer renew the credential silently, it shows a **Sign in again** prompt; clicking it reopens the configured sign-in flow. For the device-code and browser flows this happens when the stored refresh token expires or is revoked. For the broker flow it happens when the broker can no longer renew the token silently.
 
-`inferenceFoundryTenantId`, `inferenceFoundryClientId`, and `inferenceFoundryAuthFlow` can be set through an MDM profile or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap). When a bootstrap server delivers `inferenceFoundryResource`, `inferenceFoundryTenantId`, or `inferenceFoundryClientId`, the values are among the [keys that require user consent](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent), so users may see a one-time approval dialog depending on how `bootstrapUrl` reached the device.
+`inferenceFoundryTenantId`, `inferenceFoundryClientId`, and `inferenceFoundryAuthFlow` can be set through an MDM profile or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md). When a bootstrap server delivers `inferenceFoundryResource`, `inferenceFoundryTenantId`, or `inferenceFoundryClientId`, the values are among the [keys that require user consent](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent), so users may see a one-time approval dialog depending on how `bootstrapUrl` reached the device.
 
 > [!NOTE]
 >
-> In-app sign-in and a [bootstrap server](/docs/third-party/claude-desktop/bootstrap) are separate layers that work together. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A bootstrap server supplies per-user configuration values when the app starts. A bootstrap server does not replace sign-in: a deployment with a bootstrap server still needs each user to sign in, and signing in does not deliver configuration.
+> In-app sign-in and a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) are separate layers that work together. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A bootstrap server supplies per-user configuration values when the app starts. A bootstrap server does not replace sign-in: a deployment with a bootstrap server still needs each user to sign in, and signing in does not deliver configuration.
 
 #### Allow network egress
 
@@ -90,13 +90,13 @@ The sign-in flow reaches `login.microsoftonline.com` in addition to your Microso
 
 To send Microsoft Foundry traffic through a gateway or proxy you operate, such as Azure API Management in front of the resource, set `inferenceFoundryBaseUrl` (**Azure AI Foundry base URL**) to the gateway's base URL including any path, for example `https://llm-gateway.example.com/foundry`. It replaces the default `https://<resource-name>.services.ai.azure.com/anthropic` endpoint in Chat, Cowork, and Code, and it takes the same value as Claude Code's `ANTHROPIC_FOUNDRY_BASE_URL`, so one value serves both. `inferenceFoundryResource` is still required. The value must use `https`; from an MDM profile or the local configuration file it may instead be `http` for a proxy listening on the device's own loopback address (a bootstrap server response cannot deliver a loopback value).
 
-The app sends the gateway the same credential it would send Microsoft Foundry: the API key, the credential helper's output, or with in-app sign-in each user's Entra ID token issued for the Azure Cognitive Services audience. A gateway that validates tokens must therefore accept that audience. If you want users to sign in against your own API's app registration instead, for example to map app roles to gateway policy, use the [gateway provider](/docs/third-party/claude-desktop/gateway) with its Entra ID sign-in rather than the Microsoft Foundry provider.
+The app sends the gateway the same credential it would send Microsoft Foundry: the API key, the credential helper's output, or with in-app sign-in each user's Entra ID token issued for the Azure Cognitive Services audience. A gateway that validates tokens must therefore accept that audience. If you want users to sign in against your own API's app registration instead, for example to map app roles to gateway policy, use the [gateway provider](/docs/third-party/claude-desktop/gateway.md) with its Entra ID sign-in rather than the Microsoft Foundry provider.
 
-This key works from an MDM profile, the local configuration file, and a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), where it is one of the [keys that require user consent](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent). The Claude add-in for Microsoft 365 does not apply it yet and keeps calling the resource endpoint directly; if the add-in must also go through your gateway, configure the add-in's own gateway mode.
+This key works from an MDM profile, the local configuration file, and a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md), where it is one of the [keys that require user consent](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent). The Claude add-in for Microsoft 365 does not apply it yet and keeps calling the resource endpoint directly; if the add-in must also go through your gateway, configure the add-in's own gateway mode.
 
 ## Configure the app
 
-Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Foundry**, then fill in the **Foundry credentials** card with the values for whichever authentication approach you chose:
+Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Foundry**, then fill in the **Foundry credentials** card with the values for whichever authentication approach you chose:
 
 | Field | API key | In-app Entra ID sign-in |
 | - | - | - |
@@ -109,7 +109,7 @@ Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-c
 
 Under **Models**, add at least one **Model list** entry using the Microsoft Foundry deployment name.
 
-Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) for the export and deployment workflow.
+Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
 ### Configuration keys
 
@@ -136,7 +136,7 @@ The full set of `inferenceFoundry*` keys is below. Set `inferenceProvider` to `f
 >
 > App versions that predate this key always use device code; versions that predate the broker option treat `broker` as unset and use device code.
 
-You must also set `inferenceModels` to a list of Microsoft Foundry deployment names. See the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencemodels).
+You must also set `inferenceModels` to a list of Microsoft Foundry deployment names. See the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
 
@@ -149,7 +149,7 @@ You must also set `inferenceModels` to a list of Microsoft Foundry deployment na
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage#where-data-lives).
+To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
 
 If sign-in fails at the token step, confirm the **Azure Cognitive Services** permission is granted and consented on the app registration. For the device-code flow, also confirm **Allow public client flows** is enabled; Entra ID rejects device-code sign-in without it.
 
@@ -161,6 +161,6 @@ If browser-flow sign-in fails in the browser with error code `AADSTS50011`, the 
 
 If the browser shows the confirmation page but in-app sign-in still fails, with error code `AADSTS7000218` in the application logs, the redirect URI is registered under the **Web** platform. Move it under **Mobile and desktop applications**.
 
-For broker-flow sign-in failures (error codes `AADSTS50011`, `AADSTS900971`, `AADSTS7000218`, or a message that the OS identity broker is unavailable), see [Troubleshoot](/docs/third-party/claude-desktop/entra-broker#troubleshoot) on the OS identity broker page. To unblock a device that cannot meet the broker requirements, set `inferenceFoundryAuthFlow` to `browser` for that device instead.
+For broker-flow sign-in failures (error codes `AADSTS50011`, `AADSTS900971`, `AADSTS7000218`, or a message that the OS identity broker is unavailable), see [Troubleshoot](/docs/third-party/claude-desktop/entra-broker.md#troubleshoot) on the OS identity broker page. To unblock a device that cannot meet the broker requirements, set `inferenceFoundryAuthFlow` to `browser` for that device instead.
 
 Each sign-in attempt has a time limit: five minutes for the device-code and broker flows and two minutes for the browser flow. If the user does not finish within the limit, the attempt fails and the user can click **Sign in with Microsoft** to start again.

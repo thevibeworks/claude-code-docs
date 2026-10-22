@@ -35,6 +35,5 @@ Download File
 
 ```bash
 ant beta:files download \
-  --api-key my-anthropic-api-key \
   --file-id file_id
 ```

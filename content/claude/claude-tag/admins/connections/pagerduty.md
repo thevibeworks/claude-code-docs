@@ -16,7 +16,7 @@ Pair this connector with the PagerDuty plugin from Anthropic's plugin marketplac
 
 ## Create the credential in PagerDuty
 
-Generate a general-access read-only API key. A read-write key lets Claude acknowledge and resolve incidents. If you use one, [turn the connector on only in a private incident channel](/docs/claude-tag/admins/add-connections#add-a-connection).
+Generate a general-access read-only API key. A read-write key lets Claude acknowledge and resolve incidents. If you use one, [turn the connector on only in a private incident channel](/docs/claude-tag/admins/add-connections.md#add-a-connection).
 
 Creating a general-access key requires the PagerDuty Admin or Account Owner role; non-admins only see User Token keys, which also work but inherit that user's permissions.
 
@@ -33,9 +33,9 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 
 PagerDuty accounts on the EU service region use `api.eu.pagerduty.com` instead.
 
-If the connect form offers to include the PagerDuty plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+If the connect form offers to include the PagerDuty plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -49,5 +49,5 @@ PagerDuty appears in the list once the connector is live. New threads pick up th
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/watch-monitors): the monitoring use cases
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the full credential-type and allowed-hosts reference
+* [What this connection adds](/docs/claude-tag/users/use-cases/watch-monitors.md): the monitoring use cases
+* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

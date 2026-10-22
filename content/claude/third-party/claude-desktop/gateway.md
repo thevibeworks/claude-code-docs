@@ -21,7 +21,7 @@ The gateway should also preserve [prompt caching](https://platform.claude.com/do
 | - | - | - |
 | Proof of concept, or your gateway already issues per-team keys | [Static API key](#static-api-key) (`inferenceGatewayApiKey`) | A long-lived secret distributed in the managed profile. |
 | Per-user attribution and identity-provider enforcement (MFA, conditional access) | [Single sign-on](#single-sign-on-with-your-identity-provider) (`inferenceGatewayOidc`) | Each user signs in with their own work account. Requires app version 1.6889.0 or later. |
-| Your organization already has tooling that obtains a gateway credential | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | An executable that prints the gateway credential to stdout at runtime. |
+| Your organization already has tooling that obtains a gateway credential | [Credential helper](/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) (`inferenceCredentialHelper`) | An executable that prints the gateway credential to stdout at runtime. |
 
 ## Prepare devices
 
@@ -81,7 +81,7 @@ For Kong, Envoy, or Azure API Management, configure the equivalent JWT validatio
 
 **3. Configure in the app**
 
-Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Gateway** and **Credential kind** to **Interactive sign-in**. This hides the API-key field and reveals **Gateway SSO IdP (OIDC)**:
+Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Gateway** and **Credential kind** to **Interactive sign-in**. This hides the API-key field and reveals **Gateway SSO IdP (OIDC)**:
 
 | Field | Value |
 | - | - |
@@ -92,7 +92,7 @@ Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-c
 | Gateway SSO IdP (OIDC) → Scopes | *leave empty for the default* |
 | Gateway SSO IdP (OIDC) → Redirect port | *leave empty* |
 
-Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) for the export and deployment workflow.
+Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
 When a user next opens Claude Desktop, they see a **Sign in to your organization** button. Clicking it opens their browser to your Entra sign-in page; once they approve, they return to the app and can start working. The app keeps them signed in and refreshes the token in the background. If the session is revoked or expires under your tenant's policy, the app shows a **Sign in again** prompt; clicking it reopens the sign-in page in the browser.
 
@@ -155,7 +155,7 @@ Refresh tokens govern whether users are re-prompted to sign in, not how long a s
 
 ## Configure the app
 
-Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Gateway**, then fill in the **Gateway credentials** card:
+Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Gateway**, then fill in the **Gateway credentials** card:
 
 | Field | Value |
 | - | - |
@@ -164,26 +164,20 @@ Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-c
 | Credential kind | **Static API key** (default), or **Interactive sign-in** for [single sign-on](#single-sign-on-with-your-identity-provider) |
 | Gateway auth scheme | **Bearer** (default) or **x-api-key** |
 
-Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) for the export and deployment workflow.
+Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
 ### Configuration keys
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
 | Gateway base URL `inferenceGatewayBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Full URL of the inference gateway endpoint. |
-| Stream idle timeout `inferenceStreamIdleTimeoutSec` | `integer` | MDM + Bootstrap Added in 1.44121.1 | — | Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300. Range: 300–1800. |
 | Gateway API key `inferenceGatewayApiKey` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | API key for the configured inference gateway. |
 | Gateway auth scheme `inferenceGatewayAuthScheme` | `enum` | MDM + Bootstrap Added in 1.3036.0 | `bearer` | How the gateway credential is sent on the wire (Authorization: Bearer vs x-api-key header). One of: `bearer`, `x-api-key`. Defaults to `bearer`. Deprecated: `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original spelling will keep working; no end date has been set. |
 | Gateway sign-in flow `inferenceGatewayOidcAuthFlow` | `enum` | MDM + Bootstrap Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. Deprecated: `inferenceGatewayOidcAuthFlow`; use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
 | Gateway SSO IdP (OIDC) `inferenceGatewayOidc` | `object` | MDM + Bootstrap Added in 1.6889.0 | — | External IdP for gateway sign-in. The user’s token from this issuer is sent to the gateway as the Bearer credential. Deprecated: `inferenceGatewayOidc`; use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
 | Identity provider sign-in flow `inferenceIdpAuthFlow` | `enum` | MDM + Bootstrap Added in 2.7032.0 | — | How the identity-provider sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
 | Identity provider (OIDC) `inferenceIdpOidc` | `object` | MDM + Bootstrap Added in 2.7032.0 | — | Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy. |
-
-> **inferenceStreamIdleTimeoutSec details**
->
-> Raises how long Cowork, Chat and Code sessions wait for the next model event on an open streaming response (Claude Code's `CLAUDE_STREAM_IDLE_TIMEOUT_MS`). It only helps when the gateway writes SSE keep-alive `ping` events (or `:` comment lines) into the response while the upstream model is silent — for example a LiteLLM proxy with keep-alive pings enabled in front of Amazon Bedrock. With pings arriving, Claude Code accepts at least about five minutes of keep-alives and then waits this many seconds more for real model output before abandoning the request. Gateway provider only; the other providers keep Claude Code's defaults.
->
-> A response on which nothing at all arrives — no pings — still fails after about 5 minutes regardless of this key, because at the device a silent connection cannot be told apart from a dead one. If long generations fail behind a gateway that does not send pings, configure the gateway to send them rather than raising this value. A common case is automatic compaction, in which a session sends its whole conversation in one streaming request and waits for a long summary; when that request fails, the error reads `Prompt is too long · automatic compaction failed:` followed by the cause. While this key is set, the app's value takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's own managed settings for sessions the app starts; when it is unset, that setting still applies. Values outside 300–1800 are rejected at parse time (the error is listed in the diagnostics report) and the default applies.
+| Stream idle timeout `inferenceStreamIdleTimeoutSec` | `integer` | MDM + Bootstrap Added in 1.44121.1 | — | Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300. Range: 300–1800. |
 
 > **inferenceGatewayOidcAuthFlow details**
 >
@@ -249,6 +243,12 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 > | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
 > | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
+> **inferenceStreamIdleTimeoutSec details**
+>
+> Raises how long Cowork, Chat and Code sessions wait for the next model event on an open streaming response (Claude Code's `CLAUDE_STREAM_IDLE_TIMEOUT_MS`). It only helps when the gateway writes SSE keep-alive `ping` events (or `:` comment lines) into the response while the upstream model is silent — for example a LiteLLM proxy with keep-alive pings enabled in front of Amazon Bedrock. With pings arriving, Claude Code accepts at least about five minutes of keep-alives and then waits this many seconds more for real model output before abandoning the request. Gateway provider only; the other providers keep Claude Code's defaults.
+>
+> A response on which nothing at all arrives — no pings — still fails after about 5 minutes regardless of this key, because at the device a silent connection cannot be told apart from a dead one. If long generations fail behind a gateway that does not send pings, configure the gateway to send them rather than raising this value. A common case is automatic compaction, in which a session sends its whole conversation in one streaming request and waits for a long summary; when that request fails, the error reads `Prompt is too long · automatic compaction failed:` followed by the cause. While this key is set, the app's value takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's own managed settings for sessions the app starts; when it is unset, that setting still applies. Values outside 300–1800 are rejected at parse time (the error is listed in the diagnostics report) and the default applies.
+
 To send additional HTTP headers on every inference request (tenant routing, org IDs, and similar), set [`inferenceCustomHeaders`](/docs/third-party/claude-desktop/configuration#inferencecustomheaders). It applies to all providers, not just gateways.
 
 ### Single sign-on configuration keys
@@ -259,7 +259,7 @@ Single sign-on is enabled by setting `inferenceCredentialKind` to `interactive` 
 | - | - | - | - |
 | Credential kind | `inferenceCredentialKind` | Yes — must be `interactive` | Selects sign-in instead of an API key. |
 | Gateway SSO IdP (OIDC) | `inferenceGatewayOidc` | Yes | A **single JSON object** describing the identity provider (fields below). The resulting token is sent to the gateway as the bearer credential. |
-| Sign-in flow | `inferenceGatewayOidcAuthFlow` | No | `browser` (the default) runs the sign-in in the system browser. `broker` runs it through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker) on Windows and macOS, which requires `issuer` to be a Microsoft Entra ID issuer (`https://login.microsoftonline.com/TENANT_ID/v2.0`) and needs no loopback redirect. |
+| Sign-in flow | `inferenceGatewayOidcAuthFlow` | No | `browser` (the default) runs the sign-in in the system browser. `broker` runs it through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker.md) on Windows and macOS, which requires `issuer` to be a Microsoft Entra ID issuer (`https://login.microsoftonline.com/TENANT_ID/v2.0`) and needs no loopback redirect. |
 
 The `inferenceGatewayOidc` value is one JSON object with these fields:
 
@@ -281,7 +281,7 @@ The `inferenceGatewayOidc` value is one JSON object with these fields:
 
 > [!WARNING]
 >
-> `inferenceGatewayOidc` is **one MDM key whose value is a JSON string** — not separate keys like `inferenceGatewayOidc.clientId`. See [how object-typed keys are encoded](/docs/third-party/claude-desktop/configuration#value-types). The in-app **Export** produces the correct format automatically.
+> `inferenceGatewayOidc` is **one MDM key whose value is a JSON string** — not separate keys like `inferenceGatewayOidc.clientId`. See [how object-typed keys are encoded](/docs/third-party/claude-desktop/configuration.md#value-types). The in-app **Export** produces the correct format automatically.
 
 In a macOS `.mobileconfig` payload (Okta example):
 
@@ -292,9 +292,9 @@ In a macOS `.mobileconfig` payload (Okta example):
 <string>{"issuer":"https://YOUR_ORG.okta.com","clientId":"YOUR_CLIENT_ID","redirectPort":53180}</string>
 ```
 
-From Claude Desktop 2.7032.0, `inferenceCredentialKind: "external-idp"` with [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) and `inferenceIdpAuthFlow`, the keys [Amazon Bedrock identity provider sign-in](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider) uses, is an equivalent spelling of this configuration; `interactive` with `inferenceGatewayOidc` keeps working, so keep it until every device runs 2.7032.0 or later.
+From Claude Desktop 2.7032.0, `inferenceCredentialKind: "external-idp"` with [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) and `inferenceIdpAuthFlow`, the keys [Amazon Bedrock identity provider sign-in](/docs/third-party/claude-desktop/bedrock.md#sign-in-with-your-identity-provider) uses, is an equivalent spelling of this configuration; `interactive` with `inferenceGatewayOidc` keeps working, so keep it until every device runs 2.7032.0 or later.
 
-Earlier app versions used `inferenceGatewayAuthScheme: "sso"` to select this mode. That value is deprecated, so set `inferenceCredentialKind: "interactive"` instead. The [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog#v2-26454-0) says which app versions read the deprecated value.
+Earlier app versions used `inferenceGatewayAuthScheme: "sso"` to select this mode. That value is deprecated, so set `inferenceCredentialKind: "interactive"` instead. The [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog.md#v2-26454-0) says which app versions read the deprecated value.
 
 ### Models
 
@@ -310,7 +310,7 @@ A session assumes 200K tokens for a model ID it doesn't recognize as having a na
 [{"name": "bedrock/us.anthropic.claude-opus-4-6-v1", "supports1m": true}]
 ```
 
-The model picker then shows a second entry for the model, described as **1M context window**; the standard entry has no context-size label, and the default selection is unchanged. `supports1m` is an assertion about your gateway rather than something the app can verify: if the gateway does not accept 1M-token requests for that model, requests made from the 1M picker entry fail at inference time. Only set it on models you have confirmed against your deployment. The [Models section of the configuration reference](/docs/third-party/claude-desktop/configuration#models) documents the remaining entry fields, including display labels and tier mapping.
+The model picker then shows a second entry for the model, described as **1M context window**; the standard entry has no context-size label, and the default selection is unchanged. `supports1m` is an assertion about your gateway rather than something the app can verify: if the gateway does not accept 1M-token requests for that model, requests made from the 1M picker entry fail at inference time. Only set it on models you have confirmed against your deployment. The [Models section of the configuration reference](/docs/third-party/claude-desktop/configuration.md#models) documents the remaining entry fields, including display labels and tier mapping.
 
 To show a model as one entry, add `prefer1m: true` next to `supports1m` on its entry. New conversations with that model use the 1M context window. To do this for every entry that sets `supports1m`, or for every model your gateway marks as supporting 1M when discovery fills the picker, set [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`.
 
@@ -355,7 +355,7 @@ On Claude API, Google Cloud's Agent Platform, Amazon Bedrock, and Amazon Bedrock
 **`no credential configured for provider "gateway": set inferenceCredentialKind or one of the credential fields`.** `inferenceCredentialKind: "interactive"` isn't present in the configuration Claude Desktop is using. Add it where Claude Desktop gets its configuration:
 
 * **A managed profile that doesn't set `bootstrapUrl`**: add the key to the profile you push to devices.
-* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap)**: return the key in the response, then quit and reopen Claude Desktop. A copy of the key in the managed profile has no effect. A message that also includes `bootstrap response failed validation` comes from this case.
+* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md)**: return the key in the response, then quit and reopen Claude Desktop. A copy of the key in the managed profile has no effect. A message that also includes `bootstrap response failed validation` comes from this case.
 
 A [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) is a bootstrap server that sets the connection keys in its response itself, so you can't add this key in the gateway's configuration. Earlier gateway versions send `inferenceGatewayAuthScheme: "sso"` in place of this key. [Upgrade the gateway](https://code.claude.com/docs/en/claude-apps-gateway-deploy#upgrades) to the current Claude Code version, then quit and reopen Claude Desktop. Or update Claude Desktop to a version that [reads `inferenceGatewayAuthScheme: "sso"`](/docs/third-party/claude-desktop/configuration-changelog#v2-26454-0).
 

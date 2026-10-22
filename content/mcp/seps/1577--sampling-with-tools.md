@@ -15,7 +15,7 @@ Standards Track
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -37,9 +37,9 @@ This SEP introduces `tools` & `toolChoice` params to `sampling/createMessage` an
 
 ## Motivation
 
-* [Sampling](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling) doesn't support tool calling, although it's a cornerstone of modern agentic behaviour. Without explicit support for it, MCP servers that use Sampling can either try and emulate tool calling w/ complex prompting / custom parsing of the outputs, or are limited to simpler, non-agentic requests. Adding support for tool calling could unlock many novel use cases in the MCP ecosystem.
+* [Sampling](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling.md) doesn't support tool calling, although it's a cornerstone of modern agentic behaviour. Without explicit support for it, MCP servers that use Sampling can either try and emulate tool calling w/ complex prompting / custom parsing of the outputs, or are limited to simpler, non-agentic requests. Adding support for tool calling could unlock many novel use cases in the MCP ecosystem.
 
-* Context inclusion is ambiguously defined (see [this doc](https://docs.google.com/document/d/1KUsloHpsjR4fdXdJuofb9jUuK0XWi88clbRm9sWE510/edit?tab=t.0#heading=h.edw7oyac2e87)): it makes it particularly tricky to fully implement sampling, which along with other precautions needed for sampling (unaffected by this SEP) may have contributed to [low adoption of the feature in clients](https://modelcontextprotocol.io/clients#feature-support-matrix) (feature was introduced in the MCP Nov 2024 spec).
+* Context inclusion is ambiguously defined (see [this doc](https://docs.google.com/document/d/1KUsloHpsjR4fdXdJuofb9jUuK0XWi88clbRm9sWE510/edit?tab=t.0#heading=h.edw7oyac2e87)): it makes it particularly tricky to fully implement sampling, which along with other precautions needed for sampling (unaffected by this SEP) may have contributed to [low adoption of the feature in clients](https://modelcontextprotocol.io/clients.md#feature-support-matrix) (feature was introduced in the MCP Nov 2024 spec).
 
 Please note some related work:
 
@@ -56,16 +56,16 @@ In the "Possible Follow ups" Section below, we give examples of features that we
 
 ### Overview
 
-* Add traditional tool call support in [CreateMessageRequest](https://modelcontextprotocol.io/specification/2025-06-18/schema#createmessagerequest) w/ `tools` (w/ JSON schemas) & `toolChoice` params, requiring a server-side tool loop
+* Add traditional tool call support in [CreateMessageRequest](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#createmessagerequest) w/ `tools` (w/ JSON schemas) & `toolChoice` params, requiring a server-side tool loop
   * Sampling may now yield ToolCallBlock responses
   * Server needs to call tools by itself
   * Server calls sampling again with ToolResultParamBlock to inject tool results
   * `toolChoice.mode` can be `“auto" | "required" | "none"` to allow common structured outputs use case (see below for possible follow up improvements)
   * Fenced by new capability (`sampling { tools {} }`)
-* Fix/update underspecified strings in [CreateMessageResult](https://modelcontextprotocol.io/specification/2025-06-18/schema#createmessageresult):
+* Fix/update underspecified strings in [CreateMessageResult](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#createmessageresult):
   * `stopReason: “endTurn" | "stopSequence" | “toolUse" | “maxToken" | string` (explicit enums + open string for compat)
   * `role: “assistant”`
-* Soft-deprecate [CreateMessageRequest.params.includeContext](https://modelcontextprotocol.io/specification/2025-06-18/schema#createmessagerequest) != ‘none’ (now fenced by capability)
+* Soft-deprecate [CreateMessageRequest.params.includeContext](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#createmessagerequest) != ‘none’ (now fenced by capability)
   * Incentivize context-free sampling implementation
 
 ### Protocol changes
@@ -80,7 +80,7 @@ In the "Possible Follow ups" Section below, we give examples of features that we
 
 ### Schema changes
 
-* [ClientCapabilities](https://modelcontextprotocol.io/specification/2025-06-18/schema#clientcapabilities)
+* [ClientCapabilities](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#clientcapabilities)
 
   ```typescript theme={null}
   interface ClientCapabilities {
@@ -92,7 +92,7 @@ In the "Possible Follow ups" Section below, we give examples of features that we
   }
   ```
 
-* [CreateMessageRequest](https://modelcontextprotocol.io/specification/2025-06-18/schema#createmessagerequest) (use existing [Tool](https://modelcontextprotocol.io/specification/2025-06-18/schema#tool))
+* [CreateMessageRequest](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#createmessagerequest) (use existing [Tool](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#tool))
 
   ```typescript theme={null}
   interface CreateMessageRequest {
@@ -126,7 +126,7 @@ In the "Possible Follow ups" Section below, we give examples of features that we
       * Gemini API has no way to disable parallel tool calls atm (unlike OAI / Anthropic APIs). Removing this flag for now, to be reintroduced when Gemini has any way of supporting it. Otherwise clients would get unexpected multiple tool calls (or alternatively if implemented that way, unexpected failures / costly retry until a single tool call is emitted)
       * Gemini API's [Function calling modes](https://ai.google.dev/gemini-api/docs/function-calling?example=meeting#function_calling_modes) have an `ANY` value that should match the proposed `required`
 
-* [SamplingMessage](https://modelcontextprotocol.io/specification/2025-06-18/schema#samplingmessage):
+* [SamplingMessage](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#samplingmessage):
 
   ```typescript theme={null}
   /*
@@ -244,7 +244,7 @@ In the "Possible Follow ups" Section below, we give examples of features that we
       * `function` role (similar to OAI's `tool` role)
       * No tool call id concept ([function calling](https://ai.google.dev/gemini-api/docs/function-calling?example=meeting#parallel_function_calling): Gemini requires tool results to be provided in the exact same order as the tool use parts. An implementation could generate the tool call ids and use them to reorder the tool results if needed.
 
-* [CreateMessageResult](https://modelcontextprotocol.io/specification/2025-06-18/schema#createmessageresult)
+* [CreateMessageResult](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#createmessageresult)
 
   ```typescript theme={null}
   /*
@@ -346,7 +346,7 @@ The end user would allowlist tools from any other MCP server for use in a sampli
 Pros:
 
 * Technically no spec change needed (if anything, mention this as a freedom clients have)
-* Possibly similar to what [CreateMessageRequest.params.includeContext](https://modelcontextprotocol.io/specification/2025-06-18/schema#createmessagerequest) = thisServer / allServers intended semantics may have meant
+* Possibly similar to what [CreateMessageRequest.params.includeContext](https://modelcontextprotocol.io/specification/2025-06-18/schema.md#createmessagerequest) = thisServer / allServers intended semantics may have meant
   * `CreateMessageRequest.params.allowImplicitToolCalls = “none” | “thisServer” | “allServers”`
     (assuming we wanted to give the server any control over this)
 

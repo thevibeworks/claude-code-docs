@@ -1697,7 +1697,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Response after deleting an environment.
 
-  - `Type type`
+  - `JsonValue type = "environment_deleted"`
 
     The type of response
 
@@ -2355,7 +2355,7 @@ public final class Main {
 
   Response after deleting an environment.
 
-  - `Type type`
+  - `JsonValue type = "environment_deleted"`
 
     The type of response
 

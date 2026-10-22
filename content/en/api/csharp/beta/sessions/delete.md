@@ -137,7 +137,7 @@ Delete Session
 
   Confirmation that a `session` has been permanently deleted.
 
-  - `required Type Type`
+  - `JsonElement Type = "session_deleted"`
 
   - `required string ID`
 

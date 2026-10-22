@@ -16,15 +16,15 @@ We'll build a server that exposes two tools: `get_alerts` and `get_forecast`. Th
 
 > [!NOTE]
 >
-> Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/2026-07-28/develop/build-client).
+> Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/2026-07-28/develop/build-client.md).
 
 ### Core MCP Concepts
 
 MCP servers can provide three main types of capabilities:
 
-1. **[Resources](/docs/2026-07-28/learn/server-concepts#resources)**: File-like data that can be read by clients (like API responses or file contents)
-2. **[Tools](/docs/2026-07-28/learn/server-concepts#tools)**: Functions that can be called by the LLM (with user approval)
-3. **[Prompts](/docs/2026-07-28/learn/server-concepts#prompts)**: Pre-written templates that help users accomplish specific tasks
+1. **[Resources](/docs/2026-07-28/learn/server-concepts.md#resources)**: File-like data that can be read by clients (like API responses or file contents)
+2. **[Tools](/docs/2026-07-28/learn/server-concepts.md#tools)**: Functions that can be called by the LLM (with user approval)
+3. **[Prompts](/docs/2026-07-28/learn/server-concepts.md#prompts)**: Pre-written templates that help users accomplish specific tasks
 
 This tutorial will primarily focus on tools.
 
@@ -711,7 +711,7 @@ console.error("Weather MCP Server running on stdio");
 
 Make sure to run `npm run build` to build your server! This is a very important step in getting your server to connect.
 
-To check that the server answers 2026-07-28 clients, list its tools with the [Inspector CLI](/docs/2026-07-28/tools/inspector/cli) in the `modern` [protocol era](/docs/2026-07-28/tools/inspector/protocol-eras):
+To check that the server answers 2026-07-28 clients, list its tools with the [Inspector CLI](/docs/2026-07-28/tools/inspector/cli.md) in the `modern` [protocol era](/docs/2026-07-28/tools/inspector/protocol-eras.md):
 
 ```bash theme={null}
 npx @modelcontextprotocol/inspector --cli node build/index.js --protocol-era modern --method tools/list
@@ -2899,7 +2899,7 @@ When you ask a question:
 >
 > **None of this is working. What do I do?**
 >
-> Please refer to our [debugging guide](/docs/2026-07-28/tools/debugging) for better debugging tools and more detailed guidance.
+> Please refer to our [debugging guide](/docs/2026-07-28/tools/debugging.md) for better debugging tools and more detailed guidance.
 
 > **Weather API Issues**
 >
@@ -2923,22 +2923,22 @@ When you ask a question:
 
 > [!NOTE]
 >
-> For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/2026-07-28/tools/debugging)
+> For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/2026-07-28/tools/debugging.md)
 
 ## Next steps
 
-> **[Building a client](/docs/2026-07-28/develop/build-client)**
+> **[Building a client](/docs/2026-07-28/develop/build-client.md)**
 >
 > Learn how to build your own MCP client that can connect to your server
 
-> **[Example servers](/examples)**
+> **[Example servers](/examples.md)**
 >
 > Check out our gallery of official MCP servers and implementations
 
-> **[Debugging Guide](/docs/2026-07-28/tools/debugging)**
+> **[Debugging Guide](/docs/2026-07-28/tools/debugging.md)**
 >
 > Learn how to effectively debug MCP servers and integrations
 
-> **[Build with Agent Skills](/docs/2026-07-28/develop/build-with-agent-skills)**
+> **[Build with Agent Skills](/docs/2026-07-28/develop/build-with-agent-skills.md)**
 >
 > Use agent skills to guide AI coding assistants through server design

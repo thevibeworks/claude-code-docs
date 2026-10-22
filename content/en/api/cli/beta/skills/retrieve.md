@@ -101,7 +101,6 @@ Get Skill
 
 ```bash
 ant beta:skills retrieve \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 

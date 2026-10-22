@@ -8,14 +8,14 @@ This overview of the Model Context Protocol (MCP) discusses its [scope](#scope) 
 
 Because MCP SDKs abstract away many concerns, most developers will likely find the [data layer protocol](#data-layer-protocol) section to be the most useful. It discusses how MCP servers can provide context to an AI application.
 
-For specific implementation details, please refer to the documentation for your [language-specific SDK](/docs/2026-07-28/sdk).
+For specific implementation details, please refer to the documentation for your [language-specific SDK](/docs/2026-07-28/sdk.md).
 
 ## Scope
 
 The Model Context Protocol includes the following projects:
 
-* [MCP Specification](https://modelcontextprotocol.io/specification/latest): A specification of MCP that outlines the implementation requirements for clients and servers.
-* [MCP SDKs](/docs/2026-07-28/sdk): SDKs for different programming languages that implement MCP.
+* [MCP Specification](https://modelcontextprotocol.io/specification/latest.md): A specification of MCP that outlines the implementation requirements for clients and servers.
+* [MCP SDKs](/docs/2026-07-28/sdk.md): SDKs for different programming languages that implement MCP.
 * **MCP Development Tools**: Tools for developing MCP servers and clients, including the [MCP Inspector](https://github.com/modelcontextprotocol/inspector)
 * [MCP Reference Server Implementations](https://github.com/modelcontextprotocol/servers): Reference implementations of MCP servers.
 
@@ -86,7 +86,7 @@ This layer includes:
 
 * **Discovery**: Lets clients query a server's supported protocol versions, capabilities, and identity through the `server/discover` request
 * **Server features**: Enables servers to provide core functionality including tools for AI actions, resources for context data, and prompts for interaction templates from and to the client
-* **Client features**: Enables servers to elicit input from the user. Sampling is [deprecated](/specification/2026-07-28/deprecated) as of protocol version `2026-07-28`.
+* **Client features**: Enables servers to elicit input from the user. Sampling is [deprecated](/specification/2026-07-28/deprecated.md) as of protocol version `2026-07-28`.
 * **Utility features**: Supports additional capabilities like notifications for real-time updates and progress tracking for long-running operations
 
 #### Transport layer
@@ -108,7 +108,7 @@ MCP uses [JSON-RPC 2.0](https://www.jsonrpc.org/) as its underlying RPC protocol
 
 #### Statelessness and discovery
 
-MCP is a stateless protocol (Every request contains all the information needed to process it, so servers infer nothing from previous requests). Every request carries the protocol version and the capabilities (Features and operations that a client or server supports, such as tools, resources, or prompts) relevant to that request in its `_meta` field, so the server can process each request on its own. Clients should also identify themselves in the same field unless configured not to. Servers advertise their supported versions and capabilities through the mandatory [`server/discover`](/specification/2026-07-28/server/discover) request, which clients may send before any other request. Detailed information can be found in the [specification](/specification/2026-07-28/basic/index#statelessness), and the [example](#example) showcases the per-request metadata and the discovery sequence.
+MCP is a stateless protocol (Every request contains all the information needed to process it, so servers infer nothing from previous requests). Every request carries the protocol version and the capabilities (Features and operations that a client or server supports, such as tools, resources, or prompts) relevant to that request in its `_meta` field, so the server can process each request on its own. Clients should also identify themselves in the same field unless configured not to. Servers advertise their supported versions and capabilities through the mandatory [`server/discover`](/specification/2026-07-28/server/discover) request, which clients may send before any other request. Detailed information can be found in the [specification](/specification/2026-07-28/basic/index.md#statelessness), and the [example](#example) showcases the per-request metadata and the discovery sequence.
 
 #### Primitives
 
@@ -125,22 +125,22 @@ MCP clients will use the `*/list` methods to discover available primitives. For 
 
 As a concrete example, consider an MCP server that provides context about a database. It can expose tools for querying the database, a resource that contains the schema of the database, and a prompt that includes few-shot examples for interacting with the tools.
 
-For more details about server primitives see [server concepts](./server-concepts).
+For more details about server primitives see [server concepts](/docs/2026-07-28/learn/server-concepts.md).
 
 MCP also defines primitives that *clients* can expose. These primitives allow MCP server authors to build richer interactions.
 
 * **Elicitation**: Allows servers to request additional information from users. This is useful when server authors want to get more information from the user, or ask for confirmation of an action. Servers request user input with the `elicitation/create` method.
 
-Elicitation requests are delivered through the [Multi Round-Trip Requests](/specification/2026-07-28/basic/patterns/mrtr) pattern, explained in the [elicitation overview](/docs/2026-07-28/learn/client-concepts#elicitation).
+Elicitation requests are delivered through the [Multi Round-Trip Requests](/specification/2026-07-28/basic/patterns/mrtr.md) pattern, explained in the [elicitation overview](/docs/2026-07-28/learn/client-concepts.md#elicitation).
 
 **Deprecated**: The following client primitives are deprecated as of protocol version `2026-07-28`.
 
 * **Sampling**: Allows servers to request language model completions from the client's AI application. This is useful when server authors want access to a language model, but want to stay model-independent and not include a language model SDK in their MCP server. Servers request completions with the `sampling/createMessage` method, also delivered through the Multi Round-Trip Requests pattern. New implementations should integrate directly with LLM provider APIs.
 * **Logging**: Enables servers to send log messages to clients for debugging and monitoring purposes. New implementations should log to `stderr` (stdio transport) or use OpenTelemetry.
 
-For more details about client primitives see [client concepts](./client-concepts).
+For more details about client primitives see [client concepts](/docs/2026-07-28/learn/client-concepts.md).
 
-Besides server and client primitives, the protocol supports optional [extensions](/extensions/overview) that build on the core protocol. For example, the [Tasks extension](/extensions/tasks/overview) lets servers return a durable handle for long-running requests, so clients can poll for status and retrieve the result later.
+Besides server and client primitives, the protocol supports optional [extensions](/extensions/overview.md) that build on the core protocol. For example, the [Tasks extension](/extensions/tasks/overview.md) lets servers return a durable handle for long-running requests, so clients can poll for status and retrieve the result later.
 
 #### Notifications
 
@@ -312,7 +312,7 @@ The client can discover available tools by sending a `tools/list` request. This 
 
 #### Understanding the Tool Discovery Request
 
-The `tools/list` request requires no parameters beyond the standard `_meta` fields that accompany every MCP request. It also accepts an optional `cursor` parameter for [pagination](/specification/2026-07-28/server/utilities/pagination), which the example above omits.
+The `tools/list` request requires no parameters beyond the standard `_meta` fields that accompany every MCP request. It also accepts an optional `cursor` parameter for [pagination](/specification/2026-07-28/server/utilities/pagination.md), which the example above omits.
 
 #### Understanding the Tool Discovery Response
 
@@ -325,7 +325,7 @@ Each tool object in the response includes several key fields:
 * **`description`**: Detailed explanation of what the tool does and when to use it
 * **`inputSchema`**: A JSON Schema that defines the expected input parameters, enabling type validation and providing clear documentation about required and optional parameters
 
-The result is marked `"resultType": "complete"` and carries two caching fields. `ttlMs` is a freshness hint in milliseconds, so this tool list can be cached for five minutes. `cacheScope` indicates who may reuse the response. The specification's [caching utility](/specification/2026-07-28/server/utilities/caching) defines the full rules.
+The result is marked `"resultType": "complete"` and carries two caching fields. `ttlMs` is a freshness hint in milliseconds, so this tool list can be cached for five minutes. `cacheScope` indicates who may reuse the response. The specification's [caching utility](/specification/2026-07-28/server/utilities/caching.md) defines the full rules.
 
 #### How This Works in AI Applications
 
@@ -340,7 +340,7 @@ for client in app.mcp_clients():
 conversation.register_available_tools(available_tools)
 ```
 
-Clients that federate many servers can use [progressive tool discovery](/docs/2026-07-28/develop/clients/client-best-practices#progressive-tool-discovery) rather than loading every tool upfront.
+Clients that federate many servers can use [progressive tool discovery](/docs/2026-07-28/develop/clients/client-best-practices.md#progressive-tool-discovery) rather than loading every tool upfront.
 
 **3. Tool Execution (Primitives)**
 

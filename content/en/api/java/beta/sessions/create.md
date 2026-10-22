@@ -139,7 +139,7 @@ Create Session
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
-      - `Type type`
+      - `JsonValue type = "agent"`
 
       - `String id`
 
@@ -157,7 +157,7 @@ Create Session
 
       Reference to an `agent` plus optional configuration overrides. Each provided field replaces the agent's value for the caller's use; the agent resource is unchanged.
 
-      - `Type type`
+      - `JsonValue type = "agent_with_overrides"`
 
       - `String id`
 
@@ -169,7 +169,7 @@ Create Session
 
         Replacement MCP server list. Full replacement: the provided array becomes the MCP servers. Send an empty array to clear; omit to preserve the agent's servers.
 
-        - `Type type`
+        - `JsonValue type = "url"`
 
         - `String name`
 
@@ -303,31 +303,31 @@ Create Session
 
               Low effort. Favors latency over reasoning depth.
 
-              - `Type type`
+              - `JsonValue type = "low"`
 
             - `class BetaManagedAgentsEffortMedium`
 
               Medium effort. Balances latency and reasoning depth.
 
-              - `Type type`
+              - `JsonValue type = "medium"`
 
             - `class BetaManagedAgentsEffortHigh`
 
               High effort. Favors reasoning depth.
 
-              - `Type type`
+              - `JsonValue type = "high"`
 
             - `class BetaManagedAgentsEffortXhigh`
 
               Extra-high effort. Not all models accept this level.
 
-              - `Type type`
+              - `JsonValue type = "xhigh"`
 
             - `class BetaManagedAgentsEffortMax`
 
               Maximum effort. Favors reasoning depth over latency.
 
-              - `Type type`
+              - `JsonValue type = "max"`
 
           - `Optional<String> inferenceGeo`
 
@@ -349,7 +349,7 @@ Create Session
 
           An Anthropic-managed skill.
 
-          - `Type type`
+          - `JsonValue type = "anthropic"`
 
           - `String skillId`
 
@@ -367,7 +367,7 @@ Create Session
 
           A user-created custom skill.
 
-          - `Type type`
+          - `JsonValue type = "custom"`
 
           - `String skillId`
 
@@ -395,7 +395,7 @@ Create Session
 
           Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
 
-          - `Type type`
+          - `JsonValue type = "agent_toolset_20260401"`
 
           - `Optional<List<BetaManagedAgentsAgentToolConfigParams>> configs`
 
@@ -423,13 +423,13 @@ Create Session
 
                   Tool calls are automatically approved without user confirmation.
 
-                  - `Type type`
+                  - `JsonValue type = "always_allow"`
 
                 - `class BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                  - `Type type`
+                  - `JsonValue type = "always_ask"`
 
                 - `class BetaManagedAgentsAutoPolicy`
 
@@ -823,7 +823,7 @@ Create Session
 
           Configuration for tools from an MCP server defined in `mcp_servers`.
 
-          - `Type type`
+          - `JsonValue type = "mcp_toolset"`
 
           - `String mcpServerName`
 
@@ -889,7 +889,7 @@ Create Session
 
           A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
 
-          - `Type type`
+          - `JsonValue type = "custom"`
 
           - `String description`
 
@@ -937,7 +937,7 @@ Create Session
 
       Parameters for sending a user message to the session.
 
-      - `Type type`
+      - `JsonValue type = "user.message"`
 
       - `List<Content> content`
 
@@ -947,7 +947,7 @@ Create Session
 
           Regular text content.
 
-          - `Type type`
+          - `JsonValue type = "text"`
 
           - `String text`
 
@@ -959,7 +959,7 @@ Create Session
 
           Image content specified directly as base64 data or as a reference via a URL.
 
-          - `Type type`
+          - `JsonValue type = "image"`
 
           - `Source source`
 
@@ -969,7 +969,7 @@ Create Session
 
               Base64-encoded image data.
 
-              - `Type type`
+              - `JsonValue type = "base64"`
 
               - `String data`
 
@@ -987,7 +987,7 @@ Create Session
 
               Image referenced by URL.
 
-              - `Type type`
+              - `JsonValue type = "url"`
 
               - `String url`
 
@@ -999,7 +999,7 @@ Create Session
 
               Image referenced by file ID.
 
-              - `Type type`
+              - `JsonValue type = "file"`
 
               - `String fileId`
 
@@ -1011,7 +1011,7 @@ Create Session
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-          - `Type type`
+          - `JsonValue type = "document"`
 
           - `Source source`
 
@@ -1021,7 +1021,7 @@ Create Session
 
               Base64-encoded document data.
 
-              - `Type type`
+              - `JsonValue type = "base64"`
 
               - `String data`
 
@@ -1039,7 +1039,7 @@ Create Session
 
               Plain text document content.
 
-              - `Type type`
+              - `JsonValue type = "text"`
 
               - `String data`
 
@@ -1047,7 +1047,7 @@ Create Session
 
                 minLength: 1
 
-              - `MediaType mediaType`
+              - `JsonValue mediaType = "text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
@@ -1055,7 +1055,7 @@ Create Session
 
               Document referenced by URL.
 
-              - `Type type`
+              - `JsonValue type = "url"`
 
               - `String url`
 
@@ -1067,7 +1067,7 @@ Create Session
 
               Document referenced by file ID.
 
-              - `Type type`
+              - `JsonValue type = "file"`
 
               - `String fileId`
 
@@ -1087,13 +1087,13 @@ Create Session
 
           Placeholder for content withheld by Anthropic model policy.
 
-          - `Type type`
+          - `JsonValue type = "redacted"`
 
     - `class BetaManagedAgentsUserDefineOutcomeEventParams`
 
       Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
 
-      - `Type type`
+      - `JsonValue type = "user.define_outcome"`
 
       - `String description`
 
@@ -1107,7 +1107,7 @@ Create Session
 
           Rubric referenced by a file uploaded via the Files API.
 
-          - `Type type`
+          - `JsonValue type = "file"`
 
           - `String fileId`
 
@@ -1117,7 +1117,7 @@ Create Session
 
           Rubric content provided inline as text.
 
-          - `Type type`
+          - `JsonValue type = "text"`
 
           - `String content`
 
@@ -1143,7 +1143,7 @@ Create Session
 
       Mount a GitHub repository into the session's container.
 
-      - `Type type`
+      - `JsonValue type = "github_repository"`
 
       - `String url`
 
@@ -1163,7 +1163,7 @@ Create Session
 
         - `class BetaManagedAgentsBranchCheckout`
 
-          - `Type type`
+          - `JsonValue type = "branch"`
 
           - `String name`
 
@@ -1173,7 +1173,7 @@ Create Session
 
         - `class BetaManagedAgentsCommitCheckout`
 
-          - `Type type`
+          - `JsonValue type = "commit"`
 
           - `String sha`
 
@@ -1191,7 +1191,7 @@ Create Session
 
       Mount a file uploaded via the Files API into the session.
 
-      - `Type type`
+      - `JsonValue type = "file"`
 
       - `String fileId`
 
@@ -1209,7 +1209,7 @@ Create Session
 
       Parameters for attaching a memory store to an agent session.
 
-      - `Type type`
+      - `JsonValue type = "memory_store"`
 
       - `String memoryStoreId`
 
@@ -1245,7 +1245,7 @@ Create Session
 
   A Managed Agents `session`.
 
-  - `Type type`
+  - `JsonValue type = "session"`
 
   - `String id`
 
@@ -1253,7 +1253,7 @@ Create Session
 
     Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
-    - `Type type`
+    - `JsonValue type = "agent"`
 
     - `String id`
 
@@ -1281,7 +1281,7 @@ Create Session
 
     - `List<BetaManagedAgentsMcpServerUrlDefinition> mcpServers`
 
-      - `Type type`
+      - `JsonValue type = "url"`
 
       - `String name`
 
@@ -1373,31 +1373,31 @@ Create Session
 
           Low effort. Favors latency over reasoning depth.
 
-          - `Type type`
+          - `JsonValue type = "low"`
 
         - `class BetaManagedAgentsEffortMedium`
 
           Medium effort. Balances latency and reasoning depth.
 
-          - `Type type`
+          - `JsonValue type = "medium"`
 
         - `class BetaManagedAgentsEffortHigh`
 
           High effort. Favors reasoning depth.
 
-          - `Type type`
+          - `JsonValue type = "high"`
 
         - `class BetaManagedAgentsEffortXhigh`
 
           Extra-high effort. Not all models accept this level.
 
-          - `Type type`
+          - `JsonValue type = "xhigh"`
 
         - `class BetaManagedAgentsEffortMax`
 
           Maximum effort. Favors reasoning depth over latency.
 
-          - `Type type`
+          - `JsonValue type = "max"`
 
       - `Optional<String> inferenceGeo`
 
@@ -1419,7 +1419,7 @@ Create Session
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `Type type`
+        - `JsonValue type = "coordinator"`
 
         - `List<Agent> agents`
 
@@ -1429,7 +1429,7 @@ Create Session
 
             Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-            - `Type type`
+            - `JsonValue type = "agent"`
 
             - `String id`
 
@@ -1441,7 +1441,7 @@ Create Session
 
             - `List<BetaManagedAgentsMcpServerUrlDefinition> mcpServers`
 
-              - `Type type`
+              - `JsonValue type = "url"`
 
               - `String name`
 
@@ -1459,7 +1459,7 @@ Create Session
 
                 A resolved Anthropic-managed skill.
 
-                - `Type type`
+                - `JsonValue type = "anthropic"`
 
                 - `String skillId`
 
@@ -1469,7 +1469,7 @@ Create Session
 
                 A resolved user-created custom skill.
 
-                - `Type type`
+                - `JsonValue type = "custom"`
 
                 - `String skillId`
 
@@ -1481,7 +1481,7 @@ Create Session
 
               - `class BetaManagedAgentsAgentToolset20260401`
 
-                - `Type type`
+                - `JsonValue type = "agent_toolset_20260401"`
 
                 - `List<BetaManagedAgentsAgentToolConfig> configs`
 
@@ -1503,13 +1503,13 @@ Create Session
 
                         Tool calls are automatically approved without user confirmation.
 
-                        - `Type type`
+                        - `JsonValue type = "always_allow"`
 
                       - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                        - `Type type`
+                        - `JsonValue type = "always_ask"`
 
                       - `class BetaManagedAgentsAutoPolicy`
 
@@ -1841,7 +1841,7 @@ Create Session
 
               - `class BetaManagedAgentsMcpToolset`
 
-                - `Type type`
+                - `JsonValue type = "mcp_toolset"`
 
                 - `List<BetaManagedAgentsMcpToolConfig> configs`
 
@@ -1893,7 +1893,7 @@ Create Session
 
                 A custom tool as returned in API responses.
 
-                - `Type type`
+                - `JsonValue type = "custom"`
 
                 - `String description`
 
@@ -1917,7 +1917,7 @@ Create Session
 
             Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-            - `Type type`
+            - `JsonValue type = "advisor"`
 
             - `String model`
 
@@ -1979,7 +1979,7 @@ Create Session
 
               Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
 
-              - `Type type`
+              - `JsonValue type = "agent"`
 
               - `String id`
 
@@ -2031,7 +2031,7 @@ Create Session
 
               Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
 
-              - `Type type`
+              - `JsonValue type = "agent"`
 
               - `String id`
 
@@ -2103,7 +2103,7 @@ Create Session
 
     The session's enforced spend ceiling, or null when no budget is set.
 
-    - `Type type`
+    - `JsonValue type = "limit"`
 
     - `BetaMonetaryAmount maxListCost`
 
@@ -2131,7 +2131,7 @@ Create Session
 
     Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
-    - `Type type`
+    - `JsonValue type = "outcome_evaluation"`
 
     - `Optional<LocalDateTime> completedAt`
 
@@ -2165,7 +2165,7 @@ Create Session
 
     - `class BetaManagedAgentsGitHubRepositoryResource`
 
-      - `Type type`
+      - `JsonValue type = "github_repository"`
 
       - `String id`
 
@@ -2189,7 +2189,7 @@ Create Session
 
         - `class BetaManagedAgentsBranchCheckout`
 
-          - `Type type`
+          - `JsonValue type = "branch"`
 
           - `String name`
 
@@ -2199,7 +2199,7 @@ Create Session
 
         - `class BetaManagedAgentsCommitCheckout`
 
-          - `Type type`
+          - `JsonValue type = "commit"`
 
           - `String sha`
 
@@ -2209,7 +2209,7 @@ Create Session
 
     - `class BetaManagedAgentsFileResource`
 
-      - `Type type`
+      - `JsonValue type = "file"`
 
       - `String id`
 
@@ -2233,7 +2233,7 @@ Create Session
 
       A memory store attached to an agent session.
 
-      - `Type type`
+      - `JsonValue type = "memory_store"`
 
       - `String memoryStoreId`
 

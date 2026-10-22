@@ -6,11 +6,11 @@
 
 > Check your MCP connector against what Anthropic reviewers test, including tool design, prompt-injection patterns, and functional quality, before you submit.
 
-This checklist covers what Anthropic checks on an MCP connector submitted to the directory, organized around the most common rejection reasons so you can correct them before you submit. It's for connector authors preparing a [directory submission](/docs/connectors/building/submission). For the full legal text behind these criteria, see the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy).
+This checklist covers what Anthropic checks on an MCP connector submitted to the directory, organized around the most common rejection reasons so you can correct them before you submit. It's for connector authors preparing a [directory submission](/docs/connectors/building/submission.md). For the full legal text behind these criteria, see the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy).
 
 > [!NOTE]
 >
-> If you're submitting a plugin, see the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) instead.
+> If you're submitting a plugin, see the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md) instead.
 
 Work through [tool design](#design-tools-that-pass-review), [server behavior](#server-behavior-and-scope), and [what to include with your submission](#gather-what-to-include-with-your-submission), then [test every tool](#test-before-you-submit) before you open the portal. [How Anthropic reviews connectors](#understand-how-anthropic-reviews-connectors) covers the Community and Verified labels.
 
@@ -82,19 +82,19 @@ Design tools that produce diagrams, charts, or UI mockups are allowed.
 Alongside the server itself, a submission carries credentials, links, and terms acknowledgments that reviewers check:
 
 * **Test credentials**: required, and they must be for a fully populated account
-* **Allowed link URIs**: recommended if your server calls `ui/open-link`. Declared HTTPS origins and custom URI schemes open without a confirmation prompt, and anything else still prompts the user. See [Allowed link URIs](/docs/connectors/building/submission#allowed-link-uris)
+* **Allowed link URIs**: recommended if your server calls `ui/open-link`. Declared HTTPS origins and custom URI schemes open without a confirmation prompt, and anything else still prompts the user. See [Allowed link URIs](/docs/connectors/building/submission.md#allowed-link-uris)
 * **Public documentation**: required by your publish date. A blog post or help-center article is sufficient, and you can share docs privately with Anthropic during review
 
 ## Test before you submit
 
-Exercise every tool through the [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector) and as a [custom connector in Claude](/docs/connectors/building/testing) before you submit. The portal's **Test & launch** step asks you to confirm you've done this.
+Exercise every tool through the [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector) and as a [custom connector in Claude](/docs/connectors/building/testing.md) before you submit. The portal's **Test & launch** step asks you to confirm you've done this.
 
 ## Understand how Anthropic reviews connectors
 
-When you submit a server, Anthropic scans it automatically for policy compliance and, by default, lists it in the directory as a [Community connector](/docs/connectors/verification). Anthropic may then escalate listings flagged as highly useful to Claude users to Verified review, which is higher touch and slower, and in which reviewers run a functional test of each tool. That escalation is assessed automatically, and you don't need to take any action. Every server in the directory must meet the criteria on this page, whichever label it carries. The label is a quality signal shown to users and doesn't change how your connector runs once connected.
+When you submit a server, Anthropic scans it automatically for policy compliance and, by default, lists it in the directory as a [Community connector](/docs/connectors/verification.md). Anthropic may then escalate listings flagged as highly useful to Claude users to Verified review, which is higher touch and slower, and in which reviewers run a functional test of each tool. That escalation is assessed automatically, and you don't need to take any action. Every server in the directory must meet the criteria on this page, whichever label it carries. The label is a quality signal shown to users and doesn't change how your connector runs once connected.
 
 ## Next steps
 
-* [Submit a connector](/docs/connectors/building/submission): what the developer portal asks for at each step
-* [Connector verification](/docs/connectors/verification): what the Community and Verified labels mean to the people who install your connector
-* [Manage your directory listing](/docs/connectors/building/managing-your-listing): track review status and reviewer feedback after you submit
+* [Submit a connector](/docs/connectors/building/submission.md): what the developer portal asks for at each step
+* [Connector verification](/docs/connectors/verification.md): what the Community and Verified labels mean to the people who install your connector
+* [Manage your directory listing](/docs/connectors/building/managing-your-listing.md): track review status and reviewer feedback after you submit

@@ -38,20 +38,20 @@ Configure monitoring from the Cowork admin settings:
 
 ## Events
 
-Cowork exports the following events to your OTel collector. The collector settings in [Setup](#setup) apply to every Cowork session that runs on a user's computer in Claude Desktop, including Cowork tasks that [Dispatch](/docs/cowork/guide/dispatch) starts. They don't apply to Code tab sessions, including Code sessions that Dispatch starts. Whether events include user prompt text, model response text, and tool inputs depends on the [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture) managed configuration key on each user's device. When the key isn't set, current versions of Claude Desktop send metadata only, and [some older versions](#content-capture) on first-party deployments send content.
+Cowork exports the following events to your OTel collector. The collector settings in [Setup](#setup) apply to every Cowork session that runs on a user's computer in Claude Desktop, including Cowork tasks that [Dispatch](/docs/cowork/guide/dispatch.md) starts. They don't apply to Code tab sessions, including Code sessions that Dispatch starts. Whether events include user prompt text, model response text, and tool inputs depends on the [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture) managed configuration key on each user's device. When the key isn't set, current versions of Claude Desktop send metadata only, and [some older versions](#content-capture) on first-party deployments send content.
 
 ### Content capture
 
 Events can carry user prompt text, model response text, and tool inputs in addition to metadata. You set which of these the events carry with the `otlpContentCapture` managed configuration key on each user's device.
 
-To set the key, deploy it with your device management tool to the [managed configuration location for each operating system](/docs/third-party/claude-desktop/configuration#how-keys-are-read). To export metadata only, set `otlpContentCapture` to an empty list, written as the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set. The key takes effect when Claude Desktop restarts.
+To set the key, deploy it with your device management tool to the [managed configuration location for each operating system](/docs/third-party/claude-desktop/configuration.md#how-keys-are-read). To export metadata only, set `otlpContentCapture` to an empty list, written as the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set. The key takes effect when Claude Desktop restarts.
 
 The table shows what events carry on current versions of Claude Desktop, for a Cowork session that runs on the user's computer.
 
 | `otlpContentCapture` on the device | Content that events carry |
 | - | - |
 | Not set | No content. Events carry metadata only |
-| Set to a list of [categories](/docs/third-party/claude-desktop/telemetry#content-capture) | By default, the content in the listed categories, and model response text when `userPrompts` is listed |
+| Set to a list of [categories](/docs/third-party/claude-desktop/telemetry.md#content-capture) | By default, the content in the listed categories, and model response text when `userPrompts` is listed |
 | Set to an empty list, `[]` | No content. Events carry metadata only |
 
 On first-party deployments, some older versions of Claude Desktop send user prompt text, model response text, and the [`toolDetails` content](#security-and-privacy) when the key isn't set. To make sure a device sends metadata only, set the key to `[]`, which works on every version that supports the key.
@@ -87,7 +87,7 @@ All events include these attributes:
 
 > [!NOTE]
 >
-> The account attributes — `organization.id`, `user.account_uuid`, `user.account_id`, and `user.email` — are populated from the user's Anthropic account, so they appear on first-party deployments only. On [third-party deployments](/docs/third-party/claude-desktop/overview) there is no Anthropic account and these attributes are absent; instead, the export carries the signed-in user's identity as the `enduser.id` resource attribute, described under [User attribution](/docs/third-party/claude-desktop/telemetry#user-attribution). The `process.owner` resource attribute (the operating-system login name) is standard OpenTelemetry process metadata and is present on all deployments.
+> The account attributes — `organization.id`, `user.account_uuid`, `user.account_id`, and `user.email` — are populated from the user's Anthropic account, so they appear on first-party deployments only. On [third-party deployments](/docs/third-party/claude-desktop/overview.md) there is no Anthropic account and these attributes are absent; instead, the export carries the signed-in user's identity as the `enduser.id` resource attribute, described under [User attribution](/docs/third-party/claude-desktop/telemetry.md#user-attribution). The `process.owner` resource attribute (the operating-system login name) is standard OpenTelemetry process metadata and is present on all deployments.
 
 ### User prompt event
 
@@ -247,13 +247,13 @@ All events are exported with the following resource attributes:
 | `host.arch` | Host architecture (e.g., `arm64`) |
 | `os.type` | Operating system type (e.g., `darwin`) |
 | `os.version` | Operating system version string |
-| `enduser.id` | The signed-in user's identity, on third-party deployments only. Controlled by the [`endUserAttribution`](/docs/third-party/claude-desktop/configuration#enduserattribution) setting; see [User attribution](/docs/third-party/claude-desktop/telemetry#user-attribution). |
+| `enduser.id` | The signed-in user's identity, on third-party deployments only. Controlled by the [`endUserAttribution`](/docs/third-party/claude-desktop/configuration#enduserattribution) setting; see [User attribution](/docs/third-party/claude-desktop/telemetry.md#user-attribution). |
 | `process.owner` | Operating-system login name |
 
 ## Security and privacy
 
 * Events are only exported when an admin configures the OTLP endpoint
-* The [`otlpContentCapture`](#content-capture) key on each device sets which content events carry. Each category you list in the key adds its content. The [full category list](/docs/third-party/claude-desktop/telemetry#content-capture) has two more than these three:
+* The [`otlpContentCapture`](#content-capture) key on each device sets which content events carry. Each category you list in the key adds its content. The [full category list](/docs/third-party/claude-desktop/telemetry.md#content-capture) has two more than these three:
   * `userPrompts`: user prompt text
   * `assistantResponses`: model response text
   * `toolDetails`: the arguments a tool was called with, in `tool_input` and `tool_parameters`, such as shell commands, file paths, URLs, and search patterns. It also covers the text of a failed tool's error message, in `error` on the [tool result event](#tool-result-event)

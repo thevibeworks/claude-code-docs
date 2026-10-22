@@ -12,7 +12,7 @@ This page is for developers deciding whether to list a server in the directory, 
 
 > [!NOTE]
 >
-> If you want to know what directory and custom connectors look like to a Claude user, including the Verified and Community labels, see [connector verification](/docs/connectors/verification).
+> If you want to know what directory and custom connectors look like to a Claude user, including the Verified and Community labels, see [connector verification](/docs/connectors/verification.md).
 
 ## Compare directory and custom connectors
 
@@ -25,7 +25,7 @@ Directory and custom connectors differ only in what surrounds the runtime: who r
 | **In-product discovery** | Browse, search, Suggested Connectors | None |
 | **Distribution** | [Directory link](#share-an-install-link) | [Install link](#share-an-install-link) or manual URL entry |
 | **Anthropic-held client credentials** | Available | Not available |
-| **[External link](/docs/connectors/building/mcp-apps/external-links) confirmation** | Can allowlist destinations to skip the modal | Always shows the modal |
+| **[External link](/docs/connectors/building/mcp-apps/external-links.md) confirmation** | Can allowlist destinations to skip the modal | Always shows the modal |
 | **Appears as** | Named card with logo | **Custom** |
 
 ## Share an install link
@@ -40,7 +40,7 @@ After publication, your connector has a permanent listing URL based on its slug:
 https://claude.ai/directory/connectors/SLUG
 ```
 
-For example, `https://claude.ai/directory/connectors/dovetail` opens the Dovetail listing with its description, screenshots, and a **Connect** button. You receive your slug when your submission is approved, and it [can't change afterward](/docs/connectors/building/after-publishing#directory-listing-urls-are-permanent).
+For example, `https://claude.ai/directory/connectors/dovetail` opens the Dovetail listing with its description, screenshots, and a **Connect** button. You receive your slug when your submission is approved, and it [can't change afterward](/docs/connectors/building/after-publishing.md#directory-listing-urls-are-permanent).
 
 ### Custom connector install link
 
@@ -86,7 +86,7 @@ Directory connectors are eligible for Suggested Connectors, which means Claude c
 
 ### The MCP Registry and the Anthropic Directory
 
-The Anthropic Directory is independent of the open [MCP Registry](https://registry.modelcontextprotocol.io) and the `modelcontextprotocol/servers` GitHub repository. Publishing to those doesn't surface your server in Claude. Submit through the [directory submission form](/docs/connectors/building/submission) to appear in Claude products.
+The Anthropic Directory is independent of the open [MCP Registry](https://registry.modelcontextprotocol.io) and the `modelcontextprotocol/servers` GitHub repository. Publishing to those doesn't surface your server in Claude. Submit through the [directory submission form](/docs/connectors/building/submission.md) to appear in Claude products.
 
 ## Listing patterns for enterprise and multi-tenant servers
 
@@ -98,10 +98,10 @@ A supported pattern is to list a connector in the directory with safe, broadly a
 
 ### Per-tenant URLs
 
-If your server URL varies per tenant, such as `{tenant}.mcp.example.com`, submit one directory listing with a URL pattern. Each user enters their own URL when they connect. See [Servers with per-customer URLs](/docs/connectors/building/authentication#servers-with-per-customer-urls) for how this choice limits your authentication options.
+If your server URL varies per tenant, such as `{tenant}.mcp.example.com`, submit one directory listing with a URL pattern. Each user enters their own URL when they connect. See [Servers with per-customer URLs](/docs/connectors/building/authentication.md#servers-with-per-customer-urls) for how this choice limits your authentication options.
 
 ## Next steps
 
-* [Authentication for connectors](/docs/connectors/building/authentication): the authentication types available to directory and custom connectors
-* [Publish to the directory](/docs/directory/publish): who can submit, what review involves, and where to start
-* [Add a connector by URL](/docs/connectors/custom/add-unlisted#add-a-connector-by-url): how users and Owners add a custom connector by URL
+* [Authentication for connectors](/docs/connectors/building/authentication.md): the authentication types available to directory and custom connectors
+* [Publish to the directory](/docs/directory/publish.md): who can submit, what review involves, and where to start
+* [Add a connector by URL](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url): how users and Owners add a custom connector by URL

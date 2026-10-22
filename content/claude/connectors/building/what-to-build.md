@@ -15,16 +15,16 @@ When you build for people who use Claude, you build a plugin. A plugin can packa
 
 A plugin with only a connector or only skills is complete.
 
-This page is for developers deciding which of those pieces their plugin needs. Once you've decided, [Plugin structure and testing](/docs/plugins/build), [Build an MCP server for Claude](/docs/connectors/building/index), and [Publish to the directory](/docs/directory/publish) cover the work.
+This page is for developers deciding which of those pieces their plugin needs. Once you've decided, [Plugin structure and testing](/docs/plugins/build.md), [Build an MCP server for Claude](/docs/connectors/building/index.md), and [Publish to the directory](/docs/directory/publish.md) cover the work.
 
 > [!NOTE]
 >
-> * If you're choosing what to add to your own Claude rather than what to build, see [Connectors, skills, and plugins](/docs/extend/overview), which compares the three from the user's side
-> * If you're building for your own organization and not listing publicly, the same decisions apply, and you distribute the result as a [custom connector](/docs/connectors/custom/add-unlisted#add-a-connector-by-url) and an [organization plugin](/docs/plugins/admin) instead of through the directory
+> * If you're choosing what to add to your own Claude rather than what to build, see [Connectors, skills, and plugins](/docs/extend/overview.md), which compares the three from the user's side
+> * If you're building for your own organization and not listing publicly, the same decisions apply, and you distribute the result as a [custom connector](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) and an [organization plugin](/docs/plugins/admin.md) instead of through the directory
 
 ## Reach your product with an MCP connector
 
-Include an MCP connector when Claude needs to read from or act in your product or data. The connector points at a remote MCP server that you build and host, with [OAuth sign-in](/docs/connectors/building/authentication) if your tools act on the user's own account. [Build an MCP server for Claude](/docs/connectors/building/index) covers the server, and [Build your first MCP server for Claude](/docs/connectors/building/quickstart) is the place to start if you haven't written one.
+Include an MCP connector when Claude needs to read from or act in your product or data. The connector points at a remote MCP server that you build and host, with [OAuth sign-in](/docs/connectors/building/authentication.md) if your tools act on the user's own account. [Build an MCP server for Claude](/docs/connectors/building/index.md) covers the server, and [Build your first MCP server for Claude](/docs/connectors/building/quickstart.md) is the place to start if you haven't written one.
 
 Once the server is live, people can use your product in chat on web, desktop, and mobile, in Cowork, and in Claude Code. Tools you add to the server later reach every plugin that references it without a new plugin release.
 
@@ -43,14 +43,14 @@ A connector with a few well-named tools that Claude can use without guidance may
 Commands, agents, and UI are optional pieces, and each fits a particular need:
 
 * **Commands**: named actions people run themselves, such as `/your-plugin:weekly-report`, for tasks they start deliberately rather than describe
-* **Agents**: specialists Claude can delegate part of a task to. Cowork and Claude Code run them; chat doesn't, as [Plugin feature support across platforms](/docs/plugins/platform-support) lists
-* **An MCP App**: interactive UI that your connector shows in the conversation, such as a form or a chart. [Add interactive UI with MCP Apps](/docs/connectors/building/mcp-apps/getting-started) covers building one
+* **Agents**: specialists Claude can delegate part of a task to. Cowork and Claude Code run them; chat doesn't, as [Plugin feature support across platforms](/docs/plugins/platform-support.md) lists
+* **An MCP App**: interactive UI that your connector shows in the conversation, such as a form or a chart. [Add interactive UI with MCP Apps](/docs/connectors/building/mcp-apps/getting-started.md) covers building one
 
 ## Package and list the plugin
 
 Most plugins for a product include both an MCP connector and skills: the connector so Claude can reach the product, and the skills so Claude uses it the way you intend. Everything in the plugin is packaged together, so one listing gives people all of it.
 
-When you list the plugin, submit the server too: the plugin as a plugin bundle and the server as an MCP connector. Submitting the server as a connector gives your organization the connector's listing and its dashboard, and lets you pair the two listings. [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector) explains the pairing.
+When you list the plugin, submit the server too: the plugin as a plugin bundle and the server as an MCP connector. Submitting the server as a connector gives your organization the connector's listing and its dashboard, and lets you pair the two listings. [Submit your plugin, and your MCP server as a connector](/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector) explains the pairing.
 
 The diagram shows what the server and the plugin each give people. The server gives them your connector. The plugin adds your skills and points to that same server.
 
@@ -62,6 +62,6 @@ If your plugin references an MCP URL that isn't in the directory, the user first
 
 ## Next steps
 
-* [Plugin structure and testing](/docs/plugins/build): write the folder that packages your connector, skills, and the rest, and installs on every surface
-* [Build an MCP server for Claude](/docs/connectors/building/index): implement the server and its authentication, and test it against Claude
-* [Publish to the directory](/docs/directory/publish): submit the plugin, and its MCP server as a connector, from the [developer portal](https://claude.ai/directory/manage). Anyone on a paid Claude plan can submit, and on Team and Enterprise an Owner submits
+* [Plugin structure and testing](/docs/plugins/build.md): write the folder that packages your connector, skills, and the rest, and installs on every surface
+* [Build an MCP server for Claude](/docs/connectors/building/index.md): implement the server and its authentication, and test it against Claude
+* [Publish to the directory](/docs/directory/publish.md): submit the plugin, and its MCP server as a connector, from the [developer portal](https://claude.ai/directory/manage). Anyone on a paid Claude plan can submit, and on Team and Enterprise an Owner submits

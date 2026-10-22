@@ -31,7 +31,7 @@ Delete a Vault
 
 - `class BetaManagedAgentsDeletedVault`
 
-  - `Type type`
+  - `"vault_deleted" type`
 
   - `string id`
 

@@ -6,14 +6,14 @@
 
 > Make a plugin for your own workflow from claude.ai or the desktop app without writing files: choose Create with Claude and answer Claude's questions.
 
-A [plugin](/docs/plugins/overview) packages skills, commands, and connectors. You can make one for yourself in claude.ai or the Claude desktop app without writing files: from [**Customize > Plugins**](https://claude.ai/customize/plugins), select **Add > Create with Claude**, describe what you need, and save the plugin Claude produces to your account.
+A [plugin](/docs/plugins/overview.md) packages skills, commands, and connectors. You can make one for yourself in claude.ai or the Claude desktop app without writing files: from [**Customize > Plugins**](https://claude.ai/customize/plugins), select **Add > Create with Claude**, describe what you need, and save the plugin Claude produces to your account.
 
-A plugin you create this way is for you. It lives on your account, and on a Team or Enterprise plan you can [share it](/docs/plugins/share) with specific people or your whole organization from its page in Customize. It isn't a directory listing; if you later want that, see [Submit a plugin you created with Claude](#submit-a-plugin-you-created-with-claude) at the end of this page.
+A plugin you create this way is for you. It lives on your account, and on a Team or Enterprise plan you can [share it](/docs/plugins/share.md) with specific people or your whole organization from its page in Customize. It isn't a directory listing; if you later want that, see [Submit a plugin you created with Claude](#submit-a-plugin-you-created-with-claude) at the end of this page.
 
 > [!NOTE]
 >
-> * If you'd rather write the files yourself, see [Plugin structure and testing](/docs/plugins/build)
-> * If you want to make a plugin available to everyone in your organization, see [Publish a plugin to your organization](/docs/plugins/share#publish-a-plugin-to-your-organization)
+> * If you'd rather write the files yourself, see [Plugin structure and testing](/docs/plugins/build.md)
+> * If you want to make a plugin available to everyone in your organization, see [Publish a plugin to your organization](/docs/plugins/share.md#publish-a-plugin-to-your-organization)
 
 To begin, [start a new plugin from the Add menu](#start-from-the-add-menu), [describe it to Claude and save it](#describe-and-save-the-plugin), then [review the plugin Claude made](#review-what-claude-made).
 
@@ -36,7 +36,7 @@ Choose one of these:
 * **Create with Claude**: start a new conversation, or a new Cowork task in the desktop app, with a request to create a plugin already filled in for you to send. Choose this when you can describe the task you want the plugin to handle but don't want to write skill files
 * **Create a plugin**: fill in a form with the plugin's name and what it helps with, then write its skills, commands, and connectors in an editor. Choose this when you already know what each piece should say
 
-If neither item appears in the **Add** menu, plugin creation isn't available on your account. Your organization can turn it off, and so can your IT department's configuration of the desktop app. [Manage plugins for your organization](/docs/plugins/admin#control-what-members-add-themselves) covers the organization setting.
+If neither item appears in the **Add** menu, plugin creation isn't available on your account. Your organization can turn it off, and so can your IT department's configuration of the desktop app. [Manage plugins for your organization](/docs/plugins/admin.md#control-what-members-add-themselves) covers the organization setting.
 
 ### Describe and save the plugin
 
@@ -83,7 +83,7 @@ Open the plugin from **Customize > Plugins** to disable or remove it:
 * **Disable it**: turn off the plugin's toggle
 * **Remove it**: open its menu and select **Remove** to delete it from your account
 
-To give the plugin to other people in your organization, see [Share a plugin with teammates](/docs/plugins/share). It covers sharing with specific people and publishing to your organization's library, both on Team and Enterprise plans.
+To give the plugin to other people in your organization, see [Share a plugin with teammates](/docs/plugins/share.md). It covers sharing with specific people and publishing to your organization's library, both on Team and Enterprise plans.
 
 ## Submit a plugin you created with Claude
 
@@ -95,14 +95,14 @@ In the conversation where Claude made the plugin, ask for it "as a plugin folder
 
 **2. Check the manifest and README**
 
-Unzip the folder and compare `plugin.json` with [Write the manifest](/docs/plugins/build#write-the-manifest). Claude may include fields the manifest doesn't use and leaves placeholders such as your name for you to fill in. If you have Claude Code installed, run `claude plugin validate` on the folder, as [Check the plugin on your machine](/docs/plugins/pre-submission-checklist#check-the-plugin-on-your-machine-optional) describes.
+Unzip the folder and compare `plugin.json` with [Write the manifest](/docs/plugins/build.md#write-the-manifest). Claude may include fields the manifest doesn't use and leaves placeholders such as your name for you to fill in. If you have Claude Code installed, run `claude plugin validate` on the folder, as [Check the plugin on your machine](/docs/plugins/pre-submission-checklist.md#check-the-plugin-on-your-machine-optional) describes.
 
 **3. Push and submit**
 
-Push the folder to a public GitHub repository, then follow [Submit a plugin](/docs/plugins/submit).
+Push the folder to a public GitHub repository, then follow [Submit a plugin](/docs/plugins/submit.md).
 
 ## Next steps
 
-* [Plugins](/docs/plugins/overview#manage-installed-plugins): turn off, remove, or update plugins on your account
-* [Plugin feature support across platforms](/docs/plugins/platform-support): check which of the plugin's components work in chat, Cowork, and Claude Code
-* [Share a plugin with teammates](/docs/plugins/share): give the plugin to specific people or your organization
+* [Plugins](/docs/plugins/overview.md#manage-installed-plugins): turn off, remove, or update plugins on your account
+* [Plugin feature support across platforms](/docs/plugins/platform-support.md): check which of the plugin's components work in chat, Cowork, and Claude Code
+* [Share a plugin with teammates](/docs/plugins/share.md): give the plugin to specific people or your organization

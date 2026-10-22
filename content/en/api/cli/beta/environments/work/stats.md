@@ -57,7 +57,6 @@ Get statistics about the work queue for an environment.
 
 ```bash
 ant beta:environments:work stats \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 

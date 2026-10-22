@@ -12,7 +12,7 @@ SEP stands for Specification Enhancement Proposal. A SEP is a design document pr
 
 SEPs are the primary mechanism for proposing major new features, collecting community input on an issue, and documenting the design decisions that have gone into MCP. The SEP author is responsible for building consensus within the community and documenting dissenting opinions.
 
-When drafting a SEP, authors should review the [MCP design principles](/community/design-principles), which outline the core values and tradeoffs that guide the protocol's evolution.
+When drafting a SEP, authors should review the [MCP design principles](/community/design-principles.md), which outline the core values and tradeoffs that guide the protocol's evolution.
 
 SEPs are maintained as markdown files in the [`seps/` directory](https://github.com/modelcontextprotocol/modelcontextprotocol/tree/main/seps) of the specification repository. Their revision history serves as the historical record of the feature proposal.
 
@@ -34,7 +34,7 @@ The SEP process is reserved for changes that are substantial enough to require b
 * Adding examples to existing features
 * Minor schema fixes that don't change behavior
 
-Not sure? Ask in [Discord](/community/communication#discord) before starting significant work.
+Not sure? Ask in [Discord](/community/communication.md#discord) before starting significant work.
 
 ## SEP Types
 
@@ -43,7 +43,7 @@ There are four kinds of SEP:
 1. **Standards Track** - Describes a new feature or implementation for the Model Context Protocol, or an interoperability standard supported outside the core specification.
 2. **Informational** - Describes a design issue or provides guidelines/information to the community without proposing a new feature.
 3. **Process** - Describes a process surrounding MCP or proposes a change to a process (like this document).
-4. **Extensions Track** - Describes a protocol extension. Follows the same review and acceptance process as Standards Track SEPs, but indicates that the proposal is for an extension rather than a protocol addition. See [Creating Extensions](/extensions/overview#creating-extensions) for the extension lifecycle.
+4. **Extensions Track** - Describes a protocol extension. Follows the same review and acceptance process as Standards Track SEPs, but indicates that the proposal is for an extension rather than a protocol addition. See [Creating Extensions](/extensions/overview.md#creating-extensions) for the extension lifecycle.
 
 ## SEP Workflow
 
@@ -73,18 +73,18 @@ flowchart TD
 
 ### Step-by-Step Process
 
-**Prior discussion is required.** SEP authors must discuss the idea with the relevant [working or interest group](/community/working-interest-groups) in [Discord](/community/communication#discord) before opening the SEP pull request, and the PR description must link to that discussion (a Discord thread, WG/IG meeting notes, or a GitHub Discussion). A SEP without a linked prior discussion is not accepted. If no relevant group exists, start a conversation in [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) or the `#general` channel in [Discord](/community/communication#discord) instead. If there is enough interest, it may be worth [creating a new IG or WG](/community/working-interest-groups#creating-an-interest-group). The effort involved in finding sponsors and facilitators is a good signal of whether the idea has sufficient traction.
+**Prior discussion is required.** SEP authors must discuss the idea with the relevant [working or interest group](/community/working-interest-groups.md) in [Discord](/community/communication.md#discord) before opening the SEP pull request, and the PR description must link to that discussion (a Discord thread, WG/IG meeting notes, or a GitHub Discussion). A SEP without a linked prior discussion is not accepted. If no relevant group exists, start a conversation in [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) or the `#general` channel in [Discord](/community/communication.md#discord) instead. If there is enough interest, it may be worth [creating a new IG or WG](/community/working-interest-groups.md#creating-an-interest-group). The effort involved in finding sponsors and facilitators is a good signal of whether the idea has sufficient traction.
 
 > [!NOTE]
 >
 > To improve your chances of a SEP being accepted, check alignment with [Core
-> Maintainer](/community/governance#roles) priorities and [design
-> principles](/community/design-principles). Priorities are generally reflected
-> in the [project roadmap](/development/roadmap). Proposals outside current
+> Maintainer](/community/governance.md#roles) priorities and [design
+> principles](/community/design-principles.md). Priorities are generally reflected
+> in the [project roadmap](/development/roadmap.md). Proposals outside current
 > priorities or that conflict with design principles are more likely to face
 > delays or additional friction in the review process.
 
-1. **Discuss with the relevant group**: Bring your idea to the matching [working or interest group](/community/working-interest-groups) and refine it there. Keep a link to the discussion (a Discord thread, meeting notes, or a GitHub Discussion) so you can include it in the PR description.
+1. **Discuss with the relevant group**: Bring your idea to the matching [working or interest group](/community/working-interest-groups.md) and refine it there. Keep a link to the discussion (a Discord thread, meeting notes, or a GitHub Discussion) so you can include it in the PR description.
 
 2. **Draft your SEP** as a markdown file named `0000-your-feature-title.md`, using `0000` as a placeholder. Follow the [SEP format](#sep-format) below.
 
@@ -105,7 +105,7 @@ flowchart TD
 
 9. **Resolution**: The SEP may be `accepted`, `rejected`, or returned for revision. The sponsor updates the status.
 
-10. **Finalization**: Once accepted, the reference implementation must be completed. For Standards Track SEPs with observable protocol behavior, a [conformance test](#conformance-test-requirement) must also be merged. The author adds the specification changes (schema changes, specification text, and a changelog entry) to the SEP's pull request. SDK implementations are not required for a SEP to become `final`. When this work is complete, the sponsor updates the status to `final` and the SEP's PR can be merged. Merged SEPs are published in the [SEP index](/seps/index), and each one is reachable by number at `modelcontextprotocol.io/seps/<number>` (for example, [/seps/1850](/seps/1850)).
+10. **Finalization**: Once accepted, the reference implementation must be completed. For Standards Track SEPs with observable protocol behavior, a [conformance test](#conformance-test-requirement) must also be merged. The author adds the specification changes (schema changes, specification text, and a changelog entry) to the SEP's pull request. SDK implementations are not required for a SEP to become `final`. When this work is complete, the sponsor updates the status to `final` and the SEP's PR can be merged. Merged SEPs are published in the [SEP index](/seps/index.md), and each one is reachable by number at `modelcontextprotocol.io/seps/<number>` (for example, [/seps/1850](/seps/1850.md)).
 
 ### SEP Statuses
 
@@ -245,7 +245,7 @@ For **Standards Track SEPs** that introduce or modify observable protocol behavi
 
 Writing a conformance scenario during SEP drafting (before Core Maintainer review) is encouraged but not required, since it often surfaces ambiguities in normative language that are cheaper to fix early.
 
-See [SEP-2484](/seps/2484-conformance-tests-required-for-final-seps) for the full specification including the traceability file format and dispute process.
+See [SEP-2484](/seps/2484-conformance-tests-required-for-final-seps.md) for the full specification including the traceability file format and dispute process.
 
 ## After Rejection
 

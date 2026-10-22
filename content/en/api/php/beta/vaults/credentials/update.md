@@ -47,7 +47,7 @@ Update a Credential
 
 - `class ManagedAgentsCredential`
 
-  - `Type type`
+  - `"vault_credential" type`
 
   - `string id`
 

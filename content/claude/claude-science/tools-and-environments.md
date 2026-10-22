@@ -27,7 +27,7 @@ Claude installs from these sources by default:
 * Python: pip from PyPI
 * R: CRAN and Bioconductor
 
-To have conda and pip download packages from an internal mirror instead, see [Point package installs at an internal mirror](/docs/claude-science/corporate-networks#point-package-installs-at-an-internal-mirror).
+To have conda and pip download packages from an internal mirror instead, see [Point package installs at an internal mirror](/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror).
 
 A package installed into an environment is permanent and available in every session and project using that environment. A package installed inline in a code cell (`pip install` or `install.packages()`) lasts only until the kernel restarts. To keep a package, ask Claude to install it into the environment.
 
@@ -43,7 +43,7 @@ Claude can still run code from the environment but can't add, update, or remove 
 
 To add packages, choose one of these:
 
-* **In a uv project, ask Claude to use a separate environment.** Have Claude set `UV_PROJECT_ENVIRONMENT` to the full path of a folder in the session's [workspace folder](/docs/claude-science/core-concepts#projects-and-sessions) and run uv as usual. The variable has to stay set for later uv commands, including `uv run` and `uv sync`. The separate environment belongs to that session, so another session starts without it. For a change every session keeps, change the environment yourself in a terminal outside Claude Science.
+* **In a uv project, ask Claude to use a separate environment.** Have Claude set `UV_PROJECT_ENVIRONMENT` to the full path of a folder in the session's [workspace folder](/docs/claude-science/core-concepts.md#projects-and-sessions) and run uv as usual. The variable has to stay set for later uv commands, including `uv run` and `uv sync`. The separate environment belongs to that session, so another session starts without it. For a change every session keeps, change the environment yourself in a terminal outside Claude Science.
 * **With any of these tools, change the environment yourself.** In a terminal outside Claude Science, use the tool's own commands to add, update, or remove packages.
 
 ## GPUs
@@ -54,7 +54,7 @@ If your Linux machine has NVIDIA GPUs, the sandbox makes them available to code 
 >
 > Turning on the **Host GPU** switch reduces the default sandboxing configuration applied by Claude Science.
 
-If Claude Science finds no GPU, Claude notes this when a task needs one and can run the work on the remote compute you've connected. See [Remote compute clusters](/docs/claude-science/remote-compute-clusters) and [Compute providers](/docs/claude-science/compute-providers). If your machine has an NVIDIA GPU but the **Host GPU** switch isn't in **Settings > Compute**, or Claude says there's no GPU in a session started with the switch on, see [How Claude Science detects a GPU](#how-claude-science-detects-a-gpu).
+If Claude Science finds no GPU, Claude notes this when a task needs one and can run the work on the remote compute you've connected. See [Remote compute clusters](/docs/claude-science/remote-compute-clusters.md) and [Compute providers](/docs/claude-science/compute-providers.md). If your machine has an NVIDIA GPU but the **Host GPU** switch isn't in **Settings > Compute**, or Claude says there's no GPU in a session started with the switch on, see [How Claude Science detects a GPU](#how-claude-science-detects-a-gpu).
 
 ### How Claude Science detects a GPU
 

@@ -80,14 +80,14 @@ preferred version is not supported.
 ## Extension Negotiation
 
 Clients and servers can negotiate support for optional
-[extensions](/docs/extensions/overview) beyond the core protocol. Extensions
+[extensions](/docs/extensions/overview.md) beyond the core protocol. Extensions
 are advertised in the `extensions` field of capabilities, which is a map of
 extension identifiers to per-extension settings objects. Extension identifiers
 **MUST** follow the [`_meta` key naming rules](/specification/draft/basic/index#meta),
 with a mandatory prefix.
 
 The following is an example of a client that advertises the
-[MCP Apps extension](/extensions/apps/overview) identified as `io.modelcontextprotocol/ui`:
+[MCP Apps extension](/extensions/apps/overview.md) identified as `io.modelcontextprotocol/ui`:
 
 ```json theme={null}
 {
@@ -102,7 +102,7 @@ The following is an example of a client that advertises the
 }
 ```
 
-An example of [Tasks extension](/extensions/tasks/overview) identified as `io.modelcontextprotocol/tasks`:
+An example of [Tasks extension](/extensions/tasks/overview.md) identified as `io.modelcontextprotocol/tasks`:
 
 ```json theme={null}
 {
@@ -133,10 +133,10 @@ A client that needs to interoperate with both kinds of servers detects the
 server's era with transport-specific mechanics, specified in the binding
 pages:
 
-* [stdio](/specification/draft/basic/transports/stdio#backward-compatibility):
+* [stdio](/specification/draft/basic/transports/stdio.md#backward-compatibility):
   probe with `server/discover` and fall back on any error that is not a
   recognized modern error.
-* [Streamable HTTP](/specification/draft/basic/transports/streamable-http#backward-compatibility):
+* [Streamable HTTP](/specification/draft/basic/transports/streamable-http.md#backward-compatibility):
   attempt a modern request and inspect the body of a `400 Bad Request`
   before falling back.
 
@@ -167,7 +167,7 @@ client and server era:
 | Modern | Legacy | Fails. The server may reject the request with an implementation-defined error, stay silent, or even process an era-ambiguous method under legacy semantics. On stdio, clients **SHOULD** send `server/discover` first to fail deterministically; the client then surfaces an actionable error to the user. |
 | Dual-era | Modern | Works. The stdio probe returns a `DiscoverResult` (or `UnsupportedProtocolVersionError`); on HTTP, the first modern request succeeds or returns a modern error. The client stays modern. |
 | Dual-era | Legacy | Works. stdio: the probe returns a non-modern error or times out, and the client falls back to `initialize`. HTTP: the modern request returns a `4xx` without a recognized modern error body, and the client falls back to `initialize` (and possibly further to the deprecated HTTP+SSE transport). |
-| Legacy | Modern | Fails. stdio: the server rejects `initialize` with a JSON-RPC error; the exact code is implementation-defined (`initialize` is an unknown method and the request also lacks the required `_meta` fields). HTTP: the request is missing the required headers and is rejected per [server validation](/specification/draft/basic/transports/streamable-http#server-validation) with `400 Bad Request` (a client on the deprecated HTTP+SSE transport fails at its opening `GET` instead). Legacy clients have no fall-forward mechanism. |
+| Legacy | Modern | Fails. stdio: the server rejects `initialize` with a JSON-RPC error; the exact code is implementation-defined (`initialize` is an unknown method and the request also lacks the required `_meta` fields). HTTP: the request is missing the required headers and is rejected per [server validation](/specification/draft/basic/transports/streamable-http.md#server-validation) with `400 Bad Request` (a client on the deprecated HTTP+SSE transport fails at its opening `GET` instead). Legacy clients have no fall-forward mechanism. |
 | Legacy | Dual-era | Works. The server answers `initialize` and serves the client according to the negotiated legacy revision. |
 | Legacy | Legacy | Works according to the legacy revision; out of scope for this document. |
 

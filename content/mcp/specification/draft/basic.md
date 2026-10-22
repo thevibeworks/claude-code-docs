@@ -30,7 +30,7 @@ these types of messages:
 
 ### Requests
 
-[Requests](/specification/draft/schema#jsonrpcrequest) are sent from the client to the server, to initiate an operation.
+[Requests](/specification/draft/schema.md#jsonrpcrequest) are sent from the client to the server, to initiate an operation.
 
 ```typescript theme={null}
 {
@@ -54,7 +54,7 @@ Responses are sent in reply to requests, containing either the result or error o
 
 #### Result Responses
 
-[Result responses](/specification/draft/schema#jsonrpcresultresponse) are sent when the operation completes successfully.
+[Result responses](/specification/draft/schema.md#jsonrpcresultresponse) are sent when the operation completes successfully.
 
 ```typescript theme={null}
 {
@@ -86,7 +86,7 @@ can use to determine how to parse and handle the `result` object.
 
 #### Error Responses
 
-[Error responses](/specification/draft/schema#jsonrpcerrorresponse) are sent when the operation fails or encounters an error.
+[Error responses](/specification/draft/schema.md#jsonrpcerrorresponse) are sent when the operation fails or encounters an error.
 
 ```typescript theme={null}
 {
@@ -121,7 +121,7 @@ server errors. MCP partitions this range as follows:
   **MUST NOT** assume any specific meaning for these codes.
 * **`-32020` to `-32099` — reserved for the MCP specification.** Error codes
   in this sub-range are defined exclusively by the MCP specification and
-  recorded in the [schema](/specification/draft/schema). Implementations
+  recorded in the [schema](/specification/draft/schema.md). Implementations
   **MUST NOT** emit any code from this sub-range that is not defined by this
   specification and **MUST** use defined codes only with their specified
   meanings.
@@ -156,7 +156,7 @@ remainder of the integer space is available for application-defined errors.
 
 ### Notifications
 
-[Notifications](/specification/draft/schema#jsonrpcnotification) are sent from the client to the server or vice versa, as a one-way message.
+[Notifications](/specification/draft/schema.md#jsonrpcnotification) are sent from the client to the server or vice versa, as a one-way message.
 The receiver **MUST NOT** send a response.
 
 ```typescript theme={null}
@@ -173,11 +173,11 @@ The receiver **MUST NOT** send a response.
 
 ### Message Patterns
 
-The Model Context Protocol (MCP) supports several [Message Patterns](/specification/draft/basic/patterns) that define how clients and servers interact:
+The Model Context Protocol (MCP) supports several [Message Patterns](/specification/draft/basic/patterns.md) that define how clients and servers interact:
 
-1. **[Request and Response](/specification/draft/basic/patterns#request-and-response)**: A client sends a request to the server, and the server responds with a result or error.
-2. **[Multi Round-Trip Requests (MRTR)](/specification/draft/basic/patterns#multi-round-trip-requests)**: A server requires additional client input (sampling, elicitation, or roots) to complete a request.
-3. **[Subscribe and Notify](/specification/draft/basic/patterns#subscribe-and-notify)**: A client subscribes to a stream of notifications from the server, which are sent as they occur.
+1. **[Request and Response](/specification/draft/basic/patterns.md#request-and-response)**: A client sends a request to the server, and the server responds with a result or error.
+2. **[Multi Round-Trip Requests (MRTR)](/specification/draft/basic/patterns.md#multi-round-trip-requests)**: A server requires additional client input (sampling, elicitation, or roots) to complete a request.
+3. **[Subscribe and Notify](/specification/draft/basic/patterns.md#subscribe-and-notify)**: A client subscribes to a stream of notifications from the server, which are sent as they occur.
 
 ## Statelessness
 
@@ -216,11 +216,11 @@ Their state is scoped to the request itself, not to the connection underneath.
 > [!NOTE]
 >
 > For a walkthrough of how the per-request model maps to SDK code, see the
-> [Architecture guide](/docs/draft/learn/architecture#example).
+> [Architecture guide](/docs/draft/learn/architecture.md#example).
 
 ## Auth
 
-MCP provides an [Authorization](/specification/draft/basic/authorization) framework for use with HTTP.
+MCP provides an [Authorization](/specification/draft/basic/authorization.md) framework for use with HTTP.
 Implementations using an HTTP-based transport **SHOULD** conform to this specification,
 whereas implementations using STDIO transport **SHOULD NOT** follow this specification,
 and instead retrieve credentials from the environment.
@@ -349,15 +349,15 @@ The following `_meta` keys are reserved by this specification:
 
 | Key | Description | Defined in |
 | - | - | - |
-| `progressToken` | Opts the request into progress notifications | [Progress](/specification/draft/basic/patterns/progress) |
+| `progressToken` | Opts the request into progress notifications | [Progress](/specification/draft/basic/patterns/progress.md) |
 | `io.modelcontextprotocol/protocolVersion` | Protocol version for a request | Per-request protocol fields (below) |
 | `io.modelcontextprotocol/clientInfo` | Client name and version | Per-request protocol fields (below) |
 | `io.modelcontextprotocol/clientCapabilities` | Client capabilities relevant to a request | Per-request protocol fields (below) |
-| `io.modelcontextprotocol/logLevel` | Minimum log level the server should emit for a request | [Logging](/specification/draft/server/utilities/logging) |
-| `io.modelcontextprotocol/subscriptionId` | Correlates a notification with its originating subscription | [Subscriptions](/specification/draft/basic/patterns/subscriptions) |
+| `io.modelcontextprotocol/logLevel` | Minimum log level the server should emit for a request | [Logging](/specification/draft/server/utilities/logging.md) |
+| `io.modelcontextprotocol/subscriptionId` | Correlates a notification with its originating subscription | [Subscriptions](/specification/draft/basic/patterns/subscriptions.md) |
 | `traceparent`, `tracestate`, `baggage` | OpenTelemetry trace context propagation | OpenTelemetry trace context (below) |
 
-Official [extensions](/specification/draft/basic/versioning#extension-negotiation)
+Official [extensions](/specification/draft/basic/versioning.md#extension-negotiation)
 define additional `_meta` keys under the `io.modelcontextprotocol/` prefix, and
 third-party extensions use their own vendor prefix.
 In both cases the keys are specified in the extension's documentation.
@@ -413,9 +413,9 @@ On notifications delivered via a [`subscriptions/listen`][subscriptions-listen] 
 the server **MUST** include `io.modelcontextprotocol/subscriptionId` in `_meta` so the
 client can correlate the notification with the originating subscription request.
 
-[lifecycle]: /specification/draft/basic/versioning
+[lifecycle]: /specification/draft/basic/versioning.md
 
-[subscriptions-listen]: /specification/draft/basic/patterns/subscriptions
+[subscriptions-listen]: /specification/draft/basic/patterns/subscriptions.md
 
 **OpenTelemetry trace context:**
 

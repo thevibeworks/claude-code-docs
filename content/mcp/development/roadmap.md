@@ -10,7 +10,7 @@
 >
 > Last updated: **2026-08-22**
 
-This page outlines the Core Maintainers' vision for the protocol over the coming six to twelve months, highlighting objectives targeted for the next specification update and beyond. It describes our primary strategic goals and the expected deliverables from [Working and Interest Groups](/community/working-interest-groups).
+This page outlines the Core Maintainers' vision for the protocol over the coming six to twelve months, highlighting objectives targeted for the next specification update and beyond. It describes our primary strategic goals and the expected deliverables from [Working and Interest Groups](/community/working-interest-groups.md).
 
 > [!NOTE]
 >
@@ -18,11 +18,11 @@ This page outlines the Core Maintainers' vision for the protocol over the coming
 
 ## SEP Prioritization
 
-**[Specification Enhancement Proposals](/community/sep-guidelines) (SEPs) that fall within the priority areas below get expedited review and have the best chance of acceptance.** SEPs outside them aren't rejected automatically, but expect a longer queue and a higher bar for justification. Maintainer review time is scarce. We spend it here first.
+**[Specification Enhancement Proposals](/community/sep-guidelines.md) (SEPs) that fall within the priority areas below get expedited review and have the best chance of acceptance.** SEPs outside them aren't rejected automatically, but expect a longer queue and a higher bar for justification. Maintainer review time is scarce. We spend it here first.
 
-If you're considering writing a SEP, start by identifying which priority area it belongs to and raising it with the relevant Working Group, then bring that group's support with the proposal. SEPs with a Working Group behind them and a clear line to this roadmap move fastest. See the [SEP guidelines](/community/sep-guidelines) for the full process.
+If you're considering writing a SEP, start by identifying which priority area it belongs to and raising it with the relevant Working Group, then bring that group's support with the proposal. SEPs with a Working Group behind them and a clear line to this roadmap move fastest. See the [SEP guidelines](/community/sep-guidelines.md) for the full process.
 
-Each priority area names the Core Maintainers responsible for it, who can be reached on [Discord](/community/communication#discord) by anyone interested in contributing. The items listed under each area are the deliverables prioritized for this roadmap period. The remainder of each area is open scope, and Working Groups are expected to define and contribute further work within it.
+Each priority area names the Core Maintainers responsible for it, who can be reached on [Discord](/community/communication.md#discord) by anyone interested in contributing. The items listed under each area are the deliverables prioritized for this roadmap period. The remainder of each area is open scope, and Working Groups are expected to define and contribute further work within it.
 
 ## Priority Areas
 
@@ -30,27 +30,27 @@ Each priority area names the Core Maintainers responsible for it, who can be rea
 
 Core Maintainers: [**Caitie McCaffrey**](https://github.com/CaitieM20), [**Clare Liguori**](https://github.com/clareliguori), [**Peter Alexander**](https://github.com/pja-ant)
 
-Agentic workloads need [messaging patterns](/specification/2026-07-28/basic/patterns) beyond request and response: work that runs for minutes, servers that push, results that stream, and a way to steer work mid-flight. MCP has grown a set of concepts for this, including [Tasks](/extensions/tasks/overview), [`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions), and [progress notifications](/specification/2026-07-28/basic/patterns/progress), spread across multiple Working Groups. The risk is three answers to "the server isn't done yet" that don't share a lifecycle, a cancellation model, or an error surface. We want them to compose.
+Agentic workloads need [messaging patterns](/specification/2026-07-28/basic/patterns.md) beyond request and response: work that runs for minutes, servers that push, results that stream, and a way to steer work mid-flight. MCP has grown a set of concepts for this, including [Tasks](/extensions/tasks/overview.md), [`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions), and [progress notifications](/specification/2026-07-28/basic/patterns/progress.md), spread across multiple Working Groups. The risk is three answers to "the server isn't done yet" that don't share a lifecycle, a cancellation model, or an error surface. We want them to compose.
 
 **This roadmap period:**
 
-* **Server-initiated events**: [Tasks & Events WG](/community/working-groups/tasks-events). Channels and subscriptions for push delivery, including webhooks. As we take on asynchronous workloads through Tasks and other events, we need extensions that let servers tell clients when work has finished, without relying purely on expensive client-side polling.
-* **A composition review**: [Tasks & Events](/community/working-groups/tasks-events) and Transports WGs, with the [Agents](/community/interest-groups/agents) IG. Primitives in the making, such as Tasks and Triggers, need to compose cleanly with each other and fit concrete use cases.
+* **Server-initiated events**: [Tasks & Events WG](/community/working-groups/tasks-events.md). Channels and subscriptions for push delivery, including webhooks. As we take on asynchronous workloads through Tasks and other events, we need extensions that let servers tell clients when work has finished, without relying purely on expensive client-side polling.
+* **A composition review**: [Tasks & Events](/community/working-groups/tasks-events.md) and Transports WGs, with the [Agents](/community/interest-groups/agents.md) IG. Primitives in the making, such as Tasks and Triggers, need to compose cleanly with each other and fit concrete use cases.
 
-Beyond these, we expect continued work on Tasks ([SEP-2663](/seps/2663-tasks-extension)) toward eventual inclusion of the extension in the core protocol.
+Beyond these, we expect continued work on Tasks ([SEP-2663](/seps/2663-tasks-extension.md)) toward eventual inclusion of the extension in the core protocol.
 
 ### 2. HTTP-Native Transport Unification and Hardening
 
 Core Maintainers: [**Kurtis Van Gent**](https://github.com/kurtisvg), [**Nick Cooper**](https://github.com/nickcoai)
 
-The [2026-07-28 release](/specification/2026-07-28/changelog) made a remote MCP server a normal HTTP workload, and we increasingly rely on HTTP specifics such as headers and status codes to carry transport-level information. Every HTTP-native feature needs a second stdio-specific design or doesn't work locally. SDKs maintain two transport pipelines, and protocol metadata is now duplicated across HTTP headers and message fields that servers have to cross-validate. We want one transport model, with standard HTTP practice on top of it.
+The [2026-07-28 release](/specification/2026-07-28/changelog.md) made a remote MCP server a normal HTTP workload, and we increasingly rely on HTTP specifics such as headers and status codes to carry transport-level information. Every HTTP-native feature needs a second stdio-specific design or doesn't work locally. SDKs maintain two transport pipelines, and protocol metadata is now duplicated across HTTP headers and message fields that servers have to cross-validate. We want one transport model, with standard HTTP practice on top of it.
 
 **This roadmap period:**
 
 * **HTTP over stdio**: Transports WG. Streamable HTTP as the single binding, spoken over stdin/stdout for local servers. We believe we can use HTTP/2 over stdio to get multiplexed HTTP transport while retaining the security and lifecycle guarantees of a subprocess.
-* **Caching**: Transports WG. The most recent protocol revision made strides toward caching, adding `ttlMs` and `cacheScope` to list results and resource reads ([SEP-2549](/seps/2549-TTL-for-list-results)). As part of this work, we want to extend our caching approach to support ETags, which should allow versioning the results of primitives, in particular tool calls.
+* **Caching**: Transports WG. The most recent protocol revision made strides toward caching, adding `ttlMs` and `cacheScope` to list results and resource reads ([SEP-2549](/seps/2549-TTL-for-list-results.md)). As part of this work, we want to extend our caching approach to support ETags, which should allow versioning the results of primitives, in particular tool calls.
 
-Beyond these, we want to look at standardized error handling across all surfaces, capability scoping for tool lists after [SEP-2575](/seps/2575-stateless-mcp), and providing servers with configuration options in a secure way.
+Beyond these, we want to look at standardized error handling across all surfaces, capability scoping for tool lists after [SEP-2575](/seps/2575-stateless-mcp.md), and providing servers with configuration options in a secure way.
 
 ### 3. Agent Identity and Enterprise-Ready Security
 
@@ -61,7 +61,7 @@ MCP authorization assumes a person with a browser at consent time. Increasingly 
 **This roadmap period:**
 
 * **DPoP**: Agent Identity WG (forming during this roadmap period). Finalize the specification for Demonstrating Proof of Possession (DPoP) and focus on getting widespread adoption.
-* **Agent identity and delegation**: Agent Identity WG. We want an opinionated way for MCP servers to be reached by agents through their own identity or a user-delegated identity. The work will focus on Workload Identity Federation ([SEP-1933](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1933)), the Identity Assertion JWT Authorization Grant (ID-JAG) used by [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization), and [RFC 8693](https://www.rfc-editor.org/rfc/rfc8693) token exchange, coordinated with the IETF OAuth and [WIMSE](https://datatracker.ietf.org/wg/wimse/about/) working groups.
+* **Agent identity and delegation**: Agent Identity WG. We want an opinionated way for MCP servers to be reached by agents through their own identity or a user-delegated identity. The work will focus on Workload Identity Federation ([SEP-1933](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1933)), the Identity Assertion JWT Authorization Grant (ID-JAG) used by [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization.md), and [RFC 8693](https://www.rfc-editor.org/rfc/rfc8693) token exchange, coordinated with the IETF OAuth and [WIMSE](https://datatracker.ietf.org/wg/wimse/about/) working groups.
 
 Beyond these, several other topics are under discussion and may come into scope as the Working Group forms, including human-presence attestation for distinguishing interactive clients from headless agents and other agent identity concerns.
 
@@ -75,9 +75,9 @@ MCP's tool calling interface has served well. However, `tools/call` allows retur
 
 * **Tool result shape**: Core Primitives WG (forming during this roadmap period). Redesign the `tools/call` interface to resolve fidelity disparities among return types and streamline the handling of structured and unstructured output.
 * **Progressive discovery**: Core Primitives WG. Clients learn a server's tools and resources as they need them instead of ingesting the full catalog up front, with a defined interaction with the caching work under [HTTP-Native Transport Unification and Hardening](#2-http-native-transport-unification-and-hardening).
-* **Primitive annotations**: Core Primitives WG. [Content annotations](/specification/2026-07-28/server/resources#annotations) in the specification declare a piece of content's intended audience and priority. Applying them to tool results and resources could resolve the visibility confusion described in [SEP-2200](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2200), but most implementers haven't adopted these annotations and may not be aware of their purpose. If they aren't useful, we should consider deprecating them.
+* **Primitive annotations**: Core Primitives WG. [Content annotations](/specification/2026-07-28/server/resources.md#annotations) in the specification declare a piece of content's intended audience and priority. Applying them to tool results and resources could resolve the visibility confusion described in [SEP-2200](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2200), but most implementers haven't adopted these annotations and may not be aware of their purpose. If they aren't useful, we should consider deprecating them.
 
-In addition, the [File Uploads WG](/community/working-groups/file-uploads) continues on scoped file operations and filesystem-like resource semantics (range reads, hierarchical listing).
+In addition, the [File Uploads WG](/community/working-groups/file-uploads.md) continues on scoped file operations and filesystem-like resource semantics (range reads, hierarchical listing).
 
 ### 5. Improved SDK Developer Experience
 
@@ -87,8 +87,8 @@ Our SDKs, reference servers, and quickstarts are maintained by hand. While this 
 
 **This roadmap period:**
 
-* **The extension contract**: [SDK WG](/community/working-groups/sdk) with the Core Maintainers. Which role an extension binds (host, client, server, agent) and what each does when the capability is declared; what SDKs must support natively; how extensions are packaged; capability additions as versioned changes to the extension; auth treated as its own area.
-* **The generated-artifacts experiment**: [SDK WG](/community/working-groups/sdk). Generate a candidate [Tier 1 SDK](/community/sdk-tiers) and its companion quickstart examples from the specification, validate both against the [conformance test suite](/community/sdk-tiers#conformance-testing), and publish findings with a recommendation for the next cycle, including which layers should be deterministic codegen versus model-assisted.
+* **The extension contract**: [SDK WG](/community/working-groups/sdk.md) with the Core Maintainers. Which role an extension binds (host, client, server, agent) and what each does when the capability is declared; what SDKs must support natively; how extensions are packaged; capability additions as versioned changes to the extension; auth treated as its own area.
+* **The generated-artifacts experiment**: [SDK WG](/community/working-groups/sdk.md). Generate a candidate [Tier 1 SDK](/community/sdk-tiers.md) and its companion quickstart examples from the specification, validate both against the [conformance test suite](/community/sdk-tiers.md#conformance-testing), and publish findings with a recommendation for the next cycle, including which layers should be deterministic codegen versus model-assisted.
 
 Beyond these, we want to revisit ownership and freshness expectations for the reference servers and quickstart repositories, and treat spec clarity issues surfaced by generation failures as documentation bugs.
 
@@ -96,7 +96,7 @@ Beyond these, we want to revisit ownership and freshness expectations for the re
 
 Every priority area above has a Working Group behind it or forming around it, and all of them have room for more contributors. There are several ways to participate:
 
-* **Join a Working Group or Interest Group**: see the [Working and Interest Groups](/community/working-interest-groups) page and the [community channels](/community/communication).
-* **Propose or comment on a SEP**: read the [SEP guidelines](/community/sep-guidelines), then open one or weigh in.
-* **Start an experimental extension**: [SEP-2133](/seps/2133-extensions) lets any WG or IG experiment in an `experimental-ext-` repository before a formal SEP.
-* **Contribute directly**: the [contributing guide](/community/contributing) covers the specification, SDKs, and tooling.
+* **Join a Working Group or Interest Group**: see the [Working and Interest Groups](/community/working-interest-groups.md) page and the [community channels](/community/communication.md).
+* **Propose or comment on a SEP**: read the [SEP guidelines](/community/sep-guidelines.md), then open one or weigh in.
+* **Start an experimental extension**: [SEP-2133](/seps/2133-extensions.md) lets any WG or IG experiment in an `experimental-ext-` repository before a formal SEP.
+* **Contribute directly**: the [contributing guide](/community/contributing.md) covers the specification, SDKs, and tooling.

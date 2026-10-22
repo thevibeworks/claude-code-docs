@@ -4743,6 +4743,5 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant beta:messages:batches results \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```

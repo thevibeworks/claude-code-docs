@@ -23,7 +23,7 @@ Custom Connectors serve as the bridge between Claude and remote MCP servers. The
 With Custom Connectors, you can:
 
 * [Connect Claude to existing remote MCP servers](https://support.anthropic.com/en/articles/11175166-getting-started-with-custom-connectors-using-remote-mcp) provided by third-party developers
-* [Build your own remote MCP servers to connect with any tool](/docs/2025-03-26/develop/build-server)
+* [Build your own remote MCP servers to connect with any tool](/docs/2025-03-26/develop/build-server.md)
 
 ## Connecting to a Remote MCP Server
 
@@ -85,7 +85,7 @@ When working with remote MCP servers, consider these recommendations to ensure a
 
 Now that you've connected Claude to a remote MCP server, you can explore its capabilities in your conversations. Try using the connected tools to automate tasks, access external data, or integrate with your existing workflows.
 
-> **[Build your own remote server](/docs/2025-03-26/develop/build-server)**
+> **[Build your own remote server](/docs/2025-03-26/develop/build-server.md)**
 >
 > Create custom remote MCP servers to integrate with proprietary tools and
 > services
@@ -94,12 +94,12 @@ Now that you've connected Claude to a remote MCP server, you can explore its cap
 >
 > Browse our collection of official and community-created MCP servers
 
-> **[Connect local servers](/docs/2025-03-26/develop/connect-local-servers)**
+> **[Connect local servers](/docs/2025-03-26/develop/connect-local-servers.md)**
 >
 > Learn how to connect Claude Desktop to local MCP servers for direct system
 > access
 
-> **[Understand the architecture](/docs/2025-03-26/learn/architecture)**
+> **[Understand the architecture](/docs/2025-03-26/learn/architecture.md)**
 >
 > Dive deeper into how MCP works and its architecture
 

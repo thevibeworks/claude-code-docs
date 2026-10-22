@@ -178,8 +178,7 @@ List User Profiles
 ## Example
 
 ```bash
-ant beta:user-profiles list \
-  --api-key my-anthropic-api-key
+ant beta:user-profiles list
 ```
 
 ### Response (200)

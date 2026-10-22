@@ -65,6 +65,6 @@ boundary. The SDK's stdio transport is not a sandbox.
 
 ## Security Interest Group
 
-The [Security Interest Group](/community/interest-groups/security) is the venue for
+The [Security Interest Group](/community/interest-groups/security.md) is the venue for
 discussing MCP-specific threats, reviewing security-relevant proposals, and routing
 disclosure questions that don't fit a single repository.

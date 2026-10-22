@@ -16,7 +16,7 @@ Each prompt below is a Slack message. You paste it in the channel where the ques
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -60,14 +60,14 @@ Without any connection, Claude can still answer from the channel's own history.
 @Claude what did this channel decide about the retention policy, and when?
 ```
 
-Answers come from this channel's history and [memory](/docs/claude-tag/users/memory).
+Answers come from this channel's history and [memory](/docs/claude-tag/users/memory.md).
 
 ## Related resources
 
-> **[Catch up](/docs/claude-tag/users/use-cases/catch-up)**
+> **[Catch up](/docs/claude-tag/users/use-cases/catch-up.md)**
 >
 > The same mechanism pointed at "what did I miss"
 
-> **[What Claude Tag remembers](/docs/claude-tag/users/memory)**
+> **[What Claude Tag remembers](/docs/claude-tag/users/memory.md)**
 >
 > How channel knowledge accumulates

@@ -10,15 +10,15 @@ Claude Science runs on a remote Linux server (a cloud VM or a lab machine) the s
 
 > [!NOTE]
 >
-> This page covers running all of Claude Science on a remote machine. To keep Claude Science on your own computer and have it run jobs on a machine you reach over SSH, see [Remote compute clusters](/docs/claude-science/remote-compute-clusters).
+> This page covers running all of Claude Science on a remote machine. To keep Claude Science on your own computer and have it run jobs on a machine you reach over SSH, see [Remote compute clusters](/docs/claude-science/remote-compute-clusters.md).
 
-The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 10 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Team, or Enterprise plan; see [Requirements](/docs/claude-science/overview#requirements).
+The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 10 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Team, or Enterprise plan; see [Requirements](/docs/claude-science/overview.md#requirements).
 
 ## Install dependencies
 
 Claude runs code inside a sandbox, and the sandbox needs two system packages: bubblewrap and socat. Installing them takes administrator (`sudo`) access. Without it, see [Run Claude Science without administrator access](#run-claude-science-without-administrator-access).
 
-On Fedora, RHEL, or Arch, use the command for your distribution from the Linux tab of [Install](/docs/claude-science/get-started#install). On Ubuntu or Debian, run:
+On Fedora, RHEL, or Arch, use the command for your distribution from the Linux tab of [Install](/docs/claude-science/get-started.md#install). On Ubuntu or Debian, run:
 
 ```bash theme={null}
 sudo apt-get update && sudo apt-get install -y curl bubblewrap socat
@@ -33,7 +33,7 @@ sudo apt-get update && sudo apt-get install -y curl bubblewrap socat
 If you don't have administrator (root or `sudo`) access to a shared server or cluster, choose one of these:
 
 * **Ask the server's administrator** to set up what the sandbox needs: bubblewrap 0.8.0 or later, socat, and a kernel that allows unprivileged user namespaces.
-* **Use the server as an SSH host.** Install Claude Science on your own computer and add the server as an SSH host (see [Remote compute clusters](/docs/claude-science/remote-compute-clusters)), if your organization allows SSH hosts. Claude runs jobs on the server under your own account, with your approval. Jobs run outside the sandbox, so the server doesn't need bubblewrap, socat, or the kernel setting, and you don't need administrator access there.
+* **Use the server as an SSH host.** Install Claude Science on your own computer and add the server as an SSH host (see [Remote compute clusters](/docs/claude-science/remote-compute-clusters.md)), if your organization allows SSH hosts. Claude runs jobs on the server under your own account, with your approval. Jobs run outside the sandbox, so the server doesn't need bubblewrap, socat, or the kernel setting, and you don't need administrator access there.
 
 Administrators usually install bubblewrap and socat, and only an administrator can change the kernel setting. On Ubuntu 23.10 and later, bubblewrap can also need an AppArmor profile that lets it create user namespaces. Claude Science checks for these when it starts and names the first one that's missing. Once that's fixed, the next start names the next one, if any.
 
@@ -89,11 +89,11 @@ To run it in the background instead, use `claude-science serve --no-browser --de
 
 Open the printed link in your computer's browser. The link is single-use and expires about three minutes after it's printed; run `claude-science url` on the server to print a fresh one at any time. Restarting with `claude-science stop` then `claude-science serve --no-browser` also prints a fresh link.
 
-Sign in with your Claude account. If the sign-in redirect can't find its way back through the tunnel, choose **Paste code instead** on the sign-in screen. Then complete the setup wizard as described in [Get started](/docs/claude-science/get-started).
+Sign in with your Claude account. If the sign-in redirect can't find its way back through the tunnel, choose **Paste code instead** on the sign-in screen. Then complete the setup wizard as described in [Get started](/docs/claude-science/get-started.md).
 
 ## Keep it up to date
 
-`claude-science update` checks for and installs updates. See [Command line settings](/docs/claude-science/command-line-settings) for the command reference, including `logs` and the `serve` flags.
+`claude-science update` checks for and installs updates. See [Command line settings](/docs/claude-science/command-line-settings.md) for the command reference, including `logs` and the `serve` flags.
 
 ## Troubleshooting
 
@@ -111,8 +111,8 @@ Sign in with your Claude account. If the sign-in redirect can't find its way bac
 | A message mentioning `port 8000 is in use by another app — using port 8001 instead` | Claude Science started on the port it names. `claude-science url` prints both ports. Forward each one with that number on both sides. Or stop Claude Science and start it again with `--port`. |
 | A message mentioning `daemon already running on port 8000` | Claude Science is already running. Run `claude-science url` for a fresh sign-in link, or `claude-science stop` to stop it. |
 | The sign-in link shows an expired-link page | Links are single-use and valid for about three minutes. Run `claude-science url` on the server and open the fresh link; restarting with `claude-science stop` then `claude-science serve --no-browser` also prints one. |
-| Sign-in stops at claude.ai | The redirect couldn't return through the tunnel (choose **Paste code instead**), your account is on the Free plan (an upgrade is required), or your Team or Enterprise organization hasn't [enabled Claude Science](/docs/claude-science/enable-claude-science) yet. |
+| Sign-in stops at claude.ai | The redirect couldn't return through the tunnel (choose **Paste code instead**), your account is on the Free plan (an upgrade is required), or your Team or Enterprise organization hasn't [enabled Claude Science](/docs/claude-science/enable-claude-science.md) yet. |
 | Interactive HTML previews render as static snapshots after a short delay (charts don't respond) | The tunnel isn't forwarding the preview port. Add the second `-L` forward for the preview port that `claude-science url` prints (8001 by default), with that number on both sides. |
 | The browser can't reach `localhost:8000` | The tunnel isn't up; rerun the `ssh -L` command. If the tunnel is up, confirm Claude Science is running on the server with `claude-science status`. |
 | The installer reports no binary for your platform | Claude Science on Linux needs x64 with glibc. arm64 servers and musl-based distributions such as Alpine aren't supported. |
-| The installer stops with a message mentioning `was NOT installed` | Claude Science was already installed on the server, so the installer first tried to check that the new version starts there. The check didn't succeed, so nothing was replaced. The message and the lines under it say why and, where there is a fix, what to do. If they point to the [configuration file](/docs/claude-science/configuration-file-reference), `~/.claude-science/config.toml`, fix what they report in that file, then run the installer again as shown in [Install Claude Science](#install-claude-science). Otherwise, keep using the copy you already had. |
+| The installer stops with a message mentioning `was NOT installed` | Claude Science was already installed on the server, so the installer first tried to check that the new version starts there. The check didn't succeed, so nothing was replaced. The message and the lines under it say why and, where there is a fix, what to do. If they point to the [configuration file](/docs/claude-science/configuration-file-reference.md), `~/.claude-science/config.toml`, fix what they report in that file, then run the installer again as shown in [Install Claude Science](#install-claude-science). Otherwise, keep using the copy you already had. |

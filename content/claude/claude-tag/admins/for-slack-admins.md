@@ -20,18 +20,18 @@ A member can add Claude to a channel in any of these ways:
 
 * Invite it with `/invite @Claude` in the channel
 * Select **Add to channel** on a channel Claude suggests in a direct message. Claude's welcome message, the introduction it posts when a member first opens a direct message with it, suggests public channels this way.
-* Select **Approve and post** on a message Claude drafts in a direct message for a public channel it isn't a member of. When the member approves, Claude posts the message and joins that channel. [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works#what-claude-can-do-in-other-channels) covers the flow.
+* Select **Approve and post** on a message Claude drafts in a direct message for a public channel it isn't a member of. When the member approves, Claude posts the message and joins that channel. [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels) covers the flow.
 * Select a channel in a weekly suggestion message. About once a week, Claude sends the person who connected the workspace a direct message that suggests public channels to add it to. That person can stop the suggestions from any of those messages.
 
 Claude picks the channels to suggest from public channel names, topics, and purposes, and from public-channel search. Claude doesn't join a channel to evaluate it.
 
-A Claude organization Owner can also set [auto-join channel patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), so Claude joins a public channel whose name matches when the channel is created or renamed.
+A Claude organization Owner can also set [auto-join channel patterns](/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name), so Claude joins a public channel whose name matches when the channel is created or renamed.
 
 When a member selects **Add to channel** or **Approve and post**, picks a channel in a suggestion message, or an auto-join pattern matches, Claude adds itself to that channel using its `channels:join` scope. Slack's audit log records the join as the Claude app, with no inviter shown; neither the member's selection nor the matched pattern is visible in Slack's log. If you see a join in the audit log that no one can explain, a member selected one of these buttons or an auto-join pattern matched. Outside these paths, Claude does not join channels on its own.
 
 Reading a channel's full history requires being added there. Workspace search can surface public-channel content, the same as any app with the search scope.
 
-In a Slack Connect channel (shared with another company), Claude answers only where an Owner or a Claude Tag admin of your Claude organization has [turned it on](/docs/claude-tag/admins/restrict-access#slack-connect-channels), and then with [limited access](/docs/claude-tag/admins/restrict-access#what-access-claude-has-in-a-slack-connect-channel).
+In a Slack Connect channel (shared with another company), Claude answers only where an Owner or a Claude Tag admin of your Claude organization has [turned it on](/docs/claude-tag/admins/restrict-access.md#slack-connect-channels), and then with [limited access](/docs/claude-tag/admins/restrict-access.md#what-access-claude-has-in-a-slack-connect-channel).
 
 ## Requested scopes
 
@@ -39,12 +39,12 @@ The app requests bot scopes for reading and posting in channels it's a member of
 
 Two scopes a Slack admin commonly asks about:
 
-* `channels:join` lets Claude add itself to a public channel when a member selects one of its suggested-channel buttons, when a member approves a message it drafted in a direct message for that channel, or when the channel's name matches an [auto-join channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) an admin set. It cannot join private channels this way.
+* `channels:join` lets Claude add itself to a public channel when a member selects one of its suggested-channel buttons, when a member approves a message it drafted in a direct message for that channel, or when the channel's name matches an [auto-join channel pattern](/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) an admin set. It cannot join private channels this way.
 * `users:read.email` lets Claude read a member's profile email. Claude uses it for checks such as the email domain when a member connects their Claude account. It does not connect accounts; a member still runs the Connect step in Slack.
 
 ## What installing does not grant
 
-Credentials for GitHub, Google Drive, a data warehouse, or anything else are provisioned separately by an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) of the Claude organization and live on Anthropic's side rather than in Slack.
+Credentials for GitHub, Google Drive, a data warehouse, or anything else are provisioned separately by an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) of the Claude organization and live on Anthropic's side rather than in Slack.
 
 It responds when @-mentioned, and may respond to other messages it judges warrant a reply.
 
@@ -52,15 +52,15 @@ It responds when @-mentioned, and may respond to other messages it judges warran
 
 Post `@Claude connect` in any channel with no other text, or send `connect` on its own in a direct message with Claude, and give the code it returns to whoever asked you to install. That code is what pairs your workspace to their Claude organization; it expires after 15 minutes.
 
-Pick a channel that belongs to just your workspace. Claude can decline to reply in [guest and shared channels](/docs/claude-tag/admins/troubleshooting#guest-and-shared-channels).
+Pick a channel that belongs to just your workspace. Claude can decline to reply in [guest and shared channels](/docs/claude-tag/admins/troubleshooting.md#guest-and-shared-channels).
 
 ## If you uninstall the app
 
-Uninstalling the Claude app from your workspace removes it from Slack and deletes the workspace's Claude data on Anthropic's side, the same way [disconnecting the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing) from the Claude console does. What Claude posted in Slack, such as messages, canvases, and files, stays in Slack under your workspace's own retention settings.
+Uninstalling the Claude app from your workspace removes it from Slack and deletes the workspace's Claude data on Anthropic's side, the same way [disconnecting the workspace](/docs/claude-tag/admins/workspaces.md#revoke-a-pairing) from the Claude console does. What Claude posted in Slack, such as messages, canvases, and files, stays in Slack under your workspace's own retention settings.
 
 On Enterprise Grid, this applies when the app was installed on an individual workspace and you uninstall it there. Removing an org-wide installation, from the whole grid or from one of its workspaces, doesn't delete data on its own; to delete it, ask an Owner of the Claude organization to disconnect the Grid in its Claude Tag settings.
 
 ## Related resources
 
-* [Security and data handling](/docs/claude-tag/concepts/security-and-data): where credentials are stored and what leaves your workspace
+* [Security and data handling](/docs/claude-tag/concepts/security-and-data.md): where credentials are stored and what leaves your workspace
 * [Pair your Slack workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace): what the Claude organization's Owner does with the code you send

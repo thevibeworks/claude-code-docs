@@ -6,15 +6,15 @@
 
 > Add an MCP App to the quickstart MCP server: register a ui:// resource with the MCP Apps SDK, link it to a tool, and check that the server advertises the UI.
 
-An [MCP App](/docs/connectors/building/mcp-apps/getting-started) is interactive UI that your MCP server renders inside a Claude conversation, such as an interactive chart or map. In this quickstart you give the `roll_dice` tool from [Build your first MCP server for Claude](/docs/connectors/building/quickstart) a small UI that draws each die and has a **Roll again** button, by adding about 50 lines to the same `server.mjs` and no build tooling. At the end your server advertises the UI the way an MCP Apps host expects, and you've checked that from the command line.
+An [MCP App](/docs/connectors/building/mcp-apps/getting-started.md) is interactive UI that your MCP server renders inside a Claude conversation, such as an interactive chart or map. In this quickstart you give the `roll_dice` tool from [Build your first MCP server for Claude](/docs/connectors/building/quickstart.md) a small UI that draws each die and has a **Roll again** button, by adding about 50 lines to the same `server.mjs` and no build tooling. At the end your server advertises the UI the way an MCP Apps host expects, and you've checked that from the command line.
 
 This quickstart is for developers who finished the first quickstart and have its server on their machine. It stops at what you can verify locally: seeing the UI render needs the server hosted where Claude can reach it, which the last section covers.
 
 > [!NOTE]
 >
-> * If you haven't built the quickstart server yet, start with [Build your first MCP server for Claude](/docs/connectors/building/quickstart)
-> * If you want to see finished MCP Apps running in Claude first, see [Try an example MCP App in Claude Desktop](/docs/connectors/building/mcp-apps/getting-started#try-an-example-mcp-app-in-claude-desktop)
-> * If you're adding UI to your own production server, see [Build your own MCP App](/docs/connectors/building/mcp-apps/getting-started#build-your-own-mcp-app) for the SDK documentation and full examples
+> * If you haven't built the quickstart server yet, start with [Build your first MCP server for Claude](/docs/connectors/building/quickstart.md)
+> * If you want to see finished MCP Apps running in Claude first, see [Try an example MCP App in Claude Desktop](/docs/connectors/building/mcp-apps/getting-started.md#try-an-example-mcp-app-in-claude-desktop)
+> * If you're adding UI to your own production server, see [Build your own MCP App](/docs/connectors/building/mcp-apps/getting-started.md#build-your-own-mcp-app) for the SDK documentation and full examples
 
 ## Install the MCP Apps SDK
 
@@ -313,14 +313,14 @@ Claude Code still works with the server after these edits, as a text-only client
 
 Rendering the UI takes a host that supports MCP Apps, such as the Claude desktop app. Claude Code calls the tool as text and doesn't render the UI. When you add a server by its URL on claude.ai or in the desktop app, Claude connects to it from Anthropic's infrastructure over the internet, so a `localhost` address isn't reachable that way. To see an MCP App render, take one of these routes:
 
-* **Host this server and add it as a custom connector**: give the server a public HTTPS URL, or expose it through a tunnel while you iterate as [Test a local server](/docs/connectors/building/testing#test-a-local-server) describes. Then [add it by URL](/docs/connectors/custom/add-unlisted#add-a-connector-by-url), turn the connector on in a chat, and ask Claude to roll dice. If the tool runs but no UI appears, [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting) lists what to check
-* **Run a finished example locally in Claude Desktop**: [Try an example MCP App in Claude Desktop](/docs/connectors/building/mcp-apps/getting-started#try-an-example-mcp-app-in-claude-desktop) connects one of the SDK's example servers through the desktop app's configuration file, with nothing to host
+* **Host this server and add it as a custom connector**: give the server a public HTTPS URL, or expose it through a tunnel while you iterate as [Test a local server](/docs/connectors/building/testing.md#test-a-local-server) describes. Then [add it by URL](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url), turn the connector on in a chat, and ask Claude to roll dice. If the tool runs but no UI appears, [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting.md) lists what to check
+* **Run a finished example locally in Claude Desktop**: [Try an example MCP App in Claude Desktop](/docs/connectors/building/mcp-apps/getting-started.md#try-an-example-mcp-app-in-claude-desktop) connects one of the SDK's example servers through the desktop app's configuration file, with nothing to host
 
-Before you host this server for other people, add authentication, because as written it lets anyone who can reach it call its tools. [Authentication for connectors](/docs/connectors/building/authentication) covers the options.
+Before you host this server for other people, add authentication, because as written it lets anyone who can reach it call its tools. [Authentication for connectors](/docs/connectors/building/authentication.md) covers the options.
 
 ## Next steps
 
-* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines): choose a display mode and use Claude's style variables so the UI looks native in the conversation
+* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines.md): choose a display mode and use Claude's style variables so the UI looks native in the conversation
 * [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): give the UI a stable sandbox origin, which it needs if it runs its own OAuth flow
-* [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting): open developer tools in Claude and fix a UI that doesn't appear
-* [Submit a connector](/docs/connectors/building/submission): list the server in the directory, including the screenshots an MCP App listing needs
+* [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting.md): open developer tools in Claude and fix a UI that doesn't appear
+* [Submit a connector](/docs/connectors/building/submission.md): list the server in the directory, including the screenshots an MCP App listing needs

@@ -29,11 +29,11 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 | Claude's programmatic access token | The programmatic access token from Snowflake |
 | Allowed websites | Your account's host, for example `yourorg-youraccount.snowflakecomputing.com` |
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. The **Allowed websites** field shows `*.snowflakecomputing.com` only as a hint, and a wildcard under `snowflakecomputing.com` can't be saved. Enter your account's host there, then click **Connect** to save the connector.
+The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows `*.snowflakecomputing.com` only as a hint, and a wildcard under `snowflakecomputing.com` can't be saved. Enter your account's host there, then click **Connect** to save the connector.
 
 To change the host later, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Snowflake**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -47,5 +47,5 @@ Snowflake appears in the list once the connector is live. New threads pick up th
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/answer-data-questions): warehouse questions answered with charts in the thread
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the full credential-type and allowed-hosts reference
+* [What this connection adds](/docs/claude-tag/users/use-cases/answer-data-questions.md): warehouse questions answered with charts in the thread
+* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

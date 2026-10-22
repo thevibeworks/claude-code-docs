@@ -12,7 +12,7 @@
 
 This document provides security considerations for the Model Context
 Protocol (MCP), complementing the
-[MCP Authorization](/specification/2025-03-26/basic/authorization)
+[MCP Authorization](/specification/2025-03-26/basic/authorization.md)
 specification. This document identifies security risks, attack vectors,
 and best practices specific to MCP implementations.
 
@@ -152,7 +152,7 @@ possible:
    consent screen
 6. The MCP authorization code is redirected to the attacker's server
    (specified in the malicious `redirect_uri` parameter during
-   [dynamic client registration](/specification/2025-03-26/basic/authorization#dynamic-client-registration))
+   [dynamic client registration](/specification/2025-03-26/basic/authorization.md#dynamic-client-registration))
 7. The attacker exchanges the stolen authorization code for access
    tokens for the MCP server without the user's explicit approval
 8. The attacker now has access to the third-party API as the compromised
@@ -288,7 +288,7 @@ downstream API.
 #### Risks
 
 Token passthrough is explicitly forbidden in the
-[authorization specification](/specification/2025-03-26/basic/authorization)
+[authorization specification](/specification/2025-03-26/basic/authorization.md)
 as it introduces a number of security risks, that include:
 
 * **Security Control Circumvention**
@@ -542,7 +542,7 @@ the following attack vectors are possible:
 2. The attacker obtains an existing session ID and sends a malicious
    event to **Server B** with said session ID.
    * When a server supports
-     [redelivery/resumable streams](/specification/2025-03-26/basic/transports#resumability-and-redelivery),
+     [redelivery/resumable streams](/specification/2025-03-26/basic/transports.md#resumability-and-redelivery),
      deliberately terminating the request before receiving the response
      could lead to it being resumed by the original client via the GET
      request for server sent events.

@@ -6,15 +6,15 @@
 
 > Build a plugin with one skill and an optional MCP connector, test it in Claude Code, validate it, and push it to GitHub, ready to submit your own.
 
-By the end of this quickstart, you have a working example plugin with one skill and, optionally, one remote MCP connector, tested in Claude Code, validated, and pushed to GitHub, which is everything a plugin needs before you submit it to [Anthropic's directory](/docs/directory/publish). A plugin is a folder that packages skills, MCP connectors, commands, and agents, in any combination, so that people add them together.
+By the end of this quickstart, you have a working example plugin with one skill and, optionally, one remote MCP connector, tested in Claude Code, validated, and pushed to GitHub, which is everything a plugin needs before you submit it to [Anthropic's directory](/docs/directory/publish.md). A plugin is a folder that packages skills, MCP connectors, commands, and agents, in any combination, so that people add them together.
 
 This quickstart is for developers who have Claude Code installed and want to learn the plugin format by building one. You can follow it with a product that has a remote MCP server, or with only a skill.
 
 > [!NOTE]
 >
-> * If you want to make a plugin from a conversation without writing files, see [Create a plugin with Claude](/docs/plugins/create-with-claude)
-> * If you want to distribute a plugin only inside your own organization, see [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
-> * If you want to look up the folder layout, the manifest fields, or what each surface loads, see [Plugin structure and testing](/docs/plugins/build)
+> * If you want to make a plugin from a conversation without writing files, see [Create a plugin with Claude](/docs/plugins/create-with-claude.md)
+> * If you want to distribute a plugin only inside your own organization, see [Roll out a plugin to your whole organization](/docs/plugins/org-rollout.md)
+> * If you want to look up the folder layout, the manifest fields, or what each surface loads, see [Plugin structure and testing](/docs/plugins/build.md)
 
 ## Before you create the plugin
 
@@ -44,7 +44,7 @@ The example has the fields that every surface and the directory read:
 }
 ```
 
-People install and refer to the plugin by its `name`. Use lowercase words joined by hyphens, make the name specific to your product, and never change it after release. [Manifest and plugin name](/docs/plugins/pre-submission-checklist#manifest-and-plugin-name) lists the directory's checks on the name.
+People install and refer to the plugin by its `name`. Use lowercase words joined by hyphens, make the name specific to your product, and never change it after release. [Manifest and plugin name](/docs/plugins/pre-submission-checklist.md#manifest-and-plugin-name) lists the directory's checks on the name.
 
 **2. Add a skill**
 
@@ -64,7 +64,7 @@ To file an expense:
 4. Reply with the report number and its approval status. Don't paste the full API response.
 ```
 
-Claude decides when to load the skill from the `description` line, so write it as the situations a user would be in. [Create custom skills](/docs/skills/how-to) covers the frontmatter fields, resource files, scripts, and testing.
+Claude decides when to load the skill from the `description` line, so write it as the situations a user would be in. [Create custom skills](/docs/skills/how-to.md) covers the frontmatter fields, resource files, scripts, and testing.
 
 **3. Add an MCP connector**
 
@@ -83,11 +83,11 @@ Skip this step if your plugin has only a skill. If your product has a remote MCP
 
 There is no server at `mcp.example.com`, so this example connector fails to connect when you test the plugin. Replace the URL with your own server's, or leave `.mcp.json` out.
 
-Don't put API keys or other secrets in this file, because every person who installs the plugin receives its files. On claude.ai and in Cowork, the entry is listed on the plugin's **Connectors** tab, where the user [adds or connects it](/docs/plugins/overview#bundled-connectors) and signs in through your server's OAuth flow. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
+Don't put API keys or other secrets in this file, because every person who installs the plugin receives its files. On claude.ai and in Cowork, the entry is listed on the plugin's **Connectors** tab, where the user [adds or connects it](/docs/plugins/overview.md#bundled-connectors) and signs in through your server's OAuth flow. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
 
 **4. Write the README**
 
-Create `README.md` in the plugin folder with at least 40 words. Words inside code blocks don't count. Say what the plugin does, how to use it, and what data it sends. The directory shows your README as the listing's description, and [README and license](/docs/plugins/pre-submission-checklist#readme-and-license) lists what validation checks.
+Create `README.md` in the plugin folder with at least 40 words. Words inside code blocks don't count. Say what the plugin does, how to use it, and what data it sends. The directory shows your README as the listing's description, and [README and license](/docs/plugins/pre-submission-checklist.md#readme-and-license) lists what validation checks.
 
 This README covers those three points for the example plugin:
 
@@ -125,7 +125,7 @@ In that session, your skill appears as `/expense-reports:file-expense`. If you a
 
 To try the skill, describe one of the situations that its `description` line names, such as a receipt you want reimbursed. Claude decides when to load the skill from that line.
 
-To test the plugin on claude.ai and in Cowork as well, see [Test the plugin on each surface](/docs/plugins/build#test-the-plugin-on-each-surface).
+To test the plugin on claude.ai and in Cowork as well, see [Test the plugin on each surface](/docs/plugins/build.md#test-the-plugin-on-each-surface).
 
 ## Validate the plugin
 
@@ -143,7 +143,7 @@ The plugin is checked at these points before it's listed, and the portal checks 
 * **Validate in the developer portal**: the **Validate** button in the [developer portal](https://claude.ai/directory/manage) runs every validation check. The directory's own checks, such as the README, license, and name checks, run there and not in the command
 * **The scan after you submit**: checks the plugin's files again and runs a security scan
 
-The [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) lists every check and what each result means.
+The [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md) lists every check and what each result means.
 
 ## Push the plugin to GitHub
 
@@ -175,13 +175,13 @@ The repository's page on github.com now shows `.claude-plugin/`, `skills/`, and 
 
 The `expense-reports` plugin you built on this page is a small demonstration of the format, so there's no reason to submit it: the directory is for plugins other people will use, and it refuses a name another organization has already listed. Use the same steps to build your own plugin, with its own name, skills, and connector.
 
-When your plugin validates and is pushed to a public GitHub repository, submit it from the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage): select **Submit new**, choose **Plugin bundle**, and follow [Submit a plugin](/docs/plugins/submit#submit-a-plugin) for each field and for what happens after you submit. If your plugin points at a remote MCP server you run, [submit that server as a connector too](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector). [Who can submit to the directory](/docs/directory/publish#confirm-you-can-submit-to-the-directory) has the plan and role requirements.
+When your plugin validates and is pushed to a public GitHub repository, submit it from the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage): select **Submit new**, choose **Plugin bundle**, and follow [Submit a plugin](/docs/plugins/submit.md#submit-a-plugin) for each field and for what happens after you submit. If your plugin points at a remote MCP server you run, [submit that server as a connector too](/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector). [Who can submit to the directory](/docs/directory/publish.md#confirm-you-can-submit-to-the-directory) has the plan and role requirements.
 
 ## Next steps
 
-* [Plugin structure and testing](/docs/plugins/build): look up the folder layout and manifest fields, and test on claude.ai and in Cowork
-* [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist): fix each validation and scan finding before you submit
-* [Submit a plugin](/docs/plugins/submit): fill in each portal field, then publish and update the listed plugin
-* [Track your submission](/docs/directory/submission-status): check what your submission's status means and who acts next
-* [Plugin feature support across platforms](/docs/plugins/platform-support): check which of the plugin's components load in chat, Cowork, and Claude Code
+* [Plugin structure and testing](/docs/plugins/build.md): look up the folder layout and manifest fields, and test on claude.ai and in Cowork
+* [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md): fix each validation and scan finding before you submit
+* [Submit a plugin](/docs/plugins/submit.md): fill in each portal field, then publish and update the listed plugin
+* [Track your submission](/docs/directory/submission-status.md): check what your submission's status means and who acts next
+* [Plugin feature support across platforms](/docs/plugins/platform-support.md): check which of the plugin's components load in chat, Cowork, and Claude Code
 * [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals): write eval cases and compare the plugin's results against a run without the plugin

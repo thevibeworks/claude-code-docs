@@ -8,7 +8,7 @@
 
 The Model Context Protocol contributor ladder defines roles, responsibilities, and advancement criteria for the project. It shows community members how to grow their involvement from a first contribution to project leadership.
 
-This document implements [SEP-2148](/seps/2148-contributor-ladder). For Working Group and Interest Group governance, see [SEP-2149](/seps/2149-working-group-charter-template).
+This document implements [SEP-2148](/seps/2148-contributor-ladder.md). For Working Group and Interest Group governance, see [SEP-2149](/seps/2149-working-group-charter-template.md).
 
 ## Guiding Principles
 
@@ -45,7 +45,7 @@ Anyone who has contributed to MCP in any form is a Contributor. This includes op
 
 **Getting started:**
 
-* Review the [Contributing Guide](/community/contributing)
+* Review the [Contributing Guide](/community/contributing.md)
 * Join community channels (Discord, GitHub Discussions)
 * Look for issues tagged `good-first-issue` or `help-wanted`
 * Attend working group meetings
@@ -172,7 +172,7 @@ When evaluating candidates, Core Maintainers should consider whether the current
 **Privileges:**
 
 * Final approval on breaking changes and major spec revisions
-* Voting rights on [SEPs](/community/sep-guidelines)
+* Voting rights on [SEPs](/community/sep-guidelines.md)
 * Approval of Maintainers
 * Governance voting rights and expectation of governance participation
 * Administrative rights to all MCP GitHub repositories
@@ -251,7 +251,7 @@ Community Moderators help keep the MCP community healthy, safe, and welcoming. T
 
 Working Group (WG) Leads and Interest Group (IG) Facilitators are a form of community leadership that does not require Maintainer status. WG and IG leadership centers on facilitation and coordination rather than merge authority.
 
-The full governance rules for WGs and IGs are defined in [SEP-2149: MCP Group Governance and Charter Template](/seps/2149-working-group-charter-template). These include participation tiers, decision-making process, meeting requirements, and lifecycle.
+The full governance rules for WGs and IGs are defined in [SEP-2149: MCP Group Governance and Charter Template](/seps/2149-working-group-charter-template.md). These include participation tiers, decision-making process, meeting requirements, and lifecycle.
 
 **Requirements:**
 
@@ -312,7 +312,7 @@ MCP operates on a principle of delegation. Decisions should be made at the lowes
 
 When in doubt, make the decision at your level and document it. Escalate only when blocked, when the decision has project-wide implications, or when process explicitly requires it.
 
-The detailed escalation procedure for Working Group and Interest Group disputes is defined in [SEP-2149 §1.5](/seps/2149-working-group-charter-template). It includes the designation of a Core Maintainer without shared organizational affiliation to resolve the issue.
+The detailed escalation procedure for Working Group and Interest Group disputes is defined in [SEP-2149 §1.5](/seps/2149-working-group-charter-template.md). It includes the designation of a Core Maintainer without shared organizational affiliation to resolve the issue.
 
 ### Escalation Matrix
 
@@ -341,7 +341,7 @@ MCP values diverse contributions. All of these pathways can lead to advancement.
 
 **Code Contributions.** SDK development (TypeScript, Python, etc.), testing infrastructure, tooling and developer experience.
 
-**Specification Work.** Drafting or refining spec text, [SEP](/community/sep-guidelines) authorship or co-authorship, protocol design participation, compatibility analysis.
+**Specification Work.** Drafting or refining spec text, [SEP](/community/sep-guidelines.md) authorship or co-authorship, protocol design participation, compatibility analysis.
 
 **Documentation.** User guides and tutorials, API documentation, architecture documentation, keeping content current.
 

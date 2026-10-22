@@ -197,7 +197,7 @@ List Memory Versions
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=go#audit-memory-changes) to learn more about memory versions.
 
-  - `Type BetaManagedAgentsMemoryVersionType`
+  - `Type MemoryVersion`
 
   - `ID string`
 
@@ -261,7 +261,7 @@ List Memory Versions
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `Type BetaManagedAgentsSessionActorType`
+      - `Type SessionActor`
 
       - `SessionID string`
 
@@ -273,7 +273,7 @@ List Memory Versions
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `Type BetaManagedAgentsAPIActorType`
+      - `Type APIActor`
 
       - `APIKeyID string`
 
@@ -285,7 +285,7 @@ List Memory Versions
 
       A human user, for example acting through the Anthropic Console.
 
-      - `Type BetaManagedAgentsUserActorType`
+      - `Type UserActor`
 
       - `UserID string`
 
@@ -332,8 +332,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {

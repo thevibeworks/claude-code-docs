@@ -137,7 +137,7 @@ Archive Session
 
   A Managed Agents `session`.
 
-  - `Type type`
+  - `JsonValue type = "session"`
 
   - `String id`
 
@@ -145,7 +145,7 @@ Archive Session
 
     Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
-    - `Type type`
+    - `JsonValue type = "agent"`
 
     - `String id`
 
@@ -173,7 +173,7 @@ Archive Session
 
     - `List<BetaManagedAgentsMcpServerUrlDefinition> mcpServers`
 
-      - `Type type`
+      - `JsonValue type = "url"`
 
       - `String name`
 
@@ -265,31 +265,31 @@ Archive Session
 
           Low effort. Favors latency over reasoning depth.
 
-          - `Type type`
+          - `JsonValue type = "low"`
 
         - `class BetaManagedAgentsEffortMedium`
 
           Medium effort. Balances latency and reasoning depth.
 
-          - `Type type`
+          - `JsonValue type = "medium"`
 
         - `class BetaManagedAgentsEffortHigh`
 
           High effort. Favors reasoning depth.
 
-          - `Type type`
+          - `JsonValue type = "high"`
 
         - `class BetaManagedAgentsEffortXhigh`
 
           Extra-high effort. Not all models accept this level.
 
-          - `Type type`
+          - `JsonValue type = "xhigh"`
 
         - `class BetaManagedAgentsEffortMax`
 
           Maximum effort. Favors reasoning depth over latency.
 
-          - `Type type`
+          - `JsonValue type = "max"`
 
       - `Optional<String> inferenceGeo`
 
@@ -311,7 +311,7 @@ Archive Session
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `Type type`
+        - `JsonValue type = "coordinator"`
 
         - `List<Agent> agents`
 
@@ -321,7 +321,7 @@ Archive Session
 
             Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-            - `Type type`
+            - `JsonValue type = "agent"`
 
             - `String id`
 
@@ -333,7 +333,7 @@ Archive Session
 
             - `List<BetaManagedAgentsMcpServerUrlDefinition> mcpServers`
 
-              - `Type type`
+              - `JsonValue type = "url"`
 
               - `String name`
 
@@ -351,7 +351,7 @@ Archive Session
 
                 A resolved Anthropic-managed skill.
 
-                - `Type type`
+                - `JsonValue type = "anthropic"`
 
                 - `String skillId`
 
@@ -361,7 +361,7 @@ Archive Session
 
                 A resolved user-created custom skill.
 
-                - `Type type`
+                - `JsonValue type = "custom"`
 
                 - `String skillId`
 
@@ -373,7 +373,7 @@ Archive Session
 
               - `class BetaManagedAgentsAgentToolset20260401`
 
-                - `Type type`
+                - `JsonValue type = "agent_toolset_20260401"`
 
                 - `List<BetaManagedAgentsAgentToolConfig> configs`
 
@@ -395,13 +395,13 @@ Archive Session
 
                         Tool calls are automatically approved without user confirmation.
 
-                        - `Type type`
+                        - `JsonValue type = "always_allow"`
 
                       - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                        - `Type type`
+                        - `JsonValue type = "always_ask"`
 
                       - `class BetaManagedAgentsAutoPolicy`
 
@@ -733,7 +733,7 @@ Archive Session
 
               - `class BetaManagedAgentsMcpToolset`
 
-                - `Type type`
+                - `JsonValue type = "mcp_toolset"`
 
                 - `List<BetaManagedAgentsMcpToolConfig> configs`
 
@@ -785,7 +785,7 @@ Archive Session
 
                 A custom tool as returned in API responses.
 
-                - `Type type`
+                - `JsonValue type = "custom"`
 
                 - `String description`
 
@@ -809,7 +809,7 @@ Archive Session
 
             Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-            - `Type type`
+            - `JsonValue type = "advisor"`
 
             - `String model`
 
@@ -871,7 +871,7 @@ Archive Session
 
               Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
 
-              - `Type type`
+              - `JsonValue type = "agent"`
 
               - `String id`
 
@@ -923,7 +923,7 @@ Archive Session
 
               Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
 
-              - `Type type`
+              - `JsonValue type = "agent"`
 
               - `String id`
 
@@ -995,7 +995,7 @@ Archive Session
 
     The session's enforced spend ceiling, or null when no budget is set.
 
-    - `Type type`
+    - `JsonValue type = "limit"`
 
     - `BetaMonetaryAmount maxListCost`
 
@@ -1023,7 +1023,7 @@ Archive Session
 
     Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
-    - `Type type`
+    - `JsonValue type = "outcome_evaluation"`
 
     - `Optional<LocalDateTime> completedAt`
 
@@ -1057,7 +1057,7 @@ Archive Session
 
     - `class BetaManagedAgentsGitHubRepositoryResource`
 
-      - `Type type`
+      - `JsonValue type = "github_repository"`
 
       - `String id`
 
@@ -1081,7 +1081,7 @@ Archive Session
 
         - `class BetaManagedAgentsBranchCheckout`
 
-          - `Type type`
+          - `JsonValue type = "branch"`
 
           - `String name`
 
@@ -1091,7 +1091,7 @@ Archive Session
 
         - `class BetaManagedAgentsCommitCheckout`
 
-          - `Type type`
+          - `JsonValue type = "commit"`
 
           - `String sha`
 
@@ -1101,7 +1101,7 @@ Archive Session
 
     - `class BetaManagedAgentsFileResource`
 
-      - `Type type`
+      - `JsonValue type = "file"`
 
       - `String id`
 
@@ -1125,7 +1125,7 @@ Archive Session
 
       A memory store attached to an agent session.
 
-      - `Type type`
+      - `JsonValue type = "memory_store"`
 
       - `String memoryStoreId`
 

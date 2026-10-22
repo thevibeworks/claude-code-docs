@@ -15,7 +15,7 @@ Process
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -35,7 +35,7 @@ Process
 
 This SEP establishes a formal contributor ladder for the Model Context Protocol project, defining clear roles, responsibilities, and advancement criteria from first-time contributor through Core Maintainer. The ladder provides transparent pathways for community members to understand how they can grow their involvement and influence within the project.
 
-This SEP is a companion to [SEP-2149: MCP Group Governance and Charter Template](./2149-working-group-charter-template.md), which defines how Working Groups and Interest Groups operate. The two SEPs intersect: WG/IG leadership requires Member status on this ladder, and group participation is a recognized pathway to ladder advancement.
+This SEP is a companion to [SEP-2149: MCP Group Governance and Charter Template](/seps/2149-working-group-charter-template.md), which defines how Working Groups and Interest Groups operate. The two SEPs intersect: WG/IG leadership requires Member status on this ladder, and group participation is a recognized pathway to ladder advancement.
 
 ## Motivation
 
@@ -91,7 +91,7 @@ Anyone who has contributed to MCP in any form is a contributor. This includes:
 
 **How to get started:**
 
-* Review the [Contributing Guide](https://modelcontextprotocol.io/community/contributing)
+* Review the [Contributing Guide](https://modelcontextprotocol.io/community/contributing.md)
 * Join community channels (Discord, GitHub Discussions)
 * Look for issues tagged `good-first-issue` or `help-wanted`
 * Attend working group meetings
@@ -208,7 +208,7 @@ When evaluating candidates, Core Maintainers should consider whether the current
 **Privileges:**
 
 * Final approval on breaking changes and major spec revisions
-* Voting rights on [SEPs](https://modelcontextprotocol.io/community/sep-guidelines) (Specification Enhancement Proposals)
+* Voting rights on [SEPs](https://modelcontextprotocol.io/community/sep-guidelines.md) (Specification Enhancement Proposals)
 * Approval of Maintainers
 * Governance voting rights / expectation of governance participation
 * Administrative rights to all MCP GitHub repositories
@@ -280,7 +280,7 @@ MCP operates on a principle of delegation: decisions should be made at the lowes
 
 When in doubt, make the decision at your level and document it. Escalate only when blocked, when the decision has project-wide implications, or when explicitly required by process.
 
-The detailed escalation procedure for Working Group and Interest Group disputes — including the designation of a Core Maintainer without shared organizational affiliation to resolve the issue — is defined in [SEP-2149 §1.5](./2149-working-group-charter-template.md).
+The detailed escalation procedure for Working Group and Interest Group disputes — including the designation of a Core Maintainer without shared organizational affiliation to resolve the issue — is defined in [SEP-2149 §1.5](/seps/2149-working-group-charter-template.md).
 
 #### Escalation Matrix
 
@@ -314,7 +314,7 @@ MCP values diverse contributions. Here are recognized pathways to advancement:
 #### Specification Work
 
 * Drafting or refining spec text
-* [SEP](https://modelcontextprotocol.io/community/sep-guidelines) authorship or co-authorship
+* [SEP](https://modelcontextprotocol.io/community/sep-guidelines.md) authorship or co-authorship
 * Protocol design participation
 * Compatibility analysis
 
@@ -341,7 +341,7 @@ MCP values diverse contributions. Here are recognized pathways to advancement:
 
 ### Working Group and Interest Group Leadership
 
-Working Group (WG) Leads and Interest Group (IG) Facilitators are a special form of community leadership that doesn't require Maintainer status. WG/IG leadership focuses on facilitation and coordination rather than merge authority. The full governance rules for WGs and IGs — including participation tiers, decision-making process, meeting requirements, and lifecycle — are defined in [SEP-2149: MCP Group Governance and Charter Template](./2149-working-group-charter-template.md).
+Working Group (WG) Leads and Interest Group (IG) Facilitators are a special form of community leadership that doesn't require Maintainer status. WG/IG leadership focuses on facilitation and coordination rather than merge authority. The full governance rules for WGs and IGs — including participation tiers, decision-making process, meeting requirements, and lifecycle — are defined in [SEP-2149: MCP Group Governance and Charter Template](/seps/2149-working-group-charter-template.md).
 
 **Requirements:**
 

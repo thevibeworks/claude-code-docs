@@ -75,7 +75,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 ```bash
 ant beta:tunnels:certificates archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```

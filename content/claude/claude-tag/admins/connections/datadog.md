@@ -42,11 +42,11 @@ Every entry asks for the same fields in the connect form.
 | Claude's application key | The Application key from Datadog. Optional in the form; add it so Claude can read metrics, monitors, and dashboards |
 | Allowed websites | The entry's API host (preset) |
 
-If the connect form offers to include the Datadog plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+If the connect form offers to include the Datadog plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-The connector is created with path prefixes that cover Datadog's read and query routes: metric, log, trace, and RUM queries, monitors, downtimes, dashboards, SLOs, notebooks, events, hosts, service definitions, and incident search. It doesn't cover Datadog's key, user, integration, or log-configuration management routes, so Claude can't call those through it. To narrow the connector further, for example to `GET` only, or to allow another route, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click your Datadog connector, open the menu on the credential's row in the **Access from** table, and click **Edit**. See [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
+The connector is created with path prefixes that cover Datadog's read and query routes: metric, log, trace, and RUM queries, monitors, downtimes, dashboards, SLOs, notebooks, events, hosts, service definitions, and incident search. It doesn't cover Datadog's key, user, integration, or log-configuration management routes, so Claude can't call those through it. To narrow the connector further, for example to `GET` only, or to allow another route, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click your Datadog connector, open the menu on the credential's row in the **Access from** table, and click **Edit**. See [Restrict by path or method](/docs/claude-tag/admins/add-connections.md#restrict-by-path-or-method).
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -60,5 +60,5 @@ Datadog appears in the list once the connector is live. New threads pick up the 
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/watch-monitors): the monitoring use cases
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the full credential-type and allowed-hosts reference
+* [What this connection adds](/docs/claude-tag/users/use-cases/watch-monitors.md): the monitoring use cases
+* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

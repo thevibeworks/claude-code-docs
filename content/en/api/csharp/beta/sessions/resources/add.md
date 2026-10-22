@@ -15,9 +15,7 @@ Add Session Resource
 
 - `ResourceAddParams parameters`
 
-  - `required Type type`
-
-    - `File("file")`
+  - `JsonElement type = "file"`
 
   - `required string sessionID` (path parameter)
 
@@ -151,7 +149,7 @@ Add Session Resource
 
 - `class BetaManagedAgentsFileResource`
 
-  - `required BetaManagedAgentsFileResourceType Type`
+  - `JsonElement Type = "file"`
 
   - `required string ID`
 
@@ -175,13 +173,14 @@ Add Session Resource
 
 ```csharp
 using System;
-using Resources = Anthropic.Models.Beta.Sessions.Resources;
+using System.Text.Json;
+using Anthropic.Models.Beta.Sessions.Resources;
 
-Resources::ResourceAddParams parameters = new()
+ResourceAddParams parameters = new()
 {
     SessionID = "sesn_011CZkZAtmR3yMPDzynEDxu7",
     FileID = "file_011CNha8iCJcU1wXNR6q4V8w",
-    Type = Resources::Type.File,
+    Type = JsonSerializer.SerializeToElement("file"),
 };
 
 var betaManagedAgentsFileResource = await client.Beta.Sessions.Resources.Add(parameters);

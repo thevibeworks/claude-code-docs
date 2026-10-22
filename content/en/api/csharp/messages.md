@@ -80,290 +80,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=csharp).
 
-    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=csharp#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=csharp#give-claude-a-role), you can use the top-level `system` parameter.
 
     There is a limit of 100,000 messages in a single request.
 
-    - `required Content Content`
+    - `class UserMessageParam`
 
-      - `string`
+      - `required MessageContentParam Content`
 
-      - `IReadOnlyList<ContentBlockParam>`
+        - `string`
 
-        - `class TextBlockParam`
+        - `IReadOnlyList<ContentBlockParam>`
 
-          - `JsonElement Type = "text"`
-
-          - `required string Text`
-
-            minLength: 1
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-            - `JsonElement Type = "ephemeral"`
-
-            - `Ttl Ttl`
-
-              The time-to-live for the cache control breakpoint.
-
-              This may be one the following values:
-
-              - `5m`: 5 minutes
-              - `1h`: 1 hour
-
-              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
-
-              - `Ttl5m("5m")`
-
-              - `Ttl1h("1h")`
-
-          - `IReadOnlyList<TextCitationParam>? Citations`
-
-            - `class CitationCharLocationParam`
-
-              - `JsonElement Type = "char_location"`
-
-              - `required string CitedText`
-
-              - `required long DocumentIndex`
-
-                minimum: 0
-
-              - `required string? DocumentTitle`
-
-                minLength: 1, maxLength: 500
-
-              - `required long EndCharIndex`
-
-              - `required long StartCharIndex`
-
-                minimum: 0
-
-            - `class CitationPageLocationParam`
-
-              - `JsonElement Type = "page_location"`
-
-              - `required string CitedText`
-
-              - `required long DocumentIndex`
-
-                minimum: 0
-
-              - `required string? DocumentTitle`
-
-                minLength: 1, maxLength: 500
-
-              - `required long EndPageNumber`
-
-              - `required long StartPageNumber`
-
-                minimum: 1
-
-            - `class CitationContentBlockLocationParam`
-
-              - `JsonElement Type = "content_block_location"`
-
-              - `required string CitedText`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `required long DocumentIndex`
-
-                minimum: 0
-
-              - `required string? DocumentTitle`
-
-                minLength: 1, maxLength: 500
-
-              - `required long EndBlockIndex`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `required long StartBlockIndex`
-
-                0-based index of the first cited block in the source's `content` array.
-
-                minimum: 0
-
-            - `class CitationWebSearchResultLocationParam`
-
-              - `JsonElement Type = "web_search_result_location"`
-
-              - `required string CitedText`
-
-              - `required string EncryptedIndex`
-
-              - `required string? Title`
-
-                minLength: 1, maxLength: 512
-
-              - `required string Url`
-
-                minLength: 1
-
-            - `class CitationSearchResultLocationParam`
-
-              - `JsonElement Type = "search_result_location"`
-
-              - `required string CitedText`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `required long EndBlockIndex`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `required long SearchResultIndex`
-
-                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                minimum: 0
-
-              - `required string Source`
-
-              - `required long StartBlockIndex`
-
-                0-based index of the first cited block in the source's `content` array.
-
-                minimum: 0
-
-              - `required string? Title`
-
-        - `class ImageBlockParam`
-
-          - `JsonElement Type = "image"`
-
-          - `required Source Source`
-
-            - `class Base64ImageSource`
-
-              - `JsonElement Type = "base64"`
-
-              - `required string Data`
-
-                format: byte
-
-              - `required MediaType MediaType`
-
-                - `ImageJpeg("image/jpeg")`
-
-                - `ImagePng("image/png")`
-
-                - `ImageGif("image/gif")`
-
-                - `ImageWebP("image/webp")`
-
-            - `class UrlImageSource`
-
-              - `JsonElement Type = "url"`
-
-              - `required string Url`
-
-            - `class FileImageSource`
-
-              - `JsonElement Type = "file"`
-
-              - `required string FileID`
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `ImageTransformationsParam? Transformations`
-
-            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-            - `OversizedImage OversizedImage`
-
-              What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-              - `Downsize("downsize")`
-
-              - `Error("error")`
-
-        - `class DocumentBlockParam`
-
-          - `JsonElement Type = "document"`
-
-          - `required Source Source`
-
-            - `class Base64PdfSource`
-
-              - `JsonElement Type = "base64"`
-
-              - `required string Data`
-
-                format: byte
-
-              - `JsonElement MediaType = "application/pdf"`
-
-            - `class PlainTextSource`
-
-              - `JsonElement Type = "text"`
-
-              - `required string Data`
-
-              - `JsonElement MediaType = "text/plain"`
-
-            - `class ContentBlockSource`
-
-              - `JsonElement Type = "content"`
-
-              - `required Content Content`
-
-                - `string`
-
-                - `IReadOnlyList<ContentBlockSourceContent>`
-
-                  - `class TextBlockParam`
-
-                  - `class ImageBlockParam`
-
-            - `class UrlPdfSource`
-
-              - `JsonElement Type = "url"`
-
-              - `required string Url`
-
-            - `class FileDocumentSource`
-
-              - `JsonElement Type = "file"`
-
-              - `required string FileID`
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `CitationsConfigParam? Citations`
-
-            - `bool Enabled`
-
-          - `string? Context`
-
-            minLength: 1
-
-          - `string? Title`
-
-            minLength: 1, maxLength: 500
-
-        - `class SearchResultBlockParam`
-
-          - `JsonElement Type = "search_result"`
-
-          - `required IReadOnlyList<TextBlockParam> Content`
+          - `class TextBlockParam`
 
             - `JsonElement Type = "text"`
 
@@ -375,691 +104,986 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
+              - `JsonElement Type = "ephemeral"`
+
+              - `Ttl Ttl`
+
+                The time-to-live for the cache control breakpoint.
+
+                This may be one the following values:
+
+                - `5m`: 5 minutes
+                - `1h`: 1 hour
+
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+                - `Ttl5m("5m")`
+
+                - `Ttl1h("1h")`
+
             - `IReadOnlyList<TextCitationParam>? Citations`
 
-          - `required string Source`
+              - `class CitationCharLocationParam`
 
-          - `required string Title`
+                - `JsonElement Type = "char_location"`
 
-          - `CacheControlEphemeral? CacheControl`
+                - `required string CitedText`
 
-            Create a cache control breakpoint at this content block.
+                - `required long DocumentIndex`
 
-          - `CitationsConfigParam Citations`
+                  minimum: 0
 
-        - `class ThinkingBlockParam`
+                - `required string? DocumentTitle`
 
-          - `JsonElement Type = "thinking"`
+                  minLength: 1, maxLength: 500
 
-          - `required string Signature`
+                - `required long EndCharIndex`
 
-            The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+                - `required long StartCharIndex`
 
-            Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+                  minimum: 0
 
-          - `required string Thinking`
+              - `class CitationPageLocationParam`
 
-            The `thinking` text of this block as returned by the API.
+                - `JsonElement Type = "page_location"`
 
-        - `class RedactedThinkingBlockParam`
+                - `required string CitedText`
 
-          - `JsonElement Type = "redacted_thinking"`
+                - `required long DocumentIndex`
 
-          - `required string Data`
+                  minimum: 0
 
-            The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+                - `required string? DocumentTitle`
 
-        - `class ToolUseBlockParam`
+                  minLength: 1, maxLength: 500
 
-          - `JsonElement Type = "tool_use"`
+                - `required long EndPageNumber`
 
-          - `required string ID`
+                - `required long StartPageNumber`
 
-            pattern: ^[a-zA-Z0-9_-]+$
+                  minimum: 1
 
-          - `required IReadOnlyDictionary<string, JsonElement> Input`
+              - `class CitationContentBlockLocationParam`
 
-          - `required string Name`
+                - `JsonElement Type = "content_block_location"`
 
-            minLength: 1, maxLength: 200
+                - `required string CitedText`
 
-          - `CacheControlEphemeral? CacheControl`
+                  The full text of the cited block range, concatenated.
 
-            Create a cache control breakpoint at this content block.
+                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-          - `Caller Caller`
+                - `required long DocumentIndex`
 
-            - `class DirectCaller`
+                  minimum: 0
 
-              Tool invocation directly from the model.
+                - `required string? DocumentTitle`
 
-              - `JsonElement Type = "direct"`
+                  minLength: 1, maxLength: 500
 
-            - `class ServerToolCaller`
+                - `required long EndBlockIndex`
 
-              Tool invocation generated by a server-side tool.
+                  Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-              - `JsonElement Type = "code_execution_20250825"`
+                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-              - `required string ToolID`
+                - `required long StartBlockIndex`
 
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                  0-based index of the first cited block in the source's `content` array.
 
-            - `class ServerToolCaller20260120`
+                  minimum: 0
 
-              - `JsonElement Type = "code_execution_20260120"`
+              - `class CitationWebSearchResultLocationParam`
 
-              - `required string ToolID`
+                - `JsonElement Type = "web_search_result_location"`
 
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                - `required string CitedText`
 
-          - `string? ToolsetName`
+                - `required string EncryptedIndex`
 
-            For a toolset member tool_use, the toolset family this member belongs to.
+                - `required string? Title`
 
-            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                  minLength: 1, maxLength: 512
 
-        - `class ToolResultBlockParam`
+                - `required string Url`
 
-          - `JsonElement Type = "tool_result"`
+                  minLength: 1
 
-          - `required string ToolUseID`
+              - `class CitationSearchResultLocationParam`
 
-            pattern: ^[a-zA-Z0-9_-]+$
+                - `JsonElement Type = "search_result_location"`
 
-          - `CacheControlEphemeral? CacheControl`
+                - `required string CitedText`
 
-            Create a cache control breakpoint at this content block.
+                  The full text of the cited block range, concatenated.
 
-          - `Content Content`
+                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-            - `string`
+                - `required long EndBlockIndex`
 
-            - `IReadOnlyList<Block>`
+                  Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-              - `class TextBlockParam`
+                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-              - `class ImageBlockParam`
+                - `required long SearchResultIndex`
 
-              - `class SearchResultBlockParam`
+                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
-              - `class DocumentBlockParam`
+                  Counted separately from `document_index`; server-side web search results are not included in this count.
 
-              - `class ToolReferenceBlockParam`
+                  minimum: 0
 
-                Tool reference block that can be included in tool_result content.
+                - `required string Source`
 
-                - `JsonElement Type = "tool_reference"`
+                - `required long StartBlockIndex`
 
-                - `required string ToolName`
+                  0-based index of the first cited block in the source's `content` array.
 
-                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minimum: 0
 
-                - `CacheControlEphemeral? CacheControl`
+                - `required string? Title`
 
-                  Create a cache control breakpoint at this content block.
+          - `class ImageBlockParam`
 
-              - `class BrowserStateBlockParam`
+            - `JsonElement Type = "image"`
 
-                The caller's browser state after a browser toolset member call —
-                the full inventory of open tabs, which tab is active, and any side
-                effects (tabs opened, download state changes) the call produced.
+            - `required Source Source`
 
-                At most one per `tool_result`, only on a non-error result answering a
-                browser toolset member `tool_use`. The server renders the
-                model-visible text from it; the model never sees the raw fields.
+              - `class Base64ImageSource`
 
-                - `JsonElement Type = "browser_state"`
+                - `JsonElement Type = "base64"`
 
-                - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+                - `required string Data`
 
-                  All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+                  format: byte
 
-                  maxItems: 100
+                - `required MediaType MediaType`
 
-                  - `required string TabID`
+                  - `ImageJpeg("image/jpeg")`
 
-                    The caller-assigned identifier for this tab, unique within the inventory.
+                  - `ImagePng("image/png")`
 
-                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  - `ImageGif("image/gif")`
 
-                  - `required string Title`
+                  - `ImageWebP("image/webp")`
 
-                    The title of the page the tab is showing. May be empty.
+              - `class UrlImageSource`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                - `JsonElement Type = "url"`
 
-                  - `required string Url`
+                - `required string Url`
 
-                    The URL of the page the tab is showing. May be empty.
+              - `class FileImageSource`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                - `JsonElement Type = "file"`
 
-                  - `bool Active`
+                - `required string FileID`
 
-                    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+            - `CacheControlEphemeral? CacheControl`
 
-                - `CacheControlEphemeral? CacheControl`
+              Create a cache control breakpoint at this content block.
 
-                  Create a cache control breakpoint at this content block.
+            - `ImageTransformationsParam? Transformations`
 
-                - `IReadOnlyList<BrowserStateChange>? StateChanges`
+              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-                  Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+              - `OversizedImage OversizedImage`
 
-                  minItems: 1, maxItems: 200
+                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
-                  - `class BrowserStateChangeTabOpened`
+                - `Downsize("downsize")`
 
-                    A tab this call's execution opened that remains open at its end —
-                    the creation delta of the `tabs` inventory, not an event log.
+                - `Error("error")`
 
-                    Carries only the `tab_id`; the tab's `title` and `url` live on its
-                    `tabs` entry, which must include the same `tab_id`. A tab opened
-                    during a failed call gets no deferred `tab_opened`; it simply appears
-                    in the next result's `tabs` inventory.
+          - `class DocumentBlockParam`
 
-                    - `JsonElement Type = "tab_opened"`
+            - `JsonElement Type = "document"`
+
+            - `required Source Source`
+
+              - `class Base64PdfSource`
+
+                - `JsonElement Type = "base64"`
+
+                - `required string Data`
+
+                  format: byte
+
+                - `JsonElement MediaType = "application/pdf"`
+
+              - `class PlainTextSource`
+
+                - `JsonElement Type = "text"`
+
+                - `required string Data`
+
+                - `JsonElement MediaType = "text/plain"`
+
+              - `class ContentBlockSource`
+
+                - `JsonElement Type = "content"`
+
+                - `required Content Content`
+
+                  - `string`
+
+                  - `IReadOnlyList<ContentBlockSourceContent>`
+
+                    - `class TextBlockParam`
+
+                    - `class ImageBlockParam`
+
+              - `class UrlPdfSource`
+
+                - `JsonElement Type = "url"`
+
+                - `required string Url`
+
+              - `class FileDocumentSource`
+
+                - `JsonElement Type = "file"`
+
+                - `required string FileID`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `CitationsConfigParam? Citations`
+
+              - `bool Enabled`
+
+            - `string? Context`
+
+              minLength: 1
+
+            - `string? Title`
+
+              minLength: 1, maxLength: 500
+
+          - `class SearchResultBlockParam`
+
+            - `JsonElement Type = "search_result"`
+
+            - `required IReadOnlyList<TextBlockParam> Content`
+
+              - `JsonElement Type = "text"`
+
+              - `required string Text`
+
+                minLength: 1
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+              - `IReadOnlyList<TextCitationParam>? Citations`
+
+            - `required string Source`
+
+            - `required string Title`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `CitationsConfigParam Citations`
+
+          - `class ThinkingBlockParam`
+
+            - `JsonElement Type = "thinking"`
+
+            - `required string Signature`
+
+              The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+              Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+            - `required string Thinking`
+
+              The `thinking` text of this block as returned by the API.
+
+          - `class RedactedThinkingBlockParam`
+
+            - `JsonElement Type = "redacted_thinking"`
+
+            - `required string Data`
+
+              The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+          - `class ToolUseBlockParam`
+
+            - `JsonElement Type = "tool_use"`
+
+            - `required string ID`
+
+              pattern: ^[a-zA-Z0-9_-]+$
+
+            - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+            - `required string Name`
+
+              minLength: 1, maxLength: 200
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+                - `JsonElement Type = "direct"`
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+                - `JsonElement Type = "code_execution_20250825"`
+
+                - `required string ToolID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `class ServerToolCaller20260120`
+
+                - `JsonElement Type = "code_execution_20260120"`
+
+                - `required string ToolID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `string? ToolsetName`
+
+              For a toolset member tool_use, the toolset family this member belongs to.
+
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+          - `class ToolResultBlockParam`
+
+            - `JsonElement Type = "tool_result"`
+
+            - `required string ToolUseID`
+
+              pattern: ^[a-zA-Z0-9_-]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Content Content`
+
+              - `string`
+
+              - `IReadOnlyList<Block>`
+
+                - `class TextBlockParam`
+
+                - `class ImageBlockParam`
+
+                - `class SearchResultBlockParam`
+
+                - `class DocumentBlockParam`
+
+                - `class ToolReferenceBlockParam`
+
+                  Tool reference block that can be included in tool_result content.
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string ToolName`
+
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                  - `CacheControlEphemeral? CacheControl`
+
+                    Create a cache control breakpoint at this content block.
+
+                - `class BrowserStateBlockParam`
+
+                  The caller's browser state after a browser toolset member call —
+                  the full inventory of open tabs, which tab is active, and any side
+                  effects (tabs opened, download state changes) the call produced.
+
+                  At most one per `tool_result`, only on a non-error result answering a
+                  browser toolset member `tool_use`. The server renders the
+                  model-visible text from it; the model never sees the raw fields.
+
+                  - `JsonElement Type = "browser_state"`
+
+                  - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+                    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                    maxItems: 100
 
                     - `required string TabID`
 
-                      The `tab_id` of the opened tab, present in `tabs`.
+                      The caller-assigned identifier for this tab, unique within the inventory.
 
                       minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadStarted`
+                    - `required string Title`
 
-                    A file download that started during this call.
+                      The title of the page the tab is showing. May be empty.
 
-                    - `JsonElement Type = "download_started"`
-
-                    - `required string DownloadID`
-
-                      The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `required string Url`
 
-                      The final post-redirect URL the download was served from.
+                      The URL of the page the tab is showing. May be empty.
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadCompleted`
+                    - `bool Active`
 
-                    A file download that finished during this call, reported with the
-                    same `download_id` as its `download_started` — or without a prior
-                    `download_started`, when the download finished during the call that
-                    started it (at most one state change per `download_id` per result).
+                      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `JsonElement Type = "download_completed"`
+                  - `CacheControlEphemeral? CacheControl`
 
-                    - `required string DownloadID`
+                    Create a cache control breakpoint at this content block.
 
-                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+                  - `IReadOnlyList<BrowserStateChange>? StateChanges`
 
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                    - `required string Url`
+                    minItems: 1, maxItems: 200
 
-                      The final post-redirect URL the download was served from.
+                    - `class BrowserStateChangeTabOpened`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      A tab this call's execution opened that remains open at its end —
+                      the creation delta of the `tabs` inventory, not an event log.
 
-                    - `string? Path`
+                      Carries only the `tab_id`; the tab's `title` and `url` live on its
+                      `tabs` entry, which must include the same `tab_id`. A tab opened
+                      during a failed call gets no deferred `tab_opened`; it simply appears
+                      in the next result's `tabs` inventory.
 
-                      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+                      - `JsonElement Type = "tab_opened"`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `required string TabID`
 
-                    - `long? SizeBytes`
+                        The `tab_id` of the opened tab, present in `tabs`.
 
-                      The completed download's size.
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      minimum: 0
+                    - `class BrowserStateChangeDownloadStarted`
 
-                  - `class BrowserStateChangeDownloadFailed`
+                      A file download that started during this call.
 
-                    A file download that failed — or was cancelled — during this call.
+                      - `JsonElement Type = "download_started"`
 
-                    - `JsonElement Type = "download_failed"`
+                      - `required string DownloadID`
 
-                    - `required string DownloadID`
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `required string Url`
 
-                    - `required string Url`
+                        The final post-redirect URL the download was served from.
 
-                      The final post-redirect URL the download was served from.
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `class BrowserStateChangeDownloadCompleted`
 
-                    - `string? Error`
+                      A file download that finished during this call, reported with the
+                      same `download_id` as its `download_started` — or without a prior
+                      `download_started`, when the download finished during the call that
+                      started it (at most one state change per `download_id` per result).
 
-                      The failure or cancellation detail, when known.
+                      - `JsonElement Type = "download_completed"`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `required string DownloadID`
 
-          - `bool IsError`
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-          - `string? ToolsetName`
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            For a toolset member tool_result, the toolset family of the paired tool_use.
+                      - `required string Url`
 
-            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                        The final post-redirect URL the download was served from.
 
-        - `class ServerToolUseBlockParam`
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `JsonElement Type = "server_tool_use"`
+                      - `string? Path`
 
-          - `required string ID`
+                        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `required IReadOnlyDictionary<string, JsonElement> Input`
+                      - `long? SizeBytes`
 
-          - `required Name Name`
+                        The completed download's size.
 
-            - `WebSearch("web_search")`
+                        minimum: 0
 
-            - `WebFetch("web_fetch")`
+                    - `class BrowserStateChangeDownloadFailed`
 
-            - `CodeExecution("code_execution")`
+                      A file download that failed — or was cancelled — during this call.
 
-            - `BashCodeExecution("bash_code_execution")`
+                      - `JsonElement Type = "download_failed"`
 
-            - `TextEditorCodeExecution("text_editor_code_execution")`
+                      - `required string DownloadID`
 
-            - `ToolSearchToolRegex("tool_search_tool_regex")`
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-            - `ToolSearchToolBm25("tool_search_tool_bm25")`
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `required string Url`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `string? Error`
+
+                        The failure or cancellation detail, when known.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `bool IsError`
+
+            - `string? ToolsetName`
+
+              For a toolset member tool_result, the toolset family of the paired tool_use.
+
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+          - `class ServerToolUseBlockParam`
+
+            - `JsonElement Type = "server_tool_use"`
+
+            - `required string ID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+            - `required Name Name`
+
+              - `WebSearch("web_search")`
+
+              - `WebFetch("web_fetch")`
+
+              - `CodeExecution("code_execution")`
+
+              - `BashCodeExecution("bash_code_execution")`
+
+              - `TextEditorCodeExecution("text_editor_code_execution")`
+
+              - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+              - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+              - `class ServerToolCaller20260120`
+
+          - `class WebSearchToolResultBlockParam`
+
+            - `JsonElement Type = "web_search_tool_result"`
+
+            - `required WebSearchToolResultBlockParamContent Content`
+
+              - `IReadOnlyList<WebSearchResultBlockParam>`
+
+                - `JsonElement Type = "web_search_result"`
+
+                - `required string EncryptedContent`
+
+                - `required string Title`
+
+                - `required string Url`
+
+                - `string? PageAge`
+
+              - `class WebSearchToolRequestError`
+
+                - `JsonElement Type = "web_search_tool_result_error"`
+
+                - `required WebSearchToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `MaxUsesExceeded("max_uses_exceeded")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `QueryTooLong("query_too_long")`
+
+                  - `RequestTooLarge("request_too_large")`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+              - `class ServerToolCaller20260120`
+
+          - `class WebFetchToolResultBlockParam`
+
+            - `JsonElement Type = "web_fetch_tool_result"`
+
+            - `required Content Content`
+
+              - `class WebFetchToolResultErrorBlockParam`
+
+                - `JsonElement Type = "web_fetch_tool_result_error"`
+
+                - `required WebFetchToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `UrlTooLong("url_too_long")`
+
+                  - `UrlNotAllowed("url_not_allowed")`
+
+                  - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+                  - `UrlNotAccessible("url_not_accessible")`
+
+                  - `UnsupportedContentType("unsupported_content_type")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `MaxUsesExceeded("max_uses_exceeded")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `ContentTooLarge("content_too_large")`
+
+              - `class WebFetchBlockParam`
+
+                - `JsonElement Type = "web_fetch_result"`
+
+                - `required DocumentBlockParam Content`
+
+                - `required string Url`
+
+                  Fetched content URL
+
+                - `string? RetrievedAt`
+
+                  ISO 8601 timestamp when the content was retrieved
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+              - `class ServerToolCaller20260120`
+
+          - `class CodeExecutionToolResultBlockParam`
+
+            - `JsonElement Type = "code_execution_tool_result"`
+
+            - `required CodeExecutionToolResultBlockParamContent Content`
+
+              - `class CodeExecutionToolResultErrorParam`
+
+                - `JsonElement Type = "code_execution_tool_result_error"`
+
+                - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `class CodeExecutionResultBlockParam`
+
+                - `JsonElement Type = "code_execution_result"`
+
+                - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                  - `JsonElement Type = "code_execution_output"`
+
+                  - `required string FileID`
+
+                - `required long ReturnCode`
+
+                - `required string Stderr`
+
+                - `required string Stdout`
+
+              - `class EncryptedCodeExecutionResultBlockParam`
+
+                Code execution result with encrypted stdout for PFC + web_search results.
+
+                - `JsonElement Type = "encrypted_code_execution_result"`
+
+                - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                  - `JsonElement Type = "code_execution_output"`
+
+                  - `required string FileID`
+
+                - `required string EncryptedStdout`
+
+                - `required long ReturnCode`
+
+                - `required string Stderr`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class BashCodeExecutionToolResultBlockParam`
+
+            - `JsonElement Type = "bash_code_execution_tool_result"`
+
+            - `required Content Content`
+
+              - `class BashCodeExecutionToolResultErrorParam`
+
+                - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+                - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                  - `OutputFileTooLarge("output_file_too_large")`
+
+              - `class BashCodeExecutionResultBlockParam`
+
+                - `JsonElement Type = "bash_code_execution_result"`
+
+                - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+                  - `JsonElement Type = "bash_code_execution_output"`
+
+                  - `required string FileID`
+
+                - `required long ReturnCode`
+
+                - `required string Stderr`
+
+                - `required string Stdout`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class TextEditorCodeExecutionToolResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+            - `required Content Content`
+
+              - `class TextEditorCodeExecutionToolResultErrorParam`
+
+                - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+                - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                  - `FileNotFound("file_not_found")`
+
+                - `string? ErrorMessage`
+
+              - `class TextEditorCodeExecutionViewResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+                - `required string Content`
+
+                - `required FileType FileType`
+
+                  - `Text("text")`
+
+                  - `Image("image")`
+
+                  - `Pdf("pdf")`
+
+                - `long? NumLines`
+
+                - `long? StartLine`
+
+                - `long? TotalLines`
+
+              - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+                - `required bool IsFileUpdate`
+
+              - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+                - `IReadOnlyList<string>? Lines`
+
+                - `long? NewLines`
+
+                - `long? NewStart`
+
+                - `long? OldLines`
+
+                - `long? OldStart`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class ToolSearchToolResultBlockParam`
+
+            - `JsonElement Type = "tool_search_tool_result"`
+
+            - `required Content Content`
+
+              - `class ToolSearchToolResultErrorParam`
+
+                - `JsonElement Type = "tool_search_tool_result_error"`
+
+                - `required ToolSearchToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                - `string? ErrorMessage`
+
+              - `class ToolSearchToolSearchResultBlockParam`
+
+                - `JsonElement Type = "tool_search_tool_search_result"`
+
+                - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string ToolName`
+
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                  - `CacheControlEphemeral? CacheControl`
+
+                    Create a cache control breakpoint at this content block.
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class ContainerUploadBlockParam`
+
+            A content block that represents a file to be uploaded to the container
+            Files uploaded via this block will be available in the container's input directory.
+
+            - `JsonElement Type = "container_upload"`
+
+            - `required string FileID`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+      - `JsonElement Role = "user"`
+
+    - `class AssistantMessageParam`
+
+      - `required MessageContentParam Content`
+
+      - `JsonElement Role = "assistant"`
+
+    - `class SystemMessageParam`
+
+      - `required Content Content`
+
+        - `string`
+
+        - `IReadOnlyList<TextBlockParam>`
+
+          - `JsonElement Type = "text"`
+
+          - `required string Text`
+
+            minLength: 1
 
           - `CacheControlEphemeral? CacheControl`
 
             Create a cache control breakpoint at this content block.
 
-          - `Caller Caller`
+          - `IReadOnlyList<TextCitationParam>? Citations`
 
-            - `class DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class ServerToolCaller20260120`
-
-        - `class WebSearchToolResultBlockParam`
-
-          - `JsonElement Type = "web_search_tool_result"`
-
-          - `required WebSearchToolResultBlockParamContent Content`
-
-            - `IReadOnlyList<WebSearchResultBlockParam>`
-
-              - `JsonElement Type = "web_search_result"`
-
-              - `required string EncryptedContent`
-
-              - `required string Title`
-
-              - `required string Url`
-
-              - `string? PageAge`
-
-            - `class WebSearchToolRequestError`
-
-              - `JsonElement Type = "web_search_tool_result_error"`
-
-              - `required WebSearchToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `MaxUsesExceeded("max_uses_exceeded")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `QueryTooLong("query_too_long")`
-
-                - `RequestTooLarge("request_too_large")`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `Caller Caller`
-
-            - `class DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class ServerToolCaller20260120`
-
-        - `class WebFetchToolResultBlockParam`
-
-          - `JsonElement Type = "web_fetch_tool_result"`
-
-          - `required Content Content`
-
-            - `class WebFetchToolResultErrorBlockParam`
-
-              - `JsonElement Type = "web_fetch_tool_result_error"`
-
-              - `required WebFetchToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `UrlTooLong("url_too_long")`
-
-                - `UrlNotAllowed("url_not_allowed")`
-
-                - `UrlNotInPriorContext("url_not_in_prior_context")`
-
-                - `UrlNotAccessible("url_not_accessible")`
-
-                - `UnsupportedContentType("unsupported_content_type")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `MaxUsesExceeded("max_uses_exceeded")`
-
-                - `Unavailable("unavailable")`
-
-                - `ContentTooLarge("content_too_large")`
-
-            - `class WebFetchBlockParam`
-
-              - `JsonElement Type = "web_fetch_result"`
-
-              - `required DocumentBlockParam Content`
-
-              - `required string Url`
-
-                Fetched content URL
-
-              - `string? RetrievedAt`
-
-                ISO 8601 timestamp when the content was retrieved
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `Caller Caller`
-
-            - `class DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class ServerToolCaller20260120`
-
-        - `class CodeExecutionToolResultBlockParam`
-
-          - `JsonElement Type = "code_execution_tool_result"`
-
-          - `required CodeExecutionToolResultBlockParamContent Content`
-
-            - `class CodeExecutionToolResultErrorParam`
-
-              - `JsonElement Type = "code_execution_tool_result_error"`
-
-              - `required CodeExecutionToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-            - `class CodeExecutionResultBlockParam`
-
-              - `JsonElement Type = "code_execution_result"`
-
-              - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-                - `JsonElement Type = "code_execution_output"`
-
-                - `required string FileID`
-
-              - `required long ReturnCode`
-
-              - `required string Stderr`
-
-              - `required string Stdout`
-
-            - `class EncryptedCodeExecutionResultBlockParam`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `JsonElement Type = "encrypted_code_execution_result"`
-
-              - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-                - `JsonElement Type = "code_execution_output"`
-
-                - `required string FileID`
-
-              - `required string EncryptedStdout`
-
-              - `required long ReturnCode`
-
-              - `required string Stderr`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class BashCodeExecutionToolResultBlockParam`
-
-          - `JsonElement Type = "bash_code_execution_tool_result"`
-
-          - `required Content Content`
-
-            - `class BashCodeExecutionToolResultErrorParam`
-
-              - `JsonElement Type = "bash_code_execution_tool_result_error"`
-
-              - `required BashCodeExecutionToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                - `OutputFileTooLarge("output_file_too_large")`
-
-            - `class BashCodeExecutionResultBlockParam`
-
-              - `JsonElement Type = "bash_code_execution_result"`
-
-              - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
-
-                - `JsonElement Type = "bash_code_execution_output"`
-
-                - `required string FileID`
-
-              - `required long ReturnCode`
-
-              - `required string Stderr`
-
-              - `required string Stdout`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class TextEditorCodeExecutionToolResultBlockParam`
-
-          - `JsonElement Type = "text_editor_code_execution_tool_result"`
-
-          - `required Content Content`
-
-            - `class TextEditorCodeExecutionToolResultErrorParam`
-
-              - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
-
-              - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                - `FileNotFound("file_not_found")`
-
-              - `string? ErrorMessage`
-
-            - `class TextEditorCodeExecutionViewResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_view_result"`
-
-              - `required string Content`
-
-              - `required FileType FileType`
-
-                - `Text("text")`
-
-                - `Image("image")`
-
-                - `Pdf("pdf")`
-
-              - `long? NumLines`
-
-              - `long? StartLine`
-
-              - `long? TotalLines`
-
-            - `class TextEditorCodeExecutionCreateResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_create_result"`
-
-              - `required bool IsFileUpdate`
-
-            - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
-
-              - `IReadOnlyList<string>? Lines`
-
-              - `long? NewLines`
-
-              - `long? NewStart`
-
-              - `long? OldLines`
-
-              - `long? OldStart`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class ToolSearchToolResultBlockParam`
-
-          - `JsonElement Type = "tool_search_tool_result"`
-
-          - `required Content Content`
-
-            - `class ToolSearchToolResultErrorParam`
-
-              - `JsonElement Type = "tool_search_tool_result_error"`
-
-              - `required ToolSearchToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-              - `string? ErrorMessage`
-
-            - `class ToolSearchToolSearchResultBlockParam`
-
-              - `JsonElement Type = "tool_search_tool_search_result"`
-
-              - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
-
-                - `JsonElement Type = "tool_reference"`
-
-                - `required string ToolName`
-
-                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                - `CacheControlEphemeral? CacheControl`
-
-                  Create a cache control breakpoint at this content block.
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class ContainerUploadBlockParam`
-
-          A content block that represents a file to be uploaded to the container
-          Files uploaded via this block will be available in the container's input directory.
-
-          - `JsonElement Type = "container_upload"`
-
-          - `required string FileID`
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-    - `required Role Role`
-
-      - `User("user")`
-
-      - `Assistant("assistant")`
-
-      - `System("system")`
+      - `JsonElement Role = "system"`
 
   - `required Model model`
 
@@ -2803,42 +2827,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
-  - `double temperature`
-
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-    Amount of randomness injected into the response.
-
-    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-    minimum: 0, maximum: 1
-
-  - `long topK`
-
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-    Only sample from the top K options for each subsequent token.
-
-    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-    Recommended for advanced use cases only.
-
-    minimum: 0
-
-  - `double topP`
-
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-    Use nucleus sampling.
-
-    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-    Recommended for advanced use cases only.
-
-    minimum: 0, maximum: 1
-
 ### Returns
 
 - `class Message`
@@ -4068,11 +4056,7 @@ MessageCreateParams parameters = new()
     MaxTokens = 1024,
     Messages =
     [
-        new()
-        {
-            Content = "Hello, world",
-            Role = Role.User,
-        },
+        new UserMessageParam("Hello, world")
     ],
     Model = Model.ClaudeOpus5_5,
 };
@@ -4217,290 +4201,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=csharp).
 
-    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=csharp#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=csharp#give-claude-a-role), you can use the top-level `system` parameter.
 
     There is a limit of 100,000 messages in a single request.
 
-    - `required Content Content`
+    - `class UserMessageParam`
 
-      - `string`
+      - `required MessageContentParam Content`
 
-      - `IReadOnlyList<ContentBlockParam>`
+        - `string`
 
-        - `class TextBlockParam`
+        - `IReadOnlyList<ContentBlockParam>`
 
-          - `JsonElement Type = "text"`
-
-          - `required string Text`
-
-            minLength: 1
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-            - `JsonElement Type = "ephemeral"`
-
-            - `Ttl Ttl`
-
-              The time-to-live for the cache control breakpoint.
-
-              This may be one the following values:
-
-              - `5m`: 5 minutes
-              - `1h`: 1 hour
-
-              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
-
-              - `Ttl5m("5m")`
-
-              - `Ttl1h("1h")`
-
-          - `IReadOnlyList<TextCitationParam>? Citations`
-
-            - `class CitationCharLocationParam`
-
-              - `JsonElement Type = "char_location"`
-
-              - `required string CitedText`
-
-              - `required long DocumentIndex`
-
-                minimum: 0
-
-              - `required string? DocumentTitle`
-
-                minLength: 1, maxLength: 500
-
-              - `required long EndCharIndex`
-
-              - `required long StartCharIndex`
-
-                minimum: 0
-
-            - `class CitationPageLocationParam`
-
-              - `JsonElement Type = "page_location"`
-
-              - `required string CitedText`
-
-              - `required long DocumentIndex`
-
-                minimum: 0
-
-              - `required string? DocumentTitle`
-
-                minLength: 1, maxLength: 500
-
-              - `required long EndPageNumber`
-
-              - `required long StartPageNumber`
-
-                minimum: 1
-
-            - `class CitationContentBlockLocationParam`
-
-              - `JsonElement Type = "content_block_location"`
-
-              - `required string CitedText`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `required long DocumentIndex`
-
-                minimum: 0
-
-              - `required string? DocumentTitle`
-
-                minLength: 1, maxLength: 500
-
-              - `required long EndBlockIndex`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `required long StartBlockIndex`
-
-                0-based index of the first cited block in the source's `content` array.
-
-                minimum: 0
-
-            - `class CitationWebSearchResultLocationParam`
-
-              - `JsonElement Type = "web_search_result_location"`
-
-              - `required string CitedText`
-
-              - `required string EncryptedIndex`
-
-              - `required string? Title`
-
-                minLength: 1, maxLength: 512
-
-              - `required string Url`
-
-                minLength: 1
-
-            - `class CitationSearchResultLocationParam`
-
-              - `JsonElement Type = "search_result_location"`
-
-              - `required string CitedText`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `required long EndBlockIndex`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `required long SearchResultIndex`
-
-                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                minimum: 0
-
-              - `required string Source`
-
-              - `required long StartBlockIndex`
-
-                0-based index of the first cited block in the source's `content` array.
-
-                minimum: 0
-
-              - `required string? Title`
-
-        - `class ImageBlockParam`
-
-          - `JsonElement Type = "image"`
-
-          - `required Source Source`
-
-            - `class Base64ImageSource`
-
-              - `JsonElement Type = "base64"`
-
-              - `required string Data`
-
-                format: byte
-
-              - `required MediaType MediaType`
-
-                - `ImageJpeg("image/jpeg")`
-
-                - `ImagePng("image/png")`
-
-                - `ImageGif("image/gif")`
-
-                - `ImageWebP("image/webp")`
-
-            - `class UrlImageSource`
-
-              - `JsonElement Type = "url"`
-
-              - `required string Url`
-
-            - `class FileImageSource`
-
-              - `JsonElement Type = "file"`
-
-              - `required string FileID`
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `ImageTransformationsParam? Transformations`
-
-            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-            - `OversizedImage OversizedImage`
-
-              What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-              - `Downsize("downsize")`
-
-              - `Error("error")`
-
-        - `class DocumentBlockParam`
-
-          - `JsonElement Type = "document"`
-
-          - `required Source Source`
-
-            - `class Base64PdfSource`
-
-              - `JsonElement Type = "base64"`
-
-              - `required string Data`
-
-                format: byte
-
-              - `JsonElement MediaType = "application/pdf"`
-
-            - `class PlainTextSource`
-
-              - `JsonElement Type = "text"`
-
-              - `required string Data`
-
-              - `JsonElement MediaType = "text/plain"`
-
-            - `class ContentBlockSource`
-
-              - `JsonElement Type = "content"`
-
-              - `required Content Content`
-
-                - `string`
-
-                - `IReadOnlyList<ContentBlockSourceContent>`
-
-                  - `class TextBlockParam`
-
-                  - `class ImageBlockParam`
-
-            - `class UrlPdfSource`
-
-              - `JsonElement Type = "url"`
-
-              - `required string Url`
-
-            - `class FileDocumentSource`
-
-              - `JsonElement Type = "file"`
-
-              - `required string FileID`
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `CitationsConfigParam? Citations`
-
-            - `bool Enabled`
-
-          - `string? Context`
-
-            minLength: 1
-
-          - `string? Title`
-
-            minLength: 1, maxLength: 500
-
-        - `class SearchResultBlockParam`
-
-          - `JsonElement Type = "search_result"`
-
-          - `required IReadOnlyList<TextBlockParam> Content`
+          - `class TextBlockParam`
 
             - `JsonElement Type = "text"`
 
@@ -4512,691 +4225,986 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
+              - `JsonElement Type = "ephemeral"`
+
+              - `Ttl Ttl`
+
+                The time-to-live for the cache control breakpoint.
+
+                This may be one the following values:
+
+                - `5m`: 5 minutes
+                - `1h`: 1 hour
+
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+                - `Ttl5m("5m")`
+
+                - `Ttl1h("1h")`
+
             - `IReadOnlyList<TextCitationParam>? Citations`
 
-          - `required string Source`
+              - `class CitationCharLocationParam`
 
-          - `required string Title`
+                - `JsonElement Type = "char_location"`
 
-          - `CacheControlEphemeral? CacheControl`
+                - `required string CitedText`
 
-            Create a cache control breakpoint at this content block.
+                - `required long DocumentIndex`
 
-          - `CitationsConfigParam Citations`
+                  minimum: 0
 
-        - `class ThinkingBlockParam`
+                - `required string? DocumentTitle`
 
-          - `JsonElement Type = "thinking"`
+                  minLength: 1, maxLength: 500
 
-          - `required string Signature`
+                - `required long EndCharIndex`
 
-            The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+                - `required long StartCharIndex`
 
-            Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+                  minimum: 0
 
-          - `required string Thinking`
+              - `class CitationPageLocationParam`
 
-            The `thinking` text of this block as returned by the API.
+                - `JsonElement Type = "page_location"`
 
-        - `class RedactedThinkingBlockParam`
+                - `required string CitedText`
 
-          - `JsonElement Type = "redacted_thinking"`
+                - `required long DocumentIndex`
 
-          - `required string Data`
+                  minimum: 0
 
-            The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+                - `required string? DocumentTitle`
 
-        - `class ToolUseBlockParam`
+                  minLength: 1, maxLength: 500
 
-          - `JsonElement Type = "tool_use"`
+                - `required long EndPageNumber`
 
-          - `required string ID`
+                - `required long StartPageNumber`
 
-            pattern: ^[a-zA-Z0-9_-]+$
+                  minimum: 1
 
-          - `required IReadOnlyDictionary<string, JsonElement> Input`
+              - `class CitationContentBlockLocationParam`
 
-          - `required string Name`
+                - `JsonElement Type = "content_block_location"`
 
-            minLength: 1, maxLength: 200
+                - `required string CitedText`
 
-          - `CacheControlEphemeral? CacheControl`
+                  The full text of the cited block range, concatenated.
 
-            Create a cache control breakpoint at this content block.
+                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-          - `Caller Caller`
+                - `required long DocumentIndex`
 
-            - `class DirectCaller`
+                  minimum: 0
 
-              Tool invocation directly from the model.
+                - `required string? DocumentTitle`
 
-              - `JsonElement Type = "direct"`
+                  minLength: 1, maxLength: 500
 
-            - `class ServerToolCaller`
+                - `required long EndBlockIndex`
 
-              Tool invocation generated by a server-side tool.
+                  Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-              - `JsonElement Type = "code_execution_20250825"`
+                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-              - `required string ToolID`
+                - `required long StartBlockIndex`
 
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                  0-based index of the first cited block in the source's `content` array.
 
-            - `class ServerToolCaller20260120`
+                  minimum: 0
 
-              - `JsonElement Type = "code_execution_20260120"`
+              - `class CitationWebSearchResultLocationParam`
 
-              - `required string ToolID`
+                - `JsonElement Type = "web_search_result_location"`
 
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                - `required string CitedText`
 
-          - `string? ToolsetName`
+                - `required string EncryptedIndex`
 
-            For a toolset member tool_use, the toolset family this member belongs to.
+                - `required string? Title`
 
-            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                  minLength: 1, maxLength: 512
 
-        - `class ToolResultBlockParam`
+                - `required string Url`
 
-          - `JsonElement Type = "tool_result"`
+                  minLength: 1
 
-          - `required string ToolUseID`
+              - `class CitationSearchResultLocationParam`
 
-            pattern: ^[a-zA-Z0-9_-]+$
+                - `JsonElement Type = "search_result_location"`
 
-          - `CacheControlEphemeral? CacheControl`
+                - `required string CitedText`
 
-            Create a cache control breakpoint at this content block.
+                  The full text of the cited block range, concatenated.
 
-          - `Content Content`
+                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-            - `string`
+                - `required long EndBlockIndex`
 
-            - `IReadOnlyList<Block>`
+                  Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-              - `class TextBlockParam`
+                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-              - `class ImageBlockParam`
+                - `required long SearchResultIndex`
 
-              - `class SearchResultBlockParam`
+                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
-              - `class DocumentBlockParam`
+                  Counted separately from `document_index`; server-side web search results are not included in this count.
 
-              - `class ToolReferenceBlockParam`
+                  minimum: 0
 
-                Tool reference block that can be included in tool_result content.
+                - `required string Source`
 
-                - `JsonElement Type = "tool_reference"`
+                - `required long StartBlockIndex`
 
-                - `required string ToolName`
+                  0-based index of the first cited block in the source's `content` array.
 
-                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minimum: 0
 
-                - `CacheControlEphemeral? CacheControl`
+                - `required string? Title`
 
-                  Create a cache control breakpoint at this content block.
+          - `class ImageBlockParam`
 
-              - `class BrowserStateBlockParam`
+            - `JsonElement Type = "image"`
 
-                The caller's browser state after a browser toolset member call —
-                the full inventory of open tabs, which tab is active, and any side
-                effects (tabs opened, download state changes) the call produced.
+            - `required Source Source`
 
-                At most one per `tool_result`, only on a non-error result answering a
-                browser toolset member `tool_use`. The server renders the
-                model-visible text from it; the model never sees the raw fields.
+              - `class Base64ImageSource`
 
-                - `JsonElement Type = "browser_state"`
+                - `JsonElement Type = "base64"`
 
-                - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+                - `required string Data`
 
-                  All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+                  format: byte
 
-                  maxItems: 100
+                - `required MediaType MediaType`
 
-                  - `required string TabID`
+                  - `ImageJpeg("image/jpeg")`
 
-                    The caller-assigned identifier for this tab, unique within the inventory.
+                  - `ImagePng("image/png")`
 
-                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  - `ImageGif("image/gif")`
 
-                  - `required string Title`
+                  - `ImageWebP("image/webp")`
 
-                    The title of the page the tab is showing. May be empty.
+              - `class UrlImageSource`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                - `JsonElement Type = "url"`
 
-                  - `required string Url`
+                - `required string Url`
 
-                    The URL of the page the tab is showing. May be empty.
+              - `class FileImageSource`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                - `JsonElement Type = "file"`
 
-                  - `bool Active`
+                - `required string FileID`
 
-                    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+            - `CacheControlEphemeral? CacheControl`
 
-                - `CacheControlEphemeral? CacheControl`
+              Create a cache control breakpoint at this content block.
 
-                  Create a cache control breakpoint at this content block.
+            - `ImageTransformationsParam? Transformations`
 
-                - `IReadOnlyList<BrowserStateChange>? StateChanges`
+              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-                  Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+              - `OversizedImage OversizedImage`
 
-                  minItems: 1, maxItems: 200
+                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
-                  - `class BrowserStateChangeTabOpened`
+                - `Downsize("downsize")`
 
-                    A tab this call's execution opened that remains open at its end —
-                    the creation delta of the `tabs` inventory, not an event log.
+                - `Error("error")`
 
-                    Carries only the `tab_id`; the tab's `title` and `url` live on its
-                    `tabs` entry, which must include the same `tab_id`. A tab opened
-                    during a failed call gets no deferred `tab_opened`; it simply appears
-                    in the next result's `tabs` inventory.
+          - `class DocumentBlockParam`
 
-                    - `JsonElement Type = "tab_opened"`
+            - `JsonElement Type = "document"`
+
+            - `required Source Source`
+
+              - `class Base64PdfSource`
+
+                - `JsonElement Type = "base64"`
+
+                - `required string Data`
+
+                  format: byte
+
+                - `JsonElement MediaType = "application/pdf"`
+
+              - `class PlainTextSource`
+
+                - `JsonElement Type = "text"`
+
+                - `required string Data`
+
+                - `JsonElement MediaType = "text/plain"`
+
+              - `class ContentBlockSource`
+
+                - `JsonElement Type = "content"`
+
+                - `required Content Content`
+
+                  - `string`
+
+                  - `IReadOnlyList<ContentBlockSourceContent>`
+
+                    - `class TextBlockParam`
+
+                    - `class ImageBlockParam`
+
+              - `class UrlPdfSource`
+
+                - `JsonElement Type = "url"`
+
+                - `required string Url`
+
+              - `class FileDocumentSource`
+
+                - `JsonElement Type = "file"`
+
+                - `required string FileID`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `CitationsConfigParam? Citations`
+
+              - `bool Enabled`
+
+            - `string? Context`
+
+              minLength: 1
+
+            - `string? Title`
+
+              minLength: 1, maxLength: 500
+
+          - `class SearchResultBlockParam`
+
+            - `JsonElement Type = "search_result"`
+
+            - `required IReadOnlyList<TextBlockParam> Content`
+
+              - `JsonElement Type = "text"`
+
+              - `required string Text`
+
+                minLength: 1
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+              - `IReadOnlyList<TextCitationParam>? Citations`
+
+            - `required string Source`
+
+            - `required string Title`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `CitationsConfigParam Citations`
+
+          - `class ThinkingBlockParam`
+
+            - `JsonElement Type = "thinking"`
+
+            - `required string Signature`
+
+              The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+              Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+            - `required string Thinking`
+
+              The `thinking` text of this block as returned by the API.
+
+          - `class RedactedThinkingBlockParam`
+
+            - `JsonElement Type = "redacted_thinking"`
+
+            - `required string Data`
+
+              The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+          - `class ToolUseBlockParam`
+
+            - `JsonElement Type = "tool_use"`
+
+            - `required string ID`
+
+              pattern: ^[a-zA-Z0-9_-]+$
+
+            - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+            - `required string Name`
+
+              minLength: 1, maxLength: 200
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+                - `JsonElement Type = "direct"`
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+                - `JsonElement Type = "code_execution_20250825"`
+
+                - `required string ToolID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+              - `class ServerToolCaller20260120`
+
+                - `JsonElement Type = "code_execution_20260120"`
+
+                - `required string ToolID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `string? ToolsetName`
+
+              For a toolset member tool_use, the toolset family this member belongs to.
+
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+          - `class ToolResultBlockParam`
+
+            - `JsonElement Type = "tool_result"`
+
+            - `required string ToolUseID`
+
+              pattern: ^[a-zA-Z0-9_-]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Content Content`
+
+              - `string`
+
+              - `IReadOnlyList<Block>`
+
+                - `class TextBlockParam`
+
+                - `class ImageBlockParam`
+
+                - `class SearchResultBlockParam`
+
+                - `class DocumentBlockParam`
+
+                - `class ToolReferenceBlockParam`
+
+                  Tool reference block that can be included in tool_result content.
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string ToolName`
+
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                  - `CacheControlEphemeral? CacheControl`
+
+                    Create a cache control breakpoint at this content block.
+
+                - `class BrowserStateBlockParam`
+
+                  The caller's browser state after a browser toolset member call —
+                  the full inventory of open tabs, which tab is active, and any side
+                  effects (tabs opened, download state changes) the call produced.
+
+                  At most one per `tool_result`, only on a non-error result answering a
+                  browser toolset member `tool_use`. The server renders the
+                  model-visible text from it; the model never sees the raw fields.
+
+                  - `JsonElement Type = "browser_state"`
+
+                  - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+                    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                    maxItems: 100
 
                     - `required string TabID`
 
-                      The `tab_id` of the opened tab, present in `tabs`.
+                      The caller-assigned identifier for this tab, unique within the inventory.
 
                       minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadStarted`
+                    - `required string Title`
 
-                    A file download that started during this call.
+                      The title of the page the tab is showing. May be empty.
 
-                    - `JsonElement Type = "download_started"`
-
-                    - `required string DownloadID`
-
-                      The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `required string Url`
 
-                      The final post-redirect URL the download was served from.
+                      The URL of the page the tab is showing. May be empty.
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadCompleted`
+                    - `bool Active`
 
-                    A file download that finished during this call, reported with the
-                    same `download_id` as its `download_started` — or without a prior
-                    `download_started`, when the download finished during the call that
-                    started it (at most one state change per `download_id` per result).
+                      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `JsonElement Type = "download_completed"`
+                  - `CacheControlEphemeral? CacheControl`
 
-                    - `required string DownloadID`
+                    Create a cache control breakpoint at this content block.
 
-                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+                  - `IReadOnlyList<BrowserStateChange>? StateChanges`
 
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                    - `required string Url`
+                    minItems: 1, maxItems: 200
 
-                      The final post-redirect URL the download was served from.
+                    - `class BrowserStateChangeTabOpened`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      A tab this call's execution opened that remains open at its end —
+                      the creation delta of the `tabs` inventory, not an event log.
 
-                    - `string? Path`
+                      Carries only the `tab_id`; the tab's `title` and `url` live on its
+                      `tabs` entry, which must include the same `tab_id`. A tab opened
+                      during a failed call gets no deferred `tab_opened`; it simply appears
+                      in the next result's `tabs` inventory.
 
-                      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+                      - `JsonElement Type = "tab_opened"`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `required string TabID`
 
-                    - `long? SizeBytes`
+                        The `tab_id` of the opened tab, present in `tabs`.
 
-                      The completed download's size.
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      minimum: 0
+                    - `class BrowserStateChangeDownloadStarted`
 
-                  - `class BrowserStateChangeDownloadFailed`
+                      A file download that started during this call.
 
-                    A file download that failed — or was cancelled — during this call.
+                      - `JsonElement Type = "download_started"`
 
-                    - `JsonElement Type = "download_failed"`
+                      - `required string DownloadID`
 
-                    - `required string DownloadID`
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `required string Url`
 
-                    - `required string Url`
+                        The final post-redirect URL the download was served from.
 
-                      The final post-redirect URL the download was served from.
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `class BrowserStateChangeDownloadCompleted`
 
-                    - `string? Error`
+                      A file download that finished during this call, reported with the
+                      same `download_id` as its `download_started` — or without a prior
+                      `download_started`, when the download finished during the call that
+                      started it (at most one state change per `download_id` per result).
 
-                      The failure or cancellation detail, when known.
+                      - `JsonElement Type = "download_completed"`
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `required string DownloadID`
 
-          - `bool IsError`
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-          - `string? ToolsetName`
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            For a toolset member tool_result, the toolset family of the paired tool_use.
+                      - `required string Url`
 
-            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                        The final post-redirect URL the download was served from.
 
-        - `class ServerToolUseBlockParam`
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `JsonElement Type = "server_tool_use"`
+                      - `string? Path`
 
-          - `required string ID`
+                        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `required IReadOnlyDictionary<string, JsonElement> Input`
+                      - `long? SizeBytes`
 
-          - `required Name Name`
+                        The completed download's size.
 
-            - `WebSearch("web_search")`
+                        minimum: 0
 
-            - `WebFetch("web_fetch")`
+                    - `class BrowserStateChangeDownloadFailed`
 
-            - `CodeExecution("code_execution")`
+                      A file download that failed — or was cancelled — during this call.
 
-            - `BashCodeExecution("bash_code_execution")`
+                      - `JsonElement Type = "download_failed"`
 
-            - `TextEditorCodeExecution("text_editor_code_execution")`
+                      - `required string DownloadID`
 
-            - `ToolSearchToolRegex("tool_search_tool_regex")`
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-            - `ToolSearchToolBm25("tool_search_tool_bm25")`
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `required string Url`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `string? Error`
+
+                        The failure or cancellation detail, when known.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `bool IsError`
+
+            - `string? ToolsetName`
+
+              For a toolset member tool_result, the toolset family of the paired tool_use.
+
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+          - `class ServerToolUseBlockParam`
+
+            - `JsonElement Type = "server_tool_use"`
+
+            - `required string ID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+            - `required Name Name`
+
+              - `WebSearch("web_search")`
+
+              - `WebFetch("web_fetch")`
+
+              - `CodeExecution("code_execution")`
+
+              - `BashCodeExecution("bash_code_execution")`
+
+              - `TextEditorCodeExecution("text_editor_code_execution")`
+
+              - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+              - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+              - `class ServerToolCaller20260120`
+
+          - `class WebSearchToolResultBlockParam`
+
+            - `JsonElement Type = "web_search_tool_result"`
+
+            - `required WebSearchToolResultBlockParamContent Content`
+
+              - `IReadOnlyList<WebSearchResultBlockParam>`
+
+                - `JsonElement Type = "web_search_result"`
+
+                - `required string EncryptedContent`
+
+                - `required string Title`
+
+                - `required string Url`
+
+                - `string? PageAge`
+
+              - `class WebSearchToolRequestError`
+
+                - `JsonElement Type = "web_search_tool_result_error"`
+
+                - `required WebSearchToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `MaxUsesExceeded("max_uses_exceeded")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `QueryTooLong("query_too_long")`
+
+                  - `RequestTooLarge("request_too_large")`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+              - `class ServerToolCaller20260120`
+
+          - `class WebFetchToolResultBlockParam`
+
+            - `JsonElement Type = "web_fetch_tool_result"`
+
+            - `required Content Content`
+
+              - `class WebFetchToolResultErrorBlockParam`
+
+                - `JsonElement Type = "web_fetch_tool_result_error"`
+
+                - `required WebFetchToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `UrlTooLong("url_too_long")`
+
+                  - `UrlNotAllowed("url_not_allowed")`
+
+                  - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+                  - `UrlNotAccessible("url_not_accessible")`
+
+                  - `UnsupportedContentType("unsupported_content_type")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `MaxUsesExceeded("max_uses_exceeded")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `ContentTooLarge("content_too_large")`
+
+              - `class WebFetchBlockParam`
+
+                - `JsonElement Type = "web_fetch_result"`
+
+                - `required DocumentBlockParam Content`
+
+                - `required string Url`
+
+                  Fetched content URL
+
+                - `string? RetrievedAt`
+
+                  ISO 8601 timestamp when the content was retrieved
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `Caller Caller`
+
+              - `class DirectCaller`
+
+                Tool invocation directly from the model.
+
+              - `class ServerToolCaller`
+
+                Tool invocation generated by a server-side tool.
+
+              - `class ServerToolCaller20260120`
+
+          - `class CodeExecutionToolResultBlockParam`
+
+            - `JsonElement Type = "code_execution_tool_result"`
+
+            - `required CodeExecutionToolResultBlockParamContent Content`
+
+              - `class CodeExecutionToolResultErrorParam`
+
+                - `JsonElement Type = "code_execution_tool_result_error"`
+
+                - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `class CodeExecutionResultBlockParam`
+
+                - `JsonElement Type = "code_execution_result"`
+
+                - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                  - `JsonElement Type = "code_execution_output"`
+
+                  - `required string FileID`
+
+                - `required long ReturnCode`
+
+                - `required string Stderr`
+
+                - `required string Stdout`
+
+              - `class EncryptedCodeExecutionResultBlockParam`
+
+                Code execution result with encrypted stdout for PFC + web_search results.
+
+                - `JsonElement Type = "encrypted_code_execution_result"`
+
+                - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                  - `JsonElement Type = "code_execution_output"`
+
+                  - `required string FileID`
+
+                - `required string EncryptedStdout`
+
+                - `required long ReturnCode`
+
+                - `required string Stderr`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class BashCodeExecutionToolResultBlockParam`
+
+            - `JsonElement Type = "bash_code_execution_tool_result"`
+
+            - `required Content Content`
+
+              - `class BashCodeExecutionToolResultErrorParam`
+
+                - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+                - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                  - `OutputFileTooLarge("output_file_too_large")`
+
+              - `class BashCodeExecutionResultBlockParam`
+
+                - `JsonElement Type = "bash_code_execution_result"`
+
+                - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+                  - `JsonElement Type = "bash_code_execution_output"`
+
+                  - `required string FileID`
+
+                - `required long ReturnCode`
+
+                - `required string Stderr`
+
+                - `required string Stdout`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class TextEditorCodeExecutionToolResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+            - `required Content Content`
+
+              - `class TextEditorCodeExecutionToolResultErrorParam`
+
+                - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+                - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                  - `FileNotFound("file_not_found")`
+
+                - `string? ErrorMessage`
+
+              - `class TextEditorCodeExecutionViewResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+                - `required string Content`
+
+                - `required FileType FileType`
+
+                  - `Text("text")`
+
+                  - `Image("image")`
+
+                  - `Pdf("pdf")`
+
+                - `long? NumLines`
+
+                - `long? StartLine`
+
+                - `long? TotalLines`
+
+              - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+                - `required bool IsFileUpdate`
+
+              - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+                - `IReadOnlyList<string>? Lines`
+
+                - `long? NewLines`
+
+                - `long? NewStart`
+
+                - `long? OldLines`
+
+                - `long? OldStart`
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class ToolSearchToolResultBlockParam`
+
+            - `JsonElement Type = "tool_search_tool_result"`
+
+            - `required Content Content`
+
+              - `class ToolSearchToolResultErrorParam`
+
+                - `JsonElement Type = "tool_search_tool_result_error"`
+
+                - `required ToolSearchToolResultErrorCode ErrorCode`
+
+                  - `InvalidToolInput("invalid_tool_input")`
+
+                  - `Unavailable("unavailable")`
+
+                  - `TooManyRequests("too_many_requests")`
+
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                - `string? ErrorMessage`
+
+              - `class ToolSearchToolSearchResultBlockParam`
+
+                - `JsonElement Type = "tool_search_tool_search_result"`
+
+                - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string ToolName`
+
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                  - `CacheControlEphemeral? CacheControl`
+
+                    Create a cache control breakpoint at this content block.
+
+            - `required string ToolUseID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class ContainerUploadBlockParam`
+
+            A content block that represents a file to be uploaded to the container
+            Files uploaded via this block will be available in the container's input directory.
+
+            - `JsonElement Type = "container_upload"`
+
+            - `required string FileID`
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+      - `JsonElement Role = "user"`
+
+    - `class AssistantMessageParam`
+
+      - `required MessageContentParam Content`
+
+      - `JsonElement Role = "assistant"`
+
+    - `class SystemMessageParam`
+
+      - `required Content Content`
+
+        - `string`
+
+        - `IReadOnlyList<TextBlockParam>`
+
+          - `JsonElement Type = "text"`
+
+          - `required string Text`
+
+            minLength: 1
 
           - `CacheControlEphemeral? CacheControl`
 
             Create a cache control breakpoint at this content block.
 
-          - `Caller Caller`
+          - `IReadOnlyList<TextCitationParam>? Citations`
 
-            - `class DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class ServerToolCaller20260120`
-
-        - `class WebSearchToolResultBlockParam`
-
-          - `JsonElement Type = "web_search_tool_result"`
-
-          - `required WebSearchToolResultBlockParamContent Content`
-
-            - `IReadOnlyList<WebSearchResultBlockParam>`
-
-              - `JsonElement Type = "web_search_result"`
-
-              - `required string EncryptedContent`
-
-              - `required string Title`
-
-              - `required string Url`
-
-              - `string? PageAge`
-
-            - `class WebSearchToolRequestError`
-
-              - `JsonElement Type = "web_search_tool_result_error"`
-
-              - `required WebSearchToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `MaxUsesExceeded("max_uses_exceeded")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `QueryTooLong("query_too_long")`
-
-                - `RequestTooLarge("request_too_large")`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `Caller Caller`
-
-            - `class DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class ServerToolCaller20260120`
-
-        - `class WebFetchToolResultBlockParam`
-
-          - `JsonElement Type = "web_fetch_tool_result"`
-
-          - `required Content Content`
-
-            - `class WebFetchToolResultErrorBlockParam`
-
-              - `JsonElement Type = "web_fetch_tool_result_error"`
-
-              - `required WebFetchToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `UrlTooLong("url_too_long")`
-
-                - `UrlNotAllowed("url_not_allowed")`
-
-                - `UrlNotInPriorContext("url_not_in_prior_context")`
-
-                - `UrlNotAccessible("url_not_accessible")`
-
-                - `UnsupportedContentType("unsupported_content_type")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `MaxUsesExceeded("max_uses_exceeded")`
-
-                - `Unavailable("unavailable")`
-
-                - `ContentTooLarge("content_too_large")`
-
-            - `class WebFetchBlockParam`
-
-              - `JsonElement Type = "web_fetch_result"`
-
-              - `required DocumentBlockParam Content`
-
-              - `required string Url`
-
-                Fetched content URL
-
-              - `string? RetrievedAt`
-
-                ISO 8601 timestamp when the content was retrieved
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-          - `Caller Caller`
-
-            - `class DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class ServerToolCaller20260120`
-
-        - `class CodeExecutionToolResultBlockParam`
-
-          - `JsonElement Type = "code_execution_tool_result"`
-
-          - `required CodeExecutionToolResultBlockParamContent Content`
-
-            - `class CodeExecutionToolResultErrorParam`
-
-              - `JsonElement Type = "code_execution_tool_result_error"`
-
-              - `required CodeExecutionToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-            - `class CodeExecutionResultBlockParam`
-
-              - `JsonElement Type = "code_execution_result"`
-
-              - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-                - `JsonElement Type = "code_execution_output"`
-
-                - `required string FileID`
-
-              - `required long ReturnCode`
-
-              - `required string Stderr`
-
-              - `required string Stdout`
-
-            - `class EncryptedCodeExecutionResultBlockParam`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `JsonElement Type = "encrypted_code_execution_result"`
-
-              - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-                - `JsonElement Type = "code_execution_output"`
-
-                - `required string FileID`
-
-              - `required string EncryptedStdout`
-
-              - `required long ReturnCode`
-
-              - `required string Stderr`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class BashCodeExecutionToolResultBlockParam`
-
-          - `JsonElement Type = "bash_code_execution_tool_result"`
-
-          - `required Content Content`
-
-            - `class BashCodeExecutionToolResultErrorParam`
-
-              - `JsonElement Type = "bash_code_execution_tool_result_error"`
-
-              - `required BashCodeExecutionToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                - `OutputFileTooLarge("output_file_too_large")`
-
-            - `class BashCodeExecutionResultBlockParam`
-
-              - `JsonElement Type = "bash_code_execution_result"`
-
-              - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
-
-                - `JsonElement Type = "bash_code_execution_output"`
-
-                - `required string FileID`
-
-              - `required long ReturnCode`
-
-              - `required string Stderr`
-
-              - `required string Stdout`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class TextEditorCodeExecutionToolResultBlockParam`
-
-          - `JsonElement Type = "text_editor_code_execution_tool_result"`
-
-          - `required Content Content`
-
-            - `class TextEditorCodeExecutionToolResultErrorParam`
-
-              - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
-
-              - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                - `FileNotFound("file_not_found")`
-
-              - `string? ErrorMessage`
-
-            - `class TextEditorCodeExecutionViewResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_view_result"`
-
-              - `required string Content`
-
-              - `required FileType FileType`
-
-                - `Text("text")`
-
-                - `Image("image")`
-
-                - `Pdf("pdf")`
-
-              - `long? NumLines`
-
-              - `long? StartLine`
-
-              - `long? TotalLines`
-
-            - `class TextEditorCodeExecutionCreateResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_create_result"`
-
-              - `required bool IsFileUpdate`
-
-            - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
-
-              - `IReadOnlyList<string>? Lines`
-
-              - `long? NewLines`
-
-              - `long? NewStart`
-
-              - `long? OldLines`
-
-              - `long? OldStart`
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class ToolSearchToolResultBlockParam`
-
-          - `JsonElement Type = "tool_search_tool_result"`
-
-          - `required Content Content`
-
-            - `class ToolSearchToolResultErrorParam`
-
-              - `JsonElement Type = "tool_search_tool_result_error"`
-
-              - `required ToolSearchToolResultErrorCode ErrorCode`
-
-                - `InvalidToolInput("invalid_tool_input")`
-
-                - `Unavailable("unavailable")`
-
-                - `TooManyRequests("too_many_requests")`
-
-                - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-              - `string? ErrorMessage`
-
-            - `class ToolSearchToolSearchResultBlockParam`
-
-              - `JsonElement Type = "tool_search_tool_search_result"`
-
-              - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
-
-                - `JsonElement Type = "tool_reference"`
-
-                - `required string ToolName`
-
-                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                - `CacheControlEphemeral? CacheControl`
-
-                  Create a cache control breakpoint at this content block.
-
-          - `required string ToolUseID`
-
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-        - `class ContainerUploadBlockParam`
-
-          A content block that represents a file to be uploaded to the container
-          Files uploaded via this block will be available in the container's input directory.
-
-          - `JsonElement Type = "container_upload"`
-
-          - `required string FileID`
-
-          - `CacheControlEphemeral? CacheControl`
-
-            Create a cache control breakpoint at this content block.
-
-    - `required Role Role`
-
-      - `User("user")`
-
-      - `Assistant("assistant")`
-
-      - `System("system")`
+      - `JsonElement Role = "system"`
 
   - `required Model model`
 
@@ -6924,11 +6932,7 @@ MessageCountTokensParams parameters = new()
 {
     Messages =
     [
-        new()
-        {
-            Content = "Hello, world",
-            Role = Role.User,
-        },
+        new UserMessageParam("Hello, world")
     ],
     Model = Model.ClaudeOpus5_5,
 };
@@ -6947,6 +6951,981 @@ Console.WriteLine(messageTokensCount);
 ```
 
 ## Domain types
+
+### Assistant Message Param
+
+- `class AssistantMessageParam`
+
+  - `required MessageContentParam Content`
+
+    - `string`
+
+    - `IReadOnlyList<ContentBlockParam>`
+
+      - `class TextBlockParam`
+
+        - `JsonElement Type = "text"`
+
+        - `required string Text`
+
+          minLength: 1
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+          - `JsonElement Type = "ephemeral"`
+
+          - `Ttl Ttl`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+            - `Ttl5m("5m")`
+
+            - `Ttl1h("1h")`
+
+        - `IReadOnlyList<TextCitationParam>? Citations`
+
+          - `class CitationCharLocationParam`
+
+            - `JsonElement Type = "char_location"`
+
+            - `required string CitedText`
+
+            - `required long DocumentIndex`
+
+              minimum: 0
+
+            - `required string? DocumentTitle`
+
+              minLength: 1, maxLength: 500
+
+            - `required long EndCharIndex`
+
+            - `required long StartCharIndex`
+
+              minimum: 0
+
+          - `class CitationPageLocationParam`
+
+            - `JsonElement Type = "page_location"`
+
+            - `required string CitedText`
+
+            - `required long DocumentIndex`
+
+              minimum: 0
+
+            - `required string? DocumentTitle`
+
+              minLength: 1, maxLength: 500
+
+            - `required long EndPageNumber`
+
+            - `required long StartPageNumber`
+
+              minimum: 1
+
+          - `class CitationContentBlockLocationParam`
+
+            - `JsonElement Type = "content_block_location"`
+
+            - `required string CitedText`
+
+              The full text of the cited block range, concatenated.
+
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+            - `required long DocumentIndex`
+
+              minimum: 0
+
+            - `required string? DocumentTitle`
+
+              minLength: 1, maxLength: 500
+
+            - `required long EndBlockIndex`
+
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+            - `required long StartBlockIndex`
+
+              0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
+
+          - `class CitationWebSearchResultLocationParam`
+
+            - `JsonElement Type = "web_search_result_location"`
+
+            - `required string CitedText`
+
+            - `required string EncryptedIndex`
+
+            - `required string? Title`
+
+              minLength: 1, maxLength: 512
+
+            - `required string Url`
+
+              minLength: 1
+
+          - `class CitationSearchResultLocationParam`
+
+            - `JsonElement Type = "search_result_location"`
+
+            - `required string CitedText`
+
+              The full text of the cited block range, concatenated.
+
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+            - `required long EndBlockIndex`
+
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+            - `required long SearchResultIndex`
+
+              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+              Counted separately from `document_index`; server-side web search results are not included in this count.
+
+              minimum: 0
+
+            - `required string Source`
+
+            - `required long StartBlockIndex`
+
+              0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
+
+            - `required string? Title`
+
+      - `class ImageBlockParam`
+
+        - `JsonElement Type = "image"`
+
+        - `required Source Source`
+
+          - `class Base64ImageSource`
+
+            - `JsonElement Type = "base64"`
+
+            - `required string Data`
+
+              format: byte
+
+            - `required MediaType MediaType`
+
+              - `ImageJpeg("image/jpeg")`
+
+              - `ImagePng("image/png")`
+
+              - `ImageGif("image/gif")`
+
+              - `ImageWebP("image/webp")`
+
+          - `class UrlImageSource`
+
+            - `JsonElement Type = "url"`
+
+            - `required string Url`
+
+          - `class FileImageSource`
+
+            - `JsonElement Type = "file"`
+
+            - `required string FileID`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `ImageTransformationsParam? Transformations`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `OversizedImage OversizedImage`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `Downsize("downsize")`
+
+            - `Error("error")`
+
+      - `class DocumentBlockParam`
+
+        - `JsonElement Type = "document"`
+
+        - `required Source Source`
+
+          - `class Base64PdfSource`
+
+            - `JsonElement Type = "base64"`
+
+            - `required string Data`
+
+              format: byte
+
+            - `JsonElement MediaType = "application/pdf"`
+
+          - `class PlainTextSource`
+
+            - `JsonElement Type = "text"`
+
+            - `required string Data`
+
+            - `JsonElement MediaType = "text/plain"`
+
+          - `class ContentBlockSource`
+
+            - `JsonElement Type = "content"`
+
+            - `required Content Content`
+
+              - `string`
+
+              - `IReadOnlyList<ContentBlockSourceContent>`
+
+                - `class TextBlockParam`
+
+                - `class ImageBlockParam`
+
+          - `class UrlPdfSource`
+
+            - `JsonElement Type = "url"`
+
+            - `required string Url`
+
+          - `class FileDocumentSource`
+
+            - `JsonElement Type = "file"`
+
+            - `required string FileID`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `CitationsConfigParam? Citations`
+
+          - `bool Enabled`
+
+        - `string? Context`
+
+          minLength: 1
+
+        - `string? Title`
+
+          minLength: 1, maxLength: 500
+
+      - `class SearchResultBlockParam`
+
+        - `JsonElement Type = "search_result"`
+
+        - `required IReadOnlyList<TextBlockParam> Content`
+
+          - `JsonElement Type = "text"`
+
+          - `required string Text`
+
+            minLength: 1
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `IReadOnlyList<TextCitationParam>? Citations`
+
+        - `required string Source`
+
+        - `required string Title`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `CitationsConfigParam Citations`
+
+      - `class ThinkingBlockParam`
+
+        - `JsonElement Type = "thinking"`
+
+        - `required string Signature`
+
+          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+        - `required string Thinking`
+
+          The `thinking` text of this block as returned by the API.
+
+      - `class RedactedThinkingBlockParam`
+
+        - `JsonElement Type = "redacted_thinking"`
+
+        - `required string Data`
+
+          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+      - `class ToolUseBlockParam`
+
+        - `JsonElement Type = "tool_use"`
+
+        - `required string ID`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+        - `required string Name`
+
+          minLength: 1, maxLength: 200
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+            - `JsonElement Type = "direct"`
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+            - `JsonElement Type = "code_execution_20250825"`
+
+            - `required string ToolID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `class ServerToolCaller20260120`
+
+            - `JsonElement Type = "code_execution_20260120"`
+
+            - `required string ToolID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `string? ToolsetName`
+
+          For a toolset member tool_use, the toolset family this member belongs to.
+
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `class ToolResultBlockParam`
+
+        - `JsonElement Type = "tool_result"`
+
+        - `required string ToolUseID`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Content Content`
+
+          - `string`
+
+          - `IReadOnlyList<Block>`
+
+            - `class TextBlockParam`
+
+            - `class ImageBlockParam`
+
+            - `class SearchResultBlockParam`
+
+            - `class DocumentBlockParam`
+
+            - `class ToolReferenceBlockParam`
+
+              Tool reference block that can be included in tool_result content.
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string ToolName`
+
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+            - `class BrowserStateBlockParam`
+
+              The caller's browser state after a browser toolset member call —
+              the full inventory of open tabs, which tab is active, and any side
+              effects (tabs opened, download state changes) the call produced.
+
+              At most one per `tool_result`, only on a non-error result answering a
+              browser toolset member `tool_use`. The server renders the
+              model-visible text from it; the model never sees the raw fields.
+
+              - `JsonElement Type = "browser_state"`
+
+              - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+                All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                maxItems: 100
+
+                - `required string TabID`
+
+                  The caller-assigned identifier for this tab, unique within the inventory.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Title`
+
+                  The title of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Url`
+
+                  The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `bool Active`
+
+                  Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+              - `IReadOnlyList<BrowserStateChange>? StateChanges`
+
+                Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                minItems: 1, maxItems: 200
+
+                - `class BrowserStateChangeTabOpened`
+
+                  A tab this call's execution opened that remains open at its end —
+                  the creation delta of the `tabs` inventory, not an event log.
+
+                  Carries only the `tab_id`; the tab's `title` and `url` live on its
+                  `tabs` entry, which must include the same `tab_id`. A tab opened
+                  during a failed call gets no deferred `tab_opened`; it simply appears
+                  in the next result's `tabs` inventory.
+
+                  - `JsonElement Type = "tab_opened"`
+
+                  - `required string TabID`
+
+                    The `tab_id` of the opened tab, present in `tabs`.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `class BrowserStateChangeDownloadStarted`
+
+                  A file download that started during this call.
+
+                  - `JsonElement Type = "download_started"`
+
+                  - `required string DownloadID`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `required string Url`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `class BrowserStateChangeDownloadCompleted`
+
+                  A file download that finished during this call, reported with the
+                  same `download_id` as its `download_started` — or without a prior
+                  `download_started`, when the download finished during the call that
+                  started it (at most one state change per `download_id` per result).
+
+                  - `JsonElement Type = "download_completed"`
+
+                  - `required string DownloadID`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `required string Url`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `string? Path`
+
+                    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `long? SizeBytes`
+
+                    The completed download's size.
+
+                    minimum: 0
+
+                - `class BrowserStateChangeDownloadFailed`
+
+                  A file download that failed — or was cancelled — during this call.
+
+                  - `JsonElement Type = "download_failed"`
+
+                  - `required string DownloadID`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `required string Url`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `string? Error`
+
+                    The failure or cancellation detail, when known.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+        - `bool IsError`
+
+        - `string? ToolsetName`
+
+          For a toolset member tool_result, the toolset family of the paired tool_use.
+
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `class ServerToolUseBlockParam`
+
+        - `JsonElement Type = "server_tool_use"`
+
+        - `required string ID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+        - `required Name Name`
+
+          - `WebSearch("web_search")`
+
+          - `WebFetch("web_fetch")`
+
+          - `CodeExecution("code_execution")`
+
+          - `BashCodeExecution("bash_code_execution")`
+
+          - `TextEditorCodeExecution("text_editor_code_execution")`
+
+          - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+          - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+          - `class ServerToolCaller20260120`
+
+      - `class WebSearchToolResultBlockParam`
+
+        - `JsonElement Type = "web_search_tool_result"`
+
+        - `required WebSearchToolResultBlockParamContent Content`
+
+          - `IReadOnlyList<WebSearchResultBlockParam>`
+
+            - `JsonElement Type = "web_search_result"`
+
+            - `required string EncryptedContent`
+
+            - `required string Title`
+
+            - `required string Url`
+
+            - `string? PageAge`
+
+          - `class WebSearchToolRequestError`
+
+            - `JsonElement Type = "web_search_tool_result_error"`
+
+            - `required WebSearchToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `MaxUsesExceeded("max_uses_exceeded")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `QueryTooLong("query_too_long")`
+
+              - `RequestTooLarge("request_too_large")`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+          - `class ServerToolCaller20260120`
+
+      - `class WebFetchToolResultBlockParam`
+
+        - `JsonElement Type = "web_fetch_tool_result"`
+
+        - `required Content Content`
+
+          - `class WebFetchToolResultErrorBlockParam`
+
+            - `JsonElement Type = "web_fetch_tool_result_error"`
+
+            - `required WebFetchToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `UrlTooLong("url_too_long")`
+
+              - `UrlNotAllowed("url_not_allowed")`
+
+              - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+              - `UrlNotAccessible("url_not_accessible")`
+
+              - `UnsupportedContentType("unsupported_content_type")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `MaxUsesExceeded("max_uses_exceeded")`
+
+              - `Unavailable("unavailable")`
+
+              - `ContentTooLarge("content_too_large")`
+
+          - `class WebFetchBlockParam`
+
+            - `JsonElement Type = "web_fetch_result"`
+
+            - `required DocumentBlockParam Content`
+
+            - `required string Url`
+
+              Fetched content URL
+
+            - `string? RetrievedAt`
+
+              ISO 8601 timestamp when the content was retrieved
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+          - `class ServerToolCaller20260120`
+
+      - `class CodeExecutionToolResultBlockParam`
+
+        - `JsonElement Type = "code_execution_tool_result"`
+
+        - `required CodeExecutionToolResultBlockParamContent Content`
+
+          - `class CodeExecutionToolResultErrorParam`
+
+            - `JsonElement Type = "code_execution_tool_result_error"`
+
+            - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+          - `class CodeExecutionResultBlockParam`
+
+            - `JsonElement Type = "code_execution_result"`
+
+            - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+              - `JsonElement Type = "code_execution_output"`
+
+              - `required string FileID`
+
+            - `required long ReturnCode`
+
+            - `required string Stderr`
+
+            - `required string Stdout`
+
+          - `class EncryptedCodeExecutionResultBlockParam`
+
+            Code execution result with encrypted stdout for PFC + web_search results.
+
+            - `JsonElement Type = "encrypted_code_execution_result"`
+
+            - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+              - `JsonElement Type = "code_execution_output"`
+
+              - `required string FileID`
+
+            - `required string EncryptedStdout`
+
+            - `required long ReturnCode`
+
+            - `required string Stderr`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class BashCodeExecutionToolResultBlockParam`
+
+        - `JsonElement Type = "bash_code_execution_tool_result"`
+
+        - `required Content Content`
+
+          - `class BashCodeExecutionToolResultErrorParam`
+
+            - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+            - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `OutputFileTooLarge("output_file_too_large")`
+
+          - `class BashCodeExecutionResultBlockParam`
+
+            - `JsonElement Type = "bash_code_execution_result"`
+
+            - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+              - `JsonElement Type = "bash_code_execution_output"`
+
+              - `required string FileID`
+
+            - `required long ReturnCode`
+
+            - `required string Stderr`
+
+            - `required string Stdout`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class TextEditorCodeExecutionToolResultBlockParam`
+
+        - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+        - `required Content Content`
+
+          - `class TextEditorCodeExecutionToolResultErrorParam`
+
+            - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+            - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `FileNotFound("file_not_found")`
+
+            - `string? ErrorMessage`
+
+          - `class TextEditorCodeExecutionViewResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+            - `required string Content`
+
+            - `required FileType FileType`
+
+              - `Text("text")`
+
+              - `Image("image")`
+
+              - `Pdf("pdf")`
+
+            - `long? NumLines`
+
+            - `long? StartLine`
+
+            - `long? TotalLines`
+
+          - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+            - `required bool IsFileUpdate`
+
+          - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+            - `IReadOnlyList<string>? Lines`
+
+            - `long? NewLines`
+
+            - `long? NewStart`
+
+            - `long? OldLines`
+
+            - `long? OldStart`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class ToolSearchToolResultBlockParam`
+
+        - `JsonElement Type = "tool_search_tool_result"`
+
+        - `required Content Content`
+
+          - `class ToolSearchToolResultErrorParam`
+
+            - `JsonElement Type = "tool_search_tool_result_error"`
+
+            - `required ToolSearchToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+            - `string? ErrorMessage`
+
+          - `class ToolSearchToolSearchResultBlockParam`
+
+            - `JsonElement Type = "tool_search_tool_search_result"`
+
+            - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string ToolName`
+
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class ContainerUploadBlockParam`
+
+        A content block that represents a file to be uploaded to the container
+        Files uploaded via this block will be available in the container's input directory.
+
+        - `JsonElement Type = "container_upload"`
+
+        - `required string FileID`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+  - `JsonElement Role = "assistant"`
 
 ### Base64 Image Source
 
@@ -20086,6 +21065,977 @@ Console.WriteLine(messageTokensCount);
 
       - `Fast("fast")`
 
+### Message Content Param
+
+- `class MessageContentParam: union`
+
+  - `string`
+
+  - `IReadOnlyList<ContentBlockParam>`
+
+    - `class TextBlockParam`
+
+      - `JsonElement Type = "text"`
+
+      - `required string Text`
+
+        minLength: 1
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+        - `JsonElement Type = "ephemeral"`
+
+        - `Ttl Ttl`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+          - `Ttl5m("5m")`
+
+          - `Ttl1h("1h")`
+
+      - `IReadOnlyList<TextCitationParam>? Citations`
+
+        - `class CitationCharLocationParam`
+
+          - `JsonElement Type = "char_location"`
+
+          - `required string CitedText`
+
+          - `required long DocumentIndex`
+
+            minimum: 0
+
+          - `required string? DocumentTitle`
+
+            minLength: 1, maxLength: 500
+
+          - `required long EndCharIndex`
+
+          - `required long StartCharIndex`
+
+            minimum: 0
+
+        - `class CitationPageLocationParam`
+
+          - `JsonElement Type = "page_location"`
+
+          - `required string CitedText`
+
+          - `required long DocumentIndex`
+
+            minimum: 0
+
+          - `required string? DocumentTitle`
+
+            minLength: 1, maxLength: 500
+
+          - `required long EndPageNumber`
+
+          - `required long StartPageNumber`
+
+            minimum: 1
+
+        - `class CitationContentBlockLocationParam`
+
+          - `JsonElement Type = "content_block_location"`
+
+          - `required string CitedText`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `required long DocumentIndex`
+
+            minimum: 0
+
+          - `required string? DocumentTitle`
+
+            minLength: 1, maxLength: 500
+
+          - `required long EndBlockIndex`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `required long StartBlockIndex`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+        - `class CitationWebSearchResultLocationParam`
+
+          - `JsonElement Type = "web_search_result_location"`
+
+          - `required string CitedText`
+
+          - `required string EncryptedIndex`
+
+          - `required string? Title`
+
+            minLength: 1, maxLength: 512
+
+          - `required string Url`
+
+            minLength: 1
+
+        - `class CitationSearchResultLocationParam`
+
+          - `JsonElement Type = "search_result_location"`
+
+          - `required string CitedText`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `required long EndBlockIndex`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `required long SearchResultIndex`
+
+            0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+            Counted separately from `document_index`; server-side web search results are not included in this count.
+
+            minimum: 0
+
+          - `required string Source`
+
+          - `required long StartBlockIndex`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+          - `required string? Title`
+
+    - `class ImageBlockParam`
+
+      - `JsonElement Type = "image"`
+
+      - `required Source Source`
+
+        - `class Base64ImageSource`
+
+          - `JsonElement Type = "base64"`
+
+          - `required string Data`
+
+            format: byte
+
+          - `required MediaType MediaType`
+
+            - `ImageJpeg("image/jpeg")`
+
+            - `ImagePng("image/png")`
+
+            - `ImageGif("image/gif")`
+
+            - `ImageWebP("image/webp")`
+
+        - `class UrlImageSource`
+
+          - `JsonElement Type = "url"`
+
+          - `required string Url`
+
+        - `class FileImageSource`
+
+          - `JsonElement Type = "file"`
+
+          - `required string FileID`
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `ImageTransformationsParam? Transformations`
+
+        Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `OversizedImage OversizedImage`
+
+          What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+          - `Downsize("downsize")`
+
+          - `Error("error")`
+
+    - `class DocumentBlockParam`
+
+      - `JsonElement Type = "document"`
+
+      - `required Source Source`
+
+        - `class Base64PdfSource`
+
+          - `JsonElement Type = "base64"`
+
+          - `required string Data`
+
+            format: byte
+
+          - `JsonElement MediaType = "application/pdf"`
+
+        - `class PlainTextSource`
+
+          - `JsonElement Type = "text"`
+
+          - `required string Data`
+
+          - `JsonElement MediaType = "text/plain"`
+
+        - `class ContentBlockSource`
+
+          - `JsonElement Type = "content"`
+
+          - `required Content Content`
+
+            - `string`
+
+            - `IReadOnlyList<ContentBlockSourceContent>`
+
+              - `class TextBlockParam`
+
+              - `class ImageBlockParam`
+
+        - `class UrlPdfSource`
+
+          - `JsonElement Type = "url"`
+
+          - `required string Url`
+
+        - `class FileDocumentSource`
+
+          - `JsonElement Type = "file"`
+
+          - `required string FileID`
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `CitationsConfigParam? Citations`
+
+        - `bool Enabled`
+
+      - `string? Context`
+
+        minLength: 1
+
+      - `string? Title`
+
+        minLength: 1, maxLength: 500
+
+    - `class SearchResultBlockParam`
+
+      - `JsonElement Type = "search_result"`
+
+      - `required IReadOnlyList<TextBlockParam> Content`
+
+        - `JsonElement Type = "text"`
+
+        - `required string Text`
+
+          minLength: 1
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `IReadOnlyList<TextCitationParam>? Citations`
+
+      - `required string Source`
+
+      - `required string Title`
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `CitationsConfigParam Citations`
+
+    - `class ThinkingBlockParam`
+
+      - `JsonElement Type = "thinking"`
+
+      - `required string Signature`
+
+        The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+        Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+      - `required string Thinking`
+
+        The `thinking` text of this block as returned by the API.
+
+    - `class RedactedThinkingBlockParam`
+
+      - `JsonElement Type = "redacted_thinking"`
+
+      - `required string Data`
+
+        The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+    - `class ToolUseBlockParam`
+
+      - `JsonElement Type = "tool_use"`
+
+      - `required string ID`
+
+        pattern: ^[a-zA-Z0-9_-]+$
+
+      - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+      - `required string Name`
+
+        minLength: 1, maxLength: 200
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Caller Caller`
+
+        - `class DirectCaller`
+
+          Tool invocation directly from the model.
+
+          - `JsonElement Type = "direct"`
+
+        - `class ServerToolCaller`
+
+          Tool invocation generated by a server-side tool.
+
+          - `JsonElement Type = "code_execution_20250825"`
+
+          - `required string ToolID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `class ServerToolCaller20260120`
+
+          - `JsonElement Type = "code_execution_20260120"`
+
+          - `required string ToolID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `string? ToolsetName`
+
+        For a toolset member tool_use, the toolset family this member belongs to.
+
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `class ToolResultBlockParam`
+
+      - `JsonElement Type = "tool_result"`
+
+      - `required string ToolUseID`
+
+        pattern: ^[a-zA-Z0-9_-]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Content Content`
+
+        - `string`
+
+        - `IReadOnlyList<Block>`
+
+          - `class TextBlockParam`
+
+          - `class ImageBlockParam`
+
+          - `class SearchResultBlockParam`
+
+          - `class DocumentBlockParam`
+
+          - `class ToolReferenceBlockParam`
+
+            Tool reference block that can be included in tool_result content.
+
+            - `JsonElement Type = "tool_reference"`
+
+            - `required string ToolName`
+
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+          - `class BrowserStateBlockParam`
+
+            The caller's browser state after a browser toolset member call —
+            the full inventory of open tabs, which tab is active, and any side
+            effects (tabs opened, download state changes) the call produced.
+
+            At most one per `tool_result`, only on a non-error result answering a
+            browser toolset member `tool_use`. The server renders the
+            model-visible text from it; the model never sees the raw fields.
+
+            - `JsonElement Type = "browser_state"`
+
+            - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+              All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+              maxItems: 100
+
+              - `required string TabID`
+
+                The caller-assigned identifier for this tab, unique within the inventory.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `required string Title`
+
+                The title of the page the tab is showing. May be empty.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `required string Url`
+
+                The URL of the page the tab is showing. May be empty.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `bool Active`
+
+                Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `IReadOnlyList<BrowserStateChange>? StateChanges`
+
+              Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+              minItems: 1, maxItems: 200
+
+              - `class BrowserStateChangeTabOpened`
+
+                A tab this call's execution opened that remains open at its end —
+                the creation delta of the `tabs` inventory, not an event log.
+
+                Carries only the `tab_id`; the tab's `title` and `url` live on its
+                `tabs` entry, which must include the same `tab_id`. A tab opened
+                during a failed call gets no deferred `tab_opened`; it simply appears
+                in the next result's `tabs` inventory.
+
+                - `JsonElement Type = "tab_opened"`
+
+                - `required string TabID`
+
+                  The `tab_id` of the opened tab, present in `tabs`.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `class BrowserStateChangeDownloadStarted`
+
+                A file download that started during this call.
+
+                - `JsonElement Type = "download_started"`
+
+                - `required string DownloadID`
+
+                  The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Url`
+
+                  The final post-redirect URL the download was served from.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `class BrowserStateChangeDownloadCompleted`
+
+                A file download that finished during this call, reported with the
+                same `download_id` as its `download_started` — or without a prior
+                `download_started`, when the download finished during the call that
+                started it (at most one state change per `download_id` per result).
+
+                - `JsonElement Type = "download_completed"`
+
+                - `required string DownloadID`
+
+                  The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Url`
+
+                  The final post-redirect URL the download was served from.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `string? Path`
+
+                  Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `long? SizeBytes`
+
+                  The completed download's size.
+
+                  minimum: 0
+
+              - `class BrowserStateChangeDownloadFailed`
+
+                A file download that failed — or was cancelled — during this call.
+
+                - `JsonElement Type = "download_failed"`
+
+                - `required string DownloadID`
+
+                  The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Url`
+
+                  The final post-redirect URL the download was served from.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `string? Error`
+
+                  The failure or cancellation detail, when known.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `bool IsError`
+
+      - `string? ToolsetName`
+
+        For a toolset member tool_result, the toolset family of the paired tool_use.
+
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `class ServerToolUseBlockParam`
+
+      - `JsonElement Type = "server_tool_use"`
+
+      - `required string ID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+      - `required Name Name`
+
+        - `WebSearch("web_search")`
+
+        - `WebFetch("web_fetch")`
+
+        - `CodeExecution("code_execution")`
+
+        - `BashCodeExecution("bash_code_execution")`
+
+        - `TextEditorCodeExecution("text_editor_code_execution")`
+
+        - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+        - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Caller Caller`
+
+        - `class DirectCaller`
+
+          Tool invocation directly from the model.
+
+        - `class ServerToolCaller`
+
+          Tool invocation generated by a server-side tool.
+
+        - `class ServerToolCaller20260120`
+
+    - `class WebSearchToolResultBlockParam`
+
+      - `JsonElement Type = "web_search_tool_result"`
+
+      - `required WebSearchToolResultBlockParamContent Content`
+
+        - `IReadOnlyList<WebSearchResultBlockParam>`
+
+          - `JsonElement Type = "web_search_result"`
+
+          - `required string EncryptedContent`
+
+          - `required string Title`
+
+          - `required string Url`
+
+          - `string? PageAge`
+
+        - `class WebSearchToolRequestError`
+
+          - `JsonElement Type = "web_search_tool_result_error"`
+
+          - `required WebSearchToolResultErrorCode ErrorCode`
+
+            - `InvalidToolInput("invalid_tool_input")`
+
+            - `Unavailable("unavailable")`
+
+            - `MaxUsesExceeded("max_uses_exceeded")`
+
+            - `TooManyRequests("too_many_requests")`
+
+            - `QueryTooLong("query_too_long")`
+
+            - `RequestTooLarge("request_too_large")`
+
+      - `required string ToolUseID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Caller Caller`
+
+        - `class DirectCaller`
+
+          Tool invocation directly from the model.
+
+        - `class ServerToolCaller`
+
+          Tool invocation generated by a server-side tool.
+
+        - `class ServerToolCaller20260120`
+
+    - `class WebFetchToolResultBlockParam`
+
+      - `JsonElement Type = "web_fetch_tool_result"`
+
+      - `required Content Content`
+
+        - `class WebFetchToolResultErrorBlockParam`
+
+          - `JsonElement Type = "web_fetch_tool_result_error"`
+
+          - `required WebFetchToolResultErrorCode ErrorCode`
+
+            - `InvalidToolInput("invalid_tool_input")`
+
+            - `UrlTooLong("url_too_long")`
+
+            - `UrlNotAllowed("url_not_allowed")`
+
+            - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+            - `UrlNotAccessible("url_not_accessible")`
+
+            - `UnsupportedContentType("unsupported_content_type")`
+
+            - `TooManyRequests("too_many_requests")`
+
+            - `MaxUsesExceeded("max_uses_exceeded")`
+
+            - `Unavailable("unavailable")`
+
+            - `ContentTooLarge("content_too_large")`
+
+        - `class WebFetchBlockParam`
+
+          - `JsonElement Type = "web_fetch_result"`
+
+          - `required DocumentBlockParam Content`
+
+          - `required string Url`
+
+            Fetched content URL
+
+          - `string? RetrievedAt`
+
+            ISO 8601 timestamp when the content was retrieved
+
+      - `required string ToolUseID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Caller Caller`
+
+        - `class DirectCaller`
+
+          Tool invocation directly from the model.
+
+        - `class ServerToolCaller`
+
+          Tool invocation generated by a server-side tool.
+
+        - `class ServerToolCaller20260120`
+
+    - `class CodeExecutionToolResultBlockParam`
+
+      - `JsonElement Type = "code_execution_tool_result"`
+
+      - `required CodeExecutionToolResultBlockParamContent Content`
+
+        - `class CodeExecutionToolResultErrorParam`
+
+          - `JsonElement Type = "code_execution_tool_result_error"`
+
+          - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+            - `InvalidToolInput("invalid_tool_input")`
+
+            - `Unavailable("unavailable")`
+
+            - `TooManyRequests("too_many_requests")`
+
+            - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+        - `class CodeExecutionResultBlockParam`
+
+          - `JsonElement Type = "code_execution_result"`
+
+          - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+            - `JsonElement Type = "code_execution_output"`
+
+            - `required string FileID`
+
+          - `required long ReturnCode`
+
+          - `required string Stderr`
+
+          - `required string Stdout`
+
+        - `class EncryptedCodeExecutionResultBlockParam`
+
+          Code execution result with encrypted stdout for PFC + web_search results.
+
+          - `JsonElement Type = "encrypted_code_execution_result"`
+
+          - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+            - `JsonElement Type = "code_execution_output"`
+
+            - `required string FileID`
+
+          - `required string EncryptedStdout`
+
+          - `required long ReturnCode`
+
+          - `required string Stderr`
+
+      - `required string ToolUseID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BashCodeExecutionToolResultBlockParam`
+
+      - `JsonElement Type = "bash_code_execution_tool_result"`
+
+      - `required Content Content`
+
+        - `class BashCodeExecutionToolResultErrorParam`
+
+          - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+          - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+            - `InvalidToolInput("invalid_tool_input")`
+
+            - `Unavailable("unavailable")`
+
+            - `TooManyRequests("too_many_requests")`
+
+            - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+            - `OutputFileTooLarge("output_file_too_large")`
+
+        - `class BashCodeExecutionResultBlockParam`
+
+          - `JsonElement Type = "bash_code_execution_result"`
+
+          - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+            - `JsonElement Type = "bash_code_execution_output"`
+
+            - `required string FileID`
+
+          - `required long ReturnCode`
+
+          - `required string Stderr`
+
+          - `required string Stdout`
+
+      - `required string ToolUseID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class TextEditorCodeExecutionToolResultBlockParam`
+
+      - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+      - `required Content Content`
+
+        - `class TextEditorCodeExecutionToolResultErrorParam`
+
+          - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+          - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+            - `InvalidToolInput("invalid_tool_input")`
+
+            - `Unavailable("unavailable")`
+
+            - `TooManyRequests("too_many_requests")`
+
+            - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+            - `FileNotFound("file_not_found")`
+
+          - `string? ErrorMessage`
+
+        - `class TextEditorCodeExecutionViewResultBlockParam`
+
+          - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+          - `required string Content`
+
+          - `required FileType FileType`
+
+            - `Text("text")`
+
+            - `Image("image")`
+
+            - `Pdf("pdf")`
+
+          - `long? NumLines`
+
+          - `long? StartLine`
+
+          - `long? TotalLines`
+
+        - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+          - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+          - `required bool IsFileUpdate`
+
+        - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+          - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+          - `IReadOnlyList<string>? Lines`
+
+          - `long? NewLines`
+
+          - `long? NewStart`
+
+          - `long? OldLines`
+
+          - `long? OldStart`
+
+      - `required string ToolUseID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class ToolSearchToolResultBlockParam`
+
+      - `JsonElement Type = "tool_search_tool_result"`
+
+      - `required Content Content`
+
+        - `class ToolSearchToolResultErrorParam`
+
+          - `JsonElement Type = "tool_search_tool_result_error"`
+
+          - `required ToolSearchToolResultErrorCode ErrorCode`
+
+            - `InvalidToolInput("invalid_tool_input")`
+
+            - `Unavailable("unavailable")`
+
+            - `TooManyRequests("too_many_requests")`
+
+            - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+          - `string? ErrorMessage`
+
+        - `class ToolSearchToolSearchResultBlockParam`
+
+          - `JsonElement Type = "tool_search_tool_search_result"`
+
+          - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+            - `JsonElement Type = "tool_reference"`
+
+            - `required string ToolName`
+
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+      - `required string ToolUseID`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class ContainerUploadBlockParam`
+
+      A content block that represents a file to be uploaded to the container
+      Files uploaded via this block will be available in the container's input directory.
+
+      - `JsonElement Type = "container_upload"`
+
+      - `required string FileID`
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
 ### Message Count Tokens Tool
 
 - `class MessageCountTokensTool: union`
@@ -21793,288 +23743,17 @@ Console.WriteLine(messageTokensCount);
 
 ### Message Param
 
-- `class MessageParam`
+- `class MessageParam: union`
 
-  - `required Content Content`
+  - `class UserMessageParam`
 
-    - `string`
+    - `required MessageContentParam Content`
 
-    - `IReadOnlyList<ContentBlockParam>`
+      - `string`
 
-      - `class TextBlockParam`
+      - `IReadOnlyList<ContentBlockParam>`
 
-        - `JsonElement Type = "text"`
-
-        - `required string Text`
-
-          minLength: 1
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-          - `JsonElement Type = "ephemeral"`
-
-          - `Ttl Ttl`
-
-            The time-to-live for the cache control breakpoint.
-
-            This may be one the following values:
-
-            - `5m`: 5 minutes
-            - `1h`: 1 hour
-
-            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
-
-            - `Ttl5m("5m")`
-
-            - `Ttl1h("1h")`
-
-        - `IReadOnlyList<TextCitationParam>? Citations`
-
-          - `class CitationCharLocationParam`
-
-            - `JsonElement Type = "char_location"`
-
-            - `required string CitedText`
-
-            - `required long DocumentIndex`
-
-              minimum: 0
-
-            - `required string? DocumentTitle`
-
-              minLength: 1, maxLength: 500
-
-            - `required long EndCharIndex`
-
-            - `required long StartCharIndex`
-
-              minimum: 0
-
-          - `class CitationPageLocationParam`
-
-            - `JsonElement Type = "page_location"`
-
-            - `required string CitedText`
-
-            - `required long DocumentIndex`
-
-              minimum: 0
-
-            - `required string? DocumentTitle`
-
-              minLength: 1, maxLength: 500
-
-            - `required long EndPageNumber`
-
-            - `required long StartPageNumber`
-
-              minimum: 1
-
-          - `class CitationContentBlockLocationParam`
-
-            - `JsonElement Type = "content_block_location"`
-
-            - `required string CitedText`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `required long DocumentIndex`
-
-              minimum: 0
-
-            - `required string? DocumentTitle`
-
-              minLength: 1, maxLength: 500
-
-            - `required long EndBlockIndex`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `required long StartBlockIndex`
-
-              0-based index of the first cited block in the source's `content` array.
-
-              minimum: 0
-
-          - `class CitationWebSearchResultLocationParam`
-
-            - `JsonElement Type = "web_search_result_location"`
-
-            - `required string CitedText`
-
-            - `required string EncryptedIndex`
-
-            - `required string? Title`
-
-              minLength: 1, maxLength: 512
-
-            - `required string Url`
-
-              minLength: 1
-
-          - `class CitationSearchResultLocationParam`
-
-            - `JsonElement Type = "search_result_location"`
-
-            - `required string CitedText`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `required long EndBlockIndex`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `required long SearchResultIndex`
-
-              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-              Counted separately from `document_index`; server-side web search results are not included in this count.
-
-              minimum: 0
-
-            - `required string Source`
-
-            - `required long StartBlockIndex`
-
-              0-based index of the first cited block in the source's `content` array.
-
-              minimum: 0
-
-            - `required string? Title`
-
-      - `class ImageBlockParam`
-
-        - `JsonElement Type = "image"`
-
-        - `required Source Source`
-
-          - `class Base64ImageSource`
-
-            - `JsonElement Type = "base64"`
-
-            - `required string Data`
-
-              format: byte
-
-            - `required MediaType MediaType`
-
-              - `ImageJpeg("image/jpeg")`
-
-              - `ImagePng("image/png")`
-
-              - `ImageGif("image/gif")`
-
-              - `ImageWebP("image/webp")`
-
-          - `class UrlImageSource`
-
-            - `JsonElement Type = "url"`
-
-            - `required string Url`
-
-          - `class FileImageSource`
-
-            - `JsonElement Type = "file"`
-
-            - `required string FileID`
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-        - `ImageTransformationsParam? Transformations`
-
-          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-          - `OversizedImage OversizedImage`
-
-            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-            - `Downsize("downsize")`
-
-            - `Error("error")`
-
-      - `class DocumentBlockParam`
-
-        - `JsonElement Type = "document"`
-
-        - `required Source Source`
-
-          - `class Base64PdfSource`
-
-            - `JsonElement Type = "base64"`
-
-            - `required string Data`
-
-              format: byte
-
-            - `JsonElement MediaType = "application/pdf"`
-
-          - `class PlainTextSource`
-
-            - `JsonElement Type = "text"`
-
-            - `required string Data`
-
-            - `JsonElement MediaType = "text/plain"`
-
-          - `class ContentBlockSource`
-
-            - `JsonElement Type = "content"`
-
-            - `required Content Content`
-
-              - `string`
-
-              - `IReadOnlyList<ContentBlockSourceContent>`
-
-                - `class TextBlockParam`
-
-                - `class ImageBlockParam`
-
-          - `class UrlPdfSource`
-
-            - `JsonElement Type = "url"`
-
-            - `required string Url`
-
-          - `class FileDocumentSource`
-
-            - `JsonElement Type = "file"`
-
-            - `required string FileID`
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-        - `CitationsConfigParam? Citations`
-
-          - `bool Enabled`
-
-        - `string? Context`
-
-          minLength: 1
-
-        - `string? Title`
-
-          minLength: 1, maxLength: 500
-
-      - `class SearchResultBlockParam`
-
-        - `JsonElement Type = "search_result"`
-
-        - `required IReadOnlyList<TextBlockParam> Content`
+        - `class TextBlockParam`
 
           - `JsonElement Type = "text"`
 
@@ -22086,691 +23765,986 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
+            - `JsonElement Type = "ephemeral"`
+
+            - `Ttl Ttl`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+              - `Ttl5m("5m")`
+
+              - `Ttl1h("1h")`
+
           - `IReadOnlyList<TextCitationParam>? Citations`
 
-        - `required string Source`
+            - `class CitationCharLocationParam`
 
-        - `required string Title`
+              - `JsonElement Type = "char_location"`
 
-        - `CacheControlEphemeral? CacheControl`
+              - `required string CitedText`
 
-          Create a cache control breakpoint at this content block.
+              - `required long DocumentIndex`
 
-        - `CitationsConfigParam Citations`
+                minimum: 0
 
-      - `class ThinkingBlockParam`
+              - `required string? DocumentTitle`
 
-        - `JsonElement Type = "thinking"`
+                minLength: 1, maxLength: 500
 
-        - `required string Signature`
+              - `required long EndCharIndex`
 
-          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+              - `required long StartCharIndex`
 
-          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+                minimum: 0
 
-        - `required string Thinking`
+            - `class CitationPageLocationParam`
 
-          The `thinking` text of this block as returned by the API.
+              - `JsonElement Type = "page_location"`
 
-      - `class RedactedThinkingBlockParam`
+              - `required string CitedText`
 
-        - `JsonElement Type = "redacted_thinking"`
+              - `required long DocumentIndex`
 
-        - `required string Data`
+                minimum: 0
 
-          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+              - `required string? DocumentTitle`
 
-      - `class ToolUseBlockParam`
+                minLength: 1, maxLength: 500
 
-        - `JsonElement Type = "tool_use"`
+              - `required long EndPageNumber`
 
-        - `required string ID`
+              - `required long StartPageNumber`
 
-          pattern: ^[a-zA-Z0-9_-]+$
+                minimum: 1
 
-        - `required IReadOnlyDictionary<string, JsonElement> Input`
+            - `class CitationContentBlockLocationParam`
 
-        - `required string Name`
+              - `JsonElement Type = "content_block_location"`
 
-          minLength: 1, maxLength: 200
+              - `required string CitedText`
 
-        - `CacheControlEphemeral? CacheControl`
+                The full text of the cited block range, concatenated.
 
-          Create a cache control breakpoint at this content block.
+                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-        - `Caller Caller`
+              - `required long DocumentIndex`
 
-          - `class DirectCaller`
+                minimum: 0
 
-            Tool invocation directly from the model.
+              - `required string? DocumentTitle`
 
-            - `JsonElement Type = "direct"`
+                minLength: 1, maxLength: 500
 
-          - `class ServerToolCaller`
+              - `required long EndBlockIndex`
 
-            Tool invocation generated by a server-side tool.
+                Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-            - `JsonElement Type = "code_execution_20250825"`
+                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-            - `required string ToolID`
+              - `required long StartBlockIndex`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                0-based index of the first cited block in the source's `content` array.
 
-          - `class ServerToolCaller20260120`
+                minimum: 0
 
-            - `JsonElement Type = "code_execution_20260120"`
+            - `class CitationWebSearchResultLocationParam`
 
-            - `required string ToolID`
+              - `JsonElement Type = "web_search_result_location"`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+              - `required string CitedText`
 
-        - `string? ToolsetName`
+              - `required string EncryptedIndex`
 
-          For a toolset member tool_use, the toolset family this member belongs to.
+              - `required string? Title`
 
-          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                minLength: 1, maxLength: 512
 
-      - `class ToolResultBlockParam`
+              - `required string Url`
 
-        - `JsonElement Type = "tool_result"`
+                minLength: 1
 
-        - `required string ToolUseID`
+            - `class CitationSearchResultLocationParam`
 
-          pattern: ^[a-zA-Z0-9_-]+$
+              - `JsonElement Type = "search_result_location"`
 
-        - `CacheControlEphemeral? CacheControl`
+              - `required string CitedText`
 
-          Create a cache control breakpoint at this content block.
+                The full text of the cited block range, concatenated.
 
-        - `Content Content`
+                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-          - `string`
+              - `required long EndBlockIndex`
 
-          - `IReadOnlyList<Block>`
+                Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-            - `class TextBlockParam`
+                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-            - `class ImageBlockParam`
+              - `required long SearchResultIndex`
 
-            - `class SearchResultBlockParam`
+                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
-            - `class DocumentBlockParam`
+                Counted separately from `document_index`; server-side web search results are not included in this count.
 
-            - `class ToolReferenceBlockParam`
+                minimum: 0
 
-              Tool reference block that can be included in tool_result content.
+              - `required string Source`
 
-              - `JsonElement Type = "tool_reference"`
+              - `required long StartBlockIndex`
 
-              - `required string ToolName`
+                0-based index of the first cited block in the source's `content` array.
 
-                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minimum: 0
 
-              - `CacheControlEphemeral? CacheControl`
+              - `required string? Title`
 
-                Create a cache control breakpoint at this content block.
+        - `class ImageBlockParam`
 
-            - `class BrowserStateBlockParam`
+          - `JsonElement Type = "image"`
 
-              The caller's browser state after a browser toolset member call —
-              the full inventory of open tabs, which tab is active, and any side
-              effects (tabs opened, download state changes) the call produced.
+          - `required Source Source`
 
-              At most one per `tool_result`, only on a non-error result answering a
-              browser toolset member `tool_use`. The server renders the
-              model-visible text from it; the model never sees the raw fields.
+            - `class Base64ImageSource`
 
-              - `JsonElement Type = "browser_state"`
+              - `JsonElement Type = "base64"`
 
-              - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+              - `required string Data`
 
-                All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+                format: byte
 
-                maxItems: 100
+              - `required MediaType MediaType`
 
-                - `required string TabID`
+                - `ImageJpeg("image/jpeg")`
 
-                  The caller-assigned identifier for this tab, unique within the inventory.
+                - `ImagePng("image/png")`
 
-                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                - `ImageGif("image/gif")`
 
-                - `required string Title`
+                - `ImageWebP("image/webp")`
 
-                  The title of the page the tab is showing. May be empty.
+            - `class UrlImageSource`
 
-                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              - `JsonElement Type = "url"`
 
-                - `required string Url`
+              - `required string Url`
 
-                  The URL of the page the tab is showing. May be empty.
+            - `class FileImageSource`
 
-                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              - `JsonElement Type = "file"`
 
-                - `bool Active`
+              - `required string FileID`
 
-                  Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+          - `CacheControlEphemeral? CacheControl`
 
-              - `CacheControlEphemeral? CacheControl`
+            Create a cache control breakpoint at this content block.
 
-                Create a cache control breakpoint at this content block.
+          - `ImageTransformationsParam? Transformations`
 
-              - `IReadOnlyList<BrowserStateChange>? StateChanges`
+            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-                Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+            - `OversizedImage OversizedImage`
 
-                minItems: 1, maxItems: 200
+              What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
-                - `class BrowserStateChangeTabOpened`
+              - `Downsize("downsize")`
 
-                  A tab this call's execution opened that remains open at its end —
-                  the creation delta of the `tabs` inventory, not an event log.
+              - `Error("error")`
 
-                  Carries only the `tab_id`; the tab's `title` and `url` live on its
-                  `tabs` entry, which must include the same `tab_id`. A tab opened
-                  during a failed call gets no deferred `tab_opened`; it simply appears
-                  in the next result's `tabs` inventory.
+        - `class DocumentBlockParam`
 
-                  - `JsonElement Type = "tab_opened"`
+          - `JsonElement Type = "document"`
+
+          - `required Source Source`
+
+            - `class Base64PdfSource`
+
+              - `JsonElement Type = "base64"`
+
+              - `required string Data`
+
+                format: byte
+
+              - `JsonElement MediaType = "application/pdf"`
+
+            - `class PlainTextSource`
+
+              - `JsonElement Type = "text"`
+
+              - `required string Data`
+
+              - `JsonElement MediaType = "text/plain"`
+
+            - `class ContentBlockSource`
+
+              - `JsonElement Type = "content"`
+
+              - `required Content Content`
+
+                - `string`
+
+                - `IReadOnlyList<ContentBlockSourceContent>`
+
+                  - `class TextBlockParam`
+
+                  - `class ImageBlockParam`
+
+            - `class UrlPdfSource`
+
+              - `JsonElement Type = "url"`
+
+              - `required string Url`
+
+            - `class FileDocumentSource`
+
+              - `JsonElement Type = "file"`
+
+              - `required string FileID`
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `CitationsConfigParam? Citations`
+
+            - `bool Enabled`
+
+          - `string? Context`
+
+            minLength: 1
+
+          - `string? Title`
+
+            minLength: 1, maxLength: 500
+
+        - `class SearchResultBlockParam`
+
+          - `JsonElement Type = "search_result"`
+
+          - `required IReadOnlyList<TextBlockParam> Content`
+
+            - `JsonElement Type = "text"`
+
+            - `required string Text`
+
+              minLength: 1
+
+            - `CacheControlEphemeral? CacheControl`
+
+              Create a cache control breakpoint at this content block.
+
+            - `IReadOnlyList<TextCitationParam>? Citations`
+
+          - `required string Source`
+
+          - `required string Title`
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `CitationsConfigParam Citations`
+
+        - `class ThinkingBlockParam`
+
+          - `JsonElement Type = "thinking"`
+
+          - `required string Signature`
+
+            The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+            Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+          - `required string Thinking`
+
+            The `thinking` text of this block as returned by the API.
+
+        - `class RedactedThinkingBlockParam`
+
+          - `JsonElement Type = "redacted_thinking"`
+
+          - `required string Data`
+
+            The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+        - `class ToolUseBlockParam`
+
+          - `JsonElement Type = "tool_use"`
+
+          - `required string ID`
+
+            pattern: ^[a-zA-Z0-9_-]+$
+
+          - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+          - `required string Name`
+
+            minLength: 1, maxLength: 200
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Caller Caller`
+
+            - `class DirectCaller`
+
+              Tool invocation directly from the model.
+
+              - `JsonElement Type = "direct"`
+
+            - `class ServerToolCaller`
+
+              Tool invocation generated by a server-side tool.
+
+              - `JsonElement Type = "code_execution_20250825"`
+
+              - `required string ToolID`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `class ServerToolCaller20260120`
+
+              - `JsonElement Type = "code_execution_20260120"`
+
+              - `required string ToolID`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `string? ToolsetName`
+
+            For a toolset member tool_use, the toolset family this member belongs to.
+
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+        - `class ToolResultBlockParam`
+
+          - `JsonElement Type = "tool_result"`
+
+          - `required string ToolUseID`
+
+            pattern: ^[a-zA-Z0-9_-]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Content Content`
+
+            - `string`
+
+            - `IReadOnlyList<Block>`
+
+              - `class TextBlockParam`
+
+              - `class ImageBlockParam`
+
+              - `class SearchResultBlockParam`
+
+              - `class DocumentBlockParam`
+
+              - `class ToolReferenceBlockParam`
+
+                Tool reference block that can be included in tool_result content.
+
+                - `JsonElement Type = "tool_reference"`
+
+                - `required string ToolName`
+
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+              - `class BrowserStateBlockParam`
+
+                The caller's browser state after a browser toolset member call —
+                the full inventory of open tabs, which tab is active, and any side
+                effects (tabs opened, download state changes) the call produced.
+
+                At most one per `tool_result`, only on a non-error result answering a
+                browser toolset member `tool_use`. The server renders the
+                model-visible text from it; the model never sees the raw fields.
+
+                - `JsonElement Type = "browser_state"`
+
+                - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+                  All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                  maxItems: 100
 
                   - `required string TabID`
 
-                    The `tab_id` of the opened tab, present in `tabs`.
+                    The caller-assigned identifier for this tab, unique within the inventory.
 
                     minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BrowserStateChangeDownloadStarted`
+                  - `required string Title`
 
-                  A file download that started during this call.
+                    The title of the page the tab is showing. May be empty.
 
-                  - `JsonElement Type = "download_started"`
-
-                  - `required string DownloadID`
-
-                    The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `required string Url`
 
-                    The final post-redirect URL the download was served from.
+                    The URL of the page the tab is showing. May be empty.
 
                     maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BrowserStateChangeDownloadCompleted`
+                  - `bool Active`
 
-                  A file download that finished during this call, reported with the
-                  same `download_id` as its `download_started` — or without a prior
-                  `download_started`, when the download finished during the call that
-                  started it (at most one state change per `download_id` per result).
+                    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                  - `JsonElement Type = "download_completed"`
+                - `CacheControlEphemeral? CacheControl`
 
-                  - `required string DownloadID`
+                  Create a cache control breakpoint at this content block.
 
-                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+                - `IReadOnlyList<BrowserStateChange>? StateChanges`
 
-                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                  - `required string Url`
+                  minItems: 1, maxItems: 200
 
-                    The final post-redirect URL the download was served from.
+                  - `class BrowserStateChangeTabOpened`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    A tab this call's execution opened that remains open at its end —
+                    the creation delta of the `tabs` inventory, not an event log.
 
-                  - `string? Path`
+                    Carries only the `tab_id`; the tab's `title` and `url` live on its
+                    `tabs` entry, which must include the same `tab_id`. A tab opened
+                    during a failed call gets no deferred `tab_opened`; it simply appears
+                    in the next result's `tabs` inventory.
 
-                    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+                    - `JsonElement Type = "tab_opened"`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `required string TabID`
 
-                  - `long? SizeBytes`
+                      The `tab_id` of the opened tab, present in `tabs`.
 
-                    The completed download's size.
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    minimum: 0
+                  - `class BrowserStateChangeDownloadStarted`
 
-                - `class BrowserStateChangeDownloadFailed`
+                    A file download that started during this call.
 
-                  A file download that failed — or was cancelled — during this call.
+                    - `JsonElement Type = "download_started"`
 
-                  - `JsonElement Type = "download_failed"`
+                    - `required string DownloadID`
 
-                  - `required string DownloadID`
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `required string Url`
 
-                  - `required string Url`
+                      The final post-redirect URL the download was served from.
 
-                    The final post-redirect URL the download was served from.
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  - `class BrowserStateChangeDownloadCompleted`
 
-                  - `string? Error`
+                    A file download that finished during this call, reported with the
+                    same `download_id` as its `download_started` — or without a prior
+                    `download_started`, when the download finished during the call that
+                    started it (at most one state change per `download_id` per result).
 
-                    The failure or cancellation detail, when known.
+                    - `JsonElement Type = "download_completed"`
 
-                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `required string DownloadID`
 
-        - `bool IsError`
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        - `string? ToolsetName`
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          For a toolset member tool_result, the toolset family of the paired tool_use.
+                    - `required string Url`
 
-          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                      The final post-redirect URL the download was served from.
 
-      - `class ServerToolUseBlockParam`
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-        - `JsonElement Type = "server_tool_use"`
+                    - `string? Path`
 
-        - `required string ID`
+                      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-        - `required IReadOnlyDictionary<string, JsonElement> Input`
+                    - `long? SizeBytes`
 
-        - `required Name Name`
+                      The completed download's size.
 
-          - `WebSearch("web_search")`
+                      minimum: 0
 
-          - `WebFetch("web_fetch")`
+                  - `class BrowserStateChangeDownloadFailed`
 
-          - `CodeExecution("code_execution")`
+                    A file download that failed — or was cancelled — during this call.
 
-          - `BashCodeExecution("bash_code_execution")`
+                    - `JsonElement Type = "download_failed"`
 
-          - `TextEditorCodeExecution("text_editor_code_execution")`
+                    - `required string DownloadID`
 
-          - `ToolSearchToolRegex("tool_search_tool_regex")`
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-          - `ToolSearchToolBm25("tool_search_tool_bm25")`
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `required string Url`
+
+                      The final post-redirect URL the download was served from.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `string? Error`
+
+                      The failure or cancellation detail, when known.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+          - `bool IsError`
+
+          - `string? ToolsetName`
+
+            For a toolset member tool_result, the toolset family of the paired tool_use.
+
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+        - `class ServerToolUseBlockParam`
+
+          - `JsonElement Type = "server_tool_use"`
+
+          - `required string ID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+          - `required Name Name`
+
+            - `WebSearch("web_search")`
+
+            - `WebFetch("web_fetch")`
+
+            - `CodeExecution("code_execution")`
+
+            - `BashCodeExecution("bash_code_execution")`
+
+            - `TextEditorCodeExecution("text_editor_code_execution")`
+
+            - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+            - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Caller Caller`
+
+            - `class DirectCaller`
+
+              Tool invocation directly from the model.
+
+            - `class ServerToolCaller`
+
+              Tool invocation generated by a server-side tool.
+
+            - `class ServerToolCaller20260120`
+
+        - `class WebSearchToolResultBlockParam`
+
+          - `JsonElement Type = "web_search_tool_result"`
+
+          - `required WebSearchToolResultBlockParamContent Content`
+
+            - `IReadOnlyList<WebSearchResultBlockParam>`
+
+              - `JsonElement Type = "web_search_result"`
+
+              - `required string EncryptedContent`
+
+              - `required string Title`
+
+              - `required string Url`
+
+              - `string? PageAge`
+
+            - `class WebSearchToolRequestError`
+
+              - `JsonElement Type = "web_search_tool_result_error"`
+
+              - `required WebSearchToolResultErrorCode ErrorCode`
+
+                - `InvalidToolInput("invalid_tool_input")`
+
+                - `Unavailable("unavailable")`
+
+                - `MaxUsesExceeded("max_uses_exceeded")`
+
+                - `TooManyRequests("too_many_requests")`
+
+                - `QueryTooLong("query_too_long")`
+
+                - `RequestTooLarge("request_too_large")`
+
+          - `required string ToolUseID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Caller Caller`
+
+            - `class DirectCaller`
+
+              Tool invocation directly from the model.
+
+            - `class ServerToolCaller`
+
+              Tool invocation generated by a server-side tool.
+
+            - `class ServerToolCaller20260120`
+
+        - `class WebFetchToolResultBlockParam`
+
+          - `JsonElement Type = "web_fetch_tool_result"`
+
+          - `required Content Content`
+
+            - `class WebFetchToolResultErrorBlockParam`
+
+              - `JsonElement Type = "web_fetch_tool_result_error"`
+
+              - `required WebFetchToolResultErrorCode ErrorCode`
+
+                - `InvalidToolInput("invalid_tool_input")`
+
+                - `UrlTooLong("url_too_long")`
+
+                - `UrlNotAllowed("url_not_allowed")`
+
+                - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+                - `UrlNotAccessible("url_not_accessible")`
+
+                - `UnsupportedContentType("unsupported_content_type")`
+
+                - `TooManyRequests("too_many_requests")`
+
+                - `MaxUsesExceeded("max_uses_exceeded")`
+
+                - `Unavailable("unavailable")`
+
+                - `ContentTooLarge("content_too_large")`
+
+            - `class WebFetchBlockParam`
+
+              - `JsonElement Type = "web_fetch_result"`
+
+              - `required DocumentBlockParam Content`
+
+              - `required string Url`
+
+                Fetched content URL
+
+              - `string? RetrievedAt`
+
+                ISO 8601 timestamp when the content was retrieved
+
+          - `required string ToolUseID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Caller Caller`
+
+            - `class DirectCaller`
+
+              Tool invocation directly from the model.
+
+            - `class ServerToolCaller`
+
+              Tool invocation generated by a server-side tool.
+
+            - `class ServerToolCaller20260120`
+
+        - `class CodeExecutionToolResultBlockParam`
+
+          - `JsonElement Type = "code_execution_tool_result"`
+
+          - `required CodeExecutionToolResultBlockParamContent Content`
+
+            - `class CodeExecutionToolResultErrorParam`
+
+              - `JsonElement Type = "code_execution_tool_result_error"`
+
+              - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+                - `InvalidToolInput("invalid_tool_input")`
+
+                - `Unavailable("unavailable")`
+
+                - `TooManyRequests("too_many_requests")`
+
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+            - `class CodeExecutionResultBlockParam`
+
+              - `JsonElement Type = "code_execution_result"`
+
+              - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                - `JsonElement Type = "code_execution_output"`
+
+                - `required string FileID`
+
+              - `required long ReturnCode`
+
+              - `required string Stderr`
+
+              - `required string Stdout`
+
+            - `class EncryptedCodeExecutionResultBlockParam`
+
+              Code execution result with encrypted stdout for PFC + web_search results.
+
+              - `JsonElement Type = "encrypted_code_execution_result"`
+
+              - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                - `JsonElement Type = "code_execution_output"`
+
+                - `required string FileID`
+
+              - `required string EncryptedStdout`
+
+              - `required long ReturnCode`
+
+              - `required string Stderr`
+
+          - `required string ToolUseID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+        - `class BashCodeExecutionToolResultBlockParam`
+
+          - `JsonElement Type = "bash_code_execution_tool_result"`
+
+          - `required Content Content`
+
+            - `class BashCodeExecutionToolResultErrorParam`
+
+              - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+              - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+                - `InvalidToolInput("invalid_tool_input")`
+
+                - `Unavailable("unavailable")`
+
+                - `TooManyRequests("too_many_requests")`
+
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                - `OutputFileTooLarge("output_file_too_large")`
+
+            - `class BashCodeExecutionResultBlockParam`
+
+              - `JsonElement Type = "bash_code_execution_result"`
+
+              - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+                - `JsonElement Type = "bash_code_execution_output"`
+
+                - `required string FileID`
+
+              - `required long ReturnCode`
+
+              - `required string Stderr`
+
+              - `required string Stdout`
+
+          - `required string ToolUseID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+        - `class TextEditorCodeExecutionToolResultBlockParam`
+
+          - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+          - `required Content Content`
+
+            - `class TextEditorCodeExecutionToolResultErrorParam`
+
+              - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+              - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+                - `InvalidToolInput("invalid_tool_input")`
+
+                - `Unavailable("unavailable")`
+
+                - `TooManyRequests("too_many_requests")`
+
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                - `FileNotFound("file_not_found")`
+
+              - `string? ErrorMessage`
+
+            - `class TextEditorCodeExecutionViewResultBlockParam`
+
+              - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+              - `required string Content`
+
+              - `required FileType FileType`
+
+                - `Text("text")`
+
+                - `Image("image")`
+
+                - `Pdf("pdf")`
+
+              - `long? NumLines`
+
+              - `long? StartLine`
+
+              - `long? TotalLines`
+
+            - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+              - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+              - `required bool IsFileUpdate`
+
+            - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+              - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+              - `IReadOnlyList<string>? Lines`
+
+              - `long? NewLines`
+
+              - `long? NewStart`
+
+              - `long? OldLines`
+
+              - `long? OldStart`
+
+          - `required string ToolUseID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+        - `class ToolSearchToolResultBlockParam`
+
+          - `JsonElement Type = "tool_search_tool_result"`
+
+          - `required Content Content`
+
+            - `class ToolSearchToolResultErrorParam`
+
+              - `JsonElement Type = "tool_search_tool_result_error"`
+
+              - `required ToolSearchToolResultErrorCode ErrorCode`
+
+                - `InvalidToolInput("invalid_tool_input")`
+
+                - `Unavailable("unavailable")`
+
+                - `TooManyRequests("too_many_requests")`
+
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `string? ErrorMessage`
+
+            - `class ToolSearchToolSearchResultBlockParam`
+
+              - `JsonElement Type = "tool_search_tool_search_result"`
+
+              - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+                - `JsonElement Type = "tool_reference"`
+
+                - `required string ToolName`
+
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+          - `required string ToolUseID`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+        - `class ContainerUploadBlockParam`
+
+          A content block that represents a file to be uploaded to the container
+          Files uploaded via this block will be available in the container's input directory.
+
+          - `JsonElement Type = "container_upload"`
+
+          - `required string FileID`
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+    - `JsonElement Role = "user"`
+
+  - `class AssistantMessageParam`
+
+    - `required MessageContentParam Content`
+
+    - `JsonElement Role = "assistant"`
+
+  - `class SystemMessageParam`
+
+    - `required Content Content`
+
+      - `string`
+
+      - `IReadOnlyList<TextBlockParam>`
+
+        - `JsonElement Type = "text"`
+
+        - `required string Text`
+
+          minLength: 1
 
         - `CacheControlEphemeral? CacheControl`
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `IReadOnlyList<TextCitationParam>? Citations`
 
-          - `class DirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `class ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `class ServerToolCaller20260120`
-
-      - `class WebSearchToolResultBlockParam`
-
-        - `JsonElement Type = "web_search_tool_result"`
-
-        - `required WebSearchToolResultBlockParamContent Content`
-
-          - `IReadOnlyList<WebSearchResultBlockParam>`
-
-            - `JsonElement Type = "web_search_result"`
-
-            - `required string EncryptedContent`
-
-            - `required string Title`
-
-            - `required string Url`
-
-            - `string? PageAge`
-
-          - `class WebSearchToolRequestError`
-
-            - `JsonElement Type = "web_search_tool_result_error"`
-
-            - `required WebSearchToolResultErrorCode ErrorCode`
-
-              - `InvalidToolInput("invalid_tool_input")`
-
-              - `Unavailable("unavailable")`
-
-              - `MaxUsesExceeded("max_uses_exceeded")`
-
-              - `TooManyRequests("too_many_requests")`
-
-              - `QueryTooLong("query_too_long")`
-
-              - `RequestTooLarge("request_too_large")`
-
-        - `required string ToolUseID`
-
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-        - `Caller Caller`
-
-          - `class DirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `class ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `class ServerToolCaller20260120`
-
-      - `class WebFetchToolResultBlockParam`
-
-        - `JsonElement Type = "web_fetch_tool_result"`
-
-        - `required Content Content`
-
-          - `class WebFetchToolResultErrorBlockParam`
-
-            - `JsonElement Type = "web_fetch_tool_result_error"`
-
-            - `required WebFetchToolResultErrorCode ErrorCode`
-
-              - `InvalidToolInput("invalid_tool_input")`
-
-              - `UrlTooLong("url_too_long")`
-
-              - `UrlNotAllowed("url_not_allowed")`
-
-              - `UrlNotInPriorContext("url_not_in_prior_context")`
-
-              - `UrlNotAccessible("url_not_accessible")`
-
-              - `UnsupportedContentType("unsupported_content_type")`
-
-              - `TooManyRequests("too_many_requests")`
-
-              - `MaxUsesExceeded("max_uses_exceeded")`
-
-              - `Unavailable("unavailable")`
-
-              - `ContentTooLarge("content_too_large")`
-
-          - `class WebFetchBlockParam`
-
-            - `JsonElement Type = "web_fetch_result"`
-
-            - `required DocumentBlockParam Content`
-
-            - `required string Url`
-
-              Fetched content URL
-
-            - `string? RetrievedAt`
-
-              ISO 8601 timestamp when the content was retrieved
-
-        - `required string ToolUseID`
-
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-        - `Caller Caller`
-
-          - `class DirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `class ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `class ServerToolCaller20260120`
-
-      - `class CodeExecutionToolResultBlockParam`
-
-        - `JsonElement Type = "code_execution_tool_result"`
-
-        - `required CodeExecutionToolResultBlockParamContent Content`
-
-          - `class CodeExecutionToolResultErrorParam`
-
-            - `JsonElement Type = "code_execution_tool_result_error"`
-
-            - `required CodeExecutionToolResultErrorCode ErrorCode`
-
-              - `InvalidToolInput("invalid_tool_input")`
-
-              - `Unavailable("unavailable")`
-
-              - `TooManyRequests("too_many_requests")`
-
-              - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-          - `class CodeExecutionResultBlockParam`
-
-            - `JsonElement Type = "code_execution_result"`
-
-            - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-              - `JsonElement Type = "code_execution_output"`
-
-              - `required string FileID`
-
-            - `required long ReturnCode`
-
-            - `required string Stderr`
-
-            - `required string Stdout`
-
-          - `class EncryptedCodeExecutionResultBlockParam`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `JsonElement Type = "encrypted_code_execution_result"`
-
-            - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-              - `JsonElement Type = "code_execution_output"`
-
-              - `required string FileID`
-
-            - `required string EncryptedStdout`
-
-            - `required long ReturnCode`
-
-            - `required string Stderr`
-
-        - `required string ToolUseID`
-
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-      - `class BashCodeExecutionToolResultBlockParam`
-
-        - `JsonElement Type = "bash_code_execution_tool_result"`
-
-        - `required Content Content`
-
-          - `class BashCodeExecutionToolResultErrorParam`
-
-            - `JsonElement Type = "bash_code_execution_tool_result_error"`
-
-            - `required BashCodeExecutionToolResultErrorCode ErrorCode`
-
-              - `InvalidToolInput("invalid_tool_input")`
-
-              - `Unavailable("unavailable")`
-
-              - `TooManyRequests("too_many_requests")`
-
-              - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-              - `OutputFileTooLarge("output_file_too_large")`
-
-          - `class BashCodeExecutionResultBlockParam`
-
-            - `JsonElement Type = "bash_code_execution_result"`
-
-            - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
-
-              - `JsonElement Type = "bash_code_execution_output"`
-
-              - `required string FileID`
-
-            - `required long ReturnCode`
-
-            - `required string Stderr`
-
-            - `required string Stdout`
-
-        - `required string ToolUseID`
-
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-      - `class TextEditorCodeExecutionToolResultBlockParam`
-
-        - `JsonElement Type = "text_editor_code_execution_tool_result"`
-
-        - `required Content Content`
-
-          - `class TextEditorCodeExecutionToolResultErrorParam`
-
-            - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
-
-            - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
-
-              - `InvalidToolInput("invalid_tool_input")`
-
-              - `Unavailable("unavailable")`
-
-              - `TooManyRequests("too_many_requests")`
-
-              - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-              - `FileNotFound("file_not_found")`
-
-            - `string? ErrorMessage`
-
-          - `class TextEditorCodeExecutionViewResultBlockParam`
-
-            - `JsonElement Type = "text_editor_code_execution_view_result"`
-
-            - `required string Content`
-
-            - `required FileType FileType`
-
-              - `Text("text")`
-
-              - `Image("image")`
-
-              - `Pdf("pdf")`
-
-            - `long? NumLines`
-
-            - `long? StartLine`
-
-            - `long? TotalLines`
-
-          - `class TextEditorCodeExecutionCreateResultBlockParam`
-
-            - `JsonElement Type = "text_editor_code_execution_create_result"`
-
-            - `required bool IsFileUpdate`
-
-          - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-            - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
-
-            - `IReadOnlyList<string>? Lines`
-
-            - `long? NewLines`
-
-            - `long? NewStart`
-
-            - `long? OldLines`
-
-            - `long? OldStart`
-
-        - `required string ToolUseID`
-
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-      - `class ToolSearchToolResultBlockParam`
-
-        - `JsonElement Type = "tool_search_tool_result"`
-
-        - `required Content Content`
-
-          - `class ToolSearchToolResultErrorParam`
-
-            - `JsonElement Type = "tool_search_tool_result_error"`
-
-            - `required ToolSearchToolResultErrorCode ErrorCode`
-
-              - `InvalidToolInput("invalid_tool_input")`
-
-              - `Unavailable("unavailable")`
-
-              - `TooManyRequests("too_many_requests")`
-
-              - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-            - `string? ErrorMessage`
-
-          - `class ToolSearchToolSearchResultBlockParam`
-
-            - `JsonElement Type = "tool_search_tool_search_result"`
-
-            - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
-
-              - `JsonElement Type = "tool_reference"`
-
-              - `required string ToolName`
-
-                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-        - `required string ToolUseID`
-
-          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-      - `class ContainerUploadBlockParam`
-
-        A content block that represents a file to be uploaded to the container
-        Files uploaded via this block will be available in the container's input directory.
-
-        - `JsonElement Type = "container_upload"`
-
-        - `required string FileID`
-
-        - `CacheControlEphemeral? CacheControl`
-
-          Create a cache control breakpoint at this content block.
-
-  - `required Role Role`
-
-    - `User("user")`
-
-    - `Assistant("assistant")`
-
-    - `System("system")`
+    - `JsonElement Role = "system"`
 
 ### Message Tokens Count
 
@@ -26689,6 +28663,167 @@ Console.WriteLine(messageTokensCount);
   - `Refusal("refusal")`
 
   - `ModelContextWindowExceeded("model_context_window_exceeded")`
+
+### System Message Param
+
+- `class SystemMessageParam`
+
+  - `required Content Content`
+
+    - `string`
+
+    - `IReadOnlyList<TextBlockParam>`
+
+      - `JsonElement Type = "text"`
+
+      - `required string Text`
+
+        minLength: 1
+
+      - `CacheControlEphemeral? CacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+        - `JsonElement Type = "ephemeral"`
+
+        - `Ttl Ttl`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+          - `Ttl5m("5m")`
+
+          - `Ttl1h("1h")`
+
+      - `IReadOnlyList<TextCitationParam>? Citations`
+
+        - `class CitationCharLocationParam`
+
+          - `JsonElement Type = "char_location"`
+
+          - `required string CitedText`
+
+          - `required long DocumentIndex`
+
+            minimum: 0
+
+          - `required string? DocumentTitle`
+
+            minLength: 1, maxLength: 500
+
+          - `required long EndCharIndex`
+
+          - `required long StartCharIndex`
+
+            minimum: 0
+
+        - `class CitationPageLocationParam`
+
+          - `JsonElement Type = "page_location"`
+
+          - `required string CitedText`
+
+          - `required long DocumentIndex`
+
+            minimum: 0
+
+          - `required string? DocumentTitle`
+
+            minLength: 1, maxLength: 500
+
+          - `required long EndPageNumber`
+
+          - `required long StartPageNumber`
+
+            minimum: 1
+
+        - `class CitationContentBlockLocationParam`
+
+          - `JsonElement Type = "content_block_location"`
+
+          - `required string CitedText`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `required long DocumentIndex`
+
+            minimum: 0
+
+          - `required string? DocumentTitle`
+
+            minLength: 1, maxLength: 500
+
+          - `required long EndBlockIndex`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `required long StartBlockIndex`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+        - `class CitationWebSearchResultLocationParam`
+
+          - `JsonElement Type = "web_search_result_location"`
+
+          - `required string CitedText`
+
+          - `required string EncryptedIndex`
+
+          - `required string? Title`
+
+            minLength: 1, maxLength: 512
+
+          - `required string Url`
+
+            minLength: 1
+
+        - `class CitationSearchResultLocationParam`
+
+          - `JsonElement Type = "search_result_location"`
+
+          - `required string CitedText`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `required long EndBlockIndex`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `required long SearchResultIndex`
+
+            0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+            Counted separately from `document_index`; server-side web search results are not included in this count.
+
+            minimum: 0
+
+          - `required string Source`
+
+          - `required long StartBlockIndex`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+          - `required string? Title`
+
+  - `JsonElement Role = "system"`
 
 ### Text Block
 
@@ -32351,6 +34486,981 @@ Console.WriteLine(messageTokensCount);
 
     minLength: 1, maxLength: 255
 
+### User Message Param
+
+- `class UserMessageParam`
+
+  - `required MessageContentParam Content`
+
+    - `string`
+
+    - `IReadOnlyList<ContentBlockParam>`
+
+      - `class TextBlockParam`
+
+        - `JsonElement Type = "text"`
+
+        - `required string Text`
+
+          minLength: 1
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+          - `JsonElement Type = "ephemeral"`
+
+          - `Ttl Ttl`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+            - `Ttl5m("5m")`
+
+            - `Ttl1h("1h")`
+
+        - `IReadOnlyList<TextCitationParam>? Citations`
+
+          - `class CitationCharLocationParam`
+
+            - `JsonElement Type = "char_location"`
+
+            - `required string CitedText`
+
+            - `required long DocumentIndex`
+
+              minimum: 0
+
+            - `required string? DocumentTitle`
+
+              minLength: 1, maxLength: 500
+
+            - `required long EndCharIndex`
+
+            - `required long StartCharIndex`
+
+              minimum: 0
+
+          - `class CitationPageLocationParam`
+
+            - `JsonElement Type = "page_location"`
+
+            - `required string CitedText`
+
+            - `required long DocumentIndex`
+
+              minimum: 0
+
+            - `required string? DocumentTitle`
+
+              minLength: 1, maxLength: 500
+
+            - `required long EndPageNumber`
+
+            - `required long StartPageNumber`
+
+              minimum: 1
+
+          - `class CitationContentBlockLocationParam`
+
+            - `JsonElement Type = "content_block_location"`
+
+            - `required string CitedText`
+
+              The full text of the cited block range, concatenated.
+
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+            - `required long DocumentIndex`
+
+              minimum: 0
+
+            - `required string? DocumentTitle`
+
+              minLength: 1, maxLength: 500
+
+            - `required long EndBlockIndex`
+
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+            - `required long StartBlockIndex`
+
+              0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
+
+          - `class CitationWebSearchResultLocationParam`
+
+            - `JsonElement Type = "web_search_result_location"`
+
+            - `required string CitedText`
+
+            - `required string EncryptedIndex`
+
+            - `required string? Title`
+
+              minLength: 1, maxLength: 512
+
+            - `required string Url`
+
+              minLength: 1
+
+          - `class CitationSearchResultLocationParam`
+
+            - `JsonElement Type = "search_result_location"`
+
+            - `required string CitedText`
+
+              The full text of the cited block range, concatenated.
+
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+            - `required long EndBlockIndex`
+
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+            - `required long SearchResultIndex`
+
+              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+              Counted separately from `document_index`; server-side web search results are not included in this count.
+
+              minimum: 0
+
+            - `required string Source`
+
+            - `required long StartBlockIndex`
+
+              0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
+
+            - `required string? Title`
+
+      - `class ImageBlockParam`
+
+        - `JsonElement Type = "image"`
+
+        - `required Source Source`
+
+          - `class Base64ImageSource`
+
+            - `JsonElement Type = "base64"`
+
+            - `required string Data`
+
+              format: byte
+
+            - `required MediaType MediaType`
+
+              - `ImageJpeg("image/jpeg")`
+
+              - `ImagePng("image/png")`
+
+              - `ImageGif("image/gif")`
+
+              - `ImageWebP("image/webp")`
+
+          - `class UrlImageSource`
+
+            - `JsonElement Type = "url"`
+
+            - `required string Url`
+
+          - `class FileImageSource`
+
+            - `JsonElement Type = "file"`
+
+            - `required string FileID`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `ImageTransformationsParam? Transformations`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `OversizedImage OversizedImage`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `Downsize("downsize")`
+
+            - `Error("error")`
+
+      - `class DocumentBlockParam`
+
+        - `JsonElement Type = "document"`
+
+        - `required Source Source`
+
+          - `class Base64PdfSource`
+
+            - `JsonElement Type = "base64"`
+
+            - `required string Data`
+
+              format: byte
+
+            - `JsonElement MediaType = "application/pdf"`
+
+          - `class PlainTextSource`
+
+            - `JsonElement Type = "text"`
+
+            - `required string Data`
+
+            - `JsonElement MediaType = "text/plain"`
+
+          - `class ContentBlockSource`
+
+            - `JsonElement Type = "content"`
+
+            - `required Content Content`
+
+              - `string`
+
+              - `IReadOnlyList<ContentBlockSourceContent>`
+
+                - `class TextBlockParam`
+
+                - `class ImageBlockParam`
+
+          - `class UrlPdfSource`
+
+            - `JsonElement Type = "url"`
+
+            - `required string Url`
+
+          - `class FileDocumentSource`
+
+            - `JsonElement Type = "file"`
+
+            - `required string FileID`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `CitationsConfigParam? Citations`
+
+          - `bool Enabled`
+
+        - `string? Context`
+
+          minLength: 1
+
+        - `string? Title`
+
+          minLength: 1, maxLength: 500
+
+      - `class SearchResultBlockParam`
+
+        - `JsonElement Type = "search_result"`
+
+        - `required IReadOnlyList<TextBlockParam> Content`
+
+          - `JsonElement Type = "text"`
+
+          - `required string Text`
+
+            minLength: 1
+
+          - `CacheControlEphemeral? CacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `IReadOnlyList<TextCitationParam>? Citations`
+
+        - `required string Source`
+
+        - `required string Title`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `CitationsConfigParam Citations`
+
+      - `class ThinkingBlockParam`
+
+        - `JsonElement Type = "thinking"`
+
+        - `required string Signature`
+
+          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+        - `required string Thinking`
+
+          The `thinking` text of this block as returned by the API.
+
+      - `class RedactedThinkingBlockParam`
+
+        - `JsonElement Type = "redacted_thinking"`
+
+        - `required string Data`
+
+          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+      - `class ToolUseBlockParam`
+
+        - `JsonElement Type = "tool_use"`
+
+        - `required string ID`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+        - `required string Name`
+
+          minLength: 1, maxLength: 200
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+            - `JsonElement Type = "direct"`
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+            - `JsonElement Type = "code_execution_20250825"`
+
+            - `required string ToolID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+          - `class ServerToolCaller20260120`
+
+            - `JsonElement Type = "code_execution_20260120"`
+
+            - `required string ToolID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `string? ToolsetName`
+
+          For a toolset member tool_use, the toolset family this member belongs to.
+
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `class ToolResultBlockParam`
+
+        - `JsonElement Type = "tool_result"`
+
+        - `required string ToolUseID`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Content Content`
+
+          - `string`
+
+          - `IReadOnlyList<Block>`
+
+            - `class TextBlockParam`
+
+            - `class ImageBlockParam`
+
+            - `class SearchResultBlockParam`
+
+            - `class DocumentBlockParam`
+
+            - `class ToolReferenceBlockParam`
+
+              Tool reference block that can be included in tool_result content.
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string ToolName`
+
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+            - `class BrowserStateBlockParam`
+
+              The caller's browser state after a browser toolset member call —
+              the full inventory of open tabs, which tab is active, and any side
+              effects (tabs opened, download state changes) the call produced.
+
+              At most one per `tool_result`, only on a non-error result answering a
+              browser toolset member `tool_use`. The server renders the
+              model-visible text from it; the model never sees the raw fields.
+
+              - `JsonElement Type = "browser_state"`
+
+              - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+                All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                maxItems: 100
+
+                - `required string TabID`
+
+                  The caller-assigned identifier for this tab, unique within the inventory.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Title`
+
+                  The title of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `required string Url`
+
+                  The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `bool Active`
+
+                  Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+              - `IReadOnlyList<BrowserStateChange>? StateChanges`
+
+                Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                minItems: 1, maxItems: 200
+
+                - `class BrowserStateChangeTabOpened`
+
+                  A tab this call's execution opened that remains open at its end —
+                  the creation delta of the `tabs` inventory, not an event log.
+
+                  Carries only the `tab_id`; the tab's `title` and `url` live on its
+                  `tabs` entry, which must include the same `tab_id`. A tab opened
+                  during a failed call gets no deferred `tab_opened`; it simply appears
+                  in the next result's `tabs` inventory.
+
+                  - `JsonElement Type = "tab_opened"`
+
+                  - `required string TabID`
+
+                    The `tab_id` of the opened tab, present in `tabs`.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `class BrowserStateChangeDownloadStarted`
+
+                  A file download that started during this call.
+
+                  - `JsonElement Type = "download_started"`
+
+                  - `required string DownloadID`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `required string Url`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `class BrowserStateChangeDownloadCompleted`
+
+                  A file download that finished during this call, reported with the
+                  same `download_id` as its `download_started` — or without a prior
+                  `download_started`, when the download finished during the call that
+                  started it (at most one state change per `download_id` per result).
+
+                  - `JsonElement Type = "download_completed"`
+
+                  - `required string DownloadID`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `required string Url`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `string? Path`
+
+                    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `long? SizeBytes`
+
+                    The completed download's size.
+
+                    minimum: 0
+
+                - `class BrowserStateChangeDownloadFailed`
+
+                  A file download that failed — or was cancelled — during this call.
+
+                  - `JsonElement Type = "download_failed"`
+
+                  - `required string DownloadID`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `required string Url`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `string? Error`
+
+                    The failure or cancellation detail, when known.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+        - `bool IsError`
+
+        - `string? ToolsetName`
+
+          For a toolset member tool_result, the toolset family of the paired tool_use.
+
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `class ServerToolUseBlockParam`
+
+        - `JsonElement Type = "server_tool_use"`
+
+        - `required string ID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+        - `required Name Name`
+
+          - `WebSearch("web_search")`
+
+          - `WebFetch("web_fetch")`
+
+          - `CodeExecution("code_execution")`
+
+          - `BashCodeExecution("bash_code_execution")`
+
+          - `TextEditorCodeExecution("text_editor_code_execution")`
+
+          - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+          - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+          - `class ServerToolCaller20260120`
+
+      - `class WebSearchToolResultBlockParam`
+
+        - `JsonElement Type = "web_search_tool_result"`
+
+        - `required WebSearchToolResultBlockParamContent Content`
+
+          - `IReadOnlyList<WebSearchResultBlockParam>`
+
+            - `JsonElement Type = "web_search_result"`
+
+            - `required string EncryptedContent`
+
+            - `required string Title`
+
+            - `required string Url`
+
+            - `string? PageAge`
+
+          - `class WebSearchToolRequestError`
+
+            - `JsonElement Type = "web_search_tool_result_error"`
+
+            - `required WebSearchToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `MaxUsesExceeded("max_uses_exceeded")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `QueryTooLong("query_too_long")`
+
+              - `RequestTooLarge("request_too_large")`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+          - `class ServerToolCaller20260120`
+
+      - `class WebFetchToolResultBlockParam`
+
+        - `JsonElement Type = "web_fetch_tool_result"`
+
+        - `required Content Content`
+
+          - `class WebFetchToolResultErrorBlockParam`
+
+            - `JsonElement Type = "web_fetch_tool_result_error"`
+
+            - `required WebFetchToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `UrlTooLong("url_too_long")`
+
+              - `UrlNotAllowed("url_not_allowed")`
+
+              - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+              - `UrlNotAccessible("url_not_accessible")`
+
+              - `UnsupportedContentType("unsupported_content_type")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `MaxUsesExceeded("max_uses_exceeded")`
+
+              - `Unavailable("unavailable")`
+
+              - `ContentTooLarge("content_too_large")`
+
+          - `class WebFetchBlockParam`
+
+            - `JsonElement Type = "web_fetch_result"`
+
+            - `required DocumentBlockParam Content`
+
+            - `required string Url`
+
+              Fetched content URL
+
+            - `string? RetrievedAt`
+
+              ISO 8601 timestamp when the content was retrieved
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+        - `Caller Caller`
+
+          - `class DirectCaller`
+
+            Tool invocation directly from the model.
+
+          - `class ServerToolCaller`
+
+            Tool invocation generated by a server-side tool.
+
+          - `class ServerToolCaller20260120`
+
+      - `class CodeExecutionToolResultBlockParam`
+
+        - `JsonElement Type = "code_execution_tool_result"`
+
+        - `required CodeExecutionToolResultBlockParamContent Content`
+
+          - `class CodeExecutionToolResultErrorParam`
+
+            - `JsonElement Type = "code_execution_tool_result_error"`
+
+            - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+          - `class CodeExecutionResultBlockParam`
+
+            - `JsonElement Type = "code_execution_result"`
+
+            - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+              - `JsonElement Type = "code_execution_output"`
+
+              - `required string FileID`
+
+            - `required long ReturnCode`
+
+            - `required string Stderr`
+
+            - `required string Stdout`
+
+          - `class EncryptedCodeExecutionResultBlockParam`
+
+            Code execution result with encrypted stdout for PFC + web_search results.
+
+            - `JsonElement Type = "encrypted_code_execution_result"`
+
+            - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+              - `JsonElement Type = "code_execution_output"`
+
+              - `required string FileID`
+
+            - `required string EncryptedStdout`
+
+            - `required long ReturnCode`
+
+            - `required string Stderr`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class BashCodeExecutionToolResultBlockParam`
+
+        - `JsonElement Type = "bash_code_execution_tool_result"`
+
+        - `required Content Content`
+
+          - `class BashCodeExecutionToolResultErrorParam`
+
+            - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+            - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `OutputFileTooLarge("output_file_too_large")`
+
+          - `class BashCodeExecutionResultBlockParam`
+
+            - `JsonElement Type = "bash_code_execution_result"`
+
+            - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+              - `JsonElement Type = "bash_code_execution_output"`
+
+              - `required string FileID`
+
+            - `required long ReturnCode`
+
+            - `required string Stderr`
+
+            - `required string Stdout`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class TextEditorCodeExecutionToolResultBlockParam`
+
+        - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+        - `required Content Content`
+
+          - `class TextEditorCodeExecutionToolResultErrorParam`
+
+            - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+            - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+              - `FileNotFound("file_not_found")`
+
+            - `string? ErrorMessage`
+
+          - `class TextEditorCodeExecutionViewResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+            - `required string Content`
+
+            - `required FileType FileType`
+
+              - `Text("text")`
+
+              - `Image("image")`
+
+              - `Pdf("pdf")`
+
+            - `long? NumLines`
+
+            - `long? StartLine`
+
+            - `long? TotalLines`
+
+          - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+            - `required bool IsFileUpdate`
+
+          - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+            - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+            - `IReadOnlyList<string>? Lines`
+
+            - `long? NewLines`
+
+            - `long? NewStart`
+
+            - `long? OldLines`
+
+            - `long? OldStart`
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class ToolSearchToolResultBlockParam`
+
+        - `JsonElement Type = "tool_search_tool_result"`
+
+        - `required Content Content`
+
+          - `class ToolSearchToolResultErrorParam`
+
+            - `JsonElement Type = "tool_search_tool_result_error"`
+
+            - `required ToolSearchToolResultErrorCode ErrorCode`
+
+              - `InvalidToolInput("invalid_tool_input")`
+
+              - `Unavailable("unavailable")`
+
+              - `TooManyRequests("too_many_requests")`
+
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+            - `string? ErrorMessage`
+
+          - `class ToolSearchToolSearchResultBlockParam`
+
+            - `JsonElement Type = "tool_search_tool_search_result"`
+
+            - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string ToolName`
+
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+              - `CacheControlEphemeral? CacheControl`
+
+                Create a cache control breakpoint at this content block.
+
+        - `required string ToolUseID`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class ContainerUploadBlockParam`
+
+        A content block that represents a file to be uploaded to the container
+        Files uploaded via this block will be available in the container's input directory.
+
+        - `JsonElement Type = "container_upload"`
+
+        - `required string FileID`
+
+        - `CacheControlEphemeral? CacheControl`
+
+          Create a cache control breakpoint at this content block.
+
+  - `JsonElement Role = "user"`
+
 ### Web Fetch Block
 
 - `class WebFetchBlock`
@@ -34734,290 +37844,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=csharp).
 
-        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=csharp#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=csharp#give-claude-a-role), you can use the top-level `system` parameter.
 
         There is a limit of 100,000 messages in a single request.
 
-        - `required Content Content`
+        - `class UserMessageParam`
 
-          - `string`
+          - `required MessageContentParam Content`
 
-          - `IReadOnlyList<ContentBlockParam>`
+            - `string`
 
-            - `class TextBlockParam`
+            - `IReadOnlyList<ContentBlockParam>`
 
-              - `JsonElement Type = "text"`
-
-              - `required string Text`
-
-                minLength: 1
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-                - `JsonElement Type = "ephemeral"`
-
-                - `Ttl Ttl`
-
-                  The time-to-live for the cache control breakpoint.
-
-                  This may be one the following values:
-
-                  - `5m`: 5 minutes
-                  - `1h`: 1 hour
-
-                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
-
-                  - `Ttl5m("5m")`
-
-                  - `Ttl1h("1h")`
-
-              - `IReadOnlyList<TextCitationParam>? Citations`
-
-                - `class CitationCharLocationParam`
-
-                  - `JsonElement Type = "char_location"`
-
-                  - `required string CitedText`
-
-                  - `required long DocumentIndex`
-
-                    minimum: 0
-
-                  - `required string? DocumentTitle`
-
-                    minLength: 1, maxLength: 500
-
-                  - `required long EndCharIndex`
-
-                  - `required long StartCharIndex`
-
-                    minimum: 0
-
-                - `class CitationPageLocationParam`
-
-                  - `JsonElement Type = "page_location"`
-
-                  - `required string CitedText`
-
-                  - `required long DocumentIndex`
-
-                    minimum: 0
-
-                  - `required string? DocumentTitle`
-
-                    minLength: 1, maxLength: 500
-
-                  - `required long EndPageNumber`
-
-                  - `required long StartPageNumber`
-
-                    minimum: 1
-
-                - `class CitationContentBlockLocationParam`
-
-                  - `JsonElement Type = "content_block_location"`
-
-                  - `required string CitedText`
-
-                    The full text of the cited block range, concatenated.
-
-                    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                  - `required long DocumentIndex`
-
-                    minimum: 0
-
-                  - `required string? DocumentTitle`
-
-                    minLength: 1, maxLength: 500
-
-                  - `required long EndBlockIndex`
-
-                    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                  - `required long StartBlockIndex`
-
-                    0-based index of the first cited block in the source's `content` array.
-
-                    minimum: 0
-
-                - `class CitationWebSearchResultLocationParam`
-
-                  - `JsonElement Type = "web_search_result_location"`
-
-                  - `required string CitedText`
-
-                  - `required string EncryptedIndex`
-
-                  - `required string? Title`
-
-                    minLength: 1, maxLength: 512
-
-                  - `required string Url`
-
-                    minLength: 1
-
-                - `class CitationSearchResultLocationParam`
-
-                  - `JsonElement Type = "search_result_location"`
-
-                  - `required string CitedText`
-
-                    The full text of the cited block range, concatenated.
-
-                    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                  - `required long EndBlockIndex`
-
-                    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                  - `required long SearchResultIndex`
-
-                    0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                    Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                    minimum: 0
-
-                  - `required string Source`
-
-                  - `required long StartBlockIndex`
-
-                    0-based index of the first cited block in the source's `content` array.
-
-                    minimum: 0
-
-                  - `required string? Title`
-
-            - `class ImageBlockParam`
-
-              - `JsonElement Type = "image"`
-
-              - `required Source Source`
-
-                - `class Base64ImageSource`
-
-                  - `JsonElement Type = "base64"`
-
-                  - `required string Data`
-
-                    format: byte
-
-                  - `required MediaType MediaType`
-
-                    - `ImageJpeg("image/jpeg")`
-
-                    - `ImagePng("image/png")`
-
-                    - `ImageGif("image/gif")`
-
-                    - `ImageWebP("image/webp")`
-
-                - `class UrlImageSource`
-
-                  - `JsonElement Type = "url"`
-
-                  - `required string Url`
-
-                - `class FileImageSource`
-
-                  - `JsonElement Type = "file"`
-
-                  - `required string FileID`
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-              - `ImageTransformationsParam? Transformations`
-
-                Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-                - `OversizedImage OversizedImage`
-
-                  What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-                  - `Downsize("downsize")`
-
-                  - `Error("error")`
-
-            - `class DocumentBlockParam`
-
-              - `JsonElement Type = "document"`
-
-              - `required Source Source`
-
-                - `class Base64PdfSource`
-
-                  - `JsonElement Type = "base64"`
-
-                  - `required string Data`
-
-                    format: byte
-
-                  - `JsonElement MediaType = "application/pdf"`
-
-                - `class PlainTextSource`
-
-                  - `JsonElement Type = "text"`
-
-                  - `required string Data`
-
-                  - `JsonElement MediaType = "text/plain"`
-
-                - `class ContentBlockSource`
-
-                  - `JsonElement Type = "content"`
-
-                  - `required Content Content`
-
-                    - `string`
-
-                    - `IReadOnlyList<ContentBlockSourceContent>`
-
-                      - `class TextBlockParam`
-
-                      - `class ImageBlockParam`
-
-                - `class UrlPdfSource`
-
-                  - `JsonElement Type = "url"`
-
-                  - `required string Url`
-
-                - `class FileDocumentSource`
-
-                  - `JsonElement Type = "file"`
-
-                  - `required string FileID`
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-              - `CitationsConfigParam? Citations`
-
-                - `bool Enabled`
-
-              - `string? Context`
-
-                minLength: 1
-
-              - `string? Title`
-
-                minLength: 1, maxLength: 500
-
-            - `class SearchResultBlockParam`
-
-              - `JsonElement Type = "search_result"`
-
-              - `required IReadOnlyList<TextBlockParam> Content`
+              - `class TextBlockParam`
 
                 - `JsonElement Type = "text"`
 
@@ -35029,691 +37868,986 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Create a cache control breakpoint at this content block.
 
+                  - `JsonElement Type = "ephemeral"`
+
+                  - `Ttl Ttl`
+
+                    The time-to-live for the cache control breakpoint.
+
+                    This may be one the following values:
+
+                    - `5m`: 5 minutes
+                    - `1h`: 1 hour
+
+                    Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=csharp) for details.
+
+                    - `Ttl5m("5m")`
+
+                    - `Ttl1h("1h")`
+
                 - `IReadOnlyList<TextCitationParam>? Citations`
 
-              - `required string Source`
+                  - `class CitationCharLocationParam`
 
-              - `required string Title`
+                    - `JsonElement Type = "char_location"`
 
-              - `CacheControlEphemeral? CacheControl`
+                    - `required string CitedText`
 
-                Create a cache control breakpoint at this content block.
+                    - `required long DocumentIndex`
 
-              - `CitationsConfigParam Citations`
+                      minimum: 0
 
-            - `class ThinkingBlockParam`
+                    - `required string? DocumentTitle`
 
-              - `JsonElement Type = "thinking"`
+                      minLength: 1, maxLength: 500
 
-              - `required string Signature`
+                    - `required long EndCharIndex`
 
-                The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+                    - `required long StartCharIndex`
 
-                Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+                      minimum: 0
 
-              - `required string Thinking`
+                  - `class CitationPageLocationParam`
 
-                The `thinking` text of this block as returned by the API.
+                    - `JsonElement Type = "page_location"`
 
-            - `class RedactedThinkingBlockParam`
+                    - `required string CitedText`
 
-              - `JsonElement Type = "redacted_thinking"`
+                    - `required long DocumentIndex`
 
-              - `required string Data`
+                      minimum: 0
 
-                The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+                    - `required string? DocumentTitle`
 
-            - `class ToolUseBlockParam`
+                      minLength: 1, maxLength: 500
 
-              - `JsonElement Type = "tool_use"`
+                    - `required long EndPageNumber`
 
-              - `required string ID`
+                    - `required long StartPageNumber`
 
-                pattern: ^[a-zA-Z0-9_-]+$
+                      minimum: 1
 
-              - `required IReadOnlyDictionary<string, JsonElement> Input`
+                  - `class CitationContentBlockLocationParam`
 
-              - `required string Name`
+                    - `JsonElement Type = "content_block_location"`
 
-                minLength: 1, maxLength: 200
+                    - `required string CitedText`
 
-              - `CacheControlEphemeral? CacheControl`
+                      The full text of the cited block range, concatenated.
 
-                Create a cache control breakpoint at this content block.
+                      Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-              - `Caller Caller`
+                    - `required long DocumentIndex`
 
-                - `class DirectCaller`
+                      minimum: 0
 
-                  Tool invocation directly from the model.
+                    - `required string? DocumentTitle`
 
-                  - `JsonElement Type = "direct"`
+                      minLength: 1, maxLength: 500
 
-                - `class ServerToolCaller`
+                    - `required long EndBlockIndex`
 
-                  Tool invocation generated by a server-side tool.
+                      Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-                  - `JsonElement Type = "code_execution_20250825"`
+                      Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                  - `required string ToolID`
+                    - `required long StartBlockIndex`
 
-                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                      0-based index of the first cited block in the source's `content` array.
 
-                - `class ServerToolCaller20260120`
+                      minimum: 0
 
-                  - `JsonElement Type = "code_execution_20260120"`
+                  - `class CitationWebSearchResultLocationParam`
 
-                  - `required string ToolID`
+                    - `JsonElement Type = "web_search_result_location"`
 
-                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                    - `required string CitedText`
 
-              - `string? ToolsetName`
+                    - `required string EncryptedIndex`
 
-                For a toolset member tool_use, the toolset family this member belongs to.
+                    - `required string? Title`
 
-                minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                      minLength: 1, maxLength: 512
 
-            - `class ToolResultBlockParam`
+                    - `required string Url`
 
-              - `JsonElement Type = "tool_result"`
+                      minLength: 1
 
-              - `required string ToolUseID`
+                  - `class CitationSearchResultLocationParam`
 
-                pattern: ^[a-zA-Z0-9_-]+$
+                    - `JsonElement Type = "search_result_location"`
 
-              - `CacheControlEphemeral? CacheControl`
+                    - `required string CitedText`
 
-                Create a cache control breakpoint at this content block.
+                      The full text of the cited block range, concatenated.
 
-              - `Content Content`
+                      Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-                - `string`
+                    - `required long EndBlockIndex`
 
-                - `IReadOnlyList<Block>`
+                      Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-                  - `class TextBlockParam`
+                      Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                  - `class ImageBlockParam`
+                    - `required long SearchResultIndex`
 
-                  - `class SearchResultBlockParam`
+                      0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
-                  - `class DocumentBlockParam`
+                      Counted separately from `document_index`; server-side web search results are not included in this count.
 
-                  - `class ToolReferenceBlockParam`
+                      minimum: 0
 
-                    Tool reference block that can be included in tool_result content.
+                    - `required string Source`
 
-                    - `JsonElement Type = "tool_reference"`
+                    - `required long StartBlockIndex`
 
-                    - `required string ToolName`
+                      0-based index of the first cited block in the source's `content` array.
 
-                      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                      minimum: 0
 
-                    - `CacheControlEphemeral? CacheControl`
+                    - `required string? Title`
 
-                      Create a cache control breakpoint at this content block.
+              - `class ImageBlockParam`
 
-                  - `class BrowserStateBlockParam`
+                - `JsonElement Type = "image"`
 
-                    The caller's browser state after a browser toolset member call —
-                    the full inventory of open tabs, which tab is active, and any side
-                    effects (tabs opened, download state changes) the call produced.
+                - `required Source Source`
 
-                    At most one per `tool_result`, only on a non-error result answering a
-                    browser toolset member `tool_use`. The server renders the
-                    model-visible text from it; the model never sees the raw fields.
+                  - `class Base64ImageSource`
 
-                    - `JsonElement Type = "browser_state"`
+                    - `JsonElement Type = "base64"`
 
-                    - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+                    - `required string Data`
 
-                      All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+                      format: byte
 
-                      maxItems: 100
+                    - `required MediaType MediaType`
 
-                      - `required string TabID`
+                      - `ImageJpeg("image/jpeg")`
 
-                        The caller-assigned identifier for this tab, unique within the inventory.
+                      - `ImagePng("image/png")`
 
-                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      - `ImageGif("image/gif")`
 
-                      - `required string Title`
+                      - `ImageWebP("image/webp")`
 
-                        The title of the page the tab is showing. May be empty.
+                  - `class UrlImageSource`
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `JsonElement Type = "url"`
 
-                      - `required string Url`
+                    - `required string Url`
 
-                        The URL of the page the tab is showing. May be empty.
+                  - `class FileImageSource`
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `JsonElement Type = "file"`
 
-                      - `bool Active`
+                    - `required string FileID`
 
-                        Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+                - `CacheControlEphemeral? CacheControl`
 
-                    - `CacheControlEphemeral? CacheControl`
+                  Create a cache control breakpoint at this content block.
 
-                      Create a cache control breakpoint at this content block.
+                - `ImageTransformationsParam? Transformations`
 
-                    - `IReadOnlyList<BrowserStateChange>? StateChanges`
+                  Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-                      Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+                  - `OversizedImage OversizedImage`
 
-                      minItems: 1, maxItems: 200
+                    What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
-                      - `class BrowserStateChangeTabOpened`
+                    - `Downsize("downsize")`
 
-                        A tab this call's execution opened that remains open at its end —
-                        the creation delta of the `tabs` inventory, not an event log.
+                    - `Error("error")`
 
-                        Carries only the `tab_id`; the tab's `title` and `url` live on its
-                        `tabs` entry, which must include the same `tab_id`. A tab opened
-                        during a failed call gets no deferred `tab_opened`; it simply appears
-                        in the next result's `tabs` inventory.
+              - `class DocumentBlockParam`
 
-                        - `JsonElement Type = "tab_opened"`
+                - `JsonElement Type = "document"`
+
+                - `required Source Source`
+
+                  - `class Base64PdfSource`
+
+                    - `JsonElement Type = "base64"`
+
+                    - `required string Data`
+
+                      format: byte
+
+                    - `JsonElement MediaType = "application/pdf"`
+
+                  - `class PlainTextSource`
+
+                    - `JsonElement Type = "text"`
+
+                    - `required string Data`
+
+                    - `JsonElement MediaType = "text/plain"`
+
+                  - `class ContentBlockSource`
+
+                    - `JsonElement Type = "content"`
+
+                    - `required Content Content`
+
+                      - `string`
+
+                      - `IReadOnlyList<ContentBlockSourceContent>`
+
+                        - `class TextBlockParam`
+
+                        - `class ImageBlockParam`
+
+                  - `class UrlPdfSource`
+
+                    - `JsonElement Type = "url"`
+
+                    - `required string Url`
+
+                  - `class FileDocumentSource`
+
+                    - `JsonElement Type = "file"`
+
+                    - `required string FileID`
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `CitationsConfigParam? Citations`
+
+                  - `bool Enabled`
+
+                - `string? Context`
+
+                  minLength: 1
+
+                - `string? Title`
+
+                  minLength: 1, maxLength: 500
+
+              - `class SearchResultBlockParam`
+
+                - `JsonElement Type = "search_result"`
+
+                - `required IReadOnlyList<TextBlockParam> Content`
+
+                  - `JsonElement Type = "text"`
+
+                  - `required string Text`
+
+                    minLength: 1
+
+                  - `CacheControlEphemeral? CacheControl`
+
+                    Create a cache control breakpoint at this content block.
+
+                  - `IReadOnlyList<TextCitationParam>? Citations`
+
+                - `required string Source`
+
+                - `required string Title`
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `CitationsConfigParam Citations`
+
+              - `class ThinkingBlockParam`
+
+                - `JsonElement Type = "thinking"`
+
+                - `required string Signature`
+
+                  The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+                  Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+                - `required string Thinking`
+
+                  The `thinking` text of this block as returned by the API.
+
+              - `class RedactedThinkingBlockParam`
+
+                - `JsonElement Type = "redacted_thinking"`
+
+                - `required string Data`
+
+                  The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+              - `class ToolUseBlockParam`
+
+                - `JsonElement Type = "tool_use"`
+
+                - `required string ID`
+
+                  pattern: ^[a-zA-Z0-9_-]+$
+
+                - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+                - `required string Name`
+
+                  minLength: 1, maxLength: 200
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `Caller Caller`
+
+                  - `class DirectCaller`
+
+                    Tool invocation directly from the model.
+
+                    - `JsonElement Type = "direct"`
+
+                  - `class ServerToolCaller`
+
+                    Tool invocation generated by a server-side tool.
+
+                    - `JsonElement Type = "code_execution_20250825"`
+
+                    - `required string ToolID`
+
+                      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                  - `class ServerToolCaller20260120`
+
+                    - `JsonElement Type = "code_execution_20260120"`
+
+                    - `required string ToolID`
+
+                      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `string? ToolsetName`
+
+                  For a toolset member tool_use, the toolset family this member belongs to.
+
+                  minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+              - `class ToolResultBlockParam`
+
+                - `JsonElement Type = "tool_result"`
+
+                - `required string ToolUseID`
+
+                  pattern: ^[a-zA-Z0-9_-]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `Content Content`
+
+                  - `string`
+
+                  - `IReadOnlyList<Block>`
+
+                    - `class TextBlockParam`
+
+                    - `class ImageBlockParam`
+
+                    - `class SearchResultBlockParam`
+
+                    - `class DocumentBlockParam`
+
+                    - `class ToolReferenceBlockParam`
+
+                      Tool reference block that can be included in tool_result content.
+
+                      - `JsonElement Type = "tool_reference"`
+
+                      - `required string ToolName`
+
+                        minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                      - `CacheControlEphemeral? CacheControl`
+
+                        Create a cache control breakpoint at this content block.
+
+                    - `class BrowserStateBlockParam`
+
+                      The caller's browser state after a browser toolset member call —
+                      the full inventory of open tabs, which tab is active, and any side
+                      effects (tabs opened, download state changes) the call produced.
+
+                      At most one per `tool_result`, only on a non-error result answering a
+                      browser toolset member `tool_use`. The server renders the
+                      model-visible text from it; the model never sees the raw fields.
+
+                      - `JsonElement Type = "browser_state"`
+
+                      - `required IReadOnlyList<BrowserStateTabEntry> Tabs`
+
+                        All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                        maxItems: 100
 
                         - `required string TabID`
 
-                          The `tab_id` of the opened tab, present in `tabs`.
+                          The caller-assigned identifier for this tab, unique within the inventory.
 
                           minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BrowserStateChangeDownloadStarted`
+                        - `required string Title`
 
-                        A file download that started during this call.
+                          The title of the page the tab is showing. May be empty.
 
-                        - `JsonElement Type = "download_started"`
-
-                        - `required string DownloadID`
-
-                          The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                         - `required string Url`
 
-                          The final post-redirect URL the download was served from.
+                          The URL of the page the tab is showing. May be empty.
 
                           maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BrowserStateChangeDownloadCompleted`
+                        - `bool Active`
 
-                        A file download that finished during this call, reported with the
-                        same `download_id` as its `download_started` — or without a prior
-                        `download_started`, when the download finished during the call that
-                        started it (at most one state change per `download_id` per result).
+                          Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                        - `JsonElement Type = "download_completed"`
+                      - `CacheControlEphemeral? CacheControl`
 
-                        - `required string DownloadID`
+                        Create a cache control breakpoint at this content block.
 
-                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+                      - `IReadOnlyList<BrowserStateChange>? StateChanges`
 
-                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                        - `required string Url`
+                        minItems: 1, maxItems: 200
 
-                          The final post-redirect URL the download was served from.
+                        - `class BrowserStateChangeTabOpened`
 
-                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                          A tab this call's execution opened that remains open at its end —
+                          the creation delta of the `tabs` inventory, not an event log.
 
-                        - `string? Path`
+                          Carries only the `tab_id`; the tab's `title` and `url` live on its
+                          `tabs` entry, which must include the same `tab_id`. A tab opened
+                          during a failed call gets no deferred `tab_opened`; it simply appears
+                          in the next result's `tabs` inventory.
 
-                          Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+                          - `JsonElement Type = "tab_opened"`
 
-                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                          - `required string TabID`
 
-                        - `long? SizeBytes`
+                            The `tab_id` of the opened tab, present in `tabs`.
 
-                          The completed download's size.
+                            minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          minimum: 0
+                        - `class BrowserStateChangeDownloadStarted`
 
-                      - `class BrowserStateChangeDownloadFailed`
+                          A file download that started during this call.
 
-                        A file download that failed — or was cancelled — during this call.
+                          - `JsonElement Type = "download_started"`
 
-                        - `JsonElement Type = "download_failed"`
+                          - `required string DownloadID`
 
-                        - `required string DownloadID`
+                            The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+                            minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                          - `required string Url`
 
-                        - `required string Url`
+                            The final post-redirect URL the download was served from.
 
-                          The final post-redirect URL the download was served from.
+                            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        - `class BrowserStateChangeDownloadCompleted`
 
-                        - `string? Error`
+                          A file download that finished during this call, reported with the
+                          same `download_id` as its `download_started` — or without a prior
+                          `download_started`, when the download finished during the call that
+                          started it (at most one state change per `download_id` per result).
 
-                          The failure or cancellation detail, when known.
+                          - `JsonElement Type = "download_completed"`
 
-                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                          - `required string DownloadID`
 
-              - `bool IsError`
+                            The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              - `string? ToolsetName`
+                            minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                For a toolset member tool_result, the toolset family of the paired tool_use.
+                          - `required string Url`
 
-                minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+                            The final post-redirect URL the download was served from.
 
-            - `class ServerToolUseBlockParam`
+                            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `JsonElement Type = "server_tool_use"`
+                          - `string? Path`
 
-              - `required string ID`
+                            Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `required IReadOnlyDictionary<string, JsonElement> Input`
+                          - `long? SizeBytes`
 
-              - `required Name Name`
+                            The completed download's size.
 
-                - `WebSearch("web_search")`
+                            minimum: 0
 
-                - `WebFetch("web_fetch")`
+                        - `class BrowserStateChangeDownloadFailed`
 
-                - `CodeExecution("code_execution")`
+                          A file download that failed — or was cancelled — during this call.
 
-                - `BashCodeExecution("bash_code_execution")`
+                          - `JsonElement Type = "download_failed"`
 
-                - `TextEditorCodeExecution("text_editor_code_execution")`
+                          - `required string DownloadID`
 
-                - `ToolSearchToolRegex("tool_search_tool_regex")`
+                            The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                - `ToolSearchToolBm25("tool_search_tool_bm25")`
+                            minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                          - `required string Url`
+
+                            The final post-redirect URL the download was served from.
+
+                            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                          - `string? Error`
+
+                            The failure or cancellation detail, when known.
+
+                            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `bool IsError`
+
+                - `string? ToolsetName`
+
+                  For a toolset member tool_result, the toolset family of the paired tool_use.
+
+                  minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+              - `class ServerToolUseBlockParam`
+
+                - `JsonElement Type = "server_tool_use"`
+
+                - `required string ID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `required IReadOnlyDictionary<string, JsonElement> Input`
+
+                - `required Name Name`
+
+                  - `WebSearch("web_search")`
+
+                  - `WebFetch("web_fetch")`
+
+                  - `CodeExecution("code_execution")`
+
+                  - `BashCodeExecution("bash_code_execution")`
+
+                  - `TextEditorCodeExecution("text_editor_code_execution")`
+
+                  - `ToolSearchToolRegex("tool_search_tool_regex")`
+
+                  - `ToolSearchToolBm25("tool_search_tool_bm25")`
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `Caller Caller`
+
+                  - `class DirectCaller`
+
+                    Tool invocation directly from the model.
+
+                  - `class ServerToolCaller`
+
+                    Tool invocation generated by a server-side tool.
+
+                  - `class ServerToolCaller20260120`
+
+              - `class WebSearchToolResultBlockParam`
+
+                - `JsonElement Type = "web_search_tool_result"`
+
+                - `required WebSearchToolResultBlockParamContent Content`
+
+                  - `IReadOnlyList<WebSearchResultBlockParam>`
+
+                    - `JsonElement Type = "web_search_result"`
+
+                    - `required string EncryptedContent`
+
+                    - `required string Title`
+
+                    - `required string Url`
+
+                    - `string? PageAge`
+
+                  - `class WebSearchToolRequestError`
+
+                    - `JsonElement Type = "web_search_tool_result_error"`
+
+                    - `required WebSearchToolResultErrorCode ErrorCode`
+
+                      - `InvalidToolInput("invalid_tool_input")`
+
+                      - `Unavailable("unavailable")`
+
+                      - `MaxUsesExceeded("max_uses_exceeded")`
+
+                      - `TooManyRequests("too_many_requests")`
+
+                      - `QueryTooLong("query_too_long")`
+
+                      - `RequestTooLarge("request_too_large")`
+
+                - `required string ToolUseID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `Caller Caller`
+
+                  - `class DirectCaller`
+
+                    Tool invocation directly from the model.
+
+                  - `class ServerToolCaller`
+
+                    Tool invocation generated by a server-side tool.
+
+                  - `class ServerToolCaller20260120`
+
+              - `class WebFetchToolResultBlockParam`
+
+                - `JsonElement Type = "web_fetch_tool_result"`
+
+                - `required Content Content`
+
+                  - `class WebFetchToolResultErrorBlockParam`
+
+                    - `JsonElement Type = "web_fetch_tool_result_error"`
+
+                    - `required WebFetchToolResultErrorCode ErrorCode`
+
+                      - `InvalidToolInput("invalid_tool_input")`
+
+                      - `UrlTooLong("url_too_long")`
+
+                      - `UrlNotAllowed("url_not_allowed")`
+
+                      - `UrlNotInPriorContext("url_not_in_prior_context")`
+
+                      - `UrlNotAccessible("url_not_accessible")`
+
+                      - `UnsupportedContentType("unsupported_content_type")`
+
+                      - `TooManyRequests("too_many_requests")`
+
+                      - `MaxUsesExceeded("max_uses_exceeded")`
+
+                      - `Unavailable("unavailable")`
+
+                      - `ContentTooLarge("content_too_large")`
+
+                  - `class WebFetchBlockParam`
+
+                    - `JsonElement Type = "web_fetch_result"`
+
+                    - `required DocumentBlockParam Content`
+
+                    - `required string Url`
+
+                      Fetched content URL
+
+                    - `string? RetrievedAt`
+
+                      ISO 8601 timestamp when the content was retrieved
+
+                - `required string ToolUseID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `Caller Caller`
+
+                  - `class DirectCaller`
+
+                    Tool invocation directly from the model.
+
+                  - `class ServerToolCaller`
+
+                    Tool invocation generated by a server-side tool.
+
+                  - `class ServerToolCaller20260120`
+
+              - `class CodeExecutionToolResultBlockParam`
+
+                - `JsonElement Type = "code_execution_tool_result"`
+
+                - `required CodeExecutionToolResultBlockParamContent Content`
+
+                  - `class CodeExecutionToolResultErrorParam`
+
+                    - `JsonElement Type = "code_execution_tool_result_error"`
+
+                    - `required CodeExecutionToolResultErrorCode ErrorCode`
+
+                      - `InvalidToolInput("invalid_tool_input")`
+
+                      - `Unavailable("unavailable")`
+
+                      - `TooManyRequests("too_many_requests")`
+
+                      - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                  - `class CodeExecutionResultBlockParam`
+
+                    - `JsonElement Type = "code_execution_result"`
+
+                    - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                      - `JsonElement Type = "code_execution_output"`
+
+                      - `required string FileID`
+
+                    - `required long ReturnCode`
+
+                    - `required string Stderr`
+
+                    - `required string Stdout`
+
+                  - `class EncryptedCodeExecutionResultBlockParam`
+
+                    Code execution result with encrypted stdout for PFC + web_search results.
+
+                    - `JsonElement Type = "encrypted_code_execution_result"`
+
+                    - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
+
+                      - `JsonElement Type = "code_execution_output"`
+
+                      - `required string FileID`
+
+                    - `required string EncryptedStdout`
+
+                    - `required long ReturnCode`
+
+                    - `required string Stderr`
+
+                - `required string ToolUseID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+              - `class BashCodeExecutionToolResultBlockParam`
+
+                - `JsonElement Type = "bash_code_execution_tool_result"`
+
+                - `required Content Content`
+
+                  - `class BashCodeExecutionToolResultErrorParam`
+
+                    - `JsonElement Type = "bash_code_execution_tool_result_error"`
+
+                    - `required BashCodeExecutionToolResultErrorCode ErrorCode`
+
+                      - `InvalidToolInput("invalid_tool_input")`
+
+                      - `Unavailable("unavailable")`
+
+                      - `TooManyRequests("too_many_requests")`
+
+                      - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                      - `OutputFileTooLarge("output_file_too_large")`
+
+                  - `class BashCodeExecutionResultBlockParam`
+
+                    - `JsonElement Type = "bash_code_execution_result"`
+
+                    - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
+
+                      - `JsonElement Type = "bash_code_execution_output"`
+
+                      - `required string FileID`
+
+                    - `required long ReturnCode`
+
+                    - `required string Stderr`
+
+                    - `required string Stdout`
+
+                - `required string ToolUseID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+              - `class TextEditorCodeExecutionToolResultBlockParam`
+
+                - `JsonElement Type = "text_editor_code_execution_tool_result"`
+
+                - `required Content Content`
+
+                  - `class TextEditorCodeExecutionToolResultErrorParam`
+
+                    - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
+
+                    - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
+
+                      - `InvalidToolInput("invalid_tool_input")`
+
+                      - `Unavailable("unavailable")`
+
+                      - `TooManyRequests("too_many_requests")`
+
+                      - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                      - `FileNotFound("file_not_found")`
+
+                    - `string? ErrorMessage`
+
+                  - `class TextEditorCodeExecutionViewResultBlockParam`
+
+                    - `JsonElement Type = "text_editor_code_execution_view_result"`
+
+                    - `required string Content`
+
+                    - `required FileType FileType`
+
+                      - `Text("text")`
+
+                      - `Image("image")`
+
+                      - `Pdf("pdf")`
+
+                    - `long? NumLines`
+
+                    - `long? StartLine`
+
+                    - `long? TotalLines`
+
+                  - `class TextEditorCodeExecutionCreateResultBlockParam`
+
+                    - `JsonElement Type = "text_editor_code_execution_create_result"`
+
+                    - `required bool IsFileUpdate`
+
+                  - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+                    - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
+
+                    - `IReadOnlyList<string>? Lines`
+
+                    - `long? NewLines`
+
+                    - `long? NewStart`
+
+                    - `long? OldLines`
+
+                    - `long? OldStart`
+
+                - `required string ToolUseID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+              - `class ToolSearchToolResultBlockParam`
+
+                - `JsonElement Type = "tool_search_tool_result"`
+
+                - `required Content Content`
+
+                  - `class ToolSearchToolResultErrorParam`
+
+                    - `JsonElement Type = "tool_search_tool_result_error"`
+
+                    - `required ToolSearchToolResultErrorCode ErrorCode`
+
+                      - `InvalidToolInput("invalid_tool_input")`
+
+                      - `Unavailable("unavailable")`
+
+                      - `TooManyRequests("too_many_requests")`
+
+                      - `ExecutionTimeExceeded("execution_time_exceeded")`
+
+                    - `string? ErrorMessage`
+
+                  - `class ToolSearchToolSearchResultBlockParam`
+
+                    - `JsonElement Type = "tool_search_tool_search_result"`
+
+                    - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
+
+                      - `JsonElement Type = "tool_reference"`
+
+                      - `required string ToolName`
+
+                        minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                      - `CacheControlEphemeral? CacheControl`
+
+                        Create a cache control breakpoint at this content block.
+
+                - `required string ToolUseID`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+              - `class ContainerUploadBlockParam`
+
+                A content block that represents a file to be uploaded to the container
+                Files uploaded via this block will be available in the container's input directory.
+
+                - `JsonElement Type = "container_upload"`
+
+                - `required string FileID`
+
+                - `CacheControlEphemeral? CacheControl`
+
+                  Create a cache control breakpoint at this content block.
+
+          - `JsonElement Role = "user"`
+
+        - `class AssistantMessageParam`
+
+          - `required MessageContentParam Content`
+
+          - `JsonElement Role = "assistant"`
+
+        - `class SystemMessageParam`
+
+          - `required Content Content`
+
+            - `string`
+
+            - `IReadOnlyList<TextBlockParam>`
+
+              - `JsonElement Type = "text"`
+
+              - `required string Text`
+
+                minLength: 1
 
               - `CacheControlEphemeral? CacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller Caller`
+              - `IReadOnlyList<TextCitationParam>? Citations`
 
-                - `class DirectCaller`
-
-                  Tool invocation directly from the model.
-
-                - `class ServerToolCaller`
-
-                  Tool invocation generated by a server-side tool.
-
-                - `class ServerToolCaller20260120`
-
-            - `class WebSearchToolResultBlockParam`
-
-              - `JsonElement Type = "web_search_tool_result"`
-
-              - `required WebSearchToolResultBlockParamContent Content`
-
-                - `IReadOnlyList<WebSearchResultBlockParam>`
-
-                  - `JsonElement Type = "web_search_result"`
-
-                  - `required string EncryptedContent`
-
-                  - `required string Title`
-
-                  - `required string Url`
-
-                  - `string? PageAge`
-
-                - `class WebSearchToolRequestError`
-
-                  - `JsonElement Type = "web_search_tool_result_error"`
-
-                  - `required WebSearchToolResultErrorCode ErrorCode`
-
-                    - `InvalidToolInput("invalid_tool_input")`
-
-                    - `Unavailable("unavailable")`
-
-                    - `MaxUsesExceeded("max_uses_exceeded")`
-
-                    - `TooManyRequests("too_many_requests")`
-
-                    - `QueryTooLong("query_too_long")`
-
-                    - `RequestTooLarge("request_too_large")`
-
-              - `required string ToolUseID`
-
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-              - `Caller Caller`
-
-                - `class DirectCaller`
-
-                  Tool invocation directly from the model.
-
-                - `class ServerToolCaller`
-
-                  Tool invocation generated by a server-side tool.
-
-                - `class ServerToolCaller20260120`
-
-            - `class WebFetchToolResultBlockParam`
-
-              - `JsonElement Type = "web_fetch_tool_result"`
-
-              - `required Content Content`
-
-                - `class WebFetchToolResultErrorBlockParam`
-
-                  - `JsonElement Type = "web_fetch_tool_result_error"`
-
-                  - `required WebFetchToolResultErrorCode ErrorCode`
-
-                    - `InvalidToolInput("invalid_tool_input")`
-
-                    - `UrlTooLong("url_too_long")`
-
-                    - `UrlNotAllowed("url_not_allowed")`
-
-                    - `UrlNotInPriorContext("url_not_in_prior_context")`
-
-                    - `UrlNotAccessible("url_not_accessible")`
-
-                    - `UnsupportedContentType("unsupported_content_type")`
-
-                    - `TooManyRequests("too_many_requests")`
-
-                    - `MaxUsesExceeded("max_uses_exceeded")`
-
-                    - `Unavailable("unavailable")`
-
-                    - `ContentTooLarge("content_too_large")`
-
-                - `class WebFetchBlockParam`
-
-                  - `JsonElement Type = "web_fetch_result"`
-
-                  - `required DocumentBlockParam Content`
-
-                  - `required string Url`
-
-                    Fetched content URL
-
-                  - `string? RetrievedAt`
-
-                    ISO 8601 timestamp when the content was retrieved
-
-              - `required string ToolUseID`
-
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-              - `Caller Caller`
-
-                - `class DirectCaller`
-
-                  Tool invocation directly from the model.
-
-                - `class ServerToolCaller`
-
-                  Tool invocation generated by a server-side tool.
-
-                - `class ServerToolCaller20260120`
-
-            - `class CodeExecutionToolResultBlockParam`
-
-              - `JsonElement Type = "code_execution_tool_result"`
-
-              - `required CodeExecutionToolResultBlockParamContent Content`
-
-                - `class CodeExecutionToolResultErrorParam`
-
-                  - `JsonElement Type = "code_execution_tool_result_error"`
-
-                  - `required CodeExecutionToolResultErrorCode ErrorCode`
-
-                    - `InvalidToolInput("invalid_tool_input")`
-
-                    - `Unavailable("unavailable")`
-
-                    - `TooManyRequests("too_many_requests")`
-
-                    - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                - `class CodeExecutionResultBlockParam`
-
-                  - `JsonElement Type = "code_execution_result"`
-
-                  - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-                    - `JsonElement Type = "code_execution_output"`
-
-                    - `required string FileID`
-
-                  - `required long ReturnCode`
-
-                  - `required string Stderr`
-
-                  - `required string Stdout`
-
-                - `class EncryptedCodeExecutionResultBlockParam`
-
-                  Code execution result with encrypted stdout for PFC + web_search results.
-
-                  - `JsonElement Type = "encrypted_code_execution_result"`
-
-                  - `required IReadOnlyList<CodeExecutionOutputBlockParam> Content`
-
-                    - `JsonElement Type = "code_execution_output"`
-
-                    - `required string FileID`
-
-                  - `required string EncryptedStdout`
-
-                  - `required long ReturnCode`
-
-                  - `required string Stderr`
-
-              - `required string ToolUseID`
-
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-            - `class BashCodeExecutionToolResultBlockParam`
-
-              - `JsonElement Type = "bash_code_execution_tool_result"`
-
-              - `required Content Content`
-
-                - `class BashCodeExecutionToolResultErrorParam`
-
-                  - `JsonElement Type = "bash_code_execution_tool_result_error"`
-
-                  - `required BashCodeExecutionToolResultErrorCode ErrorCode`
-
-                    - `InvalidToolInput("invalid_tool_input")`
-
-                    - `Unavailable("unavailable")`
-
-                    - `TooManyRequests("too_many_requests")`
-
-                    - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                    - `OutputFileTooLarge("output_file_too_large")`
-
-                - `class BashCodeExecutionResultBlockParam`
-
-                  - `JsonElement Type = "bash_code_execution_result"`
-
-                  - `required IReadOnlyList<BashCodeExecutionOutputBlockParam> Content`
-
-                    - `JsonElement Type = "bash_code_execution_output"`
-
-                    - `required string FileID`
-
-                  - `required long ReturnCode`
-
-                  - `required string Stderr`
-
-                  - `required string Stdout`
-
-              - `required string ToolUseID`
-
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-            - `class TextEditorCodeExecutionToolResultBlockParam`
-
-              - `JsonElement Type = "text_editor_code_execution_tool_result"`
-
-              - `required Content Content`
-
-                - `class TextEditorCodeExecutionToolResultErrorParam`
-
-                  - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
-
-                  - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
-
-                    - `InvalidToolInput("invalid_tool_input")`
-
-                    - `Unavailable("unavailable")`
-
-                    - `TooManyRequests("too_many_requests")`
-
-                    - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                    - `FileNotFound("file_not_found")`
-
-                  - `string? ErrorMessage`
-
-                - `class TextEditorCodeExecutionViewResultBlockParam`
-
-                  - `JsonElement Type = "text_editor_code_execution_view_result"`
-
-                  - `required string Content`
-
-                  - `required FileType FileType`
-
-                    - `Text("text")`
-
-                    - `Image("image")`
-
-                    - `Pdf("pdf")`
-
-                  - `long? NumLines`
-
-                  - `long? StartLine`
-
-                  - `long? TotalLines`
-
-                - `class TextEditorCodeExecutionCreateResultBlockParam`
-
-                  - `JsonElement Type = "text_editor_code_execution_create_result"`
-
-                  - `required bool IsFileUpdate`
-
-                - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-                  - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
-
-                  - `IReadOnlyList<string>? Lines`
-
-                  - `long? NewLines`
-
-                  - `long? NewStart`
-
-                  - `long? OldLines`
-
-                  - `long? OldStart`
-
-              - `required string ToolUseID`
-
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-            - `class ToolSearchToolResultBlockParam`
-
-              - `JsonElement Type = "tool_search_tool_result"`
-
-              - `required Content Content`
-
-                - `class ToolSearchToolResultErrorParam`
-
-                  - `JsonElement Type = "tool_search_tool_result_error"`
-
-                  - `required ToolSearchToolResultErrorCode ErrorCode`
-
-                    - `InvalidToolInput("invalid_tool_input")`
-
-                    - `Unavailable("unavailable")`
-
-                    - `TooManyRequests("too_many_requests")`
-
-                    - `ExecutionTimeExceeded("execution_time_exceeded")`
-
-                  - `string? ErrorMessage`
-
-                - `class ToolSearchToolSearchResultBlockParam`
-
-                  - `JsonElement Type = "tool_search_tool_search_result"`
-
-                  - `required IReadOnlyList<ToolReferenceBlockParam> ToolReferences`
-
-                    - `JsonElement Type = "tool_reference"`
-
-                    - `required string ToolName`
-
-                      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                    - `CacheControlEphemeral? CacheControl`
-
-                      Create a cache control breakpoint at this content block.
-
-              - `required string ToolUseID`
-
-                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-            - `class ContainerUploadBlockParam`
-
-              A content block that represents a file to be uploaded to the container
-              Files uploaded via this block will be available in the container's input directory.
-
-              - `JsonElement Type = "container_upload"`
-
-              - `required string FileID`
-
-              - `CacheControlEphemeral? CacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-        - `required Role Role`
-
-          - `User("user")`
-
-          - `Assistant("assistant")`
-
-          - `System("system")`
+          - `JsonElement Role = "system"`
 
       - `required Model Model`
 
@@ -37699,42 +40833,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-      - `double Temperature`
-
-        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-        Amount of randomness injected into the response.
-
-        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-        minimum: 0, maximum: 1
-
-      - `long TopK`
-
-        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-        Only sample from the top K options for each subsequent token.
-
-        Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-        Recommended for advanced use cases only.
-
-        minimum: 0
-
-      - `double TopP`
-
-        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-        Use nucleus sampling.
-
-        In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-        Recommended for advanced use cases only.
-
-        minimum: 0, maximum: 1
-
   - `string userProfileID` (header parameter)
 
     The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -37864,11 +40962,7 @@ BatchCreateParams parameters = new()
                 MaxTokens = 1024,
                 Messages =
                 [
-                    new()
-                    {
-                        Content = "Hello, world",
-                        Role = Messages::Role.User,
-                    },
+                    new Messages::UserMessageParam("Hello, world")
                 ],
                 Model = Messages::Model.ClaudeOpus5_5,
                 CacheControl = new() { Ttl = Messages::Ttl.Ttl5m },
@@ -37933,7 +41027,6 @@ BatchCreateParams parameters = new()
                         },
                     ]
                 ),
-                Temperature = 1,
                 Thinking = new Messages::ThinkingConfigAdaptive()
                 {
                     Display = Messages::Display.Summarized
@@ -37978,8 +41071,6 @@ BatchCreateParams parameters = new()
                         Type = Messages::Type.Custom,
                     },
                 ],
-                TopK = 5,
-                TopP = 0.7,
             },
         },
     ],

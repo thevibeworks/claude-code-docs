@@ -8,9 +8,9 @@
 
 > [!NOTE]
 >
-> Unified Claude is in beta. It is opt-in until November 10, when it becomes enforced for all Desktop 3P deployments. New [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) organizations start with Unified Claude on.
+> Unified Claude is in beta. It is opt-in until November 10, when it becomes enforced for all Desktop 3P deployments. New [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md) organizations start with Unified Claude on.
 
-Unified Claude combines Chat and Cowork into one experience in Claude Desktop 3P. Users get a single Claude interface for both quick chats and longer agentic tasks. [Code](/docs/third-party/claude-desktop/code) stays separate.
+Unified Claude combines Chat and Cowork into one experience in Claude Desktop 3P. Users get a single Claude interface for both quick chats and longer agentic tasks. [Code](/docs/third-party/claude-desktop/code.md) stays separate.
 
 Unified Claude contains the same capabilities as Cowork on Desktop 3P today, including bash execution, subagents, and scheduled tasks. The Chat experience is going away, but you can restrict specific Cowork capabilities in Unified Claude through your other settings options and tool policies.
 
@@ -29,7 +29,7 @@ Users keep their earlier chats and Cowork tasks, and the sidebar lists them toge
 Unified Claude is opt-in today. To enable it, follow the instructions below:
 
 * **Enterprise Admin Console**: Go to Capabilities and toggle on "Opt into the new Chat and Cowork unified view."
-* **MDM or a bootstrap server**: For MDM and bootstrap deployments, the [`desktopHome`](/docs/third-party/claude-desktop/configuration#desktophome) key controls Unified Claude. Create and set `desktopHome` to `standard` in your [MDM profile](/docs/third-party/claude-desktop/mdm) or [bootstrap response](/docs/third-party/claude-desktop/bootstrap). Claude Desktop reads a value it doesn't recognize as `off`. Remove the key to disable the Unified Claude experience.
+* **MDM or a bootstrap server**: For MDM and bootstrap deployments, the [`desktopHome`](/docs/third-party/claude-desktop/configuration#desktophome) key controls Unified Claude. Create and set `desktopHome` to `standard` in your [MDM profile](/docs/third-party/claude-desktop/mdm.md) or [bootstrap response](/docs/third-party/claude-desktop/bootstrap.md). Claude Desktop reads a value it doesn't recognize as `off`. Remove the key to disable the Unified Claude experience.
 
 ## How Unified Claude interacts with Chat and Cowork settings
 

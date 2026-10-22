@@ -39,7 +39,6 @@ Delete Session
 
 ```bash
 ant beta:sessions delete \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 

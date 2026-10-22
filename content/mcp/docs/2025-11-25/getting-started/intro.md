@@ -33,30 +33,30 @@ MCP is an open protocol supported across a wide range of clients and servers. AI
 
 ## Start Building
 
-> **[Build servers](/docs/2025-11-25/develop/build-server)**
+> **[Build servers](/docs/2025-11-25/develop/build-server.md)**
 >
 > Create MCP servers to expose your data and tools
 
-> **[Build clients](/docs/2025-11-25/develop/build-client)**
+> **[Build clients](/docs/2025-11-25/develop/build-client.md)**
 >
 > Develop applications that connect to MCP servers
 
-> **[Build MCP Apps](/extensions/apps/overview)**
+> **[Build MCP Apps](/extensions/apps/overview.md)**
 >
 > Build interactive apps that run inside AI clients
 
 ## Learn more
 
-> **[Architecture](/docs/2025-11-25/learn/architecture)**
+> **[Architecture](/docs/2025-11-25/learn/architecture.md)**
 >
 > Learn the core concepts and architecture of MCP
 
-> **[Security](/docs/2025-11-25/tutorials/security/security_best_practices)**
+> **[Security](/docs/2025-11-25/tutorials/security/security_best_practices.md)**
 >
 > Understand the security considerations and best practices for MCP
 
 ## Community
 
-> **[Contributing](/community/contributing)**
+> **[Contributing](/community/contributing.md)**
 >
 > Learn how to get involved and contribute to MCP

@@ -110,8 +110,7 @@ List Memory Stores
 ## Example
 
 ```bash
-ant beta:memory-stores list \
-  --api-key my-anthropic-api-key
+ant beta:memory-stores list
 ```
 
 ### Response (200)

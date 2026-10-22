@@ -29,9 +29,9 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 | Claude's private app token | The private app token from HubSpot |
 | Allowed websites | `api.hubapi.com` (preset) |
 
-If the connect form offers to include the HubSpot plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+If the connect form offers to include the HubSpot plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -45,5 +45,5 @@ HubSpot appears in the list once the connector is live. New threads pick up the 
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/pull-deal-state): the go-to-market use cases
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the full credential-type and allowed-hosts reference
+* [What this connection adds](/docs/claude-tag/users/use-cases/pull-deal-state.md): the go-to-market use cases
+* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

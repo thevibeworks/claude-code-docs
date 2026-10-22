@@ -159,7 +159,6 @@ Retrieve a specific environment by ID.
 
 ```bash
 ant beta:environments retrieve \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 

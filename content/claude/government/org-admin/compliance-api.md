@@ -14,7 +14,7 @@ The API is available to every Claude for Government organization by default, and
 
 ## Managing API keys
 
-To create and manage keys for your organization, open **Compliance API** under **Settings** in the organization admin portal. To create and manage keys that return events for every organization in your tenant, open **Compliance API keys** under **Settings** in the [tenant admin portal](/docs/government/tenant-admin/overview). Only tenant administrators can open the tenant admin portal.
+To create and manage keys for your organization, open **Compliance API** under **Settings** in the organization admin portal. To create and manage keys that return events for every organization in your tenant, open **Compliance API keys** under **Settings** in the [tenant admin portal](/docs/government/tenant-admin/overview.md). Only tenant administrators can open the tenant admin portal.
 
 Both pages list only their own keys, showing each key's name, a hint with the last few characters of the key so you can tell keys apart, when the key was created, and whether it is active or revoked.
 
@@ -142,7 +142,7 @@ A typical run requests `since=<watermark>`, forwards every event returned, and i
 
 ## When the API is disabled
 
-Your tenant administrator can turn off the **Compliance API** setting on the [tenant Config page](/docs/government/tenant-admin/configuration). When that setting is off, the **Create key** button is hidden in the organization and tenant admin portals, and every call to `/gateway-api/v1/compliance/activities` returns a 400 error, including calls made with keys that were valid before the setting changed.
+Your tenant administrator can turn off the **Compliance API** setting on the [tenant Config page](/docs/government/tenant-admin/configuration.md). When that setting is off, the **Create key** button is hidden in the organization and tenant admin portals, and every call to `/gateway-api/v1/compliance/activities` returns a 400 error, including calls made with keys that were valid before the setting changed.
 
 Listing and revoking existing keys in either portal remains available even when the setting is off, so an exposed key can still be revoked.
 
@@ -150,9 +150,9 @@ Listing and revoking existing keys in either portal remains available even when 
 
 * The Claude for Government Compliance API is served from the Claude for Government service hostname, not from `api.anthropic.com`. Use the same host you use to reach the admin portal.
 * There is no separate Splunk add-on. The polling pattern described under [Connecting to your SIEM](#connecting-to-your-siem) is the reference implementation for a Splunk HTTP Event Collector job.
-* The OpenTelemetry export from the Claude applications is a separate log stream, configured with **Telemetry endpoint** on the [Config](/docs/government/config/settings#telemetry-endpoint) page. It carries per-session tool and telemetry events to a collector you specify, while this API carries administrative audit events.
+* The OpenTelemetry export from the Claude applications is a separate log stream, configured with **Telemetry endpoint** on the [Config](/docs/government/config/settings.md#telemetry-endpoint) page. It carries per-session tool and telemetry events to a collector you specify, while this API carries administrative audit events.
 * The Compliance API returns governance and audit events only. It does not return conversation content, files, or anything your users type into Claude.
 * Each organization can hold up to 50 active keys at once, and keys created in the tenant admin portal have a separate limit of 50 active keys. Revoked keys do not count toward either limit.
 * Events are returned newest first within each page.
 * `first_id` and `last_id` are opaque cursors. Pass them back exactly as received rather than constructing them yourself.
-* If your network enforces a [tenant restriction](/docs/government/tenant-admin/tenant-restrictions), the same restriction applies to Compliance API requests.
+* If your network enforces a [tenant restriction](/docs/government/tenant-admin/tenant-restrictions.md), the same restriction applies to Compliance API requests.

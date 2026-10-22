@@ -28,7 +28,7 @@ model.
 ## Capabilities
 
 Servers that support prompts **MUST** declare the `prompts` capability during
-[initialization](/specification/2025-11-25/basic/lifecycle#initialization):
+[initialization](/specification/2025-11-25/basic/lifecycle.md#initialization):
 
 ```json theme={null}
 {
@@ -48,7 +48,7 @@ available prompts changes.
 ### Listing Prompts
 
 To retrieve available prompts, clients send a `prompts/list` request. This operation
-supports [pagination](/specification/2025-11-25/server/utilities/pagination).
+supports [pagination](/specification/2025-11-25/server/utilities/pagination.md).
 
 **Request:**
 
@@ -99,7 +99,7 @@ supports [pagination](/specification/2025-11-25/server/utilities/pagination).
 ### Getting a Prompt
 
 To retrieve a specific prompt, clients send a `prompts/get` request. Arguments may be
-auto-completed through [the completion API](/specification/2025-11-25/server/utilities/completion).
+auto-completed through [the completion API](/specification/2025-11-25/server/utilities/completion.md).
 
 **Request:**
 
@@ -195,7 +195,7 @@ Messages in a prompt can contain:
 > [!NOTE]
 >
 > All content types in prompt messages support optional
-> [annotations](./resources#annotations) for metadata about audience, priority,
+> [annotations](/specification/2025-11-25/server/resources.md#annotations) for metadata about audience, priority,
 > and modification times.
 
 #### Text Content

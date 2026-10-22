@@ -33,7 +33,7 @@ Update Agent
 
     MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=go).
 
-    - `Type BetaManagedAgentsURLMCPServerParamsType`
+    - `Type URL`
 
     - `Name string`
 
@@ -165,31 +165,31 @@ Update Agent
 
           Low effort. Favors latency over reasoning depth.
 
-          - `Type BetaManagedAgentsEffortLowType`
+          - `Type Low`
 
         - `type BetaManagedAgentsEffortMedium`
 
           Medium effort. Balances latency and reasoning depth.
 
-          - `Type BetaManagedAgentsEffortMediumType`
+          - `Type Medium`
 
         - `type BetaManagedAgentsEffortHigh`
 
           High effort. Favors reasoning depth.
 
-          - `Type BetaManagedAgentsEffortHighType`
+          - `Type High`
 
         - `type BetaManagedAgentsEffortXhigh`
 
           Extra-high effort. Not all models accept this level.
 
-          - `Type BetaManagedAgentsEffortXhighType`
+          - `Type Xhigh`
 
         - `type BetaManagedAgentsEffortMax`
 
           Maximum effort. Favors reasoning depth over latency.
 
-          - `Type BetaManagedAgentsEffortMaxType`
+          - `Type Max`
 
       - `InferenceGeo string Optional`
 
@@ -221,7 +221,7 @@ Update Agent
 
       An Anthropic-managed skill.
 
-      - `Type BetaManagedAgentsAnthropicSkillParamsType`
+      - `Type Anthropic`
 
       - `SkillID string`
 
@@ -239,7 +239,7 @@ Update Agent
 
       A user-created custom skill.
 
-      - `Type BetaManagedAgentsCustomSkillParamsType`
+      - `Type Custom`
 
       - `SkillID string`
 
@@ -267,7 +267,7 @@ Update Agent
 
       Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
 
-      - `Type BetaManagedAgentsAgentToolset20260401ParamsType`
+      - `Type AgentToolset20260401`
 
       - `Configs []BetaManagedAgentsAgentToolConfigParamsUnion Optional`
 
@@ -295,13 +295,13 @@ Update Agent
 
               Tool calls are automatically approved without user confirmation.
 
-              - `Type BetaManagedAgentsAlwaysAllowPolicyType`
+              - `Type AlwaysAllow`
 
             - `type BetaManagedAgentsAlwaysAskPolicy`
 
               Tool calls require user confirmation before execution.
 
-              - `Type BetaManagedAgentsAlwaysAskPolicyType`
+              - `Type AlwaysAsk`
 
             - `type BetaManagedAgentsAutoPolicy`
 
@@ -695,7 +695,7 @@ Update Agent
 
       Configuration for tools from an MCP server defined in `mcp_servers`.
 
-      - `Type BetaManagedAgentsMCPToolsetParamsType`
+      - `Type MCPToolset`
 
       - `MCPServerName string`
 
@@ -761,7 +761,7 @@ Update Agent
 
       A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
 
-      - `Type BetaManagedAgentsCustomToolParamsType`
+      - `Type Custom`
 
       - `Description string`
 
@@ -911,7 +911,7 @@ Update Agent
 
   A Managed Agents `agent`.
 
-  - `Type BetaManagedAgentsAgentType`
+  - `Type Agent`
 
   - `ID string`
 
@@ -951,7 +951,7 @@ Update Agent
 
   - `MCPServers []BetaManagedAgentsMCPServerURLDefinition`
 
-    - `Type BetaManagedAgentsMCPServerURLDefinitionType`
+    - `Type URL`
 
     - `Name string`
 
@@ -1045,31 +1045,31 @@ Update Agent
 
         Low effort. Favors latency over reasoning depth.
 
-        - `Type BetaManagedAgentsEffortLowType`
+        - `Type Low`
 
       - `type BetaManagedAgentsEffortMedium`
 
         Medium effort. Balances latency and reasoning depth.
 
-        - `Type BetaManagedAgentsEffortMediumType`
+        - `Type Medium`
 
       - `type BetaManagedAgentsEffortHigh`
 
         High effort. Favors reasoning depth.
 
-        - `Type BetaManagedAgentsEffortHighType`
+        - `Type High`
 
       - `type BetaManagedAgentsEffortXhigh`
 
         Extra-high effort. Not all models accept this level.
 
-        - `Type BetaManagedAgentsEffortXhighType`
+        - `Type Xhigh`
 
       - `type BetaManagedAgentsEffortMax`
 
         Maximum effort. Favors reasoning depth over latency.
 
-        - `Type BetaManagedAgentsEffortMaxType`
+        - `Type Max`
 
     - `InferenceGeo string Optional`
 
@@ -1091,7 +1091,7 @@ Update Agent
 
       Resolved coordinator topology with a concrete agent roster.
 
-      - `Type BetaManagedAgentsMultiagentCoordinatorType`
+      - `Type Coordinator`
 
       - `Agents []BetaManagedAgentsMultiagentCoordinatorAgentUnion`
 
@@ -1101,7 +1101,7 @@ Update Agent
 
           A resolved agent reference with a concrete version.
 
-          - `Type BetaManagedAgentsAgentReferenceType`
+          - `Type Agent`
 
           - `ID string`
 
@@ -1113,7 +1113,7 @@ Update Agent
 
           Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          - `Type BetaManagedAgentsAdvisorType`
+          - `Type Advisor`
 
           - `Model string`
 
@@ -1175,7 +1175,7 @@ Update Agent
 
             Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
 
-            - `Type BetaManagedAgentsAgentReferenceType`
+            - `Type Agent`
 
             - `ID string`
 
@@ -1207,7 +1207,7 @@ Update Agent
 
             Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
 
-            - `Type BetaManagedAgentsAgentReferenceType`
+            - `Type Agent`
 
             - `ID string`
 
@@ -1229,7 +1229,7 @@ Update Agent
 
       A resolved Anthropic-managed skill.
 
-      - `Type BetaManagedAgentsAnthropicSkillType`
+      - `Type Anthropic`
 
       - `SkillID string`
 
@@ -1239,7 +1239,7 @@ Update Agent
 
       A resolved user-created custom skill.
 
-      - `Type BetaManagedAgentsCustomSkillType`
+      - `Type Custom`
 
       - `SkillID string`
 
@@ -1251,7 +1251,7 @@ Update Agent
 
     - `type BetaManagedAgentsAgentToolset20260401`
 
-      - `Type BetaManagedAgentsAgentToolset20260401Type`
+      - `Type AgentToolset20260401`
 
       - `Configs []BetaManagedAgentsAgentToolConfigUnion`
 
@@ -1273,13 +1273,13 @@ Update Agent
 
               Tool calls are automatically approved without user confirmation.
 
-              - `Type BetaManagedAgentsAlwaysAllowPolicyType`
+              - `Type AlwaysAllow`
 
             - `type BetaManagedAgentsAlwaysAskPolicy`
 
               Tool calls require user confirmation before execution.
 
-              - `Type BetaManagedAgentsAlwaysAskPolicyType`
+              - `Type AlwaysAsk`
 
             - `type BetaManagedAgentsAutoPolicy`
 
@@ -1611,7 +1611,7 @@ Update Agent
 
     - `type BetaManagedAgentsMCPToolset`
 
-      - `Type BetaManagedAgentsMCPToolsetType`
+      - `Type MCPToolset`
 
       - `Configs []BetaManagedAgentsMCPToolConfig`
 
@@ -1663,7 +1663,7 @@ Update Agent
 
       A custom tool as returned in API responses.
 
-      - `Type BetaManagedAgentsCustomToolType`
+      - `Type Custom`
 
       - `Description string`
 
@@ -1700,8 +1700,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {

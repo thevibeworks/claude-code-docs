@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/messages
 
 ## Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -76,7 +76,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=php).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -282,36 +282,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs?sdk_languages=php)
 
   A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
-- `temperature?:optional float`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-- `topK?:optional int`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-  Only sample from the top K options for each subsequent token.
-
-  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-  Recommended for advanced use cases only.
-
-- `topP?:optional float`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Use nucleus sampling.
-
-  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-  Recommended for advanced use cases only.
 
 ### Returns
 
@@ -546,14 +516,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessage = $client->beta->messages->create(
   maxTokens: 1024,
-  messages: [
-    [
-      'content' => 'Hello, world',
-      'role' => 'user',
-      'clearAt' => 'next_user_message',
-      'outputConfig' => ['effort' => 'low'],
-    ],
-  ],
+  messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
@@ -615,7 +578,6 @@ $betaMessage = $client->beta->messages->create(
       ],
     ],
   ],
-  temperature: 1,
   thinking: [
     'type' => 'adaptive',
     'blockBinding' => [
@@ -642,8 +604,6 @@ $betaMessage = $client->beta->messages->create(
       'type' => 'custom',
     ],
   ],
-  topK: 5,
-  topP: 0.7,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
@@ -823,7 +783,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=php).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=php#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -994,14 +954,7 @@ use Anthropic\Messages\Model;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageTokensCount = $client->beta->messages->countTokens(
-  messages: [
-    [
-      'content' => 'Hello, world',
-      'role' => 'user',
-      'clearAt' => 'next_user_message',
-      'outputConfig' => ['effort' => 'low'],
-    ],
-  ],
+  messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
@@ -1268,6 +1221,14 @@ var_dump($betaMessageTokensCount);
 - `class BetaAllThinkingTurns`
 
   - `"all" type`
+
+### Beta Assistant Message Param
+
+- `class BetaAssistantMessageParam`
+
+  - `BetaMessageContentParam content`
+
+  - `"assistant" role`
 
 ### Beta Base64 Image Source
 
@@ -7454,6 +7415,350 @@ var_dump($betaMessageTokensCount);
     in which case it holds the serving model's entries and replaces the one in
     `message_start`.
 
+### Beta Message Content Param
+
+- `class BetaMessageContentParam`
+
+  - `string`
+
+  - `list<BetaContentBlockParam>`
+
+    - `class BetaTextBlockParam`
+
+      - `"text" type`
+
+      - `string text`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?list<BetaTextCitationParam> citations`
+
+    - `class BetaImageBlockParam`
+
+      - `"image" type`
+
+      - `Source source`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?BetaImageTransformationsParam transformations`
+
+        Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+    - `class BetaRequestDocumentBlock`
+
+      - `"document" type`
+
+      - `Source source`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?BetaCitationsConfigParam citations`
+
+      - `?string context`
+
+      - `?string title`
+
+    - `class BetaSearchResultBlockParam`
+
+      - `"search_result" type`
+
+      - `list<BetaTextBlockParam> content`
+
+      - `string source`
+
+      - `string title`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?BetaCitationsConfigParam citations`
+
+    - `class BetaThinkingBlockParam`
+
+      - `"thinking" type`
+
+      - `string signature`
+
+        The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+        Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+      - `string thinking`
+
+        The `thinking` text of this block as returned by the API.
+
+    - `class BetaRedactedThinkingBlockParam`
+
+      - `"redacted_thinking" type`
+
+      - `string data`
+
+        The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+    - `class BetaToolUseBlockParam`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `array<string,mixed> input`
+
+      - `string name`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+      - `?string toolsetName`
+
+        For a toolset member tool_use, the toolset family this member belongs to.
+
+    - `class BetaToolResultBlockParam`
+
+      - `"tool_result" type`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Content content`
+
+      - `?bool isError`
+
+      - `?string toolsetName`
+
+        For a toolset member tool_result, the toolset family of the paired tool_use.
+
+    - `class BetaServerToolUseBlockParam`
+
+      - `"server_tool_use" type`
+
+      - `string id`
+
+      - `array<string,mixed> input`
+
+      - `Name name`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+    - `class BetaWebSearchToolResultBlockParam`
+
+      - `"web_search_tool_result" type`
+
+      - `BetaWebSearchToolResultBlockParamContent content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+    - `class BetaWebFetchToolResultBlockParam`
+
+      - `"web_fetch_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Caller caller`
+
+    - `class BetaAdvisorToolResultBlockParam`
+
+      - `"advisor_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaCodeExecutionToolResultBlockParam`
+
+      - `"code_execution_tool_result" type`
+
+      - `BetaCodeExecutionToolResultBlockParamContent content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaBashCodeExecutionToolResultBlockParam`
+
+      - `"bash_code_execution_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaTextEditorCodeExecutionToolResultBlockParam`
+
+      - `"text_editor_code_execution_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaToolSearchToolResultBlockParam`
+
+      - `"tool_search_tool_result" type`
+
+      - `Content content`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaMCPToolUseBlockParam`
+
+      - `"mcp_tool_use" type`
+
+      - `string id`
+
+      - `array<string,mixed> input`
+
+      - `string name`
+
+      - `string serverName`
+
+        The name of the MCP server
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaRequestMCPToolResultBlockParam`
+
+      - `"mcp_tool_result" type`
+
+      - `string toolUseID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?Content content`
+
+      - `?bool isError`
+
+    - `class BetaContainerUploadBlockParam`
+
+      - `"container_upload" type`
+
+      - `string fileID`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaCompactionBlockParam`
+
+      - `"compaction" type`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `?string content`
+
+        Summary of previously compacted content, or null if compaction failed
+
+      - `?string encryptedContent`
+
+        Opaque metadata from prior compaction, to be round-tripped verbatim
+
+      - `?string signature`
+
+        The block's signature as returned, to be sent back verbatim
+
+      - `?list<ToolChange> toolChanges`
+
+        The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block.
+
+    - `class BetaRequestToolAdditionBlock`
+
+      - `"tool_addition" type`
+
+      - `Tool tool`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaRequestToolRemovalBlock`
+
+      - `"tool_removal" type`
+
+      - `Tool tool`
+
+      - `?BetaCacheControlEphemeral cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+    - `class BetaMCPToolListingBlockParam`
+
+      - `"mcp_tool_listing" type`
+
+      - `string mcpServerName`
+
+        The name of the MCP server this listing came from, as `mcp_servers` declares it.
+
+      - `list<BetaMCPToolParam> tools`
+
+        The server's tools, exactly as the response listed them.
+
+    - `class BetaFallbackBlockParam`
+
+      - `"fallback" type`
+
+      - `BetaFallbackInfoParam from`
+
+        Identifies one hop of a fallback transition.
+
+      - `BetaFallbackInfoParam to`
+
+        Identifies one hop of a fallback transition.
+
+      - `?mixed trigger`
+
+        The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
+
 ### Beta Message Delta Usage
 
 - `class BetaMessageDeltaUsage`
@@ -7544,21 +7849,35 @@ var_dump($betaMessageTokensCount);
 
 - `class BetaMessageParam`
 
-  - `Content content`
+  - `class BetaUserMessageParam`
 
-  - `Role role`
+    - `BetaMessageContentParam content`
 
-  - `?ClearAt clearAt`
+    - `"user" role`
 
-    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+  - `class BetaAssistantMessageParam`
 
-  - `?BetaSystemMessageOutputConfig outputConfig`
+    - `BetaMessageContentParam content`
 
-    Per-message output configuration on a role:"system" input message.
+    - `"assistant" role`
 
-    Fields here apply per-turn; `format` remains top-level only. An
-    empty `{}` is accepted on a message that carries content; a message
-    with neither content nor output_config fields is rejected.
+  - `class BetaSystemMessageParam`
+
+    - `"system" role`
+
+    - `?ClearAt clearAt`
+
+      How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+    - `?Content content`
+
+    - `?BetaSystemMessageOutputConfig outputConfig`
+
+      Per-message output configuration on a role:"system" input message.
+
+      Fields here apply per-turn; `format` remains top-level only. An
+      empty `{}` is accepted on a message that carries content; a message
+      with neither content nor output_config fields is rejected.
 
 ### Beta Message Tokens Count
 
@@ -9167,6 +9486,26 @@ var_dump($betaMessageTokensCount);
     How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
 
     Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
+
+### Beta System Message Param
+
+- `class BetaSystemMessageParam`
+
+  - `"system" role`
+
+  - `?ClearAt clearAt`
+
+    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+  - `?Content content`
+
+  - `?BetaSystemMessageOutputConfig outputConfig`
+
+    Per-message output configuration on a role:"system" input message.
+
+    Fields here apply per-turn; `format` remains top-level only. An
+    empty `{}` is accepted on a message that carries content; a message
+    with neither content nor output_config fields is rejected.
 
 ### Beta Text Block
 
@@ -12406,6 +12745,14 @@ var_dump($betaMessageTokensCount);
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+### Beta User Message Param
+
+- `class BetaUserMessageParam`
+
+  - `BetaMessageContentParam content`
+
+  - `"user" role`
+
 ### Beta Web Fetch Block
 
 - `class BetaWebFetchBlock`
@@ -13140,14 +13487,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       'customID' => 'my-custom-id-1',
       'params' => [
         'maxTokens' => 1024,
-        'messages' => [
-          [
-            'content' => 'Hello, world',
-            'role' => 'user',
-            'clearAt' => 'next_user_message',
-            'outputConfig' => ['effort' => 'low'],
-          ],
-        ],
+        'messages' => [['content' => 'Hello, world', 'role' => 'user']],
         'model' => Model::CLAUDE_OPUS_5_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'compaction' => [
@@ -13218,7 +13558,6 @@ $betaMessageBatch = $client->beta->messages->batches->create(
             ],
           ],
         ],
-        'temperature' => 1,
         'thinking' => [
           'type' => 'adaptive',
           'blockBinding' => [
@@ -13245,8 +13584,6 @@ $betaMessageBatch = $client->beta->messages->batches->create(
             'type' => 'custom',
           ],
         ],
-        'topK' => 5,
-        'topP' => 0.7,
       ],
     ],
   ],

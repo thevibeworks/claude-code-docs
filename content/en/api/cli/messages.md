@@ -78,7 +78,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=cli).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -223,42 +223,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-- `--temperature: optional number`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-  minimum: 0, maximum: 1
-
-- `--top-k: optional number`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
-
-  Only sample from the top K options for each subsequent token.
-
-  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-  Recommended for advanced use cases only.
-
-  minimum: 0
-
-- `--top-p: optional number`
-
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
-
-  Use nucleus sampling.
-
-  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-  Recommended for advanced use cases only.
-
-  minimum: 0, maximum: 1
 
 ### Returns
 
@@ -1882,7 +1846,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 ```bash
 ant messages create \
-  --api-key my-anthropic-api-key \
   --max-tokens 1024 \
   --message '{content: [{text: x, type: text}], role: user}' \
   --model claude-opus-5-5
@@ -2021,7 +1984,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=cli).
 
-  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=cli#give-claude-a-role), you can use the top-level `system` parameter.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -2149,7 +2112,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ```bash
 ant messages count-tokens \
-  --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
   --model claude-opus-5-5
 ```
@@ -2163,6 +2125,1268 @@ ant messages count-tokens \
 ```
 
 ## Domain types
+
+### Assistant Message Param
+
+- `assistant_message_param: object`
+
+  - `content: array of ContentBlockParam`
+
+    - `text_block_param: object`
+
+      - `type: "text"`
+
+      - `text: string`
+
+        minLength: 1
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+          - `"5m"`
+
+          - `"1h"`
+
+      - `citations: optional array of TextCitationParam`
+
+        - `citation_char_location_param: object`
+
+          - `type: "char_location"`
+
+          - `cited_text: string`
+
+          - `document_index: number`
+
+            minimum: 0
+
+          - `document_title: string`
+
+            minLength: 1, maxLength: 500
+
+          - `end_char_index: number`
+
+          - `start_char_index: number`
+
+            minimum: 0
+
+        - `citation_page_location_param: object`
+
+          - `type: "page_location"`
+
+          - `cited_text: string`
+
+          - `document_index: number`
+
+            minimum: 0
+
+          - `document_title: string`
+
+            minLength: 1, maxLength: 500
+
+          - `end_page_number: number`
+
+          - `start_page_number: number`
+
+            minimum: 1
+
+        - `citation_content_block_location_param: object`
+
+          - `type: "content_block_location"`
+
+          - `cited_text: string`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `document_index: number`
+
+            minimum: 0
+
+          - `document_title: string`
+
+            minLength: 1, maxLength: 500
+
+          - `end_block_index: number`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `start_block_index: number`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+        - `citation_web_search_result_location_param: object`
+
+          - `type: "web_search_result_location"`
+
+          - `cited_text: string`
+
+          - `encrypted_index: string`
+
+          - `title: string`
+
+            minLength: 1, maxLength: 512
+
+          - `url: string`
+
+            minLength: 1
+
+        - `citation_search_result_location_param: object`
+
+          - `type: "search_result_location"`
+
+          - `cited_text: string`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `end_block_index: number`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `search_result_index: number`
+
+            0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+            Counted separately from `document_index`; server-side web search results are not included in this count.
+
+            minimum: 0
+
+          - `source: string`
+
+          - `start_block_index: number`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+          - `title: string`
+
+    - `image_block_param: object`
+
+      - `type: "image"`
+
+      - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+        - `base64_image_source: object`
+
+          - `type: "base64"`
+
+          - `data: string`
+
+            format: byte
+
+          - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+            - `"image/jpeg"`
+
+            - `"image/png"`
+
+            - `"image/gif"`
+
+            - `"image/webp"`
+
+        - `url_image_source: object`
+
+          - `type: "url"`
+
+          - `url: string`
+
+        - `file_image_source: object`
+
+          - `type: "file"`
+
+          - `file_id: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `transformations: optional object`
+
+        Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `oversized_image: optional "downsize" or "error"`
+
+          What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+          - `"downsize"`
+
+          - `"error"`
+
+    - `document_block_param: object`
+
+      - `type: "document"`
+
+      - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+        - `base64_pdf_source: object`
+
+          - `type: "base64"`
+
+          - `data: string`
+
+            format: byte
+
+          - `media_type: "application/pdf"`
+
+        - `plain_text_source: object`
+
+          - `type: "text"`
+
+          - `data: string`
+
+          - `media_type: "text/plain"`
+
+        - `content_block_source: object`
+
+          - `type: "content"`
+
+          - `content: string or array of ContentBlockSourceContent`
+
+            - `union_member_0: string`
+
+            - `content_block_source_content: array of ContentBlockSourceContent`
+
+              - `text_block_param: object`
+
+                - `type: "text"`
+
+                - `text: string`
+
+                  minLength: 1
+
+                - `cache_control: optional object`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `citations: optional array of TextCitationParam`
+
+              - `image_block_param: object`
+
+                - `type: "image"`
+
+                - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+                - `cache_control: optional object`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `transformations: optional object`
+
+                  Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `url_pdf_source: object`
+
+          - `type: "url"`
+
+          - `url: string`
+
+        - `file_document_source: object`
+
+          - `type: "file"`
+
+          - `file_id: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `citations: optional object`
+
+        - `enabled: optional boolean`
+
+      - `context: optional string`
+
+        minLength: 1
+
+      - `title: optional string`
+
+        minLength: 1, maxLength: 500
+
+    - `search_result_block_param: object`
+
+      - `type: "search_result"`
+
+      - `content: array of TextBlockParam`
+
+        - `type: "text"`
+
+        - `text: string`
+
+          minLength: 1
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+        - `citations: optional array of TextCitationParam`
+
+      - `source: string`
+
+      - `title: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `citations: optional object`
+
+        - `enabled: optional boolean`
+
+    - `thinking_block_param: object`
+
+      - `type: "thinking"`
+
+      - `signature: string`
+
+        The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+        Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+      - `thinking: string`
+
+        The `thinking` text of this block as returned by the API.
+
+    - `redacted_thinking_block_param: object`
+
+      - `type: "redacted_thinking"`
+
+      - `data: string`
+
+        The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+    - `tool_use_block_param: object`
+
+      - `type: "tool_use"`
+
+      - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
+
+      - `input: map[unknown]`
+
+      - `name: string`
+
+        minLength: 1, maxLength: 200
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+          - `type: "direct"`
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+          - `type: "code_execution_20250825"`
+
+          - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `server_tool_caller_20260120: object`
+
+          - `type: "code_execution_20260120"`
+
+          - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `toolset_name: optional string`
+
+        For a toolset member tool_use, the toolset family this member belongs to.
+
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `tool_result_block_param: object`
+
+      - `type: "tool_result"`
+
+      - `tool_use_id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `content: optional array of TextBlockParam or ImageBlockParam or SearchResultBlockParam or 3 more`
+
+        - `text_block_param: object`
+
+          - `type: "text"`
+
+          - `text: string`
+
+            minLength: 1
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations: optional array of TextCitationParam`
+
+        - `image_block_param: object`
+
+          - `type: "image"`
+
+          - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `transformations: optional object`
+
+            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `search_result_block_param: object`
+
+          - `type: "search_result"`
+
+          - `content: array of TextBlockParam`
+
+          - `source: string`
+
+          - `title: string`
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations: optional object`
+
+        - `document_block_param: object`
+
+          - `type: "document"`
+
+          - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations: optional object`
+
+          - `context: optional string`
+
+            minLength: 1
+
+          - `title: optional string`
+
+            minLength: 1, maxLength: 500
+
+        - `tool_reference_block_param: object`
+
+          Tool reference block that can be included in tool_result content.
+
+          - `type: "tool_reference"`
+
+          - `tool_name: string`
+
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+            - `type: "ephemeral"`
+
+            - `ttl: optional "5m" or "1h"`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `browser_state_block_param: object`
+
+          The caller's browser state after a browser toolset member call —
+          the full inventory of open tabs, which tab is active, and any side
+          effects (tabs opened, download state changes) the call produced.
+
+          At most one per `tool_result`, only on a non-error result answering a
+          browser toolset member `tool_use`. The server renders the
+          model-visible text from it; the model never sees the raw fields.
+
+          - `type: "browser_state"`
+
+          - `tabs: array of BrowserStateTabEntry`
+
+            All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+            maxItems: 100
+
+            - `tab_id: string`
+
+              The caller-assigned identifier for this tab, unique within the inventory.
+
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `title: string`
+
+              The title of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `url: string`
+
+              The URL of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `active: optional boolean`
+
+              Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+            - `type: "ephemeral"`
+
+            - `ttl: optional "5m" or "1h"`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+          - `state_changes: optional array of BrowserStateChange`
+
+            Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+            minItems: 1, maxItems: 200
+
+            - `browser_state_change_tab_opened: object`
+
+              A tab this call's execution opened that remains open at its end —
+              the creation delta of the `tabs` inventory, not an event log.
+
+              Carries only the `tab_id`; the tab's `title` and `url` live on its
+              `tabs` entry, which must include the same `tab_id`. A tab opened
+              during a failed call gets no deferred `tab_opened`; it simply appears
+              in the next result's `tabs` inventory.
+
+              - `type: "tab_opened"`
+
+              - `tab_id: string`
+
+                The `tab_id` of the opened tab, present in `tabs`.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `browser_state_change_download_started: object`
+
+              A file download that started during this call.
+
+              - `type: "download_started"`
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `browser_state_change_download_completed: object`
+
+              A file download that finished during this call, reported with the
+              same `download_id` as its `download_started` — or without a prior
+              `download_started`, when the download finished during the call that
+              started it (at most one state change per `download_id` per result).
+
+              - `type: "download_completed"`
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `path: optional string`
+
+                Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `size_bytes: optional number`
+
+                The completed download's size.
+
+                minimum: 0
+
+            - `browser_state_change_download_failed: object`
+
+              A file download that failed — or was cancelled — during this call.
+
+              - `type: "download_failed"`
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `error: optional string`
+
+                The failure or cancellation detail, when known.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `is_error: optional boolean`
+
+      - `toolset_name: optional string`
+
+        For a toolset member tool_result, the toolset family of the paired tool_use.
+
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `server_tool_use_block_param: object`
+
+      - `type: "server_tool_use"`
+
+      - `id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `input: map[unknown]`
+
+      - `name: "web_search" or "web_fetch" or "code_execution" or 4 more`
+
+        - `"web_search"`
+
+        - `"web_fetch"`
+
+        - `"code_execution"`
+
+        - `"bash_code_execution"`
+
+        - `"text_editor_code_execution"`
+
+        - `"tool_search_tool_regex"`
+
+        - `"tool_search_tool_bm25"`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+        - `server_tool_caller_20260120: object`
+
+    - `web_search_tool_result_block_param: object`
+
+      - `type: "web_search_tool_result"`
+
+      - `content: array of WebSearchResultBlockParam or WebSearchToolRequestError`
+
+        - `web_search_tool_result_block_item: array of WebSearchResultBlockParam`
+
+          - `type: "web_search_result"`
+
+          - `encrypted_content: string`
+
+          - `title: string`
+
+          - `url: string`
+
+          - `page_age: optional string`
+
+        - `web_search_tool_request_error: object`
+
+          - `type: "web_search_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"max_uses_exceeded"`
+
+            - `"too_many_requests"`
+
+            - `"query_too_long"`
+
+            - `"request_too_large"`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+        - `server_tool_caller_20260120: object`
+
+    - `web_fetch_tool_result_block_param: object`
+
+      - `type: "web_fetch_tool_result"`
+
+      - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
+
+        - `web_fetch_tool_result_error_block_param: object`
+
+          - `type: "web_fetch_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 7 more`
+
+            - `"invalid_tool_input"`
+
+            - `"url_too_long"`
+
+            - `"url_not_allowed"`
+
+            - `"url_not_in_prior_context"`
+
+            - `"url_not_accessible"`
+
+            - `"unsupported_content_type"`
+
+            - `"too_many_requests"`
+
+            - `"max_uses_exceeded"`
+
+            - `"unavailable"`
+
+            - `"content_too_large"`
+
+        - `web_fetch_block_param: object`
+
+          - `type: "web_fetch_result"`
+
+          - `content: object`
+
+            - `type: "document"`
+
+            - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+            - `citations: optional object`
+
+            - `context: optional string`
+
+              minLength: 1
+
+            - `title: optional string`
+
+              minLength: 1, maxLength: 500
+
+          - `url: string`
+
+            Fetched content URL
+
+          - `retrieved_at: optional string`
+
+            ISO 8601 timestamp when the content was retrieved
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+        - `server_tool_caller_20260120: object`
+
+    - `code_execution_tool_result_block_param: object`
+
+      - `type: "code_execution_tool_result"`
+
+      - `content: CodeExecutionToolResultErrorParam or CodeExecutionResultBlockParam or EncryptedCodeExecutionResultBlockParam`
+
+        - `code_execution_tool_result_error_param: object`
+
+          - `type: "code_execution_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+        - `code_execution_result_block_param: object`
+
+          - `type: "code_execution_result"`
+
+          - `content: array of CodeExecutionOutputBlockParam`
+
+            - `type: "code_execution_output"`
+
+            - `file_id: string`
+
+          - `return_code: number`
+
+          - `stderr: string`
+
+          - `stdout: string`
+
+        - `encrypted_code_execution_result_block_param: object`
+
+          Code execution result with encrypted stdout for PFC + web_search results.
+
+          - `type: "encrypted_code_execution_result"`
+
+          - `content: array of CodeExecutionOutputBlockParam`
+
+            - `type: "code_execution_output"`
+
+            - `file_id: string`
+
+          - `encrypted_stdout: string`
+
+          - `return_code: number`
+
+          - `stderr: string`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `bash_code_execution_tool_result_block_param: object`
+
+      - `type: "bash_code_execution_tool_result"`
+
+      - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
+
+        - `bash_code_execution_tool_result_error_param: object`
+
+          - `type: "bash_code_execution_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+            - `"output_file_too_large"`
+
+        - `bash_code_execution_result_block_param: object`
+
+          - `type: "bash_code_execution_result"`
+
+          - `content: array of BashCodeExecutionOutputBlockParam`
+
+            - `type: "bash_code_execution_output"`
+
+            - `file_id: string`
+
+          - `return_code: number`
+
+          - `stderr: string`
+
+          - `stdout: string`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `text_editor_code_execution_tool_result_block_param: object`
+
+      - `type: "text_editor_code_execution_tool_result"`
+
+      - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+        - `text_editor_code_execution_tool_result_error_param: object`
+
+          - `type: "text_editor_code_execution_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+            - `"file_not_found"`
+
+          - `error_message: optional string`
+
+        - `text_editor_code_execution_view_result_block_param: object`
+
+          - `type: "text_editor_code_execution_view_result"`
+
+          - `content: string`
+
+          - `file_type: "text" or "image" or "pdf"`
+
+            - `"text"`
+
+            - `"image"`
+
+            - `"pdf"`
+
+          - `num_lines: optional number`
+
+          - `start_line: optional number`
+
+          - `total_lines: optional number`
+
+        - `text_editor_code_execution_create_result_block_param: object`
+
+          - `type: "text_editor_code_execution_create_result"`
+
+          - `is_file_update: boolean`
+
+        - `text_editor_code_execution_str_replace_result_block_param: object`
+
+          - `type: "text_editor_code_execution_str_replace_result"`
+
+          - `lines: optional array of string`
+
+          - `new_lines: optional number`
+
+          - `new_start: optional number`
+
+          - `old_lines: optional number`
+
+          - `old_start: optional number`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `tool_search_tool_result_block_param: object`
+
+      - `type: "tool_search_tool_result"`
+
+      - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
+
+        - `tool_search_tool_result_error_param: object`
+
+          - `type: "tool_search_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+          - `error_message: optional string`
+
+        - `tool_search_tool_search_result_block_param: object`
+
+          - `type: "tool_search_tool_search_result"`
+
+          - `tool_references: array of ToolReferenceBlockParam`
+
+            - `type: "tool_reference"`
+
+            - `tool_name: string`
+
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `container_upload_block_param: object`
+
+      A content block that represents a file to be uploaded to the container
+      Files uploaded via this block will be available in the container's input directory.
+
+      - `type: "container_upload"`
+
+      - `file_id: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+  - `role: "assistant"`
 
 ### Base64 Image Source
 
@@ -18351,334 +19575,13 @@ ant messages count-tokens \
 
 ### Message Param
 
-- `message_param: object`
+- `message_param: UserMessageParam or AssistantMessageParam or SystemMessageParam`
 
-  - `content: array of ContentBlockParam`
+  - `user_message_param: object`
 
-    - `text_block_param: object`
+    - `content: array of ContentBlockParam`
 
-      - `type: "text"`
-
-      - `text: string`
-
-        minLength: 1
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-          - `"5m"`
-
-          - `"1h"`
-
-      - `citations: optional array of TextCitationParam`
-
-        - `citation_char_location_param: object`
-
-          - `type: "char_location"`
-
-          - `cited_text: string`
-
-          - `document_index: number`
-
-            minimum: 0
-
-          - `document_title: string`
-
-            minLength: 1, maxLength: 500
-
-          - `end_char_index: number`
-
-          - `start_char_index: number`
-
-            minimum: 0
-
-        - `citation_page_location_param: object`
-
-          - `type: "page_location"`
-
-          - `cited_text: string`
-
-          - `document_index: number`
-
-            minimum: 0
-
-          - `document_title: string`
-
-            minLength: 1, maxLength: 500
-
-          - `end_page_number: number`
-
-          - `start_page_number: number`
-
-            minimum: 1
-
-        - `citation_content_block_location_param: object`
-
-          - `type: "content_block_location"`
-
-          - `cited_text: string`
-
-            The full text of the cited block range, concatenated.
-
-            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-          - `document_index: number`
-
-            minimum: 0
-
-          - `document_title: string`
-
-            minLength: 1, maxLength: 500
-
-          - `end_block_index: number`
-
-            Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-          - `start_block_index: number`
-
-            0-based index of the first cited block in the source's `content` array.
-
-            minimum: 0
-
-        - `citation_web_search_result_location_param: object`
-
-          - `type: "web_search_result_location"`
-
-          - `cited_text: string`
-
-          - `encrypted_index: string`
-
-          - `title: string`
-
-            minLength: 1, maxLength: 512
-
-          - `url: string`
-
-            minLength: 1
-
-        - `citation_search_result_location_param: object`
-
-          - `type: "search_result_location"`
-
-          - `cited_text: string`
-
-            The full text of the cited block range, concatenated.
-
-            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-          - `end_block_index: number`
-
-            Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-          - `search_result_index: number`
-
-            0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-            Counted separately from `document_index`; server-side web search results are not included in this count.
-
-            minimum: 0
-
-          - `source: string`
-
-          - `start_block_index: number`
-
-            0-based index of the first cited block in the source's `content` array.
-
-            minimum: 0
-
-          - `title: string`
-
-    - `image_block_param: object`
-
-      - `type: "image"`
-
-      - `source: Base64ImageSource or URLImageSource or FileImageSource`
-
-        - `base64_image_source: object`
-
-          - `type: "base64"`
-
-          - `data: string`
-
-            format: byte
-
-          - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
-
-            - `"image/jpeg"`
-
-            - `"image/png"`
-
-            - `"image/gif"`
-
-            - `"image/webp"`
-
-        - `url_image_source: object`
-
-          - `type: "url"`
-
-          - `url: string`
-
-        - `file_image_source: object`
-
-          - `type: "file"`
-
-          - `file_id: string`
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-      - `transformations: optional object`
-
-        Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-        - `oversized_image: optional "downsize" or "error"`
-
-          What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-          - `"downsize"`
-
-          - `"error"`
-
-    - `document_block_param: object`
-
-      - `type: "document"`
-
-      - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
-
-        - `base64_pdf_source: object`
-
-          - `type: "base64"`
-
-          - `data: string`
-
-            format: byte
-
-          - `media_type: "application/pdf"`
-
-        - `plain_text_source: object`
-
-          - `type: "text"`
-
-          - `data: string`
-
-          - `media_type: "text/plain"`
-
-        - `content_block_source: object`
-
-          - `type: "content"`
-
-          - `content: string or array of ContentBlockSourceContent`
-
-            - `union_member_0: string`
-
-            - `content_block_source_content: array of ContentBlockSourceContent`
-
-              - `text_block_param: object`
-
-                - `type: "text"`
-
-                - `text: string`
-
-                  minLength: 1
-
-                - `cache_control: optional object`
-
-                  Create a cache control breakpoint at this content block.
-
-                - `citations: optional array of TextCitationParam`
-
-              - `image_block_param: object`
-
-                - `type: "image"`
-
-                - `source: Base64ImageSource or URLImageSource or FileImageSource`
-
-                - `cache_control: optional object`
-
-                  Create a cache control breakpoint at this content block.
-
-                - `transformations: optional object`
-
-                  Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-        - `url_pdf_source: object`
-
-          - `type: "url"`
-
-          - `url: string`
-
-        - `file_document_source: object`
-
-          - `type: "file"`
-
-          - `file_id: string`
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-      - `citations: optional object`
-
-        - `enabled: optional boolean`
-
-      - `context: optional string`
-
-        minLength: 1
-
-      - `title: optional string`
-
-        minLength: 1, maxLength: 500
-
-    - `search_result_block_param: object`
-
-      - `type: "search_result"`
-
-      - `content: array of TextBlockParam`
+      - `text_block_param: object`
 
         - `type: "text"`
 
@@ -18690,146 +19593,318 @@ ant messages count-tokens \
 
           Create a cache control breakpoint at this content block.
 
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+            - `"5m"`
+
+            - `"1h"`
+
         - `citations: optional array of TextCitationParam`
 
-      - `source: string`
+          - `citation_char_location_param: object`
 
-      - `title: string`
+            - `type: "char_location"`
 
-      - `cache_control: optional object`
+            - `cited_text: string`
 
-        Create a cache control breakpoint at this content block.
+            - `document_index: number`
 
-        - `type: "ephemeral"`
+              minimum: 0
 
-        - `ttl: optional "5m" or "1h"`
+            - `document_title: string`
 
-          The time-to-live for the cache control breakpoint.
+              minLength: 1, maxLength: 500
 
-          This may be one the following values:
+            - `end_char_index: number`
 
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
+            - `start_char_index: number`
 
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+              minimum: 0
 
-      - `citations: optional object`
+          - `citation_page_location_param: object`
 
-        - `enabled: optional boolean`
+            - `type: "page_location"`
 
-    - `thinking_block_param: object`
+            - `cited_text: string`
 
-      - `type: "thinking"`
+            - `document_index: number`
 
-      - `signature: string`
+              minimum: 0
 
-        The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+            - `document_title: string`
 
-        Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+              minLength: 1, maxLength: 500
 
-      - `thinking: string`
+            - `end_page_number: number`
 
-        The `thinking` text of this block as returned by the API.
+            - `start_page_number: number`
 
-    - `redacted_thinking_block_param: object`
+              minimum: 1
 
-      - `type: "redacted_thinking"`
+          - `citation_content_block_location_param: object`
 
-      - `data: string`
+            - `type: "content_block_location"`
 
-        The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+            - `cited_text: string`
 
-    - `tool_use_block_param: object`
+              The full text of the cited block range, concatenated.
 
-      - `type: "tool_use"`
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-      - `id: string`
+            - `document_index: number`
 
-        pattern: ^[a-zA-Z0-9_-]+$
+              minimum: 0
 
-      - `input: map[unknown]`
+            - `document_title: string`
 
-      - `name: string`
+              minLength: 1, maxLength: 500
 
-        minLength: 1, maxLength: 200
+            - `end_block_index: number`
 
-      - `cache_control: optional object`
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-        Create a cache control breakpoint at this content block.
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-        - `type: "ephemeral"`
+            - `start_block_index: number`
 
-        - `ttl: optional "5m" or "1h"`
+              0-based index of the first cited block in the source's `content` array.
 
-          The time-to-live for the cache control breakpoint.
+              minimum: 0
 
-          This may be one the following values:
+          - `citation_web_search_result_location_param: object`
 
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
+            - `type: "web_search_result_location"`
 
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+            - `cited_text: string`
 
-      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+            - `encrypted_index: string`
 
-        - `direct_caller: object`
+            - `title: string`
 
-          Tool invocation directly from the model.
+              minLength: 1, maxLength: 512
 
-          - `type: "direct"`
+            - `url: string`
 
-        - `server_tool_caller: object`
+              minLength: 1
 
-          Tool invocation generated by a server-side tool.
+          - `citation_search_result_location_param: object`
 
-          - `type: "code_execution_20250825"`
+            - `type: "search_result_location"`
 
-          - `tool_id: string`
+            - `cited_text: string`
 
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+              The full text of the cited block range, concatenated.
 
-        - `server_tool_caller_20260120: object`
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-          - `type: "code_execution_20260120"`
+            - `end_block_index: number`
 
-          - `tool_id: string`
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
 
-            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-      - `toolset_name: optional string`
+            - `search_result_index: number`
 
-        For a toolset member tool_use, the toolset family this member belongs to.
+              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
-        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+              Counted separately from `document_index`; server-side web search results are not included in this count.
 
-    - `tool_result_block_param: object`
+              minimum: 0
 
-      - `type: "tool_result"`
+            - `source: string`
 
-      - `tool_use_id: string`
+            - `start_block_index: number`
 
-        pattern: ^[a-zA-Z0-9_-]+$
+              0-based index of the first cited block in the source's `content` array.
 
-      - `cache_control: optional object`
+              minimum: 0
 
-        Create a cache control breakpoint at this content block.
+            - `title: string`
 
-        - `type: "ephemeral"`
+      - `image_block_param: object`
 
-        - `ttl: optional "5m" or "1h"`
+        - `type: "image"`
 
-          The time-to-live for the cache control breakpoint.
+        - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
-          This may be one the following values:
+          - `base64_image_source: object`
 
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
+            - `type: "base64"`
 
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+            - `data: string`
 
-      - `content: optional array of TextBlockParam or ImageBlockParam or SearchResultBlockParam or 3 more`
+              format: byte
 
-        - `text_block_param: object`
+            - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+              - `"image/jpeg"`
+
+              - `"image/png"`
+
+              - `"image/gif"`
+
+              - `"image/webp"`
+
+          - `url_image_source: object`
+
+            - `type: "url"`
+
+            - `url: string`
+
+          - `file_image_source: object`
+
+            - `type: "file"`
+
+            - `file_id: string`
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `transformations: optional object`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `oversized_image: optional "downsize" or "error"`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `"downsize"`
+
+            - `"error"`
+
+      - `document_block_param: object`
+
+        - `type: "document"`
+
+        - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+          - `base64_pdf_source: object`
+
+            - `type: "base64"`
+
+            - `data: string`
+
+              format: byte
+
+            - `media_type: "application/pdf"`
+
+          - `plain_text_source: object`
+
+            - `type: "text"`
+
+            - `data: string`
+
+            - `media_type: "text/plain"`
+
+          - `content_block_source: object`
+
+            - `type: "content"`
+
+            - `content: string or array of ContentBlockSourceContent`
+
+              - `union_member_0: string`
+
+              - `content_block_source_content: array of ContentBlockSourceContent`
+
+                - `text_block_param: object`
+
+                  - `type: "text"`
+
+                  - `text: string`
+
+                    minLength: 1
+
+                  - `cache_control: optional object`
+
+                    Create a cache control breakpoint at this content block.
+
+                  - `citations: optional array of TextCitationParam`
+
+                - `image_block_param: object`
+
+                  - `type: "image"`
+
+                  - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+                  - `cache_control: optional object`
+
+                    Create a cache control breakpoint at this content block.
+
+                  - `transformations: optional object`
+
+                    Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `url_pdf_source: object`
+
+            - `type: "url"`
+
+            - `url: string`
+
+          - `file_document_source: object`
+
+            - `type: "file"`
+
+            - `file_id: string`
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `citations: optional object`
+
+          - `enabled: optional boolean`
+
+        - `context: optional string`
+
+          minLength: 1
+
+        - `title: optional string`
+
+          minLength: 1, maxLength: 500
+
+      - `search_result_block_param: object`
+
+        - `type: "search_result"`
+
+        - `content: array of TextBlockParam`
 
           - `type: "text"`
 
@@ -18843,408 +19918,188 @@ ant messages count-tokens \
 
           - `citations: optional array of TextCitationParam`
 
-        - `image_block_param: object`
+        - `source: string`
 
-          - `type: "image"`
+        - `title: string`
 
-          - `source: Base64ImageSource or URLImageSource or FileImageSource`
+        - `cache_control: optional object`
 
-          - `cache_control: optional object`
+          Create a cache control breakpoint at this content block.
 
-            Create a cache control breakpoint at this content block.
+          - `type: "ephemeral"`
 
-          - `transformations: optional object`
+          - `ttl: optional "5m" or "1h"`
 
-            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+            The time-to-live for the cache control breakpoint.
 
-        - `search_result_block_param: object`
+            This may be one the following values:
 
-          - `type: "search_result"`
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
 
-          - `content: array of TextBlockParam`
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
-          - `source: string`
+        - `citations: optional object`
 
-          - `title: string`
+          - `enabled: optional boolean`
 
-          - `cache_control: optional object`
+      - `thinking_block_param: object`
 
-            Create a cache control breakpoint at this content block.
+        - `type: "thinking"`
 
-          - `citations: optional object`
+        - `signature: string`
 
-        - `document_block_param: object`
+          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
 
-          - `type: "document"`
+          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
 
-          - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+        - `thinking: string`
 
-          - `cache_control: optional object`
+          The `thinking` text of this block as returned by the API.
 
-            Create a cache control breakpoint at this content block.
+      - `redacted_thinking_block_param: object`
 
-          - `citations: optional object`
+        - `type: "redacted_thinking"`
 
-          - `context: optional string`
+        - `data: string`
 
-            minLength: 1
+          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `title: optional string`
+      - `tool_use_block_param: object`
 
-            minLength: 1, maxLength: 500
+        - `type: "tool_use"`
 
-        - `tool_reference_block_param: object`
+        - `id: string`
 
-          Tool reference block that can be included in tool_result content.
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `type: "tool_reference"`
+        - `input: map[unknown]`
 
-          - `tool_name: string`
+        - `name: string`
 
-            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 200
 
-          - `cache_control: optional object`
+        - `cache_control: optional object`
 
-            Create a cache control breakpoint at this content block.
+          Create a cache control breakpoint at this content block.
 
-            - `type: "ephemeral"`
+          - `type: "ephemeral"`
 
-            - `ttl: optional "5m" or "1h"`
+          - `ttl: optional "5m" or "1h"`
 
-              The time-to-live for the cache control breakpoint.
+            The time-to-live for the cache control breakpoint.
 
-              This may be one the following values:
+            This may be one the following values:
 
-              - `5m`: 5 minutes
-              - `1h`: 1 hour
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
 
-              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
-        - `browser_state_block_param: object`
+        - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
-          The caller's browser state after a browser toolset member call —
-          the full inventory of open tabs, which tab is active, and any side
-          effects (tabs opened, download state changes) the call produced.
+          - `direct_caller: object`
 
-          At most one per `tool_result`, only on a non-error result answering a
-          browser toolset member `tool_use`. The server renders the
-          model-visible text from it; the model never sees the raw fields.
+            Tool invocation directly from the model.
 
-          - `type: "browser_state"`
+            - `type: "direct"`
 
-          - `tabs: array of BrowserStateTabEntry`
+          - `server_tool_caller: object`
 
-            All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+            Tool invocation generated by a server-side tool.
 
-            maxItems: 100
+            - `type: "code_execution_20250825"`
 
-            - `tab_id: string`
+            - `tool_id: string`
 
-              The caller-assigned identifier for this tab, unique within the inventory.
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+          - `server_tool_caller_20260120: object`
+
+            - `type: "code_execution_20260120"`
+
+            - `tool_id: string`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `toolset_name: optional string`
+
+          For a toolset member tool_use, the toolset family this member belongs to.
+
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `tool_result_block_param: object`
+
+        - `type: "tool_result"`
+
+        - `tool_use_id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `content: optional array of TextBlockParam or ImageBlockParam or SearchResultBlockParam or 3 more`
+
+          - `text_block_param: object`
+
+            - `type: "text"`
+
+            - `text: string`
+
+              minLength: 1
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+            - `citations: optional array of TextCitationParam`
+
+          - `image_block_param: object`
+
+            - `type: "image"`
+
+            - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+            - `transformations: optional object`
+
+              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `search_result_block_param: object`
+
+            - `type: "search_result"`
+
+            - `content: array of TextBlockParam`
+
+            - `source: string`
 
             - `title: string`
 
-              The title of the page the tab is showing. May be empty.
+            - `cache_control: optional object`
 
-              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              Create a cache control breakpoint at this content block.
 
-            - `url: string`
+            - `citations: optional object`
 
-              The URL of the page the tab is showing. May be empty.
-
-              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `active: optional boolean`
-
-              Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
-
-          - `cache_control: optional object`
-
-            Create a cache control breakpoint at this content block.
-
-            - `type: "ephemeral"`
-
-            - `ttl: optional "5m" or "1h"`
-
-              The time-to-live for the cache control breakpoint.
-
-              This may be one the following values:
-
-              - `5m`: 5 minutes
-              - `1h`: 1 hour
-
-              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-          - `state_changes: optional array of BrowserStateChange`
-
-            Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
-
-            minItems: 1, maxItems: 200
-
-            - `browser_state_change_tab_opened: object`
-
-              A tab this call's execution opened that remains open at its end —
-              the creation delta of the `tabs` inventory, not an event log.
-
-              Carries only the `tab_id`; the tab's `title` and `url` live on its
-              `tabs` entry, which must include the same `tab_id`. A tab opened
-              during a failed call gets no deferred `tab_opened`; it simply appears
-              in the next result's `tabs` inventory.
-
-              - `type: "tab_opened"`
-
-              - `tab_id: string`
-
-                The `tab_id` of the opened tab, present in `tabs`.
-
-                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `browser_state_change_download_started: object`
-
-              A file download that started during this call.
-
-              - `type: "download_started"`
-
-              - `download_id: string`
-
-                The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `url: string`
-
-                The final post-redirect URL the download was served from.
-
-                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `browser_state_change_download_completed: object`
-
-              A file download that finished during this call, reported with the
-              same `download_id` as its `download_started` — or without a prior
-              `download_started`, when the download finished during the call that
-              started it (at most one state change per `download_id` per result).
-
-              - `type: "download_completed"`
-
-              - `download_id: string`
-
-                The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `url: string`
-
-                The final post-redirect URL the download was served from.
-
-                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `path: optional string`
-
-                Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
-
-                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `size_bytes: optional number`
-
-                The completed download's size.
-
-                minimum: 0
-
-            - `browser_state_change_download_failed: object`
-
-              A file download that failed — or was cancelled — during this call.
-
-              - `type: "download_failed"`
-
-              - `download_id: string`
-
-                The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `url: string`
-
-                The final post-redirect URL the download was served from.
-
-                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `error: optional string`
-
-                The failure or cancellation detail, when known.
-
-                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `is_error: optional boolean`
-
-      - `toolset_name: optional string`
-
-        For a toolset member tool_result, the toolset family of the paired tool_use.
-
-        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-
-    - `server_tool_use_block_param: object`
-
-      - `type: "server_tool_use"`
-
-      - `id: string`
-
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `input: map[unknown]`
-
-      - `name: "web_search" or "web_fetch" or "code_execution" or 4 more`
-
-        - `"web_search"`
-
-        - `"web_fetch"`
-
-        - `"code_execution"`
-
-        - `"bash_code_execution"`
-
-        - `"text_editor_code_execution"`
-
-        - `"tool_search_tool_regex"`
-
-        - `"tool_search_tool_bm25"`
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
-
-        - `direct_caller: object`
-
-          Tool invocation directly from the model.
-
-        - `server_tool_caller: object`
-
-          Tool invocation generated by a server-side tool.
-
-        - `server_tool_caller_20260120: object`
-
-    - `web_search_tool_result_block_param: object`
-
-      - `type: "web_search_tool_result"`
-
-      - `content: array of WebSearchResultBlockParam or WebSearchToolRequestError`
-
-        - `web_search_tool_result_block_item: array of WebSearchResultBlockParam`
-
-          - `type: "web_search_result"`
-
-          - `encrypted_content: string`
-
-          - `title: string`
-
-          - `url: string`
-
-          - `page_age: optional string`
-
-        - `web_search_tool_request_error: object`
-
-          - `type: "web_search_tool_result_error"`
-
-          - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
-
-            - `"invalid_tool_input"`
-
-            - `"unavailable"`
-
-            - `"max_uses_exceeded"`
-
-            - `"too_many_requests"`
-
-            - `"query_too_long"`
-
-            - `"request_too_large"`
-
-      - `tool_use_id: string`
-
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
-
-        - `direct_caller: object`
-
-          Tool invocation directly from the model.
-
-        - `server_tool_caller: object`
-
-          Tool invocation generated by a server-side tool.
-
-        - `server_tool_caller_20260120: object`
-
-    - `web_fetch_tool_result_block_param: object`
-
-      - `type: "web_fetch_tool_result"`
-
-      - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
-
-        - `web_fetch_tool_result_error_block_param: object`
-
-          - `type: "web_fetch_tool_result_error"`
-
-          - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 7 more`
-
-            - `"invalid_tool_input"`
-
-            - `"url_too_long"`
-
-            - `"url_not_allowed"`
-
-            - `"url_not_in_prior_context"`
-
-            - `"url_not_accessible"`
-
-            - `"unsupported_content_type"`
-
-            - `"too_many_requests"`
-
-            - `"max_uses_exceeded"`
-
-            - `"unavailable"`
-
-            - `"content_too_large"`
-
-        - `web_fetch_block_param: object`
-
-          - `type: "web_fetch_result"`
-
-          - `content: object`
+          - `document_block_param: object`
 
             - `type: "document"`
 
@@ -19264,293 +20119,9 @@ ant messages count-tokens \
 
               minLength: 1, maxLength: 500
 
-          - `url: string`
+          - `tool_reference_block_param: object`
 
-            Fetched content URL
-
-          - `retrieved_at: optional string`
-
-            ISO 8601 timestamp when the content was retrieved
-
-      - `tool_use_id: string`
-
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
-
-        - `direct_caller: object`
-
-          Tool invocation directly from the model.
-
-        - `server_tool_caller: object`
-
-          Tool invocation generated by a server-side tool.
-
-        - `server_tool_caller_20260120: object`
-
-    - `code_execution_tool_result_block_param: object`
-
-      - `type: "code_execution_tool_result"`
-
-      - `content: CodeExecutionToolResultErrorParam or CodeExecutionResultBlockParam or EncryptedCodeExecutionResultBlockParam`
-
-        - `code_execution_tool_result_error_param: object`
-
-          - `type: "code_execution_tool_result_error"`
-
-          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-            - `"invalid_tool_input"`
-
-            - `"unavailable"`
-
-            - `"too_many_requests"`
-
-            - `"execution_time_exceeded"`
-
-        - `code_execution_result_block_param: object`
-
-          - `type: "code_execution_result"`
-
-          - `content: array of CodeExecutionOutputBlockParam`
-
-            - `type: "code_execution_output"`
-
-            - `file_id: string`
-
-          - `return_code: number`
-
-          - `stderr: string`
-
-          - `stdout: string`
-
-        - `encrypted_code_execution_result_block_param: object`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
-
-          - `type: "encrypted_code_execution_result"`
-
-          - `content: array of CodeExecutionOutputBlockParam`
-
-            - `type: "code_execution_output"`
-
-            - `file_id: string`
-
-          - `encrypted_stdout: string`
-
-          - `return_code: number`
-
-          - `stderr: string`
-
-      - `tool_use_id: string`
-
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-    - `bash_code_execution_tool_result_block_param: object`
-
-      - `type: "bash_code_execution_tool_result"`
-
-      - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
-
-        - `bash_code_execution_tool_result_error_param: object`
-
-          - `type: "bash_code_execution_tool_result_error"`
-
-          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-            - `"invalid_tool_input"`
-
-            - `"unavailable"`
-
-            - `"too_many_requests"`
-
-            - `"execution_time_exceeded"`
-
-            - `"output_file_too_large"`
-
-        - `bash_code_execution_result_block_param: object`
-
-          - `type: "bash_code_execution_result"`
-
-          - `content: array of BashCodeExecutionOutputBlockParam`
-
-            - `type: "bash_code_execution_output"`
-
-            - `file_id: string`
-
-          - `return_code: number`
-
-          - `stderr: string`
-
-          - `stdout: string`
-
-      - `tool_use_id: string`
-
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-    - `text_editor_code_execution_tool_result_block_param: object`
-
-      - `type: "text_editor_code_execution_tool_result"`
-
-      - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
-
-        - `text_editor_code_execution_tool_result_error_param: object`
-
-          - `type: "text_editor_code_execution_tool_result_error"`
-
-          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-            - `"invalid_tool_input"`
-
-            - `"unavailable"`
-
-            - `"too_many_requests"`
-
-            - `"execution_time_exceeded"`
-
-            - `"file_not_found"`
-
-          - `error_message: optional string`
-
-        - `text_editor_code_execution_view_result_block_param: object`
-
-          - `type: "text_editor_code_execution_view_result"`
-
-          - `content: string`
-
-          - `file_type: "text" or "image" or "pdf"`
-
-            - `"text"`
-
-            - `"image"`
-
-            - `"pdf"`
-
-          - `num_lines: optional number`
-
-          - `start_line: optional number`
-
-          - `total_lines: optional number`
-
-        - `text_editor_code_execution_create_result_block_param: object`
-
-          - `type: "text_editor_code_execution_create_result"`
-
-          - `is_file_update: boolean`
-
-        - `text_editor_code_execution_str_replace_result_block_param: object`
-
-          - `type: "text_editor_code_execution_str_replace_result"`
-
-          - `lines: optional array of string`
-
-          - `new_lines: optional number`
-
-          - `new_start: optional number`
-
-          - `old_lines: optional number`
-
-          - `old_start: optional number`
-
-      - `tool_use_id: string`
-
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-    - `tool_search_tool_result_block_param: object`
-
-      - `type: "tool_search_tool_result"`
-
-      - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
-
-        - `tool_search_tool_result_error_param: object`
-
-          - `type: "tool_search_tool_result_error"`
-
-          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-            - `"invalid_tool_input"`
-
-            - `"unavailable"`
-
-            - `"too_many_requests"`
-
-            - `"execution_time_exceeded"`
-
-          - `error_message: optional string`
-
-        - `tool_search_tool_search_result_block_param: object`
-
-          - `type: "tool_search_tool_search_result"`
-
-          - `tool_references: array of ToolReferenceBlockParam`
+            Tool reference block that can be included in tool_result content.
 
             - `type: "tool_reference"`
 
@@ -19562,60 +20133,768 @@ ant messages count-tokens \
 
               Create a cache control breakpoint at this content block.
 
-      - `tool_use_id: string`
+              - `type: "ephemeral"`
 
-        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+              - `ttl: optional "5m" or "1h"`
+
+                The time-to-live for the cache control breakpoint.
+
+                This may be one the following values:
+
+                - `5m`: 5 minutes
+                - `1h`: 1 hour
+
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+          - `browser_state_block_param: object`
+
+            The caller's browser state after a browser toolset member call —
+            the full inventory of open tabs, which tab is active, and any side
+            effects (tabs opened, download state changes) the call produced.
+
+            At most one per `tool_result`, only on a non-error result answering a
+            browser toolset member `tool_use`. The server renders the
+            model-visible text from it; the model never sees the raw fields.
+
+            - `type: "browser_state"`
+
+            - `tabs: array of BrowserStateTabEntry`
+
+              All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+              maxItems: 100
+
+              - `tab_id: string`
+
+                The caller-assigned identifier for this tab, unique within the inventory.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `title: string`
+
+                The title of the page the tab is showing. May be empty.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The URL of the page the tab is showing. May be empty.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `active: optional boolean`
+
+                Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+              - `type: "ephemeral"`
+
+              - `ttl: optional "5m" or "1h"`
+
+                The time-to-live for the cache control breakpoint.
+
+                This may be one the following values:
+
+                - `5m`: 5 minutes
+                - `1h`: 1 hour
+
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+            - `state_changes: optional array of BrowserStateChange`
+
+              Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+              minItems: 1, maxItems: 200
+
+              - `browser_state_change_tab_opened: object`
+
+                A tab this call's execution opened that remains open at its end —
+                the creation delta of the `tabs` inventory, not an event log.
+
+                Carries only the `tab_id`; the tab's `title` and `url` live on its
+                `tabs` entry, which must include the same `tab_id`. A tab opened
+                during a failed call gets no deferred `tab_opened`; it simply appears
+                in the next result's `tabs` inventory.
+
+                - `type: "tab_opened"`
+
+                - `tab_id: string`
+
+                  The `tab_id` of the opened tab, present in `tabs`.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `browser_state_change_download_started: object`
+
+                A file download that started during this call.
+
+                - `type: "download_started"`
+
+                - `download_id: string`
+
+                  The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `url: string`
+
+                  The final post-redirect URL the download was served from.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `browser_state_change_download_completed: object`
+
+                A file download that finished during this call, reported with the
+                same `download_id` as its `download_started` — or without a prior
+                `download_started`, when the download finished during the call that
+                started it (at most one state change per `download_id` per result).
+
+                - `type: "download_completed"`
+
+                - `download_id: string`
+
+                  The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `url: string`
+
+                  The final post-redirect URL the download was served from.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `path: optional string`
+
+                  Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `size_bytes: optional number`
+
+                  The completed download's size.
+
+                  minimum: 0
+
+              - `browser_state_change_download_failed: object`
+
+                A file download that failed — or was cancelled — during this call.
+
+                - `type: "download_failed"`
+
+                - `download_id: string`
+
+                  The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `url: string`
+
+                  The final post-redirect URL the download was served from.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `error: optional string`
+
+                  The failure or cancellation detail, when known.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+        - `is_error: optional boolean`
+
+        - `toolset_name: optional string`
+
+          For a toolset member tool_result, the toolset family of the paired tool_use.
+
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `server_tool_use_block_param: object`
+
+        - `type: "server_tool_use"`
+
+        - `id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `input: map[unknown]`
+
+        - `name: "web_search" or "web_fetch" or "code_execution" or 4 more`
+
+          - `"web_search"`
+
+          - `"web_fetch"`
+
+          - `"code_execution"`
+
+          - `"bash_code_execution"`
+
+          - `"text_editor_code_execution"`
+
+          - `"tool_search_tool_regex"`
+
+          - `"tool_search_tool_bm25"`
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+          - `direct_caller: object`
+
+            Tool invocation directly from the model.
+
+          - `server_tool_caller: object`
+
+            Tool invocation generated by a server-side tool.
+
+          - `server_tool_caller_20260120: object`
+
+      - `web_search_tool_result_block_param: object`
+
+        - `type: "web_search_tool_result"`
+
+        - `content: array of WebSearchResultBlockParam or WebSearchToolRequestError`
+
+          - `web_search_tool_result_block_item: array of WebSearchResultBlockParam`
+
+            - `type: "web_search_result"`
+
+            - `encrypted_content: string`
+
+            - `title: string`
+
+            - `url: string`
+
+            - `page_age: optional string`
+
+          - `web_search_tool_request_error: object`
+
+            - `type: "web_search_tool_result_error"`
+
+            - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
+
+              - `"invalid_tool_input"`
+
+              - `"unavailable"`
+
+              - `"max_uses_exceeded"`
+
+              - `"too_many_requests"`
+
+              - `"query_too_long"`
+
+              - `"request_too_large"`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+          - `direct_caller: object`
+
+            Tool invocation directly from the model.
+
+          - `server_tool_caller: object`
+
+            Tool invocation generated by a server-side tool.
+
+          - `server_tool_caller_20260120: object`
+
+      - `web_fetch_tool_result_block_param: object`
+
+        - `type: "web_fetch_tool_result"`
+
+        - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
+
+          - `web_fetch_tool_result_error_block_param: object`
+
+            - `type: "web_fetch_tool_result_error"`
+
+            - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 7 more`
+
+              - `"invalid_tool_input"`
+
+              - `"url_too_long"`
+
+              - `"url_not_allowed"`
+
+              - `"url_not_in_prior_context"`
+
+              - `"url_not_accessible"`
+
+              - `"unsupported_content_type"`
+
+              - `"too_many_requests"`
+
+              - `"max_uses_exceeded"`
+
+              - `"unavailable"`
+
+              - `"content_too_large"`
+
+          - `web_fetch_block_param: object`
+
+            - `type: "web_fetch_result"`
+
+            - `content: object`
+
+              - `type: "document"`
+
+              - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+              - `cache_control: optional object`
+
+                Create a cache control breakpoint at this content block.
+
+              - `citations: optional object`
+
+              - `context: optional string`
+
+                minLength: 1
+
+              - `title: optional string`
+
+                minLength: 1, maxLength: 500
+
+            - `url: string`
+
+              Fetched content URL
+
+            - `retrieved_at: optional string`
+
+              ISO 8601 timestamp when the content was retrieved
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+          - `direct_caller: object`
+
+            Tool invocation directly from the model.
+
+          - `server_tool_caller: object`
+
+            Tool invocation generated by a server-side tool.
+
+          - `server_tool_caller_20260120: object`
+
+      - `code_execution_tool_result_block_param: object`
+
+        - `type: "code_execution_tool_result"`
+
+        - `content: CodeExecutionToolResultErrorParam or CodeExecutionResultBlockParam or EncryptedCodeExecutionResultBlockParam`
+
+          - `code_execution_tool_result_error_param: object`
+
+            - `type: "code_execution_tool_result_error"`
+
+            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+              - `"invalid_tool_input"`
+
+              - `"unavailable"`
+
+              - `"too_many_requests"`
+
+              - `"execution_time_exceeded"`
+
+          - `code_execution_result_block_param: object`
+
+            - `type: "code_execution_result"`
+
+            - `content: array of CodeExecutionOutputBlockParam`
+
+              - `type: "code_execution_output"`
+
+              - `file_id: string`
+
+            - `return_code: number`
+
+            - `stderr: string`
+
+            - `stdout: string`
+
+          - `encrypted_code_execution_result_block_param: object`
+
+            Code execution result with encrypted stdout for PFC + web_search results.
+
+            - `type: "encrypted_code_execution_result"`
+
+            - `content: array of CodeExecutionOutputBlockParam`
+
+              - `type: "code_execution_output"`
+
+              - `file_id: string`
+
+            - `encrypted_stdout: string`
+
+            - `return_code: number`
+
+            - `stderr: string`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `bash_code_execution_tool_result_block_param: object`
+
+        - `type: "bash_code_execution_tool_result"`
+
+        - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
+
+          - `bash_code_execution_tool_result_error_param: object`
+
+            - `type: "bash_code_execution_tool_result_error"`
+
+            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
+
+              - `"invalid_tool_input"`
+
+              - `"unavailable"`
+
+              - `"too_many_requests"`
+
+              - `"execution_time_exceeded"`
+
+              - `"output_file_too_large"`
+
+          - `bash_code_execution_result_block_param: object`
+
+            - `type: "bash_code_execution_result"`
+
+            - `content: array of BashCodeExecutionOutputBlockParam`
+
+              - `type: "bash_code_execution_output"`
+
+              - `file_id: string`
+
+            - `return_code: number`
+
+            - `stderr: string`
+
+            - `stdout: string`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `text_editor_code_execution_tool_result_block_param: object`
+
+        - `type: "text_editor_code_execution_tool_result"`
+
+        - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+          - `text_editor_code_execution_tool_result_error_param: object`
+
+            - `type: "text_editor_code_execution_tool_result_error"`
+
+            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
+
+              - `"invalid_tool_input"`
+
+              - `"unavailable"`
+
+              - `"too_many_requests"`
+
+              - `"execution_time_exceeded"`
+
+              - `"file_not_found"`
+
+            - `error_message: optional string`
+
+          - `text_editor_code_execution_view_result_block_param: object`
+
+            - `type: "text_editor_code_execution_view_result"`
+
+            - `content: string`
+
+            - `file_type: "text" or "image" or "pdf"`
+
+              - `"text"`
+
+              - `"image"`
+
+              - `"pdf"`
+
+            - `num_lines: optional number`
+
+            - `start_line: optional number`
+
+            - `total_lines: optional number`
+
+          - `text_editor_code_execution_create_result_block_param: object`
+
+            - `type: "text_editor_code_execution_create_result"`
+
+            - `is_file_update: boolean`
+
+          - `text_editor_code_execution_str_replace_result_block_param: object`
+
+            - `type: "text_editor_code_execution_str_replace_result"`
+
+            - `lines: optional array of string`
+
+            - `new_lines: optional number`
+
+            - `new_start: optional number`
+
+            - `old_lines: optional number`
+
+            - `old_start: optional number`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `tool_search_tool_result_block_param: object`
+
+        - `type: "tool_search_tool_result"`
+
+        - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
+
+          - `tool_search_tool_result_error_param: object`
+
+            - `type: "tool_search_tool_result_error"`
+
+            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+              - `"invalid_tool_input"`
+
+              - `"unavailable"`
+
+              - `"too_many_requests"`
+
+              - `"execution_time_exceeded"`
+
+            - `error_message: optional string`
+
+          - `tool_search_tool_search_result_block_param: object`
+
+            - `type: "tool_search_tool_search_result"`
+
+            - `tool_references: array of ToolReferenceBlockParam`
+
+              - `type: "tool_reference"`
+
+              - `tool_name: string`
+
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+              - `cache_control: optional object`
+
+                Create a cache control breakpoint at this content block.
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `container_upload_block_param: object`
+
+        A content block that represents a file to be uploaded to the container
+        Files uploaded via this block will be available in the container's input directory.
+
+        - `type: "container_upload"`
+
+        - `file_id: string`
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `role: "user"`
+
+  - `assistant_message_param: object`
+
+    - `content: array of ContentBlockParam`
+
+      - `text_block_param: object`
+
+      - `image_block_param: object`
+
+      - `document_block_param: object`
+
+      - `search_result_block_param: object`
+
+      - `thinking_block_param: object`
+
+      - `redacted_thinking_block_param: object`
+
+      - `tool_use_block_param: object`
+
+      - `tool_result_block_param: object`
+
+      - `server_tool_use_block_param: object`
+
+      - `web_search_tool_result_block_param: object`
+
+      - `web_fetch_tool_result_block_param: object`
+
+      - `code_execution_tool_result_block_param: object`
+
+      - `bash_code_execution_tool_result_block_param: object`
+
+      - `text_editor_code_execution_tool_result_block_param: object`
+
+      - `tool_search_tool_result_block_param: object`
+
+      - `container_upload_block_param: object`
+
+        A content block that represents a file to be uploaded to the container
+        Files uploaded via this block will be available in the container's input directory.
+
+    - `role: "assistant"`
+
+  - `system_message_param: object`
+
+    - `content: array of TextBlockParam`
+
+      - `type: "text"`
+
+      - `text: string`
+
+        minLength: 1
 
       - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
-        - `type: "ephemeral"`
+      - `citations: optional array of TextCitationParam`
 
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-    - `container_upload_block_param: object`
-
-      A content block that represents a file to be uploaded to the container
-      Files uploaded via this block will be available in the container's input directory.
-
-      - `type: "container_upload"`
-
-      - `file_id: string`
-
-      - `cache_control: optional object`
-
-        Create a cache control breakpoint at this content block.
-
-        - `type: "ephemeral"`
-
-        - `ttl: optional "5m" or "1h"`
-
-          The time-to-live for the cache control breakpoint.
-
-          This may be one the following values:
-
-          - `5m`: 5 minutes
-          - `1h`: 1 hour
-
-          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
-  - `role: "user" or "assistant" or "system"`
-
-    - `"user"`
-
-    - `"assistant"`
-
-    - `"system"`
+    - `role: "system"`
 
 ### Message Tokens Count
 
@@ -23844,6 +25123,163 @@ ant messages count-tokens \
   - `"refusal"`
 
   - `"model_context_window_exceeded"`
+
+### System Message Param
+
+- `system_message_param: object`
+
+  - `content: array of TextBlockParam`
+
+    - `type: "text"`
+
+    - `text: string`
+
+      minLength: 1
+
+    - `cache_control: optional object`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `"5m"`
+
+        - `"1h"`
+
+    - `citations: optional array of TextCitationParam`
+
+      - `citation_char_location_param: object`
+
+        - `type: "char_location"`
+
+        - `cited_text: string`
+
+        - `document_index: number`
+
+          minimum: 0
+
+        - `document_title: string`
+
+          minLength: 1, maxLength: 500
+
+        - `end_char_index: number`
+
+        - `start_char_index: number`
+
+          minimum: 0
+
+      - `citation_page_location_param: object`
+
+        - `type: "page_location"`
+
+        - `cited_text: string`
+
+        - `document_index: number`
+
+          minimum: 0
+
+        - `document_title: string`
+
+          minLength: 1, maxLength: 500
+
+        - `end_page_number: number`
+
+        - `start_page_number: number`
+
+          minimum: 1
+
+      - `citation_content_block_location_param: object`
+
+        - `type: "content_block_location"`
+
+        - `cited_text: string`
+
+          The full text of the cited block range, concatenated.
+
+          Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+        - `document_index: number`
+
+          minimum: 0
+
+        - `document_title: string`
+
+          minLength: 1, maxLength: 500
+
+        - `end_block_index: number`
+
+          Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+          Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+        - `start_block_index: number`
+
+          0-based index of the first cited block in the source's `content` array.
+
+          minimum: 0
+
+      - `citation_web_search_result_location_param: object`
+
+        - `type: "web_search_result_location"`
+
+        - `cited_text: string`
+
+        - `encrypted_index: string`
+
+        - `title: string`
+
+          minLength: 1, maxLength: 512
+
+        - `url: string`
+
+          minLength: 1
+
+      - `citation_search_result_location_param: object`
+
+        - `type: "search_result_location"`
+
+        - `cited_text: string`
+
+          The full text of the cited block range, concatenated.
+
+          Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+        - `end_block_index: number`
+
+          Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+          Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+        - `search_result_index: number`
+
+          0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+          Counted separately from `document_index`; server-side web search results are not included in this count.
+
+          minimum: 0
+
+        - `source: string`
+
+        - `start_block_index: number`
+
+          0-based index of the first cited block in the source's `content` array.
+
+          minimum: 0
+
+        - `title: string`
+
+  - `role: "system"`
 
 ### Text Block
 
@@ -30614,6 +32050,1268 @@ ant messages count-tokens \
 
     minLength: 1, maxLength: 255
 
+### User Message Param
+
+- `user_message_param: object`
+
+  - `content: array of ContentBlockParam`
+
+    - `text_block_param: object`
+
+      - `type: "text"`
+
+      - `text: string`
+
+        minLength: 1
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+          - `"5m"`
+
+          - `"1h"`
+
+      - `citations: optional array of TextCitationParam`
+
+        - `citation_char_location_param: object`
+
+          - `type: "char_location"`
+
+          - `cited_text: string`
+
+          - `document_index: number`
+
+            minimum: 0
+
+          - `document_title: string`
+
+            minLength: 1, maxLength: 500
+
+          - `end_char_index: number`
+
+          - `start_char_index: number`
+
+            minimum: 0
+
+        - `citation_page_location_param: object`
+
+          - `type: "page_location"`
+
+          - `cited_text: string`
+
+          - `document_index: number`
+
+            minimum: 0
+
+          - `document_title: string`
+
+            minLength: 1, maxLength: 500
+
+          - `end_page_number: number`
+
+          - `start_page_number: number`
+
+            minimum: 1
+
+        - `citation_content_block_location_param: object`
+
+          - `type: "content_block_location"`
+
+          - `cited_text: string`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `document_index: number`
+
+            minimum: 0
+
+          - `document_title: string`
+
+            minLength: 1, maxLength: 500
+
+          - `end_block_index: number`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `start_block_index: number`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+        - `citation_web_search_result_location_param: object`
+
+          - `type: "web_search_result_location"`
+
+          - `cited_text: string`
+
+          - `encrypted_index: string`
+
+          - `title: string`
+
+            minLength: 1, maxLength: 512
+
+          - `url: string`
+
+            minLength: 1
+
+        - `citation_search_result_location_param: object`
+
+          - `type: "search_result_location"`
+
+          - `cited_text: string`
+
+            The full text of the cited block range, concatenated.
+
+            Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+          - `end_block_index: number`
+
+            Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+            Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+          - `search_result_index: number`
+
+            0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+            Counted separately from `document_index`; server-side web search results are not included in this count.
+
+            minimum: 0
+
+          - `source: string`
+
+          - `start_block_index: number`
+
+            0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
+
+          - `title: string`
+
+    - `image_block_param: object`
+
+      - `type: "image"`
+
+      - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+        - `base64_image_source: object`
+
+          - `type: "base64"`
+
+          - `data: string`
+
+            format: byte
+
+          - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+            - `"image/jpeg"`
+
+            - `"image/png"`
+
+            - `"image/gif"`
+
+            - `"image/webp"`
+
+        - `url_image_source: object`
+
+          - `type: "url"`
+
+          - `url: string`
+
+        - `file_image_source: object`
+
+          - `type: "file"`
+
+          - `file_id: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `transformations: optional object`
+
+        Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `oversized_image: optional "downsize" or "error"`
+
+          What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+          - `"downsize"`
+
+          - `"error"`
+
+    - `document_block_param: object`
+
+      - `type: "document"`
+
+      - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+        - `base64_pdf_source: object`
+
+          - `type: "base64"`
+
+          - `data: string`
+
+            format: byte
+
+          - `media_type: "application/pdf"`
+
+        - `plain_text_source: object`
+
+          - `type: "text"`
+
+          - `data: string`
+
+          - `media_type: "text/plain"`
+
+        - `content_block_source: object`
+
+          - `type: "content"`
+
+          - `content: string or array of ContentBlockSourceContent`
+
+            - `union_member_0: string`
+
+            - `content_block_source_content: array of ContentBlockSourceContent`
+
+              - `text_block_param: object`
+
+                - `type: "text"`
+
+                - `text: string`
+
+                  minLength: 1
+
+                - `cache_control: optional object`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `citations: optional array of TextCitationParam`
+
+              - `image_block_param: object`
+
+                - `type: "image"`
+
+                - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+                - `cache_control: optional object`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `transformations: optional object`
+
+                  Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `url_pdf_source: object`
+
+          - `type: "url"`
+
+          - `url: string`
+
+        - `file_document_source: object`
+
+          - `type: "file"`
+
+          - `file_id: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `citations: optional object`
+
+        - `enabled: optional boolean`
+
+      - `context: optional string`
+
+        minLength: 1
+
+      - `title: optional string`
+
+        minLength: 1, maxLength: 500
+
+    - `search_result_block_param: object`
+
+      - `type: "search_result"`
+
+      - `content: array of TextBlockParam`
+
+        - `type: "text"`
+
+        - `text: string`
+
+          minLength: 1
+
+        - `cache_control: optional object`
+
+          Create a cache control breakpoint at this content block.
+
+        - `citations: optional array of TextCitationParam`
+
+      - `source: string`
+
+      - `title: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `citations: optional object`
+
+        - `enabled: optional boolean`
+
+    - `thinking_block_param: object`
+
+      - `type: "thinking"`
+
+      - `signature: string`
+
+        The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+        Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
+      - `thinking: string`
+
+        The `thinking` text of this block as returned by the API.
+
+    - `redacted_thinking_block_param: object`
+
+      - `type: "redacted_thinking"`
+
+      - `data: string`
+
+        The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
+
+    - `tool_use_block_param: object`
+
+      - `type: "tool_use"`
+
+      - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
+
+      - `input: map[unknown]`
+
+      - `name: string`
+
+        minLength: 1, maxLength: 200
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+          - `type: "direct"`
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+          - `type: "code_execution_20250825"`
+
+          - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `server_tool_caller_20260120: object`
+
+          - `type: "code_execution_20260120"`
+
+          - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `toolset_name: optional string`
+
+        For a toolset member tool_use, the toolset family this member belongs to.
+
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `tool_result_block_param: object`
+
+      - `type: "tool_result"`
+
+      - `tool_use_id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `content: optional array of TextBlockParam or ImageBlockParam or SearchResultBlockParam or 3 more`
+
+        - `text_block_param: object`
+
+          - `type: "text"`
+
+          - `text: string`
+
+            minLength: 1
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations: optional array of TextCitationParam`
+
+        - `image_block_param: object`
+
+          - `type: "image"`
+
+          - `source: Base64ImageSource or URLImageSource or FileImageSource`
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `transformations: optional object`
+
+            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+        - `search_result_block_param: object`
+
+          - `type: "search_result"`
+
+          - `content: array of TextBlockParam`
+
+          - `source: string`
+
+          - `title: string`
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations: optional object`
+
+        - `document_block_param: object`
+
+          - `type: "document"`
+
+          - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations: optional object`
+
+          - `context: optional string`
+
+            minLength: 1
+
+          - `title: optional string`
+
+            minLength: 1, maxLength: 500
+
+        - `tool_reference_block_param: object`
+
+          Tool reference block that can be included in tool_result content.
+
+          - `type: "tool_reference"`
+
+          - `tool_name: string`
+
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+            - `type: "ephemeral"`
+
+            - `ttl: optional "5m" or "1h"`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+        - `browser_state_block_param: object`
+
+          The caller's browser state after a browser toolset member call —
+          the full inventory of open tabs, which tab is active, and any side
+          effects (tabs opened, download state changes) the call produced.
+
+          At most one per `tool_result`, only on a non-error result answering a
+          browser toolset member `tool_use`. The server renders the
+          model-visible text from it; the model never sees the raw fields.
+
+          - `type: "browser_state"`
+
+          - `tabs: array of BrowserStateTabEntry`
+
+            All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+            maxItems: 100
+
+            - `tab_id: string`
+
+              The caller-assigned identifier for this tab, unique within the inventory.
+
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `title: string`
+
+              The title of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `url: string`
+
+              The URL of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `active: optional boolean`
+
+              Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+          - `cache_control: optional object`
+
+            Create a cache control breakpoint at this content block.
+
+            - `type: "ephemeral"`
+
+            - `ttl: optional "5m" or "1h"`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+          - `state_changes: optional array of BrowserStateChange`
+
+            Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+            minItems: 1, maxItems: 200
+
+            - `browser_state_change_tab_opened: object`
+
+              A tab this call's execution opened that remains open at its end —
+              the creation delta of the `tabs` inventory, not an event log.
+
+              Carries only the `tab_id`; the tab's `title` and `url` live on its
+              `tabs` entry, which must include the same `tab_id`. A tab opened
+              during a failed call gets no deferred `tab_opened`; it simply appears
+              in the next result's `tabs` inventory.
+
+              - `type: "tab_opened"`
+
+              - `tab_id: string`
+
+                The `tab_id` of the opened tab, present in `tabs`.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `browser_state_change_download_started: object`
+
+              A file download that started during this call.
+
+              - `type: "download_started"`
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `browser_state_change_download_completed: object`
+
+              A file download that finished during this call, reported with the
+              same `download_id` as its `download_started` — or without a prior
+              `download_started`, when the download finished during the call that
+              started it (at most one state change per `download_id` per result).
+
+              - `type: "download_completed"`
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `path: optional string`
+
+                Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `size_bytes: optional number`
+
+                The completed download's size.
+
+                minimum: 0
+
+            - `browser_state_change_download_failed: object`
+
+              A file download that failed — or was cancelled — during this call.
+
+              - `type: "download_failed"`
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `error: optional string`
+
+                The failure or cancellation detail, when known.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `is_error: optional boolean`
+
+      - `toolset_name: optional string`
+
+        For a toolset member tool_result, the toolset family of the paired tool_use.
+
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `server_tool_use_block_param: object`
+
+      - `type: "server_tool_use"`
+
+      - `id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `input: map[unknown]`
+
+      - `name: "web_search" or "web_fetch" or "code_execution" or 4 more`
+
+        - `"web_search"`
+
+        - `"web_fetch"`
+
+        - `"code_execution"`
+
+        - `"bash_code_execution"`
+
+        - `"text_editor_code_execution"`
+
+        - `"tool_search_tool_regex"`
+
+        - `"tool_search_tool_bm25"`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+        - `server_tool_caller_20260120: object`
+
+    - `web_search_tool_result_block_param: object`
+
+      - `type: "web_search_tool_result"`
+
+      - `content: array of WebSearchResultBlockParam or WebSearchToolRequestError`
+
+        - `web_search_tool_result_block_item: array of WebSearchResultBlockParam`
+
+          - `type: "web_search_result"`
+
+          - `encrypted_content: string`
+
+          - `title: string`
+
+          - `url: string`
+
+          - `page_age: optional string`
+
+        - `web_search_tool_request_error: object`
+
+          - `type: "web_search_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"max_uses_exceeded"`
+
+            - `"too_many_requests"`
+
+            - `"query_too_long"`
+
+            - `"request_too_large"`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+        - `server_tool_caller_20260120: object`
+
+    - `web_fetch_tool_result_block_param: object`
+
+      - `type: "web_fetch_tool_result"`
+
+      - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
+
+        - `web_fetch_tool_result_error_block_param: object`
+
+          - `type: "web_fetch_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 7 more`
+
+            - `"invalid_tool_input"`
+
+            - `"url_too_long"`
+
+            - `"url_not_allowed"`
+
+            - `"url_not_in_prior_context"`
+
+            - `"url_not_accessible"`
+
+            - `"unsupported_content_type"`
+
+            - `"too_many_requests"`
+
+            - `"max_uses_exceeded"`
+
+            - `"unavailable"`
+
+            - `"content_too_large"`
+
+        - `web_fetch_block_param: object`
+
+          - `type: "web_fetch_result"`
+
+          - `content: object`
+
+            - `type: "document"`
+
+            - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+            - `citations: optional object`
+
+            - `context: optional string`
+
+              minLength: 1
+
+            - `title: optional string`
+
+              minLength: 1, maxLength: 500
+
+          - `url: string`
+
+            Fetched content URL
+
+          - `retrieved_at: optional string`
+
+            ISO 8601 timestamp when the content was retrieved
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+      - `caller: optional DirectCaller or ServerToolCaller or ServerToolCaller20260120`
+
+        - `direct_caller: object`
+
+          Tool invocation directly from the model.
+
+        - `server_tool_caller: object`
+
+          Tool invocation generated by a server-side tool.
+
+        - `server_tool_caller_20260120: object`
+
+    - `code_execution_tool_result_block_param: object`
+
+      - `type: "code_execution_tool_result"`
+
+      - `content: CodeExecutionToolResultErrorParam or CodeExecutionResultBlockParam or EncryptedCodeExecutionResultBlockParam`
+
+        - `code_execution_tool_result_error_param: object`
+
+          - `type: "code_execution_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+        - `code_execution_result_block_param: object`
+
+          - `type: "code_execution_result"`
+
+          - `content: array of CodeExecutionOutputBlockParam`
+
+            - `type: "code_execution_output"`
+
+            - `file_id: string`
+
+          - `return_code: number`
+
+          - `stderr: string`
+
+          - `stdout: string`
+
+        - `encrypted_code_execution_result_block_param: object`
+
+          Code execution result with encrypted stdout for PFC + web_search results.
+
+          - `type: "encrypted_code_execution_result"`
+
+          - `content: array of CodeExecutionOutputBlockParam`
+
+            - `type: "code_execution_output"`
+
+            - `file_id: string`
+
+          - `encrypted_stdout: string`
+
+          - `return_code: number`
+
+          - `stderr: string`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `bash_code_execution_tool_result_block_param: object`
+
+      - `type: "bash_code_execution_tool_result"`
+
+      - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
+
+        - `bash_code_execution_tool_result_error_param: object`
+
+          - `type: "bash_code_execution_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+            - `"output_file_too_large"`
+
+        - `bash_code_execution_result_block_param: object`
+
+          - `type: "bash_code_execution_result"`
+
+          - `content: array of BashCodeExecutionOutputBlockParam`
+
+            - `type: "bash_code_execution_output"`
+
+            - `file_id: string`
+
+          - `return_code: number`
+
+          - `stderr: string`
+
+          - `stdout: string`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `text_editor_code_execution_tool_result_block_param: object`
+
+      - `type: "text_editor_code_execution_tool_result"`
+
+      - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
+
+        - `text_editor_code_execution_tool_result_error_param: object`
+
+          - `type: "text_editor_code_execution_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+            - `"file_not_found"`
+
+          - `error_message: optional string`
+
+        - `text_editor_code_execution_view_result_block_param: object`
+
+          - `type: "text_editor_code_execution_view_result"`
+
+          - `content: string`
+
+          - `file_type: "text" or "image" or "pdf"`
+
+            - `"text"`
+
+            - `"image"`
+
+            - `"pdf"`
+
+          - `num_lines: optional number`
+
+          - `start_line: optional number`
+
+          - `total_lines: optional number`
+
+        - `text_editor_code_execution_create_result_block_param: object`
+
+          - `type: "text_editor_code_execution_create_result"`
+
+          - `is_file_update: boolean`
+
+        - `text_editor_code_execution_str_replace_result_block_param: object`
+
+          - `type: "text_editor_code_execution_str_replace_result"`
+
+          - `lines: optional array of string`
+
+          - `new_lines: optional number`
+
+          - `new_start: optional number`
+
+          - `old_lines: optional number`
+
+          - `old_start: optional number`
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `tool_search_tool_result_block_param: object`
+
+      - `type: "tool_search_tool_result"`
+
+      - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
+
+        - `tool_search_tool_result_error_param: object`
+
+          - `type: "tool_search_tool_result_error"`
+
+          - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+            - `"invalid_tool_input"`
+
+            - `"unavailable"`
+
+            - `"too_many_requests"`
+
+            - `"execution_time_exceeded"`
+
+          - `error_message: optional string`
+
+        - `tool_search_tool_search_result_block_param: object`
+
+          - `type: "tool_search_tool_search_result"`
+
+          - `tool_references: array of ToolReferenceBlockParam`
+
+            - `type: "tool_reference"`
+
+            - `tool_name: string`
+
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+            - `cache_control: optional object`
+
+              Create a cache control breakpoint at this content block.
+
+      - `tool_use_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+    - `container_upload_block_param: object`
+
+      A content block that represents a file to be uploaded to the container
+      Files uploaded via this block will be available in the container's input directory.
+
+      - `type: "container_upload"`
+
+      - `file_id: string`
+
+      - `cache_control: optional object`
+
+        Create a cache control breakpoint at this content block.
+
+        - `type: "ephemeral"`
+
+        - `ttl: optional "5m" or "1h"`
+
+          The time-to-live for the cache control breakpoint.
+
+          This may be one the following values:
+
+          - `5m`: 5 minutes
+          - `1h`: 1 hour
+
+          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
+
+  - `role: "user"`
+
 ### Web Fetch Block
 
 - `web_fetch_block: object`
@@ -33099,7 +35797,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant messages:batches create \
-  --api-key my-anthropic-api-key \
   --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5-5}}'
 ```
 
@@ -33250,7 +35947,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant messages:batches retrieve \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -33426,8 +36122,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 #### Example
 
 ```bash
-ant messages:batches list \
-  --api-key my-anthropic-api-key
+ant messages:batches list
 ```
 
 ##### Response (200)
@@ -33586,7 +36281,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant messages:batches cancel \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -33655,7 +36349,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant messages:batches delete \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
@@ -34835,6 +37528,5 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ```bash
 ant messages:batches results \
-  --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```

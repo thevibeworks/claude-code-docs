@@ -95,7 +95,6 @@ List Skill Versions
 
 ```bash
 ant beta:skills:versions list \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 

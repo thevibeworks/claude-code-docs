@@ -41,7 +41,7 @@ Delete a Memory
 
 - `class ManagedAgentsDeletedMemory`
 
-  - `Type type`
+  - `"memory_deleted" type`
 
   - `string id`
 

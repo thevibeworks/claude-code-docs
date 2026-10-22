@@ -195,7 +195,6 @@ Retrieve a Memory Version
 
 ```bash
 ant beta:memory-stores:memory-versions retrieve \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-version-id memory_version_id
 ```

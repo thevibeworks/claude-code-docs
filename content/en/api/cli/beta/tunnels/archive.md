@@ -65,7 +65,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 ```bash
 ant beta:tunnels archive \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 

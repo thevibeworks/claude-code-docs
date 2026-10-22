@@ -43,7 +43,6 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ```bash
 ant beta:environments delete \
-  --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 

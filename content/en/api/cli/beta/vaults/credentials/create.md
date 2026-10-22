@@ -201,7 +201,6 @@ Create a Credential
 
 ```bash
 ant beta:vaults:credentials create \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --auth '{token: bearer_exampletoken, mcp_server_url: https://example-server.modelcontextprotocol.io/sse, type: static_bearer}'
 ```

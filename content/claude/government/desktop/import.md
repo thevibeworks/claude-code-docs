@@ -14,6 +14,8 @@ The import copies your conversations, their attached files, and the projects you
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-01-signing-in-for-the-first-time.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=fcfdbcaa5f3ee9e9496e6014ed516b65" aria-label="Video walkthrough: Signing in for the first time" />
 
+Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
+
 > **Transcript**
 >
 > Claude Desktop is installed and connected for you by your agency. You sign in with your work account. No separate Claude account is needed.
@@ -39,11 +41,13 @@ The import copies your conversations, their attached files, and the projects you
 * **You have an account on the web app.** It must use the same work email address as your account in Claude Desktop.
 * **You are signed in to the web app in your default browser.** The import opens a browser tab there and asks for a one-time code, which expires after a few minutes.
 
-> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](/docs/government/deploy-desktop/windows-checklist#installer-and-packaging) in the Windows fleet checklist. To remind members to run the import, turn on the [**Show the Claude for Government Web import banner**](/docs/government/config/settings#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
+> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist. To remind members to run the import, turn on the [**Show the Claude for Government Web import banner**](/docs/government/config/settings.md#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
 
 ## Run the import
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-02-bringing-your-chats-and-projects-over.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=b7860d7dd7807b95aecc486b1aaf26f7" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 10 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -118,5 +122,5 @@ For anything else, try the import again; if it keeps failing, contact your admin
 ## Things to know
 
 * **You can run the import again.** Conversations you already imported are skipped.
-* **Conversations can arrive as Cowork tasks.** If **Chat in Claude Desktop** is turned off for your organization under [Product availability](/docs/government/config/settings#product-availability) when you run the import, your conversations are imported as Cowork tasks instead and open only on computers where Cowork is available.
+* **Conversations can arrive as Cowork tasks.** If **Chat in Claude Desktop** is turned off for your organization under [Product availability](/docs/government/config/settings.md#product-availability) when you run the import, your conversations are imported as Cowork tasks instead and open only on computers where Cowork is available.
 * **Projects other people shared with you are not imported.** Only the projects you created come over, with their files and instructions.

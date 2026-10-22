@@ -15,7 +15,7 @@ Standards Track
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -92,7 +92,7 @@ The `iss` parameter is additive on the wire. Client validation introduces a beha
 
 ## Security Implications
 
-This proposal is a mitigation against mix-up attacks; the security considerations for the mechanism itself are documented in [RFC9207 Section 4](https://datatracker.ietf.org/doc/html/rfc9207#section-4). In particular, the mitigation depends on clients establishing the expected issuer before redirecting and on the comparison being an exact simple string comparison. See also the MCP [security best practices](/docs/tutorials/security/security_best_practices).
+This proposal is a mitigation against mix-up attacks; the security considerations for the mechanism itself are documented in [RFC9207 Section 4](https://datatracker.ietf.org/doc/html/rfc9207#section-4). In particular, the mitigation depends on clients establishing the expected issuer before redirecting and on the comparison being an exact simple string comparison. See also the MCP [security best practices](/docs/tutorials/security/security_best_practices.md).
 
 ## Reference Implementation
 

@@ -75,7 +75,6 @@ Fetches a tunnel certificate by ID.
 
 ```bash
 ant beta:tunnels:certificates retrieve \
-  --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```

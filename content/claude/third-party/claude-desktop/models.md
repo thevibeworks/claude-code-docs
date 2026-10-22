@@ -6,23 +6,23 @@
 
 > Which models Claude Desktop on 3P offers, the default model and its starting effort level, per-model effort caps, display names, and 1M-context variants
 
-Claude Desktop on third-party (3P) builds the model picker in Chat, Cowork, and Code from your configuration. Your configuration decides which models the picker offers, which model and effort level each new conversation starts with, and which effort levels users can choose. You control all three with the keys under **Models** in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration). The [configuration reference](/docs/third-party/claude-desktop/configuration#models) lists every field.
+Claude Desktop on third-party (3P) builds the model picker in Chat, Cowork, and Code from your configuration. Your configuration decides which models the picker offers, which model and effort level each new conversation starts with, and which effort levels users can choose. You control all three with the keys under **Models** in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md). The [configuration reference](/docs/third-party/claude-desktop/configuration.md#models) lists every field.
 
 ## Model list and default model
 
 [`inferenceModels`](/docs/third-party/claude-desktop/configuration#inferencemodels) lists the models the picker offers. Write each entry with the exact model ID your provider expects, such as `us.anthropic.claude-sonnet-5` on Amazon Bedrock or `claude-sonnet-5` on Google Cloud's Agent Platform. The first entry is the default model. New Chat conversations, Cowork sessions, and Code sessions start on the default model until a user picks another model. To control whether a user's choice carries over to later conversations and sessions, see [Start every conversation on the default model](#start-every-conversation-on-the-default-model).
 
-If you leave `inferenceModels` unset and your provider supports [model discovery](/docs/third-party/claude-desktop/configuration#modeldiscoveryenabled), Claude Desktop fills the picker from the provider's model list at launch. The first discovered model is then the default model.
+If you leave `inferenceModels` unset and your provider supports [model discovery](/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled), Claude Desktop fills the picker from the provider's model list at launch. The first discovered model is then the default model.
 
 Each entry is either a model ID string or an object. In an object, `name` holds the model ID and every other field is optional. Three of the optional fields change how the picker shows the model:
 
 * `labelOverride` sets the display name for an ID the picker can't turn into a readable name, such as a gateway routing alias or an Amazon Bedrock application inference profile ARN. Claude Desktop still sends `name` to your provider.
 * `supports1m: true` adds a second entry that shows the same name with **1M context window** beneath it. Set it only when your deployment accepts 1M-token requests for that model. Otherwise, requests from the 1M entry fail at the provider.
-* `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window. To do this for every entry that sets `supports1m`, set [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`. When discovery fills the picker from a gateway, that key applies to every model the gateway [marks as supporting 1M](/docs/third-party/claude-desktop/gateway#models).
+* `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window. To do this for every entry that sets `supports1m`, set [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`. When discovery fills the picker from a gateway, that key applies to every model the gateway [marks as supporting 1M](/docs/third-party/claude-desktop/gateway.md#models).
 
 On any provider, a Chat conversation, Cowork session, or Code session on an entry without `supports1m` assumes a context window from the model ID:
 
-* **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For earlier Claude Desktop versions, see [Context window and compaction](/docs/third-party/claude-desktop/gateway#context-window-and-compaction) on the LLM gateway page. To check a model, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
+* **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For earlier Claude Desktop versions, see [Context window and compaction](/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction) on the LLM gateway page. To check a model, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
 * **An ID for a model without a native 1M context window, or an unrecognized ID**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, set `supports1m` on its entry.
 
 ## Effort levels
@@ -41,7 +41,7 @@ In Code sessions, the cap also limits Claude Code's own effort settings, such as
 
 [`defaultModelEffort`](/docs/third-party/claude-desktop/configuration#defaultmodeleffort) sets the effort level the default model starts at, in place of its recommended level. Other models keep their recommended level. If you set a level the default model doesn't offer, or one above its `maxEffort`, the default model starts at the nearest lower level it offers.
 
-`defaultModelEffort` also applies when [model discovery](/docs/third-party/claude-desktop/configuration#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
+`defaultModelEffort` also applies when [model discovery](/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
 
 ### Models without an Effort control
 
@@ -55,7 +55,7 @@ If you leave `alwaysStartWithDefaultModel` unset, the default model and its star
 
 When you turn the setting on, Claude Desktop keeps the choices users saved earlier. If you later turn it off, those choices apply again.
 
-`alwaysStartWithDefaultModel` also applies when [model discovery](/docs/third-party/claude-desktop/configuration#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
+`alwaysStartWithDefaultModel` also applies when [model discovery](/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
 
 ## Example configuration
 
@@ -76,4 +76,4 @@ With this configuration, a user who starts a new Cowork session sees Claude Sonn
 
 In that session, the user can switch to Claude Opus 5, which starts at its recommended high effort, or raise Claude Sonnet 5 to high. The session keeps either choice. The user's next new conversation or session opens on Claude Sonnet 5 at medium effort again.
 
-The example is plain JSON, which is the form a [bootstrap server](/docs/third-party/claude-desktop/bootstrap) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](/docs/third-party/claude-desktop/configuration#value-types) section describes.
+The example is plain JSON, which is the form a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](/docs/third-party/claude-desktop/configuration.md#value-types) section describes.

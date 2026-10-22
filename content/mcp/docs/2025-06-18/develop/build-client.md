@@ -8,7 +8,7 @@
 
 In this tutorial, you'll learn how to build an LLM-powered chatbot client that connects to MCP servers.
 
-Before you begin, it helps to have gone through our [Build an MCP Server](/docs/2025-06-18/develop/build-server) tutorial so you can understand how clients and servers communicate.
+Before you begin, it helps to have gone through our [Build an MCP Server](/docs/2025-06-18/develop/build-server.md) tutorial so you can understand how clients and servers communicate.
 
 **Python**
 
@@ -2493,6 +2493,6 @@ ANTHROPIC_API_KEY=your-api-key-goes-here
 
 ## Next steps
 
-> **[Example servers](/examples)**
+> **[Example servers](/examples.md)**
 >
 > Check out our gallery of official MCP servers and implementations

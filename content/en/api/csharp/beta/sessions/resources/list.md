@@ -147,7 +147,7 @@ List Session Resources
 
   - `class BetaManagedAgentsGitHubRepositoryResource`
 
-    - `required BetaManagedAgentsGitHubRepositoryResourceType Type`
+    - `JsonElement Type = "github_repository"`
 
     - `required string ID`
 
@@ -171,7 +171,7 @@ List Session Resources
 
       - `class BetaManagedAgentsBranchCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "branch"`
 
         - `required string Name`
 
@@ -181,7 +181,7 @@ List Session Resources
 
       - `class BetaManagedAgentsCommitCheckout`
 
-        - `required Type Type`
+        - `JsonElement Type = "commit"`
 
         - `required string Sha`
 
@@ -191,7 +191,7 @@ List Session Resources
 
   - `class BetaManagedAgentsFileResource`
 
-    - `required BetaManagedAgentsFileResourceType Type`
+    - `JsonElement Type = "file"`
 
     - `required string ID`
 
@@ -215,7 +215,7 @@ List Session Resources
 
     A memory store attached to an agent session.
 
-    - `required BetaManagedAgentsMemoryStoreResourceType Type`
+    - `JsonElement Type = "memory_store"`
 
     - `required string MemoryStoreID`
 

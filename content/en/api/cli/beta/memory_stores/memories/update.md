@@ -123,7 +123,6 @@ Update a Memory
 
 ```bash
 ant beta:memory-stores:memories update \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-id memory_id
 ```

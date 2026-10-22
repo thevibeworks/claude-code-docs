@@ -28,11 +28,11 @@ When you click **Create**, and on every sync after that, the whole repository is
 
 **3. Grant Claude write access to the repository**
 
-At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open a [bundle](/docs/claude-tag/admins/add-connections) on the **Bundles** tab under **Claude's access**. In its **What's in it** section, select **Add**, then **Repository**, and pick the repository. The Claude GitHub App must already be linked to your GitHub organization; see [Configure GitHub access](/docs/claude-tag/admins/configure-github).
+At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open a [bundle](/docs/claude-tag/admins/add-connections.md) on the **Bundles** tab under **Claude's access**. In its **What's in it** section, select **Add**, then **Repository**, and pick the repository. The Claude GitHub App must already be linked to your GitHub organization; see [Configure GitHub access](/docs/claude-tag/admins/configure-github.md).
 
 **4. Add the plugins to the bundle**
 
-On the same bundle's page, select **Add**, then **Plugin**, and pick each plugin from your new marketplace. A plugin isn't in the bundle until you add it, and the bundle's plugins apply wherever the bundle applies; see [Choose where a bundle applies](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) and [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins).
+On the same bundle's page, select **Add**, then **Plugin**, and pick each plugin from your new marketplace. A plugin isn't in the bundle until you add it, and the bundle's plugins apply wherever the bundle applies; see [Choose where a bundle applies](/docs/claude-tag/admins/attach-to-scope.md#attach-the-bundle) and [Attach plugins](/docs/claude-tag/admins/add-connections.md#attach-plugins).
 
 **You'll see:** the repository and the plugins appear in the bundle's **What's in it** table, with **Repository** or **Plugin** as each row's type.
 
@@ -48,7 +48,7 @@ Once the repository is set up, Claude can propose changes and they reach channel
 | The marketplace syncs | On push to the default branch, the updated plugin syncs to your organization automatically |
 | New threads pick it up | The next thread in any covered channel uses the updated skill |
 
-Claude opens the PR, and you merge it. To require a person's approval before a change reaches the default branch, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github#require-a-second-approval-on-claude%E2%80%99s-pull-requests).
+Claude opens the PR, and you merge it. To require a person's approval before a change reaches the default branch, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github.md#require-a-second-approval-on-claude%E2%80%99s-pull-requests).
 
 ## Prompt Claude to propose updates
 
@@ -76,11 +76,11 @@ To upload instead, in [**Organization settings > Plugins & skills**](https://cla
 * The same layout inside a single top-level folder
 * For a single skill, a `SKILL.md` at the top level whose frontmatter declares the plugin's components
 
-An archive with no manifest, with more than one `plugin.json`, or with the manifest anywhere else is rejected at upload. After upload, the plugin is in your organization's catalog but not attached anywhere. To make it available in channels, add it to a bundle with **Add**, then **Plugin**, on the bundle's page, or add it for all of Slack from the **Skills and plugins** tab under **Claude's access**; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins).
+An archive with no manifest, with more than one `plugin.json`, or with the manifest anywhere else is rejected at upload. After upload, the plugin is in your organization's catalog but not attached anywhere. To make it available in channels, add it to a bundle with **Add**, then **Plugin**, on the bundle's page, or add it for all of Slack from the **Skills and plugins** tab under **Claude's access**; see [Attach plugins](/docs/claude-tag/admins/add-connections.md#attach-plugins).
 
 ## Repository context files and MCP servers
 
-A granted repository's `CLAUDE.md` and `.claude/rules/*.md` load when Claude clones it, in the same format as Claude Code; see [What loads from a repository](/docs/claude-tag/admins/configure-github#what-loads-from-a-repository) and the [Claude Code memory docs](https://code.claude.com/docs/en/memory). A repository's `.mcp.json` is not loaded. To give Claude an MCP server, put the `.mcp.json` in a plugin, next to its `.claude-plugin/plugin.json`, and attach the plugin; the [Claude Code plugin docs](https://code.claude.com/docs/en/plugins) cover the `.mcp.json` format, and [Add a custom MCP server](/docs/claude-tag/admins/connections/custom#add-a-custom-mcp-server) covers the credential the server needs.
+A granted repository's `CLAUDE.md` and `.claude/rules/*.md` load when Claude clones it, in the same format as Claude Code; see [What loads from a repository](/docs/claude-tag/admins/configure-github.md#what-loads-from-a-repository) and the [Claude Code memory docs](https://code.claude.com/docs/en/memory). A repository's `.mcp.json` is not loaded. To give Claude an MCP server, put the `.mcp.json` in a plugin, next to its `.claude-plugin/plugin.json`, and attach the plugin; the [Claude Code plugin docs](https://code.claude.com/docs/en/plugins) cover the `.mcp.json` format, and [Add a custom MCP server](/docs/claude-tag/admins/connections/custom.md#add-a-custom-mcp-server) covers the credential the server needs.
 
 ## What belongs in the repository
 
@@ -94,6 +94,6 @@ Skills in the repository reach every channel under the scope.
 
 ## Related resources
 
-* [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins): how plugins and skills load into a scope
-* [Configure GitHub access](/docs/claude-tag/admins/configure-github): granting Claude write access to a repository
-* [What Claude Tag remembers](/docs/claude-tag/users/memory): when channel memory is the right place instead
+* [Attach plugins](/docs/claude-tag/admins/add-connections.md#attach-plugins): how plugins and skills load into a scope
+* [Configure GitHub access](/docs/claude-tag/admins/configure-github.md): granting Claude write access to a repository
+* [What Claude Tag remembers](/docs/claude-tag/users/memory.md): when channel memory is the right place instead

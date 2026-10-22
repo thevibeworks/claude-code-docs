@@ -21,7 +21,7 @@ the following operations:
 * `resources/read`
 
 Interim results with `resultType: "input_required"` (see
-[multi round-trip requests](/specification/2026-07-28/basic/patterns/mrtr)) are not cacheable
+[multi round-trip requests](/specification/2026-07-28/basic/patterns/mrtr.md)) are not cacheable
 and carry no caching hints.
 
 ## Cache Key
@@ -32,7 +32,7 @@ parameters that affect the result (for example, the `uri` for `resources/read`, 
 a request whose method or parameters differ from the request that produced it.
 
 Results produced by retrying a request through the
-[multi round-trip requests](/specification/2026-07-28/basic/patterns/mrtr) mechanism—that
+[multi round-trip requests](/specification/2026-07-28/basic/patterns/mrtr.md) mechanism—that
 is, requests carrying `inputResponses` or `requestState`—**MUST NOT** be cached,
 as they depend on inputs that are not part of the cache key.
 
@@ -146,7 +146,7 @@ sequenceDiagram
 
 ## Interaction with Pagination
 
-When a list result is [paginated](/specification/2026-07-28/server/utilities/pagination), each
+When a list result is [paginated](/specification/2026-07-28/server/utilities/pagination.md), each
 page is an independently cacheable response—consistent with how HTTP
 `Cache-Control` treats paginated resources.
 

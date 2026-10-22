@@ -6,9 +6,9 @@
 
 > Run Claude Desktop against your own cloud inference provider
 
-Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions).
+Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions.md).
 
-You get the full Claude Desktop experience (Chat, Cowork, and Code, including file creation, multi-step research, and sub-agent coordination) with inference and billing handled by the provider you choose. You can also turn on [Unified Claude](/docs/third-party/claude-desktop/unified-claude), which combines Chat and Cowork into one experience.
+You get the full Claude Desktop experience (Chat, Cowork, and Code, including file creation, multi-step research, and sub-agent coordination) with inference and billing handled by the provider you choose. You can also turn on [Unified Claude](/docs/third-party/claude-desktop/unified-claude.md), which combines Chat and Cowork into one experience.
 
 ## Who it's for
 
@@ -19,7 +19,7 @@ Claude Desktop on 3P is designed for organizations whose security, regulatory, o
 
 How far a deployment is separated from Anthropic depends on the provider you choose. On Google Cloud's Agent Platform and Amazon Bedrock, the cloud provider processes conversation data in the region you select. On Microsoft Foundry, Anthropic operates the Claude models, and residency follows the Foundry deployment type. Review [Data handling by provider](#data-handling-by-provider) and [Data residency and international deployment](#data-residency-and-international-deployment) before choosing a provider.
 
-If your organization can use Anthropic's first-party products directly, standard Claude Desktop with [Cowork](/docs/cowork/overview) on a Team or Enterprise plan is simpler to deploy and releases new features more quickly than Claude Desktop on 3P. Choose Claude Desktop on 3P when routing inference through Anthropic's API is not an option.
+If your organization can use Anthropic's first-party products directly, standard Claude Desktop with [Cowork](/docs/cowork/overview.md) on a Team or Enterprise plan is simpler to deploy and releases new features more quickly than Claude Desktop on 3P. Choose Claude Desktop on 3P when routing inference through Anthropic's API is not an option.
 
 ## Architecture
 
@@ -30,7 +30,7 @@ Claude Desktop on 3P keeps the standard feature set and relocates inference to t
 | Model inference | Anthropic API | Your configured provider endpoint (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or gateway), or the Anthropic API |
 | Web application | Loaded from claude.ai | Bundled inside the desktop app |
 | User identity | Anthropic account | Local device identity only (Anthropic account when managed from the claude.ai admin console) |
-| Conversation storage | Anthropic backend | Local disk on the user's machine, and the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) |
+| Conversation storage | Anthropic backend | Local disk on the user's machine, and the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions.md) |
 | Code execution sandbox | Local VM | Local VM (identical) |
 | Configuration | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user), a bootstrap server, or the claude.ai admin console |
 
@@ -38,10 +38,10 @@ The desktop app detects 3P mode at launch from the configured inference provider
 
 ### Security posture
 
-* **Conversation content goes only to your configured endpoint.** The app sends prompts, responses, files, and tool outputs only to your configured inference endpoint and stores them only on the local machine. If you enable [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions), Claude Code runs those sessions on a remote host, which also receives that content, sends it to your endpoint, and stores it. What happens to that content at the endpoint depends on the provider, as described under [Data handling by provider](#data-handling-by-provider).
-* **Sandboxed tool execution.** In Cowork, shell commands run in the hardened Cowork VM; file access is scoped to your allowed folders and web fetches to your egress allowlist. For Code sessions, see [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy).
+* **Conversation content goes only to your configured endpoint.** The app sends prompts, responses, files, and tool outputs only to your configured inference endpoint and stores them only on the local machine. If you enable [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions.md), Claude Code runs those sessions on a remote host, which also receives that content, sends it to your endpoint, and stores it. What happens to that content at the endpoint depends on the provider, as described under [Data handling by provider](#data-handling-by-provider).
+* **Sandboxed tool execution.** In Cowork, shell commands run in the hardened Cowork VM; file access is scoped to your allowed folders and web fetches to your egress allowlist. For Code sessions, see [Applied as managed policy](/docs/third-party/claude-desktop/code.md#applied-as-managed-policy).
 * **Auditable telemetry.** Crash reports and product analytics are scrubbed of conversation and user data before being sent to Anthropic, and can be fully disabled via configuration keys. Independently, you can export session activity to your own OpenTelemetry collector. The export is metadata only by default, with prompt and tool content available as an explicit opt-in.
-* **Centrally managed.** Configuration is delivered through your existing MDM (Jamf, Intune, Workspace ONE, Group Policy), a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or the [admin console](/docs/third-party/claude-desktop/admin-console). End users can't edit a configuration that MDM delivers. They can leave it for standard Claude Desktop by signing in to claude.ai. On Claude Desktop 2.37337.0 or later, a user who signs in to any organization that uses the admin console can move the device to that organization's configuration. To prevent both, set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true` in the MDM profile, as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile).
+* **Centrally managed.** Configuration is delivered through your existing MDM (Jamf, Intune, Workspace ONE, Group Policy), a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md), or the [admin console](/docs/third-party/claude-desktop/admin-console.md). End users can't edit a configuration that MDM delivers. They can leave it for standard Claude Desktop by signing in to claude.ai. On Claude Desktop 2.37337.0 or later, a user who signs in to any organization that uses the admin console can move the device to that organization's configuration. To prevent both, set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true` in the MDM profile, as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
 For a detailed treatment of the threat model, sandbox boundaries, and data flows, request access to the [Claude Cowork Desktop Security Architecture Overview](https://trust.anthropic.com/resources?s=2a7bbzo1lyymvdt551q7kl\&name=claude-cowork-desktop-security-architecture-overview) on Anthropic's Trust Center. For architecture, telemetry, and controls information specific to Claude Desktop on 3P, see the [Claude Desktop Security Overview (Third-party platforms)](https://trust.anthropic.com/resources?s=0c8rx4s7mm5ierz8ppetfs\&name=claude-cowork-security-overview-\(third-party-platforms\)) on the Trust Center.
 
@@ -55,7 +55,7 @@ Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure a
 
 Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
-For the Anthropic API, Anthropic processes conversation data under your Anthropic agreement, as described on the [Claude API](/docs/third-party/claude-desktop/claude-api) page. For an [LLM gateway](/docs/third-party/claude-desktop/gateway) you operate, data handling depends on the upstream provider your gateway routes each request to.
+For the Anthropic API, Anthropic processes conversation data under your Anthropic agreement, as described on the [Claude API](/docs/third-party/claude-desktop/claude-api.md) page. For an [LLM gateway](/docs/third-party/claude-desktop/gateway.md) you operate, data handling depends on the upstream provider your gateway routes each request to.
 
 ## Data residency and international deployment
 
@@ -63,11 +63,11 @@ For the Anthropic API, Anthropic processes conversation data under your Anthropi
 
 1. The cloud region you select for inference
 2. The physical location of the user's device, where conversations are persisted
-3. The physical location of any [SSH remote session](/docs/third-party/claude-desktop/ssh-remote-sessions) host, which sends that session's inference requests and stores its conversation
+3. The physical location of any [SSH remote session](/docs/third-party/claude-desktop/ssh-remote-sessions.md) host, which sends that session's inference requests and stores its conversation
 
 For multi-region organizations, deploy distinct MDM configuration profiles per geography so each user population points at an in-region endpoint. Google Cloud's Agent Platform and Amazon Bedrock each offer Claude models in the EU, UK, and Asia/Pacific regions; consult your provider's model-availability documentation for the current list.
 
-**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions). See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
+**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions.md). See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
 ## Public sector and highly regulated environments
 
@@ -75,7 +75,7 @@ This section applies when using Google Cloud's Agent Platform or Amazon Bedrock.
 
 Because inference runs in your cloud tenant, Claude Desktop on 3P operates inside whatever compliance boundary your provider and region give you. The desktop application itself contacts Anthropic-operated hosts only to download the VM workspace bundle and Claude CLI binary (always required), and for crash reporting, product analytics, non-essential services (connector favicons, artifact previews, and MCP Apps widgets), auto-updates, and the published model catalog that labels the model picker. Each of the latter five can be disabled independently via managed configuration.
 
-With Anthropic-bound telemetry, non-essential services, updates, and the [model catalog fetch](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) all disabled, the only remaining Anthropic-operated egress is `downloads.claude.ai` for the VM workspace bundle and Claude CLI binary at session start. An app managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) still contacts `api.anthropic.com` at launch and at each configuration re-check, and `claude.ai` at sign-in. If Code sessions can use Web Fetch, also set [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) to `true` (or add `WebFetch` to `disabledBuiltinTools`), because Claude Code in [Code](/docs/third-party/claude-desktop/code) sessions otherwise checks each fetched domain with `api.anthropic.com`. Beyond that, the compliance posture of your deployment is determined by your inference provider. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for the full set of network paths and how to lock them down.
+With Anthropic-bound telemetry, non-essential services, updates, and the [model catalog fetch](/docs/third-party/claude-desktop/configuration.md#modelcatalogenabled) all disabled, the only remaining Anthropic-operated egress is `downloads.claude.ai` for the VM workspace bundle and Claude CLI binary at session start. An app managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md) still contacts `api.anthropic.com` at launch and at each configuration re-check, and `claude.ai` at sign-in. If Code sessions can use Web Fetch, also set [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) to `true` (or add `WebFetch` to `disabledBuiltinTools`), because Claude Code in [Code](/docs/third-party/claude-desktop/code.md) sessions otherwise checks each fetched domain with `api.anthropic.com`. Beyond that, the compliance posture of your deployment is determined by your inference provider. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md) for the full set of network paths and how to lock them down.
 
 ## HIPAA
 
@@ -85,18 +85,18 @@ Anthropic's API accessed through Microsoft Foundry (Hosted on Anthropic or Hoste
 
 ## Next steps
 
-> **[Installation and setup](/docs/third-party/claude-desktop/installation)**
+> **[Installation and setup](/docs/third-party/claude-desktop/installation.md)**
 >
 > Roll out Claude Desktop on 3P to your organization with MDM, or configure a single machine for evaluation.
 
-> **[Configuration reference](/docs/third-party/claude-desktop/configuration)**
+> **[Configuration reference](/docs/third-party/claude-desktop/configuration.md)**
 >
 > Every managed-configuration key, what it does, and recommended security profiles.
 
-> **[Extensions](/docs/third-party/claude-desktop/extensions)**
+> **[Extensions](/docs/third-party/claude-desktop/extensions.md)**
 >
 > Deploy MCP servers, plugins, skills, and hooks across your fleet.
 
-> **[Telemetry and egress](/docs/third-party/claude-desktop/telemetry)**
+> **[Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md)**
 >
 > What the app sends to Anthropic, how to turn it off, and the firewall allowlist you'll need.

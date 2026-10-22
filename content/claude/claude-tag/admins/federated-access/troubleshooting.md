@@ -14,14 +14,14 @@
 >
 > Federated connections are managed on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Changing them needs an organization Owner, or an admin with full Claude Tag management permission.
 
-This page covers what goes wrong after you connect a gateway, AWS role, Google Cloud identity, or authorization server through **Federated agent access**. It's organized by where the problem shows up: a message in a console dialog, an error Claude reports in the thread, or a rejection in your own logs. The token terms used below are explained on the [identity token reference](/docs/claude-tag/admins/federated-access/token-reference).
+This page covers what goes wrong after you connect a gateway, AWS role, Google Cloud identity, or authorization server through **Federated agent access**. It's organized by where the problem shows up: a message in a console dialog, an error Claude reports in the thread, or a rejection in your own logs. The token terms used below are explained on the [identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md).
 
 First confirm two things that have nothing to do with federation:
 
-* The connection applies to the channel, as [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes. For a gateway, the scope's custom instructions also [name the gateway's address](/docs/claude-tag/admins/federated-access/connect-a-gateway#let-agents-reach-the-gateway), so Claude knows the gateway exists.
+* The connection applies to the channel, as [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes. For a gateway, the scope's custom instructions also [name the gateway's address](/docs/claude-tag/admins/federated-access/connect-a-gateway.md#let-agents-reach-the-gateway), so Claude knows the gateway exists.
 * You tested in a new thread. A thread already running isn't told about a connection added after it started; ask Claude for the service by name, or send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread.
 
-If Claude reports that a host isn't allowed before any request is sent, see [Claude says a host isn't allowed](/docs/claude-tag/admins/troubleshooting#claude-says-a-host-isn%E2%80%99t-allowed-or-it-can%E2%80%99t-reach-the-internet).
+If Claude reports that a host isn't allowed before any request is sent, see [Claude says a host isn't allowed](/docs/claude-tag/admins/troubleshooting.md#claude-says-a-host-isn%E2%80%99t-allowed-or-it-can%E2%80%99t-reach-the-internet).
 
 ## Messages in the console
 
@@ -93,7 +93,7 @@ Claude's request got HTTP 403 with this reason, or with `request blocked: this c
 
 **What it means**
 
-Federated connections work only in agent sessions, such as a Slack channel, where Claude acts under your organization's [agent identity](/docs/claude-tag/concepts/agent-identity). The request came from a personal session, such as a [direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels) with `@Claude`. A personal session runs under a person's own account and has no agent identity for the token to name.
+Federated connections work only in agent sessions, such as a Slack channel, where Claude acts under your organization's [agent identity](/docs/claude-tag/concepts/agent-identity.md). The request came from a personal session, such as a [direct message](/docs/claude-tag/concepts/agent-identity.md#direct-message-channels) with `@Claude`. A personal session runs under a person's own account and has no agent identity for the token to name.
 
 **How to resolve**
 
@@ -167,7 +167,7 @@ The authorization server connection's allowed hosts cover the token endpoint's o
 
 **How to resolve**
 
-Open the connection's **Edit connection** dialog, as [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes, and set **Allowed hosts** to only the APIs Claude calls with the returned token, for example `api.example.com`, with no wildcard that covers the token endpoint's host. If the API and the token endpoint share a host, use a different host for one of them, or [remove the server](/docs/claude-tag/admins/federated-access/authorization-server#remove-the-server) and connect it again with **Allowed API paths** listed.
+Open the connection's **Edit connection** dialog, as [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes, and set **Allowed hosts** to only the APIs Claude calls with the returned token, for example `api.example.com`, with no wildcard that covers the token endpoint's host. If the API and the token endpoint share a host, use a different host for one of them, or [remove the server](/docs/claude-tag/admins/federated-access/authorization-server.md#remove-the-server) and connect it again with **Allowed API paths** listed.
 
 ### credential injection temporarily unavailable; retry the request
 
@@ -213,9 +213,9 @@ Claude's request to an AWS service got HTTP 502 with a reason that begins `injec
 
 **What it means**
 
-The sign-in worked, but [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) couldn't sign the request with the role's credentials, so it never left for AWS. The reason text after the connection name says which of these applies:
+The sign-in worked, but [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy) couldn't sign the request with the role's credentials, so it never left for AWS. The reason text after the connection name says which of these applies:
 
-* **A hostname with no usable region.** Agent Proxy reads the AWS service and signing region from the hostname, so the region must be the last label before `amazonaws.com`, as in `service.region.amazonaws.com`, `my-bucket.s3.us-east-1.amazonaws.com`, or `api.ecr.us-east-1.amazonaws.com`. The [AWS SigV4 credential](/docs/claude-tag/admins/connections/custom#aws-sigv4) section lists the hostname forms Agent Proxy signs, including the services it signs with no region.
+* **A hostname with no usable region.** Agent Proxy reads the AWS service and signing region from the hostname, so the region must be the last label before `amazonaws.com`, as in `service.region.amazonaws.com`, `my-bucket.s3.us-east-1.amazonaws.com`, or `api.ecr.us-east-1.amazonaws.com`. The [AWS SigV4 credential](/docs/claude-tag/admins/connections/custom.md#aws-sigv4) section lists the hostname forms Agent Proxy signs, including the services it signs with no region.
 * **A large request to a service other than S3 with no content hash.** When a request has no `x-amz-content-sha256` header, Agent Proxy hashes the body before signing and refuses a body over 1 MB (1,048,576 bytes). The AWS CLI and SDKs add that header for S3 but usually not for other services.
 * **An S3 upload with signed chunks.** Agent Proxy signs the uploads the AWS CLI and SDKs send by default, including an upload sent in chunks with a checksum trailer. It can't sign an upload whose chunks the client signs one by one, which the CLI and SDKs do only when payload signing is turned on for the profile. The reason text reads `chunked signing (<mode>) is not supported through the proxy`.
 
@@ -245,7 +245,7 @@ If the 403 comes from a Google Cloud API, such as Cloud Storage, the OAuth scope
 **How to resolve**
 
 * **A missing permission.** Grant the IAM permission to the AWS role, the Google Cloud service account, or the federated identity when no service account is named. For AWS, a 403 also makes Claude assume the role again on the next request, so a fix takes effect on the next try.
-* **A Google API that needs an OAuth scope of its own.** A federated connection can't reach that API. To connect Google Drive, Calendar, or Gmail another way, see [Choose OAuth or a service account](/docs/claude-tag/admins/connections/google#choose-oauth-or-a-service-account). If a channel gets both that connection and the federated connection, keep the two from covering the same host; see [Which credential wins](/docs/claude-tag/admins/attach-to-scope#which-credential-wins).
+* **A Google API that needs an OAuth scope of its own.** A federated connection can't reach that API. To connect Google Drive, Calendar, or Gmail another way, see [Choose OAuth or a service account](/docs/claude-tag/admins/connections/google.md#choose-oauth-or-a-service-account). If a channel gets both that connection and the federated connection, keep the two from covering the same host; see [Which credential wins](/docs/claude-tag/admins/attach-to-scope.md#which-credential-wins).
 
 ## Rejections in your own logs
 
@@ -257,7 +257,7 @@ Every request from Claude gets 401 or 403 from your gateway, including the conne
 
 **What it means**
 
-One of the standard checks is configured with the wrong value. Your gateway's log of the failing check is the fastest route; if it logs nothing, work down the list. The values to compare against are shown in the **Connect a gateway** dialog before you enter an address, as described on [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway#copy-the-values-and-deploy-the-gateway).
+One of the standard checks is configured with the wrong value. Your gateway's log of the failing check is the fastest route; if it logs nothing, work down the list. The values to compare against are shown in the **Connect a gateway** dialog before you enter an address, as described on [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md#copy-the-values-and-deploy-the-gateway).
 
 **How to resolve**
 
@@ -329,7 +329,7 @@ The workload identity pool's provider or attribute condition doesn't accept the 
 
 **How to resolve**
 
-Google records the reason in your Cloud Audit Logs. The Security Token Service API entry covers the token exchange, and, if you named a service account, the IAM Service Account Credentials API entry covers the impersonation. Both are Data Access audit logs, which Google keeps off by default, as described under [Verify the connection](/docs/claude-tag/admins/federated-access/gcp#verify-the-connection). If the logs were on and show no entry at the time of the request, the token wasn't issued; see [injection failed](#injection-failed). Otherwise, work through the checks in order.
+Google records the reason in your Cloud Audit Logs. The Security Token Service API entry covers the token exchange, and, if you named a service account, the IAM Service Account Credentials API entry covers the impersonation. Both are Data Access audit logs, which Google keeps off by default, as described under [Verify the connection](/docs/claude-tag/admins/federated-access/gcp.md#verify-the-connection). If the logs were on and show no entry at the time of the request, the token wasn't issued; see [injection failed](#injection-failed). Otherwise, work through the checks in order.
 
 | Check | What to confirm |
 | :- | :- |
@@ -373,7 +373,7 @@ Never send a token itself. Anthropic's logs record why a token was refused or no
 ## Related resources
 
 * [Federated agent access overview](/docs/claude-tag/admins/federated-access/overview): how the token works and which connection type to use
-* [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway): the setup steps and the connection check in full
-* [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference): every claim, the lifetime, and key rotation
-* [Limits](/docs/claude-tag/admins/federated-access/limits): counts, lengths, and lifetimes
-* [Troubleshoot Claude Tag setup](/docs/claude-tag/admins/troubleshooting): errors outside federated agent access
+* [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md): the setup steps and the connection check in full
+* [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md): every claim, the lifetime, and key rotation
+* [Limits](/docs/claude-tag/admins/federated-access/limits.md): counts, lengths, and lifetimes
+* [Troubleshoot Claude Tag setup](/docs/claude-tag/admins/troubleshooting.md): errors outside federated agent access

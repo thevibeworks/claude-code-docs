@@ -139,7 +139,7 @@ Create Enrollment URL
 
   A URL to give to the entity that a user profile represents, so that the entity can enroll in a program.
 
-  - `required Type Type`
+  - `JsonElement Type = "enrollment_url"`
 
     Object type. Always `enrollment_url`.
 

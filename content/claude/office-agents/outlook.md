@@ -184,7 +184,7 @@ when Claude first tries to read mail or calendar data.
 
 The redirect to `pivot.claude.ai` after consent carries only the consent
 outcome, never a token or authorization code. See
-[Why sign-in redirects through pivot.claude.ai](/docs/office-agents/third-party-platforms#why-sign-in-redirects-through-pivot-claude-ai)
+[Why sign-in redirects through pivot.claude.ai](/docs/office-agents/third-party-platforms.md#why-sign-in-redirects-through-pivot-claude-ai)
 for what each redirect carries and how to verify it in a network capture.
 
 #### Use your own Entra app instead
@@ -238,10 +238,10 @@ Microsoft permissions prompt because your tenant has already consented to
 your own application.
 
 If you deploy through a third-party platform and generate your manifests
-with the [setup wizard](/docs/office-agents/third-party-platforms#run-the-setup-wizard),
+with the [setup wizard](/docs/office-agents/third-party-platforms.md#run-the-setup-wizard),
 provide the client ID to the wizard as `graph_client_id` instead of
 editing the file. See
-[Deploy to Outlook](/docs/office-agents/third-party-platforms#deploy-to-outlook).
+[Deploy to Outlook](/docs/office-agents/third-party-platforms.md#deploy-to-outlook).
 
 ### Deploy in a US Government or national cloud
 
@@ -279,7 +279,7 @@ the add-in without Claude accounts. This is the same gateway pattern used
 by Claude Code.
 
 For setup instructions and gateway requirements, see
-[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms).
+[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md).
 
 ## Triage your inbox
 
@@ -329,7 +329,7 @@ Prompts to try:
 Claude reads `.docx` and `.xlsx` attachments on the open email without
 you opening them. For `.pptx` attachments, open the deck in PowerPoint
 with the thread loaded as context using
-[Work across M365 apps](/docs/office-agents/work-across-apps). PDF attachments
+[Work across M365 apps](/docs/office-agents/work-across-apps.md). PDF attachments
 are not currently read inline; save the file and upload it through the
 sidebar instead.
 
@@ -381,7 +381,7 @@ Word with the email thread already loaded as context, or pull numbers from
 an email into an open Excel model, without copying between apps.
 
 For setup instructions, see
-[Work across M365 apps](/docs/office-agents/work-across-apps).
+[Work across M365 apps](/docs/office-agents/work-across-apps.md).
 
 ## Model availability
 
@@ -404,6 +404,8 @@ or appointment form, and you click Send.
 
 ![Claude reads the open item via Office.js and uses Microsoft Graph for mailbox-wide actions; the Graph token stays in the browser.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/outlook-graph.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=3760f3ba806ce4cb2f835cfa2e409eae)
 
+Outlook mailbox access: the open item comes through Office.js, broader mailbox actions use Microsoft Graph, and the Graph token stays in the browser.
+
 Where mailbox content goes after Claude reads it depends on how you sign
 in.
 
@@ -424,7 +426,7 @@ and processes prompts as an independent processor for Microsoft, as
 described in
 [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
 See
-[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms)
+[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md)
 for configuration details. The add-in does not keep a server-side copy or
 index of your mailbox.
 
@@ -438,7 +440,7 @@ data. Chat history is specific to the combination of the add-in surface,
 your user ID, and your organization ID, so your Excel and Outlook
 histories are separate. Reinstalling the add-in or switching between
 Claude add-ins does not remove it. See
-[Data storage and retention](/docs/office-agents/data-storage) for where it
+[Data storage and retention](/docs/office-agents/data-storage.md) for where it
 sits on disk and how long it is kept.
 
 ## Data retention and audit
@@ -450,7 +452,7 @@ backend within 30 days of receipt or generation, except as described in
 Enterprise organizations can route full audit telemetry from Claude for
 Outlook to their own OpenTelemetry collector for integration with a SIEM
 or observability platform. See
-[Configure a custom OpenTelemetry collector](/docs/office-agents/enterprise-readiness)
+[Configure a custom OpenTelemetry collector](/docs/office-agents/enterprise-readiness.md)
 for setup. On Pro, Max, and Team plans, observability and audit
 export are not available. Claude for Outlook does not inherit custom
 data retention settings your organization may have configured and is not

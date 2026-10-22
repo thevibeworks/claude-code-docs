@@ -25,12 +25,6 @@ The Models API response can be used to determine information about a specific mo
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
-- `--beta: optional array of AnthropicBeta` (header parameter)
-
-  **Deprecated**: Deprecated. This parameter will be removed from this method in a future release. To use beta features, call the beta models methods (`client.beta.models`) instead.
-
-  Optional header to specify the beta version(s) you want to use.
-
 ## Returns
 
 - `model_info: object`
@@ -307,7 +301,6 @@ The Models API response can be used to determine information about a specific mo
 
 ```bash
 ant models retrieve \
-  --api-key my-anthropic-api-key \
   --model-id model_id
 ```
 

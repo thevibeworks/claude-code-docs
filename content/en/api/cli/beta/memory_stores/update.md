@@ -103,7 +103,6 @@ Update a Memory Store
 
 ```bash
 ant beta:memory-stores update \
-  --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 

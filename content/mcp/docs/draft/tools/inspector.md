@@ -6,7 +6,7 @@
 
 > Interactive developer tooling for testing and debugging MCP servers, in the browser, on the command line, and in the terminal
 
-The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is the reference developer tool for testing and debugging [MCP servers](/docs/draft/learn/server-concepts). It ships as a single package, `@modelcontextprotocol/inspector`, providing **three clients behind one binary**:
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is the reference developer tool for testing and debugging [MCP servers](/docs/draft/learn/server-concepts.md). It ships as a single package, `@modelcontextprotocol/inspector`, providing **three clients behind one binary**:
 
 | Client | Invocation | What it's for |
 | - | - | - |
@@ -14,11 +14,13 @@ The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is the re
 | **CLI** | `npx @modelcontextprotocol/inspector --cli` | A scriptable, machine-readable client for CI, shell pipelines, and coding agents. |
 | **TUI** | `npx @modelcontextprotocol/inspector --tui` | An interactive terminal UI, for when a browser isn't available or wanted. |
 
-All three are built on the same shared core, so a connection behaves identically across them: the same transports, the same configuration files, the same OAuth state on disk, and the same [protocol-era](/docs/draft/tools/inspector/protocol-eras) negotiation (legacy vs. modern 2026-07-28).
+All three are built on the same shared core, so a connection behaves identically across them: the same transports, the same configuration files, the same OAuth state on disk, and the same [protocol-era](/docs/draft/tools/inspector/protocol-eras.md) negotiation (legacy vs. modern 2026-07-28).
 
-The package also installs **`mcpdo`**, an experimental [connection client](/docs/draft/tools/inspector/mcpdo) that connects to a server once and keeps it open across many commands, on the same core.
+The package also installs **`mcpdo`**, an experimental [connection client](/docs/draft/tools/inspector/mcpdo.md) that connects to a server once and keeps it open across many commands, on the same core.
 
 ![](https://mintcdn.com/mcp/pUebPdrb6PY5_mfH/images/inspector/web-monitor-sidebar.png?fit=max\&auto=format\&n=pUebPdrb6PY5_mfH\&q=85\&s=2ced9eeefa020be53fe4fe957b7d07c6)
+
+The MCP Inspector web client after a tool call, with the monitoring sidebar pinned and widened so the JSON-RPC exchange stays readable while you work.
 
 ## Quickstart
 
@@ -34,7 +36,7 @@ npx @modelcontextprotocol/inspector node path/to/server/index.js
 npx @modelcontextprotocol/inspector
 ```
 
-The command prints a URL carrying a per-launch API token and opens it in your browser (set `MCP_AUTO_OPEN_ENABLED=false` to stop it opening). See [Web client](/docs/draft/tools/inspector/web).
+The command prints a URL carrying a per-launch API token and opens it in your browser (set `MCP_AUTO_OPEN_ENABLED=false` to stop it opening). See [Web client](/docs/draft/tools/inspector/web.md).
 
 **CLI**
 
@@ -47,7 +49,7 @@ npx @modelcontextprotocol/inspector --cli https://api.example.com/mcp --transpor
   --method tools/call --tool-name get_weather --tool-arg city=Boston --format json | jq .result
 ```
 
-See [CLI client](/docs/draft/tools/inspector/cli).
+See [CLI client](/docs/draft/tools/inspector/cli.md).
 
 **TUI**
 
@@ -55,7 +57,7 @@ See [CLI client](/docs/draft/tools/inspector/cli).
 npx @modelcontextprotocol/inspector --tui node path/to/server/index.js
 ```
 
-See [TUI client](/docs/draft/tools/inspector/tui).
+See [TUI client](/docs/draft/tools/inspector/tui.md).
 
 ### Inspecting published servers
 
@@ -89,7 +91,7 @@ Always read a server's own README first, since every server requires different c
 > sessions, Termux, and containers with a mounted volume) they are saved to
 > `~/.mcp-inspector/secrets.json` instead, **unencrypted unless you supply a
 > key**. See [Where secrets are
-> stored](/docs/draft/tools/inspector/configuration#where-secrets-are-stored)
+> stored](/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored)
 > for how to get a keychain back, encrypt the file, or keep secrets in memory
 > only.
 
@@ -100,7 +102,7 @@ Always read a server's own README first, since every server requires different c
 1. **The mode flag:** `--web` (default), `--cli`, or `--tui`. At most one; passing two errors with `Specify at most one of --web, --cli, or --tui.`
 2. **`-h` / `--help`.**
 
-Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--method`, the OAuth flags) is defined by the *client*, not the launcher, and the clients do not all define the same set. The [Configuration and flags](/docs/draft/tools/inspector/configuration) page is organized that way, by owner.
+Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--method`, the OAuth flags) is defined by the *client*, not the launcher, and the clients do not all define the same set. The [Configuration and flags](/docs/draft/tools/inspector/configuration.md) page is organized that way, by owner.
 
 > [!NOTE]
 >
@@ -119,46 +121,46 @@ Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--meth
 
 ## Where to go next
 
-> **[Web client](/docs/draft/tools/inspector/web)**
+> **[Web client](/docs/draft/tools/inspector/web.md)**
 >
 > A tab-by-tab walkthrough of the graphical inspector.
 
-> **[CLI client](/docs/draft/tools/inspector/cli)**
+> **[CLI client](/docs/draft/tools/inspector/cli.md)**
 >
 > Method reference, output formats, exit codes, and CI recipes.
 
-> **[TUI client](/docs/draft/tools/inspector/tui)**
+> **[TUI client](/docs/draft/tools/inspector/tui.md)**
 >
 > Terminal navigation and keyboard reference.
 
-> **[Configuration and flags](/docs/draft/tools/inspector/configuration)**
+> **[Configuration and flags](/docs/draft/tools/inspector/configuration.md)**
 >
 > Catalog vs. config files, the full per-client flag reference, and
 > environment variables.
 
-> **[Authorization](/docs/draft/tools/inspector/authorization)**
+> **[Authorization](/docs/draft/tools/inspector/authorization.md)**
 >
 > The OAuth flow end to end, mid-session re-authorization, and loopback
 > callbacks.
 
-> **[Protocol eras](/docs/draft/tools/inspector/protocol-eras)**
+> **[Protocol eras](/docs/draft/tools/inspector/protocol-eras.md)**
 >
 > Legacy vs. modern (2026-07-28) operation, and how every tab changes between
 > protocol eras.
 
-> **[mcpdo connection client](/docs/draft/tools/inspector/mcpdo)**
+> **[mcpdo connection client](/docs/draft/tools/inspector/mcpdo.md)**
 >
 > Connect once, then run many commands against a named connection.
 
-> **[Security](/docs/draft/tools/inspector/security)**
+> **[Security](/docs/draft/tools/inspector/security.md)**
 >
 > The threat model: the web backend's token, Docker, secret storage, stdio
 > servers, and the mcpdo daemon.
 
-> **[Recipes](/docs/draft/tools/inspector/recipes)**
+> **[Recipes](/docs/draft/tools/inspector/recipes.md)**
 >
 > Importing client configs, reviewing MCP Apps, Docker, and network hosting.
 
-> **[Debugging guide](/docs/draft/tools/debugging)**
+> **[Debugging guide](/docs/draft/tools/debugging.md)**
 >
 > Broader debugging strategies beyond the Inspector.

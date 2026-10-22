@@ -63,6 +63,94 @@ Get User Profile
 
     format: date-time
 
+  - `enforcement_actions: array of UserProfileEnforcementAction`
+
+    The enforcement actions open on this profile; empty when none is open. Absent under the `user-profiles-2026-09-04` and earlier beta headers.
+
+    - `UserProfileEnforcementActionRestriction object`
+
+      Anthropic has limited how it serves the end user until the action is resolved. The end user may still be served in part.
+
+      - `type: "restriction"`
+
+      - `id: string`
+
+        The action's ID (`enac_...`), stable while the action is open.
+
+      - `action: UserProfileEnforcementActionNextStep or null`
+
+        The next step on the action: `verify` or `null`. `verify`: the end user can clear it now by passing an identity check. `null`: there is nothing the end user can do now to clear it, including while Anthropic reviews an identity check the end user submitted.
+
+      - `expires_at: string or null`
+
+        When the action ends on its own, in RFC 3339 format; it stops showing once this time has passed. `null` when it has no end date, and always `null` when `reason` is `account_compromise`.
+
+        format: date-time
+
+      - `opened_at: string`
+
+        When Anthropic opened the action, in RFC 3339 format.
+
+        format: date-time
+
+      - `reason: UserProfileEnforcementActionReason`
+
+        Why Anthropic placed the limit: `unsupported_region`, `fraud_or_abuse`, `high_harm`, `usage_policy_violation`, `account_compromise` or `unspecified`.
+
+        - `"unsupported_region"`
+
+        - `"fraud_or_abuse"`
+
+        - `"high_harm"`
+
+        - `"usage_policy_violation"`
+
+        - `"account_compromise"`
+
+        - `"unspecified"`
+
+    - `UserProfileEnforcementActionBan object`
+
+      Anthropic has stopped serving the end user where the ban applies and does not plan to serve them there again.
+
+      - `type: "ban"`
+
+      - `id: string`
+
+        The action's ID (`enac_...`), stable while the action is open.
+
+      - `action: UserProfileEnforcementActionNextStep or null`
+
+        Always `null`: the end user cannot clear a ban.
+
+      - `expires_at: string or null`
+
+        Always `null`: a ban has no end date.
+
+        format: date-time
+
+      - `opened_at: string`
+
+        When Anthropic opened the action, in RFC 3339 format.
+
+        format: date-time
+
+      - `reason: UserProfileEnforcementActionReason`
+
+        Why Anthropic placed the limit: `unsupported_region`, `fraud_or_abuse`, `high_harm`, `usage_policy_violation`, `account_compromise` or `unspecified`.
+
+  - `enforcement_status: UserProfileEnforcementStatus`
+
+    Anthropic's enforcement status of this profile, from its open enforcement actions and any identity check under review, by the first rule that applies: `banned` while any open action is a `ban`; `pending` while a restriction that an identity check can clear is open, the end user has submitted that check, Anthropic's review of it has not ended, and no open action's `reason` is `account_compromise`; `restricted` while any action is open; `unrestricted` while none is. Absent under the `user-profiles-2026-09-04` and earlier beta headers.
+
+    - `"unrestricted"`
+
+    - `"pending"`
+
+    - `"restricted"`
+
+    - `"banned"`
+
   - `external_user_details: UserProfileExternalUserDetails`
 
     Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
@@ -203,8 +291,8 @@ Get User Profile
 
 ```bash
 curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY"
 ```
 
 ### Response (200)
@@ -214,6 +302,17 @@ curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "access_type": "application",
   "created_at": "2026-03-15T10:00:00Z",
+  "enforcement_actions": [
+    {
+      "id": "enac_011CZkZCu8hGbp5mYRQgUmz9",
+      "action": "verify",
+      "expires_at": null,
+      "opened_at": "2026-10-02T19:30:00Z",
+      "reason": "fraud_or_abuse",
+      "type": "restriction"
+    }
+  ],
+  "enforcement_status": "unrestricted",
   "external_user_details": {
     "account_status": "active",
     "country": "US",

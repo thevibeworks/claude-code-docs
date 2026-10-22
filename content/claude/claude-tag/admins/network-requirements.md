@@ -22,11 +22,11 @@ Requests from Claude to your services originate from Anthropic's network. To let
 
 The authoritative list is [Anthropic's published IP addresses](https://platform.claude.com/docs/en/api/ip-addresses); check it when you create the rule.
 
-The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) are what scope which of *your* systems Claude can call.
+The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](/docs/claude-tag/admins/add-connections.md#set-allowed-websites) are what scope which of *your* systems Claude can call.
 
 > [!NOTE]
 >
-> If your Google Cloud project uses VPC Service Controls, an IP-based access level doesn't admit Claude's queries through the [BigQuery connection](/docs/claude-tag/admins/connections/bigquery). See [Allow the connection through a VPC Service Controls perimeter](/docs/claude-tag/admins/connections/bigquery#allow-the-connection-through-a-vpc-service-controls-perimeter) on the BigQuery page.
+> If your Google Cloud project uses VPC Service Controls, an IP-based access level doesn't admit Claude's queries through the [BigQuery connection](/docs/claude-tag/admins/connections/bigquery.md). See [Allow the connection through a VPC Service Controls perimeter](/docs/claude-tag/admins/connections/bigquery.md#allow-the-connection-through-a-vpc-service-controls-perimeter) on the BigQuery page.
 
 ## Internet reachability
 
@@ -34,11 +34,11 @@ The range is shared across Anthropic services, and dedicated per-organization eg
 >
 > A connected service must accept traffic from the internet (restricted by IP allowlist if you like). A service reachable only inside your private network can't be connected; private networking such as PrivateLink or VPC peering is not supported.
 
-In an Anthropic-hosted environment, every request from a channel's sandbox to your service passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy), which carries HTTP and HTTPS only. A service reachable only over another protocol, such as SSH or a database's native wire protocol, can't be connected; put an HTTP API in front of it instead.
+In an Anthropic-hosted environment, every request from a channel's sandbox to your service passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy), which carries HTTP and HTTPS only. A service reachable only over another protocol, such as SSH or a database's native wire protocol, can't be connected; put an HTTP API in front of it instead.
 
 ## IP allowlist vs. allowed websites
 
-The IP allowlist on your service and the [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) on a connection are opposite sides of the same boundary:
+The IP allowlist on your service and the [allowed websites](/docs/claude-tag/admins/add-connections.md#set-allowed-websites) on a connection are opposite sides of the same boundary:
 
 | | IP allowlist | Allowed websites |
 | :- | :- | :- |
@@ -51,7 +51,7 @@ Events from connected services, like GitHub activity, are delivered directly to 
 
 ## Related resources
 
-* [Add connections](/docs/claude-tag/admins/add-connections#set-allowed-websites): the allowed-websites setting (the other direction: what Claude is allowed to reach)
-* [Allow a host without a credential](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential): how hosts become reachable from a channel, including [allow-all egress](/docs/claude-tag/admins/add-connections#allow-all-hosts)
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity): how credentials are injected at the network boundary
+* [Add connections](/docs/claude-tag/admins/add-connections.md#set-allowed-websites): the allowed-websites setting (the other direction: what Claude is allowed to reach)
+* [Allow a host without a credential](/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential): how hosts become reachable from a channel, including [allow-all egress](/docs/claude-tag/admins/add-connections.md#allow-all-hosts)
+* [How agent identity works](/docs/claude-tag/concepts/agent-identity.md): how credentials are injected at the network boundary
 * [Setup overview](/docs/claude-tag/admins/setup-overview): back to the console flow once the allowlist is in place

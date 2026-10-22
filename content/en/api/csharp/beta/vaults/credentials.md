@@ -29,7 +29,7 @@ Create a Credential
 
       Parameters for creating an MCP OAuth credential.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string AccessToken`
 
@@ -79,13 +79,13 @@ Create a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
             - `required string ClientSecret`
 
@@ -97,7 +97,7 @@ Create a Credential
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
             - `required string ClientSecret`
 
@@ -121,7 +121,7 @@ Create a Credential
 
       Parameters for creating a static bearer token credential.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string Token`
 
@@ -139,7 +139,7 @@ Create a Credential
 
       Parameters for creating an environment variable credential.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsCredentialNetworkingParams Networking`
 
@@ -149,13 +149,13 @@ Create a Credential
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -317,7 +317,7 @@ Create a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -337,7 +337,7 @@ Create a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -367,19 +367,19 @@ Create a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -393,7 +393,7 @@ Create a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -403,7 +403,7 @@ Create a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -425,13 +425,13 @@ Create a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -480,7 +480,6 @@ CredentialCreateParams parameters = new()
     {
         Token = "bearer_exampletoken",
         McpServerUrl = "https://example-server.modelcontextprotocol.io/sse",
-        Type = BetaManagedAgentsStaticBearerCreateParamsType.StaticBearer,
     },
 };
 
@@ -660,7 +659,7 @@ List Credentials
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -680,7 +679,7 @@ List Credentials
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -710,19 +709,19 @@ List Credentials
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -736,7 +735,7 @@ List Credentials
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -746,7 +745,7 @@ List Credentials
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -768,13 +767,13 @@ List Credentials
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -994,7 +993,7 @@ Retrieve a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -1014,7 +1013,7 @@ Retrieve a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -1044,19 +1043,19 @@ Retrieve a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -1070,7 +1069,7 @@ Retrieve a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -1080,7 +1079,7 @@ Retrieve a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -1102,13 +1101,13 @@ Retrieve a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -1210,7 +1209,7 @@ Update a Credential
 
       Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `string? AccessToken`
 
@@ -1250,7 +1249,7 @@ Update a Credential
 
             Updated HTTP Basic authentication parameters for the token endpoint.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
             - `string? ClientSecret`
 
@@ -1264,7 +1263,7 @@ Update a Credential
 
             Updated POST body authentication parameters for the token endpoint.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
             - `string? ClientSecret`
 
@@ -1278,7 +1277,7 @@ Update a Credential
 
       Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `string? Token`
 
@@ -1290,7 +1289,7 @@ Update a Credential
 
       Parameters for updating an environment variable credential. `secret_name` is immutable.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `BetaManagedAgentsInjectionLocationUpdateParams InjectionLocation`
 
@@ -1312,13 +1311,13 @@ Update a Credential
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -1462,7 +1461,7 @@ Update a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -1482,7 +1481,7 @@ Update a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -1512,19 +1511,19 @@ Update a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -1538,7 +1537,7 @@ Update a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -1548,7 +1547,7 @@ Update a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -1570,13 +1569,13 @@ Update a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -1790,7 +1789,7 @@ Delete a Credential
 
   Confirmation of a deleted credential.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential_deleted"`
 
   - `required string ID`
 
@@ -1962,7 +1961,7 @@ Archive a Credential
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -1982,7 +1981,7 @@ Archive a Credential
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -2012,19 +2011,19 @@ Archive a Credential
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -2038,7 +2037,7 @@ Archive a Credential
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -2048,7 +2047,7 @@ Archive a Credential
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -2070,13 +2069,13 @@ Archive a Credential
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2290,7 +2289,7 @@ Validate an MCP OAuth Credential
 
   Result of live-probing a credential against its configured MCP server.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential_validation"`
 
   - `required string CredentialID`
 
@@ -2440,7 +2439,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential"`
 
   - `required string ID`
 
@@ -2460,7 +2459,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       OAuth credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "mcp_oauth"`
 
       - `required string McpServerUrl`
 
@@ -2490,19 +2489,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
             Token endpoint requires no client authentication.
 
-            - `required Type Type`
+            - `JsonElement Type = "none"`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_basic"`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
-            - `required Type Type`
+            - `JsonElement Type = "client_secret_post"`
 
         - `string? Resource`
 
@@ -2516,7 +2515,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Static bearer token credential details for an MCP server.
 
-      - `required Type Type`
+      - `JsonElement Type = "static_bearer"`
 
       - `required string McpServerUrl`
 
@@ -2526,7 +2525,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Environment variable credential details. The secret value is never returned.
 
-      - `required Type Type`
+      - `JsonElement Type = "environment_variable"`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -2548,13 +2547,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
-          - `required Type Type`
+          - `JsonElement Type = "unrestricted"`
 
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
-          - `required Type Type`
+          - `JsonElement Type = "limited"`
 
           - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2598,13 +2597,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-    - `required Type Type`
+    - `JsonElement Type = "unrestricted"`
 
   - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
     Substitute the secret only on requests to the listed hosts.
 
-    - `required Type Type`
+    - `JsonElement Type = "limited"`
 
     - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2618,7 +2617,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Result of live-probing a credential against its configured MCP server.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential_validation"`
 
   - `required string CredentialID`
 
@@ -2736,7 +2735,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Confirmation of a deleted credential.
 
-  - `required Type Type`
+  - `JsonElement Type = "vault_credential_deleted"`
 
   - `required string ID`
 
@@ -2748,7 +2747,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Environment variable credential details. The secret value is never returned.
 
-  - `required Type Type`
+  - `JsonElement Type = "environment_variable"`
 
   - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -2770,13 +2769,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       The secret is substituted on any host the session's Environment network policy permits egress to.
 
-      - `required Type Type`
+      - `JsonElement Type = "unrestricted"`
 
     - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
       The secret is substituted only on requests to the listed hosts.
 
-      - `required Type Type`
+      - `JsonElement Type = "limited"`
 
       - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2794,7 +2793,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Parameters for creating an environment variable credential.
 
-  - `required Type Type`
+  - `JsonElement Type = "environment_variable"`
 
   - `required BetaManagedAgentsCredentialNetworkingParams Networking`
 
@@ -2804,13 +2803,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-      - `required Type Type`
+      - `JsonElement Type = "unrestricted"`
 
     - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
       Substitute the secret only on requests to the listed hosts.
 
-      - `required Type Type`
+      - `JsonElement Type = "limited"`
 
       - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2848,7 +2847,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Parameters for updating an environment variable credential. `secret_name` is immutable.
 
-  - `required Type Type`
+  - `JsonElement Type = "environment_variable"`
 
   - `BetaManagedAgentsInjectionLocationUpdateParams InjectionLocation`
 
@@ -2870,13 +2869,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-      - `required Type Type`
+      - `JsonElement Type = "unrestricted"`
 
     - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
       Substitute the secret only on requests to the listed hosts.
 
-      - `required Type Type`
+      - `JsonElement Type = "limited"`
 
       - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2942,7 +2941,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Substitute the secret only on requests to the listed hosts.
 
-  - `required Type Type`
+  - `JsonElement Type = "limited"`
 
   - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2956,7 +2955,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   The secret is substituted only on requests to the listed hosts.
 
-  - `required Type Type`
+  - `JsonElement Type = "limited"`
 
   - `required IReadOnlyList<string> AllowedHosts`
 
@@ -2970,7 +2969,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   OAuth credential details for an MCP server.
 
-  - `required Type Type`
+  - `JsonElement Type = "mcp_oauth"`
 
   - `required string McpServerUrl`
 
@@ -3000,19 +2999,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Token endpoint requires no client authentication.
 
-        - `required Type Type`
+        - `JsonElement Type = "none"`
 
       - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
-        - `required Type Type`
+        - `JsonElement Type = "client_secret_basic"`
 
       - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
         Token endpoint uses POST body authentication with client credentials.
 
-        - `required Type Type`
+        - `JsonElement Type = "client_secret_post"`
 
     - `string? Resource`
 
@@ -3028,7 +3027,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Parameters for creating an MCP OAuth credential.
 
-  - `required Type Type`
+  - `JsonElement Type = "mcp_oauth"`
 
   - `required string AccessToken`
 
@@ -3078,13 +3077,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Token endpoint requires no client authentication.
 
-        - `required Type Type`
+        - `JsonElement Type = "none"`
 
       - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
-        - `required Type Type`
+        - `JsonElement Type = "client_secret_basic"`
 
         - `required string ClientSecret`
 
@@ -3096,7 +3095,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Token endpoint uses POST body authentication with client credentials.
 
-        - `required Type Type`
+        - `JsonElement Type = "client_secret_post"`
 
         - `required string ClientSecret`
 
@@ -3146,13 +3145,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Token endpoint requires no client authentication.
 
-      - `required Type Type`
+      - `JsonElement Type = "none"`
 
     - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
-      - `required Type Type`
+      - `JsonElement Type = "client_secret_basic"`
 
       - `required string ClientSecret`
 
@@ -3164,7 +3163,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Token endpoint uses POST body authentication with client credentials.
 
-      - `required Type Type`
+      - `JsonElement Type = "client_secret_post"`
 
       - `required string ClientSecret`
 
@@ -3204,19 +3203,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Token endpoint requires no client authentication.
 
-      - `required Type Type`
+      - `JsonElement Type = "none"`
 
     - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
-      - `required Type Type`
+      - `JsonElement Type = "client_secret_basic"`
 
     - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
       Token endpoint uses POST body authentication with client credentials.
 
-      - `required Type Type`
+      - `JsonElement Type = "client_secret_post"`
 
   - `string? Resource`
 
@@ -3250,7 +3249,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Updated HTTP Basic authentication parameters for the token endpoint.
 
-      - `required Type Type`
+      - `JsonElement Type = "client_secret_basic"`
 
       - `string? ClientSecret`
 
@@ -3264,7 +3263,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Updated POST body authentication parameters for the token endpoint.
 
-      - `required Type Type`
+      - `JsonElement Type = "client_secret_post"`
 
       - `string? ClientSecret`
 
@@ -3280,7 +3279,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
-  - `required Type Type`
+  - `JsonElement Type = "mcp_oauth"`
 
   - `string? AccessToken`
 
@@ -3320,7 +3319,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Updated HTTP Basic authentication parameters for the token endpoint.
 
-        - `required Type Type`
+        - `JsonElement Type = "client_secret_basic"`
 
         - `string? ClientSecret`
 
@@ -3334,7 +3333,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Updated POST body authentication parameters for the token endpoint.
 
-        - `required Type Type`
+        - `JsonElement Type = "client_secret_post"`
 
         - `string? ClientSecret`
 
@@ -3454,7 +3453,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Static bearer token credential details for an MCP server.
 
-  - `required Type Type`
+  - `JsonElement Type = "static_bearer"`
 
   - `required string McpServerUrl`
 
@@ -3466,7 +3465,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Parameters for creating a static bearer token credential.
 
-  - `required Type Type`
+  - `JsonElement Type = "static_bearer"`
 
   - `required string Token`
 
@@ -3486,7 +3485,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
-  - `required Type Type`
+  - `JsonElement Type = "static_bearer"`
 
   - `string? Token`
 
@@ -3500,7 +3499,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
-  - `required Type Type`
+  - `JsonElement Type = "client_secret_basic"`
 
   - `required string ClientSecret`
 
@@ -3514,7 +3513,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
-  - `required Type Type`
+  - `JsonElement Type = "client_secret_basic"`
 
 ### Beta Managed Agents Token Endpoint Auth Basic Update Param
 
@@ -3522,7 +3521,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Updated HTTP Basic authentication parameters for the token endpoint.
 
-  - `required Type Type`
+  - `JsonElement Type = "client_secret_basic"`
 
   - `string? ClientSecret`
 
@@ -3538,7 +3537,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Token endpoint requires no client authentication.
 
-  - `required Type Type`
+  - `JsonElement Type = "none"`
 
 ### Beta Managed Agents Token Endpoint Auth None Response
 
@@ -3546,7 +3545,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Token endpoint requires no client authentication.
 
-  - `required Type Type`
+  - `JsonElement Type = "none"`
 
 ### Beta Managed Agents Token Endpoint Auth Post Param
 
@@ -3554,7 +3553,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Token endpoint uses POST body authentication with client credentials.
 
-  - `required Type Type`
+  - `JsonElement Type = "client_secret_post"`
 
   - `required string ClientSecret`
 
@@ -3568,7 +3567,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Token endpoint uses POST body authentication with client credentials.
 
-  - `required Type Type`
+  - `JsonElement Type = "client_secret_post"`
 
 ### Beta Managed Agents Token Endpoint Auth Post Update Param
 
@@ -3576,7 +3575,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Updated POST body authentication parameters for the token endpoint.
 
-  - `required Type Type`
+  - `JsonElement Type = "client_secret_post"`
 
   - `string? ClientSecret`
 
@@ -3592,7 +3591,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
-  - `required Type Type`
+  - `JsonElement Type = "unrestricted"`
 
 ### Beta Managed Agents Unrestricted Credential Networking Response
 
@@ -3600,4 +3599,4 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   The secret is substituted on any host the session's Environment network policy permits egress to.
 
-  - `required Type Type`
+  - `JsonElement Type = "unrestricted"`

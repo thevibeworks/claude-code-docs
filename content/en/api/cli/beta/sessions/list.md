@@ -1304,8 +1304,7 @@ List Sessions
 ## Example
 
 ```bash
-ant beta:sessions list \
-  --api-key my-anthropic-api-key
+ant beta:sessions list
 ```
 
 ### Response (200)

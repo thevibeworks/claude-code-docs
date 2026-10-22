@@ -12,7 +12,7 @@
 
 > [!TIP]
 >
-> Using GitLab instead of GitHub? See [Configure GitLab access](/docs/claude-tag/admins/configure-gitlab). GitLab uses a service-account token rather than an installed app.
+> Using GitLab instead of GitHub? See [Configure GitLab access](/docs/claude-tag/admins/configure-gitlab.md). GitLab uses a service-account token rather than an installed app.
 
 Claude Tag gives Claude its own GitHub identity, the Claude GitHub App, so pull requests it opens from a channel or a DM are authored by Claude rather than by a person. You only need GitHub access if a team will hand Claude code work: branches, pull requests, review, or CI follow-up.
 
@@ -44,7 +44,7 @@ An organization can also be missing from the table because single sign-on (SSO) 
 
 ## Grant repository access
 
-The remaining steps are in Claude Tag admin settings, not GitHub's settings. Granting repositories requires the **Owner** role or the [**Claude Tag Admin** permission](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) in your Claude organization. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can also add repositories to their own channel, limited to repositories their GitHub account is an admin of.
+The remaining steps are in Claude Tag admin settings, not GitHub's settings. Granting repositories requires the **Owner** role or the [**Claude Tag Admin** permission](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) in your Claude organization. A [channel manager](/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) can also add repositories to their own channel, limited to repositories their GitHub account is an admin of.
 
 The GitHub page, a bundle's page, and a workspace's or channel's own page each offer the repositories the Claude GitHub App's installations reach, so you can grant a repository that no bundle holds yet. Pick repositories for each place on the GitHub page, or put them in a bundle to give a group of places the same set.
 
@@ -70,7 +70,7 @@ To add a repository from a workspace's or channel's own page instead, open the p
 
 ### Grant repositories through a bundle
 
-A [bundle](/docs/claude-tag/admins/add-connections#create-a-bundle)'s places decide which channels can use the repositories in it.
+A [bundle](/docs/claude-tag/admins/add-connections.md#create-a-bundle)'s places decide which channels can use the repositories in it.
 
 **1. Open a bundle**
 
@@ -88,7 +88,7 @@ Under **Where it applies**, turn on the switch in the **Slack** row to apply the
 
 * The GitHub organization shows as **Connected** in the **GitHub** section at [`claude.ai/admin-settings/source-control`](https://claude.ai/admin-settings/source-control).
 * On the **Connectors** tab under **Claude's access**, select **GitHub**. Its page shows how many GitHub accounts the Claude GitHub App is installed on. Its **Access from** table lists each repository picked for a place and each repository a bundle holds. The **Set by** column reads **Here** for a repository picked for a place, or names the bundle that holds it, and **Used at** names where each one applies.
-* For the end-to-end check, open a draft PR from a test channel; see [Verify the bundle is live](/docs/claude-tag/admins/attach-to-scope#verify-the-bundle-is-live).
+* For the end-to-end check, open a draft PR from a test channel; see [Verify the bundle is live](/docs/claude-tag/admins/attach-to-scope.md#verify-the-bundle-is-live).
 
 ### If Claude can't reach a repository
 
@@ -116,22 +116,22 @@ When Claude clones a granted repository into a session, its Claude Code configur
 
 [Hooks](https://code.claude.com/docs/en/hooks) in a repository's `.claude/settings.json` don't run in the session. A repository's `.mcp.json` is never loaded.
 
-Repository skills apply only in sessions that have the repository. To give a skill to every channel under a scope, add it through a [skills repository](/docs/claude-tag/admins/skills-repo).
+Repository skills apply only in sessions that have the repository. To give a skill to every channel under a scope, add it through a [skills repository](/docs/claude-tag/admins/skills-repo.md).
 
 ### Install project dependencies
 
 Every session runs in an isolated sandbox with a standard set of preinstalled tools. There are two places to add what a project needs beyond that set, such as a specific language runtime or a database client:
 
-* **For every session in a channel**, an admin adds the install commands to the setup script of the environment the channel's sessions run on. See [Configure the environment for a scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope).
+* **For every session in a channel**, an admin adds the install commands to the setup script of the environment the channel's sessions run on. See [Configure the environment for a scope](/docs/claude-tag/admins/customize.md#configure-the-environment-for-a-scope).
 * **For one repository**, add the install commands to the repository's `CLAUDE.md`.
 
 Claude follows `CLAUDE.md` as guidance when it starts work that needs it, not as an unconditional setup step. Write each install as a precondition of the work it supports, for example "install the SDK before building or running tests", so Claude runs it when a task touches that code. The sandbox is fresh for every session, so the installs repeat each time Claude works in the repository.
 
-Prefer the standard package manager and its default registry over a vendor install script or a third-party package source. Package managers such as `apt`, `pip`, `npm`, and `dotnet` reach their default registries from the sandbox; downloads from other hosts can be blocked at the sandbox's [egress boundary](/docs/claude-tag/concepts/security-and-data#network-egress). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can allow an additional host with a domain entry on a bundle; see [Allow a host without a credential](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential).
+Prefer the standard package manager and its default registry over a vendor install script or a third-party package source. Package managers such as `apt`, `pip`, `npm`, and `dotnet` reach their default registries from the sandbox; downloads from other hosts can be blocked at the sandbox's [egress boundary](/docs/claude-tag/concepts/security-and-data.md#network-egress). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) can allow an additional host with a domain entry on a bundle; see [Allow a host without a credential](/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential).
 
 ## What Claude can do with GitHub Actions
 
-In a channel, Claude acts on GitHub as the Claude GitHub App, and that identity carries a fixed set of GitHub Actions permissions. No admin setting changes it, and adding `api.github.com` as a [custom connector](/docs/claude-tag/admins/connections/custom) with your own token doesn't change it either; Claude's GitHub requests always act as the Claude GitHub App.
+In a channel, Claude acts on GitHub as the Claude GitHub App, and that identity carries a fixed set of GitHub Actions permissions. No admin setting changes it, and adding `api.github.com` as a [custom connector](/docs/claude-tag/admins/connections/custom.md) with your own token doesn't change it either; Claude's GitHub requests always act as the Claude GitHub App.
 
 Claude can:
 
@@ -179,7 +179,7 @@ Registering a GHE host with your Claude organization isn't fully self-serve. Rai
 
 #### GitHub Enterprise Server in direct messages
 
-In a [one-to-one direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels), Claude reaches repositories on a registered host through the sender's own GitHub Enterprise account instead of the bundle's grants. Claude adds a repository to a DM session only when both of these are true:
+In a [one-to-one direct message](/docs/claude-tag/concepts/agent-identity.md#direct-message-channels), Claude reaches repositories on a registered host through the sender's own GitHub Enterprise account instead of the bundle's grants. Claude adds a repository to a DM session only when both of these are true:
 
 * The sender's GitHub Enterprise account has push access to the repository
 * Your GitHub App's installation on the instance includes the repository
@@ -190,5 +190,5 @@ In channels, Claude uses the repositories granted through bundles, as it does fo
 
 ## Related resources
 
-* [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope): add the bundle to the workspaces and channels that need it
-* [Set up routines](/docs/claude-tag/users/proactivity): the scheduled jobs that use this connection
+* [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope.md): add the bundle to the workspaces and channels that need it
+* [Set up routines](/docs/claude-tag/users/proactivity.md): the scheduled jobs that use this connection

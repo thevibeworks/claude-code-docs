@@ -85,7 +85,7 @@ either, or both:
 ### Listing Resources
 
 To discover available resources, clients send a `resources/list` request. This operation
-supports [pagination](/specification/2025-11-25/server/utilities/pagination).
+supports [pagination](/specification/2025-11-25/server/utilities/pagination.md).
 
 **Request:**
 
@@ -167,7 +167,7 @@ To retrieve resource contents, clients send a `resources/read` request:
 
 Resource templates allow servers to expose parameterized resources using
 [URI templates](https://datatracker.ietf.org/doc/html/rfc6570). Arguments may be
-auto-completed through [the completion API](/specification/2025-11-25/server/utilities/completion).
+auto-completed through [the completion API](/specification/2025-11-25/server/utilities/completion.md).
 
 **Request:**
 

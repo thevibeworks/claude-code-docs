@@ -35,7 +35,7 @@ Delete a Credential
 
 - `class ManagedAgentsDeletedCredential`
 
-  - `Type type`
+  - `"vault_credential_deleted" type`
 
   - `string id`
 

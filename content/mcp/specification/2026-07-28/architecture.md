@@ -163,12 +163,12 @@ sequenceDiagram
 
 Each capability unlocks specific protocol features on a per-request basis. For example:
 
-* Implemented [server features](/specification/2026-07-28/server) must be advertised in the
+* Implemented [server features](/specification/2026-07-28/server.md) must be advertised in the
   server's capabilities
 * Receiving resource update notifications requires opening a
   [`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions) stream
   with the desired resource URIs
-* [Tool](/specification/2026-07-28/server/tools) invocation requires the server to declare tool capabilities
+* [Tool](/specification/2026-07-28/server/tools.md) invocation requires the server to declare tool capabilities
 
 This capability negotiation ensures clients and servers have a clear understanding of
 supported functionality while maintaining protocol extensibility.

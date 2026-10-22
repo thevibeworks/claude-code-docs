@@ -10,7 +10,7 @@ When Claude Desktop is deployed on third-party inference, Claude can work with y
 
 ## How the connection works
 
-Google's remote MCP servers don't support dynamic client registration, and Google's token endpoint requires the client secret even for a client of the **Desktop app** type. You create one Desktop-app OAuth client in your Google Cloud project, enter its client ID and client secret in the server's entry, and each user signs in with their own Google account. Google doesn't treat a Desktop-app client secret as confidential, so the Enterprise Admin Console stores it with the entry, as described under [Where the client secret goes](/docs/third-party/claude-desktop/mcp-sign-in#where-the-client-secret-goes). That page also explains each **OAuth** field.
+Google's remote MCP servers don't support dynamic client registration, and Google's token endpoint requires the client secret even for a client of the **Desktop app** type. You create one Desktop-app OAuth client in your Google Cloud project, enter its client ID and client secret in the server's entry, and each user signs in with their own Google account. Google doesn't treat a Desktop-app client secret as confidential, so the Enterprise Admin Console stores it with the entry, as described under [Where the client secret goes](/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes). That page also explains each **OAuth** field.
 
 ## Set up the BigQuery server
 
@@ -40,7 +40,9 @@ In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organizati
 
 ![Managed MCP server entry named BigQuery in the Enterprise Admin Console, with Transport set to Streamable HTTP, the BigQuery MCP URL, OAuth set to Bring your own client, and the Client ID, Client secret, and Authorization server fields filled in.](https://mintcdn.com/claude-ai/l0HgWAJ4dDJ1-I-u/images/third-party/admin-console-managed-mcp-oauth.png?fit=max\&auto=format\&n=l0HgWAJ4dDJ1-I-u\&q=85\&s=efa91a216efb8f99c1e4aefc0ed5b16a)
 
-Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console#configuration-updates). Devices need outbound HTTPS access to `bigquery.googleapis.com`, `accounts.google.com`, and `oauth2.googleapis.com`.
+A BigQuery entry on the Connectors page with OAuth set to Bring your own client.
+
+Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console.md#configuration-updates). Devices need outbound HTTPS access to `bigquery.googleapis.com`, `accounts.google.com`, and `oauth2.googleapis.com`.
 
 If you manage configuration through MDM or a bootstrap server instead, the equivalent [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry is:
 
@@ -67,7 +69,7 @@ Google's other remote MCP servers take the same **Client ID**, **Client secret**
 
 ## Troubleshoot sign-in errors
 
-These messages appear in `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage#where-data-lives) on the user's device.
+These messages appear in `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage.md#where-data-lives) on the user's device.
 
 | Message | Cause | Fix |
 | - | - | - |

@@ -1267,7 +1267,6 @@ Create Session
 
 ```bash
 ant beta:sessions create \
-  --api-key my-anthropic-api-key \
   --agent agent_011CZkYpogX7uDKUyvBTophP \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
@@ -2773,8 +2772,7 @@ List Sessions
 ### Example
 
 ```bash
-ant beta:sessions list \
-  --api-key my-anthropic-api-key
+ant beta:sessions list
 ```
 
 #### Response (200)
@@ -4211,7 +4209,6 @@ Get Session
 
 ```bash
 ant beta:sessions retrieve \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -5665,7 +5662,6 @@ Update Session
 
 ```bash
 ant beta:sessions update \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -5905,7 +5901,6 @@ Delete Session
 
 ```bash
 ant beta:sessions delete \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -7146,7 +7141,6 @@ Archive Session
 
 ```bash
 ant beta:sessions archive \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -21122,7 +21116,6 @@ List Events
 
 ```bash
 ant beta:sessions:events list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -21634,7 +21627,6 @@ Send Events
 
 ```bash
 ant beta:sessions:events send \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}'
 ```
@@ -24815,7 +24807,6 @@ Stream Events
 
 ```bash
 ant beta:sessions:events stream \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -24901,7 +24892,6 @@ Add Session Resource
 
 ```bash
 ant beta:sessions:resources add \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --file-id file_011CNha8iCJcU1wXNR6q4V8w \
   --type file
@@ -25072,7 +25062,6 @@ List Session Resources
 
 ```bash
 ant beta:sessions:resources list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -25242,7 +25231,6 @@ Get Session Resource
 
 ```bash
 ant beta:sessions:resources retrieve \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht
 ```
@@ -25406,7 +25394,6 @@ Update Session Resource
 
 ```bash
 ant beta:sessions:resources update \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht \
   --authorization-token ghp_exampletoken
@@ -25467,7 +25454,6 @@ Delete Session Resource
 
 ```bash
 ant beta:sessions:resources delete \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht
 ```
@@ -26415,7 +26401,6 @@ List Session Threads
 
 ```bash
 ant beta:sessions:threads list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
@@ -27427,7 +27412,6 @@ Get Session Thread
 
 ```bash
 ant beta:sessions:threads retrieve \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -28435,7 +28419,6 @@ Archive Session Thread
 
 ```bash
 ant beta:sessions:threads archive \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -31645,7 +31628,6 @@ List Session Thread Events
 
 ```bash
 ant beta:sessions:threads:events list \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```
@@ -34840,7 +34822,6 @@ Stream Session Thread Events
 
 ```bash
 ant beta:sessions:threads:events stream \
-  --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oJjw1rgXZpnBt
 ```

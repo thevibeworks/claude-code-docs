@@ -110,7 +110,7 @@ Until the allowlist is updated, sign-in will succeed but the connector returns *
 
 **4. Configure Claude Desktop**
 
-In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server → Microsoft 365**, and enter the values below.
+In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server → Microsoft 365**, and enter the values below.
 
 | Field | Value |
 | - | - |
@@ -141,7 +141,7 @@ After the configuration is deployed, each user opens **Customize → Connectors*
 
 ### Allow the required network hosts
 
-In addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), Claude Desktop needs outbound HTTPS access to the hosts below. The connector service itself calls `graph.microsoft.com` from Anthropic's infrastructure, so user devices do not need egress to Graph.
+In addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), Claude Desktop needs outbound HTTPS access to the hosts below. The connector service itself calls `graph.microsoft.com` from Anthropic's infrastructure, so user devices do not need egress to Graph.
 
 | Host | Purpose |
 | - | - |
@@ -266,7 +266,7 @@ Choose the local connector when your data-residency requirements do not allow Mi
 
 **2. Configure Claude Desktop**
 
-In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
+In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
 
 | Field | Value |
 | - | - |
@@ -301,7 +301,7 @@ The server ships inside the app, so nothing else needs to be installed on the de
 
 **3. Allow the required network hosts for local mode**
 
-The local connector calls Microsoft directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), devices need outbound HTTPS access to:
+The local connector calls Microsoft directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
 
 | Host | Purpose |
 | - | - |

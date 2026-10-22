@@ -8,11 +8,64 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v3.6556.1**
+
+2026-10-22
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`installedUpdateEnforcementEnabled`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementenabled) | `boolean` | Restart to apply installed updates |
+| [`installedUpdateEnforcementHours`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementhours) | `integer` | Installed-update enforcement window |
+| [`quickEntryScreenshotsEnabled`](/docs/third-party/claude-desktop/configuration#quickentryscreenshotsenabled) | `boolean` | Allow screenshots of the screen and other apps |
+| [`quickEntryFileSharingEnabled`](/docs/third-party/claude-desktop/configuration#quickentryfilesharingenabled) | `boolean` | Allow sharing files open in other apps |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "autoUpdate": {
+    "installedUpdateEnforcement": {
+      "enabled": "<boolean>",
+      "enforcementHours": "<integer>"
+    }
+  },
+  "workspace": {
+    "quickEntry": {
+      "screenshotsEnabled": "<boolean>",
+      "fileSharingEnabled": "<boolean>"
+    }
+  }
+}
+```
+
+**Changed:**
+
+* A `managedMcpServers` entry accepts `headersHelperArgs` (remote and web search entries) or `envHelperArgs` (local entries): arguments for its helper script. Its helpers, `oauth.clientSecretHelper` included, also get the entry's `name` in `CLAUDE_CODE_MCP_SERVER_NAME`. Earlier releases ignore the lists and run the helper with no arguments.
+* `allowedPluginMarketplaces`: moving an entry to a new source keeps its installed plugins when the new entry's `expectedName`, set in the same change, is the old marketplace's name. Plugins that the marketplace takes from another repository are still uninstalled.
+* `allowedWorkspaceFolders` on SSH hosts: an entry is left out, and allows nothing, unless it is a full path for that host with no `..` (`~/work`, not `work`; on Windows `C:\work`, not `\work`). A symbolic link listed inside another listed folder is left out too: list the folder it points to.
+* `allowedWorkspaceFolders`: a read-only entry whose `%VAR%` is unset or unsupported on a device (any `%VAR%` on an SSH host) now makes the folder holding the variable read-only (`~/Work` for `~/Work/%X%/a`; every allowed folder if the entry starts with it) instead of being ignored. A variable that only another operating system sets (`%APPDATA%` on macOS or on an SSH host) still leaves the entry without effect there.
+* `disableAutoUpdates`: when a newer version is installed while Claude is open, the app now offers to relaunch into it (macOS, Linux, and the MSIX package on Windows).
+* `managedMcpServers` with `server: "github"`: nine more write tools, among them `issue_write`, `pull_request_review_write` and `label_write`, now ask before every call. A `toolPolicy` key with a tool's exact name, or `"*"`, can still allow them. `actions_run_trigger` now asks before every call whatever `toolPolicy` says, and `toolPolicy` can still block it.
+* `sshClientPath` (beta) on Windows accepts Git for Windows' `ssh.exe` or another OpenSSH 8.5 or newer under Program Files, where device management, or the bootstrap server it names, sets the key and also sets `sshTransport` to `system-openssh`.
+* `updateViaUpdatesHost`: where `bootstrapUrl` is on `config.claude.com` and `bootstrapEnabled` is not off, update checks use `releases.claude.com` whatever this key says. Earlier releases do so only with the key on.
+
+**v3.1623.4**
+
+2026-10-22
+
+**Changed:**
+
+* `isLocalDevMcpEnabled` set to `false`, and `allowedPluginMcpServers`: a local MCP server from Claude Code's `managed-mcp.json` that uses `${VAR}` only in its `env` values now runs. One with a variable in its command or arguments is still stopped.
+
 **v3.1623.1**
+
+2026-10-21
 
 No configuration changes in this release.
 
 **v3.1623.0**
+
+2026-10-20
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -42,9 +95,13 @@ No configuration changes in this release.
 
 **v2.42304.2**
 
+2026-10-19
+
 No configuration changes in this release.
 
 **v2.42304.0**
+
+2026-10-15
 
 **Changed:**
 
@@ -53,6 +110,8 @@ No configuration changes in this release.
 * `claudeAiImport.automatic3pImport` now also reinstalls, without asking, the optional plugins that a user had switched on from any optional `allowedPluginMarketplaces` entry with the same source in the old and new organization.
 
 **v2.37337.1**
+
+2026-10-13
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -91,9 +150,13 @@ The former key names below are now unrecognized keys: the setting no longer appl
 
 **v2.31226.1**
 
+2026-10-09
+
 No configuration changes in this release.
 
 **v2.31226.0**
+
+2026-10-08
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -121,9 +184,13 @@ No configuration changes in this release.
 
 **v2.26454.2**
 
+2026-10-07
+
 No configuration changes in this release.
 
 **v2.26454.0**
+
+2026-10-06
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -150,15 +217,21 @@ No configuration changes in this release.
 
 **v2.19675.1**
 
+2026-10-05
+
 **Changed:**
 
 * `allowedWorkspaceFolders`, when set, now also limits which of a project's folders a chat can read: only those inside a listed folder.
 
 **v2.19675.0**
 
+2026-10-01
+
 No configuration changes in this release.
 
 **v2.16120.0**
+
+2026-09-29
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -184,9 +257,13 @@ No configuration changes in this release.
 
 **v2.9939.4**
 
+2026-09-27
+
 No configuration changes in this release.
 
 **v2.9939.2**
+
+2026-09-24
 
 **Changed:**
 
@@ -194,6 +271,8 @@ No configuration changes in this release.
 * `inferenceIdpOidc` and `inferenceGatewayOidc`: `resource` accepts, besides a web address, an identifier with a scheme of its own that is not a web address, such as an AD FS relying-party identifier (`urn:…`), which is sent to the identity provider exactly as written; a value with no scheme is still sent as `https://<value>`. Earlier releases accept only a web address here and ignore the whole sign-in object, not just `resource`, when it carries such an identifier, so deploy one only once every device has updated.
 
 **v2.7032.0**
+
+2026-09-22
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -249,13 +328,19 @@ No configuration changes in this release.
 
 **v2.2553.13**
 
+2026-09-21
+
 No configuration changes in this release.
 
 **v2.2553.1**
 
+2026-09-18
+
 No configuration changes in this release.
 
 **v2.2553.0**
+
+2026-09-17
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -297,6 +382,8 @@ No configuration changes in this release.
 
 **v2.110.0**
 
+2026-09-15
+
 | MDM key | Type | Description |
 | - | - | - |
 | [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) | `string[]` | Helper script arguments |
@@ -337,13 +424,19 @@ No configuration changes in this release.
 
 **v1.52386.6**
 
+2026-09-13
+
 No configuration changes in this release.
 
 **v1.52386.3**
 
+2026-09-11
+
 No configuration changes in this release.
 
 **v1.52386.0**
+
+2026-09-10
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -375,6 +468,8 @@ No configuration changes in this release.
 
 **v1.49585.0**
 
+2026-09-08
+
 **Changed:**
 
 * `managedMcpServers`: the built-in Microsoft 365 server entry (`"server": "microsoft365"`) accepts a new `continuousAccessEvaluation` value, `enabled` (the default) or `disabled`. When enabled, the bundled connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours but are cut off within minutes when an administrator revokes sessions or disables the account, or, where the tenant enforces a location or compliant-network Conditional Access policy, when the token is used from outside that network; `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts.
@@ -382,17 +477,25 @@ No configuration changes in this release.
 
 **v1.46388.4**
 
+2026-09-05
+
 No configuration changes in this release.
 
 **v1.46388.3**
+
+2026-09-04
 
 No configuration changes in this release.
 
 **v1.46388.2**
 
+2026-09-04
+
 No configuration changes in this release.
 
 **v1.46388.1**
+
+2026-09-04
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -424,13 +527,19 @@ No configuration changes in this release.
 
 **v1.44121.4**
 
+2026-09-02
+
 No configuration changes in this release.
 
 **v1.44121.2**
 
+2026-09-02
+
 No configuration changes in this release.
 
 **v1.44121.1**
+
+2026-09-02
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -464,9 +573,13 @@ No configuration changes in this release.
 
 **v1.40609.1**
 
+2026-08-30
+
 No configuration changes in this release.
 
 **v1.40609.0**
+
+2026-08-27
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -516,17 +629,25 @@ No configuration changes in this release.
 
 **v1.37937.3**
 
+2026-08-26
+
 No configuration changes in this release.
 
 **v1.37937.2**
+
+2026-08-26
 
 No configuration changes in this release.
 
 **v1.37937.1**
 
+2026-08-25
+
 No configuration changes in this release.
 
 **v1.37937.0**
+
+2026-08-25
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -578,13 +699,19 @@ No configuration changes in this release.
 
 **v1.34493.1**
 
+2026-08-21
+
 No configuration changes in this release.
 
 **v1.34493.0**
 
+2026-08-20
+
 No configuration changes in this release.
 
 **v1.32885.1**
+
+2026-08-18
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -608,9 +735,13 @@ No configuration changes in this release.
 
 **v1.32352.1**
 
+2026-08-18
+
 No configuration changes in this release.
 
 **v1.32352.0**
+
+2026-08-17
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -645,9 +776,13 @@ No configuration changes in this release.
 
 **v1.30096.5**
 
+2026-08-14
+
 No configuration changes in this release.
 
 **v1.30096.1**
+
+2026-08-13
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -679,6 +814,8 @@ No configuration changes in this release.
 
 **v1.28929.0**
 
+2026-08-11
+
 | MDM key | Type | Description |
 | - | - | - |
 | [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) | `boolean` | Default to 1M context |
@@ -705,6 +842,8 @@ No configuration changes in this release.
 
 **v1.26832.0**
 
+2026-08-06
+
 | MDM key | Type | Description |
 | - | - | - |
 | [`updateViaUpdatesHost`](/docs/third-party/claude-desktop/configuration#updateviaupdateshost) | `boolean` | Check for updates on releases.claude.com |
@@ -723,6 +862,8 @@ No configuration changes in this release.
 `trustBootstrapLocalExec` was renamed to `trustBootstrapDelivery`; the previous name is still accepted.
 
 **v1.25927.0**
+
+2026-08-04
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -759,9 +900,13 @@ No configuration changes in this release.
 
 **v1.24012.11**
 
+2026-08-03
+
 No configuration changes in this release.
 
 **v1.24012.9**
+
+2026-07-24
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -778,6 +923,8 @@ No configuration changes in this release.
 ```
 
 **v1.24012.0**
+
+2026-07-21
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -797,9 +944,13 @@ No configuration changes in this release.
 
 **v1.22209.3**
 
+2026-07-19
+
 No configuration changes in this release.
 
 **v1.22209.0**
+
+2026-07-16
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -817,9 +968,13 @@ No configuration changes in this release.
 
 **v1.21459.3**
 
+2026-07-16
+
 No configuration changes in this release.
 
 **v1.21459.0**
+
+2026-07-14
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -850,13 +1005,19 @@ No configuration changes in this release.
 
 **v1.20186.9**
 
+2026-07-14
+
 No configuration changes in this release.
 
 **v1.20186.0**
 
+2026-07-09
+
 No configuration changes in this release.
 
 **v1.19367.0**
+
+2026-07-07
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -886,9 +1047,13 @@ No configuration changes in this release.
 
 **v1.18286.2**
 
+2026-07-07
+
 No configuration changes in this release.
 
 **v1.18286.0**
+
+2026-07-02
 
 **Removed:**
 
@@ -896,9 +1061,13 @@ No configuration changes in this release.
 
 **v1.17377.2**
 
+2026-07-01
+
 No configuration changes in this release.
 
 **v1.17377.1**
+
+2026-06-30
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -921,13 +1090,19 @@ No configuration changes in this release.
 
 **v1.15962.2**
 
+2026-06-30
+
 No configuration changes in this release.
 
 **v1.15962.1**
 
+2026-06-26
+
 No configuration changes in this release.
 
 **v1.15962.0**
+
+2026-06-25
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -963,9 +1138,13 @@ No configuration changes in this release.
 
 **v1.15200.0**
 
+2026-06-23
+
 No configuration changes in this release.
 
 **v1.14271.0**
+
+2026-06-18
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -991,6 +1170,8 @@ No configuration changes in this release.
 
 **v1.13576.0**
 
+2026-06-16
+
 | MDM key | Type | Description |
 | - | - | - |
 | `chatTabEnabled` | `boolean` | Allow Chat tab |
@@ -1013,6 +1194,8 @@ No configuration changes in this release.
 
 **v1.12603.0**
 
+2026-06-11
+
 | MDM key | Type | Description |
 | - | - | - |
 | `inferenceVertexOAuthLoginHint` | `string` | Vertex OAuth login hint |
@@ -1030,6 +1213,8 @@ No configuration changes in this release.
 ```
 
 **v1.10628.0**
+
+2026-06-02
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -1067,6 +1252,8 @@ No configuration changes in this release.
 
 **v1.9659.0**
 
+2026-05-27
+
 | MDM key | Type | Description |
 | - | - | - |
 | `coworkTabEnabled` | `boolean` | Allow Cowork tab |
@@ -1082,6 +1269,8 @@ No configuration changes in this release.
 ```
 
 **v1.9255.0**
+
+2026-05-26
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -1107,6 +1296,8 @@ No configuration changes in this release.
 
 **v1.8555.0**
 
+2026-05-21
+
 | MDM key | Type | Description |
 | - | - | - |
 | `inferenceCredentialKind` | `enum` | Credential kind |
@@ -1124,6 +1315,8 @@ No configuration changes in this release.
 ```
 
 **v1.8089.0**
+
+2026-05-19
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -1150,11 +1343,15 @@ No configuration changes in this release.
 
 **v1.7196.0**
 
+2026-05-12
+
 | MDM key | Type | Description |
 | - | - | - |
 | `banner` | `object` | Organization banner |
 
 **v1.6889.0**
+
+2026-05-08
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -1184,6 +1381,8 @@ No configuration changes in this release.
 
 **v1.6259.0**
 
+2026-05-05
+
 | MDM key | Type | Description |
 | - | - | - |
 | `inferenceBedrockSsoStartUrl` | `string` | AWS SSO start URL |
@@ -1208,6 +1407,8 @@ No configuration changes in this release.
 
 **v1.5354.0**
 
+2026-04-29
+
 | MDM key | Type | Description |
 | - | - | - |
 | `otlpResourceAttributes` | `object` | OpenTelemetry resource attributes |
@@ -1223,6 +1424,8 @@ No configuration changes in this release.
 ```
 
 **v1.5186.0**
+
+2026-04-28
 
 | MDM key | Type | Description |
 | - | - | - |
@@ -1240,11 +1443,15 @@ No configuration changes in this release.
 
 **v1.3834.0**
 
+2026-04-21
+
 | MDM key | Type | Description |
 | - | - | - |
 | `disableDeploymentModeChooser` | `boolean` | Disable Claude.ai sign-in |
 
 **v1.3036.0**
+
+2026-04-16
 
 | MDM key | Type | Description |
 | - | - | - |

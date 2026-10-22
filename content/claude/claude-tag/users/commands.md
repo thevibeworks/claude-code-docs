@@ -22,7 +22,7 @@ A command is `@Claude` followed immediately by one of a few exact words starting
 
 Claude replies with the commands it understands in your workspace. The list can differ by workspace, since a command can be enabled for some workspaces and not others.
 
-In a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company, only `!help`, `!mute`, `!unmute`, `!restart`, and `!fast` work, and people from the other company can use only `!help`.
+In a [Slack Connect channel](/docs/claude-tag/admins/restrict-access.md#slack-connect-channels), one shared with another company, only `!help`, `!mute`, `!unmute`, `!restart`, and `!fast` work, and people from the other company can use only `!help`.
 
 ## Get the link to configure a channel
 
@@ -30,7 +30,7 @@ In a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-conne
 @Claude !configure
 ```
 
-Run `!configure` in a channel, and Claude replies in the thread with a link to that channel's Configure page on claude.ai. On that page you [tailor how Claude works in the channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), for example by editing its channel instructions, and it's the same page the **Configure** link in the footer of any Claude reply opens. In a DM with Claude there are no per-channel settings, so Claude replies there with a link to [Claude Tag admin settings](https://claude.ai/admin-settings/claude-tag) instead.
+Run `!configure` in a channel, and Claude replies in the thread with a link to that channel's Configure page on claude.ai. On that page you [tailor how Claude works in the channel](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel), for example by editing its channel instructions, and it's the same page the **Configure** link in the footer of any Claude reply opens. In a DM with Claude there are no per-channel settings, so Claude replies there with a link to [Claude Tag admin settings](https://claude.ai/admin-settings/claude-tag) instead.
 
 ## Restart a stuck or wrong-context session
 
@@ -40,7 +40,7 @@ Run `!configure` in a channel, and Claude replies in the thread with a link to t
 
 Use this when a session is stuck, or when it's carrying context you don't want the next reply to build on. Claude archives the current session and starts a fresh one in its place.
 
-Every thread Claude takes part in runs a session of its own, holding that one conversation. Some channels have one more session on top of the per-thread ones. That session belongs to the channel itself, and it's the session Claude works from at the channel's top level, outside any thread. When Claude [replies to a top-level message no one mentioned it in](/docs/claude-tag/users/when-claude-responds), the channel's session is the one replying.
+Every thread Claude takes part in runs a session of its own, holding that one conversation. Some channels have one more session on top of the per-thread ones. That session belongs to the channel itself, and it's the session Claude works from at the channel's top level, outside any thread. When Claude [replies to a top-level message no one mentioned it in](/docs/claude-tag/users/when-claude-responds.md), the channel's session is the one replying.
 
 Where you run `!restart` picks which session gets replaced:
 
@@ -73,7 +73,7 @@ I'm still working in this thread (started 6m ago).
 @Claude !mute
 ```
 
-Run `!mute` in a thread Claude is part of, and Claude stops replying there. Muting is per thread by design. Other threads, the channel's top level, [routine](/docs/claude-tag/users/proactivity) posts, and service notices are unaffected.
+Run `!mute` in a thread Claude is part of, and Claude stops replying there. Muting is per thread by design. Other threads, the channel's top level, [routine](/docs/claude-tag/users/proactivity.md) posts, and service notices are unaffected.
 
 There's no channel-level mute. If you run `!mute` at a channel's top level, Claude posts this hint:
 
@@ -81,7 +81,7 @@ There's no channel-level mute. If you run `!mute` at a channel's top level, Clau
 :mute: Muting works per thread — reply `@Claude !mute` (or `!unmute`) inside the thread you mean.
 ```
 
-To quiet unprompted replies across a whole channel, turn the channel's [**Respond automatically** setting](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) off.
+To quiet unprompted replies across a whole channel, turn the channel's [**Respond automatically** setting](/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) off.
 
 Unmute the same way:
 
@@ -110,16 +110,16 @@ To get a corrected answer, @-mention Claude in the thread and say what was wrong
 @Claude !fast off
 ```
 
-`!fast` turns on [fast mode](/docs/claude-tag/users/models#run-a-thread-in-fast-mode), which gives faster output at a higher cost per token. `!fast on` does the same, and `!fast off` returns to standard speed. Any other text after `!fast` makes the message an ordinary prompt.
+`!fast` turns on [fast mode](/docs/claude-tag/users/models.md#run-a-thread-in-fast-mode), which gives faster output at a higher cost per token. `!fast on` does the same, and `!fast off` returns to standard speed. Any other text after `!fast` makes the message an ordinary prompt.
 
 Fast mode runs on Opus models, so `!fast` can change the session's model as well as its speed. The footer of each Claude reply names the model the session is on.
 
 * **If the session is on an Opus model**, it stays on that model
-* **If the session is on another model, such as Sonnet**, Claude switches it to the newest Opus model [you can use](/docs/claude-tag/users/models#which-models-you-can-use). The session stays on that model after `!fast off`. To go back, [ask Claude to switch models](/docs/claude-tag/users/models#switch-the-model-in-a-thread).
+* **If the session is on another model, such as Sonnet**, Claude switches it to the newest Opus model [you can use](/docs/claude-tag/users/models.md#which-models-you-can-use). The session stays on that model after `!fast off`. To go back, [ask Claude to switch models](/docs/claude-tag/users/models.md#switch-the-model-in-a-thread).
 
 In both cases, replies speed up only if that Opus version [supports fast mode](https://code.claude.com/docs/en/fast-mode).
 
-The command changes a different [session](/docs/claude-tag/concepts/glossary#session) depending on where you send it:
+The command changes a different [session](/docs/claude-tag/concepts/glossary.md#session) depending on where you send it:
 
 * **In a thread**, it changes that thread's session. In a channel thread Claude isn't part of yet, `!fast` starts the thread's session in fast mode and switches its model the same way, so your next request there runs fast from the start.
 * **At a channel's top level**, it changes the channel's own session, the one Claude works from outside any thread. Thread sessions keep their speed. Claude's confirmation appears as a reply under your command. To turn fast mode off again, send `!fast off` at the top level, not in that reply thread.
@@ -137,7 +137,7 @@ When Claude doesn't apply the command, its reply says why:
 
 | Claude replies | What to do |
 | :- | :- |
-| `Fast mode isn't turned on for this organization. An organization owner can turn it on.` | Ask an Owner to [allow fast mode](/docs/claude-tag/admins/customize#allow-fast-mode) |
+| `Fast mode isn't turned on for this organization. An organization owner can turn it on.` | Ask an Owner to [allow fast mode](/docs/claude-tag/admins/customize.md#allow-fast-mode) |
 | `Fast mode can't be changed for organizations with restricted compliance settings.` | Work at standard speed. Your organization's compliance settings don't allow fast mode. |
 | `Fast mode isn't available for this session.` | Run the command in a new thread. If Claude gives the same reply there, fast mode isn't available in this channel. |
 | `Only a workspace member who can use Claude here can change fast mode.` | Ask a full member of the workspace who can message Claude in this channel to run the command |
@@ -163,7 +163,7 @@ Opens a form in Slack for sending feedback on Claude Tag to the team that builds
 @Claude !routines
 ```
 
-Claude replies in the thread with the [routines](/docs/claude-tag/users/proactivity) set up in the channel: the scheduled jobs, watched channels, and other standing work it runs there. The list covers only that channel's routines.
+Claude replies in the thread with the [routines](/docs/claude-tag/users/proactivity.md) set up in the channel: the scheduled jobs, watched channels, and other standing work it runs there. The list covers only that channel's routines.
 
 * **For the current channel**, run `!routines` in that channel.
 * **For another channel**, add the channel mention or its ID, as in `@Claude !routines #other-channel`. You need to be a member of that channel, and it must belong to your organization. Claude sends the list in a reply only you can see, so that channel's routines aren't posted for everyone in the channel where you asked.
@@ -194,6 +194,6 @@ If the fork can't be set up, Claude replies with a note only you can see, and no
 
 ## Related resources
 
-* [Set up routines](/docs/claude-tag/users/proactivity): the standing work `!routines` lists, and how to create, edit, or disable it
-* [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds): what makes Claude reply without any command or mention at all
-* [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access): the admin controls that decide who can message Claude at all, including its commands
+* [Set up routines](/docs/claude-tag/users/proactivity.md): the standing work `!routines` lists, and how to create, edit, or disable it
+* [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds.md): what makes Claude reply without any command or mention at all
+* [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access.md): the admin controls that decide who can message Claude at all, including its commands

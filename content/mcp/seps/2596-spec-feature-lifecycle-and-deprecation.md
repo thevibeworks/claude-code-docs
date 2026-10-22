@@ -15,7 +15,7 @@ Process
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest) and its changelog for authoritative
+> specification](/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -233,7 +233,7 @@ Deprecated and its earliest removal.
 As with all Core Maintainer decisions, Lead Maintainers retain veto authority over each of the
 approvals above, per the [governance roles][governance-roles] definition.
 
-[governance-roles]: https://modelcontextprotocol.io/community/governance#roles
+[governance-roles]: https://modelcontextprotocol.io/community/governance.md#roles
 
 ### Transition
 
@@ -384,27 +384,27 @@ land directly in `draft/` when this SEP reaches Final.
   deprecation field on responses, comparable to the Kubernetes `Warning` header) would close that
   gap but is a Standards Track change outside the scope of this Process SEP.
 
-[transports-compat]: https://modelcontextprotocol.io/specification/draft/basic/transports#backwards-compatibility
+[transports-compat]: https://modelcontextprotocol.io/specification/draft/basic/transports.md#backwards-compatibility
 
-[sampling-includecontext]: https://modelcontextprotocol.io/specification/draft/client/sampling
+[sampling-includecontext]: https://modelcontextprotocol.io/specification/draft/client/sampling.md
 
-[versioning]: https://modelcontextprotocol.io/docs/learn/versioning
+[versioning]: https://modelcontextprotocol.io/docs/learn/versioning.md
 
-[design-principles]: https://modelcontextprotocol.io/community/design-principles
+[design-principles]: https://modelcontextprotocol.io/community/design-principles.md
 
-[sep-guidelines]: https://modelcontextprotocol.io/community/sep-guidelines
+[sep-guidelines]: https://modelcontextprotocol.io/community/sep-guidelines.md
 
-[governance-decisions]: https://modelcontextprotocol.io/community/governance#decision-process
+[governance-decisions]: https://modelcontextprotocol.io/community/governance.md#decision-process
 
-[sep-1730]: https://modelcontextprotocol.io/seps/1730-sdks-tiering-system
+[sep-1730]: https://modelcontextprotocol.io/seps/1730-sdks-tiering-system.md
 
-[sep-1730-relegation]: https://modelcontextprotocol.io/seps/1730-sdks-tiering-system#tier-relegation-process
+[sep-1730-relegation]: https://modelcontextprotocol.io/seps/1730-sdks-tiering-system.md#tier-relegation-process
 
 [sep-1400]: https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1400
 
 [issue-1540]: https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1540
 
-[sep-2577]: https://modelcontextprotocol.io/seps/2577-deprecate-roots-sampling-and-logging
+[sep-2577]: https://modelcontextprotocol.io/seps/2577-deprecate-roots-sampling-and-logging.md
 
 [nyc-2026-03-31]: https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/2547
 

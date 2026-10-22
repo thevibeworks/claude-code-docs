@@ -24,8 +24,8 @@ Each primitive can be summarized in the following control hierarchy:
 
 Explore these key primitives in more detail below:
 
-> **[Prompts](/specification/draft/server/prompts)**
+> **[Prompts](/specification/draft/server/prompts.md)**
 
-> **[Resources](/specification/draft/server/resources)**
+> **[Resources](/specification/draft/server/resources.md)**
 
-> **[Tools](/specification/draft/server/tools)**
+> **[Tools](/specification/draft/server/tools.md)**

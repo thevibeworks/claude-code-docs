@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview.md). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
 
 ```text Prompt wrap theme={null}
 In 1963 the mathematician Stanisław Ulam, doodling during a long and boring talk, wrote the whole numbers in a square spiral and circled the primes. Recreate his picture. Find all primes up to 40,401 (= 201 × 201) with a sieve of Eratosthenes, and check that 1,229 of them are below 10,000. Write 1, 2, 3, … in a square spiral starting from the center, and mark the primes.

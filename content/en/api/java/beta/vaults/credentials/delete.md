@@ -143,7 +143,7 @@ Delete a Credential
 
   Confirmation of a deleted credential.
 
-  - `Type type`
+  - `JsonValue type = "vault_credential_deleted"`
 
   - `String id`
 

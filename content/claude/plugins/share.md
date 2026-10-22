@@ -6,14 +6,14 @@
 
 > Share a plugin you made with specific people in your Team or Enterprise organization, or publish it to your organization's library.
 
-On a Team or Enterprise plan, you can get a [plugin](/docs/plugins/overview) you made to other people in your organization. You share it with specific people yourself, or you publish it to your organization's library, where an Owner decides who can find and install it.
+On a Team or Enterprise plan, you can get a [plugin](/docs/plugins/overview.md) you made to other people in your organization. You share it with specific people yourself, or you publish it to your organization's library, where an Owner decides who can find and install it.
 
-This page is for someone on a Team or Enterprise plan who created or uploaded a plugin, for example with [Create a plugin with Claude](/docs/plugins/create-with-claude).
+This page is for someone on a Team or Enterprise plan who created or uploaded a plugin, for example with [Create a plugin with Claude](/docs/plugins/create-with-claude.md).
 
 > [!NOTE]
 >
-> * If you're an Owner reviewing what members publish, see [Manage plugins for your organization](/docs/plugins/admin)
-> * If you want a wider audience than your organization, see [Plugin structure and testing](/docs/plugins/build) and [Publish to the directory](/docs/directory/publish)
+> * If you're an Owner reviewing what members publish, see [Manage plugins for your organization](/docs/plugins/admin.md)
+> * If you want a wider audience than your organization, see [Plugin structure and testing](/docs/plugins/build.md) and [Publish to the directory](/docs/directory/publish.md)
 
 To give the plugin to people you name, go to [Share a plugin with specific people](#share-a-plugin-with-specific-people). To reach the whole organization, go to [Publish a plugin to your organization](#publish-a-plugin-to-your-organization).
 
@@ -28,7 +28,7 @@ You can get the plugin to specific people, to your organization's library, to so
 * **Share**: specific people in your organization get the plugin from you directly
 * **Publish to org**: the plugin goes to your organization's library, where an Owner decides who can find and install it. See [Publish a plugin to your organization](#publish-a-plugin-to-your-organization)
 * **The plugin file**: someone in another organization or on a personal plan adds the `.plugin` file or a zip of the plugin with **Add > Upload plugin**. It becomes a separate plugin on their account
-* **A marketplace or the directory**: for a wider audience, put the plugin in a Git repository as a folder, as [Plugin structure and testing](/docs/plugins/build) describes, then share it through [your own marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) or [the directory](/docs/directory/publish)
+* **A marketplace or the directory**: for a wider audience, put the plugin in a Git repository as a folder, as [Plugin structure and testing](/docs/plugins/build.md) describes, then share it through [your own marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) or [the directory](/docs/directory/publish.md)
 
 ### Share the plugin
 
@@ -51,7 +51,7 @@ Add each person by name or email address, then confirm the share.
 * **What they do**: open the plugin and turn on its toggle. When the plugin includes something that runs on their computer, such as a local MCP server or a hook, Claude asks them to confirm first
 * **What they can change**: nothing in the plugin. They can view it, turn it on or off, and use it. It stays in their list for as long as you share it
 * **Your later edits**: people who turned the plugin on get your new version wherever they use Claude, including chat on the web
-* **Connectors**: your connector sign-ins aren't shared. Each person adds or connects the plugin's connectors with their own account, as [Bundled connectors](/docs/plugins/overview#bundled-connectors) describes
+* **Connectors**: your connector sign-ins aren't shared. Each person adds or connects the plugin's connectors with their own account, as [Bundled connectors](/docs/plugins/overview.md#bundled-connectors) describes
 * **The link**: **Copy link** in the share dialog copies a link to the plugin's page. Only people you've shared the plugin with can open it
 
 ### Stop sharing a plugin
@@ -79,7 +79,7 @@ To publish, open the plugin from **Customize > Plugins** and select **Publish to
 * **Open**: the plugin is published without review. Where your organization scans what members publish, it goes live after the security scan passes
 * **Off**: your organization doesn't accept plugins from members, and **Publish to org** doesn't appear on your plugin
 
-On a Team plan, the **Publishing** setting is **Open** unless an Owner has changed it. [Review plugins that members publish](/docs/plugins/admin#review-plugins-that-members-publish) lists the default for each plan.
+On a Team plan, the **Publishing** setting is **Open** unless an Owner has changed it. [Review plugins that members publish](/docs/plugins/admin.md#review-plugins-that-members-publish) lists the default for each plan.
 
 You see the result on the plugin's own page, which shows whether the submission is waiting for review, denied, or published:
 
@@ -89,6 +89,6 @@ You see the result on the plugin's own page, which shows whether the submission 
 
 ## Next steps
 
-* [Create a plugin with Claude](/docs/plugins/create-with-claude): make a plugin in claude.ai or the desktop app with Claude's help
-* [Manage plugins for your organization](/docs/plugins/admin): if you're an Owner, turn sharing and publishing on or off for members
-* [Plugin structure and testing](/docs/plugins/build): write the plugin as a folder for a marketplace or the directory
+* [Create a plugin with Claude](/docs/plugins/create-with-claude.md): make a plugin in claude.ai or the desktop app with Claude's help
+* [Manage plugins for your organization](/docs/plugins/admin.md): if you're an Owner, turn sharing and publishing on or off for members
+* [Plugin structure and testing](/docs/plugins/build.md): write the plugin as a folder for a marketplace or the directory

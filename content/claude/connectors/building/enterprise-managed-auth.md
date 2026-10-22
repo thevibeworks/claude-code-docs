@@ -8,7 +8,7 @@
 
 > [!NOTE]
 >
-> Enterprise Managed Auth is available on Claude Team and Enterprise plans. After your authorization server supports it, email `mcp-review@anthropic.com` to have [your directory listing](/docs/connectors/building/managing-your-listing) marked as supporting Enterprise Managed Auth.
+> Enterprise Managed Auth is available on Claude Team and Enterprise plans. After your authorization server supports it, email `mcp-review@anthropic.com` to have [your directory listing](/docs/connectors/building/managing-your-listing.md) marked as supporting Enterprise Managed Auth.
 
 Enterprise Managed Auth (EMA) lets a user connect to your MCP server silently, using the single sign-on session they already have with their organization. Instead of showing each user an OAuth consent screen, Claude presents your authorization server with an identity assertion: a signed JSON Web Token (JWT), issued by the customer's identity provider, that vouches for the user's identity.
 
@@ -28,9 +28,9 @@ The Enterprise Managed Auth flow is defined by the [MCP enterprise managed autho
 
 ### Enterprise Managed Auth with lazy authentication
 
-Enterprise Managed Auth also works with [lazy authentication](/docs/connectors/building/lazy-authentication). When your server returns `401 Unauthorized` for a protected tool call, Claude normally shows the inline **Connect** card and runs the interactive OAuth flow. If the user's organization has Enterprise Managed Auth configured for your connector, Claude runs the silent JWT bearer exchange instead and retries the tool call without showing a prompt.
+Enterprise Managed Auth also works with [lazy authentication](/docs/connectors/building/lazy-authentication.md). When your server returns `401 Unauthorized` for a protected tool call, Claude normally shows the inline **Connect** card and runs the interactive OAuth flow. If the user's organization has Enterprise Managed Auth configured for your connector, Claude runs the silent JWT bearer exchange instead and retries the tool call without showing a prompt.
 
-Your MCP server returns the same `401` with a `WWW-Authenticate` header as described in the [lazy authentication guide](/docs/connectors/building/lazy-authentication#answer-a-protected-call-with-401-before-the-mcp-sdk-runs). Your authorization server must still meet the [authorization server requirements](#authorization-server-requirements).
+Your MCP server returns the same `401` with a `WWW-Authenticate` header as described in the [lazy authentication guide](/docs/connectors/building/lazy-authentication.md#answer-a-protected-call-with-401-before-the-mcp-sdk-runs). Your authorization server must still meet the [authorization server requirements](#authorization-server-requirements).
 
 Enterprise Managed Auth doesn't apply to authless servers. A fully authless server never returns `401`, so there is no point at which Claude can exchange an assertion.
 
@@ -38,8 +38,8 @@ Enterprise Managed Auth doesn't apply to authless servers. A fully authless serv
 
 Before adding Enterprise Managed Auth, make sure the following are already in place:
 
-* Your MCP server implements [MCP authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization), including Protected Resource Metadata (PRM) discovery, and follows the [MCP security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices). See the [authentication guide](/docs/connectors/building/authentication) for Claude-specific requirements
-* Your authorization server registers Claude using either [Anthropic-held client credentials](/docs/connectors/building/authentication#anthropic-held-client-credentials) or a [Client ID Metadata Document](/docs/connectors/building/authentication#dcr-and-cimd-details)
+* Your MCP server implements [MCP authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization), including Protected Resource Metadata (PRM) discovery, and follows the [MCP security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices). See the [authentication guide](/docs/connectors/building/authentication.md) for Claude-specific requirements
+* Your authorization server registers Claude using either [Anthropic-held client credentials](/docs/connectors/building/authentication.md#anthropic-held-client-credentials) or a [Client ID Metadata Document](/docs/connectors/building/authentication.md#dcr-and-cimd-details)
 
 > [!WARNING]
 >
@@ -137,7 +137,7 @@ In your product's admin settings, give each customer's administrator a control t
 
 ### Provide setup documentation
 
-You can publish documentation that walks an enterprise administrator through enabling Enterprise Managed Auth for your product and add its URL to [your directory listing](/docs/connectors/building/managing-your-listing). Claude shows the link in the Claude admin console when an administrator sets up Enterprise Managed Auth for your connector.
+You can publish documentation that walks an enterprise administrator through enabling Enterprise Managed Auth for your product and add its URL to [your directory listing](/docs/connectors/building/managing-your-listing.md). Claude shows the link in the Claude admin console when an administrator sets up Enterprise Managed Auth for your connector.
 
 ### Okta Integration Network apps
 
@@ -145,7 +145,7 @@ If your product has an app in the Okta Integration Network, work with Okta to en
 
 ## Related resources
 
-* [Authentication for connectors](/docs/connectors/building/authentication): baseline OAuth requirements your server must already meet
-* [Lazy authentication](/docs/connectors/building/lazy-authentication): ask users to sign in only when Claude reaches a tool that needs their account
-* [Test your connector](/docs/connectors/building/testing): verify your connector works end to end in Claude
-* [Troubleshoot your connector](/docs/connectors/building/troubleshooting): diagnose common authentication and connection issues
+* [Authentication for connectors](/docs/connectors/building/authentication.md): baseline OAuth requirements your server must already meet
+* [Lazy authentication](/docs/connectors/building/lazy-authentication.md): ask users to sign in only when Claude reaches a tool that needs their account
+* [Test your connector](/docs/connectors/building/testing.md): verify your connector works end to end in Claude
+* [Troubleshoot your connector](/docs/connectors/building/troubleshooting.md): diagnose common authentication and connection issues

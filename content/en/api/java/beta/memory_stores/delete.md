@@ -141,7 +141,7 @@ Delete a Memory Store
 
   Confirmation that a `memory_store` was deleted.
 
-  - `Type type`
+  - `JsonValue type = "memory_store_deleted"`
 
   - `String id`
 

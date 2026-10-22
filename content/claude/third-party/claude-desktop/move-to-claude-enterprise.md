@@ -53,21 +53,21 @@ Special cases:
 
 ## What changes for your security controls
 
-After the change, most of your cloud provider settings in the [configuration reference](/docs/third-party/claude-desktop/configuration) stop working without warning, even if their keys stay deployed, including permission, plugin, and browser limits. Set up replacements first:
+After the change, most of your cloud provider settings in the [configuration reference](/docs/third-party/claude-desktop/configuration.md) stop working without warning, even if their keys stay deployed, including permission, plugin, and browser limits. Set up replacements first:
 
 * Cowork's telemetry and network egress: your organization settings.
 * Code sessions' telemetry, SSH host limits (any host is allowed until you set a list), and session retention (`cleanupPeriodDays`): Claude Code's managed settings.
-* Remote [managed MCP servers](/docs/third-party/claude-desktop/configuration#managedmcpservers): add them as connectors. The Microsoft 365 connector keeps working.
+* Remote [managed MCP servers](/docs/third-party/claude-desktop/configuration.md#managedmcpservers): add them as connectors. The Microsoft 365 connector keeps working.
 
 Telemetry opt-outs, the egress list for Code sessions, Cowork's session retention, and locally run managed MCP servers have no replacement. The command sandbox in Code sessions stays on only where [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) is set. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
 
 ## Migrate your fleet
 
-Remove the old keys and set the new one in one change to the policy or profile that carries your Claude settings: an `HKEY_LOCAL_MACHINE` policy on Windows (not `HKEY_CURRENT_USER`), or a [configuration profile](/docs/third-party/claude-desktop/mdm) on macOS.
+Remove the old keys and set the new one in one change to the policy or profile that carries your Claude settings: an `HKEY_LOCAL_MACHINE` policy on Windows (not `HKEY_CURRENT_USER`), or a [configuration profile](/docs/third-party/claude-desktop/mdm.md) on macOS.
 
 **1. Remove the cloud provider keys**
 
-Remove every key that puts the app in third-party mode, such as those that start with `inference` or `bootstrap`. Also remove [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) and [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). Leave other keys in place. If your settings come from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), copy the keys you want to keep into the policy or profile itself.
+Remove every key that puts the app in third-party mode, such as those that start with `inference` or `bootstrap`. Also remove [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) and [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). Leave other keys in place. If your settings come from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md), copy the keys you want to keep into the policy or profile itself.
 
 The desktop extensions feature is on after the change unless [`isDesktopExtensionEnabled`](/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
 

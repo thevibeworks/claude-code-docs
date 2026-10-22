@@ -49,7 +49,6 @@ Delete Skill
 
 ```bash
 ant beta:skills delete \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 

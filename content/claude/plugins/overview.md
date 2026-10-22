@@ -6,15 +6,15 @@
 
 > Add plugins to Claude: what a plugin adds, where to find and install one, and where it's available across chat, Cowork, and Claude Code.
 
-A plugin packages [skills](/docs/skills/overview), [MCP connectors](/docs/connectors/getting-started), and [commands and agents](#compare-what-each-plugin-component-adds) so you can add them to Claude as one unit. You add plugins from [**Customize > Plugins**](https://claude.ai/customize/plugins) in claude.ai or the Claude desktop app; **Customize** is the page that holds your connectors, skills, and plugins. Each plugin is saved to your account, so it's also available in Cowork and Claude Code without installing it again.
+A plugin packages [skills](/docs/skills/overview.md), [MCP connectors](/docs/connectors/getting-started.md), and [commands and agents](#compare-what-each-plugin-component-adds) so you can add them to Claude as one unit. You add plugins from [**Customize > Plugins**](https://claude.ai/customize/plugins) in claude.ai or the Claude desktop app; **Customize** is the page that holds your connectors, skills, and plugins. Each plugin is saved to your account, so it's also available in Cowork and Claude Code without installing it again.
 
 This page is for people using plugins in claude.ai, the Claude desktop app, and Cowork.
 
 > [!NOTE]
 >
-> * If you want to build a plugin or submit one to the directory, see [Plugin structure and testing](/docs/plugins/build) and [Publish to the directory](/docs/directory/publish)
+> * If you want to build a plugin or submit one to the directory, see [Plugin structure and testing](/docs/plugins/build.md) and [Publish to the directory](/docs/directory/publish.md)
 > * If you install and manage plugins from the Claude Code command line, see [Install plugins](https://code.claude.com/docs/en/plugins/install) in the Claude Code docs
-> * If you have a `.mcpb` file to install into the Claude desktop app, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted#install-a-local-connector-in-the-desktop-app)
+> * If you have a `.mcpb` file to install into the Claude desktop app, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app)
 
 To get started, [find and add a plugin](#find-and-add-a-plugin), then see [how to use it in each app](#use-a-plugin) and [where it becomes available on your account](#find-the-plugin-in-each-app).
 
@@ -30,19 +30,19 @@ A plugin's skills and commands are instructions Claude follows, and its connecto
 * **A connector marked Runs in each session**: runs a program on your computer
 * **A mod**, in Claude Code only: code that runs inside Claude Code and can change what it does and shows. See [Decide whether to trust a mod](https://code.claude.com/docs/en/plugins/mods/overview#decide-whether-to-trust-a-mod)
 
-Anthropic reviews plugins listed in the directory: every version gets automated validation and a security scan, and a person reviews a new listing before it goes live, as [Prepare for review](/docs/directory/publish#prepare-for-review) describes. That review doesn't cover a plugin you add from a marketplace URL or upload yourself, so add those only from sources you trust.
+Anthropic reviews plugins listed in the directory: every version gets automated validation and a security scan, and a person reviews a new listing before it goes live, as [Prepare for review](/docs/directory/publish.md#prepare-for-review) describes. That review doesn't cover a plugin you add from a marketplace URL or upload yourself, so add those only from sources you trust.
 
-On Team and Enterprise plans, an Owner controls which sources members see and whether they can add their own, as [Manage plugins for your organization](/docs/plugins/admin) covers.
+On Team and Enterprise plans, an Owner controls which sources members see and whether they can add their own, as [Manage plugins for your organization](/docs/plugins/admin.md) covers.
 
 ### Find and add a plugin
 
 On the **Plugins** page, you add a plugin from **Discover**, **Add > Add marketplace**, or **Add > Upload plugin**:
 
 * **Discover**: see the plugins available to you. These are the ones in Anthropic's default marketplaces, the directory, and any your organization provides. Select one to read what it contains, then select **Add**. The directory's plugins appear on Pro, Max, Team, and Enterprise plans. On Team and Enterprise plans, an Owner chooses which Anthropic sources the organization includes, so you see the directory only if your organization keeps it
-* **Add > Add marketplace**: add a [plugin marketplace](https://code.claude.com/docs/en/plugins/create-marketplace), a Git repository that contains plugins, so its plugins appear alongside the others. Enter a repository URL such as `https://github.com/your-org/your-plugins` or the `owner/repo` shorthand for GitHub. For a marketplace you add yourself, GitHub and GitHub Enterprise repositories work, and so do public GitLab and Bitbucket repositories. To add a private GitHub repository, connect your GitHub account when the dialog asks and give the Claude GitHub App access to the repository. If access is missing, the dialog says so and shows **Connect GitHub** or **Install the Claude GitHub App**. Plugins your organization distributes from its own repositories come through [organization settings](/docs/plugins/admin#add-your-own-plugins) instead
+* **Add > Add marketplace**: add a [plugin marketplace](https://code.claude.com/docs/en/plugins/create-marketplace), a Git repository that contains plugins, so its plugins appear alongside the others. Enter a repository URL such as `https://github.com/your-org/your-plugins` or the `owner/repo` shorthand for GitHub. For a marketplace you add yourself, GitHub and GitHub Enterprise repositories work, and so do public GitLab and Bitbucket repositories. To add a private GitHub repository, connect your GitHub account when the dialog asks and give the Claude GitHub App access to the repository. If access is missing, the dialog says so and shows **Connect GitHub** or **Install the Claude GitHub App**. Plugins your organization distributes from its own repositories come through [organization settings](/docs/plugins/admin.md#add-your-own-plugins) instead
 * **Add > Upload plugin**: upload a plugin you have as a folder on your computer, as a `.zip` or `.plugin` file. Zip either the plugin folder itself or its contents; both work as long as the archive holds one `.claude-plugin/plugin.json`
 
-[Plugin feature support across platforms](/docs/plugins/platform-support#compare-installation-sync-and-admin-controls) lists the size and count limits.
+[Plugin feature support across platforms](/docs/plugins/platform-support.md#compare-installation-sync-and-admin-controls) lists the size and count limits.
 
 ### Find the plugin in each app
 
@@ -73,7 +73,7 @@ On Team and Enterprise plans, your organization can install a plugin for you as 
 * **Installed by default**: the plugin is already in your list under **Customize > Plugins** without you adding it, and you can turn it off
 * **Required**: the plugin is installed and always on. It's marked **This plugin is required by your organization**, and you can't turn it off or remove it
 
-[Manage plugins for your organization](/docs/plugins/admin) covers those controls.
+[Manage plugins for your organization](/docs/plugins/admin.md) covers those controls.
 
 ## Use a plugin
 
@@ -106,7 +106,7 @@ A plugin can contain skills, commands, MCP connectors, and agents. Chat, Cowork,
 | MCP connectors | Access to an external tool or data source. You add or connect each one from the plugin's **Connectors** tab. | Chat, Cowork, Claude Code |
 | Agents | Specialists Claude can delegate part of a task to | Cowork, Claude Code |
 
-[Plugin feature support across platforms](/docs/plugins/platform-support) lists every component by app.
+[Plugin feature support across platforms](/docs/plugins/platform-support.md) lists every component by app.
 
 ## Manage installed plugins
 
@@ -118,10 +118,10 @@ After you install a plugin, you can turn it off, remove it, disconnect its conne
   2. Open its menu.
   3. Select **Remove**.
 * **Disconnect a bundled connector**: open the plugin's **Connectors** tab, or **Customize > Connectors**, and disconnect it. The plugin stays installed
-* **Use a plugin someone shared with you**: a plugin that another member of your organization shares with you appears under **Shared with you** on the **Your plugins** tab, turned off. Open it and turn on its toggle to use it. It stays in your list for as long as that person shares it. To share one of your own, see [Share a plugin with specific people](/docs/plugins/share#share-a-plugin-with-specific-people)
-* **Get updates**: plugins from a marketplace or the directory update from their source. After a new version syncs from the source, you get it on your account automatically, with nothing to accept. Claude Code's own marketplaces have a separate auto-update setting. To pull the latest from a marketplace you added, select **Check for updates**. For a marketplace you added yourself from github.com, you can also turn on **Sync automatically**. Marketplaces your organization syncs have their own setting, which [Sync your organization's plugins from a repository](/docs/plugins/org-sync) covers
+* **Use a plugin someone shared with you**: a plugin that another member of your organization shares with you appears under **Shared with you** on the **Your plugins** tab, turned off. Open it and turn on its toggle to use it. It stays in your list for as long as that person shares it. To share one of your own, see [Share a plugin with specific people](/docs/plugins/share.md#share-a-plugin-with-specific-people)
+* **Get updates**: plugins from a marketplace or the directory update from their source. After a new version syncs from the source, you get it on your account automatically, with nothing to accept. Claude Code's own marketplaces have a separate auto-update setting. To pull the latest from a marketplace you added, select **Check for updates**. For a marketplace you added yourself from github.com, you can also turn on **Sync automatically**. Marketplaces your organization syncs have their own setting, which [Sync your organization's plugins from a repository](/docs/plugins/org-sync.md) covers
 
-If a plugin you added doesn't appear where you expect it, [Install plugins in Cowork](/docs/cowork/guide/plugins) covers how the desktop app loads and updates plugins, and [Synced plugins](https://code.claude.com/docs/en/plugins/loading#synced-plugins) covers Claude Code.
+If a plugin you added doesn't appear where you expect it, [Install plugins in Cowork](/docs/cowork/guide/plugins.md) covers how the desktop app loads and updates plugins, and [Synced plugins](https://code.claude.com/docs/en/plugins/loading#synced-plugins) covers Claude Code.
 
 ## Track plugin usage in your organization
 
@@ -133,7 +133,7 @@ On Team and Enterprise plans, a plugin's page in **Customize > Plugins** shows h
 
 The plugin's **Skills** tab shows runs in the last 30 days for each skill. A skill's page in **Customize > Skills** shows the same three figures for that skill.
 
-A plugin you made or that someone shared with you shows the organization figures only when a published copy of it is live in your organization. [Publish a plugin to your organization](/docs/plugins/share#publish-a-plugin-to-your-organization) covers publishing.
+A plugin you made or that someone shared with you shows the organization figures only when a published copy of it is live in your organization. [Publish a plugin to your organization](/docs/plugins/share.md#publish-a-plugin-to-your-organization) covers publishing.
 
 ## Create your own plugin
 
@@ -142,13 +142,13 @@ You can make a plugin of your own from **Customize > Plugins > Add**.
 * **Create with Claude**: start a conversation where Claude builds the plugin with you
 * **Create a plugin**: open an editor and write its files directly
 
-[Create a plugin with Claude](/docs/plugins/create-with-claude) covers both, and [Plugin structure and testing](/docs/plugins/build) covers building one as a folder for other people to install. On Team and Enterprise plans, you can then [share the plugin with specific people](/docs/plugins/share#share-a-plugin-with-specific-people) or [publish it to your organization](/docs/plugins/share#publish-a-plugin-to-your-organization).
+[Create a plugin with Claude](/docs/plugins/create-with-claude.md) covers both, and [Plugin structure and testing](/docs/plugins/build.md) covers building one as a folder for other people to install. On Team and Enterprise plans, you can then [share the plugin with specific people](/docs/plugins/share.md#share-a-plugin-with-specific-people) or [publish it to your organization](/docs/plugins/share.md#publish-a-plugin-to-your-organization).
 
-You can also submit a plugin you build to Anthropic's directory, where, once it passes review, people on Pro, Max, Team, and Enterprise plans can find and add it. [Build your first plugin](/docs/plugins/quickstart) builds and tests an example plugin, and [Publish to the directory](/docs/directory/publish) covers who can submit and what review involves.
+You can also submit a plugin you build to Anthropic's directory, where, once it passes review, people on Pro, Max, Team, and Enterprise plans can find and add it. [Build your first plugin](/docs/plugins/quickstart.md) builds and tests an example plugin, and [Publish to the directory](/docs/directory/publish.md) covers who can submit and what review involves.
 
 ## Next steps
 
-* [Plugin feature support across platforms](/docs/plugins/platform-support): check which of a plugin's components work in chat, Cowork, the desktop app, and Claude Code
-* [Manage plugins for your organization](/docs/plugins/admin): make plugins available, installed by default, or required for members
+* [Plugin feature support across platforms](/docs/plugins/platform-support.md): check which of a plugin's components work in chat, Cowork, the desktop app, and Claude Code
+* [Manage plugins for your organization](/docs/plugins/admin.md): make plugins available, installed by default, or required for members
 * [Install plugins](https://code.claude.com/docs/en/plugins/install) in the Claude Code docs: install and manage plugins from the command line, including the ones synced from your account
-* [Publish to the directory](/docs/directory/publish): submit a plugin to the directory, where Anthropic reviews it before it's listed
+* [Publish to the directory](/docs/directory/publish.md): submit a plugin to the directory, where Anthropic reviews it before it's listed

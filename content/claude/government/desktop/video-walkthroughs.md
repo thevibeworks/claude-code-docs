@@ -6,7 +6,7 @@
 
 > Watch short narrated walkthroughs of signing in to Claude Desktop with Claude for Government, bringing your work over, and finding your way around the app.
 
-> **Who this is for:** Anyone using Claude Desktop connected to Claude for Government. If you set up or manage Claude for Government for your agency, see [Video walkthroughs for administrators](/docs/government/video-walkthroughs) instead.
+> **Who this is for:** Anyone using Claude Desktop connected to Claude for Government. If you set up or manage Claude for Government for your agency, see [Video walkthroughs for administrators](/docs/government/video-walkthroughs.md) instead.
 
 Each video is one to three minutes long and narrated, with on-screen captions.
 
@@ -19,6 +19,8 @@ The videos run from the first sign-in to getting help.
 Signing in to Claude Desktop with your work account and a pairing code, and where Chat, Cowork, Code, and the model picker are.
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-01-signing-in-for-the-first-time.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=fcfdbcaa5f3ee9e9496e6014ed516b65" aria-label="Video walkthrough: Signing in for the first time" />
+
+Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -44,9 +46,11 @@ Signing in to Claude Desktop with your work account and a pairing code, and wher
 
 ### Bringing your chats and projects over from Claude for Government Web
 
-Copying your conversations and projects from Claude for Government Web into Claude Desktop. Read more: [Run the import](/docs/government/desktop/import#run-the-import).
+Copying your conversations and projects from Claude for Government Web into Claude Desktop. Read more: [Run the import](/docs/government/desktop/import.md#run-the-import).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-02-bringing-your-chats-and-projects-over.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=b7860d7dd7807b95aecc486b1aaf26f7" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 10 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -76,6 +80,8 @@ What Chat, Cowork, and Code are each for, when Claude asks for your approval in 
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-03-chat-cowork-and-code.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=9402b32239886fb0f79a8648921fe53e" aria-label="Video walkthrough: Chat, Cowork, and Code: which one to use" />
 
+Video: Chat, Cowork, and Code: which one to use (2 min 35 s). Narrated with an AI-generated voice, with on-screen captions.
+
 > **Transcript**
 >
 > Claude Desktop gives you three ways to work: Chat, Cowork, and Code. On Home, you pick Chat or Cowork in the message box. Code sits beside Home.
@@ -104,9 +110,11 @@ What Chat, Cowork, and Code are each for, when Claude asks for your approval in 
 
 ### Connectors, plugins, and skills from your agency
 
-Connecting Microsoft 365, installing plugins your organization offers, and adding a skill, all from **Customize** in the sidebar. Read more: [Plugins in Claude Desktop](/docs/government/desktop/plugins) and [Skills in Claude Desktop](/docs/government/desktop/skills).
+Connecting Microsoft 365, installing plugins your organization offers, and adding a skill, all from **Customize** in the sidebar. Read more: [Plugins in Claude Desktop](/docs/government/desktop/plugins.md) and [Skills in Claude Desktop](/docs/government/desktop/skills.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
+
+Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -130,9 +138,11 @@ Connecting Microsoft 365, installing plugins your organization offers, and addin
 
 ### Your account, usage limits, and getting help
 
-The **Account**, **Usage**, and **Sessions** pages, signing in again after an idle timeout, the diagnostic report, and who to ask for what. Read more: [Your account](/docs/government/account/overview).
+The **Account**, **Usage**, and **Sessions** pages, signing in again after an idle timeout, the diagnostic report, and who to ask for what. Read more: [Your account](/docs/government/account/overview.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-05-your-account-usage-limits-and-getting-help.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=691f1dc9497295c364c0e8f81020b942" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
+
+Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >

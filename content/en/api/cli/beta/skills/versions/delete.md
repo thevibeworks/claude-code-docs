@@ -54,7 +54,6 @@ Delete Skill Version
 
 ```bash
 ant beta:skills:versions delete \
-  --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```

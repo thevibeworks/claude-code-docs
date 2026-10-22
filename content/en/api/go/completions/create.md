@@ -5,227 +5,331 @@ url: https://platform.claude.com/docs/en/api/go/completions/create
 
 # Create a Text Completion
 
-`client.Completions.New(ctx, params) (*Completion, error)`
-
 **POST** `/v1/complete`
 
 **Deprecated**: Use the [Messages API](https://platform.claude.com/docs/en/api/messages/create) instead.
 
 [Legacy] Create a Text Completion.
 
-The Text Completions API is a legacy API. We recommend using the [Messages API](https://platform.claude.com/docs/en/api/messages?sdk_languages=go) going forward.
+The Text Completions API is a legacy API. We recommend using the [Messages API](https://platform.claude.com/docs/en/api/messages?sdk_languages=http) going forward.
 
-Future models and features will not be compatible with Text Completions. See our [migration guide](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=go) for guidance in migrating from Text Completions to Messages.
+Future models and features will not be compatible with Text Completions. See our [migration guide](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=http) for guidance in migrating from Text Completions to Messages.
 
-## Parameters
+## Headers
 
-- `params CompletionNewParams`
+- `"anthropic-version": optional string`
 
-  - `MaxTokensToSample int64`
+  The version of the Claude API you want to use.
 
-    The maximum number of tokens to generate before stopping.
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
 
-    Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+- `"anthropic-workspace-id": optional string`
 
-    minimum: 1
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
-  - `Model Model`
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
-    The model that will complete your prompt.
+- `"anthropic-beta": optional array of AnthropicBeta`
 
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+  **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
 
-  - `Prompt string`
+  Optional header to specify the beta version(s) you want to use.
 
-    The prompt that you want Claude to complete.
+  - `string`
 
-    For proper response generation you will need to format your prompt using alternating `
+  - `"message-batches-2024-09-24"`
 
-    Human:`and`
+  - `"prompt-caching-2024-07-31"`
 
-    Assistant:` conversational turns. For example:
+  - `"computer-use-2024-10-22"`
 
-    ```
-    "
-    
-    Human: {userQuestion}
-    
-    Assistant:"
-    ```
+  - `"computer-use-2025-01-24"`
 
-    See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=go) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview?sdk_languages=go) for more details.
+  - `"pdfs-2024-09-25"`
 
-    minLength: 1
+  - `"token-counting-2024-11-01"`
 
-  - `Metadata MetadataParam Optional`
+  - `"token-efficient-tools-2025-02-19"`
 
-    An object describing metadata about the request.
+  - `"output-128k-2025-02-19"`
 
-  - `StopSequences []string Optional`
+  - `"files-api-2025-04-14"`
 
-    Sequences that will cause the model to stop generating.
+  - `"mcp-client-2025-04-04"`
 
-    Our models stop on `"
+  - `"mcp-client-2025-11-20"`
 
-    Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
+  - `"dev-full-thinking-2025-05-14"`
 
-  - `WorkspaceID param.Opt[string] Optional` (header parameter)
+  - `"interleaved-thinking-2025-05-14"`
 
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  - `"code-execution-2025-05-22"`
 
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+  - `"extended-cache-ttl-2025-04-11"`
 
-  - `Temperature param.Opt[float64] Optional`
+  - `"context-1m-2025-08-07"`
 
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+  - `"context-management-2025-06-27"`
 
-    Amount of randomness injected into the response.
+  - `"model-context-window-exceeded-2025-08-26"`
 
-    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+  - `"skills-2025-10-02"`
 
-    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+  - `"fast-mode-2026-02-01"`
 
-    minimum: 0, maximum: 1
+  - `"output-300k-2026-03-24"`
 
-  - `TopK param.Opt[int64] Optional`
+  - `"user-profiles-2026-03-24"`
 
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+  - `"user-profiles-2026-08-18"`
 
-    Only sample from the top K options for each subsequent token.
+  - `"user-profiles-2026-09-04"`
 
-    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+  - `"advisor-tool-2026-03-01"`
 
-    Recommended for advanced use cases only.
+  - `"managed-agents-2026-04-01"`
 
-    minimum: 0
+  - `"cache-diagnosis-2026-04-07"`
 
-  - `TopP param.Opt[float64] Optional`
+  - `"dreaming-2026-04-21"`
 
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+  - `"thinking-token-count-2026-05-13"`
 
-    Use nucleus sampling.
+  - `"server-side-fallback-2026-06-01"`
 
-    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+  - `"server-side-fallback-2026-07-01"`
 
-    Recommended for advanced use cases only.
+  - `"fallback-credit-2026-06-01"`
 
-    minimum: 0, maximum: 1
+  - `"fallback-credit-2026-07-01"`
 
-  - `Betas []AnthropicBeta Optional` (header parameter)
+  - `"agent-memory-2026-07-22"`
 
-    **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
+  - `"mid-conversation-tool-changes-2026-07-01"`
 
-    Optional header to specify the beta version(s) you want to use.
+  - `"compact-2026-01-12"`
 
-    - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
+  - `"computer-use-2025-11-24"`
 
-    - `const AnthropicBetaPromptCaching2024_07_31 AnthropicBeta = "prompt-caching-2024-07-31"`
+  - `"mcp-tunnels-2026-06-22"`
 
-    - `const AnthropicBetaComputerUse2024_10_22 AnthropicBeta = "computer-use-2024-10-22"`
+  - `"structured-outputs-2025-11-13"`
 
-    - `const AnthropicBetaComputerUse2025_01_24 AnthropicBeta = "computer-use-2025-01-24"`
+  - `"task-budgets-2026-03-13"`
 
-    - `const AnthropicBetaPDFs2024_09_25 AnthropicBeta = "pdfs-2024-09-25"`
+  - `"thinking-display-updates-2026-08-18"`
 
-    - `const AnthropicBetaTokenCounting2024_11_01 AnthropicBeta = "token-counting-2024-11-01"`
+  - `"ce-user-management-2026-07-13"`
 
-    - `const AnthropicBetaTokenEfficientTools2025_02_19 AnthropicBeta = "token-efficient-tools-2025-02-19"`
+  - `"mid-conversation-output-config-2026-07-01"`
 
-    - `const AnthropicBetaOutput128k2025_02_19 AnthropicBeta = "output-128k-2025-02-19"`
+  - `"thinking-binding-controls-2026-08-01"`
 
-    - `const AnthropicBetaFilesAPI2025_04_14 AnthropicBeta = "files-api-2025-04-14"`
+  - `"mid-conversation-system-clear-at-2026-08-21"`
 
-    - `const AnthropicBetaMCPClient2025_04_04 AnthropicBeta = "mcp-client-2025-04-04"`
+  - `"compact-2026-09-04"`
 
-    - `const AnthropicBetaMCPClient2025_11_20 AnthropicBeta = "mcp-client-2025-11-20"`
+  - `"inline-tools-2026-09-15"`
 
-    - `const AnthropicBetaDevFullThinking2025_05_14 AnthropicBeta = "dev-full-thinking-2025-05-14"`
+  - `"mcp-client-2026-09-15"`
 
-    - `const AnthropicBetaInterleavedThinking2025_05_14 AnthropicBeta = "interleaved-thinking-2025-05-14"`
+  - `"ce-plugins-2026-09-01"`
 
-    - `const AnthropicBetaCodeExecution2025_05_22 AnthropicBeta = "code-execution-2025-05-22"`
+  - `"spend-limit-reads-2026-09-26"`
 
-    - `const AnthropicBetaExtendedCacheTTL2025_04_11 AnthropicBeta = "extended-cache-ttl-2025-04-11"`
+  - `"telemetry-destinations-2026-08-11"`
 
-    - `const AnthropicBetaContext1m2025_08_07 AnthropicBeta = "context-1m-2025-08-07"`
+  - `"webhooks-2026-10-07"`
 
-    - `const AnthropicBetaContextManagement2025_06_27 AnthropicBeta = "context-management-2025-06-27"`
+## Body parameters
 
-    - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
+- `max_tokens_to_sample: number`
 
-    - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+  The maximum number of tokens to generate before stopping.
 
-    - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+  Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-    - `const AnthropicBetaOutput300k2026_03_24 AnthropicBeta = "output-300k-2026-03-24"`
+  minimum: 1
 
-    - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
+- `model: Model`
 
-    - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+  The model that will complete your prompt.
 
-    - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
+  - `"claude-haiku-5-5"`
 
-    - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
+    Fastest model for high-volume, real-time tasks
 
-    - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
+  - `"claude-sonnet-5-5"`
 
-    - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+    Efficient model for coding and agents
 
-    - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
+  - `"claude-fable-5-1"`
 
-    - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
+    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-    - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+  - `"claude-opus-5-5"`
 
-    - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+    Powerful intelligence for coding, knowledge work, and long-running agents
 
-    - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+  - `"claude-mythos-5-1"`
 
-    - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+    Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-    - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+  - `"claude-sonnet-5"`
 
-    - `const AnthropicBetaCompact2026_01_12 AnthropicBeta = "compact-2026-01-12"`
+    Efficient model for coding and agents
 
-    - `const AnthropicBetaComputerUse2025_11_24 AnthropicBeta = "computer-use-2025-11-24"`
+  - `"claude-fable-5"`
 
-    - `const AnthropicBetaMCPTunnels2026_06_22 AnthropicBeta = "mcp-tunnels-2026-06-22"`
+    Next generation of intelligence for the hardest knowledge work and coding problems
 
-    - `const AnthropicBetaStructuredOutputs2025_11_13 AnthropicBeta = "structured-outputs-2025-11-13"`
+  - `"claude-mythos-5"`
 
-    - `const AnthropicBetaTaskBudgets2026_03_13 AnthropicBeta = "task-budgets-2026-03-13"`
+    Most capable model for cybersecurity and biology research
 
-    - `const AnthropicBetaThinkingDisplayUpdates2026_08_18 AnthropicBeta = "thinking-display-updates-2026-08-18"`
+  - `"claude-opus-5"`
 
-    - `const AnthropicBetaCEUserManagement2026_07_13 AnthropicBeta = "ce-user-management-2026-07-13"`
+    Powerful intelligence for long-running agents and coding
 
-    - `const AnthropicBetaMidConversationOutputConfig2026_07_01 AnthropicBeta = "mid-conversation-output-config-2026-07-01"`
+  - `"claude-opus-4-8"`
 
-    - `const AnthropicBetaThinkingBindingControls2026_08_01 AnthropicBeta = "thinking-binding-controls-2026-08-01"`
+    Powerful intelligence for long-running agents and coding
 
-    - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
+  - `"claude-opus-4-7"`
 
-    - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+    Powerful intelligence for long-running agents and coding
 
-    - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+  - `"claude-opus-4-6"`
 
-    - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+    Powerful intelligence for long-running agents and coding
 
-    - `const AnthropicBetaCEPlugins2026_09_01 AnthropicBeta = "ce-plugins-2026-09-01"`
+  - `"claude-sonnet-4-6"`
 
-    - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
+    Best combination of speed and intelligence
 
-    - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
+  - `"claude-haiku-4-5"`
 
-    - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+  - `"claude-haiku-4-5-20251001"`
+
+  - `"claude-opus-4-5"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-opus-4-5-20251101"`
+
+    Powerful intelligence for long-running agents and coding
+
+  - `"claude-mythos-preview"`
+
+    **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+    New class of intelligence, strongest in coding and cybersecurity
+
+  - `"claude-sonnet-4-5"`
+
+    **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+    High-performance model for agents and coding
+
+  - `"claude-sonnet-4-5-20250929"`
+
+    **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+    High-performance model for agents and coding
+
+  - `string`
+
+- `prompt: string`
+
+  The prompt that you want Claude to complete.
+
+  For proper response generation you will need to format your prompt using alternating `
+
+  Human:`and`
+
+  Assistant:` conversational turns. For example:
+
+  ```
+  "
+  
+  Human: {userQuestion}
+  
+  Assistant:"
+  ```
+
+  See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=http) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview?sdk_languages=http) for more details.
+
+  minLength: 1
+
+- `metadata: optional Metadata`
+
+  An object describing metadata about the request.
+
+  - `user_id: optional string or null`
+
+    An external identifier for the user who is associated with the request.
+
+    This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+    maxLength: 512
+
+- `stop_sequences: optional array of string`
+
+  Sequences that will cause the model to stop generating.
+
+  Our models stop on `"
+
+  Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
+
+- `stream: optional boolean`
+
+  Whether to incrementally stream the response using server-sent events.
+
+  See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming?sdk_languages=http) for details.
+
+- `temperature: optional number`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+  minimum: 0, maximum: 1
+
+- `top_k: optional number`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+  Only sample from the top K options for each subsequent token.
+
+  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+  Recommended for advanced use cases only.
+
+  minimum: 0
+
+- `top_p: optional number`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Use nucleus sampling.
+
+  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+  Recommended for advanced use cases only.
+
+  minimum: 0, maximum: 1
 
 ## Returns
 
-- `type Completion`
+- `Completion object`
 
-  - `Type Completion`
+  - `type: "completion"`
 
     Object type.
 
@@ -233,105 +337,107 @@ Future models and features will not be compatible with Text Completions. See our
 
     default: completion
 
-  - `ID string`
+  - `id: string`
 
     Unique object identifier.
 
     The format and length of IDs may change over time.
 
-  - `Completion string`
+  - `completion: string`
 
     The resulting completion up to and excluding the stop sequences.
 
-  - `Model Model`
+  - `model: Model`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
+    - `"claude-haiku-5-5"`
 
       Fastest model for high-volume, real-time tasks
 
-    - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+    - `"claude-sonnet-5-5"`
 
       Efficient model for coding and agents
 
-    - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+    - `"claude-fable-5-1"`
 
       Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-    - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+    - `"claude-opus-5-5"`
 
       Powerful intelligence for coding, knowledge work, and long-running agents
 
-    - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+    - `"claude-mythos-5-1"`
 
       Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-    - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+    - `"claude-sonnet-5"`
 
       Efficient model for coding and agents
 
-    - `const ModelClaudeFable5 Model = "claude-fable-5"`
+    - `"claude-fable-5"`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
 
-    - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+    - `"claude-mythos-5"`
 
       Most capable model for cybersecurity and biology research
 
-    - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+    - `"claude-opus-5"`
 
       Powerful intelligence for long-running agents and coding
 
-    - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+    - `"claude-opus-4-8"`
 
       Powerful intelligence for long-running agents and coding
 
-    - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+    - `"claude-opus-4-7"`
 
       Powerful intelligence for long-running agents and coding
 
-    - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+    - `"claude-opus-4-6"`
 
       Powerful intelligence for long-running agents and coding
 
-    - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+    - `"claude-sonnet-4-6"`
 
       Best combination of speed and intelligence
 
-    - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+    - `"claude-haiku-4-5"`
 
-    - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+    - `"claude-haiku-4-5-20251001"`
 
-    - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
-
-      Powerful intelligence for long-running agents and coding
-
-    - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+    - `"claude-opus-4-5"`
 
       Powerful intelligence for long-running agents and coding
 
-    - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
+    - `"claude-opus-4-5-20251101"`
+
+      Powerful intelligence for long-running agents and coding
+
+    - `"claude-mythos-preview"`
 
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
 
-    - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+    - `"claude-sonnet-4-5"`
 
       **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       High-performance model for agents and coding
 
-    - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+    - `"claude-sonnet-4-5-20250929"`
 
       **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       High-performance model for agents and coding
 
-  - `StopReason string`
+    - `string`
+
+  - `stop_reason: string or null`
 
     The reason that we stopped.
 
@@ -342,31 +448,20 @@ Future models and features will not be compatible with Text Completions. See our
 
 ## Example
 
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
-)
-
-func main() {
-	client := anthropic.NewClient(
-		option.WithAPIKey("my-anthropic-api-key"),
-	)
-	completion, err := client.Completions.New(context.TODO(), anthropic.CompletionNewParams{
-		MaxTokensToSample: 256,
-		Model:             anthropic.ModelClaudeHaiku5_5,
-		Prompt:            "\n\nHuman: Hello, world!\n\nAssistant:",
-	})
-	if err != nil {
-		panic(err.Error())
-	}
-	fmt.Printf("%+v\n", completion.ID)
-}
+```bash
+curl https://api.anthropic.com/v1/complete \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2026-10-21' \
+    -H "Authorization: Bearer $ANTHROPIC_API_KEY" \
+    --max-time 600 \
+    -d '{
+          "max_tokens_to_sample": 256,
+          "model": "claude-2.1",
+          "prompt": "\n\nHuman: Hello, world!\n\nAssistant:",
+          "temperature": 1,
+          "top_k": 5,
+          "top_p": 0.7
+        }'
 ```
 
 ### Response (200)

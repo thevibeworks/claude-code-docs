@@ -141,7 +141,7 @@ Archive a Memory Store
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_store"`
 
   - `required string ID`
 

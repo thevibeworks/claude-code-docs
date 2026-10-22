@@ -197,7 +197,7 @@ List Memory Versions
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=csharp#audit-memory-changes) to learn more about memory versions.
 
-  - `required Type Type`
+  - `JsonElement Type = "memory_version"`
 
   - `required string ID`
 
@@ -261,7 +261,7 @@ List Memory Versions
 
       An agent acting during a session, for example through the session's mounted filesystem. It names the session itself, not the user or API key that started the session.
 
-      - `required Type Type`
+      - `JsonElement Type = "session_actor"`
 
       - `required string SessionID`
 
@@ -273,7 +273,7 @@ List Memory Versions
 
       A direct caller of the public API, identified by the API key that authenticated the request.
 
-      - `required Type Type`
+      - `JsonElement Type = "api_actor"`
 
       - `required string ApiKeyID`
 
@@ -285,7 +285,7 @@ List Memory Versions
 
       A human user, for example acting through the Anthropic Console.
 
-      - `required Type Type`
+      - `JsonElement Type = "user_actor"`
 
       - `required string UserID`
 

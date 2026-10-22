@@ -14,7 +14,7 @@ Connecting Amplitude lets Claude answer product-analytics questions, such as fun
 
 You can connect with a project API key and secret key, which you can limit to read requests, or by signing in as an Amplitude user, which gives Claude Amplitude's MCP tools for creating and editing content as well as reading it.
 
-For the API key route, pair the connector with a plugin that covers Amplitude so Claude knows how to call the REST API. Add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. A member's own Amplitude connector on claude.ai is separate from this connector and applies in one-to-one DMs. Claude can also [use that connector in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
+For the API key route, pair the connector with a plugin that covers Amplitude so Claude knows how to call the REST API. Add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. A member's own Amplitude connector on claude.ai is separate from this connector and applies in one-to-one DMs. Claude can also [use that connector in a channel](/docs/claude-tag/concepts/personal-connectors.md) for that member's own tasks, after the member allows it.
 
 ## Choose an API key or Amplitude sign-in
 
@@ -77,7 +77,7 @@ Under **Where it applies**, click **Add place**, choose a workspace or channel u
 
 Amplitude rate-limits these APIs per project, with a cap on concurrent requests and an hourly budget in which queries that span more days or segments cost more. Claude's queries draw on the same budget as your project's other API clients. If Claude reports that Amplitude returned a rate-limit error (HTTP 429), narrow the date range, drop a group-by, or ask again later. Amplitude's [Dashboard REST API documentation](https://amplitude.com/docs/apis/analytics/dashboard-rest) lists the current limits.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Add the connector with Amplitude sign-in
 
@@ -95,7 +95,7 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 
 The **Sign in to Amplitude as Claude** option shows the MCP server the sign-in grants access to, `https://mcp.amplitude.com/mcp`, and the form sets the connector's allowed host to that server for you.
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you sign in.
+The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you sign in.
 
 Click **Sign in with Amplitude** at the bottom of the form. A sign-in window opens. If your browser blocks pop-ups, allow them for claude.ai and click **Sign in with Amplitude** again. Sign in to Amplitude as the dedicated user and approve access. When the sign-in completes and the window closes, the connector is saved and Amplitude's connector page opens, with the new credential marked **New**.
 
@@ -113,7 +113,7 @@ With either route, Claude replies with event types from Amplitude once the conne
 
 ## Related resources
 
-* [Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions): the question-to-chart pattern in a Slack thread, shown there with a data warehouse
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the full credential-type and allowed-hosts reference
-* [Connect a custom service](/docs/claude-tag/admins/connections/custom): for Amplitude APIs the **Amplitude** entry doesn't cover, such as the User Profile API, which lives on `profile-api.amplitude.com` and authenticates with a different header
+* [Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions.md): the question-to-chart pattern in a Slack thread, shown there with a data warehouse
+* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference
+* [Connect a custom service](/docs/claude-tag/admins/connections/custom.md): for Amplitude APIs the **Amplitude** entry doesn't cover, such as the User Profile API, which lives on `profile-api.amplitude.com` and authenticates with a different header
 * Amplitude's [API authentication](https://amplitude.com/docs/apis/authentication), [API key and secret key management](https://amplitude.com/docs/admin/account-management/manage-your-api-keys-and-secret-keys), and [Amplitude MCP](https://amplitude.com/docs/amplitude-ai/amplitude-mcp) documentation

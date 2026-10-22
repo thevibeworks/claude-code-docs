@@ -137,5 +137,5 @@ A mismatch usually has one of these causes:
 ## Next steps
 
 * [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): compute the sandbox origin Claude expects for your app
-* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines#mobile-guidelines): mobile layout, safe areas, and sizing rules that prevent clipped or invisible content
-* [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started#build-your-own-mcp-app): SDK quickstart, examples, and agent skills
+* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines.md#mobile-guidelines): mobile layout, safe areas, and sizing rules that prevent clipped or invisible content
+* [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started.md#build-your-own-mcp-app): SDK quickstart, examples, and agent skills

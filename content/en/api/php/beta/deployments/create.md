@@ -67,7 +67,7 @@ Create Deployment
 
 - `class BetaManagedAgentsDeployment`
 
-  - `Type type`
+  - `"deployment" type`
 
   - `string id`
 

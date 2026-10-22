@@ -8,8 +8,8 @@
 
 Most MCP security documentation covers the protocol threat model: OAuth flows,
 token handling, session hijacking, and confused deputy attacks. For those, see
-[Authorization](/docs/2026-07-28/tutorials/security/authorization) and
-[Security Best Practices](/docs/2026-07-28/tutorials/security/security_best_practices).
+[Authorization](/docs/2026-07-28/tutorials/security/authorization.md) and
+[Security Best Practices](/docs/2026-07-28/tutorials/security/security_best_practices.md).
 
 This guide covers a different threat model: **your machine**. When you run an
 MCP server locally, you download code from the internet and run it as a child
@@ -50,7 +50,7 @@ flowchart LR
 
 Clients that offer one-click installation are required to show you the exact
 command before it runs
-([SEP-1024](/seps/1024-mcp-client-security-requirements-for-local-server-)),
+([SEP-1024](/seps/1024-mcp-client-security-requirements-for-local-server-.md)),
 but a consent dialog only helps if you know what to look for. That is what
 the rest of this guide is about.
 
@@ -135,7 +135,7 @@ that only talks to a service on the internet gains nothing from running on
 your laptop, while you take on everything else in this guide for no benefit.
 
 * **Prefer the remote version where one exists.** A server offered over
-  [Streamable HTTP](/specification/2026-07-28/basic/transports/streamable-http)
+  [Streamable HTTP](/specification/2026-07-28/basic/transports/streamable-http.md)
   runs no code on your machine, uses the protocol's authorization flow
   instead of a token in a local config file, and is patched in one place.
   The protocol threat model (linked above) applies to it instead of this
@@ -201,7 +201,7 @@ cover.
 
 * **Read the tool list before you rely on a server.** Most clients can show
   each tool's description, and the
-  [MCP Inspector](/docs/2026-07-28/tools/inspector) lists every tool a
+  [MCP Inspector](/docs/2026-07-28/tools/inspector.md) lists every tool a
   server exposes without a model in the loop. If a description contains
   instructions that have nothing to do with the tool's job, remove the
   server.
@@ -423,19 +423,19 @@ For a fleet:
 
 ## Next Steps
 
-> **[Security Best Practices](/docs/2026-07-28/tutorials/security/security_best_practices)**
+> **[Security Best Practices](/docs/2026-07-28/tutorials/security/security_best_practices.md)**
 >
 > The protocol threat model: confused deputy, token passthrough, and session
 > hijacking
 
-> **[Authorization](/docs/2026-07-28/tutorials/security/authorization)**
+> **[Authorization](/docs/2026-07-28/tutorials/security/authorization.md)**
 >
 > How OAuth-based authorization works for remote MCP servers
 
-> **[SEP-1024](/seps/1024-mcp-client-security-requirements-for-local-server-)**
+> **[SEP-1024](/seps/1024-mcp-client-security-requirements-for-local-server-.md)**
 >
 > Client security requirements for local server installation consent
 
-> **[Connect to local servers](/docs/2026-07-28/develop/connect-local-servers)**
+> **[Connect to local servers](/docs/2026-07-28/develop/connect-local-servers.md)**
 >
 > Set up local servers in your client — the workflow this guide secures

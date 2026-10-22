@@ -12,13 +12,13 @@
 
 > [!TIP]
 >
-> Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects).
+> Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up.md), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests.md), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts.md), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects.md).
 
-A connector gives Claude its own credential for one of your tools, like a Datadog API key or a warehouse service account, so Claude can act in that tool from Slack channels. This page is for the admins who add connectors and decide where they apply. To let Claude act as a member with that member's own claude.ai connectors, see [Personal connectors](/docs/claude-tag/concepts/personal-connectors) instead.
+A connector gives Claude its own credential for one of your tools, like a Datadog API key or a warehouse service account, so Claude can act in that tool from Slack channels. This page is for the admins who add connectors and decide where they apply. To let Claude act as a member with that member's own claude.ai connectors, see [Personal connectors](/docs/claude-tag/concepts/personal-connectors.md) instead.
 
-Adding connectors and bundles requires the **Owner** role or the [**Claude Tag Admin** permission](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) in your Claude organization. You manage both in [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag), under **Claude's access**, which appears once the **Enable Claude Tag in Slack** switch is on.
+Adding connectors and bundles requires the **Owner** role or the [**Claude Tag Admin** permission](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) in your Claude organization. You manage both in [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag), under **Claude's access**, which appears once the **Enable Claude Tag in Slack** switch is on.
 
-Connectors belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply in one-to-one DMs. Claude can also [use a member's own connectors in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
+Connectors belong to the [agent identity](/docs/claude-tag/concepts/agent-identity.md), not to any person. Personal claude.ai connectors apply in one-to-one DMs. Claude can also [use a member's own connectors in a channel](/docs/claude-tag/concepts/personal-connectors.md) for that member's own tasks, after the member allows it.
 
 ## Decide what to connect
 
@@ -28,12 +28,12 @@ Read-only connectors are most useful in combination: an answer that joins the ti
 
 | Connect | Examples | Recommended access | What it adds |
 | :- | :- | :- | :- |
-| Knowledge and docs | Google Drive, [Notion](/docs/claude-tag/admins/connections/notion), [Confluence](/docs/claude-tag/admins/connections/atlassian) | Read | Answers grounded in design docs, runbooks, and prior decisions |
-| Code | GitHub, [GitLab](/docs/claude-tag/admins/connections/gitlab) | Read and write | On GitHub, branches, pull requests, review, and CI follow-up through the [Claude GitHub App](/docs/claude-tag/admins/configure-github). On GitLab, issues, merge request comments, and pipeline checks through its API |
-| Data warehouse | BigQuery, [Snowflake](/docs/claude-tag/admins/connections/snowflake), Redshift | Read | Data questions answered with charts in the thread; recurring reports |
-| Monitoring | [Sentry](/docs/claude-tag/admins/connections/sentry), [Datadog](/docs/claude-tag/admins/connections/datadog), [PagerDuty](/docs/claude-tag/admins/connections/pagerduty) | Read | Logs, metrics, and errors for debugging and incident work |
-| Issue tracking | [Linear](/docs/claude-tag/admins/connections/linear), [Asana](/docs/claude-tag/admins/connections/asana), [Jira](/docs/claude-tag/admins/connections/atlassian) | Read and write | File tickets and post status updates where work lives |
-| Go-to-market | [HubSpot](/docs/claude-tag/admins/connections/hubspot), [Gong](/docs/claude-tag/admins/connections/gong), [Salesforce](/docs/claude-tag/admins/connections/salesforce) | Read | Pipeline and customer state for account questions |
+| Knowledge and docs | Google Drive, [Notion](/docs/claude-tag/admins/connections/notion.md), [Confluence](/docs/claude-tag/admins/connections/atlassian.md) | Read | Answers grounded in design docs, runbooks, and prior decisions |
+| Code | GitHub, [GitLab](/docs/claude-tag/admins/connections/gitlab.md) | Read and write | On GitHub, branches, pull requests, review, and CI follow-up through the [Claude GitHub App](/docs/claude-tag/admins/configure-github.md). On GitLab, issues, merge request comments, and pipeline checks through its API |
+| Data warehouse | BigQuery, [Snowflake](/docs/claude-tag/admins/connections/snowflake.md), Redshift | Read | Data questions answered with charts in the thread; recurring reports |
+| Monitoring | [Sentry](/docs/claude-tag/admins/connections/sentry.md), [Datadog](/docs/claude-tag/admins/connections/datadog.md), [PagerDuty](/docs/claude-tag/admins/connections/pagerduty.md) | Read | Logs, metrics, and errors for debugging and incident work |
+| Issue tracking | [Linear](/docs/claude-tag/admins/connections/linear.md), [Asana](/docs/claude-tag/admins/connections/asana.md), [Jira](/docs/claude-tag/admins/connections/atlassian.md) | Read and write | File tickets and post status updates where work lives |
+| Go-to-market | [HubSpot](/docs/claude-tag/admins/connections/hubspot.md), [Gong](/docs/claude-tag/admins/connections/gong.md), [Salesforce](/docs/claude-tag/admins/connections/salesforce.md) | Read | Pipeline and customer state for account questions |
 
 Per-service instructions, with the credential fields and allowed-websites values, are in the [connection guides](/docs/claude-tag/admins/connections/overview).
 
@@ -65,7 +65,7 @@ Please create a service account in [service] for our Claude agent, scoped to [re
 A connector has no setting for which pages, folders, or projects Claude can reach inside a tool. The connector's reach is whatever the connected account can access in that tool. To narrow Claude to a subset, narrow the account:
 
 * **Confluence or another wiki:** give the service account read access to only the spaces or pages Claude should see
-* **Google Drive:** share only the relevant folders with the dedicated Google account; see [Google Workspace](/docs/claude-tag/admins/connections/google)
+* **Google Drive:** share only the relevant folders with the dedicated Google account; see [Google Workspace](/docs/claude-tag/admins/connections/google.md)
 * **Project or ticket trackers:** add the service account to only the projects it needs
 
 The host, path, and method restrictions on a credential control which API endpoints Claude can call, not which records those endpoints return. Use them alongside account-level scoping, not instead of it.
@@ -88,7 +88,7 @@ Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/
 
 **2. Pick the service**
 
-In the **Add a connector** dialog, search for the service and select it. A service Claude already holds a credential for shows **Connected**. For GitHub, see [Configure GitHub access](/docs/claude-tag/admins/configure-github). For a service that isn't listed, select **Custom connector** at the bottom of the list; see [Connect a service that isn't in the list](#connect-a-service-that-isn%E2%80%99t-in-the-list).
+In the **Add a connector** dialog, search for the service and select it. A service Claude already holds a credential for shows **Connected**. For GitHub, see [Configure GitHub access](/docs/claude-tag/admins/configure-github.md). For a service that isn't listed, select **Custom connector** at the bottom of the list; see [Connect a service that isn't in the list](#connect-a-service-that-isn%E2%80%99t-in-the-list).
 
 For a service that offers a sign-in as well as a key, such as Amplitude, the dialog then shows **How Claude authenticates**. Leave **Paste an API key** selected, or select the sign-in option, such as **Sign in to Amplitude as Claude**, and click **Continue to** *service*.
 
@@ -151,7 +151,7 @@ In both places, the row's **⋮** menu has **Revoke link**, and **Copy link for 
 
 ### Claude Tag connectors vs personal claude.ai connectors
 
-The **Add a connector** dialog lists services Claude can hold its own credential for, not the connectors your organization or its members have set up on claude.ai. A Claude Tag connector authenticates the agent, not a person; a connector on someone's personal claude.ai account doesn't appear there. For Google services, use a service-account key or sign in with an account made for Claude, both of which give the agent one credential with access to the data the channel needs. Personal connectors keep working in [DMs](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+The **Add a connector** dialog lists services Claude can hold its own credential for, not the connectors your organization or its members have set up on claude.ai. A Claude Tag connector authenticates the agent, not a person; a connector on someone's personal claude.ai account doesn't appear there. For Google services, use a service-account key or sign in with an account made for Claude, both of which give the agent one credential with access to the data the channel needs. Personal connectors keep working in [DMs](/docs/claude-tag/concepts/agent-identity.md#direct-message-channels).
 
 ## Change an existing connector
 
@@ -212,7 +212,7 @@ Agent Proxy starts applying an edit to a credential or a domain entry within abo
 
 ## Create a bundle
 
-A [bundle](/docs/claude-tag/concepts/glossary#access-bundle) is a named set of connectors, repositories, domain entries, plugins, and instructions that Claude takes on wherever the bundle applies. Use one to give a group of channels the same access, and to add a connector to only some channels from the start.
+A [bundle](/docs/claude-tag/concepts/glossary.md#access-bundle) is a named set of connectors, repositories, domain entries, plugins, and instructions that Claude takes on wherever the bundle applies. Use one to give a group of channels the same access, and to add a connector to only some channels from the start.
 
 **1. Create the bundle**
 
@@ -226,11 +226,11 @@ Under **What's in it**, click **Add** and choose **Connector**, **Repository**, 
 
 Under **Where it applies**, turn on the switch in the **Slack** row to apply the bundle in every workspace and channel, or in a workspace's row to apply it in that workspace. For a channel, click **Add place**, choose the channel under **Where**, and click **Add**. Then click **Save changes**. A bundle applies nowhere until you turn on a row or add a place.
 
-To add an existing bundle from a workspace or channel instead, open that place's page from the **Channels** tab, click **Add** under **Claude's access**, and select **Bundle**. [Attach bundles to workspaces and channels](/docs/claude-tag/admins/attach-to-scope) covers channel rules and how bundles combine.
+To add an existing bundle from a workspace or channel instead, open that place's page from the **Channels** tab, click **Add** under **Claude's access**, and select **Bundle**. [Attach bundles to workspaces and channels](/docs/claude-tag/admins/attach-to-scope.md) covers channel rules and how bundles combine.
 
 Name a bundle after what it grants, since the name is what you'll read when deciding which bundles to add to a channel: `data-readonly`, `github-write`, `monitoring`, `gtm-tools`. A capability name stays meaningful when the same bundle serves several teams; a team name (`devprod-team`) works when one team's full access is the unit you'll reuse.
 
-Use the bundle's **Instructions** section for guidance that should travel with its connectors; use [workspace or channel instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) for guidance tied to a place.
+Use the bundle's **Instructions** section for guidance that should travel with its connectors; use [workspace or channel instructions](/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions) for guidance tied to a place.
 
 ### Why create more than one bundle
 
@@ -238,7 +238,7 @@ Multiple bundles let you grant access by capability and compose it per channel. 
 
 ## Connect a service that isn't in the list
 
-The **Add a connector** list covers common services, not the full set Claude can connect to. Any app with an API can be connected. In the **Add a connector** dialog, select **Custom connector** at the bottom of the list. See the [custom connector guide](/docs/claude-tag/admins/connections/custom) for the form fields, credential types, and how to add a custom MCP server.
+The **Add a connector** list covers common services, not the full set Claude can connect to. Any app with an API can be connected. In the **Add a connector** dialog, select **Custom connector** at the bottom of the list. See the [custom connector guide](/docs/claude-tag/admins/connections/custom.md) for the form fields, credential types, and how to add a custom MCP server.
 
 For a custom connector, choose the **Credential type** that matches how the service authenticates:
 
@@ -248,25 +248,25 @@ For a custom connector, choose the **Credential type** that matches how the serv
 | Basic | HTTP Basic authentication. |
 | Body parameter | A token the API expects in the request body or query string instead of a header. |
 | AWS SigV4 | Signed requests to AWS service endpoints with an access key pair. |
-| GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google). |
+| GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google.md). |
 | GCP IAP (with Service Account Key) | Google Cloud services behind Identity-Aware Proxy. |
 | OAuth 2.0 JWT bearer | Server-to-server OAuth. |
 | OAuth 2.0 client credentials | Server-to-server OAuth. Salesforce uses this. |
-| MCP Connector | Sign in once as an admin; the agent acts as that account. The picker offers a fixed set of providers plus the [remote MCP connectors](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Other OAuth APIs can't be connected this way. |
+| MCP Connector | Sign in once as an admin; the agent acts as that account. The picker offers a fixed set of providers plus the [remote MCP connectors](/docs/connectors/custom/add-unlisted.md) your organization has added on claude.ai. Other OAuth APIs can't be connected this way. |
 
-For GitHub repositories, use the Claude GitHub App at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
+For GitHub repositories, use the Claude GitHub App at [Configure GitHub access](/docs/claude-tag/admins/configure-github.md) rather than a credential from this table.
 
-Credentials are injected at the network boundary by Agent Proxy; the model and the sandbox are not given the key. A request to a host you haven't allowed is blocked, not sent. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+Credentials are injected at the network boundary by Agent Proxy; the model and the sandbox are not given the key. A request to a host you haven't allowed is blocked, not sent. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
-You can also add connectors from a channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). The option to add one appears there only for people who can manage Claude's setup for that channel or for the whole organization. [Channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can manage setup for their assigned channels. Other channel members see the channel's connectors on the Configure page but can't add one.
+You can also add connectors from a channel's [Configure page](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel). The option to add one appears there only for people who can manage Claude's setup for that channel or for the whole organization. [Channel managers](/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) can manage setup for their assigned channels. Other channel members see the channel's connectors on the Configure page but can't add one.
 
 ## Allow a host without a credential
 
-Claude does channel work in an isolated [sandbox](/docs/claude-tag/concepts/agent-identity#channel-sessions). A network request is traffic that sandbox sends to a host, such as an API call, a `curl` fetch, or a package install. Before Claude can make one from a channel, the destination host has to be allowed by one of three settings, the allow layers:
+Claude does channel work in an isolated [sandbox](/docs/claude-tag/concepts/agent-identity.md#channel-sessions). A network request is traffic that sandbox sends to a host, such as an API call, a `curl` fetch, or a package install. Before Claude can make one from a channel, the destination host has to be allowed by one of three settings, the allow layers:
 
 * **A domain entry**: a hostname added to a bundle that applies to the channel. Requests to it pass with no credential attached; see [Add a domain](#add-a-domain).
 * **A [connector](#add-a-connector)**: a credential that applies to the channel. Requests matching its [allowed websites](#set-allowed-websites) pass with that credential attached.
-* **The channel's [environment](/docs/claude-tag/concepts/glossary#environment)**: the compute configuration the channel's sessions run in, which carries its own network access setting, starting at the Trusted access level that covers common package registries. Requests to hosts it allows pass with no credential; see [Broad web access through the environment](#broad-web-access-through-the-environment).
+* **The channel's [environment](/docs/claude-tag/concepts/glossary.md#environment)**: the compute configuration the channel's sessions run in, which carries its own network access setting, starting at the Trusted access level that covers common package registries. Requests to hosts it allows pass with no credential; see [Broad web access through the environment](#broad-web-access-through-the-environment).
 
 A host that none of these allows stays unreachable, and when more than one bundle applies to a channel, the entries of all of them apply. Web search is governed by none of them, because searching happens on Anthropic's servers rather than in the sandbox; see [Web search vs. network requests](#web-search-vs-network-requests).
 
@@ -284,7 +284,7 @@ For example, to let Claude check a vendor's status page at `status.example.org`,
 
 You don't have to predict the full list up front. When a request is blocked, Claude says so in the thread and names the host, with wording like "blocked by the network egress proxy" (that is, by Agent Proxy); add that host here and retry. If the host is listed and Claude still reports it blocked, check these in order:
 
-* **The bundle applies to the channel.** The bundle's **Where it applies** list must include the channel, its workspace, a channel group that matches it, or **Slack**; see [Attach bundles to workspaces and channels](/docs/claude-tag/admins/attach-to-scope).
+* **The bundle applies to the channel.** The bundle's **Where it applies** list must include the channel, its workspace, a channel group that matches it, or **Slack**; see [Attach bundles to workspaces and channels](/docs/claude-tag/admins/attach-to-scope.md).
 * **The entry matches the exact host.** A wildcard like `*.example.com` doesn't cover `example.com` itself, and `www.example.com` and `example.com` are different hosts.
 * **The request didn't move to another host.** If the page redirects, or loads from a CDN or a sign-in host, allow that host too; Claude names the host it was blocked on.
 * **The port is listed.** Needed only when the service listens on something other than 443.
@@ -297,15 +297,15 @@ Typical entries are hosts the work calls without a key, such as a docs site or a
 
 > [!NOTE]
 >
-> [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) carries only HTTP and HTTPS. A protocol that isn't HTTP, such as SSH, can't cross the proxy, so a domain entry doesn't make a host reachable over SSH.
+> [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy) carries only HTTP and HTTPS. A protocol that isn't HTTP, such as SSH, can't cross the proxy, so a domain entry doesn't make a host reachable over SSH.
 
 ### Broad web access through the environment
 
-Domain entries allow hosts one at a time. For a channel whose work needs more of the web, the environment setting grants broader access. An [environment](/docs/claude-tag/concepts/glossary#environment) is the sandboxed compute configuration the channel's sessions run in, and it carries its own network access setting.
+Domain entries allow hosts one at a time. For a channel whose work needs more of the web, the environment setting grants broader access. An [environment](/docs/claude-tag/concepts/glossary.md#environment) is the sandboxed compute configuration the channel's sessions run in, and it carries its own network access setting.
 
 A new environment's network access level is Trusted access, which allows a [documented set of package registries and developer hosts](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains). A channel can already reach hosts like `pypi.org` and `registry.npmjs.org` with no domain entry.
 
-To give a workspace or channel broader access, create an organization-shared environment with a more permissive level and set it on that place's page, under **Advanced > Sessions > Environment**, as described in [Configure the environment for a scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). **Full access** allows any domain; see [Network access in the Claude Code docs](https://code.claude.com/docs/en/cloud-environments#network-access) for the other levels.
+To give a workspace or channel broader access, create an organization-shared environment with a more permissive level and set it on that place's page, under **Advanced > Sessions > Environment**, as described in [Configure the environment for a scope](/docs/claude-tag/admins/customize.md#configure-the-environment-for-a-scope). **Full access** allows any domain; see [Network access in the Claude Code docs](https://code.claude.com/docs/en/cloud-environments#network-access) for the other levels.
 
 ### Allow all hosts
 
@@ -323,7 +323,7 @@ Web search needs no domain entry, connector, or environment setting. It's [Anthr
 
 Opening a page is not part of the search. A search returns content from the pages it matches, which Claude reads and cites; fetching a URL from the sandbox is a network request, and the host needs an allow layer. Claude can answer from a page that search surfaced yet report that it can't open the same link.
 
-If the work needs Claude to open and read pages rather than answer from search results, allow those hosts through the settings above. [Web search vs. network requests](/docs/claude-tag/concepts/agent-identity#web-search-vs-network-requests) covers the session mechanics behind the split.
+If the work needs Claude to open and read pages rather than answer from search results, allow those hosts through the settings above. [Web search vs. network requests](/docs/claude-tag/concepts/agent-identity.md#web-search-vs-network-requests) covers the session mechanics behind the split.
 
 ## Attach plugins
 
@@ -337,11 +337,11 @@ Where you add a plugin decides where it applies:
 * **Wherever a bundle applies**: on the bundle's page, under **What's in it**, click **Add** and choose **Plugin**.
 * **One workspace or channel**: on that place's page, under **Claude's access**, click **Add** and select **Plugin** or **Skill**, then pick the plugin or skill in the dialog and click **Add**. The dialog lists only the plugins and skills already on the **Skills and plugins** tab. For one that isn't on the tab yet, add it there and then limit it under **Assign access** on its page, or add a plugin to a bundle that applies to the place.
 * **Along with a connector**: when a connect form shows a checkbox to include the service's plugin, leave it selected to add that plugin with the credential.
-* **By a channel member**: a member can ask Claude to add a plugin available to your organization, in the channel or from the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), unless **Channel member edits** is set to **Block**; see [Restrict who can set channel instructions](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions). Claude proposes the change and adds the plugin only after someone in that channel selects **Confirm**.
+* **By a channel member**: a member can ask Claude to add a plugin available to your organization, in the channel or from the channel's [Configure page](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel), unless **Channel member edits** is set to **Block**; see [Restrict who can set channel instructions](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions). Claude proposes the change and adds the plugin only after someone in that channel selects **Confirm**.
 
-Anthropic provides plugins for common tools and processes, and you can add your own from a [skills repository](/docs/claude-tag/admins/skills-repo). To give Claude organization-wide skills, package them as a plugin. Adding a plugin to your organization's library on claude.ai makes it available to Claude, not active; it takes effect only where you add it in one of the ways above.
+Anthropic provides plugins for common tools and processes, and you can add your own from a [skills repository](/docs/claude-tag/admins/skills-repo.md). To give Claude organization-wide skills, package them as a plugin. Adding a plugin to your organization's library on claude.ai makes it available to Claude, not active; it takes effect only where you add it in one of the ways above.
 
-Adding or removing plugins and skills applies to new threads only. A thread already running keeps the set it began with; start a fresh thread to pick up changes. See [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies).
+Adding or removing plugins and skills applies to new threads only. A thread already running keeps the set it began with; start a fresh thread to pick up changes. See [What survives between replies](/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies).
 
 Claude can't publish a new skill version from inside a thread; that update happens in admin settings.
 
@@ -361,6 +361,6 @@ Anthropic's **Security Guidance** [plugin](https://code.claude.com/docs/en/plugi
 
 ## Related resources
 
-* [Set a spend limit](/docs/claude-tag/admins/set-spend-limit): fund usage so the connectors you just added can run
-* [Configure GitHub access](/docs/claude-tag/admins/configure-github): repository access, managed through the Claude GitHub App
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity#agent-proxy): how the credentials you just added reach Claude without entering its sandbox
+* [Set a spend limit](/docs/claude-tag/admins/set-spend-limit.md): fund usage so the connectors you just added can run
+* [Configure GitHub access](/docs/claude-tag/admins/configure-github.md): repository access, managed through the Claude GitHub App
+* [How agent identity works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy): how the credentials you just added reach Claude without entering its sandbox

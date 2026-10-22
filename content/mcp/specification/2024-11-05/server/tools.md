@@ -53,7 +53,7 @@ available tools changes.
 ### Listing Tools
 
 To discover available tools, clients send a `tools/list` request. This operation supports
-[pagination](/specification/2024-11-05/server/utilities/pagination).
+[pagination](/specification/2024-11-05/server/utilities/pagination.md).
 
 **Request:**
 
@@ -207,7 +207,7 @@ Tool results can contain multiple content items of different types:
 
 #### Embedded Resources
 
-[Resources](/specification/2024-11-05/server/resources) **MAY** be
+[Resources](/specification/2024-11-05/server/resources.md) **MAY** be
 embedded, to provide additional context or data, behind a URI that can be subscribed to
 or fetched again by the client later:
 

@@ -209,7 +209,6 @@ List Credentials
 
 ```bash
 ant beta:vaults:credentials list \
-  --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 

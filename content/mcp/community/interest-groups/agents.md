@@ -52,10 +52,10 @@ primitives. The IG evaluates those questions through its discussions.
 
 ### Related Groups
 
-* **[Transports WG](/community/working-groups/transports)** -
+* **[Transports WG](/community/working-groups/transports.md)** -
   Task polling, multi-round-trip requests, stateless operation, and request
   association depend on transport and message-flow semantics.
-* **[Tasks and Events WG](/community/working-groups/tasks-events)** -
+* **[Tasks and Events WG](/community/working-groups/tasks-events.md)** -
   Tasks and proactive task-status and completion notifications are owned by that
   group. The IG provides use cases and requirements as input.
 

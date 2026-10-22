@@ -306,8 +306,7 @@ List Deployment Runs
 ### Example
 
 ```bash
-ant beta:deployment-runs list \
-  --api-key my-anthropic-api-key
+ant beta:deployment-runs list
 ```
 
 #### Response (200)
@@ -592,7 +591,6 @@ Get Deployment Run
 
 ```bash
 ant beta:deployment-runs retrieve \
-  --api-key my-anthropic-api-key \
   --deployment-run-id deployment_run_id
 ```
 
