@@ -387,7 +387,7 @@ You can [create a batch](https://platform.claude.com/docs/en/api/messages/batche
       {
         custom_id: "my-first-request",
         params: {
-          model: "claude-opus-5-5",
+          model: Anthropic::Model::CLAUDE_OPUS_5_5,
           max_tokens: 1024,
           messages: [
             { role: "user", content: "Hello, world" }
@@ -397,7 +397,7 @@ You can [create a batch](https://platform.claude.com/docs/en/api/messages/batche
       {
         custom_id: "my-second-request",
         params: {
-          model: "claude-opus-5-5",
+          model: Anthropic::Model::CLAUDE_OPUS_5_5,
           max_tokens: 1024,
           messages: [
             { role: "user", content: "Hi again, friend" }
@@ -421,7 +421,7 @@ In this example, two separate requests are batched together for asynchronous pro
 
 When a batch is first created, the response has a processing status of `in_progress`.
 
-```json Output
+```text Output wrap
 {
   "id": "msgbatch_01HkcTjaV5uDC8jWR4ZsDV8d",
   "type": "message_batch",
@@ -917,7 +917,7 @@ Results of the batch are available for download at the `results_url` property on
 
 The results are in `.jsonl` format, where each line is a valid JSON object representing the result of a single request in the Message Batch. For each streamed result, you can do something different depending on its `custom_id` and result type. Here is an example set of results:
 
-```jsonl .jsonl file
+```text .jsonl file
 {"custom_id":"my-second-request","result":{"type":"succeeded","message":{"id":"msg_014VwiXbi91y3JMjcpyGBHX5","type":"message","role":"assistant","model":"claude-opus-5-5","content":[{"type":"text","text":"Hello again! It's nice to see you. How can I assist you today? Is there anything specific you'd like to chat about or any questions you have?"}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":11,"output_tokens":36}}}}
 {"custom_id":"my-first-request","result":{"type":"succeeded","message":{"id":"msg_01FqfsLoHwgeFbguDgpz48m7","type":"message","role":"assistant","model":"claude-opus-5-5","content":[{"type":"text","text":"Hello! How can I assist you today? Feel free to ask me any questions or let me know if there's anything you'd like to chat about."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":34}}}}
 ```
@@ -1016,7 +1016,7 @@ You can cancel a Message Batch that is currently processing using the [cancel en
 
 The response shows the batch in a `canceling` state:
 
-```json Output
+```text Output wrap
 {
   "id": "msgbatch_013Zva2CMHLNnXjNJJKqJ2EF",
   "type": "message_batch",
@@ -1492,7 +1492,7 @@ Example of implementing prompt caching in a batch:
       {
         custom_id: "my-first-request",
         params: {
-          model: "claude-opus-5-5",
+          model: Anthropic::Model::CLAUDE_OPUS_5_5,
           max_tokens: 1024,
           system: [
             {
@@ -1513,7 +1513,7 @@ Example of implementing prompt caching in a batch:
       {
         custom_id: "my-second-request",
         params: {
-          model: "claude-opus-5-5",
+          model: Anthropic::Model::CLAUDE_OPUS_5_5,
           max_tokens: 1024,
           system: [
             {
@@ -1770,7 +1770,7 @@ A single 300k-token generation can take over an hour to complete, so plan your b
       {
         custom_id: "long-form-request",
         params: {
-          model: "claude-opus-5-5",
+          model: Anthropic::Model::CLAUDE_OPUS_5_5,
           max_tokens: 300_000,
           messages: [
             { role: "user", content: "Write a comprehensive technical guide to building distributed systems, covering architecture patterns, consistency models, fault tolerance, and operational best practices." }
@@ -1837,7 +1837,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
   </Accordion>
 
   <Accordion title="Can I update a batch after it's been submitted?">
-    No, once a batch has been submitted, it cannot be modified. If you need to make changes, you should cancel the current batch and submit a new one. Note that cancellation might not take immediate effect.
+    No, once a batch has been submitted, it cannot be modified. If you need to make changes, cancel the current batch and submit a new one. Note that cancellation might not take immediate effect.
   </Accordion>
 
   <Accordion title="Are there Message Batches API rate limits and do they interact with the Messages API rate limits?">

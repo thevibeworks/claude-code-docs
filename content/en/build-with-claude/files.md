@@ -143,7 +143,7 @@ Upload a file to reference in future API calls:
 
 The response from uploading a file includes:
 
-```json Response
+```text Response wrap
 {
   "id": "file_011CNha8iCJcU1wXNR6q4V8w",
   "type": "file",
@@ -348,7 +348,7 @@ Once uploaded, reference the file by passing the `id` from the upload response a
 
   ```ruby Ruby
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [
       {
@@ -375,12 +375,12 @@ Once uploaded, reference the file by passing the `id` from the upload response a
 
 The Files API supports different file types that correspond to different content block types:
 
-| File type                                                                                                                               | MIME type                                            | Content block type | Use case                           |
-| --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ | ---------------------------------- |
-| PDF                                                                                                                                     | `application/pdf`                                    | `document`         | Text analysis, document processing |
-| Plain text                                                                                                                              | `text/plain`                                         | `document`         | Text analysis, processing          |
-| Images                                                                                                                                  | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks       |
-| [Datasets, others](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) | Varies                                               | `container_upload` | Data analysis, visualization       |
+| File type                                                                                                                                                                       | MIME type                                            | Content block type | Use case                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ | ---------------------------------- |
+| PDF                                                                                                                                                                             | `application/pdf`                                    | `document`         | Text analysis, document processing |
+| Plain text                                                                                                                                                                      | `text/plain`                                         | `document`         | Text analysis, processing          |
+| Images                                                                                                                                                                          | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks       |
+| Datasets, others (see [Upload and analyze your own files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files)) | Varies                                               | `container_upload` | Data analysis, visualization       |
 
 #### Document blocks
 
@@ -415,7 +415,7 @@ For images, use the `image` content block:
 
 #### Container upload blocks
 
-To send a file to the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files), use the `container_upload` content block:
+To [send a file to the code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files), use the `container_upload` content block:
 
 ```json
 {
@@ -426,7 +426,7 @@ To send a file to the [code execution tool](https://platform.claude.com/docs/en/
 
 ### Working with other file formats
 
-For file types that the `document` block doesn't support (for example, .docx and .xlsx), convert the files to plain text and include the content directly in your message. Files that are already plain text, such as .csv and .md files, can either be read in this way or uploaded through the Files API with an explicit `text/plain` content type. To analyze datasets instead of reading them as text, upload them for the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) using a `container_upload` block.
+For file types that the `document` block doesn't support (for example, .docx and .xlsx), convert the files to plain text and include the content directly in your message. Files that are already plain text, such as .csv and .md files, can either be read in this way or uploaded through the Files API with an explicit `text/plain` content type. To analyze datasets instead of reading them as text, upload them for the code execution tool using a `container_upload` block (see [Upload and analyze your own files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files)).
 
 The following examples read a text file and send its contents as plain text:
 
@@ -461,9 +461,7 @@ The following examples read a text file and send its contents as plain text:
 
   ```bash CLI
   # The "@./path" reference inlines the file contents directly into the field.
-  ant messages create \
-    --model claude-opus-5-5 \
-    --max-tokens 1024 <<'YAML'
+  ant messages create --model claude-opus-5-5 --max-tokens 1024 <<'YAML'
   messages:
     - role: user
       content:
@@ -641,7 +639,7 @@ The following examples read a text file and send its contents as plain text:
   text_content = File.read("document.txt")
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [
       {
@@ -990,15 +988,15 @@ Requests that carry `anthropic-beta: managed-agents-2026-04-01` without `files-a
 
 Common errors when using the Files API include:
 
-* **File not found (404):** The specified `file_id` doesn't exist or you don't have access to it
-* **Invalid file type (400):** The file type doesn't match the content block type (for example, using an image file in a document block)
-* **Not downloadable (400):** Files you upload have `"downloadable": false` and cannot be downloaded. Only files created by skills or the code execution tool can be downloaded
-* **Exceeds context window size (400):** The file is larger than the context window size (for example, using a 500 MB plain text file in a `/v1/messages` request)
-* **Invalid file name (400):** The file name doesn't meet the length requirements (1–255 characters) or contains forbidden characters (`<`, `>`, `:`, `"`, `|`, `?`, `*`, `\`, `/`, or Unicode characters 0–31)
-* **File too large (413):** File exceeds the 500 MB limit
-* **Storage limit exceeded (400):** Your organization has reached the 1 TB storage limit
+* **File not found (404):** The specified `file_id` doesn't exist or you don't have access to it.
+* **Invalid file type (400):** The file type doesn't match the content block type (for example, using an image file in a document block).
+* **Not downloadable (400):** Files you upload have `"downloadable": false` and cannot be downloaded. Only files created by skills or the code execution tool can be downloaded.
+* **Exceeds context window size (400):** The file is larger than the context window size (for example, using a 500 MB plain text file in a `/v1/messages` request).
+* **Invalid file name (400):** The file name doesn't meet the length requirements (1–255 characters) or contains forbidden characters (`<`, `>`, `:`, `"`, `|`, `?`, `*`, `\`, `/`, or Unicode characters 0–31).
+* **File too large (413):** The file exceeds the 500 MB limit.
+* **Storage limit exceeded (400):** Your organization has reached the 1 TB storage limit.
 
-```json Output
+```text Output wrap
 {
   "type": "error",
   "error": {

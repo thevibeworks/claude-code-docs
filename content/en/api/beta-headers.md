@@ -209,7 +209,7 @@ Beta feature names typically follow the pattern `feature-name-YYYY-MM-DD`, where
 
 If you use an invalid beta name, or a beta your organization doesn't have access to, you'll receive a `400` error response:
 
-```json Output
+```text Output
 {
   "type": "error",
   "error": {

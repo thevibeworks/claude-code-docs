@@ -318,7 +318,7 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
   ```ruby Ruby
   lead_agent = client.beta.agents.create(
     name: "Engineering Lead",
-    model: "claude-opus-5-5",
+    model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
     system: "You coordinate engineering work. Delegate code review to the reviewer agent and test writing to the test agent.",
     tools: [
       {type: "agent_toolset_20260401"}
@@ -457,7 +457,7 @@ Create the researcher, which declares the GitHub MCP server, and the agent that 
       "tools": [{"type": "mcp_toolset", "mcp_server_name": "github"}]
     }'
 
-  # Create the agent that delegates to it: research_agent_id is the id from the first response
+  # Create the agent that delegates to it: research_agent_id is the ID from the first response
   curl --fail-with-body -sS https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -846,7 +846,7 @@ With dynamic workflows, an agent can take on work with many pieces, such as revi
 
 ### Turn on dynamic workflows
 
-When [defining your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup), set `multiagent.type` to `"multiagent_20261001"` and enable `workflows`. Dynamic workflows and delegating (`subagents`) are both on by default with this type. For dynamic workflows only, add `"subagents": {"type": "disabled"}`.
+When [defining your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup), set `multiagent.type` to `"multiagent_20261001"` and enable `workflows` (csharp, go: `Workflows`). Dynamic workflows and delegating (`subagents` (csharp, go: `Subagents`)) are both on by default with this type. For dynamic workflows only, also set `subagents` (csharp, go: `Subagents`) to `{"type": "disabled"}`.
 
 Before you change an existing agent's `multiagent.type`, see [how to move an agent to this type](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#move-from-the-coordinator-type).
 
@@ -976,7 +976,7 @@ Before you change an existing agent's `multiagent.type`, see [how to move an age
   ```ruby Ruby
   agent = client.beta.agents.create(
     name: "Contract Reviewer",
-    model: "claude-opus-5-5",
+    model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
     system_: "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
     tools: [
       {type: "agent_toolset_20260401"}
@@ -1026,9 +1026,9 @@ Keep the following in mind:
   * A setting or field you send as `null` takes its default, and so does everything inside it, whatever you had stored.
   * A `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list you send replaces the stored list.
   * A setting you send with a different `type` replaces the stored setting, and the fields you leave out of it take their defaults.
-  * Every object you send needs its `type`, and an enabled `advisor` needs its `model`.
+  * Every object you send needs its `type`, and an enabled `advisor` (csharp, go: `Advisor`) needs its `model` (csharp, go: `Model`).
 
-* **Turning it off:** Set `workflows` to `{"type": "disabled"}`. It stays off until an update turns it on again. Sending `null` turns it on, because its default is enabled. The same applies to `subagents`.
+* **Turning it off:** Set `workflows` (csharp, go: `Workflows`) to `{"type": "disabled"}`. It stays off until an update turns it on again. Sending `null` turns it on, because its default is enabled. The same applies to `subagents` (csharp, go: `Subagents`).
 
 * **Existing sessions:** A session copies the setting when it is created, so changing the agent later doesn't change a session that already exists.
 
@@ -1061,7 +1061,7 @@ For a run's events, interrupting a session with runs open, what changes while a 
 
 ## Give the session an advisor
 
-An enabled `advisor` setting in the agent's `multiagent` (csharp, go: `Multiagent`) block gives the session's primary thread an **advisor:** a model it can consult mid-turn for strategic guidance, such as planning an approach, getting unstuck, or reviewing work before finishing. The setting is disabled by default. To enable it, set `advisor` to `{"type": "enabled", "model": "..."}`, which has exactly two fields, `type` and `model`:
+An enabled `advisor` (csharp, go: `Advisor`) setting in the agent's `multiagent` (csharp, go: `Multiagent`) block gives the session's primary thread an **advisor:** a model it can consult mid-turn for strategic guidance, such as planning an approach, moving past an obstacle, or reviewing work before finishing. The setting is disabled by default. To enable it, set `advisor` (csharp, go: `Advisor`) to `{"type": "enabled", "model": "..."}`, which has exactly two fields, `type` and `model`:
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -1197,7 +1197,7 @@ An enabled `advisor` setting in the agent's `multiagent` (csharp, go: `Multiagen
   ```ruby Ruby
   agent = client.beta.agents.create(
     name: "Backend engineer",
-    model: "claude-sonnet-5",
+    model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_SONNET_5,
     system_: "You implement backend features end to end. Consult the advisor before major backend design decisions.",
     multiagent: {
       type: "multiagent_20261001",
@@ -1242,7 +1242,7 @@ Prompt caching on the advisor's side is automatic; there is nothing to configure
 
 ### Removing the advisor
 
-To remove the advisor, [update the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) with `advisor` set to `{"type": "disabled"}`. On an agent that already has the `multiagent_20261001` type, a setting that the update leaves out keeps its stored value, so you don't need to send `subagents` or `workflows` again. For the same reason, an update that leaves `advisor` out keeps the advisor. Before you change an existing agent's `multiagent.type`, see [how to move an agent to this type](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#move-from-the-coordinator-type).
+To remove the advisor, [update the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) with `advisor` (csharp, go: `Advisor`) set to `{"type": "disabled"}`. On an agent that already has the `multiagent_20261001` type, a setting that the update leaves out keeps its stored value, so you don't need to send `subagents` (csharp, go: `Subagents`) or `workflows` (csharp, go: `Workflows`) again. For the same reason, an update that leaves `advisor` (csharp, go: `Advisor`) out keeps the advisor. Before you change an existing agent's `multiagent.type`, see [how to move an agent to this type](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#move-from-the-coordinator-type).
 
 ## Move from the `coordinator` type
 

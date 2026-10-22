@@ -253,7 +253,7 @@ Add the computer use toolset to the `tools` array of a [Messages API](https://pl
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     tools: [
       { type: "computer_toolset_20260801" },
@@ -277,7 +277,7 @@ Add the computer use toolset to the `tools` array of a [Messages API](https://pl
 
 When Claude acts on the desktop, the response has a `stop_reason` of `tool_use` and contains one or more member `tool_use` blocks, each naming a member tool and carrying `"toolset_name": "computer"`. Partway through this task, after Claude has received a screenshot of the desktop, a response might look like this:
 
-```json Output
+```text Output wrap
 {
   "id": "msg_01UZ3bXcQH8mTqNhVfL9eK2p",
   "type": "message",
@@ -347,7 +347,7 @@ Claude can plan a short sequence of actions, such as click, type, and then take 
 
 A response with a three-action batch looks like this:
 
-```json
+```text wrap
 {
   "role": "assistant",
   "content": [
@@ -437,7 +437,7 @@ Claude typically finishes a batch with `screenshot` so it can observe the outcom
 
 Computer use requires a sandboxed computing environment where Claude can safely interact with applications and the web. This environment includes:
 
-1. **Virtual display:** A virtual X11 display server (using Xvfb) that renders the desktop interface Claude sees through screenshots and controls with mouse/keyboard actions.
+1. **Virtual display:** A virtual X11 display server (using Xvfb) that renders the desktop interface that Claude receives as screenshots and controls with mouse/keyboard actions.
 
 2. **Desktop environment:** A lightweight UI with window manager (Mutter) and panel (Tint2) running on Linux, which provides a consistent graphical interface for Claude to interact with.
 
@@ -706,7 +706,7 @@ The loop continues until either Claude responds without requesting any tools (ta
 ### Optimize model performance with prompting
 
 1. Specify simple, well-defined tasks and provide explicit instructions for each step.
-2. Claude sometimes assumes outcomes of its actions without explicitly checking their results. To prevent this you can prompt Claude with `After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. State in one sentence what the screenshot shows and whether the step succeeded. If it didn't, try again. Only when you confirm a step was executed correctly should you move on to the next one.`
+2. Claude sometimes acts as if its actions succeeded without explicitly checking their results. To prevent this, you can prompt Claude with `After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. State in one sentence what the screenshot shows and whether the step succeeded. If it didn't, try again. Only when you confirm a step was executed correctly should you move on to the next one.`
 3. Some UI elements (such as dropdowns and scrollbars) might be tricky for Claude to manipulate using mouse movements. If you experience this, try prompting the model to use keyboard shortcuts.
 4. For repeatable tasks or UI interactions, include example screenshots and tool calls of successful outcomes in your prompt.
 5. If you need the model to log in, provide it with the username and password in your prompt inside XML tags such as `<robot_credentials>`. Using computer use within applications that require login increases the risk of bad outcomes as a result of prompt injection. Review [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks) before providing the model with login credentials.
@@ -761,7 +761,7 @@ Keep the following in mind when implementing the members:
 
   Shift+click at a position, for example, to extend a selection. Unlike `hold_key`, `text` holds the modifiers only for the duration of that click or scroll:
 
-  ```json
+  ```text wrap
   {
     "type": "tool_use",
     "id": "toolu_01Qg8m3XqC5aRy7tD2eS4jUg",
@@ -773,7 +773,7 @@ Keep the following in mind when implementing the members:
 
   Drag from one point to another:
 
-  ```json
+  ```text wrap
   {
     "type": "tool_use",
     "id": "toolu_01Ed6j9VnA3yPw5rB8cQ2gSe",
@@ -788,7 +788,7 @@ Keep the following in mind when implementing the members:
 
   Scroll down three clicks of the wheel:
 
-  ```json
+  ```text wrap
   {
     "type": "tool_use",
     "id": "toolu_01Yc5h8UmZ2xNv4qA7bP9fRd",
@@ -804,7 +804,7 @@ Keep the following in mind when implementing the members:
 
   Press Tab four times:
 
-  ```json
+  ```text wrap
   {
     "type": "tool_use",
     "id": "toolu_01Sb4g7TkY9wLu3pX6zM8eQc",
@@ -816,7 +816,7 @@ Keep the following in mind when implementing the members:
 
   Zoom in to inspect a region at full resolution:
 
-  ```json
+  ```text wrap
   {
     "type": "tool_use",
     "id": "toolu_01Kf7k2WpB4zQx6sC9dR3hTf",
@@ -828,7 +828,7 @@ Keep the following in mind when implementing the members:
 
   Report the cursor position. Answer this call with a short text result that gives the position in screenshot pixels, for example, `X=512, Y=384`:
 
-  ```json
+  ```text wrap
   {
     "type": "tool_use",
     "id": "toolu_01Ekh3vqB6yTs2mNc4Rw8pLd",
@@ -1323,7 +1323,7 @@ The computer use tool is implemented as a schema-less tool. When using this tool
             continue;
           }
           if (failed) {
-            // A batch stops at its first failure; answer later actions unexecuted
+            // A batch stops at its first failure; answer later actions without running them
             toolResults.push(computerResult(block.id, HALT_TEXT, true));
             continue;
           }
@@ -1597,7 +1597,7 @@ Use the same shape for coordinates outside the display bounds and for actions th
 Screenshots and zoom images that you return to the computer use toolset must already fit within your model's [image size limits](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size): the toolset takes no display dimensions and the API doesn't downscale for you, so an oversized `tool_result` image is rejected with a validation error. Because Claude returns coordinates in the pixel space of the image it receives, keep the scale factor you used so you can map those coordinates back to your screen.
 
 <Note>
-  Limits vary by model. Claude Opus 4.7 and later models, including every model that supports `computer_toolset_20260801`, accept up to 2576 pixels on the long edge and 4,784 visual tokens total (`⌈width / 28⌉ × ⌈height / 28⌉`, approximately 3.75 megapixels); earlier models accept up to 1568 pixels on the long edge and approximately 1.15 megapixels total (see [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) for each model's tier). The following example uses the earlier-model 1568 px / 1.15 MP limits. For a high-resolution-tier model, size to the visual-token limit rather than a pixel total, for example with the resize helper in [Resize your image before uploading](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading).
+  Limits vary by model. Claude Opus 4.7 and later models, including every model that supports `computer_toolset_20260801`, accept up to 2,576 pixels on the long edge and 4,784 visual tokens total (`⌈width / 28⌉ × ⌈height / 28⌉`, approximately 3.75 megapixels); earlier models accept up to 1,568 pixels on the long edge and approximately 1.15 megapixels total (see [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) for each model's tier). The following example uses the earlier-model 1,568 px / 1.15 MP limits. For a high-resolution-tier model, size to the visual-token limit rather than a pixel total, for example with the resize helper in [Resize your image before uploading](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading).
 </Note>
 
 If your screen is larger than the limit, resize each screenshot before returning it and scale Claude's returned coordinates back to the original screen space. Because the toolset takes no display dimensions, the resize and the coordinate scaling in your application code are all you need:

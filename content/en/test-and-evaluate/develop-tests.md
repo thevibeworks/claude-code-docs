@@ -98,10 +98,10 @@ Here are some criteria that might be important for your use case. This list is n
 Most use cases need multidimensional evaluation along several success criteria.
 
 <Accordion title="Example multidimensional criteria for sentiment analysis">
-  |      | Criteria                                                                                                                                                                                                                                                                               |
-  | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | Bad  | The model should classify sentiments well                                                                                                                                                                                                                                              |
-  | Good | On a held-out test set of 10,000 diverse Twitter posts, the sentiment analysis model should achieve:<br />- an F1 score of at least 0.85<br />- 99.5% of outputs are non-toxic<br />- 90% of errors would cause inconvenience, not egregious error\*<br />- 95% response time \< 200ms |
+  |      | Criteria                                                                                                                                                                                                                                                                        |
+  | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Bad  | The model should classify sentiments well                                                                                                                                                                                                                                       |
+  | Good | On a held-out test set of 10,000 diverse Twitter posts, the sentiment analysis model should achieve:<br />- an F1 score of at least 0.85<br />- 99.5% non-toxic outputs<br />- 90% of errors would cause inconvenience, not egregious error\*<br />- 95% response time \< 200ms |
 
   \*In reality, you would also define what "inconvenience" and "egregious" mean.
 </Accordion>
@@ -125,7 +125,7 @@ Most use cases need multidimensional evaluation along several success criteria.
 ### Example evals
 
 <AccordionGroup>
-  <Accordion title="Task fidelity (sentiment analysis) - exact match evaluation">
+  <Accordion title="Task fidelity (sentiment analysis): exact match evaluation">
     **What it measures:** Exact match evals measure whether the model's output matches a predefined correct answer, typically after normalizing whitespace and case. It's a simple, unambiguous metric that's perfect for tasks with clear-cut, categorical answers such as sentiment analysis (positive, negative, neutral).
 
     **Example eval test cases:** 1,000 tweets with human-labeled sentiments.
@@ -487,7 +487,7 @@ Most use cases need multidimensional evaluation along several success criteria.
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Consistency (FAQ bot) - cosine similarity evaluation">
+  <Accordion title="Consistency (FAQ bot): cosine similarity evaluation">
     **What it measures:** Cosine similarity measures the similarity between two vectors (in this case, sentence embeddings of the model's output using [Sentence-BERT (SBERT)](https://sbert.net/)) by computing the cosine of the angle between them. Values closer to 1 indicate higher similarity. It's ideal for evaluating consistency because similar questions should yield semantically similar answers, even if the wording varies.
 
     **Example eval test cases:** 50 groups with a few paraphrased versions each.
@@ -1033,7 +1033,7 @@ Most use cases need multidimensional evaluation along several success criteria.
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Relevance and coherence (summarization) - ROUGE-L evaluation">
+  <Accordion title="Relevance and coherence (summarization): ROUGE-L evaluation">
     **What it measures:** ROUGE-L (Recall-Oriented Understudy for Gisting Evaluation - Longest Common Subsequence) evaluates the quality of generated summaries. It measures the length of the longest common subsequence between the candidate and reference summaries. High ROUGE-L scores indicate that the generated summary captures key information in a coherent order.
 
     **Example eval test cases:** 200 articles with reference summaries.
@@ -1560,7 +1560,7 @@ Most use cases need multidimensional evaluation along several success criteria.
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Tone and style (customer service) - LLM-based Likert scale">
+  <Accordion title="Tone and style (customer service): LLM-based Likert scale">
     **What it measures:** The LLM-based Likert scale is a psychometric scale that uses an LLM to judge subjective attitudes or perceptions. Here, it's used to rate the tone of responses on a scale from 1 to 5. It's ideal for evaluating nuanced aspects such as empathy, professionalism, or patience that are difficult to quantify with traditional metrics.
 
     **Example eval test cases:** 100 customer inquiries with target tone (empathetic, patient, professional).
@@ -2031,7 +2031,7 @@ Most use cases need multidimensional evaluation along several success criteria.
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Privacy preservation (medical chatbot) - LLM-based binary classification">
+  <Accordion title="Privacy preservation (medical chatbot): LLM-based binary classification">
     **What it measures:** Binary classification determines if an input belongs to one of two classes. Here, it's used to classify whether a response contains PHI. This method can account for context and identify subtle or implicit forms of PHI that rule-based systems might miss.
 
     **Example eval test cases:** 500 simulated patient queries, some with PHI.
@@ -2584,7 +2584,7 @@ Most use cases need multidimensional evaluation along several success criteria.
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Context utilization (conversation assistant) - LLM-based ordinal scale">
+  <Accordion title="Context utilization (conversation assistant): LLM-based ordinal scale">
     **What it measures:** Similar to the Likert scale, the ordinal scale measures on a fixed, ordered scale (1–5). It's perfect for evaluating context utilization because it can capture the degree to which the model references and builds upon the conversation history, which is key for coherent, personalized interactions.
 
     **Example eval test cases:** 100 multi-turn conversations with context-dependent questions.
@@ -3240,7 +3240,7 @@ When deciding which method to use to grade evals, choose the fastest, most relia
   <Note>
     A given use case, or even a specific success criterion for that use case, might require several rubrics for holistic evaluation.
   </Note>
-* **Empirical or specific:** For example, instruct the LLM to output only 'correct' or 'incorrect', or to judge from a scale of 1–5. Purely qualitative evaluations are hard to assess quickly and at scale.
+* **Be empirical or specific:** For example, instruct the LLM to output only 'correct' or 'incorrect', or to judge from a scale of 1–5. Purely qualitative evaluations are hard to assess quickly and at scale.
 * **Encourage reasoning:** Use a grader model with [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on, so that it reasons before it produces an evaluation score. This increases evaluation performance, particularly for tasks requiring complex judgment.
 
 <Accordion title="Example: LLM-based grading">

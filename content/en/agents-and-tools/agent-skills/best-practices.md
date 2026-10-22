@@ -254,9 +254,9 @@ description: Does stuff with files
 
 **Practical guidance:**
 
-* Keep `SKILL.md` body under 500 lines for optimal performance
-* Split content into separate files when approaching this limit
-* Use the following patterns to organize instructions, code, and resources effectively
+* Keep the `SKILL.md` body under 500 lines for optimal performance.
+* Split content into separate files when approaching this limit.
+* Use the following patterns to organize instructions, code, and resources effectively.
 
 #### Visual overview: From simple to complex
 
@@ -812,9 +812,9 @@ The same hierarchical pattern continues when improving Skills. You alternate amo
 * **Testing with Claude B** (the agent using the Skill to perform real work)
 * **Observing Claude B's behavior** and bringing insights back to Claude A
 
-1. **Use the Skill in real workflows:** Give Claude B (with the Skill loaded) actual tasks, not test scenarios
+1. **Use the Skill in real workflows:** Give Claude B (with the Skill loaded) actual tasks, not test scenarios.
 
-2. **Observe Claude B's behavior:** Note where it struggles, succeeds, or makes unexpected choices
+2. **Observe Claude B's behavior:** Note where it struggles, succeeds, or makes unexpected choices.
 
    **Example observation:** "When I asked Claude B for a regional sales report, it wrote the query but forgot to filter out test accounts, even though the Skill mentions this rule."
 
@@ -822,7 +822,7 @@ The same hierarchical pattern continues when improving Skills. You alternate amo
 
 4. **Review Claude A's recommendations:** Claude A might recommend reorganizing to make rules more prominent, using stronger language such as "MUST filter" instead of "always filter," or restructuring the workflow section.
 
-5. **Apply and test changes:** Update the Skill with Claude A's refinements, then test again with Claude B on similar requests
+5. **Apply and test changes:** Update the Skill with Claude A's refinements, then test again with Claude B on similar requests.
 
 6. **Repeat based on usage:** Continue this observe-refine-test cycle as you encounter new scenarios. Each iteration improves the Skill based on real agent behavior, not assumptions.
 
@@ -918,7 +918,7 @@ Configuration parameters should also be justified and documented to avoid "voodo
 # Longer timeout accounts for slow connections
 REQUEST_TIMEOUT = 30
 
-# Three retries balances reliability vs speed
+# Three retries balances reliability versus speed
 # Most intermittent failures resolve by the second retry
 MAX_RETRIES = 3
 ```
@@ -1137,7 +1137,7 @@ See [Skill structure](https://platform.claude.com/docs/en/agents-and-tools/agent
 
 ### Token budgets
 
-Keep `SKILL.md` body under 500 lines for optimal performance. If your content exceeds this, split it into separate files using the progressive disclosure patterns described earlier. For architectural details, see [How Skills work](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#how-skills-work).
+Keep the `SKILL.md` body under 500 lines for optimal performance. If your content exceeds this, split it into separate files using the progressive disclosure patterns described earlier. For architectural details, see [How Skills work](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#how-skills-work).
 
 ## Checklist for effective Skills
 

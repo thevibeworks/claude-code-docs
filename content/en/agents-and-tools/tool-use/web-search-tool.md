@@ -459,8 +459,8 @@ The `user_location` parameter allows you to localize search results based on a u
 * `type`: The type of location (must be `approximate`)
 * `city`: The city name
 * `region`: The region or state
-* `country`: The two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. The API rejects unsupported country codes with a 400 error.
-* `timezone`: The [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+* `country`: The two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code (the API rejects an unsupported code with a 400 error)
+* `timezone`: The [IANA time zone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
 On Claude Managed Agents, the `web_search` entry of the agent toolset accepts a `user_location` object with the same fields. The API rejects an unsupported `country` code with a 400 error when you create or update the agent, or when you create or update a session that supplies the setting. See the [web tool settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings).
 
@@ -488,7 +488,7 @@ The `response_inclusion` parameter controls how search result blocks appear in t
 
 Here's an example response structure:
 
-```json Output
+```text Output
 {
   "role": "assistant",
   "content": [
@@ -583,7 +583,7 @@ The web search citation fields `cited_text`, `title`, and `url` do not count tow
 
 When the web search tool encounters an error (such as hitting rate limits), the Claude API still returns a 200 (success) response. The error is represented within the response body using the following structure:
 
-```json Output
+```text Output wrap
 {
   "type": "web_search_tool_result",
   "tool_use_id": "srvtoolu_a93jad",
@@ -621,7 +621,7 @@ To cache tool definitions across turns, see [Tool use with prompt caching](https
 
 With streaming enabled, you'll receive search events as part of the stream. There is a pause while the search runs:
 
-```sse Output
+```text Output
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_abc123", "type": "message"}}
 
@@ -656,7 +656,7 @@ To protect shared capacity, the Batches API throttles web search requests for ea
 
 Web search usage is charged in addition to token usage:
 
-```json
+```text wrap
 {
   "usage": {
     "input_tokens": 105,
@@ -670,7 +670,7 @@ Web search usage is charged in addition to token usage:
 }
 ```
 
-Web search is available on the Claude API for **$10 USD per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations executed during a single turn and in subsequent conversation turns.
+Web search is available on the Claude API for **$10 USD per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations run during a single turn and in subsequent conversation turns.
 
 Each web search counts as one use, regardless of the number of results returned. If an error occurs during web search, the web search will not be billed.
 

@@ -38,7 +38,7 @@ With `ant beta:sessions connect`, you can open the same viewer from the `ant` CL
 
 The session object includes a `usage` field with the session's cumulative usage: token counts, server tool use, active time, and the tracked list cost. Fetch the session after it goes idle to read the latest totals.
 
-```json
+```text wrap
 {
   "id": "sesn_01...",
   "status": "idle",
@@ -79,7 +79,7 @@ The session's `stats` object has its own `active_seconds`, which sums each threa
 
 ### Per-thread usage
 
-Each [session thread](https://platform.claude.com/docs/en/managed-agents/session-threads)'s own `usage` carries `list_cost` and `active_seconds` too. Per-thread figures are rounded independently and exclude the session's running-time cost, so they don't sum exactly to the session's `list_cost`. The session figure is the authoritative one.
+Each [session thread](https://platform.claude.com/docs/en/managed-agents/session-threads)'s own `usage` (csharp, go: `Usage`) carries `list_cost` (java, php: `listCost`; csharp, go: `ListCost`) and `active_seconds` (java, php: `activeSeconds`; csharp, go: `ActiveSeconds`) too. Per-thread figures are rounded independently and exclude the session's running-time cost, so they don't sum exactly to the session's `list_cost` (java, php: `listCost`; csharp, go: `ListCost`). The session figure is the authoritative one.
 
 ### Read usage from the stream
 

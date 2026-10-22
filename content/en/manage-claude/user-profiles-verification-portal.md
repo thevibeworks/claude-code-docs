@@ -127,7 +127,7 @@ The call returns a `404` if creating enrollment links isn't enabled for your org
 
 The response contains the link and the time it stops working:
 
-```json
+```text wrap
 {
   "type": "user_profile_action_url",
   "url": "https://portal.anthropic.com/enroll?enrollment_token=...",

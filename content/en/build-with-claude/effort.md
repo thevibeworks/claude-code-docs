@@ -296,7 +296,7 @@ The API default is `high`. To use `xhigh`, set `effort` explicitly. The value yo
 | Effort   | Guidance for Claude Opus 4.7                                                                                                                                                                                             |
 | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `low`    | Efficient, but best for short, scoped tasks. Pair `low` with explicit checklists if your task has multiple sections.                                                                                                     |
-| `medium` | The drop-in for the average workflow where you want good results while reducing costs.                                                                                                                                   |
+| `medium` | The setting for the average workflow where you want good results while reducing costs.                                                                                                                                   |
 | `high`   | Advanced use cases that still need a balance of intelligence and token consumption. This is often the best balance of quality and token efficiency.                                                                      |
 | `xhigh`  | The recommended starting point for coding and agentic work, and for exploratory tasks such as repeated tool calling, detailed web search, and knowledge-base search. Expect meaningfully higher token usage than `high`. |
 | `max`    | Reserve for frontier problems. On most workloads `max` adds significant cost for relatively small quality gains, and on some structured-output or less intelligence-sensitive tasks it can lead to overthinking.         |
@@ -402,7 +402,8 @@ The following example starts at `high`, then drops to `low` for a routine follow
   ```
 
   ```bash CLI
-  ant beta:messages create --beta mid-conversation-output-config-2026-07-01 <<'YAML'
+  ant beta:messages create \
+    --beta mid-conversation-output-config-2026-07-01 <<'YAML'
   model: claude-fable-5-1
   max_tokens: 4096
   output_config:

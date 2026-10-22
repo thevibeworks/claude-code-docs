@@ -85,7 +85,7 @@ For example, you ask the [contract-review agent](https://platform.claude.com/doc
 
 The run's first event lists its phases:
 
-```json
+```text
 {
   "type": "workflow_run.created",
   "id": "sevt_01abc...",
@@ -106,7 +106,7 @@ The run's first event lists its phases:
 
 Each phase event names its phase by `workflow_run_phase_id`. That is an `id` in `phases`, but the API doesn't guarantee it:
 
-```json
+```text wrap
 {
   "type": "workflow_run.phase_started",
   "id": "sevt_01def...",
@@ -118,7 +118,7 @@ Each phase event names its phase by `workflow_run_phase_id`. That is an `id` in 
 
 The run's last event reports how it ended:
 
-```json
+```text wrap
 {
   "type": "workflow_run.status_ended",
   "id": "sevt_01ghi...",

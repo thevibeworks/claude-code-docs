@@ -11,7 +11,7 @@ description: Guides for migrating to the latest Claude models from previous Clau
 
 ## Get help
 
-* Check the [API overview](https://platform.claude.com/docs/en/api/overview) for detailed specifications
-* Review [model capabilities](https://platform.claude.com/docs/en/models/overview) for performance comparisons
-* Review [Claude Platform release notes](https://platform.claude.com/docs/en/release-notes/overview) for API updates
-* Contact support if you encounter any issues during migration
+* Check the [API overview](https://platform.claude.com/docs/en/api/overview) for detailed specifications.
+* Review [model capabilities](https://platform.claude.com/docs/en/models/overview) for performance comparisons.
+* Review [Claude Platform release notes](https://platform.claude.com/docs/en/release-notes/overview) for API updates.
+* Contact support if you encounter any issues during migration.

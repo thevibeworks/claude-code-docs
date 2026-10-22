@@ -8,9 +8,9 @@ description: Text embeddings are numerical representations of text that let you 
 
 When selecting an embeddings provider, there are several factors you can consider depending on your needs and preferences:
 
-* Dataset size and domain specificity: size of the model training dataset and its relevance to the domain you want to embed. Larger or more domain-specific data generally produces better in-domain embeddings
-* Inference performance: embedding lookup speed and end-to-end latency. This is a particularly important consideration for large-scale production deployments
-* Customization: options for continued training on private data, or specialization of models for very specific domains. This can improve performance on unique vocabularies
+* Dataset size and domain specificity: size of the model training dataset and its relevance to the domain you want to embed. Larger or more domain-specific data generally produces better in-domain embeddings.
+* Inference performance: embedding lookup speed and end-to-end latency. This is a particularly important consideration for large-scale production deployments.
+* Customization: options for continued training on private data, or specialization of models for very specific domains. This can improve performance on unique vocabularies.
 
 ## How to get embeddings with Anthropic
 
@@ -88,7 +88,7 @@ export VOYAGE_API_KEY="<your model API key>"
 
 For more detail, see [Voyage AI quick start](https://www.mongodb.com/docs/voyageai/quickstart/) in the MongoDB documentation.
 
-You can obtain the embeddings by either using the official [`voyageai` Python package](https://github.com/voyage-ai/voyageai-python) or HTTP requests, as described in the following sections. Voyage AI also has an official TypeScript client. To use it with a model API key from Atlas, set its `environment` option to `https://ai.mongodb.com/v1`, as described in [TypeScript client](https://www.mongodb.com/docs/voyageai/api-and-clients/#typescript-client) in the MongoDB documentation.
+You can obtain the embeddings by using either the official [`voyageai` Python package](https://github.com/voyage-ai/voyageai-python) or HTTP requests, as described in the following sections. Voyage AI also has an official TypeScript client. To use it with a model API key from Atlas, set its `environment` option to `https://ai.mongodb.com/v1`, as described in [TypeScript client](https://www.mongodb.com/docs/voyageai/api-and-clients/#typescript-client) in the MongoDB documentation.
 
 ### Voyage AI Python library
 
@@ -142,7 +142,7 @@ curl https://ai.mongodb.com/v1/embeddings \
 
 The response is a JSON object containing the embeddings and the token usage:
 
-```json
+```text wrap
 {
   "object": "list",
   "data": [

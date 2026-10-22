@@ -993,7 +993,7 @@ Under any permission policy, each `agent.tool_use` and `agent.mcp_tool_use` even
 
 For example, when `bash` is under `auto` and the server evaluates a call as high-risk, the denied call appears on the event stream as follows:
 
-```json
+```text wrap
 {
   "type": "agent.tool_use",
   "id": "sevt_01pqr...",
@@ -1040,7 +1040,7 @@ A tool call evaluates to `ask` under an `always_ask` policy, or under `auto` whe
 
 For example, a `bash` call paused under an `always_ask` policy appears on the stream as follows:
 
-```json
+```text wrap
 {
   "type": "agent.tool_use",
   "id": "sevt_01def...",
@@ -1060,7 +1060,7 @@ If you send a `user.tool_confirmation` for an event whose `evaluated_permission`
 
 To answer interactively instead, use `ant beta:sessions connect`, which shows the waiting call and sends this event when you allow or deny it. See [Connect to a Managed Agents session from your terminal](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/sessions-connect#follow-and-steer-the-session).
 
-In the following examples, the tool-use event IDs come from the `stop_reason.event_ids` array of the `session.status_idle` event. Learn more about receiving events in the [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#stream-events) guide, or [subscribe to webhooks](https://platform.claude.com/docs/en/managed-agents/webhooks) to be notified when a session pauses for input.
+In the following examples, the tool-use event IDs come from the `stop_reason.event_ids` array of the `session.status_idle` event. Learn more about [receiving events](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#stream-events) in the Session event stream guide, or [subscribe to webhooks](https://platform.claude.com/docs/en/managed-agents/webhooks) to be notified when a session pauses for input.
 
 <CodeGroup>
   ```bash cURL
@@ -1309,7 +1309,7 @@ In the following examples, the tool-use event IDs come from the `stop_reason.eve
 
 ## Custom tools
 
-Permission policies do not apply to custom tools. When the agent invokes a custom tool, your application receives an `agent.custom_tool_use` event and is responsible for deciding whether to run it before sending back a `user.custom_tool_result`. See [Answer tool calls that pause the session](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#answer-tool-calls-that-pause-the-session) for the full flow.
+Permission policies do not apply to custom tools. When the agent calls a custom tool, your application receives an `agent.custom_tool_use` event and is responsible for deciding whether to run it before sending back a `user.custom_tool_result`. See [Answer tool calls that pause the session](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#answer-tool-calls-that-pause-the-session) for the full flow.
 
 ## Next steps
 

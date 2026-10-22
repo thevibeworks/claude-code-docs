@@ -1704,7 +1704,7 @@ The `/v1/organizations/me` endpoint returns the organization that your credentia
   ```
 </CodeGroup>
 
-```json
+```text wrap
 {
   "id": "12345678-1234-5678-1234-567812345678",
   "type": "organization",

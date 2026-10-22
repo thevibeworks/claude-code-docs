@@ -1,7 +1,7 @@
 ---
 title: Claude Sonnet 4 system prompts
 url: https://platform.claude.com/docs/en/release-notes/system-prompts/claude-sonnet-4
-description: See updates to the core system prompt for Claude Sonnet 4 on [claude.ai](https://claude.ai) and the [Claude iOS app](https://anthropic.com/ios) and [Claude Android app](https://anthropic.com/android).
+description: See updates to the core system prompt for Claude Sonnet 4 on [claude.ai](https://claude.ai), the [Claude iOS app](https://anthropic.com/ios), and the [Claude Android app](https://anthropic.com/android).
 ---
 
 ## August 5, 2025

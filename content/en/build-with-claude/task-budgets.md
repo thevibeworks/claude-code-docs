@@ -58,8 +58,7 @@ Add `task_budget` to `output_config` and include the beta header:
   ```
 
   ```bash CLI
-  ant beta:messages create --beta task-budgets-2026-03-13 \
-    --stream <<'YAML'
+  ant beta:messages create --beta task-budgets-2026-03-13 --stream <<'YAML'
   model: claude-opus-5-5
   max_tokens: 128000
   messages:
@@ -224,7 +223,7 @@ Add `task_budget` to `output_config` and include the beta header:
   client = Anthropic::Client.new
 
   stream = client.beta.messages.stream(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 128_000,
     messages: [
       { role: "user", content: "Review the codebase and propose a refactor plan." }
@@ -313,7 +312,7 @@ Consider a loop with `task_budget: {type: "tokens", total: 100000}` and a single
 
 Claude thinks, then emits a tool call and stops with `stop_reason: "tool_use"`:
 
-```json
+```text
 {
   "role": "assistant",
   "content": [
@@ -503,7 +502,7 @@ For a hard cap on cost or latency, combine task budgets with a reasonable `max_t
 Because `task_budget` spans the full agentic loop (potentially many requests) whereas `max_tokens` caps each individual request, the two values are independent; one is not required to be at or below the other.
 
 <Warning>
-  **A budget that is too small for the task can cause refusal-like behavior.** When Claude sees a budget that is clearly insufficient for the work being asked (for example, a 20,000-token budget for a multihour agentic coding task), it might decline to attempt the task at all, scope it down aggressively, or stop early with a partial result rather than start work it cannot complete. If you observe unexpected refusals or premature stops after setting a budget, raise the budget before debugging other parameters. Size budgets against your actual task-length distribution rather than a fixed default; see [Choosing a budget](https://platform.claude.com/docs/en/build-with-claude/task-budgets#choosing-a-budget).
+  **A budget that is too small for the task can cause refusal-like behavior.** When Claude receives a budget that is clearly insufficient for the work being asked (for example, a 20,000-token budget for a multihour agentic coding task), it might decline to attempt the task at all, scope it down aggressively, or stop early with a partial result rather than start work it cannot complete. If you observe unexpected refusals or premature stops after setting a budget, raise the budget before debugging other parameters. Size budgets against your actual task-length distribution rather than a fixed default; see [Choosing a budget](https://platform.claude.com/docs/en/build-with-claude/task-budgets#choosing-a-budget).
 </Warning>
 
 ## Choosing a budget
@@ -634,7 +633,7 @@ Run a representative sample of tasks **without** `task_budget` set and record th
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: [
       { role: "user", content: "Review the codebase and propose a refactor plan." }
@@ -689,7 +688,7 @@ Task budgets are not supported on [Claude Code](https://code.claude.com/docs/en/
     Let Claude determine when and how much to use extended thinking.
   </Card>
 
-  <Card title="Compaction" icon="arrows-clockwise" href="https://platform.claude.com/docs/en/build-with-claude/compaction">
+  <Card title="Compaction overview" icon="arrows-clockwise" href="https://platform.claude.com/docs/en/build-with-claude/compaction">
     Manage context in long-running conversations with server-side compaction.
   </Card>
 

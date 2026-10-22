@@ -22,17 +22,17 @@ Coordinates follow the standard image convention: the origin `(0, 0)` is the top
 
 Claude finds the largest aspect-preserving size that satisfies both of the model's image limits:
 
-1. **Edge limit:** neither side exceeds the maximum edge length (1568 px on the standard tier, 2576 px on the high-resolution tier).
-2. **Visual token limit:** the image's token cost `⌈width / 28⌉ × ⌈height / 28⌉` does not exceed the model's visual token budget (1568 tokens on the standard tier, 4784 on the high-resolution tier).
+1. **Edge limit:** neither side exceeds the maximum edge length (1,568 px on the standard tier, 2,576 px on the high-resolution tier).
+2. **Visual token limit:** the image's token cost `⌈width / 28⌉ × ⌈height / 28⌉` does not exceed the model's visual token budget (1,568 tokens on the standard tier, 4,784 on the high-resolution tier).
 
 See [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) for which models are in which tier.
 
 For nearly all photos and screenshots, the visual token limit is what determines the final size. The edge limit takes over only for elongated images such as panoramas or tall phone screenshots. Compute the size with the [reference implementation](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading) rather than scaling to the edge length by hand: a 1920×1080 screenshot resizes to 1456×819, not 1568×882, and assuming the edge limit puts every coordinate noticeably off target.
 
-The token limit can also trigger a resize when neither side exceeds the edge limit. Overlooking this is the most common cause of misaligned coordinates. For example, an A4 page scanned at 130 DPI is 1075×1520 pixels: both sides are under 1568 px, but it costs `39 × 55 = 2145` visual tokens, so Claude resizes it to 924×1307.
+The token limit can also trigger a resize when neither side exceeds the edge limit. Overlooking this is the most common cause of misaligned coordinates. For example, an A4 page scanned at 130 DPI is 1075×1520 pixels: both sides are under 1,568 px, but it costs `39 × 55 = 2145` visual tokens, so Claude resizes it to 924×1307.
 
 <Note>
-  This example assumes a model on the standard resolution tier. A high-resolution-tier model doesn't resize the same scan: 2145 tokens is within its 4784-token budget, so the coordinates it returns map directly onto the 1075×1520 original. Model tiers are listed in [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size).
+  This example assumes a model on the standard resolution tier. A high-resolution-tier model doesn't resize the same scan: 2,145 tokens is within its 4,784-token budget, so the coordinates it returns map directly onto the 1075×1520 original. Model tiers are listed in [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size).
 </Note>
 
 Claude then pads every image, resized or not, up to the next multiple of 28 pixels on the bottom and right edges (924×1307 becomes 924×1316 in the example). The padding contains no content: Claude perceives the padded image, but the page content only ever occupies the un-padded resized region. **Always normalize or rescale by the resized dimensions, not the padded dimensions**; dividing by the padded dimensions scales every coordinate by a small amount.
@@ -468,7 +468,7 @@ Rescale to the reported target and resend: the target is the largest size, at yo
 Each image has its own setting. `"oversized_image": "downsize"` (the default when the field is omitted) keeps automatic resizing as described on this page. Each image block is checked only against its own setting, so one request can mix images whose dimensions matter (a screenshot you'll click) with images where resizing is harmless (a logo). What the setting does and does not change:
 
 * [Padding](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images) (which never discards content), format conversion, and orientation correction proceed as usual.
-* The hard limits (8000 px on the longest side, and the stricter per-image limit on [many-image requests](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits)) are separate rejections; this setting never lets an image past them.
+* The hard limits (8,000 px on the longest side, and the stricter per-image limit on [many-image requests](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits)) are separate rejections; this setting never lets an image past them.
 * Images supplied by URL or file ID are checked once their bytes have been fetched; those rejections carry the same message without the leading position, so they don't identify which image failed; only embedded base64 images are named by position in the error.
 * [PDF pages](https://platform.claude.com/docs/en/build-with-claude/pdf-support) are rasterized server-side at dimensions you don't control; the `document` block does not accept the field (an image block nested inside a document's content accepts it like any other).
 * A marked image whose dimensions cannot be determined is rejected rather than passed through: that rejection reports that the image's source dimensions could not be determined, not the resize message quoted earlier. No image that sets `"error"` reaches the model resized.

@@ -10,7 +10,7 @@ Server-executed tools share these mechanics: the `server_tool_use` block, `pause
 
 The `server_tool_use` block appears in Claude's response when a server-executed tool runs. Its `id` field uses the `srvtoolu_` prefix to distinguish it from client tool calls:
 
-```json
+```text wrap
 {
   "type": "server_tool_use",
   "id": "srvtoolu_01A2B3C4D5E6F7G8H9",
@@ -77,7 +77,7 @@ Here's how to handle the `pause_turn` stop reason:
       tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 10}],
   )
 
-  # Check if the response has pause_turn stop reason
+  # Check if the response has a pause_turn stop reason
   if response.stop_reason == "pause_turn":
       # Continue the conversation with the paused content
       messages = [
@@ -124,7 +124,7 @@ Here's how to handle the `pause_turn` stop reason:
     ]
   });
 
-  // Check if the response has pause_turn stop reason
+  // Check if the response has a pause_turn stop reason
   if (response.stop_reason === "pause_turn") {
     // Continue the conversation with the paused content
     const messages: Anthropic.MessageParam[] = [
@@ -335,7 +335,7 @@ Here's how to handle the `pause_turn` stop reason:
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [
       {
@@ -366,7 +366,7 @@ Here's how to handle the `pause_turn` stop reason:
     ]
 
     continuation = client.messages.create(
-      model: "claude-opus-5-5",
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
       max_tokens: 1024,
       messages: messages,
       tools: [
@@ -405,7 +405,7 @@ Claude can call a server tool and a client tool in the same group of parallel to
   With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block's own result block arrives once the code completes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response's `container` field, as that page shows.
 </Note>
 
-```json
+```text wrap
 {
   "stop_reason": "tool_use",
   "content": [
@@ -446,7 +446,7 @@ To continue the turn, run the client tools and send a user message whose content
 
 The API attaches your results to the still-open assistant turn, runs the deferred server tool (for paused code execution, resumes it), and then lets Claude continue. For a server tool Claude called directly, the next response starts with the result block that answers the previous response's `server_tool_use` `id`, followed by the newly generated content and a fresh `stop_reason`:
 
-```json
+```text wrap
 {
   "stop_reason": "end_turn",
   "content": [

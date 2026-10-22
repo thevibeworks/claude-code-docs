@@ -244,6 +244,10 @@ To enable dynamic filtering, use `web_fetch_20260209` or any later version. The 
 
 ## How to use web fetch
 
+<Note>
+  An organization admin can turn off web fetch for your organization on the [**Capabilities**](https://platform.claude.com/settings/capabilities) page of the Claude Console. With web fetch off, a Messages API request that includes the tool fails with a 400 `invalid_request_error` that says web fetch is not enabled, and `web_fetch` calls in a [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) session return an error result to the agent while the session continues. With web fetch on, the admin can also set allowed or blocked domains for web fetch on the same page. For how the organization's domain lists apply, see [Domain filtering](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#domain-filtering) for Messages API requests and [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions) for Managed Agents sessions.
+</Note>
+
 Provide the web fetch tool in your API request:
 
 <CodeGroup>
@@ -518,7 +522,7 @@ Unlike web search, where citations are always enabled, citations are optional fo
 
 Here's an example response structure:
 
-```json Output
+```text Output
 {
   "role": "assistant",
   "content": [
@@ -602,7 +606,7 @@ Fetch results include:
 
 For PDF documents, content is returned as base64-encoded data:
 
-```json Output
+```text Output wrap
 {
   "type": "web_fetch_tool_result",
   "tool_use_id": "srvtoolu_02",
@@ -627,7 +631,7 @@ For PDF documents, content is returned as base64-encoded data:
 
 When the web fetch tool encounters an error, the Claude API returns a 200 (success) response with the error represented in the response body. Claude receives the error result and continues the turn. For example:
 
-```json Output
+```text Output wrap
 {
   "type": "web_fetch_tool_result",
   "tool_use_id": "srvtoolu_a93jad",
@@ -954,7 +958,7 @@ To cache tool definitions across turns, see [Tool use with prompt caching](https
 
 With streaming enabled, fetch events are part of the stream with a pause during content retrieval:
 
-```sse Output
+```text Output
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_abc123", "type": "message"}}
 
@@ -987,7 +991,7 @@ You can include the web fetch tool in the [Messages Batches API](https://platfor
 
 Web fetch usage has **no additional charges** beyond standard token costs:
 
-```json
+```text wrap
 {
   "usage": {
     "input_tokens": 25039,

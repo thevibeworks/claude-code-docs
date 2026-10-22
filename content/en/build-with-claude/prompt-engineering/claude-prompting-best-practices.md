@@ -224,7 +224,7 @@ Setting a role in the system prompt focuses Claude's behavior and tone for your 
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     system: "You are a helpful coding assistant specializing in Python.",
     messages: [
@@ -485,7 +485,7 @@ edits, modifications, or implementations when the user explicitly requests them.
 </do_not_act_before_instructions>
 ```
 
-Claude Opus 4.5 and Claude Opus 4.6 are also more responsive to the system prompt than previous models. If your prompts were designed to reduce undertriggering on tools or skills, these models might now overtrigger. The fix is to soften any aggressive language. Where you might have said "CRITICAL: You MUST use this tool when...", you can use more normal prompting such as "Use this tool when...".
+Claude Opus 4.5 and Claude Opus 4.6 are also more responsive to the system prompt than previous models. If your prompts were designed to reduce undertriggering on tools or skills, these models might now overtrigger. The fix is to soften any aggressive language. Where you might have said "CRITICAL: You MUST use this tool when...," you can use more normal prompting such as "Use this tool when..." instead.
 
 ### Optimize parallel tool calling
 
@@ -822,7 +822,7 @@ For tasks spanning multiple context windows:
 
 3. **Set up convenience tools:** Encourage Claude to create setup scripts (for example, `init.sh`) to gracefully start servers and run test suites and linters. This prevents repeated work when continuing from a fresh context window.
 
-4. **Starting fresh versus compacting:** When a context window is cleared, consider starting with a brand new context window rather than using compaction. Claude's latest models are extremely effective at discovering state from the local filesystem. In some cases, you might want to take advantage of this over compaction. Be prescriptive about how it should start:
+4. **Choose between starting fresh and compacting:** When a context window is cleared, consider starting with a brand new context window rather than using compaction. Claude's latest models are extremely effective at discovering state from the local filesystem. In some cases, you might want to take advantage of this over compaction. Be prescriptive about how it should start:
 
    * "Call pwd; you can only read and write files in this directory."
    * "Review progress.txt, tests.json, and the git logs."

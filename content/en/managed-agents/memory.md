@@ -370,9 +370,9 @@ You can configure `access` (csharp, go: `Access`) as well. It defaults to `read_
 
 A maximum of **8 memory stores** is supported for each session. Attach multiple stores when different parts of memory have different owners or access rules. Common reasons:
 
-* **Shared reference material:** one read-only store attached to many sessions (standards, conventions, domain knowledge), kept separate from each session's own read-write store.
-* **Mapping to your product's structure:** one store for each end user, team, or project, while sharing a single agent configuration.
-* **Different lifecycles:** a store that outlives any single session, or one you want to archive on its own schedule.
+* **Shared reference material:** one read-only store attached to many sessions (standards, conventions, domain knowledge), kept separate from each session's own read-write store
+* **Mapping to your product's structure:** one store for each end user, team, or project, while sharing a single agent configuration
+* **Different lifecycles:** a store that outlives any single session, or one you want to archive on its own schedule
 
 ### How the agent accesses memory
 

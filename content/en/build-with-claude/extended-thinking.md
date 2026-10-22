@@ -53,8 +53,7 @@ Here is an example of using extended thinking in the Messages API:
   ```
 
   ```bash CLI
-  ant messages create \
-    --format yaml <<'YAML'
+  ant messages create --format yaml <<'YAML'
   model: claude-sonnet-4-6
   max_tokens: 16000
   thinking:
@@ -236,7 +235,7 @@ Here is an example of using extended thinking in the Messages API:
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-sonnet-4-6",
+    model: Anthropic::Model::CLAUDE_SONNET_4_6,
     max_tokens: 16_000,
     thinking: {
       type: :enabled,

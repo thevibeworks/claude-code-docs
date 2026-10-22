@@ -32,7 +32,7 @@ To set configuration keys organization-wide, deploy the per-member config.toml (
 | - | - |
 | `disable_telemetry = true` | Stops the app from sending product-usage telemetry and error reports to Anthropic. |
 | `data_dir = "<path>"` | Moves conversations, artifacts, and workspaces to a managed location (for example, a volume your backup tooling covers). |
-| `auto_update = false` under `[update]` | Turns off the background check for updates on Windows, on Linux, and on a Mac where Claude Science opens in a browser tab; pair with your own distribution channel. A member can still check for and install an update from inside Claude Science. |
+| `auto_update = false` under `[update]` | Turns off the background check for updates; pair with your own distribution channel. On a Mac where Claude Science opens in its own window, the key requires version 0.1.69 or later. A member can still check for and install an update from inside Claude Science. |
 | `enabled = false` under `[sandbox.network]` | Blocks network access from the app's local code-execution sandbox. The similarly named `network_isolated` key under `[sandbox]` doesn't control this. |
 
 The [configuration file reference](/docs/claude-science/configuration-file-reference) documents the network-related keys and their defaults, and [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks) covers the proxy, TLS-inspection, and mirror settings.

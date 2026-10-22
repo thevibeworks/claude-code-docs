@@ -316,7 +316,7 @@ For tasks requiring consistent context (for example, chatbots, knowledge bases),
 
 ## Chain prompts for complex tasks
 
-Break down complex tasks into smaller, consistent subtasks. Each subtask gets Claude's full attention, reducing inconsistency errors across scaled workflows.
+Break down complex tasks into smaller, consistent subtasks. Each prompt then covers a single subtask, reducing inconsistency errors across scaled workflows.
 
 ## Keep Claude in character
 

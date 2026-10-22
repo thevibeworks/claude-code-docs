@@ -292,7 +292,7 @@ The advisor itself runs without tools and without context management. Its thinki
 
 The `caching` object has the shape `{"type": "ephemeral", "ttl": "5m" | "1h"}`. Unlike `cache_control` on content blocks, this is not a breakpoint marker. It is an on/off switch. The server determines where cache boundaries go.
 
-The advisor tool also accepts the generic properties available on any tool definition: `cache_control`, `allowed_callers`, `defer_loading`, and `strict` (covered in [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)). See the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties) for their semantics.
+The advisor tool also accepts the generic properties available on any tool definition: `cache_control`, `allowed_callers`, `defer_loading`, and `strict` (covered in [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)). See [Tool definition properties](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties) in the Tool reference for their semantics.
 
 ## Response structure
 
@@ -300,7 +300,7 @@ The advisor tool also accepts the generic properties available on any tool defin
 
 When the advisor is called, a `server_tool_use` block is followed by an `advisor_tool_result` block in the assistant's content. The following example shows the plaintext `advisor_result` variant returned by a Claude Opus 4.8 advisor. The [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#quick-start) uses Claude Opus 5.5, which returns the encrypted `advisor_redacted_result` variant instead; see [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) for both shapes side by side.
 
-```json
+```text
 {
   "role": "assistant",
   "content": [
@@ -349,7 +349,7 @@ Here is the same request sent twice, identical except for the advisor `model` in
 
 With `"model": "claude-opus-4-8"`, the advice is plaintext:
 
-```json
+```text
 {
   "type": "advisor_tool_result",
   "tool_use_id": "srvtoolu_abc123",
@@ -362,7 +362,7 @@ With `"model": "claude-opus-4-8"`, the advice is plaintext:
 
 With `"model": "claude-opus-5-5"`, the advice is encrypted:
 
-```json
+```text
 {
   "type": "advisor_tool_result",
   "tool_use_id": "srvtoolu_abc123",
@@ -383,7 +383,7 @@ In both cases, round-trip the content verbatim on subsequent turns. If you switc
 
 If the advisor call fails, the result carries an error:
 
-```json
+```text wrap
 {
   "type": "advisor_tool_result",
   "tool_use_id": "srvtoolu_abc123",
@@ -1181,7 +1181,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   end
 
   tools = [
-    { type: "advisor_20260301", name: "advisor", model: "claude-opus-5-5" }
+    { type: "advisor_20260301", name: "advisor", model: Anthropic::Model::CLAUDE_OPUS_5_5 }
     # ... your other tools
   ]
   task = "Build a concurrent worker pool in Go with graceful shutdown."
@@ -1190,7 +1190,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
   (1..MAX_TURNS).each do |turn|
     response = client.beta.messages.create(
-      model: "claude-haiku-5-5",
+      model: Anthropic::Model::CLAUDE_HAIKU_5_5,
       max_tokens: 4096,
       tools: tools,
       messages: messages,
@@ -1235,7 +1235,7 @@ A `message_delta` event follows with the updated `usage.iterations` array reflec
 
 Advisor calls run as a separate sub-inference billed at the advisor model's rates. Usage is reported in the `usage.iterations[]` array:
 
-```json
+```text wrap
 {
   "usage": {
     "input_tokens": 1760,
@@ -1555,12 +1555,12 @@ The advisor tool composes with other server-side and client-side tools. Add them
 
 The executor can search the web, call the advisor, and use your custom tools in the same turn. The advisor's plan can inform which tools the executor reaches for next.
 
-| Feature                                                                                    | Interaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | Supported. `usage.iterations` is reported per item.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)     | Returns the executor's first-iteration input tokens only. For a rough advisor estimate, call `client.beta.messages.count_tokens()` (typescript: `client.beta.messages.countTokens()`; go, csharp: `client.Beta.Messages.CountTokens()`; java: `client.beta().messages().countTokens()`; php: `$client->beta->messages->countTokens()`; cli: `ant beta:messages count-tokens`; curl: `POST /v1/messages/count_tokens`) with `model` set to the advisor model and the same messages.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing)   | `clear_tool_uses` is not fully compatible with advisor tool blocks. With `clear_thinking`, see the earlier caching warning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `pause_turn`                                                                               | A dangling advisor call ends the response with `stop_reason: "pause_turn"` and a `server_tool_use` block with no result when no client `tool_use` block is awaiting your result in the same turn. The advisor runs on resumption. If the executor also called one of your tools in that turn, the response ends with `stop_reason: "tool_use"` instead, and the pending advisor call runs at the start of your next request, after you send the `tool_result` blocks. See [Resuming a paused turn](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#resuming-a-paused-turn), [Mixing server tools and client tools in one turn](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#mixing-server-tools-and-client-tools-in-one-turn), and [Server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn). |
+| Feature                                                                                    | Interaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) | Supported. `usage.iterations` is reported per item.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)     | Returns the executor's first-iteration input tokens only. For a rough advisor estimate, call `client.beta.messages.count_tokens()` (typescript: `client.beta.messages.countTokens()`; go, csharp: `client.Beta.Messages.CountTokens()`; java: `client.beta().messages().countTokens()`; php: `$client->beta->messages->countTokens()`; cli: `ant beta:messages count-tokens`; curl: `POST /v1/messages/count_tokens`) with `model` set to the advisor model and the same messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing)   | `clear_tool_uses` is not fully compatible with advisor tool blocks. With `clear_thinking`, see the earlier caching warning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `pause_turn`                                                                               | A dangling advisor call ends the response with `stop_reason: "pause_turn"` and a `server_tool_use` block with no result when no client `tool_use` block is awaiting your result in the same turn. The advisor runs on resumption. If the executor also called one of your tools in that turn, the response ends with `stop_reason: "tool_use"` instead, and the pending advisor call runs at the start of your next request, after you send the `tool_result` blocks. See [Resuming a paused turn](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#resuming-a-paused-turn), [Mixing server tools and client tools in one turn](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#mixing-server-tools-and-client-tools-in-one-turn), and [The server-side loop and pause\_turn](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn). |
 
 ## Best practices
 
@@ -1762,7 +1762,7 @@ Hard reasoning tasks elicit substantially longer advisor output than the [typica
 
 When the advisor does hit the cap, the result block carries `stop_reason: "max_tokens"` on both [result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants), whichever advisor model you use. Use `stop_reason` to detect truncated advice and decide whether to raise the cap or let the executor proceed with partial guidance. The API also appends `[Advisor output truncated at max_tokens=2048.]` (naming your cap) to the advice text, so the executor receives the truncation notice in its own context; with a plaintext `advisor_result` advisor that marker is visible to your client as well. Both signals appear only when you set `max_tokens` on the tool definition.
 
-```json
+```text
 {
   "type": "advisor_tool_result",
   "tool_use_id": "srvtoolu_abc123",

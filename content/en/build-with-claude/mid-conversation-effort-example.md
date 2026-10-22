@@ -1337,7 +1337,7 @@ The bash handler runs the requested command with a timeout, captures combined st
       stdin.close
       reader = Thread.new { stdout_and_stderr.read.scrub }
       # Enforce the time limit with a monotonic-clock deadline so a timed-out command is
-      # terminated rather than left running in the background.
+      # stopped rather than left running in the background.
       deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + BASH_TIMEOUT_SECONDS
       until wait_thr.join(0.1)
         next if Process.clock_gettime(Process::CLOCK_MONOTONIC) < deadline
@@ -2012,8 +2012,8 @@ A fan-out that spawns dozens of subagents is expensive to restart from the begin
       return cached;
     }
     const result = await compute();
-    // Chain writes so concurrent subagents do not clobber each other's entries.
-    // The chain is kept settled so one failed write does not poison later ones.
+    // Chain writes so concurrent subagents do not overwrite each other's entries.
+    // The chain is kept settled so one failed write does not cause later ones to fail.
     await (journalWriteChain = journalWriteChain
       .then(async () => {
         const journal = await loadJournal();

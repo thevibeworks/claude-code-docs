@@ -38,7 +38,7 @@ curl --fail-with-body -sS -G \
   --data-urlencode "limit=100"
 ```
 
-```json Response
+```text Response
 {
   "data": [
     {
@@ -92,7 +92,7 @@ curl --fail-with-body -sS \
 
 The messages endpoint returns the chat's metadata plus a `chat_messages` array sorted by `created_at`. When `limit` is omitted, the full message set is returned in one response; pass `limit`, `after_id`, or `before_id` to page through very long chats. The endpoint also accepts `created_at.*` and `updated_at.*` range bounds (`gt`, `gte`, `lt`, `lte`) and an `order` parameter (`asc` or `desc`). See [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) for the full parameter list. For user messages, `created_at` is when the message was sent; for assistant messages, it is when Claude finished generating the message. Each message carries its text content and, when present, any uploaded files (typically on user messages), any tool-generated files, and any artifacts the assistant produced or updated (typically on assistant messages):
 
-```json Response
+```text Response
 {
   "id": "claude_chat_01H5CWunD7RpVJ5bHa8RCkja",
   "name": "Product Requirements Discussion",
@@ -232,7 +232,7 @@ curl --fail-with-body -sS -G \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json Response
+```text Response wrap
 {
   "data": [
     {
@@ -289,7 +289,7 @@ curl --fail-with-body -sS -X DELETE \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json Response
+```text Response wrap
 {
   "id": "claude_chat_01H5CWunD7RpVJ5bHa8RCkja",
   "type": "claude_chat_deleted"
@@ -302,7 +302,7 @@ Each successful delete returns a small confirmation envelope with an `id` and a 
 
 A project cannot be deleted while any chats remain attached to it. The API returns 409 with this body:
 
-```json
+```text
 {
   "error": {
     "type": "invalid_request_error",

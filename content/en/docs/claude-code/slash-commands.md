@@ -84,6 +84,7 @@ To start one of the skill's workflows, type a subcommand after the skill name at
 | :- | :- | :- |
 | `migrate` | Update your existing Claude API code to a newer model | Earlier than v2.1.221 |
 | `upgrade` | Move your project's Anthropic SDK dependency across a major version, currently the Python `anthropic` package from 0.x to 1.x | v2.1.236 or later |
+| `api-version` | Update your Claude API code for a newer [API version](https://platform.claude.com/docs/en/api/versioning), then switch your requests to that version | v2.1.307 or later |
 | `managed-agents-onboard` | Walk through creating a new Managed Agent | Earlier than v2.1.221 |
 | `managed-agents-onboard <url>` | Build the Managed Agent that the page at the URL describes, such as a page in the [Managed Agents docs](https://platform.claude.com/docs/en/managed-agents/overview) | v2.1.290 or later |
 | `managed-agents-onboard <quickstart-name>` | Build one of the Console's quickstart templates, such as `deep-researcher`. If you give one word that isn't a template name, Claude lists the valid names | v2.1.290 or later |
@@ -169,7 +170,7 @@ Skill folders also follow these rules:
 * **Reserved name `anthropic-skills`**: outside a plugin, a skill folder or command file whose name is `anthropic-skills` or starts with `anthropic-skills:` doesn't load. See [Names reserved for synced skills](#names-reserved-for-synced-skills).
 * **Characters in the name**: outside a plugin, a skill folder doesn't load when its name has a character such as a zero-width space or `<`. See [Characters a skill name can't hold](#characters-a-skill-name-cant-hold).
 * **Command files**: a Markdown file in `.claude/commands/` is the older format and still works. It supports the same [frontmatter](#frontmatter-reference) except `name` and `paths`. To find the name you type to invoke it, see [How a skill gets its command name](#how-a-skill-gets-its-command-name). Prefer a skill for new work, since skills also support [supporting files](#add-supporting-files).
-* **Skill folder as a plugin**: add a `.claude-plugin/plugin.json` to a skill folder and it loads as a [plugin](/docs/en/plugins/loading#plugins-shared-through-a-repository) named `<name>@skills-dir`, so it can bundle agents, hooks, and MCP servers. In a project's `.claude/skills/`, this requires accepting the workspace trust dialog first.
+* **Skill folder as a plugin**: add a `.claude-plugin/plugin.json` to a personal or project skill folder and Claude Code can load it as a [plugin](/docs/en/plugins/loading#plugins-shared-through-a-repository) named `<name>@skills-dir` with its own agents, hooks, and MCP servers. In a project's `.claude/skills/`, this requires accepting the workspace trust dialog first, and in either location it requires that your administrator hasn't [blocked skills-directory plugins](/docs/en/plugins/loading#skills-directory-plugins-blocked-by-managed-settings).
 
 ### Load skills in monorepos and subdirectories
 
@@ -398,8 +399,8 @@ Boolean fields accept `yes`, `no`, `on`, `off`, `1`, and `0` in any letter case,
 | `context` | No | Set to `fork` to run in a forked subagent context. See [Run skills in a subagent](#run-skills-in-a-subagent). |
 | `agent` | No | Which subagent type to use when `context: fork` is set. |
 | `background` | No | Only applies with `context: fork`. Set to `false` to wait for the forked subagent's result in the turn that invoked the skill, instead of [running it in the background](#run-skills-in-a-subagent). Default: `true`. Requires Claude Code v2.1.218 or later. |
-| `hooks` | No | Hooks that Claude Code registers when the skill is invoked and keeps running for the rest of the session. See [Hooks in skills and agents](/docs/en/hooks#hooks-in-skills-and-agents) for the configuration format and the `once` option. |
-| `paths` | No | Glob patterns that limit when this skill is activated. Accepts a comma-separated string or a YAML list. When set, Claude loads the skill automatically only when working with files matching the patterns. Uses the same format as [path-specific rules](/docs/en/memory#path-specific-rules). |
+| `hooks` | No | Hooks that Claude Code registers when the skill is invoked and keeps running for the rest of the session. See [Hooks in skills and agents](/docs/en/hooks#hooks-in-skills-and-agents) for the configuration format, the `once` option, and the [limits on skill hooks](/docs/en/hooks#limits-on-skill-hooks). |
+| `paths` | No | Glob patterns that limit when this skill is activated. Accepts a comma-separated string or a YAML list. When set, Claude loads the skill automatically only when working with files matching the patterns. Patterns are relative to Claude's current working directory, and files outside that directory don't match. Uses the same glob format as [path-specific rules](/docs/en/memory#path-specific-rules). |
 | `shell` | No | Shell to use for `` !`command` `` and ` ```! ` blocks in this skill. Accepts `bash` (default) or `powershell`. Setting `powershell` runs inline shell commands via PowerShell when the [PowerShell tool](/en/tools-reference#powershell-tool) is enabled: it's on by default on Windows without Git Bash, on by default with Git Bash for claude.ai and Console accounts, and needs `CLAUDE_CODE_USE_POWERSHELL_TOOL=1` in Amazon Bedrock, Google Cloud's Agent Platform, and Microsoft Foundry sessions and on macOS, Linux, and WSL. Set it to `0` to turn the tool off. |
 | `metadata` | No | Free-form YAML map for your own key-value data, such as entitlement or catalog fields, read by your own tooling from `SKILL.md`. Claude Code doesn't act on its contents, and drops a value that isn't a map. Don't reuse frontmatter field names such as `paths` as keys. |
 | `license` | No | License covering the skill. Part of the [Agent Skills](https://agentskills.io) spec; see [Using skill frontmatter outside Claude Code](#using-skill-frontmatter-outside-claude-code). Claude Code accepts the field but doesn't act on it. |
@@ -749,14 +750,14 @@ The PowerShell tool applies the same timeout, backgrounding, and output-ceiling 
 
 #### When an injected command fails
 
-A failed command aborts the entire skill invocation, not just its own placeholder. Claude never sees the skill content for that invocation. The abort shows `Shell command failed for pattern "..."`. The error message includes the command's output under `[stderr]`.
+A failed command aborts the entire skill invocation, not just its own placeholder. Claude never sees the skill content for that invocation. The abort shows `Shell command failed for pattern "..."`. The error message includes the command's output.
 
 With the default `bash` shell, any non-zero exit code counts as a failure. One carveout applies: Claude Code treats exit code 1 from [search and comparison commands](/docs/en/tools-reference#output-limits) as a normal result and injects their output. Exit codes of 2 or higher fail even for those commands.
 
 Which commands get the carveout depends on the shell:
 
 * Default `bash` shell: the commands listed under [Output limits](/docs/en/tools-reference#output-limits)
-* `shell: powershell`, when the PowerShell tool is enabled: a [different set](/docs/en/tools-reference#shell-selection-in-settings-hooks-and-skills) that includes `grep` and `git diff` but not `find` or `diff`
+* `shell: powershell`, when the PowerShell tool is enabled: a [different set](/docs/en/tools-reference#exit-code-1-from-searches-and-git-diff-in-powershell) that includes `grep` and `git diff` but not `find` or `diff`
 
 With the default `bash` shell, append `|| true` to any other command you expect to exit non-zero. A check script that exits 1 when it finds problems is one example.
 
@@ -1178,6 +1179,7 @@ If Claude doesn't use your skill when expected:
 3. Try rephrasing your request to match the description more closely
 4. Invoke it directly with `/skill-name` if the skill is user-invocable
 5. If `/skill-name` isn't recognized either, check whether Claude Code [refused the skill's name](#characters-a-skill-name-cant-hold)
+6. If the skill sets `paths`, check that the files Claude reads, edits, or writes are inside Claude's current working directory. The skill doesn't activate for files outside it, such as those in a sibling git worktree, even one you added with `/add-dir`. To have the skill activate for those files, start Claude Code in that worktree or [move the session there with `/cd`](/docs/en/permissions#move-the-session-to-another-directory).
 
 If the frontmatter YAML is malformed, Claude Code loads the skill body with empty metadata, so `/skill-name` still works but Claude can't match against your `description`. Run with `--debug` to see the parse error.
 

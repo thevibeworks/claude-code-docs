@@ -24,7 +24,7 @@ Whether Claude thinks on a given request, and how deeply, depends on your thinki
 
 Here is what up-front thinking looks like in a response: one or more `thinking` content blocks arrive before the `text` blocks. The thinking block is still generated content, like the `text` block that follows it, but it is separated from the canonical response. Each thinking block also carries a `signature` field, an encrypted copy of the full reasoning that you pass back unchanged in multi-turn and tool-use conversations (see [Thinking encryption](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-encryption)):
 
-```json
+```text
 {
   "content": [
     {
@@ -481,7 +481,7 @@ Set `display: "omitted"` when your application doesn't surface thinking content 
 
 With `display: "omitted"`, the response contains `thinking` blocks with an empty `thinking` field:
 
-```json Output
+```text Output wrap
 {
   "content": [
     {
@@ -798,7 +798,7 @@ The following examples stream a response with adaptive thinking, printing thinki
 To reassemble complete thinking blocks with their signatures after streaming, use your SDK's message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), instead of concatenating deltas yourself.
 
 <Accordion title="Full streaming event trace">
-  ```sse Output
+  ```text Output
   event: message_start
   data: {"type": "message_start", "message": {"id": "msg_01...", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null}}
 
@@ -840,7 +840,7 @@ To reassemble complete thinking blocks with their signatures after streaming, us
 
 When `display: "omitted"` is set, the thinking block opens, a `thinking_delta` with an empty `thinking` string arrives, a single `signature_delta` follows, and the block closes. Text streaming starts immediately after:
 
-```sse Output
+```text Output
 event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}
 
@@ -859,7 +859,7 @@ data: {"type":"content_block_start","index":1,"content_block":{"type":"text","te
 
 With `display: "updates"` (beta), reasoning blocks stream as they do under `"omitted"`. Each [progress-update block](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) streams its text as `thinking_delta` events before the `tool_use` block it introduces. A pause of several seconds before the progress-update block opens is normal:
 
-```sse Output
+```text Output
 event: content_block_start
 data: {"type":"content_block_start","index":1,"content_block":{"type":"thinking","thinking":"","signature":""}}
 
@@ -953,7 +953,7 @@ Within the latest assistant message, the sequence of consecutive `thinking` bloc
   Modified thinking blocks are rejected with a 400 error. See [A 400 error says thinking blocks cannot be modified](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified) for the exact message, the common causes, and the fix. The one exception: text placed in the empty `thinking` field of an [omitted](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display) block is ignored rather than rejected.
 </Note>
 
-For a complete two-turn walkthrough with code in every SDK, see [Thinking in tool and multi-turn workflows](https://platform.claude.com/docs/en/build-with-claude/thinking-tool-workflows#two-turn-tool-use-round-trip). It defines a tool, receives a thinking-plus-tool-use response, and echoes the assistant turn back with the tool result.
+For a worked example with code in every SDK, see [Walk through a two-turn tool-use round trip](https://platform.claude.com/docs/en/build-with-claude/thinking-tool-workflows#two-turn-tool-use-round-trip). It defines a tool, receives a thinking-plus-tool-use response, and echoes the assistant turn back with the tool result.
 
 ### Interleaved thinking
 
@@ -1019,7 +1019,7 @@ Use `display: "updates"` for an agent interface that keeps reasoning hidden and 
 
 Under `"updates"`, the start of the response that follows a `tool_result` looks like this. The first block is reasoning and stays empty, as it would under `"omitted"`. The second carries text, so it's a progress update. Under `"summarized"` both blocks carry text, and under `"omitted"` both are empty.
 
-```json Output
+```text Output
 {
   "content": [
     {
@@ -1080,7 +1080,7 @@ The model check applies to every account. The API enforces the prefix check by d
 
 To keep thinking valid, send every assistant turn back exactly as you received it and add new messages only at the end of `messages`. If your code builds the `messages` array itself, the Preserved thinking page covers:
 
-* [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit), and [how to check whether your code makes one](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted).
+* [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit), and [how to check whether your code makes an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted).
 * The [API feature that replaces each common edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits): mid-conversation system messages for new instructions and per-turn reminders, `tool_addition` and `tool_removal` blocks for tool changes, per-message `output_config` for effort changes, and server-side compaction and context editing for trimming.
 * [Client-side compaction](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client): which patterns keep thinking valid and which don't.
 * The [`thinking-binding-controls-2026-08-01` beta header](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls). It adds a `block_binding.prefix_mismatch_behavior` field (`"error"` or `"drop_block"`) to the thinking configuration and an `input_transformations` array to every response. The array lists each thinking block that the API dropped, or that failed the prefix check and was let through.
@@ -1166,7 +1166,7 @@ Keep the following in mind when working with signatures:
 
 In addition to regular `thinking` blocks, the API might return `redacted_thinking` blocks when portions of Claude's reasoning are safety-redacted. A `redacted_thinking` block contains encrypted thinking content in a `data` field, with no readable text:
 
-```json
+```text wrap
 {
   "type": "redacted_thinking",
   "data": "..."
@@ -1221,7 +1221,7 @@ See the [models overview](https://platform.claude.com/docs/en/models/overview) f
 
 ### Long requests
 
-The SDK requires streaming when `max_tokens` is greater than 21,333, to avoid HTTP timeouts on long-running requests. This is a client-side validation, not an API restriction. If you don't need to process events incrementally, use `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) with `.get_final_message()` (typescript: `.finalMessage()`; ruby: `.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`) to get the complete `Message` object without assembling it from individual events yourself. See [Streaming messages](https://platform.claude.com/docs/en/build-with-claude/streaming#get-the-final-message-without-handling-events). Expect longer response times when thinking is active, because generating thinking blocks adds processing time. For workloads that push thinking above roughly 32k tokens per request, use [batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) to avoid networking issues: such requests can run long enough to hit system timeouts and open connection limits.
+The SDK requires streaming when `max_tokens` is greater than 21,333, to avoid HTTP timeouts on long-running requests. This is a client-side validation, not an API restriction. If you don't need to process events incrementally, use `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) with `.get_final_message()` (typescript: `.finalMessage()`; ruby: `.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`) to get the complete `Message` object without assembling it from individual events yourself. See [Get the final message without handling events](https://platform.claude.com/docs/en/build-with-claude/streaming#get-the-final-message-without-handling-events). Expect longer response times when thinking is active, because generating thinking blocks adds processing time. For workloads that push thinking above roughly 32k tokens per request, use [batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) to avoid networking issues: such requests can run long enough to hit system timeouts and open connection limits.
 
 ## Next steps
 

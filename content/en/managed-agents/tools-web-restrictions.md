@@ -23,6 +23,8 @@ Each tool carries its own list, so `web_search` and `web_fetch` can have differe
 
 Your organization's web search settings on the [**Capabilities**](https://platform.claude.com/settings/capabilities) page of the Claude Console also apply to `web_search` in a session. If an administrator disables web search, `web_search` calls return an error result to the agent, and the session continues. If the organization restricts web search domains, the agent receives only the search results that both the organization's domain restrictions and the agent's per-tool lists allow.
 
+Your organization's web fetch settings on the same page also apply to `web_fetch` in a session. If an administrator turns off web fetch, `web_fetch` calls return an error result to the agent, and the session continues. If the organization sets allowed or blocked domains for web fetch, a URL must pass the organization's list and the agent's per-tool lists, and so must any URL a redirect leads to. A `web_fetch` call for a URL that any of them excludes also returns an error result to the agent.
+
 ## Set domain lists on an agent
 
 The following example creates an agent that limits `web_search` to two sites and blocks one host for `web_fetch`. It also sets `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`) and `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`), which [Settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) describes. The response echoes the `configs` (csharp, go: `Configs`) array.
@@ -460,7 +462,7 @@ To continue the session:
 
 In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), every domain list that applies to a thread is enforced at the same time. An agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) is bound by three sets of per-tool lists:
 
-* Its own `allowed_domains` and `blocked_domains`
+* Its own `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) and `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`)
 * Those of any agent that called it
 * The current lists of the agent that the session runs
 
@@ -474,12 +476,12 @@ The settings combine as follows:
 
 A listed agent can therefore narrow what a tool reaches but never widen it:
 
-* A listed agent that sets `blocked_domains` keeps the `allowed_domains` of the session's agent and blocks those hosts within it.
-* A listed agent that sets its own `allowed_domains` can reach only the hosts that both its list and the list of the session's agent cover.
+* A listed agent that sets `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) keeps the `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) of the session's agent and blocks those hosts within it.
+* A listed agent that sets its own `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) can reach only the hosts that both its list and the list of the session's agent cover.
 
 A `{"type": "self"}` entry in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) has no web settings of its own and follows the current settings of the session's agent.
 
-If the combined `allowed_domains` lists have no domain in common, the tool stays available to that agent, but every call fails. Each call returns a `url_not_allowed` error stating that no domain is permitted. The tool description tells the model the same. To avoid this, keep each listed agent's `allowed_domains` inside the `allowed_domains` of the session's agent.
+If the combined `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) lists have no domain in common, the tool stays available to that agent, but every call fails. Each call returns a `url_not_allowed` error stating that no domain is allowed. The tool description tells the model the same. To avoid this, keep each listed agent's `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) inside the `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) of the session's agent.
 
 The grader in [outcome-driven sessions](https://platform.claude.com/docs/en/managed-agents/define-outcomes) runs without `web_search` and `web_fetch`, regardless of these settings.
 

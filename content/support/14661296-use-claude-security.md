@@ -6,6 +6,8 @@
 
 Claude Security is now available in public beta for users on Enterprise plans.
 
+Learn how to get started and how leading enterprises use the tool here: **[Getting started with Claude Security](https://academy.claude.com/tutorials/getting-started-with-claude-security)**.
+
 Claude Security allows you to:
 
 1. **Scan your codebase holistically** — Claude Security understands how your code fits together, traces data flows across files and across the repositories in a project, and identifies complex, multi-component vulnerabilities and bugs that traditional rules-based scanners cannot detect.
@@ -121,7 +123,7 @@ The claude.ai/security page runs a per-user check against your own connected Git
 
 **What do I need before I can use Claude Security?**
 
-An active Claude Enterprise plan, a premium seat for each user, and usage credits enabled for consumption billing. An owner enables Claude Security in **[Organization settings > Claude Security](https://claude.ai/admin-settings/claude-security)**.
+An active Claude Enterprise plan, a premium seat for each user, and usage credits enabled for consumption billing. An owner enables Claude Security in **[Organization settings > Claude Security](https://claude.ai/admin-settings/claude-security)**. See the **[getting started guide](https://academy.claude.com/tutorials/getting-started-with-claude-security)** for setup steps.
 
 **How do I give Claude Security access to my repositories?**
 

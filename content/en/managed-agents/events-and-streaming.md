@@ -1248,7 +1248,7 @@ Sessions persist between interactions. To resume a session, send a `user.message
   ```
 
   ```ruby Ruby
-  # Resuming a session is just sending the next event to it. In production,
+  # To resume a session, send it the next event. In production,
   # pass the session ID you stored when the session was created.
   client.beta.sessions.events.send_(
     session.id,

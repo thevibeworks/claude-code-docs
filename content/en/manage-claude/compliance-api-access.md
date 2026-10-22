@@ -129,7 +129,7 @@ To inspect the scopes on a key you already have, use one of the following signal
 * **Settings UI.** For a Compliance Access Key, open the **Keys** section in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access) and read the **Scopes** column for the key. Admin API keys, listed on the [Admin keys](https://platform.claude.com/settings/admin-keys) page (`platform.claude.com/settings/admin-keys`) in the Claude Console, have no selectable scopes.
 * **Error responses.** A call that exceeds the key's scopes returns a 403 with a message in the format `Missing required scopes. Got: [<scopes the key carries>] Needed one of: [<scopes the endpoint accepts>]` (`Needed: [...]` on the delete endpoints). See [Handle Compliance API errors](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden) for the full error catalog.
 
-```json
+```text
 {
   "error": {
     "type": "permission_error",

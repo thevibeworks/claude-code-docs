@@ -991,7 +991,7 @@ The following request keeps `get_weather` in `tools` and defines `db_query` afte
 
 The response's `content` includes a `tool_use` block for the new tool, for example:
 
-```json
+```text
 {
   "type": "tool_use",
   "id": "toolu_01A09q90qw90lq917835lq9",
@@ -1006,7 +1006,7 @@ To change a tool's schema, or to move a server tool to a newer version, send a d
 
 A few rules follow from where the definition renders:
 
-* **Declare what you know up front.** A tool you know about at the first request belongs in `tools`, with `defer_loading: true` and a later `tool_addition` reference if it shouldn't be offered to the model yet. Define by value only what is unknown at the first request or changes later.
+* **Declare what you know up front.** A tool you know about at the first request belongs in `tools`, with `defer_loading: true` and a later `tool_addition` reference if you don't want to offer it to the model yet. Define by value only what is unknown at the first request or changes later.
 * **Keep at least one non-deferred tool in `tools`.** A conversation whose `tools` array has no non-deferred tool is accepted, but the first tool it defines by value changes the start of the rendered prompt, which costs one full cache miss on that request. A [tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) counts as non-deferred.
 * **Dated tool types keep their own beta headers.** If a server tool you define by value requires its own beta header, send that header on every later request in the conversation.
 * **`cache_control` goes on the block or in the definition, not both,** and counts toward the request's breakpoint limit. A deferred definition can't carry `cache_control`.
@@ -2114,7 +2114,8 @@ Through the SDK, set `clear_at` (csharp, go: `ClearAt`; java: `.clearAt()`; php:
   ```
 
   ```bash CLI
-  ant beta:messages create --beta mid-conversation-system-clear-at-2026-08-21 <<'YAML'
+  ant beta:messages create \
+    --beta mid-conversation-system-clear-at-2026-08-21 <<'YAML'
   model: claude-fable-5-1
   max_tokens: 4096
   messages:

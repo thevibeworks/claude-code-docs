@@ -77,7 +77,7 @@ curl --fail-with-body -sS -G \
   --data-urlencode "limit=100"
 ```
 
-```json Response
+```text Response wrap
 {
   "data": [
     {
@@ -164,7 +164,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json Response
+```text Response
 {
   "session": {
     "type": "compliance_local_session",
@@ -316,7 +316,7 @@ curl --fail-with-body -sS -G \
   --data-urlencode "limit=100"
 ```
 
-```json Response
+```text Response wrap
 {
   "data": [
     {
@@ -381,7 +381,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```json Response
+```text Response
 {
   "session": {
     "id": "cse_01WpQrStUvXyZaBcDeFgHjK6",

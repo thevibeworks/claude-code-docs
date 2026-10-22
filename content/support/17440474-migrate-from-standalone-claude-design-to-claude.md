@@ -46,27 +46,27 @@ When you migrate a design system, the original stays in the standalone version, 
 
 2. Click "Migrate team design systems" in the "Claude Design lives here now" banner. If you've closed the banner, choose it from the **Claude Design** menu at the top right.
 
-![The Artifacts page in Claude. A banner titled](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719865919/1000dcfcc75db94639d4650c820e/04b7b96c-8907-4801-b9a8-2e3315a02098?expires=1792613700&amp;signature=f91ec12282b3a1eef23aa5427f988d4d3b348b4d4668cabace9ec7ed671bd272&amp;req=dicmH8F4mIheUPMW1HO4zbwekeN6i6aFV9k56sT%2FLCu6fkLBVjTOOkhR8iv2%0AiqTo%0A)
+![The Artifacts page in Claude. A banner titled](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719865919/1000dcfcc75db94639d4650c820e/04b7b96c-8907-4801-b9a8-2e3315a02098?expires=1792648800&amp;signature=d318945df72c24feba366cc9d986acde1bf4626bf5413052e025ca2b19f871b4&amp;req=dicmH8F4mIheUPMW1HO4zbwekeN6jq2KV9k56sT%2FLCuBoC%2BU%2BcfjRaKQVcUr%0AZ3LO%0A)
 
 3. Click "Migrate" to confirm. On individual plans, there's no confirmation step, and the migration starts right away.
 
-![A dialog titled](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719866455/8f4c4298cd41912e86c0216ffbd2/117ddc52-188f-46b3-813e-38ad816b58ae?expires=1792613700&amp;signature=2b316baa164beacdfe79c86d9d2462fb0f1480f7bc755c1fc9f1da2da5d7c641&amp;req=dicmH8F4m4VaXPMW1HO4zcOBwGF9dG8gYAKZtkOJqEPuIF4vzF3EO7s%2Fm6R8%0A%2Bg6O%0A)
+![A dialog titled](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719866455/8f4c4298cd41912e86c0216ffbd2/117ddc52-188f-46b3-813e-38ad816b58ae?expires=1792648800&amp;signature=79dbc2082eb38b7e3908b7a05d80f5e64592e98d16cd59a8001a335ccbce764a&amp;req=dicmH8F4m4VaXPMW1HO4zcOBwGF9cWQvYAKZtkOJqENW%2Bl4T9zWw3Iabk%2B4X%0A%2FLxu%0A)
 
 4. Wait for the migration to finish. If you close the window, it keeps running.
 
 5. Check the results. Under **Migrated**, the window lists each design system with its owner's name and an "Open" link. You'll see only the design systems you have access to, unless you're an owner of your organization.
 
-![The finished window. It says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719867084/917977d41436e4fabdbbf92953a1/f31e264b-d0b4-46f9-bf3b-4fef8a317512?expires=1792613700&amp;signature=7bafac125c785808a89ece80805103f19d05b7c66e909c79aa8469d9edf2bc7c&amp;req=dicmH8F4moFXXfMW1HO4zSv7JHtc0Unnk1OqHSr8yEcXb9SiuLpZ%2BCHzimo4%0AgntH%0A)
+![The finished window. It says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719867084/917977d41436e4fabdbbf92953a1/f31e264b-d0b4-46f9-bf3b-4fef8a317512?expires=1792648800&amp;signature=c763bbcbe1089b7c756f2e340692107868c065d0dde38d50f8a74186921eb119&amp;req=dicmH8F4moFXXfMW1HO4zSv7JHtc1ELok1OqHSr8yEcF6XmNz8f6fzBmg0BO%0A31bJ%0A)
 
 ### After you migrate
 
 Your migrated design systems appear in the design system menu when you make designs and slide decks in Claude. To see them all, choose "View design systems" from the **Claude Design** menu on the **Artifacts** page. The list opens in **Settings**.
 
-![The Design systems page in Settings. It lists four design systems, with who can use each one and when it was published. The first has a](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719869354/bcbf99c8812d288b961cc4b05be0/58745925-e29d-4efa-b7d5-ec0b97fdedf9?expires=1792613700&amp;signature=e142c071eaa76b2090eb97adfb687177540b35c3ff2e5a32fa9e9ea36cb1f5c0&amp;req=dicmH8F4lIJaXfMW1HO4zXgMWVFNvoTz4YYJPXU59QfDZ0soWiqs4lGSTDMu%0APZ9xxC%2FyFu70jkH1Jkg%3D%0A)
+![The Design systems page in Settings. It lists four design systems, with who can use each one and when it was published. The first has a](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719869354/bcbf99c8812d288b961cc4b05be0/58745925-e29d-4efa-b7d5-ec0b97fdedf9?expires=1792648800&amp;signature=057439b25cc849371f8099634b728478c73782595ff2f45905ece0dad7b3b005&amp;req=dicmH8F4lIJaXfMW1HO4zXgMWVFNu4%2F84YYJPXU59Qfq6WETLh8wZlBN07Y2%0AvfpS7uT%2BGYPdAGDxlQw%3D%0A)
 
 Owners can set your organization's default design system here. Open a design system's menu and choose "Set as default." Click a design system's name to open it.
 
-![A migrated design system open in Claude as an artifact. A note at the top says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719869983/f674728f8f9614b16502d0e7de66/bb4e7f2a-641c-439d-9ace-7546fe5d57b4?expires=1792613700&amp;signature=cad06b189b8da910af5cd85c6c0b20bef7338ae544f1677f2b442f895a4db397&amp;req=dicmH8F4lIhXWvMW1HO4zSpxDRC0H4SpOMHH8PlIn11AnZTFq58yAmsM30wg%0A14zvcxp22kim6v%2B3GD0%3D%0A)
+![A migrated design system open in Claude as an artifact. A note at the top says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719869983/f674728f8f9614b16502d0e7de66/bb4e7f2a-641c-439d-9ace-7546fe5d57b4?expires=1792648800&amp;signature=00d926916f71cc544615213a04acd466aff575a728437d367f7a1c8eaa8a5240&amp;req=dicmH8F4lIhXWvMW1HO4zSpxDRC0Go%2BmOMHH8PlIn10VijzPlEJqOhDNnIJs%0AkGxGTjBnQIJzH6Q4Ow0%3D%0A)
 
 A migrated design system keeps its files as they were, and you can't edit it yourself on its page yet. Its editors see a note at the top: "Migrated from the standalone version. Ask Claude to make changes."
 
@@ -76,7 +76,7 @@ Learn more about **[getting started with Claude Design](https://support.claude.c
 
 The window lists it under **Couldn't be migrated**, with its name, owner, and a short reason, such as "it's too large."
 
-![The finished window. It says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719871890/dda0fc8ec2a80b3552b6550746bd/b4644cc0-d990-4c69-a0c0-baeb0f683625?expires=1792613700&amp;signature=a57af8151ea0227140801a885e82022c38868269f87ac5ca63765dafe453e0e1&amp;req=dicmH8F5nIlWWfMW1HO4zaTzC30T7RQaftPbD3wWlhsaxftk4VfcVi807vax%0Autda%2BNRC1GKiiELHTrM%3D%0A)
+![The finished window. It says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719871890/dda0fc8ec2a80b3552b6550746bd/b4644cc0-d990-4c69-a0c0-baeb0f683625?expires=1792648800&amp;signature=df96d08415bfbae655d8c9dff99c61fc6d417dff8d6ee996a3fd828f79d0149a&amp;req=dicmH8F5nIlWWfMW1HO4zaTzC30T6B8VftPbD3wWlhsuwVsbfxZOa5D%2FlvH2%0AAE%2FmGPxghCkBogajYCw%3D%0A)
 
 To reopen the results later, click the count in the banner on the **Artifacts** page, such as "6 of your 11 design systems couldn't be migrated."
 
@@ -88,11 +88,11 @@ Anyone who can edit the design system can fix problems with its own files or siz
 
 2. Click "Check" on the "Check whether this design system can migrate to claude.ai" card.
 
-  ![A card in the standalone version that says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719873400/3d92cdfd945fd79fb27084d39a22/f7748b4a-0227-4f40-9291-22bed9a1fbbc?expires=1792613700&amp;signature=bc6591904452096331aef55766b0156fd5219de0ca2daaa7b3f01e39c3e1bc0d&amp;req=dicmH8F5noVfWfMW1HO4zd1pibihZZ316fFmI7TN6dbmLrxXdy7GxW%2FtizQ9%0AsA%2BC%0A)
+  ![A card in the standalone version that says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719873400/3d92cdfd945fd79fb27084d39a22/f7748b4a-0227-4f40-9291-22bed9a1fbbc?expires=1792648800&amp;signature=1cde9f26ee62a4c32163150d8d5d73fd2d2c1eb38068e8ee75413a200ea9c48e&amp;req=dicmH8F5noVfWfMW1HO4zd1pibihYJb66fFmI7TN6dboKX9RRom2N5dbSHEo%0A2PSw%0A)
 
 3. Fix the files the check lists, using the table below.
 
-  ![The card after a check. It says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719873835/ea65e9a7b17ff1a6572138efbdf4/d63a5223-f80f-4bca-b487-0c0583487404?expires=1792613700&amp;signature=74534ec8c7a37dec1c92fa962fc261710dc62fc94d149072811722af3685e91f&amp;req=dicmH8F5nolcXPMW1HO4zXfm4KzC4aPaa1x%2B95JDfxHe01tg4IcqGWEEdr%2F5%0ASqjv%0A)
+  ![The card after a check. It says](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719873835/ea65e9a7b17ff1a6572138efbdf4/d63a5223-f80f-4bca-b487-0c0583487404?expires=1792648800&amp;signature=aa39b7ce069e5529a3897d1be857904ff708045ac3e5840627d1176693b64ab9&amp;req=dicmH8F5nolcXPMW1HO4zXfm4KzC5KjVa1x%2B95JDfxF0DqIoTDwN2yho07hf%0A4sn5%0A)
 
 4. Click "Check again" until it says "Nothing found in the way."
 
@@ -120,7 +120,7 @@ Sometimes the check says "The problem is in the migration, not your files. There
 
 To migrate new, changed, or fixed design systems, choose "Migrate again" from the **Claude Design** menu on the **Artifacts** page. To reopen your last results, choose "View details," just below it.
 
-![The Claude Design menu open on the Artifacts page. Under](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719876014/7313d3bd31db84db44312be66d15/ca108a7c-7143-4041-a6f8-70487dbf1c45?expires=1792613700&amp;signature=1604a087375f7402ca12bbfd94638e37a42012fb237c1341f144dc7ae6e0c29f&amp;req=dicmH8F5m4FeXfMW1HO4zY8hP2yGvxS4mIfwq%2Bzc2Q%2Bz7xS9Bz15dakPrwYq%0A7Sm4y%2Bkp%2FuIuFqv1tW8%3D%0A)
+![The Claude Design menu open on the Artifacts page. Under](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719876014/7313d3bd31db84db44312be66d15/ca108a7c-7143-4041-a6f8-70487dbf1c45?expires=1792648800&amp;signature=3233aba202765b2f92a8ce78b427c35af8e43d17454f64fc5397720ad1aec44a&amp;req=dicmH8F5m4FeXfMW1HO4zY8hP2yGuh%2B3mIfwq%2Bzc2Q%2FtqHXF4SkkMg%2Fk2hHa%0AcbL1mgSb1WVk4HeQ4zU%3D%0A)
 
 **When you migrate again:**
 
@@ -130,7 +130,7 @@ To migrate new, changed, or fixed design systems, choose "Migrate again" from th
 | Unchanged in both places                                           | It's left alone and marked "already up to date"                                                                       |
 | Changed in Claude since it was migrated                            | It's listed under **Skipped** as "changed on claude.ai, left as they are," so your edits in Claude aren't overwritten |
 
-![The results of a second migration. Three design systems are marked](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719876766/45afd15b42b5160fa441f419a850/7c97998b-5da1-4804-b590-04d2c95d4d98?expires=1792613700&amp;signature=ed59d14e66a12db8f74460178d377064f33e953ff54739b46af19050bad93542&amp;req=dicmH8F5m4ZZX%2FMW1HO4zTpBL%2B1c31hjspOwJUpK3x1%2BHgxPcgb%2FPqS7WAO1%0ATVYamatX44KIIyq4r6Q%3D%0A)
+![The results of a second migration. Three design systems are marked](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719876766/45afd15b42b5160fa441f419a850/7c97998b-5da1-4804-b590-04d2c95d4d98?expires=1792648800&amp;signature=e902d729627e5ff325a7e5f031931259e73885a5ca5890073a78b23163918fc2&amp;req=dicmH8F5m4ZZX%2FMW1HO4zTpBL%2B1c2lNsspOwJUpK3x3N6qZMNwOZNPIadWtP%0Ay4el%2BqcA9aSYN3pUSyw%3D%0A)
 
 To replace a migrated design system with a fresh copy, delete it in Claude, then migrate again. To keep any changes you've made to it, duplicate it first. Once nothing is left to migrate, the banner says "All of your design systems have migrated."
 
@@ -194,7 +194,7 @@ Not all at once. You can download them one at a time:
 
 3. Keep "Project archive" selected and click "Export."
 
-![The](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719861358/b912b7e22b90376c8d9808f5f878/e12e91ec-7ced-4b05-bc31-c4e3fd88741b?expires=1792613700&amp;signature=3f0a41add01268b30232a2742e1d60fcc79ff6c9c6a42cfc6e0e5d377b9c8733&amp;req=dicmH8F4nIJaUfMW1HO4zViE97JDpu0XGbLnQ1YWi0%2B9pZ1aW04SK9pVIgDm%0AGwuY%0A)
+![The](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719861358/b912b7e22b90376c8d9808f5f878/e12e91ec-7ced-4b05-bc31-c4e3fd88741b?expires=1792648800&amp;signature=6f91d4e58014cc2a5fb141ed78ab2bd31aebf85f1cef33fe7e1a69fc025110b7&amp;req=dicmH8F4nIJaUfMW1HO4zViE97JDo%2BYYGbLnQ1YWi0%2FjVhRrtQKAZ3GWYJjC%0AuZBQ%0A)
 
 You get a `.zip` file with every file in the project. It's free and doesn't count toward your usage limits.
 

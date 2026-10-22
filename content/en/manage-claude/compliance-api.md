@@ -21,7 +21,7 @@ curl --fail-with-body -sS \
 
 A successful response returns a JSON object containing `data` (an array of `Activity` records), `has_more`, `first_id`, and `last_id`:
 
-```json Response
+```text Response wrap
 {
   "data": [
     {

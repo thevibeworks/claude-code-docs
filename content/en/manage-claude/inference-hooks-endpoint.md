@@ -258,7 +258,7 @@ Where `session_id` is set, it is the same on both frames. The tool call frame ha
 
 `tool_info` says who runs or provides the tool, not what the tool can reach. It is one of four kinds, told apart by its `type` field, and each kind carries its own fields. Anthropic sends the first of the following kinds that fits the tool. New kinds may appear: accept a `type` you don't recognize, and for such a kind rely only on `type`.
 
-An optional field that doesn't apply is left out, never `null`, so a `tool_info` can be just `{"type": "client"}`. `tool_name` is chosen by whoever defined the tool, and a server's `toolset_name` by whoever wrote the request, so don't treat either as a trust boundary.
+An optional field that doesn't apply is left out, never `null`, so a `tool_info` can be just `{"type": "client"}`. `tool_name` is chosen by whoever defined the tool, and a server's `toolset_name` by whoever wrote the request or named the connector. Don't treat either as a trust boundary.
 
 ### Platform tools
 
@@ -301,12 +301,12 @@ claude.ai doesn't always name this tool `web_search`, so don't match on the name
 
 A third-party tool is one on a server that Anthropic knows of, such as a claude.ai connector or an MCP server that the request names in `mcp_servers`. This doesn't mean Anthropic has vetted the server. In voice mode, a call to a claude.ai connector's tool is `"client"` instead.
 
-| Field             | Present              | Description                                                                                                                                                         |
-| ----------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | Always               | `"third_party"`                                                                                                                                                     |
-| `toolset_name`    | Optional             | The name the request gives the server.                                                                                                                              |
-| `origin`          | Optional             | The scheme, host, and non-default port of the server's URL. It can be a private or local address, `localhost` included. An absent `origin` means unknown, not safe. |
-| `verified_origin` | Whenever `origin` is | `true` only when Anthropic's servers connect to the server themselves. Treat `false` as an origin that Anthropic hasn't confirmed.                                  |
+| Field             | Present              | Description                                                                                                                                                            |
+| ----------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`            | Always               | `"third_party"`                                                                                                                                                        |
+| `toolset_name`    | Optional             | For a server in `mcp_servers`, the name the request gives the server. For any other server, such as a claude.ai connector, the server's name, copied from `tool_name`. |
+| `origin`          | Optional             | The scheme, host, and non-default port of the server's URL. It can be a private or local address, `localhost` included. An absent `origin` means unknown, not safe.    |
+| `verified_origin` | Whenever `origin` is | `true` only when Anthropic's servers connect to the server themselves. Treat `false` as an origin that Anthropic hasn't confirmed.                                     |
 
 A `tool_use` block for a tool on an MCP server that the request names `crm` in `mcp_servers`:
 
@@ -326,6 +326,29 @@ A `tool_use` block for a tool on an MCP server that the request names `crm` in `
   }
 }
 ```
+
+A `tool_use` block for a tool on a Gmail connector, called in a claude.ai chat:
+
+```json
+{
+  "type": "tool_use",
+  "id": "toolu_01DeFgHiJkLmNoPqRsTuVwXy",
+  "tool_name": "mcp__Gmail__search_threads",
+  "input": {
+    "query": "from:cfo@example.com newer_than:30d"
+  },
+  "tool_info": {
+    "type": "third_party",
+    "toolset_name": "Gmail",
+    "origin": "https://gmail.mcp.example.com",
+    "verified_origin": false
+  }
+}
+```
+
+For a claude.ai connector, `verified_origin` can be `false` even when Anthropic's servers connect to the server themselves.
+
+A name copied from `tool_name` can differ from the name the user sees: `mcp__Google_Drive__search_files` gives `Google_Drive`, not `Google Drive`. It can also end in a short suffix (`Gmail-1a2b3c4d`), for example when another of the user's connectors has the same name. The name isn't a stable identifier and doesn't prove which server the tool is on. When `tool_name` has no server name in it, `toolset_name` is left out.
 
 ### Client tools
 

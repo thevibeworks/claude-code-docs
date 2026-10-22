@@ -95,7 +95,7 @@ Each `anthropic_access` activity carries the standard Activity fields plus the f
 
 Example JSON message:
 
-```json
+```text wrap
 {
   "id": "activity_013b013744txqZtFHLUaRqLr",
   "type": "anthropic_access",
@@ -132,7 +132,7 @@ curl --fail-with-body -sS -G \
 
 Example JSON message:
 
-```json
+```text wrap
 {
   "id": "activity_01AbCdEfGhJkMnPqRsTuVwXy",
   "type": "cmek_preserve",
@@ -211,11 +211,11 @@ For organizations that also enable CMEK, your cloud KMS audit log (CloudTrail, C
     No. Automated processing does not generate `anthropic_access` events; you will see an `anthropic_access` event only if a human reviewer subsequently views the content. Separately, a `cmek_preserve` event is written when content is preserved, whether the preservation was initiated by a human reviewer or an automated safety pipeline.
   </Accordion>
 
-  <Accordion title="We are a platform that serves Claude to our own end users. Can we enable Access Transparency?">
+  <Accordion title="Can a platform that serves Claude to its own end users enable Access Transparency?">
     Access Transparency is not available for platform deployments. Contact your Anthropic account representative to discuss your use case.
   </Accordion>
 
-  <Accordion title="Will I see events for access that occurred before we enrolled, or for our older data?">
+  <Accordion title="Will I see events for access that occurred before my organization enrolled, or for its older data?">
     Access Transparency is not guaranteed to be retroactive. It covers human access to content written to the Claude API on or after your enrollment date. You might see events for access to content that was written before enrollment.
   </Accordion>
 

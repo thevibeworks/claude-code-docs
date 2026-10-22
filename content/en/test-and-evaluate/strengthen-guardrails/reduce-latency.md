@@ -187,7 +187,7 @@ For speed-critical applications, **Claude Haiku 5.5** offers the fastest respons
 
   # For time-sensitive applications, use Claude Haiku 5.5 at low effort
   message = client.messages.create(
-    model: "claude-haiku-5-5",
+    model: Anthropic::Model::CLAUDE_HAIKU_5_5,
     max_tokens: 1024,
     output_config: { effort: :low },
     messages: [{ role: "user", content: "Summarize this customer feedback in 2 sentences: [feedback text]" }]

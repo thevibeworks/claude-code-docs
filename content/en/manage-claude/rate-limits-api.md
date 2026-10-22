@@ -493,7 +493,7 @@ By default, the response only includes overrides, so anything missing from it is
 For complete parameter details and response schemas, see the [Workspace Rate Limits API reference](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list).
 
 <Tip>
-  To retrieve your organization's workspace IDs, use the [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) endpoint, or find them on the [Workspaces](https://platform.claude.com/settings/workspaces) page in the Claude Console. List Workspaces includes the default workspace only when you pass `include_default=true`.
+  To retrieve your organization's workspace IDs, use the [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) endpoint, or find them under [Workspaces in the Claude Console](https://platform.claude.com/settings/workspaces). List Workspaces includes the default workspace only when you pass `include_default=true`.
 </Tip>
 
 <CodeGroup>

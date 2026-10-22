@@ -494,7 +494,7 @@ Add an optional `input_examples` field to your tool definition with an array of 
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     tools: [
       {
@@ -807,7 +807,7 @@ On models that support it, the highlighted lines are the only difference from a 
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5,
     max_tokens: 1024,
     tools: [
       {
@@ -869,7 +869,7 @@ When using tools, Claude often comments on what it's doing or responds naturally
 
 For example, given the prompt "What's the weather like in San Francisco right now, and what time is it there?", Claude might respond with:
 
-```json JSON
+```text JSON
 {
   "role": "assistant",
   "content": [

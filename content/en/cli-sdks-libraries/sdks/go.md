@@ -26,7 +26,7 @@ go get github.com/anthropics/anthropic-sdk-go
 
 ## Requirements
 
-This library requires Go 1.24+.
+This library requires Go 1.25+.
 
 ## Usage
 
@@ -716,7 +716,7 @@ if err != nil {
 
 #### Undocumented request parameters
 
-To make requests using undocumented parameters, you can use either the `option.WithQuerySet()` or the `option.WithJSONSet()` functions.
+To make requests using undocumented parameters, you can use either the `option.WithQuerySet()` or the `option.WithJSONSet()` function.
 
 ```go
 params := FooNewParams{

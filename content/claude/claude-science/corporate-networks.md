@@ -205,7 +205,7 @@ Conda package downloads for the analysis sandbox use their own setting, `[conda]
 
 On macOS and Linux, `[conda] ca_bundle` affects package downloads only, and it never fixes sign-in. The CA bundle path field on the Settings page sets this same `[conda]` key, so filling it in helps package downloads only, and on Windows leave the field empty. Behind TLS inspection you also need `[network] ca_bundle`, which has no Settings field and is set in `config.toml`.
 
-pip verifies package downloads against the operating system's trust store, and in this release setting `[conda] ca_bundle` alone may not be sufficient for pip, so also install the corporate root in that trust store: on Linux with `update-ca-certificates` or `update-ca-trust`, on macOS in the system keychain through your MDM, and on Windows in the computer's Trusted Root Certification Authorities store, which pip reads in environments on Python 3.10 or later, the default.
+pip verifies package downloads against the operating system's trust store, and in this release setting `[conda] ca_bundle` alone may not be sufficient for pip, so also install the corporate root in that trust store: on Linux with `update-ca-certificates` or `update-ca-trust`, on macOS in the system keychain through your MDM, and on Windows in the computer's Trusted Root Certification Authorities store.
 
 ```toml theme={null}
 [conda]

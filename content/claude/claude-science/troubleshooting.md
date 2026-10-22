@@ -91,9 +91,9 @@ Claude Science couldn't reach the update server. Check your internet connection,
 
 ### restart aborted
 
-On the "Update available" notice, this means the new version was downloaded but didn't start. If Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. If Claude Science has stopped, start it again.
+On the "Update available" notice, this means the new version was downloaded but didn't start. On a Mac or Linux, if the message says "restart aborted" and you started Claude Science from a terminal, follow [the terminal steps](/docs/claude-science/update-claude-science#from-a-terminal-or-on-a-server). Otherwise, if Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. On Windows, if trying again fails, leave Claude Science open and follow [the Windows steps](/docs/claude-science/update-claude-science#if-the-update-still-fails). If Claude Science has stopped, start it again.
 
-On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so trying again as above now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.
+On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so updating again now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.
 
 In version 0.1.67 and later, the notice can show one of these two sentences, with the new version's error on a **Reason** line when there is one:
 

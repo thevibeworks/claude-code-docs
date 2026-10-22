@@ -17,7 +17,7 @@ Here are some key indicators that you should employ an LLM such as Claude to sum
     Large-scale document review can be time-consuming and expensive when done manually. Claude can process and summarize vast amounts of legal documents rapidly, significantly reducing the time and cost associated with document review. This capability is particularly valuable for tasks such as due diligence, contract analysis, or litigation discovery, where efficiency is crucial.
   </Accordion>
 
-  <Accordion title="You require automated extraction of key metadata">
+  <Accordion title="You need automated extraction of key metadata">
     Claude can efficiently extract and categorize important metadata from legal documents, such as parties involved, dates, contract terms, or specific clauses. This automated extraction can help organize information, making it easier to search, analyze, and manage large document sets. It's especially useful for contract management, compliance checks, or creating searchable databases of legal information. 
   </Accordion>
 

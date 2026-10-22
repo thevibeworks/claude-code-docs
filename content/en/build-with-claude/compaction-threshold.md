@@ -1365,7 +1365,7 @@ When compaction is triggered, the API returns a `compaction` block at the start 
 
 A long-running conversation might result in multiple compactions. The last compaction block reflects the final state of the prompt, replacing content prior to it with the generated summary.
 
-```json Output
+```text Output
 {
   "content": [
     {
@@ -2255,7 +2255,7 @@ This keeps long system prompts cached across multiple compaction events througho
 
 Compaction requires an additional sampling step, which contributes to rate limits and billing. The API returns detailed usage information in the response:
 
-```json Output
+```text Output wrap
 {
   "usage": {
     "input_tokens": 23000,
@@ -2320,8 +2320,7 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
   ```
 
   ```bash CLI
-  ant beta:messages count-tokens \
-    --beta compact-2026-01-12 <<'YAML'
+  ant beta:messages count-tokens --beta compact-2026-01-12 <<'YAML'
   model: claude-opus-5-5
   messages:
     - role: user

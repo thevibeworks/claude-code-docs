@@ -147,7 +147,7 @@ For each Claude model used:
 
 The API returns data in the following format:
 
-```json
+```text wrap
 {
   "data": [
     {

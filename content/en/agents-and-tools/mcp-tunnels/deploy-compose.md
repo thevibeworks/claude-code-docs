@@ -409,8 +409,8 @@ With programmatic access, increment `--token-version` in the `setup` service com
 export ANTHROPIC_FEDERATION_RULE_ID=fdrl_...
 export ANTHROPIC_ORGANIZATION_ID=00000000-0000-0000-0000-000000000000
 # export ANTHROPIC_WORKSPACE_ID=wrkspc_...   # if your rule is workspace-scoped
-# Re-mint ANTHROPIC_IDENTITY_TOKEN per the WIF provider guide for your
-# environment (it will have expired since install).
+# Re-mint ANTHROPIC_IDENTITY_TOKEN as described in the WIF provider guide for
+# your environment (it will have expired since install).
 export ANTHROPIC_IDENTITY_TOKEN=...
 
 docker compose run --rm setup

@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-
 description: A guided walkthrough from a single tool call to a production-ready agentic loop.
 ---
 
-This tutorial builds a calendar-management agent in five concentric rings. Each ring is a complete, runnable program that adds exactly one concept to the ring before it. By the end you will have written the agentic loop by hand and then replaced it with the Tool Runner SDK abstraction.
+This tutorial builds a calendar-management agent in five concentric rings. Each ring is a complete, runnable program that adds exactly one concept to the ring before it. By the end you will have written the agentic loop by hand and then replaced it with the tool runner SDK abstraction.
 
 The example tool is `create_calendar_event`. Its schema uses nested objects, arrays, and optional fields, so you will see how Claude handles realistic input shapes rather than a single flat string.
 
@@ -3311,19 +3311,19 @@ I tried to schedule the all-hands but the calendar only allows 10 attendees per 
 
 The `is_error` flag is the only difference from a successful result. Claude receives the flag and the error text, and responds accordingly. See [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) for the full error-handling reference.
 
-## Ring 5: The Tool Runner SDK abstraction
+## Ring 5: The tool runner SDK abstraction
 
-Rings 2 through 4 wrote the same loop by hand: call the API, check `stop_reason`, run tools, append results, repeat. The Tool Runner does this for you. Define each tool as a function, pass the list to `client.beta.messages.tool_runner()` (typescript: `client.beta.messages.toolRunner()`; java: `client.beta().messages().toolRunner()`; php: `$client->beta->messages->toolRunner()`; csharp: `client.Beta.Messages.ToolRunner()`; go: `client.Beta.Messages.NewToolRunner()`), and retrieve the final message once the loop completes. Error wrapping, result formatting, and conversation management are handled internally.
+Rings 2 through 4 wrote the same loop by hand: call the API, check `stop_reason`, run tools, append results, repeat. The tool runner does this for you. Define each tool as a function, pass the list to `client.beta.messages.tool_runner()` (typescript: `client.beta.messages.toolRunner()`; java: `client.beta().messages().toolRunner()`; php: `$client->beta->messages->toolRunner()`; csharp: `client.Beta.Messages.ToolRunner()`; go: `client.Beta.Messages.NewToolRunner()`), and retrieve the final message once the loop completes. Error wrapping, result formatting, and conversation management are handled internally.
 
 The SDK provides a helper that turns an ordinary function into a runnable tool and derives the input schema from its signature; the following example shows the idiomatic form.
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
-    The Tool Runner is a helper in the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview). Raw HTTP requests have no equivalent.
+    The tool runner is a helper in the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview). Raw HTTP requests have no equivalent.
   </CodeGroupItem>
 
   <CodeGroupItem language="CLI">
-    The Tool Runner is a helper in the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview). The `ant` CLI has no equivalent.
+    The tool runner is a helper in the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview). The `ant` CLI has no equivalent.
   </CodeGroupItem>
 
   ```python Python
@@ -3935,7 +3935,7 @@ The output is identical to Ring 3. The difference is in the code: roughly half t
 
 ## What you built
 
-You started with a single hardcoded tool call and ended with a production-shaped agent that handles multiple tools, parallel calls, and errors, then collapsed all of that into the Tool Runner. Along the way you saw every piece of the tool-use protocol: `tool_use` blocks, `tool_result` blocks, `tool_use_id` matching, `stop_reason` checking, and `is_error` signaling.
+You started with a single hardcoded tool call and ended with a production-shaped agent that handles multiple tools, parallel calls, and errors, then collapsed all of that into the tool runner. Along the way you saw every piece of the tool-use protocol: `tool_use` blocks, `tool_result` blocks, `tool_use_id` matching, `stop_reason` checking, and `is_error` signaling.
 
 ## Next steps
 
@@ -3944,7 +3944,7 @@ You started with a single hardcoded tool call and ended with a production-shaped
     Schema specification and best practices.
   </Card>
 
-  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner" title="Tool Runner">
+  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner" title="Tool runner">
     The full SDK abstraction reference.
   </Card>
 

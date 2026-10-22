@@ -295,7 +295,7 @@ The Python environment can process various file types uploaded through the Files
     -H "anthropic-version: 2023-06-01" \
     -F "file=@data.csv"
 
-  # Then use the file with code execution: FILE_ID is the id from the upload response
+  # Then use the file with code execution: FILE_ID is the ID from the upload response
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -321,7 +321,7 @@ The Python environment can process various file types uploaded through the Files
   # First, upload a file
   ant files upload --file ./data.csv
 
-  # Then use the file with code execution: FILE_ID is the id from the upload response
+  # Then use the file with code execution: FILE_ID is the ID from the upload response
   ant messages create <<YAML
   model: claude-opus-5-5
   max_tokens: 4096
@@ -938,7 +938,7 @@ The code execution tool can return two types of results depending on the operati
 
 ### Bash command response
 
-```json Output
+```text Output
 {
   "type": "server_tool_use",
   "id": "srvtoolu_01B3C4D5E6F7G8H9I0J1K2L3",
@@ -964,7 +964,7 @@ The code execution tool can return two types of results depending on the operati
 
 **View file:**
 
-```json Output
+```text Output wrap
 {
   "type": "server_tool_use",
   "id": "srvtoolu_01C4D5E6F7G8H9I0J1K2L3M4",
@@ -990,7 +990,7 @@ The code execution tool can return two types of results depending on the operati
 
 **Create file:**
 
-```json Output
+```text Output wrap
 {
   "type": "server_tool_use",
   "id": "srvtoolu_01D5E6F7G8H9I0J1K2L3M4N5",
@@ -1013,7 +1013,7 @@ The code execution tool can return two types of results depending on the operati
 
 **Edit file (str\_replace):**
 
-```json Output
+```text Output wrap
 {
   "type": "server_tool_use",
   "id": "srvtoolu_01E6F7G8H9I0J1K2L3M4N5O6",
@@ -1060,7 +1060,7 @@ Each tool type can return specific errors:
 
 **Common errors (all tools):**
 
-```json Output
+```text Output wrap
 {
   "type": "bash_code_execution_tool_result",
   "tool_use_id": "srvtoolu_01VfmxgZ46TiHbmXgy928hQR",
@@ -1443,7 +1443,7 @@ When Claude calls one of your client tools alongside code execution, the API ret
 
 With [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) enabled (`"stream": true`), you'll receive code execution events as they occur. The sub-tool input streams as `input_json_delta` events, and each result block arrives whole in a single `content_block_start` event:
 
-```sse
+```text
 event: content_block_start
 data: {"type": "content_block_start", "index": 1, "content_block": {"type": "server_tool_use", "id": "srvtoolu_xyz789", "name": "bash_code_execution"}}
 
@@ -1475,7 +1475,7 @@ When used without these tools, code execution is billed by execution time, track
 
 Code execution usage is tracked in the response:
 
-```json
+```text wrap
 {
   "usage": {
     "input_tokens": 105,

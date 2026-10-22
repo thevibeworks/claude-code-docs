@@ -161,9 +161,9 @@ If your code treated a `null` `workspace_id` as the Default Workspace, compare `
 
 Earlier SDK and CLI versions sent `anthropic-version: 2023-06-01` with every request. The versions under [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade) send `2026-10-21`, including their Amazon Bedrock and Google Cloud clients. The changes in [Breaking changes](https://platform.claude.com/docs/en/api/migration-2026-10-21#breaking-changes) apply to them too: the removed parameters and the old field names are also gone from the SDK's types and from the CLI's flags and output.
 
-### `MessageParam` is a union with one type per role
+### `MessageParam` is a union with one type for each role
 
-In earlier versions, `MessageParam` was one type for every role. Each role now has a type of its own: `UserMessageParam`, `AssistantMessageParam`, and `SystemMessageParam`. `BetaMessageParam` is split the same way, into `BetaUserMessageParam`, `BetaAssistantMessageParam`, and `BetaSystemMessageParam`. The requests that the SDK sends have the same fields and values as before.
+In earlier versions, `MessageParam` was one type for all roles. Each role now has a type of its own: `UserMessageParam`, `AssistantMessageParam`, and `SystemMessageParam`. `BetaMessageParam` is split the same way, into `BetaUserMessageParam`, `BetaAssistantMessageParam`, and `BetaSystemMessageParam`. The requests that the SDK sends have the same fields and values as before.
 
 <Tabs exclude="shell">
   <Tab title="Python">
@@ -620,7 +620,7 @@ This affects the TypeScript and Ruby SDKs. Client-side compaction in the tool ru
 
 <Tabs exclude="shell, python, csharp, go, java, php">
   <Tab title="TypeScript">
-    The `compactionControl` option and the `@anthropic-ai/sdk/lib/tools/CompactionControl` module are gone. The option stopped working in v0.129.0, where passing it threw an `AnthropicError`. It isn't in the params type, so TypeScript reports it as an unknown property.
+    The `compactionControl` option and the `@anthropic-ai/sdk/lib/tools/CompactionControl` module are gone. The option stopped working in v0.129.0, where passing it threw an `AnthropicError`. It isn't in the tool runner's parameters type, so TypeScript reports it as an unknown property.
 
     To keep compacting automatically at a token threshold:
 
@@ -1107,7 +1107,7 @@ Authorization: Bearer <key>
 
 This affects the Python, TypeScript, Go, PHP, and Ruby SDKs.
 
-If you removed `X-Api-Key` so that a request sent only an auth token, delete that code instead of changing it, because removing `Authorization` would remove the token. [A client holds one credential](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-one-credential), so make sure that it's the token: with none passed in code and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client uses the key.
+If you removed `X-Api-Key` so that a request sent only an authentication token, delete that code instead of changing it, because removing `Authorization` would remove the token. [A client holds one credential](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-one-credential), so make sure that it's the token: with none passed in code and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client uses the key.
 
 <Tabs exclude="shell, csharp, java">
   <Tab title="Python">
@@ -1147,11 +1147,11 @@ If you removed `X-Api-Key` so that a request sent only an auth token, delete tha
 
 ### A client holds one credential
 
-An API key and an auth token now share a header, so an SDK client holds one credential. With none passed in code, it follows the [credential precedence](https://platform.claude.com/docs/en/manage-claude/wif-reference#credential-precedence) order.
+An API key and an authentication token now share a header, so an SDK client holds one credential. With none passed in code, it follows the [credential precedence](https://platform.claude.com/docs/en/manage-claude/wif-reference#credential-precedence) order.
 
 <Tabs exclude="shell">
   <Tab title="Python">
-    v1 sent both an API key and an auth token when the client had both, each in its own header. The credential is one of `api_key`, `auth_token`, `credentials`, `config`, or `profile`.
+    v1 sent both an API key and an authentication token when the client had both, each in its own header. The credential is one of `api_key`, `auth_token`, `credentials`, `config`, or `profile`.
 
     * **Pass at most one.** Two or more in the constructor, or in one `copy()` or `with_options()` call, raise `ValueError`. `None` doesn't count. v1 raised `TypeError`, and only for two of `credentials`, `config`, and `profile`.
     * **The one you pass is the only one.** As in v1, the client does not look for another in the environment or on disk.
@@ -1169,11 +1169,11 @@ An API key and an auth token now share a header, so an SDK client holds one cred
 
     The docstrings of `Anthropic.__init__` and `Anthropic.copy` in [`_client.py`](https://github.com/anthropics/anthropic-sdk-python/blob/main/src/anthropic/_client.py) have the details.
 
-    If you relied on sending both, for example a token for a gateway and a key for the API behind it, pass the token as `auth_token` and set `X-Api-Key` in `default_headers`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential per request.
+    If you relied on sending both, for example a token for a gateway and a key for the API behind it, pass the token as `auth_token` and set `X-Api-Key` in `default_headers`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
   </Tab>
 
   <Tab title="TypeScript">
-    In v0 a client that had both an API key and an auth token sent both, each in its own header. The credential is one of `apiKey`, `authToken`, `credentials`, `config`, or `profile`.
+    In v0 a client that had both an API key and an authentication token sent both, each in its own header. The credential is one of `apiKey`, `authToken`, `credentials`, `config`, or `profile`.
 
     * **Pass at most one.** Two or more in `new Anthropic()`, or in one `withOptions()` call, throw a `TypeError`. `null` and `undefined` don't count.
     * **The one you pass is the only one.** The client does not look for another in the environment or on disk.
@@ -1189,13 +1189,13 @@ An API key and an auth token now share a header, so an SDK client holds one cred
     const client = new Anthropic({ credentials });
     ```
 
-    The doc comments on [`ClientOptions`](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/src/client.ts) say how each option behaves, and the doc comment on each of those platform clients' constructors lists the options it rejects.
+    The doc comments on `ClientOptions` in [`client.ts`](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/src/client.ts) say how each option behaves, and the doc comment on each of those platform clients' constructors lists the options it rejects.
 
-    If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` in `defaultHeaders` and keep `authToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential per request.
+    If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` in `defaultHeaders` and keep `authToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
   </Tab>
 
   <Tab title="C#">
-    In v12 a client that had both an API key and an auth token sent both, each in its own header. The credential is one of `ApiKey`, `AuthToken`, or `ClientOptions.Credentials`.
+    In v12 a client that had both an API key and an authentication token sent both, each in its own header. The credential is one of `ApiKey`, `AuthToken`, or `ClientOptions.Credentials`.
 
     * **Passing two is an error.** Setting a second one throws an `ArgumentException`. `null` doesn't count, so to swap the credential in `ClientOptions` that you built yourself, set the old one to `null` first.
     * **Passing one uses it and ignores the environment.** No credential environment variable or profile on disk is read. In the same way, `AnthropicCredentials.Resolve(profile: "name")` now returns that profile's credentials when `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` is set.
@@ -1212,13 +1212,13 @@ An API key and an auth token now share a header, so an SDK client holds one cred
 
     The XML docs on those three properties of [`ClientOptions`](https://github.com/anthropics/anthropic-sdk-csharp/blob/main/src/Anthropic/Core/ClientOptions.cs) have the details.
 
-    Cloud platform clients keep the credentials they were built with. The Bedrock, Bedrock Mantle, Foundry, Google Cloud, and AWS clients and `AnthropicVertexClient` decide how to authenticate when you build them, and most of them use the `Authorization` header for it. The releases of these packages that depend on v13 ignore an `ApiKey` or `AuthToken` that you set through `WithOptions`. To use another key with `AnthropicAwsClient`, build a new client with `ApiKey` in `AwsClientOptions`.
+    Cloud platform clients keep the credentials they were built with. The Bedrock, Bedrock Mantle, Foundry, Google Cloud, and AWS clients and `AnthropicVertexClient` determine how to authenticate when you build them, and most of them use the `Authorization` header for it. The releases of these packages that depend on v13 ignore an `ApiKey` or `AuthToken` that you set through `WithOptions`. To use another key with `AnthropicAwsClient`, build a new client with `ApiKey` in `AwsClientOptions`.
 
-    If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` with `ExtraHeaders` and keep `AuthToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential per request.
+    If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` with `ExtraHeaders` and keep `AuthToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
   </Tab>
 
   <Tab title="Go">
-    In v1 a client that had both an API key and an auth token sent both, each in its own header. The credential comes from `option.WithAPIKey`, `option.WithAuthToken`, `option.WithConfig`, `option.WithProfile`, or `option.WithFederationTokenProvider`.
+    In v1 a client that had both an API key and an authentication token sent both, each in its own header. The credential comes from `option.WithAPIKey`, `option.WithAuthToken`, `option.WithConfig`, `option.WithProfile`, or `option.WithFederationTokenProvider`.
 
     * **Two of them passed to `anthropic.NewClient` are an error.** `NewClient` returns no error, so every request the client makes fails with it. `NewClient` already applies `anthropic.DefaultClientOptions()`, so don't pass its result as well: the credential it finds in the environment then counts as one you passed.
     * **One of them is used as it is.** No credential is read from the environment or from a profile on disk. In v1 `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` won over the last three.
@@ -1240,13 +1240,13 @@ An API key and an auth token now share a header, so an SDK client holds one cred
 
     The doc comments on `anthropic.NewClient` and `anthropic.DefaultClientOptions` in [`client.go`](https://github.com/anthropics/anthropic-sdk-go/blob/main/client.go) have the details.
 
-    If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` with `option.WithHeader` and keep `option.WithAuthToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential per request.
+    If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` with `option.WithHeader` and keep `option.WithAuthToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
 
     `ANTHROPIC_CUSTOM_HEADERS` and `ANTHROPIC_WEBHOOK_SIGNING_KEY` now apply to every client that `anthropic.NewClient` builds. In v1 they were read only when neither the environment nor a profile on disk held a credential.
   </Tab>
 
   <Tab title="Java">
-    In v2 a client that had both an API key and an auth token sent both, each in its own header. The credential is one of `apiKey`, `authToken`, or `configurationProvider` on the `AnthropicOkHttpClient`, `AnthropicOkHttpClientAsync`, and `AnthropicBackend` builders.
+    In v2 a client that had both an API key and an authentication token sent both, each in its own header. The credential is one of `apiKey`, `authToken`, or `configurationProvider` on the `AnthropicOkHttpClient`, `AnthropicOkHttpClientAsync`, and `AnthropicBackend` builders.
 
     * **Set at most one.** With two on one builder, `build()` throws an `IllegalStateException` that names them. `null` or an empty `Optional` does not count.
     * **The one you set is the only one.** `fromEnv()`, called before or after, takes no credential from the environment or from a profile on disk. In v2, a key or token that `fromEnv()` found could be sent as well, or instead.
@@ -1276,15 +1276,15 @@ An API key and an auth token now share a header, so an SDK client holds one cred
         .build();
     ```
 
-    Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential per request.
+    Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
   </Tab>
 
   <Tab title="PHP">
-    Earlier versions sent both an API key and an auth token when the client had both, each in its own header. `Anthropic\Client` takes one credential, from `apiKey`, `authToken`, or `credentials`:
+    Earlier versions sent both an API key and an authentication token when the client had both, each in its own header. `Anthropic\Client` takes one credential, from `apiKey`, `authToken`, or `credentials`:
 
     * Passing more than one of them throws `\InvalidArgumentException`. Only `null` counts as not passed. An empty string counts as passed, so `new Client(apiKey: '')` sends no credential.
     * Passing one uses it, and no credential is read from the environment or from a profile on disk. With `ANTHROPIC_API_KEY` set, `new Client(authToken: $token)` sends the token. Earlier versions sent the environment's key with it.
-    * Passing none uses the first of these that is set: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, the profile named by `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk (the one the `active_config` file names, otherwise `default`). Earlier versions used the active profile before the federation variables, and used no profile when there was no `active_config` file. They also skipped an `ANTHROPIC_PROFILE` that named a missing or invalid profile. For that, `new Client()` now throws `Anthropic\Core\Exceptions\AnthropicException`. With both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client sends the key and its `authToken` property is empty. The first client built that way also writes a warning with `error_log()`, once per process, which on a web server means once per request: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` To stop it, unset the variable you don't use.
+    * Passing none uses the first of these that is set: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, the profile named by `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk (the one the `active_config` file names, otherwise `default`). Earlier versions used the active profile before the federation variables, and used no profile when there was no `active_config` file. They also skipped an `ANTHROPIC_PROFILE` that named a missing or invalid profile. For that, `new Client()` now throws `Anthropic\Core\Exceptions\AnthropicException`. With both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client sends the key and its `authToken` property is empty. The first client built that way also writes a warning with `error_log()`, once for each process, which on a web server means once for each request: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` To stop it, unset the variable you don't use.
 
     ```php
     // Before: sent the key as X-Api-Key and the token as Authorization.
@@ -1292,7 +1292,7 @@ An API key and an auth token now share a header, so an SDK client holds one cred
     $client = new Client(apiKey: $key, authToken: $token);
     ```
 
-    If you relied on sending both, for example a token for a gateway and a key for the API behind it, pass the token as `authToken` and add `X-Api-Key` in a middleware like the one under [If a proxy or gateway reads `X-Api-Key`](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-proxy-x-api-key), without the `withoutHeader` call. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential per request.
+    If you relied on sending both, for example a token for a gateway and a key for the API behind it, pass the token as `authToken` and add `X-Api-Key` in a middleware like the one under [If a proxy or gateway reads `X-Api-Key`](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-proxy-x-api-key), without the `withoutHeader` call. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
   </Tab>
 
   <Tab title="Ruby">
@@ -1302,7 +1302,7 @@ An API key and an auth token now share a header, so an SDK client holds one cred
     * **One passed:** The client uses it, and does not fall back to a credential from the environment or from a profile on disk.
     * **None passed:** The client uses the first of these it finds: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk. The order has not changed, but with both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, `client.auth_token` is now `nil`. An empty `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` now counts as unset, where earlier versions let an empty `ANTHROPIC_API_KEY` hide the token and everything after it.
 
-    When no credential is passed and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are set, the SDK also warns once per process, on standard error through `Kernel#warn`: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` Unset the variable you don't use to silence it.
+    When no credential is passed and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are set, the SDK also warns once for each process, on standard error through `Kernel#warn`: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` Unset the variable you don't use to silence it.
 
     ```ruby
     # Before: sent the key and ignored the token.
@@ -1321,7 +1321,7 @@ These changes each affect one SDK or the CLI.
 
 <Tabs exclude="shell:cURL, python, typescript">
   <Tab title="CLI">
-    **`--api-key` and `--auth-token` are removed.** `ant` no longer takes an API key or auth token as a flag value, because a value on the command line is visible in shell history and process listings. Both flags have printed a deprecation warning since v1.27.0. A command that still passes one stops with `flag provided but not defined`.
+    **`--api-key` and `--auth-token` are removed.** `ant` no longer takes an API key or authentication token as a flag value, because a value on the command line is visible in shell history and process listings. Both flags have printed a deprecation warning since v1.27.0. A command that still passes one stops with `flag provided but not defined`.
 
     | Removed                | Use instead                                                 |
     | ---------------------- | ----------------------------------------------------------- |
@@ -1342,7 +1342,7 @@ These changes each affect one SDK or the CLI.
 
     `--api-key-stdin` and `--auth-token-stdin` read all of standard input, so a command that uses one takes its request body from flags.
 
-    `ant auth status`, the first-run prompt of `ant apply`, and the note about multiple auth sources now call these credentials `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN`, where they printed `--api-key / ANTHROPIC_API_KEY` and `--auth-token / ANTHROPIC_AUTH_TOKEN`.
+    `ant auth status`, the first-run prompt of `ant apply`, and the note about multiple authentication sources now call these credentials `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN`, where they printed `--api-key / ANTHROPIC_API_KEY` and `--auth-token / ANTHROPIC_AUTH_TOKEN`.
   </Tab>
 
   <Tab title="C#">
@@ -1362,11 +1362,13 @@ These changes each affect one SDK or the CLI.
   </Tab>
 
   <Tab title="Go">
+    **Go 1.25 or later is required.**
+
     **`vertex.DefaultVersion` and `bedrock.DefaultVersion` are removed.**
   </Tab>
 
   <Tab title="Java">
-    **Getters that now return an `Optional`.** `apiKey()` and `authToken()` on `AnthropicBackend` now return an `Optional<String>`, as `apiKey()` on `AwsBackend` and `BedrockMantleBackend` already did. In v2 each returned a `String`, which was `null` when the backend had no credential of that kind.
+    **Getters that now return an `Optional`.** `apiKey()` and `authToken()` on `AnthropicBackend` now return an `Optional<String>`, as `apiKey()` on `AwsBackend` and `BedrockMantleBackend` already did. In v2 each returned a `String`, which was `null` when `AnthropicBackend` had no credential of that kind.
 
     ```java
     // Before

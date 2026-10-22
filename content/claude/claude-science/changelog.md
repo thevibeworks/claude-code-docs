@@ -6,6 +6,19 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+**0.1.70**
+
+* Bug fixes and reliability improvements
+
+**0.1.69**
+
+* A new **Trouble updating?** link opens [Update Claude Science](/docs/claude-science/update-claude-science), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
+* Cloud storage in Settings now works with Google Cloud Storage HMAC keys on computers where no AWS region is set
+* Mac: if `config.toml` has `auto_update = false` under `[update]`, Claude Science in its own window no longer checks for updates in the background. You can still check with **Claude Science > Check for App Updates…** in the menu bar
+* Linux: fixed updates from 0.1.66 or earlier failing with "restart aborted" when Claude Science was started by typing only `claude-science`
+* Linux: if a folder you've granted **Read & write** holds a folder you can enter but not list (such as another person's folder on a shared drive), or a stale network mount, the code and commands Claude runs can now be refused, with a message that says how to fix it
+* Bug fixes and reliability improvements
+
 **0.1.68**
 
 * **Export session** files now list the approval decisions made in the session from this version on: whether each action was approved, how it was settled, and when

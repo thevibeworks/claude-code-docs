@@ -362,7 +362,7 @@ model = "claude-opus-5-5"  # After
 
 ### Breaking changes
 
-Each change is explained in [What's new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#breaking-changes); this section gives the code change for each.
+Each change is explained under [Breaking changes](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#breaking-changes) in What's new in Claude Opus 5.5; this section gives the code change for each.
 
 #### Thinking can't be disabled
 
@@ -1504,7 +1504,7 @@ This section adds what changed in Claude Opus 4.7, with `claude-opus-4-6` as the
 
    [`/v1/messages/count_tokens`](https://platform.claude.com/docs/en/build-with-claude/token-counting) returns a different number of tokens for Claude Opus 5.5 than it did for Claude Opus 4.6. Token efficiency can vary by workload shape.
 
-   Update your `max_tokens` parameters to give additional headroom, including compaction triggers, and re-test any code path that estimates tokens client-side or assumes a fixed token-to-character ratio. Use the [Token counting endpoint](https://platform.claude.com/docs/en/build-with-claude/token-counting) to verify. Prompting interventions, [`task_budget`](https://platform.claude.com/docs/en/build-with-claude/task-budgets), and [`effort`](https://platform.claude.com/docs/en/build-with-claude/effort) can help control costs; these controls might trade off model intelligence.
+   Update your `max_tokens` parameters to give additional headroom, including compaction triggers, and re-test any code path that estimates tokens client-side or assumes a fixed token-to-character ratio. Use the [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint to verify. Prompting interventions, [`task_budget`](https://platform.claude.com/docs/en/build-with-claude/task-budgets), and [`effort`](https://platform.claude.com/docs/en/build-with-claude/effort) can help control costs; these controls might trade off model intelligence.
 
 5. **Prefill removal (already in effect on Claude Opus 4.6):** Prefilling assistant messages returns a 400 error on Claude Opus 4.6 and later Opus models, including Claude Opus 5.5, so this is a change only if you come from Claude Opus 4.5 or earlier. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) or system prompt instructions instead.
 
@@ -1514,7 +1514,7 @@ Claude Opus 4.7 introduced behavioral differences from Claude Opus 4.6 that are 
 
 1. **Built-in progress updates in agentic traces:** Claude Opus 4.7 provides more regular, higher-quality updates to the user throughout long agentic traces. If you've added scaffolding to force interim status messages ("After every 3 tool calls, summarize progress"), try removing it. On Claude Opus 5.5 these updates arrive in `thinking` blocks, which are empty at the default `thinking.display`. To receive them, see [Text between tool calls is returned in thinking blocks](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#text-between-tool-calls). To shape their length and contents, see [User-facing progress updates](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5#user-facing-progress-updates).
 
-2. **Real-time cybersecurity safeguards:** Newly added in Claude Opus 4.7, requests that involve prohibited or high-risk topics might lead to refusals. For legitimate security work such as penetration testing, vulnerability research, or red-teaming, apply to the [Cyber Verification Program](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet) to request reduced restrictions. The application route depends on how you access Claude.
+2. **Real-time cybersecurity safeguards:** These safeguards are new in Claude Opus 4.7: requests that involve prohibited or high-risk topics might lead to refusals. For legitimate security work such as penetration testing, vulnerability research, or red-teaming, apply to the [Cyber Verification Program](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet) to request reduced restrictions. The application route depends on how you access Claude.
 
 3. **High-resolution image support:** Claude Opus 4.7 is the first Claude model with high-resolution image support. Maximum image resolution is 2,576 pixels on the long edge, up from 1,568 pixels on prior models. This unlocks gains on vision-heavy workloads and is particularly valuable for computer use, screenshot understanding, and document analysis.
 

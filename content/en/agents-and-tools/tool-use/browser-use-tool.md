@@ -186,7 +186,7 @@ The browser use tool is available on the Claude API and [Google Cloud](https://p
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 2048,
     tools: [
       { type: "browser_toolset_20260801" }
@@ -205,7 +205,7 @@ The browser use tool is available on the Claude API and [Google Cloud](https://p
 
 Claude's first response ends with `stop_reason: "tool_use"` and carries one or more member `tool_use` blocks, each naming a member tool in `name` and carrying `"toolset_name": "browser"`:
 
-```json Output
+```text Output
 {
   "id": "msg_01HCDu4XSTLzTAcodEQ58vDo",
   "type": "message",
@@ -802,7 +802,7 @@ The second part runs a batch in order, dispatches each block to those handlers, 
         continue;
       }
       if (failed) {
-        // A batch stops at its first failure; answer later actions unexecuted
+        // A batch stops at its first failure; answer later actions without running them
         toolResults.push(browserResult(block.id, HALT_TEXT, true));
         continue;
       }
@@ -1054,7 +1054,7 @@ When you stream the response, each member's `input` arrives as one complete `inp
 
 A turn with several member calls is a batch action: run the calls in the order they appear, stop at the first failure, and answer every later call with `is_error: true` and the exact text `Not executed: an earlier action in this turn failed.` A batch uses the same response shape as [parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use); the difference is that you run the blocks in order rather than concurrently. Here Claude clicks the search box it found earlier, types a query, and presses Enter in one turn:
 
-```json
+```text wrap
 {
   "role": "assistant",
   "content": [
@@ -1263,7 +1263,7 @@ Four member tools are disabled by default: `javascript_exec` and `file_upload` b
 * `paths` are file paths on the executor's filesystem, for deployments where the executor can read your application's files directly (the same condition under which you populate a download's `path`).
 * `document_ids` are identifiers for files your application has staged for the browser, for deployments where it can't. Your application defines what the identifiers mean; scope their resolution the way you scope `paths`, to files staged for this task.
 
-```json
+```text wrap
 {
   "type": "tool_use",
   "id": "toolu_01N7gVzFEfZjLjgsYwnrPgrF",
