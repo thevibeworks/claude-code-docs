@@ -119,11 +119,11 @@ Reproduce with `test-servers/configs/tasks-legacy-http.json`.
 
 **Modern**
 
-Tasks are an **extension** (`io.modelcontextprotocol/tasks`, [SEP-2663](/seps/2663-tasks-extension.md)), so the tab is gated on the server *advertising that extension* rather than on `capabilities.tasks`.
+Tasks are an **extension** (`io.modelcontextprotocol/tasks`, [SEP-2663](https://modelcontextprotocol.io/seps/2663-tasks-extension.md)), so the tab is gated on the server *advertising that extension* rather than on `capabilities.tasks`.
 
 Run a tool as a task and `tools/call` returns a `CreateTaskResult` (`resultType: "task"`, visible in the Protocol and Network tabs). The Inspector polls **`tasks/get`** only; there is no `tasks/list`, so **Refresh** re-polls the handles the client already knows about. A completed task **inlines its result**, with no blocking `tasks/result` call.
 
-A task that needs more information moves to `input_required` and surfaces an embedded [elicitation](/specification/draft/client/elicitation.md) in the pending-request modal (the dialog the web client opens whenever a request is waiting on you). Answering it sends **`tasks/update`** carrying the `inputResponses`, and the next poll completes.
+A task that needs more information moves to `input_required` and surfaces an embedded [elicitation](https://modelcontextprotocol.io/specification/draft/client/elicitation.md) in the pending-request modal (the dialog the web client opens whenever a request is waiting on you). Answering it sends **`tasks/update`** carrying the `inputResponses`, and the next poll completes.
 
 Reproduce with `test-servers/configs/tasks-modern-http.json` (tools `modern_task` and `modern_input_task`).
 
@@ -139,7 +139,7 @@ Modern: the client polls tasks/get on handles it already holds, and the complete
 
 ## Multi-round tool results (MRTR)
 
-On the modern era a tool can return `input_required` instead of a final result, embedding an [elicitation](/specification/draft/client/elicitation.md), a [sampling](/specification/draft/client/sampling.md) request, or a [`roots/list`](/specification/draft/client/roots) request. The client answers that embedded request and retries the `tools/call` under a fresh JSON-RPC id until the call reaches `complete`.
+On the modern era a tool can return `input_required` instead of a final result, embedding an [elicitation](https://modelcontextprotocol.io/specification/draft/client/elicitation.md), a [sampling](https://modelcontextprotocol.io/specification/draft/client/sampling.md) request, or a [`roots/list`](https://modelcontextprotocol.io/specification/draft/client/roots) request. The client answers that embedded request and retries the `tools/call` under a fresh JSON-RPC id until the call reaches `complete`.
 
 The Inspector drives MRTR **manually**, so each round pauses at the **pending-request modal**, tagged `input_required`, for you to answer. The Protocol view groups the whole exchange as one MRTR conversation rather than as unrelated calls.
 
@@ -174,7 +174,7 @@ The monitoring sidebar's Protocol tab after mrtr\_confirm completes. Both tools/
 
 ## Tools: mirrored headers and excluded tools
 
-[SEP-2243](/seps/2243-http-standardization.md) lets a tool annotate an argument with `x-mcp-header`, asking a Streamable HTTP client to mirror that argument's value into an `Mcp-Param-*` request header.
+[SEP-2243](https://modelcontextprotocol.io/seps/2243-http-standardization.md) lets a tool annotate an argument with `x-mcp-header`, asking a Streamable HTTP client to mirror that argument's value into an `Mcp-Param-*` request header.
 
 The Inspector surfaces both halves of that contract in the **Tools** tab:
 
@@ -207,7 +207,7 @@ The two share one error code, so the Inspector reads the message to tell them ap
 
 ## Network and Protocol: headers and the error taxonomy
 
-The modern era standardizes a set of `Mcp-*` HTTP headers and introduces a richer JSON-RPC error taxonomy ([SEP-2243](/seps/2243-http-standardization.md) / [SEP-2575](/seps/2575-stateless-mcp.md)). The two monitoring tabs divide the work:
+The modern era standardizes a set of `Mcp-*` HTTP headers and introduces a richer JSON-RPC error taxonomy ([SEP-2243](https://modelcontextprotocol.io/seps/2243-http-standardization.md) / [SEP-2575](https://modelcontextprotocol.io/seps/2575-stateless-mcp.md)). The two monitoring tabs divide the work:
 
 * The **Network** tab is the HTTP view: mirrored `Mcp-*` headers are highlighted and sentinel values decoded.
 * The **Protocol** tab is the JSON-RPC view: each spec error renders distinctly rather than as a generic failure.

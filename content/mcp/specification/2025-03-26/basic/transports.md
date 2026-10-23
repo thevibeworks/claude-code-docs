@@ -54,7 +54,7 @@ sequenceDiagram
 > [!NOTE]
 >
 > This replaces the [HTTP+SSE
-> transport](/specification/2024-11-05/basic/transports.md#http-with-sse) from
+> transport](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports.md#http-with-sse) from
 > protocol version 2024-11-05. See the [backwards compatibility](#backwards-compatibility)
 > guide below.
 
@@ -180,7 +180,7 @@ act as a cursor within that particular stream.
 ### Session Management
 
 An MCP "session" consists of logically related interactions between a client and a
-server, beginning with the [initialization phase](/specification/2025-03-26/basic/lifecycle.md). To support
+server, beginning with the [initialization phase](https://modelcontextprotocol.io/specification/2025-03-26/basic/lifecycle.md). To support
 servers which want to establish stateful sessions:
 
 1. A server using the Streamable HTTP transport **MAY** assign a session ID at
@@ -250,7 +250,7 @@ sequenceDiagram
 ### Backwards Compatibility
 
 Clients and servers can maintain backwards compatibility with the deprecated [HTTP+SSE
-transport](/specification/2024-11-05/basic/transports.md#http-with-sse) (from
+transport](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports.md#http-with-sse) (from
 protocol version 2024-11-05) as follows:
 
 **Servers** wanting to support older clients should:

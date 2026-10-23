@@ -15,7 +15,7 @@ In addition to making use of context provided by servers, clients may provide se
 | Feature | Explanation | Example |
 | - | - | - |
 | **Elicitation** | Elicitation enables servers to request specific information from users during interactions, providing a structured way for servers to gather information on demand. | A server booking travel may ask for the user's preferences on airplane seats, room type or their contact number to finalize a booking. |
-| **Roots** | Roots allow clients to specify which directories servers should focus on, communicating intended scope through a coordination mechanism. Roots are [deprecated](/specification/draft/deprecated.md) as of protocol version `2026-07-28`. | A server for booking travel may be given access to a specific directory, from which it can read a user's calendar. |
+| **Roots** | Roots allow clients to specify which directories servers should focus on, communicating intended scope through a coordination mechanism. Roots are [deprecated](https://modelcontextprotocol.io/specification/draft/deprecated.md) as of protocol version `2026-07-28`. | A server for booking travel may be given access to a specific directory, from which it can read a user's calendar. |
 | **Sampling** | Sampling allows servers to request LLM completions through the client, enabling an agentic workflow. This approach puts the client in complete control of user permissions and security measures. Sampling is deprecated as of protocol version `2026-07-28`. | A server for booking travel may send a list of flights to an LLM and request that the LLM pick the best flight for the user. |
 
 ### Elicitation
@@ -31,7 +31,7 @@ Elicitation supports two modes:
 * **Form mode**: The server asks the client to collect structured data from the user. The request includes a schema that the client uses to build an input form and validate the response.
 * **URL mode**: The server provides a URL for the user to open. The interaction happens out of band and its data never passes through the client, which makes this mode suitable for sensitive flows such as credential entry or third-party OAuth authorization.
 
-Elicitation follows the [Multi Round-Trip Requests](/specification/draft/basic/patterns/mrtr.md) (MRTR) pattern. When a server needs user input while processing a request such as `tools/call`, it responds with an `InputRequiredResult` whose `inputRequests` field carries one or more `elicitation/create` requests. The client gathers the input and retries the original request, attaching the collected `inputResponses` and echoing back any `requestState` the server included.
+Elicitation follows the [Multi Round-Trip Requests](https://modelcontextprotocol.io/specification/draft/basic/patterns/mrtr.md) (MRTR) pattern. When a server needs user input while processing a request such as `tools/call`, it responds with an `InputRequiredResult` whose `inputRequests` field carries one or more `elicitation/create` requests. The client gathers the input and retries the original request, attaching the collected `inputResponses` and echoing back any `requestState` the server included.
 
 **Elicitation flow:**
 
@@ -119,7 +119,7 @@ Elicitation interactions are designed to be clear, contextual, and respectful of
 
 > [!WARNING]
 >
-> Roots are [deprecated](/specification/draft/deprecated.md) as of protocol version
+> Roots are [deprecated](https://modelcontextprotocol.io/specification/draft/deprecated.md) as of protocol version
 > `2026-07-28` and scheduled for removal. New implementations should pass
 > directories or files via tool parameters, resource URIs, or server
 > configuration instead.
@@ -175,7 +175,7 @@ Roots are typically managed automatically by host applications based on user act
 
 > [!WARNING]
 >
-> Sampling is [deprecated](/specification/draft/deprecated.md) as of protocol
+> Sampling is [deprecated](https://modelcontextprotocol.io/specification/draft/deprecated.md) as of protocol
 > version `2026-07-28` and scheduled for removal. New implementations should
 > integrate directly with LLM provider APIs instead.
 
@@ -185,9 +185,9 @@ Sampling allows servers to request language model completions through the client
 
 Sampling enables servers to perform AI-dependent tasks without directly integrating with or paying for AI models. Instead, servers can request that the client—which already has AI model access—handle these tasks on their behalf. This approach puts the client in complete control of user permissions and security measures. Because sampling requests occur within the context of other operations—like a tool analyzing data—and are processed as separate model calls, they maintain clear boundaries between different contexts, allowing for more efficient use of the context window.
 
-Sampling follows the same [Multi Round-Trip Requests](/specification/draft/basic/patterns/mrtr.md) flow described under [elicitation](#elicitation), with the `InputRequiredResult` carrying a `sampling/createMessage` request.
+Sampling follows the same [Multi Round-Trip Requests](https://modelcontextprotocol.io/specification/draft/basic/patterns/mrtr.md) flow described under [elicitation](#elicitation), with the `InputRequiredResult` carrying a `sampling/createMessage` request.
 
-Servers can also request tool use during sampling by including a `tools` array and an optional `toolChoice` field in the request. The tool definitions are scoped to that sampling request and do not need to correspond to tools the server exposes. Clients declare support through the `sampling.tools` capability, and servers must not send tool-enabled sampling requests to clients that have not declared it. See [sampling](/specification/draft/client/sampling.md#tools-in-sampling) in the specification for details.
+Servers can also request tool use during sampling by including a `tools` array and an optional `toolChoice` field in the request. The tool definitions are scoped to that sampling request and do not need to correspond to tools the server exposes. Clients declare support through the `sampling.tools` capability, and servers must not send tool-enabled sampling requests to clients that have not declared it. See [sampling](https://modelcontextprotocol.io/specification/draft/client/sampling.md#tools-in-sampling) in the specification for details.
 
 **Sampling flow:**
 

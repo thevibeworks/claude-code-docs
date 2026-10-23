@@ -6,7 +6,7 @@
 
 > Watch short narrated walkthroughs of signing in to Claude Desktop with Claude for Government, bringing your work over, and finding your way around the app.
 
-> **Who this is for:** Anyone using Claude Desktop connected to Claude for Government. If you set up or manage Claude for Government for your agency, see [Video walkthroughs for administrators](/docs/government/video-walkthroughs.md) instead.
+> **Who this is for:** Anyone using Claude Desktop connected to Claude for Government. If you set up or manage Claude for Government for your agency, see [Video walkthroughs for administrators](https://claude.com/docs/government/video-walkthroughs.md) instead.
 
 Each video is one to three minutes long and narrated, with on-screen captions.
 
@@ -18,7 +18,7 @@ The videos run from the first sign-in to getting help.
 
 Signing in to Claude Desktop with your work account and a pairing code, and where Chat, Cowork, Code, and the model picker are.
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-01-signing-in-for-the-first-time.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=fcfdbcaa5f3ee9e9496e6014ed516b65" aria-label="Video walkthrough: Signing in for the first time" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-01-signing-in-for-the-first-time-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=4383be097080bd0b4e0b73ef155afdef" aria-label="Video walkthrough: Signing in for the first time" />
 
 Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -42,21 +42,21 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 >
 > Code is for software work, in a folder you choose on your computer.
 >
-> If you can sign in but the model picker is empty, you have no seat yet. Ask your organization's owner to assign you one.
+> If you can sign in but the model picker is empty, ask your organization's owner to check your seat tier and its models.
 
 ### Bringing your chats and projects over from Claude for Government Web
 
-Copying your conversations and projects from Claude for Government Web into Claude Desktop. Read more: [Run the import](/docs/government/desktop/import.md#run-the-import).
+Copying your conversations and projects from Claude for Government Web into Claude Desktop. Read more: [Run the import](https://claude.com/docs/government/desktop/import.md#run-the-import).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-02-bringing-your-chats-and-projects-over.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=b7860d7dd7807b95aecc486b1aaf26f7" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-02-bringing-your-chats-and-projects-over-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=17d612064ed90a2edf86e70bcf4bf72e" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
 
-Video: Bringing your chats and projects over from Claude for Government Web (2 min 10 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 12 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
-> If you used Claude for Government - Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
+> If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
 >
-> In Claude Desktop, open Settings from the account menu at the bottom of the sidebar, then Import and export, and select Import. The app does not prompt you to do this. Run it when you are ready.
+> In Claude Desktop, open Settings from the account menu at the bottom of the sidebar, then Import and export, and select Import. Run it when you are ready.
 >
 > Select Sign in to Claude for Government Web, then Sign in. Claude shows a one-time code and opens the web app in your browser.
 >
@@ -72,15 +72,15 @@ Video: Bringing your chats and projects over from Claude for Government Web (2 m
 >
 > A project that had instructions shows a notice. Claude won't follow imported instructions until you accept them: select Review instructions, check them, and save, or choose Use as is.
 >
-> The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import page says import isn't enabled, ask your administrator.
+> The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
 
 ### Chat, Cowork, and Code
 
-What Chat, Cowork, and Code are each for, when Claude asks for your approval in each, and how projects work.
+What Chat, Cowork, and Code are each for, when Claude asks for your approval, and how projects work.
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-03-chat-cowork-and-code.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=9402b32239886fb0f79a8648921fe53e" aria-label="Video walkthrough: Chat, Cowork, and Code: which one to use" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-03-chat-cowork-and-code-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=da546543ca5b688980a79a33e1a41e22" aria-label="Video walkthrough: Chat, Cowork, and Code: which one to use" />
 
-Video: Chat, Cowork, and Code: which one to use (2 min 35 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Chat, Cowork, and Code: which one to use (2 min 26 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
@@ -92,7 +92,7 @@ Video: Chat, Cowork, and Code: which one to use (2 min 35 s). Narrated with an A
 >
 > Then Claude searches and answers.
 >
-> Chat also reads files you attach. Add a document with the plus button and ask for a summary. Out of the box, Chat doesn't reach into folders on your computer.
+> Chat also reads files you attach. Add a document with the plus button and ask for a summary.
 >
 > For work that should end up in your files, switch to Cowork and choose a folder. Claude asks whether it may change files there. Select Allow.
 >
@@ -100,17 +100,17 @@ Video: Chat, Cowork, and Code: which one to use (2 min 35 s). Narrated with an A
 >
 > When it finishes, the summary is a real file in your folder.
 >
-> Code is Claude Code, built into the app, for software development. It works directly in the folder you open, and here it asks before running a command.
+> Code is Claude Code, built into the app, for software development. It works directly in the folder you open.
 >
 > Projects keep ongoing work in one place. Under Projects, select New project, then Use an existing folder. Choose the folder, name the project, and create it.
 >
-> A project holds your folder and instructions, and you start chats or Cowork tasks in it. Projects live on your computer, not in the cloud. They are personal to you and, unlike on Claude for Government - Web, cannot be shared with colleagues.
+> A project holds your folder and instructions, and you start chats or Cowork tasks in it. Projects live on your computer, not in the cloud. They are personal to you and, unlike on Claude for Government Web, cannot be shared with colleagues.
 >
 > Chat for questions and documents. Cowork for tasks in your folders. Code for software development. Your organization decides which of the three you have, so a colleague may see a different set. If one is missing for you, ask your organization's owner.
 
 ### Connectors, plugins, and skills from your agency
 
-Connecting Microsoft 365, installing plugins your organization offers, and adding a skill, all from **Customize** in the sidebar. Read more: [Plugins in Claude Desktop](/docs/government/desktop/plugins.md) and [Skills in Claude Desktop](/docs/government/desktop/skills.md).
+Connecting Microsoft 365, installing plugins your organization offers, and adding a skill, all from **Customize** in the sidebar. Read more: [Plugins in Claude Desktop](https://claude.com/docs/government/desktop/plugins.md) and [Skills in Claude Desktop](https://claude.com/docs/government/desktop/skills.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
 
@@ -138,7 +138,7 @@ Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated wi
 
 ### Your account, usage limits, and getting help
 
-The **Account**, **Usage**, and **Sessions** pages, signing in again after an idle timeout, the diagnostic report, and who to ask for what. Read more: [Your account](/docs/government/account/overview.md).
+The **Account**, **Usage**, and **Sessions** pages, signing in again after an idle timeout, the diagnostic report, and who to ask for what. Read more: [Your account](https://claude.com/docs/government/account/overview.md).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-05-your-account-usage-limits-and-getting-help.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=691f1dc9497295c364c0e8f81020b942" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
 

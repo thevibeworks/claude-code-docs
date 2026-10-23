@@ -9,12 +9,12 @@
 > **Deprecated**: The Roots feature is deprecated as of protocol version
 > `2026-07-28`
 > ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
-> Under the [feature lifecycle policy](/community/feature-lifecycle.md), it remains
+> Under the [feature lifecycle policy](https://modelcontextprotocol.io/community/feature-lifecycle.md), it remains
 > in the specification for at least twelve months after this revision's release
 > before it becomes eligible for removal. New implementations **SHOULD NOT**
 > adopt it; existing implementations **SHOULD** migrate to passing directories
 > or files via tool parameters, resource URIs, or server configuration. See the
-> [deprecated features registry](/specification/draft/deprecated.md).
+> [deprecated features registry](https://modelcontextprotocol.io/specification/draft/deprecated.md).
 
 The Model Context Protocol (MCP) provides a standardized way for clients to expose
 filesystem "roots" to servers. Roots inform servers about the directories and files the
@@ -57,7 +57,7 @@ Clients that support roots **MUST** declare the `roots` capability in
 To retrieve roots during the processing of a client request, servers send an `InputRequiredResult`
 containing a `roots/list` request:
 
-**Input request (delivered inside [`InputRequiredResult.inputRequests`](/specification/draft/basic/patterns/mrtr#inputrequests)):**
+**Input request (delivered inside [`InputRequiredResult.inputRequests`](https://modelcontextprotocol.io/specification/draft/basic/patterns/mrtr#inputrequests)):**
 
 ```json theme={null}
 {

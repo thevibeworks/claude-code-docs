@@ -34,9 +34,9 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 
 Gong assigns each company its own API base URL, like `us-46459.api.gong.io`. Copy yours from **Company Settings > Ecosystem > API** in Gong, then switch to the connect form's **Advanced** tab and enter it under **Allowed websites**.
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -50,5 +50,5 @@ Gong appears in the list once the connector is live. New threads pick up the con
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/pull-deal-state.md): the go-to-market use cases
-* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference
+* [What this connection adds](https://claude.com/docs/claude-tag/users/use-cases/pull-deal-state.md): the go-to-market use cases
+* [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

@@ -24,8 +24,8 @@ Each primitive can be summarized in the following control hierarchy:
 
 Explore these key primitives in more detail below:
 
-> **[Prompts](/specification/draft/server/prompts.md)**
+> **[Prompts](https://modelcontextprotocol.io/specification/draft/server/prompts.md)**
 
-> **[Resources](/specification/draft/server/resources.md)**
+> **[Resources](https://modelcontextprotocol.io/specification/draft/server/resources.md)**
 
-> **[Tools](/specification/draft/server/tools.md)**
+> **[Tools](https://modelcontextprotocol.io/specification/draft/server/tools.md)**

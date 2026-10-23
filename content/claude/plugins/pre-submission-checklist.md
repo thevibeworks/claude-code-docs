@@ -6,9 +6,9 @@
 
 > Fix every finding before you submit a plugin to the Claude plugin directory: what the developer portal's validation and scan check, and what each result means.
 
-Before the [Claude plugin directory](/docs/directory/publish.md) lists your plugin, the developer portal checks the plugin's files at two points. Validation runs in the plugin submission form at [claude.ai/directory/manage](https://claude.ai/directory/manage) when you select the **Validate** button. A scan runs after you submit, on each new commit that the directory picks up from the branch or tag that it follows. The scan checks the plugin's files again and runs a security scan.
+Before the [Claude plugin directory](https://claude.com/docs/directory/publish.md) lists your plugin, the developer portal checks the plugin's files at two points. Validation runs in the plugin submission form at [claude.ai/directory/manage](https://claude.ai/directory/manage) when you select the **Validate** button. A scan runs after you submit, on each new commit that the directory picks up from the branch or tag that it follows. The scan checks the plugin's files again and runs a security scan.
 
-Use this checklist to fix problems before you [submit your plugin](/docs/plugins/submit.md) from the developer portal on claude.ai. The checklist covers the automated checks only, and every plugin in the directory also has to follow the [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy). Start by [running the checks](#run-the-checks-before-you-submit) and [reading a validation result](#read-a-validation-result). Then use the tables in [what validation and the scan check](#review-what-validation-and-the-scan-check) to fix each finding, and [prepare for the security scan](#prepare-for-the-security-scan) that runs after you submit.
+Use this checklist to fix problems before you [submit your plugin](https://claude.com/docs/plugins/submit.md) from the developer portal on claude.ai. The checklist covers the automated checks only, and every plugin in the directory also has to follow the [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy). Start by [running the checks](#run-the-checks-before-you-submit) and [reading a validation result](#read-a-validation-result). Then use the tables in [what validation and the scan check](#review-what-validation-and-the-scan-check) to fix each finding, and [prepare for the security scan](#prepare-for-the-security-scan) that runs after you submit.
 
 ## Run the checks before you submit
 
@@ -18,7 +18,7 @@ Checking a plugin before you submit it takes three steps:
 2. [Validate in the developer portal](#validate-in-the-developer-portal), which runs every directory check in the tables on this page
 3. [Read the result](#read-a-validation-result), fix every finding that the report marks **Blocking**, and then submit
 
-The portal is open to the people who [can submit](/docs/directory/publish.md#confirm-you-can-submit-to-the-directory). If you can't submit, ask someone who can to run **Validate**.
+The portal is open to the people who [can submit](https://claude.com/docs/directory/publish.md#confirm-you-can-submit-to-the-directory). If you can't submit, ask someone who can to run **Validate**.
 
 ### Check the plugin on your machine (optional)
 
@@ -46,7 +46,7 @@ When the portal asks **What would you like to submit?**, select **Plugin bundle*
 
 **3. Enter the repository**
 
-On the **Source** step, enter the repository. [Submit your plugin](/docs/plugins/submit.md#submit-a-plugin) describes each field.
+On the **Source** step, enter the repository. [Submit your plugin](https://claude.com/docs/plugins/submit.md#submit-a-plugin) describes each field.
 
 **4. Validate**
 
@@ -67,7 +67,7 @@ Validation produces a report in the submission form, and the scan's results appe
 
 Some problems with the repository stop validation before there is a report. The submission form then shows one error, such as **Couldn’t validate that repository**, and no findings. The tables in [what validation and the scan check](#review-what-validation-and-the-scan-check) mark those checks as "Validation stops".
 
-[Submit your plugin](/docs/plugins/submit.md#after-you-submit-a-plugin) explains how review and publishing proceed after you submit.
+[Submit your plugin](https://claude.com/docs/plugins/submit.md#after-you-submit-a-plugin) explains how review and publishing proceed after you submit.
 
 ## Review what validation and the scan check
 
@@ -172,7 +172,7 @@ The component checks confirm that Claude Code can load each hook, skill, command
 
 The security scan looks for behavior that a plugin doesn't disclose, such as sending data elsewhere, running hidden code, or changing Claude's permission settings.
 
-A first submission that fails the security scan is rejected, and a later version that fails can't go live. A new version that the scan flags can be held for a reviewer. The **Versions** tab on the plugin's page in the developer portal shows **Didn’t pass the security scan**, or the category of the finding, such as **Sends data to an undisclosed destination**. [Submit your plugin](/docs/plugins/submit.md#fix-a-failed-version) explains what to do when a version doesn't pass.
+A first submission that fails the security scan is rejected, and a later version that fails can't go live. A new version that the scan flags can be held for a reviewer. The **Versions** tab on the plugin's page in the developer portal shows **Didn’t pass the security scan**, or the category of the finding, such as **Sends data to an undisclosed destination**. [Submit your plugin](https://claude.com/docs/plugins/submit.md#fix-a-failed-version) explains what to do when a version doesn't pass.
 
 To prepare, make the plugin's behavior visible in its README and its source:
 
@@ -185,13 +185,13 @@ Validation and the scan check how the plugin is built. They don't check whether 
 
 **1. Compare output with and without the plugin**
 
-Run the plugin's skills on real prompts and compare the output with what Claude produces without the plugin. [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runs that comparison for the whole plugin in Claude Code, and [Measure whether the skill improves the output](/docs/skills/how-to.md#measure-whether-the-skill-improves-the-output) covers one skill at a time.
+Run the plugin's skills on real prompts and compare the output with what Claude produces without the plugin. [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runs that comparison for the whole plugin in Claude Code, and [Measure whether the skill improves the output](https://claude.com/docs/skills/how-to.md#measure-whether-the-skill-improves-the-output) covers one skill at a time.
 
 **2. Load the plugin on each surface**
 
-Load the plugin on each surface your users will use, as [Test the plugin on each surface](/docs/plugins/build.md#test-the-plugin-on-each-surface) describes.
+Load the plugin on each surface your users will use, as [Test the plugin on each surface](https://claude.com/docs/plugins/build.md#test-the-plugin-on-each-surface) describes.
 
 ## Next steps
 
-* [Submit your plugin](/docs/plugins/submit.md): enter the repository in the developer portal, follow the review, and publish
-* [Publish to the directory](/docs/directory/publish.md): confirm your plan and role can submit, and see what Anthropic's review involves
+* [Submit your plugin](https://claude.com/docs/plugins/submit.md): enter the repository in the developer portal, follow the review, and publish
+* [Publish to the directory](https://claude.com/docs/directory/publish.md): confirm your plan and role can submit, and see what Anthropic's review involves

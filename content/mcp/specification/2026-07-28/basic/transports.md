@@ -11,13 +11,13 @@ Protocol semantics are identical on every transport. A transport is a
 **binding**: it defines how messages are framed and delivered, how request
 metadata is carried, and how cancellation and termination are signaled. It
 does not define what the messages mean: the
-[message patterns](/specification/2026-07-28/basic/patterns.md) are part of the core
+[message patterns](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns.md) are part of the core
 protocol and are the same on every binding. The binding pages specify the
 standard transports:
 
-1. [stdio](/specification/2026-07-28/basic/transports/stdio.md): newline-delimited
+1. [stdio](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/stdio.md): newline-delimited
    messages over the standard streams of a client-launched subprocess.
-2. [Streamable HTTP](/specification/2026-07-28/basic/transports/streamable-http.md):
+2. [Streamable HTTP](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http.md):
    each message is an HTTP POST to a single MCP endpoint; replies arrive as
    a JSON object or a request-scoped SSE stream.
 
@@ -32,19 +32,19 @@ encoded.
 A binding **MUST** deliver client-sent *requests* and *notifications* to the
 server, and server-sent *responses* and *notifications* to the client. No
 other message direction exists: per the
-[message patterns](/specification/2026-07-28/basic/patterns.md), servers do not
+[message patterns](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns.md), servers do not
 initiate JSON-RPC requests and clients do not send JSON-RPC responses.
 
 ## Request Metadata
 
 All protocol metadata travels in the message body: every request carries its
 protocol version and client capabilities in
-[`_meta.io.modelcontextprotocol/*`](/specification/2026-07-28/basic/index#meta)
+[`_meta.io.modelcontextprotocol/*`](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#meta)
 fields.
 
 A binding **MAY** additionally mirror selected body fields into envelope
 metadata. The Streamable HTTP transport mirrors them into
-[HTTP headers](/specification/2026-07-28/basic/transports/streamable-http.md#request-metadata)
+[HTTP headers](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http.md#request-metadata)
 so that intermediaries can route and inspect requests without parsing the
 body. The body remains the source of truth; bindings that mirror metadata
 define how mismatches are rejected.
@@ -55,7 +55,7 @@ Each binding defines how a client abandons an in-flight request: on stdio
 the client sends a `notifications/cancelled` notification; on Streamable
 HTTP it closes the request's response stream. The protocol-level rules are
 the same everywhere; see
-[Cancellation](/specification/2026-07-28/basic/patterns/cancellation.md).
+[Cancellation](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/cancellation.md).
 
 ## Custom Transports
 
@@ -66,14 +66,14 @@ message exchange.
 
 Implementers who choose to support custom transports **MUST** preserve the
 JSON-RPC message format, the
-[message patterns](/specification/2026-07-28/basic/patterns.md), and the per-request
+[message patterns](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns.md), and the per-request
 metadata model. Custom transports **SHOULD** document their connection
 establishment, message framing, and cancellation patterns to aid
 interoperability.
 
 Custom transports that run over a reliable bidirectional byte stream (e.g.,
 Unix domain sockets or TCP) **SHOULD** reuse the
-[stdio framing](/specification/2026-07-28/basic/transports/stdio.md) rather than
+[stdio framing](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/stdio.md) rather than
 defining a new one: the stdio binding is just newline-delimited JSON-RPC
 over a byte stream, and only its process-lifecycle rules are specific to
 standard streams.
@@ -84,6 +84,6 @@ Earlier protocol revisions established a connection-scoped session with an
 `initialize` handshake and allowed servers to initiate JSON-RPC requests.
 Clients and servers that interoperate with those revisions detect the
 counterpart's era and fall back as described in
-[Versioning: Backward Compatibility](/specification/2026-07-28/basic/versioning.md#backward-compatibility-with-initialization-based-versions),
+[Versioning: Backward Compatibility](https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning.md#backward-compatibility-with-initialization-based-versions),
 which includes a compatibility matrix for implementors. Each binding page
 describes its transport-specific detection mechanics.

@@ -360,7 +360,7 @@ Since 1.44121.1
 
 **Proxy server URL.** Send the app’s and the agent’s traffic through this HTTP proxy instead of the operating system’s proxy settings.
 
-[Guide for this setting](/docs/third-party/claude-desktop/network-proxy.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/network-proxy.md)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Names the proxy for the person's computer, and a host's network belongs to its operator.
 
@@ -386,7 +386,7 @@ Since 1.44121.1
 
 **Proxy auto-config (PAC) URL.** URL of a PAC file that decides the proxy per request. Wins over the proxy server URL when both are set.
 
-[Guide for this setting](/docs/third-party/claude-desktop/network-proxy.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/network-proxy.md)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Describes the network of the person's computer, which Desktop applies to its own traffic.
 
@@ -507,7 +507,7 @@ Since 1.6889.0
 >
 > * Use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
 
-[Guide for this setting](/docs/third-party/claude-desktop/gateway.md#single-sign-on-with-your-identity-provider)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/gateway.md#single-sign-on-with-your-identity-provider)
 
 [Self-hosted install](#self-hosted-column): Not supported. Deprecated name for a sign-in that runs on the person's computer.
 
@@ -1235,7 +1235,7 @@ object\[]Since 1.2581.0
 >
 > **Extended context** (`supports1m`) is a capability assertion you make about your deployment; only set it for models you've confirmed support the 1M-token window:
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null}
 > [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
 > ```
 >
@@ -1243,13 +1243,13 @@ object\[]Since 1.2581.0
 >
 > **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null}
 > [{"name": "arn:aws:bedrock:us-east-1:123:application-inference-profile/abc", "labelOverride": "Claude Opus (Prod)"}]
 > ```
 >
 > **Tier mapping** (`anthropicFamilyTier`) tells the app which Claude tier (`haiku`/`sonnet`/`opus`/`fable`/`mythos`) an entry stands in for, so bare tier aliases (e.g. in Code sessions) resolve to your model. `isFamilyDefault: true` picks the winner when several entries share a tier:
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null}
 > [{"name": "us.anthropic.claude-opus-4-8", "anthropicFamilyTier": "opus"}]
 > ```
 >
@@ -1361,7 +1361,7 @@ object\[]Since 1.37937.0
 >
 > Each row replaces Anthropic list price for one model in the Usage page's estimate, in USD per million tokens (`inputPerMtok`, `outputPerMtok`, `cacheReadPerMtok`, `cacheWritePerMtok`, all four required; `cacheWritePerMtok` prices both 5-minute and 1-hour cache writes); rows apply only while `inferenceModelPricingEnabled` is `true` and do not turn the estimate on by themselves. Mirrors Claude Code's managed `modelPricing.overrides`, and `name` is matched the same way: a built-in Claude model ID (e.g. `claude-sonnet-4-6`, or its Bedrock, Vertex, or Foundry ID) covers every dated and provider spelling of that model; any other value (a gateway alias, an inference-profile ARN) matches that exact ID only (case-insensitive) and wins over a built-in row. An ID Claude Code cannot map to a Claude model at all gets no estimate until a row here prices it. `inferenceModelPricingMultiplier` still applies on top of a row.
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null}
 > {"inferenceModelPricingEnabled": true, "inferenceModelPricingMultiplier": 0.9, "inferenceModelPricing": [{"name": "claude-sonnet-4-6", "inputPerMtok": 2.4, "outputPerMtok": 12, "cacheReadPerMtok": 0.24, "cacheWritePerMtok": 3}]}
 > ```
 >
@@ -1459,7 +1459,7 @@ Since 1.40609.0
 
 **SSH host allowlist.** SSH hosts for Code sessions. Unset: off unless the device’s Claude Code managed settings list hosts. An admin’s empty list: off even then. \* allows any host.
 
-[Guide for this setting](/docs/third-party/claude-desktop/ssh-remote-sessions.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
 [Self-hosted install](#self-hosted-column): Not supported. Governs SSH sessions started from the person's computer, which self-hosted installs never offer.
 
@@ -1487,7 +1487,7 @@ Since 1.46388.1
 
 **SSH client program.** Absolute path to the OpenSSH ssh program the app runs for SSH sessions. Unset: the first ssh on the user’s PATH.
 
-[Guide for this setting](/docs/third-party/claude-desktop/ssh-remote-sessions.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
 [Self-hosted install](#self-hosted-column): Not supported. Names the ssh program on the person's computer, and self-hosted installs offer no SSH sessions.
 
@@ -1509,7 +1509,7 @@ Since 1.52386.0
 
 One of: `auto`, `system-openssh`, `builtin`
 
-[Guide for this setting](/docs/third-party/claude-desktop/ssh-remote-sessions.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
 [Self-hosted install](#self-hosted-column): Not supported. Chooses the SSH engine on the person's computer, and self-hosted installs offer no SSH sessions.
 
@@ -1581,7 +1581,7 @@ string\[]Since 1.2581.0
 
 **Allowed egress hosts.** Hosts agent tools may reach in Cowork and Chat (Code: in part). An empty list acts as unset for tools, but stops Claude opening sites in the built-in browser.
 
-[Guide for this setting](/docs/third-party/claude-desktop/web-tools.md#web-fetch)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-fetch)
 
 [Self-hosted install](#self-hosted-column): Server side. Tools in the host's sessions make the network calls, so the host limits which addresses they may reach.
 
@@ -1957,7 +1957,7 @@ booleanDefault: falseSince 1.21459.0
 
 **Enable tool search.** Load MCP tool schemas on demand (tool search) instead of inlining every schema into context.
 
-[Guide for this setting](/docs/third-party/claude-desktop/gateway.md#mcp-tool-search)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/gateway.md#mcp-tool-search)
 
 [Self-hosted install](#self-hosted-column): Server side. The host starts Claude Code, so it turns tool search on or off for its sessions.
 
@@ -2371,7 +2371,7 @@ object\[]Since 1.2581.0
 >
 > OAuth for a remote server: true to auto-register a client, a pre-registered client ID with tenant and scope, or mode “hosted” for an Anthropic-signed identity.
 >
-> [Guide for this setting](/docs/third-party/claude-desktop/mcp-sign-in.md)
+> [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md)
 >
 > > **More detail**
 > >
@@ -2837,7 +2837,7 @@ booleanDefault: falseSince 1.2581.0
 
 **Block essential telemetry.** Crash and performance reports to Anthropic.
 
-[Guide for this setting](/docs/third-party/claude-desktop/telemetry.md#essential-telemetry)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/telemetry.md#essential-telemetry)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Desktop starts its crash reports to Anthropic at launch, before sign-in, and a host's sessions never send any.
 
@@ -2857,7 +2857,7 @@ booleanDefault: falseSince 1.2581.0
 
 **Block nonessential telemetry.** Product-usage analytics (no message content) and diagnostic-report uploads.
 
-[Guide for this setting](/docs/third-party/claude-desktop/telemetry.md#non-essential-telemetry)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/telemetry.md#non-essential-telemetry)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Desktop sends usage analytics to Anthropic from before sign-in, and a host's sessions never send any.
 
@@ -3577,7 +3577,7 @@ object\[]Since 1.8089.0
 >
 > Locks per-tool permissions on MCP servers provided by any installed plugin — from the org-plugins directory or a plugin marketplace, remote or run locally — one entry per server name (compared case-insensitively):
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null}
 > [{"serverName": "internal-search", "tools": [{"toolName": "delete_document", "permission": "blocked"}]}]
 > ```
 >
@@ -3657,7 +3657,7 @@ Since 1.10628.0
 
 **Bootstrap OIDC parameters.** When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE).
 
-[Guide for this setting](/docs/third-party/claude-desktop/bootstrap.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Names the sign-in the desktop app uses to fetch its configuration, so it cannot travel inside it.
 
@@ -3721,7 +3721,7 @@ Since 1.32885.1
 
 **Bootstrap request headers.** HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL.
 
-[Guide for this setting](/docs/third-party/claude-desktop/bootstrap.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Sets headers the desktop app sends to fetch its configuration, so it cannot travel inside that document.
 
@@ -3743,7 +3743,7 @@ Since 1.32885.1
 
 **Bootstrap headers helper script.** Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins.
 
-[Guide for this setting](/docs/third-party/claude-desktop/bootstrap.md)
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)
 
 [Self-hosted install](#self-hosted-column): MDM profile. Names a program on the person's computer that supplies headers for fetching the app's configuration.
 
@@ -3778,12 +3778,12 @@ Since 1.26832.0
 The labels under a key start with its type and, where one is recorded, its default, and end with the Claude Desktop version that added the key. Between those, a label appears only where the key differs from most keys.
 
 * **No MDM only or Admin Console only label**: You can set the key in an MDM profile or the local configuration file, or return it from a bootstrap server.
-* **MDM only**: You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. [Read more](/docs/third-party/claude-desktop/bootstrap.md#response-schema).
-* **Admin Console only**: Only the Enterprise Admin Console can set the key. Claude Desktop ignores it in an MDM profile, in the local configuration file and in a bootstrap server's response. [Read more](/docs/third-party/claude-desktop/admin-console.md).
+* **MDM only**: You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#response-schema).
+* **Admin Console only**: Only the Enterprise Admin Console can set the key. Claude Desktop ignores it in an MDM profile, in the local configuration file and in a bootstrap server's response. [Read more](https://claude.com/docs/third-party/claude-desktop/admin-console.md).
 * **Beta**: The feature that the key configures is in beta.
 * **Deprecated**: On third-party deployments Claude Desktop no longer reads the key and ignores any value set for it. Remove it from your configuration.
-* **Consent required**: A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval. [Read more](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent).
-* **Origin-pinned**: A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console. [Read more](/docs/third-party/claude-desktop/bootstrap.md#origin-pinning).
+* **Consent required**: A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent).
+* **Origin-pinned**: A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#origin-pinning).
 * **required**: The object or list entry that holds this field is not valid without it. Depending on the key, Claude Desktop then drops that entry alone, treats the key as unset, or applies a restrictive value in its place.
 
 ### The Works with column
@@ -3791,7 +3791,7 @@ The labels under a key start with its type and, where one is recorded, its defau
 Unless a label in its entry says otherwise, a key can be set in an MDM profile or the local configuration file, or returned from a bootstrap server. A badge marks another kind of deployment that the key also works with.
 
 * **Self-hosted**: Something acts on the key on a self-hosted install. Its [Self-hosted install](#self-hosted-column) line gives the reason, and reads Server side or MDM profile, as the badge does on hover. Without the badge, that line reads Not supported, or the entry has none.
-* **Admin Console**: The key takes effect where your organization manages Claude Desktop from the Enterprise Admin Console. [Read more](/docs/third-party/claude-desktop/admin-console.md).
+* **Admin Console**: The key takes effect where your organization manages Claude Desktop from the Enterprise Admin Console. [Read more](https://claude.com/docs/third-party/claude-desktop/admin-console.md).
 
   * **No hover text**: The hosted configuration can hold the key. Set it on the console's pages or, where no page has a field for it, by importing a configuration file or through the Admin API.
   * **Set automatically** on hover and in the key's entry: Anthropic fills the key in from your organization's own settings, such as its name or its built-in browser settings, each time an app downloads the configuration. A value written for the key in the hosted configuration has no effect.
@@ -3814,11 +3814,11 @@ The word is what this Claude Desktop release declares. A session host acts on a 
 
 ## Guides
 
-* [Configuration implementation](/docs/third-party/claude-desktop/configuration-format.md): how configuration differs between a device's own configuration, the Enterprise Admin Console, and a self-hosted install, and how to write each value type.
-* [Configuration changelog](/docs/third-party/claude-desktop/configuration-changelog.md): the desktop release each key first appeared in.
-* [Models and effort levels](/docs/third-party/claude-desktop/models.md): how the keys under **Models** work together.
-* [Unified Claude](/docs/third-party/claude-desktop/unified-claude.md#how-unified-claude-interacts-with-chat-and-cowork-settings): how `desktopHome` overrides the other keys under **Chat surface** and **Cowork surface**.
-* [Automatic deletion of idle sessions](/docs/third-party/claude-desktop/data-storage.md#automatic-deletion-of-idle-sessions): which key under **Session retention** covers a conversation started from the home screen.
+* [Configuration implementation](https://claude.com/docs/third-party/claude-desktop/configuration-format.md): how configuration differs between a device's own configuration, the Enterprise Admin Console, and a self-hosted install, and how to write each value type.
+* [Configuration changelog](https://claude.com/docs/third-party/claude-desktop/configuration-changelog.md): the desktop release each key first appeared in.
+* [Models and effort levels](https://claude.com/docs/third-party/claude-desktop/models.md): how the keys under **Models** work together.
+* [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#how-unified-claude-interacts-with-chat-and-cowork-settings): how `desktopHome` overrides the other keys under **Chat surface** and **Cowork surface**.
+* [Automatic deletion of idle sessions](https://claude.com/docs/third-party/claude-desktop/data-storage.md#automatic-deletion-of-idle-sessions): which key under **Session retention** covers a conversation started from the home screen.
 
 ### Recommended security profiles
 
@@ -3853,7 +3853,7 @@ For regulated environments that need to control what users can connect Claude De
 
 **Locked down**
 
-For air-gapped or maximally restricted environments. **The app's own traffic goes only to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](/docs/third-party/claude-desktop/installation.md#offline-installation). Code sessions on Windows, and on Linux without Claude Code's sandbox dependencies, [run shell commands unsandboxed](/docs/third-party/claude-desktop/code.md#applied-as-managed-policy), so those commands can reach any host your network allows. To prevent that, [turn off Code](/docs/third-party/claude-desktop/code.md#disabling-code) on those devices. With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](/docs/third-party/claude-desktop/overview.md#data-handling-by-provider).
+For air-gapped or maximally restricted environments. **The app's own traffic goes only to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation). Code sessions on Windows, and on Linux without Claude Code's sandbox dependencies, [run shell commands unsandboxed](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy), so those commands can reach any host your network allows. To prevent that, [turn off Code](https://claude.com/docs/third-party/claude-desktop/code.md#disabling-code) on those devices. With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](https://claude.com/docs/third-party/claude-desktop/overview.md#data-handling-by-provider).
 
 | Key | Value |
 | - | - |
@@ -3866,6 +3866,8 @@ For air-gapped or maximally restricted environments. **The app's own traffic goe
 | [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
 | [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
 | [`skillCreationEnabled`](#skillcreationenabled) | `false` |
+| [`userPluginMarketplacesEnabled`](#userpluginmarketplacesenabled) | `false` |
+| [`userPluginUploadsEnabled`](#userpluginuploadsenabled) | `false` |
 | [`scheduledTasksEnabled`](#scheduledtasksenabled) | `false` |
 | [`disabledBuiltinTools`](#disabledbuiltintools) | `["WebSearch","WebFetch"]` |
 | [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `[]` |
@@ -3880,7 +3882,7 @@ Each [`managedMcpServers`](#managedmcpservers) entry can carry a `toolPolicy` th
 * `"ask"` — the user approves every call; no session-scoped or standing grants are offered.
 * `"blocked"` — the tool is removed from Claude's session; connector settings show it as blocked by your organization.
 
-Tools with no policy entry stay user-controlled (built-in connectors apply default policies to some tools): the user is prompted and can approve once, approve for the rest of the task (offered for tools that can modify data), or grant a standing approval unless [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `false`. Full prompt options require version 1.22209.0 or later; earlier third-party builds offered only per-call approval. The app reads a `toolPolicy` value other than `"allow"`, `"ask"`, or `"blocked"`, such as `"ask-session"`, as `"blocked"` for that tool and reports a configuration error, so write `"ask"` in place of `"ask-session"`. Managed policies take precedence over user grants, and enforcement happens in the desktop host process, not only in the prompt UI. A deny-by-default posture, `"*": "blocked"` plus exact `"allow"` entries for approved tools, is supported, including in Code sessions (where an allowed tool still gets Claude Code's own approval prompt). See the [`managedMcpServers` reference](#managedmcpservers) for wildcard matching, precedence rules, and built-in connector defaults.
+Tools with no policy entry stay user-controlled (built-in connectors apply default policies to some tools): the user is prompted and can approve once, approve for the rest of the task (offered for tools that can modify data), or grant a standing approval unless [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `false`. The app reads a `toolPolicy` value other than `"allow"`, `"ask"`, or `"blocked"`, such as `"ask-session"`, as `"blocked"` for that tool and reports a configuration error, so write `"ask"` in place of `"ask-session"`. Managed policies take precedence over user grants, and enforcement happens in the desktop host process, not only in the prompt UI. A deny-by-default posture, `"*": "blocked"` plus exact `"allow"` entries for approved tools, is supported, including in Code sessions (where an allowed tool still gets Claude Code's own approval prompt). See the [`managedMcpServers` reference](#managedmcpservers) for wildcard matching, precedence rules, and built-in connector defaults.
 
 On a scheduled Cowork task, the prompt can also offer an **Allow for all scheduled runs** option. See [Tool approvals on scheduled tasks](#tool-approvals-on-scheduled-tasks).
 

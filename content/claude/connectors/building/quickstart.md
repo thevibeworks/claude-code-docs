@@ -6,15 +6,15 @@
 
 > Build a minimal MCP server with one tool in JavaScript, run it on your machine, and connect it to Claude Code so Claude calls your tool.
 
-An MCP server is a program that gives Claude tools it can call, and people who use Claude see it as a connector. In this quickstart you write one in about 50 lines of JavaScript with no build step: a server with a single `roll_dice` tool that runs on your machine, which you then connect to [Claude Code](https://code.claude.com/docs/en/setup), Anthropic's command-line coding tool, and watch Claude call. At the end you have a working server you understand line by line, ready to grow into your own product's tools, wrap in a [plugin](/docs/plugins/quickstart.md), or host for people on claude.ai.
+An MCP server is a program that gives Claude tools it can call, and people who use Claude see it as a connector. In this quickstart you write one in about 50 lines of JavaScript with no build step: a server with a single `roll_dice` tool that runs on your machine, which you then connect to [Claude Code](https://code.claude.com/docs/en/setup), Anthropic's command-line coding tool, and watch Claude call. At the end you have a working server you understand line by line, ready to grow into your own product's tools, wrap in a [plugin](https://claude.com/docs/plugins/quickstart.md), or host for people on claude.ai.
 
 This quickstart is for developers who haven't built an MCP server before and want to see every piece working before they add authentication, hosting, and real tools.
 
 > [!NOTE]
 >
-> * If you already have a server and want to know what Claude's client supports, see [Build an MCP server for Claude](/docs/connectors/building/index.md)
-> * If your server is running and you want to try it in Claude, see [Test your connector](/docs/connectors/building/testing.md)
-> * If you want to package skills and an existing connector rather than write a server, see [Build your first plugin](/docs/plugins/quickstart.md)
+> * If you already have a server and want to know what Claude's client supports, see [Build an MCP server for Claude](https://claude.com/docs/connectors/building/index.md)
+> * If your server is running and you want to try it in Claude, see [Test your connector](https://claude.com/docs/connectors/building/testing.md)
+> * If you want to package skills and an existing connector rather than write a server, see [Build your first plugin](https://claude.com/docs/plugins/quickstart.md)
 
 ## Before you begin
 
@@ -267,10 +267,10 @@ Claude Code reached your server because both run on your machine. When someone a
 
 Once the server has a public URL, these pages cover each step:
 
-* [Add a connector by URL](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url): add the server to your own Claude account as a custom connector
-* [Test in Claude as a custom connector](/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector): check the connection, the tool list, and a real call from a chat, including how to expose a server that's still on your machine through a tunnel
-* [Authentication for connectors](/docs/connectors/building/authentication.md): add sign-in before real users connect, because this quickstart server lets anyone who can reach it call its tools
-* [Publish to the directory](/docs/directory/publish.md): submit the server for review so people can find it in Claude
+* [Add a connector by URL](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url): add the server to your own Claude account as a custom connector
+* [Test in Claude as a custom connector](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector): check the connection, the tool list, and a real call from a chat, including how to expose a server that's still on your machine through a tunnel
+* [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md): add sign-in before real users connect, because this quickstart server lets anyone who can reach it call its tools
+* [Publish to the directory](https://claude.com/docs/directory/publish.md): submit the server for review so people can find it in Claude
 
 ## Clean up
 
@@ -284,7 +284,7 @@ Claude Code confirms with `Removed MCP server "quickstart" from local config`.
 
 ## Next steps
 
-* [Add an interactive UI to your MCP server](/docs/connectors/building/mcp-apps/quickstart.md): give `roll_dice` a small UI that shows the dice inside the conversation
-* [Build an MCP server for Claude](/docs/connectors/building/index.md): plan a real server around what Claude's client supports, including authentication, result size limits, and timeouts
-* [Test your connector](/docs/connectors/building/testing.md): add your hosted server to Claude as a custom connector and debug connection failures
-* [Build your first plugin](/docs/plugins/quickstart.md): bundle your connector with a skill that teaches Claude when to use it, and submit both to the directory
+* [Add an interactive UI to your MCP server](https://claude.com/docs/connectors/building/mcp-apps/quickstart.md): give `roll_dice` a small UI that shows the dice inside the conversation
+* [Build an MCP server for Claude](https://claude.com/docs/connectors/building/index.md): plan a real server around what Claude's client supports, including authentication, result size limits, and timeouts
+* [Test your connector](https://claude.com/docs/connectors/building/testing.md): add your hosted server to Claude as a custom connector and debug connection failures
+* [Build your first plugin](https://claude.com/docs/plugins/quickstart.md): bundle your connector with a skill that teaches Claude when to use it, and submit both to the directory

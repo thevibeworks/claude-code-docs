@@ -30,7 +30,7 @@ products[]=claude-tag" \
   --header "x-api-key: $ANALYTICS_API_KEY"
 ```
 
-`products[]=claude-tag` limits the report to the work that bills to your organization's usage balance: Claude's work in Slack channels, and [DMs from members who haven't connected a Claude account](/docs/claude-tag/admins/restrict-access.md#direct-messages-from-members-without-a-claude-account). One-to-one DMs from members who have connected a Claude account bill to the sender's own seat and aren't reported under `claude-tag`, so this filter leaves them out.
+`products[]=claude-tag` limits the report to the work that bills to your organization's usage balance: Claude's work in Slack channels, and [DMs from members who haven't connected a Claude account](https://claude.com/docs/claude-tag/admins/restrict-access.md#direct-messages-from-members-without-a-claude-account). One-to-one DMs from members who have connected a Claude account bill to the sender's own seat and aren't reported under `claude-tag`, so this filter leaves them out.
 
 Each row's `claude_tag_user_id` is a Slack user ID such as `U0123ABCDEF`, not a claude.ai user ID. A row with a null `claude_tag_user_id` is channel spend with no attributed user, and [How costs map to users](#how-costs-map-to-users) lists those cases. For the full parameters, response schema, and data freshness, see the [cost report reference](https://platform.claude.com/docs/en/api/admin/analytics/cost/list), which also covers grouping by `slack_channel_id` and `claude_tag_category`.
 
@@ -42,16 +42,16 @@ Channel spend is attributed to at most one Slack user at a time, by these rules:
 * **Work Claude picks up on its own goes to a person in the thread where it did the work.** That person is the member whose message Claude acted on, if there is one. Otherwise it is whoever mentioned Claude into the thread, or, if no one did, the person who started the thread.
 * **Scheduled routines go to the person who set the routine up.**
 * **The null row collects spend with no attributable person.** Examples are:
-  * the [channel session's](/docs/claude-tag/concepts/how-it-works.md#lifecycle-of-a-request) own work
+  * the [channel session's](https://claude.com/docs/claude-tag/concepts/how-it-works.md#lifecycle-of-a-request) own work
   * work Claude started on its own in a thread started by Claude, another app, or a bot
   * a routine whose creator can't be identified
 
 Per-user rows therefore sum to less than your total channel spend.
 
-Per-user attribution doesn't change billing. Channel work still bills to your organization's usage balance, not to any user's seat. See [Set a spend limit](/docs/claude-tag/admins/set-spend-limit.md) for the billing split.
+Per-user attribution doesn't change billing. Channel work still bills to your organization's usage balance, not to any user's seat. See [Set a spend limit](https://claude.com/docs/claude-tag/admins/set-spend-limit.md) for the billing split.
 
 ## Related resources
 
 * [Get cost over time](https://platform.claude.com/docs/en/api/admin/analytics/cost/list): the cost report's parameters, response schema, and limits
 * [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api): key setup, data freshness, and pagination
-* [Set a spend limit](/docs/claude-tag/admins/set-spend-limit.md): what bills to the organization's balance versus a user's seat
+* [Set a spend limit](https://claude.com/docs/claude-tag/admins/set-spend-limit.md): what bills to the organization's balance versus a user's seat

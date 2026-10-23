@@ -20,19 +20,19 @@ Name the repository in the first message. A session starts with no repositories 
 
 > [!NOTE]
 >
-> An admin [grants a repository to the channels that need it](/docs/claude-tag/admins/attach-to-scope.md), and questions about the code work only in those channels. By default anyone in those channels can ask, and an admin can [restrict who can use Claude](/docs/claude-tag/admins/restrict-access.md#control-who-can-invoke-claude-tag).
+> An admin [grants a repository to the channels that need it](https://claude.com/docs/claude-tag/admins/attach-to-scope.md), and questions about the code work only in those channels. By default anyone in those channels can ask, and an admin can [restrict who can use Claude](https://claude.com/docs/claude-tag/admins/restrict-access.md#control-who-can-invoke-claude-tag).
 
 ## Check the channel's connections
 
-Check that the channel has the connection below. Ask `@Claude what can you access from this channel?` and the reply also lists which repositories the channel can reach. An admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
+Check that the channel has the connection below. Ask `@Claude what can you access from this channel?` and the reply also lists which repositories the channel can reach. An admin can [add a connection](https://claude.com/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
 | Code | GitHub | Required. Reads granted repositories and opens draft pull requests |
 
-The GitHub connection is what lets Claude clone a repository. For GitLab, an admin [connects it with an access token](/docs/claude-tag/admins/connections/gitlab.md), and Claude reads projects, manages issues, and comments on merge requests through the GitLab API.
+The GitHub connection is what lets Claude clone a repository. For GitLab, an admin [connects it with an access token](https://claude.com/docs/claude-tag/admins/connections/gitlab.md), and Claude reads projects, manages issues, and comments on merge requests through the GitLab API.
 
-If Claude replies that a repository isn't configured, the repository wasn't granted for this channel. An admin can [verify GitHub access](/docs/claude-tag/admins/configure-github.md#verify-github-access). After the grant changes, start a fresh thread and name the repository in the first message.
+If Claude replies that a repository isn't configured, the repository wasn't granted for this channel. An admin can [verify GitHub access](https://claude.com/docs/claude-tag/admins/configure-github.md#verify-github-access). After the grant changes, start a fresh thread and name the repository in the first message.
 
 ## Prompts to paste
 
@@ -62,7 +62,7 @@ Your work is blocked on a pull request a teammate opened, and the only way to kn
 @Claude subscribe to PR #519 in acme/data-pipeline, the schema migration. When CI finishes or a review arrives, post here, and tag me if anything failed.
 ```
 
-Claude reads the pull request's workflow runs and logs, so the post says whether checks passed or failed. To list or cancel a subscription later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work). Because the prompt asks for a tag only on failure, passing runs post to the thread without notifying you.
+Claude reads the pull request's workflow runs and logs, so the post says whether checks passed or failed. To list or cancel a subscription later, see [Manage standing work](https://claude.com/docs/claude-tag/users/proactivity.md#manage-standing-work). Because the prompt asks for a tag only on failure, passing runs post to the thread without notifying you.
 
 ### Hand off the change you keep postponing
 
@@ -72,7 +72,7 @@ Small, well-understood changes sit on the list for weeks because they never beco
 @Claude in acme/data-pipeline, the CSV export docs still describe the old date format. Update them to match the code and open a draft PR. Done means CI is green and the PR links back here.
 ```
 
-Writing a [definition of done](/docs/claude-tag/users/good-habits.md#give-every-task-a-definition-of-done) into the task lets the session check its own work. The change comes back as a draft pull request in your review queue, opened under Claude's own GitHub identity.
+Writing a [definition of done](https://claude.com/docs/claude-tag/users/good-habits.md#give-every-task-a-definition-of-done) into the task lets the session check its own work. The change comes back as a draft pull request in your review queue, opened under Claude's own GitHub identity.
 
 ### Triage a suspected bug where the report arrives
 
@@ -82,7 +82,7 @@ A report arrives in the feedback channel, and nobody knows yet whether it's a bu
 @Claude a user reports that exports drop rows with empty dates. In acme/data-pipeline, is that a bug or intended behavior? If it's a bug, open a draft PR with a fix; if it's intended, explain here what the code does.
 ```
 
-For the full arc from a bug report to green CI, including a standing watch that triages a bug channel, see [Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs.md). Because the prompt asks for either a fix or an explanation, the thread gets an answer even when the behavior turns out to be intended.
+For the full arc from a bug report to green CI, including a standing watch that triages a bug channel, see [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md). Because the prompt asks for either a fix or an explanation, the thread gets an answer even when the behavior turns out to be intended.
 
 ### Hand off a change and follow its pull request in one message
 
@@ -104,7 +104,7 @@ Claude can watch a pull request and address CI failures, review comments, and ch
 
 > [!WARNING]
 >
-> If you don't want Claude to merge pull requests, turn on branch protection rules that restrict who can merge. These rules apply to Claude too. Claude can't approve a pull request it opened, but the person who asked for it can; to require a second approver, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github.md#require-a-second-approval-on-claude%E2%80%99s-pull-requests). Also write "I do the approving and merging" into the task, as the example does. The task wording states your intent, but it's an instruction Claude can lose track of, not a control. The branch protection rule is what enforces it.
+> If you don't want Claude to merge pull requests, turn on branch protection rules that restrict who can merge. These rules apply to Claude too. Claude can't approve a pull request it opened, but the person who asked for it can; to require a second approver, see [Require a second approval on Claude's pull requests](https://claude.com/docs/claude-tag/admins/configure-github.md#require-a-second-approval-on-claude%E2%80%99s-pull-requests). Also write "I do the approving and merging" into the task, as the example does. The task wording states your intent, but it's an instruction Claude can lose track of, not a control. The branch protection rule is what enforces it.
 
 Ask for a post after each push so you can follow the pull request from the thread instead of opening GitHub.
 
@@ -112,18 +112,18 @@ Ask for a post after each push so you can follow the pull request from the threa
 
 If your repository has conventions Claude should follow, such as file layout, pull request labels, or dependencies to install, add them to a `CLAUDE.md` file at the repository root. When Claude clones the repository into a session, its `CLAUDE.md`, `.claude/CLAUDE.md`, and `.claude/rules/*.md` files load on the next turn, so the guidance arrives without further prompting. Skills in the repository's `.claude/skills/` folder also load, so Claude can use them in sessions that have the repository. Anyone with repository write access can edit these files, and they reach every session that works in that repository, from any channel.
 
-Each session runs in an isolated sandbox with a standard set of preinstalled tools. Two threads are two sessions with two separate sandboxes. If the repository needs a tool that the standard set doesn't include, such as a language runtime or a database client, add the install commands to `CLAUDE.md`, and Claude [runs them when its work needs them](/docs/claude-tag/admins/configure-github.md#install-project-dependencies).
+Each session runs in an isolated sandbox with a standard set of preinstalled tools. Two threads are two sessions with two separate sandboxes. If the repository needs a tool that the standard set doesn't include, such as a language runtime or a database client, add the install commands to `CLAUDE.md`, and Claude [runs them when its work needs them](https://claude.com/docs/claude-tag/admins/configure-github.md#install-project-dependencies).
 
 > [!NOTE]
 >
-> A `CLAUDE.md` is guidance rather than a gate. If a pull request must carry a label or pass a check, make that a repository rule. For where `CLAUDE.md` sits among channel memory, channel instructions, and skills, see [Teach Claude something that sticks](/docs/claude-tag/users/good-habits.md#teach-claude-something-that-sticks).
+> A `CLAUDE.md` is guidance rather than a gate. If a pull request must carry a label or pass a check, make that a repository rule. For where `CLAUDE.md` sits among channel memory, channel instructions, and skills, see [Teach Claude something that sticks](https://claude.com/docs/claude-tag/users/good-habits.md#teach-claude-something-that-sticks).
 
 ## Related resources
 
-> **[Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs.md)**
+> **[Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)**
 >
 > The full arc from a bug report to a draft pull request and green CI
 
-> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
+> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
 >
 > Pull request subscriptions and other standing work

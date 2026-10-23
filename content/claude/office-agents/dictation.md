@@ -22,7 +22,7 @@ the composer in real time.
 > authentication. It is not supported when Claude for M365 connects through
 > a third-party platform such as Amazon Bedrock, Google Cloud Vertex AI,
 > Azure AI Foundry, or an LLM gateway. See
-> [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md)
+> [Use Claude for M365 with third-party platforms](https://claude.com/docs/office-agents/third-party-platforms.md)
 > for platform support details.
 
 ## Use dictation

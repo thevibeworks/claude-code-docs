@@ -30,7 +30,7 @@ Use this table to pick a connector.
 | Device egress | `login.microsoftonline.com` and the connector host | `login.microsoftonline.com`, `graph.microsoft.com`, and your tenant's SharePoint and OneDrive hosts |
 | Device-based Conditional Access | Not supported (the server-side exchange has no device identity) | Supported on managed Windows and Mac devices through brokered sign-in |
 | Write actions | Available with [write scopes on the Anthropic connector app](#control-write-actions-on-the-remote-connector) | Available with [write scopes](#grant-write-scopes) |
-| US Government clouds | Separate connector deployment; contact your Anthropic representative | Built in; set `azureCloud` |
+| US Government clouds | Separate connector deployment; contact your Anthropic representative | Built in; set `azureCloud` for GCC High and DoD |
 
 ## Remote connector
 
@@ -110,7 +110,7 @@ Until the allowlist is updated, sign-in will succeed but the connector returns *
 
 **4. Configure Claude Desktop**
 
-In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server → Microsoft 365**, and enter the values below.
+In the Claude Desktop [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server → Microsoft 365**, and enter the values below.
 
 | Field | Value |
 | - | - |
@@ -120,7 +120,7 @@ In the Claude Desktop [in-app configuration window](/docs/third-party/claude-des
 
 Select **Save**, then deploy the configuration through your device-management tool as usual.
 
-If you manage configuration through JSON or a plist directly instead of the in-app configuration window, add the following entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers).
+If you manage configuration through JSON or a plist directly instead of the in-app configuration window, add the following entry to [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers).
 
 ```json theme={null}
 {
@@ -141,7 +141,7 @@ After the configuration is deployed, each user opens **Customize → Connectors*
 
 ### Allow the required network hosts
 
-In addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), Claude Desktop needs outbound HTTPS access to the hosts below. The connector service itself calls `graph.microsoft.com` from Anthropic's infrastructure, so user devices do not need egress to Graph.
+In addition to the [base egress hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), Claude Desktop needs outbound HTTPS access to the hosts below. The connector service itself calls `graph.microsoft.com` from Anthropic's infrastructure, so user devices do not need egress to Graph.
 
 | Host | Purpose |
 | - | - |
@@ -208,7 +208,7 @@ If people in your tenant also use the connector in claude.ai, make the same chan
 
 #### Block remote connector write tools in Claude Desktop
 
-Set each write tool to `"blocked"` in the `toolPolicy` of the `m365` entry in [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers). Find each write tool's name and the scope it needs in the [Microsoft 365 connector security guide](https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide). For example, this entry blocks three of the write tools:
+Set each write tool to `"blocked"` in the `toolPolicy` of the `m365` entry in [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers). Find each write tool's name and the scope it needs in the [Microsoft 365 connector security guide](https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide). For example, this entry blocks three of the write tools:
 
 ```json theme={null}
 {
@@ -266,7 +266,7 @@ Choose the local connector when your data-residency requirements do not allow Mi
 
 **2. Configure Claude Desktop**
 
-In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
+In the Claude Desktop [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
 
 | Field | Value |
 | - | - |
@@ -275,7 +275,7 @@ In the Claude Desktop [in-app configuration window](/docs/third-party/claude-des
 | Azure cloud | `global` (default), `us-gov-high`, or `us-gov-dod` |
 | Access | Leave empty for standard read access, or list scopes explicitly (see [Configure scopes](#configure-scopes)) |
 
-If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `microsoft365`:
+If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `microsoft365`:
 
 ```json theme={null}
 {
@@ -292,16 +292,16 @@ If you manage configuration through JSON or a plist directly, add an entry to [`
 | `server` | Yes | Must be `microsoft365`. Built-in entries use this field instead of `url`, `transport`, or `command`; an entry that mixes `server` with those fields is rejected. |
 | `clientId` | Yes | The Application (client) ID of the local-mode app from step 1. |
 | `tenantId` | Yes | Your Directory (tenant) ID. |
-| `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds. |
+| `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for GCC High and DoD. |
 | `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
 | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. The app rejects an entry that has a `scopes` array, so write the scopes as one string. See [Configure scopes](#configure-scopes). |
-| `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
+| `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
 The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
 
 **3. Allow the required network hosts for local mode**
 
-The local connector calls Microsoft directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
+The local connector calls Microsoft directly from the device, so in addition to the [base egress hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
 
 | Host | Purpose |
 | - | - |
@@ -311,7 +311,7 @@ The local connector calls Microsoft directly from the device, so in addition to 
 
 To read Office documents, such as Word and PowerPoint files, the connector asks Microsoft Graph for a PDF version and follows the redirect Graph returns. Microsoft chooses the host in that redirect.
 
-US Government cloud deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
+GCC High and DoD deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. For a Microsoft 365 GCC tenant, leave `azureCloud` at `global`. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
 
 ### Configure scopes
 
@@ -384,7 +384,7 @@ With only read scopes granted, the connector is read-only. To let Claude take ac
 
 Sending drafts and forwarding mail also require a mail read scope (one of `Mail.Read`, `Mail.ReadWrite`, or `Mail.Read.Shared`) for the pre-send checks; the standard read set already includes one.
 
-Every write tool requires user approval on each call by default. Administrators can change a tool's approval state with [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
+Every write tool requires user approval on each call by default. Administrators can change a tool's approval state with [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
 
 ### How users sign in
 
@@ -392,7 +392,7 @@ After the configuration is deployed, the connector appears in **Customize → Co
 
 On both Windows and macOS, sign-in goes through the device's native authentication broker when the device is set up for it: a system account-picker dialog appears instead of the browser, and the issued tokens carry the device identity claim that device-based Conditional Access policies (such as *Require compliant device*) evaluate. When the broker is unavailable, sign-in opens the system browser instead. The requirements for each platform are listed below.
 
-The [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) configuration key controls whether sign-in uses the broker or the browser. `auto` (the default) uses the broker where it is available and the browser otherwise, `disabled` always uses the browser, and `required` makes sign-in fail when the broker is unavailable instead of opening the browser, so the refresh token stays held by the broker. Set `required` only after every device that receives the configuration is on Claude Desktop 1.49585.0 or later, because earlier versions read `required` as `disabled` and fall back to browser-only sign-in. Linux has no broker, so `required` is not supported there.
+The [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) configuration key controls whether sign-in uses the broker or the browser. `auto` (the default) uses the broker where it is available and the browser otherwise, `disabled` always uses the browser, and `required` makes sign-in fail when the broker is unavailable instead of opening the browser, so the refresh token stays held by the broker. Set `required` only after every device that receives the configuration is on Claude Desktop 1.49585.0 or later, because earlier versions read `required` as `disabled` and fall back to browser-only sign-in. Linux has no broker, so `required` is not supported there.
 
 Browser sign-in works on tenants without device-based Conditional Access policies. It satisfies device policies only when the browser itself carries the device identity: on Windows, a browser signed in with the work account on an Entra-joined device (such as Microsoft Edge) provides this; on macOS, deploy Microsoft's Enterprise SSO browser integration, or use brokered sign-in instead.
 
@@ -410,9 +410,9 @@ Browser sign-in works on tenants without device-based Conditional Access policie
 >
 > If a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself carries the device identity (see above); fix the broker requirement that caused the fallback and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
 >
-> A missing broker redirect URI does not trigger the fallback on Windows. The broker shows Entra error `AADSTS50011` in its own sign-in dialog, and closing that dialog counts as canceling, so every sign-in attempt ends at the same error until you register the URI above. To have users sign in through the browser instead of the broker, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `disabled` in the managed configuration. Tokens from browser sign-in carry no device identity claim unless the browser itself provides one (see above), so device-based Conditional Access policies block them.
+> A missing broker redirect URI does not trigger the fallback on Windows. The broker shows Entra error `AADSTS50011` in its own sign-in dialog, and closing that dialog counts as canceling, so every sign-in attempt ends at the same error until you register the URI above. To have users sign in through the browser instead of the broker, set [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `disabled` in the managed configuration. Tokens from browser sign-in carry no device identity claim unless the browser itself provides one (see above), so device-based Conditional Access policies block them.
 >
-> To have **Connect** sign in with the work account already signed in to Windows, without the account picker, set [`microsoftAuthDefaultAccount`](/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) to `enabled`. See the key's reference entry for the requirements and the cases where users still get the picker.
+> To have **Connect** sign in with the work account already signed in to Windows, without the account picker, set [`microsoftAuthDefaultAccount`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) to `enabled`. See the key's reference entry for the requirements and the cases where users still get the picker.
 
 > **Requirements for brokered sign-in on macOS**
 >

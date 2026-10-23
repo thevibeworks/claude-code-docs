@@ -29,13 +29,13 @@ To open the **Activity** page, go to [`claude.ai/admin-settings/claude-tag/audit
 | :- | :- |
 | **Scheduled work** | The routines set up in channels across your organization, with a **Scope** filter and a per-row **⋮** menu with actions such as **View details**, **Pause** or **Resume**, and **Delete** |
 | **Memory** | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there. |
-| **Network events** | An hourly JSON export of the outbound requests Claude made through [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy). Git and MCP traffic are not included. Select a date and hour to download. |
+| **Network events** | An hourly JSON export of the outbound requests Claude made through [Agent Proxy](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy). Git and MCP traffic are not included. Select a date and hour to download. |
 
 Each routine on the **Scheduled work** tab shows **Created by** (the member who set it up) in its **View details** dialog. There is no per-action log of every task and who asked; for that, use the trails below.
 
 ## Trace an action to its source
 
-In channels, Claude acts as itself unless a task uses a member's [personal connectors](/docs/claude-tag/concepts/personal-connectors.md), which run with that member's permissions and are recorded under their name. Each action Claude takes as itself carries the service-account identity:
+In channels, Claude acts as itself unless a task uses a member's [personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md), which run with that member's permissions and are recorded under their name. Each action Claude takes as itself carries the service-account identity:
 
 * **In Slack**, it posts as the Claude app, and its work happens in threads anyone in the channel can read.
 * **On code**, commits and pull requests show the Claude GitHub App as the author, and each one links back to the Slack thread it came from.
@@ -53,10 +53,10 @@ Anyone in the channel can see its standing work. Ask in the channel:
 
 Claude lists the channel's scheduled jobs and watches, and anyone there can ask it to disable one.
 
-Routines run with the channel's credentials, so the channel listing is also the permission picture. See [proactivity](/docs/claude-tag/users/proactivity.md#manage-standing-work).
+Routines run with the channel's credentials, so the channel listing is also the permission picture. See [proactivity](https://claude.com/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ## Related resources
 
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity.md): how attribution differs in channels and DMs
-* [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access.md): the controls when an audit turns something up
-* [Security and data handling](/docs/claude-tag/concepts/security-and-data.md): the model behind the trails
+* [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md): how attribution differs in channels and DMs
+* [Restrict where Claude Tag operates](https://claude.com/docs/claude-tag/admins/restrict-access.md): the controls when an audit turns something up
+* [Security and data handling](https://claude.com/docs/claude-tag/concepts/security-and-data.md): the model behind the trails

@@ -12,9 +12,9 @@
 
 A group DM is a Slack direct message among several people. Claude works in a group DM it has been added to, so a few people can share a task with Claude without creating a channel.
 
-If Claude answers your mention with "Group DMs aren't supported yet. Try a channel or a 1:1 DM instead.", see [the causes of that reply](/docs/claude-tag/users/troubleshooting.md#group-dms-aren%E2%80%99t-supported-yet).
+If Claude answers your mention with "Group DMs aren't supported yet. Try a channel or a 1:1 DM instead.", see [the causes of that reply](https://claude.com/docs/claude-tag/users/troubleshooting.md#group-dms-aren%E2%80%99t-supported-yet).
 
-This page is for Slack members. It covers how to add Claude, what Claude can reach, when it replies, how to make it quieter, what differs from a channel, and what to do when Claude doesn't answer. If you administer Claude for your organization, see [the settings that apply to group DMs](/docs/claude-tag/admins/restrict-access.md#group-dms).
+This page is for Slack members. It covers how to add Claude, what Claude can reach, when it replies, how to make it quieter, what differs from a channel, and what to do when Claude doesn't answer. If you administer Claude for your organization, see [the settings that apply to group DMs](https://claude.com/docs/claude-tag/admins/restrict-access.md#group-dms).
 
 ## Add Claude to a group DM
 
@@ -26,15 +26,15 @@ Add Claude as one of the people when you start the group DM. Then mention `@Clau
 
 Claude replies in a thread under your message.
 
-An admin decides [who can use Claude](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude), and that choice covers group DMs as well as channels.
+An admin decides [who can use Claude](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude), and that choice covers group DMs as well as channels.
 
 ## Access and billing in a group DM
 
-In a group DM, Claude acts with [its own service accounts](/docs/claude-tag/concepts/agent-identity.md). If you've connected a Claude account, a one-to-one DM with Claude runs on [your own account](/docs/claude-tag/concepts/agent-identity.md#direct-message-channels) instead.
+In a group DM, Claude acts with [its own service accounts](https://claude.com/docs/claude-tag/concepts/agent-identity.md). If you've connected a Claude account, a one-to-one DM with Claude runs on [your own account](https://claude.com/docs/claude-tag/concepts/agent-identity.md#direct-message-channels) instead.
 
 * **Access.** Claude uses the connections, instructions, and repositories an admin set for the workspace and the organization. A connection an admin attached to one channel doesn't apply.
 * **Billing.** The work bills to your organization, not to your seat.
-* **Your own connectors.** Where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors.md) are on for your organization, Claude can use the connectors on your claude.ai account for a task you ask for, after you allow it. Only your own requests use them.
+* **Your own connectors.** Where [personal connectors in channels](https://claude.com/docs/claude-tag/concepts/personal-connectors.md) are on for your organization, Claude can use the connectors on your claude.ai account for a task you ask for, after you allow it. Only your own requests use them.
 
 ## When Claude replies in a group DM
 
@@ -54,8 +54,8 @@ Ask Claude to reply only when someone mentions it. The change applies to everyon
 
 Claude can't make the change in these cases:
 
-* **Channel-only access.** A guest is in the group DM, and Claude runs there with [channel-only access](/docs/claude-tag/admins/restrict-access.md#how-channel-only-works).
-* **Blocked member edits.** An admin set [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) to **Block** for the workspace or the organization.
+* **Channel-only access.** A guest is in the group DM, and Claude runs there with [channel-only access](https://claude.com/docs/claude-tag/admins/restrict-access.md#how-channel-only-works).
+* **Blocked member edits.** An admin set [**Channel member edits**](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) to **Block** for the workspace or the organization.
 
 **1. Ask Claude**
 
@@ -83,17 +83,17 @@ Claude posts a new card. Select **Confirm** on that card.
 
 ### Quiet Claude in one thread of a group DM
 
-In a thread that started with an `@Claude` mention, send [`@Claude !mute`](/docs/claude-tag/users/commands#mute-or-unmute-a-thread). `!mute` works on one thread at a time.
+In a thread that started with an `@Claude` mention, send [`@Claude !mute`](https://claude.com/docs/claude-tag/users/commands#mute-or-unmute-a-thread). `!mute` works on one thread at a time.
 
 ## Differences between a group DM and a channel
 
 These parts of working with Claude differ between a group DM and a channel:
 
-* **Settings.** A group DM has no [Configure page](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel), so you can't give it its own instructions or connections.
-* **Memory.** Claude keeps notes for the group DM and reads only those notes there. It doesn't read or add to the [workspace notes](/docs/claude-tag/users/memory.md#channel-and-workspace-memory).
-* **Routines.** A [routine](/docs/claude-tag/users/proactivity.md) you set up in a group DM posts its output in that group DM only.
-* **Other channels.** Claude can't post, reply, or react outside the group DM. [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels) covers what it can read.
-* **Forking.** You can't [fork a thread](/docs/claude-tag/users/commands.md#fork-a-thread) from a group DM.
+* **Settings.** A group DM has no [Configure page](https://claude.com/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel), so you can't give it its own instructions or connections.
+* **Memory.** Claude keeps notes for the group DM and reads only those notes there. It doesn't read or add to the [workspace notes](https://claude.com/docs/claude-tag/users/memory.md#channel-and-workspace-memory).
+* **Routines.** A [routine](https://claude.com/docs/claude-tag/users/proactivity.md) you set up in a group DM posts its output in that group DM only.
+* **Other channels.** Claude can't post, reply, or react outside the group DM. [What Claude can do in other channels](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels) covers what it can read.
+* **Forking.** You can't [fork a thread](https://claude.com/docs/claude-tag/users/commands.md#fork-a-thread) from a group DM.
 
 ## When Claude doesn't answer in a group DM
 
@@ -101,16 +101,16 @@ When you mention `@Claude` at the top level of a group DM and Claude can't answe
 
 | What you see | Why Claude can't answer | What to do |
 | :- | :- | :- |
-| "Group DMs aren't supported yet. Try a channel or a 1:1 DM instead." | Who is in the group DM, or how Slack shares it, keeps Claude from answering | See [Group DMs aren't supported yet](/docs/claude-tag/users/troubleshooting.md#group-dms-aren%E2%80%99t-supported-yet) |
+| "Group DMs aren't supported yet. Try a channel or a 1:1 DM instead." | Who is in the group DM, or how Slack shares it, keeps Claude from answering | See [Group DMs aren't supported yet](https://claude.com/docs/claude-tag/users/troubleshooting.md#group-dms-aren%E2%80%99t-supported-yet) |
 | "Your Claude admin has disabled sending direct messages to Claude." | An admin turned off direct messages, which covers group DMs too | Ask in a channel, or ask your admin about turning direct messages on |
 | "Claude doesn't respond in channels that include guests." | The group DM includes a Slack guest, and your admin's guest setting keeps Claude from replying | Start a group DM without the guest, or ask your admin about the guest setting |
 | "Claude is disabled in this channel." | An admin turned Claude off for the workspace | Ask your admin about turning Claude on for the workspace |
 | "This workspace only lets people with a connected Claude account work with me." Only you can see this notice | An admin restricted who can use Claude | Connect your Claude account, then send your message again |
 | No reply and no notice | Claude isn't in the group DM | Start a new group DM that includes Claude |
-| No reply and no notice | Your workspace uses the [earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier.md) | Ask your admin which version answers in your workspace |
+| No reply and no notice | Your workspace uses the [earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) | Ask your admin which version answers in your workspace |
 
 ## Related resources
 
-* [Get started with Claude Tag](/docs/claude-tag/users/getting-started.md): choose between a channel, a group DM, and a one-to-one DM
-* [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds.md): what makes Claude reply without an @-mention
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity.md): whose accounts Claude acts with in each place
+* [Get started with Claude Tag](https://claude.com/docs/claude-tag/users/getting-started.md): choose between a channel, a group DM, and a one-to-one DM
+* [Control when Claude Tag responds](https://claude.com/docs/claude-tag/users/when-claude-responds.md): what makes Claude reply without an @-mention
+* [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md): whose accounts Claude acts with in each place

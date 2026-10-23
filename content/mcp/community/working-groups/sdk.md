@@ -12,13 +12,13 @@
 
 ## Mission Statement
 
-The SDK Working Group exists to keep the official MCP SDKs consistent, conformant, and current with the specification. It coordinates implementation of new protocol versions across languages, governs the [SDK Tiering System](/community/sdk-tiers.md), and establishes shared design patterns where sensible, so that developers get a coherent experience across SDKs while each remains idiomatic to its language.
+The SDK Working Group exists to keep the official MCP SDKs consistent, conformant, and current with the specification. It coordinates implementation of new protocol versions across languages, governs the [SDK Tiering System](https://modelcontextprotocol.io/community/sdk-tiers.md), and establishes shared design patterns where sensible, so that developers get a coherent experience across SDKs while each remains idiomatic to its language.
 
 ## Scope
 
 ### In Scope
 
-* **SDK Tiering**: Operating the [SDK Tiering System](/community/sdk-tiers.md), including reviewing tier advancement requests, applying relegation criteria, and maintaining the published tier assignments.
+* **SDK Tiering**: Operating the [SDK Tiering System](https://modelcontextprotocol.io/community/sdk-tiers.md), including reviewing tier advancement requests, applying relegation criteria, and maintaining the published tier assignments.
 * **Official SDK Roster**: Evaluating proposals to add new official SDKs or retire existing ones.
 * **Release Coordination**: Aligning Tier-1 SDK release plans with specification version dates so that protocol features land in SDKs on the timelines their tier requires.
 * **Cross-SDK Design Guidance**: Recommending common patterns for SDK API surface, versioning, deprecation, error handling, and extension packaging, so that SDKs remain recognisably similar across languages while staying idiomatic.
@@ -28,13 +28,13 @@ The SDK Working Group exists to keep the official MCP SDKs consistent, conforman
 ### Out of Scope
 
 * **Per-SDK day-to-day maintenance**: Issue triage, PR review, and releases for an individual SDK remain the responsibility of that SDK's maintainers as listed in [MAINTAINERS.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md).
-* **Specification authorship**: Protocol changes are proposed through the [SEP process](/community/sep-guidelines.md) and owned by the relevant working group or Core Maintainers. The SDK WG implements accepted SEPs; it does not own spec sections.
+* **Specification authorship**: Protocol changes are proposed through the [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md) and owned by the relevant working group or Core Maintainers. The SDK WG implements accepted SEPs; it does not own spec sections.
 * **Conformance test authoring**: The conformance test suite itself is owned by the [Conformance Testing](https://github.com/modelcontextprotocol/conformance) project.
 * **Third-party and community SDKs**: SDKs outside the [modelcontextprotocol](https://github.com/modelcontextprotocol) organization are not governed by this group.
 
 ### Related Groups
 
-* **[Transports WG](/community/working-groups/transports.md)**: Transport implementations are a substantial part of every SDK. The SDK WG coordinates with the Transports WG on rollout sequencing when transport SEPs land.
+* **[Transports WG](https://modelcontextprotocol.io/community/working-groups/transports.md)**: Transport implementations are a substantial part of every SDK. The SDK WG coordinates with the Transports WG on rollout sequencing when transport SEPs land.
 * **Conformance Testing**: Tier assignments depend on conformance scores. The SDK WG consumes conformance results and feeds back gaps in test coverage.
 * **All specification-producing WGs**: The SDK WG is a downstream consumer of accepted SEPs and coordinates reference-implementation timing with the originating group.
 

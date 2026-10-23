@@ -10,7 +10,7 @@ A connector that uses OAuth sign-in normally asks each person to sign in as soon
 
 When Claude reaches a protected tool, it shows the sign-in prompt inline in the conversation, and after the person signs in it retries the same tool call. The challenge your server sends to trigger that prompt follows the [MCP authorization specification](https://modelcontextprotocol.io/specification/latest/basic/authorization).
 
-This page is for developers whose MCP server has some tools that work without the user's identity. It walks through excerpts from an example Express server, a single `src/index.ts` file built on `@modelcontextprotocol/sdk` over Streamable HTTP, to show what your own server needs at each step. For the OAuth requirements every server must meet regardless of when it asks for sign-in, see [Authentication for connectors](/docs/connectors/building/authentication.md).
+This page is for developers whose MCP server has some tools that work without the user's identity. It walks through excerpts from an example Express server, a single `src/index.ts` file built on `@modelcontextprotocol/sdk` over Streamable HTTP, to show what your own server needs at each step. For the OAuth requirements every server must meet regardless of when it asks for sign-in, see [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md).
 
 ## See what the user experiences
 
@@ -23,7 +23,7 @@ A user of a lazy-auth connector goes through these steps:
 
 > [!NOTE]
 >
-> If the user's organization has [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth.md) configured for your connector, the same refusal triggers a silent token exchange instead of the **Connect** card. Claude retries the tool call automatically and the user sees no prompt.
+> If the user's organization has [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md) configured for your connector, the same refusal triggers a silent token exchange instead of the **Connect** card. Claude retries the tool call automatically and the user sees no prompt.
 
 ## Build lazy authentication on your server
 
@@ -308,7 +308,7 @@ Claude reaches custom connectors from Anthropic's infrastructure, so `localhost`
 2. In Claude, go to [**Customize > Connectors**](https://claude.ai/customize/connectors) and select **Add custom connector**.
 3. Enter the tunnel's `/mcp` URL.
 
-See [Test a local server](/docs/connectors/building/testing.md#test-a-local-server) for details. If your app comes from the SDK's `createMcpExpressApp()`, that section also shows the `allowedHosts` option you need before requests through the tunnel succeed.
+See [Test a local server](https://claude.com/docs/connectors/building/testing.md#test-a-local-server) for details. If your app comes from the SDK's `createMcpExpressApp()`, that section also shows the `allowedHosts` option you need before requests through the tunnel succeed.
 
 **5. Try both paths in a conversation**
 
@@ -317,7 +317,7 @@ See [Test a local server](/docs/connectors/building/testing.md#test-a-local-serv
 
 ## Next steps
 
-* [Authentication for connectors](/docs/connectors/building/authentication.md): check the OAuth requirements your authorization server must meet, including redirect URIs and token refresh
-* [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth.md): let organizations with SSO answer the same `401` with a silent token exchange
-* [Test your connector](/docs/connectors/building/testing.md): expose the server through a tunnel and add it as a custom connector
-* [Troubleshoot your connector](/docs/connectors/building/troubleshooting.md): diagnose discovery and authorization failures
+* [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md): check the OAuth requirements your authorization server must meet, including redirect URIs and token refresh
+* [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md): let organizations with SSO answer the same `401` with a silent token exchange
+* [Test your connector](https://claude.com/docs/connectors/building/testing.md): expose the server through a tunnel and add it as a custom connector
+* [Troubleshoot your connector](https://claude.com/docs/connectors/building/troubleshooting.md): diagnose discovery and authorization failures

@@ -6,7 +6,7 @@
 
 > Make your MCP App's background transparent and style it with Claude's host style variables so it blends into the conversation in light and dark mode.
 
-Claude renders MCP Apps inside a sandboxed iframe, and every frame between your widget and the chat surface already has a transparent background so the conversation can show through. If you leave your own background transparent and style text and borders with the host's [style variables](/docs/connectors/building/mcp-apps/design-guidelines.md#style-variables), your app looks like part of the conversation rather than an embedded box. It also follows the user's light or dark mode automatically.
+Claude renders MCP Apps inside a sandboxed iframe, and every frame between your widget and the chat surface already has a transparent background so the conversation can show through. If you leave your own background transparent and style text and borders with the host's [style variables](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#style-variables), your app looks like part of the conversation rather than an embedded box. It also follows the user's light or dark mode automatically.
 
 This page is for developers who already have an MCP App rendering in Claude and want it to match the host theme. The snippets assume you have registered a UI resource and created an `App` instance from `@modelcontextprotocol/ext-apps`. If you haven't, start with the [SDK Quickstart](https://modelcontextprotocol.github.io/ext-apps/api/documents/Quickstart.html). To match the host theme, [let the host background show through](#let-the-host-background-show-through), then [apply the host style variables](#apply-the-host-style-variables) at runtime.
 
@@ -72,7 +72,7 @@ Claude passes a [`hostContext`](https://modelcontextprotocol.github.io/ext-apps/
 | `styles.variables` | CSS custom properties: `--color-background-*`, `--color-text-*`, `--color-border-*`, `--color-ring-*`, `--font-*`, `--border-radius-*`, `--border-width-*` |
 | `styles.css.fonts` | `@font-face` rules for Anthropic Sans, served from `https://assets.claude.ai` |
 
-The [Style variables](/docs/connectors/building/mcp-apps/design-guidelines.md#style-variables) section of the design guidelines lists every variable and its light- and dark-mode value.
+The [Style variables](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#style-variables) section of the design guidelines lists every variable and its light- and dark-mode value.
 
 ### Read `hostContext` and listen for changes
 
@@ -154,7 +154,7 @@ For `applyHostFonts` to load the `@font-face` files, your resource's [`_meta.ui.
 
 ## Next steps
 
-* [Style variables](/docs/connectors/building/mcp-apps/design-guidelines.md#style-variables): the full variable palette in the design guidelines
-* [Visual design](/docs/connectors/building/mcp-apps/design-guidelines.md#visual-design): usage guidance for color, typography, and spacing in the design guidelines
-* [Supersede older widget instances](/docs/connectors/building/mcp-apps/instance-supersession.md): keep only the newest copy of your widget active in a conversation
+* [Style variables](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#style-variables): the full variable palette in the design guidelines
+* [Visual design](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#visual-design): usage guidance for color, typography, and spacing in the design guidelines
+* [Supersede older widget instances](https://claude.com/docs/connectors/building/mcp-apps/instance-supersession.md): keep only the newest copy of your widget active in a conversation
 * [SDK API reference](https://modelcontextprotocol.github.io/ext-apps/api/index.html): `App`, `McpUiHostContext`, and `McpUiResourceMeta`

@@ -37,7 +37,7 @@ Each user appears as a card with their name, email address, and the following fi
 | **Usage** | Two bars showing how much of the user's 5-hour and 7-day spend limits are currently used, with the exact percentage alongside each. Hover over the bars to see when each limit resets. Users who have no seat tier show a dash instead of the bars. |
 | **Last login** | The date and time the user last signed in. |
 
-The **…** menu on each card has the **Reset usage limits** action, which clears the user's current rate-limit windows. The menu appears only when your organization has at least one [self-managed seat tier](/docs/government/org-admin/seat-tiers.md).
+The **…** menu on each card has the **Reset usage limits** action, which clears the user's current rate-limit windows. The menu appears only when your organization has at least one [self-managed seat tier](https://claude.com/docs/government/org-admin/seat-tiers.md).
 
 ## Understanding roles
 
@@ -83,7 +83,7 @@ Changing a user's tier takes effect on their very next request. If you move some
 
 Every seat tier sets a rolling **5-hour** and **7-day** spend limit for each user. When a user reaches either limit, further requests are refused until the window rolls forward.
 
-If a user on a self-managed tier has hit a limit and you want them to continue working immediately, use **Reset usage limits** in the **…** menu on their card. This clears both of their current windows so their next request is admitted. The reset does not refund or alter any credits that have already been consumed, and it does not change anything shown on the [Analytics](/docs/government/org-admin/analytics.md) page; it only clears the per-user counter that enforces the limit.
+If a user on a self-managed tier has hit a limit and you want them to continue working immediately, use **Reset usage limits** in the **…** menu on their card. This clears both of their current windows so their next request is admitted. The reset does not refund or alter any credits that have already been consumed, and it does not change anything shown on the [Analytics](https://claude.com/docs/government/org-admin/analytics.md) page; it only clears the per-user counter that enforces the limit.
 
 > [!WARNING]
 >
@@ -91,10 +91,10 @@ If a user on a self-managed tier has hit a limit and you want them to continue w
 
 ## Deactivated users
 
-Accounts are deactivated through your directory's SCIM provisioning rather than from this page. A deactivated user cannot sign in and does not occupy a seat. Deactivating a user releases their seat immediately, and reactivating them later will attempt to place them back on a seat using the same automatic assignment logic described on the [Seats](/docs/government/org-admin/seats.md) page.
+Accounts are deactivated through your directory's SCIM provisioning rather than from this page. A deactivated user cannot sign in and does not occupy a seat. Deactivating a user releases their seat immediately, and reactivating them later will attempt to place them back on a seat using the same automatic assignment logic described on the [Seats](https://claude.com/docs/government/org-admin/seats.md) page.
 
 Deactivated users keep their role, but a deactivated Primary Owner does not count toward the "at least one" rule or the limit of three. You must always have at least one *active* Primary Owner.
 
 ## Things to know
 
-* Claude for Government has exactly three organization roles: **User**, **Owner**, and **Primary Owner**. There are no additional roles such as Billing or Developer. Tenant administrator access is a separate tenant-level membership managed on the [Admins](/docs/government/tenant-admin/admins.md) page, not an organization role.
+* Claude for Government has exactly three organization roles: **User**, **Owner**, and **Primary Owner**. There are no additional roles such as Billing or Developer. Tenant administrator access is a separate tenant-level membership managed on the [Admins](https://claude.com/docs/government/tenant-admin/admins.md) page, not an organization role.

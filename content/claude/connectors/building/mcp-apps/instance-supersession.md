@@ -243,6 +243,6 @@ The snippets on this page use the SDK's [`App`](https://modelcontextprotocol.git
 
 ## Next steps
 
-* [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): how to compute `_meta.ui.domain` for Claude
-* [Troubleshoot MCP Apps](/docs/connectors/building/mcp-apps/troubleshooting.md): developer tools and fixes when a widget doesn't render
+* [Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): how to compute `_meta.ui.domain` for Claude
+* [Troubleshoot MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/troubleshooting.md): developer tools and fixes when a widget doesn't render
 * [SDK API reference](https://modelcontextprotocol.github.io/ext-apps/api/index.html): `registerAppTool`, `App`, and `McpUiResourceMeta`

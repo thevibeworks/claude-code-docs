@@ -10,7 +10,7 @@ Connectors give Claude access to external data sources during an analysis. Skill
 
 ## Featured connectors
 
-Claude Science includes Featured connectors to public research databases, most of them in the life sciences. They're on by default and can be turned off individually in **Settings > Connectors**. On Team and Enterprise plans, your organization can also turn individual Featured connectors off for everyone, and in organizations with HIPAA compliance enabled they start off until an admin turns them on. A connector your organization has off stays listed, grayed, and Claude can't use it (see [Featured connectors and skills](/docs/claude-science/admin-controls.md#featured-connectors-and-skills)). Featured connectors are read-only and don't require an account or key, except that the Literature Graph needs a free OpenAlex API key to search OpenAlex (see [Available credentials](/docs/claude-science/literature-access.md#available-credentials)). Some underlying databases have non-commercial or attribution terms; review each source's license for your use case.
+Claude Science includes Featured connectors to public research databases, most of them in the life sciences. They're on by default and can be turned off individually in **Settings > Connectors**. On Team and Enterprise plans, your organization can also turn individual Featured connectors off for everyone, and in organizations with HIPAA compliance enabled they start off until an admin turns them on. A connector your organization has off stays listed, grayed, and Claude can't use it (see [Featured connectors and skills](https://claude.com/docs/claude-science/admin-controls.md#featured-connectors-and-skills)). Featured connectors are read-only and don't require an account or key, except that the Literature Graph needs a free OpenAlex API key to search OpenAlex (see [Available credentials](https://claude.com/docs/claude-science/literature-access.md#available-credentials)). Some underlying databases have non-commercial or attribution terms; review each source's license for your use case.
 
 | Connector | Sources |
 | - | - |
@@ -49,12 +49,12 @@ Connectors you've added in claude.ai, and ones your organization has added for y
 
 If what you need still isn't there, try these:
 
-* **Ask Claude first.** Many public databases and tools work without a connector, because the code Claude runs can reach websites directly. The first time Claude needs a new site, a permission card asks you to allow it. If your organization manages the list of allowed sites, ask an admin to add it. See [Sandbox](/docs/claude-science/core-concepts.md#sandbox).
+* **Ask Claude first.** Many public databases and tools work without a connector, because the code Claude runs can reach websites directly. The first time Claude needs a new site, a permission card asks you to allow it. If your organization manages the list of allowed sites, ask an admin to add it. See [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox).
 * **Add one from the Connectors Directory.** Go to **Settings > Connectors > Add connector > Browse Connectors Directory**, which opens the directory in claude.ai. On Pro and Max plans, add the connector there and it appears in Claude Science. On Team and Enterprise plans, you may be able to add it yourself; if not, an admin can add it for your organization. On a Team plan, select **Request** on the connector's listing to ask your admins.
-* **Add one yourself.** If the tool's maker gives you a web address for its connector (sometimes called an MCP server URL), go to **Settings > Connectors > Add connector > Remote URL** and paste it in. If the maker gives you a command to run instead, choose **Local command** and enter it there. On Team and Enterprise plans, this works only if your organization allows custom connectors. See [Custom connectors](/docs/claude-science/custom-connectors.md).
-* **Ask the tool's maker.** If no connector exists yet, ask them to build one and [submit it to the Connectors Directory](/docs/connectors/building/submission.md).
+* **Add one yourself.** If the tool's maker gives you a web address for its connector (sometimes called an MCP server URL), go to **Settings > Connectors > Add connector > Remote URL** and paste it in. If the maker gives you a command to run instead, choose **Local command** and enter it there. On Team and Enterprise plans, this works only if your organization allows custom connectors. See [Custom connectors](https://claude.com/docs/claude-science/custom-connectors.md).
+* **Ask the tool's maker.** If no connector exists yet, ask them to build one and [submit it to the Connectors Directory](https://claude.com/docs/connectors/building/submission.md).
 
-Admins can find the full set of options in [Add a connector your organization needs](/docs/claude-science/admin-controls.md#add-a-connector-your-organization-needs).
+Admins can find the full set of options in [Add a connector your organization needs](https://claude.com/docs/claude-science/admin-controls.md#add-a-connector-your-organization-needs).
 
 ## Skills
 
@@ -64,11 +64,11 @@ The AlphaFold2, Boltz-2, Chai-1, and OpenFold3 skills can build sequence alignme
 
 Claude loads a skill automatically when the work calls for it. Type **/** in the composer to open the skill picker and insert one explicitly. On Team and Enterprise plans, your organization can turn individual Featured skills off; a skill it has off stays listed, grayed, and Claude doesn't load it.
 
-**Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](/docs/claude-science/admin-controls.md#custom-skills)).
+**Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](https://claude.com/docs/claude-science/admin-controls.md#custom-skills)).
 
 **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. An import has two 100 MB limits, one on the repository's download from GitHub and one on the combined size of its skill folders.
 
-Your admin can also add skills for your organization from claude.ai. See [Organization skills](/docs/claude-science/admin-controls.md#organization-skills).
+Your admin can also add skills for your organization from claude.ai. See [Organization skills](https://claude.com/docs/claude-science/admin-controls.md#organization-skills).
 
 ### Update skills imported from GitHub
 
@@ -76,4 +76,4 @@ Skills you import from GitHub don't update automatically, and Claude Science doe
 
 If the repository no longer offers a skill you imported, Claude Science says so, and your copy stays and keeps working.
 
-On Team and Enterprise plans, you can update imported skills only if your organization allows custom skills (see [Custom skills](/docs/claude-science/admin-controls.md#custom-skills)).
+On Team and Enterprise plans, you can update imported skills only if your organization allows custom skills (see [Custom skills](https://claude.com/docs/claude-science/admin-controls.md#custom-skills)).

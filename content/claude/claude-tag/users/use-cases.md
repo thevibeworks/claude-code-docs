@@ -10,29 +10,29 @@
 >
 > Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-Each use case below links to a page with prompts to paste, what it needs connected, and how to set it up to [run on a schedule or watch the channel](/docs/claude-tag/users/proactivity.md) instead of asking each time.
+Each use case below links to a page with prompts to paste, what it needs connected, and how to set it up to [run on a schedule or watch the channel](https://claude.com/docs/claude-tag/users/proactivity.md) instead of asking each time.
 
 > [!NOTE]
 >
-> If typing `@Claude` doesn't show **Claude** with an **APP** badge, the Claude app isn't installed in your Slack workspace; ask your Slack admin to install it. If the mention sends but Claude doesn't reply, ask your Claude organization admin to enable Claude Tag for the channel and send them the [setup guide](/docs/claude-tag/admins/setup-overview).
+> If typing `@Claude` doesn't show **Claude** with an **APP** badge, the Claude app isn't installed in your Slack workspace; ask your Slack admin to install it. If the mention sends but Claude doesn't reply, ask your Claude organization admin to enable Claude Tag for the channel and send them the [setup guide](https://claude.com/docs/claude-tag/admins/setup-overview).
 
 ## All use cases
 
 | Use case | Who it's for | What Claude does | Connections needed |
 | :- | :- | :- | :- |
-| [Catch up](/docs/claude-tag/users/use-cases/catch-up.md) | Anyone | Summarizes a thread, a channel, or what's waiting on you | Nothing |
-| [Work from your own channel](/docs/claude-tag/users/use-cases/your-own-channel.md) | Anyone | Answers scratch questions, digests channels you don't follow, and chases what you said you'd do | Nothing (issue tracker or GitHub optional) |
-| [Triage requests](/docs/claude-tag/users/use-cases/triage-requests.md) | Support, ops, IT, any intake channel | Answers what it can, flags duplicates, routes the rest, rolls up themes | Nothing (issue tracker optional for filing) |
-| [Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts.md) | Anyone | Produces a decision doc, status memo, ticket, send-ready reply, or hosted web page from a discussion | Nothing (Drive or issue tracker optional) |
-| [Track projects and chase approvals](/docs/claude-tag/users/use-cases/track-projects.md) | PMs, leads, anyone running a project channel | Posts standing status digests; follows up on stalled sign-offs | Nothing (issue tracker optional) |
-| [Find answers in your docs](/docs/claude-tag/users/use-cases/find-answers.md) | Anyone | Looks up policies, runbooks, prior decisions; replies with the source | Google Drive, Notion, or Confluence |
-| [Review documents against a checklist](/docs/claude-tag/users/use-cases/review-documents.md) | Ops, compliance, anyone reviewing against criteria | Checks documents in a connected tool against a checklist or policy; posts findings per item | Google Drive, Notion, or Confluence |
-| [Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions.md) | Analysts, data-adjacent teams | Runs warehouse queries, returns charts; or charts from Slack history alone | BigQuery, Snowflake, or Redshift (charts from Slack need none) |
-| [Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs.md) | Engineering | Reproduces the bug, opens a draft PR, follows CI to green | GitHub (Datadog, Sentry optional) |
-| [Work with GitHub](/docs/claude-tag/users/use-cases/work-with-github.md) | Engineering, anyone with repository questions | Answers repository questions in-thread, watches pull requests for you, turns postponed chores into draft PRs | GitHub |
-| [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors.md) | On-call, SRE | Checks dashboards on a schedule; investigates alerts before anyone asks | Datadog, Sentry, or PagerDuty |
-| [Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state.md) | Sales, customer success | Answers account questions in-thread; pre-call briefs; weekly pipeline digest | Salesforce, HubSpot, or Gong |
-| [Claude Tag for marketing teams](/docs/claude-tag/users/use-cases/marketing-team.md) | Marketing | Answers policy questions from team docs, drafts from campaign threads, checks lead state, posts a weekly metrics digest | HubSpot or Salesforce, plus Google Drive, Notion, or Confluence; BigQuery or Snowflake for the metrics digest (varies by recipe) |
+| [Catch up](https://claude.com/docs/claude-tag/users/use-cases/catch-up.md) | Anyone | Summarizes a thread, a channel, or what's waiting on you | Nothing |
+| [Work from your own channel](https://claude.com/docs/claude-tag/users/use-cases/your-own-channel.md) | Anyone | Answers scratch questions, digests channels you don't follow, and chases what you said you'd do | Nothing (issue tracker or GitHub optional) |
+| [Triage requests](https://claude.com/docs/claude-tag/users/use-cases/triage-requests.md) | Support, ops, IT, any intake channel | Answers what it can, flags duplicates, routes the rest, rolls up themes | Nothing (issue tracker optional for filing) |
+| [Turn threads into docs and tickets](https://claude.com/docs/claude-tag/users/use-cases/create-artifacts.md) | Anyone | Produces a decision doc, status memo, ticket, send-ready reply, or hosted web page from a discussion | Nothing (Drive or issue tracker optional) |
+| [Track projects and chase approvals](https://claude.com/docs/claude-tag/users/use-cases/track-projects.md) | PMs, leads, anyone running a project channel | Posts standing status digests; follows up on stalled sign-offs | Nothing (issue tracker optional) |
+| [Find answers in your docs](https://claude.com/docs/claude-tag/users/use-cases/find-answers.md) | Anyone | Looks up policies, runbooks, prior decisions; replies with the source | Google Drive, Notion, or Confluence |
+| [Review documents against a checklist](https://claude.com/docs/claude-tag/users/use-cases/review-documents.md) | Ops, compliance, anyone reviewing against criteria | Checks documents in a connected tool against a checklist or policy; posts findings per item | Google Drive, Notion, or Confluence |
+| [Answer data questions](https://claude.com/docs/claude-tag/users/use-cases/answer-data-questions.md) | Analysts, data-adjacent teams | Runs warehouse queries, returns charts; or charts from Slack history alone | BigQuery, Snowflake, or Redshift (charts from Slack need none) |
+| [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md) | Engineering | Reproduces the bug, opens a draft PR, follows CI to green | GitHub (Datadog, Sentry optional) |
+| [Work with GitHub](https://claude.com/docs/claude-tag/users/use-cases/work-with-github.md) | Engineering, anyone with repository questions | Answers repository questions in-thread, watches pull requests for you, turns postponed chores into draft PRs | GitHub |
+| [Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md) | On-call, SRE | Checks dashboards on a schedule; investigates alerts before anyone asks | Datadog, Sentry, or PagerDuty |
+| [Pull deal and account state](https://claude.com/docs/claude-tag/users/use-cases/pull-deal-state.md) | Sales, customer success | Answers account questions in-thread; pre-call briefs; weekly pipeline digest | Salesforce, HubSpot, or Gong |
+| [Claude Tag for marketing teams](https://claude.com/docs/claude-tag/users/use-cases/marketing-team.md) | Marketing | Answers policy questions from team docs, drafts from campaign threads, checks lead state, posts a weekly metrics digest | HubSpot or Salesforce, plus Google Drive, Notion, or Confluence; BigQuery or Snowflake for the metrics digest (varies by recipe) |
 
 ## Use cases by connection
 
@@ -40,17 +40,17 @@ A connection is a tool an admin linked for the channel. Each one adds a category
 
 | Connection | Examples | What it adds |
 | :- | :- | :- |
-| Knowledge and docs | Google Drive, Notion, Confluence | [Find answers in your docs](/docs/claude-tag/users/use-cases/find-answers.md) |
-| Issue tracking | Linear, Jira, Asana | [Turn threads into tickets](/docs/claude-tag/users/use-cases/create-artifacts.md), [track projects](/docs/claude-tag/users/use-cases/track-projects.md) |
-| Data warehouse | BigQuery, Snowflake | [Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions.md) with charts |
-| Go-to-market | Salesforce, HubSpot, Gong | [Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state.md) |
-| Monitoring | Datadog, Sentry, PagerDuty | [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors.md) |
-| Code | GitHub | [Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs.md), open pull requests, follow CI |
+| Knowledge and docs | Google Drive, Notion, Confluence | [Find answers in your docs](https://claude.com/docs/claude-tag/users/use-cases/find-answers.md) |
+| Issue tracking | Linear, Jira, Asana | [Turn threads into tickets](https://claude.com/docs/claude-tag/users/use-cases/create-artifacts.md), [track projects](https://claude.com/docs/claude-tag/users/use-cases/track-projects.md) |
+| Data warehouse | BigQuery, Snowflake | [Answer data questions](https://claude.com/docs/claude-tag/users/use-cases/answer-data-questions.md) with charts |
+| Go-to-market | Salesforce, HubSpot, Gong | [Pull deal and account state](https://claude.com/docs/claude-tag/users/use-cases/pull-deal-state.md) |
+| Monitoring | Datadog, Sentry, PagerDuty | [Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md) |
+| Code | GitHub | [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md), open pull requests, follow CI |
 
-If a connection your work needs is missing, an admin can [add it](/docs/claude-tag/admins/add-connections.md).
+If a connection your work needs is missing, an admin can [add it](https://claude.com/docs/claude-tag/admins/add-connections.md).
 
 ## Related resources
 
-* [Prompt library](/docs/claude-tag/users/prompt-library.md): the prompts from every entry, plus the operational ones, on one page
-* [Good habits](/docs/claude-tag/users/good-habits.md): make any of these reliable
-* [Set up routines](/docs/claude-tag/users/proactivity.md): turn any entry into a scheduled job
+* [Prompt library](https://claude.com/docs/claude-tag/users/prompt-library.md): the prompts from every entry, plus the operational ones, on one page
+* [Good habits](https://claude.com/docs/claude-tag/users/good-habits.md): make any of these reliable
+* [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md): turn any entry into a scheduled job

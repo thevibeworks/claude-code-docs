@@ -16,15 +16,15 @@ We'll build a server that exposes two tools: `get_alerts` and `get_forecast`. Th
 
 > [!NOTE]
 >
-> Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/draft/develop/build-client.md).
+> Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](https://modelcontextprotocol.io/docs/draft/develop/build-client.md).
 
 ### Core MCP Concepts
 
 MCP servers can provide three main types of capabilities:
 
-1. **[Resources](/docs/draft/learn/server-concepts.md#resources)**: File-like data that can be read by clients (like API responses or file contents)
-2. **[Tools](/docs/draft/learn/server-concepts.md#tools)**: Functions that can be called by the LLM (with user approval)
-3. **[Prompts](/docs/draft/learn/server-concepts.md#prompts)**: Pre-written templates that help users accomplish specific tasks
+1. **[Resources](https://modelcontextprotocol.io/docs/draft/learn/server-concepts.md#resources)**: File-like data that can be read by clients (like API responses or file contents)
+2. **[Tools](https://modelcontextprotocol.io/docs/draft/learn/server-concepts.md#tools)**: Functions that can be called by the LLM (with user approval)
+3. **[Prompts](https://modelcontextprotocol.io/docs/draft/learn/server-concepts.md#prompts)**: Pre-written templates that help users accomplish specific tasks
 
 This tutorial will primarily focus on tools.
 
@@ -711,7 +711,7 @@ console.error("Weather MCP Server running on stdio");
 
 Make sure to run `npm run build` to build your server! This is a very important step in getting your server to connect.
 
-To check that the server answers 2026-07-28 clients, list its tools with the [Inspector CLI](/docs/draft/tools/inspector/cli.md) in the `modern` [protocol era](/docs/draft/tools/inspector/protocol-eras.md):
+To check that the server answers 2026-07-28 clients, list its tools with the [Inspector CLI](https://modelcontextprotocol.io/docs/draft/tools/inspector/cli.md) in the `modern` [protocol era](https://modelcontextprotocol.io/docs/draft/tools/inspector/protocol-eras.md):
 
 ```bash theme={null}
 npx @modelcontextprotocol/inspector --cli node build/index.js --protocol-era modern --method tools/list
@@ -2899,7 +2899,7 @@ When you ask a question:
 >
 > **None of this is working. What do I do?**
 >
-> Please refer to our [debugging guide](/docs/draft/tools/debugging.md) for better debugging tools and more detailed guidance.
+> Please refer to our [debugging guide](https://modelcontextprotocol.io/docs/draft/tools/debugging.md) for better debugging tools and more detailed guidance.
 
 > **Weather API Issues**
 >
@@ -2923,22 +2923,22 @@ When you ask a question:
 
 > [!NOTE]
 >
-> For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/draft/tools/debugging.md)
+> For more advanced troubleshooting, check out our guide on [Debugging MCP](https://modelcontextprotocol.io/docs/draft/tools/debugging.md)
 
 ## Next steps
 
-> **[Building a client](/docs/draft/develop/build-client.md)**
+> **[Building a client](https://modelcontextprotocol.io/docs/draft/develop/build-client.md)**
 >
 > Learn how to build your own MCP client that can connect to your server
 
-> **[Example servers](/examples.md)**
+> **[Example servers](https://modelcontextprotocol.io/examples.md)**
 >
 > Check out our gallery of official MCP servers and implementations
 
-> **[Debugging Guide](/docs/draft/tools/debugging.md)**
+> **[Debugging Guide](https://modelcontextprotocol.io/docs/draft/tools/debugging.md)**
 >
 > Learn how to effectively debug MCP servers and integrations
 
-> **[Build with Agent Skills](/docs/draft/develop/build-with-agent-skills.md)**
+> **[Build with Agent Skills](https://modelcontextprotocol.io/docs/draft/develop/build-with-agent-skills.md)**
 >
 > Use agent skills to guide AI coding assistants through server design

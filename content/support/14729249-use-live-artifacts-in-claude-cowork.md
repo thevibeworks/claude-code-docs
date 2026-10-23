@@ -1,6 +1,8 @@
 # Use live artifacts in Claude Cowork
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it’s in beta for Enterprise plans, where an admin turns it on as **Chat and Cowork unified (beta)**. If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it's generally available on Enterprise plans, where it appears in admin settings as **Chat and Cowork unified**.
+
+If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 Live artifacts are artifacts made in Claude Cowork before August 19, 2026. They stay in your **Artifacts** view and keep working, and you can still open and share them, but you can't edit them in place. This article explains what you can do with a live artifact and how to republish one so you can keep editing it.
 

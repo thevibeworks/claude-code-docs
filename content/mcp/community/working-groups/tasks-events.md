@@ -37,8 +37,8 @@ The Tasks and Events Working Group exists to continue the development of Tasks, 
 
 ### Related Groups
 
-* **[Transports WG](/community/working-groups/transports.md)** — delivery and ordering guarantees depend on transport capabilities; callback semantics must be coherent across stdio, Streamable HTTP, and future transports.
-* **[Agents IG](/community/interest-groups/agents.md)** — agent-as-tool, remote-agent, and supervisor/sub-agent patterns depend on Tasks and on task completion notifications. The IG provides use cases and requirements, and this WG owns the protocol surface.
+* **[Transports WG](https://modelcontextprotocol.io/community/working-groups/transports.md)** — delivery and ordering guarantees depend on transport capabilities; callback semantics must be coherent across stdio, Streamable HTTP, and future transports.
+* **[Agents IG](https://modelcontextprotocol.io/community/interest-groups/agents.md)** — agent-as-tool, remote-agent, and supervisor/sub-agent patterns depend on Tasks and on task completion notifications. The IG provides use cases and requirements, and this WG owns the protocol surface.
 
 ## Leadership
 
@@ -86,7 +86,7 @@ Meetings are published at
 * Tasks extension repository:
   [modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)
 * Tasks specification:
-  [SEP-2663: Tasks Extension](/seps/2663-tasks-extension.md)
+  [SEP-2663: Tasks Extension](https://modelcontextprotocol.io/seps/2663-tasks-extension.md)
 
 ## Deliverables & Success Metrics
 

@@ -21,7 +21,7 @@ A skill pays off when Claude does a task for you repeatedly and you want it done
 A skill isn't the right tool for everything:
 
 * **A one-off task**: describe what you want in the conversation instead
-* **Live data from another service**: that's what an [MCP connector](/docs/connectors/getting-started.md) provides. A skill can tell Claude how to use a connector, but it can't reach the service itself
+* **Live data from another service**: that's what an [MCP connector](https://claude.com/docs/connectors/getting-started.md) provides. A skill can tell Claude how to use a connector, but it can't reach the service itself
 * **Instructions for every conversation**: put those in your [personal preferences or project instructions](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) rather than a skill, which loads only when a task matches
 
 To start, write down the task in one sentence and what a good result looks like. That sentence becomes the skill's `description`, and the rest becomes the instructions. If you'd rather have Claude draft the skill with you, ask it to use the [skill-creator skill](#measure-whether-the-skill-improves-the-output), then edit what it produces.
@@ -203,7 +203,7 @@ In `SKILL.md`, write the script's path with `${CLAUDE_SKILL_DIR}`, for example `
 
 In Claude Code, running a script is a Bash tool call, so it needs your permission. When you test with [`claude -p`](https://code.claude.com/docs/en/headless), which can't stop to ask, allow the script on the command line, for example `--allowedTools "Bash(python3 /path/to/my-plugin/skills/render-chart/scripts/render.py *)"`, using the script's absolute path. Claude runs the script by its absolute path, and `Bash()` rules match the whole command line, so a rule that names the exact path approves only that script; a wildcard before the path would approve more than you intend.
 
-Don't put API keys, passwords, or other credentials in a script or anywhere else in the skill: everyone you share the skill with receives its files. When a script needs to reach an outside service, have Claude use a [connector](/docs/connectors/getting-started.md) for that service instead, so each person signs in with their own account.
+Don't put API keys, passwords, or other credentials in a script or anywhere else in the skill: everyone you share the skill with receives its files. When a script needs to reach an outside service, have Claude use a [connector](https://claude.com/docs/connectors/getting-started.md) for that service instead, so each person signs in with their own account.
 
 ## Package your skill
 
@@ -332,11 +332,11 @@ Copy a skill's structure rather than its contents: keep the folder layout and fr
 
 After your skill works, you can give it to other people on its own or as part of a plugin. People you share it with should be able to read what it does, so keep the instructions and scripts plain enough to review.
 
-* **Share or publish one skill**: on Team and Enterprise plans, open the skill from **Customize > Skills** and use the same **Share** and **Publish to org** controls that a plugin has. They work the way [sharing a plugin with specific people](/docs/plugins/share.md#share-a-plugin-with-specific-people) and [publishing a plugin to your organization](/docs/plugins/share.md#publish-a-plugin-to-your-organization) describe
-* **Package skills and connectors together**: when you want several skills, or a skill plus the connector it uses, installed together, [build a plugin](/docs/plugins/build.md) that contains them
+* **Share or publish one skill**: on Team and Enterprise plans, open the skill from **Customize > Skills** and use the same **Share** and **Publish to org** controls that a plugin has. They work the way [sharing a plugin with specific people](https://claude.com/docs/plugins/share.md#share-a-plugin-with-specific-people) and [publishing a plugin to your organization](https://claude.com/docs/plugins/share.md#publish-a-plugin-to-your-organization) describe
+* **Package skills and connectors together**: when you want several skills, or a skill plus the connector it uses, installed together, [build a plugin](https://claude.com/docs/plugins/build.md) that contains them
 
 ## Next steps
 
 * [Skills in Claude Code](https://code.claude.com/docs/en/skills): create and test skills from the Claude Code CLI, including the `/skills` manager
-* [Plugin structure and testing](/docs/plugins/build.md): package your skill as a plugin so other people can install it
-* [Submit your plugin](/docs/plugins/submit.md): submit the plugin to the directory, where Anthropic reviews it before it's listed
+* [Plugin structure and testing](https://claude.com/docs/plugins/build.md): package your skill as a plugin so other people can install it
+* [Submit your plugin](https://claude.com/docs/plugins/submit.md): submit the plugin to the directory, where Anthropic reviews it before it's listed

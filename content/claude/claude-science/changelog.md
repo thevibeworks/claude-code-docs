@@ -16,7 +16,7 @@ October 21, 2026
 
 October 21, 2026
 
-* A new **Trouble updating?** link opens [Update Claude Science](/docs/claude-science/update-claude-science.md), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
+* A new **Trouble updating?** link opens [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
 * Cloud storage in Settings now works with Google Cloud Storage HMAC keys on computers where no AWS region is set
 * Mac: if `config.toml` has `auto_update = false` under `[update]`, Claude Science in its own window no longer checks for updates in the background. You can still check with **Claude Science > Check for App Updates…** in the menu bar
 * Linux: fixed updates from 0.1.66 or earlier failing with "restart aborted" when Claude Science was started by typing only `claude-science`
@@ -79,7 +79,7 @@ October 13, 2026
 * A GitHub token you paste in **Settings > Credentials** now stays after a restart, instead of switching back to the token found on your computer; if yours switched back, paste it again
 * Linux: fixed Featured connectors that run on your computer sometimes failing to start right after your first sign-in
 * Linux: Claude Science now needs bubblewrap and socat installed for the whole system, from your distribution's packages or by an administrator. If yours came from conda, Homebrew, or a folder in your home directory, the app refuses to start and its message says what to do
-* Windows: Claude Science is now signed with a renewed certificate from the same publisher, Anthropic, PBC. If your IT team allows the app by certificate thumbprint, add the new SHA-1 thumbprint `60C2D9C51F09822FFF4F194DE9EEDB67451292D1` and keep the previous one, both listed under [Windows signing certificate](/docs/claude-science/manage-on-devices.md#windows-signing-certificate)
+* Windows: Claude Science is now signed with a renewed certificate from the same publisher, Anthropic, PBC. If your IT team allows the app by certificate thumbprint, add the new SHA-1 thumbprint `60C2D9C51F09822FFF4F194DE9EEDB67451292D1` and keep the previous one, both listed under [Windows signing certificate](https://claude.com/docs/claude-science/manage-on-devices.md#windows-signing-certificate)
 * Security hardening of the analysis sandbox on Mac, Windows, and Linux
 * Various bug fixes and security improvements
 
@@ -196,7 +196,7 @@ September 17, 2026
 
 September 16, 2026
 
-* If your organization is in Anthropic's Life Sciences Verification Program (beta), you can now [choose a use case](/docs/claude-science/safeguards.md#choose-a-use-case) for your sessions
+* If your organization is in Anthropic's Life Sciences Verification Program (beta), you can now [choose a use case](https://claude.com/docs/claude-science/safeguards.md#choose-a-use-case) for your sessions
 * Saved credentials now reach Claude's code only when it asks for them and you approve. They're no longer present in every cell
 * Access Claude Science work saved on your computer from other sign-ins, from Home or Settings. Admins control it on Team and Enterprise plans
 * Claude can send you a short message, such as a link to a file, while it keeps working on a task
@@ -221,7 +221,7 @@ September 14, 2026
 
 September 10, 2026
 
-* Claude Science is now available for Windows: download it from [claude.com/product/claude-science](https://claude.com/product/claude-science), and see [Get started](/docs/claude-science/get-started.md) for setup
+* Claude Science is now available for Windows: download it from [claude.com/product/claude-science](https://claude.com/product/claude-science), and see [Get started](https://claude.com/docs/claude-science/get-started.md) for setup
 * Various bug fixes and improvements
 
 **0.1.43**

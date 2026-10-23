@@ -6,7 +6,7 @@
 
 > Which MCP clients implement which official extensions
 
-This matrix shows which MCP clients support each [official extension](/extensions/overview.md). Extensions are always opt-in: a client only uses an extension if both client and server declare support in the `extensions` field of their [capabilities](/extensions/overview.md#negotiation).
+This matrix shows which MCP clients support each [official extension](https://modelcontextprotocol.io/extensions/overview.md). Extensions are always opt-in: a client only uses an extension if both client and server declare support in the `extensions` field of their [capabilities](https://modelcontextprotocol.io/extensions/overview.md#negotiation).
 
 > [!NOTE]
 >
@@ -16,14 +16,14 @@ This matrix shows which MCP clients support each [official extension](/extension
 
 | Extension | Identifier | Description |
 | - | - | - |
-| [MCP Apps](/extensions/apps/overview.md) | `io.modelcontextprotocol/ui` | Interactive HTML interfaces rendered inline in the conversation |
-| [OAuth Client Credentials](/extensions/auth/oauth-client-credentials.md) | `io.modelcontextprotocol/oauth-client-credentials` | Machine-to-machine auth without interactive user login |
-| [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization.md) | `io.modelcontextprotocol/enterprise-managed-authorization` | Centralized access control via enterprise IdP |
-| [Skills over MCP](/extensions/skills/overview.md) | `io.modelcontextprotocol/skills` | Discover skills and read their instructions and supporting files |
+| [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | `io.modelcontextprotocol/ui` | Interactive HTML interfaces rendered inline in the conversation |
+| [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | `io.modelcontextprotocol/oauth-client-credentials` | Machine-to-machine auth without interactive user login |
+| [Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | `io.modelcontextprotocol/enterprise-managed-authorization` | Centralized access control via enterprise IdP |
+| [Skills over MCP](https://modelcontextprotocol.io/extensions/skills/overview.md) | `io.modelcontextprotocol/skills` | Discover skills and read their instructions and supporting files |
 
 ## Support matrix
 
-| Client | [MCP Apps](/extensions/apps/overview.md) | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials.md) | [Enterprise Auth](/extensions/auth/enterprise-managed-authorization.md) | [Skills](/extensions/skills/overview.md) |
+| Client | [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | [Enterprise Auth](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | [Skills](https://modelcontextprotocol.io/extensions/skills/overview.md) |
 | - | :-: | :-: | :-: | :-: |
 | [Claude (web)](https://claude.ai) | | | | |
 | [Claude Desktop](https://claude.ai/download) | | | | |
@@ -49,8 +49,8 @@ This matrix shows which MCP clients support each [official extension](/extension
 If you're building an MCP client and want to implement extension support:
 
 1. Review the extension specification (e.g., in the [ext-auth](https://github.com/modelcontextprotocol/ext-auth) or [ext-apps](https://github.com/modelcontextprotocol/ext-apps) repository)
-2. Declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` your client sends in each request's `_meta`, and read the server's `extensions` from its [`server/discover`](/specification/draft/server/discover) response
+2. Declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` your client sends in each request's `_meta`, and read the server's `extensions` from its [`server/discover`](https://modelcontextprotocol.io/specification/draft/server/discover) response
 3. Implement the extension's protocol requirements
 4. Submit a pull request to update this matrix
 
-See [Extensions Overview](/extensions/overview.md#negotiation) for details on the capability negotiation mechanism.
+See [Extensions Overview](https://modelcontextprotocol.io/extensions/overview.md#negotiation) for details on the capability negotiation mechanism.

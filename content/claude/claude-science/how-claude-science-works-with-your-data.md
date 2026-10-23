@@ -12,28 +12,28 @@ Claude Science is client-side software that your organization installs and runs 
 
 On Team and Enterprise plans the [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) apply. Under them Anthropic "may not train models on Customer Content from Services," and, as between the parties and to the extent permitted by applicable law, your organization "retains all rights to its Inputs" and "owns its Outputs," including the analyses, code, and results your researchers produce with Claude Science. Anthropic may use content to improve its models only when your organization otherwise expressly chooses to allow it (see [Is my data used for model training?](https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training)). Safety feedback a member sends when Claude's safeguards pause a chat goes to Anthropic for future improvements to its safety systems. To turn off the ability for your researchers to provide feedback, an Owner can turn off the **Rate chats** toggle under **Organization settings** > **Data and privacy**.
 
-On Pro and Max plans the [Consumer Terms of Service](https://www.anthropic.com/legal/consumer-terms), [Anthropic Privacy Policy](https://www.anthropic.com/legal/privacy), and your Claude privacy settings in the Settings panel apply (see [Legal and compliance](/docs/claude-science/legal-and-compliance.md)).
+On Pro and Max plans the [Consumer Terms of Service](https://www.anthropic.com/legal/consumer-terms), [Anthropic Privacy Policy](https://www.anthropic.com/legal/privacy), and your Claude privacy settings in the Settings panel apply (see [Legal and compliance](https://claude.com/docs/claude-science/legal-and-compliance.md)).
 
 ## Where Claude Science data lives
 
 | Where | What |
 | - | - |
-| The computer running Claude Science | Conversation history, project files and artifacts, saved memory, most settings, and stored credentials, in a local folder Anthropic doesn't host or sync (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices.md)) |
+| The computer running Claude Science | Conversation history, project files and artifacts, saved memory, most settings, and stored credentials, in a local folder Anthropic doesn't host or sync (see [Manage Claude Science on devices](https://claude.com/docs/claude-science/manage-on-devices.md)) |
 | Anthropic | The items listed under [What Anthropic receives](#what-anthropic-receives) |
-| Services your organization or members connect | Jobs, files, and queries sent to your SSH hosts, your Modal account, scientific model endpoints, cloud storage, and the external services that local (Featured and custom) connectors, sandboxed code, and remote jobs call, directly from the computer or your own compute and without passing through Anthropic (see [Admin controls](/docs/claude-science/admin-controls.md#organization-settings)) |
+| Services your organization or members connect | Jobs, files, and queries sent to your SSH hosts, your Modal account, scientific model endpoints, cloud storage, and the external services that local (Featured and custom) connectors, sandboxed code, and remote jobs call, directly from the computer or your own compute and without passing through Anthropic (see [Admin controls](https://claude.com/docs/claude-science/admin-controls.md#organization-settings)) |
 
 Sign-in tokens and the credentials members store for compute and cloud storage are encrypted on the computer, and the rest of the local folder relies on operating-system permissions, so apply your full-disk encryption and device management policies to it.
 
 ## What Anthropic receives
 
-The app sends the following to Anthropic, over TLS and signed in with the member's Claude account (see [Network requirements](/docs/claude-science/network-requirements.md#app-connections) for the domains):
+The app sends the following to Anthropic, over TLS and signed in with the member's Claude account (see [Network requirements](https://claude.com/docs/claude-science/network-requirements.md#app-connections) for the domains):
 
 * **Requests to Claude** every time Claude responds, carrying the conversation so far, including the member's prompts, the contents of files Claude has read (PDFs included), code and command output, connector results, images Claude is shown, and recalled memory facts. Anthropic keeps these as model-call logs (see [What Anthropic keeps and for how long](#what-anthropic-keeps-and-for-how-long)).
 * **Web search queries**, run by Anthropic's web search service through a third-party search provider listed among [Anthropic's subprocessors](https://www.anthropic.com/subprocessors).
 * **Dictation audio**, streamed to Anthropic's speech-to-text service only while a member dictates. If the app can't use that service while Claude Science is open in a browser such as Chrome or Edge, it falls back to the browser's built-in speech recognition, and that browser's vendor then processes the audio.
-* **Safety feedback**, only when a member sends it from the [**Chat paused** card](/docs/claude-science/safeguards.md#when-safeguards-flag-a-message) that appears when Claude's safeguards pause a chat, consisting of the member's optional comment and a copy of that conversation (members are reminded before submission) with known credential formats and email addresses redacted. It goes to Anthropic for future improvements to its safety systems. Not accepted from organizations with HIPAA compliance or customer-managed encryption keys.
+* **Safety feedback**, only when a member sends it from the [**Chat paused** card](https://claude.com/docs/claude-science/safeguards.md#when-safeguards-flag-a-message) that appears when Claude's safeguards pause a chat, consisting of the member's optional comment and a copy of that conversation (members are reminded before submission) with known credential formats and email addresses redacted. It goes to Anthropic for future improvements to its safety systems. Not accepted from organizations with HIPAA compliance or customer-managed encryption keys.
 * **Custom skills a member publishes**, stored with the member's claude.ai skills.
-* **Usage telemetry and error reports**, which carry app, device, and timing data, plus account and organization identifiers on telemetry events, but no conversation content, file contents, or file names (see [Telemetry](/docs/claude-science/manage-on-devices.md#telemetry) for the device setting that turns them, and feedback, off).
+* **Usage telemetry and error reports**, which carry app, device, and timing data, plus account and organization identifiers on telemetry events, but no conversation content, file contents, or file names (see [Telemetry](https://claude.com/docs/claude-science/manage-on-devices.md#telemetry) for the device setting that turns them, and feedback, off).
 * **Calls to connectors Anthropic hosts** from your claude.ai connector directory, which pass through Anthropic's connector service as in claude.ai, plus routine account, settings, and update traffic.
 
 ## What Anthropic keeps and for how long
@@ -48,11 +48,11 @@ Human review of model-call logs, published skills, or Compliance API transcripts
 
 ## Controls available to your organization
 
-* **Organization settings** for connectors, skills, the sandbox network allowlist, SSH hosts, Modal, model endpoints, memory, and access to previously saved Claude Science work (see [Admin controls](/docs/claude-science/admin-controls.md)). There is no organization setting for web search, dictation, or telemetry.
+* **Organization settings** for connectors, skills, the sandbox network allowlist, SSH hosts, Modal, model endpoints, memory, and access to previously saved Claude Science work (see [Admin controls](https://claude.com/docs/claude-science/admin-controls.md)). There is no organization setting for web search, dictation, or telemetry.
 * **US-only inference** (usage-based Enterprise plans) runs model inference for Claude Science requests in the United States, as for your other Claude apps (see [Enable US-only inference](https://support.claude.com/en/articles/15422948-enable-us-only-inference-for-your-organization)).
-* **Device configuration** turns off telemetry, error reports, and feedback and relocates the local data folder (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices.md)).
-* **Running Claude Science next to your data**, on a Linux server or virtual machine you control, keeps datasets on your infrastructure, apart from what Claude reads into the conversation, while Claude's inference runs on Anthropic's service (see [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server.md)).
-* **Usage analytics** show adoption and session metrics without conversation content (see [Monitor usage](/docs/claude-science/monitor-usage.md)).
+* **Device configuration** turns off telemetry, error reports, and feedback and relocates the local data folder (see [Manage Claude Science on devices](https://claude.com/docs/claude-science/manage-on-devices.md)).
+* **Running Claude Science next to your data**, on a Linux server or virtual machine you control, keeps datasets on your infrastructure, apart from what Claude reads into the conversation, while Claude's inference runs on Anthropic's service (see [Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md)).
+* **Usage analytics** show adoption and session metrics without conversation content (see [Monitor usage](https://claude.com/docs/claude-science/monitor-usage.md)).
 
 ## Compliance API coverage
 
@@ -64,12 +64,12 @@ Organizations that use [customer-managed encryption keys (CMEK)](https://platfor
 
 The app's conversation history, files, artifacts, and memory are stored on the member's computer and aren't hosted by Anthropic; of these, only what the app sends to Claude reaches Anthropic, where your key covers it as this section describes. Work members send to their own SSH hosts, Modal account, or scientific model endpoints goes directly there, not through Anthropic, and isn't under your key or any Anthropic-managed key, so review those providers' data handling. You can turn these connections off under **Organization settings** > **Claude Science**.
 
-In organizations with CMEK enabled, the app hides the **Send feedback** link on the [**Chat paused**](/docs/claude-science/safeguards.md#when-safeguards-flag-a-message) card.
+In organizations with CMEK enabled, the app hides the **Send feedback** link on the [**Chat paused**](https://claude.com/docs/claude-science/safeguards.md#when-safeguards-flag-a-message) card.
 
 ## What isn't available for Claude Science
 
-Zero data retention (a Claude Code zero-data-retention arrangement covers Claude Code sessions, not Claude Science), Enterprise Frontier Safeguards, coverage under Anthropic's Business Associate Agreement (keep protected health information out of Claude Science), and inference through a third-party cloud platform or your own cloud tenancy aren't available for Claude Science. See [Admin controls](/docs/claude-science/admin-controls.md#how-other-admin-settings-apply-to-claude-science) for how the other claude.ai admin settings apply to the app.
+Zero data retention (a Claude Code zero-data-retention arrangement covers Claude Code sessions, not Claude Science), Enterprise Frontier Safeguards, coverage under Anthropic's Business Associate Agreement (keep protected health information out of Claude Science), and inference through a third-party cloud platform or your own cloud tenancy aren't available for Claude Science. See [Admin controls](https://claude.com/docs/claude-science/admin-controls.md#how-other-admin-settings-apply-to-claude-science) for how the other claude.ai admin settings apply to the app.
 
 ## Related resources
 
-[Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms), [Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum), [subprocessor list](https://www.anthropic.com/subprocessors), [Usage Policy](https://www.anthropic.com/legal/aup), the [Anthropic Trust Center](https://trust.anthropic.com) for certifications and security documentation, and [Admin controls](/docs/claude-science/admin-controls.md).
+[Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms), [Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum), [subprocessor list](https://www.anthropic.com/subprocessors), [Usage Policy](https://www.anthropic.com/legal/aup), the [Anthropic Trust Center](https://trust.anthropic.com) for certifications and security documentation, and [Admin controls](https://claude.com/docs/claude-science/admin-controls.md).

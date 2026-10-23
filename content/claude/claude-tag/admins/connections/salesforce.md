@@ -36,11 +36,11 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 | Scopes (optional) | On the **Advanced** tab. Leave empty unless your app requires specific scopes |
 | Allowed websites | Your org's host, for example `yourcompany.my.salesforce.com` |
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows an example host that can't resolve. Enter your org's host there, then click **Connect** to save the connector.
+The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows an example host that can't resolve. Enter your org's host there, then click **Connect** to save the connector.
 
 To change the host later, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Salesforce**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -54,4 +54,4 @@ Check the integration user's login history in Salesforce Setup to confirm the ca
 
 ## Related resources
 
-* [Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state.md): what this connection adds
+* [Pull deal and account state](https://claude.com/docs/claude-tag/users/use-cases/pull-deal-state.md): what this connection adds

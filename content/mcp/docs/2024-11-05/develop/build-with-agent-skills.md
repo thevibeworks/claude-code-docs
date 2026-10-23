@@ -61,13 +61,13 @@ recommendation.
 Based on discovery, the skill recommends one of four paths and scaffolds
 accordingly:
 
-**Remote [HTTP with SSE](/specification/2024-11-05/basic/transports.md#http-with-sse)**
+**Remote [HTTP with SSE](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports.md#http-with-sse)**
 is the default for anything wrapping a cloud API. Zero install friction, one
 deployment serves all users, and OAuth flows work properly because the server
 can handle redirects and token storage. The reference skill includes scaffolds
 for Cloudflare Workers and portable Express/FastMCP setups.
 
-**[MCP apps](/extensions/apps/overview.md)** extend a server with interactive
+**[MCP apps](https://modelcontextprotocol.io/extensions/apps/overview.md)** extend a server with interactive
 widgets rendered in chat, such as searchable pickers, charts, and live
 dashboards. The skill hands off to `build-mcp-app` when plain text output
 doesn't fit.
@@ -78,7 +78,7 @@ can install it without setting up Node or Python. Use this path when the server
 must touch the user's machine: reading local files, driving desktop apps, or
 talking to localhost services. The skill hands off to `build-mcpb`.
 
-**Local [stdio](/specification/2024-11-05/basic/transports.md#stdio)** remains available
+**Local [stdio](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports.md#stdio)** remains available
 for prototyping, with a noted upgrade path to MCPB when you're ready to
 distribute.
 
@@ -87,14 +87,14 @@ distribute.
 Once your agent scaffolds the server, iterate on tool descriptions and error
 handling, then test and ship:
 
-> **[MCP Inspector](/docs/2024-11-05/tools/inspector.md)**
+> **[MCP Inspector](https://modelcontextprotocol.io/docs/2024-11-05/tools/inspector.md)**
 >
 > Test your server's tools, resources, and prompts interactively
 
-> **[Connect to a client](/docs/2024-11-05/develop/connect-local-servers.md)**
+> **[Connect to a client](https://modelcontextprotocol.io/docs/2024-11-05/develop/connect-local-servers.md)**
 >
 > Wire your server into an MCP client via local or remote configuration
 
-> **[Publish to the Registry](/registry/quickstart.md)**
+> **[Publish to the Registry](https://modelcontextprotocol.io/registry/quickstart.md)**
 >
 > Make your server discoverable in the MCP Registry

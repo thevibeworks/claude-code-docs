@@ -86,7 +86,7 @@ either, or both:
 
 To discover available resources, clients send a `resources/list` request. This operation
 supports
-[pagination](/specification/2024-11-05/server/utilities/pagination.md).
+[pagination](https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/pagination.md).
 
 **Request:**
 
@@ -160,9 +160,9 @@ To retrieve resource contents, clients send a `resources/read` request:
 
 Resource templates allow servers to expose parameterized resources using
 [URI templates](https://datatracker.ietf.org/doc/html/rfc6570). Arguments may be
-auto-completed through [the completion API](/specification/2024-11-05/server/utilities/completion.md).
+auto-completed through [the completion API](https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/completion.md).
 This operation supports
-[pagination](/specification/2024-11-05/server/utilities/pagination.md).
+[pagination](https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/pagination.md).
 
 **Request:**
 

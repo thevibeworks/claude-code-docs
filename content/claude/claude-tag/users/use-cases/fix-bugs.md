@@ -18,7 +18,7 @@ Each prompt below is a Slack message. You paste it in the channel or thread wher
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](https://claude.com/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -36,7 +36,7 @@ A bug report arrives with reproduction steps and nobody free to take it. This ge
 
 The done definition, CI green and the PR linking back, gives the session a finish line it can check itself against.
 
-The pull request appears under the Claude GitHub App and links back to the Slack thread it came from. See [how agent identity works](/docs/claude-tag/concepts/agent-identity.md#agent-access).
+The pull request appears under the Claude GitHub App and links back to the Slack thread it came from. See [how agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-access).
 
 ### Move a bug report to the owning team's channel
 
@@ -46,7 +46,7 @@ A report that landed in a general channel belongs with the team that owns the co
 @Claude !fork #data-platform in acme/data-pipeline, reproduce the bug described in the linked thread, fix it, and open a draft PR. Done means CI is green and the PR links back here.
 ```
 
-Both channels must be public, and you and Claude must both be in the target. See [Fork a thread](/docs/claude-tag/users/commands.md#fork-a-thread).
+Both channels must be public, and you and Claude must both be in the target. See [Fork a thread](https://claude.com/docs/claude-tag/users/commands.md#fork-a-thread).
 
 ### Watch a bug channel
 
@@ -56,7 +56,7 @@ Reports arrive faster than the team triages them. The standing form watches the 
 @Claude when a bug report lands in this channel, try to reproduce it. If you can, open a draft PR and tag the area owner; if you can't, reply with what you tried.
 ```
 
-With the if/can't branch, every report gets a reply, either a draft or a list of what was tried. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
+With the if/can't branch, every report gets a reply, either a draft or a list of what was tried. To list or cancel scheduled work later, see [Manage standing work](https://claude.com/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ### Diagnose a failure without a fix
 
@@ -78,14 +78,14 @@ Once a pull request exists, one Claude opened or one a person did, Claude can wa
 
 "Tag me if anything failed" is the filter. Green runs land quietly in the thread, and only a failure interrupts you.
 
-For repository conventions that should hold across every session that touches the code, like where files go or what a pull request must include, see [Make repo conventions stick](/docs/claude-tag/users/good-habits.md#teach-claude-something-that-sticks).
+For repository conventions that should hold across every session that touches the code, like where files go or what a pull request must include, see [Make repo conventions stick](https://claude.com/docs/claude-tag/users/good-habits.md#teach-claude-something-that-sticks).
 
 ## Related resources
 
-> **[Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors.md)**
+> **[Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md)**
 >
 > Catching the problem before the bug report
 
-> **[Good habits](/docs/claude-tag/users/good-habits.md)**
+> **[Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)**
 >
 > Definitions of done for code tasks

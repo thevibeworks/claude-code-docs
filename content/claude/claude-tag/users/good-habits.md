@@ -32,7 +32,7 @@ Claude can't add anyone to a channel, and it doesn't decide whether a mentioned 
 
 Ask Claude to notify a user group, such as an on-call rotation. Claude mentions the group, and Slack notifies its members. If Claude writes the group's @handle as plain text instead of mentioning the group, Slack notifies no one, so ask Claude to notify the group rather than to include its handle.
 
-If Claude replies with re-approval guidance instead of mentioning the group, your workspace's Claude app predates a Slack permission that group mentions need. Ask a Slack admin to re-approve the app, and send them [Slack app permissions](/docs/claude-tag/admins/troubleshooting.md#slack-app-permissions).
+If Claude replies with re-approval guidance instead of mentioning the group, your workspace's Claude app predates a Slack permission that group mentions need. Ask a Slack admin to re-approve the app, and send them [Slack app permissions](https://claude.com/docs/claude-tag/admins/troubleshooting.md#slack-app-permissions).
 
 Claude never pings @channel, @here, or @everyone.
 
@@ -46,7 +46,7 @@ A task like "post the project status and tag me when it's up" has an end state C
 
 ### How much detail to give
 
-Claude [reads the thread you tag it in, can search the workspace's public channels, and works with the channel's connections](/docs/claude-tag/users/getting-started.md#what-claude-can-see). If the background for your task is already in a thread, channel, or connected tool, link to it and state the outcome you want in one sentence. You don't need to restate the background.
+Claude [reads the thread you tag it in, can search the workspace's public channels, and works with the channel's connections](https://claude.com/docs/claude-tag/users/getting-started.md#what-claude-can-see). If the background for your task is already in a thread, channel, or connected tool, link to it and state the outcome you want in one sentence. You don't need to restate the background.
 
 ```text wrap theme={null}
 @Claude take over the bug in the thread linked above. Fix it and open a draft PR.
@@ -82,7 +82,7 @@ Two refinements make the table work in practice:
 
 For tasks Claude closes itself, ask it to attach proof, such as the source link, the chart, the test output, or the diff. You read the proof, not the transcript.
 
-For long-running work, make getting the deliverable somewhere durable part of the definition. Post the file to the thread, push the branch, or open the draft pull request as it goes. See [what survives between replies](/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies).
+For long-running work, make getting the deliverable somewhere durable part of the definition. Post the file to the thread, push the branch, or open the draft pull request as it goes. See [what survives between replies](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies).
 
 Calibrate over time. Check everything it produces in a new channel at first, and widen what it closes on its own as its output holds up under review.
 
@@ -122,7 +122,7 @@ Claude adapts to instructions, but it won't guess that you want it to. Tell it h
 @Claude remember for this channel: keep replies to three sentences unless someone asks for detail.
 ```
 
-Verify what stuck by asking what it remembers about the channel. See [What Claude Tag remembers](/docs/claude-tag/users/memory.md).
+Verify what stuck by asking what it remembers about the channel. See [What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md).
 
 ## Work in the right place
 
@@ -132,13 +132,13 @@ Where you start a thread determines what Claude can reach, who else can pick the
 
 Each thread runs its own session, and the session carries the whole conversation into every reply. Keep follow-ups on the same task in the same thread, where Claude already has the context.
 
-Start a new thread for each new task. The fresh session begins with full room for the work, picks up any configuration changes made since the old thread began, and keeps each piece of work reviewable on its own. A thread that accumulates many tasks eventually [grows past what one session can hold](/docs/claude-tag/users/troubleshooting.md#this-conversation-is-too-long-for-me-to-process).
+Start a new thread for each new task. The fresh session begins with full room for the work, picks up any configuration changes made since the old thread began, and keeps each piece of work reviewable on its own. A thread that accumulates many tasks eventually [grows past what one session can hold](https://claude.com/docs/claude-tag/users/troubleshooting.md#this-conversation-is-too-long-for-me-to-process).
 
-To start several independent tasks from inside an existing thread, [ask Claude to open a thread for each](/docs/claude-tag/users/prompt-library.md#fan-out-work-across-threads). To continue the current discussion in a fresh thread, run [`!fork`](/docs/claude-tag/users/commands#fork-a-thread).
+To start several independent tasks from inside an existing thread, [ask Claude to open a thread for each](https://claude.com/docs/claude-tag/users/prompt-library.md#fan-out-work-across-threads). To continue the current discussion in a fresh thread, run [`!fork`](https://claude.com/docs/claude-tag/users/commands#fork-a-thread).
 
 ### Pick the right surface
 
-Channel access belongs to the channel, and access in a one-to-one DM belongs to you. A channel can also be yours alone. Create one with just you and Claude in it, and it works the same way a team channel does. The table compares the three surfaces. For a group DM, see [Use Claude Tag in a group DM](/docs/claude-tag/users/group-dms.md).
+Channel access belongs to the channel, and access in a one-to-one DM belongs to you. A channel can also be yours alone. Create one with just you and Claude in it, and it works the same way a team channel does. The table compares the three surfaces. For a group DM, see [Use Claude Tag in a group DM](https://claude.com/docs/claude-tag/users/group-dms.md).
 
 | | A team channel | Your own channel | A one-to-one DM |
 | :- | :- | :- | :- |
@@ -148,21 +148,21 @@ Channel access belongs to the channel, and access in a one-to-one DM belongs to 
 | Billing | The organization | The organization | Your seat |
 | Best for | Shared work the team should see and steer | Your own questions, digests, and follow-ups, kept where a teammate can pick them up | Personal tasks on your own connections, or data that shouldn't run through a shared channel connection |
 
-[Routines](/docs/claude-tag/users/proactivity.md) belong to a channel too. You set standing work up in the channel where it should post, and it runs with that channel's connections. [Work from your own channel](/docs/claude-tag/users/use-cases/your-own-channel.md) shows what a channel of your own is good for.
+[Routines](https://claude.com/docs/claude-tag/users/proactivity.md) belong to a channel too. You set standing work up in the channel where it should post, and it runs with that channel's connections. [Work from your own channel](https://claude.com/docs/claude-tag/users/use-cases/your-own-channel.md) shows what a channel of your own is good for.
 
-A DM can still answer questions about a public channel when the answer should stay private. Name the channel in the DM, as in `summarize the last week of #product-feedback`. Claude's Slack search covers public channels in this workspace from a DM the same as from a channel, so the DM advantage is privacy of the answer, not broader reach. Workspace search is unavailable in [channels that include guests](/docs/claude-tag/admins/restrict-access.md#restrict-guest-channels), so ask from a DM or from a channel without guests.
+A DM can still answer questions about a public channel when the answer should stay private. Name the channel in the DM, as in `summarize the last week of #product-feedback`. Claude's Slack search covers public channels in this workspace from a DM the same as from a channel, so the DM advantage is privacy of the answer, not broader reach. Workspace search is unavailable in [channels that include guests](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-guest-channels), so ask from a DM or from a channel without guests.
 
 Reading a public channel's full history, rather than what search finds, needs Claude to be a member of that channel. If it says it can't read a public channel, `/invite @Claude` from inside that channel adds it.
 
-Claude can also post into other public channels, and the rules depend on where you ask. See [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels).
+Claude can also post into other public channels, and the rules depend on where you ask. See [What Claude can do in other channels](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels).
 
 A private channel is readable only from inside it. Inviting Claude lets it work in that channel, but Claude can't read the private channel's messages from any other channel or DM. To ask about a private channel, ask in that channel.
 
-Claude can't post into a channel in a different workspace. In a [Slack Connect channel](/docs/claude-tag/admins/restrict-access.md#slack-connect-channels), one shared with another company, Claude answers only if an Owner or a Claude Tag admin has turned it on there, and then with [limited access](/docs/claude-tag/admins/restrict-access.md#what-access-claude-has-in-a-slack-connect-channel).
+Claude can't post into a channel in a different workspace. In a [Slack Connect channel](https://claude.com/docs/claude-tag/admins/restrict-access.md#slack-connect-channels), one shared with another company, Claude answers only if an Owner or a Claude Tag admin has turned it on there, and then with [limited access](https://claude.com/docs/claude-tag/admins/restrict-access.md#what-access-claude-has-in-a-slack-connect-channel).
 
 When more than one surface would work, prefer a channel. Work that happens there compounds, because Claude can draw on it in later threads and teammates can find it, redirect it, or build on it.
 
-If Claude says it can't reach something in a channel, the channel likely wasn't granted that access. See [How agent identity works](/docs/claude-tag/concepts/agent-identity.md).
+If Claude says it can't reach something in a channel, the channel likely wasn't granted that access. See [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md).
 
 ### Teach Claude something that sticks
 
@@ -170,12 +170,12 @@ When Claude gets something wrong, or learns something worth keeping, where you p
 
 | You want Claude to know | Put it in | Who can write it | Reaches |
 | :- | :- | :- | :- |
-| How this channel should behave: format, tone, when to respond | [**Channel memory**](/docs/claude-tag/users/memory.md) (say it and ask Claude to remember) | Anyone in the channel | This channel; the whole workspace only if Claude saves it as a workspace note from a public channel |
-| Conventions and setup for one repository: file layout, PR labels, dependencies to install | **`CLAUDE.md`** at the repo root ([loaded when the repo is](/docs/claude-tag/admins/configure-github.md#what-loads-from-a-repository)) | Anyone with repo write | Any session that works in that repo, from any channel |
-| Standing rules for this channel that outrank memory | The [**Configure** page](#configure-claude-for-a-channel), in the **Channel instructions** field | Channel members, unless an admin has [restricted it](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) | This channel |
-| A correction for this channel that you don't want to raise in the channel | [**Managed instructions**](/docs/claude-tag/admins/managed-by.md#correct-claude-privately-from-a-managing-channel), written from a private managing channel | Full workspace members in the managing channel who have a Claude account in your organization, after an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) sets it up | This channel |
-| How to use a tool correctly, or follow a specific process, org-wide | [**A skill**](/docs/claude-tag/admins/skills-repo.md) in your org's plugin marketplace | An organization Owner adds it; anyone can ask Claude to open a PR proposing the change | Every workspace and channel it's added to |
-| Standing rules across many channels | [**Workspace instructions** or **Slack instructions**](/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions) in Claude Tag admin settings | An organization Owner, or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) for a workspace | Every channel in that workspace, or in all of Slack |
+| How this channel should behave: format, tone, when to respond | [**Channel memory**](https://claude.com/docs/claude-tag/users/memory.md) (say it and ask Claude to remember) | Anyone in the channel | This channel; the whole workspace only if Claude saves it as a workspace note from a public channel |
+| Conventions and setup for one repository: file layout, PR labels, dependencies to install | **`CLAUDE.md`** at the repo root ([loaded when the repo is](https://claude.com/docs/claude-tag/admins/configure-github.md#what-loads-from-a-repository)) | Anyone with repo write | Any session that works in that repo, from any channel |
+| Standing rules for this channel that outrank memory | The [**Configure** page](#configure-claude-for-a-channel), in the **Channel instructions** field | Channel members, unless an admin has [restricted it](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) | This channel |
+| A correction for this channel that you don't want to raise in the channel | [**Managed instructions**](https://claude.com/docs/claude-tag/admins/managed-by.md#correct-claude-privately-from-a-managing-channel), written from a private managing channel | Full workspace members in the managing channel who have a Claude account in your organization, after an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) sets it up | This channel |
+| How to use a tool correctly, or follow a specific process, org-wide | [**A skill**](https://claude.com/docs/claude-tag/admins/skills-repo.md) in your org's plugin marketplace | An organization Owner adds it; anyone can ask Claude to open a PR proposing the change | Every workspace and channel it's added to |
+| Standing rules across many channels | [**Workspace instructions** or **Slack instructions**](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions) in Claude Tag admin settings | An organization Owner, or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) for a workspace | Every channel in that workspace, or in all of Slack |
 
 The first three are yours to write. You can still ask Claude to draft a skill change as a pull request for an admin to review:
 
@@ -183,21 +183,21 @@ The first three are yours to write. You can still ask Claude to draft a skill ch
 @Claude that worked. Open a PR to the skills repo so this query pattern is part of the Datadog skill.
 ```
 
-See [the admin guide to a skills repository](/docs/claude-tag/admins/skills-repo.md) for what that setup gives you.
+See [the admin guide to a skills repository](https://claude.com/docs/claude-tag/admins/skills-repo.md) for what that setup gives you.
 
-A `CLAUDE.md` carries setup as well as conventions. Sessions run in a sandbox with a standard set of preinstalled tools. If the repository needs more, such as a language runtime or a database client, put the install commands in `CLAUDE.md`, and Claude [runs them when its work needs them](/docs/claude-tag/admins/configure-github.md#install-project-dependencies).
+A `CLAUDE.md` carries setup as well as conventions. Sessions run in a sandbox with a standard set of preinstalled tools. If the repository needs more, such as a language runtime or a database client, put the install commands in `CLAUDE.md`, and Claude [runs them when its work needs them](https://claude.com/docs/claude-tag/admins/configure-github.md#install-project-dependencies).
 
-A `CLAUDE.md` is guidance; a required status check is a gate. If a pull request must carry a label or pass a check, make that a repository rule rather than a memory note or a skill. The same goes for review: to require an approval from someone other than the person who asked Claude for the change, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github.md#require-a-second-approval-on-claude%E2%80%99s-pull-requests).
+A `CLAUDE.md` is guidance; a required status check is a gate. If a pull request must carry a label or pass a check, make that a repository rule rather than a memory note or a skill. The same goes for review: to require an approval from someone other than the person who asked Claude for the change, see [Require a second approval on Claude's pull requests](https://claude.com/docs/claude-tag/admins/configure-github.md#require-a-second-approval-on-claude%E2%80%99s-pull-requests).
 
 ### Configure Claude for a channel
 
-The **Configure** link in the footer of any Claude reply in a channel opens a page where you tailor how Claude behaves in that channel. You can also send [`@Claude !configure`](/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) in the channel, and Claude replies with a link to the same page. The page is on claude.ai, so you need to be signed in to your Claude organization to edit it, and an admin can [restrict editing](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) so the page is read-only for members.
+The **Configure** link in the footer of any Claude reply in a channel opens a page where you tailor how Claude behaves in that channel. You can also send [`@Claude !configure`](https://claude.com/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) in the channel, and Claude replies with a link to the same page. The page is on claude.ai, so you need to be signed in to your Claude organization to edit it, and an admin can [restrict editing](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) so the page is read-only for members.
 
-The **Respond automatically** toggle on that page controls whether Claude replies in the channel without an @-mention. See [Turn automatic replies on or off](/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) for what the setting does and the other places you can change it.
+The **Respond automatically** toggle on that page controls whether Claude replies in the channel without an @-mention. See [Turn automatic replies on or off](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) for what the setting does and the other places you can change it.
 
 Use the **Channel instructions** field on that page to write standing guidance Claude reads in every new session in the channel: the channel's purpose, its conventions, the tone replies should take, and anything Claude should do or avoid there. Channel instructions outrank channel memory and sit alongside any instructions an admin has set for the workspace or organization. Save the field and the change applies to new sessions started in the channel.
 
-The page's **Tools and access** tab shows **Connections**, the services Claude can reach from this channel, along with any allowed domains. You can see those lists but not change them on this page. The same tab's **Plugins** card lists the channel's plugins, and you can add plugins there unless an admin has restricted editing to admins. If you've been made a [channel manager](/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) for the channel, the tab also has **Access bundles** and **GitHub repositories** cards you can edit.
+The page's **Tools and access** tab shows **Connections**, the services Claude can reach from this channel, along with any allowed domains. You can see those lists but not change them on this page. The same tab's **Plugins** card lists the channel's plugins, and you can add plugins there unless an admin has restricted editing to admins. If you've been made a [channel manager](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) for the channel, the tab also has **Access bundles** and **GitHub repositories** cards you can edit.
 
 ## Keep thread count and review rate matched
 
@@ -209,5 +209,5 @@ Claude runs as many threads as you start. Your capacity to review them doesn't s
 
 ## Related resources
 
-* [Use case library](/docs/claude-tag/users/use-cases.md): the full setups these habits make reliable
-* [What Claude Tag remembers](/docs/claude-tag/users/memory.md): make corrections stick
+* [Use case library](https://claude.com/docs/claude-tag/users/use-cases.md): the full setups these habits make reliable
+* [What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md): make corrections stick

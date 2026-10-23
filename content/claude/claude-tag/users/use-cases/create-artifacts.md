@@ -18,7 +18,7 @@ Each prompt below is a Slack message. You paste it in the thread or channel you 
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](https://claude.com/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -53,7 +53,7 @@ When the deliverable is a page people open, like a dashboard or a status page, a
 @Claude build a status page from the open items in this channel and post the link here.
 ```
 
-Anyone with access to this channel can open the page; [artifact visibility](/docs/claude-tag/concepts/security-and-data.md#artifact-visibility) covers the access model.
+Anyone with access to this channel can open the page; [artifact visibility](https://claude.com/docs/claude-tag/concepts/security-and-data.md#artifact-visibility) covers the access model.
 
 ### Comment on the page to ask for changes
 
@@ -77,10 +77,10 @@ Planning inputs arrive over a month, not in one sitting. Forward messages and id
 
 ## Related resources
 
-> **[Catch up](/docs/claude-tag/users/use-cases/catch-up.md)**
+> **[Catch up](https://claude.com/docs/claude-tag/users/use-cases/catch-up.md)**
 >
 > When you need the summary, not the artifact
 
-> **[Good habits](/docs/claude-tag/users/good-habits.md)**
+> **[Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)**
 >
 > How to specify outputs that come back right

@@ -30,13 +30,13 @@ If your organization requires tokens with scopes, see [Connect a token with scop
 
 Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Jira & Confluence**. Leave **Paste an API key** selected and click **Continue to Jira & Confluence**.
 
-In the connect form, with **Use an API token** selected, enter the dedicated account's email address, the API token from Atlassian, and your own site's hostname, such as `your-domain.atlassian.net`. Claude sends the token only to that site. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+In the connect form, with **Use an API token** selected, enter the dedicated account's email address, the API token from Atlassian, and your own site's hostname, such as `your-domain.atlassian.net`. Claude sends the token only to that site. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 > [!NOTE]
 >
-> Atlassian Data Center (self-hosted) isn't covered by the **Jira & Confluence** entry because it authenticates with a personal access token sent as a Bearer header. Add a Data Center instance as a [custom connector](/docs/claude-tag/admins/connections/custom.md) with the **Bearer** credential type and your instance's hostname under **Allowed websites**. The instance must be reachable from the public internet.
+> Atlassian Data Center (self-hosted) isn't covered by the **Jira & Confluence** entry because it authenticates with a personal access token sent as a Bearer header. Add a Data Center instance as a [custom connector](https://claude.com/docs/claude-tag/admins/connections/custom.md) with the **Bearer** credential type and your instance's hostname under **Allowed websites**. The instance must be reachable from the public internet.
 
 ## Connect a token with scopes through the Atlassian gateway
 
@@ -48,7 +48,7 @@ Go to [**Organization settings > Claude Tag > Bundles**](https://claude.ai/admin
 
 **2. Add the gateway connector**
 
-Under **What's in it**, click **Add**, select **Connector**, and select **Custom connector**. In the [custom connector](/docs/claude-tag/admins/connections/custom.md) form, enter a **Name**, choose the **Basic** credential type, enter the dedicated account's email as the **Username** and the API token as the **Password**, and enter `api.atlassian.com` under **Allowed websites**. Click **Connect** to save the connector.
+Under **What's in it**, click **Add**, select **Connector**, and select **Custom connector**. In the [custom connector](https://claude.com/docs/claude-tag/admins/connections/custom.md) form, enter a **Name**, choose the **Basic** credential type, enter the dedicated account's email as the **Username** and the API token as the **Password**, and enter `api.atlassian.com` under **Allowed websites**. Click **Connect** to save the connector.
 
 **3. Limit the credential to your site's paths**
 
@@ -72,5 +72,5 @@ New threads pick up the connector on their own; in an existing thread, ask Claud
 
 ## Related resources
 
-* [Custom connector](/docs/claude-tag/admins/connections/custom.md): for a setup the **Jira & Confluence** entry doesn't cover, such as a self-hosted Data Center instance
-* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full connection model and how to scope a dedicated account
+* [Custom connector](https://claude.com/docs/claude-tag/admins/connections/custom.md): for a setup the **Jira & Confluence** entry doesn't cover, such as a self-hosted Data Center instance
+* [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md): the full connection model and how to scope a dedicated account

@@ -6,6 +6,8 @@ If you're an individual Claude user on a Free, Pro, or Max plan looking to expor
 
 Primary Owners of Team and Enterprise plans can export organization data from **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)** on the web app or Claude Desktop.
 
+**Important:** Data exports don’t include the Word, Excel, PowerPoint, or PDF files that Claude creates. Users can download these files from the chat while they’re available. Enterprise organizations using the Compliance API may also be able to retrieve them.
+
 Follow these steps to export your organization's data:
 
 1. Click on your initials in the lower left corner of your account.

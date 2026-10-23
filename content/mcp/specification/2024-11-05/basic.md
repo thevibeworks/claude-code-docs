@@ -39,17 +39,17 @@ support exactly the features they need.
 
 See the following pages for more details on the different components:
 
-> **[Lifecycle](/specification/2024-11-05/basic/lifecycle.md)**
+> **[Lifecycle](https://modelcontextprotocol.io/specification/2024-11-05/basic/lifecycle.md)**
 
-> **[Resources](/specification/2024-11-05/server/resources.md)**
+> **[Resources](https://modelcontextprotocol.io/specification/2024-11-05/server/resources.md)**
 
-> **[Prompts](/specification/2024-11-05/server/prompts.md)**
+> **[Prompts](https://modelcontextprotocol.io/specification/2024-11-05/server/prompts.md)**
 
-> **[Tools](/specification/2024-11-05/server/tools.md)**
+> **[Tools](https://modelcontextprotocol.io/specification/2024-11-05/server/tools.md)**
 
-> **[Logging](/specification/2024-11-05/server/utilities/logging.md)**
+> **[Logging](https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/logging.md)**
 
-> **[Sampling](/specification/2024-11-05/client/sampling.md)**
+> **[Sampling](https://modelcontextprotocol.io/specification/2024-11-05/client/sampling.md)**
 
 ## Auth
 

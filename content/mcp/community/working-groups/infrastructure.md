@@ -80,7 +80,7 @@ The Infrastructure WG tracks tasks in GitHub issues in the relevant repositories
 
 Coordination starts in the Infrastructure Working Group discussion on MCP's Discord. Links to the Infrastructure WG channel and meeting notes will be added once confirmed. Meetings will be published at [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io).
 
-The [Working and Interest Groups governance rules](/community/working-interest-groups.md) apply.
+The [Working and Interest Groups governance rules](https://modelcontextprotocol.io/community/working-interest-groups.md) apply.
 
 ## Deliverables & Success Metrics
 

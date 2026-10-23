@@ -43,7 +43,7 @@ The Dispatch agent routes each child task to the surface that fits it.
 | Task type | Runs in | Examples |
 | - | - | - |
 | Coding work | Code, against a workspace you've already set up | Fix a bug, open a pull request, run tests |
-| Knowledge work | Cowork, in the [project](/docs/cowork/guide/projects.md) you specify (or your default project) | Research, write a document, organize files |
+| Knowledge work | Cowork, in the [project](https://claude.com/docs/cowork/guide/projects.md) you specify (or your default project) | Research, write a document, organize files |
 
 When starting a task, you can tell the agent which Code workspace or Cowork project to use. If you don't, it lists what's available and chooses.
 
@@ -90,5 +90,5 @@ mobile app.
 
 ## Related
 
-* [Organize work with projects](/docs/cowork/guide/projects.md) for the project context Dispatch routes knowledge work into
-* [Cowork overview](/docs/cowork/overview.md) for how Dispatch fits alongside sessions and projects
+* [Organize work with projects](https://claude.com/docs/cowork/guide/projects.md) for the project context Dispatch routes knowledge work into
+* [Cowork overview](https://claude.com/docs/cowork/overview.md) for how Dispatch fits alongside sessions and projects

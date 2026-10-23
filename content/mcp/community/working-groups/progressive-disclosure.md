@@ -12,7 +12,7 @@
 
 ## Mission Statement
 
-The Progressive Disclosure Working Group explores how MCP Primitives (Tools, Resources, Prompts, Tasks) might be organized, beyond the flat lists maintained by the protocol, and how such organization might benefit both MCP servers and clients. The group documents diverse requirements from clients, servers, and gateways, supports reference extensions of varied organization strategies, and feeds recommendations into the [SEP process](/community/sep-guidelines.md) rather than picking a single canonical pattern early.
+The Progressive Disclosure Working Group explores how MCP Primitives (Tools, Resources, Prompts, Tasks) might be organized, beyond the flat lists maintained by the protocol, and how such organization might benefit both MCP servers and clients. The group documents diverse requirements from clients, servers, and gateways, supports reference extensions of varied organization strategies, and feeds recommendations into the [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md) rather than picking a single canonical pattern early.
 
 ## Scope
 
@@ -29,8 +29,8 @@ The Progressive Disclosure Working Group explores how MCP Primitives (Tools, Res
 
 ### Related Groups
 
-* **[Tool Annotations IG](/community/interest-groups/tool-annotations.md)** - annotation-based filtering and selection of primitives intersects with how primitives are organized and surfaced
-* **[Skills Over MCP WG](/community/working-groups/skills-over-mcp.md)** - maintains the published [Skills extension](/extensions/skills/overview.md); skill discovery and progressive disclosure overlap with grouping
+* **[Tool Annotations IG](https://modelcontextprotocol.io/community/interest-groups/tool-annotations.md)** - annotation-based filtering and selection of primitives intersects with how primitives are organized and surfaced
+* **[Skills Over MCP WG](https://modelcontextprotocol.io/community/working-groups/skills-over-mcp.md)** - maintains the published [Skills extension](https://modelcontextprotocol.io/extensions/skills/overview.md); skill discovery and progressive disclosure overlap with grouping
 
 ## Problem Statement
 
@@ -45,7 +45,7 @@ Flat lists of MCP primitives can be long and cumbersome to work with for several
 **Beyond Scope**
 
 * **Organization for security** - organizing and disclosing primitives to clients based on their privilege level is an important problem but beyond this group's mandate
-* **Organizing MCP servers** - server discovery and registry schema decisions belong to the [Registry WG](/community/working-groups/registry.md), with skill-distribution requirements contributed by the Skills Over MCP WG
+* **Organizing MCP servers** - server discovery and registry schema decisions belong to the [Registry WG](https://modelcontextprotocol.io/community/working-groups/registry.md), with skill-distribution requirements contributed by the Skills Over MCP WG
 
 ## Goals
 
@@ -91,7 +91,7 @@ See [Approaches](https://github.com/modelcontextprotocol/progressive-disclosure-
 | - | - | - | - |
 | Discussion | Weekly | TBD | Requirements alignment, approach review, experimental findings |
 
-Meetings are published at [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io/tag/progressive-disclosure-wg). Open to anyone. Join the [#progressive-disclosure-wg](https://discord.com/channels/1358869848138059966/1425903819186770064) channel on the [MCP Contributors Discord](/community/communication.md#discord).
+Meetings are published at [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io/tag/progressive-disclosure-wg). Open to anyone. Join the [#progressive-disclosure-wg](https://discord.com/channels/1358869848138059966/1425903819186770064) channel on the [MCP Contributors Discord](https://modelcontextprotocol.io/community/communication.md#discord).
 
 ## Discussion Topics
 

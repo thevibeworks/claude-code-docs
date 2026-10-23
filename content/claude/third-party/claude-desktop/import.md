@@ -6,21 +6,21 @@
 
 > Bring conversations, projects, and local Cowork and Code sessions into Claude Desktop on 3P from a claude.ai workspace or an earlier install
 
-Import brings a copy of your claude.ai conversations and projects into Claude Desktop on third-party (3P), along with any Cowork and Claude Code sessions already on this machine from an earlier install. Everything lands in the local session store described in [User identity and local data](/docs/third-party/claude-desktop/data-storage.md), so you can pick up work you started on claude.ai and continue it against your organization's own inference provider.
+Import brings a copy of your claude.ai conversations and projects into Claude Desktop on third-party (3P), along with any Cowork and Claude Code sessions already on this machine from an earlier install. Everything lands in the local session store described in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md), so you can pick up work you started on claude.ai and continue it against your organization's own inference provider.
 
 Each import is a one-time copy. New activity on claude.ai after you import does not appear in Claude Desktop unless you import again, and re-running the import does not create duplicates.
 
 ## Automatic import of earlier third-party sessions
 
-Claude Desktop can automatically copy into your history the Cowork, Chat, and Code sessions it stored on this computer under an earlier third-party configuration. In an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md), this automatic copy is on unless it's turned off in your organization's settings. In any other deployment it runs only if your administrator turns it on.
+Claude Desktop can automatically copy into your history the Cowork, Chat, and Code sessions it stored on this computer under an earlier third-party configuration. In an organization managed from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), this automatic copy is on unless it's turned off in your organization's settings. In any other deployment it runs only if your administrator turns it on.
 
 Along with the sessions, the automatic copy brings over other things you had under the earlier configuration:
 
 * **Projects**: your Cowork projects. New tasks use a project's instructions only after you accept them.
-* **Memory and instructions**: your Cowork memory and global instructions. New tasks use them right away. Your **Instructions for Claude** (**Settings → General**) come over too. Instructions you already set under the new configuration are kept.
+* **Memory and instructions**: your Cowork memory, unless you paused it, and your global instructions. New tasks use them right away. Your **Instructions for Claude** (**Settings → General**) come over too. Instructions you already set under the new configuration are kept.
 * **Scheduled tasks**: your scheduled tasks from Cowork and Code. Each stays on or off as it was.
-* **Uploaded plugins**: plugins you uploaded, unless your administrator has turned off plugin uploads ([`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)). Each stays on or off as it was.
-* **Saved skills**: skills you saved, unless your administrator has turned off skill creation ([`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled)).
+* **Uploaded plugins**: plugins you uploaded, unless your administrator has turned off plugin uploads ([`userPluginUploadsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)). Each stays on or off as it was.
+* **Saved skills**: skills you saved, unless your administrator has turned off skill creation ([`skillCreationEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillcreationenabled)).
 * **Your organization's optional plugins**: the ones you had turned on are turned on again, if they come from your organization's plugins directory or from a marketplace hosted at the address of its gateway or bootstrap server. With Claude Desktop 2.42304.0 or later, plugins from other marketplaces, such as a git repository, are turned on again too, if your administrator offers the marketplace from the same repository or URL as before. On a computer where the copy already ran, they're turned on the first time the app starts on 2.42304.0 or later.
 * **Artifacts**: your Cowork artifacts.
 
@@ -30,9 +30,9 @@ Use the [import wizard](#open-the-import-wizard) for your claude.ai conversation
 
 ## Before you open the import wizard
 
-* Your administrator has turned import on by setting [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) with `enabled` set to `true` in the managed configuration. The import wizard is off by default; until then, **Settings → Import & export** has no **Import…** button and reports that import isn't enabled for this deployment. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) doesn't depend on this setting.
-* If your administrator lists the claude.ai organizations you may import from, with `allowedOrganizationUuids` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport), you can import only by signing in to claude.ai, and only from a listed organization. A sign-in to any other organization or to a personal account is refused, and the wizard's options to import from a file or from earlier sessions on this computer are turned off. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) isn't affected by this list.
-* Claude Desktop is installed and running in third-party mode. See [Installation and setup](/docs/third-party/claude-desktop/installation.md).
+* Your administrator has turned import on by setting [`claudeAiImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) with `enabled` set to `true` in the managed configuration. The import wizard is off by default; until then, **Settings → Import & export** has no **Import…** button and reports that import isn't enabled for this deployment. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) doesn't depend on this setting.
+* If your administrator lists the claude.ai organizations you may import from, with `allowedOrganizationUuids` under [`claudeAiImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport), you can import only by signing in to claude.ai, and only from a listed organization. A sign-in to any other organization or to a personal account is refused, and the wizard's options to import from a file or from earlier sessions on this computer are turned off. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) isn't affected by this list.
+* Claude Desktop is installed and running in third-party mode. See [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md).
 * To bring history over from a claude.ai Team or Enterprise workspace, an owner of that workspace has enabled member data export (next section). Personal claude.ai accounts can always export.
 
 ## Enable member data export (admins)
@@ -167,13 +167,13 @@ Start a new conversation in the project. In the new conversation, Claude can rea
 
 Importing the project again doesn't make its folder readable. If you remove the import under **Import history** in **Settings > Import & export**, or archive the project, and then import from claude.ai again, the new project uses the same folder. Add the folder to the new project again.
 
-Your administrator can also limit which folders Claude reads. See [Project folders in Chat](/docs/third-party/claude-desktop/chat.md#project-folders-in-chat).
+Your administrator can also limit which folders Claude reads. See [Project folders in Chat](https://claude.com/docs/third-party/claude-desktop/chat.md#project-folders-in-chat).
 
 ## Export sessions to move them to another device
 
 When your administrator also sets `exportEnabled` to `true` under `claudeAiImport`, **Settings → Import & export** offers **Export…**, which writes this computer's chats, Cowork tasks, and Code sessions (not terminal Claude Code sessions) to a zip file. On the other device, open the import wizard and select that zip with **Choose file…**; the wizard lists its sessions in the [Cowork & Code step](#step-2-local-cowork-and-code-sessions). The export is a one-time snapshot, not a sync, and the zip contains full conversation content, so handle it as sensitive data.
 
-The zip includes sessions, project names, and each session's output files when they total 100 MB or less. It leaves out project instructions, memory, scheduled tasks, skills, plugins, and attached files. To move those, your administrator can [copy your data to the new device](/docs/third-party/claude-desktop/data-storage.md#move-a-user-to-a-new-device). Sign-ins and connector connections don't move either way.
+The zip includes sessions, project names, and each session's output files when they total 100 MB or less. It leaves out project instructions, memory, scheduled tasks, skills, plugins, and attached files. To move those, your administrator can [copy your data to the new device](https://claude.com/docs/third-party/claude-desktop/data-storage.md#move-a-user-to-a-new-device). Sign-ins and connector connections don't move either way.
 
 ## What is and isn't included
 

@@ -35,17 +35,17 @@ mcp-inspector --server-url https://api.example.com/mcp --transport http \
   --header "X-Tenant: acme"
 ```
 
-`--transport` accepts `http` (Streamable HTTP) and `sse`. If the server is protected, see [Authorization](/docs/2026-07-28/tools/inspector/authorization.md): no setup is needed in advance, because when the server answers `401` the Inspector runs the OAuth flow described there and retries the connection.
+`--transport` accepts `http` (Streamable HTTP) and `sse`. If the server is protected, see [Authorization](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/authorization.md): no setup is needed in advance, because when the server answers `401` the Inspector runs the OAuth flow described there and retries the connection.
 
-For an HTTP server, also decide its [protocol era](/docs/2026-07-28/tools/inspector/protocol-eras.md). The default is `legacy`; set `modern` or `auto` in Server Settings (or `protocolEra` in the catalog file) to exercise the 2026-07-28 behavior. For an ad-hoc target, pass it at launch with `--protocol-era legacy|auto|modern`.
+For an HTTP server, also decide its [protocol era](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/protocol-eras.md). The default is `legacy`; set `modern` or `auto` in Server Settings (or `protocolEra` in the catalog file) to exercise the 2026-07-28 behavior. For an ad-hoc target, pass it at launch with `--protocol-era legacy|auto|modern`.
 
 ## Importing an existing client config
 
 On the Servers screen, **Add Servers** can import MCP servers you have already configured
 elsewhere instead of retyping them. It parses Claude Desktop, Cursor, Cline, and VS Code client
-configs directly, and it also reads a server's own [MCP Registry](/registry/about.md) `server.json`.
+configs directly, and it also reads a server's own [MCP Registry](https://modelcontextprotocol.io/registry/about.md) `server.json`.
 
-Import merges into the active [catalog](/docs/2026-07-28/tools/inspector/configuration.md#choosing-servers)
+Import merges into the active [catalog](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md#choosing-servers)
 (the Inspector's writable server list). When an imported server's id is already taken, you
 choose whether to overwrite, skip or rename it. If you'd rather
 not touch your catalog at all, launch against the foreign file read-only instead:
@@ -62,7 +62,7 @@ Add Servers offers import from an existing client config or from a registry serv
 
 ## Reviewing an MCP App
 
-[MCP Apps](/extensions/apps/overview.md) are tools that carry a UI widget. For an automated reviewer (CI or an agent), use the CLI for every check that returns JSON, and open a browser only to inspect the rendered widget.
+[MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) are tools that carry a UI widget. For an automated reviewer (CI or an agent), use the CLI for every check that returns JSON, and open a browser only to inspect the rendered widget.
 
 **1. Probe the security posture without calling the tool**
 
@@ -113,7 +113,7 @@ Pinning `MCP_SANDBOX_PORT` keeps the address explicit: the app's UI is served fr
 http://127.0.0.1:6274/?serverUrl=<encoded url>&transport=http&autoConnect=<TOKEN>&openApp=<tool>&appArgs=<base64url(JSON)>&autoOpen=<TOKEN>
 ```
 
-`appArgs` is the tool's arguments as base64url-encoded JSON, and every deep-link parameter is described under [Deep links](/docs/2026-07-28/tools/inspector/web.md#deep-links). `autoConnect` and `autoOpen` must both equal the session token, since `autoOpen` fires a tool call straight from the URL and needs the same gate as `autoConnect`.
+`appArgs` is the tool's arguments as base64url-encoded JSON, and every deep-link parameter is described under [Deep links](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md#deep-links). `autoConnect` and `autoOpen` must both equal the session token, since `autoOpen` fires a tool call straight from the URL and needs the same gate as `autoConnect`.
 
 **5. Wait on a deterministic signal instead of sleeping**
 
@@ -133,7 +133,7 @@ A container image is published to GitHub Container Registry for `linux/amd64` an
 docker run --rm -p 127.0.0.1:6274:6274 ghcr.io/modelcontextprotocol/inspector
 ```
 
-Read the [session token](/docs/2026-07-28/tools/inspector/web.md#the-session-token) from the container logs, or pin it with `-e MCP_INSPECTOR_API_TOKEN=<value>`.
+Read the [session token](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md#the-session-token) from the container logs, or pin it with `-e MCP_INSPECTOR_API_TOKEN=<value>`.
 
 The image defaults to `--web`, bound to `0.0.0.0:6274` with browser auto-open off, and runs as the non-root `node` user (uid `1000`). It sets `DANGEROUSLY_BIND_ALL_INTERFACES=true` because a container must bind the wildcard address to be reachable through `-p`.
 
@@ -144,7 +144,7 @@ The image defaults to `--web`, bound to `0.0.0.0:6274` with browser auto-open of
 > processes, and the page that discloses its token, on your local network. The
 > image's `DANGEROUSLY_BIND_ALL_INTERFACES` covers the container's interfaces,
 > not the host's. See [Publish the port on loopback
-> only](/docs/2026-07-28/tools/inspector/security.md#publish-the-port-on-loopback-only).
+> only](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md#publish-the-port-on-loopback-only).
 
 To use the **Apps** tab, also publish the MCP Apps sandbox port, `6275`, and `6278` for an app that declares `_meta.ui.domain`. Publish each on the same port number inside and out, since the browser is handed the in-container port:
 
@@ -183,7 +183,7 @@ If you bind-mount a host directory instead of a named volume, it keeps its host 
 > (umask 077 && openssl rand -base64 32 > ~/.config/mcp-inspector/secret-key)
 > ```
 >
-> Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/2026-07-28/tools/inspector/security.md#what-the-file-store-protects-against).
+> Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md#what-the-file-store-protects-against).
 
 Hand the key to the container **as a file** with `MCP_INSPECTOR_SECRET_KEY_FILE`, not as an environment variable. A key passed with `-e MCP_INSPECTOR_SECRET_KEY=…` is readable by anyone who can run `docker inspect` or `docker exec`.
 
@@ -217,13 +217,13 @@ volumes:
 
 Without Swarm, Compose secrets are bind mounts that keep the host file's owner and mode, so the `0600` key file must be owned by uid `1000`. On a Linux host where your uid is different, run `sudo chown 1000 ~/.config/mcp-inspector/secret-key` rather than loosening its mode. Supply the **same** key on every run.
 
-If the key file is missing, unreadable or empty, or both key variables are set, the Inspector **refuses to read or write the secrets file** rather than falling back to plaintext, and says why in the log and in the settings dialogs' footer. Everything else about the store (selection order, location, permissions) is under [Where secrets are stored](/docs/2026-07-28/tools/inspector/configuration.md#where-secrets-are-stored).
+If the key file is missing, unreadable or empty, or both key variables are set, the Inspector **refuses to read or write the secrets file** rather than falling back to plaintext, and says why in the log and in the settings dialogs' footer. Everything else about the store (selection order, location, permissions) is under [Where secrets are stored](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md#where-secrets-are-stored).
 
 ### Health checks and other modes
 
 The image's `HEALTHCHECK` probes the web UI at the address `HOST` binds. `--cli` and `--tui` have no web server, so the probe detects those modes from the container's arguments and reports healthy while they run. An external orchestrator (a Kubernetes probe, a Compose `healthcheck`) can call `GET /healthz` on the web port, which needs no token and returns only `{"status":"ok"}`.
 
-`<target>` below is an [ad-hoc target](/docs/2026-07-28/tools/inspector/configuration.md#ad-hoc-targets): a positional stdio command, or `--server-url <url> --transport http`.
+`<target>` below is an [ad-hoc target](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md#ad-hoc-targets): a positional stdio command, or `--server-url <url> --transport http`.
 
 ```bash theme={null}
 docker run --rm ghcr.io/modelcontextprotocol/inspector --cli <target> --method tools/list
@@ -265,11 +265,11 @@ Two further caveats when going off loopback:
 * **Behind TLS or a reverse proxy, give MCP Apps their public addresses.** By default the sandbox is advertised as `http://<bind host>:6275`, which an `https://` page blocks as mixed content. Set `MCP_SANDBOX_FULL_ADDRESS` (for example `https://inspector-sandbox.example.com/sandbox`) and, for apps that declare `_meta.ui.domain`, `MCP_APP_ORIGIN_FULL_ADDRESS` (for example `https://inspector-apps.example.com`). Each needs its own hostname or port; an address that shares the Inspector's origin is refused.
 * **MCP Apps can't render at a bare IPv6 literal.** A bracketed IPv6 literal isn't a valid CSP host-source, so browse at a name or an IPv4 address.
 
-Whatever the shape: keep authentication on. Do not set `DANGEROUSLY_OMIT_AUTH` on anything reachable by anyone but you. The reasoning is under [Security](/docs/2026-07-28/tools/inspector/security.md#the-web-backend-and-its-api-token).
+Whatever the shape: keep authentication on. Do not set `DANGEROUSLY_OMIT_AUTH` on anything reachable by anyone but you. The reasoning is under [Security](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md#the-web-backend-and-its-api-token).
 
 ## Keeping a connection open with mcpdo
 
-When an exploration spans many calls (a multi-step flow over one session, a log you watch, an agent using a server's tools mid-session), reconnecting for every `--cli` invocation gets in the way. [mcpdo](/docs/2026-07-28/tools/inspector/mcpdo.md) holds the connection for you:
+When an exploration spans many calls (a multi-step flow over one session, a log you watch, an agent using a server's tools mid-session), reconnecting for every `--cli` invocation gets in the way. [mcpdo](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/mcpdo.md) holds the connection for you:
 
 ```bash theme={null}
 mcpdo connect my-server
@@ -281,7 +281,7 @@ mcpdo disconnect my-server
 
 A connection runs one call at a time, so commands against the same connection from other shells wait their turn.
 
-The daemon that holds the connection starts automatically and exits about a minute after the last connection closes. Read [The mcpdo connection daemon](/docs/2026-07-28/tools/inspector/security.md#the-mcpdo-connection-daemon) before using it on a shared machine.
+The daemon that holds the connection starts automatically and exits about a minute after the last connection closes. Read [The mcpdo connection daemon](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md#the-mcpdo-connection-daemon) before using it on a shared machine.
 
 ## Development workflow
 
@@ -309,5 +309,5 @@ as the successes.
 Turn what you found into a CI assertion: pipe the CLI's `--format json`
 output to `jq -e` with `--stored-auth-only`, so a missing token fails fast
 instead of starting interactive OAuth. See [Verify a server in
-CI](/docs/2026-07-28/tools/inspector/cli.md#verify-a-server-in-ci) for the full
+CI](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/cli.md#verify-a-server-in-ci) for the full
 command.

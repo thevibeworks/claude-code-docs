@@ -33,7 +33,7 @@ The request carries no body parameters beyond the standard `_meta`:
 ## Response
 
 The server replies with its supported protocol versions, capabilities, and
-identity. This operation supports [caching](/specification/2026-07-28/server/utilities/caching.md).
+identity. This operation supports [caching](https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/caching.md).
 
 ```json theme={null}
 {
@@ -63,7 +63,7 @@ identity. This operation supports [caching](/specification/2026-07-28/server/uti
 
 Calling `server/discover` is optional for clients — a client may invoke any
 RPC inline and handle
-[`UnsupportedProtocolVersionError`](/specification/2026-07-28/schema#unsupportedprotocolversionerror)
+[`UnsupportedProtocolVersionError`](https://modelcontextprotocol.io/specification/2026-07-28/schema#unsupportedprotocolversionerror)
 if the server does not support the requested version. However, `server/discover`
 is useful in two scenarios:
 
@@ -77,12 +77,12 @@ is useful in two scenarios:
   HTTP status code to drive fallback. A client that supports both modern
   (per-request `_meta`) and legacy (`initialize` handshake) servers **SHOULD**
   send `server/discover` first; see
-  [stdio: Backward Compatibility](/specification/2026-07-28/basic/transports/stdio.md#backward-compatibility)
+  [stdio: Backward Compatibility](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/stdio.md#backward-compatibility)
   for the fallback rules.
 
-See [Protocol Version Negotiation](/specification/2026-07-28/basic/versioning.md#protocol-version-negotiation)
+See [Protocol Version Negotiation](https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning.md#protocol-version-negotiation)
 for the full version-selection flow. For HTTP-specific status codes returned for
-unknown methods, see the [Protocol Version Header](/specification/2026-07-28/basic/transports/streamable-http.md#protocol-version-header)
+unknown methods, see the [Protocol Version Header](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http.md#protocol-version-header)
 section in Transports.
 
 ## Data Types

@@ -47,29 +47,29 @@ Migrated sessions stay on the computer and don't sync to claude.ai. Continuing o
 
 Special cases:
 
-* If Cowork runs only in its VM sandbox in your organization (for example, because [`requireCoworkFullVmSandbox`](/docs/third-party/claude-desktop/configuration#requirecoworkfullvmsandbox) is enforced), nothing is migrated. Ask your Anthropic account team.
+* If Cowork runs only in its VM sandbox in your organization (for example, because [`requireCoworkFullVmSandbox`](https://claude.com/docs/third-party/claude-desktop/configuration#requirecoworkfullvmsandbox) is enforced), nothing is migrated. Ask your Anthropic account team.
 * If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, plugin marketplaces, or instructions.
 * With the MSIX install on Windows 10 Enterprise LTSC 2021, or Windows 10 older than 21H1, update Claude in place. Uninstalling or resetting it deletes the Claude (third-party) data.
 
 ## What changes for your security controls
 
-After the change, most of your cloud provider settings in the [configuration reference](/docs/third-party/claude-desktop/configuration.md) stop working without warning, even if their keys stay deployed, including permission, plugin, and browser limits. Set up replacements first:
+After the change, most of your cloud provider settings in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) stop working without warning, even if their keys stay deployed, including permission, plugin, and browser limits. Set up replacements first:
 
 * Cowork's telemetry and network egress: your organization settings.
 * Code sessions' telemetry, SSH host limits (any host is allowed until you set a list), and session retention (`cleanupPeriodDays`): Claude Code's managed settings.
-* Remote [managed MCP servers](/docs/third-party/claude-desktop/configuration.md#managedmcpservers): add them as connectors. The Microsoft 365 connector keeps working.
+* Remote [managed MCP servers](https://claude.com/docs/third-party/claude-desktop/configuration.md#managedmcpservers): add them as connectors. The Microsoft 365 connector keeps working.
 
-Telemetry opt-outs, the egress list for Code sessions, Cowork's session retention, and locally run managed MCP servers have no replacement. The command sandbox in Code sessions stays on only where [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) is set. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
+Telemetry opt-outs, the egress list for Code sessions, Cowork's session retention, and locally run managed MCP servers have no replacement. The command sandbox in Code sessions stays on only where [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) is set. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
 
 ## Migrate your fleet
 
-Remove the old keys and set the new one in one change to the policy or profile that carries your Claude settings: an `HKEY_LOCAL_MACHINE` policy on Windows (not `HKEY_CURRENT_USER`), or a [configuration profile](/docs/third-party/claude-desktop/mdm.md) on macOS.
+Remove the old keys and set the new one in one change to the policy or profile that carries your Claude settings: an `HKEY_LOCAL_MACHINE` policy on Windows (not `HKEY_CURRENT_USER`), or a [configuration profile](https://claude.com/docs/third-party/claude-desktop/mdm.md) on macOS.
 
 **1. Remove the cloud provider keys**
 
-Remove every key that puts the app in third-party mode, such as those that start with `inference` or `bootstrap`. Also remove [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) and [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). Leave other keys in place. If your settings come from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md), copy the keys you want to keep into the policy or profile itself.
+Remove every key that puts the app in third-party mode, such as those that start with `inference` or `bootstrap`. Also remove [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) and [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). Leave other keys in place. If your settings come from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), copy the keys you want to keep into the policy or profile itself.
 
-The desktop extensions feature is on after the change unless [`isDesktopExtensionEnabled`](/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
+The desktop extensions feature is on after the change unless [`isDesktopExtensionEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
 
 **2. Set your organization ID**
 

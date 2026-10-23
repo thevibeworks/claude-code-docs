@@ -6,15 +6,15 @@
 
 > Connect Claude to an MCP server that isn't in the Connectors Directory, by its URL or as a local desktop extension.
 
-You can connect Claude to a [Model Context Protocol (MCP)](/docs/connectors/building/mcp.md) server that isn't listed in the [Connectors Directory](/docs/connectors/directory.md). You add a remote server by its URL as a custom connector. In Claude Desktop, you can also use a desktop extension, which runs the server on your own computer.
+You can connect Claude to a [Model Context Protocol (MCP)](https://claude.com/docs/connectors/building/mcp.md) server that isn't listed in the [Connectors Directory](https://claude.com/docs/connectors/directory.md). You add a remote server by its URL as a custom connector. In Claude Desktop, you can also use a desktop extension, which runs the server on your own computer.
 
 This page is for people adding a connector to their own Claude and for Team and Enterprise Owners adding one for their organization.
 
 > [!NOTE]
 >
-> * If you want a service that's already in the directory, see the [Connectors Directory](/docs/connectors/directory.md) and connect it from there
-> * If you're building the server yourself, see [Build an MCP server for Claude](/docs/connectors/building/index.md)
-> * If your server runs inside your private network, see [MCP tunnels](/docs/connectors/mcp-tunnels/overview)
+> * If you want a service that's already in the directory, see the [Connectors Directory](https://claude.com/docs/connectors/directory.md) and connect it from there
+> * If you're building the server yourself, see [Build an MCP server for Claude](https://claude.com/docs/connectors/building/index.md)
+> * If your server runs inside your private network, see [MCP tunnels](https://claude.com/docs/connectors/mcp-tunnels/overview)
 
 If you have a server URL, go to [Add a connector by URL](#add-a-connector-by-url). If you have a desktop extension, go to [Install a local connector in the desktop app](#install-a-local-connector-in-the-desktop-app).
 
@@ -119,7 +119,7 @@ For **OAuth client**, choose how Claude identifies itself to the server's author
 
 * **Use Claude's published identity**: the recommended option. The server reads Claude's client details from a Client ID Metadata Document that Anthropic hosts. You set nothing up, and the server must support this method
 * **Register automatically**: Claude registers OAuth clients with the server as users connect, using Dynamic Client Registration. This works with most servers and adds client registrations over time
-* **Use your own OAuth client**: enter a client ID you registered with the server. Leave the secret blank unless your authorization server requires one. See [Authentication for connectors](/docs/connectors/building/authentication.md)
+* **Use your own OAuth client**: enter a client ID you registered with the server. Leave the secret blank unless your authorization server requires one. See [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md)
 
 For **Request headers**, add fixed credentials such as API keys that Claude sends on every request. See [Authenticate with request headers](#authenticate-with-request-headers).
 
@@ -224,11 +224,11 @@ On Team and Enterprise plans, your organization can build its own desktop extens
 
 ### Build and package a desktop extension
 
-If you're authoring the extension, follow [Build a desktop extension with MCPB](/docs/connectors/building/mcpb.md) and the [MCPB documentation](https://github.com/modelcontextprotocol/mcpb). You build your MCP server, bundle it with MCPB, test it locally, and then deploy it to your organization.
+If you're authoring the extension, follow [Build a desktop extension with MCPB](https://claude.com/docs/connectors/building/mcpb.md) and the [MCPB documentation](https://github.com/modelcontextprotocol/mcpb). You build your MCP server, bundle it with MCPB, test it locally, and then deploy it to your organization.
 
 ## Security and privacy
 
-Some connectors in the directory are verified by Anthropic and others are community connectors, as [connector verification](/docs/connectors/verification.md) explains. A connector you add yourself connects Claude to an unverified service.
+Some connectors in the directory are verified by Anthropic and others are community connectors, as [connector verification](https://claude.com/docs/connectors/verification.md) explains. A connector you add yourself connects Claude to an unverified service.
 
 ### Connectors you add by URL
 
@@ -262,6 +262,6 @@ Report malicious MCP servers to [Anthropic's Bug Bounty Program](https://www.ant
 
 ## Next steps
 
-* [Build an MCP server for Claude](/docs/connectors/building/index.md): build your own remote MCP server for any tool
-* [Connector verification](/docs/connectors/verification.md): which directory connectors Anthropic verifies and which are community connectors
+* [Build an MCP server for Claude](https://claude.com/docs/connectors/building/index.md): build your own remote MCP server for any tool
+* [Connector verification](https://claude.com/docs/connectors/verification.md): which directory connectors Anthropic verifies and which are community connectors
 * [MCP in Claude Code](https://code.claude.com/docs/en/mcp-quickstart): add the same server to Claude Code from the command line

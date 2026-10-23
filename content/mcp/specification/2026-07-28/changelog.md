@@ -5,7 +5,7 @@
 # Key Changes
 
 This document lists changes made to the Model Context Protocol (MCP) specification since
-the previous revision, [2025-11-25](/specification/2025-11-25.md).
+the previous revision, [2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25.md).
 
 ## Major changes
 
@@ -23,13 +23,13 @@ the previous revision, [2025-11-25](/specification/2025-11-25.md).
 
 7. Multi Round-Trip Requests (MRTR) pattern introduced which replaces the previous approach of sending server-initiated requests, such as `roots/list`, `sampling/createMessage`, or `elicitation/create`. Servers return an `InputRequiredResult` (`resultType: "input_required"`) whose `inputRequests` field carries the requests for the additional information needed to process the request. Clients respond with `inputResponses` on a retry of the original request providing the requested information. ([SEP-2322](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2322)).
 
-8. All results now carry a required `resultType` field: `"complete"` for ordinary results and `"input_required"` for [multi round-trip request](/specification/2026-07-28/basic/patterns/mrtr.md) interim results. Clients **MUST** treat results from earlier-protocol servers that omit the field as `"complete"` ([SEP-2322](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2322)).
+8. All results now carry a required `resultType` field: `"complete"` for ordinary results and `"input_required"` for [multi round-trip request](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md) interim results. Clients **MUST** treat results from earlier-protocol servers that omit the field as `"complete"` ([SEP-2322](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2322)).
 
 9. Remove SSE stream resumability and message redelivery (the `Last-Event-ID` header and SSE event IDs) from the Streamable HTTP transport. A broken response stream loses the in-flight request; clients **MUST** re-issue it as a new request with a new request ID ([SEP-2575](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2575)).
 
 ## Minor changes
 
-1. Add `extensions` field to `ClientCapabilities` and `ServerCapabilities` to support optional [extensions](/docs/extensions/overview.md) beyond the core protocol.
+1. Add `extensions` field to `ClientCapabilities` and `ServerCapabilities` to support optional [extensions](https://modelcontextprotocol.io/docs/extensions/overview.md) beyond the core protocol.
 2. Document OpenTelemetry trace context propagation conventions for `_meta` keys (`traceparent`, `tracestate`, `baggage`) ([SEP-414](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/414)).
 3. Servers **SHOULD** return tools from `tools/list` in a deterministic order to enable client-side caching and improve LLM prompt cache hit rates.
 4. Require standard MCP request headers (`Mcp-Method`, `Mcp-Name`) on Streamable HTTP POST requests, and add support for custom headers from tool parameters via `x-mcp-header` ([SEP-2243](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2243)).
@@ -53,12 +53,12 @@ the previous revision, [2025-11-25](/specification/2025-11-25.md).
 11. Remove the `notifications/elicitation/complete` notification and the
     `elicitationId` field of URL mode elicitation requests, both introduced in
     `2025-11-25`. Under the
-    [Multi Round-Trip Requests](/specification/2026-07-28/basic/patterns/mrtr.md) pattern, the
+    [Multi Round-Trip Requests](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md) pattern, the
     client learns the outcome of an out-of-band interaction by retrying the original
     request, so a server-initiated completion signal — and the identifier used to
     correlate it — no longer fit the protocol. Servers needing to correlate an
     elicitation across retries encode their own identifier in `requestState`.
-12. Define an [error code allocation policy](/specification/2026-07-28/basic/index.md#error-codes)
+12. Define an [error code allocation policy](https://modelcontextprotocol.io/specification/2026-07-28/basic/index.md#error-codes)
     partitioning the JSON-RPC server-error range: `-32000` to `-32019` remains
     implementation-defined (existing SDK usage is grandfathered), `-32020` to `-32099` is
     reserved for the MCP specification. Renumber the error codes introduced in this draft
@@ -68,7 +68,7 @@ the previous revision, [2025-11-25](/specification/2025-11-25.md).
 
 ## Deprecated
 
-Features listed here remain part of the specification but are scheduled for removal under the [feature lifecycle and deprecation policy](/community/feature-lifecycle.md). New implementations should not adopt them. The [deprecated features registry](/specification/2026-07-28/deprecated.md) tracks every feature currently in the Deprecated state.
+Features listed here remain part of the specification but are scheduled for removal under the [feature lifecycle and deprecation policy](https://modelcontextprotocol.io/community/feature-lifecycle.md). New implementations should not adopt them. The [deprecated features registry](https://modelcontextprotocol.io/specification/2026-07-28/deprecated.md) tracks every feature currently in the Deprecated state.
 
 1. Deprecate the Roots, Sampling, and Logging features
    ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
@@ -82,7 +82,7 @@ Features listed here remain part of the specification but are scheduled for remo
 2. Reclassify the HTTP+SSE transport (deprecated since protocol version
    `2025-03-26`) as Deprecated under the feature lifecycle policy
    ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596)).
-   Migrate to [Streamable HTTP](/specification/2026-07-28/basic/transports/streamable-http.md).
+   Migrate to [Streamable HTTP](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http.md).
 
 3. Reclassify the `includeContext` values `"thisServer"` and `"allServers"`
    (soft-deprecated since protocol version `2025-11-25`) as Deprecated
@@ -93,7 +93,7 @@ Features listed here remain part of the specification but are scheduled for remo
 4. Deprecate the OAuth 2.0 Dynamic Client Registration Protocol
    ([RFC7591](https://datatracker.ietf.org/doc/html/rfc7591)) as a client registration
    mechanism in favor of
-   [Client ID Metadata Documents](/specification/2026-07-28/basic/authorization/client-registration.md#client-id-metadata-documents)
+   [Client ID Metadata Documents](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration.md#client-id-metadata-documents)
    ([PR #2858](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2858)).
    It remains available for backwards compatibility with authorization servers that do
    not support Client ID Metadata Documents.
@@ -105,10 +105,10 @@ Features listed here remain part of the specification but are scheduled for remo
 ## Governance and process updates
 
 1. Adopt a specification
-   [feature lifecycle and deprecation policy](/community/feature-lifecycle.md)
+   [feature lifecycle and deprecation policy](https://modelcontextprotocol.io/community/feature-lifecycle.md)
    defining the Active, Deprecated, and Removed feature states, a minimum
    twelve-month deprecation window, and a
-   [registry of deprecated features](/specification/2026-07-28/deprecated.md)
+   [registry of deprecated features](https://modelcontextprotocol.io/specification/2026-07-28/deprecated.md)
    ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596)).
 
 ## Process changes

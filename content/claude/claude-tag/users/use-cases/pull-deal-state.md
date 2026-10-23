@@ -18,7 +18,7 @@ Each prompt below is a Slack message. You paste it in the account or deal channe
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](https://claude.com/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -60,14 +60,14 @@ One message sets up a standing digest posted to the team channel every Monday.
 @Claude every Monday at 9am, post a pipeline digest: deals that moved stage last week, deals stalled more than two weeks, and renewals due in the next 30 days.
 ```
 
-The three lines cover what moved, what's stuck, and what's coming due, so the digest reads the same way every Monday. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
+The three lines cover what moved, what's stuck, and what's coming due, so the digest reads the same way every Monday. To list or cancel scheduled work later, see [Manage standing work](https://claude.com/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ## Related resources
 
-> **[Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions.md)**
+> **[Answer data questions](https://claude.com/docs/claude-tag/users/use-cases/answer-data-questions.md)**
 >
 > When the question is metrics, not accounts
 
-> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
+> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
 >
 > Scheduled digests

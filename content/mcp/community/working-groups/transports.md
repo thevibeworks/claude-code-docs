@@ -28,7 +28,7 @@ within these boundaries.
 * **Transport Bindings**: Framing, delivery, request and envelope metadata,
   cancellation and termination, connection lifecycle, backward compatibility, and
   the behavior of existing and future MCP transports. The current specification's
-  [transport overview](/specification/draft/basic/transports.md) defines the boundary
+  [transport overview](https://modelcontextprotocol.io/specification/draft/basic/transports.md) defines the boundary
   between a transport binding and core protocol semantics.
 * **Scalability and Reliability**: Transport-level connection management, resource
   efficiency, multiplexing, load distribution, error handling, reconnection,
@@ -68,17 +68,17 @@ provides supporting context but cannot expand the boundaries in this charter.
 
 ### Related Groups
 
-* **[SDK WG](/community/working-groups/sdk.md)**: Official SDKs implement transport
+* **[SDK WG](https://modelcontextprotocol.io/community/working-groups/sdk.md)**: Official SDKs implement transport
   changes; the groups coordinate on feasibility, reference implementations, and
   rollout sequencing.
-* **[Tasks and Events WG](/community/working-groups/tasks-events.md)**: The Tasks and
+* **[Tasks and Events WG](https://modelcontextprotocol.io/community/working-groups/tasks-events.md)**: The Tasks and
   Events WG owns Tasks and durable execution; the groups coordinate where these
   depend on multi-round-trip requests, request association, stateless operation, or
   binding behavior. Event callbacks, subscriptions, and application-level delivery
   semantics are owned by that group; Transports owns binding-specific carriage and
   guarantees.
-* **[Auth IG](/community/interest-groups/auth.md)** and
-  **[Security IG](/community/interest-groups/security.md)**: The groups coordinate on
+* **[Auth IG](https://modelcontextprotocol.io/community/interest-groups/auth.md)** and
+  **[Security IG](https://modelcontextprotocol.io/community/interest-groups/security.md)**: The groups coordinate on
   credential carriage and transport wire security while authorization mechanics and
   broader security requirements remain with the respective IGs.
 
@@ -121,7 +121,7 @@ Work follows a problem-first workflow:
 3. Review and iterate on the solution to address WG feedback.
 4. After the WG reaches consensus under its decision-making process, present the
    solution to Core Maintainers as an SEP through the
-   [SEP process](/community/sep-guidelines.md).
+   [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md).
 
 ## Resources
 

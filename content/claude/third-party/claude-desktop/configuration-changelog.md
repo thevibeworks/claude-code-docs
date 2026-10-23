@@ -20,10 +20,10 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`installedUpdateEnforcementEnabled`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementenabled) | `boolean` | Restart to apply installed updates |
-| [`installedUpdateEnforcementHours`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementhours) | `integer` | Installed-update enforcement window |
-| [`quickEntryScreenshotsEnabled`](/docs/third-party/claude-desktop/configuration#quickentryscreenshotsenabled) | `boolean` | Allow screenshots of the screen and other apps |
-| [`quickEntryFileSharingEnabled`](/docs/third-party/claude-desktop/configuration#quickentryfilesharingenabled) | `boolean` | Allow sharing files open in other apps |
+| [`installedUpdateEnforcementEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#installedupdateenforcementenabled) | `boolean` | Restart to apply installed updates |
+| [`installedUpdateEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#installedupdateenforcementhours) | `integer` | Installed-update enforcement window |
+| [`quickEntryScreenshotsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#quickentryscreenshotsenabled) | `boolean` | Allow screenshots of the screen and other apps |
+| [`quickEntryFileSharingEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#quickentryfilesharingenabled) | `boolean` | Allow sharing files open in other apps |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -75,8 +75,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel) | `enum` | Release channel |
-| [`quickEntryDefaultShortcut`](/docs/third-party/claude-desktop/configuration#quickentrydefaultshortcut) | `string` | Default Quick Entry shortcut |
+| [`releaseChannel`](https://claude.com/docs/third-party/claude-desktop/configuration#releasechannel) | `enum` | Release channel |
+| [`quickEntryDefaultShortcut`](https://claude.com/docs/third-party/claude-desktop/configuration#quickentrydefaultshortcut) | `string` | Default Quick Entry shortcut |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -121,7 +121,7 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`developerModeEnabled`](/docs/third-party/claude-desktop/configuration#developermodeenabled) | `boolean` | Allow Developer Mode |
+| [`developerModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#developermodeenabled) | `boolean` | Allow Developer Mode |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -166,8 +166,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`otlpAttrMaxChars`](/docs/third-party/claude-desktop/configuration#otlpattrmaxchars) | `integer` | Telemetry attribute length limit |
-| [`desktopHome`](/docs/third-party/claude-desktop/configuration#desktophome) | `enum` | Desktop home |
+| [`otlpAttrMaxChars`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpattrmaxchars) | `integer` | Telemetry attribute length limit |
+| [`desktopHome`](https://claude.com/docs/third-party/claude-desktop/configuration#desktophome) | `enum` | Desktop home |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -200,7 +200,7 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`microsoftAuthDefaultAccount`](/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) | `enum` | Microsoft 365 sign-in with the Windows account |
+| [`microsoftAuthDefaultAccount`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) | `enum` | Microsoft 365 sign-in with the Windows account |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -241,7 +241,7 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`deniedPluginMcpServers`](/docs/third-party/claude-desktop/configuration#deniedpluginmcpservers) | `object[]` | Blocked plugin MCP servers |
+| [`deniedPluginMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#deniedpluginmcpservers) | `object[]` | Blocked plugin MCP servers |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -282,14 +282,14 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceIdpAuthFlow`](/docs/third-party/claude-desktop/configuration#inferenceidpauthflow) | `enum` | Identity provider sign-in flow |
-| [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) | `object` | Identity provider (OIDC) |
-| [`mcpScheduledTaskApprovalLifetimeDays`](/docs/third-party/claude-desktop/configuration#mcpscheduledtaskapprovallifetimedays) | `integer` | Scheduled-task tool approval lifetime |
-| [`keepAwakeEnabled`](/docs/third-party/claude-desktop/configuration#keepawakeenabled) | `boolean` | Allow keep awake |
+| [`inferenceIdpAuthFlow`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceidpauthflow) | `enum` | Identity provider sign-in flow |
+| [`inferenceIdpOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceidpoidc) | `object` | Identity provider (OIDC) |
+| [`mcpScheduledTaskApprovalLifetimeDays`](https://claude.com/docs/third-party/claude-desktop/configuration#mcpscheduledtaskapprovallifetimedays) | `integer` | Scheduled-task tool approval lifetime |
+| [`keepAwakeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#keepawakeenabled) | `boolean` | Allow keep awake |
 
 **Set in the Claude admin console only:**
 
-* [`disableLocalConfigCache`](/docs/third-party/claude-desktop/configuration#disablelocalconfigcache) — Keep only your organization ID and restrictions on disk
+* [`disableLocalConfigCache`](https://claude.com/docs/third-party/claude-desktop/configuration#disablelocalconfigcache) — Keep only your organization ID and restrictions on disk
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -350,12 +350,12 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceCredentialHelperWindows`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows) | `string` | Helper script (Windows) |
-| [`allowedPluginMcpServers`](/docs/third-party/claude-desktop/configuration#allowedpluginmcpservers) | `object[]` | Allowed plugin MCP servers |
-| [`builtinBrowserEnabled`](/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) | `boolean` | Allow the built-in browser |
-| [`builtinBrowserDefaultDomainPolicy`](/docs/third-party/claude-desktop/configuration#builtinbrowserdefaultdomainpolicy) | `enum` | Default site policy in the built-in browser |
-| [`builtinBrowserAllowedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains) | `string[]` | Allowed sites in the built-in browser |
-| [`builtinBrowserBlockedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains) | `string[]` | Blocked sites in the built-in browser |
+| [`inferenceCredentialHelperWindows`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows) | `string` | Helper script (Windows) |
+| [`allowedPluginMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedpluginmcpservers) | `object[]` | Allowed plugin MCP servers |
+| [`builtinBrowserEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) | `boolean` | Allow the built-in browser |
+| [`builtinBrowserDefaultDomainPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserdefaultdomainpolicy) | `enum` | Default site policy in the built-in browser |
+| [`builtinBrowserAllowedDomains`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains) | `string[]` | Allowed sites in the built-in browser |
+| [`builtinBrowserBlockedDomains`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains) | `string[]` | Blocked sites in the built-in browser |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -392,13 +392,13 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) | `string[]` | Helper script arguments |
-| [`inferenceFoundryBaseUrl`](/docs/third-party/claude-desktop/configuration#inferencefoundrybaseurl) | `string` | Azure AI Foundry base URL |
-| [`defaultModelEffort`](/docs/third-party/claude-desktop/configuration#defaultmodeleffort) | `enum` | Default model effort |
-| [`alwaysStartWithDefaultModel`](/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel) | `boolean` | Always start with the default model |
-| [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) | `boolean` | Model catalog metadata |
-| [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) | `string` | Model catalog URL |
-| [`scheduledTasksEnabled`](/docs/third-party/claude-desktop/configuration#scheduledtasksenabled) | `boolean` | Allow scheduled tasks |
+| [`inferenceCredentialHelperArgs`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) | `string[]` | Helper script arguments |
+| [`inferenceFoundryBaseUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencefoundrybaseurl) | `string` | Azure AI Foundry base URL |
+| [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort) | `enum` | Default model effort |
+| [`alwaysStartWithDefaultModel`](https://claude.com/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel) | `boolean` | Always start with the default model |
+| [`modelCatalogEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogenabled) | `boolean` | Model catalog metadata |
+| [`modelCatalogUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogurl) | `string` | Model catalog URL |
+| [`scheduledTasksEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#scheduledtasksenabled) | `boolean` | Allow scheduled tasks |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -446,12 +446,12 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) · Beta | `enum` | SSH connection engine |
-| [`chatSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) | `integer` | Chat retention period |
-| [`coworkSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) | `integer` | Cowork retention period |
-| [`codeSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#codesessionretentiondays) | `integer` | Code retention period |
-| [`sessionRetentionHold`](/docs/third-party/claude-desktop/configuration#sessionretentionhold) | `boolean` | Suspend session deletion |
-| [`coworkVmIpv6Enabled`](/docs/third-party/claude-desktop/configuration#coworkvmipv6enabled) | `boolean` | Enable IPv6 in the workspace VM |
+| [`sshTransport`](https://claude.com/docs/third-party/claude-desktop/configuration#sshtransport) · Beta | `enum` | SSH connection engine |
+| [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) | `integer` | Chat retention period |
+| [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) | `integer` | Cowork retention period |
+| [`codeSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#codesessionretentiondays) | `integer` | Code retention period |
+| [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) | `boolean` | Suspend session deletion |
+| [`coworkVmIpv6Enabled`](https://claude.com/docs/third-party/claude-desktop/configuration#coworkvmipv6enabled) | `boolean` | Enable IPv6 in the workspace VM |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -505,10 +505,10 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) · Beta | `string` | SSH client program |
-| [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) | `integer` | Configuration re-check interval |
-| [`disableBypassPermissionsMode`](/docs/third-party/claude-desktop/configuration#disablebypasspermissionsmode) | `boolean` | Disable bypass permissions mode |
-| [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) | `boolean` | Block reads outside working directories |
+| [`sshClientPath`](https://claude.com/docs/third-party/claude-desktop/configuration#sshclientpath) · Beta | `string` | SSH client program |
+| [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) | `integer` | Configuration re-check interval |
+| [`disableBypassPermissionsMode`](https://claude.com/docs/third-party/claude-desktop/configuration#disablebypasspermissionsmode) | `boolean` | Disable bypass permissions mode |
+| [`blockReadsOutsideWorkingDirectories`](https://claude.com/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) | `boolean` | Block reads outside working directories |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -549,10 +549,10 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceStreamIdleTimeoutSec`](/docs/third-party/claude-desktop/configuration#inferencestreamidletimeoutsec) | `integer` | Stream idle timeout |
-| [`egressProxyUrl`](/docs/third-party/claude-desktop/configuration#egressproxyurl) | `string` | Proxy server URL |
-| [`egressProxyPacUrl`](/docs/third-party/claude-desktop/configuration#egressproxypacurl) | `string` | Proxy auto-config (PAC) URL |
-| [`claudeAiImport.automatic3pImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield (beta): when `true` and `deploymentOrganizationUuid` is set, the app copies this computer's earlier third-party sessions stored before an organization ID was configured into that organization's session store, once per device and in the background; independent of `enabled` (default `false`). |
+| [`inferenceStreamIdleTimeoutSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencestreamidletimeoutsec) | `integer` | Stream idle timeout |
+| [`egressProxyUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#egressproxyurl) | `string` | Proxy server URL |
+| [`egressProxyPacUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#egressproxypacurl) | `string` | Proxy auto-config (PAC) URL |
+| [`claudeAiImport.automatic3pImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield (beta): when `true` and `deploymentOrganizationUuid` is set, the app copies this computer's earlier third-party sessions stored before an organization ID was configured into that organization's session store, once per device and in the background; independent of `enabled` (default `false`). |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -589,8 +589,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) · Beta | `string[]` | SSH host allowlist |
-| [`disableConfigDeprecationWarnings`](/docs/third-party/claude-desktop/configuration#disableconfigdeprecationwarnings) | `boolean` | Hide configuration deprecation warnings |
+| [`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostallowlist) · Beta | `string[]` | SSH host allowlist |
+| [`disableConfigDeprecationWarnings`](https://claude.com/docs/third-party/claude-desktop/configuration#disableconfigdeprecationwarnings) | `boolean` | Hide configuration deprecation warnings |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -657,14 +657,14 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceModelPricingEnabled`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled) | `boolean` | Show estimated cost |
-| [`inferenceModelPricingMultiplier`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingmultiplier) | `number` | Price multiplier |
-| [`inferenceModelPricing`](/docs/third-party/claude-desktop/configuration#inferencemodelpricing) | `object[]` | Model pricing |
-| [`userPluginMarketplacesEnabled`](/docs/third-party/claude-desktop/configuration#userpluginmarketplacesenabled) | `boolean` | Allow user-added plugin marketplaces |
-| [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) | `boolean` | Allow user-added plugins |
-| [`mcpToolTimeoutSec`](/docs/third-party/claude-desktop/configuration#mcptooltimeoutsec) | `integer` | MCP tool call timeout |
-| [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) | `boolean` | Skip WebFetch domain check |
-| [`organizationInstructions`](/docs/third-party/claude-desktop/configuration#organizationinstructions) | `string` | Organization instructions |
+| [`inferenceModelPricingEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled) | `boolean` | Show estimated cost |
+| [`inferenceModelPricingMultiplier`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricingmultiplier) | `number` | Price multiplier |
+| [`inferenceModelPricing`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricing) | `object[]` | Model pricing |
+| [`userPluginMarketplacesEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginmarketplacesenabled) | `boolean` | Allow user-added plugin marketplaces |
+| [`userPluginUploadsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) | `boolean` | Allow user-added plugins |
+| [`mcpToolTimeoutSec`](https://claude.com/docs/third-party/claude-desktop/configuration#mcptooltimeoutsec) | `integer` | MCP tool call timeout |
+| [`skipWebFetchPreflight`](https://claude.com/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) | `boolean` | Skip WebFetch domain check |
+| [`organizationInstructions`](https://claude.com/docs/third-party/claude-desktop/configuration#organizationinstructions) | `string` | Organization instructions |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -721,8 +721,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`bootstrapHeaders`](/docs/third-party/claude-desktop/configuration#bootstrapheaders) | `object` | Bootstrap request headers |
-| [`bootstrapHeadersHelper`](/docs/third-party/claude-desktop/configuration#bootstrapheadershelper) | `string` | Bootstrap headers helper script |
+| [`bootstrapHeaders`](https://claude.com/docs/third-party/claude-desktop/configuration#bootstrapheaders) | `object` | Bootstrap request headers |
+| [`bootstrapHeadersHelper`](https://claude.com/docs/third-party/claude-desktop/configuration#bootstrapheadershelper) | `string` | Bootstrap headers helper script |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -751,8 +751,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`claudeAiImport.exportEnabled`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield: lets users export this computer's chats, Cowork tasks, and Code sessions from Settings > Import & export as a zip that another install can import; no effect unless `enabled` is `true` (default `false`). |
-| [`allowedPluginMarketplaces[].manifestSha256`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `string` | New subfield (beta): SHA-256 of the exact hosted `marketplace.json` a `url` marketplace may serve; required when `installationPreference` is `auto_install` or `required`, and a served manifest with any other digest is refused. |
+| [`claudeAiImport.exportEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield: lets users export this computer's chats, Cowork tasks, and Code sessions from Settings > Import & export as a zip that another install can import; no effect unless `enabled` is `true` (default `false`). |
+| [`allowedPluginMarketplaces[].manifestSha256`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `string` | New subfield (beta): SHA-256 of the exact hosted `marketplace.json` a `url` marketplace may serve; required when `installationPreference` is `auto_install` or `required`, and a served manifest with any other digest is refused. |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -792,9 +792,9 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`otlpAuthMode`](/docs/third-party/claude-desktop/configuration#otlpauthmode) | `enum` | Collector authentication |
-| [`otlpHeadersHelper`](/docs/third-party/claude-desktop/configuration#otlpheadershelper) | `string` | OpenTelemetry headers helper script |
-| [`inferenceGatewayOidc.resource`](/docs/third-party/claude-desktop/configuration#inferencegatewayoidc) | `string` | New subfield: RFC 8707 resource indicator sent on gateway sign-in and token refresh so the IdP audience-restricts the access token to the gateway; leave unset for Microsoft Entra ID. |
+| [`otlpAuthMode`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpauthmode) | `enum` | Collector authentication |
+| [`otlpHeadersHelper`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpheadershelper) | `string` | OpenTelemetry headers helper script |
+| [`inferenceGatewayOidc.resource`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayoidc) | `string` | New subfield: RFC 8707 resource indicator sent on gateway sign-in and token refresh so the IdP audience-restricts the access token to the gateway; leave unset for Microsoft Entra ID. |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -824,9 +824,9 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) | `boolean` | Default to 1M context |
-| [`claudeAiImport.enabled`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield: turns history import on; the banner and import actions stay off until set to `true` (default `false`). |
-| [`claudeAiImport.bannerBehavior`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `enum` | New subfield: when the import banner appears: `off` (default), `detect`, or `show`. |
+| [`modelPrefer1mContext`](https://claude.com/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) | `boolean` | Default to 1M context |
+| [`claudeAiImport.enabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield: turns history import on; the banner and import actions stay off until set to `true` (default `false`). |
+| [`claudeAiImport.bannerBehavior`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) | `enum` | New subfield: when the import banner appears: `off` (default), `detect`, or `show`. |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -852,8 +852,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`updateViaUpdatesHost`](/docs/third-party/claude-desktop/configuration#updateviaupdateshost) | `boolean` | Check for updates on releases.claude.com |
-| [`allowedWorkspaceFolders[].mode`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) | `enum` | New subfield: `ro` makes the folder read-only in Cowork; Code enforces file tools only. |
+| [`updateViaUpdatesHost`](https://claude.com/docs/third-party/claude-desktop/configuration#updateviaupdateshost) | `boolean` | Check for updates on releases.claude.com |
+| [`allowedWorkspaceFolders[].mode`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) | `enum` | New subfield: `ro` makes the folder read-only in Cowork; Code enforces file tools only. |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -873,10 +873,10 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceGatewayOidcAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencegatewayoidcauthflow) | `enum` | Gateway sign-in flow |
-| [`inferenceVertexWorkforceAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencevertexworkforceauthflow) | `enum` | Workforce Identity sign-in flow |
-| [`trustBootstrapLocalExec`](/docs/third-party/claude-desktop/configuration#trustbootstrapdelivery) | `boolean` | Trust bootstrap-delivered local commands |
-| [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled) | `boolean` | Allow user-created skills |
+| [`inferenceGatewayOidcAuthFlow`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayoidcauthflow) | `enum` | Gateway sign-in flow |
+| [`inferenceVertexWorkforceAuthFlow`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencevertexworkforceauthflow) | `enum` | Workforce Identity sign-in flow |
+| [`trustBootstrapLocalExec`](https://claude.com/docs/third-party/claude-desktop/configuration#trustbootstrapdelivery) | `boolean` | Trust bootstrap-delivered local commands |
+| [`skillCreationEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillcreationenabled) | `boolean` | Allow user-created skills |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -916,7 +916,7 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`mcpPersistentAlwaysAllowEnabled`](/docs/third-party/claude-desktop/configuration#mcppersistentalwaysallowenabled) | `boolean` | Allow persistent tool approvals |
+| [`mcpPersistentAlwaysAllowEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#mcppersistentalwaysallowenabled) | `boolean` | Allow persistent tool approvals |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -934,8 +934,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`enduserAttribution`](/docs/third-party/claude-desktop/configuration#enduserattribution) | `boolean` | End-user attribution |
-| [`userContentRendererUrl`](/docs/third-party/claude-desktop/configuration#usercontentrendererurl) | `string` | Artifact preview iframe origin |
+| [`enduserAttribution`](https://claude.com/docs/third-party/claude-desktop/configuration#enduserattribution) | `boolean` | End-user attribution |
+| [`userContentRendererUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#usercontentrendererurl) | `string` | Artifact preview iframe origin |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -960,7 +960,7 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`otlpTracesEnabled`](/docs/third-party/claude-desktop/configuration#otlptracesenabled) | `boolean` | Export traces (beta) |
+| [`otlpTracesEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#otlptracesenabled) | `boolean` | Export traces (beta) |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -984,12 +984,12 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`disableFeatureDiscovery`](/docs/third-party/claude-desktop/configuration#disablefeaturediscovery) | `boolean` | Hide feature announcements |
-| [`inferenceModels[].prefer1m`](/docs/third-party/claude-desktop/configuration#inferencemodels) | `boolean` | New subfield: make the 1M-context variant the default picker selection when this model is the default entry. |
-| [`managedMcpServers[].envHelper`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `string` | New subfield: helper executable that prints environment variables as JSON for a managed stdio server. |
-| [`managedMcpServers[].envHelperTtlSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: maximum age in seconds of a cached `envHelper` result (default 300). |
-| [`managedMcpServers[].headersHelperRefreshBufferSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: how many seconds before credential expiry the `headersHelper` re-runs (default 60). |
-| [`toolSearchEnabled`](/docs/third-party/claude-desktop/configuration#toolsearchenabled) | `boolean` | Enable tool search |
+| [`disableFeatureDiscovery`](https://claude.com/docs/third-party/claude-desktop/configuration#disablefeaturediscovery) | `boolean` | Hide feature announcements |
+| [`inferenceModels[].prefer1m`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodels) | `boolean` | New subfield: make the 1M-context variant the default picker selection when this model is the default entry. |
+| [`managedMcpServers[].envHelper`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | `string` | New subfield: helper executable that prints environment variables as JSON for a managed stdio server. |
+| [`managedMcpServers[].envHelperTtlSec`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: maximum age in seconds of a cached `envHelper` result (default 300). |
+| [`managedMcpServers[].headersHelperRefreshBufferSec`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: how many seconds before credential expiry the `headersHelper` re-runs (default 60). |
+| [`toolSearchEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#toolsearchenabled) | `boolean` | Enable tool search |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -1027,9 +1027,9 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`inferenceFoundryAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencefoundryauthflow) | `enum` | Entra ID sign-in flow |
-| [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) | `enum` | Microsoft 365 native sign-in broker |
-| [`managedMcpServers[].startupTimeoutSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: maximum wait in seconds for the server to start and list its tools. |
+| [`inferenceFoundryAuthFlow`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencefoundryauthflow) | `enum` | Entra ID sign-in flow |
+| [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) | `enum` | Microsoft 365 native sign-in broker |
+| [`managedMcpServers[].startupTimeoutSec`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: maximum wait in seconds for the server to start and list its tools. |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**
 
@@ -1077,8 +1077,8 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `object[]` | Admin-configured plugin marketplace git URLs appear under the Directory's Organization tab. (MDM-only; not settable via bootstrap JSON.) |
-| [`inferenceVertexWorkforceOidc.omitOfflineAccess`](/docs/third-party/claude-desktop/configuration#inferencevertexworkforceoidc) | `boolean` | New subfield: omit `offline_access` from the OIDC scope request. |
+| [`allowedPluginMarketplaces`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `object[]` | Admin-configured plugin marketplace git URLs appear under the Directory's Organization tab. (MDM-only; not settable via bootstrap JSON.) |
+| [`inferenceVertexWorkforceOidc.omitOfflineAccess`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencevertexworkforceoidc) | `boolean` | New subfield: omit `offline_access` from the OIDC scope request. |
 
 **JSON (Non-MDM User, Bootstrap Remote):**
 
@@ -1112,9 +1112,9 @@ No configuration changes in this release.
 
 | MDM key | Type | Description |
 | - | - | - |
-| [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture) | `enum[]` | Content capture categories |
-| [`disableBundledSkills`](/docs/third-party/claude-desktop/configuration#disablebundledskills) | `boolean` | Disable bundled skills and workflows |
-| [`managedMcpServers[].server`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `enum` | Gained `"websearch"` — managed web search (Brave, Tavily, Exa or custom) |
+| [`otlpContentCapture`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpcontentcapture) | `enum[]` | Content capture categories |
+| [`disableBundledSkills`](https://claude.com/docs/third-party/claude-desktop/configuration#disablebundledskills) | `boolean` | Disable bundled skills and workflows |
+| [`managedMcpServers[].server`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | `enum` | Gained `"websearch"` — managed web search (Brave, Tavily, Exa or custom) |
 
 **JSON (Non-MDM User, Bootstrap Remote):**
 

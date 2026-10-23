@@ -82,7 +82,7 @@ Servers **MUST NOT** send elicitation requests with modes that are not supported
 
 ### Elicitation Requests
 
-Servers **MAY** request information from a user during the processing of a client request, by sending an [`InputRequiredResult`](/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult)
+Servers **MAY** request information from a user during the processing of a client request, by sending an [`InputRequiredResult`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult)
 containing an `elicitation/create` request.
 
 All elicitation requests **MUST** include the following parameters:
@@ -238,7 +238,7 @@ Note that complex nested structures, arrays of objects (beyond enums), and other
 
 #### Example: Simple Text Request
 
-**Input request (delivered inside [`InputRequiredResult.inputRequests`](/specification/2026-07-28/basic/patterns/mrtr#inputrequests)):**
+**Input request (delivered inside [`InputRequiredResult.inputRequests`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr#inputrequests)):**
 
 ```json theme={null}
 {
@@ -337,7 +337,7 @@ The `url` parameter **MUST** contain a valid URL.
 >
 > **Important**: URL mode elicitation is *not* for authorizing the MCP client's
 > access to the MCP server (that's handled by [MCP
-> authorization](/specification/2026-07-28/basic/authorization.md)). Instead, it's used when the MCP
+> authorization](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md)). Instead, it's used when the MCP
 > server needs to obtain sensitive information or third-party authorization on
 > behalf of the user. The MCP client's bearer token remains unchanged. The
 > client's only responsibility is to provide the user with context about the
@@ -466,12 +466,12 @@ Servers should handle each state appropriately:
 
 ### Statefulness
 
-Elicitations do not require that the server maintain state about users with the [multi round-trip requests](/specification/2026-07-28/basic/patterns/mrtr.md#multi-round-trip-requests) mechanism.
+Elicitations do not require that the server maintain state about users with the [multi round-trip requests](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md#multi-round-trip-requests) mechanism.
 
-However, if state is stored, servers implementing elicitation **MUST** securely associate this state with individual users following the guidelines in the [security best practices](/docs/2026-07-28/tutorials/security/security_best_practices.md) document. Specifically:
+However, if state is stored, servers implementing elicitation **MUST** securely associate this state with individual users following the guidelines in the [security best practices](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices.md) document. Specifically:
 
 * State storage **MUST** be protected against unauthorized access
-* For remote MCP servers, user identification **MUST** be derived from credentials acquired via [MCP authorization](/specification/2026-07-28/basic/authorization.md) when possible (e.g. `sub` claim)
+* For remote MCP servers, user identification **MUST** be derived from credentials acquired via [MCP authorization](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md) when possible (e.g. `sub` claim)
 
 > [!NOTE]
 >
@@ -496,11 +496,11 @@ This approach ensures that sensitive credentials never pass through the LLM cont
 ### URL Mode Elicitation for OAuth Flows
 
 URL mode elicitation enables a pattern where MCP servers act as OAuth clients to third-party resource servers.
-Authorization with external APIs enabled by URL mode elicitation is separate from [MCP authorization](/specification/2026-07-28/basic/authorization.md). MCP servers **MUST NOT** rely on URL mode elicitation to authorize users for themselves.
+Authorization with external APIs enabled by URL mode elicitation is separate from [MCP authorization](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md). MCP servers **MUST NOT** rely on URL mode elicitation to authorize users for themselves.
 
 #### Understanding the Distinction
 
-* **MCP Authorization**: Required OAuth flow between the MCP client and MCP server (covered in the [authorization specification](/specification/2026-07-28/basic/authorization.md))
+* **MCP Authorization**: Required OAuth flow between the MCP client and MCP server (covered in the [authorization specification](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md))
 * **External (third-party) Authorization**: Optional authorization between the MCP server and a third-party resource server, initiated via URL mode elicitation
 
 In external authorization, the server acts as both:
@@ -517,7 +517,7 @@ Example scenario:
 The critical security requirements are:
 
 1. **The third-party credentials MUST NOT transit through the MCP client**: The client must never see third-party credentials to protect the security boundary
-2. **The MCP server MUST NOT use the client's credentials for the third-party service**: That would be [token passthrough](/docs/2026-07-28/tutorials/security/security_best_practices.md#token-passthrough), which is forbidden
+2. **The MCP server MUST NOT use the client's credentials for the third-party service**: That would be [token passthrough](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices.md#token-passthrough), which is forbidden
 3. **The user MUST authorize the MCP server directly**: The interaction happens outside the MCP protocol, without involving the MCP client
 4. **The MCP server is responsible for tokens**: The MCP server is responsible for storing and managing the third-party tokens obtained through the URL mode elicitation (in other words, the MCP server must be stateful).
 
@@ -526,7 +526,7 @@ Credentials obtained via URL mode elicitation are distinct from the MCP server c
 > [!NOTE]
 >
 > For additional background, refer to the [token passthrough
-> section](/docs/2026-07-28/tutorials/security/security_best_practices.md#token-passthrough)
+> section](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices.md#token-passthrough)
 > of the Security Best Practices document to understand why MCP servers cannot
 > act as pass-through proxies.
 
@@ -621,12 +621,12 @@ When handling URL mode elicitation requests, MCP clients:
 ### Identifying the User
 
 Servers **MUST NOT** rely on client-provided user identification without server verification, as this can be forged.
-Instead, servers **SHOULD** follow [security best practices](/docs/2026-07-28/tutorials/security/security_best_practices.md).
+Instead, servers **SHOULD** follow [security best practices](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices.md).
 
 Non-normative examples:
 
 * Incorrect: Treat user input like "I am [joe@example.com](mailto:joe@example.com)" as authoritative
-* Correct: Rely on [authorization](/specification/2026-07-28/basic/authorization.md) to identify the user
+* Correct: Rely on [authorization](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md) to identify the user
 
 ### Form Mode Security
 
@@ -638,7 +638,7 @@ Non-normative examples:
 
 URL mode elicitation returns a URL that an attacker can use to send to a victim. The MCP Server **MUST** verify the identity of the user who opens the URL before accepting information.
 
-Typically identity verification is done by leveraging the [MCP authorization server](/specification/2026-07-28/basic/authorization.md) to identify the user, through a session cookie or equivalent in the browser.
+Typically identity verification is done by leveraging the [MCP authorization server](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md) to identify the user, through a session cookie or equivalent in the browser.
 
 For example, URL mode elicitation may be used to perform OAuth flows where the server acts as an OAuth client of another resource server. Without proper mitigation, the following phishing attack is possible:
 

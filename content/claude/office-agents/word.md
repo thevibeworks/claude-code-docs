@@ -147,7 +147,7 @@ with their Claude credentials on first use.
 If your organization routes AI traffic through Amazon Bedrock, Google Cloud
 Vertex AI, Azure AI Foundry, or an LLM gateway, your admin can deploy
 the add-in without individual Claude accounts. See
-[Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md).
+[Use Claude for M365 with third-party platforms](https://claude.com/docs/office-agents/third-party-platforms.md).
 
 ## Key features
 
@@ -249,7 +249,7 @@ Example prompts:
 
 Claude for Word supports connectors for pulling external context into
 your document, and Skills for applying reusable task recipes. See
-[Connectors and Skills](/docs/office-agents/connectors-and-skills.md) for
+[Connectors and Skills](https://claude.com/docs/office-agents/connectors-and-skills.md) for
 details.
 
 ## Set persistent instructions
@@ -269,7 +269,7 @@ Instructions you set in Excel or PowerPoint.
 Claude for Word shares context with Claude for Excel, PowerPoint, and
 Outlook, so a single conversation can span your open document,
 workbook, deck, and inbox. See
-[Work across M365 apps](/docs/office-agents/work-across-apps.md).
+[Work across M365 apps](https://claude.com/docs/office-agents/work-across-apps.md).
 
 ## Context and session management
 
@@ -295,7 +295,7 @@ for how those settings interact with each product. If you connect
 through Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an
 LLM gateway, the available models come from that platform and your
 admin's configuration instead of your Claude.ai model access settings.
-See [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md)
+See [Use Claude for M365 with third-party platforms](https://claude.com/docs/office-agents/third-party-platforms.md)
 for details.
 
 ## Data handling
@@ -310,7 +310,7 @@ Chat history is stored locally in your browser using IndexedDB.
 Conversations are not stored on Anthropic's servers, are not synced
 across devices, and can be cleared from Settings at any time.
 Reinstalling the add-in or switching between Claude add-ins does not
-remove it. See [Data storage and retention](/docs/office-agents/data-storage.md)
+remove it. See [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md)
 for where it sits on disk and how long it is kept.
 
 Claude for Word does not inherit custom data retention settings your

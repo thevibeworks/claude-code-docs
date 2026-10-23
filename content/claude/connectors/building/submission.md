@@ -6,26 +6,26 @@
 
 > Submit a remote MCP server or MCP App to the Connectors Directory through the developer portal: requirements, screenshot specs, and what each step asks for.
 
-You submit a remote MCP server to the [Connectors Directory](/docs/connectors/directory.md) through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), where you choose **MCP connector**.
+You submit a remote MCP server to the [Connectors Directory](https://claude.com/docs/connectors/directory.md) through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), where you choose **MCP connector**.
 
-This page is for connector authors who are ready to submit. It starts with a [checklist](#pre-submission-checklist-for-connectors), then covers [where to submit your connector](#choose-where-to-submit-your-connector), the [requirements every submission must meet](#meet-the-submission-requirements), and [what to have ready for each step of the portal](#submit-through-the-developer-portal). [Connector review criteria](/docs/connectors/building/review-criteria.md) explains what reviewers look for in your tools and server, so read it alongside the checklist.
+This page is for connector authors who are ready to submit. It starts with a [checklist](#pre-submission-checklist-for-connectors), then covers [where to submit your connector](#choose-where-to-submit-your-connector), the [requirements every submission must meet](#meet-the-submission-requirements), and [what to have ready for each step of the portal](#submit-through-the-developer-portal). [Connector review criteria](https://claude.com/docs/connectors/building/review-criteria.md) explains what reviewers look for in your tools and server, so read it alongside the checklist.
 
 > [!NOTE]
 >
-> If you're submitting a plugin rather than a connector, see [Submit a plugin](/docs/plugins/submit.md) instead.
+> If you're submitting a plugin rather than a connector, see [Submit a plugin](https://claude.com/docs/plugins/submit.md) instead.
 
 ## Pre-submission checklist for connectors
 
 Work through this list before you open the portal. Each item links to where it is explained, and the rest of this page covers the requirements and the portal steps in detail.
 
-* **Your server is remote and reachable over HTTPS**: the portal asks for an `https://` URL. A local server can't be submitted on its own; include it in a [plugin](/docs/plugins/submit.md) instead
-* **Authentication works for Claude's client**: OAuth 2.0 if your tools act on a user's account, or no authentication for public data, as [Authentication for connectors](/docs/connectors/building/authentication.md) describes. You don't need Verified status or any separate approval for authentication to work
-* **Every tool has a `title` and a `readOnlyHint` or `destructiveHint` annotation**: the portal flags tools that are missing them, and [review criteria](/docs/connectors/building/review-criteria.md#design-tools-that-pass-review) explain how reviewers read tool names and descriptions
-* **You've tested it in Claude**: add the server as a [custom connector](/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector) and call each tool from a conversation; the portal's **Test & launch** step asks you to confirm this
-* **You have the listing materials**: documentation URL, privacy policy URL, support contact, an icon, and for an [MCP App](/docs/connectors/building/mcp-apps/getting-started.md) the [carousel screenshots](#carousel-screenshots-for-mcp-apps)
+* **Your server is remote and reachable over HTTPS**: the portal asks for an `https://` URL. A local server can't be submitted on its own; include it in a [plugin](https://claude.com/docs/plugins/submit.md) instead
+* **Authentication works for Claude's client**: OAuth 2.0 if your tools act on a user's account, or no authentication for public data, as [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md) describes. You don't need Verified status or any separate approval for authentication to work
+* **Every tool has a `title` and a `readOnlyHint` or `destructiveHint` annotation**: the portal flags tools that are missing them, and [review criteria](https://claude.com/docs/connectors/building/review-criteria.md#design-tools-that-pass-review) explain how reviewers read tool names and descriptions
+* **You've tested it in Claude**: add the server as a [custom connector](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector) and call each tool from a conversation; the portal's **Test & launch** step asks you to confirm this
+* **You have the listing materials**: documentation URL, privacy policy URL, support contact, an icon, and for an [MCP App](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md) the [carousel screenshots](#carousel-screenshots-for-mcp-apps)
 * **You have a test account for reviewers**: credentials for a fully populated account, which you enter in the portal and which only reviewers see
-* **Your account can submit**: any paid Claude plan. See [who can submit](/docs/directory/publish.md#confirm-you-can-submit-to-the-directory)
-* **If a plugin of yours points at this server, submit the server anyway**: the connector listing gives your organization the server's details, authentication configuration, and dashboard, and lets you pair it with the plugin. See [Submit your plugin, and your MCP server as a connector](/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector)
+* **Your account can submit**: any paid Claude plan. See [who can submit](https://claude.com/docs/directory/publish.md#confirm-you-can-submit-to-the-directory)
+* **If a plugin of yours points at this server, submit the server anyway**: the connector listing gives your organization the server's details, authentication configuration, and dashboard, and lets you pair it with the plugin. See [Submit your plugin, and your MCP server as a connector](https://claude.com/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector)
 
 Then open the [developer portal](https://claude.ai/directory/manage), select **Submit new**, and choose **MCP connector**.
 
@@ -34,12 +34,12 @@ Then open the [developer portal](https://claude.ai/directory/manage), select **S
 A connector submission is an MCP server, and where you submit it depends on whether the server is remote or local:
 
 * **Remote MCP servers**: internet-hosted servers that provide tools and data to Claude. Submit them through the [developer portal](https://claude.ai/directory/manage) and choose **MCP connector**
-* **MCP Apps**: remote MCP servers that [surface interactive UI](/docs/connectors/building/mcp-apps/getting-started.md). Submit them through the portal as remote servers, and include [carousel screenshots](#carousel-screenshots-for-mcp-apps) for the directory listing
-* **Local MCP servers**: desktop extension listings in the directory are deprecated, and the directory no longer accepts local servers packaged as [MCP Bundles (MCPB)](/docs/connectors/building/mcpb.md). To distribute a local server through the directory, include it in a [plugin](/docs/plugins/submit.md)
+* **MCP Apps**: remote MCP servers that [surface interactive UI](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md). Submit them through the portal as remote servers, and include [carousel screenshots](#carousel-screenshots-for-mcp-apps) for the directory listing
+* **Local MCP servers**: desktop extension listings in the directory are deprecated, and the directory no longer accepts local servers packaged as [MCP Bundles (MCPB)](https://claude.com/docs/connectors/building/mcpb.md). To distribute a local server through the directory, include it in a [plugin](https://claude.com/docs/plugins/submit.md)
 
-Skills aren't a standalone submission type. Bundle them in a [plugin](/docs/plugins/submit.md).
+Skills aren't a standalone submission type. Bundle them in a [plugin](https://claude.com/docs/plugins/submit.md).
 
-Anyone on a paid Claude plan can submit through the portal. [Who can submit to the directory](/docs/directory/publish.md#confirm-you-can-submit-to-the-directory) has the plan, role, and organization requirements, which are the same for connectors and plugins.
+Anyone on a paid Claude plan can submit through the portal. [Who can submit to the directory](https://claude.com/docs/directory/publish.md#confirm-you-can-submit-to-the-directory) has the plan, role, and organization requirements, which are the same for connectors and plugins.
 
 ## Meet the submission requirements
 
@@ -101,7 +101,7 @@ Provide each entry in one of these forms:
 * **HTTPS origin**: `https://example.com`. Only the scheme and hostname are matched, and paths, ports, and query strings are ignored. Subdomains aren't implied, so list each one, such as `https://app.example.com` and `https://docs.example.com`
 * **Custom URI scheme**: `myapp:` for deep links into a native app you own. Only the scheme is matched
 
-Every origin and scheme you list must be owned by you, the submitting organization. You may not list third-party domains or URI schemes registered to apps you don't publish. Entries you don't own are removed during review. [Open external links from MCP Apps](/docs/connectors/building/mcp-apps/external-links.md) explains how Claude matches entries and when the prompt still appears.
+Every origin and scheme you list must be owned by you, the submitting organization. You may not list third-party domains or URI schemes registered to apps you don't publish. Entries you don't own are removed during review. [Open external links from MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/external-links.md) explains how Claude matches entries and when the prompt still appears.
 
 ### Carousel screenshots for MCP Apps
 
@@ -135,7 +135,7 @@ Your progress saves automatically in your browser as you move between steps, so 
 
 **1. Connection**
 
-Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**. A listing that uses one of these options can be published only once it has the **Verified** label, as [Servers with per-customer URLs](/docs/connectors/building/authentication.md#servers-with-per-customer-urls) explains.
+Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**. A listing that uses one of these options can be published only once it has the **Verified** label, as [Servers with per-customer URLs](https://claude.com/docs/connectors/building/authentication.md#servers-with-per-customer-urls) explains.
 
 **2. Tools**
 
@@ -155,7 +155,7 @@ Company name and website, plus a primary contact for review updates.
 
 **6. Authentication**
 
-In the **How users authenticate** section, choose whether users must sign in under **Authentication requirement**, and how they sign in under **Authentication methods**. Choose **Required when the server asks** if your server starts without sign-in and only some tools need it. To have Anthropic hold your OAuth client, enter its client ID and secret here, as [Enter your OAuth client in the developer portal](/docs/connectors/building/authentication.md#enter-your-oauth-client-in-the-developer-portal) describes. [Authentication for connectors](/docs/connectors/building/authentication.md) covers each option.
+In the **How users authenticate** section, choose whether users must sign in under **Authentication requirement**, and how they sign in under **Authentication methods**. Choose **Required when the server asks** if your server starts without sign-in and only some tools need it. To have Anthropic hold your OAuth client, enter its client ID and secret here, as [Enter your OAuth client in the developer portal](https://claude.com/docs/connectors/building/authentication.md#enter-your-oauth-client-in-the-developer-portal) describes. [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md) covers each option.
 
 If you chose **URL pattern** in the Connection step, Anthropic-held client credentials can't be used. If you chose **Multiple URLs**, a custom connection can't be used.
 
@@ -177,14 +177,14 @@ Everything you've entered, for a final check before you submit. Any quality warn
 
 ## After you submit
 
-Anthropic scans your submission automatically for policy compliance and, by default, lists it as a Community connector with no action from you. A listing that uses an option under **Users connect to different URLs** can be published only once it has the **Verified** label. Some submissions also get a review from a person, and those review times vary with queue volume. The portal is always open for new submissions. Your submission's status and any reviewer feedback appear in the portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), and [Track your directory submission](/docs/directory/submission-status.md#mcp-connector-statuses) explains what each status in the portal means. [Manage your directory listing](/docs/connectors/building/managing-your-listing.md) covers reviewer feedback, listing edits, and the server health and usage metrics you get after publication.
+Anthropic scans your submission automatically for policy compliance and, by default, lists it as a Community connector with no action from you. A listing that uses an option under **Users connect to different URLs** can be published only once it has the **Verified** label. Some submissions also get a review from a person, and those review times vary with queue volume. The portal is always open for new submissions. Your submission's status and any reviewer feedback appear in the portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), and [Track your directory submission](https://claude.com/docs/directory/submission-status.md#mcp-connector-statuses) explains what each status in the portal means. [Manage your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md) covers reviewer feedback, listing edits, and the server health and usage metrics you get after publication.
 
 For escalations, email `mcp-review@anthropic.com`.
 
-If a submission is stuck, [Contact Anthropic about a submission](/docs/directory/submission-status.md#contact-anthropic-about-a-submission) gives the channel for an MCP connector.
+If a submission is stuck, [Contact Anthropic about a submission](https://claude.com/docs/directory/submission-status.md#contact-anthropic-about-a-submission) gives the channel for an MCP connector.
 
 ## Next steps
 
-* [Manage your directory listing](/docs/connectors/building/managing-your-listing.md): track review status, respond to reviewer feedback, and edit your listing
-* [After publishing](/docs/connectors/building/after-publishing.md): release updates to your server, and delist
-* [Connector verification](/docs/connectors/verification.md#list-your-own-connector): see how a Community listing becomes Verified and what each label means to users
+* [Manage your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md): track review status, respond to reviewer feedback, and edit your listing
+* [After publishing](https://claude.com/docs/connectors/building/after-publishing.md): release updates to your server, and delist
+* [Connector verification](https://claude.com/docs/connectors/verification.md#list-your-own-connector): see how a Community listing becomes Verified and what each label means to users

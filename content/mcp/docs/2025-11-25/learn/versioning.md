@@ -22,25 +22,25 @@ Revisions may be marked as:
   receive backwards compatible changes.
 * **Final**: past, complete specifications that will not be changed.
 
-The **current** protocol version is [**2025-11-25**](/specification/2025-11-25.md).
+The **current** protocol version is [**2025-11-25**](https://modelcontextprotocol.io/specification/2025-11-25.md).
 
 ## Feature States
 
 Individual features of the specification may additionally be marked as
 **Deprecated** under the
-[feature lifecycle and deprecation policy](/community/feature-lifecycle.md):
+[feature lifecycle and deprecation policy](https://modelcontextprotocol.io/community/feature-lifecycle.md):
 the feature remains part of the specification, but is scheduled for removal.
 Deprecated features document a migration path (or state that none is required)
 and remain in the specification for at least twelve months, or at least
 ninety days under the policy's
-[expedited-removal exception](/community/feature-lifecycle.md#expedited-removal),
+[expedited-removal exception](https://modelcontextprotocol.io/community/feature-lifecycle.md#expedited-removal),
 before they become eligible for removal, after which they may be **Removed**
 in a future revision.
 
 ## Negotiation
 
 Version negotiation happens during
-[initialization](/specification/2025-11-25/basic/lifecycle.md#initialization). Clients and
+[initialization](https://modelcontextprotocol.io/specification/2025-11-25/basic/lifecycle.md#initialization). Clients and
 servers **MAY** support multiple protocol versions simultaneously, but they **MUST**
 agree on a single version to use for the session.
 

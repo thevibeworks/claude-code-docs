@@ -1,12 +1,12 @@
 # Use Claude Cowork safely
 
-Cowork sessions run in the cloud on Anthropic's servers (in beta on Team and Enterprise plans), and Claude reaches your files, browser, and apps through the Claude Desktop app. These capabilities come with risks worth understanding. This article covers what we've built to keep you safe, what you should watch for, and how to protect yourself when using Cowork.
+Cowork sessions run in the cloud on Anthropic's servers, and Claude reaches your files, browser, and apps through the Claude Desktop app. These capabilities come with risks worth understanding. This article covers what we've built to keep you safe, what you should watch for, and how to protect yourself when using Cowork.
 
-Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on desktop and, for Pro and Max plans, on web and mobile. On web and mobile it’s in beta for Team plans, and Enterprise plans when enabled by an owner. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
+## Availability
 
-On Max and Team plans, on Pro plans as the rollout reaches you, and on Enterprise plans where your admin has enabled it, you can also run a Cowork session directly in the Claude in Chrome side panel.
+Claude Cowork is available on desktop on all paid plans (Pro, Max, Team, and Enterprise). On web and mobile, it's available on Pro, Max, and Team plans (in beta on Team), and on Enterprise plans when an owner enables it. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it’s in beta for Enterprise plans, where an admin turns it on as **Chat and Cowork unified (beta)**. If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 

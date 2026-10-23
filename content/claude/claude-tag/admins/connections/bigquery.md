@@ -29,11 +29,11 @@ Together the two grants let Claude run read-only queries against those datasets.
 
 ## Add the connector
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **BigQuery**. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. In the connect form, paste the whole JSON key file from Google Cloud Console into **Claude's service account key (JSON)**, then click **Connect** to save the connector.
+Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **BigQuery**. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. In the connect form, paste the whole JSON key file from Google Cloud Console into **Claude's service account key (JSON)**, then click **Connect** to save the connector.
 
 The access tokens Claude gets from this key carry only Google's `cloud-platform.read-only` scope, so Google refuses BigQuery API calls that create or delete tables or run load jobs. Queries still run with whatever the service account's roles allow, so the [dataset roles](#grant-access-to-specific-datasets) decide what a query can reach.
 
-Agent Proxy exchanges the service-account key for an access token and injects it at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
+Agent Proxy exchanges the service-account key for an access token and injects it at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -55,7 +55,7 @@ Then confirm a query runs against a dataset you granted:
 
 If the Google Cloud project that holds your BigQuery data is inside a [VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/overview) perimeter, Claude's queries fail with `Request is prohibited by organization's policy` and a `vpcServiceControlsUniqueIdentifier` in the error details. To let them through, add an ingress rule that admits the [service account you created for Claude](#create-the-credential-in-google-cloud).
 
-If you allowlist [Anthropic's published egress IP range](/docs/claude-tag/admins/network-requirements.md) in an access level, Claude's queries still fail, because they reach your perimeter from inside Google Cloud rather than from that range. The source your perimeter sees is a Google Cloud project that Anthropic owns and can change without notice, so don't admit that project by its number.
+If you allowlist [Anthropic's published egress IP range](https://claude.com/docs/claude-tag/admins/network-requirements.md) in an access level, Claude's queries still fail, because they reach your perimeter from inside Google Cloud rather than from that range. The source your perimeter sees is a Google Cloud project that Anthropic owns and can change without notice, so don't admit that project by its number.
 
 Add an [ingress rule](https://cloud.google.com/vpc-service-controls/docs/ingress-egress-rules) to the perimeter with these settings:
 
@@ -69,9 +69,9 @@ To confirm the rule works, ask Claude to run the query that failed. The query re
 
 The ingress rule lets requests authenticated as the service account you created for Claude cross the perimeter, and only to reach BigQuery in the project the rule names. It doesn't give the service account access to any data. The [dataset roles you granted](#grant-access-to-specific-datasets) still decide which datasets Claude can read, so keep those grants narrow.
 
-Once the connection works, delete the key file that Google Cloud downloaded to your machine when you created the key. With this rule in place, the perimeter doesn't stop a leaked key for this service account, because a request authenticated with any of the account's valid keys passes the rule from any source. [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy) holds the key you uploaded and Claude never sees it. To limit that risk further, don't create more keys for the service account.
+Once the connection works, delete the key file that Google Cloud downloaded to your machine when you created the key. With this rule in place, the perimeter doesn't stop a leaked key for this service account, because a request authenticated with any of the account's valid keys passes the rule from any source. [Agent Proxy](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy) holds the key you uploaded and Claude never sees it. To limit that risk further, don't create more keys for the service account.
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/answer-data-questions.md): warehouse questions answered with charts in the thread
-* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference
+* [What this connection adds](https://claude.com/docs/claude-tag/users/use-cases/answer-data-questions.md): warehouse questions answered with charts in the thread
+* [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

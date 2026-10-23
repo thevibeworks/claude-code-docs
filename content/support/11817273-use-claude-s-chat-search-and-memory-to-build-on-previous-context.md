@@ -88,7 +88,7 @@ To run a single chat or Cowork task without memory, open a new chat, click the �
 
 You can toggle Claude’s memory on by navigating to **[Settings > Memory](https://claude.ai/new#settings/customize-memory)** and turning on **Generate memory from chats**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1792771200&amp;signature=d06c4c67e46ebeb91d456b1be1677b76b1e0531999a2a8275f5ed95bc0b199d2&amp;req=diUkFc12n4VbWPMW1HO4zRlYr5lq5VEuNshWSMEMw9fUp6O96oO8p2%2Ba3S8t%0AObip3U%2FrdfqEUC8Wxo8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1792785600&amp;signature=da24e1766b5c2dfda32241ca9877de4452b15f7fc896145141fad9563cf2cc45&amp;req=diUkFc12n4VbWPMW1HO4zRlYr5lq6lUqNshWSMEMw9d0idIufhGZPSvrERbZ%0A5QsKgP1LGGXcwioxfp4%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle and you'll see two options:
 
@@ -284,7 +284,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** and find the **Preferences** section. Switch the toggle next to “Search and reference chats” off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1792771200&amp;signature=1ca6cb05ec2e2dfb328702483345274ba2ea581bc0116cccd843a5287dc82880&amp;req=dScmH859nYlXUPMW1HO4zRzXHl03JDDAJG68qZhl782NBlaE6VV4w9IaJ1Oc%0ABoQaF%2BXHwGKAyIjlznE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1792785600&amp;signature=3d648cd24d9fd5f024a5198ed773f5772417ab85af15f611f16a9be88db4895a&amp;req=dScmH859nYlXUPMW1HO4zRzXHl03KzTEJG68qZhl7807nnm5kG2fPoDsGbkD%0Ae8EjCzN6u2gDhlFWD7Y%3D%0A)
 
 ### Can I exclude a specific past chat from searches?
 
@@ -292,7 +292,7 @@ Incognito chats are available to all Claude users (free, Pro, Max, Team, and Ent
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1792771200&amp;signature=8a8a6fdcd5ad78e2a592055c9e4e65a3a8b20388a4ef901e67b7c145903334bc&amp;req=dScmH859nYlWWvMW1HO4za54saFrO4e5XDpzhlKsgjM5XHsm%2FLxEOVQRV9OB%0Ajje6J8Z5Gi5oT9cD26U%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1792785600&amp;signature=5ba8c0ba284b555acf1f47f725fddc6aac945aa8a1c10697d22988360cab5e38&amp;req=dScmH859nYlWWvMW1HO4za54saFrNIO9XDpzhlKsgjM914ISMPGztSXXsdj6%0AChuSlVczeL3JIS9PU94%3D%0A)
 
 Clicking the ghost icon will open an incognito chat, creating a temporary conversation that isn’t saved to your chat history. Claude won’t pull information from incognito chats when searching previous conversations.
 
@@ -324,7 +324,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude’s memory on by navigating to **[Settings > Capabilities](https://claude.ai/settings/capabilities)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1792771200&amp;signature=bfc55f59ec42116c921e5e04d16562207b5fca1b28fc203d0ca8192ed0ae8e31&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McPhcOVHBq9N9dRTKYfxo3i3K%2BQrLeoVcd0l%0AVFFV9llLEC%2BQg5VrhZA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1792785600&amp;signature=a889bd5e5a43b19b734107a803775ad3bd8bae01aff9c5246a2a02cf923f7b65&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McPhf%2BFDBq9N9dRTKYe4dwiBB58SI0OrC6nY%0AbXjG8kkhAOcBJSZExRA%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle to see two options:
 

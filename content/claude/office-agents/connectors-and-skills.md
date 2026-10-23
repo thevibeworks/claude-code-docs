@@ -16,7 +16,7 @@ PowerPoint, Word, and Outlook. Both are enabled in your Claude settings.
 > as Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM
 > gateway, these capabilities may not be available. See the feature
 > comparison in
-> [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms.md)
+> [Use Claude for M365 with third-party platforms](https://claude.com/docs/office-agents/third-party-platforms.md)
 > for the current status by connection mode.
 
 ## Connectors
@@ -53,7 +53,7 @@ for details on enabling and managing Skills.
 
 See the per-app guides for setup and feature details.
 
-* [Use Claude for Excel](/docs/office-agents/excel.md)
-* [Use Claude for PowerPoint](/docs/office-agents/powerpoint.md)
-* [Use Claude for Word](/docs/office-agents/word.md)
-* [Use Claude for Outlook](/docs/office-agents/outlook.md)
+* [Use Claude for Excel](https://claude.com/docs/office-agents/excel.md)
+* [Use Claude for PowerPoint](https://claude.com/docs/office-agents/powerpoint.md)
+* [Use Claude for Word](https://claude.com/docs/office-agents/word.md)
+* [Use Claude for Outlook](https://claude.com/docs/office-agents/outlook.md)

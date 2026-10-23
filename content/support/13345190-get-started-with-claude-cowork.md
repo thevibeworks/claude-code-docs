@@ -4,21 +4,17 @@ This article explains how to use **[Claude Cowork](https://claude.com/product/co
 
 ## Availability
 
-Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availability varies by surface:
+Claude Cowork is available on paid plans (Pro, Max, Team, and Enterprise):
 
-- **Claude Desktop for macOS** — Available on all paid plans. **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download.
+- **Claude Desktop for macOS, Windows, and Linux (beta)**:  Available on all paid plans. Download or update at **[claude.com/download](https://claude.com/download)**.
 
-- **Claude Desktop for Windows** — Available on all paid plans. Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
+- **Web and Claude Mobile:** Pro, Max, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
 
-- **Web**, at claude.ai — Available on Pro, Max, and Team plans. On Enterprise plans, available where an admin has enabled it.
+- **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)** for more information.
 
-- **Claude Mobile** — Available on Pro, Max, and Team plans, in the latest version of Claude for iOS and Claude for Android. On Enterprise plans, available where an admin has enabled it.
-
-- **Claude in Chrome side panel** — Available on Max and Team plans, and rolling out to Pro plans. On Enterprise plans, available where an admin has enabled it. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)** for more information.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 On desktop, web, and mobile, chat and Cowork share one home, so you start both from the same place. Find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat." In the Chrome side panel, opening the panel starts a Cowork session directly.
-
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it’s in beta for Enterprise plans, where an admin turns it on as **Chat and Cowork unified (beta)**. If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 
@@ -26,7 +22,7 @@ On desktop, web, and mobile, chat and Cowork share one home, so you start both f
 
 Claude Cowork uses the same agentic architecture that powers Claude Code, with no terminal required. Instead of responding to prompts one at a time, Claude can take on complex, multi-step tasks and execute them on your behalf.
 
-With Cowork, you can describe an outcome, step away, and come back to finished work—formatted documents, organized files, synthesized research, and more. Cowork runs your sessions remotely in the cloud (in beta on Team and Enterprise plans), so your sessions and files live with your Claude account and follow you across desktop, web, and mobile. Chat and Cowork now share one home, so handing Claude a task starts from the same message box as a conversation. With scheduled tasks, Claude can complete work for you automatically. With projects, you can organize related tasks into persistent workspaces with their own files, links, instructions, and memory.
+With Cowork, you can describe an outcome, step away, and come back to finished work—formatted documents, organized files, synthesized research, and more. Cowork runs your sessions remotely in the cloud, so your sessions and files live with your Claude account and follow you across desktop, web, and mobile. Chat and Cowork now share one home, so handing Claude a task starts from the same message box as a conversation. With scheduled tasks, Claude can complete work for you automatically. With projects, you can organize related tasks into persistent workspaces with their own files, links, instructions, and memory.
 
 **Important:**
 
@@ -68,13 +64,13 @@ For important limitations and considerations for Team and Enterprise organizatio
 
 - **Projects:** Group related tasks into workspaces with their own files, context, instructions, and memory. See **[Organize your tasks with projects in Cowork](https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-cowork)**.
 
-- **Browser actions:** For tasks that touch websites, Claude can open sites, read pages, click, type, and fill forms. On desktop, Claude uses a browser built into the Claude Desktop app by default, with nothing to install. The built-in browser is rolling out gradually this week. If you already use Claude in Chrome, Claude works in your own browser instead, and you can change your preferred browser anytime in **[Settings > Cowork](https://claude.ai/settings/cowork)**. On Max and Team plans, Pro plans as it rolls out, and Enterprise plans where an admin has enabled it, you can also run a Cowork session directly in the Chrome side panel. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)** and **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)**.
+- **Browser actions:** For tasks that touch websites, Claude can open sites, read pages, click, type, and fill forms. On desktop, Claude uses a browser built into the Claude Desktop app by default, with nothing to install. If you already use Claude in Chrome, Claude works in your own browser instead, and you can change your preferred browser anytime in **[Settings > Cowork](https://claude.ai/settings/cowork)**. You can also run a Cowork session directly in the Chrome side panel. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)** and **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)**.
 
 ---
 
 ## How Claude Cowork runs your tasks
 
-Cowork runs your tasks in the cloud (in beta on Team and Enterprise plans). Claude's work runs on Anthropic's servers, in an isolated environment, and your sessions and files are saved to your Claude account. Work continues if you close your laptop, and you can open the same session from any surface.
+Cowork runs your tasks in the cloud. Claude's work runs on Anthropic's servers, in an isolated environment, and your sessions and files are saved to your Claude account. Work continues if you close your laptop, and you can open the same session from any surface.
 
 When a task needs something on your computer, like a local file or your browser, Claude reaches it through the Claude Desktop app on that computer. When you start a task in Cowork, Claude:
 
@@ -182,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1792771200&amp;signature=8b684b53a058ba2d7e0ed3c09390695f510e37284ad0be8c8f1ec6dae3bb0f79&amp;req=diUlE8B8m4lYXfMW1HO4zcDl69rrMVCy8iWjaktE943gGfpEOwXS2ZYVmuAX%0AzoimFnZ3dk%2FUlgY0FbY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1792886400&amp;signature=b7cb8f71862e0747f6e01af240f46a5d62de45cb15f63424697ba227650696c3&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BC3r7UbVWMqW%2FkK1fOiwk2B93ymnzlzG8C%0AJ4d%2F45%2Bjve74zEHVEzlp9Q8cxwE%3D%0A)
 
 ### Folder instructions
 

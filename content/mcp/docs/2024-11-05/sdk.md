@@ -6,7 +6,7 @@
 
 > Official SDKs for building with Model Context Protocol
 
-Build MCP servers and clients using our official SDKs. SDKs are classified into tiers based on feature completeness, protocol support, and maintenance commitment. Learn more about [SDK tiers](/community/sdk-tiers.md).
+Build MCP servers and clients using our official SDKs. SDKs are classified into tiers based on feature completeness, protocol support, and maintenance commitment. Learn more about [SDK tiers](https://modelcontextprotocol.io/community/sdk-tiers.md).
 
 ## Available SDKs
 
@@ -23,7 +23,7 @@ Build MCP servers and clients using our official SDKs. SDKs are classified into 
 |    [PHP](https://php.sdk.modelcontextprotocol.io) | [modelcontextprotocol/php-sdk](https://github.com/modelcontextprotocol/php-sdk) | Tier 3 |
 |    [Kotlin](https://kotlin.sdk.modelcontextprotocol.io) | [modelcontextprotocol/kotlin-sdk](https://github.com/modelcontextprotocol/kotlin-sdk) | Tier 3 |
 
-See [SDK Tiering System](/community/sdk-tiers.md) for details on what each tier means.
+See [SDK Tiering System](https://modelcontextprotocol.io/community/sdk-tiers.md) for details on what each tier means.
 
 ## Getting Started
 
@@ -40,10 +40,10 @@ Visit the SDK page for your chosen language to find installation instructions, d
 
 Ready to start building with MCP? Choose your path:
 
-> **[Build a Server](/docs/2024-11-05/develop/build-server.md)**
+> **[Build a Server](https://modelcontextprotocol.io/docs/2024-11-05/develop/build-server.md)**
 >
 > Learn how to create your first MCP server
 
-> **[Build a Client](/docs/2024-11-05/develop/build-client.md)**
+> **[Build a Client](https://modelcontextprotocol.io/docs/2024-11-05/develop/build-client.md)**
 >
 > Create applications that connect to MCP servers

@@ -24,7 +24,7 @@ Below the balance, the page shows the spend caps currently set on your organizat
 
 When the account's balance reaches 70 percent, 90 percent, and 100 percent consumed, a spend-alert banner appears on every page of the organization admin portal and an email is sent to your organization's owners. The banner stays in place until Anthropic adds more credits to the account.
 
-Your organization's usage against the account balance is shown on the [Analytics](/docs/government/org-admin/analytics.md) page.
+Your organization's usage against the account balance is shown on the [Analytics](https://claude.com/docs/government/org-admin/analytics.md) page.
 
 ## Seats
 
@@ -41,10 +41,10 @@ An editor below the table lets you set how many seats of each tier your organiza
 The editor enforces the following rules and will refuse a save that violates any of them.
 
 * You cannot request more seats for a tier than the billing account has remaining in its pool after accounting for other organizations.
-* You cannot reduce a tier's seat count below the number of users currently seated on it in your organization. Move users off the tier on the [Users](/docs/government/org-admin/users.md) page first, then lower the count.
+* You cannot reduce a tier's seat count below the number of users currently seated on it in your organization. Move users off the tier on the [Users](https://claude.com/docs/government/org-admin/users.md) page first, then lower the count.
 * You can set a tier to zero seats, which removes the tier from your organization entirely, but only if no one is seated on it.
 * Each tier's seat count can be at most 100,000.
 
 > [!TIP]
 >
-> Saving your organization's first seat allocation also gives seats to members who have no seat tier, Primary Owners first, as long as nobody holds a seat before the save. Saving any allocation also triggers a directory provisioning sync, so provisioned users who were left unassigned because their mapped tier was full are seated up to the new limit. Anyone else stays unassigned until an owner chooses a tier for them on the [Users](/docs/government/org-admin/users.md) page.
+> Saving your organization's first seat allocation also gives seats to members who have no seat tier, Primary Owners first, as long as nobody holds a seat before the save. Saving any allocation also triggers a directory provisioning sync, so provisioned users who were left unassigned because their mapped tier was full are seated up to the new limit. Anyone else stays unassigned until an owner chooses a tier for them on the [Users](https://claude.com/docs/government/org-admin/users.md) page.

@@ -8,10 +8,10 @@
 
 This page covers error messages that Claude Science shows while you work. Other problems have their own troubleshooting sections:
 
-* Installing and signing in for the first time: [Troubleshooting first launch](/docs/claude-science/get-started.md#troubleshooting-first-launch).
-* Running Claude Science on a Linux server: the troubleshooting table on [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server.md#troubleshooting).
-* Proxies, TLS inspection, and package mirrors: [Troubleshooting corporate network errors](/docs/claude-science/corporate-networks.md#troubleshooting-corporate-network-errors).
-* A session that pauses at a usage limit: [When you reach a usage limit](/docs/claude-science/overview.md#when-you-reach-a-usage-limit).
+* Installing and signing in for the first time: [Troubleshooting first launch](https://claude.com/docs/claude-science/get-started.md#troubleshooting-first-launch).
+* Running Claude Science on a Linux server: the troubleshooting table on [Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#troubleshooting).
+* Proxies, TLS inspection, and package mirrors: [Troubleshooting corporate network errors](https://claude.com/docs/claude-science/corporate-networks.md#troubleshooting-corporate-network-errors).
+* A session that pauses at a usage limit: [When you reach a usage limit](https://claude.com/docs/claude-science/overview.md#when-you-reach-a-usage-limit).
 
 ## Sign-in and replies
 
@@ -32,7 +32,7 @@ Your sign-in lasts a limited time. In the last three days before it expires, Cla
 
 ### Claude is at capacity — retrying
 
-Claude is busy or is limiting your requests, and Claude Science is retrying. Claude Science keeps retrying on its own, and once a retry goes through, Claude's reply starts again. Select **Check service status** to see whether there's an incident. To stop waiting, select the stop button in the composer. If your plan's usage limit runs out while Claude Science is retrying, the session pauses instead, as described in [When you reach a usage limit](/docs/claude-science/overview.md#when-you-reach-a-usage-limit).
+Claude is busy or is limiting your requests, and Claude Science is retrying. Claude Science keeps retrying on its own, and once a retry goes through, Claude's reply starts again. Select **Check service status** to see whether there's an incident. To stop waiting, select the stop button in the composer. If your plan's usage limit runs out while Claude Science is retrying, the session pauses instead, as described in [When you reach a usage limit](https://claude.com/docs/claude-science/overview.md#when-you-reach-a-usage-limit).
 
 These other retry messages can appear in the same place:
 
@@ -51,7 +51,7 @@ Claude Science sets up Python and R environments on your computer so Claude can 
 
 A notice such as "2 environments failed" means Claude Science couldn't set up one or more of the environments Claude uses to run code, and it names them. Select **Details** to see each environment's status and, for any that failed, the error.
 
-* If setup failed because of your organization's network, the dialog that **Details** opens links to settings for a package mirror, a CA bundle, or mirror credentials. When you save any of these settings, Claude Science retries the failed setups automatically. See also [Troubleshooting corporate network errors](/docs/claude-science/corporate-networks.md#troubleshooting-corporate-network-errors).
+* If setup failed because of your organization's network, the dialog that **Details** opens links to settings for a package mirror, a CA bundle, or mirror credentials. When you save any of these settings, Claude Science retries the failed setups automatically. See also [Troubleshooting corporate network errors](https://claude.com/docs/claude-science/corporate-networks.md#troubleshooting-corporate-network-errors).
 * To retry the environments that failed, select **Retry builds**.
 
 If the notice reads "Analysis is unavailable" instead, no Python or R code can run until Claude Science restarts. Fix the cause the notice names, then quit and reopen Claude Science. Closing the window or browser tab leaves Claude Science running, so quit it this way:
@@ -78,7 +78,7 @@ If holding the pointer over the microphone button shows "No microphone was found
 
 ## Updates
 
-If Claude Science asks you to update, see [Update Claude Science](/docs/claude-science/update-claude-science.md).
+If Claude Science asks you to update, see [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md).
 
 Claude Science shows updates and their errors in these places:
 
@@ -87,11 +87,11 @@ Claude Science shows updates and their errors in these places:
 
 ### cannot reach the public release endpoint
 
-Claude Science couldn't reach the update server. Check your internet connection, then select **Restart to update** on the "Update available" notice to try again, or run `claude-science update` again. On a corporate network, see [Network requirements](/docs/claude-science/network-requirements.md#app-connections) for the domains Claude Science connects to.
+Claude Science couldn't reach the update server. Check your internet connection, then select **Restart to update** on the "Update available" notice to try again, or run `claude-science update` again. On a corporate network, see [Network requirements](https://claude.com/docs/claude-science/network-requirements.md#app-connections) for the domains Claude Science connects to.
 
 ### restart aborted
 
-On the "Update available" notice, this means the new version was downloaded but didn't start. On a Mac or Linux, if the message says "restart aborted" and you started Claude Science from a terminal, follow [the terminal steps](/docs/claude-science/update-claude-science.md#from-a-terminal-or-on-a-server). Otherwise, if Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. On Windows, if trying again fails, leave Claude Science open and follow [the Windows steps](/docs/claude-science/update-claude-science.md#if-the-update-still-fails). If Claude Science has stopped, start it again.
+On the "Update available" notice, this means the new version was downloaded but didn't start. On a Mac or Linux, if the message says "restart aborted" and you started Claude Science from a terminal, follow [the terminal steps](https://claude.com/docs/claude-science/update-claude-science.md#from-a-terminal-or-on-a-server). Otherwise, if Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. On Windows, if trying again fails, leave Claude Science open and follow [the Windows steps](https://claude.com/docs/claude-science/update-claude-science.md#if-the-update-still-fails). If Claude Science has stopped, start it again.
 
 On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so updating again now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.
 
@@ -107,4 +107,4 @@ On a Mac where Claude Science opens in its own window, the **Updates** window sh
 * If the window says to check your internet connection, check it, then select **Try again**.
 * If you cancelled a request from macOS for an administrator's password, select **Try again**.
 * Otherwise, such as when it says "Updates aren't available right now", wait a few minutes, then select **Try again**.
-* On a corporate network, ask your IT team to allow `storage.googleapis.com` (see [Proxy and certificates for updates in the Mac app window](/docs/claude-science/corporate-networks.md#proxy-and-certificates-for-updates-in-the-mac-app-window)).
+* On a corporate network, ask your IT team to allow `storage.googleapis.com` (see [Proxy and certificates for updates in the Mac app window](https://claude.com/docs/claude-science/corporate-networks.md#proxy-and-certificates-for-updates-in-the-mac-app-window)).

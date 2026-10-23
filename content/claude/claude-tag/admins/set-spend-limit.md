@@ -14,15 +14,15 @@ Work Claude does in channels and group DMs bills to your **organization's usage 
 
 ## How Claude Tag usage is billed
 
-Slack users can work with Claude in channels [without holding a Claude seat](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude).
+Slack users can work with Claude in channels [without holding a Claude seat](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude).
 
 | Work | Bills to | Capped by |
 | :- | :- | :- |
-| Channel work | Your organization's usage balance | The spend limit, plus any [per-channel limits](/docs/claude-tag/admins/restrict-access.md#set-spend-limits) |
-| [Group DM](/docs/claude-tag/admins/restrict-access.md#group-dms) work | Your organization's usage balance | The spend limit, plus the [**Default spend limit**](/docs/claude-tag/admins/restrict-access.md#set-spend-limits), which applies to each group DM |
-| Reading a channel or group DM, [deciding whether to reply](/docs/claude-tag/users/when-claude-responds.md#what-claude-does-with-a-channel-message), and short replies from what Claude already knows | Nothing | Not counted toward any limit. A working session Claude starts from the channel is channel work, above |
+| Channel work | Your organization's usage balance | The spend limit, plus any [per-channel limits](https://claude.com/docs/claude-tag/admins/restrict-access.md#set-spend-limits) |
+| [Group DM](https://claude.com/docs/claude-tag/admins/restrict-access.md#group-dms) work | Your organization's usage balance | The spend limit, plus the [**Default spend limit**](https://claude.com/docs/claude-tag/admins/restrict-access.md#set-spend-limits), which applies to each group DM |
+| Reading a channel or group DM, [deciding whether to reply](https://claude.com/docs/claude-tag/users/when-claude-responds.md#what-claude-does-with-a-channel-message), and short replies from what Claude already knows | Nothing | Not counted toward any limit. A working session Claude starts from the channel is channel work, above |
 | A one-to-one DM from a member who has connected a Claude account | The sender's own seat | The seat's usual limits, not the spend limit |
-| A [one-to-one DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access.md#direct-messages-from-members-without-a-claude-account) | Your organization's usage balance | The [limits for each member](/docs/claude-tag/admins/restrict-access.md#limits-on-direct-messages-from-members-without-a-claude-account) |
+| A [one-to-one DM from a member who hasn't connected a Claude account](https://claude.com/docs/claude-tag/admins/restrict-access.md#direct-messages-from-members-without-a-claude-account) | Your organization's usage balance | The [limits for each member](https://claude.com/docs/claude-tag/admins/restrict-access.md#limits-on-direct-messages-from-members-without-a-claude-account) |
 
 ## Whether this step is required depends on your plan
 
@@ -72,7 +72,7 @@ When that happens, Claude tells the requester in the thread that it hit a rate l
 
 ## Per-channel limits
 
-Per-channel limits and the per-channel spend breakdown are on the same usage page. See [Set spend limits](/docs/claude-tag/admins/restrict-access.md#set-spend-limits) for the full set of controls.
+Per-channel limits and the per-channel spend breakdown are on the same usage page. See [Set spend limits](https://claude.com/docs/claude-tag/admins/restrict-access.md#set-spend-limits) for the full set of controls.
 
 ## Attribute costs by channel
 
@@ -80,11 +80,11 @@ In claude.ai you see spend per channel, not per user. Channel work bills to your
 
 The usage page at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag) shows spend broken down by channel, at list price. Usage covered by a promotional credit isn't counted there and shows as \$0.00. To see each channel's list-price spend for the current month including covered usage, use the **List price** column of the **Spend by channel** table at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag).
 
-To attribute spend to teams or departments for showback or chargeback reporting, structure channels so each maps to one team or department, and give those channels [their own scopes](/docs/claude-tag/admins/attach-to-scope.md). The per-channel breakdown then reads as your per-team report, and per-channel spend limits act as team-level budgets.
+To attribute spend to teams or departments for showback or chargeback reporting, structure channels so each maps to one team or department, and give those channels [their own scopes](https://claude.com/docs/claude-tag/admins/attach-to-scope.md). The per-channel breakdown then reads as your per-team report, and per-channel spend limits act as team-level budgets.
 
-Organizations on a Claude Enterprise plan can also pull channel spend per Slack user from the Analytics API, which attributes Claude's channel work to individual Slack users. See [Attribute costs to users](/docs/claude-tag/admins/attribute-costs.md).
+Organizations on a Claude Enterprise plan can also pull channel spend per Slack user from the Analytics API, which attributes Claude's channel work to individual Slack users. See [Attribute costs to users](https://claude.com/docs/claude-tag/admins/attribute-costs.md).
 
-One-to-one DMs are separate. A DM from a member who has connected a Claude account bills to the sender's own seat, not to the organization's usage balance. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access.md#direct-messages-from-members-without-a-claude-account) can bill to the organization's usage balance.
+One-to-one DMs are separate. A DM from a member who has connected a Claude account bills to the sender's own seat, not to the organization's usage balance. A [DM from a member who hasn't connected a Claude account](https://claude.com/docs/claude-tag/admins/restrict-access.md#direct-messages-from-members-without-a-claude-account) can bill to the organization's usage balance.
 
 ## See spend by kind of work
 
@@ -95,9 +95,9 @@ On the analytics page at [`claude.ai/analytics/claude-tag`](https://claude.ai/an
 * **Scheduled**: recurring scheduled work
 * **Monitoring**: Claude reading the channels it belongs to, which isn't billed
 
-Reading a channel Claude belongs to, whether or not anyone tags it, doesn't draw from the usage balance. When Claude starts a working session on its own, that session bills to the balance under Proactive. To stop Claude from starting work on its own in a channel, turn off the channel's [Respond automatically](/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting. One-to-one DMs from members who have connected a Claude account aren't included, because they bill to the sender's seat.
+Reading a channel Claude belongs to, whether or not anyone tags it, doesn't draw from the usage balance. When Claude starts a working session on its own, that session bills to the balance under Proactive. To stop Claude from starting work on its own in a channel, turn off the channel's [Respond automatically](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting. One-to-one DMs from members who have connected a Claude account aren't included, because they bill to the sender's seat.
 
 ## Related resources
 
-* [Verify your setup](/docs/claude-tag/admins/setup-overview#verify-your-setup): run a first task in a channel
-* [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access.md#set-spend-limits): per-channel limits and the usage page in full
+* [Verify your setup](https://claude.com/docs/claude-tag/admins/setup-overview#verify-your-setup): run a first task in a channel
+* [Restrict where Claude Tag operates](https://claude.com/docs/claude-tag/admins/restrict-access.md#set-spend-limits): per-channel limits and the usage page in full

@@ -16,7 +16,7 @@ a name and includes metadata describing its schema.
 > `io.modelcontextprotocol/clientInfo`, and
 > `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
 > the required `_meta` fields; see
-> [`_meta`](/specification/2026-07-28/basic/index#meta).
+> [`_meta`](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#meta).
 
 ## User Interaction Model
 
@@ -76,7 +76,7 @@ are included in model context.
 ### Listing Tools
 
 To discover available tools, clients send a `tools/list` request. This operation supports
-[pagination](/specification/2026-07-28/server/utilities/pagination.md) and [caching](/specification/2026-07-28/server/utilities/caching.md).
+[pagination](https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/pagination.md) and [caching](https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/caching.md).
 
 **Request:**
 
@@ -171,7 +171,7 @@ To invoke a tool, clients send a `tools/call` request:
 
 ### Input Required Tool Results
 
-Servers **MAY** respond to `tools/call` with an [`InputRequiredResult`](/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult) to indicate that additional input is needed before the tool call can be completed. This follows the [multi round-trip requests](/specification/2026-07-28/basic/patterns/mrtr.md#multi-round-trip-requests) mechanism.
+Servers **MAY** respond to `tools/call` with an [`InputRequiredResult`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult) to indicate that additional input is needed before the tool call can be completed. This follows the [multi round-trip requests](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md#multi-round-trip-requests) mechanism.
 
 When retrying the request with input responses, clients include `inputResponses` and, if provided by the server, `requestState` in the request parameters:
 
@@ -235,7 +235,7 @@ Note that the JSON-RPC `id` **MUST** be different between the initial request an
 
 When the list of available tools changes, servers that declared the `listChanged`
 capability **SHOULD** send a notification to clients that have opened a
-[`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions) stream with
+[`subscriptions/listen`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions) stream with
 `toolsListChanged: true`:
 
 ```json theme={null}
@@ -286,7 +286,7 @@ A tool definition includes:
 * `description`: Human-readable description of functionality
 * `icons`: Optional array of icons for display in user interfaces
 * `inputSchema`: JSON Schema defining expected parameters
-  * Follows the [JSON Schema usage guidelines](/specification/2026-07-28/basic.md#json-schema-usage)
+  * Follows the [JSON Schema usage guidelines](https://modelcontextprotocol.io/specification/2026-07-28/basic.md#json-schema-usage)
   * Defaults to 2020-12 if no `$schema` field is present
   * **MUST** be a valid JSON Schema object (not `null`)
   * For tools with no parameters, use one of these valid approaches:
@@ -295,7 +295,7 @@ A tool definition includes:
   * Properties **MAY** include an [`x-mcp-header`](#x-mcp-header) annotation to expose
     parameter values as HTTP headers
 * `outputSchema`: Optional JSON Schema defining expected output structure
-  * Follows the [JSON Schema usage guidelines](/specification/2026-07-28/basic.md#json-schema-usage)
+  * Follows the [JSON Schema usage guidelines](https://modelcontextprotocol.io/specification/2026-07-28/basic.md#json-schema-usage)
   * Defaults to 2020-12 if no `$schema` field is present
 * `annotations`: Optional properties describing tool behavior
 
@@ -331,7 +331,7 @@ A tool definition includes:
 
 The `x-mcp-header` extension property allows servers to designate specific tool
 parameters to be mirrored into HTTP headers when using the
-[Streamable HTTP transport](/specification/2026-07-28/basic/transports/streamable-http.md#custom-headers-from-tool-parameters).
+[Streamable HTTP transport](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http.md#custom-headers-from-tool-parameters).
 This enables network intermediaries (load balancers, proxies, WAFs) to route and process
 requests based on parameter values without parsing the request body.
 
@@ -352,7 +352,7 @@ HTTP header.
   safe range for integers represented using IEEE754 double-precision floating point numbers (−2<sup>53</sup>+1 to 2<sup>53</sup>−1)
 * **MUST** only be applied to properties that are *statically reachable* from the schema
   root, as defined in
-  [Custom Headers from Tool Parameters](/specification/2026-07-28/basic/transports/streamable-http.md#custom-headers-from-tool-parameters),
+  [Custom Headers from Tool Parameters](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http.md#custom-headers-from-tool-parameters),
   which also defines how header values are extracted from call arguments
 
 Clients using the Streamable HTTP transport **MUST** reject tool definitions where any
@@ -405,7 +405,7 @@ Tool results may contain [**structured**](#structured-content) or **unstructured
 >
 > All content types (text, image, audio, resource links, and embedded resources)
 > support optional
-> [annotations](/specification/2026-07-28/server/resources.md#annotations) that
+> [annotations](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md#annotations) that
 > provide metadata about audience, priority, and modification times. This is the
 > same annotation format used by resources and prompts.
 
@@ -444,7 +444,7 @@ Tool results may contain [**structured**](#structured-content) or **unstructured
 
 #### Resource Links
 
-A tool **MAY** return links to [Resources](/specification/2026-07-28/server/resources.md), to provide additional context
+A tool **MAY** return links to [Resources](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md), to provide additional context
 or data. In this case, the tool will return a URI that can be subscribed to or fetched by the client:
 
 ```json theme={null}
@@ -457,7 +457,7 @@ or data. In this case, the tool will return a URI that can be subscribed to or f
 }
 ```
 
-Resource links support the same [Resource annotations](/specification/2026-07-28/server/resources.md#annotations) as regular resources to help clients understand how to use them.
+Resource links support the same [Resource annotations](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md#annotations) as regular resources to help clients understand how to use them.
 
 > [!NOTE]
 >
@@ -466,8 +466,8 @@ Resource links support the same [Resource annotations](/specification/2026-07-28
 
 #### Embedded Resources
 
-[Resources](/specification/2026-07-28/server/resources.md) **MAY** be embedded to provide additional context
-or data using a suitable [URI scheme](/specification/2026-07-28/server/resources.md#common-uri-schemes). Servers that use embedded resources **SHOULD** implement the `resources` capability:
+[Resources](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md) **MAY** be embedded to provide additional context
+or data using a suitable [URI scheme](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md#common-uri-schemes). Servers that use embedded resources **SHOULD** implement the `resources` capability:
 
 ```json theme={null}
 {
@@ -485,7 +485,7 @@ or data using a suitable [URI scheme](/specification/2026-07-28/server/resources
 }
 ```
 
-Embedded resources support the same [Resource annotations](/specification/2026-07-28/server/resources.md#annotations) as regular resources to help clients understand how to use them.
+Embedded resources support the same [Resource annotations](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md#annotations) as regular resources to help clients understand how to use them.
 
 #### Structured Content
 
@@ -732,7 +732,7 @@ Tools use two error reporting mechanisms:
 1. **Protocol Errors** indicate issues with the request structure itself that models are less likely to be able to fix:
 
    * Unknown tool
-   * Malformed requests (requests that fail to satisfy [CallToolRequest schema](/specification/2026-07-28/schema.md#calltoolrequest))
+   * Malformed requests (requests that fail to satisfy [CallToolRequest schema](https://modelcontextprotocol.io/specification/2026-07-28/schema.md#calltoolrequest))
    * Server errors
 
    They are returned as standard JSON-RPC errors:
@@ -789,7 +789,7 @@ Clients **SHOULD** provide tool execution errors to language models to enable se
    * Show tool inputs to the user before calling the server, to avoid malicious or
      accidental data exfiltration
    * Validate tool results before passing to LLM
-   * Follow the [`$ref` resolution requirements](/specification/2026-07-28/basic/index#ref-resolution)
+   * Follow the [`$ref` resolution requirements](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#ref-resolution)
      when validating tool inputs and outputs against `inputSchema` and `outputSchema`
    * Implement timeouts for tool calls
    * Log tool usage for audit purposes

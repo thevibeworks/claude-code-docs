@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](/docs/claude-science/overview.md). By default, Claude asks with a [permission card](/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). By default, Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
 
 ```text Prompt wrap theme={null}
 X-ray diffraction is how we know where the atoms sit in a crystal. Simulate the powder diffraction patterns of silicon (diamond structure, a = 5.4311 Å) and rock salt (NaCl, a = 5.6402 Å) with pymatgen, for copper Kα₁ X-rays (wavelength="CuKa1", λ = 1.54056 Å) and angles 2θ up to 90°. Nothing needs downloading. Label every peak with its Miller indices hkl, and check each angle by hand with Bragg's law, λ = 2d sin θ, where d = a/√(h²+k²+l²). Both crystals share a face-centered cubic lattice, which allows 9 reflections in this range, yet silicon shows only 6: show that its 2-atom basis cancels 200, 222 and 420. In salt the all-odd peaks (111, 311, 331) are weak because Na and Cl scatter out of phase: show that too. Leave out other salts and what-ifs such as Na and Cl scattering equally, and round every number once, from its full-precision value. Put both patterns in 1 figure. Explain each step as you would to an undergraduate.

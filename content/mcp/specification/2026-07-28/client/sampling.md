@@ -9,12 +9,12 @@
 > **Deprecated**: The Sampling feature is deprecated as of protocol version
 > `2026-07-28`
 > ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
-> Under the [feature lifecycle policy](/community/feature-lifecycle.md), it remains
+> Under the [feature lifecycle policy](https://modelcontextprotocol.io/community/feature-lifecycle.md), it remains
 > in the specification for at least twelve months after this revision's release
 > before it becomes eligible for removal. New implementations **SHOULD NOT**
 > adopt it; existing implementations **SHOULD** migrate to integrating directly
 > with LLM provider APIs. See the [deprecated features
-> registry](/specification/2026-07-28/deprecated.md).
+> registry](https://modelcontextprotocol.io/specification/2026-07-28/deprecated.md).
 
 The Model Context Protocol (MCP) provides a standardized way for servers to request LLM
 sampling ("completions" or "generations") from language models via clients. This flow
@@ -98,13 +98,13 @@ Clients that support sampling **MUST** declare the `sampling` capability in
 >
 > The `includeContext` parameter values `"thisServer"` and `"allServers"` are
 > deprecated under the [feature lifecycle
-> policy](/community/feature-lifecycle.md#deprecating-a-feature)
+> policy](https://modelcontextprotocol.io/community/feature-lifecycle.md#deprecating-a-feature)
 > ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596));
 > they will be removed no later than the Sampling feature itself. Servers
 > **SHOULD** avoid using these values (e.g. can just omit `includeContext` since
 > it defaults to `"none"`), and **SHOULD NOT** use them unless the client
 > declares `sampling.context` capability. See the [deprecated features
-> registry](/specification/2026-07-28/deprecated.md).
+> registry](https://modelcontextprotocol.io/specification/2026-07-28/deprecated.md).
 
 ## Protocol Messages
 
@@ -112,7 +112,7 @@ Clients that support sampling **MUST** declare the `sampling` capability in
 
 To request a language model generation during the processing of a client request, servers send an `InputRequiredResult` containing a `sampling/createMessage` request:
 
-**Input request (delivered inside [`InputRequiredResult.inputRequests`](/specification/2026-07-28/basic/patterns/mrtr#inputrequests)):**
+**Input request (delivered inside [`InputRequiredResult.inputRequests`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr#inputrequests)):**
 
 ```json theme={null}
 {

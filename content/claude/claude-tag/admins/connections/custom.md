@@ -10,13 +10,13 @@
 >
 > Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-For a service that isn't in the **Add a connector** list, add a custom connector. This works for any service with an HTTP API. The [BigQuery](/docs/claude-tag/admins/connections/bigquery.md) guide is a worked example.
+For a service that isn't in the **Add a connector** list, add a custom connector. This works for any service with an HTTP API. The [BigQuery](https://claude.com/docs/claude-tag/admins/connections/bigquery.md) guide is a worked example.
 
 To open the form, go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab, click **Add**, and select **Custom connector** at the bottom of the list. A connector added there for a host that isn't on the **Connectors** tab yet is on in every workspace and channel once you save it. For a host already listed under **Custom hosts**, the new credential starts off everywhere until you choose where it applies. For narrower reach:
 
-* **Some channels**: [restrict it on its page](/docs/claude-tag/admins/add-connections.md#restrict-a-connector-to-some-channels).
-* **One workspace or channel**: on that place's page, click **Add** under **Claude's access**, select **Connector**, select **Custom connector** under **Connect new** on the **Connectors** tab, and click **Continue**. See [Connect a service for one workspace or channel](/docs/claude-tag/admins/add-connections.md#connect-a-service-for-one-workspace-or-channel).
-* **The places a bundle applies**: add it to the [bundle](/docs/claude-tag/admins/add-connections.md#create-a-bundle). Open the bundle's page, and under **What's in it** click **Add**, choose **Connector**, and select **Custom connector**.
+* **Some channels**: [restrict it on its page](https://claude.com/docs/claude-tag/admins/add-connections.md#restrict-a-connector-to-some-channels).
+* **One workspace or channel**: on that place's page, click **Add** under **Claude's access**, select **Connector**, select **Custom connector** under **Connect new** on the **Connectors** tab, and click **Continue**. See [Connect a service for one workspace or channel](https://claude.com/docs/claude-tag/admins/add-connections.md#connect-a-service-for-one-workspace-or-channel).
+* **The places a bundle applies**: add it to the [bundle](https://claude.com/docs/claude-tag/admins/add-connections.md#create-a-bundle). Open the bundle's page, and under **What's in it** click **Add**, choose **Connector**, and select **Custom connector**.
 
 ## Add a custom HTTP API
 
@@ -26,7 +26,7 @@ To open the form, go to [**Organization settings > Claude Tag**](https://claude.
 * The API host (for example `api.example.com`)
 * How the API authenticates (which header or flow it expects)
 
-See [Create a dedicated account per service](/docs/claude-tag/admins/add-connections.md#create-a-dedicated-account-per-service) for the service-account patterns.
+See [Create a dedicated account per service](https://claude.com/docs/claude-tag/admins/add-connections.md#create-a-dedicated-account-per-service) for the service-account patterns.
 
 ### Fill out the custom connector form
 
@@ -34,11 +34,11 @@ See [Create a dedicated account per service](/docs/claude-tag/admins/add-connect
 | :- | :- |
 | **Name** | A label for this connector (for example "Internal billing API") |
 | **Credential type** | Pick the type that matches how the API authenticates; see [Credential types](#credential-types) |
-| **Allowed websites** | The API's host (for example `api.example.com`). A wildcard is allowed as the leftmost label. You can't enter `*` alone here; a credential is always limited to specific hosts (see [Allow all hosts](/docs/claude-tag/admins/add-connections.md#allow-all-hosts)). The credential is sent only to hosts you list here. |
+| **Allowed websites** | The API's host (for example `api.example.com`). A wildcard is allowed as the leftmost label. You can't enter `*` alone here; a credential is always limited to specific hosts (see [Allow all hosts](https://claude.com/docs/claude-tag/admins/add-connections.md#allow-all-hosts)). The credential is sent only to hosts you list here. |
 | **Path prefixes** (optional) | Restrict the credential to specific URL paths under the host. For the MCP Connector type, shown only when the provider you pick doesn't fix its own hosts and paths. |
 | **Custom headers** | Any extra headers the API requires beyond the credential. Shown only for the Bearer credential type. |
 
-After saving, where the credential has an allow rule, you can narrow it by HTTP method and path from its **Edit connection** dialog, opened from **Edit** in the credential's row menu on the connector's page; see [Restrict by path or method](/docs/claude-tag/admins/add-connections.md#restrict-by-path-or-method). To narrow a credential before any channel can use it, add the connector to a new [bundle](/docs/claude-tag/admins/add-connections.md#create-a-bundle), select **Edit** from the menu on its row under **What's in it**, and add the bundle's places last.
+After saving, where the credential has an allow rule, you can narrow it by HTTP method and path from its **Edit connection** dialog, opened from **Edit** in the credential's row menu on the connector's page; see [Restrict by path or method](https://claude.com/docs/claude-tag/admins/add-connections.md#restrict-by-path-or-method). To narrow a credential before any channel can use it, add the connector to a new [bundle](https://claude.com/docs/claude-tag/admins/add-connections.md#create-a-bundle), select **Edit** from the menu on its row under **What's in it**, and add the bundle's places last.
 
 ### Credential types
 
@@ -52,13 +52,13 @@ After saving, where the credential has an allow rule, you can narrow it by HTTP 
 | **GCP IAP (with Service Account Key)** | Google Cloud services behind Identity-Aware Proxy |
 | **OAuth 2.0 JWT bearer** | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example) |
 | **OAuth 2.0 client credentials** | Machine-to-machine OAuth with a client ID and secret |
-| **MCP Connector** | OAuth sign-in to one of the providers in the picker or to a [remote MCP connector](/docs/connectors/custom/add-unlisted.md) your organization has added on claude.ai. Sign in once as an admin; the agent acts as that account. Other OAuth APIs can't be connected this way. |
+| **MCP Connector** | OAuth sign-in to one of the providers in the picker or to a [remote MCP connector](https://claude.com/docs/connectors/custom/add-unlisted.md) your organization has added on claude.ai. Sign in once as an admin; the agent acts as that account. Other OAuth APIs can't be connected this way. |
 
 > [!NOTE]
 >
 > The **MCP Connector** type signs in to a connector from your organization's connector library. If you register a new connector from this form with **Add custom connector…**, that connector is added to the library on the **Connectors** page at [`claude.ai/admin-settings/connectors`](https://claude.ai/admin-settings/connectors), not only to Claude Tag. Removing the Claude Tag connector later leaves the library entry in place.
 
-For GitHub repositories, use the Claude GitHub App at [Configure GitHub access](/docs/claude-tag/admins/configure-github.md) rather than a credential from this table.
+For GitHub repositories, use the Claude GitHub App at [Configure GitHub access](https://claude.com/docs/claude-tag/admins/configure-github.md) rather than a credential from this table.
 
 If you're unsure which type, check the service's API authentication docs for which header or flow it expects.
 
@@ -84,7 +84,7 @@ Requests to other hostnames fail before reaching AWS. Agent Proxy can't sign a r
 
 Use long-lived credentials from a dedicated IAM user where you can. Temporary STS credentials work but expire on their own schedule, and the connector stops working when they do; you re-enter all three values to rotate.
 
-Claude can call the endpoint with `curl`, an AWS SDK, or the AWS CLI. The sandbox holds no real AWS credentials, so a CLI or SDK signs the request with placeholder values; Agent Proxy strips that signature and re-signs with the stored credential before the request leaves for AWS. If a request comes back with HTTP 502 and a reason that begins `injection failed ("<connection name>")`, Agent Proxy couldn't sign it. The troubleshooting entry [An AWS request fails after a successful sign-in](/docs/claude-tag/admins/federated-access/troubleshooting.md#an-aws-request-fails-after-a-successful-sign-in) lists each cause the reason text names and its fix; the causes and fixes are the same for a connector that stores an access key.
+Claude can call the endpoint with `curl`, an AWS SDK, or the AWS CLI. The sandbox holds no real AWS credentials, so a CLI or SDK signs the request with placeholder values; Agent Proxy strips that signature and re-signs with the stored credential before the request leaves for AWS. If a request comes back with HTTP 502 and a reason that begins `injection failed ("<connection name>")`, Agent Proxy couldn't sign it. The troubleshooting entry [An AWS request fails after a successful sign-in](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting.md#an-aws-request-fails-after-a-successful-sign-in) lists each cause the reason text names and its fix; the causes and fixes are the same for a connector that stores an access key.
 
 #### When AWS returns `SignatureDoesNotMatch`
 
@@ -99,7 +99,7 @@ A dropped or expired session token is a different failure: AWS rejects it with a
 
 ### OAuth 2.0 JWT bearer
 
-Use the **OAuth 2.0 JWT bearer** credential type for APIs that exchange a JWT signed with your private key for an access token. The [Salesforce guide](/docs/claude-tag/admins/connections/salesforce.md) is a worked example.
+Use the **OAuth 2.0 JWT bearer** credential type for APIs that exchange a JWT signed with your private key for an access token. The [Salesforce guide](https://claude.com/docs/claude-tag/admins/connections/salesforce.md) is a worked example.
 
 The **Private key (PEM)** field takes a PEM-encoded RSA private key without a passphrase, the format that begins with `-----BEGIN PRIVATE KEY-----` or `-----BEGIN RSA PRIVATE KEY-----`. Identity providers such as Okta export the key as a JWK (a JSON object) by default; convert a JWK to PEM before pasting it. The form doesn't check the key's format, so a key in the wrong format fails only when you save.
 
@@ -111,13 +111,13 @@ Saving also fails when a PEM-encoded key isn't an RSA key or has a passphrase. O
 
 ## Add a custom MCP server
 
-The server must be a remote endpoint that Claude can reach at a URL over the internet. An MCP server that runs on a person's machine over stdio, including one packaged as a [desktop extension](/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app), can't be connected, because [sessions](/docs/claude-tag/concepts/glossary.md#session) run in a cloud sandbox that Anthropic hosts, not on anyone's machine. Host the server as a remote endpoint first, then follow the steps below.
+The server must be a remote endpoint that Claude can reach at a URL over the internet. An MCP server that runs on a person's machine over stdio, including one packaged as a [desktop extension](https://claude.com/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app), can't be connected, because [sessions](https://claude.com/docs/claude-tag/concepts/glossary.md#session) run in a cloud sandbox that Anthropic hosts, not on anyone's machine. Host the server as a remote endpoint first, then follow the steps below.
 
 To give Claude an MCP server (one you run, or a vendor's hosted MCP endpoint), the pattern is a plugin plus a credential:
 
 **1. Add a plugin that declares the MCP server**
 
-Add a plugin whose `.mcp.json` points at the server URL, from your organization's library or your [skills repository](/docs/claude-tag/admins/skills-repo.md), wherever the server should be available; see [Attach plugins](/docs/claude-tag/admins/add-connections.md#attach-plugins). The plugin tells Claude the server exists and how to call it.
+Add a plugin whose `.mcp.json` points at the server URL, from your organization's library or your [skills repository](https://claude.com/docs/claude-tag/admins/skills-repo.md), wherever the server should be available; see [Attach plugins](https://claude.com/docs/claude-tag/admins/add-connections.md#attach-plugins). The plugin tells Claude the server exists and how to call it.
 
 **2. Add a credential for the server's host**
 
@@ -135,10 +135,10 @@ In a channel where the connector applies, in a new thread, ask Claude to make a 
 
 Check the service's own audit log to confirm the call landed under your service account. New threads pick up the connector on their own.
 
-If Claude reports that it can't use the credential, open the connector from the **Connectors** tab, where custom connectors are listed under **Custom hosts**. In its **Access from** table, **Not enabled** means no allow rule sends the credential yet; click **Enable** and confirm. A credential a teammate submitted through a setup link waits on the **Requests** tab of [**Notifications**](https://claude.ai/admin-settings/notifications) as **Approval needed**; click **Review**, then **Approve**. See [Verify the connector saved](/docs/claude-tag/admins/add-connections.md#verify-the-connector-saved).
+If Claude reports that it can't use the credential, open the connector from the **Connectors** tab, where custom connectors are listed under **Custom hosts**. In its **Access from** table, **Not enabled** means no allow rule sends the credential yet; click **Enable** and confirm. A credential a teammate submitted through a setup link waits on the **Requests** tab of [**Notifications**](https://claude.ai/admin-settings/notifications) as **Approval needed**; click **Review**, then **Approve**. See [Verify the connector saved](https://claude.com/docs/claude-tag/admins/add-connections.md#verify-the-connector-saved).
 
 ## Related resources
 
-* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full connector model
-* [Allow a host without a credential](/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential): for public APIs that need no auth
-* [Allow all hosts](/docs/claude-tag/admins/add-connections.md#allow-all-hosts): the egress option that lets Claude reach any public host without a credential
+* [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md): the full connector model
+* [Allow a host without a credential](https://claude.com/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential): for public APIs that need no auth
+* [Allow all hosts](https://claude.com/docs/claude-tag/admins/add-connections.md#allow-all-hosts): the egress option that lets Claude reach any public host without a credential

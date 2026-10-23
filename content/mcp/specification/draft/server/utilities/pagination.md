@@ -19,7 +19,7 @@ data sets.
 > `io.modelcontextprotocol/clientInfo`, and
 > `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
 > the required `_meta` fields; see
-> [`_meta`](/specification/draft/basic/index#meta).
+> [`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#meta).
 
 ## Pagination Model
 

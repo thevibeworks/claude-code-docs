@@ -10,7 +10,7 @@ In **Settings > Connectors** > **Add connector**, choose **Remote** or **Local c
 
 Remote servers that need login take you through the provider's sign-in page.
 
-On Team and Enterprise plans, you can add and use custom connectors only if your organization allows them. When it doesn't, the **Remote** and **Local command** options under **Add connector** are grayed with a note that custom connectors are disabled by your admin. Custom connectors you added earlier stay listed and grayed, Claude can't use them, and they work again if your organization turns custom connectors back on. See [Custom connectors](/docs/claude-science/admin-controls.md#custom-connectors) in the admin controls.
+On Team and Enterprise plans, you can add and use custom connectors only if your organization allows them. When it doesn't, the **Remote** and **Local command** options under **Add connector** are grayed with a note that custom connectors are disabled by your admin. Custom connectors you added earlier stay listed and grayed, Claude can't use them, and they work again if your organization turns custom connectors back on. See [Custom connectors](https://claude.com/docs/claude-science/admin-controls.md#custom-connectors) in the admin controls.
 
 Every tool from a custom connector starts as **Not set**, and Claude asks before using it. On the connector's page, set individual tools to **Always allow**, **Ask each time**, or **Block** under **Tools**, or turn on Skip approvals for the whole connector.
 

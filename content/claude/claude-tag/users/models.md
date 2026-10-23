@@ -38,9 +38,9 @@ To change what new threads in a channel start on, ask for the channel, not just 
 @Claude use Sonnet for this thread, and make it the default model for this channel.
 ```
 
-Claude sets the channel's default model. New threads in the channel start on it. If you asked for a family rather than a version, the default keeps following that family: when your organization gets a newer model in it, new threads start on the newer model without anyone changing the setting. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) has set **Channel member edits** to **Block** for the channel, Claude declines to set the channel default; ask for the thread alone instead.
+Claude sets the channel's default model. New threads in the channel start on it. If you asked for a family rather than a version, the default keeps following that family: when your organization gets a newer model in it, new threads start on the newer model without anyone changing the setting. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) has set **Channel member edits** to **Block** for the channel, Claude declines to set the channel default; ask for the thread alone instead.
 
-An Owner sets the same default in Claude Tag admin settings for the whole organization or for one workspace or channel, and a Claude Tag admin can set it for a workspace or channel; see [choose the model for a scope](/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope).
+An Owner sets the same default in Claude Tag admin settings for the whole organization or for one workspace or channel, and a Claude Tag admin can set it for a workspace or channel; see [choose the model for a scope](https://claude.com/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope).
 
 ## Choose the model for your direct messages
 
@@ -52,7 +52,7 @@ The selector doesn't change a conversation already underway. To change one of th
 
 Fast mode gives a thread faster output at a higher cost per token. It's the same [fast mode as in Claude Code](https://code.claude.com/docs/en/fast-mode), and that page lists the models that support it and what it costs. Use it where response time matters more than cost, such as a thread working a live alert.
 
-Fast mode is available once an Owner [allows it for your organization](/docs/claude-tag/admins/customize.md#allow-fast-mode). To turn it on, send the [`!fast` command](/docs/claude-tag/users/commands#turn-fast-mode-on-or-off) in the thread.
+Fast mode is available once an Owner [allows it for your organization](https://claude.com/docs/claude-tag/admins/customize.md#allow-fast-mode). To turn it on, send the [`!fast` command](https://claude.com/docs/claude-tag/users/commands#turn-fast-mode-on-or-off) in the thread.
 
 ```text wrap theme={null}
 @Claude !fast
@@ -66,7 +66,7 @@ Fast mode applies to the thread you turn it on in, and new threads start at stan
 
 * You send `@Claude !fast off`
 * You ask Claude to [switch models](#switch-the-model-in-a-thread)
-* The thread's session is replaced, for example when you [restart it](/docs/claude-tag/users/commands.md#restart-a-stuck-or-wrong-context-session)
+* The thread's session is replaced, for example when you [restart it](https://claude.com/docs/claude-tag/users/commands.md#restart-a-stuck-or-wrong-context-session)
 
 After `!fast off`, a thread that Claude switched to Opus stays on Opus. To return to the earlier model, ask Claude to switch.
 
@@ -82,10 +82,10 @@ To see the current list, ask in the thread.
 
 If you ask for a model that isn't on the list, Claude tells you it isn't available, and the thread stays on the model it was already using.
 
-For how your organization's model settings apply in Slack, see [Models your organization allows](/docs/claude-tag/admins/customize.md#models-your-organization-allows).
+For how your organization's model settings apply in Slack, see [Models your organization allows](https://claude.com/docs/claude-tag/admins/customize.md#models-your-organization-allows).
 
 ## Related resources
 
-* [Get started](/docs/claude-tag/users/getting-started.md): what else the reply footer links to
-* [Commands](/docs/claude-tag/users/commands.md#turn-fast-mode-on-or-off): where `!fast` works and what Claude replies when it can't change the speed
-* [Customize Claude Tag](/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope): how admins set a default model per workspace or channel, and how the organization's model policy applies
+* [Get started](https://claude.com/docs/claude-tag/users/getting-started.md): what else the reply footer links to
+* [Commands](https://claude.com/docs/claude-tag/users/commands.md#turn-fast-mode-on-or-off): where `!fast` works and what Claude replies when it can't change the speed
+* [Customize Claude Tag](https://claude.com/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope): how admins set a default model per workspace or channel, and how the organization's model policy applies

@@ -246,12 +246,12 @@ non-`cancelled` terminal status.
 
 > [!NOTE]
 >
-> MCP Tasks is an extension to the [core MCP specification](/specification/latest.md). Host
+> MCP Tasks is an extension to the [core MCP specification](https://modelcontextprotocol.io/specification/latest.md). Host
 > support varies by client.
 
-See the [client matrix](/extensions/client-matrix.md) for extension support across
+See the [client matrix](https://modelcontextprotocol.io/extensions/client-matrix.md) for extension support across
 clients. Task support requires explicit opt-in from both client and server.
 
 ## Specification
 
-The Tasks extension is specified in the [ext-tasks repository](https://github.com/modelcontextprotocol/ext-tasks). It uses the standard MCP [extension negotiation](/extensions/overview.md#negotiation) mechanism: clients declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` they send in each request's `_meta`, and servers advertise theirs in the capabilities returned by [`server/discover`](/specification/draft/server/discover).
+The Tasks extension is specified in the [ext-tasks repository](https://github.com/modelcontextprotocol/ext-tasks). It uses the standard MCP [extension negotiation](https://modelcontextprotocol.io/extensions/overview.md#negotiation) mechanism: clients declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` they send in each request's `_meta`, and servers advertise theirs in the capabilities returned by [`server/discover`](https://modelcontextprotocol.io/specification/draft/server/discover).

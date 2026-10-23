@@ -30,7 +30,7 @@ these types of messages:
 
 ### Requests
 
-[Requests](/specification/draft/schema.md#jsonrpcrequest) are sent from the client to the server, to initiate an operation.
+[Requests](https://modelcontextprotocol.io/specification/draft/schema.md#jsonrpcrequest) are sent from the client to the server, to initiate an operation.
 
 ```typescript theme={null}
 {
@@ -54,7 +54,7 @@ Responses are sent in reply to requests, containing either the result or error o
 
 #### Result Responses
 
-[Result responses](/specification/draft/schema.md#jsonrpcresultresponse) are sent when the operation completes successfully.
+[Result responses](https://modelcontextprotocol.io/specification/draft/schema.md#jsonrpcresultresponse) are sent when the operation completes successfully.
 
 ```typescript theme={null}
 {
@@ -79,14 +79,14 @@ allowing servers to return different structures based on the outcome of the requ
 can use to determine how to parse and handle the `result` object.
 
 * A `resultType` of `"complete"` indicates the request completed successfully and the result contains the final content.
-* A `resultType` of `"input_required"` indicates the request is incomplete and more information is needed to process the request. The result contains an [`InputRequiredResult`](/specification/draft/basic/patterns/mrtr#inputrequiredresult) object with additional information needed.
+* A `resultType` of `"input_required"` indicates the request is incomplete and more information is needed to process the request. The result contains an [`InputRequiredResult`](https://modelcontextprotocol.io/specification/draft/basic/patterns/mrtr#inputrequiredresult) object with additional information needed.
 * Extensions **MAY** add additional `ResultType` values. The set of supported `ResultType` values **MUST** be created from the set defined in the core protocol and include any additional values of supported extensions that are advertised via capabilities.
 * A `resultType` of any value unrecognized by the client **MUST** be considered invalid.
 * For backward compatibility with servers implementing earlier protocol versions, which do not include `resultType`, clients **MUST** treat an absent `resultType` as `"complete"`.
 
 #### Error Responses
 
-[Error responses](/specification/draft/schema.md#jsonrpcerrorresponse) are sent when the operation fails or encounters an error.
+[Error responses](https://modelcontextprotocol.io/specification/draft/schema.md#jsonrpcerrorresponse) are sent when the operation fails or encounters an error.
 
 ```typescript theme={null}
 {
@@ -121,7 +121,7 @@ server errors. MCP partitions this range as follows:
   **MUST NOT** assume any specific meaning for these codes.
 * **`-32020` to `-32099` — reserved for the MCP specification.** Error codes
   in this sub-range are defined exclusively by the MCP specification and
-  recorded in the [schema](/specification/draft/schema.md). Implementations
+  recorded in the [schema](https://modelcontextprotocol.io/specification/draft/schema.md). Implementations
   **MUST NOT** emit any code from this sub-range that is not defined by this
   specification and **MUST** use defined codes only with their specified
   meanings.
@@ -130,16 +130,16 @@ MCP defines the following error codes:
 
 | Code | Name |
 | - | - |
-| `-32020` | [`HeaderMismatch`](/specification/draft/schema#headermismatcherror) |
-| `-32021` | [`MissingRequiredClientCapability`](/specification/draft/schema#missingrequiredclientcapabilityerror) |
-| `-32022` | [`UnsupportedProtocolVersion`](/specification/draft/schema#unsupportedprotocolversionerror) |
+| `-32020` | [`HeaderMismatch`](https://modelcontextprotocol.io/specification/draft/schema#headermismatcherror) |
+| `-32021` | [`MissingRequiredClientCapability`](https://modelcontextprotocol.io/specification/draft/schema#missingrequiredclientcapabilityerror) |
+| `-32022` | [`UnsupportedProtocolVersion`](https://modelcontextprotocol.io/specification/draft/schema#unsupportedprotocolversionerror) |
 
 Codes defined by earlier protocol versions remain reserved and will not be
 reused. Implementations of this protocol version **MUST NOT** emit these codes:
 
 * `-32002` — resource not found (2025-11-25 and earlier; replaced by `-32602`).
   Clients [**SHOULD** still
-  accept `-32002`](/specification/draft/server/resources#error-handling) from
+  accept `-32002`](https://modelcontextprotocol.io/specification/draft/server/resources#error-handling) from
   servers implementing earlier versions.
 * `-32042` — URL elicitation required (2025-11-25 only).
 
@@ -156,7 +156,7 @@ remainder of the integer space is available for application-defined errors.
 
 ### Notifications
 
-[Notifications](/specification/draft/schema.md#jsonrpcnotification) are sent from the client to the server or vice versa, as a one-way message.
+[Notifications](https://modelcontextprotocol.io/specification/draft/schema.md#jsonrpcnotification) are sent from the client to the server or vice versa, as a one-way message.
 The receiver **MUST NOT** send a response.
 
 ```typescript theme={null}
@@ -173,11 +173,11 @@ The receiver **MUST NOT** send a response.
 
 ### Message Patterns
 
-The Model Context Protocol (MCP) supports several [Message Patterns](/specification/draft/basic/patterns.md) that define how clients and servers interact:
+The Model Context Protocol (MCP) supports several [Message Patterns](https://modelcontextprotocol.io/specification/draft/basic/patterns.md) that define how clients and servers interact:
 
-1. **[Request and Response](/specification/draft/basic/patterns.md#request-and-response)**: A client sends a request to the server, and the server responds with a result or error.
-2. **[Multi Round-Trip Requests (MRTR)](/specification/draft/basic/patterns.md#multi-round-trip-requests)**: A server requires additional client input (sampling, elicitation, or roots) to complete a request.
-3. **[Subscribe and Notify](/specification/draft/basic/patterns.md#subscribe-and-notify)**: A client subscribes to a stream of notifications from the server, which are sent as they occur.
+1. **[Request and Response](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#request-and-response)**: A client sends a request to the server, and the server responds with a result or error.
+2. **[Multi Round-Trip Requests (MRTR)](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#multi-round-trip-requests)**: A server requires additional client input (sampling, elicitation, or roots) to complete a request.
+3. **[Subscribe and Notify](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#subscribe-and-notify)**: A client subscribes to a stream of notifications from the server, which are sent as they occur.
 
 ## Statelessness
 
@@ -209,18 +209,18 @@ Specifically:
 > proxy for conversation or session continuity.
 
 Long-lived requests like
-[`subscriptions/listen`](/specification/draft/basic/patterns/subscriptions)
+[`subscriptions/listen`](https://modelcontextprotocol.io/specification/draft/basic/patterns/subscriptions)
 remain request/response; the response is just an open stream of notifications.
 Their state is scoped to the request itself, not to the connection underneath.
 
 > [!NOTE]
 >
 > For a walkthrough of how the per-request model maps to SDK code, see the
-> [Architecture guide](/docs/draft/learn/architecture.md#example).
+> [Architecture guide](https://modelcontextprotocol.io/docs/draft/learn/architecture.md#example).
 
 ## Auth
 
-MCP provides an [Authorization](/specification/draft/basic/authorization.md) framework for use with HTTP.
+MCP provides an [Authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization.md) framework for use with HTTP.
 Implementations using an HTTP-based transport **SHOULD** conform to this specification,
 whereas implementations using STDIO transport **SHOULD NOT** follow this specification,
 and instead retrieve credentials from the environment.
@@ -349,15 +349,15 @@ The following `_meta` keys are reserved by this specification:
 
 | Key | Description | Defined in |
 | - | - | - |
-| `progressToken` | Opts the request into progress notifications | [Progress](/specification/draft/basic/patterns/progress.md) |
+| `progressToken` | Opts the request into progress notifications | [Progress](https://modelcontextprotocol.io/specification/draft/basic/patterns/progress.md) |
 | `io.modelcontextprotocol/protocolVersion` | Protocol version for a request | Per-request protocol fields (below) |
 | `io.modelcontextprotocol/clientInfo` | Client name and version | Per-request protocol fields (below) |
 | `io.modelcontextprotocol/clientCapabilities` | Client capabilities relevant to a request | Per-request protocol fields (below) |
-| `io.modelcontextprotocol/logLevel` | Minimum log level the server should emit for a request | [Logging](/specification/draft/server/utilities/logging.md) |
-| `io.modelcontextprotocol/subscriptionId` | Correlates a notification with its originating subscription | [Subscriptions](/specification/draft/basic/patterns/subscriptions.md) |
+| `io.modelcontextprotocol/logLevel` | Minimum log level the server should emit for a request | [Logging](https://modelcontextprotocol.io/specification/draft/server/utilities/logging.md) |
+| `io.modelcontextprotocol/subscriptionId` | Correlates a notification with its originating subscription | [Subscriptions](https://modelcontextprotocol.io/specification/draft/basic/patterns/subscriptions.md) |
 | `traceparent`, `tracestate`, `baggage` | OpenTelemetry trace context propagation | OpenTelemetry trace context (below) |
 
-Official [extensions](/specification/draft/basic/versioning.md#extension-negotiation)
+Official [extensions](https://modelcontextprotocol.io/specification/draft/basic/versioning.md#extension-negotiation)
 define additional `_meta` keys under the `io.modelcontextprotocol/` prefix, and
 third-party extensions use their own vendor prefix.
 In both cases the keys are specified in the extension's documentation.
@@ -387,7 +387,7 @@ unless specifically configured not to do so.
 A server **MUST NOT** rely on capabilities the client has not declared. If
 processing a request requires a capability the client did not include in
 `io.modelcontextprotocol/clientCapabilities`, the server **MUST** return a
-[`MissingRequiredClientCapabilityError`](/specification/draft/schema#missingrequiredclientcapabilityerror)
+[`MissingRequiredClientCapabilityError`](https://modelcontextprotocol.io/specification/draft/schema#missingrequiredclientcapabilityerror)
 (`-32021`) whose `data.requiredCapabilities` lists the missing capabilities. On
 HTTP, the response status **MUST** be `400 Bad Request`.
 
@@ -413,9 +413,9 @@ On notifications delivered via a [`subscriptions/listen`][subscriptions-listen] 
 the server **MUST** include `io.modelcontextprotocol/subscriptionId` in `_meta` so the
 client can correlate the notification with the originating subscription request.
 
-[lifecycle]: /specification/draft/basic/versioning.md
+[lifecycle]: https://modelcontextprotocol.io/specification/draft/basic/versioning.md
 
-[subscriptions-listen]: /specification/draft/basic/patterns/subscriptions.md
+[subscriptions-listen]: https://modelcontextprotocol.io/specification/draft/basic/patterns/subscriptions.md
 
 **OpenTelemetry trace context:**
 
