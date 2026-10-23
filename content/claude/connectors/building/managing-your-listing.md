@@ -87,6 +87,8 @@ Save your edits as you go, then submit them for review. Submitted changes show a
 
 The URL slug is locked. It's permanent after publication because it determines your listing URL.
 
+To change how users sign in, including the OAuth client ID and secret that Anthropic holds, go to **Connection & authentication** on the listing's submission detail page and click **Edit authentication** or **Author authentication**, whichever the section shows. [Enter your OAuth client in the developer portal](/docs/connectors/building/authentication.md#enter-your-oauth-client-in-the-developer-portal) covers the client fields.
+
 For other edits or escalations, email `mcp-review@anthropic.com`.
 
 ## Next steps

@@ -62,16 +62,6 @@ The API emits spans for your Messages API requests and Managed Agents sessions. 
 You can also add a destination with the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) instead of the Console. Sign in to the CLI as an admin, or use another [Admin API credential](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication), such as an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) or a service account key in `ANTHROPIC_API_KEY`. On Claude Platform on AWS, send the requests to `https://aws-external-anthropic.{region}.api.aws` instead, signed with your AWS credentials as in [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests). There, your [IAM policy](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions) determines who can manage destinations. A request can include only the workspaces of your AWS account in that Region.
 
 <CodeGroup>
-  ```bash CLI
-  # Sign in once as an admin, which opens a browser.
-  ant auth login --profile admin --scope "org:admin"
-  ant --profile admin beta:organization:telemetry-destinations create \
-    --endpoint-url https://gateway.example.com/otlp \
-    --headers '{authorization: "Bearer YOUR_OBSERVABILITY_API_KEY"}' \
-    --traces.content-mode metadata_only \
-    --workspaces.type all
-  ```
-
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/telemetry_destinations" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -84,6 +74,16 @@ You can also add a destination with the [Admin API](https://platform.claude.com/
       "traces": {"content_mode": "metadata_only"},
       "workspaces": {"type": "all"}
     }'
+  ```
+
+  ```bash CLI
+  # Sign in once as an admin, which opens a browser.
+  ant auth login --profile admin --scope "org:admin"
+  ant --profile admin beta:organization:telemetry-destinations create \
+    --endpoint-url https://gateway.example.com/otlp \
+    --headers '{authorization: "Bearer YOUR_OBSERVABILITY_API_KEY"}' \
+    --traces.content-mode metadata_only \
+    --workspaces.type all
   ```
 
   ```python Python
@@ -221,7 +221,7 @@ A destination receives the spans of the workspaces that it covers. Choose them w
 * **Selected:** Only the workspaces that you select.
 * **All except:** Like **All**, but without the workspaces that you select.
 
-For **Selected** or **All except**, select the workspaces in the search box that appears under the options. To change a destination's workspaces later, open its **More actions** menu on the [OpenTelemetry settings page](https://platform.claude.com/settings/telemetry-destinations) in the Console while the **Workspace** filter shows **All**. Click **Edit**, then choose another **Workspaces** option or change the workspaces in the search box.
+For **Selected** or **All except**, select the workspaces in the search box that appears under the options. To change a destination's workspaces later, open its **More actions** menu on the [OpenTelemetry settings page](https://platform.claude.com/settings/telemetry-destinations) in the Console while the **Workspace** filter shows **All**. Click **Edit**, then select another **Workspaces** option or change the workspaces in the search box.
 
 If you have the developer role in the organization and the Workspace Admin role in a workspace, you can add that workspace to a **Selected** destination or remove it. Set the **Workspace** filter to that workspace, then open the destination's **More actions** menu. On Claude Platform on AWS, the Console has no Workspace Admin role. There, your [IAM policy](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions) determines who can add a workspace to a destination or remove it.
 

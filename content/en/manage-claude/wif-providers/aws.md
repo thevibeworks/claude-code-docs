@@ -95,7 +95,7 @@ Be as specific as the workload allows. Match the exact role ARN, and only broade
 
 ### Acquire and use the token
 
-Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK calls STS again on each refresh.
+Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider()`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK calls STS again on each refresh.
 
 <Note>
   `GetWebIdentityToken` is available only on regional STS endpoints. If you receive `'STS' object has no attribute 'get_web_identity_token'` or a similar error, pin your STS client to a region (for example, `boto3.client("sts", region_name="us-east-1")`) and ensure your AWS SDK is recent enough to include the API.
@@ -133,6 +133,23 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
       "max_tokens": 1024,
       "messages": [{"role": "user", "content": "Hello from AWS"}]
     }'
+  ```
+
+  ```bash CLI
+  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
+  aws sts get-web-identity-token \
+    --region us-east-1 \
+    --audience "https://api.anthropic.com" \
+    --signing-algorithm RS256 \
+    --duration-seconds 900 \
+    --query WebIdentityToken --output text > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+
+  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
+  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment
+  ant messages create \
+    --model claude-opus-5-5 \
+    --max-tokens 1024 \
+    --message '{role: user, content: "Hello from AWS"}'
   ```
 
   ```python Python
@@ -213,6 +230,54 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
   }
   ```
 
+  ```csharp C#
+  using Amazon.SecurityToken;
+  using Amazon.SecurityToken.Model;
+  // ...
+  using Anthropic.Credentials;
+  // ...
+
+  var credentials = new WorkloadIdentityCredentials(new WorkloadIdentityOptions
+  {
+      FederationRuleId = Environment.GetEnvironmentVariable("ANTHROPIC_FEDERATION_RULE_ID")!,
+      OrganizationId = Environment.GetEnvironmentVariable("ANTHROPIC_ORGANIZATION_ID"),
+      ServiceAccountId = Environment.GetEnvironmentVariable("ANTHROPIC_SERVICE_ACCOUNT_ID"),
+      WorkspaceId = Environment.GetEnvironmentVariable("ANTHROPIC_WORKSPACE_ID"),
+      IdentityTokenProvider = new StsTokenProvider(),
+  });
+  using var client = new AnthropicClient(new ClientOptions { Credentials = credentials });
+
+  var message = await client.Messages.Create(new()
+  {
+      Model = Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Messages = [new UserMessageParam { Content = "Hello from AWS" }],
+  });
+  foreach (var block in message.Content)
+  {
+      if (block.Value is TextBlock textBlock)
+      {
+          Console.WriteLine(textBlock.Text);
+      }
+  }
+
+  class StsTokenProvider : IIdentityTokenProvider
+  {
+      private readonly AmazonSecurityTokenServiceClient _sts = new(Amazon.RegionEndpoint.USEast1);
+
+      public async Task<string> GetIdentityTokenAsync(CancellationToken ct = default)
+      {
+          var resp = await _sts.GetWebIdentityTokenAsync(new GetWebIdentityTokenRequest
+          {
+              Audience = ["https://api.anthropic.com"],
+              SigningAlgorithm = "RS256",
+              DurationSeconds = 900,
+          }, ct);
+          return resp.WebIdentityToken;
+      }
+  }
+  ```
+
   ```go Go
   ctx := context.TODO()
   cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion("us-east-1"))
@@ -272,7 +337,9 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
   import software.amazon.awssdk.services.sts.model.GetWebIdentityTokenRequest;
 
   void main() {
-      StsClient sts = StsClient.builder().region(Region.US_EAST_1).build();
+      StsClient sts = StsClient.builder()
+          .region(Region.US_EAST_1)
+          .build();
 
       // The Java SDK takes the token itself or a file path, not a function; with
       // source("value"), path(...) holds the token. The SDK sends that same token
@@ -281,102 +348,37 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
       // process, pass source("file") and write a new token to the file before
       // each refresh.
       String stsToken = sts.getWebIdentityToken(
-                      GetWebIdentityTokenRequest.builder()
-                              .audience("https://api.anthropic.com")
-                              .signingAlgorithm("RS256")
-                              .durationSeconds(900)
-                              .build())
-              .webIdentityToken();
+              GetWebIdentityTokenRequest.builder()
+                  .audience("https://api.anthropic.com")
+                  .signingAlgorithm("RS256")
+                  .durationSeconds(900)
+                  .build())
+          .webIdentityToken();
 
       AnthropicClient client = AnthropicOkHttpClient.builder()
-              .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
-                      .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
-                      .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
-                      .authentication(AuthenticationConfig.builder()
-                              .type(AuthenticationType.OIDC_FEDERATION)
-                              .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
-                              .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
-                              .identityToken(IdentityTokenConfig.builder()
-                                      .source("value")
-                                      .path(stsToken)
-                                      .build())
-                              .build())
-                      .build()))
-              .build();
+          .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
+              .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
+              .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
+              .authentication(AuthenticationConfig.builder()
+                  .type(AuthenticationType.OIDC_FEDERATION)
+                  .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
+                  .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
+                  .identityToken(IdentityTokenConfig.builder()
+                      .source("value")
+                      .path(stsToken)
+                      .build())
+                  .build())
+              .build()))
+          .build();
 
       var message = client.messages().create(MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5_5)
-              .maxTokens(1024)
-              .addUserMessage("Hello from AWS")
-              .build());
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024)
+          .addUserMessage("Hello from AWS")
+          .build());
 
       IO.println(message.content());
   }
-  ```
-
-  ```csharp C#
-  using Amazon.SecurityToken;
-  using Amazon.SecurityToken.Model;
-  // ...
-  using Anthropic.Credentials;
-  // ...
-
-  var credentials = new WorkloadIdentityCredentials(new WorkloadIdentityOptions
-  {
-      FederationRuleId = Environment.GetEnvironmentVariable("ANTHROPIC_FEDERATION_RULE_ID")!,
-      OrganizationId = Environment.GetEnvironmentVariable("ANTHROPIC_ORGANIZATION_ID"),
-      ServiceAccountId = Environment.GetEnvironmentVariable("ANTHROPIC_SERVICE_ACCOUNT_ID"),
-      WorkspaceId = Environment.GetEnvironmentVariable("ANTHROPIC_WORKSPACE_ID"),
-      IdentityTokenProvider = new StsTokenProvider(),
-  });
-  using var client = new AnthropicClient(new ClientOptions { Credentials = credentials });
-
-  var message = await client.Messages.Create(new()
-  {
-      Model = Model.ClaudeOpus5_5,
-      MaxTokens = 1024,
-      Messages = [new UserMessageParam { Content = "Hello from AWS" }],
-  });
-  foreach (var block in message.Content)
-  {
-      if (block.Value is TextBlock textBlock)
-      {
-          Console.WriteLine(textBlock.Text);
-      }
-  }
-
-  class StsTokenProvider : IIdentityTokenProvider
-  {
-      private readonly AmazonSecurityTokenServiceClient _sts = new(Amazon.RegionEndpoint.USEast1);
-
-      public async Task<string> GetIdentityTokenAsync(CancellationToken ct = default)
-      {
-          var resp = await _sts.GetWebIdentityTokenAsync(new GetWebIdentityTokenRequest
-          {
-              Audience = ["https://api.anthropic.com"],
-              SigningAlgorithm = "RS256",
-              DurationSeconds = 900,
-          }, ct);
-          return resp.WebIdentityToken;
-      }
-  }
-  ```
-
-  ```bash CLI
-  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
-  aws sts get-web-identity-token \
-    --region us-east-1 \
-    --audience "https://api.anthropic.com" \
-    --signing-algorithm RS256 \
-    --duration-seconds 900 \
-    --query WebIdentityToken --output text > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
-
-  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment
-  ant messages create \
-    --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --message '{role: user, content: "Hello from AWS"}'
   ```
 
   ```php PHP
@@ -478,7 +480,7 @@ curl -sS https://api.anthropic.com/v1/oauth/token \
 JSON
 ```
 
-A successful exchange returns an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange); the most common AWS-side cause is an `iss` mismatch (the per-account STS issuer URL must match the registered `issuer_url` exactly).
+A successful exchange returns an `access_token` starting with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange); the most common AWS-side cause is an `iss` mismatch (the per-account STS issuer URL must match the registered `issuer_url` exactly).
 
 ## Use EKS projected service-account tokens
 
@@ -641,6 +643,15 @@ Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token`
     }'
   ```
 
+  ```bash CLI
+  # Reads ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
+  # ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_WORKSPACE_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
+  ant messages create \
+    --model claude-opus-5-5 \
+    --max-tokens 1024 \
+    --message '{role: user, content: "Hello from EKS"}'
+  ```
+
   ```python Python
   import os
 
@@ -696,6 +707,27 @@ Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token`
   }
   ```
 
+  ```csharp C#
+  // Reads ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
+  // ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_WORKSPACE_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
+  // from the pod's environment.
+  using var client = new AnthropicClient();
+
+  var message = await client.Messages.Create(new()
+  {
+      Model = Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Messages = [new UserMessageParam { Content = "Hello from EKS" }],
+  });
+  foreach (var block in message.Content)
+  {
+      if (block.Value is TextBlock textBlock)
+      {
+          Console.WriteLine(textBlock.Text);
+      }
+  }
+  ```
+
   ```go Go
   tokenPath := os.Getenv("ANTHROPIC_IDENTITY_TOKEN_FILE")
 
@@ -738,42 +770,12 @@ Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token`
   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
   var message = client.messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024)
-          .addUserMessage("Hello from EKS")
-          .build());
+      .model(Model.CLAUDE_OPUS_5_5)
+      .maxTokens(1024)
+      .addUserMessage("Hello from EKS")
+      .build());
 
   IO.println(message.content());
-  ```
-
-  ```csharp C#
-  // Reads ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  // ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_WORKSPACE_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
-  // from the pod's environment.
-  using var client = new AnthropicClient();
-
-  var message = await client.Messages.Create(new()
-  {
-      Model = Model.ClaudeOpus5_5,
-      MaxTokens = 1024,
-      Messages = [new UserMessageParam { Content = "Hello from EKS" }],
-  });
-  foreach (var block in message.Content)
-  {
-      if (block.Value is TextBlock textBlock)
-      {
-          Console.WriteLine(textBlock.Text);
-      }
-  }
-  ```
-
-  ```bash CLI
-  # Reads ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  # ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_WORKSPACE_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
-  ant messages create \
-    --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --message '{role: user, content: "Hello from EKS"}'
   ```
 
   ```php PHP
@@ -833,7 +835,7 @@ curl -sS https://api.anthropic.com/v1/oauth/token \
 JSON
 ```
 
-A successful exchange returns an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange); the most common EKS-side cause is the projected token's `aud` not matching the rule (project a token with `audience: https://api.anthropic.com`, not the IRSA default `sts.amazonaws.com`).
+A successful exchange returns an `access_token` starting with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange); the most common EKS-side cause is the projected token's `aud` not matching the rule (project a token with `audience: https://api.anthropic.com`, not the IRSA default `sts.amazonaws.com`).
 
 ## Scope your rule
 

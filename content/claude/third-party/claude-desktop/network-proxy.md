@@ -66,7 +66,7 @@ On Linux, or wherever you deploy the local configuration file, the key sits alon
 }
 ```
 
-In a macOS configuration profile the same key is a `<key>egressProxyUrl</key><string>http://proxy.example.com:8080</string>` pair in the `com.anthropic.claudefordesktop` payload, and on Windows it is a `REG_SZ` value named `egressProxyUrl` under `HKLM\SOFTWARE\Policies\Claude`. See [Value types](/docs/third-party/claude-desktop/configuration.md#value-types) and [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the surrounding profile and registry structure.
+In a macOS configuration profile the same key is a `<key>egressProxyUrl</key><string>http://proxy.example.com:8080</string>` pair in the `com.anthropic.claudefordesktop` payload, and on Windows it is a `REG_SZ` value named `egressProxyUrl` under `HKLM\SOFTWARE\Policies\Claude`. See [Value types](/docs/third-party/claude-desktop/configuration-format.md#value-types) and [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the surrounding profile and registry structure.
 
 Three behaviors to plan for:
 

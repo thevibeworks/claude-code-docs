@@ -80,7 +80,7 @@ The monitoring calls on this page run from your monitoring or operations tooling
   	"fmt"
   	"os"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   )
 
   func main() {
@@ -226,7 +226,7 @@ Because these calls run from your operations tooling rather than the worker host
   	"fmt"
   	"os"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   )
 
   func main() {

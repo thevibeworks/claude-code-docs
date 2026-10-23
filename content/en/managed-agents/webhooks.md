@@ -213,7 +213,7 @@ Set `ANTHROPIC_WEBHOOK_SIGNING_KEY` to the `whsec_`-prefixed secret shown at end
   	"io"
   	"net/http"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   )
 
   var client = anthropic.NewClient() // reads ANTHROPIC_WEBHOOK_SIGNING_KEY from env

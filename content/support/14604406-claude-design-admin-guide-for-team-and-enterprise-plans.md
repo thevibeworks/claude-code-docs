@@ -28,7 +28,7 @@ To turn on the **Design** template, see the instructions in **[Artifacts admin g
 
 On Enterprise plans, you can control access to standalone Claude Design with **[custom roles](https://support.claude.com/en/articles/13930452)**.
 
-**Important:** Standalone Claude Design closes on December 14, 2026. Before then, check that **Artifacts** and **Design systems** are on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**, so users can migrate their design systems. On Enterprise plans, **Design systems** is off by default. Learn more in **[Migrate from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
+**Important:** Standalone Claude Design closes on December 14, 2026. Before then, check that **Artifacts** and **Design systems** are on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**, so users can move their projects and design systems. On Enterprise plans, **Design systems** is off by default. If your organization has a retention period that covers artifacts, a project or design system that moves, or has already moved, to Claude can be permanently deleted if nobody opens it for that period. Learn more in[**Move from standalone Claude Design to Claude**](https://support.claude.com/en/articles/17440474) and **[Configure custom data retention controls for Enterprise plans](https://support.claude.com/en/articles/10440198)**.
 
 Before you turn on broad access, read through the rollout approach below. Turning on Claude Design without a design system in place means your team gets functional but generic output.
 

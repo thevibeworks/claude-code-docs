@@ -14,14 +14,14 @@ The Anthropic Go library provides convenient access to the Claude API from appli
 
 ```go
 import (
-	"github.com/anthropics/anthropic-sdk-go" // imported as anthropic
+	"github.com/anthropics/anthropic-sdk-go/v2" // imported as anthropic
 )
 ```
 
 Install with `go get`:
 
 ```bash
-go get github.com/anthropics/anthropic-sdk-go
+go get github.com/anthropics/anthropic-sdk-go/v2
 ```
 
 ## Requirements
@@ -37,8 +37,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go/v2"
+	"github.com/anthropics/anthropic-sdk-go/v2/option"
 )
 
 func main() {
@@ -458,14 +458,9 @@ To handle errors, use the `errors.As` pattern:
 ```go
 _, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
 	MaxTokens: 1024,
-	Messages: []anthropic.MessageParam{{
-		Content: []anthropic.ContentBlockParamUnion{{
-			OfText: &anthropic.TextBlockParam{
-				Text: "What is a quaternion?",
-			},
-		}},
-		Role: anthropic.MessageParamRoleUser,
-	}},
+	Messages: []anthropic.MessageParam{
+		anthropic.NewUserMessage(anthropic.NewTextBlock("What is a quaternion?")),
+	},
 	Model: anthropic.ModelClaudeOpus5_5,
 })
 if err != nil {
@@ -499,14 +494,9 @@ client := anthropic.NewClient(
 		context.TODO(),
 		anthropic.MessageNewParams{
 			MaxTokens: 1024,
-			Messages: []anthropic.MessageParam{{
-				Content: []anthropic.ContentBlockParamUnion{{
-					OfText: &anthropic.TextBlockParam{
-						Text: "What is a quaternion?",
-					},
-				}},
-				Role: anthropic.MessageParamRoleUser,
-			}},
+			Messages: []anthropic.MessageParam{
+				anthropic.NewUserMessage(anthropic.NewTextBlock("What is a quaternion?")),
+			},
 			Model: anthropic.ModelClaudeOpus5_5,
 		},
 		option.WithMaxRetries(5),
@@ -528,14 +518,9 @@ defer cancel()
 		ctx,
 		anthropic.MessageNewParams{
 			MaxTokens: 1024,
-			Messages: []anthropic.MessageParam{{
-				Content: []anthropic.ContentBlockParamUnion{{
-					OfText: &anthropic.TextBlockParam{
-						Text: "What is a quaternion?",
-					},
-				}},
-				Role: anthropic.MessageParamRoleUser,
-			}},
+			Messages: []anthropic.MessageParam{
+				anthropic.NewUserMessage(anthropic.NewTextBlock("What is a quaternion?")),
+			},
 			Model: anthropic.ModelClaudeOpus5_5,
 		},
 		// This sets the per-retry timeout
@@ -558,7 +543,7 @@ This SDK will also return an error if a non-streaming request is expected to be 
 Request parameters that correspond to file uploads in multipart requests are typed as `io.Reader`. The contents of the `io.Reader` are sent by default as a multipart form part with the file name of `anonymous_file` and content type of `application/octet-stream`, so the recommended approach is to specify a custom content type with the `anthropic.File(reader io.Reader, filename string, contentType string)` helper, which wraps any `io.Reader` with the appropriate file name and content type.
 
 ```go
-// A file from the file system
+// A file from the filesystem
 file, err := os.Open("/path/to/file.json")
 anthropic.FileUploadParams{
 	File: anthropic.File(file, "custom-name.json", "application/json"),
@@ -629,7 +614,7 @@ client.Messages.New(context.TODO(), // ...,
 
 The request option `option.WithDebugLog(nil)` might be helpful while debugging.
 
-See the [full list of request options](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go/option).
+See the [full list of request options](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go/v2/option).
 
 ## HTTP client customization
 
@@ -643,18 +628,22 @@ For request middleware (`option.WithMiddleware`) and replacing the default `http
   * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
   * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
   * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
-  * [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)
+  * [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)
   * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
+
+  See also [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed).
 </Note>
 
 The Go SDK supports the following platforms:
 
-* **Agent Platform:** `import "github.com/anthropics/anthropic-sdk-go/vertex"`. Use `vertex.WithGoogleAuth(ctx, region, projectID)` or `vertex.WithCredentials(ctx, region, projectID, creds)`.
-* **Bedrock:** `import "github.com/anthropics/anthropic-sdk-go/bedrock"`. Use `bedrock.NewMantleClient` for the Messages-API Bedrock endpoint (streams over SSE), or `bedrock.WithLoadDefaultConfig(ctx)` / `bedrock.WithConfig(cfg)` (`bedrock-runtime` path). Importing the `bedrock` package globally registers a decoder for `application/vnd.amazon.eventstream` with the SDK's streaming layer (through package `init()`). This applies whether you use the `bedrock-runtime` `WithConfig`/`WithLoadDefaultConfig` path or `NewMantleClient`.
-* **Claude Platform on AWS:** `import anthropicaws "github.com/anthropics/anthropic-sdk-go/aws"`. Use `anthropicaws.NewClient(ctx, cfg)` with an `anthropicaws.ClientConfig` value to construct a client; set `WorkspaceID` on the config or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. The `anthropicaws` import alias avoids a name collision with `github.com/aws/aws-sdk-go-v2/aws` when both are imported. Available in beta.
-* **Foundry:** `import "github.com/anthropics/anthropic-sdk-go/foundry"`. Use `foundry.NewClient(cfg)` with a `foundry.ClientConfig` value to construct a client; set `APIKey` (or `AzureADTokenProvider` for Microsoft Entra ID) and `Resource` on the config, or the `ANTHROPIC_FOUNDRY_API_KEY` and `ANTHROPIC_FOUNDRY_RESOURCE` environment variables.
+* **Claude Models on Google Cloud (Google managed):** `import "github.com/anthropics/anthropic-sdk-go/v2/vertex"`. Use `vertex.WithGoogleAuth(ctx, region, projectID)` or `vertex.WithCredentials(ctx, region, projectID, creds)`.
+* **Bedrock:** `import "github.com/anthropics/anthropic-sdk-go/v2/bedrock"`. Use `bedrock.NewMantleClient` for the Messages-API Bedrock endpoint (streams over SSE), or `bedrock.WithLoadDefaultConfig(ctx)` / `bedrock.WithConfig(cfg)` (`bedrock-runtime` path). Importing the `bedrock` package globally registers a decoder for `application/vnd.amazon.eventstream` with the SDK's streaming layer (through package `init()`). This applies whether you use the `bedrock-runtime` `WithConfig`/`WithLoadDefaultConfig` path or `NewMantleClient`.
+* **Claude Platform on AWS:** `import anthropicaws "github.com/anthropics/anthropic-sdk-go/v2/aws"`. Use `anthropicaws.NewClient(ctx, cfg)` with an `anthropicaws.ClientConfig` value to construct a client; set `WorkspaceID` on the config or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. The `anthropicaws` import alias avoids a name collision with `github.com/aws/aws-sdk-go-v2/aws` when both are imported. Available in beta.
+* **Foundry:** `import "github.com/anthropics/anthropic-sdk-go/v2/foundry"`. Use `foundry.NewClient(cfg)` with a `foundry.ClientConfig` value to construct a client; set `APIKey` (or `AzureADTokenProvider` for Microsoft Entra ID) and `Resource` on the config, or the `ANTHROPIC_FOUNDRY_API_KEY` and `ANTHROPIC_FOUNDRY_RESOURCE` environment variables.
 
 Use `bedrock.NewMantleClient` for new projects; `bedrock.WithLoadDefaultConfig`/`WithConfig` remain for existing applications using the Bedrock `InvokeModel` API.
+
+The Go SDK also supports Claude Models on Google Cloud (Anthropic managed) through the `github.com/anthropics/anthropic-sdk-go/v2/googlecloud` package. To construct a client, call `googlecloud.NewClient(ctx, cfg)` with a `googlecloud.ClientConfig` value. This client is in beta. Set `WorkspaceID` on the config or set the `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID` environment variable. See [Project, location, and workspace resolution](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#project-location-and-workspace-resolution) for how the client resolves the workspace ID.
 
 ## Advanced usage
 
@@ -669,14 +658,9 @@ message, err := client.Messages.New(
 	context.TODO(),
 	anthropic.MessageNewParams{
 		MaxTokens: 1024,
-		Messages: []anthropic.MessageParam{{
-			Content: []anthropic.ContentBlockParamUnion{{
-				OfText: &anthropic.TextBlockParam{
-					Text: "What is a quaternion?",
-				},
-			}},
-			Role: anthropic.MessageParamRoleUser,
-		}},
+		Messages: []anthropic.MessageParam{
+			anthropic.NewUserMessage(anthropic.NewTextBlock("What is a quaternion?")),
+		},
 		Model: anthropic.ModelClaudeOpus5_5,
 	},
 	option.WithResponseInto(&response),
@@ -750,6 +734,6 @@ Your feedback is welcome; open an [issue](https://github.com/anthropics/anthropi
 ## Additional resources
 
 * [GitHub repository](https://github.com/anthropics/anthropic-sdk-go)
-* [Go package documentation](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go)
+* [Go package documentation](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go/v2)
 * [API reference](https://platform.claude.com/docs/en/api/overview)
 * [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming)

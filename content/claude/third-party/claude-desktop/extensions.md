@@ -205,7 +205,7 @@ You can add marketplaces directly in the [in-app configuration window](/docs/thi
 
 The Plugins section of the in-app configuration window, with the Add marketplace menu and the organization plugins folder.
 
-To write the configuration yourself instead, add the repository to the [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) configuration key. The key is read from an MDM profile, local configuration, or the [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) response. In an MDM profile the value is a JSON array encoded as a string (see [Value types](/docs/third-party/claude-desktop/configuration.md#value-types)). In a local configuration file or the bootstrap response the value is a native JSON array.
+To write the configuration yourself instead, add the repository to the [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) configuration key. The key is read from an MDM profile, local configuration, or the [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) response. In an MDM profile the value is a JSON array encoded as a string (see [Value types](/docs/third-party/claude-desktop/configuration-format.md#value-types)). In a local configuration file or the bootstrap response the value is a native JSON array.
 
 ```xml .mobileconfig (macOS) theme={null}
 <key>allowedPluginMarketplaces</key>

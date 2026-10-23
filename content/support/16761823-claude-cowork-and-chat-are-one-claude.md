@@ -72,9 +72,9 @@ A task you start at your desk shows up in Claude Mobile too, so you can see how 
 
 A permission setting in the message box controls how independently Claude works:
 
-- **Auto:** Claude keeps working without stopping to ask about each step, and automated safety checks run before it takes an action.
+- **Auto (default on Pro, Max, and Team plans):** Claude keeps working without stopping to ask about each step, and automated safety checks run before it takes an action.
 
-- **Manual (default):** Claude asks before it takes actions, and you choose whether to allow each one.
+- **Manual (default on Enterprise plans):** Claude asks before it takes actions, and you choose whether to allow each one.
 
 You can change the setting at any time, and you can stop or redirect Claude while it works. The setting applies to the whole conversation. For work with real consequences, like sending messages or changing important files, stay close and review what Claude does. Learn more in **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135)**.
 

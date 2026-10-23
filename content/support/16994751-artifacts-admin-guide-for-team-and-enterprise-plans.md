@@ -47,7 +47,9 @@ Templates are the starting points users pick when they create an artifact.
 
 ### Standalone Claude Design at claude.ai/design
 
-Standalone Claude Design at **claude.ai/design** closes on December 14, 2026. Until then, it has its own setting in **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**, separate from the **Design** template. Users' existing projects stay at **claude.ai/design** until it closes, and up to 60 of them also appear in the **Artifacts** tab. To let users migrate their design systems, keep **Artifacts** and **Design systems** on. Learn more in **[Migrate from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
+Standalone Claude Design at **claude.ai/design** closes on December 14, 2026. Until then, it has its own setting in **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**, separate from the **Design** template. Users' existing projects stay at **claude.ai/design** until it closes, and up to 60 of them also appear in the **Artifacts** tab.
+
+Moving projects to Claude is rolling out gradually to paid plans, and a project or design system that moves to Claude becomes an artifact. To let users move their projects and move their design systems, keep **Artifacts** and **Design systems** on for your organization. On Enterprise plans with custom roles, each user's role needs them too. Learn more in **[Move from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ---
 
@@ -170,7 +172,7 @@ To share someone else’s design system with everyone, an Owner or Primary Owner
 
 On Enterprise plans, custom roles control who can create design systems. Turn **Design systems** on or off under **Artifacts** in a role’s **Capabilities** tab.
 
-Design systems migrated from standalone Claude Design can arrive already shared with everyone. Published design systems that weren’t private there are shared with everyone in your organization, and if your organization’s default design system migrates, it becomes the default in Artifacts too, unless you’ve already set one.
+Design systems moved from standalone Claude Design can arrive already shared with everyone. Published design systems that weren’t private there are shared with everyone in your organization, and if your organization’s default design system moves, it becomes the default in Artifacts too, unless you’ve already set one.
 
 **In standalone Claude Design**
 
@@ -223,6 +225,8 @@ Learn more about **[viewing usage analytics for Team and Enterprise plans](https
 When users create designs and docs, they may upload design assets, brand guidelines, screenshots, and other materials.
 
 - Uploaded assets are stored persistently, and fall under the same **[data retention and deletion policies](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** as other Anthropic products for organizations.
+
+- A custom retention period set on an Enterprise plan can cover artifacts, including projects and design systems moved from standalone Claude Design. An artifact can be permanently deleted if nobody opens it for that period. For a moved project or design system, the period starts on the day of the move and restarts when someone opens or edits the artifact. Learn more in **[Configure custom data retention controls for Enterprise plans](https://support.claude.com/en/articles/10440198)**.
 
 - Claude Design doesn't currently support data residency requirements.
 

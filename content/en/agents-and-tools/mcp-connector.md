@@ -1266,7 +1266,7 @@ Install both the Anthropic SDK and the MCP SDK:
     The helpers live in the `mcp` subpackage of the Go SDK, which builds on the [MCP Go SDK](https://github.com/modelcontextprotocol/go-sdk):
 
     ```bash
-    go get github.com/anthropics/anthropic-sdk-go/mcp
+    go get github.com/anthropics/anthropic-sdk-go/v2/mcp
     ```
   </Tab>
 
@@ -1345,7 +1345,7 @@ Import the helpers for your language:
 
   ```go Go
   import (
-  	"github.com/anthropics/anthropic-sdk-go/mcp"
+  	"github.com/anthropics/anthropic-sdk-go/v2/mcp"
   )
   ```
 
@@ -1480,7 +1480,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
   // ...
 
   // ...
-  	"github.com/anthropics/anthropic-sdk-go/mcp"
+  	"github.com/anthropics/anthropic-sdk-go/v2/mcp"
   	mcpsdk "github.com/modelcontextprotocol/go-sdk/mcp"
   )
 
@@ -1544,7 +1544,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
 
       // Connect to an MCP server
       StdioClientTransport transport = new StdioClientTransport(
-              ServerParameters.builder("mcp-server").build(), McpJsonDefaults.getMapper());
+          ServerParameters.builder("mcp-server").build(), McpJsonDefaults.getMapper());
 
       try (McpSyncClient mcpClient = McpClient.sync(transport)
               .clientInfo(new McpSchema.Implementation("my-client", "1.0.0"))
@@ -1556,13 +1556,13 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
           List<McpBetaTool> betaTools = BetaMcp.mcpTools(mcpClient.listTools().tools(), mcpClient);
 
           MessageCreateParams params = MessageCreateParams.builder()
-                  .model(Model.CLAUDE_OPUS_5_5)
-                  .maxTokens(1024L)
-                  .addUserMessage("What tools do you have available?")
-                  .addTools(betaTools)
-                  .build();
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024L)
+              .addUserMessage("What tools do you have available?")
+              .addTools(betaTools)
+              .build();
 
-          // The runner yields one message per assistant turn; the last is the final response
+          // The runner yields one message for each assistant turn; the last is the final response
           BetaToolRunner runner = anthropic.beta().messages().toolRunner(params);
           BetaMessage finalMessage = null;
           for (BetaMessage message : runner) {
@@ -1692,13 +1692,13 @@ Convert MCP prompt messages into Claude API message format:
 
   ```java Java
   McpSchema.GetPromptResult prompt = mcpClient.getPrompt(
-          new McpSchema.GetPromptRequest("my-prompt", Map.of()));
+      new McpSchema.GetPromptRequest("my-prompt", Map.of()));
 
   BetaMessage response = anthropic.beta().messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024L)
-          .messages(BetaMcp.mcpMessages(prompt.messages()))
-          .build());
+      .model(Model.CLAUDE_OPUS_5_5)
+      .maxTokens(1024L)
+      .messages(BetaMcp.mcpMessages(prompt.messages()))
+      .build());
 
   IO.println(response);
   ```
@@ -1821,7 +1821,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
   var fileResource = await mcpClient.ReadResourceAsync("file:///path/to/data.json");
   var (filename, data, mediaType) = BetaMcp.ResourceToFile(fileResource);
 
-  // Build the file part explicitly so the resource's filename and MIME type
+  // Build the file part explicitly so the resource's file name and MIME type
   // carry through to the upload.
   var file = new BinaryContent { Stream = new MemoryStream(data), FileName = filename };
   if (mediaType is not null)
@@ -1885,37 +1885,39 @@ Convert MCP resources into content blocks to include in messages, or into file o
   ```java Java
   // As a content block in a message
   McpSchema.ReadResourceResult resource = mcpClient.readResource(
-          new McpSchema.ReadResourceRequest("file:///path/to/doc.txt"));
+      new McpSchema.ReadResourceRequest("file:///path/to/doc.txt"));
 
   List<BetaContentBlockParam> content =
-          new ArrayList<>(BetaMcp.mcpResourceContents(resource));
+      new ArrayList<>(BetaMcp.mcpResourceContents(resource));
   content.add(BetaContentBlockParam.ofText(
-          BetaTextBlockParam.builder().text("Summarize this document").build()));
+      BetaTextBlockParam.builder()
+          .text("Summarize this document")
+          .build()));
 
   BetaMessage response = anthropic.beta().messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024L)
-          .addUserMessageOfContentBlockParams(content)
-          .build());
+      .model(Model.CLAUDE_OPUS_5_5)
+      .maxTokens(1024L)
+      .addUserMessageOfContentBlockParams(content)
+      .build());
 
   IO.println(response);
 
   // As a file upload
   McpSchema.ReadResourceResult fileResource = mcpClient.readResource(
-          new McpSchema.ReadResourceRequest("file:///path/to/data.json"));
+      new McpSchema.ReadResourceRequest("file:///path/to/data.json"));
 
   McpResourceFile resourceFile = BetaMcp.mcpResourceFiles(fileResource).getFirst();
 
-  // Build the file part explicitly so the resource's filename and MIME type
+  // Build the file part explicitly so the resource's file name and MIME type
   // carry through to the upload.
   MultipartField.Builder<InputStream> fileField = MultipartField.<InputStream>builder()
-          .value(new ByteArrayInputStream(resourceFile.content()))
-          .filename(resourceFile.filename());
+      .value(new ByteArrayInputStream(resourceFile.content()))
+      .filename(resourceFile.filename());
   resourceFile.mimeType().ifPresent(fileField::contentType);
 
   var uploaded = anthropic.files().upload(FileUploadParams.builder()
-          .file(fileField.build())
-          .build());
+      .file(fileField.build())
+      .build());
 
   IO.println(uploaded.id());
   ```

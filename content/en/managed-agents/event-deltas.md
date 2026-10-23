@@ -117,7 +117,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   </CodeGroupItem>
 
   ```python Python
-  # Preview snapshots, keyed by event id. accumulate_managed_agents_event folds each
+  # Preview snapshots, keyed by event ID. accumulate_managed_agents_event folds each
   # event_start / event_delta into an agent.message snapshot; the buffered
   # agent.message replaces it.
   previews: dict[str, BetaManagedAgentsAgentMessageEvent] = {}
@@ -171,7 +171,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   ```
 
   ```typescript TypeScript
-  // Preview snapshots, keyed by event id. `accumulateManagedAgentsEvent`
+  // Preview snapshots, keyed by event ID. `accumulateManagedAgentsEvent`
   // folds event_start / event_delta previews into an agent.message snapshot.
   const previews = new Map<string, BetaManagedAgentsAgentMessageEvent>();
 
@@ -191,8 +191,8 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   deltas: for await (const event of stream) {
     switch (event.type) {
       case "event_start": {
-        // 1. Note the announced id and open the snapshot. Deltas and the
-        //    buffered event carry the same id.
+        // 1. Note the announced ID and open the snapshot. Deltas and the
+        //    buffered event carry the same ID.
         const preview = accumulateManagedAgentsEvent(undefined, event);
         if (preview) {
           previews.set(event.event.id, preview);
@@ -256,7 +256,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
       ],
   });
 
-  // Accumulate preview fragments per (event id, content index). The buffered
+  // Accumulate preview fragments for each (event ID, content index). The buffered
   // agent.message that follows carries the complete content, so it replaces the
   // accumulated preview rather than appending to it.
   Dictionary<string, SortedDictionary<long, string>> previews = [];
@@ -265,7 +265,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   {
       if (streamEvent.TryPickStartEvent(out var start))
       {
-          // A preview opened for the event with this id. This stream only opts in
+          // A preview opened for the event with this ID. This stream only opts in
           // to agent.message deltas; TryPick* returns false instead of throwing,
           // so other preview types (including ones added later) are skipped.
           if (start.Event.TryPickAgentMessage(out var preview))
@@ -319,10 +319,8 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   	if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   		Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   			OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  				Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   				Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   					OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  						Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   						Text: "Write a haiku about the ocean.",
   					},
   				}},
@@ -333,7 +331,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   	}
 
   	// The accumulator folds event_start / event_delta fragments into
-  	// per-event-id agent.message snapshots. The zero value is ready to use.
+  	// agent.message snapshots, one for each event ID. The zero value is ready to use.
   	var previews anthropic.BetaManagedAgentsEventAccumulator
 
   deltas:
@@ -438,7 +436,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   use Anthropic\Beta\Sessions\Events\ManagedAgentsTextBlock;
   use Anthropic\Lib\Sessions\EventAccumulator;
 
-  // Preview snapshots, keyed by event id. EventAccumulator::accumulate() adds each
+  // Preview snapshots, keyed by event ID. EventAccumulator::accumulate() adds each
   // event_start / event_delta to an agent.message snapshot; the buffered
   // agent.message replaces it.
   $previews = [];
@@ -525,7 +523,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
 
   # Accumulate preview fragments by (event_id, index) into explicitly mutable
   # (`+""`) buffers so `<<` can append in place. The buffered agent.message with
-  # the same id is authoritative and replaces whatever the deltas built up.
+  # the same ID is authoritative and replaces whatever the deltas built up.
   buffers = Hash.new do |by_event, event_id|
     by_event[event_id] = Hash.new { |fragments, index| fragments[index] = +"" }
   end
@@ -608,7 +606,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
               case "event_delta":
                   print(event.delta.content.text, end="")
               case "agent.message":
-                  # The buffered event is the authoritative record; render its content
+                  # The buffered event is the authoritative record; render its content.
                   print()
                   for block in event.content:
                       if block.type == "text":
@@ -710,7 +708,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   	}
 
   	// The child thread's stream takes the same event_deltas parameter as the
-  	// session stream; run one read loop per stream connection.
+  	// session stream; run one read loop for each stream connection.
   	stream := client.Beta.Sessions.Threads.Events.StreamEvents(ctx, childThreadID, anthropic.BetaSessionThreadEventStreamParams{
   		SessionID: session.ID,
   		EventDeltas: []anthropic.BetaManagedAgentsDeltaType{
@@ -808,7 +806,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
               echo $event->delta->content->text;
               break;
           case $event instanceof ManagedAgentsAgentMessageEvent:
-              // The buffered event is the authoritative record; render its content
+              // The buffered event is the authoritative record; render its content.
               echo "\n";
               foreach ($event->content as $block) {
                   if ($block instanceof ManagedAgentsTextBlock) {

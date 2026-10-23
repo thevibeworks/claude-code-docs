@@ -38,12 +38,12 @@ Claude Mythos 5.1 is available only to organizations verified through Anthropicâ
 
 ### Model IDs
 
-| Platform                                                                                               | Model ID                      |
-| :----------------------------------------------------------------------------------------------------- | :---------------------------- |
-| Claude API                                                                                             | `claude-mythos-5-1`           |
-| [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)       | `anthropic.claude-mythos-5-1` |
-| [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)              | `claude-mythos-5-1`           |
-| [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) | `claude-mythos-5-1`           |
+| Platform                                                                                                                                             | Model ID                      |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------- |
+| Claude API                                                                                                                                           | `claude-mythos-5-1`           |
+| [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)                                                     | `anthropic.claude-mythos-5-1` |
+| [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) | `claude-mythos-5-1`           |
+| [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                               | `claude-mythos-5-1`           |
 
 ### Pricing
 
@@ -73,12 +73,12 @@ Claude Mythos 5.1 is available only to organizations verified through Anthropicâ
 
 ### Availability
 
-| Feature                                                                       | Value                                                                                                                                                                                                                                                                                                           |
-| :---------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Status](https://platform.claude.com/docs/en/about-claude/model-deprecations) | Active (verification required)                                                                                                                                                                                                                                                                                  |
-| Released                                                                      | September 1, 2026                                                                                                                                                                                                                                                                                               |
-| Retirement                                                                    | Not sooner than September 1, 2027                                                                                                                                                                                                                                                                               |
-| Platforms                                                                     | Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+| Feature                                                                       | Value                                                                                                                                                                                                                                                                                                                                                                      |
+| :---------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Status](https://platform.claude.com/docs/en/about-claude/model-deprecations) | Active (verification required)                                                                                                                                                                                                                                                                                                                                             |
+| Released                                                                      | September 1, 2026                                                                                                                                                                                                                                                                                                                                                          |
+| Retirement                                                                    | Not sooner than September 1, 2027                                                                                                                                                                                                                                                                                                                                          |
+| Platforms                                                                     | Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 ## Reference
 

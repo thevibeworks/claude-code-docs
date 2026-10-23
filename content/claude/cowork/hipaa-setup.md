@@ -52,7 +52,7 @@ For organizations with the HIPAA configuration, Anthropic's servers reject reque
 On an older version, members see an **Update required** dialog that tells them to update Claude Desktop. The dialog's text names Code, but members see it in Cowork too. What the dialog offers depends on whether automatic updates are on:
 
 * **Automatic updates are on**: the dialog has an **Update now** button
-* **You turned off automatic updates** with the [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) key: the dialog has no **Update now** button and tells the member to ask their administrator. Deploy each new version with your device management tool
+* **You turned off automatic updates** with the [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) key: the dialog tells the member to ask their administrator. Deploy each new version with your device management tool. On macOS, and on Windows where Claude Desktop was installed from the `.msix` package, once the newer version is on the device the dialog has an **Update now** button instead.
 
 ### Allow network access for Claude Desktop
 
@@ -101,7 +101,7 @@ Windows Registry Editor Version 5.00
 "otlpContentCapture"="[]"
 ```
 
-The sample writes every value as a string, including `false` and `[]`. [Value types](/docs/third-party/claude-desktop/configuration.md#value-types) lists the other encodings Claude Desktop accepts.
+The sample writes every value as a string, including `false` and `[]`. [Value types](/docs/third-party/claude-desktop/configuration-format.md#value-types) lists the other encodings Claude Desktop accepts.
 
 > [!NOTE]
 >

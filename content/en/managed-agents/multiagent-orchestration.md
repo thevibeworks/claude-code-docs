@@ -251,9 +251,7 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
   	Model:  anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5},
   	System: anthropic.String("You coordinate engineering work. Delegate code review to the reviewer agent and test writing to the test agent."),
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
-  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
-  			Type: anthropic.BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401,
-  		},
+  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{},
   	}},
   	Multiagent: anthropic.BetaManagedAgentsMultiagentParamsUnion{
   		OfMultiagent20261001: &anthropic.BetaManagedAgentsMultiagent20261001Params{
@@ -598,13 +596,11 @@ Create the researcher, which declares the GitHub MCP server, and the agent that 
   	Name:  "researcher",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeHaiku5_5},
   	MCPServers: []anthropic.BetaManagedAgentsURLMCPServerParams{{
-  		Type: anthropic.BetaManagedAgentsURLMCPServerParamsTypeURL,
   		Name: "github",
   		URL:  "https://api.githubcopilot.com/mcp/",
   	}},
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
   		OfMCPToolset: &anthropic.BetaManagedAgentsMCPToolsetParams{
-  			Type:          anthropic.BetaManagedAgentsMCPToolsetParamsTypeMCPToolset,
   			MCPServerName: "github",
   		},
   	}},
@@ -617,9 +613,7 @@ Create the researcher, which declares the GitHub MCP server, and the agent that 
   	Name:  "lead",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5},
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
-  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
-  			Type: anthropic.BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401,
-  		},
+  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{},
   	}},
   	Multiagent: anthropic.BetaManagedAgentsMultiagentParamsUnion{
   		OfMultiagent20261001: &anthropic.BetaManagedAgentsMultiagent20261001Params{
@@ -627,8 +621,7 @@ Create the researcher, which declares the GitHub MCP server, and the agent that 
   				OfEnabled: &anthropic.BetaManagedAgentsMultiagentSubagentsEnabledParams{
   					PredefinedAgents: []anthropic.BetaManagedAgentsMultiagentPredefinedAgentParamsUnion{{
   						OfBetaManagedAgentsAgents: &anthropic.BetaManagedAgentsAgentParams{
-  							Type: anthropic.BetaManagedAgentsAgentParamsTypeAgent,
-  							ID:   researcher.ID,
+  							ID: researcher.ID,
   						},
   					}},
   				},
@@ -930,9 +923,7 @@ Before you change an existing agent's `multiagent.type`, see [how to move an age
   	Model:  anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5},
   	System: anthropic.String("You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run."),
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
-  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
-  			Type: anthropic.BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401,
-  		},
+  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{},
   	}},
   	Multiagent: anthropic.BetaManagedAgentsMultiagentParamsUnion{
   		OfMultiagent20261001: &anthropic.BetaManagedAgentsMultiagent20261001Params{
@@ -964,7 +955,7 @@ Before you change an existing agent's `multiagent.type`, see [how to move an age
   ```php PHP
   $agent = $client->beta->agents->create(
       name: 'Contract Reviewer',
-      model: 'claude-opus-5-5',
+      model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
       system: "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
       tools: [
           ['type' => 'agent_toolset_20260401'],
@@ -1184,7 +1175,7 @@ An enabled `advisor` (csharp, go: `Advisor`) setting in the agent's `multiagent`
   ```php PHP
   $agent = $client->beta->agents->create(
       name: 'Backend engineer',
-      model: 'claude-sonnet-5',
+      model: BetaManagedAgentsModel::CLAUDE_SONNET_5,
       system: 'You implement backend features end to end. Consult the advisor before major backend design decisions.',
       multiagent: [
           'type' => 'multiagent_20261001',

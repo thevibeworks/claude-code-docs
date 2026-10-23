@@ -150,7 +150,7 @@ Claude infers the response language from the conversation, but for production ap
       messages: [
           ['role' => 'user', 'content' => 'How do I reset my password?']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       system: 'Always respond in French, regardless of the language the user writes in.',
   );
 

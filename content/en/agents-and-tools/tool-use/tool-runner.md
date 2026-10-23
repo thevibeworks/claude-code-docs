@@ -261,8 +261,8 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
     	"fmt"
     	"log"
 
-    	"github.com/anthropics/anthropic-sdk-go"
-    	"github.com/anthropics/anthropic-sdk-go/toolrunner"
+    	"github.com/anthropics/anthropic-sdk-go/v2"
+    	"github.com/anthropics/anthropic-sdk-go/v2/toolrunner"
     )
 
     type GetWeatherInput struct {
@@ -396,25 +396,25 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
 
         // The lambda can use weatherService.
         BetaRunnableTool getWeather = BetaRunnableTool.of(
-                GetWeather.class,
-                input -> BetaToolResultBlockParam.Content.ofString(
-                        weatherService.currentWeather(input.location, input.unit)));
+            GetWeather.class,
+            input -> BetaToolResultBlockParam.Content.ofString(
+                weatherService.currentWeather(input.location, input.unit)));
 
         BetaRunnableTool calculateSum = BetaRunnableTool.of(
-                CalculateSum.class,
-                input -> BetaToolResultBlockParam.Content.ofString(
-                        String.valueOf(input.a + input.b)));
+            CalculateSum.class,
+            input -> BetaToolResultBlockParam.Content.ofString(
+                String.valueOf(input.a + input.b)));
 
         BetaToolRunner runner = client.beta()
-                .messages()
-                .toolRunner(MessageCreateParams.builder()
-                        .model(Model.CLAUDE_OPUS_5_5)
-                        .maxTokens(1024)
-                        .addBeta("structured-outputs-2025-11-13")
-                        .addUserMessage("What's the weather like in Paris? Also, what's 15 + 27?")
-                        .addTool(getWeather)
-                        .addTool(calculateSum)
-                        .build());
+            .messages()
+            .toolRunner(MessageCreateParams.builder()
+                .model(Model.CLAUDE_OPUS_5_5)
+                .maxTokens(1024)
+                .addBeta("structured-outputs-2025-11-13")
+                .addUserMessage("What's the weather like in Paris? Also, what's 15 + 27?")
+                .addTool(getWeather)
+                .addTool(calculateSum)
+                .build());
 
         for (BetaMessage message : runner) {
             IO.println(message);
@@ -587,7 +587,7 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
 
 The tool runner is an iterable that yields messages from Claude. On each iteration, the runner checks whether Claude requested a tool use. If so, it runs the tool and sends the result back to Claude automatically, then yields the next message from Claude to continue your loop.
 
-You can end the loop at any iteration with a `break` statement. The runner loops until Claude returns a message without a tool use, or until it reaches `max_iterations` (csharp, java, php: `maxIterations`; go: `MaxIterations`) if you set it.
+You can end the loop at any iteration with a `break` statement. The runner loops until Claude returns a message without a tool use, or until it reaches `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) if you set it.
 
 If you don't need intermediate messages, you can get the final message directly:
 
@@ -706,15 +706,15 @@ If you don't need intermediate messages, you can get the final message directly:
     AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
     BetaToolRunner runner = client.beta()
-            .messages()
-            .toolRunner(MessageCreateParams.builder()
-                    .model(Model.CLAUDE_OPUS_5_5)
-                    .maxTokens(1024)
-                    .addBeta("structured-outputs-2025-11-13")
-                    .addUserMessage("What's the weather like in Paris? Also, what's 15 + 27?")
-                    .addTool(getWeather)
-                    .addTool(calculateSum)
-                    .build());
+        .messages()
+        .toolRunner(MessageCreateParams.builder()
+            .model(Model.CLAUDE_OPUS_5_5)
+            .maxTokens(1024)
+            .addBeta("structured-outputs-2025-11-13")
+            .addUserMessage("What's the weather like in Paris? Also, what's 15 + 27?")
+            .addTool(getWeather)
+            .addTool(calculateSum)
+            .build());
 
     BetaMessage finalMessage = null;
     for (BetaMessage message : runner) {
@@ -814,7 +814,7 @@ By default, the runner manages conversation state for you: after each tool-call 
 
 You take over by modifying the runner's messages from inside the loop body. The exact method depends on the SDK. See the per-language tabs that follow.
 
-When you take over for an iteration, the runner does not append the assistant message or tool results from that turn. You become responsible for keeping the conversation valid: append the assistant message and a tool result yourself (if you want the turn to count), modify state conditionally so the loop can still exit when there are no tool calls, and pass `max_iterations` (csharp, java, php: `maxIterations`; go: `MaxIterations`) to bound the loop. The SDK supports `max_iterations` (csharp, java, php: `maxIterations`; go: `MaxIterations`).
+When you take over for an iteration, the runner does not append the assistant message or tool results from that turn. You become responsible for keeping the conversation valid: append the assistant message and a tool result yourself (if you want the turn to count), modify state conditionally so the loop can still exit when there are no tool calls, and pass `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) to bound the loop. The SDK supports `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) in all seven languages.
 
 <Tabs exclude="shell">
   <Tab title="Python">
@@ -985,17 +985,17 @@ When you take over for an iteration, the runner does not append the assistant me
 
     ```java
     BetaToolRunner runner = client.beta()
-            .messages()
-            .toolRunner(ToolRunnerCreateParams.builder()
-                    .initialMessageParams(MessageCreateParams.builder()
-                            .model(Model.CLAUDE_OPUS_5_5)
-                            .maxTokens(1024)
-                            .addBeta("structured-outputs-2025-11-13")
-                            .addUserMessage("Give me a detailed weather report for every major US city.")
-                            .addTool(getWeather)
-                            .build())
-                    .maxIterations(10L)
-                    .build());
+        .messages()
+        .toolRunner(ToolRunnerCreateParams.builder()
+            .initialMessageParams(MessageCreateParams.builder()
+                .model(Model.CLAUDE_OPUS_5_5)
+                .maxTokens(1024)
+                .addBeta("structured-outputs-2025-11-13")
+                .addUserMessage("Give me a detailed weather report for every major US city.")
+                .addTool(getWeather)
+                .build())
+            .maxIterations(10L)
+            .build());
 
     long ceiling = 8192;
 
@@ -1012,7 +1012,9 @@ When you take over for an iteration, the runner does not append the assistant me
             // Calling setNextParams() flags this turn as user-managed: the runner
             // does NOT auto-append the truncated message, so the next iteration
             // re-sends the same conversation prefix with the larger budget.
-            runner.setNextParams(runner.params().toBuilder().maxTokens(doubled).build());
+            runner.setNextParams(runner.params().toBuilder()
+                .maxTokens(doubled)
+                .build());
         }
         // No mutation on a normal turn: the runner auto-appends and continues.
     }
@@ -1470,11 +1472,11 @@ You can modify tool results before they're sent back to Claude. This is useful f
     BetaRunnableTool searchDocuments = BetaRunnableTool.of(SearchDocuments.class, input -> {
         String largeResult = "..."; // a long document worth caching
         return BetaToolResultBlockParam.Content.ofBlocks(List.of(
-                BetaToolResultBlockParam.Content.Block.ofText(
-                        BetaTextBlockParam.builder()
-                                .text(largeResult)
-                                .cacheControl(BetaCacheControlEphemeral.builder().build())
-                                .build())));
+            BetaToolResultBlockParam.Content.Block.ofText(
+                BetaTextBlockParam.builder()
+                    .text(largeResult)
+                    .cacheControl(BetaCacheControlEphemeral.builder().build())
+                    .build())));
     });
     ```
   </Tab>
@@ -1712,14 +1714,14 @@ Enable streaming to process each turn's response incrementally. Each iteration y
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         BetaToolRunner runner = client.beta()
-                .messages()
-                .toolRunner(MessageCreateParams.builder()
-                        .model(Model.CLAUDE_OPUS_5_5)
-                        .maxTokens(1024)
-                        .addBeta("structured-outputs-2025-11-13")
-                        .addUserMessage("What is 15 + 27?")
-                        .addTool(calculateSum)
-                        .build());
+            .messages()
+            .toolRunner(MessageCreateParams.builder()
+                .model(Model.CLAUDE_OPUS_5_5)
+                .maxTokens(1024)
+                .addBeta("structured-outputs-2025-11-13")
+                .addUserMessage("What is 15 + 27?")
+                .addTool(calculateSum)
+                .build());
 
         for (StreamResponse<BetaRawMessageStreamEvent> stream : runner.streaming()) {
             try (stream) {

@@ -70,9 +70,13 @@ Learn more in **[Use the built-in browser in Claude Cowork](https://support.clau
 
 ### Auto mode availability
 
-The organization setting **Allow “Automatically approve” mode** in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)** (under Permissions) controls whether members can use "Automatically approve" mode in Cowork. This setting is on by default, so the mode is available to your members unless you turn it off.
+Two organization settings in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** control "Automatically approve" mode in Cowork:
 
-When the setting is off, "Automatically approve" doesn't appear in your members' mode selector.
+- **Allow "Automatically approve" mode** controls whether members can use the mode. This setting is on by default, so the mode is available to your members unless you turn it off. When it's off, "Automatically approve" doesn't appear in your members' mode selector.
+
+- **Start new tasks in "Automatically approve" mode** controls whether new Cowork tasks start in that mode. It’s on by default on Pro, Max, and Team plans, and off by default on Enterprise plans. Turn it off to keep "Manually approve" as the default.
+
+Members can switch modes within any session.
 
 Learn more about how the modes differ in **[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_e1353133dd)**.
 

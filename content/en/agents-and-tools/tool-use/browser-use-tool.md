@@ -20,7 +20,7 @@ featureMetadata:
     - claude-haiku-5-5
   supportedPlatforms:
     Claude API: ga
-    Google Cloud: ga
+    Claude Models on Google Cloud (Google managed): ga
 ---
 
 <Note>
@@ -37,7 +37,7 @@ With browser use, Claude reads and acts on live webpages, so everything a page s
 
 ## Quick start
 
-The browser use tool is available on the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai): add one entry of type `browser_toolset_20260801`, with no `name`, to the `tools` array of a [Messages API](https://platform.claude.com/docs/en/api/messages/create) request.
+The browser use tool is available on the Claude API and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed): add one entry of type `browser_toolset_20260801`, with no `name`, to the `tools` array of a [Messages API](https://platform.claude.com/docs/en/api/messages/create) request.
 
 <CodeGroup>
   ```bash cURL
@@ -173,7 +173,7 @@ The browser use tool is available on the Claude API and [Google Cloud](https://p
       messages: [
           ['role' => 'user', 'content' => 'Open example.com/docs and tell me how to get started.'],
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       tools: [
           ['type' => 'browser_toolset_20260801'],
       ],
@@ -562,13 +562,13 @@ Here's a skeleton of that loop's tool-call step in two parts. First, stub member
 
   ToolResultBlockParam.Content captureScreenshot() {
       ImageBlockParam image = ImageBlockParam.builder()
-              .source(Base64ImageSource.builder()
-                      .mediaType(Base64ImageSource.MediaType.IMAGE_PNG)
-                      .data(PLACEHOLDER_PNG)
-                      .build())
-              .build();
+          .source(Base64ImageSource.builder()
+              .mediaType(Base64ImageSource.MediaType.IMAGE_PNG)
+              .data(PLACEHOLDER_PNG)
+              .build())
+          .build();
       return ToolResultBlockParam.Content.ofBlocks(
-              List.of(ToolResultBlockParam.Content.Block.ofImage(image)));
+          List.of(ToolResultBlockParam.Content.Block.ofImage(image)));
   }
 
   String navigate(String url) {
@@ -577,8 +577,8 @@ Here's a skeleton of that loop's tool-call step in two parts. First, stub member
 
   String readPage() {
       return """
-              link "Docs" [ref_1]
-              button "Search" [ref_2]""";
+          link "Docs" [ref_1]
+          button "Search" [ref_2]""";
   }
 
   String clickRef(String ref) {
@@ -604,7 +604,7 @@ Here's a skeleton of that loop's tool-call step in two parts. First, stub member
           case "left_click" -> {
               // target is {"type": "ref", "ref": "ref_1"} or {"type": "coordinate", "x": 640, "y": 380}
               Map<String, JsonValue> target =
-                      (Map<String, JsonValue>) input.get("target").asObject().get();
+                  (Map<String, JsonValue>) input.get("target").asObject().get();
               if (target.get("type").asStringOrThrow().equals("ref")) {
                   yield clickRef(target.get("ref").asStringOrThrow());
               }
@@ -901,7 +901,7 @@ The second part runs a batch in order, dispatches each block to those handlers, 
   }
 
   // processToolCalls runs the browser actions in Claude's response in order and
-  // builds one tool_result per tool_use block. After the first failure it skips
+  // builds one tool_result for each tool_use block. After the first failure it skips
   // the rest: Claude planned them assuming the earlier actions succeeded.
   func processToolCalls(response *anthropic.Message) []anthropic.ContentBlockParamUnion {
   	var toolResults []anthropic.ContentBlockParamUnion
@@ -941,13 +941,13 @@ The second part runs a batch in order, dispatches each block to those handlers, 
   /** Every result answering a browser toolset member echoes toolset_name. */
   ToolResultBlockParam.Builder browserResult(ToolUseBlock toolUse) {
       return ToolResultBlockParam.builder()
-              .toolUseId(toolUse.id())
-              .toolsetName("browser");
+          .toolUseId(toolUse.id())
+          .toolsetName("browser");
   }
 
   /**
    * Run the browser actions in Claude's response in order and build one
-   * tool_result per tool_use block. After the first failure, skip the rest:
+   * tool_result for each tool_use block. After the first failure, skip the rest:
    * Claude planned them assuming the earlier actions succeeded.
    */
   List<ContentBlockParam> processToolCalls(Message response) {
@@ -961,18 +961,26 @@ The second part runs a batch in order, dispatches each block to those handlers, 
           ToolUseBlock toolUse = block.asToolUse();
           ToolResultBlockParam result;
           if (failed) {
-              result = browserResult(toolUse).content(HALT_TEXT).isError(true).build();
+              result = browserResult(toolUse)
+                  .content(HALT_TEXT)
+                  .isError(true)
+                  .build();
           } else {
               try {
                   Map<String, JsonValue> input =
-                          (Map<String, JsonValue>) toolUse._input().asObject().get();
+                      (Map<String, JsonValue>) toolUse._input().asObject().get();
                   ToolResultBlockParam.Content output = handleBrowserAction(toolUse.name(), input);
                   // A real executor also adds a browser_state block to navigation and
                   // tab-management results; see "Track tabs with browser_state" on this page.
-                  result = browserResult(toolUse).content(output).build();
+                  result = browserResult(toolUse)
+                      .content(output)
+                      .build();
               } catch (RuntimeException e) {
                   failed = true;
-                  result = browserResult(toolUse).content("Error: " + e.getMessage()).isError(true).build();
+                  result = browserResult(toolUse)
+                      .content("Error: " + e.getMessage())
+                      .isError(true)
+                      .build();
               }
           }
           toolResults.add(ContentBlockParam.ofToolResult(result));
@@ -1016,7 +1024,7 @@ The second part runs a batch in order, dispatches each block to those handlers, 
   NOT_EXECUTED = "Not executed: an earlier action in this turn failed."
 
   # Run the browser actions in Claude's response in order and build one
-  # tool_result per tool_use block. After the first failure, skip the rest:
+  # tool_result for each tool_use block. After the first failure, skip the rest:
   # Claude planned them assuming the earlier actions succeeded.
   def process_tool_calls(response)
     tool_results = []
@@ -1553,7 +1561,7 @@ The API validates the toolset entry and every member `tool_use` and `tool_result
 
 ## Limitations
 
-* **Platform availability:** Browser use is available on the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai).
+* **Platform availability:** Browser use is available on the Claude API and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed).
 * **Whole-input streaming only:** When you stream, each member's `input` arrives as one complete `input_json_delta` ([Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets)).
 * **Element references are best-effort:** Highly dynamic pages (virtualized lists, canvas-rendered interfaces, pages that re-render on scroll) might not expose stable references, and Claude falls back to screenshots and coordinate clicks there.
 * **`read_console` and `read_network` depend on your browser automation:** They report only what it can capture, and only from the moment it attached to a tab.

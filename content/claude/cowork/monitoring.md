@@ -44,7 +44,7 @@ Cowork exports the following events to your OTel collector. The collector settin
 
 Events can carry user prompt text, model response text, and tool inputs in addition to metadata. You set which of these the events carry with the `otlpContentCapture` managed configuration key on each user's device.
 
-To set the key, deploy it with your device management tool to the [managed configuration location for each operating system](/docs/third-party/claude-desktop/configuration.md#how-keys-are-read). To export metadata only, set `otlpContentCapture` to an empty list, written as the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set. The key takes effect when Claude Desktop restarts.
+To set the key, deploy it with your device management tool to the [managed configuration location for each operating system](/docs/third-party/claude-desktop/configuration-format.md#how-keys-are-read). To export metadata only, set `otlpContentCapture` to an empty list, written as the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set. The key takes effect when Claude Desktop restarts.
 
 The table shows what events carry on current versions of Claude Desktop, for a Cowork session that runs on the user's computer.
 

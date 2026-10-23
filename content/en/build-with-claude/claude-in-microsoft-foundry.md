@@ -69,7 +69,7 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
 
   <Tab title="Go">
     ```bash
-    go get github.com/anthropics/anthropic-sdk-go/foundry
+    go get github.com/anthropics/anthropic-sdk-go/v2/foundry
 
     # For Entra ID authentication, also install the Azure Identity library
     go get github.com/Azure/azure-sdk-for-go/sdk/azidentity
@@ -290,8 +290,8 @@ The SDK's Foundry client requires an API key and either a resource name or base 
   	"fmt"
   	"os"
 
-  	"github.com/anthropics/anthropic-sdk-go"
-  	"github.com/anthropics/anthropic-sdk-go/foundry"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
+  	"github.com/anthropics/anthropic-sdk-go/v2/foundry"
   )
 
   func main() {
@@ -508,8 +508,8 @@ Entra ID authentication lets you manage access with Azure RBAC, integrate with y
 
   	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
   	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-  	"github.com/anthropics/anthropic-sdk-go"
-  	"github.com/anthropics/anthropic-sdk-go/foundry"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
+  	"github.com/anthropics/anthropic-sdk-go/v2/foundry"
   )
 
   func main() {
@@ -669,7 +669,7 @@ Requests that use these features against a deployment hosted on Azure return a `
 
 ## API responses
 
-API responses from Claude in Microsoft Foundry follow the standard [Claude API response format](https://platform.claude.com/docs/en/api/messages/create). This includes the `usage` object in response bodies, which provides detailed token consumption information for your requests. The `usage` object is consistent across all platforms (Claude API, Amazon Bedrock, Claude Platform on AWS, Foundry, and Google Cloud).
+API responses from Claude in Microsoft Foundry follow the standard [Claude API response format](https://platform.claude.com/docs/en/api/messages/create). This includes the `usage` object in response bodies, which provides detailed token consumption information for your requests. The `usage` object is consistent across all platforms, including the Claude API, Amazon Bedrock, Claude Platform on AWS, Foundry, and Claude Models on Google Cloud (Google managed).
 
 For details on response headers specific to Foundry, see [Correlation request IDs](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#correlation-request-ids).
 

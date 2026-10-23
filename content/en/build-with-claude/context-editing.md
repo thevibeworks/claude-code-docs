@@ -871,7 +871,7 @@ Use thinking block clearing to manage context and prompt caching in conversation
       messages: [
           ['role' => 'user', 'content' => 'Hello']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       contextManagement: [
           'edits' => [
@@ -1093,7 +1093,7 @@ Keep thinking blocks from the last 3 assistant turns:
       messages: [
           ['role' => 'user', 'content' => 'Hello']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       contextManagement: [
           'edits' => [
@@ -1293,7 +1293,7 @@ Keep all thinking blocks (maximizes cache hits):
       messages: [
           ['role' => 'user', 'content' => 'Hello']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       contextManagement: [
           'edits' => [
@@ -2032,9 +2032,9 @@ The [token counting](https://platform.claude.com/docs/en/build-with-claude/token
       ],
   );
 
-  echo "Original tokens: " . $response->contextManagement->originalInputTokens . "\n";
-  echo "After clearing: " . $response->inputTokens . "\n";
-  echo "Savings: " . ($response->contextManagement->originalInputTokens - $response->inputTokens) . " tokens\n";
+  echo 'Original tokens: ' . $response->contextManagement->originalInputTokens . "\n";
+  echo 'After clearing: ' . $response->inputTokens . "\n";
+  echo 'Savings: ' . ($response->contextManagement->originalInputTokens - $response->inputTokens) . " tokens\n";
   ```
 
   ```ruby Ruby
@@ -2258,7 +2258,7 @@ To use both features together, enable them in your API request:
       messages: [
           ['role' => 'user', 'content' => 'Hello']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       tools: [
           [

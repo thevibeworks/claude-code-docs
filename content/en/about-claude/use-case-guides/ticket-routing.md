@@ -905,7 +905,9 @@ Build the deployment structure. Start by defining the function signature for wra
       Message message = client.messages().create(MessageCreateParams.builder()
           .model(DEFAULT_MODEL)
           .maxTokens(2048L)
-          .outputConfig(OutputConfig.builder().effort(OutputConfig.Effort.LOW).build())
+          .outputConfig(OutputConfig.builder()
+              .effort(OutputConfig.Effort.LOW)
+              .build())
           .addUserMessage(classificationPrompt)
           .build());
       String reasoningAndIntent = message.content().stream()
@@ -1012,7 +1014,7 @@ Build the deployment structure. Start by defining the function signature for wra
 This code:
 
 * Creates a client instance using your API key.
-* Defines a `classify_support_request` (typescript, go, java, php: `classifySupportRequest`; csharp: `ClassifySupportRequest`) function that takes a `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) string.
+* Defines a `classify_support_request()` (typescript, go, java, php: `classifySupportRequest()`; csharp: `ClassifySupportRequest()`) function that takes a `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) string.
 * Sends the `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) to Claude for classification using the `classification_prompt` (typescript, csharp, go, java: `classificationPrompt`; php: `$classificationPrompt`).
 * Returns the model's reasoning and intent extracted from the response.
 
@@ -1273,7 +1275,9 @@ To assess this, first modify the script so that it compares the predicted intent
       Message message = client.messages().create(MessageCreateParams.builder()
           .model(DEFAULT_MODEL)
           .maxTokens(2048L)
-          .outputConfig(OutputConfig.builder().effort(OutputConfig.Effort.LOW).build())
+          .outputConfig(OutputConfig.builder()
+              .effort(OutputConfig.Effort.LOW)
+              .build())
           .addUserMessage(classificationPrompt)
           .build());
       // Get the usage statistics for the API call for how many input and output tokens were used.
@@ -1397,7 +1401,7 @@ To assess this, first modify the script so that it compares the predicted intent
 
 Here is a breakdown of the edits:
 
-* The `classify_support_request` (typescript, go, java, php: `classifySupportRequest`; csharp: `ClassifySupportRequest`) function now takes the `actual_intent` (typescript, csharp, go, java: `actualIntent`; php: `$actualIntent`) from the test cases and compares it against Claude’s intent classification to assess whether they match.
+* The `classify_support_request()` (typescript, go, java, php: `classifySupportRequest()`; csharp: `ClassifySupportRequest()`) function now takes the `actual_intent` (typescript, csharp, go, java: `actualIntent`; php: `$actualIntent`) from the test cases and compares it against Claude’s intent classification to assess whether they match.
 * The function extracts usage statistics for the API call to calculate cost based on input and output tokens used.
 
 ### Run your evaluation

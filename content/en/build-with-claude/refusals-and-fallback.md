@@ -15,7 +15,7 @@ Related pages:
 * [SDK middleware](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware): the SDK helper that wraps all of this
 * [Fallback and billing recipe](https://platform.claude.com/cookbook/fable-5-fallback-billing-guide): a worked end-to-end example
 
-The simplest setup, in beta on the Claude API: set `fallbacks` to `"default"`, and the API retries a declined request on the fallback model Anthropic recommends for its refusal category. For categories with no recommended fallback, the refusal stands. Claude Haiku 5.5 has no server-side fallback, so for it use [client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) or [write the retry yourself](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry).
+The simplest setup, in beta on the Claude API and on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed): set `fallbacks` to `"default"`, and the API retries a declined request on the fallback model Anthropic recommends for its refusal category. For categories with no recommended fallback, the refusal stands. Claude Haiku 5.5 has no server-side fallback, so for it use [client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) or [write the retry yourself](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry).
 
 <CodeGroup>
   ```bash cURL
@@ -121,7 +121,7 @@ The simplest setup, in beta on the Claude API: set `fallbacks` to `"default"`, a
   $client = new Client();
 
   $response = $client->beta->messages->create(
-      model: 'claude-fable-5',
+      model: Model::CLAUDE_FABLE_5,
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Hello, Claude']],
       fallbacks: 'default',
@@ -184,7 +184,7 @@ The `stop_details` object explains the decline:
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
 | `"cyber"`                | The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.                                                                                                                                                                                                                                               | No                       |
 | `"bio"`                  | The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.                                                                                                                                                                                                                                               | Yes                      |
-| `"frontier_llm"`         | The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.                                                                                                                                            | Yes                      |
+| `"frontier_llm"`         | The request could help with the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.                                                                                                                                         | Yes                      |
 | `"reasoning_extraction"` | The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks). | Yes                      |
 | `"general_harms"`        | The request falls under a usage-policy area outside the four named categories. Benign work can also trigger this category.                                                                                                                                                                                                                                                           | No                       |
 
@@ -205,7 +205,7 @@ You can still ask Claude to explain its answer. Ask for a short explanation, the
 
 ## How refusals are billed
 
-These billing rules apply on every platform: the Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry.
+These billing rules apply on every platform.
 
 **Refusals before any output:** To disrupt attempts to circumvent Anthropic's safeguards at scale, a refusal that arrives before any output is billed when its `stop_details.category` is `"bio"`, `"frontier_llm"`, or `"reasoning_extraction"`. These are the categories where Anthropic measures low volumes of false positives, as of September 2026. These refusals are billed like any other request, at the rates of the model that ran it. A refusal before any output in any other category, or with a `null` category, is not billed. Either way, `content` is empty and token counts appear in `usage`. The request still counts against your rate limits.
 
@@ -219,11 +219,11 @@ The billed categories may change as Anthropic keeps measuring and refining its s
 
 There are three ways to retry a refused request on another model. The right one depends on where you are running and how much control you need.
 
-| Your situation                       | Use                                                                                                                                                                                                      | Why                                                         |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Claude API, simplest setup           | [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)                                                                                 | One request, one response. The API handles the retry.       |
-| Any platform, using an Anthropic SDK | [The SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback)                                                                                   | Configure once on the client. Retries happen automatically. |
-| Raw HTTP or custom retry logic       | [A manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry) with [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) | Full control. Fallback credit keeps the cost down.          |
+| Your situation                                                                  | Use                                                                                                                                                                                                      | Why                                                        |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Claude API or Claude Models on Google Cloud (Anthropic managed), simplest setup | [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)                                                                                 | One request, one response. The API handles the retry.      |
+| Any platform, using an Anthropic SDK                                            | [Client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback)                                                         | Configure once on the client. Retries occur automatically. |
+| Raw HTTP or custom retry logic                                                  | [A manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry) with [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) | Full control. Fallback credit keeps the cost down.         |
 
 Server-side fallback and the SDK middleware apply fallback credit for you. You only need the [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) page when you build the retry yourself. Claude Haiku 5.5 has neither server-side fallback nor fallback credit, so use the SDK middleware or a manual retry.
 
@@ -232,7 +232,7 @@ Server-side fallback and the SDK middleware apply fallback credit for you. You o
 Server-side fallback retries a refused request inside a single API call. In the default mode, when the primary model declines and the refusal category has a recommended fallback, the API runs the same request on the model Anthropic recommends for that category. You can instead [name up to three fallback models of your own](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#naming-your-own-fallback-models). Either way, you get back one response that names the model that answered, so your user gets an answer in one round trip.
 
 <Note>
-  Server-side fallback is in beta on the Claude API. The `fallbacks` parameter is not supported on the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) (a batch item that includes it comes back as an errored result) and is not available on Amazon Bedrock, Google Cloud, or Microsoft Foundry. On those platforms, use [client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) instead. Claude Haiku 5.5 has no server-side fallback: with `fallbacks: "default"`, a declined request stays declined, and a list of fallback models returns a 400 error.
+  Server-side fallback is in beta on the Claude API and on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed). On platforms without server-side fallback, use [client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) instead. The `fallbacks` parameter is not supported on the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) (a batch item that includes it comes back as an errored result). Claude Haiku 5.5 has no server-side fallback: with `fallbacks: "default"`, a declined request stays declined, and a list of fallback models returns a 400 error.
 </Note>
 
 ### Making the request
@@ -418,9 +418,9 @@ Default routing never draws the up-front [oversized-image rejection](https://pla
   IO.println("""
       {"stop_reason":"%s","model":"%s","served_by_fallback":%b}\
       """.formatted(
-          response.stopReason().map(BetaStopReason::asString).orElse("null"),
-          response.model().asString(),
-          servedByFallback));
+      response.stopReason().map(BetaStopReason::asString).orElse("null"),
+      response.model().asString(),
+      servedByFallback));
   ```
 
   ```php PHP
@@ -429,7 +429,7 @@ Default routing never draws the up-front [oversized-image rejection](https://pla
   $response = $client->beta->messages->create(
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-      model: 'claude-fable-5',
+      model: Model::CLAUDE_FABLE_5,
       fallbacks: 'default',
       betas: ['server-side-fallback-2026-07-01'],
   );
@@ -596,7 +596,7 @@ The highlighted lines are the only difference from the default-routing request.
   $client = new Client();
 
   $response = $client->beta->messages->create(
-      model: 'claude-fable-5',
+      model: Model::CLAUDE_FABLE_5,
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Hello, Claude']],
       fallbacks: [['model' => 'claude-opus-4-8']],
@@ -726,7 +726,7 @@ On a streaming request, the retry occurs on the same stream, and nothing you hav
 
 ### Non-streaming responses
 
-On a non-streaming request, a mid-output decline behaves differently: the response omits the declined model's partial output, and the fallback model answers from the beginning. The result looks like a decline before any output, with the `fallback` block first. The declined attempt and its output tokens still appear in `usage.iterations`.
+On a non-streaming request, a mid-output decline behaves differently: the response omits the declined model's partial output, and the fallback model starts a new answer. The result looks like a decline before any output, with the `fallback` block first. The declined attempt and its output tokens still appear in `usage.iterations`.
 
 <Note>
   **Declines during tool use:** completed tool work does not block fallback. When a decline fires after server tools (for example, web search or code execution) have finished executing within a request, the fallback attempt proceeds: the completed tool results carry over, and the fallback model can keep invoking server tools. The one case that does not retry is a streaming decline that fires while a tool-use block of any type (a client tool, a server tool, or an MCP tool call) is still open on the stream: that refusal is returned directly, and if the `fallback-credit-2026-07-01` header is set it still carries a credit token redeemable by continuing the partial response. Non-streaming requests are unaffected; the API clears the partial work and retries before responding.
@@ -756,7 +756,7 @@ The SDK includes a refusal-fallback middleware. You configure it once on the cli
 
 ### Setting it up
 
-Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware`; go: `betafallback.BetaRefusalFallbackMiddleware`; csharp: `BetaRefusalFallbackHandler`; java: `BetaRefusalFallbackInterceptor`; php: `RefusalFallbackMiddleware`) to the client constructor, and share one `BetaFallbackState` (go: `betafallback.BetaFallbackState`) instance across the requests of a conversation.
+Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware()`; go: `betafallback.BetaRefusalFallbackMiddleware()`; csharp: `BetaRefusalFallbackHandler`; java: `BetaRefusalFallbackInterceptor`; php: `RefusalFallbackMiddleware`) to the client constructor, and share one `BetaFallbackState` (go: `betafallback.BetaFallbackState`) instance across the requests of a conversation.
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -901,7 +901,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
   ```go Go
   import (
   // ...
-  	"github.com/anthropics/anthropic-sdk-go/lib/betafallback"
+  	"github.com/anthropics/anthropic-sdk-go/v2/lib/betafallback"
   // ...
   )
 
@@ -916,7 +916,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
   		)),
   	)
 
-  	// One state per conversation: requests sharing it stay pinned to the
+  	// One state for each conversation: requests sharing it stay pinned to the
   	// model that accepted, so a follow-up never re-asks a model that refused.
   	state := &betafallback.BetaFallbackState{}
   	conversation := betafallback.WithBetaFallbackState(state)
@@ -997,7 +997,9 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
       BetaMessageAccumulator accumulator = BetaMessageAccumulator.create();
       try (StreamResponse<BetaRawMessageStreamEvent> streamResponse = client.beta()
               .messages()
-              .createStreaming(params, RequestOptions.builder().fallbackState(state).build())) {
+              .createStreaming(params, RequestOptions.builder()
+                  .fallbackState(state)
+                  .build())) {
           streamResponse.stream()
               .peek(accumulator::accumulate)
               .forEach(event -> event.contentBlockDelta()
@@ -1009,7 +1011,9 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
       // Non-streaming: reusing the same state keeps the conversation pinned.
       BetaMessage message = client.beta()
           .messages()
-          .create(params, RequestOptions.builder().fallbackState(state).build());
+          .create(params, RequestOptions.builder()
+              .fallbackState(state)
+              .build());
       IO.println("served by: " + message.model().asString());
   }
   ```
@@ -1021,6 +1025,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
   use Anthropic\Lib\Middleware\BetaFallbackState;
   use Anthropic\Lib\Middleware\RefusalFallbackMiddleware;
   use Anthropic\Lib\Streaming\MessageAccumulator;
+  use Anthropic\Messages\Model;
 
   // Configure the fallback chain once. On a refusal, the middleware retries the
   // request down the chain and sends the fallback-credit beta header for you.
@@ -1037,7 +1042,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
   // Streaming: on a refusal the middleware splices the fallback model's events
   // onto the still-open stream. The accumulator's model is the serving model.
   $stream = $client->beta->messages->createStream(
-      model: 'claude-fable-5',
+      model: Model::CLAUDE_FABLE_5,
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Hello, Claude']],
       requestOptions: ['fallbackState' => $state],
@@ -1055,7 +1060,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
   // Non-streaming: same middleware. Reusing the state keeps the conversation
   // pinned to the model that accepted.
   $message = $client->beta->messages->create(
-      model: 'claude-fable-5',
+      model: Model::CLAUDE_FABLE_5,
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Hello, Claude']],
       requestOptions: ['fallbackState' => $state],
@@ -1100,7 +1105,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
 
 * Retries walk your fallback list in order. A fallback model that itself refuses passes the request to the next entry.
 * When every model in the list has declined, the middleware returns the final refusal (the last model's refusal response) rather than raising an error.
-* Thinking blocks from Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, or Claude Fable 5 pass through unchanged. Each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself. The fallback model can't read Claude Fable 5.1 blocks, which only [Claude Fable 5.1 and Claude Mythos 5.1 read](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), so the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud. Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Google Cloud, and the API drops them for a fallback model that can't read them.
+* Thinking blocks from Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, or Claude Fable 5 pass through unchanged. Each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself. The fallback model can't read Claude Fable 5.1 blocks, which only [Claude Fable 5.1 and Claude Mythos 5.1 read](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), so the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Claude Models on Google Cloud (Google managed). Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Claude Models on Google Cloud (Google managed), and the API drops them for a fallback model that can't read them.
 * Responses served through the middleware include a `fallback` content block at each model boundary, the same as server-side fallback responses. The middleware manages those blocks for you on later requests.
 * The model that accepted is recorded in `BetaFallbackState` (go: `betafallback.BetaFallbackState`), so follow-up requests that share the state stay pinned to it rather than re-asking a model that refused.
 
@@ -1120,7 +1125,7 @@ Over raw HTTP or with custom retry logic, implement the pattern the middleware w
   <Step title="Re-send on a fallback model">
     Send the same request with `model` set to a fallback model, such as Claude Opus 4.8. If the refused request sent `thinking: {"type": "between_tools"}`, change `thinking` first: only Claude Sonnet 5.5 accepts that value, so omit `thinking` or set a value the fallback model accepts. [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) under the `2026-07-01` header makes this change for you when it falls back to Claude Sonnet 5. Another model can normally serve a request that Claude Fable 5.1 or Claude Fable 5 declines. How you handle the conversation history depends on whether you redeem a [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit):
 
-    * **Not redeeming a credit:** you can leave the earlier `thinking` and `redacted_thinking` blocks in place or strip them to save input tokens. The fallback model normally can't use them either way: only Claude Fable 5.1 and Claude Mythos 5.1 [read Claude Fable 5.1 blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), and only those two models, Claude Fable 5, and Claude Mythos 5 read Claude Fable 5 blocks, so for any other fallback model the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud. A retry after a Claude Haiku 5.5 refusal is always in this case. Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Google Cloud, so leave those blocks in place when you fall back to either model there. For a fallback model that can't read them, the API drops them without billing them.
+    * **Not redeeming a credit:** you can leave the earlier `thinking` and `redacted_thinking` blocks in place or strip them to save input tokens. The fallback model normally can't use them either way: only Claude Fable 5.1 and Claude Mythos 5.1 [read Claude Fable 5.1 blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), and only those two models, Claude Fable 5, and Claude Mythos 5 read Claude Fable 5 blocks, so for any other fallback model the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Claude Models on Google Cloud (Google managed). A retry after a Claude Haiku 5.5 refusal is always in this case. Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Claude Models on Google Cloud (Google managed), so leave those blocks in place when you fall back to either model there. For a fallback model that can't read them, the API drops them without billing them.
     * **Redeeming a credit:** send the body unchanged, because redemption requires an exact match. The server handles the earlier model's thinking blocks on a redemption, so do not strip them (see [Fields that must match the refused request](https://platform.claude.com/docs/en/build-with-claude/fallback-credit#reference)).
   </Step>
 

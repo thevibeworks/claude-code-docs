@@ -224,7 +224,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
               'content' => 'Build a concurrent worker pool in Go with graceful shutdown.',
           ],
       ],
-      model: 'claude-sonnet-5',
+      model: Model::CLAUDE_SONNET_5,
       tools: [
           [
               'type' => 'advisor_20260301',
@@ -600,7 +600,9 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
 
       List<BetaToolUnion> tools = List.of(
           BetaToolUnion.ofAdvisorTool20260301(
-              BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5_5).build()));
+              BetaAdvisorTool20260301.builder()
+                  .model(Model.CLAUDE_OPUS_5_5)
+                  .build()));
 
       List<BetaMessageParam> messages = new ArrayList<>();
       messages.add(BetaMessageParam.ofUser(
@@ -743,7 +745,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
 
   def run_your_tools(content):
-      # Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+      # Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
       return [
           {
               "type": "tool_result",
@@ -783,7 +785,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       if response.stop_reason == "pause_turn":
           continue  # server tool pending; re-send to let the API complete it
       if response.stop_reason != "tool_use":
-          break  # end_turn, or a stop such as max_tokens that needs handling (see below)
+          # end_turn, or a stop such as max_tokens that needs handling
+          # (explained after this example)
+          break
 
       results = run_your_tools(response.content)  # list of tool_result blocks
       if results:
@@ -806,7 +810,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   function runYourTools(
     content: Anthropic.Beta.Messages.BetaContentBlock[]
   ): Anthropic.Beta.Messages.BetaToolResultBlockParam[] {
-    // Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+    // Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
     return content
       .filter((block) => block.type === "tool_use")
       .map((block) => ({
@@ -842,7 +846,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       continue; // server tool pending; re-send to let the API complete it
     }
     if (response.stop_reason !== "tool_use") {
-      break; // end_turn, or a stop such as max_tokens that needs handling (see below)
+      // end_turn, or a stop such as max_tokens that needs handling
+      // (explained after this example)
+      break;
     }
 
     const results = runYourTools(response.content); // list of tool_result blocks
@@ -869,7 +875,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       + "now before committing to an approach.";
   const int MaxTurns = 10; // agent loop cap
 
-  // Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+  // Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
   List<BetaContentBlockParam> RunYourTools(IReadOnlyList<BetaContentBlock> content)
   {
       List<BetaContentBlockParam> results = [];
@@ -922,7 +928,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       }
       if (response.StopReason != BetaStopReason.ToolUse)
       {
-          break; // end_turn, or a stop such as max_tokens that needs handling (see below)
+          // end_turn, or a stop such as max_tokens that needs handling
+          // (explained after this example)
+          break;
       }
 
       var results = RunYourTools(response.Content); // list of tool_result blocks
@@ -947,7 +955,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   	maxTurns = 10 // agent loop cap
   )
 
-  // Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+  // Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
   func runYourTools(content []anthropic.BetaContentBlockUnion) []anthropic.BetaContentBlockParamUnion {
   	var results []anthropic.BetaContentBlockParamUnion
   	for _, block := range content {
@@ -998,15 +1006,14 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   			continue // server tool pending; re-send to let the API complete it
   		}
   		if response.StopReason != anthropic.BetaStopReasonToolUse {
-  			break // end_turn, or a stop such as max_tokens that needs handling (see below)
+  			// end_turn, or a stop such as max_tokens that needs handling
+  			// (explained after this example)
+  			break
   		}
 
   		results := runYourTools(response.Content) // list of tool_result blocks
   		if len(results) > 0 {
-  			messages = append(messages, anthropic.BetaMessageParam{
-  				Role:    anthropic.BetaMessageParamRoleUser,
-  				Content: results,
-  			})
+  			messages = append(messages, anthropic.NewBetaUserMessage(results...))
   		}
   		// Skip this if your system prompt already tells the model to call sparingly.
   		if turn == nudgeTurn-1 && !advisorCalled {
@@ -1036,7 +1043,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
           + "now before committing to an approach.";
   static final int MAX_TURNS = 10; // agent loop cap
 
-  // Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+  // Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
   List<BetaContentBlockParam> runYourTools(List<BetaContentBlock> content) {
       List<BetaContentBlockParam> results = new ArrayList<>();
       for (BetaContentBlock block : content) {
@@ -1056,7 +1063,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
       List<BetaToolUnion> tools = List.of(
           BetaToolUnion.ofAdvisorTool20260301(
-              BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5_5).build())
+              BetaAdvisorTool20260301.builder()
+                  .model(Model.CLAUDE_OPUS_5_5)
+                  .build())
           // ... your other tools
       );
       String task = "Build a concurrent worker pool in Go with graceful shutdown.";
@@ -1082,7 +1091,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
               continue; // server tool pending; re-send to let the API complete it
           }
           if (!BetaStopReason.TOOL_USE.equals(stopReason)) {
-              break; // end_turn, or a stop such as max_tokens that needs handling (see below)
+              // end_turn, or a stop such as max_tokens that needs handling
+              // (explained after this example)
+              break;
           }
 
           List<BetaContentBlockParam> results = runYourTools(response.content()); // list of tool_result blocks
@@ -1101,12 +1112,12 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   $client = new Client();
 
   const NUDGE_TURN = 2; // inject before this assistant turn if no advisor call yet
-  const NUDGE_TEXT = "You have not consulted the advisor yet. If the task has a non-obvious "
+  const NUDGE_TEXT = 'You have not consulted the advisor yet. If the task has a non-obvious '
       . "design decision or a failure mode you haven't ruled out, call advisor "
-      . "now before committing to an approach.";
+      . 'now before committing to an approach.';
   const MAX_TURNS = 10; // agent loop cap
 
-  // Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+  // Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
   function runYourTools(array $content): array
   {
       $results = [];
@@ -1148,7 +1159,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
           continue; // server tool pending; re-send to let the API complete it
       }
       if ($response->stopReason !== 'tool_use') {
-          break; // end_turn, or a stop such as max_tokens that needs handling (see below)
+          // end_turn, or a stop such as max_tokens that needs handling
+          // (explained after this example)
+          break;
       }
 
       $results = runYourTools($response->content); // list of tool_result blocks
@@ -1172,7 +1185,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
     "now before committing to an approach."
   MAX_TURNS = 10 # agent loop cap
 
-  # Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+  # Replace with your tool dispatch. Returns one tool_result block for each tool_use block.
   def run_your_tools(content)
     content.filter_map do |block|
       next unless block.type == :tool_use
@@ -1201,7 +1214,9 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       block.type == :server_tool_use && block.name == :advisor
     end
     next if response.stop_reason == :pause_turn # server tool pending; re-send to let the API complete it
-    break unless response.stop_reason == :tool_use # end_turn, or a stop such as max_tokens that needs handling (see below)
+    # end_turn, or a stop such as max_tokens that needs handling
+    # (explained after this example)
+    break unless response.stop_reason == :tool_use
 
     results = run_your_tools(response.content) # list of tool_result blocks
     messages << { role: "user", content: results } unless results.empty?
@@ -1227,7 +1242,7 @@ The advisor sub-inference does not stream. The executor's stream pauses while th
 
 The `server_tool_use` block with `name: "advisor"` signals that an advisor call is starting. The pause starts when that block closes (`content_block_stop`). During the pause, the stream is quiet except for standard SSE `ping` keepalives emitted roughly every 30 seconds. Short advisor calls might show no pings.
 
-When the advisor finishes, the `advisor_tool_result` arrives fully formed in a single `content_block_start` event (no deltas). Executor output then resumes streaming.
+When the advisor call completes, the `advisor_tool_result` arrives fully formed in a single `content_block_start` event (no deltas). Executor output then resumes streaming.
 
 A `message_delta` event follows with the updated `usage.iterations` array reflecting the advisor's token counts.
 
@@ -1812,7 +1827,7 @@ If you request an invalid pair, the API returns a `400 invalid_request_error` na
 
 ### Platform availability
 
-The advisor tool is available in beta on the Claude API and on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). It is not currently available on Amazon Bedrock, Google Cloud, or Microsoft Foundry.
+The advisor tool is available in beta on the Claude API, on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), and on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed). It is not currently available on Amazon Bedrock, Claude Models on Google Cloud (Google managed), or Microsoft Foundry.
 
 ## Advisor on Claude Managed Agents
 

@@ -39,6 +39,8 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
 
 <Note>
   On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), the worker authenticates with AWS IAM (SigV4) or an [API key generated in the AWS Console](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication), not an environment key. Attach the [`AnthropicSelfHostedEnvironmentAccess`](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#managed-policies) managed policy to the IAM principal your worker runs as. Environment keys generated in the Claude Console don't work with the Claude Platform on AWS endpoint.
+
+  On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), the worker authenticates with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication), not an environment key. Grant the Google Cloud identity your worker uses `roles/claude.user` or `roles/claude.admin` on the project. Both roles include [`environments.processWork`](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments), which the worker needs to poll for and manage work items, and the session and skill permissions it needs to run a session. Environment keys generated in the Claude Console don't work with the Claude Models on Google Cloud (Anthropic managed) endpoint. The pre-built workers in the `ant` CLI and in the Python, TypeScript, and Go SDKs don't support Claude Models on Google Cloud (Anthropic managed), so implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly. See [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported).
 </Note>
 
 ### Run your first session
@@ -430,10 +432,8 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
       _, err = client.Beta.Sessions.Events.Send(context.Background(), session.ID, anthropic.BetaSessionEventSendParams{
       	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
       		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-      			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
       			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
       				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-      					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
       					Text: "Write the output of \"uname -a\" to hello.txt in your working directory.",
       				},
       			}},

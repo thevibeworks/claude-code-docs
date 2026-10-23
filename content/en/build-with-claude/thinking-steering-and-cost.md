@@ -96,7 +96,7 @@ You can also steer thinking on a per-message basis from the user turn, independe
 
 Per-message steering is useful when only some requests in a conversation warrant extended reasoning. An agent harness, for example, can append the encouraging phrase on planning steps and the discouraging phrase on routine confirmations, without touching the system prompt or changing any request parameters between turns.
 
-On Claude Haiku 5.5, the discouraging phrase doesn't reliably reduce thinking. On the Claude API and Google Cloud, run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
+On Claude Haiku 5.5, the discouraging phrase doesn't reliably reduce thinking. On the Claude API and Claude Models on Google Cloud (Google managed), run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
 
 ### Verify steering on your workload
 
@@ -116,7 +116,7 @@ Assistant turns don't need to start with a thinking block. (Models using a legac
 
 For multi-turn applications, this means you can pass back conversation history in whatever shape you have it:
 
-* Assistant turns without thinking are valid history as-is.
+* Assistant turns that Claude produced without thinking are valid history as-is.
 * You can resume a conversation that started without thinking, or that used a different thinking configuration, without rewriting its history.
 * History assembled from mixed sources doesn't need thinking blocks reinserted at the start of each assistant turn to pass validation.
 
@@ -131,621 +131,631 @@ The practical consequence: pick a thinking configuration and a top-level effort 
 The following example demonstrates the invalidation with a multi-turn script you can run yourself:
 
 <Accordion title="Effort changes invalidate the prompt cache">
-  <Tabs>
-    <Tab title="cURL">
-      <Note>
-        This workflow doesn't translate well to a one-off shell command. Use the Claude SDK to run it; per-turn HTTP requests follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
-      </Note>
-    </Tab>
+  <CodeGroup exclude="shell:cURL, shell:CLI">
+    <CodeGroupItem language="cURL">
+      This workflow needs more logic than a single shell command. Use the Claude SDK to run it; per-turn HTTP requests follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
+    </CodeGroupItem>
 
-    <Tab title="CLI">
-      <Note>
-        This workflow doesn't translate well to a one-off shell command. Use the Claude SDK to run it; per-turn CLI commands follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
-      </Note>
-    </Tab>
+    <CodeGroupItem language="CLI">
+      This workflow needs more logic than a single shell command. Use the Claude SDK to run it; per-turn CLI commands follow the examples on the [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) page.
+    </CodeGroupItem>
 
-    <Tab title="Python">
-      ```python
-      import requests
+    ```python Python
+    import requests
 
-      client = Anthropic()
+    client = Anthropic()
 
 
-      def fetch_article_content(url):
-          text = requests.get(url).text
-          lines = (line.strip() for line in text.splitlines())
-          return "\n".join(line for line in lines if line)
+    def fetch_article_content(url):
+        text = requests.get(url).text
+        lines = (line.strip() for line in text.splitlines())
+        return "\n".join(line for line in lines if line)
 
 
-      # Fetch the content of the article
-      book_url = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
-      book_content = fetch_article_content(book_url)
-      # Use just enough text for caching (first few chapters)
-      LARGE_TEXT = book_content[:10000]
+    # Fetch the content of the article
+    book_url = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
+    book_content = fetch_article_content(book_url)
+    # Use just enough text for caching (first few chapters)
+    LARGE_TEXT = book_content[:10000]
 
-      # No system prompt - caching in messages instead
-      MESSAGES = [
-          {
-              "role": "user",
-              "content": [
-                  {
-                      "type": "text",
-                      "text": LARGE_TEXT,
-                      "cache_control": {"type": "ephemeral"},
-                  },
-                  {"type": "text", "text": "Analyze the tone of this passage."},
-              ],
-          }
-      ]
-
-      # First request - establish cache
-      print("First request - establishing cache")
-      response1 = client.messages.create(
-          model="claude-opus-5-5",
-          max_tokens=16000,
-          thinking={"type": "adaptive"},
-          messages=MESSAGES,
-      )
-
-      print(f"First response usage: {response1.usage}")
-
-      MESSAGES.append({"role": "assistant", "content": response1.content})
-      MESSAGES.append({"role": "user", "content": "Analyze the characters in this passage."})
-
-      # Second request - same configuration (cache hit expected)
-      print("\nSecond request - same configuration (cache hit expected)")
-      response2 = client.messages.create(
-          model="claude-opus-5-5",
-          max_tokens=16000,
-          thinking={"type": "adaptive"},
-          messages=MESSAGES,
-      )
-
-      print(f"Second response usage: {response2.usage}")
-
-      MESSAGES.append({"role": "assistant", "content": response2.content})
-      MESSAGES.append({"role": "user", "content": "Analyze the setting in this passage."})
-
-      # Third request - different effort level (cache miss expected)
-      print("\nThird request - different effort level (cache miss expected)")
-      response3 = client.messages.create(
-          model="claude-opus-5-5",
-          max_tokens=16000,
-          thinking={"type": "adaptive"},
-          output_config={"effort": "low"},
-          messages=MESSAGES,
-      )
-
-      print(f"Third response usage: {response3.usage}")
-      ```
-    </Tab>
-
-    <Tab title="TypeScript">
-      ```typescript
-
-      const client = new Anthropic();
-
-      async function fetchArticleContent(url: string): Promise<string> {
-        const response = await fetch(url);
-        const text = await response.text();
-        const lines = text.split("\n").map((line) => line.trim());
-        return lines.filter((line) => line).join("\n");
-      }
-
-      const bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
-      const bookContent = await fetchArticleContent(bookUrl);
-      const LARGE_TEXT = bookContent.substring(0, 10000);
-
-      // No system prompt - caching in messages instead
-      const messages: Anthropic.MessageParam[] = [
+    # No system prompt: caching in messages instead
+    MESSAGES = [
         {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text: LARGE_TEXT,
-              cache_control: { type: "ephemeral" }
-            },
-            {
-              type: "text",
-              text: "Analyze the tone of this passage."
-            }
-          ]
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": LARGE_TEXT,
+                    "cache_control": {"type": "ephemeral"},
+                },
+                {"type": "text", "text": "Analyze the tone of this passage."},
+            ],
         }
-      ];
+    ]
 
-      // First request - establish cache
-      console.log("First request - establishing cache");
-      const response1 = await client.messages.create({
-        model: "claude-opus-5-5",
-        max_tokens: 16000,
-        thinking: { type: "adaptive" },
-        messages
-      });
+    # First request: establish cache
+    print("First request - establishing cache")
+    response1 = client.messages.create(
+        model="claude-opus-5-5",
+        max_tokens=16000,
+        thinking={"type": "adaptive"},
+        messages=MESSAGES,
+    )
 
-      console.log("First response usage: ", response1.usage);
+    print(f"First response usage: {response1.usage}")
 
-      messages.push(
-        { role: "assistant", content: response1.content },
-        { role: "user", content: "Analyze the characters in this passage." }
-      );
+    MESSAGES.append({"role": "assistant", "content": response1.content})
+    MESSAGES.append({"role": "user", "content": "Analyze the characters in this passage."})
 
-      // Second request - same configuration (cache hit expected)
-      console.log("\nSecond request - same configuration (cache hit expected)");
-      const response2 = await client.messages.create({
-        model: "claude-opus-5-5",
-        max_tokens: 16000,
-        thinking: { type: "adaptive" },
-        messages
-      });
+    # Second request: same configuration (cache hit expected)
+    print("\nSecond request - same configuration (cache hit expected)")
+    response2 = client.messages.create(
+        model="claude-opus-5-5",
+        max_tokens=16000,
+        thinking={"type": "adaptive"},
+        messages=MESSAGES,
+    )
 
-      console.log("Second response usage: ", response2.usage);
+    print(f"Second response usage: {response2.usage}")
 
-      messages.push(
-        { role: "assistant", content: response2.content },
-        { role: "user", content: "Analyze the setting in this passage." }
-      );
+    MESSAGES.append({"role": "assistant", "content": response2.content})
+    MESSAGES.append({"role": "user", "content": "Analyze the setting in this passage."})
 
-      // Third request - different effort level (cache miss expected)
-      console.log("\nThird request - different effort level (cache miss expected)");
-      const response3 = await client.messages.create({
-        model: "claude-opus-5-5",
-        max_tokens: 16000,
-        thinking: { type: "adaptive" },
-        output_config: { effort: "low" },
-        messages
-      });
+    # Third request: different effort level (cache miss expected)
+    print("\nThird request - different effort level (cache miss expected)")
+    response3 = client.messages.create(
+        model="claude-opus-5-5",
+        max_tokens=16000,
+        thinking={"type": "adaptive"},
+        output_config={"effort": "low"},
+        messages=MESSAGES,
+    )
 
-      console.log("Third response usage: ", response3.usage);
-      ```
-    </Tab>
+    print(f"Third response usage: {response3.usage}")
+    ```
 
-    <Tab title="C#">
-      ```csharp
-      AnthropicClient client = new();
+    ```typescript TypeScript
 
-      string bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
-      string bookContent = await FetchArticleContent(bookUrl);
-      string largeText = bookContent.Substring(0, Math.Min(10000, bookContent.Length));
+    const client = new Anthropic();
 
-      Console.WriteLine("First request - establishing cache");
-      var parameters1 = new MessageCreateParams
+    async function fetchArticleContent(url: string): Promise<string> {
+      const response = await fetch(url);
+      const text = await response.text();
+      const lines = text.split("\n").map((line) => line.trim());
+      return lines.filter((line) => line).join("\n");
+    }
+
+    const bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
+    const bookContent = await fetchArticleContent(bookUrl);
+    const LARGE_TEXT = bookContent.substring(0, 10000);
+
+    // No system prompt: caching in messages instead
+    const messages: Anthropic.MessageParam[] = [
       {
-          Model = Model.ClaudeOpus5_5,
-          MaxTokens = 16000,
-          Thinking = new ThinkingConfigAdaptive(),
-          Messages =
-          [
-              new UserMessageParam
-              {
-                  Content = new List<ContentBlockParam>
-                  {
-                      new ContentBlockParam(new TextBlockParam()
-                      {
-                          Text = largeText,
-                          CacheControl = new CacheControlEphemeral(),
-                      }),
-                      new ContentBlockParam(new TextBlockParam()
-                      {
-                          Text = "Analyze the tone of this passage."
-                      }),
-                  }
-              }
-          ]
-      };
-
-      var response1 = await client.Messages.Create(parameters1);
-      Console.WriteLine($"First response usage: {response1.Usage}");
-
-      Console.WriteLine("\nSecond request - same configuration (cache hit expected)");
-      var parameters2 = new MessageCreateParams
-      {
-          Model = Model.ClaudeOpus5_5,
-          MaxTokens = 16000,
-          Thinking = new ThinkingConfigAdaptive(),
-          Messages =
-          [
-              new UserMessageParam
-              {
-                  Content = new List<ContentBlockParam>
-                  {
-                      new ContentBlockParam(new TextBlockParam()
-                      {
-                          Text = largeText,
-                          CacheControl = new CacheControlEphemeral(),
-                      }),
-                      new ContentBlockParam(new TextBlockParam()
-                      {
-                          Text = "Analyze the tone of this passage."
-                      }),
-                  }
-              },
-              new AssistantMessageParam
-              {
-                  Content = response1.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
-              },
-              new UserMessageParam { Content = "Analyze the characters in this passage." }
-          ]
-      };
-
-      var response2 = await client.Messages.Create(parameters2);
-      Console.WriteLine($"Second response usage: {response2.Usage}");
-
-      Console.WriteLine("\nThird request - different effort level (cache miss expected)");
-      var parameters3 = new MessageCreateParams
-      {
-          Model = Model.ClaudeOpus5_5,
-          MaxTokens = 16000,
-          Thinking = new ThinkingConfigAdaptive(),
-          OutputConfig = new OutputConfig
+        role: "user",
+        content: [
           {
-              Effort = Effort.Low
+            type: "text",
+            text: LARGE_TEXT,
+            cache_control: { type: "ephemeral" }
           },
-          Messages =
-          [
-              new UserMessageParam
-              {
-                  Content = new List<ContentBlockParam>
-                  {
-                      new ContentBlockParam(new TextBlockParam()
-                      {
-                          Text = largeText,
-                          CacheControl = new CacheControlEphemeral(),
-                      }),
-                      new ContentBlockParam(new TextBlockParam()
-                      {
-                          Text = "Analyze the tone of this passage."
-                      }),
-                  }
-              },
-              new AssistantMessageParam
-              {
-                  Content = response1.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
-              },
-              new UserMessageParam { Content = "Analyze the characters in this passage." },
-              new AssistantMessageParam
-              {
-                  Content = response2.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
-              },
-              new UserMessageParam { Content = "Analyze the setting in this passage." }
-          ]
-      };
-
-      var response3 = await client.Messages.Create(parameters3);
-      Console.WriteLine($"Third response usage: {response3.Usage}");
-
-      static async Task<string> FetchArticleContent(string url)
-      {
-          using HttpClient httpClient = new();
-          string content = await httpClient.GetStringAsync(url);
-          return content;
+          {
+            type: "text",
+            text: "Analyze the tone of this passage."
+          }
+        ]
       }
-      ```
-    </Tab>
+    ];
 
-    <Tab title="Go">
-      ```go
-      client := anthropic.NewClient()
+    // First request: establish cache
+    console.log("First request - establishing cache");
+    const response1 = await client.messages.create({
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      thinking: { type: "adaptive" },
+      messages
+    });
 
-      bookURL := "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
-      bookContent, err := fetchArticleContent(bookURL)
-      if err != nil {
-      	log.Fatal(err)
-      }
+    console.log("First response usage: ", response1.usage);
 
-      largeText := bookContent
-      if len(largeText) > 10000 {
-      	largeText = largeText[:10000]
-      }
+    messages.push(
+      { role: "assistant", content: response1.content },
+      { role: "user", content: "Analyze the characters in this passage." }
+    );
 
-      // No system prompt - caching in messages instead
-      messages := []anthropic.MessageParam{
-      	anthropic.NewUserMessage(
-      		anthropic.ContentBlockParamUnion{OfText: &anthropic.TextBlockParam{
-      			Text:         largeText,
-      			CacheControl: anthropic.NewCacheControlEphemeralParam(),
-      		}},
-      		anthropic.NewTextBlock("Analyze the tone of this passage."),
-      	),
-      }
+    // Second request: same configuration (cache hit expected)
+    console.log("\nSecond request - same configuration (cache hit expected)");
+    const response2 = await client.messages.create({
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      thinking: { type: "adaptive" },
+      messages
+    });
 
-      // First request - establish cache
-      fmt.Println("First request - establishing cache")
-      response1, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-      	Model:     anthropic.ModelClaudeOpus5_5,
-      	MaxTokens: 16000,
-      	Thinking: anthropic.ThinkingConfigParamUnion{
-      		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
-      	},
-      	Messages: messages,
-      })
-      if err != nil {
-      	log.Fatal(err)
-      }
-      fmt.Printf("First response usage: %s\n", response1.Usage.RawJSON())
+    console.log("Second response usage: ", response2.usage);
 
-      messages = append(messages, response1.ToParam())
-      messages = append(messages, anthropic.NewUserMessage(anthropic.NewTextBlock("Analyze the characters in this passage.")))
+    messages.push(
+      { role: "assistant", content: response2.content },
+      { role: "user", content: "Analyze the setting in this passage." }
+    );
 
-      // Second request - same configuration (cache hit expected)
-      fmt.Println("\nSecond request - same configuration (cache hit expected)")
-      response2, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-      	Model:     anthropic.ModelClaudeOpus5_5,
-      	MaxTokens: 16000,
-      	Thinking: anthropic.ThinkingConfigParamUnion{
-      		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
-      	},
-      	Messages: messages,
-      })
-      if err != nil {
-      	log.Fatal(err)
-      }
-      fmt.Printf("Second response usage: %s\n", response2.Usage.RawJSON())
+    // Third request: different effort level (cache miss expected)
+    console.log("\nThird request - different effort level (cache miss expected)");
+    const response3 = await client.messages.create({
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      thinking: { type: "adaptive" },
+      output_config: { effort: "low" },
+      messages
+    });
 
-      messages = append(messages, response2.ToParam())
-      messages = append(messages, anthropic.NewUserMessage(anthropic.NewTextBlock("Analyze the setting in this passage.")))
+    console.log("Third response usage: ", response3.usage);
+    ```
 
-      // Third request - different effort level (cache miss expected)
-      fmt.Println("\nThird request - different effort level (cache miss expected)")
-      response3, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-      	Model:     anthropic.ModelClaudeOpus5_5,
-      	MaxTokens: 16000,
-      	Thinking: anthropic.ThinkingConfigParamUnion{
-      		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
-      	},
-      	OutputConfig: anthropic.OutputConfigParam{
-      		Effort: anthropic.OutputConfigEffortLow,
-      	},
-      	Messages: messages,
-      })
-      if err != nil {
-      	log.Fatal(err)
-      }
-      fmt.Printf("Third response usage: %s\n", response3.Usage.RawJSON())
-      ```
-    </Tab>
+    ```csharp C#
+    AnthropicClient client = new();
 
-    <Tab title="Java">
-      ```java
-      import com.anthropic.models.messages.CacheControlEphemeral;
-      // ...
-      void main() throws Exception {
-          AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+    string bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
+    string bookContent = await FetchArticleContent(bookUrl);
+    string largeText = bookContent.Substring(0, Math.Min(10000, bookContent.Length));
 
-          String bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
-          String bookContent = fetchArticleContent(bookUrl);
-          String largeText = bookContent.substring(0, Math.min(10000, bookContent.length()));
+    Console.WriteLine("First request - establishing cache");
+    var parameters1 = new MessageCreateParams
+    {
+        Model = Model.ClaudeOpus5_5,
+        MaxTokens = 16000,
+        Thinking = new ThinkingConfigAdaptive(),
+        Messages =
+        [
+            new UserMessageParam
+            {
+                Content = new List<ContentBlockParam>
+                {
+                    new ContentBlockParam(new TextBlockParam()
+                    {
+                        Text = largeText,
+                        CacheControl = new CacheControlEphemeral(),
+                    }),
+                    new ContentBlockParam(new TextBlockParam()
+                    {
+                        Text = "Analyze the tone of this passage."
+                    }),
+                }
+            }
+        ]
+    };
 
-          // First request - establishing cache
-          IO.println("First request - establishing cache");
-          MessageCreateParams params1 = MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5_5)
-              .maxTokens(16000L)
-              .thinking(ThinkingConfigAdaptive.builder().build())
-              .addUserMessageOfContentBlockParams(List.of(
-                  ContentBlockParam.ofText(TextBlockParam.builder()
-                      .text(largeText)
-                      .cacheControl(CacheControlEphemeral.builder().build())
-                      .build()),
-                  ContentBlockParam.ofText(TextBlockParam.builder()
-                      .text("Analyze the tone of this passage.")
-                      .build())
-              ))
-              .build();
+    var response1 = await client.Messages.Create(parameters1);
+    Console.WriteLine($"First response usage: {response1.Usage}");
 
-          Message response1 = client.messages().create(params1);
-          IO.println("First response usage: " + response1.usage());
+    Console.WriteLine("\nSecond request - same configuration (cache hit expected)");
+    var parameters2 = new MessageCreateParams
+    {
+        Model = Model.ClaudeOpus5_5,
+        MaxTokens = 16000,
+        Thinking = new ThinkingConfigAdaptive(),
+        Messages =
+        [
+            new UserMessageParam
+            {
+                Content = new List<ContentBlockParam>
+                {
+                    new ContentBlockParam(new TextBlockParam()
+                    {
+                        Text = largeText,
+                        CacheControl = new CacheControlEphemeral(),
+                    }),
+                    new ContentBlockParam(new TextBlockParam()
+                    {
+                        Text = "Analyze the tone of this passage."
+                    }),
+                }
+            },
+            new AssistantMessageParam
+            {
+                Content = response1.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
+            },
+            new UserMessageParam { Content = "Analyze the characters in this passage." }
+        ]
+    };
 
-          // Second request - same configuration (cache hit expected)
-          IO.println("\nSecond request - same configuration (cache hit expected)");
-          MessageCreateParams params2 = MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5_5)
-              .maxTokens(16000L)
-              .thinking(ThinkingConfigAdaptive.builder().build())
-              .addUserMessageOfContentBlockParams(List.of(
-                  ContentBlockParam.ofText(TextBlockParam.builder()
-                      .text(largeText)
-                      .cacheControl(CacheControlEphemeral.builder().build())
-                      .build()),
-                  ContentBlockParam.ofText(TextBlockParam.builder()
-                      .text("Analyze the tone of this passage.")
-                      .build())
-              ))
-              .addAssistantMessageOfContentBlockParams(response1.content().stream()
-                  .map(block -> block.toParam())
-                  .collect(Collectors.toList()))
-              .addUserMessage("Analyze the characters in this passage.")
-              .build();
+    var response2 = await client.Messages.Create(parameters2);
+    Console.WriteLine($"Second response usage: {response2.Usage}");
 
-          Message response2 = client.messages().create(params2);
-          IO.println("Second response usage: " + response2.usage());
-
-          // Third request - different effort level (cache miss expected)
-          IO.println("\nThird request - different effort level (cache miss expected)");
-          MessageCreateParams params3 = MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5_5)
-              .maxTokens(16000L)
-              .thinking(ThinkingConfigAdaptive.builder().build())
-              .outputConfig(OutputConfig.builder()
-                  .effort(OutputConfig.Effort.LOW)
-                  .build())
-              .addUserMessageOfContentBlockParams(List.of(
-                  ContentBlockParam.ofText(TextBlockParam.builder()
-                      .text(largeText)
-                      .cacheControl(CacheControlEphemeral.builder().build())
-                      .build()),
-                  ContentBlockParam.ofText(TextBlockParam.builder()
-                      .text("Analyze the tone of this passage.")
-                      .build())
-              ))
-              .addAssistantMessageOfContentBlockParams(response1.content().stream()
-                  .map(block -> block.toParam())
-                  .collect(Collectors.toList()))
-              .addUserMessage("Analyze the characters in this passage.")
-              .addAssistantMessageOfContentBlockParams(response2.content().stream()
-                  .map(block -> block.toParam())
-                  .collect(Collectors.toList()))
-              .addUserMessage("Analyze the setting in this passage.")
-              .build();
-
-          Message response3 = client.messages().create(params3);
-          IO.println("Third response usage: " + response3.usage());
-      }
-
-      String fetchArticleContent(String url) throws Exception {
-          HttpClient client = HttpClient.newHttpClient();
-          HttpRequest request = HttpRequest.newBuilder()
-              .uri(URI.create(url))
-              .build();
-          HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-          return response.body();
-      }
-      ```
-    </Tab>
-
-    <Tab title="PHP">
-      ```php
-      function fetchArticleContent($url) {
-          $content = file_get_contents($url);
-          $lines = explode("\n", $content);
-          $cleanedLines = array_filter(array_map('trim', $lines));
-          return implode("\n", $cleanedLines);
-      }
-
-      $client = new Client();
-
-      $bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
-      $bookContent = fetchArticleContent($bookUrl);
-      $largeText = substr($bookContent, 0, 10000);
-
-      echo "First request - establishing cache\n";
-      $response1 = $client->messages->create(
-          maxTokens: 16000,
-          messages: [[
-              'role' => 'user',
-              'content' => [
-                  [
-                      'type' => 'text',
-                      'text' => $largeText,
-                      'cache_control' => ['type' => 'ephemeral']
-                  ],
-                  [
-                      'type' => 'text',
-                      'text' => 'Analyze the tone of this passage.'
-                  ]
-              ]
-          ]],
-          model: 'claude-opus-5-5',
-          thinking: ['type' => 'adaptive'],
-      );
-
-      echo "First response usage: " . json_encode($response1->usage) . "\n";
-
-      echo "\nSecond request - same configuration (cache hit expected)\n";
-      $response2 = $client->messages->create(
-          maxTokens: 16000,
-          messages: [
-              [
-                  'role' => 'user',
-                  'content' => [
-                      [
-                          'type' => 'text',
-                          'text' => $largeText,
-                          'cache_control' => ['type' => 'ephemeral']
-                      ],
-                      [
-                          'type' => 'text',
-                          'text' => 'Analyze the tone of this passage.'
-                      ]
-                  ]
-              ],
-              [
-                  'role' => 'assistant',
-                  'content' => $response1->content
-              ],
-              [
-                  'role' => 'user',
-                  'content' => 'Analyze the characters in this passage.'
-              ]
-          ],
-          model: 'claude-opus-5-5',
-          thinking: ['type' => 'adaptive'],
-      );
-
-      echo "Second response usage: " . json_encode($response2->usage) . "\n";
-
-      echo "\nThird request - different effort level (cache miss expected)\n";
-      $response3 = $client->messages->create(
-          maxTokens: 16000,
-          messages: [
-              [
-                  'role' => 'user',
-                  'content' => [
-                      [
-                          'type' => 'text',
-                          'text' => $largeText,
-                          'cache_control' => ['type' => 'ephemeral']
-                      ],
-                      [
-                          'type' => 'text',
-                          'text' => 'Analyze the tone of this passage.'
-                      ]
-                  ]
-              ],
-              [
-                  'role' => 'assistant',
-                  'content' => $response1->content
-              ],
-              [
-                  'role' => 'user',
-                  'content' => 'Analyze the characters in this passage.'
-              ],
-              [
-                  'role' => 'assistant',
-                  'content' => $response2->content
-              ],
-              [
-                  'role' => 'user',
-                  'content' => 'Analyze the setting in this passage.'
-              ]
-          ],
-          model: 'claude-opus-5-5',
-          thinking: ['type' => 'adaptive'],
-          outputConfig: ['effort' => 'low'],
-      );
-
-      echo "Third response usage: " . json_encode($response3->usage) . "\n";
-      ```
-    </Tab>
-
-    <Tab title="Ruby">
-      ```ruby
-      require "net/http"
-      require "uri"
-
-      def fetch_article_content(url)
-        uri = URI.parse(url)
-        response = Net::HTTP.get_response(uri)
-        text = response.body
-
-        lines = text.split("\n").map(&:strip)
-        lines.reject(&:empty?).join("\n")
-      end
-
-      client = Anthropic::Client.new
-
-      book_url = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
-      book_content = fetch_article_content(book_url)
-      large_text = book_content[0...10000]
-
-      puts "First request - establishing cache"
-      response1 = client.messages.create(
-        model: "claude-opus-5-5",
-        max_tokens: 16000,
-        thinking: {
-          type: "adaptive"
+    Console.WriteLine("\nThird request - different effort level (cache miss expected)");
+    var parameters3 = new MessageCreateParams
+    {
+        Model = Model.ClaudeOpus5_5,
+        MaxTokens = 16000,
+        Thinking = new ThinkingConfigAdaptive(),
+        OutputConfig = new OutputConfig
+        {
+            Effort = Effort.Low
         },
-        messages: [{
+        Messages =
+        [
+            new UserMessageParam
+            {
+                Content = new List<ContentBlockParam>
+                {
+                    new ContentBlockParam(new TextBlockParam()
+                    {
+                        Text = largeText,
+                        CacheControl = new CacheControlEphemeral(),
+                    }),
+                    new ContentBlockParam(new TextBlockParam()
+                    {
+                        Text = "Analyze the tone of this passage."
+                    }),
+                }
+            },
+            new AssistantMessageParam
+            {
+                Content = response1.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
+            },
+            new UserMessageParam { Content = "Analyze the characters in this passage." },
+            new AssistantMessageParam
+            {
+                Content = response2.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
+            },
+            new UserMessageParam { Content = "Analyze the setting in this passage." }
+        ]
+    };
+
+    var response3 = await client.Messages.Create(parameters3);
+    Console.WriteLine($"Third response usage: {response3.Usage}");
+
+    static async Task<string> FetchArticleContent(string url)
+    {
+        using HttpClient httpClient = new();
+        string content = await httpClient.GetStringAsync(url);
+        return content;
+    }
+    ```
+
+    ```go Go
+    client := anthropic.NewClient()
+
+    bookURL := "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
+    bookContent, err := fetchArticleContent(bookURL)
+    if err != nil {
+    	log.Fatal(err)
+    }
+
+    largeText := bookContent
+    if len(largeText) > 10000 {
+    	largeText = largeText[:10000]
+    }
+
+    // No system prompt: caching in messages instead
+    messages := []anthropic.MessageParam{
+    	anthropic.NewUserMessage(
+    		anthropic.ContentBlockParamUnion{OfText: &anthropic.TextBlockParam{
+    			Text:         largeText,
+    			CacheControl: anthropic.NewCacheControlEphemeralParam(),
+    		}},
+    		anthropic.NewTextBlock("Analyze the tone of this passage."),
+    	),
+    }
+
+    // First request: establish cache
+    fmt.Println("First request - establishing cache")
+    response1, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+    	Model:     anthropic.ModelClaudeOpus5_5,
+    	MaxTokens: 16000,
+    	Thinking: anthropic.ThinkingConfigParamUnion{
+    		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
+    	},
+    	Messages: messages,
+    })
+    if err != nil {
+    	log.Fatal(err)
+    }
+    fmt.Printf("First response usage: %s\n", response1.Usage.RawJSON())
+
+    messages = append(messages, response1.ToParam())
+    messages = append(messages, anthropic.NewUserMessage(anthropic.NewTextBlock("Analyze the characters in this passage.")))
+
+    // Second request: same configuration (cache hit expected)
+    fmt.Println("\nSecond request - same configuration (cache hit expected)")
+    response2, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+    	Model:     anthropic.ModelClaudeOpus5_5,
+    	MaxTokens: 16000,
+    	Thinking: anthropic.ThinkingConfigParamUnion{
+    		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
+    	},
+    	Messages: messages,
+    })
+    if err != nil {
+    	log.Fatal(err)
+    }
+    fmt.Printf("Second response usage: %s\n", response2.Usage.RawJSON())
+
+    messages = append(messages, response2.ToParam())
+    messages = append(messages, anthropic.NewUserMessage(anthropic.NewTextBlock("Analyze the setting in this passage.")))
+
+    // Third request: different effort level (cache miss expected)
+    fmt.Println("\nThird request - different effort level (cache miss expected)")
+    response3, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+    	Model:     anthropic.ModelClaudeOpus5_5,
+    	MaxTokens: 16000,
+    	Thinking: anthropic.ThinkingConfigParamUnion{
+    		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
+    	},
+    	OutputConfig: anthropic.OutputConfigParam{
+    		Effort: anthropic.OutputConfigEffortLow,
+    	},
+    	Messages: messages,
+    })
+    if err != nil {
+    	log.Fatal(err)
+    }
+    fmt.Printf("Third response usage: %s\n", response3.Usage.RawJSON())
+    ```
+
+    ```java Java
+    import com.anthropic.models.messages.CacheControlEphemeral;
+    // ...
+    void main() throws Exception {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        String bookUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt";
+        String bookContent = fetchArticleContent(bookUrl);
+        String largeText = bookContent.substring(0, Math.min(10000, bookContent.length()));
+
+        // First request: establish cache
+        IO.println("First request - establishing cache");
+        MessageCreateParams params1 = MessageCreateParams.builder()
+            .model(Model.CLAUDE_OPUS_5_5)
+            .maxTokens(16000L)
+            .thinking(ThinkingConfigAdaptive.builder().build())
+            .addUserMessageOfContentBlockParams(List.of(
+                ContentBlockParam.ofText(TextBlockParam.builder()
+                    .text(largeText)
+                    .cacheControl(CacheControlEphemeral.builder().build())
+                    .build()),
+                ContentBlockParam.ofText(TextBlockParam.builder()
+                    .text("Analyze the tone of this passage.")
+                    .build())
+            ))
+            .build();
+
+        Message response1 = client.messages().create(params1);
+        IO.println("First response usage: " + response1.usage());
+
+        // Second request: same configuration (cache hit expected)
+        IO.println("\nSecond request - same configuration (cache hit expected)");
+        MessageCreateParams params2 = MessageCreateParams.builder()
+            .model(Model.CLAUDE_OPUS_5_5)
+            .maxTokens(16000L)
+            .thinking(ThinkingConfigAdaptive.builder().build())
+            .addUserMessageOfContentBlockParams(List.of(
+                ContentBlockParam.ofText(TextBlockParam.builder()
+                    .text(largeText)
+                    .cacheControl(CacheControlEphemeral.builder().build())
+                    .build()),
+                ContentBlockParam.ofText(TextBlockParam.builder()
+                    .text("Analyze the tone of this passage.")
+                    .build())
+            ))
+            .addAssistantMessageOfContentBlockParams(response1.content().stream()
+                .map(block -> block.toParam())
+                .collect(Collectors.toList()))
+            .addUserMessage("Analyze the characters in this passage.")
+            .build();
+
+        Message response2 = client.messages().create(params2);
+        IO.println("Second response usage: " + response2.usage());
+
+        // Third request: different effort level (cache miss expected)
+        IO.println("\nThird request - different effort level (cache miss expected)");
+        MessageCreateParams params3 = MessageCreateParams.builder()
+            .model(Model.CLAUDE_OPUS_5_5)
+            .maxTokens(16000L)
+            .thinking(ThinkingConfigAdaptive.builder().build())
+            .outputConfig(OutputConfig.builder()
+                .effort(OutputConfig.Effort.LOW)
+                .build())
+            .addUserMessageOfContentBlockParams(List.of(
+                ContentBlockParam.ofText(TextBlockParam.builder()
+                    .text(largeText)
+                    .cacheControl(CacheControlEphemeral.builder().build())
+                    .build()),
+                ContentBlockParam.ofText(TextBlockParam.builder()
+                    .text("Analyze the tone of this passage.")
+                    .build())
+            ))
+            .addAssistantMessageOfContentBlockParams(response1.content().stream()
+                .map(block -> block.toParam())
+                .collect(Collectors.toList()))
+            .addUserMessage("Analyze the characters in this passage.")
+            .addAssistantMessageOfContentBlockParams(response2.content().stream()
+                .map(block -> block.toParam())
+                .collect(Collectors.toList()))
+            .addUserMessage("Analyze the setting in this passage.")
+            .build();
+
+        Message response3 = client.messages().create(params3);
+        IO.println("Third response usage: " + response3.usage());
+    }
+
+    String fetchArticleContent(String url) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
+    }
+    ```
+
+    ```php PHP
+    function fetchArticleContent($url)
+    {
+        $content = file_get_contents($url);
+        $lines = explode("\n", $content);
+        $cleanedLines = array_filter(array_map('trim', $lines));
+        return implode("\n", $cleanedLines);
+    }
+
+    $client = new Client();
+
+    $bookUrl = 'https://www.gutenberg.org/cache/epub/1342/pg1342.txt';
+    $bookContent = fetchArticleContent($bookUrl);
+    $largeText = substr($bookContent, 0, 10000);
+
+    echo "First request - establishing cache\n";
+    $response1 = $client->messages->create(
+        maxTokens: 16000,
+        messages: [[
+            'role' => 'user',
+            'content' => [
+                [
+                    'type' => 'text',
+                    'text' => $largeText,
+                    'cache_control' => ['type' => 'ephemeral']
+                ],
+                [
+                    'type' => 'text',
+                    'text' => 'Analyze the tone of this passage.'
+                ]
+            ]
+        ]],
+        model: 'claude-opus-5-5',
+        thinking: ['type' => 'adaptive'],
+    );
+
+    echo 'First response usage: ' . json_encode($response1->usage) . "\n";
+
+    echo "\nSecond request - same configuration (cache hit expected)\n";
+    $response2 = $client->messages->create(
+        maxTokens: 16000,
+        messages: [
+            [
+                'role' => 'user',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => $largeText,
+                        'cache_control' => ['type' => 'ephemeral']
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'Analyze the tone of this passage.'
+                    ]
+                ]
+            ],
+            [
+                'role' => 'assistant',
+                'content' => $response1->content
+            ],
+            [
+                'role' => 'user',
+                'content' => 'Analyze the characters in this passage.'
+            ]
+        ],
+        model: 'claude-opus-5-5',
+        thinking: ['type' => 'adaptive'],
+    );
+
+    echo 'Second response usage: ' . json_encode($response2->usage) . "\n";
+
+    echo "\nThird request - different effort level (cache miss expected)\n";
+    $response3 = $client->messages->create(
+        maxTokens: 16000,
+        messages: [
+            [
+                'role' => 'user',
+                'content' => [
+                    [
+                        'type' => 'text',
+                        'text' => $largeText,
+                        'cache_control' => ['type' => 'ephemeral']
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'Analyze the tone of this passage.'
+                    ]
+                ]
+            ],
+            [
+                'role' => 'assistant',
+                'content' => $response1->content
+            ],
+            [
+                'role' => 'user',
+                'content' => 'Analyze the characters in this passage.'
+            ],
+            [
+                'role' => 'assistant',
+                'content' => $response2->content
+            ],
+            [
+                'role' => 'user',
+                'content' => 'Analyze the setting in this passage.'
+            ]
+        ],
+        model: 'claude-opus-5-5',
+        thinking: ['type' => 'adaptive'],
+        outputConfig: ['effort' => 'low'],
+    );
+
+    echo 'Third response usage: ' . json_encode($response3->usage) . "\n";
+    ```
+
+    ```ruby Ruby
+    require "net/http"
+    require "uri"
+
+    def fetch_article_content(url)
+      uri = URI.parse(url)
+      response = Net::HTTP.get_response(uri)
+      text = response.body
+
+      lines = text.split("\n").map(&:strip)
+      lines.reject(&:empty?).join("\n")
+    end
+
+    client = Anthropic::Client.new
+
+    book_url = "https://www.gutenberg.org/cache/epub/1342/pg1342.txt"
+    book_content = fetch_article_content(book_url)
+    large_text = book_content[0...10000]
+
+    puts "First request - establishing cache"
+    response1 = client.messages.create(
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      thinking: {
+        type: "adaptive"
+      },
+      messages: [{
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: large_text,
+            cache_control: { type: "ephemeral" }
+          },
+          {
+            type: "text",
+            text: "Analyze the tone of this passage."
+          }
+        ]
+      }]
+    )
+
+    puts "First response usage: #{response1.usage}"
+
+    puts "\nSecond request - same configuration (cache hit expected)"
+    response2 = client.messages.create(
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      thinking: {
+        type: "adaptive"
+      },
+      messages: [
+        {
           role: "user",
           content: [
             {
@@ -758,94 +768,67 @@ The following example demonstrates the invalidation with a multi-turn script you
               text: "Analyze the tone of this passage."
             }
           ]
-        }]
-      )
-
-      puts "First response usage: #{response1.usage}"
-
-      puts "\nSecond request - same configuration (cache hit expected)"
-      response2 = client.messages.create(
-        model: "claude-opus-5-5",
-        max_tokens: 16000,
-        thinking: {
-          type: "adaptive"
         },
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: large_text,
-                cache_control: { type: "ephemeral" }
-              },
-              {
-                type: "text",
-                text: "Analyze the tone of this passage."
-              }
-            ]
-          },
-          {
-            role: "assistant",
-            content: response1.content
-          },
-          {
-            role: "user",
-            content: "Analyze the characters in this passage."
-          }
-        ]
-      )
-
-      puts "Second response usage: #{response2.usage}"
-
-      puts "\nThird request - different effort level (cache miss expected)"
-      response3 = client.messages.create(
-        model: "claude-opus-5-5",
-        max_tokens: 16000,
-        thinking: {
-          type: "adaptive"
+        {
+          role: "assistant",
+          content: response1.content
         },
-        output_config: {
-          effort: "low"
-        },
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: large_text,
-                cache_control: { type: "ephemeral" }
-              },
-              {
-                type: "text",
-                text: "Analyze the tone of this passage."
-              }
-            ]
-          },
-          {
-            role: "assistant",
-            content: response1.content
-          },
-          {
-            role: "user",
-            content: "Analyze the characters in this passage."
-          },
-          {
-            role: "assistant",
-            content: response2.content
-          },
-          {
-            role: "user",
-            content: "Analyze the setting in this passage."
-          }
-        ]
-      )
+        {
+          role: "user",
+          content: "Analyze the characters in this passage."
+        }
+      ]
+    )
 
-      puts "Third response usage: #{response3.usage}"
-      ```
-    </Tab>
-  </Tabs>
+    puts "Second response usage: #{response2.usage}"
+
+    puts "\nThird request - different effort level (cache miss expected)"
+    response3 = client.messages.create(
+      model: "claude-opus-5-5",
+      max_tokens: 16000,
+      thinking: {
+        type: "adaptive"
+      },
+      output_config: {
+        effort: "low"
+      },
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: large_text,
+              cache_control: { type: "ephemeral" }
+            },
+            {
+              type: "text",
+              text: "Analyze the tone of this passage."
+            }
+          ]
+        },
+        {
+          role: "assistant",
+          content: response1.content
+        },
+        {
+          role: "user",
+          content: "Analyze the characters in this passage."
+        },
+        {
+          role: "assistant",
+          content: response2.content
+        },
+        {
+          role: "user",
+          content: "Analyze the setting in this passage."
+        }
+      ]
+    )
+
+    puts "Third response usage: #{response3.usage}"
+    ```
+  </CodeGroup>
 
   Here is the output of the script (you might see slightly different numbers):
 

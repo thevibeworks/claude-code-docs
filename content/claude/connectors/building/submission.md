@@ -135,7 +135,7 @@ Your progress saves automatically in your browser as you move between steps, so 
 
 **1. Connection**
 
-Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**.
+Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**. A listing that uses one of these options can be published only once it has the **Verified** label, as [Servers with per-customer URLs](/docs/connectors/building/authentication.md#servers-with-per-customer-urls) explains.
 
 **2. Tools**
 
@@ -155,7 +155,7 @@ Company name and website, plus a primary contact for review updates.
 
 **6. Authentication**
 
-How users authenticate: OAuth with dynamic client registration, client ID metadata documents, or Anthropic-held client credentials; a custom connection where users supply their own URL or credentials at connection time; or no authentication. [Authentication](/docs/connectors/building/authentication.md) covers which modes are supported directly and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
+In the **How users authenticate** section, choose whether users must sign in under **Authentication requirement**, and how they sign in under **Authentication methods**. Choose **Required when the server asks** if your server starts without sign-in and only some tools need it. To have Anthropic hold your OAuth client, enter its client ID and secret here, as [Enter your OAuth client in the developer portal](/docs/connectors/building/authentication.md#enter-your-oauth-client-in-the-developer-portal) describes. [Authentication for connectors](/docs/connectors/building/authentication.md) covers each option.
 
 If you chose **URL pattern** in the Connection step, Anthropic-held client credentials can't be used. If you chose **Multiple URLs**, a custom connection can't be used.
 
@@ -177,7 +177,7 @@ Everything you've entered, for a final check before you submit. Any quality warn
 
 ## After you submit
 
-Anthropic scans your submission automatically for policy compliance and, by default, lists it as a Community connector with no action from you. Some submissions also get a review from a person, and those review times vary with queue volume. The portal is always open for new submissions. Your submission's status and any reviewer feedback appear in the portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), and [Track your directory submission](/docs/directory/submission-status.md#mcp-connector-statuses) explains what each status in the portal means. [Manage your directory listing](/docs/connectors/building/managing-your-listing.md) covers reviewer feedback, listing edits, and the server health and usage metrics you get after publication.
+Anthropic scans your submission automatically for policy compliance and, by default, lists it as a Community connector with no action from you. A listing that uses an option under **Users connect to different URLs** can be published only once it has the **Verified** label. Some submissions also get a review from a person, and those review times vary with queue volume. The portal is always open for new submissions. Your submission's status and any reviewer feedback appear in the portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), and [Track your directory submission](/docs/directory/submission-status.md#mcp-connector-statuses) explains what each status in the portal means. [Manage your directory listing](/docs/connectors/building/managing-your-listing.md) covers reviewer feedback, listing edits, and the server health and usage metrics you get after publication.
 
 For escalations, email `mcp-review@anthropic.com`.
 

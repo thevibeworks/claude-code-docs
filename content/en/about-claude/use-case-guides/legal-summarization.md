@@ -88,12 +88,12 @@ For instance, when summarizing a sublease agreement, you might want to extract t
 
   ```java Java
   List<String> detailsToExtract = List.of(
-          "Parties involved (sublessor, sublessee, and original lessor)",
-          "Property details (address, description, and permitted use)",
-          "Term and rent (start date, end date, monthly rent, and security deposit)",
-          "Responsibilities (utilities, maintenance, and repairs)",
-          "Consent and notices (landlord's consent, and notice requirements)",
-          "Special provisions (furniture, parking, and subletting restrictions)");
+      "Parties involved (sublessor, sublessee, and original lessor)",
+      "Property details (address, description, and permitted use)",
+      "Term and rent (start date, end date, monthly rent, and security deposit)",
+      "Responsibilities (utilities, maintenance, and repairs)",
+      "Consent and notices (landlord's consent, and notice requirements)",
+      "Special provisions (furniture, parking, and subletting restrictions)");
   ```
 
   ```php PHP
@@ -277,7 +277,7 @@ Here is a demonstration of this process on a sample PDF:
     return text;
   }
 
-  // Download the sample sublease agreement from the summarization cookbook
+  // Download the sample sublease agreement from the Claude Cookbook's summarization recipe
   const response = await fetch(
     "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf"
   );
@@ -306,7 +306,7 @@ Here is a demonstration of this process on a sample PDF:
       return text;
   }
 
-  // Download the sample sublease agreement from the summarization cookbook
+  // Download the sample sublease agreement from the Claude Cookbook's summarization recipe
   using var httpClient = new HttpClient();
   var pdfData = await httpClient.GetByteArrayAsync(
       "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf"
@@ -356,7 +356,7 @@ Here is a demonstration of this process on a sample PDF:
 
   // extractDocumentText downloads the sample sublease agreement and extracts its text.
   func extractDocumentText() {
-  	// Download the sample sublease agreement from the summarization cookbook
+  	// Download the sample sublease agreement from the Claude Cookbook's summarization recipe
   	response, err := http.Get("https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf")
   	if err != nil {
   		log.Fatal(err)
@@ -402,10 +402,10 @@ Here is a demonstration of this process on a sample PDF:
   }
 
   void extractDocumentText() throws IOException, InterruptedException {
-      // Download the sample sublease agreement from the summarization cookbook
+      // Download the sample sublease agreement from the Claude Cookbook's summarization recipe
       HttpRequest request = HttpRequest.newBuilder(URI.create(
-                      "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf"))
-              .build();
+              "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf"))
+          .build();
       byte[] pdfData;
       try (HttpClient httpClient = HttpClient.newHttpClient()) {
           pdfData = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray()).body();
@@ -430,7 +430,7 @@ Here is a demonstration of this process on a sample PDF:
       return preg_replace('/\s+/', ' ', $text);
   };
 
-  // Download the sample sublease agreement from the summarization cookbook
+  // Download the sample sublease agreement from the Claude Cookbook's summarization recipe
   $pdfData = file_get_contents(
       'https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf'
   );
@@ -455,7 +455,7 @@ Here is a demonstration of this process on a sample PDF:
     text.gsub(/\s+/, " ")
   end
 
-  # Download the sample sublease agreement from the summarization cookbook
+  # Download the sample sublease agreement from the Claude Cookbook's summarization recipe
   pdf_data = Net::HTTP.get(
     URI("https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample%20Sublease%20Agreement.pdf")
   )
@@ -701,41 +701,41 @@ Here’s an example of how to create a prompt that ensures the generated summari
 
       // Prompt the model to summarize the sublease agreement
       String prompt = """
-              Summarize the following sublease agreement. Focus on these key aspects:
+          Summarize the following sublease agreement. Focus on these key aspects:
 
-                  %s
+              %s
 
-                  Provide the summary in bullet points nested within the XML header for each section. For example:
+              Provide the summary in bullet points nested within the XML header for each section. For example:
 
-                  <parties involved>
-                  - Sublessor: [Name]
-                  // Add more details as needed
-                  </parties involved>
+              <parties involved>
+              - Sublessor: [Name]
+              // Add more details as needed
+              </parties involved>
 
-                  If any information is not explicitly stated in the document, note it as "Not specified". Do not preamble.
+              If any information is not explicitly stated in the document, note it as "Not specified". Do not preamble.
 
-                  Sublease agreement text:
-                  %s
-              """
-              .formatted(detailsToExtractStr, text);
+              Sublease agreement text:
+              %s
+          """
+          .formatted(detailsToExtractStr, text);
 
       Message response = client.messages().create(MessageCreateParams.builder()
-              .model(model)
-              .maxTokens(maxTokens)
-              .system("You are a legal analyst specializing in real estate law, known for highly accurate and detailed summaries of sublease agreements.")
-              .addUserMessage(prompt)
-              .build());
+          .model(model)
+          .maxTokens(maxTokens)
+          .system("You are a legal analyst specializing in real estate law, known for highly accurate and detailed summaries of sublease agreements.")
+          .addUserMessage(prompt)
+          .build());
 
       return response.content().stream()
-              .flatMap(block -> block.text().stream())
-              .findFirst()
-              .orElseThrow()
-              .text();
+          .flatMap(block -> block.text().stream())
+          .findFirst()
+          .orElseThrow()
+          .text();
   }
 
   void printSubleaseSummary() {
       String subleaseSummary = summarizeDocument(
-              documentText, detailsToExtract, Model.CLAUDE_OPUS_5_5, 16000);
+          documentText, detailsToExtract, Model.CLAUDE_OPUS_5_5, 16000);
       IO.println(subleaseSummary);
   }
   ```
@@ -831,7 +831,7 @@ Here’s an example of how to create a prompt that ensures the generated summari
   ```
 </CodeGroup>
 
-This code implements a `summarize_document` (typescript, go, java: `summarizeDocument`; php: `$summarizeDocument`; csharp: `SummarizeDocument`) function that uses Claude to summarize the contents of a sublease agreement. The function accepts a text string and a list of details to extract as inputs. In this example, the code calls the function with the `document_text` (typescript, go, java, csharp: `documentText`; php: `$documentText`) and `details_to_extract` (typescript, go, java, csharp: `detailsToExtract`; php: `$detailsToExtract`) variables that were defined in the previous code snippets.
+This code implements a `summarize_document()` (typescript, go, java: `summarizeDocument()`; php: `$summarizeDocument()`; csharp: `SummarizeDocument()`) function that uses Claude to summarize the contents of a sublease agreement. The function accepts a text string and a list of details to extract as inputs. In this example, the code calls the function with the `document_text` (typescript, go, java, csharp: `documentText`; php: `$documentText`) and `details_to_extract` (typescript, go, java, csharp: `detailsToExtract`; php: `$detailsToExtract`) variables that were defined in the previous code snippets.
 
 Within the function, a prompt is generated for Claude, including the document to be summarized, the details to extract, and specific instructions for summarizing the document. The prompt instructs Claude to respond with a summary of each detail to extract nested within XML headers.
 
@@ -1157,8 +1157,8 @@ Here's an example of how to perform meta-summarization:
   ```java Java
   List<String> chunkText(String text, int chunkSize) {
       return IntStream.iterate(0, start -> start < text.length(), start -> start + chunkSize)
-              .mapToObj(start -> text.substring(start, Math.min(start + chunkSize, text.length())))
-              .toList();
+          .mapToObj(start -> text.substring(start, Math.min(start + chunkSize, text.length())))
+          .toList();
   }
 
   String summarizeLongDocument(String text, List<String> detailsToExtract, Model model, long maxTokens) {
@@ -1167,49 +1167,49 @@ Here's an example of how to perform meta-summarization:
 
       // Iterate over chunks and summarize each one
       String chunkSummaries = chunkText(text, 20000).stream()
-              .map(chunk -> summarizeDocument(chunk, detailsToExtract, model, maxTokens))
-              .collect(Collectors.joining());
+          .map(chunk -> summarizeDocument(chunk, detailsToExtract, model, maxTokens))
+          .collect(Collectors.joining());
 
       String finalSummaryPrompt = """
 
-                  You are looking at the chunked summaries of multiple documents that are all related.
-                  Combine the following summaries of the document from different truthful sources into a coherent overall summary:
+              You are looking at the chunked summaries of multiple documents that are all related.
+              Combine the following summaries of the document from different truthful sources into a coherent overall summary:
 
-                  <chunked_summaries>
-                  %s
-                  </chunked_summaries>
+              <chunked_summaries>
+              %s
+              </chunked_summaries>
 
-                  Focus on these key aspects:
-                  %s
+              Focus on these key aspects:
+              %s
 
-                  Provide the summary in bullet points nested within the XML header for each section. For example:
+              Provide the summary in bullet points nested within the XML header for each section. For example:
 
-                  <parties involved>
-                  - Sublessor: [Name]
-                  // Add more details as needed
-                  </parties involved>
+              <parties involved>
+              - Sublessor: [Name]
+              // Add more details as needed
+              </parties involved>
 
-                  If any information is not explicitly stated in the document, note it as "Not specified". Do not preamble.
-              """
-              .formatted(chunkSummaries, detailsToExtractStr);
+              If any information is not explicitly stated in the document, note it as "Not specified". Do not preamble.
+          """
+          .formatted(chunkSummaries, detailsToExtractStr);
 
       Message response = client.messages().create(MessageCreateParams.builder()
-              .model(model)
-              .maxTokens(maxTokens)
-              .system("You are a legal expert that summarizes notes on one document.")
-              .addUserMessage(finalSummaryPrompt)
-              .build());
+          .model(model)
+          .maxTokens(maxTokens)
+          .system("You are a legal expert that summarizes notes on one document.")
+          .addUserMessage(finalSummaryPrompt)
+          .build());
 
       return response.content().stream()
-              .flatMap(block -> block.text().stream())
-              .findFirst()
-              .orElseThrow()
-              .text();
+          .flatMap(block -> block.text().stream())
+          .findFirst()
+          .orElseThrow()
+          .text();
   }
 
   void printLongSummary() {
       String longSummary = summarizeLongDocument(
-              documentText, detailsToExtract, Model.CLAUDE_OPUS_5_5, 16000);
+          documentText, detailsToExtract, Model.CLAUDE_OPUS_5_5, 16000);
       IO.println(longSummary);
   }
   ```
@@ -1323,11 +1323,11 @@ Here's an example of how to perform meta-summarization:
   ```
 </CodeGroup>
 
-The `summarize_long_document` (typescript, go, java: `summarizeLongDocument`; php: `$summarizeLongDocument`; csharp: `SummarizeLongDocument`) function builds upon the earlier `summarize_document` (typescript, go, java: `summarizeDocument`; php: `$summarizeDocument`; csharp: `SummarizeDocument`) function by splitting the document into smaller chunks and summarizing each chunk individually.
+The `summarize_long_document()` (typescript, go, java: `summarizeLongDocument()`; php: `$summarizeLongDocument()`; csharp: `SummarizeLongDocument()`) function builds upon the earlier `summarize_document()` (typescript, go, java: `summarizeDocument()`; php: `$summarizeDocument()`; csharp: `SummarizeDocument()`) function by splitting the document into smaller chunks and summarizing each chunk individually.
 
-The code achieves this by applying the `summarize_document` (typescript, go, java: `summarizeDocument`; php: `$summarizeDocument`; csharp: `SummarizeDocument`) function to each chunk of 20,000 characters within the original document. The individual summaries are then combined, and a final summary is created from these chunk summaries.
+The code achieves this by applying the `summarize_document()` (typescript, go, java: `summarizeDocument()`; php: `$summarizeDocument()`; csharp: `SummarizeDocument()`) function to each chunk of 20,000 characters within the original document. The individual summaries are then combined, and a final summary is created from these chunk summaries.
 
-Note that the `summarize_long_document` (typescript, go, java: `summarizeLongDocument`; php: `$summarizeLongDocument`; csharp: `SummarizeLongDocument`) function isn't strictly necessary for the example PDF, as the entire document fits within Claude's context window. However, it becomes essential for documents exceeding Claude's context window or when summarizing multiple related documents together. Regardless, this meta-summarization technique often captures additional important details in the final summary that were missed in the earlier single-summary approach.
+Note that the `summarize_long_document()` (typescript, go, java: `summarizeLongDocument()`; php: `$summarizeLongDocument()`; csharp: `SummarizeLongDocument()`) function isn't strictly necessary for the example PDF, as the entire document fits within Claude's context window. However, it becomes essential for documents exceeding Claude's context window or when summarizing multiple related documents together. Regardless, this meta-summarization technique often captures additional important details in the final summary that were missed in the earlier single-summary approach.
 
 ### Use summary indexed documents to explore a large collection of documents
 

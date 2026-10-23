@@ -34,7 +34,10 @@ Give the store a `name` (csharp, go: `Name`) and a `description` (csharp, go: `D
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"name": "User Preferences", "description": "Per-user preferences and project context."}'
+    -d '{
+      "name": "User Preferences",
+      "description": "Per-user preferences and project context."
+    }'
   ```
 
   <CodeGroupItem>
@@ -135,7 +138,10 @@ Pre-load a store with reference material before any agent runs:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"path": "/formatting_standards.md", "content": "All reports use GAAP formatting. Dates are ISO-8601..."}'
+    -d '{
+      "path": "/formatting_standards.md",
+      "content": "All reports use GAAP formatting. Dates are ISO-8601..."
+    }'
   ```
 
   ```bash CLI
@@ -305,7 +311,6 @@ You can configure `access` (csharp, go: `Access`) as well. It defaults to `read_
   	EnvironmentID: environment.ID,
   	Resources: []anthropic.BetaSessionNewParamsResourceUnion{{
   		OfMemoryStore: &anthropic.BetaManagedAgentsMemoryStoreResourceParam{
-  			Type:          anthropic.BetaManagedAgentsMemoryStoreResourceParamTypeMemoryStore,
   			MemoryStoreID: store.ID,
   			Access:        anthropic.BetaManagedAgentsMemoryStoreResourceParamAccessReadWrite,
   			Instructions:  anthropic.String("User preferences and project context. Check before starting any task."),
@@ -438,7 +443,9 @@ List the memories in a store. Results are returned in a stable, server-defined o
   });
   await foreach (var item in page.Paginate())
   {
-      var line = item.Match(m => $"memory  {m.Path}", p => $"memory_prefix  {p.Path}");
+      var line = item.Match(
+          memoryItem => $"memory  {memoryItem.Path}",
+          prefixItem => $"memory_prefix  {prefixItem.Path}");
       Console.WriteLine(line);
   }
   ```
@@ -463,8 +470,8 @@ List the memories in a store. Results are returned in a stable, server-defined o
           .build()
   );
   for (var item : page.data()) {
-      item.memory().ifPresent(m -> IO.println("memory  " + m.path()));
-      item.memoryPrefix().ifPresent(p -> IO.println("memory_prefix  " + p.path()));
+      item.memory().ifPresent(memoryItem -> IO.println("memory  " + memoryItem.path()));
+      item.memoryPrefix().ifPresent(prefixItem -> IO.println("memory_prefix  " + prefixItem.path()));
   }
   ```
 
@@ -545,7 +552,9 @@ Fetching an individual memory returns the full content.
   ```java Java
   var retrieved = client.beta().memoryStores().memories().retrieve(
       mem.id(),
-      MemoryRetrieveParams.builder().memoryStoreId(store.id()).build()
+      MemoryRetrieveParams.builder()
+          .memoryStoreId(store.id())
+          .build()
   );
   IO.println(retrieved.content().orElseThrow());
   ```
@@ -577,7 +586,10 @@ See the [Retrieve a memory](https://platform.claude.com/docs/en/api/beta/memory_
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"path": "/preferences/formatting.md", "content": "Always use tabs, not spaces."}'
+    -d '{
+      "path": "/preferences/formatting.md",
+      "content": "Always use tabs, not spaces."
+    }'
   ```
 
   ```bash CLI
@@ -788,7 +800,6 @@ To avoid overwriting a concurrent write, pass a `content_sha256` precondition. T
   	MemoryStoreID: store.ID,
   	Content:       anthropic.String("CORRECTED: Always use 2-space indentation."),
   	Precondition: anthropic.BetaManagedAgentsPreconditionParam{
-  		Type:          anthropic.BetaManagedAgentsPreconditionTypeContentSha256,
   		ContentSha256: anthropic.String(mem.ContentSha256),
   	},
   })
@@ -879,7 +890,9 @@ To avoid overwriting a concurrent write, pass a `content_sha256` precondition. T
   ```java Java
   client.beta().memoryStores().memories().delete(
       mem.id(),
-      MemoryDeleteParams.builder().memoryStoreId(store.id()).build()
+      MemoryDeleteParams.builder()
+          .memoryStoreId(store.id())
+          .build()
   );
   ```
 
@@ -954,10 +967,10 @@ List version history for a store, newest first. The example filters to a single 
       MemoryID = mem.ID,
   });
   var versionIds = new List<string>();
-  await foreach (var v in versions.Paginate())
+  await foreach (var memoryVersion in versions.Paginate())
   {
-      Console.WriteLine($"{v.ID}: {v.Operation.Raw()}");
-      versionIds.Add(v.ID);
+      Console.WriteLine($"{memoryVersion.ID}: {memoryVersion.Operation.Raw()}");
+      versionIds.Add(memoryVersion.ID);
   }
 
   var versionId = versionIds[1];
@@ -968,8 +981,8 @@ List version history for a store, newest first. The example filters to a single 
   	MemoryID: anthropic.String(mem.ID),
   })
   for versions.Next() {
-  	v := versions.Current()
-  	fmt.Printf("%s: %s\n", v.ID, v.Operation)
+  	memoryVersion := versions.Current()
+  	fmt.Printf("%s: %s\n", memoryVersion.ID, memoryVersion.Operation)
   }
   if err := versions.Err(); err != nil {
   	panic(err)
@@ -987,10 +1000,12 @@ List version history for a store, newest first. The example filters to a single 
   ```java Java
   var versions = client.beta().memoryStores().memoryVersions().list(
       store.id(),
-      MemoryVersionListParams.builder().memoryId(mem.id()).build()
+      MemoryVersionListParams.builder()
+          .memoryId(mem.id())
+          .build()
   );
-  for (var v : versions.autoPager()) {
-      IO.println(v.id() + ": " + v.operation());
+  for (var memoryVersion : versions.autoPager()) {
+      IO.println(memoryVersion.id() + ": " + memoryVersion.operation());
   }
 
   var versionId = versions.data().get(1).id();
@@ -1001,8 +1016,8 @@ List version history for a store, newest first. The example filters to a single 
       $store->id,
       memoryID: $mem->id,
   );
-  foreach ($versions->pagingEachItem() as $v) {
-      echo "{$v->id}: {$v->operation}\n";
+  foreach ($versions->pagingEachItem() as $memoryVersion) {
+      echo "{$memoryVersion->id}: {$memoryVersion->operation}\n";
   }
 
   $versionId = $versions->data[1]->id;
@@ -1077,7 +1092,9 @@ Fetching an individual version returns the same fields as the list response plus
   ```java Java
   var version = client.beta().memoryStores().memoryVersions().retrieve(
       versionId,
-      MemoryVersionRetrieveParams.builder().memoryStoreId(store.id()).build()
+      MemoryVersionRetrieveParams.builder()
+          .memoryStoreId(store.id())
+          .build()
   );
   IO.println(version.content().orElseThrow());
   ```
@@ -1155,7 +1172,9 @@ A version that is the current head of a live memory cannot be redacted. Write a 
   ```java Java
   client.beta().memoryStores().memoryVersions().redact(
       versionId,
-      MemoryVersionRedactParams.builder().memoryStoreId(store.id()).build()
+      MemoryVersionRedactParams.builder()
+          .memoryStoreId(store.id())
+          .build()
   );
   ```
 
@@ -1209,9 +1228,9 @@ List stores in the workspace. Archived stores are excluded by default; set `incl
 
   ```csharp C#
   var stores = await client.Beta.MemoryStores.List(new() { IncludeArchived = true });
-  await foreach (var s in stores.Paginate())
+  await foreach (var memoryStore in stores.Paginate())
   {
-      Console.WriteLine($"{s.ID} {s.Name} {s.ArchivedAt}");
+      Console.WriteLine($"{memoryStore.ID} {memoryStore.Name} {memoryStore.ArchivedAt}");
   }
   ```
 
@@ -1220,8 +1239,8 @@ List stores in the workspace. Archived stores are excluded by default; set `incl
   	IncludeArchived: anthropic.Bool(true),
   })
   for stores.Next() {
-  	s := stores.Current()
-  	fmt.Println(s.ID, s.Name, s.ArchivedAt)
+  	memoryStore := stores.Current()
+  	fmt.Println(memoryStore.ID, memoryStore.Name, memoryStore.ArchivedAt)
   }
   if err := stores.Err(); err != nil {
   	panic(err)
@@ -1229,18 +1248,20 @@ List stores in the workspace. Archived stores are excluded by default; set `incl
   ```
 
   ```java Java
-  for (var s : client.beta().memoryStores().list(
-      MemoryStoreListParams.builder().includeArchived(true).build()
+  for (var memoryStore : client.beta().memoryStores().list(
+      MemoryStoreListParams.builder()
+          .includeArchived(true)
+          .build()
   ).autoPager()) {
-      IO.println(s.id() + " " + s.name() + " " + s.archivedAt());
+      IO.println(memoryStore.id() + " " + memoryStore.name() + " " + memoryStore.archivedAt());
   }
   ```
 
   ```php PHP
-  foreach ($client->beta->memoryStores->list(includeArchived: true)->pagingEachItem() as $s) {
+  foreach ($client->beta->memoryStores->list(includeArchived: true)->pagingEachItem() as $memoryStore) {
       // archivedAt is only set on archived stores.
-      $archivedAt = isset($s->archivedAt) ? $s->archivedAt->format(DATE_ATOM) : '';
-      echo "{$s->id} {$s->name} {$archivedAt}\n";
+      $archivedAt = isset($memoryStore->archivedAt) ? $memoryStore->archivedAt->format(DATE_ATOM) : '';
+      echo "{$memoryStore->id} {$memoryStore->name} {$archivedAt}\n";
   }
   ```
 

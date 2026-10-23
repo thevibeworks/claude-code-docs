@@ -1,10 +1,10 @@
 # Configure custom data retention controls for Enterprise plans
 
-This feature is available to Enterprise plan customers. To set custom retention periods for your organization, you must have either a Primary Owner or Owner role.
-
 *This article is about our commercial products, specifically Claude Enterprise. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
 
-Custom data retention controls allow organizations to manage how long Claude stores conversation and project data. This article explains how to set up and manage data retention periods for your organization.
+Custom data retention controls allow organizations to manage how long Claude stores conversation, project, and artifact data. This article explains how to set up and manage data retention periods for your organization.
+
+This feature is available to Enterprise plan customers. A retention period set on an Enterprise plan still applies to artifacts if your organization later changes to a Team plan. To set custom retention periods for your organization, you must have either a Primary Owner or Owner role.
 
 ## How data retention works
 
@@ -38,15 +38,19 @@ Data retention is based on the last observed activity:
 
   - Project retention always takes precedence over chat retention for chats inside a project. This applies even if you haven’t set a custom project retention period: by default, projects are retained indefinitely, so chats inside projects are not deleted by your chat retention period.
 
+- **For artifacts:** Retention period starts from the last time someone opened or edited the artifact.
+
 The minimum retention period is 30 days, and each month is counted as 30 days. For example, a three-month retention period equals 90 days.
 
 ## What gets deleted
 
 When data reaches the end of its retention period:
 
-- **For chats:** All standalone chats (chats not inside a project) and any artifacts within those chats will be deleted. Chats inside a project follow the project’s retention period. Moving a chat into a project places it under the project’s retention period; moving a chat out of a project makes it standalone again, and it becomes eligible for deletion under the chat retention period based on its last activity.
+- **For chats:** All standalone chats (chats not inside a project) will be deleted. Chats inside a project follow the project’s retention period. Moving a chat into a project places it under the project’s retention period; moving a chat out of a project makes it standalone again, and it becomes eligible for deletion under the chat retention period based on its last activity.
 
-- **For projects:** All projects will be deleted, including any chats and artifacts within those projects.
+- **For projects:** All projects will be deleted, including any chats within those projects.
+
+- **For artifacts:** Artifacts are deleted under a retention period that covers artifacts, not with the chat or project they were made in. This includes artifacts Claude creates in chats, with some exceptions. For example, Research reports and artifacts in some older chats are deleted with their chat, along with any link published from them. A retention period that covers artifacts doesn't delete artifacts published with a public link.
 
 ## Important considerations
 
@@ -60,9 +64,9 @@ When data reaches the end of its retention period:
 
 - If your chat is flagged by our automated trust and safety systems as violating our Usage Policy, we retain inputs and outputs as described here: **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866)**
 
-## Setting up data retention
+## Set up data retention
 
-## To set custom retention periods:
+To set custom retention periods:
 
 1. Log in to your Owner Enterprise plan account.
 
@@ -72,12 +76,12 @@ When data reaches the end of its retention period:
 
 4. Save your changes.
 
-**Important:** Custom retention periods apply to content in chats and projects. They do not apply to **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)**, **[Claude Tag](https://support.claude.com/en/articles/15594475-what-is-claude-tag)**, **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other feature that runs **[Claude Code in the cloud](https://support.claude.com/en/articles/12618689)**.
+**Important:** Custom retention periods apply to content in chats, projects, and artifacts. They don't apply to standalone **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)** at claude.ai/design,[**Claude Tag**](https://support.claude.com/en/articles/15594475-what-is-claude-tag), **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other feature that runs **[Claude Code in the cloud](https://support.claude.com/en/articles/12618689)**. A Claude Design project or design system that moves, or has already moved, to Claude becomes an artifact. If your organization has a retention period that covers artifacts (a single period for all data, or the private or shared artifact period if you use separate periods), that artifact can be permanently deleted if nobody opens it for that period. The period starts on the day of the move and restarts when someone opens or edits the artifact.
 
 ## Example retention calculation
 
 If a conversation’s last message is at 3PM UTC on March 1 with a 30-day retention period, the deletion will occur at midnight UTC on March 31.
 
-## Monitoring retention-related activities
+## Monitor retention-related activities
 
 All retention-related actions and changes are automatically tracked in **[audit logs](https://support.claude.com/en/articles/9970975-how-to-access-audit-logs)**. You can access these logs to monitor changes to retention settings and data deletion events.

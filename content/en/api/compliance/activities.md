@@ -81961,6 +81961,10 @@ compliance activities that can be filtered by various criteria.
 
       format: date-time
 
+    - `incoming_organization_id: optional string or null`
+
+      The organization proposed to join the parent organization, e.g. "org_01HX...". Not set on events recorded before this field existed.
+
     - `organization_id: optional string or null`
 
       Organization ID this activity is associated with
@@ -85638,6 +85642,10 @@ compliance activities that can be filtered by various criteria.
       When this activity occurred.
 
       format: date-time
+
+    - `incoming_organization_id: optional string or null`
+
+      The organization proposed to join the parent organization, e.g. "org_01HX...". Not set on events recorded before this field existed.
 
     - `organization_id: optional string or null`
 
@@ -221882,6 +221890,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       format: date-time
 
+    - `incoming_organization_id: optional string or null`
+
+      The organization proposed to join the parent organization, e.g. "org_01HX...". Not set on events recorded before this field existed.
+
     - `organization_id: optional string or null`
 
       Organization ID this activity is associated with
@@ -225559,6 +225571,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
       When this activity occurred.
 
       format: date-time
+
+    - `incoming_organization_id: optional string or null`
+
+      The organization proposed to join the parent organization, e.g. "org_01HX...". Not set on events recorded before this field existed.
 
     - `organization_id: optional string or null`
 

@@ -49,40 +49,40 @@ Here's an example where Claude programmatically queries a database multiple time
 <CodeGroup>
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
-      -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "content-type: application/json" \
-      -d '{
-          "model": "claude-opus-5-5",
-          "max_tokens": 4096,
-          "messages": [
-              {
-                  "role": "user",
-                  "content": "Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue"
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 4096,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue"
+        }
+      ],
+      "tools": [
+        {
+          "type": "code_execution_20260120",
+          "name": "code_execution"
+        },
+        {
+          "name": "query_database",
+          "description": "Execute a SQL query against the sales database. Returns a list of rows as JSON objects.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "sql": {
+                "type": "string",
+                "description": "SQL query to execute"
               }
-          ],
-          "tools": [
-              {
-                  "type": "code_execution_20260120",
-                  "name": "code_execution"
-              },
-              {
-                  "name": "query_database",
-                  "description": "Execute a SQL query against the sales database. Returns a list of rows as JSON objects.",
-                  "input_schema": {
-                      "type": "object",
-                      "properties": {
-                          "sql": {
-                              "type": "string",
-                              "description": "SQL query to execute"
-                          }
-                      },
-                      "required": ["sql"]
-                  },
-                  "allowed_callers": ["code_execution_20260120"]
-              }
-          ]
-      }'
+            },
+            "required": ["sql"]
+          },
+          "allowed_callers": ["code_execution_20260120"]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -194,7 +194,8 @@ Here's an example where Claude programmatically queries a database multiple time
       Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       Messages = [
-          new UserMessageParam {
+          new UserMessageParam
+          {
               Content = "Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue"
           }
       ],
@@ -295,7 +296,7 @@ Here's an example where Claude programmatically queries a database multiple time
       messages: [
           ['role' => 'user', 'content' => 'Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue'],
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       tools: [
           [
               'type' => 'code_execution_20260120',
@@ -367,7 +368,7 @@ The response stops with `stop_reason: "tool_use"`, a `container` ID, and a `tool
 
 When you configure a tool to be callable from code execution and Claude determines that tool is needed:
 
-1. Claude writes Python code that invokes the tool as a function, potentially including multiple tool calls and pre/post-processing logic.
+1. Claude writes Python code that calls the tool as a function. The code can include multiple tool calls and pre/post-processing logic.
 2. Claude runs this code in a sandboxed container through code execution.
 3. When a tool function is called, code execution pauses and the API returns a `tool_use` block.
 4. You provide the tool result, and code execution continues (intermediate results are not loaded into Claude's context window).
@@ -526,76 +527,76 @@ Send the full conversation history plus your tool result. Three details matter o
 <CodeGroup>
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
-      -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "content-type: application/json" \
-      -d '{
-          "model": "claude-opus-5-5",
-          "max_tokens": 4096,
-          "container": "container_xyz789",
-          "messages": [
-              {
-                  "role": "user",
-                  "content": "Query customer purchase history from the last quarter and identify our top 5 customers by revenue"
-              },
-              {
-                  "role": "assistant",
-                  "content": [
-                      {
-                          "type": "text",
-                          "text": "I'\''ll query the purchase history and analyze the results."
-                      },
-                      {
-                          "type": "server_tool_use",
-                          "id": "srvtoolu_abc123",
-                          "name": "code_execution",
-                          "input": {"code": "..."}
-                      },
-                      {
-                          "type": "tool_use",
-                          "id": "toolu_def456",
-                          "name": "query_database",
-                          "input": {"sql": "<sql>"},
-                          "caller": {
-                              "type": "code_execution_20260120",
-                              "tool_id": "srvtoolu_abc123"
-                          }
-                      }
-                  ]
-              },
-              {
-                  "role": "user",
-                  "content": [
-                      {
-                          "type": "tool_result",
-                          "tool_use_id": "toolu_def456",
-                          "content": "[{\"customer_id\": \"C1\", \"revenue\": 45000}, {\"customer_id\": \"C2\", \"revenue\": 38000}]"
-                      }
-                  ]
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 4096,
+      "container": "container_xyz789",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Query customer purchase history from the last quarter and identify our top 5 customers by revenue"
+        },
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "I'\''ll query the purchase history and analyze the results."
+            },
+            {
+              "type": "server_tool_use",
+              "id": "srvtoolu_abc123",
+              "name": "code_execution",
+              "input": {"code": "..."}
+            },
+            {
+              "type": "tool_use",
+              "id": "toolu_def456",
+              "name": "query_database",
+              "input": {"sql": "<sql>"},
+              "caller": {
+                "type": "code_execution_20260120",
+                "tool_id": "srvtoolu_abc123"
               }
-          ],
-          "tools": [
-              {
-                  "type": "code_execution_20260120",
-                  "name": "code_execution"
-              },
-              {
-                  "name": "query_database",
-                  "description": "Execute a SQL query against the sales database. Returns a list of rows as JSON objects.",
-                  "input_schema": {
-                      "type": "object",
-                      "properties": {
-                          "sql": {
-                              "type": "string",
-                              "description": "SQL query to execute"
-                          }
-                      },
-                      "required": ["sql"]
-                  },
-                  "allowed_callers": ["code_execution_20260120"]
-              }
+            }
           ]
-      }'
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_def456",
+              "content": "[{\"customer_id\": \"C1\", \"revenue\": 45000}, {\"customer_id\": \"C2\", \"revenue\": 38000}]"
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "type": "code_execution_20260120",
+          "name": "code_execution"
+        },
+        {
+          "name": "query_database",
+          "description": "Execute a SQL query against the sales database. Returns a list of rows as JSON objects.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "sql": {
+                "type": "string",
+                "description": "SQL query to execute"
+              }
+            },
+            "required": ["sql"]
+          },
+          "allowed_callers": ["code_execution_20260120"]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -878,40 +879,28 @@ Send the full conversation history plus your tool result. Three details matter o
   	},
   	Messages: []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock("Query customer purchase history from the last quarter and identify our top 5 customers by revenue")),
-  		{
-  			Role: anthropic.MessageParamRoleAssistant,
-  			Content: []anthropic.ContentBlockParamUnion{
-  				anthropic.NewTextBlock("I'll query the purchase history and analyze the results."),
-  				{OfServerToolUse: &anthropic.ServerToolUseBlockParam{
-  					ID:    "srvtoolu_abc123",
-  					Name:  anthropic.ServerToolUseBlockParamNameCodeExecution,
-  					Input: map[string]any{"code": "..."},
-  				}},
-  				{OfToolUse: &anthropic.ToolUseBlockParam{
-  					ID:    "toolu_def456",
-  					Name:  "query_database",
-  					Input: map[string]any{"sql": "<sql>"},
-  					Caller: anthropic.ServerToolUseBlockParamCallerUnion{
-  						OfCodeExecution20260120: &anthropic.ServerToolCaller20260120Param{
-  							ToolID: "srvtoolu_abc123",
-  						},
+  		anthropic.NewAssistantMessage(
+  			anthropic.NewTextBlock("I'll query the purchase history and analyze the results."),
+  			anthropic.NewServerToolUseBlock("srvtoolu_abc123", map[string]any{"code": "..."}, anthropic.ServerToolUseBlockParamNameCodeExecution),
+  			anthropic.ContentBlockParamUnion{OfToolUse: &anthropic.ToolUseBlockParam{
+  				ID:    "toolu_def456",
+  				Name:  "query_database",
+  				Input: map[string]any{"sql": "<sql>"},
+  				Caller: anthropic.ToolUseBlockParamCallerUnion{
+  					OfCodeExecution20260120: &anthropic.ServerToolCaller20260120Param{
+  						ToolID: "srvtoolu_abc123",
   					},
+  				},
+  			}},
+  		),
+  		anthropic.NewUserMessage(anthropic.ContentBlockParamUnion{OfToolResult: &anthropic.ToolResultBlockParam{
+  			ToolUseID: "toolu_def456",
+  			Content: []anthropic.ToolResultBlockParamContentUnion{
+  				{OfText: &anthropic.TextBlockParam{
+  					Text: `[{"customer_id": "C1", "revenue": 45000}, {"customer_id": "C2", "revenue": 38000}, ...]`,
   				}},
   			},
-  		},
-  		{
-  			Role: anthropic.MessageParamRoleUser,
-  			Content: []anthropic.ContentBlockParamUnion{
-  				{OfToolResult: &anthropic.ToolResultBlockParam{
-  					ToolUseID: "toolu_def456",
-  					Content: []anthropic.ToolResultBlockParamContentUnion{
-  						{OfText: &anthropic.TextBlockParam{
-  							Text: `[{"customer_id": "C1", "revenue": 45000}, {"customer_id": "C2", "revenue": 38000}, ...]`,
-  						}},
-  					},
-  				}},
-  			},
-  		},
+  		}}),
   	},
   	// Same tools array as the original request
   	Tools: []anthropic.ToolUnionParam{

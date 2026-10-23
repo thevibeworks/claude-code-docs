@@ -257,41 +257,186 @@ The full set of `inferenceVertex*` keys is below. Set `inferenceProvider` to `ve
 
 The region can be a single region such as `us-east5`, the `eu` or `us` multi-region, or `global`. The app routes inference to a different endpoint host for multi-regions and `global`; if you allowlist egress by hostname, see the [inference provider egress hosts](/docs/third-party/claude-desktop/telemetry.md#inference-provider).
 
-| Setting | Type | Availability | Default | Description |
-| - | - | - | - | - |
-| GCP project ID `inferenceVertexProjectId` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Google Cloud project ID for Vertex AI inference. |
-| GCP region `inferenceVertexRegion` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | GCP region where your Vertex AI Claude models are deployed. |
-| Vertex AI base URL `inferenceVertexBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | PSC endpoint, if using one. |
-| Vertex OAuth client ID `inferenceVertexOAuthClientId` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Desktop-app OAuth client ID. Enables Sign in with Google instead of a credentials file. |
-| Vertex OAuth client secret `inferenceVertexOAuthClientSecret` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config. |
-| Vertex OAuth scopes `inferenceVertexOAuthScopes` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Override the Google OAuth scopes (space-separated). Leave blank for the default. |
-| Vertex OAuth login hint `inferenceVertexOAuthLoginHint` | `string` | MDM + Bootstrap Added in 1.12603.0 | — | Pre-fill Google's account chooser and forward to your federated IdP. \{username} expands to the OS login name. |
-| Workforce Identity audience `inferenceVertexWorkforceAudience` | `string` | MDM + Bootstrap Added in 1.10628.0 | — | Workforce-pool provider audience. When set, sign-in uses your own IdP plus a GCP STS exchange instead of a Google identity. |
-| Workforce Identity billing project `inferenceVertexWorkforceUserProject` | `string` | MDM + Bootstrap Added in 1.10628.0 | — | GCP project for STS billing and quota. Defaults to the Vertex project ID above. |
-| Workforce Identity sign-in flow `inferenceVertexWorkforceAuthFlow` | `enum` | MDM + Bootstrap Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
-| Workforce Identity IdP (OIDC) `inferenceVertexWorkforceOidc` | `object` | MDM + Bootstrap Added in 1.10628.0 | — | Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS. |
-| GCP credentials file path `inferenceVertexCredentialsFile` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Absolute path to service-account JSON. Leave blank to fall back to ADC. |
+[Entry labels](/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
 
-> **inferenceVertexWorkforceAuthFlow details**
+#### `inferenceVertexProjectId`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.2581.0
+
+**GCP project ID.** Google Cloud project ID for Vertex AI inference.
+
+***
+
+#### `inferenceVertexRegion`
+
+stringSince 1.2581.0
+
+**GCP region.** GCP region where your Vertex AI Claude models are deployed.
+
+***
+
+#### `inferenceVertexBaseUrl`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
+
+Since 1.2581.0
+
+**Vertex AI base URL.** PSC endpoint, if using one.
+
+***
+
+#### `inferenceVertexOAuthClientId`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.2581.0
+
+**Vertex OAuth client ID.** Desktop-app OAuth client ID. Enables Sign in with Google instead of a credentials file.
+
+***
+
+#### `inferenceVertexOAuthClientSecret`
+
+stringSince 1.2581.0
+
+**Vertex OAuth client secret.** Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config.
+
+***
+
+#### `inferenceVertexOAuthScopes`
+
+stringSince 1.2581.0
+
+**Vertex OAuth scopes.** Override the Google OAuth scopes (space-separated). Leave blank for the default.
+
+***
+
+#### `inferenceVertexOAuthLoginHint`
+
+stringSince 1.12603.0
+
+**Vertex OAuth login hint.** Pre-fill Google's account chooser and forward to your federated IdP. \{username} expands to the OS login name.
+
+***
+
+#### `inferenceVertexWorkforceAudience`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.10628.0
+
+**Workforce Identity audience.** Workforce-pool provider audience. When set, sign-in uses your own IdP plus a GCP STS exchange instead of a Google identity.
+
+***
+
+#### `inferenceVertexWorkforceUserProject`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.10628.0
+
+**Workforce Identity billing project.** GCP project for STS billing and quota. Defaults to the Vertex project ID above.
+
+***
+
+#### `inferenceVertexWorkforceAuthFlow`
+
+enumSince 1.25927.0
+
+**Workforce Identity sign-in flow.** How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker.
+
+One of: `browser`, `broker`
+
+> **More detail**
 >
 > * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration; the same rules apply here.
 > * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the workforce-pool IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceVertexWorkforceOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
 >
 > The GCP STS token-exchange step is unchanged in either flow; only how the Entra id\_token is acquired differs.
 
-> **inferenceVertexWorkforceOidc details**
+***
+
+#### `inferenceVertexWorkforceOidc`
+
+object
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.10628.0
+
+**Workforce Identity IdP (OIDC).** Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS.
+
+> **Child attributes (9)**
 >
-> | Field | Type | Default | Description |
-> | - | - | - | - |
-> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-> | `scopes` | `string` | — | Space-separated scopes. Defaults to openid profile email offline\_access. |
-> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-> | `omitOfflineAccess` | `boolean` | — | Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires. |
-> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
+> **clientId** `string` *required*
+>
+> OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).
+>
+> **issuer** `string`
+>
+> HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.
+>
+> **authorizationUrl** `string`
+>
+> HTTPS authorization endpoint. Used with the token URL when no issuer is set.
+>
+> **tokenUrl** `string`
+>
+> HTTPS token endpoint. Used with the authorization URL when no issuer is set.
+>
+> **scopes** `string`
+>
+> Space-separated scopes. Defaults to openid profile email offline\_access.
+>
+> **redirectPort** `integer`
+>
+> Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.
+>
+> **redirectHost** `enum`
+>
+> Use localhost only if your IdP’s registered redirect URI specifies it.
+>
+> One of: `127.0.0.1`, `localhost`
+>
+> **omitOfflineAccess** `boolean`
+>
+> Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires.
+>
+> **additionalRedirectReferrerHosts** `string`
+>
+> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+>
+> > **More detail**
+> >
+> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+
+***
+
+#### `inferenceVertexCredentialsFile`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.2581.0
+
+**GCP credentials file path.** Absolute path to service-account JSON. Leave blank to fall back to ADC.
+
+***
 
 If none of `inferenceVertexCredentialsFile`, the OAuth client keys, the Workforce Identity keys, or `inferenceCredentialHelper` is set, the Google client library falls back to the standard Application Default Credentials search path on the device (`~/.config/gcloud/application_default_credentials.json`, then the environment's metadata server).
 
