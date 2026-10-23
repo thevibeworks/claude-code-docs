@@ -35,7 +35,13 @@ The audience value to request when fetching a JWT-SVID is always `https://api.an
 
 The instructions in this section are SPIRE-specific. If you use a different SPIFFE issuer, configure its OIDC discovery endpoint and JWT-SVID retrieval according to its own documentation, then continue at [Configure Anthropic](https://platform.claude.com/docs/en/manage-claude/wif-providers/spiffe#configure-anthropic).
 
-If you already run SPIRE with the OIDC Discovery Provider, federating with Anthropic requires three things on the SPIRE side: a `jwt_issuer` that matches the discovery URL, a registration entry for the workload that will call the Claude API, and a way for that workload to fetch a JWT-SVID with the Anthropic audience. The following subsections walk through each. The configuration snippets show only the settings relevant to Anthropic federation, not complete SPIRE deployment configs.
+If you already run SPIRE with the OIDC Discovery Provider, federating with Anthropic requires three things on the SPIRE side:
+
+* A `jwt_issuer` that matches the discovery URL
+* A registration entry for the workload that will call the Claude API
+* A way for that workload to fetch a JWT-SVID with the Anthropic audience
+
+The following subsections walk through each. The configuration snippets show only the settings relevant to Anthropic federation, not complete SPIRE deployment configs.
 
 <Tip>
   Setting up SPIRE for the first time? Deploy SPIRE Server and Agent following the [SPIRE quickstart](https://spiffe.io/docs/latest/try/), then add the [OIDC Discovery Provider](https://github.com/spiffe/spire/blob/main/support/oidc-discovery-provider/README.md) as a separate service alongside SPIRE Server. Discovery-mode federation depends on the provider being deployed and publicly reachable. The provider is not part of a default SPIRE install.

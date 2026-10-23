@@ -324,7 +324,7 @@ Console.WriteLine(await chatClient.GetResponseAsync("Tell me about IChatClient",
 
 To send a request to the Claude API, build an instance of a `Params` class and pass it to the corresponding client method. When the response is received, it's deserialized into an instance of a C# class.
 
-For example, `client.Messages.Create` should be called with an instance of `MessageCreateParams`, and it returns an instance of `Task<Message>`.
+For example, `client.Messages.Create` takes an instance of `MessageCreateParams` and returns an instance of `Task<Message>`.
 
 ## Advanced usage
 

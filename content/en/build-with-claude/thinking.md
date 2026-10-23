@@ -24,7 +24,7 @@ Whether Claude thinks on a given request, and how deeply, depends on your thinki
 
 Here is what up-front thinking looks like in a response: one or more `thinking` content blocks arrive before the `text` blocks. The thinking block is still generated content, like the `text` block that follows it, but it is separated from the canonical response. Each thinking block also carries a `signature` field, an encrypted copy of the full reasoning that you pass back unchanged in multi-turn and tool-use conversations (see [Thinking encryption](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-encryption)):
 
-```text
+```json
 {
   "content": [
     {
@@ -482,7 +482,7 @@ Set `display: "omitted"` when your application doesn't surface thinking content 
 
 With `display: "omitted"`, the response contains `thinking` blocks with an empty `thinking` field:
 
-```text Output wrap
+```json Output
 {
   "content": [
     {
@@ -800,7 +800,7 @@ The following examples stream a response with adaptive thinking, printing thinki
 To reassemble complete thinking blocks with their signatures after streaming, use your SDK's message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), instead of concatenating deltas yourself.
 
 <Accordion title="Full streaming event trace">
-  ```text Output
+  ```sse Output
   event: message_start
   data: {"type": "message_start", "message": {"id": "msg_01...", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null}}
 
@@ -842,7 +842,7 @@ To reassemble complete thinking blocks with their signatures after streaming, us
 
 When `display: "omitted"` is set, the thinking block opens, a `thinking_delta` with an empty `thinking` string arrives, a single `signature_delta` follows, and the block closes. Text streaming starts immediately after:
 
-```text Output
+```sse Output
 event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}
 
@@ -861,7 +861,7 @@ data: {"type":"content_block_start","index":1,"content_block":{"type":"text","te
 
 With `display: "updates"` (beta), reasoning blocks stream as they do under `"omitted"`. Each [progress-update block](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) streams its text as `thinking_delta` events before the `tool_use` block it introduces. A pause of several seconds before the progress-update block opens is normal:
 
-```text Output
+```sse Output
 event: content_block_start
 data: {"type":"content_block_start","index":1,"content_block":{"type":"thinking","thinking":"","signature":""}}
 
@@ -1021,7 +1021,7 @@ Use `display: "updates"` for an agent interface that keeps reasoning hidden and 
 
 Under `"updates"`, the start of the response that follows a `tool_result` looks like this. The first block is reasoning and stays empty, as it would under `"omitted"`. The second carries text, so it's a progress update. Under `"summarized"` both blocks carry text, and under `"omitted"` both are empty.
 
-```text Output
+```json Output
 {
   "content": [
     {
@@ -1168,7 +1168,7 @@ Keep the following in mind when working with signatures:
 
 In addition to regular `thinking` blocks, the API might return `redacted_thinking` blocks when portions of Claude's reasoning are safety-redacted. A `redacted_thinking` block contains encrypted thinking content in a `data` field, with no readable text:
 
-```text wrap
+```json
 {
   "type": "redacted_thinking",
   "data": "..."

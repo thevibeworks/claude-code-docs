@@ -300,7 +300,7 @@ When used without these tools, code execution is billed by execution time, track
 
 Code execution usage is tracked in the response:
 
-```text wrap
+```json
 {
   "usage": {
     "input_tokens": 105,
@@ -329,7 +329,7 @@ See [tool use pricing](https://platform.claude.com/docs/en/about-claude/pricing#
 
 Web search usage is charged in addition to token usage:
 
-```text wrap
+```json
 {
   "usage": {
     "input_tokens": 105,
@@ -351,7 +351,7 @@ Each web search counts as one use, regardless of the number of results returned.
 
 Web fetch usage has **no additional charges** beyond standard token costs:
 
-```text wrap
+```json
 {
   "usage": {
     "input_tokens": 25039,

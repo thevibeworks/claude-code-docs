@@ -57,7 +57,7 @@ If you exceed these limits, you'll receive a 413 `request_too_large` error. On t
 
 The API always returns errors as JSON, with a top-level `error` object that always includes a `type` and `message` value. The response also includes a `request_id` field for easier tracking and debugging. For example:
 
-```text JSON wrap
+```json JSON
 {
   "type": "error",
   "error": {
@@ -430,7 +430,7 @@ See [Get the final message without handling events](https://platform.claude.com/
 
 Claude 4.6 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing) do not support prefilling assistant messages. Sending a request with a prefilled last assistant message to any of these models returns a 400 `invalid_request_error`:
 
-```text
+```json
 {
   "type": "error",
   "error": {
@@ -450,7 +450,7 @@ If the most recent assistant message contains `thinking` or `redacted_thinking` 
 `thinking` or `redacted_thinking` blocks in the latest assistant message cannot be modified. These blocks must remain as they were in the original response.
 ```
 
-With tool use, every `thinking` and `redacted_thinking` block from the assistant turn must be passed back exactly as received, including blocks whose `thinking` field is empty. Pass thinking blocks back unchanged, and if your application filters content blocks by type before resending, include both `thinking` and `redacted_thinking`. See the [fix for modified thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified) in Troubleshooting thinking, and also [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks) and [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking).
+With tool use, pass back every `thinking` and `redacted_thinking` block from the assistant turn exactly as received, including blocks whose `thinking` field is empty. If your application filters content blocks by type before resending, include both `thinking` and `redacted_thinking`. See the [fix for modified thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified) in Troubleshooting thinking, and also [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks) and [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking).
 
 ### Extended thinking not supported
 

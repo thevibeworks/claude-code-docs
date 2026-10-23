@@ -140,7 +140,7 @@ The monitoring calls on this page run from your monitoring or operations tooling
   ```
 </CodeGroup>
 
-```text wrap
+```json
 {
   "type": "work_queue_stats",
   "depth": 0,

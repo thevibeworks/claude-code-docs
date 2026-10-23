@@ -19,7 +19,13 @@ You need:
 
 ## Set up Inference hooks
 
-There are three enforcement states: **off** (**Enforce verdicts** is off: your AI security server is never contacted and prompts are not inspected), **shadow** (**Enforce verdicts** is on with **Mode** set to **Shadow mode**: your AI security server receives prompts and returns verdicts, and nothing is blocked), and **enforcing** (**Enforce verdicts** is on with **Mode** set to **Allow the request** or **Block the request**: a deny blocks the request). The following steps take a new configuration from off to enforcing.
+There are three enforcement states:
+
+* **Off:** With **Enforce verdicts** off, your AI security server is never contacted and prompts are not inspected.
+* **Shadow:** With **Enforce verdicts** on and **Mode** set to **Shadow mode**, your AI security server receives prompts and returns verdicts, and nothing is blocked.
+* **Enforcing:** With **Enforce verdicts** on and **Mode** set to **Allow the request** or **Block the request**, a deny blocks the request.
+
+The following steps take a new configuration from off to enforcing.
 
 <Steps>
   <Step title="Allow Inference hooks for your organization">

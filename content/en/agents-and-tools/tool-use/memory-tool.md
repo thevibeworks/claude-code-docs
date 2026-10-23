@@ -48,7 +48,7 @@ A typical interaction looks like this:
 
 Claude calls the memory tool:
 
-```text wrap
+```json
 {
   "type": "tool_use",
   "id": "toolu_01C4D5E6F7G8H9I0J1K2L3M4",
@@ -72,7 +72,7 @@ Claude calls the memory tool:
 
 **4. Claude reads relevant files:**
 
-```text wrap
+```json
 {
   "type": "tool_use",
   "id": "toolu_01D5E6F7G8H9I0J1K2L3M4N5",

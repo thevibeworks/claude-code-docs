@@ -692,10 +692,8 @@ The following example answers each call as it arrives:
       for event in stream:
           match event.type:
               case "agent.custom_tool_use":
-                  # Run the tool
                   result = call_tool(event.name, event.input)
 
-                  # Send the result back
                   client.beta.sessions.events.send(
                       session.id,
                       events=[
@@ -717,10 +715,8 @@ The following example answers each call as it arrives:
   loop: for await (const event of stream) {
     switch (event.type) {
       case "agent.custom_tool_use": {
-        // Run the tool
         const result = await callTool(event.name, event.input);
 
-        // Send the result back
         await client.beta.sessions.events.send(session.id, {
           events: [
             {
@@ -746,10 +742,8 @@ The following example answers each call as it arrives:
   {
       if (streamEvent.Value is BetaManagedAgentsAgentCustomToolUseEvent toolUse)
       {
-          // Run the tool
           var result = await CallTool(toolUse.Name, toolUse.Input);
 
-          // Send the result back
           await client.Beta.Sessions.Events.Send(session.ID, new()
           {
               Events =
@@ -778,9 +772,7 @@ The following example answers each call as it arrives:
   	for stream.Next() {
   		switch event := stream.Current().AsAny().(type) {
   		case anthropic.BetaManagedAgentsAgentCustomToolUseEvent:
-  			// Run the tool
   			result := callTool(event.Name, event.Input)
-  			// Send the result back
   			if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   				Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   					OfUserCustomToolResult: &anthropic.BetaManagedAgentsUserCustomToolResultEventParams{
@@ -812,11 +804,9 @@ The following example answers each call as it arrives:
       for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
           switch (event.type().value()) {
               case AGENT_CUSTOM_TOOL_USE -> {
-                  // Run the tool
                   var toolUse = event.asAgentCustomToolUse();
                   var result = callTool(toolUse.name(), toolUse.input());
 
-                  // Send the result back
                   client.beta().sessions().events().send(
                       session.id(),
                       EventSendParams.builder()
@@ -842,10 +832,8 @@ The following example answers each call as it arrives:
   foreach ($stream as $event) {
       switch (true) {
           case $event instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsAgentCustomToolUseEvent:
-              // Run the tool
               $result = callTool($event->name, $event->input);
 
-              // Send the result back
               $client->beta->sessions->events->send(
                   $session->id,
                   events: [
@@ -870,9 +858,7 @@ The following example answers each call as it arrives:
   client.beta.sessions.events.stream_events(session.id).each do |event|
     case event
     when Anthropic::Beta::Sessions::BetaManagedAgentsAgentCustomToolUseEvent
-      # Run the tool
       result = call_tool.call(event.name, event.input)
-      # Send the result back
       client.beta.sessions.events.send_(
         session.id,
         events: [
@@ -914,7 +900,6 @@ The following example approves every pending call:
               match stop_reason.type:
                   case "requires_action":
                       for event_id in stop_reason.event_ids:
-                          # Approve the pending tool call
                           client.beta.sessions.events.send(
                               session.id,
                               events=[
@@ -944,7 +929,6 @@ The following example approves every pending call:
     }
 
     for (const eventId of event.stop_reason.event_ids) {
-      // Approve the pending tool call
       await client.beta.sessions.events.send(session.id, {
         events: [
           {
@@ -967,7 +951,6 @@ The following example approves every pending call:
       {
           foreach (var eventId in requiresAction.EventIds)
           {
-              // Approve the pending tool call
               await client.Beta.Sessions.Events.Send(session.ID, new()
               {
                   Events =
@@ -1001,7 +984,6 @@ The following example approves every pending call:
   		switch stopReason := event.StopReason.AsAny().(type) {
   		case anthropic.BetaManagedAgentsSessionRequiresAction:
   			for _, eventID := range stopReason.EventIDs {
-  				// Approve the pending tool call
   				if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   					Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   						OfUserToolConfirmation: &anthropic.BetaManagedAgentsUserToolConfirmationEventParams{
@@ -1030,7 +1012,6 @@ The following example approves every pending call:
           .takeWhile(stopReason -> !stopReason.isEndTurn())
           .filter(stopReason -> stopReason.isRequiresAction())
           .flatMap(stopReason -> stopReason.asRequiresAction().eventIds().stream())
-          // Approve each pending tool call
           .forEach(toolUseId -> client.beta().sessions().events().send(
               session.id(),
               EventSendParams.builder()
@@ -1050,7 +1031,6 @@ The following example approves every pending call:
           switch (true) {
               case $event->stopReason instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsSessionRequiresAction:
                   foreach ($event->stopReason->eventIDs as $eventId) {
-                      // Approve the pending tool call
                       $client->beta->sessions->events->send(
                           $session->id,
                           events: [
@@ -1078,7 +1058,6 @@ The following example approves every pending call:
       case stop_reason
       when Anthropic::Beta::Sessions::BetaManagedAgentsSessionRequiresAction
         stop_reason.event_ids.each do |event_id|
-          # Approve the pending tool call
           client.beta.sessions.events.send_(
             session.id,
             events: [

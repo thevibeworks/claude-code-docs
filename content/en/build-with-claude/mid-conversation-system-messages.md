@@ -993,7 +993,7 @@ The following request keeps `get_weather` in `tools` and defines `db_query` afte
 
 The response's `content` includes a `tool_use` block for the new tool, for example:
 
-```text
+```json
 {
   "type": "tool_use",
   "id": "toolu_01A09q90qw90lq917835lq9",

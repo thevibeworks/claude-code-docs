@@ -309,7 +309,7 @@ Event streams might also include any number of `ping` events.
 
 The API might occasionally send [errors](https://platform.claude.com/docs/en/api/errors) in the event stream. For example, during periods of high usage, you might receive an `overloaded_error`, which would normally correspond to an HTTP 529 in a non-streaming context:
 
-```text Example error
+```sse Example error
 event: error
 data: {"type": "error", "error": {"type": "overloaded_error", "message": "Overloaded"}}
 ```
@@ -326,7 +326,7 @@ Each `content_block_delta` event contains a `delta` of a type that updates the `
 
 A `text` content block delta looks like:
 
-```text Text delta
+```sse Text delta
 event: content_block_delta
 data: {"type": "content_block_delta","index": 0,"delta": {"type": "text_delta", "text": "ello frien"}}
 ```
@@ -339,7 +339,7 @@ You can accumulate the string deltas and parse the JSON once you receive a `cont
 
 A `tool_use` content block delta looks like:
 
-```text Input JSON delta
+```sse Input JSON delta
 event: content_block_delta
 data: {"type": "content_block_delta","index": 1,"delta": {"type": "input_json_delta","partial_json": "{\"location\": \"San Fra"}}}
 ```
@@ -356,14 +356,14 @@ When `display: "omitted"` is set on the thinking configuration, no thinking text
 
 A typical thinking delta looks like:
 
-```text Thinking delta
+```sse Thinking delta
 event: content_block_delta
 data: {"type": "content_block_delta", "index": 0, "delta": {"type": "thinking_delta", "thinking": "I need to find the GCD of 1071 and 462 using the Euclidean algorithm.\n\n1071 = 2 × 462 + 147"}}
 ```
 
 The signature delta looks like:
 
-```text Signature delta
+```sse Signature delta
 event: content_block_delta
 data: {"type": "content_block_delta", "index": 0, "delta": {"type": "signature_delta", "signature": "EqQBCgIYAhIM1gbcDa9GJwZA2b3hGgxBdjrkzLoky3dl1pkiMOYds..."}}
 ```
@@ -530,7 +530,7 @@ There might be `ping` events dispersed throughout the response as well. See [Eve
   ```
 </CodeGroup>
 
-```text Response
+```sse Response
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_1nZdL29xx5MUA1yADyHTEsnR8uuvGzszyY", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null, "usage": {"input_tokens": 25, "output_tokens": 1}}}
 
@@ -872,7 +872,7 @@ This request asks Claude to use a tool to report the weather.
   ```
 </CodeGroup>
 
-```text Response
+```sse Response
 event: message_start
 data: {"type":"message_start","message":{"id":"msg_014p7gG3wDgGV9EUtLvnow3U","type":"message","role":"assistant","model":"claude-opus-5","stop_sequence":null,"usage":{"input_tokens":472,"output_tokens":2},"content":[],"stop_reason":null}}
 
@@ -1165,7 +1165,7 @@ This request enables thinking with streaming. The `display: "summarized"` settin
   ```
 </CodeGroup>
 
-```text Response
+```sse Response
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_01...", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null}}
 
@@ -1396,7 +1396,7 @@ This request asks Claude to search the web for current weather information.
   ```
 </CodeGroup>
 
-```text Response
+```sse Response
 event: message_start
 data: {"type":"message_start","message":{"id":"msg_01G...","type":"message","role":"assistant","model":"claude-opus-5-5","content":[],"stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":2679,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":3}}}
 

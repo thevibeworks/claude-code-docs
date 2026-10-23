@@ -12,7 +12,7 @@ This page lists common Compliance API error responses by HTTP status code, with 
 
 The Compliance API returns errors in the standard [Anthropic error format](https://platform.claude.com/docs/en/api/errors): a non-2xx status code, a `request-id` response header, and a JSON body with an `error` object containing `type` and `message`. Include the `request-id` header value when you escalate to support.
 
-```text
+```json
 {
   "error": {
     "type": "permission_error",
@@ -118,7 +118,7 @@ Invalid pagination cursor for 'after_id'
 
 The directory, project, and session endpoints (organizations, users, roles, role permissions, groups, group members, projects, project attachments, local and remote sessions, and session messages) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false` (or, on the session endpoints, which return no `has_more`, when `next_page` is `null`). A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`, with a message specific to the endpoint.
 
-The two paginated local session endpoints (the list and the messages endpoint) return the following 400 `invalid_request_error` for any `page` value they cannot decode, for example, a token that was truncated or altered after you stored it, or one issued by a different endpoint or under a different parent organization. On the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`), each `page` cursor is also bound to the session and `order` it was issued for, so a cursor issued for a different session or sort order returns the same body:
+The two paginated local session endpoints (the list and the messages endpoint) return the following 400 `invalid_request_error` for any `page` value they cannot decode. Examples include a token truncated or altered after you stored it, and one issued by a different endpoint or under a different parent organization. On the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`), each `page` cursor is also bound to the session and `order` it was issued for, so a cursor issued for a different session or sort order returns the same body:
 
 ```text wrap
 The page parameter is not a valid cursor for this request.
@@ -349,7 +349,14 @@ No project document found with the provided id, or it has already been deleted.
 Local session not found.
 ```
 
-**Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/local/{session_id}` or `GET /v1/compliance/apps/sessions/local/{session_id}/messages` does not match a local session readable through the Compliance API. Both endpoints return this one message, without distinguishing the cause, when the ID is not a session in an organization your key can read (including IDs that belong to another parent organization), when the session never existed, when [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect for the session, or when all of the session's activity has aged past the retention period that applies to the organization that ran it. The `Local session not found.` response has no transient form, because local sessions have no provisioning (`pending`) state; compare [Remote session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#remote-session-not-found), where a `pending` session 404s until it starts. A session ID that is not a well-formed `clls_` identifier returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request) instead.
+**Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/local/{session_id}` or `GET /v1/compliance/apps/sessions/local/{session_id}/messages` does not match a local session readable through the Compliance API. Both endpoints return this one message, without distinguishing the cause, in any of the following cases:
+
+* The ID is not a session in an organization your key can read (including IDs that belong to another parent organization).
+* The session never existed.
+* [Zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect for the session.
+* All of the session's activity has aged past the retention period that applies to the organization that ran it.
+
+The `Local session not found.` response has no transient form, because local sessions have no provisioning (`pending`) state; compare [Remote session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#remote-session-not-found), where a `pending` session 404s until it starts. A session ID that is not a well-formed `clls_` identifier returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request) instead.
 
 The local session endpoints, including the list endpoint, return a different 404 message, `Local sessions are not available.`, while the endpoints themselves are unavailable to your parent organization. That response does not depend on the session ID; no customer-side key, scope, or setting changes it, and it can be temporary. Both responses carry the `not_found_error` type; the message text is what tells them apart.
 
@@ -363,7 +370,13 @@ The local session endpoints, including the list endpoint, return a different 404
 Remote session not found.
 ```
 
-**Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/remote/{session_id}/messages` does not match a session transcript readable through the Compliance API. This occurs when the session ID (`cse_...`) does not exist or the session has been deleted, when the session belongs to an organization your key cannot read, or when the session's `status` is still `pending`: a pending session has no transcript yet, so the messages endpoint returns 404 until the session starts. A session ID that is not a well-formed `cse_` identifier returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request) instead.
+**Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/remote/{session_id}/messages` does not match a session transcript readable through the Compliance API. This occurs in any of the following cases:
+
+* The session ID (`cse_...`) does not exist or the session has been deleted.
+* The session belongs to an organization your key cannot read.
+* The session's `status` is still `pending`: a pending session has no transcript yet, so the messages endpoint returns 404 until the session starts.
+
+A session ID that is not a well-formed `cse_` identifier returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request) instead.
 
 **Fix:** Confirm the session ID and its `status` against `GET /v1/compliance/apps/sessions/remote`; see [Sessions in the cloud](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-remote-sessions). If the session is `pending`, retry after it leaves that status. If the session no longer appears in the list, it has been deleted and its transcript is not retrievable.
 
@@ -389,7 +402,13 @@ The organization, role, and group endpoints return a 404 `not_found_error` in th
 organization `91012d09-e48b-438e-a489-1bebfd8fa6f9` not found in this organization's hierarchy
 ```
 
-**Cause:** `GET /v1/compliance/organizations/{organization_id}/settings` returns this 404 in three cases that intentionally share the same body so the response does not reveal whether an organization exists: the `organization_id` is not one of your parent's linked organizations, the value is not a valid UUID, or the settings endpoint is not yet enabled for your parent organization.
+**Cause:** `GET /v1/compliance/organizations/{organization_id}/settings` returns this 404 in three cases:
+
+* The `organization_id` is not one of your parent's linked organizations.
+* The `organization_id` is not a valid UUID.
+* The settings endpoint is not yet enabled for your parent organization.
+
+The endpoint intentionally returns the same body in all three cases, so a 404 does not reveal whether an organization exists.
 
 **Fix:** Verify the ID against [List organizations](https://platform.claude.com/docs/en/api/compliance/organizations/list). If a known-good organization ID still returns 404, the settings endpoint is not yet enabled for your parent organization; contact your Anthropic representative.
 
@@ -423,7 +442,7 @@ Once your API key authenticates, Compliance API responses report the shared budg
 
 A 429 response also carries a `retry-after` header with the number of seconds to wait before sending the next request. This value might include a small safety margin beyond `anthropic-ratelimit-requests-reset`; honor `retry-after`.
 
-```text wrap
+```http
 HTTP/1.1 429 Too Many Requests
 date: Tue, 21 Apr 2026 14:38:02 GMT
 retry-after: 25
@@ -432,7 +451,7 @@ anthropic-ratelimit-requests-remaining: 0
 anthropic-ratelimit-requests-reset: 2026-04-21T14:38:25Z
 ```
 
-```text
+```json
 {
   "error": {
     "type": "rate_limit_error",

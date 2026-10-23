@@ -155,7 +155,6 @@ The examples on this page use a support agent. It reads a customer's ticket, loo
   if err != nil {
   	panic(err)
   }
-  _ = environment
   ```
 
   ```java Java
@@ -212,7 +211,7 @@ The `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `Al
 Leave `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) off, which is the default, and list the host of each MCP server you operate or trust in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). Each host you list is also open to code in the sandbox. With `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) off, a check at session creation rejects the request if an MCP server's host is not listed. See [Provide authentication at session creation](https://platform.claude.com/docs/en/managed-agents/mcp-connector#provide-authentication-at-session-creation). The same check runs when a session update changes `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`).
 
 <Warning>
-  Network access is granted for each host, not for each operation. The sandbox can send any request to an allowed host, including uploads such as `git push` and package publishing. It can also use any credential the command supplies, even one that someone hid in text the agent reads.
+  Network access is granted by host, not by operation. The sandbox can send any request to an allowed host, including uploads such as `git push` and package publishing. It can also use any credential the command supplies, even one that someone hid in text the agent reads.
 </Warning>
 
 When you choose hosts for `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`), follow these two rules:
@@ -613,7 +612,6 @@ The following sample limits `web_fetch` to `help.example.com` with `allowed_doma
   		},
   	},
   }}
-  _ = tools
   ```
 
   ```java Java

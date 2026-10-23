@@ -154,7 +154,7 @@ Dreaming inputs include the pre-existing memory store and an array of sessions. 
 
 The response is the full `dream` resource with `status: "pending"`:
 
-```text
+```json
 {
   "type": "dream",
   "id": "drm_01AbCDefGhIjKlMnOpQrStUv",
@@ -215,7 +215,7 @@ Dreams run asynchronously and typically take minutes to a few hours, driven by t
 
   ```typescript TypeScript
   while (dream.status === "pending" || dream.status === "running") {
-    await sleep(10_000);
+    await new Promise((resolve) => setTimeout(resolve, 10_000));
     dream = await client.beta.dreams.retrieve(dream.id);
     console.log(`status=${dream.status} input_tokens=${dream.usage.input_tokens}`);
   }

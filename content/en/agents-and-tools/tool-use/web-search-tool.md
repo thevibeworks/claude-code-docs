@@ -415,7 +415,7 @@ The web search tool supports the following parameters:
   "type": "web_search_20250305",
   "name": "web_search",
 
-  // Optional: Limit the number of searches per request
+  // Optional: Limit the number of searches for each request
   "max_uses": 5,
 
   // Optional: Only include results from these domains.
@@ -488,7 +488,7 @@ The `response_inclusion` parameter controls how search result blocks appear in t
 
 Here's an example response structure:
 
-```text Output
+```json Output
 {
   "role": "assistant",
   "content": [
@@ -583,7 +583,7 @@ The web search citation fields `cited_text`, `title`, and `url` do not count tow
 
 When the web search tool encounters an error (such as hitting rate limits), the Claude API still returns a 200 (success) response. The error is represented within the response body using the following structure:
 
-```text Output wrap
+```json Output
 {
   "type": "web_search_tool_result",
   "tool_use_id": "srvtoolu_a93jad",
@@ -621,7 +621,7 @@ To cache tool definitions across turns, see [Tool use with prompt caching](https
 
 With streaming enabled, you'll receive search events as part of the stream. There is a pause while the search runs:
 
-```text Output
+```sse Output
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_abc123", "type": "message"}}
 
@@ -656,7 +656,7 @@ To protect shared capacity, the Batches API throttles web search requests for ea
 
 Web search usage is charged in addition to token usage:
 
-```text wrap
+```json
 {
   "usage": {
     "input_tokens": 105,

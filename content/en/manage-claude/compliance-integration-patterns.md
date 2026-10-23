@@ -67,7 +67,7 @@ curl --fail-with-body -sS -G \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   -H "anthropic-version: 2023-06-01" \
   --data-urlencode "limit=5000" \
-  --data-urlencode "before_id=activity_01XyDMpzjS89pFZXqSFUBDr6"
+  --data-urlencode "before_id=activity_01DeFgHjKmNpQrStUvWxYzAb"
 ```
 
 Page through until `has_more` is `false`, then persist `first_id` from the final response and pass it unchanged as `before_id` on the next run to retrieve activities newer than the saved cursor. To walk in the opposite direction for a backfill, persist `last_id` and pass it as `after_id` instead. For the full cursor-versus-page-token reference and retry semantics, see [Paginate results](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed#paginate-results).

@@ -889,7 +889,7 @@ What you're billed for is the same regardless of the `display` setting; only wha
 
 To see how many billed output tokens were spent on internal reasoning, read `usage.output_tokens_details.thinking_tokens` in the response. This value reflects the raw reasoning the model generated (not the summarized text returned in the body) and is always less than or equal to `output_tokens`. Subtract it from `output_tokens` to approximate the non-reasoning portion of the output. When streaming, this breakdown appears only on the final `message_delta` event.
 
-```text wrap
+```json
 {
   "usage": {
     "input_tokens": 25,

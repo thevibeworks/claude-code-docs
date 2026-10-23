@@ -157,7 +157,7 @@ Enforcement uses the exact, unrounded list cost. The `list_cost` (java, php: `li
 
 ## When a session reaches its budget
 
-The cap is enforced between model requests, not mid-request. Before each model request, the platform checks the session's consumed list cost, and once that total reaches the cap every thread pauses before its next request. The request that carried the total past the cap was admitted while the session was still under it and runs to completion, so a paused session's recorded `list_cost` (java, php: `listCost`; csharp, go: `ListCost`) reads at or a fraction past `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`): a session capped at `"50"` (50 cents) can pause with a `list_cost` (java, php: `listCost`; csharp, go: `ListCost`) of `"53"`. This is expected, not a billing error. Model spend past the cap is at most the cost of one model request for each thread. The tool calls in that request's response still run, and their web searches and running time also count toward list cost. Treat the budget as a bound on new work rather than an exact stopping point, and size the cap with that margin in mind.
+The cap is enforced between model requests, not mid-request. Before each model request, the platform checks the session's consumed list cost, and once that total reaches the cap every thread pauses before its next request. The request that carried the total past the cap was admitted while the session was still under it and runs to completion. As a result, a paused session's recorded `list_cost` (java, php: `listCost`; csharp, go: `ListCost`) reads at or a fraction past `max_list_cost` (java, php: `maxListCost`; csharp, go: `MaxListCost`). For example, a session capped at `"50"` (50 cents) can pause with a `list_cost` (java, php: `listCost`; csharp, go: `ListCost`) of `"53"`. This is expected, not a billing error. Model spend past the cap is at most the cost of one model request for each thread. The tool calls in that request's response still run, and their web searches and running time also count toward list cost. Treat the budget as a bound on new work rather than an exact stopping point, and size the cap with that margin in mind.
 
 A session that reaches its budget goes idle with a `stop_reason` (java, php: `stopReason`; csharp, go: `StopReason`) of `budget_reached`; it is not terminated, and its history and sandbox are preserved like any other idle session's. On the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) you'll see, in order:
 
@@ -401,7 +401,13 @@ The cap is copied onto each session the deployment starts, so it bounds each run
 
 ## Models without a list price
 
-A budget can only track consumption the platform can price. Creating a budgeted session whose agent, or any agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) or `workflows` (csharp, go: `Workflows`), or the advisor set in its [multiagent configuration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), uses a model with no public list price is rejected with a 400 error stating that no list price is available for the model.
+A budget can only track consumption the platform can price. Creating a budgeted session is rejected with a 400 error if any of the following uses a model with no public list price:
+
+* The session's agent
+* Any agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) or `workflows` (csharp, go: `Workflows`)
+* The advisor set in the agent's [multiagent configuration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)
+
+The error states that no list price is available for the model.
 
 If a budgeted session's usage comes to include a model with no list price, the budget can no longer measure the session's spend: the session can pause with a `stop_reason` (java, php: `stopReason`; csharp, go: `StopReason`) of `budget_reached`, and changing the budget is rejected. Remove the budget to resume the session.
 

@@ -821,7 +821,7 @@ To use the extended cache, include `ttl` in the `cache_control` definition like 
 
 The response includes detailed cache information like the following:
 
-```text Output wrap
+```json Output
 {
   "usage": {
     "input_tokens": 2048,
@@ -1090,7 +1090,7 @@ Place the `cache_control` breakpoint on the last block that is shared with the f
 
 The API returns an empty `content` array:
 
-```text Output wrap
+```json Output
 {
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",

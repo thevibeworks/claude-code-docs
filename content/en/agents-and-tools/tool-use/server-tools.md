@@ -10,7 +10,7 @@ Server-executed tools share these mechanics: the `server_tool_use` block, `pause
 
 The `server_tool_use` block appears in Claude's response when a server-executed tool runs. Its `id` field uses the `srvtoolu_` prefix to distinguish it from client tool calls:
 
-```text wrap
+```json
 {
   "type": "server_tool_use",
   "id": "srvtoolu_01A2B3C4D5E6F7G8H9",
@@ -408,7 +408,7 @@ Claude can call a server tool and a client tool in the same group of parallel to
   With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block's own result block arrives once the code completes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response's `container` field, as that page shows.
 </Note>
 
-```text wrap
+```json
 {
   "stop_reason": "tool_use",
   "content": [
@@ -449,7 +449,7 @@ To continue the turn, run the client tools and send a user message whose content
 
 The API attaches your results to the still-open assistant turn, runs the deferred server tool (for paused code execution, resumes it), and then lets Claude continue. For a server tool Claude called directly, the next response starts with the result block that answers the previous response's `server_tool_use` `id`, followed by the newly generated content and a fresh `stop_reason`:
 
-```text wrap
+```json
 {
   "stop_reason": "end_turn",
   "content": [
@@ -1010,7 +1010,7 @@ The following example enables web fetch together with a user-defined `run_comman
   ```
 </CodeGroup>
 
-This code is also correct when Claude does not mix the two kinds of call. A turn with only client `tool_use` blocks takes the same continuation path, and a turn with only server tool calls needs no client `tool_result` blocks from you: its result blocks are normally already present, and one that comes back suspended, such as a [`pause_turn` response](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn), is re-sent as-is instead.
+This code is also correct when Claude does not mix the two kinds of call. A turn with only client `tool_use` blocks takes the same continuation path. A turn with only server tool calls needs no client `tool_result` blocks from you, because its result blocks are normally already present. If that turn comes back suspended, for example as a [`pause_turn` response](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn), re-send it as-is instead.
 
 ## ZDR and allowed\_callers
 

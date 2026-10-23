@@ -982,7 +982,7 @@ Plain text documents are automatically chunked into sentences. You can provide t
 </Tabs>
 
 <Accordion title="Example plain text citation">
-  ```text
+  ```json
   {
     "type": "char_location",
     "cited_text": "The exact text being cited", // not counted toward output tokens
@@ -1810,7 +1810,7 @@ PDF documents can be provided as base64-encoded data, as a URL, or by `file_id`.
 </Tabs>
 
 <Accordion title="Example PDF citation">
-  ```text
+  ```json
   {
     "type": "page_location",
     "cited_text": "The exact text being cited", // not counted toward output tokens
@@ -2137,7 +2137,7 @@ Custom content documents give you control over citation granularity. No addition
 </CodeGroup>
 
 <Accordion title="Example citation">
-  ```text
+  ```json
   {
     "type": "content_block_location",
     "cited_text": "The exact text being cited", // not counted toward output tokens
@@ -2155,7 +2155,7 @@ Custom content documents give you control over citation granularity. No addition
 
 When citations are enabled, responses include multiple text blocks with citations:
 
-```text wrap
+```json
 {
   "content": [
     { "type": "text", "text": "According to the document, " },
@@ -2234,7 +2234,7 @@ For streaming responses, citations arrive as a `citations_delta` delta type insi
 
 <AccordionGroup>
   <Accordion title="Example streaming events">
-    ```text
+    ```sse
     event: message_start
     data: {"type": "message_start", ...}
 
