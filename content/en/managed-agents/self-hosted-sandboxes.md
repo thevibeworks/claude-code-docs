@@ -186,7 +186,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.1.0
+        VERSION=2.2.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;

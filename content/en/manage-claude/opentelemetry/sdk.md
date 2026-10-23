@@ -84,14 +84,14 @@ Install or upgrade to the latest version of the Claude SDK:
 
     <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
       ```kotlin Gradle
-      implementation("com.anthropic:anthropic-java:3.1.0")
+      implementation("com.anthropic:anthropic-java:3.2.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java</artifactId>
-          <version>3.1.0</version>
+          <version>3.2.0</version>
       </dependency>
       ```
     </CodeGroup>
