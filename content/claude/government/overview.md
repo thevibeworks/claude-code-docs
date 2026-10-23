@@ -12,10 +12,10 @@
 >
 > | If you are… | Start with |
 > | - | - |
-> | A tenant administrator | [Tenant administration](/docs/government/tenant-admin/overview.md) |
-> | An organization owner | [Organization administration](/docs/government/org-admin/overview.md) |
-> | Any user | [Your account](/docs/government/account/overview.md) |
-> | Anyone using Claude Desktop | [Use Claude Desktop](/docs/government/desktop/plugins.md) |
+> | A tenant administrator | [Tenant administration](https://claude.com/docs/government/tenant-admin/overview.md) |
+> | An organization owner | [Organization administration](https://claude.com/docs/government/org-admin/overview.md) |
+> | Any user | [Your account](https://claude.com/docs/government/account/overview.md) |
+> | Anyone using Claude Desktop | [Use Claude Desktop](https://claude.com/docs/government/desktop/plugins.md) |
 
 This guide covers the portals used to manage Claude for Government: how access, seats, and usage are organized, and who is responsible for each part.
 
@@ -106,9 +106,9 @@ The portal has three views. Which ones you can reach depends on your role, and y
 
 | View | Who has it | What it's for |
 | - | - | - |
-| [**Tenant**](/docs/government/tenant-admin/overview.md) | Tenant administrators | Creating organizations, configuring identity and access (single sign-on, provisioning, and routing rules), distributing seats, setting spend caps, and managing who else is a tenant administrator. |
-| [**Organization admin**](/docs/government/org-admin/overview.md) | Organization owners and tenant administrators | Managing users and seats, setting usage tiers, viewing analytics, and configuring organization-level settings. |
-| [**Account**](/docs/government/account/overview.md) | Everyone | Viewing your own profile, checking your usage limits, and managing where you're signed in. |
+| [**Tenant**](https://claude.com/docs/government/tenant-admin/overview.md) | Tenant administrators | Creating organizations, configuring identity and access (single sign-on, provisioning, and routing rules), distributing seats, setting spend caps, and managing who else is a tenant administrator. |
+| [**Organization admin**](https://claude.com/docs/government/org-admin/overview.md) | Organization owners and tenant administrators | Managing users and seats, setting usage tiers, viewing analytics, and configuring organization-level settings. |
+| [**Account**](https://claude.com/docs/government/account/overview.md) | Everyone | Viewing your own profile, checking your usage limits, and managing where you're signed in. |
 
 When you sign in, you land on the most relevant view for you. Organization owners land on the organization admin view, and everyone else lands on their account view. This includes tenant administrators who are not also an organization owner; they start on their account view and can use the **Switch to admin view** link in the page footer, and from there switch to the tenant view.
 
@@ -120,7 +120,7 @@ Being a tenant administrator is separate from the role you hold inside an organi
 
 ## How people get access
 
-Users reach your deployment in one of two ways, both of which are configured by a tenant administrator on the [Identity and access](/docs/government/tenant-admin/identity-and-access.md) page:
+Users reach your deployment in one of two ways, both of which are configured by a tenant administrator on the [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md) page:
 
 * **Single sign-on.** The user enters their agency email address and is redirected to your identity provider (for example, Microsoft Entra, Okta, or ADFS). When they return authenticated, Claude for Government evaluates your tenant's routing rules to decide which organization they belong in.
 * **Directory provisioning.** If your identity provider supports SCIM, which is a standard way for directory systems to keep accounts in sync with other applications, you can connect it so that your directory pushes users and group memberships to Claude for Government automatically. Routing rules then place each provisioned user in an organization based on their group membership.
@@ -129,6 +129,6 @@ Routing rules are the only way in. A new person who does not match any rule cann
 
 ## Where to go next
 
-* Read [**Tenant administration**](/docs/government/tenant-admin/overview.md) if you're a tenant administrator managing the overall deployment.
-* Read [**Organization administration**](/docs/government/org-admin/overview.md) if you're an owner managing a single organization.
-* Read [**Your account**](/docs/government/account/overview.md) if you want to understand your own profile, usage, and sessions.
+* Read [**Tenant administration**](https://claude.com/docs/government/tenant-admin/overview.md) if you're a tenant administrator managing the overall deployment.
+* Read [**Organization administration**](https://claude.com/docs/government/org-admin/overview.md) if you're an owner managing a single organization.
+* Read [**Your account**](https://claude.com/docs/government/account/overview.md) if you want to understand your own profile, usage, and sessions.

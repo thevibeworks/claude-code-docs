@@ -18,7 +18,7 @@ Each prompt below is a Slack message. You paste it in the channel that receives 
 
 ## Check the channel's connections
 
-Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections.md) the channel is missing.
+Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](https://claude.com/docs/claude-tag/admins/add-connections.md) the channel is missing.
 
 | Connection | Examples | Why it matters here |
 | :- | :- | :- |
@@ -34,7 +34,7 @@ One message sets up a standing check that posts every morning, one line per serv
 @Claude every morning at 7, check the service dashboards and post one line per service: green, or what's off and since when.
 ```
 
-Name the output format in the schedule, like "one line per service" above, so every post reads the same way. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity.md#manage-standing-work).
+Name the output format in the schedule, like "one line per service" above, so every post reads the same way. To list or cancel scheduled work later, see [Manage standing work](https://claude.com/docs/claude-tag/users/proactivity.md#manage-standing-work).
 
 ### Investigate a single alert
 
@@ -56,15 +56,15 @@ Set this up as a routine to get both: a scheduled check against the last known s
 
 ## Keep known false alarms out of Claude's checks
 
-Open the channel's [**Configure** page](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel). In the **Channel instructions** field, list the alerts your team already treats as false alarms, so Claude skips them.
+Open the channel's [**Configure** page](https://claude.com/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel). In the **Channel instructions** field, list the alerts your team already treats as false alarms, so Claude skips them.
 
 ## Related resources
 
-> **[Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs.md)**
+> **[Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)**
 >
 > When the investigation should end in a pull request
 
-> **[Set up routines](/docs/claude-tag/users/proactivity.md)**
+> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
 >
 > Schedules and event triggers
 

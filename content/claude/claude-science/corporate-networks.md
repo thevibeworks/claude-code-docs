@@ -6,7 +6,7 @@
 
 > How to run Claude Science behind an outbound proxy, a TLS-inspecting proxy, an internal package mirror, and an egress firewall, with the settings your network team needs for each.
 
-Claude Science runs on each member's computer and connects out for sign-in, the Claude API, and package and research hosts, usually through controls your IT organization manages on a corporate network. This page shows the administrator who runs those controls how to point Claude Science at an internal package mirror, configure an outbound proxy and TLS inspection, and hand the firewall team the [network requirements](/docs/claude-science/network-requirements.md) it needs.
+Claude Science runs on each member's computer and connects out for sign-in, the Claude API, and package and research hosts, usually through controls your IT organization manages on a corporate network. This page shows the administrator who runs those controls how to point Claude Science at an internal package mirror, configure an outbound proxy and TLS inspection, and hand the firewall team the [network requirements](https://claude.com/docs/claude-science/network-requirements.md) it needs.
 
 Claude Science makes three kinds of outbound connections, each passing through a different part of your network policy:
 
@@ -17,11 +17,11 @@ Claude Science makes three kinds of outbound connections, each passing through a
 ## Setup at a glance
 
 1. Check the [support table](#what-works-on-a-corporate-network) for your operating systems and network shape.
-2. Hand the [network requirements](/docs/claude-science/network-requirements.md) page to the team that manages your proxy or firewall allowlist.
+2. Hand the [network requirements](https://claude.com/docs/claude-science/network-requirements.md) page to the team that manages your proxy or firewall allowlist.
 3. [Point package installs at your internal mirror](#point-package-installs-at-an-internal-mirror) if the public package hosts are blocked, and deploy the mirror credential.
 4. [Connect through an outbound proxy](#connect-through-an-outbound-proxy) if your network uses one.
 5. If your proxy inspects TLS, [deploy your corporate root certificate](#work-behind-tls-inspection) as two bundles: one for the app, and a differently built one for package downloads.
-6. [Deploy the settings with device management](/docs/claude-science/manage-on-devices.md#deploy-configuration-with-device-management) rather than by hand.
+6. [Deploy the settings with device management](https://claude.com/docs/claude-science/manage-on-devices.md#deploy-configuration-with-device-management) rather than by hand.
 7. If sign-in or a first build fails, match the error against [Troubleshooting](#troubleshooting-corporate-network-errors).
 
 ## What works on a corporate network
@@ -43,9 +43,9 @@ Claude Science makes three kinds of outbound connections, each passing through a
 
 ## Point package installs at an internal mirror
 
-When your network blocks the public package hosts (`conda.anaconda.org`, `repo.anaconda.com`, `pypi.org`), point Claude Science at your internal artifact repository instead, and every environment build fetches packages through it. You can set the mirror in three places: once for the whole organization under **Organization settings** > **Claude Science** > **Organization package mirror**, for a fleet with the `[conda] channel_mirror` and `pip_index_url` keys in a [deployed `config.toml`](/docs/claude-science/manage-on-devices#deploy-configuration-with-device-management), or for a single machine under **Settings** > **Network** > **Package mirror**, where the same two settings are called the conda channel mirror and the pip index URL. The steps below use the Settings page, the quickest way to test a mirror URL before you deploy it.
+When your network blocks the public package hosts (`conda.anaconda.org`, `repo.anaconda.com`, `pypi.org`), point Claude Science at your internal artifact repository instead, and every environment build fetches packages through it. You can set the mirror in three places: once for the whole organization under **Organization settings** > **Claude Science** > **Organization package mirror**, for a fleet with the `[conda] channel_mirror` and `pip_index_url` keys in a [deployed `config.toml`](https://claude.com/docs/claude-science/manage-on-devices#deploy-configuration-with-device-management), or for a single machine under **Settings** > **Network** > **Package mirror**, where the same two settings are called the conda channel mirror and the pip index URL. The steps below use the Settings page, the quickest way to test a mirror URL before you deploy it.
 
-The organization setting takes a conda channel URL and a Python package index (PyPI) URL, which apply to every member whether or not the organization manages the network allowlist. They take precedence over a mirror set in a member's configuration file or Settings; the member's values are kept but not used, and their Settings show the package mirror as controlled by their admin. The same URL rules apply as below, and an address that breaks those rules is ignored for that registry rather than stopping the app. Members still sign in to the mirror themselves, once for each mirror host (see [Mirror credentials](#mirror-credentials)), unless you [deploy the credential as a file](#deploy-the-mirror-credential-as-a-file). The mirror removes the public hosts it replaces for every member. See [Organization package mirror](/docs/claude-science/admin-controls.md#organization-package-mirror).
+The organization setting takes a conda channel URL and a Python package index (PyPI) URL, which apply to every member whether or not the organization manages the network allowlist. They take precedence over a mirror set in a member's configuration file or Settings; the member's values are kept but not used, and their Settings show the package mirror as controlled by their admin. The same URL rules apply as below, and an address that breaks those rules is ignored for that registry rather than stopping the app. Members still sign in to the mirror themselves, once for each mirror host (see [Mirror credentials](#mirror-credentials)), unless you [deploy the credential as a file](#deploy-the-mirror-credential-as-a-file). The mirror removes the public hosts it replaces for every member. See [Organization package mirror](https://claude.com/docs/claude-science/admin-controls.md#organization-package-mirror).
 
 Set both a conda channel mirror and a pip index: analysis environments are built from conda packages, so a pip index alone leaves the first build stuck trying to reach the public conda host.
 
@@ -137,7 +137,7 @@ Mirrors that redirect package files to path-style object-storage URLs (such as `
 Claude Science reads its proxy configuration once at startup, so restart it after a change. The first source that sets a proxy address wins:
 
 1. The standard proxy variables in its own process environment: `HTTPS_PROXY`, `HTTP_PROXY`, and `NO_PROXY` (lowercase spellings also work). `ALL_PROXY` fills in for either proxy variable that is unset, an empty variable counts as unset, and `NO_PROXY="*"` sends all traffic directly.
-2. The `[network] proxy` key in `config.toml`, the form to [deploy with device management](/docs/claude-science/manage-on-devices.md#deploy-configuration-with-device-management).
+2. The `[network] proxy` key in `config.toml`, the form to [deploy with device management](https://claude.com/docs/claude-science/manage-on-devices.md#deploy-configuration-with-device-management).
 3. The proxy field under **Settings** > **Network**, where a member can paste a proxy address by hand. It takes effect at the next restart, and when `config.toml` sets the proxy, the field shows as managed by your organization so members cannot override it.
 4. On macOS and Windows, the proxy configured in the operating system's settings, which Claude Science detects automatically: an explicit web proxy in macOS network settings, or the proxy server in Windows proxy settings.
 
@@ -155,7 +155,7 @@ Claude Science always bypasses the proxy for loopback addresses (`localhost`, `1
 
 ### Proxy settings in the configuration file
 
-For a fleet, set `[network] proxy` and `no_proxy` in `config.toml`; both keys and their formats are in the [configuration file reference](/docs/claude-science/configuration-file-reference.md#app-connection-keys).
+For a fleet, set `[network] proxy` and `no_proxy` in `config.toml`; both keys and their formats are in the [configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md#app-connection-keys).
 
 ### System proxy settings on macOS and Windows
 
@@ -175,7 +175,7 @@ How the variables reach the app depends on the operating system:
 
 * On macOS, the Claude Science app reads a file named `env` in its data folder (`~/.claude-science/env` unless you moved the data folder) when it launches. The file holds `KEY=VALUE` lines (`export KEY=VALUE` also works). Put the three proxy variables there, then quit and reopen the app; an app started from the Dock or Finder does not see variables exported in a terminal. The file's `NO_PROXY` entries merge with the other sources rather than replacing them.
 
-  The app applies only a fixed list of variables from this file, which includes the proxy variables and `DO_NOT_TRACK`, and skips any other line with a warning in `~/.claude-science/logs/app.log`. When Claude Science opens in its own window on a Mac, the warning goes to `~/Library/Application Support/Claude Science/logs/host-local.log` instead. A `GITHUB_TOKEN` line, for example, is skipped, so add the token under **Settings > Credentials** (see [Environment variables](/docs/claude-science/command-line-settings.md#environment-variables)). Before version 0.1.56, the file could set any variable.
+  The app applies only a fixed list of variables from this file, which includes the proxy variables and `DO_NOT_TRACK`, and skips any other line with a warning in `~/.claude-science/logs/app.log`. When Claude Science opens in its own window on a Mac, the warning goes to `~/Library/Application Support/Claude Science/logs/host-local.log` instead. A `GITHUB_TOKEN` line, for example, is skipped, so add the token under **Settings > Credentials** (see [Environment variables](https://claude.com/docs/claude-science/command-line-settings.md#environment-variables)). Before version 0.1.56, the file could set any variable.
 * On Windows, the app reads the variables from the user's environment when it starts, so set them as user environment variables, then quit Claude Science from its notification-area icon and open it again; variables typed into an open Command Prompt or PowerShell window do not reach an app started from the Start menu. Because Claude Science already follows Windows proxy settings, most PCs need no variables, and `[network] proxy` in `config.toml` is the form to deploy.
 * On Linux, export the variables in the shell or service unit that starts `claude-science serve`. The `env` file is read only by the macOS app.
 
@@ -195,7 +195,7 @@ Two settings carry the corporate root and behave differently. Set the one that m
 
 ### Corporate root for app connections
 
-The `[network] ca_bundle` key in `config.toml` points at a PEM file whose certificates Claude Science adds to its default trust for sign-in, the Claude API, Anthropic-hosted connectors, update checks, and [cloud storage](/docs/claude-science/cloud-storage.md) access from Settings. On a Mac where Claude Science opens in its own window, the app's own updates use the certificates that macOS trusts instead (see [Proxy and certificates for updates in the Mac app window](#proxy-and-certificates-for-updates-in-the-mac-app-window)). For cloud storage, the corporate root applies to Amazon S3 and S3-compatible connections, to Azure Blob Storage connections, and to Google Cloud Storage connections. The public roots stay in place, so the file holds only your corporate root. The path rules are in the [configuration file reference](/docs/claude-science/configuration-file-reference.md#app-connection-keys). A failing value is ignored with a warning rather than stopping the app, so a sign-in error behind inspection usually means the bundle did not load, and the app re-reads the bundle every few minutes (about every 30 minutes on Windows), so a corrected file takes effect without a restart. When you deploy a `config.toml`, deploy the bundle files alongside it.
+The `[network] ca_bundle` key in `config.toml` points at a PEM file whose certificates Claude Science adds to its default trust for sign-in, the Claude API, Anthropic-hosted connectors, update checks, and [cloud storage](https://claude.com/docs/claude-science/cloud-storage.md) access from Settings. On a Mac where Claude Science opens in its own window, the app's own updates use the certificates that macOS trusts instead (see [Proxy and certificates for updates in the Mac app window](#proxy-and-certificates-for-updates-in-the-mac-app-window)). For cloud storage, the corporate root applies to Amazon S3 and S3-compatible connections, to Azure Blob Storage connections, and to Google Cloud Storage connections. The public roots stay in place, so the file holds only your corporate root. The path rules are in the [configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md#app-connection-keys). A failing value is ignored with a warning rather than stopping the app, so a sign-in error behind inspection usually means the bundle did not load, and the app re-reads the bundle every few minutes (about every 30 minutes on Windows), so a corrected file takes effect without a restart. When you deploy a `config.toml`, deploy the bundle files alongside it.
 
 On Windows, when neither `[network] ca_bundle` nor `[conda] ca_bundle` (the **CA bundle path** field in **Settings**) is set, Claude Science automatically trusts the root certificates installed for the whole computer (the computer's **Trusted Root Certification Authorities** store, not the current user's) and rechecks that store about every 30 minutes, so a PC whose device management already installs your corporate root there needs no setting. Claude Science reads that store with Windows PowerShell, so on PCs where Windows PowerShell is blocked or restricted for users, set `[network] ca_bundle` for the app's own connections and `[conda] ca_bundle` for code inside sessions instead of relying on the store. If you do set `[network] ca_bundle` on Windows, the file is used instead of the store; write its path in single quotes, for example `'C:\ProgramData\corp\corporate-ca.pem'`, because a backslash inside double quotes is a TOML escape and a file that fails to parse stops Claude Science from starting.
 
@@ -212,7 +212,7 @@ pip verifies package downloads against the operating system's trust store, and i
 ca_bundle = "/etc/claude-science/complete-bundle.pem"
 ```
 
-The same path rules apply as for `[network] ca_bundle`; the [configuration file reference](/docs/claude-science/configuration-file-reference.md#package-download-keys) lists them.
+The same path rules apply as for `[network] ca_bundle`; the [configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md#package-download-keys) lists them.
 
 > [!WARNING]
 >
@@ -260,7 +260,7 @@ When the check does sign in, a `401` means the token is wrong or expired. On a p
 When a `.netrc` file you deployed (see [Deploy the mirror credential as a file](#deploy-the-mirror-credential-as-a-file)) doesn't work, find the case that matches:
 
 * **An environment build fails with `401` or `403`**: check the file's name, contents, permissions, and token (see [HTTP 401 or 403 during an environment build](#http-401-or-403-during-an-environment-build)). On Windows, Claude Science doesn't use a file it can't open or whose keywords or characters it doesn't accept, and Python package installs then don't sign in with it. In a terminal, `claude-science logs` says why.
-* **Your mirror's request log shows nothing**: if your network also allows the public package hosts, setup can use them before the organization's mirror address arrives. In that case, set the mirror in `config.toml` (see [Configuration file reference](/docs/claude-science/configuration-file-reference.md)) on another machine where Claude Science has never run, before the install, and repeat the test.
+* **Your mirror's request log shows nothing**: if your network also allows the public package hosts, setup can use them before the organization's mirror address arrives. In that case, set the mirror in `config.toml` (see [Configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md)) on another machine where Claude Science has never run, before the install, and repeat the test.
 * **The file reached a machine while a credential was still saved**: have the member select **Remove** under **Settings > Network > Package mirror > Mirror credentials**, then deploy the file again, because removing can empty it. On Windows, have the member then quit Claude Science from its notification-area icon and open it again.
 
 ### Green check, then nothing provides the package

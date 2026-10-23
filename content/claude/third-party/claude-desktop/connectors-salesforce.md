@@ -6,7 +6,7 @@
 
 > Give Claude access to your Salesforce org through Salesforce's plugin and hosted MCP server, set up in the Enterprise Admin Console or your managed configuration with an OAuth client that a Salesforce admin creates.
 
-The Salesforce plugin and Salesforce's hosted MCP server let Claude work with your organization's Salesforce records. The plugin's marketplace is one of the preconfigured [plugin marketplaces](/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin) Claude Desktop offers.
+The Salesforce plugin and Salesforce's hosted MCP server let Claude work with your organization's Salesforce records. The plugin's marketplace is one of the preconfigured [plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin) Claude Desktop offers.
 
 ## Set up Salesforce
 
@@ -32,7 +32,7 @@ Copy the app's **Consumer Key**, which is its client ID. With PKCE, Claude Deskt
 
 **In the Enterprise Admin Console.** Go to [claude.ai](https://claude.ai) → **Organization settings** and open the **Plugins** page under **Desktop 3P**. Under **Plugin marketplaces**, click **Add** and choose **Salesforce** under **From partners**. The new entry has **Source** set to **GitHub**, **Repository** set to `salesforce/salesforce-skills`, and **Ref** set to `claude-prod`, the branch Salesforce publishes its releases to. Leave **Installation** empty and click **Save changes**.
 
-**With MDM or a bootstrap server.** Add this entry to the [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) key of your managed configuration or bootstrap response:
+**With MDM or a bootstrap server.** Add this entry to the [`allowedPluginMarketplaces`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) key of your managed configuration or bootstrap response:
 
 ```json theme={null}
 {
@@ -42,11 +42,11 @@ Copy the app's **Consumer Key**, which is its client ID. With PKCE, Claude Deskt
 }
 ```
 
-Either way the marketplace stays **available**, and each user installs the plugin once, as described in step 4. To install the plugin on every device without user action instead, set the ref to a full 40-character commit SHA and the installation preference to `auto_install`. [Marketplace installation preferences](/docs/third-party/claude-desktop/extensions.md#marketplace-installation-preferences) explains why the SHA is required, and [Roll out marketplace updates](/docs/third-party/claude-desktop/extensions.md#roll-out-marketplace-updates) explains how to move to a newer release.
+Either way the marketplace stays **available**, and each user installs the plugin once, as described in step 4. To install the plugin on every device without user action instead, set the ref to a full 40-character commit SHA and the installation preference to `auto_install`. [Marketplace installation preferences](https://claude.com/docs/third-party/claude-desktop/extensions.md#marketplace-installation-preferences) explains why the SHA is required, and [Roll out marketplace updates](https://claude.com/docs/third-party/claude-desktop/extensions.md#roll-out-marketplace-updates) explains how to move to a newer release.
 
 **3. Add the Salesforce MCP server**
 
-**In the Enterprise Admin Console.** Go to [claude.ai](https://claude.ai) → **Organization settings** and open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank**, fill in the entry as below, and click **Save changes**. [Set up sign-in for managed MCP servers](/docs/third-party/claude-desktop/mcp-sign-in.md) explains each **OAuth** field, and users' apps pick up console changes as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console.md#configuration-updates).
+**In the Enterprise Admin Console.** Go to [claude.ai](https://claude.ai) → **Organization settings** and open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank**, fill in the entry as below, and click **Save changes**. [Set up sign-in for managed MCP servers](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md) explains each **OAuth** field, and users' apps pick up console changes as described under [Configuration updates](https://claude.com/docs/third-party/claude-desktop/admin-console.md#configuration-updates).
 
 | Field | Value |
 | - | - |
@@ -57,7 +57,7 @@ Either way the marketplace stays **available**, and each user installs the plugi
 | **Client ID** | The Consumer Key from step 1 |
 | **Authorization server** | `["https://login.salesforce.com"]` |
 
-**With MDM or a bootstrap server.** Add this entry to the [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) key of your managed configuration or bootstrap response:
+**With MDM or a bootstrap server.** Add this entry to the [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) key of your managed configuration or bootstrap response:
 
 ```json theme={null}
 {

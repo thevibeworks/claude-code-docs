@@ -6,7 +6,7 @@
 
 > How the MCP Inspector performs OAuth, re-authorizes mid-session, and shares tokens between its clients
 
-Remote MCP servers usually require authorization. The Inspector implements the full [authorization](/specification/latest/basic/authorization.md) flow in all three clients, sharing the resulting tokens on disk so a login done once is usable everywhere.
+Remote MCP servers usually require authorization. The Inspector implements the full [authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md) flow in all three clients, sharing the resulting tokens on disk so a login done once is usable everywhere.
 
 ## The flow, end to end
 
@@ -21,19 +21,19 @@ scopes the request requires.
 
 The Inspector fetches the server's [protected-resource and
 authorization-server
-metadata](/specification/latest/basic/authorization/authorization-server-discovery.md)
+metadata](https://modelcontextprotocol.io/specification/latest/basic/authorization/authorization-server-discovery.md)
 to learn the endpoints and the supported grants.
 
 **3. Register or identify the client**
 
 The Inspector identifies itself to the authorization server through
 whichever mechanism is configured: [dynamic client
-registration](/specification/latest/basic/authorization/client-registration.md#dynamic-client-registration),
+registration](https://modelcontextprotocol.io/specification/latest/basic/authorization/client-registration.md#dynamic-client-registration),
 a pre-registered static client (`--client-id` / `--client-secret`), a
 [Client ID Metadata
-Document](/specification/latest/basic/authorization/client-registration.md#client-id-metadata-documents)
+Document](https://modelcontextprotocol.io/specification/latest/basic/authorization/client-registration.md#client-id-metadata-documents)
 (`--client-metadata-url`), or an [enterprise-managed
-IdP](/extensions/auth/enterprise-managed-authorization.md).
+IdP](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md).
 
 **4. Authorize in the browser**
 
@@ -91,11 +91,11 @@ For the CLI and TUI, override it with `--callback-url` or `MCP_OAUTH_CALLBACK_UR
 | - | - |
 | `~/.mcp-inspector/storage/oauth.json` | Non-secret OAuth state (discovery metadata, PKCE verifiers, granted scope, public client ids), keyed by canonicalized server URL. Written owner-only. |
 | `~/.mcp-inspector/storage/client.json` | Install-level client settings (client metadata URL, enterprise IdP). The same file the web client's **Client Settings** dialog writes. |
-| The server's `oauth` block in the [catalog file](/docs/draft/tools/inspector/configuration.md#catalog-file-format) | Per-server client id/secret, scopes, the enterprise-managed flag, and the [step-up](#mid-session-re-authorization) policy. |
+| The server's `oauth` block in the [catalog file](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#catalog-file-format) | Per-server client id/secret, scopes, the enterprise-managed flag, and the [step-up](#mid-session-re-authorization) policy. |
 
-The path to `oauth.json` is resolved in order: `MCP_INSPECTOR_OAUTH_STATE_PATH`, then `<MCP_STORAGE_DIR>/oauth.json` (see [Environment variables](/docs/draft/tools/inspector/configuration.md#environment-variables)), then the default above. All three clients resolve it the same way. Command-line `--client-id` / `--client-secret` / `--client-metadata-url` override `client.json`.
+The path to `oauth.json` is resolved in order: `MCP_INSPECTOR_OAUTH_STATE_PATH`, then `<MCP_STORAGE_DIR>/oauth.json` (see [Environment variables](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#environment-variables)), then the default above. All three clients resolve it the same way. Command-line `--client-id` / `--client-secret` / `--client-metadata-url` override `client.json`.
 
-The secrets themselves (access and refresh tokens, client secrets, registration access tokens, and IdP session tokens) are not in `oauth.json`. They go to the [secret store](/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored), which is the OS keychain when one is reachable. `MCP_INSPECTOR_PERSIST_TOKENS` limits which acquired tokens are kept: `all` (default), `access` (no refresh tokens), or `none` (re-authorize every run). See [Secret store variables](/docs/draft/tools/inspector/configuration.md#secret-store-variables).
+The secrets themselves (access and refresh tokens, client secrets, registration access tokens, and IdP session tokens) are not in `oauth.json`. They go to the [secret store](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored), which is the OS keychain when one is reachable. `MCP_INSPECTOR_PERSIST_TOKENS` limits which acquired tokens are kept: `all` (default), `access` (no refresh tokens), or `none` (re-authorize every run). See [Secret store variables](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#secret-store-variables).
 
 ## Mid-session re-authorization
 
@@ -114,7 +114,7 @@ Answer **y** to continue. Piped input works (`echo y | ...`), as long as it's ne
 
 ## Non-interactive and CI runs
 
-Interactive OAuth requires a TTY on **stdin or stderr**, or [`MCP_AUTO_OPEN_ENABLED=true`](/docs/draft/tools/inspector/configuration#environment-variables). Redirecting stderr into a pipe, as in `2>&1 | tee`, still works because stdin stays a TTY. When neither is true, which is the normal CI shape, the CLI fails fast with `auth_required` rather than waiting up to fifteen minutes for a callback nobody will complete.
+Interactive OAuth requires a TTY on **stdin or stderr**, or [`MCP_AUTO_OPEN_ENABLED=true`](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration#environment-variables). Redirecting stderr into a pipe, as in `2>&1 | tee`, still works because stdin stays a TTY. When neither is true, which is the normal CI shape, the CLI fails fast with `auth_required` rather than waiting up to fifteen minutes for a callback nobody will complete.
 
 For CI, be explicit:
 
@@ -147,7 +147,7 @@ mcp-inspector --cli --transport http --server-url https://api.example/mcp \
   --wait-for-auth 120 --method tools/list
 ```
 
-The `deepLink` in the handoff block navigates a browser straight to a *connected* Inspector; see [Deep links](/docs/draft/tools/inspector/web.md#deep-links).
+The `deepLink` in the handoff block navigates a browser straight to a *connected* Inspector; see [Deep links](https://modelcontextprotocol.io/docs/draft/tools/inspector/web.md#deep-links).
 
 > [!NOTE]
 >

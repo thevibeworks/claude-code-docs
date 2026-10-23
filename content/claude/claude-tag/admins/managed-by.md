@@ -12,9 +12,9 @@
 
 **Managed by** is a channel setting that names other Slack channels whose members can write that channel's standing instructions for Claude. The channel that carries the setting is the managed channel, and each channel it names is a managing channel. People in a managing channel ask Claude to set or update the managed channel's instructions and confirm the change on a card, and Claude follows that text in every new conversation in the managed channel. This page is for admins who set up the pairing and for the people in a managing channel who write the instructions.
 
-On the Enterprise plan, an Owner of your Claude organization or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) sets up **Managed by** on the **Admin** tab of a channel's Configure page. The Team plan doesn't have the **Admin** tab. [When to use Managed by](#when-to-use-managed-by) lists the other places to keep instructions for a channel.
+On the Enterprise plan, an Owner of your Claude organization or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) sets up **Managed by** on the **Admin** tab of a channel's Configure page. The Team plan doesn't have the **Admin** tab. [When to use Managed by](#when-to-use-managed-by) lists the other places to keep instructions for a channel.
 
-A managing channel isn't a [channel manager](/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers). A channel manager is a person with a role that lets them configure one channel. A managing channel is a Slack channel, and the full workspace members in it can propose and confirm changes.
+A managing channel isn't a [channel manager](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers). A channel manager is a person with a role that lets them configure one channel. A managing channel is a Slack channel, and the full workspace members in it can propose and confirm changes.
 
 ## When to use Managed by
 
@@ -22,10 +22,10 @@ The table compares the places standing instructions for Claude can live and who 
 
 | You want | Use | Who writes it |
 | :- | :- | :- |
-| The same rules in every channel of a workspace or your whole organization | [Custom instructions](/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions) on the workspace or organization scope | An Owner, or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) for the workspace scope, in admin settings |
+| The same rules in every channel of a workspace or your whole organization | [Custom instructions](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions) on the workspace or organization scope | An Owner, or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) for the workspace scope, in admin settings |
 | A central team to write the rules for a few channels it runs, such as a help desk or an on-call channel, without being admins | **Managed by** | Members of a managing channel, by asking Claude in Slack |
 | To correct how Claude behaves in a channel without having the conversation in that channel | **Managed by** with a private managing channel, as in [Correct Claude privately from a managing channel](#correct-claude-privately-from-a-managing-channel) | You, by asking Claude in the private channel |
-| The people who work in a channel to set its conventions themselves | The **Channel instructions** field on the channel's [Configure page](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel) | Channel members, unless an admin has [restricted editing](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) |
+| The people who work in a channel to set its conventions themselves | The **Channel instructions** field on the channel's [Configure page](https://claude.com/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel) | Channel members, unless an admin has [restricted editing](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) |
 
 You set up **Managed by** one channel at a time, and someone confirms each change to a channel's text in Slack. That suits a handful of channels. To give many channels the same text, use workspace or organization custom instructions.
 
@@ -38,8 +38,8 @@ The **Managed by** list on the managed channel's Configure page refuses a pairin
 * **Every channel in the pairing:** Claude is a member, and the channel is an ordinary channel in the same Slack workspace as the others. Direct messages and group direct messages can't be managed or managing channels.
 * **Sharing:** no channel in the pairing is shared outside its workspace. That rules out Slack Connect channels, including ones with a pending invitation, and channels shared across the workspaces of an Enterprise Grid.
 * **You:** you are a member of every managing channel you add.
-* **Managing channel:** its [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) setting resolves to **Allow**. The list accepts a managing channel set to **Block**, but Claude refuses every read and change there.
-* **Managed channel:** the channel has its own page on the **Channels** tab under **Claude's access** in admin settings. If it isn't listed there, [set the channel up](/docs/claude-tag/admins/attach-to-scope.md#attach-to-a-channel).
+* **Managing channel:** its [**Channel member edits**](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) setting resolves to **Allow**. The list accepts a managing channel set to **Block**, but Claude refuses every read and change there.
+* **Managed channel:** the channel has its own page on the **Channels** tab under **Claude's access** in admin settings. If it isn't listed there, [set the channel up](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#attach-to-a-channel).
 
 A managed channel can have up to five managing channels. A private managed channel has extra rules, listed under [Public and private channels](#public-and-private-channels).
 
@@ -47,7 +47,7 @@ A managed channel can have up to five managing channels. A private managed chann
 
 **1. Open the managed channel's Configure page**
 
-In the channel whose instructions will be managed, select the **Configure** link in the footer of any Claude reply, or send [`@Claude !configure`](/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) and follow the link Claude posts. Go to the **Admin** tab.
+In the channel whose instructions will be managed, select the **Configure** link in the footer of any Claude reply, or send [`@Claude !configure`](https://claude.com/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) and follow the link Claude posts. Go to the **Admin** tab.
 
 **2. Select channels under Managed by**
 
@@ -61,7 +61,7 @@ To stop a channel managing another, clear it from the same list. Removing a chan
 
 ## Write or update managed instructions
 
-A managing channel is a Slack channel that an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page. Any full member of the workspace who is in a managing channel can ask Claude there to change the managed channel's instructions. Guests and people from other organizations can't.
+A managing channel is a Slack channel that an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page. Any full member of the workspace who is in a managing channel can ask Claude there to change the managed channel's instructions. Guests and people from other organizations can't.
 
 **1. Ask Claude in the managing channel**
 
@@ -97,9 +97,9 @@ These rules apply to every card.
 
 ### Correct Claude privately from a managing channel
 
-A managing channel is a Slack channel that an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page, and that other channel is the managed channel. When Claude gets something wrong in the managed channel, you can give the correction in a private managing channel, where only the private channel's members see the conversation.
+A managing channel is a Slack channel that an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page, and that other channel is the managed channel. When Claude gets something wrong in the managed channel, you can give the correction in a private managing channel, where only the private channel's members see the conversation.
 
-Claude proposes the correction as a change to the managed channel's instructions. After you confirm, Claude follows the new text in [conversations that start afterward](#how-managed-instructions-load) in the managed channel. While a guest is present in a managed channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access.md#how-channel-only-works), Claude doesn't load managed instructions.
+Claude proposes the correction as a change to the managed channel's instructions. After you confirm, Claude follows the new text in [conversations that start afterward](#how-managed-instructions-load) in the managed channel. While a guest is present in a managed channel that runs with [channel-only access](https://claude.com/docs/claude-tag/admins/restrict-access.md#how-channel-only-works), Claude doesn't load managed instructions.
 
 **1. Set up a private managing channel**
 
@@ -134,7 +134,7 @@ People who are in the managed channel and not in the managing channel see only p
 * **Your messages, Claude's replies, and the card:** these stay in the managing channel. Claude posts nothing in the managed channel when you confirm.
 * **The instruction text:** members of the managed channel can ask Claude to repeat its instructions, so write the correction as a rule you're comfortable with them reading. They can also ask Claude to change or remove the text, as described in [Limits of Managed by as a control](#limits-of-managed-by-as-a-control).
 
-In the original thread, Claude keeps the text the thread started with, and its replies there stay as they are. From a private channel, Claude [doesn't post in other channels](/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels), so reply in that thread yourself if the person who asked needs the right answer.
+In the original thread, Claude keeps the text the thread started with, and its replies there stay as they are. From a private channel, Claude [doesn't post in other channels](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels), so reply in that thread yourself if the person who asked needs the right answer.
 
 ## How managed instructions load
 
@@ -145,7 +145,7 @@ Managed instructions are either core instructions, which Claude always reads, or
 | Core instructions | One per managed channel | 16 KiB | At the start of every new conversation in the managed channel |
 | Reference files | Up to 20 per managed channel, each with a short name | 100 KiB each | When the core instructions point Claude to one by name |
 
-While a guest is present in a managed channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access.md#how-channel-only-works), Claude doesn't read the channel's memory, where managed instructions are stored, so conversations start without them.
+While a guest is present in a managed channel that runs with [channel-only access](https://claude.com/docs/claude-tag/admins/restrict-access.md#how-channel-only-works), Claude doesn't read the channel's memory, where managed instructions are stored, so conversations start without them.
 
 Put what Claude must always follow in the core instructions. Put long material, such as a runbook or an escalation list, in a reference file, and name that file in the core instructions so Claude knows when to open it.
 
@@ -170,7 +170,7 @@ A managing channel's members can read the managed channel's instructions through
 
 | Managed channel | Managing channels can be | Who can add managing channels |
 | :- | :- | :- |
-| Public | Public or private | An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) |
+| Public | Public or private | An Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) |
 | Private | Private only | An Owner or a Claude Tag admin who is also a member of the private channel |
 
 Anyone in the workspace can join a public managing channel and confirm changes there, so prefer a private managing channel for anything sensitive.
@@ -179,9 +179,9 @@ When a public managed channel is made private, its managing channels are removed
 
 ## Limits of Managed by as a control
 
-**Managed by** sets which channels' members can write a channel's standing instructions through Claude. It isn't an access control. The managed text is stored with the managed channel's [memory](/docs/claude-tag/users/memory.md), so a member of the managed channel who asks Claude to change what it has saved there can still alter or remove the text.
+**Managed by** sets which channels' members can write a channel's standing instructions through Claude. It isn't an access control. The managed text is stored with the managed channel's [memory](https://claude.com/docs/claude-tag/users/memory.md), so a member of the managed channel who asks Claude to change what it has saved there can still alter or remove the text.
 
-For instructions that channel members can't change, use [organization or workspace custom instructions](/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions). For anything Claude must not do, use [access controls](/docs/claude-tag/admins/restrict-access.md).
+For instructions that channel members can't change, use [organization or workspace custom instructions](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions). For anything Claude must not do, use [access controls](https://claude.com/docs/claude-tag/admins/restrict-access.md).
 
 If Claude can't read managed instructions when a conversation starts, the conversation starts without them.
 
@@ -194,22 +194,22 @@ Claude words a refusal differently each time, so match a row on its meaning. The
 | This channel isn't set as a manager of the other channel | No pairing exists, or it was removed | Add this channel under **Managed by** on the other channel's Configure page |
 | A channel is shared with another organization | The managed or managing channel is a Slack Connect channel, has a pending invitation, or is shared across Enterprise Grid workspaces | Use channels that belong to one workspace only |
 | You aren't in the managing channel, or in the private managed channel | You tried to add a managing channel you haven't joined, or to add managing channels to a private channel you aren't in | Join the channel in Slack, then try again |
-| This channel's settings are locked by an admin | The managing channel's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) setting is **Block**, on the channel or inherited from its workspace or the **Slack** page | Set **Channel member edits** to **Allow** on the managing channel's scope |
+| This channel's settings are locked by an admin | The managing channel's [**Channel member edits**](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) setting is **Block**, on the channel or inherited from its workspace or the **Slack** page | Set **Channel member edits** to **Allow** on the managing channel's scope |
 | You need your Claude account connected in this organization | You selected **Confirm** or **Cancel** without a Claude account in the organization connected to your Slack account | Connect your account from the Claude app's **Home** tab in Slack, then select the button again |
 | Claude isn't in one of the channels | Claude was removed from the managed or managing channel, or never added | Run `/invite @Claude` in that channel |
 | One of those channels is archived | One of the managing channels is archived in Slack | Remove the archived channel, then try again |
 | A private channel can only be managed by private channels | The managed channel is private and the managing channel is public, or was made public later | Pick a private managing channel |
-| The managed channel may have been made private or deleted | The managed channel was made private or deleted, or Claude is no longer in it | Check the channel in Slack. If it was made private, an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) who is a member of it adds private managing channels again |
-| Claude isn't set up in the managed channel with its own channel configuration | The managed channel has no page of its own on the **Channels** tab | [Set the channel up](/docs/claude-tag/admins/attach-to-scope.md#attach-to-a-channel) in admin settings |
+| The managed channel may have been made private or deleted | The managed channel was made private or deleted, or Claude is no longer in it | Check the channel in Slack. If it was made private, an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) who is a member of it adds private managing channels again |
+| Claude isn't set up in the managed channel with its own channel configuration | The managed channel has no page of its own on the **Channels** tab | [Set the channel up](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#attach-to-a-channel) in admin settings |
 | The managed channel already has five managing channels | Five is the most a managed channel can have | Remove one before adding another |
 | The file would be too large | The core instructions are over 16 KiB, or a reference file is over 100 KiB | Shorten the text, or move detail into a reference file |
 | The managed channel already has the most reference files | Twenty reference files exist | Ask Claude to delete one first |
 | The change is too large to show | The card can't display every changed line | Ask for a smaller part, confirm it, then ask for the next part |
 | The text was refused by the content check | The text is blank or contains characters, links, or formatting the content check doesn't allow | Remove that part or write it as plain text, then ask again |
-| Managed instructions changes aren't available for organizations with restricted compliance settings | Your organization has restricted compliance settings | See [Restricted compliance settings block Claude Tag](/docs/claude-tag/admins/troubleshooting.md#restricted-compliance-settings-block-claude-tag) |
+| Managed instructions changes aren't available for organizations with restricted compliance settings | Your organization has restricted compliance settings | See [Restricted compliance settings block Claude Tag](https://claude.com/docs/claude-tag/admins/troubleshooting.md#restricted-compliance-settings-block-claude-tag) |
 
 ## Related resources
 
-* [How custom instructions stack](/docs/claude-tag/admins/attach-to-scope.md#custom-instructions): how organization, workspace, and channel instructions combine
-* [Customize Claude Tag](/docs/claude-tag/admins/customize.md): every layer that shapes Claude's behavior and who sets it
-* [What Claude Tag remembers](/docs/claude-tag/users/memory.md): channel memory, where managed text is stored
+* [How custom instructions stack](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#custom-instructions): how organization, workspace, and channel instructions combine
+* [Customize Claude Tag](https://claude.com/docs/claude-tag/admins/customize.md): every layer that shapes Claude's behavior and who sets it
+* [What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md): channel memory, where managed text is stored

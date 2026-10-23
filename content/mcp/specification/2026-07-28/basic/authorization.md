@@ -53,7 +53,7 @@ making protected resource requests on behalf of a resource owner.
 
 The *authorization server* is responsible for interacting with the user (if necessary) and issuing access tokens for use at the MCP server.
 The implementation details of the authorization server are beyond the scope of this specification. It may be hosted with the
-resource server or a separate entity. [Authorization Server Discovery](/specification/2026-07-28/basic/authorization/authorization-server-discovery.md)
+resource server or a separate entity. [Authorization Server Discovery](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery.md)
 specifies how an MCP server indicates the location of its corresponding authorization server to a client.
 
 ## Overview
@@ -61,23 +61,23 @@ specifies how an MCP server indicates the location of its corresponding authoriz
 1. Authorization servers **MUST** implement OAuth 2.1 with appropriate security
    measures for both confidential and public clients.
 
-2. Authorization servers and MCP clients **SHOULD** support [OAuth Client ID Metadata Documents](/specification/2026-07-28/basic/authorization/client-registration.md#client-id-metadata-documents)
+2. Authorization servers and MCP clients **SHOULD** support [OAuth Client ID Metadata Documents](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration.md#client-id-metadata-documents)
    ([draft-ietf-oauth-client-id-metadata-document-00](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document-00)).
 
 3. Authorization servers and MCP clients **MAY** support the OAuth 2.0 Dynamic Client Registration
    Protocol ([RFC7591](https://datatracker.ietf.org/doc/html/rfc7591)). Note that
-   [Dynamic Client Registration](/specification/2026-07-28/basic/authorization/client-registration.md#dynamic-client-registration)
+   [Dynamic Client Registration](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration.md#dynamic-client-registration)
    is deprecated and retained for backwards compatibility with authorization servers that do not support Client ID Metadata Documents.
 
 4. MCP servers **MUST** implement OAuth 2.0 Protected Resource Metadata ([RFC9728](https://datatracker.ietf.org/doc/html/rfc9728)).
-   MCP clients **MUST** use OAuth 2.0 Protected Resource Metadata for [authorization server discovery](/specification/2026-07-28/basic/authorization/authorization-server-discovery.md).
+   MCP clients **MUST** use OAuth 2.0 Protected Resource Metadata for [authorization server discovery](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery.md).
 
 5. MCP authorization servers **MUST** provide at least one of the following discovery mechanisms:
 
    * OAuth 2.0 Authorization Server Metadata ([RFC8414](https://datatracker.ietf.org/doc/html/rfc8414))
    * [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)
 
-   MCP clients **MUST** support both [discovery mechanisms](/specification/2026-07-28/basic/authorization/authorization-server-discovery.md#authorization-server-metadata-discovery) to obtain the information required to interact with the authorization server.
+   MCP clients **MUST** support both [discovery mechanisms](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery.md#authorization-server-metadata-discovery) to obtain the information required to interact with the authorization server.
 
 ## Authorization Server Discovery
 
@@ -85,14 +85,14 @@ MCP servers advertise their associated authorization servers through OAuth 2.0 P
 Resource Metadata, and MCP clients determine authorization server endpoints and supported
 capabilities through authorization server metadata discovery. Implementations **MUST**
 follow the normative discovery requirements defined in
-[Authorization Server Discovery](/specification/2026-07-28/basic/authorization/authorization-server-discovery.md).
+[Authorization Server Discovery](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery.md).
 
 ## Client Registration
 
 Before initiating the authorization flow, MCP clients **MUST** obtain a client ID through
 one of three registration mechanisms: Client ID Metadata Documents, pre-registration, or
 Dynamic Client Registration, following the requirements and selection priority defined in
-[Client Registration](/specification/2026-07-28/basic/authorization/client-registration.md).
+[Client Registration](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration.md).
 
 ## Scope Selection Strategy
 
@@ -129,14 +129,14 @@ only the scopes necessary for their intended operations. During the initial auth
 2. **If `scope` is not available**, use all scopes defined in `scopes_supported` from the Protected Resource Metadata document, omitting the `scope` parameter if `scopes_supported` is undefined.
 
 The `scopes_supported` field is intended to represent the minimal set of scopes necessary
-for basic functionality (see [Scope Minimization](/docs/2026-07-28/tutorials/security/security_best_practices.md#scope-minimization)),
+for basic functionality (see [Scope Minimization](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices.md#scope-minimization)),
 with additional scopes requested incrementally through the step-up authorization flow steps
 described in the [Scope Challenge Handling](#scope-challenge-handling) section.
 
 ## Authorization Flow Steps
 
 The registration step shown in the flow uses one of the mechanisms defined in
-[Client Registration](/specification/2026-07-28/basic/authorization/client-registration.md).
+[Client Registration](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration.md).
 
 The complete Authorization flow proceeds as follows:
 
@@ -189,7 +189,7 @@ sequenceDiagram
 
 ### Authorization Response Validation
 
-Before redirecting the user-agent, the client **MUST** record the `issuer` value from the selected authorization server's validated metadata document (see [Authorization Server Metadata Discovery](/specification/2026-07-28/basic/authorization/authorization-server-discovery.md#authorization-server-metadata-discovery)) and associate it with the same per-request record used to store the PKCE code verifier (and the `state` value, if used). The validation in this section depends on that recorded value being authentic; it provides no protection if the expected issuer was obtained from an unvalidated source.
+Before redirecting the user-agent, the client **MUST** record the `issuer` value from the selected authorization server's validated metadata document (see [Authorization Server Metadata Discovery](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery.md#authorization-server-metadata-discovery)) and associate it with the same per-request record used to store the PKCE code verifier (and the `state` value, if used). The validation in this section depends on that recorded value being authentic; it provides no protection if the expected issuer was obtained from an unvalidated source.
 
 MCP authorization servers **SHOULD** include the `iss` parameter in authorization responses, including error responses, as defined in [RFC9207 Section 2](https://datatracker.ietf.org/doc/html/rfc9207#section-2). Authorization servers that include the `iss` parameter **MUST** advertise this by setting `authorization_response_iss_parameter_supported` to `true` in their metadata ([RFC9207 Section 2.3](https://datatracker.ietf.org/doc/html/rfc9207#section-2.3)).
 
@@ -407,7 +407,7 @@ deciding whether a token is sufficient for an operation.
 ## Security Considerations
 
 Implementations of this specification **MUST** follow the normative security
-requirements in [Security Considerations](/specification/2026-07-28/basic/authorization/security-considerations.md),
+requirements in [Security Considerations](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations.md),
 covering token audience binding and validation, token theft, communication security,
 authorization code protection, mix-up and confused deputy attacks, open redirection,
 and Client ID Metadata Document security.

@@ -53,7 +53,7 @@ available tools changes.
 ### Listing Tools
 
 To discover available tools, clients send a `tools/list` request. This operation supports
-[pagination](/specification/2025-03-26/server/utilities/pagination.md).
+[pagination](https://modelcontextprotocol.io/specification/2025-03-26/server/utilities/pagination.md).
 
 **Request:**
 
@@ -223,7 +223,7 @@ Tool results can contain multiple content items of different types:
 
 #### Embedded Resources
 
-[Resources](/specification/2025-03-26/server/resources.md) **MAY** be embedded, to provide additional context
+[Resources](https://modelcontextprotocol.io/specification/2025-03-26/server/resources.md) **MAY** be embedded, to provide additional context
 or data, behind a URI that can be subscribed to or fetched again by the client later:
 
 ```json theme={null}

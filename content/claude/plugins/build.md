@@ -8,13 +8,13 @@
 
 A plugin is a folder that packages skills, MCP connectors, commands, and agents, in any combination, so that people add them together. This page is the reference for that folder: what each file is and contains, the manifest fields every app reads, how an MCP connector and its skill fit together, and how to test the plugin on claude.ai, in Cowork, and in Claude Code.
 
-[Build your first plugin](/docs/plugins/quickstart.md) walks you through making one end to end.
+[Build your first plugin](https://claude.com/docs/plugins/quickstart.md) walks you through making one end to end.
 
 > [!NOTE]
 >
-> * If you want a plugin for your own use without writing files, see [Create a plugin with Claude](/docs/plugins/create-with-claude.md), which makes one from a conversation
+> * If you want a plugin for your own use without writing files, see [Create a plugin with Claude](https://claude.com/docs/plugins/create-with-claude.md), which makes one from a conversation
 > * If you're building for Claude Code only, see its [plugin authoring docs](https://code.claude.com/docs/en/plugins/create). Claude Code supports more component types than the other surfaces, and those docs are the full reference for anything Claude Code-only
-> * If you're deciding which pieces your plugin needs, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build.md)
+> * If you're deciding which pieces your plugin needs, see [Decide what to include in your plugin](https://claude.com/docs/connectors/building/what-to-build.md)
 
 ## Lay out the plugin folder
 
@@ -36,7 +36,7 @@ expense-reports/
 
 Selected file
 
-The manifest identifies the plugin to every app and to Anthropic's directory. Without any `plugin.json`, the directory accepts only a folder whose `skills/` directory holds at least one `<name>/SKILL.md`, and lists that plugin for Claude Code only, not for claude.ai or Cowork. To publish the plugin in Anthropic's directory you also need [a README and a license](/docs/plugins/pre-submission-checklist.md#readme-and-license); select those files in the tree to see what each needs.
+The manifest identifies the plugin to every app and to Anthropic's directory. Without any `plugin.json`, the directory accepts only a folder whose `skills/` directory holds at least one `<name>/SKILL.md`, and lists that plugin for Claude Code only, not for claude.ai or Cowork. To publish the plugin in Anthropic's directory you also need [a README and a license](https://claude.com/docs/plugins/pre-submission-checklist.md#readme-and-license); select those files in the tree to see what each needs.
 
 Its `name` is the plugin's permanent identity: people install and refer to the plugin by this value, so make it specific to your product and never change it after release. Change `displayName` when you want a different label.
 
@@ -70,7 +70,7 @@ To file an expense:
 3. Reply with the report number and its approval status.
 ```
 
-A skill folder can hold [supporting files](/docs/skills/how-to.md#add-resources) that are too detailed for `SKILL.md`:
+A skill folder can hold [supporting files](https://claude.com/docs/skills/how-to.md#add-resources) that are too detailed for `SKILL.md`:
 
 <ul>
   <li>`references/` for documentation Claude reads when needed</li>
@@ -92,7 +92,7 @@ This reference file lists the expense categories:
 
 A skill can include scripts in a `scripts/` folder next to `SKILL.md`.
 
-In `SKILL.md`, refer to a script by its path under `${CLAUDE_SKILL_DIR}`, for example `python3 ${CLAUDE_SKILL_DIR}/scripts/total.py receipts.csv`. [Add scripts](/docs/skills/how-to.md#add-scripts) explains how each app resolves that path.
+In `SKILL.md`, refer to a script by its path under `${CLAUDE_SKILL_DIR}`, for example `python3 ${CLAUDE_SKILL_DIR}/scripts/total.py receipts.csv`. [Add scripts](https://claude.com/docs/skills/how-to.md#add-scripts) explains how each app resolves that path.
 
 This script totals the amounts in a CSV file of receipts:
 
@@ -134,7 +134,7 @@ This one points at the expenses server:
 }
 ```
 
-A plugin loads without a README, but you need one to publish it: Anthropic's directory shows the README as the listing's description, and [validation](/docs/plugins/pre-submission-checklist.md#readme-and-license) blocks a submission that has none.
+A plugin loads without a README, but you need one to publish it: Anthropic's directory shows the README as the listing's description, and [validation](https://claude.com/docs/plugins/pre-submission-checklist.md#readme-and-license) blocks a submission that has none.
 
 Write at least 40 words, not counting words inside code blocks, and say what the plugin does, how to use it, and what data it sends.
 
@@ -158,7 +158,7 @@ The plugin sends receipt details and report fields to your Example Corp
 account through mcp.example.com. It stores nothing itself.
 ```
 
-A plugin loads without a license, but you need one to publish it: Anthropic's directory doesn't list a plugin until it has a license, and [validation](/docs/plugins/pre-submission-checklist.md#readme-and-license) blocks a submission that has neither a `LICENSE` file nor a `license` field.
+A plugin loads without a license, but you need one to publish it: Anthropic's directory doesn't list a plugin until it has a license, and [validation](https://claude.com/docs/plugins/pre-submission-checklist.md#readme-and-license) blocks a submission that has neither a `LICENSE` file nor a `license` field.
 
 Add a `LICENSE` file to the plugin folder, or set `license` in `plugin.json`.
 
@@ -176,7 +176,7 @@ A plugin can carry more than the explorer shows, but not every Claude app uses a
 * **A local MCP server**, one the app starts as a command, loads in Claude Code and in Cowork sessions that run on the person's computer; chat ignores it
 * **A top-level `bin/` directory** stops claude.ai and Cowork from installing the plugin at all
 
-[Plugin support by app](/docs/plugins/platform-support.md#compare-component-support-by-app) has the full table, including LSP servers, output styles, and `${user_config.*}` references, and compares where installs are stored and what an organization controls on each app.
+[Plugin support by app](https://claude.com/docs/plugins/platform-support.md#compare-component-support-by-app) has the full table, including LSP servers, output styles, and `${user_config.*}` references, and compares where installs are stored and what an organization controls on each app.
 
 ### Start from an example
 
@@ -186,7 +186,7 @@ Copy the example plugin's structure rather than its contents.
 
 ## Write the plugin
 
-The examples in this section build a plugin named `expense-reports` for a fictional finance product whose MCP server is at `mcp.example.com`. If you plan to submit the plugin to Anthropic's directory, keep the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md) open while you write: the developer portal validates the manifest, README, license, and scripts when you submit, and building with those checks in mind means validation passes the first time.
+The examples in this section build a plugin named `expense-reports` for a fictional finance product whose MCP server is at `mcp.example.com`. If you plan to submit the plugin to Anthropic's directory, keep the [plugin pre-submission checklist](https://claude.com/docs/plugins/pre-submission-checklist.md) open while you write: the developer portal validates the manifest, README, license, and scripts when you submit, and building with those checks in mind means validation passes the first time.
 
 ### Write the manifest
 
@@ -227,7 +227,7 @@ Reference your server by URL in `.mcp.json` at the plugin root:
 }
 ```
 
-On claude.ai and in Cowork, that entry is listed on the plugin's **Connectors** tab, where the user [adds or connects it](/docs/plugins/overview.md#bundled-connectors) and signs in through your server's OAuth flow. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
+On claude.ai and in Cowork, that entry is listed on the plugin's **Connectors** tab, where the user [adds or connects it](https://claude.com/docs/plugins/overview.md#bundled-connectors) and signs in through your server's OAuth flow. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
 
 Don't put API keys or other secrets in this file, because every person who installs the plugin receives its files. If your server is already listed in the directory, use the same URL here, so that someone who has both your connector and your plugin sees one set of tools rather than two.
 
@@ -247,7 +247,7 @@ To file an expense:
 4. Reply with the report number and its approval status. Don't paste the full API response.
 ```
 
-Claude decides when to load the skill from the `description` line, so write it as the situations a user would be in, not as a summary of the file. [Create custom skills](/docs/skills/how-to.md) covers the frontmatter fields, resource files, scripts, and testing.
+Claude decides when to load the skill from the `description` line, so write it as the situations a user would be in, not as a summary of the file. [Create custom skills](https://claude.com/docs/skills/how-to.md) covers the frontmatter fields, resource files, scripts, and testing.
 
 ## Test the plugin on each surface
 
@@ -262,9 +262,9 @@ Test on each surface your users will use.
   5. If your plugin has agents, start a Cowork task to confirm they load.
 * **A team testing together**: push the folder to a Git repository set up as a [marketplace](https://code.claude.com/docs/en/plugins/create-marketplace), and have each tester add it from **Customize > Plugins > Add > Add marketplace** with the repository URL instead, so everyone installs the same copy
 
-Loading the plugin shows that its parts appear. To measure whether its skills improve Claude's output, write eval cases and run [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) in Claude Code, which grades the results and compares them against a run without the plugin. To test one skill by itself on any surface, see [Measure whether the skill improves the output](/docs/skills/how-to.md#measure-whether-the-skill-improves-the-output).
+Loading the plugin shows that its parts appear. To measure whether its skills improve Claude's output, write eval cases and run [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) in Claude Code, which grades the results and compares them against a run without the plugin. To test one skill by itself on any surface, see [Measure whether the skill improves the output](https://claude.com/docs/skills/how-to.md#measure-whether-the-skill-improves-the-output).
 
-Before you submit the plugin to the directory, run `claude plugin validate ./expense-reports`, then select **Validate** in the [developer portal](https://claude.ai/directory/manage). The portal runs every validation check, and [Run the checks before you submit](/docs/plugins/pre-submission-checklist.md#run-the-checks-before-you-submit) explains each result.
+Before you submit the plugin to the directory, run `claude plugin validate ./expense-reports`, then select **Validate** in the [developer portal](https://claude.ai/directory/manage). The portal runs every validation check, and [Run the checks before you submit](https://claude.com/docs/plugins/pre-submission-checklist.md#run-the-checks-before-you-submit) explains each result.
 
 When something is missing on one surface and present on another, check it against [Check what each app loads](#check-what-each-app-loads) before debugging. An agent that never appears in chat, or a local server that chat doesn't start, is the surface behaving as designed.
 
@@ -276,6 +276,6 @@ Claude Code loads everything on this page and also supports components the other
 
 Once the plugin works, you can distribute it through your organization, your own marketplace, or the directory:
 
-* [Manage plugins for your organization](/docs/plugins/admin.md): on Team and Enterprise plans, an Owner can make the plugin available or installed by default for members
+* [Manage plugins for your organization](https://claude.com/docs/plugins/admin.md): on Team and Enterprise plans, an Owner can make the plugin available or installed by default for members
 * [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace): list the plugin in a Git repository's `marketplace.json`, which anyone you give the URL to can add from **Customize > Plugins** or the Claude Code command line
-* [Publish to the directory](/docs/directory/publish.md): submit the plugin from the [developer portal](https://claude.ai/directory/manage) so people on Pro, Max, Team, and Enterprise plans can find and add it on claude.ai and in Cowork, and use it in Claude Code. Anyone on a paid plan can submit without applying to a partner program first; on Team and Enterprise, an Owner submits
+* [Publish to the directory](https://claude.com/docs/directory/publish.md): submit the plugin from the [developer portal](https://claude.ai/directory/manage) so people on Pro, Max, Team, and Enterprise plans can find and add it on claude.ai and in Cowork, and use it in Claude Code. Anyone on a paid plan can submit without applying to a partner program first; on Team and Enterprise, an Owner submits

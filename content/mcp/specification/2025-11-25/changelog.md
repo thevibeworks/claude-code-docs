@@ -5,7 +5,7 @@
 # Key Changes
 
 This document lists changes made to the Model Context Protocol (MCP) specification since
-the previous revision, [2025-06-18](/specification/2025-06-18.md).
+the previous revision, [2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18.md).
 
 ## Major changes
 
@@ -14,10 +14,10 @@ the previous revision, [2025-06-18](/specification/2025-06-18.md).
 3. Enhance authorization flows with incremental scope consent via `WWW-Authenticate` ([SEP-835](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/835))
 4. Provide guidance on tool names ([SEP-986](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1603))
 5. Update `ElicitResult` and `EnumSchema` to use a more standards-based approach and support titled, untitled, single-select, and multi-select enums ([SEP-1330](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1330)).
-6. Added support for [URL mode elicitation](/specification/2025-11-25/client/elicitation.md#url-elicitation-requests) ([SEP-1036](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/887))
+6. Added support for [URL mode elicitation](https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation.md#url-elicitation-requests) ([SEP-1036](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/887))
 7. Add tool calling support to sampling via `tools` and `toolChoice` parameters ([SEP-1577](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1577))
 8. Add support for OAuth Client ID Metadata Documents as a recommended client registration mechanism ([SEP-991](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/991), PR [#1296](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1296))
-9. Add experimental support for [tasks](/specification/2025-11-25/basic/utilities/tasks.md) to enable tracking durable requests with polling and deferred result retrieval ([SEP-1686](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1686)).
+9. Add experimental support for [tasks](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks.md) to enable tracking durable requests with polling and deferred result retrieval ([SEP-1686](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1686)).
 
 ## Minor changes
 

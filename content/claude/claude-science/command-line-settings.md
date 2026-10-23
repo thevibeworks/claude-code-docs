@@ -56,7 +56,7 @@ These two work on every command. On Windows, `~` in the defaults below is your u
 When serve starts, it prints a line of the form `Web UI → http://localhost:<port>/?nonce=...`. The nonce is a one-time password: it signs one browser tab in and then expires, about three minutes after it is printed. The signed-in tab stays signed in until you restart the program.\
 You never need to keep a link. claude-science open mints a fresh one and opens it in your browser whenever you want to sign in again.
 
-The app listens on 127.0.0.1 unless you change `--host`, so it is reachable only from the machine it runs on. For a machine you reach over SSH, first forward two ports from your computer, the web app port and the preview port (by default the web app port plus one), as [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server.md#forward-the-ports-from-your-computer) shows. Then run claude-science url on that machine and open the link it prints in your own browser.
+The app listens on 127.0.0.1 unless you change `--host`, so it is reachable only from the machine it runs on. For a machine you reach over SSH, first forward two ports from your computer, the web app port and the preview port (by default the web app port plus one), as [Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#forward-the-ports-from-your-computer) shows. Then run claude-science url on that machine and open the link it prints in your own browser.
 
 ## Flags for serve
 
@@ -78,34 +78,34 @@ The app listens on 127.0.0.1 unless you change `--host`, so it is reachable only
 
 > [!WARNING]
 >
-> * `--dangerously-no-sandbox` turns the [sandbox](/docs/claude-science/core-concepts.md#sandbox) off. On macOS and Linux, the code Claude runs then has full read and write access to your home directory and unrestricted network access. On Windows, code cells do not run at all while the flag is set.
-> * `--dangerously-skip-approvals` approves [permission cards](/docs/claude-science/core-concepts.md#permission-cards) for you without showing them, until you restart without the flag. That includes Claude's requests to run code, reach network hosts, open folders, and use connector tools. Cards still show for a connector tool you set to [**Ask each time**](/docs/claude-science/custom-connectors.md) and for requests only you can answer, such as entering an SSH password, permanently deleting artifacts, or spending usage credits. On Linux, the card for a folder too large to check for credential files also still shows. Questions Claude asks you still appear.
+> * `--dangerously-no-sandbox` turns the [sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox) off. On macOS and Linux, the code Claude runs then has full read and write access to your home directory and unrestricted network access. On Windows, code cells do not run at all while the flag is set.
+> * `--dangerously-skip-approvals` approves [permission cards](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) for you without showing them, until you restart without the flag. That includes Claude's requests to run code, reach network hosts, open folders, and use connector tools. Cards still show for a connector tool you set to [**Ask each time**](https://claude.com/docs/claude-science/custom-connectors.md) and for requests only you can answer, such as entering an SSH password, permanently deleting artifacts, or spending usage credits. On Linux, the card for a folder too large to check for credential files also still shows. Questions Claude asks you still appear.
 >
 > These flags are acceptable only on a machine that is already isolated, such as a container or a disposable virtual machine. Never use them with data or prompts that came from someone else, because Claude may follow instructions hidden in them. Neither belongs in everyday use.
 
-If your organization [manages the network allowlist](/docs/claude-science/admin-controls.md#network-allowlist), the app ignores `--dangerously-no-sandbox` and keeps the sandbox on. If the app learns of that setting only after it has started without the sandbox, it pauses new sessions and messages until you restart it.
+If your organization [manages the network allowlist](https://claude.com/docs/claude-science/admin-controls.md#network-allowlist), the app ignores `--dangerously-no-sandbox` and keeps the sandbox on. If the app learns of that setting only after it has started without the sandbox, it pauses new sessions and messages until you restart it.
 
 ## Environment variables
 
-`DO_NOT_TRACK`, set to any value other than `0` or `false`, turns usage analytics and error reports off. It is the same switch as `disable_telemetry = true` in the configuration file. `GITHUB_TOKEN` (or `GH_TOKEN`) is optional and is used only against `api.github.com`, to lift the rate limit when you install a skill from a GitHub repository. Claude Science also reads the standard proxy variables (`HTTPS_PROXY`, `HTTP_PROXY`, `NO_PROXY`, and `ALL_PROXY`); see [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks.md#connect-through-an-outbound-proxy). The proxy address variables are the one case where the environment overrides the configuration file, and `NO_PROXY` is merged with the `no_proxy` key rather than replacing it. Every other setting belongs in the configuration file.
+`DO_NOT_TRACK`, set to any value other than `0` or `false`, turns usage analytics and error reports off. It is the same switch as `disable_telemetry = true` in the configuration file. `GITHUB_TOKEN` (or `GH_TOKEN`) is optional and is used only against `api.github.com`, to lift the rate limit when you install a skill from a GitHub repository. Claude Science also reads the standard proxy variables (`HTTPS_PROXY`, `HTTP_PROXY`, `NO_PROXY`, and `ALL_PROXY`); see [Use Claude Science on a corporate network](https://claude.com/docs/claude-science/corporate-networks.md#connect-through-an-outbound-proxy). The proxy address variables are the one case where the environment overrides the configuration file, and `NO_PROXY` is merged with the `no_proxy` key rather than replacing it. Every other setting belongs in the configuration file.
 
 An app started from the macOS Dock or Finder, or from the Windows Start menu, does not see variables exported in a terminal.
 
 * **macOS**: the app reads the `env` file in the data directory (by default `~/.claude-science/env`) when it starts. It applies only a fixed list of variables from the file, which includes `DO_NOT_TRACK` and the proxy variables but not `GITHUB_TOKEN` or `GH_TOKEN`. Put `DO_NOT_TRACK` or a proxy variable there as a `KEY=VALUE` line, then quit and reopen the app. Add a GitHub token under **Settings > Credentials** instead, and delete its line from the file. Before version 0.1.56, the file could set any variable.
 * **Windows**: set the variable as a user environment variable, then quit and reopen the app.
 
-See [How the environment variables reach the app](/docs/claude-science/corporate-networks.md#how-the-environment-variables-reach-the-app).
+See [How the environment variables reach the app](https://claude.com/docs/claude-science/corporate-networks.md#how-the-environment-variables-reach-the-app).
 
 ## See also
 
-> **[Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server.md)**
+> **[Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md)**
 >
 > Install Claude Science on a server and use it from your own browser through an SSH tunnel.
 
-> **[Configuration file reference](/docs/claude-science/configuration-file-reference.md)**
+> **[Configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md)**
 >
 > Find the `config.toml` file and set its network-related keys.
 
-> **[Remote compute clusters](/docs/claude-science/remote-compute-clusters.md)**
+> **[Remote compute clusters](https://claude.com/docs/claude-science/remote-compute-clusters.md)**
 >
 > Connect an SSH host and run jobs on it.

@@ -29,9 +29,9 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 | Claude's personal access token | The personal access token from Asana |
 | Allowed websites | `app.asana.com` (preset) |
 
-If the connect form offers to include the Asana plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+If the connect form offers to include the Asana plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
+The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 
 ## Verify the connection
 
@@ -45,5 +45,5 @@ Asana appears in the list once the connector is live. New threads pick up the co
 
 ## Related resources
 
-* [What this connection adds](/docs/claude-tag/users/use-cases/track-projects.md): the issue tracking use cases
-* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference
+* [What this connection adds](https://claude.com/docs/claude-tag/users/use-cases/track-projects.md): the issue tracking use cases
+* [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md): the full credential-type and allowed-hosts reference

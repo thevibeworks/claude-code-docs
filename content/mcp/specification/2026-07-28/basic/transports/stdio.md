@@ -25,7 +25,7 @@ depends on them except the process lifecycle. The wire format (one
 newline-delimited JSON-RPC message per line over a reliable bidirectional
 byte stream) works unchanged over Unix domain sockets, TCP connections, or
 any similar channel.
-[Custom transports](/specification/2026-07-28/basic/transports.md#custom-transports)
+[Custom transports](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports.md#custom-transports)
 built on such streams **SHOULD** reuse this framing and the message rules on
 this page; only the subprocess-specific aspects (launch, `stderr`, shutdown
 by closing the stream, process restart) need channel-specific equivalents.
@@ -57,13 +57,13 @@ Server-to-client interactions are carried in
 [`InputRequiredResult`][mrtr-input-required] replies; see
 [Multi Round-Trip Requests][mrtr].
 
-[mrtr]: /specification/2026-07-28/basic/patterns/mrtr.md
+[mrtr]: https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md
 
-[mrtr-input-required]: /specification/2026-07-28/basic/patterns/mrtr.md#inputrequiredresult
+[mrtr-input-required]: https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md#inputrequiredresult
 
-[subscriptions-listen]: /specification/2026-07-28/basic/patterns/subscriptions.md
+[subscriptions-listen]: https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions.md
 
-[subscriptions-listen-request]: /specification/2026-07-28/schema.md#subscriptionslistenrequest
+[subscriptions-listen-request]: https://modelcontextprotocol.io/specification/2026-07-28/schema.md#subscriptionslistenrequest
 
 ## Request Metadata
 
@@ -74,7 +74,7 @@ optional client identity live in
 the method name and arguments live where JSON-RPC puts them. There is no
 header layer.
 
-[meta-fields]: /specification/2026-07-28/basic/index.md#meta
+[meta-fields]: https://modelcontextprotocol.io/specification/2026-07-28/basic/index.md#meta
 
 ## Cancellation
 
@@ -85,7 +85,7 @@ to close. Servers **SHOULD** stop work on a cancelled request as soon as
 practical and **MUST NOT** send any further messages for it. See
 [Cancellation][cancellation] for the full rules.
 
-[cancellation]: /specification/2026-07-28/basic/patterns/cancellation.md
+[cancellation]: https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/cancellation.md
 
 ## Shutdown
 
@@ -154,8 +154,8 @@ deterministic failure instead.
 See [Versioning: Backward Compatibility][lifecycle-compat] for the era model
 and a compatibility matrix for implementors.
 
-[server-discover]: /specification/2026-07-28/schema.md#discoverrequest
+[server-discover]: https://modelcontextprotocol.io/specification/2026-07-28/schema.md#discoverrequest
 
-[unsupported-version]: /specification/2026-07-28/schema.md#unsupportedprotocolversionerror
+[unsupported-version]: https://modelcontextprotocol.io/specification/2026-07-28/schema.md#unsupportedprotocolversionerror
 
-[lifecycle-compat]: /specification/2026-07-28/basic/versioning.md#backward-compatibility-with-initialization-based-versions
+[lifecycle-compat]: https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning.md#backward-compatibility-with-initialization-based-versions

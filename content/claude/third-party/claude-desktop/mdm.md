@@ -8,7 +8,7 @@
 
 On the MDM delivery model, the profile you deploy carries your organization's full configuration, and every device the profile targets gets the same settings. This page covers the workflow end to end: build the configuration in the app, export it, open the firewall, and deploy the profile and installer to your fleet.
 
-Before you start, install Claude Desktop on an admin workstation; see [Installation and setup](/docs/third-party/claude-desktop/installation.md). If you deliver configuration from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) instead, follow that page; your profile then carries only the bootstrap keys, but it is exported and deployed the same way described here.
+Before you start, install Claude Desktop on an admin workstation; see [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md). If you deliver configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) instead, follow that page; your profile then carries only the bootstrap keys, but it is exported and deployed the same way described here.
 
 ## Recommended rollout
 
@@ -16,7 +16,7 @@ Roll out in this order; the numbered sections on this page cover each step in de
 
 **1. Build a configuration in the app**
 
-An admin builds and tests a working configuration in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md) on their own device.
+An admin builds and tests a working configuration in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) on their own device.
 
 **2. Export the profile**
 
@@ -34,7 +34,7 @@ Distribute the profile through your MDM, then push the installer. Deploying the 
 
 Launch Claude Desktop. **Do not sign in or create an Anthropic account**; stay on the login screen. From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the configuration window.
 
-The window is organized into sections in the left sidebar. Work through them in order; each maps to a group of [configuration keys](/docs/third-party/claude-desktop/configuration.md), and the window validates values as you enter them.
+The window is organized into sections in the left sidebar. Work through them in order; each maps to a group of [configuration keys](https://claude.com/docs/third-party/claude-desktop/configuration.md), and the window validates values as you enter them.
 
 | Section | What you set |
 | - | - |
@@ -44,11 +44,11 @@ The window is organized into sections in the left sidebar. Work through them in 
 | **Telemetry & updates** | OpenTelemetry collector endpoint Whether auto-updates are blocked The enforcement window for downloaded updates, or the restart for versions you install yourself The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
 | **Limits** | Per-device token cap and its window length Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted, and the hold that suspends deletion |
 | **Appearance** | Persistent banner shown across the app window Deployment display name and subtitle Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
-| **Plugins** | [Plugin marketplaces](/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
+| **Plugins** | [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
 | **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature **Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
-| **Source** | The bootstrap keys, if you are using the [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) delivery model instead of a full MDM profile Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key |
+| **Source** | The bootstrap keys, if you are using the [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) delivery model instead of a full MDM profile Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key |
 
-To turn on [Unified Claude](/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude), set `desktopHome` to `standard` in your MDM profile.
+To turn on [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude), set `desktopHome` to `standard` in your MDM profile.
 
 > [!NOTE]
 >
@@ -87,7 +87,7 @@ In your MDM, scope each exported profile to the corresponding device or user gro
 
 > [!NOTE]
 >
-> On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md).
+> On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
 
 ## 3. Allow required network egress
 
@@ -95,9 +95,9 @@ The hosts the app needs to reach depend on the configuration you built: your inf
 
 > [!WARNING]
 >
-> `downloads.claude.ai` is required to run the app regardless of your configuration: it serves the VM workspace bundle and the Claude Code binary. Without it, Chat conversations, Cowork tasks, and Code sessions cannot start on a device that has not yet downloaded these components. App updates often change one or both of these components, and the app then downloads the new versions from the same host. The [offline installer variant](/docs/third-party/claude-desktop/installation.md#offline-installation) builds both components into the installer package, so Chat conversations, Cowork tasks, and Code sessions on the device start without this host. The app still requests the model catalog from `downloads.claude.ai` unless [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) is `false` or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) names a mirror inside your network, and sessions start whether or not that request succeeds.
+> `downloads.claude.ai` is required to run the app regardless of your configuration: it serves the VM workspace bundle and the Claude Code binary. Without it, Chat conversations, Cowork tasks, and Code sessions cannot start on a device that has not yet downloaded these components. App updates often change one or both of these components, and the app then downloads the new versions from the same host. The [offline installer variant](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation) builds both components into the installer package, so Chat conversations, Cowork tasks, and Code sessions on the device start without this host. The app still requests the model catalog from `downloads.claude.ai` unless [`modelCatalogEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogenabled) is `false` or [`modelCatalogUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogurl) names a mirror inside your network, and sessions start whether or not that request succeeds.
 
-Open these hosts on your perimeter firewall before rolling out to devices. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths) for the full list of hosts grouped by the setting that controls each one, and for the distinction between the perimeter firewall and the in-app sandbox allowlist.
+Open these hosts on your perimeter firewall before rolling out to devices. See [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths) for the full list of hosts grouped by the setting that controls each one, and for the distinction between the perimeter firewall and the in-app sandbox allowlist.
 
 ## 4. Deploy the configuration
 
@@ -133,19 +133,19 @@ A Group Policy Object or Intune configuration profile writes to the registry pol
 
 When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
-A user who signs in to any organization that uses the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. To prevent that, set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`, as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
+A user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. To prevent that, set [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
 ### Update keys and managed precedence
 
 A small group of **app-behavior keys** is treated specially, so you can set an update policy, a restart window, or a network proxy from MDM without managing the whole configuration:
 
-* The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `installedUpdateEnforcementEnabled`, `installedUpdateEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel).
-* The configuration lifecycle keys [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes), which MDM can set from version 1.46388.1.
-* The network proxy keys `egressProxyUrl` and `egressProxyPacUrl`. See [Network proxy](/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
+* The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `installedUpdateEnforcementEnabled`, `installedUpdateEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](https://claude.com/docs/third-party/claude-desktop/configuration#releasechannel).
+* The configuration lifecycle keys [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes), which MDM can set from version 1.46388.1.
+* The network proxy keys `egressProxyUrl` and `egressProxyPacUrl`. See [Network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
 
 When a managed source sets only keys from this group (any of them), the device keeps its locally authored configuration and the configuration window stays editable. The group is still enforced as a unit: every key in it is resolved from the managed source alone, so a locally set or bootstrap-served value for any of them is ignored even if the profile sets only one. A profile that sets the update keys but not `relaunchEnforcementHours` or `configRecheckIntervalMinutes` therefore runs their defaults (24 hours and 10 minutes) on those devices, so set them in the same profile when you want other values.
 
-If the managed profile sets any other recognized key, the normal rule above applies and the whole configuration is managed.
+If the managed profile sets any other recognized key, the normal rule above applies and the whole configuration is managed. For a profile that also sets `bootstrapUrl`, see [Which configuration source applies on a device](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device).
 
 ## 5. Distribute the app
 
@@ -153,8 +153,8 @@ Deploy the Claude Desktop installer to enrolled devices using your standard soft
 
 ## 6. Deploy organization plugins (optional)
 
-If you're distributing [organization plugins](/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin), push the plugin bundles to the org-plugins directory on each device alongside the configuration profile. Plugins are picked up at the next app launch.
+If you're distributing [organization plugins](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin), push the plugin bundles to the org-plugins directory on each device alongside the configuration profile. Plugins are picked up at the next app launch.
 
 ## Next steps
 
-After deployment, confirm devices picked up the configuration with the checks in [Verifying the deployment](/docs/third-party/claude-desktop/installation.md#verifying-the-deployment).
+After deployment, confirm devices picked up the configuration with the checks in [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment).

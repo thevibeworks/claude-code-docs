@@ -2,9 +2,17 @@
 
 Claude Cowork is available on desktop, web, mobile, and in the Claude in Chrome side panel. Your sessions and files live with your Claude account and go where you go, on any device. This article explains how to start a Cowork session and what's available on each surface.
 
-Claude Cowork runs in the cloud on Pro and Max plans. It’s in beta on web and mobile for Team plans, and on Enterprise plans where an admin has enabled it. Cowork is also available in the Claude in Chrome side panel on Max and Team plans, on Pro plans as it rolls out, and on Enterprise plans where an admin has enabled it. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)** for enablement steps.
+## Availability
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it’s in beta for Enterprise plans, where an admin turns it on as **Chat and Cowork unified (beta)**. If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+Claude Cowork is available on paid plans (Pro, Max, Team, and Enterprise):
+
+- **Claude Desktop for macOS, Windows, and Linux (beta):** All paid plans. Download or update at **claude.com/download**.
+
+- **Web and Claude Mobile:** Pro, Max, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
+
+- **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
+
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -74,7 +82,7 @@ If you use Claude at work and at home and want them separate, use a separate acc
 
 ## What's available on each surface
 
-Cowork in the cloud is in beta on Team and Enterprise plans, and some features aren’t available yet. Here's what you can use on each surface today:
+Here's what you can use on each surface:
 
 | **Feature**                                     | **Desktop** | **Web** | **Mobile** |
 | ----------------------------------------------- | ----------- | ------- | ---------- |
@@ -113,7 +121,7 @@ Some capabilities reach things on your computer, so they need the Claude Desktop
 
 - **Local connectors.** This includes plugins using those connectors.
 
-- **Browser use.** On desktop, Claude uses a browser built into the Claude Desktop app by default (rolling out gradually this week), or your own Chrome browser through Claude in Chrome if that's your preferred browser. When the desktop app is online, the built-in browser is also available in Cowork on web or mobile. A session started on desktop can be steered from web or mobile while the desktop app stays open. In the Chrome side panel, Claude can read the tab you're on without the desktop app. Claude driving a browser as part of a task still needs the desktop app open. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
+- **Browser use.** On desktop, Claude uses a browser built into the Claude Desktop app by default, or your own Chrome browser through Claude in Chrome if that's your preferred browser. When the desktop app is online, the built-in browser is also available in Cowork on web or mobile. A session started on desktop can be steered from web or mobile while the desktop app stays open. In the Chrome side panel, Claude can read the tab you're on without the desktop app. Claude driving a browser as part of a task still needs the desktop app open. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
 - **Computer use.** Claude clicks, types, and navigates your screen directly.
 

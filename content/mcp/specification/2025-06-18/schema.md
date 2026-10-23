@@ -28,7 +28,7 @@ interface JSONRPCNotification \{\
   [method](#jsonrpcnotification-method): string;\
   [params](#jsonrpcnotification-params)?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown };\
   [jsonrpc](#jsonrpcnotification-jsonrpc): "2.0";\
-}A notification which does not expect a response.  method: string[Permalink](#jsonrpcnotification-method)  Inherited from Notification.method params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#jsonrpcnotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params jsonrpc: "2.0"[Permalink](#jsonrpcnotification-jsonrpc)&#x20;
+}A notification which does not expect a response.  method: string[Permalink](#jsonrpcnotification-method)  Inherited from Notification.method params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#jsonrpcnotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params jsonrpc: "2.0"[Permalink](#jsonrpcnotification-jsonrpc)&#x20;
 
 ### `JSONRPCRequest`
 
@@ -40,7 +40,7 @@ interface JSONRPCRequest \{\
   };\
   [jsonrpc](#jsonrpcrequest-jsonrpc): "2.0";\
   [id](#jsonrpcrequest-id): [RequestId](#requestid);\
-}A request that expects a response.  method: string[Permalink](#jsonrpcrequest-method)  Inherited from Request.method params?: \{    \_meta?: \{ progressToken?: ProgressToken; \[key: string]: unknown };    \[key: string]: unknown; }[Permalink](#jsonrpcrequest-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ progressToken?: [ProgressToken](#progresstoken); \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  <ul> <li> `Optional`progressToken?: [ProgressToken](#progresstoken) If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications. </li></ul></li></ul> Inherited from Request.params jsonrpc: "2.0"[Permalink](#jsonrpcrequest-jsonrpc)  id: RequestId[Permalink](#jsonrpcrequest-id)&#x20;
+}A request that expects a response.  method: string[Permalink](#jsonrpcrequest-method)  Inherited from Request.method params?: \{    \_meta?: \{ progressToken?: ProgressToken; \[key: string]: unknown };    \[key: string]: unknown; }[Permalink](#jsonrpcrequest-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ progressToken?: [ProgressToken](#progresstoken); \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  <ul> <li> `Optional`progressToken?: [ProgressToken](#progresstoken) If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications. </li></ul></li></ul> Inherited from Request.params jsonrpc: "2.0"[Permalink](#jsonrpcrequest-jsonrpc)  id: RequestId[Permalink](#jsonrpcrequest-id)&#x20;
 
 ### `JSONRPCResponse`
 
@@ -96,7 +96,7 @@ RequestId: string | numberA uniquely identifying ID for a request in JSON-RPC.&#
 interface Result \{\
   [\_meta](#result-_meta)?: \{ \[key: string]: unknown };\
   \[key: string]: unknown;\
-} \_meta?: \{ \[key: string]: unknown }[Permalink](#result-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+} \_meta?: \{ \[key: string]: unknown }[Permalink](#result-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `Role`
 
@@ -112,7 +112,7 @@ interface AudioContent \{\
   [mimeType](#audiocontent-mimetype): string;\
   [annotations](#audiocontent-annotations)?: [Annotations](#annotations);\
   [\_meta](#audiocontent-_meta)?: \{ \[key: string]: unknown };\
-}Audio provided to or from an LLM.  type: "audio"[Permalink](#audiocontent-type)  data: string[Permalink](#audiocontent-data) The base64-encoded audio data.  mimeType: string[Permalink](#audiocontent-mimetype) The MIME type of the audio. Different providers may support different audio types.  annotations?: Annotations[Permalink](#audiocontent-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#audiocontent-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+}Audio provided to or from an LLM.  type: "audio"[Permalink](#audiocontent-type)  data: string[Permalink](#audiocontent-data) The base64-encoded audio data.  mimeType: string[Permalink](#audiocontent-mimetype) The MIME type of the audio. Different providers may support different audio types.  annotations?: Annotations[Permalink](#audiocontent-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#audiocontent-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `BlobResourceContents`
 
@@ -121,7 +121,7 @@ interface BlobResourceContents \{\
   [mimeType](#blobresourcecontents-mimetype)?: string;\
   [\_meta](#blobresourcecontents-_meta)?: \{ \[key: string]: unknown };\
   [blob](#blobresourcecontents-blob): string;\
-} uri: string[Permalink](#blobresourcecontents-uri) The URI of this resource.  Inherited from ResourceContents.uri mimeType?: string[Permalink](#blobresourcecontents-mimetype) The MIME type of this resource, if known.  Inherited from ResourceContents.mimeType \_meta?: \{ \[key: string]: unknown }[Permalink](#blobresourcecontents-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from ResourceContents.\_meta blob: string[Permalink](#blobresourcecontents-blob) A base64-encoded string representing the binary data of the item.&#x20;
+} uri: string[Permalink](#blobresourcecontents-uri) The URI of this resource.  Inherited from ResourceContents.uri mimeType?: string[Permalink](#blobresourcecontents-mimetype) The MIME type of this resource, if known.  Inherited from ResourceContents.mimeType \_meta?: \{ \[key: string]: unknown }[Permalink](#blobresourcecontents-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from ResourceContents.\_meta blob: string[Permalink](#blobresourcecontents-blob) A base64-encoded string representing the binary data of the item.&#x20;
 
 ### `ContentBlock`
 
@@ -140,7 +140,7 @@ interface EmbeddedResource \{\
   [annotations](#embeddedresource-annotations)?: [Annotations](#annotations);\
   [\_meta](#embeddedresource-_meta)?: \{ \[key: string]: unknown };\
 }The contents of a resource, embedded into a prompt or tool call result. It is up to the client how best to render embedded resources for the benefit
-of the LLM and/or the user.  type: "resource"[Permalink](#embeddedresource-type)  resource: TextResourceContents | BlobResourceContents[Permalink](#embeddedresource-resource)  annotations?: Annotations[Permalink](#embeddedresource-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#embeddedresource-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+of the LLM and/or the user.  type: "resource"[Permalink](#embeddedresource-type)  resource: TextResourceContents | BlobResourceContents[Permalink](#embeddedresource-resource)  annotations?: Annotations[Permalink](#embeddedresource-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#embeddedresource-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `ImageContent`
 
@@ -150,7 +150,7 @@ interface ImageContent \{\
   [mimeType](#imagecontent-mimetype): string;\
   [annotations](#imagecontent-annotations)?: [Annotations](#annotations);\
   [\_meta](#imagecontent-_meta)?: \{ \[key: string]: unknown };\
-}An image provided to or from an LLM.  type: "image"[Permalink](#imagecontent-type)  data: string[Permalink](#imagecontent-data) The base64-encoded image data.  mimeType: string[Permalink](#imagecontent-mimetype) The MIME type of the image. Different providers may support different image types.  annotations?: Annotations[Permalink](#imagecontent-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#imagecontent-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+}An image provided to or from an LLM.  type: "image"[Permalink](#imagecontent-type)  data: string[Permalink](#imagecontent-data) The base64-encoded image data.  mimeType: string[Permalink](#imagecontent-mimetype) The MIME type of the image. Different providers may support different image types.  annotations?: Annotations[Permalink](#imagecontent-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#imagecontent-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `ResourceLink`
 
@@ -167,7 +167,7 @@ interface ResourceLink \{\
 }A resource that the server is capable of reading, included in a prompt or tool call result. Note: resource links returned by tools are not guaranteed to appear in the results of `resources/list` requests.  name: string[Permalink](#resourcelink-name) Intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn't present).  Inherited from [Resource](#resource).[name](#resource-name) title?: string[Permalink](#resourcelink-title) Intended for UI and end-user contexts — optimized to be human-readable and easily understood,
 even by those unfamiliar with domain-specific terminology. If not provided, the name should be used for display (except for Tool,
 where `annotations.title` should be given precedence over using `name`,
-if present).  Inherited from [Resource](#resource).[title](#resource-title) uri: string[Permalink](#resourcelink-uri) The URI of this resource.  Inherited from [Resource](#resource).[uri](#resource-uri) description?: string[Permalink](#resourcelink-description) A description of what this resource represents. This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.  Inherited from [Resource](#resource).[description](#resource-description) mimeType?: string[Permalink](#resourcelink-mimetype) The MIME type of this resource, if known.  Inherited from [Resource](#resource).[mimeType](#resource-mimetype) annotations?: Annotations[Permalink](#resourcelink-annotations) Optional annotations for the client.  Inherited from [Resource](#resource).[annotations](#resource-annotations) size?: number[Permalink](#resourcelink-size) The size of the raw resource content, in bytes (i.e., before base64 encoding or any tokenization), if known. This can be used by Hosts to display file sizes and estimate context window usage.  Inherited from [Resource](#resource).[size](#resource-size) \_meta?: \{ \[key: string]: unknown }[Permalink](#resourcelink-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Resource](#resource).[\_meta](#resource-_meta) type: "resource\_link"[Permalink](#resourcelink-type)&#x20;
+if present).  Inherited from [Resource](#resource).[title](#resource-title) uri: string[Permalink](#resourcelink-uri) The URI of this resource.  Inherited from [Resource](#resource).[uri](#resource-uri) description?: string[Permalink](#resourcelink-description) A description of what this resource represents. This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.  Inherited from [Resource](#resource).[description](#resource-description) mimeType?: string[Permalink](#resourcelink-mimetype) The MIME type of this resource, if known.  Inherited from [Resource](#resource).[mimeType](#resource-mimetype) annotations?: Annotations[Permalink](#resourcelink-annotations) Optional annotations for the client.  Inherited from [Resource](#resource).[annotations](#resource-annotations) size?: number[Permalink](#resourcelink-size) The size of the raw resource content, in bytes (i.e., before base64 encoding or any tokenization), if known. This can be used by Hosts to display file sizes and estimate context window usage.  Inherited from [Resource](#resource).[size](#resource-size) \_meta?: \{ \[key: string]: unknown }[Permalink](#resourcelink-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Resource](#resource).[\_meta](#resource-_meta) type: "resource\_link"[Permalink](#resourcelink-type)&#x20;
 
 ### `TextContent`
 
@@ -176,7 +176,7 @@ interface TextContent \{\
   [text](#textcontent-text): string;\
   [annotations](#textcontent-annotations)?: [Annotations](#annotations);\
   [\_meta](#textcontent-_meta)?: \{ \[key: string]: unknown };\
-}Text provided to or from an LLM.  type: "text"[Permalink](#textcontent-type)  text: string[Permalink](#textcontent-text) The text content of the message.  annotations?: Annotations[Permalink](#textcontent-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#textcontent-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+}Text provided to or from an LLM.  type: "text"[Permalink](#textcontent-type)  text: string[Permalink](#textcontent-text) The text content of the message.  annotations?: Annotations[Permalink](#textcontent-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#textcontent-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `TextResourceContents`
 
@@ -185,7 +185,7 @@ interface TextResourceContents \{\
   [mimeType](#textresourcecontents-mimetype)?: string;\
   [\_meta](#textresourcecontents-_meta)?: \{ \[key: string]: unknown };\
   [text](#textresourcecontents-text): string;\
-} uri: string[Permalink](#textresourcecontents-uri) The URI of this resource.  Inherited from ResourceContents.uri mimeType?: string[Permalink](#textresourcecontents-mimetype) The MIME type of this resource, if known.  Inherited from ResourceContents.mimeType \_meta?: \{ \[key: string]: unknown }[Permalink](#textresourcecontents-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from ResourceContents.\_meta text: string[Permalink](#textresourcecontents-text) The text of the item. This must only be set if the item can actually be represented as text (not binary data).&#x20;
+} uri: string[Permalink](#textresourcecontents-uri) The URI of this resource.  Inherited from ResourceContents.uri mimeType?: string[Permalink](#textresourcecontents-mimetype) The MIME type of this resource, if known.  Inherited from ResourceContents.mimeType \_meta?: \{ \[key: string]: unknown }[Permalink](#textresourcecontents-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from ResourceContents.\_meta text: string[Permalink](#textresourcecontents-text) The text of the item. This must only be set if the item can actually be represented as text (not binary data).&#x20;
 
 ## `completion/complete`
 
@@ -206,7 +206,7 @@ interface CompleteResult \{\
   [\_meta](#completeresult-_meta)?: \{ \[key: string]: unknown };\
   [completion](#completeresult-completion): \{ values: string\[]; total?: number; hasMore?: boolean };\
   \[key: string]: unknown;\
-}The server's response to a completion/complete request  \_meta?: \{ \[key: string]: unknown }[Permalink](#completeresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) completion: \{ values: string\[]; total?: number; hasMore?: boolean }[Permalink](#completeresult-completion)  Type Declaration <ul> <li> values: string\[] An array of completion values. Must not exceed 100 items. </li> <li> `Optional`total?: number The total number of completion options available. This can exceed the number of values actually sent in the response. </li> <li> `Optional`hasMore?: boolean Indicates whether there are additional completion options beyond those provided in the current response, even if the exact total is unknown. </li></ul>
+}The server's response to a completion/complete request  \_meta?: \{ \[key: string]: unknown }[Permalink](#completeresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) completion: \{ values: string\[]; total?: number; hasMore?: boolean }[Permalink](#completeresult-completion)  Type Declaration <ul> <li> values: string\[] An array of completion values. Must not exceed 100 items. </li> <li> `Optional`total?: number The total number of completion options available. This can exceed the number of values actually sent in the response. </li> <li> `Optional`hasMore?: boolean Indicates whether there are additional completion options beyond those provided in the current response, even if the exact total is unknown. </li></ul>
 
 ### `PromptReference`
 
@@ -254,7 +254,7 @@ interface ElicitResult \{\
   [action](#elicitresult-action): "accept" | "decline" | "cancel";\
   [content](#elicitresult-content)?: \{ \[key: string]: string | number | boolean };\
   \[key: string]: unknown;\
-}The client's response to an elicitation request.  \_meta?: \{ \[key: string]: unknown }[Permalink](#elicitresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) action: "accept" | "decline" | "cancel"[Permalink](#elicitresult-action) The user action in response to the elicitation. <ul> <li>"accept": User submitted the form/confirmed the action</li> <li>"decline": User explicitly declined the action</li> <li>"cancel": User dismissed without making an explicit choice</li> </ul>  content?: \{ \[key: string]: string | number | boolean }[Permalink](#elicitresult-content) The submitted form data, only present when action is "accept".
+}The client's response to an elicitation request.  \_meta?: \{ \[key: string]: unknown }[Permalink](#elicitresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) action: "accept" | "decline" | "cancel"[Permalink](#elicitresult-action) The user action in response to the elicitation. <ul> <li>"accept": User submitted the form/confirmed the action</li> <li>"decline": User explicitly declined the action</li> <li>"cancel": User dismissed without making an explicit choice</li> </ul>  content?: \{ \[key: string]: string | number | boolean }[Permalink](#elicitresult-content) The submitted form data, only present when action is "accept".
 Contains values matching the requested schema.&#x20;
 
 ### `BooleanSchema`
@@ -328,7 +328,7 @@ interface InitializeResult \{\
   [serverInfo](#initializeresult-serverinfo): [Implementation](#implementation);\
   [instructions](#initializeresult-instructions)?: string;\
   \[key: string]: unknown;\
-}After receiving an initialize request from the client, the server sends this response.  \_meta?: \{ \[key: string]: unknown }[Permalink](#initializeresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) protocolVersion: string[Permalink](#initializeresult-protocolversion) The version of the Model Context Protocol that the server wants to use. This may not match the version that the client requested. If the client cannot support this version, it MUST disconnect.  capabilities: ServerCapabilities[Permalink](#initializeresult-capabilities)  serverInfo: Implementation[Permalink](#initializeresult-serverinfo)  instructions?: string[Permalink](#initializeresult-instructions) Instructions describing how to use the server and its features. This can be used by clients to improve the LLM's understanding of available tools, resources, etc. It can be thought of like a "hint" to the model. For example, this information MAY be added to the system prompt.&#x20;
+}After receiving an initialize request from the client, the server sends this response.  \_meta?: \{ \[key: string]: unknown }[Permalink](#initializeresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) protocolVersion: string[Permalink](#initializeresult-protocolversion) The version of the Model Context Protocol that the server wants to use. This may not match the version that the client requested. If the client cannot support this version, it MUST disconnect.  capabilities: ServerCapabilities[Permalink](#initializeresult-capabilities)  serverInfo: Implementation[Permalink](#initializeresult-serverinfo)  instructions?: string[Permalink](#initializeresult-instructions) Instructions describing how to use the server and its features. This can be used by clients to improve the LLM's understanding of available tools, resources, etc. It can be thought of like a "hint" to the model. For example, this information MAY be added to the system prompt.&#x20;
 
 ### `ClientCapabilities`
 
@@ -386,7 +386,7 @@ interface CancelledNotification \{\
 interface InitializedNotification \{\
   [params](#initializednotification-params)?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown };\
   [method](#initializednotification-method): "notifications/initialized";\
-}This notification is sent from the client to the server after initialization has finished.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#initializednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/initialized"[Permalink](#initializednotification-method)  Overrides Notification.method
+}This notification is sent from the client to the server after initialization has finished.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#initializednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/initialized"[Permalink](#initializednotification-method)  Overrides Notification.method
 
 ## `notifications/message`
 
@@ -418,7 +418,7 @@ interface ProgressNotification \{\
 interface PromptListChangedNotification \{\
   [params](#promptlistchangednotification-params)?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown };\
   [method](#promptlistchangednotification-method): "notifications/prompts/list\_changed";\
-}An optional notification from the server to the client, informing it that the list of prompts it offers has changed. This may be issued by servers without any previous subscription from the client.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#promptlistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/prompts/list\_changed"[Permalink](#promptlistchangednotification-method)  Overrides Notification.method
+}An optional notification from the server to the client, informing it that the list of prompts it offers has changed. This may be issued by servers without any previous subscription from the client.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#promptlistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/prompts/list\_changed"[Permalink](#promptlistchangednotification-method)  Overrides Notification.method
 
 ## `notifications/resources/list_changed`
 
@@ -427,7 +427,7 @@ interface PromptListChangedNotification \{\
 interface ResourceListChangedNotification \{\
   [params](#resourcelistchangednotification-params)?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown };\
   [method](#resourcelistchangednotification-method): "notifications/resources/list\_changed";\
-}An optional notification from the server to the client, informing it that the list of resources it can read from has changed. This may be issued by servers without any previous subscription from the client.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#resourcelistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/resources/list\_changed"[Permalink](#resourcelistchangednotification-method)  Overrides Notification.method
+}An optional notification from the server to the client, informing it that the list of resources it can read from has changed. This may be issued by servers without any previous subscription from the client.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#resourcelistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/resources/list\_changed"[Permalink](#resourcelistchangednotification-method)  Overrides Notification.method
 
 ## `notifications/resources/updated`
 
@@ -447,7 +447,7 @@ interface RootsListChangedNotification \{\
   [method](#rootslistchangednotification-method): "notifications/roots/list\_changed";\
 }A notification from the client to the server, informing it that the list of roots has changed.
 This notification should be sent whenever the client adds, removes, or modifies any root.
-The server should then request an updated list of roots using the ListRootsRequest.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#rootslistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/roots/list\_changed"[Permalink](#rootslistchangednotification-method)  Overrides Notification.method
+The server should then request an updated list of roots using the ListRootsRequest.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#rootslistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/roots/list\_changed"[Permalink](#rootslistchangednotification-method)  Overrides Notification.method
 
 ## `notifications/tools/list_changed`
 
@@ -456,7 +456,7 @@ The server should then request an updated list of roots using the ListRootsReque
 interface ToolListChangedNotification \{\
   [params](#toollistchangednotification-params)?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown };\
   [method](#toollistchangednotification-method): "notifications/tools/list\_changed";\
-}An optional notification from the server to the client, informing it that the list of tools it offers has changed. This may be issued by servers without any previous subscription from the client.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#toollistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/tools/list\_changed"[Permalink](#toollistchangednotification-method)  Overrides Notification.method
+}An optional notification from the server to the client, informing it that the list of tools it offers has changed. This may be issued by servers without any previous subscription from the client.  params?: \{ \_meta?: \{ \[key: string]: unknown }; \[key: string]: unknown }[Permalink](#toollistchangednotification-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage. </li></ul> Inherited from Notification.params method: "notifications/tools/list\_changed"[Permalink](#toollistchangednotification-method)  Overrides Notification.method
 
 ## `ping`
 
@@ -468,7 +468,7 @@ interface PingRequest \{\
     \[key: string]: unknown;\
   };\
   [method](#pingrequest-method): "ping";\
-}A ping, issued by either the server or the client, to check that the other party is still alive. The receiver must promptly respond, or else may be disconnected.  params?: \{    \_meta?: \{ progressToken?: ProgressToken; \[key: string]: unknown };    \[key: string]: unknown; }[Permalink](#pingrequest-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ progressToken?: [ProgressToken](#progresstoken); \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  <ul> <li> `Optional`progressToken?: [ProgressToken](#progresstoken) If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications. </li></ul></li></ul> Inherited from Request.params method: "ping"[Permalink](#pingrequest-method)  Overrides Request.method
+}A ping, issued by either the server or the client, to check that the other party is still alive. The receiver must promptly respond, or else may be disconnected.  params?: \{    \_meta?: \{ progressToken?: ProgressToken; \[key: string]: unknown };    \[key: string]: unknown; }[Permalink](#pingrequest-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ progressToken?: [ProgressToken](#progresstoken); \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  <ul> <li> `Optional`progressToken?: [ProgressToken](#progresstoken) If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications. </li></ul></li></ul> Inherited from Request.params method: "ping"[Permalink](#pingrequest-method)  Overrides Request.method
 
 ## `prompts/get`
 
@@ -486,7 +486,7 @@ interface GetPromptResult \{\
   [description](#getpromptresult-description)?: string;\
   [messages](#getpromptresult-messages): [PromptMessage](#promptmessage)\[];\
   \[key: string]: unknown;\
-}The server's response to a prompts/get request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#getpromptresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) description?: string[Permalink](#getpromptresult-description) An optional description for the prompt.  messages: PromptMessage\[][Permalink](#getpromptresult-messages)&#x20;
+}The server's response to a prompts/get request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#getpromptresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) description?: string[Permalink](#getpromptresult-description) An optional description for the prompt.  messages: PromptMessage\[][Permalink](#getpromptresult-messages)&#x20;
 
 ### `PromptMessage`
 
@@ -513,7 +513,7 @@ interface ListPromptsResult \{\
   [nextCursor](#listpromptsresult-nextcursor)?: string;\
   [prompts](#listpromptsresult-prompts): [Prompt](#prompt)\[];\
   \[key: string]: unknown;\
-}The server's response to a prompts/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listpromptsresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listpromptsresult-nextcursor) An opaque token representing the pagination position after the last returned result.
+}The server's response to a prompts/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listpromptsresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listpromptsresult-nextcursor) An opaque token representing the pagination position after the last returned result.
 If present, there may be more results available.  Inherited from PaginatedResult.nextCursor prompts: Prompt\[][Permalink](#listpromptsresult-prompts)&#x20;
 
 ### `Prompt`
@@ -527,7 +527,7 @@ interface Prompt \{\
 }A prompt or prompt template that the server offers.  name: string[Permalink](#prompt-name) Intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn't present).  Inherited from BaseMetadata.name title?: string[Permalink](#prompt-title) Intended for UI and end-user contexts — optimized to be human-readable and easily understood,
 even by those unfamiliar with domain-specific terminology. If not provided, the name should be used for display (except for Tool,
 where `annotations.title` should be given precedence over using `name`,
-if present).  Inherited from BaseMetadata.title description?: string[Permalink](#prompt-description) An optional description of what this prompt provides  arguments?: PromptArgument\[][Permalink](#prompt-arguments) A list of arguments to use for templating the prompt.  \_meta?: \{ \[key: string]: unknown }[Permalink](#prompt-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+if present).  Inherited from BaseMetadata.title description?: string[Permalink](#prompt-description) An optional description of what this prompt provides  arguments?: PromptArgument\[][Permalink](#prompt-arguments) A list of arguments to use for templating the prompt.  \_meta?: \{ \[key: string]: unknown }[Permalink](#prompt-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `PromptArgument`
 
@@ -558,7 +558,7 @@ interface ListResourcesResult \{\
   [nextCursor](#listresourcesresult-nextcursor)?: string;\
   [resources](#listresourcesresult-resources): [Resource](#resource)\[];\
   \[key: string]: unknown;\
-}The server's response to a resources/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listresourcesresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listresourcesresult-nextcursor) An opaque token representing the pagination position after the last returned result.
+}The server's response to a resources/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listresourcesresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listresourcesresult-nextcursor) An opaque token representing the pagination position after the last returned result.
 If present, there may be more results available.  Inherited from PaginatedResult.nextCursor resources: Resource\[][Permalink](#listresourcesresult-resources)&#x20;
 
 ### `Resource`
@@ -575,7 +575,7 @@ interface Resource \{\
 }A known resource that the server is capable of reading.  name: string[Permalink](#resource-name) Intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn't present).  Inherited from BaseMetadata.name title?: string[Permalink](#resource-title) Intended for UI and end-user contexts — optimized to be human-readable and easily understood,
 even by those unfamiliar with domain-specific terminology. If not provided, the name should be used for display (except for Tool,
 where `annotations.title` should be given precedence over using `name`,
-if present).  Inherited from BaseMetadata.title uri: string[Permalink](#resource-uri) The URI of this resource.  description?: string[Permalink](#resource-description) A description of what this resource represents. This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.  mimeType?: string[Permalink](#resource-mimetype) The MIME type of this resource, if known.  annotations?: Annotations[Permalink](#resource-annotations) Optional annotations for the client.  size?: number[Permalink](#resource-size) The size of the raw resource content, in bytes (i.e., before base64 encoding or any tokenization), if known. This can be used by Hosts to display file sizes and estimate context window usage.  \_meta?: \{ \[key: string]: unknown }[Permalink](#resource-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+if present).  Inherited from BaseMetadata.title uri: string[Permalink](#resource-uri) The URI of this resource.  description?: string[Permalink](#resource-description) A description of what this resource represents. This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.  mimeType?: string[Permalink](#resource-mimetype) The MIME type of this resource, if known.  annotations?: Annotations[Permalink](#resource-annotations) Optional annotations for the client.  size?: number[Permalink](#resource-size) The size of the raw resource content, in bytes (i.e., before base64 encoding or any tokenization), if known. This can be used by Hosts to display file sizes and estimate context window usage.  \_meta?: \{ \[key: string]: unknown }[Permalink](#resource-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ## `resources/read`
 
@@ -592,7 +592,7 @@ interface ReadResourceResult \{\
   [\_meta](#readresourceresult-_meta)?: \{ \[key: string]: unknown };\
   [contents](#readresourceresult-contents): ([TextResourceContents](#textresourcecontents) | [BlobResourceContents](#blobresourcecontents))\[];\
   \[key: string]: unknown;\
-}The server's response to a resources/read request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#readresourceresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) contents: (TextResourceContents | BlobResourceContents)\[][Permalink](#readresourceresult-contents)&#x20;
+}The server's response to a resources/read request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#readresourceresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) contents: (TextResourceContents | BlobResourceContents)\[][Permalink](#readresourceresult-contents)&#x20;
 
 ## `resources/subscribe`
 
@@ -620,7 +620,7 @@ interface ListResourceTemplatesResult \{\
   [nextCursor](#listresourcetemplatesresult-nextcursor)?: string;\
   [resourceTemplates](#listresourcetemplatesresult-resourcetemplates): [ResourceTemplate](#resourcetemplate)\[];\
   \[key: string]: unknown;\
-}The server's response to a resources/templates/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listresourcetemplatesresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listresourcetemplatesresult-nextcursor) An opaque token representing the pagination position after the last returned result.
+}The server's response to a resources/templates/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listresourcetemplatesresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listresourcetemplatesresult-nextcursor) An opaque token representing the pagination position after the last returned result.
 If present, there may be more results available.  Inherited from PaginatedResult.nextCursor resourceTemplates: ResourceTemplate\[][Permalink](#listresourcetemplatesresult-resourcetemplates)&#x20;
 
 ### `ResourceTemplate`
@@ -636,7 +636,7 @@ interface ResourceTemplate \{\
 }A template description for resources available on the server.  name: string[Permalink](#resourcetemplate-name) Intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn't present).  Inherited from BaseMetadata.name title?: string[Permalink](#resourcetemplate-title) Intended for UI and end-user contexts — optimized to be human-readable and easily understood,
 even by those unfamiliar with domain-specific terminology. If not provided, the name should be used for display (except for Tool,
 where `annotations.title` should be given precedence over using `name`,
-if present).  Inherited from BaseMetadata.title uriTemplate: string[Permalink](#resourcetemplate-uritemplate) A URI template (according to RFC 6570) that can be used to construct resource URIs.  description?: string[Permalink](#resourcetemplate-description) A description of what this template is for. This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.  mimeType?: string[Permalink](#resourcetemplate-mimetype) The MIME type for all resources that match this template. This should only be included if all resources matching this template have the same type.  annotations?: Annotations[Permalink](#resourcetemplate-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#resourcetemplate-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+if present).  Inherited from BaseMetadata.title uriTemplate: string[Permalink](#resourcetemplate-uritemplate) A URI template (according to RFC 6570) that can be used to construct resource URIs.  description?: string[Permalink](#resourcetemplate-description) A description of what this template is for. This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.  mimeType?: string[Permalink](#resourcetemplate-mimetype) The MIME type for all resources that match this template. This should only be included if all resources matching this template have the same type.  annotations?: Annotations[Permalink](#resourcetemplate-annotations) Optional annotations for the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#resourcetemplate-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ## `resources/unsubscribe`
 
@@ -661,7 +661,7 @@ interface ListRootsRequest \{\
 servers to ask for specific directories or files to operate on. A common example
 for roots is providing a set of repositories or directories a server should operate
 on. This request is typically used when the server needs to understand the file system
-structure or access specific locations that the client has permission to read from.  params?: \{    \_meta?: \{ progressToken?: ProgressToken; \[key: string]: unknown };    \[key: string]: unknown; }[Permalink](#listrootsrequest-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ progressToken?: [ProgressToken](#progresstoken); \[key: string]: unknown } See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  <ul> <li> `Optional`progressToken?: [ProgressToken](#progresstoken) If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications. </li></ul></li></ul> Inherited from Request.params method: "roots/list"[Permalink](#listrootsrequest-method)  Overrides Request.method
+structure or access specific locations that the client has permission to read from.  params?: \{    \_meta?: \{ progressToken?: ProgressToken; \[key: string]: unknown };    \[key: string]: unknown; }[Permalink](#listrootsrequest-params)  Type Declaration <ul> <li> \[key: string]: unknown</li> <li> `Optional`\_meta?: \{ progressToken?: [ProgressToken](#progresstoken); \[key: string]: unknown } See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  <ul> <li> `Optional`progressToken?: [ProgressToken](#progresstoken) If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications. </li></ul></li></ul> Inherited from Request.params method: "roots/list"[Permalink](#listrootsrequest-method)  Overrides Request.method
 
 ### `ListRootsResult`
 
@@ -671,7 +671,7 @@ interface ListRootsResult \{\
   \[key: string]: unknown;\
 }The client's response to a roots/list request from the server.
 This result contains an array of Root objects, each representing a root directory
-or file that the server can operate on.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listrootsresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) roots: Root\[][Permalink](#listrootsresult-roots)&#x20;
+or file that the server can operate on.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listrootsresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) roots: Root\[][Permalink](#listrootsresult-roots)&#x20;
 
 ### `Root`
 
@@ -683,7 +683,7 @@ interface Root \{\
 This restriction may be relaxed in future versions of the protocol to allow
 other URI schemes.  name?: string[Permalink](#root-name) An optional name for the root. This can be used to provide a human-readable
 identifier for the root, which may be useful for display purposes or for
-referencing the root in other parts of the application.  \_meta?: \{ \[key: string]: unknown }[Permalink](#root-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+referencing the root in other parts of the application.  \_meta?: \{ \[key: string]: unknown }[Permalink](#root-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ## `sampling/createMessage`
 
@@ -712,7 +712,7 @@ interface CreateMessageResult \{\
   [role](#createmessageresult-role): [Role](#role);\
   [content](#createmessageresult-content): [TextContent](#textcontent) | [ImageContent](#imagecontent) | [AudioContent](#audiocontent);\
   \[key: string]: unknown;\
-}The client's response to a sampling/create\_message request from the server. The client should inform the user before returning the sampled message, to allow them to inspect the response (human in the loop) and decide whether to allow the server to see it.  \_meta?: \{ \[key: string]: unknown }[Permalink](#createmessageresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) model: string[Permalink](#createmessageresult-model) The name of the model that generated the message.  stopReason?: string[Permalink](#createmessageresult-stopreason) The reason why sampling stopped, if known.  role: Role[Permalink](#createmessageresult-role)  Inherited from [SamplingMessage](#samplingmessage).[role](#samplingmessage-role) content: TextContent | ImageContent | AudioContent[Permalink](#createmessageresult-content)  Inherited from [SamplingMessage](#samplingmessage).[content](#samplingmessage-content)
+}The client's response to a sampling/create\_message request from the server. The client should inform the user before returning the sampled message, to allow them to inspect the response (human in the loop) and decide whether to allow the server to see it.  \_meta?: \{ \[key: string]: unknown }[Permalink](#createmessageresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) model: string[Permalink](#createmessageresult-model) The name of the model that generated the message.  stopReason?: string[Permalink](#createmessageresult-stopreason) The reason why sampling stopped, if known.  role: Role[Permalink](#createmessageresult-role)  Inherited from [SamplingMessage](#samplingmessage).[role](#samplingmessage-role) content: TextContent | ImageContent | AudioContent[Permalink](#createmessageresult-content)  Inherited from [SamplingMessage](#samplingmessage).[content](#samplingmessage-content)
 
 ### `ModelHint`
 
@@ -768,7 +768,7 @@ interface CallToolResult \{\
   [structuredContent](#calltoolresult-structuredcontent)?: \{ \[key: string]: unknown };\
   [isError](#calltoolresult-iserror)?: boolean;\
   \[key: string]: unknown;\
-}The server's response to a tool call.  \_meta?: \{ \[key: string]: unknown }[Permalink](#calltoolresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) content: ContentBlock\[][Permalink](#calltoolresult-content) A list of content objects that represent the unstructured result of the tool call.  structuredContent?: \{ \[key: string]: unknown }[Permalink](#calltoolresult-structuredcontent) An optional JSON object that represents the structured result of the tool call.  isError?: boolean[Permalink](#calltoolresult-iserror) Whether the tool call ended in an error. If not set, this is assumed to be false (the call was successful). Any errors that originate from the tool SHOULD be reported inside the result
+}The server's response to a tool call.  \_meta?: \{ \[key: string]: unknown }[Permalink](#calltoolresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from [Result](#result).[\_meta](#result-_meta) content: ContentBlock\[][Permalink](#calltoolresult-content) A list of content objects that represent the unstructured result of the tool call.  structuredContent?: \{ \[key: string]: unknown }[Permalink](#calltoolresult-structuredcontent) An optional JSON object that represents the structured result of the tool call.  isError?: boolean[Permalink](#calltoolresult-iserror) Whether the tool call ended in an error. If not set, this is assumed to be false (the call was successful). Any errors that originate from the tool SHOULD be reported inside the result
 object, with `isError` set to true, *not* as an MCP protocol-level error
 response. Otherwise, the LLM would not be able to see that an error occurred
 and self-correct. However, any errors in *finding* the tool, an error indicating that the
@@ -792,7 +792,7 @@ interface ListToolsResult \{\
   [nextCursor](#listtoolsresult-nextcursor)?: string;\
   [tools](#listtoolsresult-tools): [Tool](#tool)\[];\
   \[key: string]: unknown;\
-}The server's response to a tools/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listtoolsresult-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listtoolsresult-nextcursor) An opaque token representing the pagination position after the last returned result.
+}The server's response to a tools/list request from the client.  \_meta?: \{ \[key: string]: unknown }[Permalink](#listtoolsresult-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.  Inherited from PaginatedResult.\_meta nextCursor?: string[Permalink](#listtoolsresult-nextcursor) An opaque token representing the pagination position after the last returned result.
 If present, there may be more results available.  Inherited from PaginatedResult.nextCursor tools: Tool\[][Permalink](#listtoolsresult-tools)&#x20;
 
 ### `Tool`
@@ -817,7 +817,7 @@ interface Tool \{\
 even by those unfamiliar with domain-specific terminology. If not provided, the name should be used for display (except for Tool,
 where `annotations.title` should be given precedence over using `name`,
 if present).  Inherited from BaseMetadata.title description?: string[Permalink](#tool-description) A human-readable description of the tool. This can be used by clients to improve the LLM's understanding of available tools. It can be thought of like a "hint" to the model.  inputSchema: \{    type: "object";    properties?: \{ \[key: string]: object };    required?: string\[]; }[Permalink](#tool-inputschema) A JSON Schema object defining the expected parameters for the tool.  outputSchema?: \{    type: "object";    properties?: \{ \[key: string]: object };    required?: string\[]; }[Permalink](#tool-outputschema) An optional JSON Schema object defining the structure of the tool's output returned in
-the structuredContent field of a CallToolResult.  annotations?: ToolAnnotations[Permalink](#tool-annotations) Optional additional tool information. Display name precedence order is: title, annotations.title, then name.  \_meta?: \{ \[key: string]: unknown }[Permalink](#tool-_meta) See [General fields: `_meta`](/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
+the structuredContent field of a CallToolResult.  annotations?: ToolAnnotations[Permalink](#tool-annotations) Optional additional tool information. Display name precedence order is: title, annotations.title, then name.  \_meta?: \{ \[key: string]: unknown }[Permalink](#tool-_meta) See [General fields: `_meta`](https://modelcontextprotocol.io/specification/2025-06-18/basic/index#meta) for notes on `_meta` usage.&#x20;
 
 ### `ToolAnnotations`
 

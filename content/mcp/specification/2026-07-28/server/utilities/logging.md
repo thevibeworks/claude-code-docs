@@ -9,13 +9,13 @@
 > **Deprecated**: The Logging feature is deprecated as of protocol version
 > `2026-07-28`
 > ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
-> Under the [feature lifecycle policy](/community/feature-lifecycle.md), it remains
+> Under the [feature lifecycle policy](https://modelcontextprotocol.io/community/feature-lifecycle.md), it remains
 > in the specification for at least twelve months after this revision's release
 > before it becomes eligible for removal. New implementations **SHOULD NOT**
 > adopt it; existing implementations **SHOULD** migrate to logging to `stderr`
 > for stdio transports, or to [OpenTelemetry](https://opentelemetry.io/) for
 > structured observability. See the [deprecated features
-> registry](/specification/2026-07-28/deprecated.md).
+> registry](https://modelcontextprotocol.io/specification/2026-07-28/deprecated.md).
 
 The Model Context Protocol (MCP) provides a standardized way for servers to send
 structured log messages to clients. Clients control logging verbosity per-request via
@@ -67,7 +67,7 @@ When the field is present, the server **MAY** send `notifications/message`
 notifications at or above the requested level on the response stream of that
 request, before the final response. `notifications/message` is request-scoped:
 the server **MUST NOT** deliver it on a
-[`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions)
+[`subscriptions/listen`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions)
 stream or on any stream other than the one carrying the response to the request
 that set the log level.
 

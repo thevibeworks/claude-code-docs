@@ -22,45 +22,45 @@ Revisions may be marked as:
   receive backwards compatible changes.
 * **Final**: past, complete specifications that will not be changed.
 
-The **current** protocol version is [**2026-07-28**](/specification/2026-07-28.md).
+The **current** protocol version is [**2026-07-28**](https://modelcontextprotocol.io/specification/2026-07-28.md).
 
 ## Feature States
 
 Individual features of the specification may additionally be marked as
 **Deprecated** under the
-[feature lifecycle and deprecation policy](/community/feature-lifecycle.md):
+[feature lifecycle and deprecation policy](https://modelcontextprotocol.io/community/feature-lifecycle.md):
 the feature remains part of the specification, but is scheduled for removal.
 Deprecated features document a migration path (or state that none is required)
 and remain in the specification for at least twelve months, or at least
 ninety days under the policy's
-[expedited-removal exception](/community/feature-lifecycle.md#expedited-removal),
+[expedited-removal exception](https://modelcontextprotocol.io/community/feature-lifecycle.md#expedited-removal),
 before they become eligible for removal, after which they may be **Removed**
 in a future revision.
 
 Features that are currently Deprecated are listed in the
-[deprecated features registry](/specification/draft/deprecated.md).
+[deprecated features registry](https://modelcontextprotocol.io/specification/draft/deprecated.md).
 
 ## Negotiation
 
 Every request declares the protocol version it is using via the
 `io.modelcontextprotocol/protocolVersion` key in its
-[`_meta`](/specification/draft/basic/index#meta) field, and the server accepts or
+[`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#meta) field, and the server accepts or
 rejects each request independently. On Streamable HTTP, the same value is also carried
 in the
-[`MCP-Protocol-Version` header](/specification/draft/basic/transports/streamable-http#protocol-version-header).
+[`MCP-Protocol-Version` header](https://modelcontextprotocol.io/specification/draft/basic/transports/streamable-http#protocol-version-header).
 Clients and servers **MAY** support multiple protocol versions simultaneously.
 
 If the server does not support the requested version, it responds with an
-[`UnsupportedProtocolVersionError`](/specification/draft/basic/versioning#protocol-version-negotiation)
+[`UnsupportedProtocolVersionError`](https://modelcontextprotocol.io/specification/draft/basic/versioning#protocol-version-negotiation)
 listing the versions it does support. The client can then retry the request with a
 mutually supported version, or surface an error to the user if none exists.
 
 Clients that want to select a version up front can call
-[`server/discover`](/specification/draft/server/discover), a mandatory RPC that
+[`server/discover`](https://modelcontextprotocol.io/specification/draft/server/discover), a mandatory RPC that
 returns the server's supported protocol versions, capabilities, and identity in a
 single request. Calling it is optional: a client is free to send any request directly
 and handle a version error if one comes back.
 
 For interoperability with servers and clients that implement the
 handshake-based protocol revisions (`2025-11-25` and earlier), see
-[Backward Compatibility](/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions).
+[Backward Compatibility](https://modelcontextprotocol.io/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions).

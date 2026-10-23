@@ -10,7 +10,7 @@ When Claude Desktop is deployed on third-party inference, Claude can work with y
 
 ## How the connection works
 
-Box's MCP server requires an OAuth client that a Box admin creates, and Box's token endpoint requires that client's secret. The Enterprise Admin Console stores client secrets only for Google Desktop-app clients, so for Box each device supplies the secret through a helper script, as described under [Where the client secret goes](/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes). That page also explains each **OAuth** field.
+Box's MCP server requires an OAuth client that a Box admin creates, and Box's token endpoint requires that client's secret. The Enterprise Admin Console stores client secrets only for Google Desktop-app clients, so for Box each device supplies the secret through a helper script, as described under [Where the client secret goes](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes). That page also explains each **OAuth** field.
 
 ## Set up the Box server
 
@@ -20,7 +20,7 @@ In the Box Admin Console, create integration credentials for the Box MCP server 
 
 **2. Install the secret helper script on every device**
 
-Write a script that prints the client secret as the JSON object `{"clientSecret": "…"}` and nothing else on stdout (the full contract is under [Where the client secret goes](/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes)). On macOS, save the script (for example at `/usr/local/bin/box-mcp-secret`) and mark it executable:
+Write a script that prints the client secret as the JSON object `{"clientSecret": "…"}` and nothing else on stdout (the full contract is under [Where the client secret goes](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes)). On macOS, save the script (for example at `/usr/local/bin/box-mcp-secret`) and mark it executable:
 
 ```bash theme={null}
 #!/bin/sh
@@ -36,7 +36,7 @@ echo {"clientSecret":"YOUR_BOX_CLIENT_SECRET"}
 
 A secret written into the script is readable by anyone who can read the file. Where your devices have a secret store or vault CLI, have the script read the secret from there instead.
 
-Distribute the script through your device management to the same absolute path on every device, in a location users can't modify. An entry holds one path for the whole organization, so if your fleet mixes macOS and Windows, add one entry per platform with its own name and script path, and assign each to the matching group of users with [per-group permission policies](/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies).
+Distribute the script through your device management to the same absolute path on every device, in a location users can't modify. An entry holds one path for the whole organization, so if your fleet mixes macOS and Windows, add one entry per platform with its own name and script path, and assign each to the matching group of users with [per-group permission policies](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies).
 
 **3. Add the server in the Enterprise Admin Console**
 
@@ -52,7 +52,7 @@ In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organizati
 | **Client secret helper script** | The script's absolute path from step 2, for example `/usr/local/bin/box-mcp-secret` |
 | **Authorization server** | `["https://api.box.com"]` |
 
-Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console.md#configuration-updates). Devices need outbound HTTPS access to `mcp.box.com`, `account.box.com`, and `api.box.com`.
+Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](https://claude.com/docs/third-party/claude-desktop/admin-console.md#configuration-updates). Devices need outbound HTTPS access to `mcp.box.com`, `account.box.com`, and `api.box.com`.
 
 If you manage configuration through MDM or a bootstrap server instead, the equivalent entry can carry the secret inline:
 

@@ -14,7 +14,7 @@ This tutorial will show you how to publish an MCP server written in TypeScript t
 
 * **Node.js** — This tutorial assumes the MCP server is written in TypeScript.
 * **npm account** — The MCP Registry only hosts metadata, not artifacts. Before publishing to the MCP Registry, we will publish the MCP server's package to npm, so you will need an [npm](https://www.npmjs.com) account.
-* **GitHub account** — The MCP Registry supports [multiple authentication methods](/registry/authentication.md). For simplicity, this tutorial will use GitHub-based authentication, so you will need a [GitHub](https://github.com/) account.
+* **GitHub account** — The MCP Registry supports [multiple authentication methods](https://modelcontextprotocol.io/registry/authentication.md). For simplicity, this tutorial will use GitHub-based authentication, so you will need a [GitHub](https://github.com/) account.
 
 If you do not have an MCP server written in TypeScript, you can copy the `weather-server-typescript` server from the [`modelcontextprotocol/quickstart-resources` repository](https://github.com/modelcontextprotocol/quickstart-resources) to follow along with this tutorial:
 
@@ -280,7 +280,7 @@ You should see your server's metadata in the search results JSON:
 
 ## Next Steps
 
-* Learn about [support for other package types](/registry/package-types.md).
-* Learn about [support for remote servers](/registry/remote-servers.md).
-* Learn how to [use other authentication methods](/registry/authentication.md), such as [DNS authentication](/registry/authentication.md#dns-authentication) which enables custom domains for server name prefixes.
-* Learn how to [automate publishing with GitHub Actions](/registry/github-actions.md).
+* Learn about [support for other package types](https://modelcontextprotocol.io/registry/package-types.md).
+* Learn about [support for remote servers](https://modelcontextprotocol.io/registry/remote-servers.md).
+* Learn how to [use other authentication methods](https://modelcontextprotocol.io/registry/authentication.md), such as [DNS authentication](https://modelcontextprotocol.io/registry/authentication.md#dns-authentication) which enables custom domains for server name prefixes.
+* Learn how to [automate publishing with GitHub Actions](https://modelcontextprotocol.io/registry/github-actions.md).

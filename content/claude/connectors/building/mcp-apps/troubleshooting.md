@@ -111,7 +111,7 @@ If your app loads on desktop and web but fails to fetch scripts, images, or API 
 
 WebKit on iOS, in both Safari and the Claude iOS app, omits the `Referer` header on cross-origin subresource requests as part of its tracking prevention, per WebKit bugs [206521](https://bugs.webkit.org/show_bug.cgi?id=206521) and [179053](https://bugs.webkit.org/show_bug.cgi?id=179053#c8). A server that requires a `Referer` to allow the request rejects iOS traffic even though the same app works elsewhere.
 
-To fix the iOS failures, allowlist on the `Origin` header instead of `Referer`, because WebKit does send `Origin`. Requests from your app carry an `Origin` of `{hash}.claudemcpcontent.com`, and [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude) shows how to compute the hash for your server URL. Configure your infrastructure to allow requests whose `Origin` matches `*.claudemcpcontent.com` and return a corresponding `Access-Control-Allow-Origin` header.
+To fix the iOS failures, allowlist on the `Origin` header instead of `Referer`, because WebKit does send `Origin`. Requests from your app carry an `Origin` of `{hash}.claudemcpcontent.com`, and [Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude) shows how to compute the hash for your server URL. Configure your infrastructure to allow requests whose `Origin` matches `*.claudemcpcontent.com` and return a corresponding `Access-Control-Allow-Origin` header.
 
 > [!NOTE]
 >
@@ -132,10 +132,10 @@ A mismatch usually has one of these causes:
 * **The URL you hashed differs from the URL Claude connects to**: the hash covers the full URL string including scheme, path, and any trailing slash, so `https://example.com/mcp` and `https://example.com/mcp/` produce different values. Hash the exact URL configured in **Customize > Connectors**
 * **The connector is a local stdio server**: local connectors have no URL to hash, so `ui.domain` isn't available for them. Remove the field, or deploy the server as a remote connector to use a stable origin
 
-[Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude) explains how the origin is used across platforms.
+[Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude) explains how the origin is used across platforms.
 
 ## Next steps
 
-* [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): compute the sandbox origin Claude expects for your app
-* [Design guidelines](/docs/connectors/building/mcp-apps/design-guidelines.md#mobile-guidelines): mobile layout, safe areas, and sizing rules that prevent clipped or invisible content
-* [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started.md#build-your-own-mcp-app): SDK quickstart, examples, and agent skills
+* [Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): compute the sandbox origin Claude expects for your app
+* [Design guidelines](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#mobile-guidelines): mobile layout, safe areas, and sizing rules that prevent clipped or invisible content
+* [Get started with MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md#build-your-own-mcp-app): SDK quickstart, examples, and agent skills

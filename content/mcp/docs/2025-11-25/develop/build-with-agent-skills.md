@@ -51,7 +51,7 @@ questions about:
 * **Who will use it** — just you, your team, or anyone who installs it
 * **Action surface size** — a handful of operations versus wrapping a large API
 * **User interaction needs** — plain text results, structured input via
-  [elicitation](/specification/2025-11-25/client/elicitation.md), or rich UI widgets
+  [elicitation](https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation.md), or rich UI widgets
 * **Upstream auth** — API keys, OAuth 2.0, or none
 
 If your opening message already covers these, the agent skips ahead to the
@@ -62,16 +62,16 @@ recommendation.
 Based on discovery, the skill recommends one of four paths and scaffolds
 accordingly:
 
-**Remote [Streamable HTTP](/specification/2025-11-25/basic/transports.md#streamable-http)**
+**Remote [Streamable HTTP](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports.md#streamable-http)**
 is the default for anything wrapping a cloud API. Zero install friction, one
 deployment serves all users, and OAuth flows work properly because the server
 can handle redirects and token storage. The reference skill includes scaffolds
 for Cloudflare Workers and portable Express/FastMCP setups.
 
-**[MCP apps](/extensions/apps/overview.md)** extend a server with interactive
+**[MCP apps](https://modelcontextprotocol.io/extensions/apps/overview.md)** extend a server with interactive
 widgets rendered in chat, such as searchable pickers, charts, and live
 dashboards. The skill hands off to `build-mcp-app` when
-[elicitation's](/specification/2025-11-25/client/elicitation.md) flat-form constraints
+[elicitation's](https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation.md) flat-form constraints
 don't fit.
 
 **[MCP Bundles (MCPB)](https://github.com/modelcontextprotocol/mcpb)** package a
@@ -80,7 +80,7 @@ can install it without setting up Node or Python. Use this path when the server
 must touch the user's machine: reading local files, driving desktop apps, or
 talking to localhost services. The skill hands off to `build-mcpb`.
 
-**Local [stdio](/specification/2025-11-25/basic/transports.md#stdio)** remains available
+**Local [stdio](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports.md#stdio)** remains available
 for prototyping, with a noted upgrade path to MCPB when you're ready to
 distribute.
 
@@ -89,14 +89,14 @@ distribute.
 Once your agent scaffolds the server, iterate on tool descriptions and error
 handling, then test and ship:
 
-> **[MCP Inspector](/docs/2025-11-25/tools/inspector.md)**
+> **[MCP Inspector](https://modelcontextprotocol.io/docs/2025-11-25/tools/inspector.md)**
 >
 > Test your server's tools, resources, and prompts interactively
 
-> **[Connect to a client](/docs/2025-11-25/develop/connect-local-servers.md)**
+> **[Connect to a client](https://modelcontextprotocol.io/docs/2025-11-25/develop/connect-local-servers.md)**
 >
 > Wire your server into an MCP client via local or remote configuration
 
-> **[Publish to the Registry](/registry/quickstart.md)**
+> **[Publish to the Registry](https://modelcontextprotocol.io/registry/quickstart.md)**
 >
 > Make your server discoverable in the MCP Registry

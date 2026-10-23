@@ -6,9 +6,9 @@
 
 This page defines the message patterns of the core protocol: the ways a
 client and server compose JSON-RPC
-[requests, responses, and notifications](/specification/2026-07-28/basic/index.md#messages)
+[requests, responses, and notifications](https://modelcontextprotocol.io/specification/2026-07-28/basic/index.md#messages)
 into interactions. Every
-[transport](/specification/2026-07-28/basic/transports.md) carries all of these
+[transport](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports.md) carries all of these
 patterns; transports differ only in how messages are framed and delivered.
 
 Every interaction begins with the client:
@@ -25,8 +25,8 @@ JSON-RPC responses.
 The client sends a request; the server answers it with a result or an error.
 While the request is in flight, the server **MAY** send notifications scoped
 to it, such as
-[`notifications/progress`](/specification/2026-07-28/basic/patterns/progress)
-and [`notifications/message`](/specification/2026-07-28/server/utilities/logging).
+[`notifications/progress`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/progress)
+and [`notifications/message`](https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/logging).
 
 ```mermaid theme={null}
 sequenceDiagram
@@ -42,9 +42,9 @@ sequenceDiagram
 
 When a server needs client input (sampling, elicitation, or roots) to
 complete a request, it answers with an
-[`InputRequiredResult`](/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult)
+[`InputRequiredResult`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult)
 and the client retries the request with the matching `inputResponses`. See
-[Multi Round-Trip Requests](/specification/2026-07-28/basic/patterns/mrtr.md).
+[Multi Round-Trip Requests](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr.md).
 
 ```mermaid theme={null}
 sequenceDiagram
@@ -61,7 +61,7 @@ sequenceDiagram
 
 To receive change notifications (list changes, resource updates), the client
 sends a
-[`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions)
+[`subscriptions/listen`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions)
 request; the reply is a long-lived stream of the requested notification
 types. Stream state is scoped to the request: if the underlying channel is
 lost, the client re-issues the request.

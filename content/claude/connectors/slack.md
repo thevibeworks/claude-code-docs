@@ -12,7 +12,7 @@ By the end of this page you have installed the app, connected your account, and,
 
 > [!NOTE]
 >
-> This page covers the earlier per-user Claude in Slack app. The current product is [Claude Tag](/docs/claude-tag/overview.md), which gives your team one Claude identity set up by an admin. If your organization used the earlier app, see [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier.md).
+> This page covers the earlier per-user Claude in Slack app. The current product is [Claude Tag](https://claude.com/docs/claude-tag/overview.md), which gives your team one Claude identity set up by an admin. If your organization used the earlier app, see [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md).
 
 ## Use the earlier Claude in Slack app
 
@@ -118,6 +118,6 @@ Conversations with Claude in Slack are kept apart from your claude.ai history:
 
 ## Next steps
 
-* [Claude Tag](/docs/claude-tag/overview.md): the current product, which gives your team one Claude identity set up by an admin
-* [Add a connector from the directory](/docs/connectors/getting-started.md#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
-* [Connectors directory](/docs/connectors/directory.md): browse verified and community integrations
+* [Claude Tag](https://claude.com/docs/claude-tag/overview.md): the current product, which gives your team one Claude identity set up by an admin
+* [Add a connector from the directory](https://claude.com/docs/connectors/getting-started.md#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
+* [Connectors directory](https://claude.com/docs/connectors/directory.md): browse verified and community integrations

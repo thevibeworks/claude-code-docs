@@ -6,7 +6,7 @@
 
 > Auto mode in Claude Science lets a safety check approve code and connector calls.
 
-Auto mode in Claude Science lets Claude run code and call connectors without routine [permission cards](/docs/claude-science/core-concepts.md#permission-cards). A separate safety check reviews code, and the connector calls that would otherwise ask you, before they run. It approves the ones that look safe and holds anything that escalates beyond your request, is destructive or hard to undo, or appears driven by hostile content Claude read. Anything the check holds or can't check still shows you the card. Allow or deny the request as you would with auto mode off.
+Auto mode in Claude Science lets Claude run code and call connectors without routine [permission cards](https://claude.com/docs/claude-science/core-concepts.md#permission-cards). A separate safety check reviews code, and the connector calls that would otherwise ask you, before they run. It approves the ones that look safe and holds anything that escalates beyond your request, is destructive or hard to undo, or appears driven by hostile content Claude read. Anything the check holds or can't check still shows you the card. Allow or deny the request as you would with auto mode off.
 
 > [!WARNING]
 >
@@ -25,8 +25,8 @@ The **Auto mode on for new sessions** toggle also decides for sessions that don'
 
 Auto mode in Claude Science is available only when all of these requirements are met:
 
-* **Sandbox**: the [sandbox](/docs/claude-science/core-concepts.md#sandbox) is on. With the sandbox off, auto mode approves nothing.
-* **Organization**: on Team and Enterprise plans, your organization's admin allows it (see [Auto mode in Admin controls](/docs/claude-science/admin-controls.md#auto-mode)).
+* **Sandbox**: the [sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox) is on. With the sandbox off, auto mode approves nothing.
+* **Organization**: on Team and Enterprise plans, your organization's admin allows it (see [Auto mode in Admin controls](https://claude.com/docs/claude-science/admin-controls.md#auto-mode)).
 * **Availability**: Anthropic has made auto mode available to you in Claude Science.
 
 If the toggle is missing or grayed out, one of these requirements is unmet.

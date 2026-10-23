@@ -49,7 +49,7 @@ You can attach more folders, links, or projects from Chat at any time from the p
 
 Select a project in the sidebar to start a new Cowork session with that project's folders mounted and instructions applied. Files Claude creates land in the project's folders; what Claude learns during the session is saved to the project's memory for next time.
 
-[Dispatch](/docs/cowork/guide/dispatch.md) can also route background tasks into a project, so long-running work picks up the same folders, instructions, and memory.
+[Dispatch](https://claude.com/docs/cowork/guide/dispatch.md) can also route background tasks into a project, so long-running work picks up the same folders, instructions, and memory.
 
 When you drag files or folders into a project, individual files are copied into the project's first folder and folders are mounted as additional project folders. Claude reads individual files up to 50 MB.
 
@@ -73,6 +73,6 @@ To archive, open the project's menu in the sidebar and choose **Archive**.
 
 ## Related
 
-* [Run tasks in the background with Dispatch](/docs/cowork/guide/dispatch.md) to run work inside a project without watching each step
-* [Install plugins](/docs/cowork/guide/plugins.md) to extend what Claude can do in a project's sessions
-* [Cowork overview](/docs/cowork/overview.md) for how projects relate to sessions and Dispatch
+* [Run tasks in the background with Dispatch](https://claude.com/docs/cowork/guide/dispatch.md) to run work inside a project without watching each step
+* [Install plugins](https://claude.com/docs/cowork/guide/plugins.md) to extend what Claude can do in a project's sessions
+* [Cowork overview](https://claude.com/docs/cowork/overview.md) for how projects relate to sessions and Dispatch

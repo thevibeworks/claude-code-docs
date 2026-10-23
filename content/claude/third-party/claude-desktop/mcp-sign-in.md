@@ -6,9 +6,9 @@
 
 > Decide whether a managed MCP server needs an OAuth client that you register and whether it also needs that client's secret, fill in the OAuth fields, and read the sign-in error messages.
 
-For a remote [managed MCP server](/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin) that uses OAuth, Claude Desktop signs each user in through the browser: the user clicks **Connect**, signs in to the server's identity provider (the OAuth service its vendor runs, for example Google or Box), and Claude Desktop stores the resulting token encrypted on the device. What you configure depends on that identity provider. Some register Claude Desktop as a client automatically, some require an OAuth client that you register, and some also require that client's secret.
+For a remote [managed MCP server](https://claude.com/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin) that uses OAuth, Claude Desktop signs each user in through the browser: the user clicks **Connect**, signs in to the server's identity provider (the OAuth service its vendor runs, for example Google or Box), and Claude Desktop stores the resulting token encrypted on the device. What you configure depends on that identity provider. Some register Claude Desktop as a client automatically, some require an OAuth client that you register, and some also require that client's secret.
 
-This page is for administrators who add servers on the **Connectors** page of the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md). The [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md) has the same fields, and in an MDM or bootstrap configuration they are the `oauth` keys of a [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry. For the redirect URI, discovery, and token handling in detail, see [OAuth sign-in](/docs/third-party/claude-desktop/extensions.md#oauth-sign-in).
+This page is for administrators who add servers on the **Connectors** page of the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md). The [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) has the same fields, and in an MDM or bootstrap configuration they are the `oauth` keys of a [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) entry. For the redirect URI, discovery, and token handling in detail, see [OAuth sign-in](https://claude.com/docs/third-party/claude-desktop/extensions.md#oauth-sign-in).
 
 ## Choose the OAuth setting
 
@@ -30,13 +30,13 @@ Test each server yourself before you announce it: sign in to Claude Desktop as a
 
 Add a client secret only when the identity provider refuses sign-in without one. The console stores a value in **Client secret** only for a Google OAuth client of the **Desktop app** type: the value begins with `GOCSPX-`, **Authorization server** is exactly `["https://accounts.google.com"]`, and **Tenant ID** is empty. Google doesn't treat a Desktop-app client secret as confidential, so the console accepts it. A Google **Web application** client's secret has the same `GOCSPX-` prefix but is confidential, so always create a **Desktop app** client.
 
-For every other identity provider the secret stays on the device. Install a script that prints the secret, at the same absolute path on every device, and enter that path in the **Client secret helper script** field. The script must print exactly one JSON object, `{"clientSecret": "…"}`, on stdout and exit with code `0` within 30 seconds. Claude Desktop runs it each time the server connects or refreshes its sign-in in the background. The console stores only the path, so distribute the script through your device management, as described under [When a helper script is the right choice](/docs/third-party/claude-desktop/admin-console.md#when-a-helper-script-is-the-right-choice), and see [Connect to Box](/docs/third-party/claude-desktop/connectors-box.md) for a minimal script. A configuration delivered by MDM or a bootstrap server can instead carry any identity provider's secret inline in `oauth.clientSecret`.
+For every other identity provider the secret stays on the device. Install a script that prints the secret, at the same absolute path on every device, and enter that path in the **Client secret helper script** field. The script must print exactly one JSON object, `{"clientSecret": "…"}`, on stdout and exit with code `0` within 30 seconds. Claude Desktop runs it each time the server connects or refreshes its sign-in in the background. The console stores only the path, so distribute the script through your device management, as described under [When a helper script is the right choice](https://claude.com/docs/third-party/claude-desktop/admin-console.md#when-a-helper-script-is-the-right-choice), and see [Connect to Box](https://claude.com/docs/third-party/claude-desktop/connectors-box.md) for a minimal script. A configuration delivered by MDM or a bootstrap server can instead carry any identity provider's secret inline in `oauth.clientSecret`.
 
 **Authorization server** is required whenever **Client secret** or **Client secret helper script** is set. Claude Desktop sends the secret only to the token endpoint of the issuer you name there, so a misconfigured or compromised MCP server can't redirect the token exchange, and the secret, to another server.
 
 ## OAuth fields
 
-These fields appear when **OAuth** is set to **Bring your own client**. The [`managedMcpServers` reference](/docs/third-party/claude-desktop/configuration#managedmcpservers) lists every `oauth` key and its minimum Claude Desktop version.
+These fields appear when **OAuth** is set to **Bring your own client**. The [`managedMcpServers` reference](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists every `oauth` key and its minimum Claude Desktop version.
 
 | Field | When to set | What to enter |
 | - | - | - |
@@ -47,7 +47,7 @@ These fields appear when **OAuth** is set to **Bring your own client**. The [`ma
 | **Authorization URL** and **Token URL** | The identity provider publishes no discovery document | Both HTTPS endpoints, always as a pair. Hidden when **Tenant ID** or **Authorization server** is set |
 | **Tenant ID** | The client is a single-tenant Microsoft Entra app | Your Directory (tenant) ID. Requires **Scope** |
 | **Scope** | Required with **Tenant ID**. Optional otherwise | Space-separated scopes for the authorize request. Leave empty to request the scopes the server advertises |
-| **Sign-in flow** | Shown after you enter **Tenant ID**. Set it when your devices have the [OS identity broker](/docs/third-party/claude-desktop/entra-broker.md) | **OS identity broker (WAM / Company Portal)**. The default is **System browser** |
+| **Sign-in flow** | Shown after you enter **Tenant ID**. Set it when your devices have the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md) | **OS identity broker (WAM / Company Portal)**. The default is **System browser** |
 | **Callback host** and **Callback port** | The redirect URI you registered uses `localhost` or a port other than `53280` | The host and port from that registration. Microsoft Entra ID accepts any loopback port, so leave both empty for Entra |
 | **Additional redirect referrer hosts** | The identity provider completes sign-in from a host other than the one in its authorization URL, and `main.log` names a rejected referrer host | That hostname. Separate several with spaces |
 
@@ -63,7 +63,7 @@ Add each server in this table with **Add → Blank**, the **Streamable HTTP** tr
 
 ## Troubleshoot sign-in
 
-These messages appear in Claude Desktop, or in `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage.md#where-data-lives) on the user's device.
+These messages appear in Claude Desktop, or in `main.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) on the user's device.
 
 | What the user sees or `main.log` records | Cause | Fix |
 | - | - | - |
@@ -73,4 +73,4 @@ These messages appear in Claude Desktop, or in `main.log` in the [logs directory
 
 ## Related connector guides
 
-[Connect to Google Cloud](/docs/third-party/claude-desktop/connectors-google-cloud.md) and [Connect to Box](/docs/third-party/claude-desktop/connectors-box.md) walk through two servers that need a client you register and its secret. [Connect to GitHub](/docs/third-party/claude-desktop/connectors-github.md) and [Connect to Microsoft 365](/docs/third-party/claude-desktop/connectors-m365.md) cover those connectors end to end, including the [built-in servers](/docs/third-party/claude-desktop/built-in-connectors.md) that run inside the app. [Connect to Salesforce](/docs/third-party/claude-desktop/connectors-salesforce.md) covers Salesforce's plugin marketplace and its hosted MCP server. Add other partners' plugin marketplaces on the **Plugins** page, as described under [Plugin marketplaces](/docs/third-party/claude-desktop/admin-console.md#plugin-marketplaces).
+[Connect to Google Cloud](https://claude.com/docs/third-party/claude-desktop/connectors-google-cloud.md) and [Connect to Box](https://claude.com/docs/third-party/claude-desktop/connectors-box.md) walk through two servers that need a client you register and its secret. [Connect to GitHub](https://claude.com/docs/third-party/claude-desktop/connectors-github.md) and [Connect to Microsoft 365](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md) cover those connectors end to end, including the [built-in servers](https://claude.com/docs/third-party/claude-desktop/built-in-connectors.md) that run inside the app. [Connect to Salesforce](https://claude.com/docs/third-party/claude-desktop/connectors-salesforce.md) covers Salesforce's plugin marketplace and its hosted MCP server. Add other partners' plugin marketplaces on the **Plugins** page, as described under [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/admin-console.md#plugin-marketplaces).

@@ -12,7 +12,7 @@ The import copies your conversations, their attached files, and the projects you
 
 ## Before you begin
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-01-signing-in-for-the-first-time.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=fcfdbcaa5f3ee9e9496e6014ed516b65" aria-label="Video walkthrough: Signing in for the first time" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-01-signing-in-for-the-first-time-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=4383be097080bd0b4e0b73ef155afdef" aria-label="Video walkthrough: Signing in for the first time" />
 
 Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -36,24 +36,24 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 >
 > Code is for software work, in a folder you choose on your computer.
 >
-> If you can sign in but the model picker is empty, you have no seat yet. Ask your organization's owner to assign you one.
+> If you can sign in but the model picker is empty, ask your organization's owner to check your seat tier and its models.
 
 * **You have an account on the web app.** It must use the same work email address as your account in Claude Desktop.
 * **You are signed in to the web app in your default browser.** The import opens a browser tab there and asks for a one-time code, which expires after a few minutes.
 
-> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist. To remind members to run the import, turn on the [**Show the Claude for Government Web import banner**](/docs/government/config/settings.md#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
+> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist. To remind members to run the import, turn on the [**Show the Claude for Government Web import banner**](https://claude.com/docs/government/config/settings.md#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
 
 ## Run the import
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-02-bringing-your-chats-and-projects-over.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=b7860d7dd7807b95aecc486b1aaf26f7" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-02-bringing-your-chats-and-projects-over-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=17d612064ed90a2edf86e70bcf4bf72e" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
 
-Video: Bringing your chats and projects over from Claude for Government Web (2 min 10 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 12 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > **Transcript**
 >
-> If you used Claude for Government - Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
+> If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
 >
-> In Claude Desktop, open Settings from the account menu at the bottom of the sidebar, then Import and export, and select Import. The app does not prompt you to do this. Run it when you are ready.
+> In Claude Desktop, open Settings from the account menu at the bottom of the sidebar, then Import and export, and select Import. Run it when you are ready.
 >
 > Select Sign in to Claude for Government Web, then Sign in. Claude shows a one-time code and opens the web app in your browser.
 >
@@ -69,7 +69,7 @@ Video: Bringing your chats and projects over from Claude for Government Web (2 m
 >
 > A project that had instructions shows a notice. Claude won't follow imported instructions until you accept them: select Review instructions, check them, and save, or choose Use as is.
 >
-> The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import page says import isn't enabled, ask your administrator.
+> The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
 
 You start the import yourself from **Settings**, whenever you are ready. If Claude Desktop's home screen shows a **Pick up where you left off in Claude for Government Web** banner, its **Start import** button takes you to the **Import & export** page in **Settings**. If you click **Skip for now** or close the banner, it can come back a few days later, until you run the import or have skipped it a few times. Claude Desktop versions earlier than 2.16120.0 hide the banner permanently after one skip.
 
@@ -122,5 +122,5 @@ For anything else, try the import again; if it keeps failing, contact your admin
 ## Things to know
 
 * **You can run the import again.** Conversations you already imported are skipped.
-* **Conversations can arrive as Cowork tasks.** If **Chat in Claude Desktop** is turned off for your organization under [Product availability](/docs/government/config/settings.md#product-availability) when you run the import, your conversations are imported as Cowork tasks instead and open only on computers where Cowork is available.
+* **Conversations can arrive as Cowork tasks.** If **Chat in Claude Desktop** is turned off for your organization under [Product availability](https://claude.com/docs/government/config/settings.md#product-availability) when you run the import, your conversations are imported as Cowork tasks instead and open only on computers where Cowork is available.
 * **Projects other people shared with you are not imported.** Only the projects you created come over, with their files and instructions.

@@ -111,11 +111,11 @@ to indicate it is ready to begin normal operations:
 ```
 
 * The client **SHOULD NOT** send requests other than
-  [pings](/specification/2024-11-05/basic/utilities/ping.md) before the server
+  [pings](https://modelcontextprotocol.io/specification/2024-11-05/basic/utilities/ping.md) before the server
   has responded to the `initialize` request.
 * The server **SHOULD NOT** send requests other than
-  [pings](/specification/2024-11-05/basic/utilities/ping.md) and
-  [logging](/specification/2024-11-05/server/utilities/logging.md) before
+  [pings](https://modelcontextprotocol.io/specification/2024-11-05/basic/utilities/ping.md) and
+  [logging](https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/logging.md) before
   receiving the `initialized` notification.
 
 #### Version Negotiation
@@ -139,13 +139,13 @@ Key capabilities include:
 
 | Category | Capability | Description |
 | - | - | - |
-| Client | `roots` | Ability to provide filesystem [roots](/specification/2024-11-05/client/roots.md) |
-| Client | `sampling` | Support for LLM [sampling](/specification/2024-11-05/client/sampling.md) requests |
+| Client | `roots` | Ability to provide filesystem [roots](https://modelcontextprotocol.io/specification/2024-11-05/client/roots.md) |
+| Client | `sampling` | Support for LLM [sampling](https://modelcontextprotocol.io/specification/2024-11-05/client/sampling.md) requests |
 | Client | `experimental` | Describes support for non-standard experimental features |
-| Server | `prompts` | Offers [prompt templates](/specification/2024-11-05/server/prompts.md) |
-| Server | `resources` | Provides readable [resources](/specification/2024-11-05/server/resources.md) |
-| Server | `tools` | Exposes callable [tools](/specification/2024-11-05/server/tools.md) |
-| Server | `logging` | Emits structured [log messages](/specification/2024-11-05/server/utilities/logging.md) |
+| Server | `prompts` | Offers [prompt templates](https://modelcontextprotocol.io/specification/2024-11-05/server/prompts.md) |
+| Server | `resources` | Provides readable [resources](https://modelcontextprotocol.io/specification/2024-11-05/server/resources.md) |
+| Server | `tools` | Exposes callable [tools](https://modelcontextprotocol.io/specification/2024-11-05/server/tools.md) |
+| Server | `logging` | Emits structured [log messages](https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/logging.md) |
 | Server | `experimental` | Describes support for non-standard experimental features |
 
 Capability objects can describe sub-capabilities like:
@@ -172,7 +172,7 @@ mechanism should be used to signal connection termination:
 
 #### stdio
 
-For the stdio [transport](/specification/2024-11-05/basic/transports.md), the
+For the stdio [transport](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports.md), the
 client **SHOULD** initiate shutdown by:
 
 1. First, closing the input stream to the child process (the server)
@@ -185,7 +185,7 @@ exiting.
 
 #### HTTP
 
-For HTTP [transports](/specification/2024-11-05/basic/transports.md), shutdown
+For HTTP [transports](https://modelcontextprotocol.io/specification/2024-11-05/basic/transports.md), shutdown
 is indicated by closing the associated HTTP connection(s).
 
 ## Error Handling

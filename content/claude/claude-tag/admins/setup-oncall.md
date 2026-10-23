@@ -15,18 +15,18 @@ Claude Tag on-call puts Claude on call with your team for incident response in S
 On-call is available on the Team and Enterprise plans. Who can open [`claude.ai/oncall`](https://claude.ai/oncall) and run setup depends on your plan.
 
 * **Team plan:** any member of your organization. A change that affects the whole organization saves only if your account has permission to make it.
-* **Enterprise plan:** an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration), meaning a member whose custom role sets **Claude Tag Admin** to **Can manage**. Other members, including those with the built-in **Admin** role and [channel managers](/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers), don't see **On-call** in the **Code** sidebar and can't open setup.
+* **Enterprise plan:** an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration), meaning a member whose custom role sets **Claude Tag Admin** to **Can manage**. Other members, including those with the built-in **Admin** role and [channel managers](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers), don't see **On-call** in the **Code** sidebar and can't open setup.
 
 ## What an on-call is
 
-Your organization's on-call is an [Access bundle](/docs/claude-tag/concepts/glossary.md#access-bundle) carrying the connections, repositories, and skills Claude uses for incident work. The bundle attaches to the channels you pick during setup, and any [routines](/docs/claude-tag/concepts/glossary.md#routine) you schedule in those channels, like a morning incident digest, run alongside it. Setup builds the bundle, and after you deploy you edit it like any other bundle in [Give Claude access](/docs/claude-tag/admins/add-connections.md).
+Your organization's on-call is an [Access bundle](https://claude.com/docs/claude-tag/concepts/glossary.md#access-bundle) carrying the connections, repositories, and skills Claude uses for incident work. The bundle attaches to the channels you pick during setup, and any [routines](https://claude.com/docs/claude-tag/concepts/glossary.md#routine) you schedule in those channels, like a morning incident digest, run alongside it. Setup builds the bundle, and after you deploy you edit it like any other bundle in [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md).
 
 Setup offers two ways for Claude to work, and you can use either or both.
 
 * **Watch your alerts.** Claude watches your monitoring tools and posts what it finds in a channel you choose.
 * **Join incident channels.** Claude joins the incident channels you pick and investigates alongside your team, without waiting to be tagged. A channel-name prefix, like `incident-`, has Claude join new public channels that match.
 
-On-call work is billed to your organization as usage. You can cap it with a monthly spend limit. [Set a spend limit](/docs/claude-tag/admins/set-spend-limit.md) covers what counts toward the limit and what happens when it's reached.
+On-call work is billed to your organization as usage. You can cap it with a monthly spend limit. [Set a spend limit](https://claude.com/docs/claude-tag/admins/set-spend-limit.md) covers what counts toward the limit and what happens when it's reached.
 
 ## Run setup
 
@@ -53,13 +53,13 @@ Setup includes an option to have Claude introduce itself to your team after you 
 
 ## After you deploy
 
-Claude is on call in the channels you chose, and, if you set a channel-name prefix, it joins new public channels that match as they're created. The on-call's connections, repositories, and skills make up its [Access bundle](/docs/claude-tag/concepts/glossary.md#access-bundle). To change the on-call later, go to [`claude.ai/oncall`](https://claude.ai/oncall). Outside setup, these roles manage the on-call's Access bundle:
+Claude is on call in the channels you chose, and, if you set a channel-name prefix, it joins new public channels that match as they're created. The on-call's connections, repositories, and skills make up its [Access bundle](https://claude.com/docs/claude-tag/concepts/glossary.md#access-bundle). To change the on-call later, go to [`claude.ai/oncall`](https://claude.ai/oncall). Outside setup, these roles manage the on-call's Access bundle:
 
-* **Owner:** edit the bundle in [Give Claude access](/docs/claude-tag/admins/add-connections.md), [set per-channel access](/docs/claude-tag/admins/attach-to-scope.md), and [change the monthly spend limit](/docs/claude-tag/admins/set-spend-limit.md)
-* **[Claude Tag admin](/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration), on the Enterprise plan:** edit the bundle and set per-channel access
+* **Owner:** edit the bundle in [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md), [set per-channel access](https://claude.com/docs/claude-tag/admins/attach-to-scope.md), and [change the monthly spend limit](https://claude.com/docs/claude-tag/admins/set-spend-limit.md)
+* **[Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration), on the Enterprise plan:** edit the bundle and set per-channel access
 
 ## Related resources
 
-* [Set up Claude Tag](/docs/claude-tag/admins/setup-overview): the standard setup steps, and how to verify your setup afterward
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity.md): why Claude gets its own accounts in your tools
-* [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors.md): what Claude's monitoring work looks like in a channel
+* [Set up Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview): the standard setup steps, and how to verify your setup afterward
+* [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md): why Claude gets its own accounts in your tools
+* [Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md): what Claude's monitoring work looks like in a channel

@@ -16,7 +16,7 @@ npx @modelcontextprotocol/inspector --cli node build/index.js --method tools/lis
 >
 > Running several commands against the same server, or a flow that spans one
 > session (tasks, subscriptions, elicitation)? The [mcpdo connection
-> client](/docs/draft/tools/inspector/mcpdo.md) connects once and keeps the
+> client](https://modelcontextprotocol.io/docs/draft/tools/inspector/mcpdo.md) connects once and keeps the
 > connection open between commands.
 
 The examples below use the installed `mcp-inspector` binary. Without a global install, prefix each command with `npx @modelcontextprotocol/inspector` instead, as above.
@@ -36,20 +36,20 @@ mcp-inspector --cli https://api.example.com/mcp --transport http --method tools/
 mcp-inspector --cli --config ./mcp.json --server myserver --method tools/list
 ```
 
-When the server comes from a file, its per-server settings (headers, timeouts, OAuth, [protocol era](/docs/draft/tools/inspector/protocol-eras.md), and roots) apply to the connection, resolved exactly as the TUI and web client resolve them. A `--header` flag overrides the file's headers for that run while leaving its timeouts and OAuth in place.
+When the server comes from a file, its per-server settings (headers, timeouts, OAuth, [protocol era](https://modelcontextprotocol.io/docs/draft/tools/inspector/protocol-eras.md), and roots) apply to the connection, resolved exactly as the TUI and web client resolve them. A `--header` flag overrides the file's headers for that run while leaving its timeouts and OAuth in place.
 
 Later examples abbreviate whichever of these forms you use, along with its `--transport` or `--config`/`--server` flags, as `<server>`.
 
 > [!NOTE]
 >
 > **The config file is the only durable way to give a run its
-> [roots](/specification/draft/client/roots.md):** there is no roots flag, and the
+> [roots](https://modelcontextprotocol.io/specification/draft/client/roots.md):** there is no roots flag, and the
 > CLI has no `roots/set` method. Roots configured for a server are advertised at
 > connect, so a server that calls `roots/list` (as
 > `@modelcontextprotocol/server-filesystem` does, to learn its allowed
 > directories) gets them.
 
-See [Configuration and flags](/docs/draft/tools/inspector/configuration.md) for `--catalog` vs. `--config`, the `--` separator, and the shared server-selection flags.
+See [Configuration and flags](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md) for `--catalog` vs. `--config`, the `--` separator, and the shared server-selection flags.
 
 ## Methods
 
@@ -101,7 +101,7 @@ mcp-inspector --cli <server> --method tools/list --format json | jq '.result.too
 
 ## Probing MCP Apps
 
-`--app-info` reports whether a tool ships an [MCP App](/extensions/apps/overview.md) UI (its `ui://` resource, CSP, and permissions) **without calling the tool**, so a pipeline can decide whether it needs a browser before invoking anything:
+`--app-info` reports whether a tool ships an [MCP App](https://modelcontextprotocol.io/extensions/apps/overview.md) UI (its `ui://` resource, CSP, and permissions) **without calling the tool**, so a pipeline can decide whether it needs a browser before invoking anything:
 
 ```bash theme={null}
 # One tool -> one JSON line
@@ -167,7 +167,7 @@ By default the CLI runs the same loopback OAuth flow as the TUI: it opens a brow
 
 Without either, and with no TTY on stdin or stderr, the CLI fails fast with `auth_required` rather than hanging for fifteen minutes on a callback nobody will complete.
 
-See [Authorization](/docs/draft/tools/inspector/authorization.md) for the full flow, the web-to-CLI handoff, and `--print-handoff`.
+See [Authorization](https://modelcontextprotocol.io/docs/draft/tools/inspector/authorization.md) for the full flow, the web-to-CLI handoff, and `--print-handoff`.
 
 ## Recipes
 
@@ -232,7 +232,7 @@ mcp-inspector --cli --catalog ~/.mcp-inspector/mcp.json --method servers/show --
 
 ### Editing the catalog
 
-`servers/add`, `servers/edit`, and `servers/remove` write the catalog without connecting to anything. They go through the same code as the web client's server list, so `env` values and client secrets land in the [secret store](/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored) exactly as they would from the UI, and a running web client picks up the change.
+`servers/add`, `servers/edit`, and `servers/remove` write the catalog without connecting to anything. They go through the same code as the web client's server list, so `env` values and client secrets land in the [secret store](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored) exactly as they would from the UI, and a running web client picks up the change.
 
 ```bash theme={null}
 # Add: the positional target or --server-url describes the entry, not a server to connect to

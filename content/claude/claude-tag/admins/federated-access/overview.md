@@ -14,9 +14,9 @@
 >
 > Federated connections are managed on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Connecting a gateway, cloud role, or authorization server needs an organization Owner, or an admin with full Claude Tag management permission.
 
-In Slack channels, Claude Tag acts under its own [agent identity](/docs/claude-tag/concepts/agent-identity.md) rather than as any person. Federated agent access lets that identity prove itself to your systems with a short-lived, signed identity token instead of a credential you store in Claude.
+In Slack channels, Claude Tag acts under its own [agent identity](https://claude.com/docs/claude-tag/concepts/agent-identity.md) rather than as any person. Federated agent access lets that identity prove itself to your systems with a short-lived, signed identity token instead of a credential you store in Claude.
 
-In the console, you connect your gateway, AWS role, Google Cloud identity, or authorization server under **Federated agent access**, add it to a [bundle](/docs/claude-tag/concepts/glossary.md#access-bundle), and [apply it to the channels](#manage-federated-connections-on-the-connectors-tab) where Claude should use it. Your cloud or gateway administrator configures that system to trust Anthropic's issuer and to check that each token's subject belongs to your organization, and the system then decides what the agent may do. To confirm the connection works, ask Claude in one of those channels to make a small request, then check its reply and your system's logs.
+In the console, you connect your gateway, AWS role, Google Cloud identity, or authorization server under **Federated agent access**, add it to a [bundle](https://claude.com/docs/claude-tag/concepts/glossary.md#access-bundle), and [apply it to the channels](#manage-federated-connections-on-the-connectors-tab) where Claude should use it. Your cloud or gateway administrator configures that system to trust Anthropic's issuer and to check that each token's subject belongs to your organization, and the system then decides what the agent may do. To confirm the connection works, ask Claude in one of those channels to make a small request, then check its reply and your system's logs.
 
 Federated agent access goes one way: Claude proves who it is to your systems. For your workloads proving who they are to the Claude API, see [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) on the Claude Developer Platform.
 
@@ -31,11 +31,11 @@ Your systems can accept the token in one of four ways. The table below says whic
 | **Google Cloud identity** | Google Cloud, through a workload identity pool. Google issues an access token for the federated identity, acting as a service account if you name one. | Claude should call Google Cloud APIs under an identity you govern with IAM. |
 | **Authorization server** | Your OAuth 2.0 authorization server. It accepts the token as a JWT bearer grant (RFC 7523) and returns an access token for your APIs. | Your APIs are already protected by your own OAuth server and you'd rather issue its tokens than run a gateway. |
 
-In every case the system on your side decides what the agent may do in your systems. Each connection type has its own setup page: [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md), [Connect an AWS role](/docs/claude-tag/admins/federated-access/aws.md), [Connect a Google Cloud identity](/docs/claude-tag/admins/federated-access/gcp.md), and [Connect an authorization server](/docs/claude-tag/admins/federated-access/authorization-server.md).
+In every case the system on your side decides what the agent may do in your systems. Each connection type has its own setup page: [Connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md), [Connect an AWS role](https://claude.com/docs/claude-tag/admins/federated-access/aws.md), [Connect a Google Cloud identity](https://claude.com/docs/claude-tag/admins/federated-access/gcp.md), and [Connect an authorization server](https://claude.com/docs/claude-tag/admins/federated-access/authorization-server.md).
 
 ## How it works
 
-1. When a request from Claude's sandbox needs one of your systems, [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy) matches it by destination to a federated connection that applies to the channel. Until an admin connects a system in **Federated agent access** and applies the connection to the channel, nothing matches and no token is issued for Claude's requests.
+1. When a request from Claude's sandbox needs one of your systems, [Agent Proxy](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy) matches it by destination to a federated connection that applies to the channel. Until an admin connects a system in **Federated agent access** and applies the connection to the channel, nothing matches and no token is issued for Claude's requests.
 2. Anthropic issues an identity token. The token is a JSON Web Token (JWT) signed by Anthropic and valid for 10 minutes. Its subject names your organization and the agent, in the form `wimse://identity.anthropic.com/org/<your organization ID>/agent/<agent ID>`, and its audience names the destination. Claude reuses one token for a session's requests to the same gateway for about five minutes, or until the gateway answers 401, and then requests a new one. The other connection types use a token once, in an exchange.
 3. Your side accepts the token. A gateway verifies it directly. AWS or Google Cloud exchanges it for a short-lived cloud credential. Your authorization server exchanges it for an access token. Agent Proxy attaches the result to Claude's request, or signs the request with it for AWS, and forwards the request. The model and the sandbox are never given the token or the credential that comes back.
 
@@ -46,9 +46,9 @@ Whichever system accepts the token checks five things:
 * **Expiry**. This proves the token is fresh.
 * **Subject**. This is what names your organization. Every Claude Tag organization's tokens come from the same issuer, and every organization's AWS tokens share the same audience, so the first four checks can pass for a token that belongs to someone else. Every connection type therefore requires a subject check. The strongest form accepts only the exact subjects of your own agents. The minimum form requires the subject to start with your **Subject prefix**, `wimse://identity.anthropic.com/org/<your organization ID>/agent/`, including the `/agent/`; a gateway, authorization server, or Google Cloud attribute condition can pin `iss` and `tenant` instead, since `tenant` carries the same organization ID.
 
-The console shows the issuer, the signing-key location, and your **Subject prefix** with copy buttons, and each setup page says where they go. The [identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md) lists every value and claim and [compares the two forms of the subject check](/docs/claude-tag/admins/federated-access/token-reference.md#authorize-on-the-subject).
+The console shows the issuer, the signing-key location, and your **Subject prefix** with copy buttons, and each setup page says where they go. The [identity token reference](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md) lists every value and claim and [compares the two forms of the subject check](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md#authorize-on-the-subject).
 
-Anthropic stores no long-lived credential for your systems, and each call carries a short-lived signed token, so there is no key of yours to rotate or leak. Anthropic rotates its own signing keys, and the [token reference](/docs/claude-tag/admins/federated-access/token-reference.md#key-rotation) says how a verifier follows them.
+Anthropic stores no long-lived credential for your systems, and each call carries a short-lived signed token, so there is no key of yours to rotate or leak. Anthropic rotates its own signing keys, and the [token reference](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md#key-rotation) says how a verifier follows them.
 
 To cut off access, remove the connection in the console. These lifetimes then apply:
 
@@ -67,9 +67,9 @@ Anthropic doesn't review your gateway, trust policy, or authorization server. Wh
 * **Federated agent access** appears under **Claude Tag** in the console's left navigation. It's missing for organizations whose compliance configuration excludes federated agent access.
 * An organization Owner, or an admin with full Claude Tag management permission, makes the connection in the console.
 * Your cloud or gateway administrator configures the system on your side: the gateway operator, your AWS or Google Cloud IAM administrator, or your authorization server's operator. Each setup page lists the values they configure.
-* You know which channels, workspaces, or all of Slack Claude should use the connection in. A connection applies wherever its [bundle](/docs/claude-tag/concepts/glossary.md#access-bundle) applies. A gateway can also be added to more than one bundle; an AWS role or authorization server is connected in one bundle only.
+* You know which channels, workspaces, or all of Slack Claude should use the connection in. A connection applies wherever its [bundle](https://claude.com/docs/claude-tag/concepts/glossary.md#access-bundle) applies. A gateway can also be added to more than one bundle; an AWS role or authorization server is connected in one bundle only.
 
-Federated connections work in Slack channels, where Claude acts under your organization's agent identity. They don't work in one-to-one direct messages from members who have connected a Claude account, which run under [the individual's own account](/docs/claude-tag/concepts/agent-identity.md#direct-message-channels).
+Federated connections work in Slack channels, where Claude acts under your organization's agent identity. They don't work in one-to-one direct messages from members who have connected a Claude account, which run under [the individual's own account](https://claude.com/docs/claude-tag/concepts/agent-identity.md#direct-message-channels).
 
 ## Manage federated connections on the Connectors tab
 
@@ -77,17 +77,17 @@ After you connect a system, choose where the connection applies. Each connect di
 
 The connection then also appears as a connector on the **Connectors** tab under **Claude's access** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), where the tab's search finds it by name or host and its row in the connector's **Access from** table shows its type in the **Credential** column. Manage it from there:
 
-* **Choose where it applies**: a bundle you create in the connect dialog applies nowhere until you choose places. The bundle is listed on the **Bundles** tab, where you add places under **Where it applies** and click **Save changes**. To choose places from the connector's page instead, see [Give Claude access](/docs/claude-tag/admins/add-connections.md).
+* **Choose where it applies**: a bundle you create in the connect dialog applies nowhere until you choose places. The bundle is listed on the **Bundles** tab, where you add places under **Where it applies** and click **Save changes**. To choose places from the connector's page instead, see [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md).
 * **Edit its allowed hosts**: in the connector's **Access from** table, open the connection's **⋮** menu and choose **Edit** to open the **Edit connection** dialog.
 * **Delete it from its bundle**: open the connection's bundle from the **Bundles** tab, and under **What's in it** choose **Remove credential** from the connection's **⋮** menu, then click **Delete** to confirm. The **Set by** column of the connector's **Access from** table names that bundle.
 
 ## Related resources
 
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity.md): the identity these tokens represent, and how Agent Proxy attaches credentials
-* [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md): verify the token at a service you run
-* [Connect an AWS role](/docs/claude-tag/admins/federated-access/aws.md): the IAM OIDC provider and trust policy
-* [Connect a Google Cloud identity](/docs/claude-tag/admins/federated-access/gcp.md): the workload identity pool, provider, and attribute condition
-* [Connect an authorization server](/docs/claude-tag/admins/federated-access/authorization-server.md): accept the token as a JWT bearer grant
-* [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md): every claim, the lifetime, and key rotation
-* [Limits](/docs/claude-tag/admins/federated-access/limits.md): counts, lengths, lifetimes, and unsupported configurations
-* [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting.md): console messages, blocked requests, and rejections in your logs
+* [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md): the identity these tokens represent, and how Agent Proxy attaches credentials
+* [Connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md): verify the token at a service you run
+* [Connect an AWS role](https://claude.com/docs/claude-tag/admins/federated-access/aws.md): the IAM OIDC provider and trust policy
+* [Connect a Google Cloud identity](https://claude.com/docs/claude-tag/admins/federated-access/gcp.md): the workload identity pool, provider, and attribute condition
+* [Connect an authorization server](https://claude.com/docs/claude-tag/admins/federated-access/authorization-server.md): accept the token as a JWT bearer grant
+* [Identity token reference](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md): every claim, the lifetime, and key rotation
+* [Limits](https://claude.com/docs/claude-tag/admins/federated-access/limits.md): counts, lengths, lifetimes, and unsupported configurations
+* [Troubleshoot federated agent access](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting.md): console messages, blocked requests, and rejections in your logs

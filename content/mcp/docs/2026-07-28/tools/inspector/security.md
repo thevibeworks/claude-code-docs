@@ -17,7 +17,7 @@ The short version:
 
 ## The web backend and its API token
 
-The web client is a browser app backed by a Node server that owns the MCP connections. That server can start stdio processes on request, so every `/api/*` route requires a per-launch bearer token (`x-mcp-remote-auth: Bearer <token>`). How the browser obtains it is described under [The session token](/docs/2026-07-28/tools/inspector/web.md#the-session-token).
+The web client is a browser app backed by a Node server that owns the MCP connections. That server can start stdio processes on request, so every `/api/*` route requires a per-launch bearer token (`x-mcp-remote-auth: Bearer <token>`). How the browser obtains it is described under [The session token](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md#the-session-token).
 
 What the token does and does not protect:
 
@@ -28,7 +28,7 @@ What the token does and does not protect:
 
 ### Where the backend listens
 
-The backend binds `127.0.0.1` by default. Binding every interface (`0.0.0.0`, `::` and equivalent spellings) is refused unless you set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Binding one specific address is allowed without that opt-in, because it is one deliberate exposure rather than all of them at once. See [Hosting on a network](/docs/2026-07-28/tools/inspector/recipes.md#hosting-on-a-network).
+The backend binds `127.0.0.1` by default. Binding every interface (`0.0.0.0`, `::` and equivalent spellings) is refused unless you set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Binding one specific address is allowed without that opt-in, because it is one deliberate exposure rather than all of them at once. See [Hosting on a network](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/recipes.md#hosting-on-a-network).
 
 > [!WARNING]
 >
@@ -38,7 +38,7 @@ The backend binds `127.0.0.1` by default. Binding every interface (`0.0.0.0`, `:
 
 ## Docker
 
-The [Docker image](/docs/2026-07-28/tools/inspector/recipes.md#docker) changes two things about the picture above.
+The [Docker image](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/recipes.md#docker) changes two things about the picture above.
 
 ### Publish the port on loopback only
 
@@ -61,14 +61,14 @@ Supply the key as a file with `MCP_INSPECTOR_SECRET_KEY_FILE` (a Docker or Compo
 
 The Inspector keeps credentials out of `mcp.json`, `client.json` and `oauth.json` so that sharing, committing or syncing those files does not leak them. These are stored as secrets:
 
-* acquired OAuth tokens (access, refresh and ID tokens), subject to [`MCP_INSPECTOR_PERSIST_TOKENS`](/docs/2026-07-28/tools/inspector/configuration#secret-store-variables), and IdP session tokens from enterprise-managed authorization;
+* acquired OAuth tokens (access, refresh and ID tokens), subject to [`MCP_INSPECTOR_PERSIST_TOKENS`](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration#secret-store-variables), and IdP session tokens from enterprise-managed authorization;
 * each server's OAuth client secret, and the enterprise IdP client secret;
 * dynamically registered client secrets and their registration access tokens;
 * each stdio server's `env:` values.
 
 **`headers` are not secrets.** They are saved in `mcp.json` exactly as written, so a header that carries a credential (an API key, a static `Authorization` value) stays in the file.
 
-How the store is selected, and how to change it, is under [Where secrets are stored](/docs/2026-07-28/tools/inspector/configuration.md#where-secrets-are-stored). This section covers the risks.
+How the store is selected, and how to change it, is under [Where secrets are stored](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md#where-secrets-are-stored). This section covers the risks.
 
 ### The automatic plaintext fallback
 
@@ -127,7 +127,7 @@ Only connect stdio servers you would trust with these secrets. To isolate one yo
 
 ## The mcpdo connection daemon
 
-[mcpdo](/docs/2026-07-28/tools/inspector/mcpdo.md) keeps connections open between commands by handing them to a background daemon, `mcpdod`. It is started **automatically** the first time a command needs it (`mcpdo connect`, or any command against a connection). There is no separate "start the daemon" step to opt into. This section describes what that process exposes.
+[mcpdo](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/mcpdo.md) keeps connections open between commands by handing them to a background daemon, `mcpdod`. It is started **automatically** the first time a command needs it (`mcpdo connect`, or any command against a connection). There is no separate "start the daemon" step to opt into. This section describes what that process exposes.
 
 ### How clients reach it, and who else can
 

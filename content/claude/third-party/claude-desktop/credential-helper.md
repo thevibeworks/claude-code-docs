@@ -8,11 +8,11 @@
 
 A credential helper is an executable on the user's machine that prints an inference token to stdout. Claude Desktop on 3P runs it whenever it needs a credential for the configured inference provider, caches the result for a configurable time, and re-runs it when the credential expires. Use a helper when your token comes from an internal secret broker, a CLI, or an SSO flow that the built-in interactive sign-in options don't cover.
 
-Configure the helper with the `inferenceCredentialHelper` key; see the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) for the full list of helper-related keys.
+Configure the helper with the `inferenceCredentialHelper` key; see the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) for the full list of helper-related keys.
 
 > [!NOTE]
 >
-> `inferenceCredentialHelper` supplies credentials for the inference connection only. An MCP server deployed through [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) uses the separate per-server `headersHelper` key, which follows the same execution model but prints a flat JSON header map and has its own cache and renewal settings (`headersHelperTtlSec`, default 300, versus `inferenceCredentialHelperTtlSec`, default 3600). See [Short-lived credentials with a headers helper](/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper).
+> `inferenceCredentialHelper` supplies credentials for the inference connection only. An MCP server deployed through [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) uses the separate per-server `headersHelper` key, which follows the same execution model but prints a flat JSON header map and has its own cache and renewal settings (`headersHelperTtlSec`, default 300, versus `inferenceCredentialHelperTtlSec`, default 3600). See [Short-lived credentials with a headers helper](https://claude.com/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper).
 
 ## What the helper must do
 
@@ -27,11 +27,11 @@ Stdout must contain exactly one of the following, with no banners, prompts, or l
   { "token": "...", "headers": { "X-Org-Route": "prod" } }
   ```
 
-  Headers from the JSON object are merged over [`inferenceCustomHeaders`](/docs/third-party/claude-desktop/configuration#inferencecustomheaders); the helper's value wins on a conflict.
+  Headers from the JSON object are merged over [`inferenceCustomHeaders`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecustomheaders); the helper's value wins on a conflict.
 
 ## Pass arguments to the helper
 
-Set [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) to a JSON array of strings to pass arguments to the helper. Claude Desktop passes each entry to the executable as one argument, in order and exactly as written. One installed script can then serve users whose configurations differ, for example by environment or tenant. This configuration runs `/usr/local/bin/corp-cred-helper --environment production`:
+Set [`inferenceCredentialHelperArgs`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) to a JSON array of strings to pass arguments to the helper. Claude Desktop passes each entry to the executable as one argument, in order and exactly as written. One installed script can then serve users whose configurations differ, for example by environment or tenant. This configuration runs `/usr/local/bin/corp-cred-helper --environment production`:
 
 ```json theme={null}
 {
@@ -40,7 +40,7 @@ Set [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configura
 }
 ```
 
-In a macOS configuration profile or the Windows registry, write the array as a JSON string, as with the other [array-typed keys](/docs/third-party/claude-desktop/configuration-format.md#value-types). A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) can deliver `inferenceCredentialHelperArgs` too, under the same [user-consent rule](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) as the helper path. In the nested response format ([`bootstrap-config-v2`](/docs/third-party/claude-desktop/bootstrap#response-schema)), set `args` next to `command` in `inference.credential`.
+In a macOS configuration profile or the Windows registry, write the array as a JSON string, as with the other [array-typed keys](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types). A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) can deliver `inferenceCredentialHelperArgs` too, under the same [user-consent rule](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) as the helper path. In the nested response format ([`bootstrap-config-v2`](https://claude.com/docs/third-party/claude-desktop/bootstrap#response-schema)), set `args` next to `command` in `inference.credential`.
 
 On Windows, a `.cmd` or `.bat` helper receives each argument wrapped in double quotes, so read the values with `%~1`, `%~2`, and so on to remove the quotes. A `.ps1` helper, a `.exe` helper, and helpers on macOS and Linux receive each value as written.
 
@@ -50,7 +50,7 @@ Keep secrets out of the arguments. The arguments appear in the diagnostic report
 
 ## Use a different helper path on Windows
 
-When one configuration serves both Windows devices and macOS or Linux devices, set `inferenceCredentialHelper` to the macOS and Linux path and [`inferenceCredentialHelperWindows`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows) to the Windows path, for example `C:\Program Files\Corp\cred-helper.exe`. Windows devices run that executable with the same arguments, timeout, cache time, and environment variables as the main helper, and macOS and Linux devices ignore the key. A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) can deliver it under the same [user-consent rule](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) as the helper path; in the nested response format, set `commandWindows` next to `command` in `inference.credential`.
+When one configuration serves both Windows devices and macOS or Linux devices, set `inferenceCredentialHelper` to the macOS and Linux path and [`inferenceCredentialHelperWindows`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows) to the Windows path, for example `C:\Program Files\Corp\cred-helper.exe`. Windows devices run that executable with the same arguments, timeout, cache time, and environment variables as the main helper, and macOS and Linux devices ignore the key. A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) can deliver it under the same [user-consent rule](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) as the helper path; in the nested response format, set `commandWindows` next to `command` in `inference.credential`.
 
 ## When the helper runs
 

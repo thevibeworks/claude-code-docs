@@ -15,10 +15,10 @@ Additionally, implementors **MUST** follow OAuth 2.1 security best practices as 
 [RFC 8707](https://www.rfc-editor.org/rfc/rfc8707.html) Resource Indicators provide critical security benefits by binding tokens to their intended
 audiences **when the Authorization Server supports the capability**. To enable current and future adoption:
 
-* MCP clients **MUST** include the `resource` parameter in authorization and token requests as specified in the [Resource Parameter Implementation](/specification/draft/basic/authorization.md#resource-parameter-implementation) section
+* MCP clients **MUST** include the `resource` parameter in authorization and token requests as specified in the [Resource Parameter Implementation](https://modelcontextprotocol.io/specification/draft/basic/authorization.md#resource-parameter-implementation) section
 * MCP servers **MUST** validate that tokens presented to them were specifically issued for their use
 
-The [Security Best Practices document](/docs/draft/tutorials/security/security_best_practices.md#token-passthrough)
+The [Security Best Practices document](https://modelcontextprotocol.io/docs/draft/tutorials/security/security_best_practices.md#token-passthrough)
 outlines why token audience validation is crucial and why token passthrough is explicitly forbidden.
 
 ## Token Theft
@@ -61,7 +61,7 @@ Authorization servers providing OpenID Connect Discovery 1.0 **MUST** include `c
 
 ## Mix-Up Attacks
 
-An attacker that controls one of the authorization servers an MCP client interacts with may attempt to have the client send it an authorization code or token issued by a different, honest authorization server (a mix-up attack, described in [RFC9207 Section 1](https://datatracker.ietf.org/doc/html/rfc9207#section-1)). [Authorization Response Validation](/specification/draft/basic/authorization.md#authorization-response-validation) specifies the required mitigation.
+An attacker that controls one of the authorization servers an MCP client interacts with may attempt to have the client send it an authorization code or token issued by a different, honest authorization server (a mix-up attack, described in [RFC9207 Section 1](https://datatracker.ietf.org/doc/html/rfc9207#section-1)). [Authorization Response Validation](https://modelcontextprotocol.io/specification/draft/basic/authorization.md#authorization-response-validation) specifies the required mitigation.
 
 ## Open Redirection
 
@@ -80,7 +80,7 @@ Authorization servers **SHOULD** only automatically redirect the user agent if i
 
 ## Client ID Metadata Document Security
 
-When implementing [Client ID Metadata Documents](/specification/draft/basic/authorization/client-registration.md#client-id-metadata-documents), authorization servers **MUST** consider the security implications
+When implementing [Client ID Metadata Documents](https://modelcontextprotocol.io/specification/draft/basic/authorization/client-registration.md#client-id-metadata-documents), authorization servers **MUST** consider the security implications
 detailed in [OAuth Client ID Metadata Document, Section 6](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document-00#name-security-considerations).
 Key considerations include:
 
@@ -105,11 +105,11 @@ Authorization servers **MAY** implement domain-based trust policies for acceptin
 
 ## Confused Deputy Problem
 
-Attackers can exploit MCP servers acting as intermediaries to third-party APIs, leading to [confused deputy vulnerabilities](/docs/draft/tutorials/security/security_best_practices.md#confused-deputy-problem).
+Attackers can exploit MCP servers acting as intermediaries to third-party APIs, leading to [confused deputy vulnerabilities](https://modelcontextprotocol.io/docs/draft/tutorials/security/security_best_practices.md#confused-deputy-problem).
 By using stolen authorization codes, they can obtain access tokens without user consent.
 
 MCP proxy servers using static client IDs **MUST** obtain user consent for each
-[dynamically registered client](/specification/draft/basic/authorization/client-registration.md#dynamic-client-registration)
+[dynamically registered client](https://modelcontextprotocol.io/specification/draft/basic/authorization/client-registration.md#dynamic-client-registration)
 before forwarding to third-party authorization servers (which may require additional consent).
 
 ## Access Token Privilege Restriction
@@ -120,7 +120,7 @@ MCP servers **MUST** validate access tokens before processing the request, ensur
 
 A MCP server **MUST** follow the guidelines in [OAuth 2.1 - Section 5.2](https://www.ietf.org/archive/id/draft-ietf-oauth-v2-1-13.html#section-5.2) to validate inbound tokens.
 
-MCP servers **MUST** only accept tokens specifically intended for themselves and **MUST** reject tokens that do not include them in the audience claim or otherwise verify that they are the intended recipient of the token. See the [Security Best Practices Token Passthrough section](/docs/draft/tutorials/security/security_best_practices.md#token-passthrough) for details.
+MCP servers **MUST** only accept tokens specifically intended for themselves and **MUST** reject tokens that do not include them in the audience claim or otherwise verify that they are the intended recipient of the token. See the [Security Best Practices Token Passthrough section](https://modelcontextprotocol.io/docs/draft/tutorials/security/security_best_practices.md#token-passthrough) for details.
 
 If the MCP server makes requests to upstream APIs, it may act as an OAuth client to them. The access token used at the upstream API is a separate token, issued by the upstream authorization server. The MCP server **MUST NOT** pass through the token it received from the MCP client.
 

@@ -6,20 +6,20 @@
 
 > Configure Claude Desktop on 3P to use Claude models through Amazon Bedrock Mantle's Anthropic-native API surface
 
-Amazon Bedrock Mantle is Amazon Bedrock's Anthropic-native API surface. Unlike the standard [Amazon Bedrock provider](/docs/third-party/claude-desktop/bedrock.md), Mantle speaks the Anthropic Messages API directly and authenticates with a bearer token rather than the AWS SigV4 credential chain, so no AWS CLI, named profile, or IAM Identity Center setup is needed on the device. In practice, Mantle is the Amazon Bedrock provider with a different runtime endpoint and a single bearer-token credential path.
+Amazon Bedrock Mantle is Amazon Bedrock's Anthropic-native API surface. Unlike the standard [Amazon Bedrock provider](https://claude.com/docs/third-party/claude-desktop/bedrock.md), Mantle speaks the Anthropic Messages API directly and authenticates with a bearer token rather than the AWS SigV4 credential chain, so no AWS CLI, named profile, or IAM Identity Center setup is needed on the device. In practice, Mantle is the Amazon Bedrock provider with a different runtime endpoint and a single bearer-token credential path.
 
 ## Choose an authentication approach
 
-Mantle supports a bearer token only. There is no in-app AWS sign-in or named-profile support for this provider; if you need per-user IAM Identity Center authentication, use the standard [Amazon Bedrock provider](/docs/third-party/claude-desktop/bedrock.md) instead.
+Mantle supports a bearer token only. There is no in-app AWS sign-in or named-profile support for this provider; if you need per-user IAM Identity Center authentication, use the standard [Amazon Bedrock provider](https://claude.com/docs/third-party/claude-desktop/bedrock.md) instead.
 
 | Scenario | Use | Notes |
 | - | - | - |
 | Any Mantle deployment | [Bearer token](#bearer-token) (`inferenceBedrockBearerToken`) | A long-lived token distributed in the managed profile. |
-| Token must not be stored statically | [Credential helper](/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) (`inferenceCredentialHelper`) | An executable that prints the bearer token to stdout at runtime. |
+| Token must not be stored statically | [Credential helper](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) (`inferenceCredentialHelper`) | An executable that prints the bearer token to stdout at runtime. |
 
 ## Set up AWS
 
-Enable Claude models in Amazon Bedrock for the region you will set as `inferenceBedrockRegion`, and obtain a Mantle bearer token for that account. See [Set up AWS](/docs/third-party/claude-desktop/bedrock.md#set-up-aws) on the Amazon Bedrock page for the model-access step; the IAM Identity Center steps there are not needed for Mantle.
+Enable Claude models in Amazon Bedrock for the region you will set as `inferenceBedrockRegion`, and obtain a Mantle bearer token for that account. See [Set up AWS](https://claude.com/docs/third-party/claude-desktop/bedrock.md#set-up-aws) on the Amazon Bedrock page for the model-access step; the IAM Identity Center steps there are not needed for Mantle.
 
 ## Prepare devices
 
@@ -31,7 +31,7 @@ The app reaches `bedrock-mantle.<region>.api.aws` (or the host in `inferenceBedr
 
 ## Configure the app
 
-Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Bedrock Mantle**, then fill in the credentials card:
+Open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Bedrock Mantle**, then fill in the credentials card:
 
 | Field | Value |
 | - | - |
@@ -43,13 +43,13 @@ If you set **Bedrock base URL**, provide the full SDK base URL including the `/a
 
 Under **Models**, add at least one **Model list** entry. Mantle has no model-list endpoint, so model discovery is not available and `inferenceModels` is required.
 
-Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
+Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
 ### Configuration keys
 
 Mantle reuses the `inferenceBedrock*` key names. Only `inferenceBedrockRegion`, `inferenceBedrockBearerToken`, and `inferenceBedrockBaseUrl` apply; the other keys below (`inferenceBedrockProfile`, `inferenceBedrockSso*`, `inferenceBedrockAwsDir`, `inferenceBedrockAwsCliPath`, `inferenceBedrockServiceTier`) are ignored for this provider.
 
-[Entry labels](/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
+[Entry labels](https://claude.com/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
 
 #### `inferenceBedrockRegion`
 
@@ -179,7 +179,7 @@ Since 1.13576.0
 
 ***
 
-You must also set `inferenceModels`. As with the standard Amazon Bedrock provider, server-side Web Search is not supported. See the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencemodels).
+You must also set `inferenceModels`. As with the standard Amazon Bedrock provider, server-side Web Search is not supported. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
 
@@ -187,4 +187,4 @@ The app opens directly on first launch with no user action. Users are never prom
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
+To confirm each key's configured or default value and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).

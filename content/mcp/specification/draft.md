@@ -74,16 +74,16 @@ Clients may offer the following features to servers:
 
 ### Extensions
 
-Beyond the core protocol, MCP defines optional [extensions](/extensions/overview.md)
+Beyond the core protocol, MCP defines optional [extensions](https://modelcontextprotocol.io/extensions/overview.md)
 that add modular, specialized, or experimental functionality. Extensions
 are always opt-in and require explicit support from both client and server, negotiated
 during initialization. Notable extensions include:
 
-* **[Tasks](/extensions/tasks/overview.md)**: Asynchronous execution of long-running
+* **[Tasks](https://modelcontextprotocol.io/extensions/tasks/overview.md)**: Asynchronous execution of long-running
   operations, with polling, mid-flight input, and durable handles
-* **[Skills over MCP](/community/working-groups/skills-over-mcp.md)**: Rich, structured
+* **[Skills over MCP](https://modelcontextprotocol.io/community/working-groups/skills-over-mcp.md)**: Rich, structured
   instructions for agent workflows, discovered and consumed through MCP
-* **[MCP Apps](/extensions/apps/overview.md)**: Interactive UI elements (charts, forms,
+* **[MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md)**: Interactive UI elements (charts, forms,
   video players) rendered inline within conversations
 
 ## Security and Trust & Safety
@@ -127,12 +127,12 @@ implementors **SHOULD**:
 
 Explore the detailed specification for each protocol component:
 
-> **[Architecture](/specification/draft/architecture.md)**
+> **[Architecture](https://modelcontextprotocol.io/specification/draft/architecture.md)**
 
-> **[Base Protocol](/specification/draft/basic.md)**
+> **[Base Protocol](https://modelcontextprotocol.io/specification/draft/basic.md)**
 
-> **[Server Features](/specification/draft/server.md)**
+> **[Server Features](https://modelcontextprotocol.io/specification/draft/server.md)**
 
-> **[Client Features](/specification/draft/client)**
+> **[Client Features](https://modelcontextprotocol.io/specification/draft/client)**
 
-> **[Contributing](/community/contributing.md)**
+> **[Contributing](https://modelcontextprotocol.io/community/contributing.md)**

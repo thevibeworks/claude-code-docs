@@ -6,7 +6,7 @@
 
 > Connect to an MCP server once, then run many commands against that named connection
 
-`mcpdo` is an **experimental** command-line client that ships in the `@modelcontextprotocol/inspector` package alongside `mcp-inspector`. Where the [CLI client](/docs/draft/tools/inspector/cli.md) connects, runs one `--method` and disconnects, `mcpdo` **connects once** and keeps the connection open, so you can run many commands against it from any shell, the way `ssh-agent` keeps keys loaded.
+`mcpdo` is an **experimental** command-line client that ships in the `@modelcontextprotocol/inspector` package alongside `mcp-inspector`. Where the [CLI client](https://modelcontextprotocol.io/docs/draft/tools/inspector/cli.md) connects, runs one `--method` and disconnects, `mcpdo` **connects once** and keeps the connection open, so you can run many commands against it from any shell, the way `ssh-agent` keeps keys loaded.
 
 | | `mcp-inspector --cli` | `mcpdo` |
 | - | - | - |
@@ -14,7 +14,7 @@
 | **State** | None between runs | Named connections held by a daemon |
 | **Best for** | CI assertions, one JSON blob per run | Exploring a server, agent tool use, multi-step flows over one session (tasks, subscriptions, elicitation) |
 
-Connections are held by a local background daemon, `mcpdod`, which `mcpdo` starts on demand and stops after its last connection closes. You never start it by hand. What it exposes, and how it is protected, is described under [The mcpdo connection daemon](/docs/draft/tools/inspector/security.md#the-mcpdo-connection-daemon).
+Connections are held by a local background daemon, `mcpdod`, which `mcpdo` starts on demand and stops after its last connection closes. You never start it by hand. What it exposes, and how it is protected, is described under [The mcpdo connection daemon](https://modelcontextprotocol.io/docs/draft/tools/inspector/security.md#the-mcpdo-connection-daemon).
 
 Watch the [mcpdo tutorial video](https://www.youtube.com/watch?v=_a6eG0y156k).
 
@@ -55,7 +55,7 @@ mcpdo connect https://example.com/mcp          # ad-hoc HTTP/SSE server
 mcpdo connect node build/index.js              # ad-hoc stdio server
 ```
 
-The catalog and `--config` behave exactly as for the other clients (see [Configuration and flags](/docs/draft/tools/inspector/configuration.md#choosing-servers)): the default catalog is `~/.mcp-inspector/mcp.json`, overridable with `--catalog` or `MCP_CATALOG_PATH`. `servers/list` and `servers/show <name>` read entries from disk. `connections/*` shows what the daemon currently holds. There are no commands to edit the catalog; edit the file directly.
+The catalog and `--config` behave exactly as for the other clients (see [Configuration and flags](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#choosing-servers)): the default catalog is `~/.mcp-inspector/mcp.json`, overridable with `--catalog` or `MCP_CATALOG_PATH`. `servers/list` and `servers/show <name>` read entries from disk. `connections/*` shows what the daemon currently holds. There are no commands to edit the catalog; edit the file directly.
 
 A stdio server runs with the working directory and command resolution of the shell that ran `connect`, not of the daemon, so relative paths and bare command names mean what you would expect.
 
@@ -115,7 +115,7 @@ Terminal-bound text (results, elicitation prompts, daemon errors) has control ch
 
 When a browser sign-in is needed and neither stdin nor stderr is a TTY (and `MCP_AUTO_OPEN_ENABLED` is not forced on), `connect` exits `0` immediately with `pendingAuth: true` and an `authUrl`. Relay that URL to whoever will sign in. The connection completes on its own once they do: the next real command against it finishes the connection, and `connections/list` reports `pendingAuthSignedIn` in the meantime. Don't reconnect to fix a pending sign-in.
 
-On a host with no OS keychain, `mcpdo` stores tokens in the shared `secrets.json` file, never in memory, because its commands and the daemon are separate processes. That file is plaintext unless you supply a key; see [Where secrets are stored](/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored).
+On a host with no OS keychain, `mcpdo` stores tokens in the shared `secrets.json` file, never in memory, because its commands and the daemon are separate processes. That file is plaintext unless you supply a key; see [Where secrets are stored](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#where-secrets-are-stored).
 
 ## Elicitation
 
@@ -135,7 +135,7 @@ A parked elicitation is cancelled after 10 minutes, and a connection holds one a
 
 ## Protocol eras
 
-`mcpdo` negotiates the same [protocol eras](/docs/draft/tools/inspector/protocol-eras.md) as the other clients. `connect --era legacy|auto|modern` overrides a catalog entry's `protocolEra`, and is the only way to set it for an ad-hoc target. `connections/list` tags each connection `[legacy]` or `[modern]`, and `connections/show <name>` gives the negotiated version, server info, capabilities, and the supported-versions list when the server was probed.
+`mcpdo` negotiates the same [protocol eras](https://modelcontextprotocol.io/docs/draft/tools/inspector/protocol-eras.md) as the other clients. `connect --era legacy|auto|modern` overrides a catalog entry's `protocolEra`, and is the only way to set it for an ad-hoc target. `connections/list` tags each connection `[legacy]` or `[modern]`, and `connections/show <name>` gives the negotiated version, server info, capabilities, and the supported-versions list when the server was probed.
 
 ## The daemon
 
@@ -163,7 +163,7 @@ Adjust the network and mount flags to what the server needs. HTTP and SSE server
 
 ## Environment variables
 
-`mcpdo` reads the same catalog, storage and secret-store variables as the other clients (see [Environment variables](/docs/draft/tools/inspector/configuration.md#environment-variables)), plus these:
+`mcpdo` reads the same catalog, storage and secret-store variables as the other clients (see [Environment variables](https://modelcontextprotocol.io/docs/draft/tools/inspector/configuration.md#environment-variables)), plus these:
 
 | Variable | Effect |
 | - | - |

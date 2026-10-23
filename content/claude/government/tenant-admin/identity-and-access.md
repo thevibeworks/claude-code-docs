@@ -22,7 +22,7 @@ Three banners can appear at the top of the page:
 
 ## Domains
 
-Claude for Government routes users to your tenant by the domain of their email address, so at least one domain must be registered before anyone can sign in. The **Domains** section lists every domain registered to your tenant, along with whether it is verified and whether it was registered by Anthropic or by you. Your tenant can have more than one domain. However many domains are registered here, your tenant has one set of [admin portals](/docs/government/tenant-admin/overview.md#tenants-and-organizations), and the [routing rules](#routing-rules) decide which organization each person joins.
+Claude for Government routes users to your tenant by the domain of their email address, so at least one domain must be registered before anyone can sign in. The **Domains** section lists every domain registered to your tenant, along with whether it is verified and whether it was registered by Anthropic or by you. Your tenant can have more than one domain. However many domains are registered here, your tenant has one set of [admin portals](https://claude.com/docs/government/tenant-admin/overview.md#tenants-and-organizations), and the [routing rules](#routing-rules) decide which organization each person joins.
 
 Domains that Anthropic registered on your behalf during onboarding are already verified. To add one yourself, enter the domain in the **Claim a domain** field and click **Claim**. You will be shown a DNS TXT record to publish on that domain; once the record is live, click **Verify now** and the domain becomes active.
 
@@ -107,7 +107,7 @@ Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI
 
 SCIM is the standard protocol identity providers use to push users and groups to a connected service automatically, so that accounts are created, updated, and deactivated in step with your agency's directory. Connecting SCIM is optional; without it, users are created the first time they sign in. With SCIM connected, a person your directory has never sent still gets an account the first time they sign in, if a [sign-in rule](#sign-in-rules) covers them.
 
-[Provisioning rules](#provisioning-rules-scim), [group mappings](/docs/government/org-admin/provisioning.md), and [group-specific settings](/docs/government/config/overview.md#group-specific-settings) need SCIM, because they act on the [directory groups](#directory-groups) your identity provider pushes. Model access and usage limits come from each person's [seat tier](/docs/government/org-admin/seat-tiers.md), which an organization owner can assign on the [Users](/docs/government/org-admin/users.md) page without SCIM.
+[Provisioning rules](#provisioning-rules-scim), [group mappings](https://claude.com/docs/government/org-admin/provisioning.md), and [group-specific settings](https://claude.com/docs/government/config/overview.md#group-specific-settings) need SCIM, because they act on the [directory groups](#directory-groups) your identity provider pushes. Model access and usage limits come from each person's [seat tier](https://claude.com/docs/government/org-admin/seat-tiers.md), which an organization owner can assign on the [Users](https://claude.com/docs/government/org-admin/users.md) page without SCIM.
 
 > [!NOTE]
 >
@@ -129,7 +129,7 @@ Once a token is active and your directory completes its first sync, the provisio
 
 ## Directory groups
 
-Once your identity provider has pushed groups over SCIM, they appear here with their member counts. To change the order, drag a group by the handle at the start of its row or use the **…** menu at the end. The order you set here is the priority used for group-level configuration on the [Config](/docs/government/config/overview.md#group-specific-settings) page.
+Once your identity provider has pushed groups over SCIM, they appear here with their member counts. To change the order, drag a group by the handle at the start of its row or use the **…** menu at the end. The order you set here is the priority used for group-level configuration on the [Config](https://claude.com/docs/government/config/overview.md#group-specific-settings) page.
 
 ## Routing rules
 

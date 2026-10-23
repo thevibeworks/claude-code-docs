@@ -10,22 +10,22 @@
 >
 > Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-Claude Tag is Claude working in your Slack workspace. You hand it work by writing a message where Claude is, and Claude carries it out in that thread. An `@Claude` mention guarantees a response in a channel, but it isn't required everywhere. One-to-one DMs and threads Claude is already in reach it without one. There's nothing for you to install or configure; if `@Claude` is in your channel, you can use it (unless your admin has [restricted who can invoke Claude](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude)).
+Claude Tag is Claude working in your Slack workspace. You hand it work by writing a message where Claude is, and Claude carries it out in that thread. An `@Claude` mention guarantees a response in a channel, but it isn't required everywhere. One-to-one DMs and threads Claude is already in reach it without one. There's nothing for you to install or configure; if `@Claude` is in your channel, you can use it (unless your admin has [restricted who can invoke Claude](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude)).
 
 ## When to tag Claude in a channel versus a DM
 
 Where you tag Claude decides whose tools it uses and who sees the result.
 
-* **Channel** for shared team work. The work happens in the open, so anything Claude does in the thread, including its checklist and results, is visible to everyone in the channel, and anyone can reply to steer the work. An admin sets what Claude can reach in each channel, and everyone who asks there gets the same access. By default you don't need a Claude account to tag Claude in a channel; the work bills to the organization. An admin can [restrict who can invoke Claude](/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude).
+* **Channel** for shared team work. The work happens in the open, so anything Claude does in the thread, including its checklist and results, is visible to everyone in the channel, and anyone can reply to steer the work. An admin sets what Claude can reach in each channel, and everyone who asks there gets the same access. By default you don't need a Claude account to tag Claude in a channel; the work bills to the organization. An admin can [restrict who can invoke Claude](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude).
   * Example: `@Claude where are we on the launch checklist? Pull what's still open from this channel and #design-review.`
-* **DM** for personal tasks. A one-to-one DM with Claude runs on your own claude.ai account with [your own connectors](/docs/connectors/getting-started.md). Every DM message reaches Claude without an @-mention. You can also DM Claude questions about getting started, like how to word a task or what to try first.
+* **DM** for personal tasks. A one-to-one DM with Claude runs on your own claude.ai account with [your own connectors](https://claude.com/docs/connectors/getting-started.md). Every DM message reaches Claude without an @-mention. You can also DM Claude questions about getting started, like how to word a task or what to try first.
   * Example: `Pull my afternoon meetings from my calendar and draft a one-line prep note for each.`
-* **Group DM** for shared work among a few people, without creating a channel. Claude uses the access an admin set for the workspace and the organization, and the work bills to the organization. See [Use Claude Tag in a group DM](/docs/claude-tag/users/group-dms.md).
+* **Group DM** for shared work among a few people, without creating a channel. Claude uses the access an admin set for the workspace and the organization, and the work bills to the organization. See [Use Claude Tag in a group DM](https://claude.com/docs/claude-tag/users/group-dms.md).
   * Example: `@Claude draft a rollout checklist for the pricing page change.`
 
-See [team channels and personal DMs](/docs/claude-tag/concepts/how-it-works.md#team-channels-and-personal-dms) for the full comparison.
+See [team channels and personal DMs](https://claude.com/docs/claude-tag/concepts/how-it-works.md#team-channels-and-personal-dms) for the full comparison.
 
-If your workspace previously used the earlier Claude in Slack app, see [how Claude Tag differs](/docs/claude-tag/admins/migrate-from-earlier.md) for what has changed.
+If your workspace previously used the earlier Claude in Slack app, see [how Claude Tag differs](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) for what has changed.
 
 ## Add Claude to a channel
 
@@ -55,13 +55,13 @@ A reply means it's running there, and the answer tells you what it can reach.
 
 When a person first invites Claude to a channel, it posts a short intro on its own: it reads the channel's history and suggests a few tasks it could pick up. The intro doesn't post when a bot adds Claude, in org-shared channels, or in channels that already have memory.
 
-The footer under each reply names the model that handled it. You can [choose a different model](/docs/claude-tag/users/models.md) yourself, and admins [set the default model for each channel](/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope). In a channel, the footer also has a **Configure** link; open it to [tailor how Claude works in this channel](/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel). Replies in DMs and in org-shared channels have no Configure link.
+The footer under each reply names the model that handled it. You can [choose a different model](https://claude.com/docs/claude-tag/users/models.md) yourself, and admins [set the default model for each channel](https://claude.com/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope). In a channel, the footer also has a **Configure** link; open it to [tailor how Claude works in this channel](https://claude.com/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel). Replies in DMs and in org-shared channels have no Configure link.
 
 | If you see | It means | Do this |
 | :- | :- | :- |
-| Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace | Ask your Slack admin to install the Claude app, and send them [the installation guide](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) |
-| The mention sends but Claude doesn't reply | Setup isn't finished for this channel | Ask your Claude organization admin to enable Claude Tag for this channel, and send them [the setup guide](/docs/claude-tag/admins/setup-overview) with the channel name |
-| Claude replies "I couldn't find a Claude Code environment for your account" | Claude couldn't resolve an environment for this DM; one-to-one DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](/docs/claude-tag/users/troubleshooting.md#i-get-an-environment-error-in-a-dm) |
+| Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace | Ask your Slack admin to install the Claude app, and send them [the installation guide](https://claude.com/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) |
+| The mention sends but Claude doesn't reply | Setup isn't finished for this channel | Ask your Claude organization admin to enable Claude Tag for this channel, and send them [the setup guide](https://claude.com/docs/claude-tag/admins/setup-overview) with the channel name |
+| Claude replies "I couldn't find a Claude Code environment for your account" | Claude couldn't resolve an environment for this DM; one-to-one DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](https://claude.com/docs/claude-tag/users/troubleshooting.md#i-get-an-environment-error-in-a-dm) |
 
 ## Hand Claude a task
 
@@ -79,7 +79,7 @@ Read Claude's work before you use it, in proportion to what's at stake. A summar
 
 Tasks run in the cloud, so Claude keeps working after you close Slack.
 
-Replies in the thread reach Claude without re-mentioning. If the thread looks idle, Claude is usually still working; see [how to read its progress](/docs/claude-tag/concepts/how-it-works.md#track-claude%E2%80%99s-progress).
+Replies in the thread reach Claude without re-mentioning. If the thread looks idle, Claude is usually still working; see [how to read its progress](https://claude.com/docs/claude-tag/concepts/how-it-works.md#track-claude%E2%80%99s-progress).
 
 ## What Claude can see
 
@@ -91,9 +91,9 @@ After you've handed Claude a task, the first question is what it has to work wit
 | A file you attach (image, screenshot, PDF, or another type) | Yes, up to a size limit that depends on the file type. See [Files you attach](#files-you-attach) |
 | Other public channels in your workspace | By searching only, the same way a person searches Slack; Claude can find a message by keyword but can't read a channel's full history unless it's been added there |
 | Private channels and DMs | Only from inside them. Adding Claude to a private channel lets it work there, but the channel stays unreadable from any other channel or DM. |
-| A link you paste, like a Google Doc or a webpage | If your admin allowed that site for this channel, or, for a file behind your own login, if you've [allowed Claude to use your connectors](/docs/claude-tag/concepts/personal-connectors.md). If neither applies, Claude tells you it can't reach it. |
+| A link you paste, like a Google Doc or a webpage | If your admin allowed that site for this channel, or, for a file behind your own login, if you've [allowed Claude to use your connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md). If neither applies, Claude tells you it can't reach it. |
 | A Slack canvas | No |
-| A message you edited after sending | Yes. Each edit sends Claude a note showing the text before and after the edit. An edit never starts a new task on its own, so to be sure a correction is picked up, say it in a new reply; see [Reply in the thread to steer](/docs/claude-tag/concepts/how-it-works.md#reply-in-the-thread-to-steer) |
+| A message you edited after sending | Yes. Each edit sends Claude a note showing the text before and after the edit. An edit never starts a new task on its own, so to be sure a correction is picked up, say it in a new reply; see [Reply in the thread to steer](https://claude.com/docs/claude-tag/concepts/how-it-works.md#reply-in-the-thread-to-steer) |
 
 The fastest way to find out for your channel is to ask: `@Claude can you read the doc I just linked?` gets you a yes or a "that site isn't allowed here."
 
@@ -114,11 +114,11 @@ Claude can't read an image or PDF over its limit and answers from the rest of yo
 
 ### Which messages Claude reads
 
-* An @-mention guarantees a response. Claude may also respond to a message that doesn't mention it when it judges a reply is warranted; include the mention to guarantee one. It receives the thread's root message and earlier replies for context when you mention it mid-thread; for details on the window, refer to [what Claude sees when you mention it](/docs/claude-tag/concepts/how-it-works.md#conversation-context).
+* An @-mention guarantees a response. Claude may also respond to a message that doesn't mention it when it judges a reply is warranted; include the mention to guarantee one. It receives the thread's root message and earlier replies for context when you mention it mid-thread; for details on the window, refer to [what Claude sees when you mention it](https://claude.com/docs/claude-tag/concepts/how-it-works.md#conversation-context).
 * Once mentioned in a thread, Claude follows the rest of that thread and may reply without another mention.
 * While working on a task, Claude can search the workspace's public channels by keyword, the same way a person searches Slack. It can't read a channel's full history unless it's been added there.
 
-To quiet Claude in a thread or remove it from a channel, see [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds.md).
+To quiet Claude in a thread or remove it from a channel, see [Control when Claude Tag responds](https://claude.com/docs/claude-tag/users/when-claude-responds.md).
 
 ## Give Claude standing instructions
 
@@ -128,12 +128,12 @@ Set instructions for a channel by telling Claude there, the way you'd ask anyone
 @Claude remember for this channel: keep replies short, and always include a link to the source.
 ```
 
-The instruction saves to [channel memory](/docs/claude-tag/users/memory.md) and applies to everyone's threads in the channel. Verify with "what do you remember about this channel?"
+The instruction saves to [channel memory](https://claude.com/docs/claude-tag/users/memory.md) and applies to everyone's threads in the channel. Verify with "what do you remember about this channel?"
 
 ## Related resources
 
-* [Use case library](/docs/claude-tag/users/use-cases.md): every shape of work, each with the prompts to paste
-* [Good habits](/docs/claude-tag/users/good-habits.md): how to write tasks that finish
-* [Set up routines](/docs/claude-tag/users/proactivity.md): once a task works, have Claude run it on its own schedule
-* [Commands](/docs/claude-tag/users/commands.md): exact words starting with `!` that run a fixed action, like `!restart` for a stuck session
-* [Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors.md): how Claude can use your own claude.ai connectors for a task you hand it in a channel
+* [Use case library](https://claude.com/docs/claude-tag/users/use-cases.md): every shape of work, each with the prompts to paste
+* [Good habits](https://claude.com/docs/claude-tag/users/good-habits.md): how to write tasks that finish
+* [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md): once a task works, have Claude run it on its own schedule
+* [Commands](https://claude.com/docs/claude-tag/users/commands.md): exact words starting with `!` that run a fixed action, like `!restart` for a stuck session
+* [Personal connectors in channels](https://claude.com/docs/claude-tag/concepts/personal-connectors.md): how Claude can use your own claude.ai connectors for a task you hand it in a channel

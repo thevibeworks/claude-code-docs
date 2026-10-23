@@ -9,8 +9,8 @@
 ## Prerequisites
 
 You'll need [Node.js](https://nodejs.org/en/download) 18 or higher. Familiarity
-with [MCP tools](/specification/latest/server/tools.md) and
-[resources](/specification/latest/server/resources.md) is recommended since MCP
+with [MCP tools](https://modelcontextprotocol.io/specification/latest/server/tools.md) and
+[resources](https://modelcontextprotocol.io/specification/latest/server/resources.md) is recommended since MCP
 Apps combine both primitives. Experience with the
 [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 will help you better understand the server-side patterns.

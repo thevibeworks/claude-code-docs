@@ -18,12 +18,12 @@ Both connectors expose the same family of GitHub tools; they differ in where the
 | Authentication | A personal access token you issue and distribute | OAuth device flow; no tokens to issue or distribute |
 | Credential handling | Token delivered through the entry's `headers` or a headers helper script | User signs in; the token is acquired and stored encrypted on the device |
 | GitHub Enterprise Server | Not available; github.com only | Supported; set `host` |
-| Tool surface controls | Per-tool [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `toolsets`, `readOnly`, and per-tool [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers) |
-| Claude Desktop version | Any version that supports managed MCP servers | Requires a version that includes the bundled server (beta) |
+| Tool surface controls | Per-tool [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | `toolsets`, `readOnly`, and per-tool [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) |
+| Claude Desktop version | Any version that supports managed MCP servers | Requires a version that includes the bundled server |
 
 ## Remote connector
 
-GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Desktop on 3P connects to it as a standard remote [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry, authenticated with a GitHub personal access token: the device connects straight to GitHub's endpoint, and the token travels only in the request headers from the user's device.
+GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Desktop on 3P connects to it as a standard remote [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) entry, authenticated with a GitHub personal access token: the device connects straight to GitHub's endpoint, and the token travels only in the request headers from the user's device.
 
 ```json theme={null}
 {
@@ -34,7 +34,7 @@ GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Deskt
 }
 ```
 
-The `headersHelper` executable prints the request headers as a flat JSON object to stdout, for example `{"Authorization": "Bearer GITHUB_PAT"}`, and follows the execution model described under [short-lived credentials with a headers helper](/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper). Use it to fetch a per-user fine-grained token from your secrets manager. A static `headers` object also works, but it puts the same token on every device, so every session acts as that one identity; prefer the helper, a narrowly scoped fine-grained token, or the [local connector](#local-connector), which needs no tokens at all.
+The `headersHelper` executable prints the request headers as a flat JSON object to stdout, for example `{"Authorization": "Bearer GITHUB_PAT"}`, and follows the execution model described under [short-lived credentials with a headers helper](https://claude.com/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper). Use it to fetch a per-user fine-grained token from your secrets manager. A static `headers` object also works, but it puts the same token on every device, so every session acts as that one identity; prefer the helper, a narrowly scoped fine-grained token, or the [local connector](#local-connector), which needs no tokens at all.
 
 Check the endpoint URL, the supported authentication methods, and the token scopes your tools need against [GitHub's github-mcp-server documentation](https://github.com/github/github-mcp-server), which is the source of truth for the hosted server. GitHub Enterprise Server instances are not reachable through GitHub's hosted endpoint; use the local connector instead.
 
@@ -59,9 +59,9 @@ A GitHub App works in place of an OAuth app: put its client ID in the same field
 
 **2. Add the managed entry**
 
-In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
+In the Claude Desktop [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
 
-If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `github`:
+If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `github`:
 
 ```json theme={null}
 {
@@ -80,13 +80,13 @@ If you manage configuration through JSON or a plist directly, add an entry to [`
 | `scope` | No | Space-separated OAuth scopes to request at sign-in, for example `repo read:org`. Defaults to `repo read:org read:user`. Ignored for GitHub Apps. |
 | `toolsets` | No | Comma-separated [github-mcp-server toolsets](https://github.com/github/github-mcp-server) to enable, for example `context,repos,issues,pull_requests`. Defaults to the bundled server's default toolsets. |
 | `readOnly` | No | `true` starts the server with read tools only; write tools are not registered at all. |
-| `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
+| `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
 In the in-app configuration window, the GitHub form offers the client ID, GitHub Enterprise Server URL, toolsets, and read-only fields; set `scope` through exported JSON or your device-management tool if you need a non-default scope set.
 
 **3. Allow the required network hosts**
 
-The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
+The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
 
 | Host | Purpose |
 | - | - |

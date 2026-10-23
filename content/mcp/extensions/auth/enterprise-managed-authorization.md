@@ -139,7 +139,7 @@ To require enterprise-managed authorization:
 >
 > Support for this extension varies by client. Extensions are opt-in and never active by default.
 
-Check the [client matrix](/extensions/client-matrix.md) for current implementation status across MCP clients. Enterprise-Managed Authorization typically requires client-level support from the organization's IT team in addition to the MCP client application.
+Check the [client matrix](https://modelcontextprotocol.io/extensions/client-matrix.md) for current implementation status across MCP clients. Enterprise-Managed Authorization typically requires client-level support from the organization's IT team in addition to the MCP client application.
 
 ## Related resources
 
@@ -151,10 +151,10 @@ Check the [client matrix](/extensions/client-matrix.md) for current implementati
 >
 > Technical specification with normative requirements
 
-> **[SEP-990](/seps/990-enable-enterprise-idp-policy-controls-during-mcp-o.md)**
+> **[SEP-990](https://modelcontextprotocol.io/seps/990-enable-enterprise-idp-policy-controls-during-mcp-o.md)**
 >
 > Original proposal: Enable Enterprise IdP Policy Controls
 
-> **[MCP Authorization](/specification/latest/basic/authorization.md)**
+> **[MCP Authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md)**
 >
 > Core MCP authorization specification

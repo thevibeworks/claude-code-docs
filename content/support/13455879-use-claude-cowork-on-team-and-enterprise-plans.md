@@ -1,32 +1,26 @@
 # Use Claude Cowork on Team and Enterprise plans
 
-**Note:** Claude Cowork and chat are now one Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it’s in beta for Enterprise plans, where an admin turns it on as **Chat and Cowork unified (beta)**. Team organizations, and Enterprise organizations that haven’t turned it on, keep chat and Claude Cowork as they are today, so everything in this article still applies. If you’re an Enterprise admin, learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
-
 This article explains important limitations and considerations for Team and Enterprise organizations using Claude Cowork.
 
 ## Availability
 
-Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availability varies by surface:
+Claude Cowork is available on paid plans (Pro, Max, Team, and Enterprise):
 
-- **Claude Desktop for macOS** — Available on all paid plans. **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download.
+- **Claude Desktop for macOS, Windows, and Linux (beta):** All paid plans. Download or update at **claude.com/download**.
 
-- **Claude Desktop for Windows** — Available on all paid plans. Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
+- **Web and Claude Mobile:** Pro, Max, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
 
-- **Web (beta)**, at claude.ai — Available on Pro, Max, and Team plans. On Enterprise plans, available where an admin has enabled it.
+- **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173)**.
 
-- **Claude Mobile** **(beta)** — Available on Pro, Max, and Team plans, in the latest version of Claude for iOS and Claude for Android. On Enterprise plans, available where an admin has enabled it.
-
-- **Claude in Chrome side panel** — Available on Max and Team plans, and rolling out to Pro plans. On Enterprise plans, available where an admin has enabled it. For more information, see **[Get started with Claude in Chrome](https://support.claude.com/en/articles/7996853-introduction-to-prompt-design)**.
-
-On web and mobile, Claude Cowork sessions run in Anthropic's cloud.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 
 ## Where Cowork runs
 
-During the beta, Cowork sessions can run in two places:
+On Team and Enterprise plans, Cowork sessions can run in two places:
 
-- **Sessions in the cloud (beta):** Running Cowork in the cloud lets members run tasks on Anthropic's infrastructure instead of their own machines. This means work continues across desktop, web, and mobile and scheduled tasks run when the laptop closes and no device is online.
+- **Sessions in the cloud:** Running Cowork in the cloud lets members run tasks on Anthropic's infrastructure instead of their own machines. This means work continues across desktop, web, and mobile and scheduled tasks run when the laptop closes and no device is online.
 
 - **Local sessions:** Claude's work runs on the user’s computer, with code in an isolated virtual machine.
 
@@ -60,7 +54,7 @@ For Team and Enterprise plans, there's a separate organization-wide toggle in **
 
 Claude can use the web in Cowork in two ways: a browser built into the Claude Desktop app, or your users' own Chrome browser through the Claude in Chrome extension. You can enable one, both, or neither.
 
-- **Built-in browser:** Controlled from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. On Team plans, it's on by default as it rolls out this week. Team owners can turn it off anytime. On Enterprise plans, it's off by default at launch and turns on by default starting September 10, 2026, unless you've turned it off. In organizations that have enabled HIPAA, the built-in browser stays off until an Owner turns it on in **Organization settings > Cowork**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on. When it's off, users can't open the built-in browser and Claude can't use it.
+- **Built-in browser:** Controlled from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. On Team plans, it's on by default. Team owners can turn it off anytime. On Enterprise plans, it's on by default unless you've turned it off. In organizations that have enabled HIPAA, the built-in browser stays off until an Owner turns it on in **Organization settings > Cowork**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on. When it's off, users can't open the built-in browser and Claude can't use it.
 
 - **Claude in Chrome:** Controlled from **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**, and users' browsers still need the extension deployed or installed. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128)**.
 

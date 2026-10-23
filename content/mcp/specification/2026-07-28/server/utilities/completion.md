@@ -16,7 +16,7 @@ resource template (identified by URI), servers can provide contextual suggestion
 > `io.modelcontextprotocol/clientInfo`, and
 > `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
 > the required `_meta` fields; see
-> [`_meta`](/specification/2026-07-28/basic/index#meta).
+> [`_meta`](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#meta).
 
 ## User Interaction Model
 

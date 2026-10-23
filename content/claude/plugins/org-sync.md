@@ -12,7 +12,7 @@ This page is for the Owner who adds the repository and for the engineer who main
 
 > [!NOTE]
 >
-> * If you're choosing who gets each plugin once the repository syncs, see [Manage plugins for your organization](/docs/plugins/admin.md#set-availability)
+> * If you're choosing who gets each plugin once the repository syncs, see [Manage plugins for your organization](https://claude.com/docs/plugins/admin.md#set-availability)
 > * If you're writing the `marketplace.json` file, see [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) in the Claude Code docs
 
 To get started, check [how organization sync gets access to your repository](#give-organization-sync-access-to-your-repository) for your Git host, then check your `marketplace.json` against [the plugin sources that organization sync accepts](#plugin-sources-that-organization-sync-accepts).
@@ -75,7 +75,7 @@ As an [Owner](https://code.claude.com/docs/en/server-managed-settings#access-con
 
 **2. Sync from GitLab**
 
-In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), select **Add**, then **Sync from GitLab**, as [Add your own plugins](/docs/plugins/admin.md#add-your-own-plugins) describes. When you add it, enter the project's HTTPS URL, such as `https://gitlab.example.com/platform/claude-plugins`.
+In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), select **Add**, then **Sync from GitLab**, as [Add your own plugins](https://claude.com/docs/plugins/admin.md#add-your-own-plugins) describes. When you add it, enter the project's HTTPS URL, such as `https://gitlab.example.com/platform/claude-plugins`.
 
 Organization sync reads the project's default branch. If you turn on **Sync automatically**, only pushes to the default branch start a sync.
 
@@ -108,6 +108,6 @@ Keep executables in another directory, such as `scripts/`, and reference them as
 
 ## Next steps
 
-* [Manage plugins for your organization](/docs/plugins/admin.md#set-availability): set each synced plugin to available, installed by default, or required
-* [Roll out a plugin to your whole organization](/docs/plugins/org-rollout.md): reach members in claude.ai and Cowork and developers in the Claude Code command line with one plugin
+* [Manage plugins for your organization](https://claude.com/docs/plugins/admin.md#set-availability): set each synced plugin to available, installed by default, or required
+* [Roll out a plugin to your whole organization](https://claude.com/docs/plugins/org-rollout.md): reach members in claude.ai and Cowork and developers in the Claude Code command line with one plugin
 * [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) in the Claude Code docs: write the `marketplace.json` file that lists your plugins

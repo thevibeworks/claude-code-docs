@@ -19,7 +19,7 @@ The **Account** tab is the landing page of the user area. It shows the basics of
 | **Email** | The address you sign in with. It is the unique identifier for your account, and notifications such as sign-in links are sent to it. | Your agency's identity provider. |
 | **Organization** | The organization you belong to within your agency's tenant. A tenant is your agency's overall space in Claude for Government, and it can contain several organizations (for example, one per bureau or office). Your organization determines which administrators manage your access and which usage pool your activity draws from. | Set when your account was created or when directory sync placed you. |
 | **Role** | What you are allowed to manage. **User** means you can use Claude but do not administer anything. **Owner** means you can manage your organization's users, seats, and settings. **Primary Owner** is the same as Owner with a few additional safeguards: a primary owner cannot be removed by other owners, and each organization can have at most three of them. | Assigned by an organization owner or by directory sync. |
-| **Seat tier** | The allowance you have been given. A seat tier is a named package that sets two things for you: how much Claude usage you get (shown on the [Usage](/docs/government/account/usage.md) tab) and which Claude models you are allowed to use. The tiers themselves, their names, and what each one includes are defined by your agency, so the name you see here is specific to your deployment. | Assigned to you by an organization owner. |
+| **Seat tier** | The allowance you have been given. A seat tier is a named package that sets two things for you: how much Claude usage you get (shown on the [Usage](https://claude.com/docs/government/account/usage.md) tab) and which Claude models you are allowed to use. The tiers themselves, their names, and what each one includes are defined by your agency, so the name you see here is specific to your deployment. | Assigned to you by an organization owner. |
 
 The name and avatar at the top come from your agency's directory. The avatar is generated from your name; you cannot upload a custom picture.
 
@@ -42,7 +42,7 @@ None of these fields can be edited on this page. Where to go instead depends on 
 >
 > This section only appears when you do not have a seat tier. If a tier name is shown in the Seat tier field, you can skip this section.
 
-Without a seat tier you can sign in and see the portal, but you cannot send any messages to Claude, and the [Usage](/docs/government/account/usage.md) tab will show "No seat tier assigned" instead of your allowance. This is the expected state for a brand-new account that has not yet been given a seat, or for an account whose seat was deliberately removed.
+Without a seat tier you can sign in and see the portal, but you cannot send any messages to Claude, and the [Usage](https://claude.com/docs/government/account/usage.md) tab will show "No seat tier assigned" instead of your allowance. This is the expected state for a brand-new account that has not yet been given a seat, or for an account whose seat was deliberately removed.
 
 Ask your organization's owner to assign you a seat. Once they do, the tier name appears here immediately and you can start using Claude straight away without signing out and back in.
 

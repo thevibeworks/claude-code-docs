@@ -12,13 +12,13 @@ The Microsoft 365 connector lets Claude read and search your agency's Outlook ma
 
 Because each member signs in individually, Claude can only reach content that the signed-in member can already open in Microsoft 365. Your existing Microsoft 365 permissions, sharing rules, and Conditional Access policies apply unchanged.
 
-Setup has two parts. First, someone with administrator access in Microsoft Entra ID registers an application in your Microsoft tenant. Then you enter that application's details on the **Microsoft 365** card on the [Config](/docs/government/org-admin/configuration.md) page.
+Setup has two parts. First, someone with administrator access in Microsoft Entra ID registers an application in your Microsoft tenant. Then you enter that application's details on the **Microsoft 365** card on the [Config](https://claude.com/docs/government/org-admin/configuration.md) page.
 
 ## Before you start
 
 You need someone with the **Cloud Application Administrator**, **Application Administrator**, or **Global Administrator** role in your Microsoft Entra tenant. That person registers the application and approves the Microsoft Graph permissions for your whole tenant. If that isn't you, send them the [Register an application in Microsoft Entra](#register-an-application-in-microsoft-entra) section below; you can fill in the Config page form once they send you the two IDs.
 
-Open the [Config](/docs/government/org-admin/configuration.md) page in another tab and find the **Microsoft 365** card. You'll paste two values from Entra into it at the end.
+Open the [Config](https://claude.com/docs/government/org-admin/configuration.md) page in another tab and find the **Microsoft 365** card. You'll paste two values from Entra into it at the end.
 
 ## Register an application in Microsoft Entra
 
@@ -94,13 +94,13 @@ The connector calls Microsoft directly from each member's device, so devices nee
 | US Government GCC-High | `login.microsoftonline.us` | `graph.microsoft.us` |
 | US Government DoD | `login.microsoftonline.us` | `dod-graph.microsoft.us` |
 
-Downloads of OneDrive and SharePoint files also need access to your Microsoft tenant's SharePoint and OneDrive hosts. For Office documents, see the network hosts step of [Set up the local connector](/docs/third-party/claude-desktop/connectors-m365.md#set-up-the-local-connector) in the Claude Desktop documentation.
+Downloads of OneDrive and SharePoint files also need access to your Microsoft tenant's SharePoint and OneDrive hosts. For Office documents, see the network hosts step of [Set up the local connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#set-up-the-local-connector) in the Claude Desktop documentation.
 
 No outbound access to any Anthropic host is needed for the connector's Microsoft 365 calls.
 
 ## Configure the connector on the Config page
 
-On the [Config](/docs/government/org-admin/configuration.md) page, expand the **Microsoft 365** card and fill in the form.
+On the [Config](https://claude.com/docs/government/org-admin/configuration.md) page, expand the **Microsoft 365** card and fill in the form.
 
 | Field | What to enter |
 | - | - |
@@ -198,4 +198,4 @@ When the broker is available, it carries the device claim, and Conditional Acces
 ## Things to know
 
 * Read and write permissions are separate per Microsoft 365 service. You can approve read broadly while limiting write to specific services or none at all by selecting only the permissions you want under [Choose which Microsoft 365 permissions to allow](#choose-which-microsoft-365-permissions-to-allow).
-* The **Access** selection applies to everyone who receives this connector card. There is no separate per-group write toggle inside the card. To give different groups different permissions, set the card at the group scope on the Config page; see [Group-specific settings](/docs/government/config/overview.md#group-specific-settings).
+* The **Access** selection applies to everyone who receives this connector card. There is no separate per-group write toggle inside the card. To give different groups different permissions, set the card at the group scope on the Config page; see [Group-specific settings](https://claude.com/docs/government/config/overview.md#group-specific-settings).

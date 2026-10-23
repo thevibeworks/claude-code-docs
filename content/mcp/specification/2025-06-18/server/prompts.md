@@ -28,7 +28,7 @@ model.
 ## Capabilities
 
 Servers that support prompts **MUST** declare the `prompts` capability during
-[initialization](/specification/2025-06-18/basic/lifecycle.md#initialization):
+[initialization](https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle.md#initialization):
 
 ```json theme={null}
 {
@@ -48,7 +48,7 @@ available prompts changes.
 ### Listing Prompts
 
 To retrieve available prompts, clients send a `prompts/list` request. This operation
-supports [pagination](/specification/2025-06-18/server/utilities/pagination.md).
+supports [pagination](https://modelcontextprotocol.io/specification/2025-06-18/server/utilities/pagination.md).
 
 **Request:**
 
@@ -92,7 +92,7 @@ supports [pagination](/specification/2025-06-18/server/utilities/pagination.md).
 ### Getting a Prompt
 
 To retrieve a specific prompt, clients send a `prompts/get` request. Arguments may be
-auto-completed through [the completion API](/specification/2025-06-18/server/utilities/completion.md).
+auto-completed through [the completion API](https://modelcontextprotocol.io/specification/2025-06-18/server/utilities/completion.md).
 
 **Request:**
 
@@ -187,7 +187,7 @@ Messages in a prompt can contain:
 > [!NOTE]
 >
 > All content types in prompt messages support optional
-> [annotations](/specification/2025-06-18/server/resources.md#annotations) for
+> [annotations](https://modelcontextprotocol.io/specification/2025-06-18/server/resources.md#annotations) for
 > metadata about audience, priority, and modification times.
 
 #### Text Content

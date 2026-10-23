@@ -15,7 +15,7 @@ Process
 > This SEP has reached Final status and is preserved as a historical record of
 > the design as accepted. Changes made to the protocol after finalization are
 > not reflected here. Refer to the [current
-> specification](/specification/latest.md) and its changelog for authoritative
+> specification](https://modelcontextprotocol.io/specification/latest.md) and its changelog for authoritative
 > requirements.
 
 | Field | Value |
@@ -35,7 +35,7 @@ Process
 
 This SEP establishes governance rules and a standardized charter template for MCP's two collaborative group types: **Working Groups (WGs)** and **Interest Groups (IGs)**. Working Groups produce concrete deliverables — SEPs, implementations, and code. Interest Groups facilitate discussion and knowledge-sharing to identify problems and gather requirements. The governance rules define the requirements that all groups must follow, with lighter expectations for IGs where appropriate. The charter template defines the structure each group uses to document its specific mission, scope, leadership, and work. Together they address community feedback about unclear authority delegation and inconsistent processes across groups.
 
-This SEP is a companion to [SEP-2148: MCP Contributor Ladder](/seps/2148-contributor-ladder.md), which defines the org-wide contributor roles (Member, Maintainer, Core Maintainer, Lead Maintainer) referenced throughout this document. Group leadership roles intersect with the contributor ladder: WG Leads and IG Facilitators must hold at least Member status on the ladder, and group participation is a recognized pathway to ladder advancement.
+This SEP is a companion to [SEP-2148: MCP Contributor Ladder](https://modelcontextprotocol.io/seps/2148-contributor-ladder.md), which defines the org-wide contributor roles (Member, Maintainer, Core Maintainer, Lead Maintainer) referenced throughout this document. Group leadership roles intersect with the contributor ladder: WG Leads and IG Facilitators must hold at least Member status on the ladder, and group participation is a recognized pathway to ladder advancement.
 
 ## Motivation
 
@@ -79,7 +79,7 @@ Each group has one or more **Leads** (referred to as **Facilitators** for Intere
 
 **Requirements for all Leads and Facilitators:**
 
-* Hold at least Member status on the [MCP Contributor Ladder](/seps/2148-contributor-ladder.md)
+* Hold at least Member status on the [MCP Contributor Ladder](https://modelcontextprotocol.io/seps/2148-contributor-ladder.md)
 * Demonstrated sustained engagement with the group's scope area
 * Ability to facilitate across organizational boundaries
 * Commitment to running the group's operations
@@ -111,7 +111,7 @@ Each group has one or more **Leads** (referred to as **Facilitators** for Intere
 
 #### 1.3 Participation Levels
 
-All groups use the following participation tiers. Note that **WG Member** is a group-specific participation level distinct from the org-wide **Member** role defined in the [Contributor Ladder](/seps/2148-contributor-ladder.md) — an individual may be a WG Member in a specific group without holding org-wide Member status, and vice versa.
+All groups use the following participation tiers. Note that **WG Member** is a group-specific participation level distinct from the org-wide **Member** role defined in the [Contributor Ladder](https://modelcontextprotocol.io/seps/2148-contributor-ladder.md) — an individual may be a WG Member in a specific group without holding org-wide Member status, and vice versa.
 
 | Level | Description | Privileges |
 | - | - | - |
@@ -259,7 +259,7 @@ Changes to a group's charter (WG or IG) require:
 
 ### Part 2: Charter Template
 
-Every MCP Working Group and Interest Group must maintain a charter document following this template structure. Charters are stored as MDX files at `docs/community/<group-name>/charter.mdx` in the modelcontextprotocol repository and added to the `docs/docs.json` file. A copyable version of this template is published at [`docs/community/charter-template.mdx`](/community/charter-template).
+Every MCP Working Group and Interest Group must maintain a charter document following this template structure. Charters are stored as MDX files at `docs/community/<group-name>/charter.mdx` in the modelcontextprotocol repository and added to the `docs/docs.json` file. A copyable version of this template is published at [`docs/community/charter-template.mdx`](https://modelcontextprotocol.io/community/charter-template).
 
 The charter captures information specific to each group. Governance rules from Part 1 apply automatically and do not need to be repeated in the charter. Sections marked **(WG only)** are required for Working Groups but optional for Interest Groups.
 

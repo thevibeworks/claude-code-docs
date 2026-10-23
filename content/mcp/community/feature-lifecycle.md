@@ -20,7 +20,7 @@ This policy was adopted via
 This policy governs **features** of the MCP core specification: protocol
 messages, capabilities, transports, schema types, and normative behavioral
 requirements. The revision lifecycle of the specification document itself
-(Draft, Current, Final) is defined in the [versioning guide](/docs/learn/versioning.md).
+(Draft, Current, Final) is defined in the [versioning guide](https://modelcontextprotocol.io/docs/learn/versioning.md).
 
 ## Feature States
 
@@ -56,7 +56,7 @@ A feature may be proposed for deprecation when:
 * or any other reasons the Core Maintainers deem appropriate.
 
 Deprecation is a specification change and therefore requires a SEP per the
-[SEP guidelines](/community/sep-guidelines.md). The deprecation SEP must:
+[SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md). The deprecation SEP must:
 
 1. Identify the feature by name and link to its definition in `schema.ts`
    (where applicable) and the specification prose.
@@ -89,12 +89,12 @@ When the deprecation SEP is accepted and reaches Final, the deprecation is sched
   removal.
 
 The feature becomes Deprecated when the revision carrying these changes is released
-and becomes the new Current revision (see [versioning guide](/docs/learn/versioning.md)).
+and becomes the new Current revision (see [versioning guide](https://modelcontextprotocol.io/docs/learn/versioning.md)).
 The minimum deprecation window is counted from that release.
 
 ## The Deprecated Registry
 
-[`docs/specification/draft/deprecated.mdx`](/specification/draft/deprecated) is
+[`docs/specification/draft/deprecated.mdx`](https://modelcontextprotocol.io/specification/draft/deprecated) is
 a single page listing every feature in a Deprecated or Removed state. It is
 the canonical answer to "what is on its way out, and by when," so that an
 implementer does not have to reconstruct that picture from deprecation entries
@@ -116,7 +116,7 @@ released as Current, Tier 1 SDKs:
   logger).
 
 A Tier 1 SDK that consistently fails to surface a Deprecated feature is subject to the
-[Tier Relegation Process](/community/sdk-tiers.md#tier-relegation).
+[Tier Relegation Process](https://modelcontextprotocol.io/community/sdk-tiers.md#tier-relegation).
 
 ## Removing a Feature
 
@@ -136,7 +136,7 @@ The twelve-month floor may be shortened when the feature presents an active
 security risk, meaning a vulnerability with a published security advisory or
 documented in-the-wild exploitation for which no in-place mitigation exists.
 Shortening the window requires Core Maintainer approval under the
-[governance decision process](/community/governance.md#decision-process), recorded
+[governance decision process](https://modelcontextprotocol.io/community/governance.md#decision-process), recorded
 in the deprecation SEP or, where the risk surfaces after that SEP is already
 Final, in a short expedited-removal SEP that references it. The shortened
 window must still provide at least ninety days between the feature becoming
@@ -148,10 +148,10 @@ Deprecated and its earliest removal.
 | - | - |
 | Propose deprecation, extension, or restoration | Any contributor, per the SEP process |
 | Sponsor | A Maintainer or Core Maintainer, per the SEP process |
-| Approve a deprecation SEP | Core Maintainers, per the [governance decision process](/community/governance.md#decision-process) |
-| Decide a removal during release preparation | Core Maintainers, per the [governance decision process](/community/governance.md#decision-process) |
-| Approve an extension or restoration SEP | Core Maintainers, per the [governance decision process](/community/governance.md#decision-process) |
-| Approve expedited removal | Core Maintainers, per the [governance decision process](/community/governance.md#decision-process) |
+| Approve a deprecation SEP | Core Maintainers, per the [governance decision process](https://modelcontextprotocol.io/community/governance.md#decision-process) |
+| Decide a removal during release preparation | Core Maintainers, per the [governance decision process](https://modelcontextprotocol.io/community/governance.md#decision-process) |
+| Approve an extension or restoration SEP | Core Maintainers, per the [governance decision process](https://modelcontextprotocol.io/community/governance.md#decision-process) |
+| Approve expedited removal | Core Maintainers, per the [governance decision process](https://modelcontextprotocol.io/community/governance.md#decision-process) |
 
 Lead Maintainers retain veto authority over each of the approvals
-above, per the [governance roles](/community/governance.md#roles) definition.
+above, per the [governance roles](https://modelcontextprotocol.io/community/governance.md#roles) definition.

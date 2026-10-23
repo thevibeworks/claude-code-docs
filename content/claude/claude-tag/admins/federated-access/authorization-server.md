@@ -14,9 +14,9 @@
 >
 > Authorization servers are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Authorization servers** section. Connecting a server needs an organization Owner, or an admin with full Claude Tag management permission.
 
-With an authorization server connection, Claude presents a short-lived identity token to an OAuth 2.0 authorization server you run, receives one of your access tokens in return, and calls your APIs with it. No long-lived credential for your systems is stored in Claude, and [Agent Proxy](/docs/claude-tag/concepts/agent-identity.md#agent-proxy) holds each access token only until it expires. The identity token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity.md) making the request (Claude's identity in one Slack channel), and your server decides whether to issue a token for it.
+With an authorization server connection, Claude presents a short-lived identity token to an OAuth 2.0 authorization server you run, receives one of your access tokens in return, and calls your APIs with it. No long-lived credential for your systems is stored in Claude, and [Agent Proxy](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy) holds each access token only until it expires. The identity token names your organization and the [agent](https://claude.com/docs/claude-tag/concepts/agent-identity.md) making the request (Claude's identity in one Slack channel), and your server decides whether to issue a token for it.
 
-Choose this when you run an authorization server that issues tokens for your APIs. If your own service will verify the identity token on every request instead, [connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md). If a vendor's API gave you a private key to sign assertions with (Salesforce, for example), use the [OAuth 2.0 JWT bearer](/docs/claude-tag/admins/connections/custom.md#oauth-2-0-jwt-bearer) credential type instead; the console labels this page's connection **Authorization server**.
+Choose this when you run an authorization server that issues tokens for your APIs. If your own service will verify the identity token on every request instead, [connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md). If a vendor's API gave you a private key to sign assertions with (Salesforce, for example), use the [OAuth 2.0 JWT bearer](https://claude.com/docs/claude-tag/admins/connections/custom.md#oauth-2-0-jwt-bearer) credential type instead; the console labels this page's connection **Authorization server**.
 
 Two terms recur on this page. The **subject check** is what your server does to every identity token, confirming it belongs to your organization. The **connection check** is the probe the console runs when a gateway is connected; it doesn't run for token endpoints.
 
@@ -30,7 +30,7 @@ Two terms recur on this page. The **subject check** is what your server does to 
   * isn't an IP address, a private-network name, an Anthropic-owned host, or a cloud token-exchange host
 * The token endpoint is on a different host from the APIs Claude will call with the returned token, for example `auth.example.com` and `api.example.com`, or its address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`.
 * Your server can reach `https://identity.anthropic.com` to fetch Anthropic's signing keys.
-* An organization can register up to 5 [gateways](/docs/claude-tag/admins/federated-access/connect-a-gateway.md), and an authorization server's audience address (its **Issuer URL** value, or its token endpoint when that field is empty) counts as one.
+* An organization can register up to 5 [gateways](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md), and an authorization server's audience address (its **Issuer URL** value, or its token endpoint when that field is empty) counts as one.
 
 ## Copy the values from the console
 
@@ -41,7 +41,7 @@ In **Authorization servers**, click **Connect an authorization server**, enter y
 | Issuer | `https://identity.anthropic.com/agents`, matched exactly. The OpenID Connect (OIDC) discovery document is at `https://identity.anthropic.com/agents/.well-known/openid-configuration`. |
 | JWKS URL | The JSON Web Key Set (JWKS) named by `jwks_uri` in the discovery document, `https://identity.anthropic.com/agents/jwks.json`. Accept ES256 only. Select the key by `kid`, and refetch the JWKS on an unknown `kid` before rejecting the token. |
 | Audience | Your authorization server's issuer identifier, as you enter it in the **Issuer URL** field when you connect the server, for example `https://auth.example.com`. It must be an HTTPS URL on the same host as the token endpoint. If your server requires the token endpoint URL as the audience instead, leave **Issuer URL** empty and the audience is the token endpoint address as the console stores it (the host lowercased, a bare trailing slash dropped, the rest kept as entered). Either way, copy the **Audience** row into your verifier rather than typing it. The `aud` claim is a JSON array with one element. Accept only this exact value, not any address on your host. |
-| Subject prefix | `wimse://identity.anthropic.com/org/<your organization ID>/agent/`. Every token's `sub` claim starts with this prefix and ends with one agent's ID; see the [subject](/docs/claude-tag/admins/federated-access/token-reference.md#subject) format. Agent IDs aren't shown in the console; your server learns them from the tokens it receives, and they change, for example when a Slack channel is deleted and recreated. |
+| Subject prefix | `wimse://identity.anthropic.com/org/<your organization ID>/agent/`. Every token's `sub` claim starts with this prefix and ends with one agent's ID; see the [subject](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md#subject) format. Agent IDs aren't shown in the console; your server learns them from the tokens it receives, and they change, for example when a Slack channel is deleted and recreated. |
 | Tenant | Your organization ID, the value between `/org/` and `/agent/` in the **Subject prefix**, carried in every token as the `tenant` claim. |
 | Expiry | Tokens expire 10 minutes after they're issued. Check `exp`, allowing up to 60 seconds of clock skew. |
 
@@ -58,7 +58,7 @@ The `resource` ([RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)) and `scope` 
 Your server must:
 
 * Verify the token with a standard JWT or OIDC library configured with the issuer, JWKS URL, audience, and expiry from [Copy the values from the console](#copy-the-values-from-the-console).
-* Check the subject. Where your use case allows, accept only the full subjects of your own agents, and update that list when a Slack channel is deleted and recreated. At minimum, reject every token whose `sub` doesn't start with your **Subject prefix**, or equivalently pin `iss` and reject every token whose `tenant` isn't your organization ID. This check is required because every organization's tokens come from the same issuer; see [Authorize on the subject](/docs/claude-tag/admins/federated-access/token-reference.md#authorize-on-the-subject). The console's connection check doesn't run for token endpoints, so nothing tests this check for you.
+* Check the subject. Where your use case allows, accept only the full subjects of your own agents, and update that list when a Slack channel is deleted and recreated. At minimum, reject every token whose `sub` doesn't start with your **Subject prefix**, or equivalently pin `iss` and reject every token whose `tenant` isn't your organization ID. This check is required because every organization's tokens come from the same issuer; see [Authorize on the subject](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md#authorize-on-the-subject). The console's connection check doesn't run for token endpoints, so nothing tests this check for you.
 * Decide what the agent may do, for example from the agent ID at the end of `sub`, and issue an access token for it. Tokens may carry additional opaque claims; ignore claims you don't recognize.
 * Return `200` with a JSON body: `access_token`, `token_type` (`Bearer`, compared without regard to case, and may be omitted), and `expires_in` in seconds.
 
@@ -88,15 +88,15 @@ If you close the dialog at that point, the audience address stays registered and
 
 Optionally enter a **Resource**, the API the returned token should be scoped to as an absolute URI (for example `https://api.example.com`), and a **Scope**, space-separated scopes to request. In **Allowed API hosts**, add the hosts Claude may call with the returned token, for example `api.example.com`. A wildcard as the leftmost label matches any subdomain. An entry or wildcard can cover the token endpoint's host only when the endpoint's address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`. In that case, list the paths Claude may use, such as `/graphql`, under **Allowed API paths**. A listed path covers everything under it, and a path that overlaps the token endpoint's folder isn't allowed. Then choose a bundle from the **Access bundle** list (or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**) and click **Connect server**.
 
-This creates a [connection](/docs/claude-tag/admins/add-connections.md) in that bundle, with the API hosts under **Allowed hosts**. Agent Proxy attaches the access token as an `Authorization: Bearer` header to every request Claude makes to those hosts. A token endpoint can be connected once in your organization, in one bundle, and the connection applies wherever that bundle applies.
+This creates a [connection](https://claude.com/docs/claude-tag/admins/add-connections.md) in that bundle, with the API hosts under **Allowed hosts**. Agent Proxy attaches the access token as an `Authorization: Bearer` header to every request Claude makes to those hosts. A token endpoint can be connected once in your organization, in one bundle, and the connection applies wherever that bundle applies.
 
 The **Authorization servers** table lists each server by its **Token endpoint**, with its **Access bundle**, its **Allowed hosts**, when it was **Added**, and a **Remove** action. The audience address also appears in the **Gateways** table with its check marked **Skipped** and a note that a connected authorization server uses it.
 
 ## Let agents use the APIs
 
-Claude uses the connection in the channels where its bundle applies. A bundle you created in the connect dialog applies nowhere until you choose places; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
+Claude uses the connection in the channels where its bundle applies. A bundle you created in the connect dialog applies nowhere until you choose places; see [Manage federated connections on the Connectors tab](https://claude.com/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
-Claude also needs to know what the APIs are for. Add a line like this to the scope's [custom instructions](/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions):
+Claude also needs to know what the APIs are for. Add a line like this to the scope's [custom instructions](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#add-custom-instructions):
 
 ```text wrap theme={null}
 The internal orders API is at https://api.example.com; see GET /openapi.json for what it offers. Authentication is already set up.
@@ -104,11 +104,11 @@ The internal orders API is at https://api.example.com; see GET /openapi.json for
 
 The exchange happens in Agent Proxy, outside Claude's sandbox, so neither the identity token nor your access token is visible to Claude, and Claude can't perform the exchange itself.
 
-New threads pick up the connection on their own. In a thread already running, ask Claude to use the API and name its host. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread. Claude then continues from a fresh session with your organization's current configuration.
+New threads pick up the connection on their own. In a thread already running, ask Claude to use the API and name its host. If Claude still can't, send [`@Claude !restart`](https://claude.com/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread. Claude then continues from a fresh session with your organization's current configuration.
 
 ## Verify the connection
 
-[Federated connections](/docs/claude-tag/admins/federated-access/limits.md#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
+[Federated connections](https://claude.com/docs/claude-tag/admins/federated-access/limits.md#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
 
 In a channel where the connection applies, start a new thread and ask Claude to make a small read:
 
@@ -116,7 +116,7 @@ In a channel where the connection applies, start a new thread and ask Claude to 
 @Claude call GET /openapi.json on https://api.example.com and tell me what the API offers.
 ```
 
-Then check your authorization server's logs for a JWT bearer grant whose token has your **Subject prefix**, and your API's logs for a request carrying the access token it issued. If the grant was refused, your server's own error is the reason; Claude sees only that the request failed. See [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting.md) for the errors Claude shows.
+Then check your authorization server's logs for a JWT bearer grant whose token has your **Subject prefix**, and your API's logs for a request carrying the access token it issued. If the grant was refused, your server's own error is the reason; Claude sees only that the request failed. See [Troubleshoot federated agent access](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting.md) for the errors Claude shows.
 
 ## Remove the server
 
@@ -127,19 +127,19 @@ In the **Authorization servers** table, click **Remove** in the server's row, th
 Five messages come up while connecting:
 
 * **"The issuer URL must be an https URL on the same host as the token endpoint. Leave it empty to use the token endpoint as the audience."**: the **Issuer URL** value is not an HTTPS URL on the token endpoint's host. Enter the issuer identifier your server uses there, or clear the field.
-* **"This token endpoint is already connected in the bundle"**: the server already has its one connection. Apply that bundle where you need the server instead; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
+* **"This token endpoint is already connected in the bundle"**: the server already has its one connection. Apply that bundle where you need the server instead; see [Manage federated connections on the Connectors tab](https://claude.com/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 * **"This organization has reached its limit of 5 registered gateways, which includes token endpoints"**: remove an unused row from the **Gateways** table first.
 * **"The allowed hosts can't include the token endpoint's host"**: an **Allowed API hosts** entry, or a wildcard in it, covers the token endpoint's host, and the endpoint's address has no folder of its own. Put the token endpoint on a different host from the APIs, or use a token endpoint address with a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`.
-* **"That address is already connected as a gateway. Enter your authorization server's own addresses, or remove the gateway first."**: the token endpoint, or the **Issuer URL** value, is the address of a gateway connected in one of your bundles. Enter the server's own addresses, or delete that gateway's connection from its bundle first, as [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes.
+* **"That address is already connected as a gateway. Enter your authorization server's own addresses, or remove the gateway first."**: the token endpoint, or the **Issuer URL** value, is the address of a gateway connected in one of your bundles. Enter the server's own addresses, or delete that gateway's connection from its bundle first, as [Manage federated connections on the Connectors tab](https://claude.com/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes.
 
-For other dialog messages, see [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting.md).
+For other dialog messages, see [Troubleshoot federated agent access](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting.md).
 
-If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits.md#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel where the connection [applies](/docs/claude-tag/admins/attach-to-scope.md#how-scopes-inherit).
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](https://claude.com/docs/claude-tag/admins/federated-access/limits.md#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel where the connection [applies](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#how-scopes-inherit).
 
 ## Related resources
 
-* [Give Claude access](/docs/claude-tag/admins/add-connections.md): the bundle and connection model
-* [Attach a bundle to a scope](/docs/claude-tag/admins/attach-to-scope.md): where a connection applies
-* [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md): every claim in the token, lifetimes, and key rotation
-* [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md): the alternative where your own service verifies the token on every request
-* [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting.md): console and runtime errors for every connection type
+* [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md): the bundle and connection model
+* [Attach a bundle to a scope](https://claude.com/docs/claude-tag/admins/attach-to-scope.md): where a connection applies
+* [Identity token reference](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md): every claim in the token, lifetimes, and key rotation
+* [Connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md): the alternative where your own service verifies the token on every request
+* [Troubleshoot federated agent access](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting.md): console and runtime errors for every connection type

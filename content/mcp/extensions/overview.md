@@ -10,7 +10,7 @@
 
 MCP extensions are optional additions to the specification that define capabilities beyond the core protocol. Extensions enable functionality that may be modular (e.g., distinct features like authentication), specialized (e.g., industry-specific logic), or experimental (e.g., features being incubated for potential core inclusion).
 
-Extensions are identified using a unique *extension identifier* with the format: `{vendor-prefix}/{extension-name}`, e.g. `io.modelcontextprotocol/oauth-client-credentials`. Identifiers follow the same rules as [`_meta` keys](/specification/draft/basic/index#meta), with a mandatory prefix. Official extensions use the `io.modelcontextprotocol` vendor prefix.
+Extensions are identified using a unique *extension identifier* with the format: `{vendor-prefix}/{extension-name}`, e.g. `io.modelcontextprotocol/oauth-client-credentials`. Identifiers follow the same rules as [`_meta` keys](https://modelcontextprotocol.io/specification/draft/basic/index#meta), with a mandatory prefix. Official extensions use the `io.modelcontextprotocol` vendor prefix.
 
 > [!TIP]
 >
@@ -29,8 +29,8 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
 
 | Extension | Description |
 | - | - |
-| [OAuth Client Credentials](/extensions/auth/oauth-client-credentials.md) | OAuth 2.0 client credentials flow for machine-to-machine authentication. |
-| [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization.md) | Framework for enterprise environments requiring centralized access control. |
+| [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | OAuth 2.0 client credentials flow for machine-to-machine authentication. |
+| [Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | Framework for enterprise environments requiring centralized access control. |
 
 ### MCP Apps
 
@@ -40,15 +40,15 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
 
 | Extension | Description |
 | - | - |
-| [MCP Apps](/extensions/apps/overview.md) | Allows MCP Servers to display interactive UI elements (charts, forms, video players) inline within conversations |
+| [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | Allows MCP Servers to display interactive UI elements (charts, forms, video players) inline within conversations |
 
-To get started building MCP Apps, see the [quickstart guide](/extensions/apps/build.md#getting-started) or read the full [MCP Apps documentation](https://apps.extensions.modelcontextprotocol.io/api/documents/Quickstart.html).
+To get started building MCP Apps, see the [quickstart guide](https://modelcontextprotocol.io/extensions/apps/build.md#getting-started) or read the full [MCP Apps documentation](https://apps.extensions.modelcontextprotocol.io/api/documents/Quickstart.html).
 
 ### MCP Tasks
 
 | Extension | Description |
 | - | - |
-| [MCP Tasks](/extensions/tasks/overview.md) | Asynchronous task execution for long-running operations, with polling, mid-flight input, and durable handles. |
+| [MCP Tasks](https://modelcontextprotocol.io/extensions/tasks/overview.md) | Asynchronous task execution for long-running operations, with polling, mid-flight input, and durable handles. |
 
 ### Skills over MCP
 
@@ -58,14 +58,14 @@ To get started building MCP Apps, see the [quickstart guide](/extensions/apps/bu
 
 | Extension | Description |
 | - | - |
-| [Skills over MCP](/extensions/skills/overview.md) | Discover workflow instructions and read supporting files through MCP resources. |
+| [Skills over MCP](https://modelcontextprotocol.io/extensions/skills/overview.md) | Discover workflow instructions and read supporting files through MCP resources. |
 
-See the [Skills overview](/extensions/skills/overview.md) to get started and the
-[client matrix](/extensions/client-matrix.md) for implementation support.
+See the [Skills overview](https://modelcontextprotocol.io/extensions/skills/overview.md) to get started and the
+[client matrix](https://modelcontextprotocol.io/extensions/client-matrix.md) for implementation support.
 
 ## Experimental Extensions
 
-Experimental extensions provide an incubation pathway for [Working Groups and Interest Groups](/community/working-interest-groups.md) to prototype ideas and collaborate on extension concepts before formal SEP submission.
+Experimental extensions provide an incubation pathway for [Working Groups and Interest Groups](https://modelcontextprotocol.io/community/working-interest-groups.md) to prototype ideas and collaborate on extension concepts before formal SEP submission.
 
 Experimental extension repositories live within the MCP GitHub organization with the `experimental-ext-` prefix (e.g., `experimental-ext-interceptors`).
 
@@ -73,7 +73,7 @@ Experimental extension repositories live within the MCP GitHub organization with
 
 * Every experimental extension needs to be associated with a Working Group or Interest Group
 * Repositories and published packages need to clearly indicate their experimental status (e.g., in the README and package name)
-* [Core Maintainers](/community/contributor-ladder.md#core-maintainer) retain oversight of experimental extension repositories, including the ability to archive or remove them
+* [Core Maintainers](https://modelcontextprotocol.io/community/contributor-ladder.md#core-maintainer) retain oversight of experimental extension repositories, including the ability to archive or remove them
 
 ### Graduation to Official Status
 
@@ -81,11 +81,11 @@ To promote an experimental extension to official status, it goes through the sta
 
 ## Creating Extensions
 
-The lifecycle for official extensions follows a SEP-based process. For full details, see [SEP-2133: Extensions](/seps/2133-extensions.md).
+The lifecycle for official extensions follows a SEP-based process. For full details, see [SEP-2133: Extensions](https://modelcontextprotocol.io/seps/2133-extensions.md).
 
-1. **Propose**: Create a SEP in the main MCP repository using the [standard SEP guidelines](/community/sep-guidelines.md) with type **Extensions Track**.
+1. **Propose**: Create a SEP in the main MCP repository using the [standard SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md) with type **Extensions Track**.
 2. **Implement**: Build at least one reference implementation in an official SDK — this is required before the SEP can be reviewed.
-3. **Review**: [Core Maintainers](/community/contributor-ladder.md#core-maintainer) review the SEP and have final authority over inclusion.
+3. **Review**: [Core Maintainers](https://modelcontextprotocol.io/community/contributor-ladder.md#core-maintainer) review the SEP and have final authority over inclusion.
 4. **Publish**: Once approved, open a PR to add the extension to the extension repository.
 5. **Adopt**: After that, other clients, servers, and SDKs can implement the extension too.
 

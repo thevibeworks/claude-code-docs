@@ -10,7 +10,7 @@ Claude Science connects to a small, fixed set of domains for sign-in, the Claude
 
 Connections are outbound-only and almost entirely HTTPS on TCP 443 (an internal package mirror may use 8443). The app's own domains are fixed, apart from open-access full-text downloads (covered below); the analysis-sandbox domains are a built-in allowlist that members adjust during onboarding or under **Settings** > **Network**, or that the organization manages for every member (see [Analysis sandbox domains](#analysis-sandbox-domains)).
 
-The domains fall into three groups: the app's own connections every member needs, the analysis sandbox's package and research domains, and the domains the member's browser loads. For the proxy and TLS-inspection settings, see [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks.md).
+The domains fall into three groups: the app's own connections every member needs, the analysis sandbox's package and research domains, and the domains the member's browser loads. For the proxy and TLS-inspection settings, see [Use Claude Science on a corporate network](https://claude.com/docs/claude-science/corporate-networks.md).
 
 ## App connections
 
@@ -27,7 +27,7 @@ Every Claude Science install makes these connections, which travel through the m
 | `downloads.claude.ai` | On Windows, at first launch and when an update changes it | The app window engine, the component that displays the app window |
 | `api.github.com`, `codeload.github.com` | When members import skills from a GitHub repository | Fetching the skill repository's contents |
 
-Custom connectors and remote compute that members add reach whatever hosts they are configured with, so allow those case by case. Installs with telemetry turned off (see [Telemetry](/docs/claude-science/manage-on-devices.md#telemetry)) send no error reports, and blocking `o1158394.ingest.us.sentry.io` affects only error reporting, not the rest of the app.
+Custom connectors and remote compute that members add reach whatever hosts they are configured with, so allow those case by case. Installs with telemetry turned off (see [Telemetry](https://claude.com/docs/claude-science/manage-on-devices.md#telemetry)) send no error reports, and blocking `o1158394.ingest.us.sentry.io` affects only error reporting, not the rest of the app.
 
 ### Full-text and literature retrieval
 
@@ -46,7 +46,7 @@ When Claude searches the scientific literature or retrieves full text, the app i
 
 When Claude runs code, its network access passes through a local filtering proxy that allows only the domains on the sandbox's built-in allowlist, grouped by purpose below. By default, each member manages the list on their own computer. Members can turn off any group except package management, during onboarding or under **Settings > Network**, and add allowed domains of their own in Settings, one at a time or by pasting a list. An administrator can also use the per-device configuration file, whose `[sandbox.network]` keys add allowed or denied domains, or disable sandbox networking entirely.
 
-An organization can instead manage the list for every member from **Organization settings** > **Claude Science**, with one switch per domain and custom domains of its own. Members then see their **Network** settings read-only, and the domains a member or a configuration file added are set aside while the organization manages the list. See [Network allowlist](/docs/claude-science/admin-controls.md#network-allowlist) for what the organization's list covers and how changes reach members.
+An organization can instead manage the list for every member from **Organization settings** > **Claude Science**, with one switch per domain and custom domains of its own. Members then see their **Network** settings read-only, and the domains a member or a configuration file added are set aside while the organization manages the list. See [Network allowlist](https://claude.com/docs/claude-science/admin-controls.md#network-allowlist) for what the organization's list covers and how changes reach members.
 
 ### Package management domains
 
@@ -62,7 +62,7 @@ These domains supply Python, R, and system packages when Claude builds an analys
 
 Claude Science itself does not require GitHub; the package manager ships inside the app. The GitHub domains are used only when a package Claude installs is published as a GitHub release or a member imports a skill from a GitHub repository, and blocking them fails only those operations.
 
-When you configure a conda channel mirror, Claude Science removes only the conda hosts (`conda.anaconda.org`, `repo.anaconda.com`, `anaconda.org`, `*.anaconda.org`) from the allowlist, and a Python index mirror removes only `pypi.org`, `*.pypi.org`, and `files.pythonhosted.org`. The `*.conda.io`, CRAN and Bioconductor, npm, and GitHub rows stay. A removed host is reachable again if a member re-adds it under **Settings** > **Network** or an administrator lists it in `[sandbox.network] allowed_domains`, which takes precedence over the removal. Environment builds contact the mirror host directly from the workstation, not through the outbound proxy, so it must be reachable directly (over your VPN or internal network if the mirror is internal, HTTPS on TCP 443 or 8443). A proxy allowlist entry alone does not make the mirror reachable for builds, and build-time mirror traffic will not appear in your proxy logs. See [Point package installs at an internal mirror](/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror).
+When you configure a conda channel mirror, Claude Science removes only the conda hosts (`conda.anaconda.org`, `repo.anaconda.com`, `anaconda.org`, `*.anaconda.org`) from the allowlist, and a Python index mirror removes only `pypi.org`, `*.pypi.org`, and `files.pythonhosted.org`. The `*.conda.io`, CRAN and Bioconductor, npm, and GitHub rows stay. A removed host is reachable again if a member re-adds it under **Settings** > **Network** or an administrator lists it in `[sandbox.network] allowed_domains`, which takes precedence over the removal. Environment builds contact the mirror host directly from the workstation, not through the outbound proxy, so it must be reachable directly (over your VPN or internal network if the mirror is internal, HTTPS on TCP 443 or 8443). A proxy allowlist entry alone does not make the mirror reachable for builds, and build-time mirror traffic will not appear in your proxy logs. See [Point package installs at an internal mirror](https://claude.com/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror).
 
 An organization package mirror set under **Organization settings** > **Claude Science** removes the same hosts for every member and is admitted the same way. When the organization manages the allowlist, the removed hosts stay unreachable even if they are switched on in the organization's list, and a member's own mirror host is reachable only if the organization's list includes it.
 
@@ -114,6 +114,6 @@ If your policy blocks these domains, sign-in pages fail to load or interactive p
 
 ## Related resources
 
-* [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks.md): proxy, TLS-inspection, and package-mirror settings
-* [Configuration file reference](/docs/claude-science/configuration-file-reference.md): the network keys in the configuration file
-* [Manage Claude Science on devices](/docs/claude-science/manage-on-devices.md): deploying the configuration file with device management
+* [Use Claude Science on a corporate network](https://claude.com/docs/claude-science/corporate-networks.md): proxy, TLS-inspection, and package-mirror settings
+* [Configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md): the network keys in the configuration file
+* [Manage Claude Science on devices](https://claude.com/docs/claude-science/manage-on-devices.md): deploying the configuration file with device management

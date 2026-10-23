@@ -30,7 +30,7 @@ The search covers organization owners across every organization in your tenant, 
 
 ## Removing a tenant administrator
 
-Click **Remove** next to a name to revoke their tenant admin access. The change takes effect immediately. The person keeps their account and whatever organization role they have, but loses access to this portal. Unless they are an organization's [Primary Owner](/docs/government/org-admin/users.md#understanding-roles), they can also no longer use an emailed sign-in link.
+Click **Remove** next to a name to revoke their tenant admin access. The change takes effect immediately. The person keeps their account and whatever organization role they have, but loses access to this portal. Unless they are an organization's [Primary Owner](https://claude.com/docs/government/org-admin/users.md#understanding-roles), they can also no longer use an emailed sign-in link.
 
 > [!WARNING]
 >

@@ -12,7 +12,7 @@
 
 ## Mission Statement
 
-The Governance Working Group exists to refine, document, and steward MCP's governance processes and community values, providing a single home for revising the project's governance documentation as the project grows. It also serves as an advisory voice channel — surfacing community concerns to Core Maintainers and stewarding the contribution culture that helps people advance through the [contributor ladder](/community/contributor-ladder.md). Over time the WG aspires to evolve into a standing consultation forum for contested governance decisions and, longer-term, to support representative community participation in the broader MCP organization.
+The Governance Working Group exists to refine, document, and steward MCP's governance processes and community values, providing a single home for revising the project's governance documentation as the project grows. It also serves as an advisory voice channel — surfacing community concerns to Core Maintainers and stewarding the contribution culture that helps people advance through the [contributor ladder](https://modelcontextprotocol.io/community/contributor-ladder.md). Over time the WG aspires to evolve into a standing consultation forum for contested governance decisions and, longer-term, to support representative community participation in the broader MCP organization.
 
 ## Scope
 
@@ -22,23 +22,23 @@ The Governance Working Group exists to refine, document, and steward MCP's gover
 * **Decision Recording**: Defining what counts as a project decision, who ratifies it, and how it is recorded across meeting notes, GitHub Discussions, and the SEP record.
 * **Code of Conduct Stewardship**: Drafting, revising, and maintaining the Code of Conduct text and adjacent reporting/escalation documentation. Content revisions go through WG consensus → Core Maintainer approval.
 * **Community Values**: Stewardship of MCP's stated community values, including landing the in-progress values workshop as a public artefact under `docs/community/`.
-* **Contribution Culture & Mentorship**: Encouraging mentorship as a culture (not a formal pairings program in v0.1) and stewarding practice for movement across the contributor ladder tiers, in coordination with [SEP-2148](/seps/2148-contributor-ladder.md).
+* **Contribution Culture & Mentorship**: Encouraging mentorship as a culture (not a formal pairings program in v0.1) and stewarding practice for movement across the contributor ladder tiers, in coordination with [SEP-2148](https://modelcontextprotocol.io/seps/2148-contributor-ladder.md).
 * **Voice Channel**: Surfacing community concerns from contributors and observers to Core Maintainers in an advisory, non-binding capacity. Concerns arrive in `#governance-wg` or at the monthly working session; the Lead carries those needing Core Maintainer attention to the monthly Core Maintainer plus WG/IG leads meeting.
 * **Cross-Cutting Coordination**: Coordination with other WGs and IGs on governance processes that affect them. The WG sets the framework; per-group operations remain with the groups themselves.
 
 ### Out of Scope
 
-* **Specification authorship**: Protocol changes go through the [SEP process](/community/sep-guidelines.md) and the relevant spec-producing Working Group. The Governance WG never owns spec sections. It may sponsor a SEP that changes a governance process.
+* **Specification authorship**: Protocol changes go through the [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md) and the relevant spec-producing Working Group. The Governance WG never owns spec sections. It may sponsor a SEP that changes a governance process.
 * **Maintainer selection and succession**: Lead Maintainers appoint Core Maintainers; Core Maintainers approve Maintainers. The WG may recommend process improvements but does not pick people.
 * **Individual Code of Conduct moderation decisions**: Receipt, investigation, and adjudication of individual incident reports are not within this WG's purview. The WG's near-term goal is to receive aggregated, anonymized trend reports from whoever performs incident handling, to inform policy revision.
-* **Per-SDK governance**: Owned by the [SDK Working Group](/community/working-groups/sdk.md).
+* **Per-SDK governance**: Owned by the [SDK Working Group](https://modelcontextprotocol.io/community/working-groups/sdk.md).
 * **Per-WG/IG internal operations**: Each group runs its own meetings, prioritisation, and member coordination; the Governance WG sets framework only.
 * **Maintainer disputes and interpersonal conflict resolution outside the Code of Conduct**: Explicitly out of scope for v0.1. Scoping a possible escalation path is a candidate future deliverable; claiming the role itself is not.
 
 ### Related Groups
 
 * **Core Maintainers** — material governance changes, Code of Conduct content revisions, and contributor ladder structural changes require Core Maintainer approval. The Lead represents the WG at the monthly Core Maintainer plus WG/IG leads meeting and surfaces community concerns there in an advisory capacity.
-* **All other Working Groups and Interest Groups** — the WG sets the governance framework that all groups inherit ([charter template](/seps/2149-working-group-charter-template.md), decision rights, meeting requirements). Per-group operations remain with the groups themselves. Interest groups route governance questions here.
+* **All other Working Groups and Interest Groups** — the WG sets the governance framework that all groups inherit ([charter template](https://modelcontextprotocol.io/seps/2149-working-group-charter-template.md), decision rights, meeting requirements). Per-group operations remain with the groups themselves. Interest groups route governance questions here.
 * **SDK Working Group** — coordination on the boundary between project-wide governance and per-SDK governance, which lives there.
 * **Future Code of Conduct handling body** — once the CoC reporting/handling path is formalised, the body that handles individual incidents will share aggregated, anonymised trend reports with the WG to inform policy revision.
 
@@ -58,7 +58,7 @@ the WG agrees to add a seat — the WG selects future Leads as follows:
 
 * Any WG Member may self-nominate or be nominated by another WG Member.
 * Candidates must meet the Lead requirements in the
-  [Working and Interest Groups](/community/working-interest-groups.md) documentation, and the group's
+  [Working and Interest Groups](https://modelcontextprotocol.io/community/working-interest-groups.md) documentation, and the group's
   leadership must retain sponsorship from at least two Core Maintainers or one Lead Maintainer.
 * Selection is by WG consensus using the standard decision-making process (lazy consensus, falling
   back to a formal vote), then ratified by Core Maintainers as a charter amendment, since the
@@ -94,7 +94,7 @@ the WG opens the pull request and names the author.
 
 ## Membership
 
-Membership eligibility follows the standard WG model defined in the [Working and Interest Groups](/community/working-interest-groups.md) documentation. To become a WG Member: sustained participation over 3 months, meaningful contributions (for this WG: governance doc drafting, reviews, or discussion facilitation), nomination by an existing WG Member or Lead, and no objections from Leads, Core Maintainers, or Lead Maintainers within 7 days. One additional structural rule applies: **no more than 2 Leads from any single organisation**. This invariant is maintained throughout each term.
+Membership eligibility follows the standard WG model defined in the [Working and Interest Groups](https://modelcontextprotocol.io/community/working-interest-groups.md) documentation. To become a WG Member: sustained participation over 3 months, meaningful contributions (for this WG: governance doc drafting, reviews, or discussion facilitation), nomination by an existing WG Member or Lead, and no objections from Leads, Core Maintainers, or Lead Maintainers within 7 days. One additional structural rule applies: **no more than 2 Leads from any single organisation**. This invariant is maintained throughout each term.
 
 | Name | Organization | GitHub | Discord | Level |
 | - | - | - | - | - |
@@ -170,7 +170,7 @@ These criteria are deliberately conservative for v0.1 and may be revised as the 
 
 This charter is a v0.1 document and is expected to be revised as the group coalesces. Updates
 follow the
-[Charter Amendments](/community/working-interest-groups.md#charter-amendments) process defined for
+[Charter Amendments](https://modelcontextprotocol.io/community/working-interest-groups.md#charter-amendments) process defined for
 all groups: proposal by a Lead or Core Maintainer, approval by Core Maintainers. Within the WG,
 amendment proposals are treated like any other substantive governance change — WG consensus
 first, then Core Maintainer approval. Editorial fixes (typos, broken links, rewordings that do

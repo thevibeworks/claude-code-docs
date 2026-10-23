@@ -10,7 +10,7 @@
 >
 > MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team. The preview is provided as-is, without uptime, support, or continuity commitments, and it depends on a third-party network provider (Cloudflare) that makes no availability commitment for the underlying transport. Anthropic may modify or discontinue MCP tunnels at any time.
 
-MCP tunnels connect Claude to [Model Context Protocol (MCP)](/docs/connectors/building/mcp.md) servers that run inside your private network. You run a small tunnel stack on a host in your network, the stack opens an outbound-only connection to Anthropic, and Claude sends MCP requests to your servers over that connection. Your firewall needs no inbound rules and your MCP servers need no public endpoint. Members of your organization use the tunneled servers as [custom connectors](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) in Claude, the same way they use any other remote MCP server.
+MCP tunnels connect Claude to [Model Context Protocol (MCP)](https://claude.com/docs/connectors/building/mcp.md) servers that run inside your private network. You run a small tunnel stack on a host in your network, the stack opens an outbound-only connection to Anthropic, and Claude sends MCP requests to your servers over that connection. Your firewall needs no inbound rules and your MCP servers need no public endpoint. Members of your organization use the tunneled servers as [custom connectors](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) in Claude, the same way they use any other remote MCP server.
 
 This section is for administrators of claude.ai organizations on the Enterprise plan and the infrastructure teams they work with. To use MCP tunnels with the Claude Console, Claude Managed Agents, or the Messages API, see [MCP tunnels in the Claude Platform docs](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview). A tunnel belongs to the organization that created it, so a tunnel created from a Console organization can't serve connectors in claude.ai, and a tunnel created from claude.ai can't serve the API.
 
@@ -18,7 +18,7 @@ This section is for administrators of claude.ai organizations on the Enterprise 
 
 Use a tunnel when the MCP server your organization wants to reach from Claude is only reachable inside your network, and your security policy rules out giving it a public endpoint or allowlisting Anthropic's IP ranges at your edge. Internal knowledge bases, ticketing systems, and data services wrapped in an MCP server are typical candidates.
 
-If the MCP server is already reachable from the internet, you don't need a tunnel. Add it as a [custom connector](/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) directly.
+If the MCP server is already reachable from the internet, you don't need a tunnel. Add it as a [custom connector](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) directly.
 
 ## Understand how tunnel traffic flows
 
@@ -67,7 +67,7 @@ Three independent layers protect every request through a tunnel.
 
 The proxy terminates inner TLS with a certificate signed by a certificate authority (CA) that the setup component generates inside your environment and registers with Anthropic. Only your deployment holds the private keys, so Cloudflare carries ciphertext and cannot read MCP requests or responses. Anthropic does not connect to a tunnel until a CA certificate is registered for it. Cloudflare does receive connection metadata: the egress IP address and a host fingerprint of the machine running cloudflared, connection timing and byte volume, and the `tunnel.anthropic.com` subdomain assigned to your tunnel. Cloudflare acts as a subprocessor for this research preview.
 
-The tunnel carries traffic to your MCP servers but does not authenticate to them. Configure each MCP server to require OAuth as described in the [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization), and see [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth.md) for how sign-in works when the authorization server is also inside your network.
+The tunnel carries traffic to your MCP servers but does not authenticate to them. Configure each MCP server to require OAuth as described in the [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization), and see [Authenticate to MCP servers behind a tunnel](https://claude.com/docs/connectors/mcp-tunnels/oauth.md) for how sign-in works when the authorization server is also inside your network.
 
 ### Shared responsibility
 
@@ -82,7 +82,7 @@ The tunnel carries traffic to your MCP servers but does not authenticate to them
 
 > [!WARNING]
 >
-> An attacker who obtains your tunnel token and one of your TLS private keys could impersonate your proxy and read MCP request payloads, including OAuth tokens. Store both with your organization's secrets-management controls, restrict file permissions, and rotate them on a schedule and immediately after any suspected exposure. See [Rotate credentials](/docs/connectors/mcp-tunnels/setup.md#rotate-credentials).
+> An attacker who obtains your tunnel token and one of your TLS private keys could impersonate your proxy and read MCP request payloads, including OAuth tokens. Store both with your organization's secrets-management controls, restrict file permissions, and rotate them on a schedule and immediately after any suspected exposure. See [Rotate credentials](https://claude.com/docs/connectors/mcp-tunnels/setup.md#rotate-credentials).
 
 ## Limits
 
@@ -93,7 +93,7 @@ The tunnel carries traffic to your MCP servers but does not authenticate to them
 
 ## Next steps
 
-* [Set up an MCP tunnel](/docs/connectors/mcp-tunnels/setup.md): create the API key, deploy the tunnel stack with Helm or Docker Compose, and add your servers as connectors
-* [Authenticate through a tunnel](/docs/connectors/mcp-tunnels/oauth.md): make OAuth sign-in work when your authorization server is inside your network
-* [Troubleshooting](/docs/connectors/mcp-tunnels/troubleshooting.md): diagnose connection, certificate, routing, and sign-in failures
+* [Set up an MCP tunnel](https://claude.com/docs/connectors/mcp-tunnels/setup.md): create the API key, deploy the tunnel stack with Helm or Docker Compose, and add your servers as connectors
+* [Authenticate through a tunnel](https://claude.com/docs/connectors/mcp-tunnels/oauth.md): make OAuth sign-in work when your authorization server is inside your network
+* [Troubleshooting](https://claude.com/docs/connectors/mcp-tunnels/troubleshooting.md): diagnose connection, certificate, routing, and sign-in failures
 * [Platform reference](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference): proxy configuration fields, certificate requirements, and the setup component

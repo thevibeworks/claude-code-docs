@@ -10,7 +10,7 @@ On a Mac, Claude Science can now run as its own app, in its own window, rather t
 
 > [!NOTE]
 >
-> To manage Claude Science on your organization's Macs, see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices.md#macs-where-claude-science-opens-in-its-own-window).
+> To manage Claude Science on your organization's Macs, see [Manage Claude Science on devices](https://claude.com/docs/claude-science/manage-on-devices.md#macs-where-claude-science-opens-in-its-own-window).
 
 ## What changes when Claude Science switches to its own window
 
@@ -27,6 +27,6 @@ macOS asks again for some [permissions](#macos-permissions-for-claude-science), 
 
 ## macOS permissions for Claude Science
 
-macOS treats Claude Science in its own window as a different app from the browser version, so macOS asks again for some permissions, such as access to your Documents or Desktop folder. Dictation needs microphone access. If dictation doesn't work, see [Dictation](/docs/claude-science/troubleshooting.md#dictation) in Troubleshoot Claude Science.
+macOS treats Claude Science in its own window as a different app from the browser version, so macOS asks again for some permissions, such as access to your Documents or Desktop folder. Dictation needs microphone access. If dictation doesn't work, see [Dictation](https://claude.com/docs/claude-science/troubleshooting.md#dictation) in Troubleshoot Claude Science.
 
 Access you turned on yourself, such as Full Disk Access, doesn't carry over from the browser version. To turn it on again, go to **System Settings > Privacy & Security**, choose the kind of access, and turn on the **Claude Science** toggle. If **Claude Science** isn't listed, click the add button (+) and choose **Claude Science** in the **Applications** folder. Do the same if a **Claude Science** entry is already on but Claude Science still can't reach your files, because that entry can be the browser version's.

@@ -14,9 +14,9 @@ If you're ready to submit, open the [developer portal](https://claude.ai/directo
 
 > [!NOTE]
 >
-> * If you're still deciding what goes in your plugin, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build.md)
-> * If you want to build a small example plugin and submit it, see [Build your first plugin](/docs/plugins/quickstart.md)
-> * If you want to share a plugin without a public listing, use [your own marketplace](https://code.claude.com/docs/en/plugins/publish) for Claude Code or [roll it out to your whole organization](/docs/plugins/org-rollout.md)
+> * If you're still deciding what goes in your plugin, see [Decide what to include in your plugin](https://claude.com/docs/connectors/building/what-to-build.md)
+> * If you want to build a small example plugin and submit it, see [Build your first plugin](https://claude.com/docs/plugins/quickstart.md)
+> * If you want to share a plugin without a public listing, use [your own marketplace](https://code.claude.com/docs/en/plugins/publish) for Claude Code or [roll it out to your whole organization](https://claude.com/docs/plugins/org-rollout.md)
 > * If you came here from [Claude Marketplace](https://claude.com/marketplace), the website where you browse plugins, connectors, partner products, and service partners, you're in the right place: there's no separate Claude Marketplace submission, and you submit to the directory instead
 
 ## Before you submit to the directory
@@ -52,8 +52,8 @@ Under **What would you like to submit?**, choose **Plugin bundle** or **MCP conn
 
 Work through the checklist and submit pages for that kind:
 
-* [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md), then [Submit a plugin](/docs/plugins/submit.md): for a plugin bundle
-* [Connector pre-submission checklist](/docs/connectors/building/review-criteria.md), then [Submit a connector](/docs/connectors/building/submission.md): for an MCP connector
+* [Plugin pre-submission checklist](https://claude.com/docs/plugins/pre-submission-checklist.md), then [Submit a plugin](https://claude.com/docs/plugins/submit.md): for a plugin bundle
+* [Connector pre-submission checklist](https://claude.com/docs/connectors/building/review-criteria.md), then [Submit a connector](https://claude.com/docs/connectors/building/submission.md): for an MCP connector
 
 ## Submit your plugin, and your MCP server as a connector
 
@@ -73,7 +73,7 @@ If you have a remote MCP server, always submit it as an MCP connector, even when
 
 For your own product, make two submissions: the server as an MCP connector, then the plugin bundle whose skills teach Claude how to use it. Point the bundle's MCP server configuration at the same URL, so people who have both see one set of tools rather than two.
 
-Desktop extension listings in the directory are deprecated, and the directory no longer accepts local MCP servers packaged as desktop extensions (MCPB). To distribute a local MCP server through the directory, include it in a plugin bundle. [Compare component support by app](/docs/plugins/platform-support.md#compare-component-support-by-app) shows where a plugin's local servers run.
+Desktop extension listings in the directory are deprecated, and the directory no longer accepts local MCP servers packaged as desktop extensions (MCPB). To distribute a local MCP server through the directory, include it in a plugin bundle. [Compare component support by app](https://claude.com/docs/plugins/platform-support.md#compare-component-support-by-app) shows where a plugin's local servers run.
 
 Skills aren't a submission type on their own. Put them in a bundle.
 
@@ -81,14 +81,14 @@ Skills aren't a submission type on their own. Put them in a bundle.
 
 Anthropic checks every submission before it's listed, and checks a plugin bundle again with each new version.
 
-* **Plugin bundles**: every version gets automated validation and a security scan, and a person reviews a new listing before it goes live. The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist.md) lists what validation checks
-* **MCP connectors**: every submission is scanned automatically for policy compliance and, by default, listed as a Community connector. Anthropic may escalate a listing to Verified review, in which a reviewer tests each tool against the [connector pre-submission checklist](/docs/connectors/building/review-criteria.md)
+* **Plugin bundles**: every version gets automated validation and a security scan, and a person reviews a new listing before it goes live. The [plugin pre-submission checklist](https://claude.com/docs/plugins/pre-submission-checklist.md) lists what validation checks
+* **MCP connectors**: every submission is scanned automatically for policy compliance and, by default, listed as a Community connector. Anthropic may escalate a listing to Verified review, in which a reviewer tests each tool against the [connector pre-submission checklist](https://claude.com/docs/connectors/building/review-criteria.md)
 
 Every listing is subject to the [Anthropic Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms) and [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy).
 
-There's no separate application for the **Verified** label or for where in the directory a listing is placed. Anthropic decides both during review, and [Connector verification](/docs/connectors/verification.md#list-your-own-connector) explains how a listing becomes Verified and what each label means to people installing it.
+There's no separate application for the **Verified** label or for where in the directory a listing is placed. Anthropic decides both during review, and [Connector verification](https://claude.com/docs/connectors/verification.md#list-your-own-connector) explains how a listing becomes Verified and what each label means to people installing it.
 
-Review time isn't fixed. Your submission's current state shows in the portal, and [Track your directory submission](/docs/directory/submission-status.md) explains what each status in the portal means and who acts next.
+Review time isn't fixed. Your submission's current state shows in the portal, and [Track your directory submission](https://claude.com/docs/directory/submission-status.md) explains what each status in the portal means and who acts next.
 
 ## Move an earlier submission to the developer portal
 
@@ -101,7 +101,7 @@ A listing you submitted before the developer portal existed stays as it is. Move
 The earlier Claude Console form for plugin submissions is no longer supported. To move a submission you made through it, open [**Plugin submissions**](https://platform.claude.com/plugins/submissions) in the Claude Console:
 
 * **A submission with a Withdraw button**: select **Withdraw**. Then submit the plugin again at [claude.ai/directory/manage](https://claude.ai/directory/manage) from a claude.ai account
-* **A submission with no Withdraw button**: email `directory@anthropic.com` to have it moved to the developer portal instead of starting a new submission there. If you already saved a draft in the developer portal for the same repository and folder, [delete the draft](/docs/plugins/submit.md#withdraw-or-delist-a-plugin) first
+* **A submission with no Withdraw button**: email `directory@anthropic.com` to have it moved to the developer portal instead of starting a new submission there. If you already saved a draft in the developer portal for the same repository and folder, [delete the draft](https://claude.com/docs/plugins/submit.md#withdraw-or-delist-a-plugin) first
 
 Until the Console submission is withdrawn or moved, the portal can refuse **Submit for review** for the same repository and folder with **Already submitted by another organization**.
 
@@ -109,17 +109,17 @@ Until the Console submission is withdrawn or moved, the portal can refuse **Subm
 
 A directory listing gives you:
 
-* **One listing across Claude's apps**: you submit once, and the listing appears in each app that [supports what your plugin contains](/docs/plugins/platform-support.md)
-* **One developer portal for the whole life of a listing**: at [claude.ai/directory/manage](https://claude.ai/directory/manage) you submit, follow each submission's status, publish new versions, see usage, and change or delist the listing. [Track your directory submission](/docs/directory/submission-status.md) explains each status
-* **Updates without resubmitting**: after the first submission, you keep the listing current by merging to the tracked branch as you normally release. The directory picks up each commit, scans it, and once it's published serves it to the people who have your plugin. [Update a published plugin](/docs/plugins/submit.md#update-a-published-plugin) covers the steps
-* **Usage figures**: a published plugin's **Usage** tab shows installs, versions, how often each skill and MCP server runs, and error rates. A listed connector has a dashboard with server health and usage by tool. [Track published plugin usage](/docs/connectors/building/after-publishing.md#track-published-plugin-usage) and [Manage your directory listing](/docs/connectors/building/managing-your-listing.md) cover each
+* **One listing across Claude's apps**: you submit once, and the listing appears in each app that [supports what your plugin contains](https://claude.com/docs/plugins/platform-support.md)
+* **One developer portal for the whole life of a listing**: at [claude.ai/directory/manage](https://claude.ai/directory/manage) you submit, follow each submission's status, publish new versions, see usage, and change or delist the listing. [Track your directory submission](https://claude.com/docs/directory/submission-status.md) explains each status
+* **Updates without resubmitting**: after the first submission, you keep the listing current by merging to the tracked branch as you normally release. The directory picks up each commit, scans it, and once it's published serves it to the people who have your plugin. [Update a published plugin](https://claude.com/docs/plugins/submit.md#update-a-published-plugin) covers the steps
+* **Usage figures**: a published plugin's **Usage** tab shows installs, versions, how often each skill and MCP server runs, and error rates. A listed connector has a dashboard with server health and usage by tool. [Track published plugin usage](https://claude.com/docs/connectors/building/after-publishing.md#track-published-plugin-usage) and [Manage your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md) cover each
 
 ## Next steps
 
 These pages cover building and submitting a first plugin and, once a listing is published, maintaining it from the same portal:
 
-* [Build your first plugin](/docs/plugins/quickstart.md): build a small example plugin and submit it to the directory
-* [Track your submission](/docs/directory/submission-status.md): check what your submission's status means and who acts next
-* [After publishing](/docs/connectors/building/after-publishing.md): update your server or plugin, and delist
-* [Track published plugin usage](/docs/connectors/building/after-publishing.md#track-published-plugin-usage): see installs, versions, runs, and error rates on the plugin's **Usage** tab
-* [Manage your directory listing](/docs/connectors/building/managing-your-listing.md): for an MCP connector, check health and usage metrics and edit the listing
+* [Build your first plugin](https://claude.com/docs/plugins/quickstart.md): build a small example plugin and submit it to the directory
+* [Track your submission](https://claude.com/docs/directory/submission-status.md): check what your submission's status means and who acts next
+* [After publishing](https://claude.com/docs/connectors/building/after-publishing.md): update your server or plugin, and delist
+* [Track published plugin usage](https://claude.com/docs/connectors/building/after-publishing.md#track-published-plugin-usage): see installs, versions, runs, and error rates on the plugin's **Usage** tab
+* [Manage your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md): for an MCP connector, check health and usage metrics and edit the listing

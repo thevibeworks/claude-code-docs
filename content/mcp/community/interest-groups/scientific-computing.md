@@ -44,19 +44,19 @@ formation of working groups.
   code, or dataset are valuable inputs to the group's use-case gathering, but building them is not
   protocol work
 * **Authorization and identity mechanics**: OAuth flows, scopes, and token handling belong to the
-  [Authorization IG](/community/interest-groups/auth.md)
+  [Authorization IG](https://modelcontextprotocol.io/community/interest-groups/auth.md)
 
 ### Related Groups
 
-* **[Tasks and Events WG](/community/working-groups/tasks-events.md)**: Tasks are the foundation for the long-running
+* **[Tasks and Events WG](https://modelcontextprotocol.io/community/working-groups/tasks-events.md)**: Tasks are the foundation for the long-running
   simulation and job-submission workflows for high-performance computing
-* **[Interceptors WG](/community/working-groups/interceptors.md)**: interceptors are a potential
+* **[Interceptors WG](https://modelcontextprotocol.io/community/working-groups/interceptors.md)**: interceptors are a potential
   implementation path for validating correctness and normalizing units between clients and servers
-* **[File Uploads WG](/community/working-groups/file-uploads.md)**: input datasets, mesh and geometry
+* **[File Uploads WG](https://modelcontextprotocol.io/community/working-groups/file-uploads.md)**: input datasets, mesh and geometry
   files, and other large files must be considered
-* **[Primitive Grouping IG](/community/interest-groups/primitive-grouping.md)**: scientific servers often
+* **[Primitive Grouping IG](https://modelcontextprotocol.io/community/interest-groups/primitive-grouping.md)**: scientific servers often
   expose large, hierarchical tool surfaces that motivate organization beyond flat lists
-* **[Registry WG](/community/working-groups/registry.md)**: publishing and discovering servers for shared
+* **[Registry WG](https://modelcontextprotocol.io/community/working-groups/registry.md)**: publishing and discovering servers for shared
   scientific software and datasets intersects with registry metadata
 
 ## Leadership
@@ -72,7 +72,7 @@ formation of working groups.
 | Working Session | TBD | TBD | Use-case sharing, technical discussion |
 
 Open to anyone. Join the [#scientific-computing-ig](https://discord.com/channels/1358869848138059966/1540132675174535228) channel on the
-[MCP Contributors Discord](/community/communication.md#discord).
+[MCP Contributors Discord](https://modelcontextprotocol.io/community/communication.md#discord).
 
 ## Discussion Topics
 

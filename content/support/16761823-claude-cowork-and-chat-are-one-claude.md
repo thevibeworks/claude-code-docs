@@ -2,7 +2,7 @@
 
 We’re introducing a new way to use both Claude Cowork and chat that removes the distinction between the two products: in the new experience, these are merged into a single conversation, so you don’t need to decide which option better suits your task before getting started. Ask Claude for what you need, and it can decide which tool to use. Claude can answer a quick question, and it can also take on more complex work, like research, reports, spreadsheets, and presentations, and hand it back as finished files you can edit. With the new Claude experience, you ask for all of it in the same conversation, with no mode to choose. What you could previously only do in Claude Cowork is available from any conversation.
 
-The new Claude experience is rolling out gradually, starting with Pro and Max plans on web, desktop, and mobile. More plans will follow soon, and Enterprise admins will hear from us at least 30 days before anything changes for their organization.
+The new Claude experience is rolling out gradually, starting with Pro and Max plans on web, desktop, and mobile. It's also generally available on Enterprise plans, where it appears in admin settings as **Chat and Cowork unified**. More plans will follow soon.
 
 ## Why you might not have it yet
 

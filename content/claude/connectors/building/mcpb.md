@@ -10,12 +10,12 @@ An MCP Bundle (`.mcpb`) is a zip archive containing a local MCP server and a `ma
 
 This page is for developers packaging a local MCP server for Claude Desktop, whether for internal use or private distribution. It covers when to choose MCPB over a remote server, building and packing the bundle, the manifest, and how users install the result.
 
-For a directory listing, build a remote MCP server, which reaches people on every surface, or include the local server in a plugin, as [Decide what to include in your plugin](/docs/connectors/building/what-to-build.md) explains.
+For a directory listing, build a remote MCP server, which reaches people on every surface, or include the local server in a plugin, as [Decide what to include in your plugin](https://claude.com/docs/connectors/building/what-to-build.md) explains.
 
 > [!NOTE]
 >
-> * If you're building a remote server, see [Build an MCP server for Claude](/docs/connectors/building/index.md)
-> * If you're deploying desktop extensions across a Team or Enterprise organization, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app)
+> * If you're building a remote server, see [Build an MCP server for Claude](https://claude.com/docs/connectors/building/index.md)
+> * If you're deploying desktop extensions across a Team or Enterprise organization, see [Install a local connector in the desktop app](https://claude.com/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app)
 
 ## Decide when to build an MCPB
 
@@ -132,7 +132,7 @@ Define a `user_config` section in `manifest.json` and Claude Desktop automatical
 
 ## Distribute your MCPB
 
-Users install the `.mcpb` file themselves in Claude Desktop. Desktop extension listings in the directory are deprecated, and the directory no longer accepts MCPB submissions. To distribute a local MCP server through the directory, include it in a [plugin](/docs/plugins/overview.md).
+Users install the `.mcpb` file themselves in Claude Desktop. Desktop extension listings in the directory are deprecated, and the directory no longer accepts MCPB submissions. To distribute a local MCP server through the directory, include it in a [plugin](https://claude.com/docs/plugins/overview.md).
 
 ### Understand how users install your MCPB
 
@@ -177,5 +177,5 @@ These external references cover the MCPB format, the MCP protocol, and Claude De
 
 ## Next steps
 
-* [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app): deploy local MCP servers for Claude Desktop across a Team or Enterprise organization
-* [Submit your plugin](/docs/plugins/submit.md): list a plugin that includes your local MCP server in the directory
+* [Install a local connector in the desktop app](https://claude.com/docs/connectors/custom/add-unlisted.md#install-a-local-connector-in-the-desktop-app): deploy local MCP servers for Claude Desktop across a Team or Enterprise organization
+* [Submit your plugin](https://claude.com/docs/plugins/submit.md): list a plugin that includes your local MCP server in the directory

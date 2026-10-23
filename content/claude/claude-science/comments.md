@@ -10,7 +10,7 @@ In Claude Science, comments let you pin notes to specific parts of an artifact i
 
 > [!NOTE]
 >
-> This page covers comments on [artifacts in the Claude Science app](/docs/claude-science/artifacts.md). For artifacts in a claude.ai chat, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center.
+> This page covers comments on [artifacts in the Claude Science app](https://claude.com/docs/claude-science/artifacts.md). For artifacts in a claude.ai chat, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center.
 
 ## Leaving a comment
 

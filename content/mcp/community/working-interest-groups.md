@@ -85,7 +85,7 @@ Each group has one or more **Leads** (referred to as **Facilitators** for Intere
 
 **Requirements for all Leads and Facilitators:**
 
-* Hold at least Member status on the MCP Contributor Ladder — see [Governance](/community/governance.md) for role definitions
+* Hold at least Member status on the MCP Contributor Ladder — see [Governance](https://modelcontextprotocol.io/community/governance.md) for role definitions
 * Demonstrated sustained engagement with the group's scope area
 * Ability to facilitate across organizational boundaries
 * Commitment to running the group's operations
@@ -106,7 +106,7 @@ Each group has one or more **Leads** (referred to as **Facilitators** for Intere
 
 **WG Leads are additionally responsible for:**
 
-* Drive proposals through the [SEP process](/community/sep-guidelines.md) to resolution
+* Drive proposals through the [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md) to resolution
 * Triage SEPs in the WG's scope area, including closing SEPs that do not fit the roadmap (with documented rationale; authors may appeal to Core Maintainers)
 * Escalate blocked decisions to Core Maintainers with clear context
 * Maintain the working group's roadmap
@@ -230,7 +230,7 @@ The quarterly updates are provided as a document posted in the [GitHub Discussio
 **Working Group Formation:**
 
 * There must be a widely acknowledged concern requiring coordination
-* PR adding the WG charter as `docs/community/working-groups/<name>.mdx`, written from the [Group Charter Template](/community/charter-template.md) and including the corresponding navigation entry in `docs/docs.json`, gated by CODEOWNERS requiring approval from Core Maintainers
+* PR adding the WG charter as `docs/community/working-groups/<name>.mdx`, written from the [Group Charter Template](https://modelcontextprotocol.io/community/charter-template.md) and including the corresponding navigation entry in `docs/docs.json`, gated by CODEOWNERS requiring approval from Core Maintainers
 * Initial member list approved by WG Lead
 
 **Interest Group Formation:**
@@ -256,7 +256,7 @@ Changes to a group's charter (WG or IG) require:
 
 Every MCP Working Group and Interest Group must maintain a charter document that captures its specific mission, scope, leadership, membership, and operations. The governance rules above apply automatically and do not need to be repeated in the charter.
 
-See the [Group Charter Template](/community/charter-template.md) for the required structure and a copyable template.
+See the [Group Charter Template](https://modelcontextprotocol.io/community/charter-template.md) for the required structure and a copyable template.
 
 ## FAQ
 
@@ -279,7 +279,7 @@ No. IG participation can help validate ideas and build support, but it's not req
 
 ### Do I need to be in a WG to submit a SEP?
 
-No. Anyone can submit a SEP, and group membership is not required. The proposal must still be brought to the relevant group's Discord channel before the SEP pull request is opened, as described in the [SEP guidelines](/community/sep-guidelines.md#step-by-step-process). Beyond that requirement, closer WG collaboration can strengthen your proposal and help it find a sponsor.
+No. Anyone can submit a SEP, and group membership is not required. The proposal must still be brought to the relevant group's Discord channel before the SEP pull request is opened, as described in the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md#step-by-step-process). Beyond that requirement, closer WG collaboration can strengthen your proposal and help it find a sponsor.
 
 ### What if my IG discussion leads to a concrete solution?
 

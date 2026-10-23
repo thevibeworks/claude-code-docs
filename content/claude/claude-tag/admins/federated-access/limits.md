@@ -14,7 +14,7 @@ This page collects the fixed limits of Federated agent access in one place.
 
 ## Where federated connections work
 
-Federated connections are available to Claude in Slack channels, where it acts under your organization's [agent identity](/docs/claude-tag/concepts/agent-identity.md). They aren't available in one-to-one direct messages, which run on the individual's own claude.ai account, and they need an Anthropic-hosted environment; Claude can't use them in a [self-hosted environment](/docs/claude-tag/concepts/security-and-data.md).
+Federated connections are available to Claude in Slack channels, where it acts under your organization's [agent identity](https://claude.com/docs/claude-tag/concepts/agent-identity.md). They aren't available in one-to-one direct messages, which run on the individual's own claude.ai account, and they need an Anthropic-hosted environment; Claude can't use them in a [self-hosted environment](https://claude.com/docs/claude-tag/concepts/security-and-data.md).
 
 ## Identity token
 
@@ -22,7 +22,7 @@ Federated connections are available to Claude in Slack channels, where it acts u
 | :- | :- |
 | Token lifetime | 10 minutes. Tokens can't be revoked before they expire. When you remove a gateway, Claude stops using it at once; when you remove a cloud role or authorization server, within about a minute (current behavior, may change). A token issued before the removal stays valid until it expires. |
 | Signing algorithm | ES256 only. |
-| Claims | See the [identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md#claims); verifiers must ignore claims they don't recognize. |
+| Claims | See the [identity token reference](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md#claims); verifiers must ignore claims they don't recognize. |
 
 ## Gateways
 
@@ -31,8 +31,8 @@ Federated connections are available to Claude in Slack channels, where it acts u
 | Registered addresses per organization | 5, counting gateways and authorization-server audience addresses together. |
 | Token reuse | Claude reuses one token for a session's requests to the same gateway for about five minutes, half the token's lifetime, or until the gateway answers 401, and then requests a new one (current behavior, may change). A gateway sees the same `jti` on many requests. |
 | Gateway address | An HTTPS host name only, with no path, port, query, or trailing slash. The host name needs a domain, like `gateway.example.com`, uses only letters, numbers, hyphens, and dots, and has at most 253 characters (current behavior, may change). The console rejects an IP address, a private-network name, an Anthropic-owned host, or a host cloud providers use for token exchange, and names the reason. The connection check also refuses a host name that resolves to a private address. |
-| [Allowed websites](/docs/claude-tag/admins/add-connections.md#set-allowed-websites) on the gateway's connection | Exactly the gateway's host, the only host Claude sends the token to. It can't be widened or given a wildcard. |
-| Connection check | Runs only against an HTTPS host with no path. The console sends two `POST` requests to the address, each with an empty body and a test token, doesn't follow redirects, and can take up to a minute. [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md) lists the expected responses. The console refuses a check that runs many times in quick succession and says how long to wait. |
+| [Allowed websites](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites) on the gateway's connection | Exactly the gateway's host, the only host Claude sends the token to. It can't be widened or given a wildcard. |
+| Connection check | Runs only against an HTTPS host with no path. The console sends two `POST` requests to the address, each with an empty body and a test token, doesn't follow redirects, and can take up to a minute. [Connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md) lists the expected responses. The console refuses a check that runs many times in quick succession and says how long to wait. |
 | Same address twice in one organization | Entering an address that is already registered runs the connection check again (unless you skip it) without changing the stored result, then moves to the bundle step. The run counts toward the check limit. |
 
 ## AWS roles
@@ -42,7 +42,7 @@ Federated connections are available to Claude in Slack channels, where it acts u
 | **Role ARN** | A commercial-partition IAM role, `arn:aws:iam::<account>:role/<name>`. AWS GovCloud and AWS China roles aren't supported. |
 | **Allowed AWS hosts** | Hosts ending in `.amazonaws.com` only, for example `s3.us-east-1.amazonaws.com` or `*.amazonaws.com`. |
 | Role session | 1 hour. The exchange doesn't ask for a longer session, so raising the role's maximum session duration has no effect. Claude reuses one session's credentials for the same agent until shortly before they expire, or until AWS answers a request with 403 (current behavior, may change). |
-| Token audience | `sts.amazonaws.com`, the same for every organization. Condition the trust policy on the `sub` claim as well as the audience; see [Authorize on the subject](/docs/claude-tag/admins/federated-access/token-reference.md#authorize-on-the-subject). |
+| Token audience | `sts.amazonaws.com`, the same for every organization. Condition the trust policy on the `sub` claim as well as the audience; see [Authorize on the subject](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md#authorize-on-the-subject). |
 | One connection per role | A role can be connected once in your organization. |
 
 ## Google Cloud identities
@@ -52,7 +52,7 @@ Federated connections are available to Claude in Slack channels, where it acts u
 | **Workload identity provider** | The full resource name of a provider in a workload identity pool under a numeric project, `//iam.googleapis.com/projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`. Workforce identity pools aren't supported. |
 | **Service account to act as** | Optional. A service account, `<name>@<project>.iam.gserviceaccount.com`. Default compute and App Engine service accounts aren't accepted. Leave it empty to call Google Cloud as the federated identity itself. |
 | **Allowed Google hosts** | `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. |
-| OAuth scope | `https://www.googleapis.com/auth/cloud-platform`, always, with no setting to change it. On Google Cloud APIs, IAM decides what the credential can do. An API that needs an OAuth scope of its own answers 403 whatever IAM allows; see [The cloud API answers 403 after a successful exchange](/docs/claude-tag/admins/federated-access/troubleshooting.md#the-cloud-api-answers-403-after-a-successful-exchange). |
+| OAuth scope | `https://www.googleapis.com/auth/cloud-platform`, always, with no setting to change it. On Google Cloud APIs, IAM decides what the credential can do. An API that needs an OAuth scope of its own answers 403 whatever IAM allows; see [The cloud API answers 403 after a successful exchange](https://claude.com/docs/claude-tag/admins/federated-access/troubleshooting.md#the-cloud-api-answers-403-after-a-successful-exchange). |
 | **Block requests that mint new credentials** | On by default. When on, requests to Google's credential-minting and credential-delivering endpoints are refused, including over gRPC; see [What the credential-minting block refuses](#what-the-credential-minting-block-refuses). The block is best effort and doesn't replace least-privilege IAM. |
 | Google Cloud connections in one bundle | No two Google Cloud connections in the same bundle can cover the same host under **Allowed hosts**, whatever their providers or service accounts. A wildcard such as `*.googleapis.com` covers every subdomain but not `googleapis.com` itself. The same provider can be connected again with different hosts, or in another bundle. |
 
@@ -93,9 +93,9 @@ The console's connection check is the only way to have Anthropic send a token to
 
 ## Related resources
 
-* [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference.md): claims, issuer, keys, and rotation
-* [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway.md)
-* [Connect an AWS role](/docs/claude-tag/admins/federated-access/aws.md)
-* [Connect a Google Cloud identity](/docs/claude-tag/admins/federated-access/gcp.md)
-* [Connect an authorization server](/docs/claude-tag/admins/federated-access/authorization-server.md)
-* [Network requirements](/docs/claude-tag/admins/network-requirements.md): Anthropic's egress range and internet reachability
+* [Identity token reference](https://claude.com/docs/claude-tag/admins/federated-access/token-reference.md): claims, issuer, keys, and rotation
+* [Connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md)
+* [Connect an AWS role](https://claude.com/docs/claude-tag/admins/federated-access/aws.md)
+* [Connect a Google Cloud identity](https://claude.com/docs/claude-tag/admins/federated-access/gcp.md)
+* [Connect an authorization server](https://claude.com/docs/claude-tag/admins/federated-access/authorization-server.md)
+* [Network requirements](https://claude.com/docs/claude-tag/admins/network-requirements.md): Anthropic's egress range and internet reachability

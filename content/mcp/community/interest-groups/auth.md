@@ -12,38 +12,38 @@
 
 ## Mission Statement
 
-The Authorization Interest Group is the single chartered venue for MCP authorization work. It brings MCP implementers, identity-provider vendors, and security practitioners together to surface real-world authorization problems, decide whether they are worth solving and whether they belong in MCP, and give authors a reliable place to present [SEPs](/community/sep-guidelines.md), [ext-auth](https://github.com/modelcontextprotocol/ext-auth) drafts, prototypes, and deployment results for cross-topic feedback. The charter defines the scope; discussion and rough consensus happen in one channel and one recurring call, and the work products are drafts and demos rather than new standing groups.
+The Authorization Interest Group is the single chartered venue for MCP authorization work. It brings MCP implementers, identity-provider vendors, and security practitioners together to surface real-world authorization problems, decide whether they are worth solving and whether they belong in MCP, and give authors a reliable place to present [SEPs](https://modelcontextprotocol.io/community/sep-guidelines.md), [ext-auth](https://github.com/modelcontextprotocol/ext-auth) drafts, prototypes, and deployment results for cross-topic feedback. The charter defines the scope; discussion and rough consensus happen in one channel and one recurring call, and the work products are drafts and demos rather than new standing groups.
 
 ## Scope
 
 ### In Scope
 
 * **Deployment experience reports**: how implementers have integrated the current authorization spec (OAuth 2.1, [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728) Protected Resource Metadata, [RFC 7591](https://www.rfc-editor.org/rfc/rfc7591) Dynamic Client Registration, Client ID Metadata Documents) with real authorization servers, and where it falls short
-* **Extension interoperability reports**: results of pairing independent implementations of the [ext-auth](https://github.com/modelcontextprotocol/ext-auth) extensions end to end (for example IdP, client, and authorization server through the [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization.md) ID-JAG exchange), including IdP capability gaps, workarounds, and conformance scenario input
+* **Extension interoperability reports**: results of pairing independent implementations of the [ext-auth](https://github.com/modelcontextprotocol/ext-auth) extensions end to end (for example IdP, client, and authorization server through the [Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) ID-JAG exchange), including IdP capability gaps, workarounds, and conformance scenario input
 * **Enterprise identity integration**: requirements and friction points when connecting MCP servers to enterprise IdPs (Okta, Entra ID, Ping, Keycloak, etc.), including SSO, tenant isolation, and admin consent flows
 * **Delegated and agentic access**: use cases for on-behalf-of token exchange, downstream resource access, audience restriction, and consent when an MCP client acts through chains of agents or tools
 * **Scope and permission granularity**: whether and how MCP servers should advertise fine-grained scopes (per-tool, per-resource) and how clients should request and present them, and authorization granularity beyond scope strings (Rich Authorization Requests, structured denials, remediation hints)
 * **Credentials for non-HTTP transports**: patterns for stdio, WebSocket, and future transports where the HTTP authorization spec does not directly apply
 * **Client identity and registration**: operator experience with Dynamic Client Registration, Client ID Metadata Documents, software statements, and pre-registered clients
 * **Threat modelling input**: cataloguing authorization-related attack surfaces (token confusion, confused-deputy, audience mismatch, redirect handling) to inform Security Best Practices documentation
-* **SEP and draft feedback**: authorization-related SEPs, ext-auth drafts, reference implementations, and demos are presented on the call and in `#auth-ig` threads for feedback before and during the [SEP process](/community/sep-guidelines.md); the IG's rough consensus is recorded in meeting notes for sponsors and Core Maintainers to draw on
+* **SEP and draft feedback**: authorization-related SEPs, ext-auth drafts, reference implementations, and demos are presented on the call and in `#auth-ig` threads for feedback before and during the [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md); the IG's rough consensus is recorded in meeting notes for sponsors and Core Maintainers to draw on
 * **Problem statements and requirements**: use-case catalogues and recommendations shared in `#auth-ig` threads and on SEP pull requests for consumption by SEP authors
 
 ### Out of Scope
 
-* **Accepting SEPs or extensions**: the IG gives feedback and signals support; sponsorship and acceptance follow the [SEP guidelines](/community/sep-guidelines.md) and remain with Maintainers and Core Maintainers
+* **Accepting SEPs or extensions**: the IG gives feedback and signals support; sponsorship and acceptance follow the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md) and remain with Maintainers and Core Maintainers
 * **Authentication of end users to MCP clients**: how a host application authenticates its own users is a host concern, not a protocol concern
 * **Transport security (TLS, mTLS, certificate handling)**: belongs to the Transports WG
 * **Server identity, provenance, and trust signalling**: belongs to the Server Card / Registry efforts
 * **End-user product configuration walk-throughs**: the IG discusses patterns, not step-by-step setup for individual IdP products. Vendor-reported constraints on what an authorization server or IdP can or cannot implement *are* in scope as deployment experience
-* **Competitively sensitive or non-public business information**, per the [MCP Antitrust Policy](/community/antitrust.md)
+* **Competitively sensitive or non-public business information**, per the [MCP Antitrust Policy](https://modelcontextprotocol.io/community/antitrust.md)
 
 ### Related Groups
 
-* **[Security IG](/community/interest-groups/security.md)**: token-audience confusion, issuer validation, and account-linking risks sit at the boundary between the two groups
-* **[Transports WG](/community/working-groups/transports.md)**: authorization is currently specified at the HTTP transport level; changes to transports affect where credentials are carried
+* **[Security IG](https://modelcontextprotocol.io/community/interest-groups/security.md)**: token-audience confusion, issuer validation, and account-linking risks sit at the boundary between the two groups
+* **[Transports WG](https://modelcontextprotocol.io/community/working-groups/transports.md)**: authorization is currently specified at the HTTP transport level; changes to transports affect where credentials are carried
 * **Agents IG**: delegated/on-behalf-of access and consent for multi-agent chains overlap heavily with agentic use cases
-* **[Server Card WG](/community/working-groups/server-card.md) / [Registry](/community/working-groups/registry.md)**: client and server identity, discovery metadata, and trust establishment intersect with how authorization servers and resource servers are located and verified
+* **[Server Card WG](https://modelcontextprotocol.io/community/working-groups/server-card.md) / [Registry](https://modelcontextprotocol.io/community/working-groups/registry.md)**: client and server identity, discovery metadata, and trust establishment intersect with how authorization servers and resource servers are located and verified
 * **SDK Maintainers**: SDKs ship the auth client implementations; IG findings should inform cross-SDK auth ergonomics and defaults
 
 ## Leadership
@@ -58,7 +58,7 @@ The Authorization Interest Group is the single chartered venue for MCP authoriza
 
 Open to anyone; no formal membership or approval step is required to join the channel, attend calls, or contribute. The group particularly seeks identity-provider vendors, MCP client and server implementers shipping authorization support, and operators integrating MCP with enterprise IdPs.
 
-Join the `#auth-ig` channel on the [MCP Contributors Discord](/community/communication.md#discord) and start or join a thread for your topic. Calls are open and attendance is optional — async participation in Discord threads is equally valued.
+Join the `#auth-ig` channel on the [MCP Contributors Discord](https://modelcontextprotocol.io/community/communication.md#discord) and start or join a thread for your topic. Calls are open and attendance is optional — async participation in Discord threads is equally valued.
 
 ## Operations
 
@@ -70,7 +70,7 @@ Discord: [#auth-ig](https://discord.com/channels/1358869848138059966/13608359917
 
 ### One channel, threads per topic
 
-All authorization discussion happens in `#auth-ig`, with one Discord thread per topic (for example a SEP number, a draft name, or a deployment pairing). There are no per-topic channels. Meeting agendas and notes live in the channel's per-call agenda thread, with a link cross-posted to [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) as the [group governance rules](/community/working-interest-groups.md) require.
+All authorization discussion happens in `#auth-ig`, with one Discord thread per topic (for example a SEP number, a draft name, or a deployment pairing). There are no per-topic channels. Meeting agendas and notes live in the channel's per-call agenda thread, with a link cross-posted to [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) as the [group governance rules](https://modelcontextprotocol.io/community/working-interest-groups.md) require.
 
 ### Agenda-driven calls
 
@@ -89,7 +89,7 @@ Two standing questions are asked of every problem pitch before anyone invests in
 * **Is this a problem worth solving?** Is there real deployment demand, and is the gap in the protocol rather than in one product?
 * **Does it belong here?** Is the right home the core specification, an official extension in ext-auth, an unofficial extension, or an upstream standards body?
 
-When the answer to both is yes, the proposer drafts a SEP or ext-auth pull request through the normal [SEP process](/community/sep-guidelines.md), finds a sponsor, and returns to the call to present progress and demos as the draft matures. The IG does not charter a sub-group, channel, or meeting series per topic. Contributors who already meet separately on a topic are welcome to keep doing so, and bring outcomes back to the call as agenda slots. A separate [Working Group](/community/working-interest-groups.md) can still be proposed through the standard process when a deliverable genuinely needs its own decision rights, but that is the exception rather than the default path.
+When the answer to both is yes, the proposer drafts a SEP or ext-auth pull request through the normal [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md), finds a sponsor, and returns to the call to present progress and demos as the draft matures. The IG does not charter a sub-group, channel, or meeting series per topic. Contributors who already meet separately on a topic are welcome to keep doing so, and bring outcomes back to the call as agenda slots. A separate [Working Group](https://modelcontextprotocol.io/community/working-interest-groups.md) can still be proposed through the standard process when a deliverable genuinely needs its own decision rights, but that is the exception rather than the default path.
 
 ## Deliverables & Success Metrics
 
@@ -97,7 +97,7 @@ The IG's outputs are the drafts and demos that pass through it: authorization SE
 
 ### Consolidated channels
 
-The following Discord channels previously hosted authorization sub-groups. They are archived (read-only) as of this re-charter and their topics continue as `#auth-ig` threads and agenda slots. The [Enterprise-Managed Authorization IG](/community/interest-groups/enterprise-managed-authorization.md) is folded into this group on the same basis: EMA implementers bring interoperability and deployment progress to the call as presentation slots rather than to a standing separate group.
+The following Discord channels previously hosted authorization sub-groups. They are archived (read-only) as of this re-charter and their topics continue as `#auth-ig` threads and agenda slots. The [Enterprise-Managed Authorization IG](https://modelcontextprotocol.io/community/interest-groups/enterprise-managed-authorization.md) is folded into this group on the same basis: EMA implementers bring interoperability and deployment progress to the call as presentation slots rather than to a standing separate group.
 
 | Former channel | Topic | State at consolidation | Continues as |
 | - | - | - | - |

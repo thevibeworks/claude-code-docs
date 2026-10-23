@@ -171,12 +171,12 @@ best for your use case.
 
 > [!NOTE]
 >
-> MCP Apps is an extension to the [core MCP specification](/specification/latest.md). Host support varies by client.
+> MCP Apps is an extension to the [core MCP specification](https://modelcontextprotocol.io/specification/latest.md). Host support varies by client.
 
 MCP Apps are currently supported by [Claude](https://claude.ai),
 [Claude Desktop](https://claude.ai/download),
 [VS Code GitHub Copilot](https://code.visualstudio.com/), [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot), [Goose](https://block.github.io/goose/), [Postman](https://postman.com), [MCPJam](https://www.mcpjam.com/), and [Archestra.AI](https://www.archestra.ai/). See the
-[client matrix](/extensions/client-matrix.md) for the full list of extension support across clients.
+[client matrix](https://modelcontextprotocol.io/extensions/client-matrix.md) for the full list of extension support across clients.
 
 If you're building an MCP client and want to support MCP Apps, you have two options:
 
@@ -233,4 +233,4 @@ includes ready-to-run examples demonstrating different use cases:
   [Solid](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/basic-server-solid),
   [vanilla JavaScript](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/basic-server-vanillajs)
 
-To start building your own MCP App, see the [build guide](/extensions/apps/build.md).
+To start building your own MCP App, see the [build guide](https://modelcontextprotocol.io/extensions/apps/build.md).

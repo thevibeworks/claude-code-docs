@@ -15,8 +15,8 @@ This page is for the person rolling out a plugin their organization built, on a 
 
 > [!NOTE]
 >
-> * If you want to list a plugin publicly, see [Publish to the directory](/docs/directory/publish.md)
-> * If you haven't built the plugin yet, see [Build your first plugin](/docs/plugins/quickstart.md) and [Plugin structure and testing](/docs/plugins/build.md)
+> * If you want to list a plugin publicly, see [Publish to the directory](https://claude.com/docs/directory/publish.md)
+> * If you haven't built the plugin yet, see [Build your first plugin](https://claude.com/docs/plugins/quickstart.md) and [Plugin structure and testing](https://claude.com/docs/plugins/build.md)
 
 ## Choose a rollout route
 
@@ -28,8 +28,8 @@ The table compares organization settings on claude.ai with Claude Code managed s
 | Where you set it up | [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory) | Server-managed settings, an MDM policy, or a `managed-settings.json` file |
 | What you set | An availability for each plugin, such as **Installed by default** or **Required** | `extraKnownMarketplaces` to register your marketplace and `enabledPlugins` to install plugins from it |
 | Access to your repository | Members need none. Organization sync reads the repository through your organization's GitHub or GitLab connection. | Each machine fetches the marketplace itself. For a private Git repository, it uses the Git credentials already on that machine. |
-| Which components load | Depends on the surface. See [Plugin feature support across platforms](/docs/plugins/platform-support.md). | Every component |
-| Full setup steps | [Manage plugins for your organization](/docs/plugins/admin.md) | [Manage Claude Code plugins for your organization](https://code.claude.com/docs/en/plugins/org) in the Claude Code docs |
+| Which components load | Depends on the surface. See [Plugin feature support across platforms](https://claude.com/docs/plugins/platform-support.md). | Every component |
+| Full setup steps | [Manage plugins for your organization](https://claude.com/docs/plugins/admin.md) | [Manage Claude Code plugins for your organization](https://code.claude.com/docs/en/plugins/org) in the Claude Code docs |
 
 A plugin on a member's account reaches Claude Code as a synced plugin in Cowork and in terminal sessions where the member signs in with their claude.ai account on Claude Code v2.1.273 or later. [Plugins synced from claude.ai](https://code.claude.com/docs/en/plugins/loading#synced-plugins) has the sign-in and timing rules. For developers whose terminal sessions don't sync from a claude.ai account, use managed settings.
 
@@ -43,11 +43,11 @@ Put the plugin in a Git repository with a `.claude-plugin/marketplace.json` that
 
 **2. Check the repository against the organization sync rules**
 
-Organization sync is stricter than Claude Code about the repository's visibility and about which plugin source types it accepts, and it rejects a plugin with a top-level `bin/` directory. Check [the plugin sources that organization sync accepts](/docs/plugins/org-sync.md#plugin-sources-that-organization-sync-accepts) before you continue.
+Organization sync is stricter than Claude Code about the repository's visibility and about which plugin source types it accepts, and it rejects a plugin with a top-level `bin/` directory. Check [the plugin sources that organization sync accepts](https://claude.com/docs/plugins/org-sync.md#plugin-sources-that-organization-sync-accepts) before you continue.
 
 **3. Sync the repository from organization settings**
 
-In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), add the repository as [Add your own plugins](/docs/plugins/admin.md#add-your-own-plugins) describes, then [set each plugin's availability](/docs/plugins/admin.md#set-availability).
+In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), add the repository as [Add your own plugins](https://claude.com/docs/plugins/admin.md#add-your-own-plugins) describes, then [set each plugin's availability](https://claude.com/docs/plugins/admin.md#set-availability).
 
 **4. Register the same marketplace in managed settings**
 
@@ -64,7 +64,7 @@ A developer can end up with the plugin from both routes. Claude Code loads one p
 
 ## Build one repository for both audiences
 
-One plugin folder can serve both audiences, because each surface skips the components it doesn't load. Hooks and agents load in Cowork and Claude Code and not in chat, and a local MCP server doesn't run in chat. Check each component you include against [Plugin feature support across platforms](/docs/plugins/platform-support.md) before you promise a behavior to people who only use chat.
+One plugin folder can serve both audiences, because each surface skips the components it doesn't load. Hooks and agents load in Cowork and Claude Code and not in chat, and a local MCP server doesn't run in chat. Check each component you include against [Plugin feature support across platforms](https://claude.com/docs/plugins/platform-support.md) before you promise a behavior to people who only use chat.
 
 ## Update a plugin you've rolled out
 
@@ -96,6 +96,6 @@ If your `plugin.json` sets `version`, raise it with every release, because Claud
 
 ## Next steps
 
-* [Sync your organization's plugins from a repository](/docs/plugins/org-sync.md): check your repository and plugin sources against the rules organization sync enforces
-* [Manage plugins for your organization](/docs/plugins/admin.md): set availability for everyone or for user groups, and control what members can add themselves
+* [Sync your organization's plugins from a repository](https://claude.com/docs/plugins/org-sync.md): check your repository and plugin sources against the rules organization sync enforces
+* [Manage plugins for your organization](https://claude.com/docs/plugins/admin.md): set availability for everyone or for user groups, and control what members can add themselves
 * [Manage Claude Code plugins for your organization](https://code.claude.com/docs/en/plugins/org): set the managed-settings keys and deliver them to developers' machines

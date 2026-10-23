@@ -15,7 +15,7 @@
 The Filesystems Working Group exists to make MCP Resources bidirectional, so that an agent can write a result back to
 the server it reads its inputs from. Agent platforms are converging on presenting services to models as filesystems, and
 Resources already addresses content by URI under a [`file://` scheme the specification defines as identifying "resources
-that behave like a filesystem"](/specification/draft/server/resources#common-uri-schemes). Currently, Resources carries
+that behave like a filesystem"](https://modelcontextprotocol.io/specification/draft/server/resources#common-uri-schemes). Currently, Resources carries
 that surface in the read direction. The WG will produce a single Extensions Track SEP covering write operations,
 optimistic concurrency control, and the interaction with change notification and caching.
 
@@ -51,8 +51,8 @@ optimistic concurrency control, and the interaction with change notification and
 
 * **File Uploads WG.** Both groups transfer content to a server. Coordination needed on where an upload-oriented flow
   ends and a resource write operation begins.
-* **[Skills Over MCP WG](/community/working-groups/skills-over-mcp.md).** The published
-  [Skills extension](/extensions/skills/overview.md) uses Resources for file reads and defines optional directory reading.
+* **[Skills Over MCP WG](https://modelcontextprotocol.io/community/working-groups/skills-over-mcp.md).** The published
+  [Skills extension](https://modelcontextprotocol.io/extensions/skills/overview.md) uses Resources for file reads and defines optional directory reading.
   It does not depend on filesystem write operations; coordinate on future resource operations that affect skills.
 * **Agents IG.** Multi-agent and job orchestration systems are the motivating consumers of a shared write path.
 

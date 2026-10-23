@@ -155,11 +155,11 @@ to indicate it is ready to begin normal operations:
 ```
 
 * The client **SHOULD NOT** send requests other than
-  [pings](/specification/2025-11-25/basic/utilities/ping.md) before the server has responded to the
+  [pings](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/ping.md) before the server has responded to the
   `initialize` request.
 * The server **SHOULD NOT** send requests other than
-  [pings](/specification/2025-11-25/basic/utilities/ping.md) and
-  [logging](/specification/2025-11-25/server/utilities/logging.md) before receiving the `initialized`
+  [pings](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/ping.md) and
+  [logging](https://modelcontextprotocol.io/specification/2025-11-25/server/utilities/logging.md) before receiving the `initialized`
   notification.
 
 #### Version Negotiation
@@ -178,7 +178,7 @@ disconnect.
 >
 > If using HTTP, the client **MUST** include the `MCP-Protocol-Version: <protocol-version>` HTTP header on all subsequent requests to the MCP
 > server.
-> For details, see [the Protocol Version Header section in Transports](/specification/2025-11-25/basic/transports.md#protocol-version-header).
+> For details, see [the Protocol Version Header section in Transports](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports.md#protocol-version-header).
 
 #### Capability Negotiation
 
@@ -189,17 +189,17 @@ Key capabilities include:
 
 | Category | Capability | Description |
 | - | - | - |
-| Client | `roots` | Ability to provide filesystem [roots](/specification/2025-11-25/client/roots.md) |
-| Client | `sampling` | Support for LLM [sampling](/specification/2025-11-25/client/sampling.md) requests |
-| Client | `elicitation` | Support for server [elicitation](/specification/2025-11-25/client/elicitation.md) requests |
-| Client | `tasks` | Support for [task-augmented](/specification/2025-11-25/basic/utilities/tasks.md) client requests |
+| Client | `roots` | Ability to provide filesystem [roots](https://modelcontextprotocol.io/specification/2025-11-25/client/roots.md) |
+| Client | `sampling` | Support for LLM [sampling](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling.md) requests |
+| Client | `elicitation` | Support for server [elicitation](https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation.md) requests |
+| Client | `tasks` | Support for [task-augmented](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks.md) client requests |
 | Client | `experimental` | Describes support for non-standard experimental features |
-| Server | `prompts` | Offers [prompt templates](/specification/2025-11-25/server/prompts.md) |
-| Server | `resources` | Provides readable [resources](/specification/2025-11-25/server/resources.md) |
-| Server | `tools` | Exposes callable [tools](/specification/2025-11-25/server/tools.md) |
-| Server | `logging` | Emits structured [log messages](/specification/2025-11-25/server/utilities/logging.md) |
-| Server | `completions` | Supports argument [autocompletion](/specification/2025-11-25/server/utilities/completion.md) |
-| Server | `tasks` | Support for [task-augmented](/specification/2025-11-25/basic/utilities/tasks.md) server requests |
+| Server | `prompts` | Offers [prompt templates](https://modelcontextprotocol.io/specification/2025-11-25/server/prompts.md) |
+| Server | `resources` | Provides readable [resources](https://modelcontextprotocol.io/specification/2025-11-25/server/resources.md) |
+| Server | `tools` | Exposes callable [tools](https://modelcontextprotocol.io/specification/2025-11-25/server/tools.md) |
+| Server | `logging` | Emits structured [log messages](https://modelcontextprotocol.io/specification/2025-11-25/server/utilities/logging.md) |
+| Server | `completions` | Supports argument [autocompletion](https://modelcontextprotocol.io/specification/2025-11-25/server/utilities/completion.md) |
+| Server | `tasks` | Support for [task-augmented](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks.md) server requests |
 | Server | `experimental` | Describes support for non-standard experimental features |
 
 Capability objects can describe sub-capabilities like:
@@ -226,7 +226,7 @@ mechanism should be used to signal connection termination:
 
 #### stdio
 
-For the stdio [transport](/specification/2025-11-25/basic/transports.md), the client **SHOULD** initiate
+For the stdio [transport](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports.md), the client **SHOULD** initiate
 shutdown by:
 
 1. First, closing the input stream to the child process (the server)
@@ -239,7 +239,7 @@ exiting.
 
 #### HTTP
 
-For HTTP [transports](/specification/2025-11-25/basic/transports.md), shutdown is indicated by closing the
+For HTTP [transports](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports.md), shutdown is indicated by closing the
 associated HTTP connection(s).
 
 ## Timeouts
@@ -247,14 +247,14 @@ associated HTTP connection(s).
 Implementations **SHOULD** establish timeouts for all sent requests, to prevent hung
 connections and resource exhaustion. When the request has not received a success or error
 response within the timeout period, the sender **SHOULD** issue a [cancellation
-notification](/specification/2025-11-25/basic/utilities/cancellation.md) for that request and stop waiting for
+notification](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/cancellation.md) for that request and stop waiting for
 a response.
 
 SDKs and other middleware **SHOULD** allow these timeouts to be configured on a
 per-request basis.
 
 Implementations **MAY** choose to reset the timeout clock when receiving a [progress
-notification](/specification/2025-11-25/basic/utilities/progress.md) corresponding to the request, as this
+notification](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/progress.md) corresponding to the request, as this
 implies that work is actually happening. However, implementations **SHOULD** always
 enforce a maximum timeout, regardless of progress notifications, to limit the impact of a
 misbehaving client or server.
