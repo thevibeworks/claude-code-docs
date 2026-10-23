@@ -67,7 +67,7 @@ The site policy restricts Claude, not the user. A user can still type a blocked 
 
 If [`coworkEgressAllowedHosts`](/docs/third-party/claude-desktop/configuration#coworkegressallowedhosts) lists specific hosts, Claude can open only sites on that list in the built-in browser, even when the browser's own site lists allow more.
 
-The example is plain JSON, which is the form a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](/docs/third-party/claude-desktop/configuration.md#value-types) section describes.
+The example is plain JSON, which is the form a [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](/docs/third-party/claude-desktop/configuration-format.md#value-types) section describes.
 
 ### Manage the built-in browser from the Enterprise Admin Console
 

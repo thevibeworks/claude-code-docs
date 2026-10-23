@@ -257,7 +257,7 @@ The structure is identical for both Anthropic and custom Skills. Specify the req
       messages: [
           ['role' => 'user', 'content' => 'Create a presentation about renewable energy']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       container: [
           'skills' => [
               [
@@ -616,7 +616,8 @@ To provide input files for Skills to work on, [upload them with the Files API](h
   );
 
   // Step 2: Extract file IDs from the response
-  function extractFileIds($response) {
+  function extractFileIds($response)
+  {
       $fileIds = [];
       foreach ($response->content as $item) {
           if ($item->type === 'bash_code_execution_tool_result') {
@@ -1073,10 +1074,7 @@ The response's `container` object carries the container's `id` and `expires_at` 
   	},
   	Messages: []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock("Create a sample sales dataset and analyze it")),
-  		{
-  			Role:    anthropic.MessageParamRoleAssistant,
-  			Content: []anthropic.ContentBlockParamUnion{anthropic.NewTextBlock(assistantText)},
-  		},
+  		anthropic.NewAssistantMessage(anthropic.NewTextBlock(assistantText)),
   		anthropic.NewUserMessage(anthropic.NewTextBlock("What was the total revenue?")),
   	},
   	Tools: []anthropic.ToolUnionParam{
@@ -2073,7 +2071,7 @@ Files are identified by the file name you attach (the `;filename=` suffix in the
 
   var skill = await client.Skills.Create(parameters);
 
-  // Option 2: Using individual files (path-qualified filenames preserve the Skill's directory layout)
+  // Option 2: Using individual files (path-qualified file names preserve the Skill's directory layout)
   var parameters2 = new SkillCreateParams
   {
       Files =
@@ -2163,7 +2161,7 @@ Files are identified by the file name you attach (the `;filename=` suffix in the
 
       Skill skill = client.skills().create(params);
 
-      // Option 2: Using individual files (path-qualified filenames preserve the Skill's directory layout)
+      // Option 2: Using individual files (path-qualified file names preserve the Skill's directory layout)
       SkillCreateParams params2 = SkillCreateParams.builder()
           .addFile(MultipartField.<InputStream>builder()
               .value(Files.newInputStream(Path.of("financial_skill/SKILL.md")))
@@ -2509,7 +2507,7 @@ Get details about a specific Skill:
 
 ### Deleting a Skill
 
-Deleting a Skill also removes all of its versions.
+Deleting a Skill also deletes all of its versions.
 
 <CodeGroup>
   ```bash cURL
@@ -3542,7 +3540,7 @@ Then use it with the Excel Skill to create a financial model. Pass the ID of the
 
 ### Request limits
 
-* **Maximum Skills per request:** 20
+* **Maximum Skills for each request:** 20
 
 * **Maximum Skill upload size:** 30 MB (all files combined, uncompressed)
 
@@ -3888,7 +3886,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
       "tools": [{"type": "code_execution_20250825", "name": "code_execution"}]
     }'
 
-  # Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  # Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -3925,7 +3923,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
       name: code_execution
   YAML
 
-  # Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  # Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   ant messages create <<'YAML'
   model: claude-opus-5-5
   max_tokens: 4096
@@ -3960,7 +3958,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
       tools=[{"type": "code_execution_20250825", "name": "code_execution"}],
   )
 
-  # Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  # Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   response2 = client.messages.create(
       model="claude-opus-5-5",
       max_tokens=4096,
@@ -3993,7 +3991,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
     tools: [{ type: "code_execution_20250825", name: "code_execution" }]
   });
 
-  // Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  // Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   const response2 = await client.messages.create({
     model: "claude-opus-5-5",
     max_tokens: 4096,
@@ -4035,7 +4033,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   var response1 = await client.Messages.Create(parameters1);
   Console.WriteLine(response1);
 
-  // Different Skill set ([xlsx] vs [xlsx, pptx]) = a different prefix: a cache miss (an identical set is a cache hit)
+  // Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   var parameters2 = new MessageCreateParams
   {
       Model = Model.ClaudeOpus5_5,
@@ -4096,7 +4094,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   }
   fmt.Println(response1)
 
-  // Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  // Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   response2, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 4096,
@@ -4157,7 +4155,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
       Message response1 = client.messages().create(params1);
       System.out.println(response1);
 
-      // Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+      // Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
       MessageCreateParams params2 = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(4096L)
@@ -4193,7 +4191,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
       messages: [
           ['role' => 'user', 'content' => 'Analyze sales data']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       container: [
           'skills' => [
               ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest']
@@ -4205,13 +4203,13 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   );
   echo $response1;
 
-  // Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  // Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   $response2 = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Create a presentation']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       container: [
           'skills' => [
               ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest'],
@@ -4240,7 +4238,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   )
   puts response1
 
-  # Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
+  # Changing the Skills list ([xlsx] versus [xlsx, pptx]) changes the prefix: a cache miss, whereas an identical list is a cache hit
   response2 = client.messages.create(
     model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
@@ -4463,7 +4461,7 @@ Handle Skill-related errors gracefully:
       echo $message;
   } catch (BadRequestException $e) {
       if (str_contains($e->getMessage(), 'skill')) {
-          echo "Skill error: " . $e->getMessage();
+          echo 'Skill error: ' . $e->getMessage();
       } else {
           throw $e;
       }

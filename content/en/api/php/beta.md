@@ -26904,7 +26904,7 @@ the remaining entries.
 
   - `?list<string> models`
 
-    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`.
+    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`. The list covers the models this workspace has access to, so it can differ between workspaces.
 
   - `string rateLimitID`
 
@@ -27019,7 +27019,7 @@ Changes take effect within about an hour.
 
   - `?list<string> models`
 
-    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`.
+    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`. The list covers the models this workspace has access to, so it can differ between workspaces.
 
   - `string rateLimitID`
 
@@ -28008,7 +28008,7 @@ the remaining entries.
 
   - `?list<string> models`
 
-    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`.
+    Model names this entry's limits apply to, including aliases. `null` when `group.type` is not `"model_group"`. The list covers the models your organization has access to, so it can differ between organizations.
 
 #### Example
 
@@ -32769,10 +32769,13 @@ Pass the version as `served_version_id`: an earlier one to roll back, a later on
 start serving a version that was stored without being served, or the one already
 served to pin it without changing what is served. No new version is created.
 
-When the organization has content scanning enabled, a version whose scan is still
-running is refused with a 409 (`error_code` `scan_pending`; retry once the scan
-finishes) and one whose scan failed, errored or reached no verdict with a 400
-(`scan_failed`; a `warn` is accepted). When the Plugin is in the organization's
+When the organization has content scanning enabled, a version whose
+`content_scan.status` is `processing` is refused with a 409 (`error_code`
+`scan_pending`; retry once the scan finishes). A version whose `content_scan.status`
+is `errored`, or whose `content_scan.assessment` is `fail` or `unknown`, is refused
+with a 400 (`error_code` `scan_failed`); a `warn` is accepted. If the scan outcome
+cannot be read at that moment, the request fails with a retryable 503 instead.
+When the Plugin is in the organization's
 library marketplace, a version other than the one served is also refused with a 409
 when one of its skills has a name that an organization skill (one an administrator
 uploaded for the whole organization in claude.ai) has since taken: `error_code`
@@ -34603,9 +34606,9 @@ To check a `.zip` of the marketplace directory instead, use Validate Plugin Mark
 The report says whether `marketplace.json` is well-formed, which plugins a
 synchronization would skip and why, and which plugins would synchronize only in
 part, with some files left out. A repository that is missing, private, or has no such branch or commit is reported, not refused: the response is a report with `valid: false`. Plugin sources outside the marketplace
-are fetched anonymously from GitHub, so a private one is reported as not found; a
-source on any other host is not fetched here, and the report notes that it will be
-checked when the marketplace actually synchronizes.
+are fetched anonymously from GitHub, so a private one is reported as not found or as
+needing a GitHub sign-in; a source on any other host is not fetched here, and the
+report notes that it will be checked when the marketplace actually synchronizes.
 
 Nothing is recorded on the Compliance API activity feed.
 
@@ -34741,9 +34744,9 @@ To check a public GitHub repository instead, use Validate Plugin Marketplace Rep
 The report says whether `marketplace.json` is well-formed, which plugins a
 synchronization would skip and why, and which plugins would synchronize only in
 part, with some files left out. An archive that cannot be read as a marketplace is reported, not refused: the response is a report with `valid: false`. Plugin sources outside the marketplace
-are fetched anonymously from GitHub, so a private one is reported as not found; a
-source on any other host is not fetched here, and the report notes that it will be
-checked when the marketplace actually synchronizes.
+are fetched anonymously from GitHub, so a private one is reported as not found or as
+needing a GitHub sign-in; a source on any other host is not fetched here, and the
+report notes that it will be checked when the marketplace actually synchronizes.
 
 Nothing is recorded on the Compliance API activity feed.
 

@@ -28,6 +28,10 @@ Claude Enterprise organizations use an Analytics API key with a different API in
   **Claude Platform on AWS:** The programmatic Usage and Cost API endpoints are not currently available. View usage and cost data on the **Usage** and **Cost** pages in the Claude Console instead.
 </Note>
 
+<Note>
+  **Claude Models on Google Cloud (Anthropic managed):** Of the Usage and Cost API endpoints, only the [usage endpoint](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#usage-api) is available. Call it through the [organization-level base URL](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests) with Google Cloud credentials instead of an Admin API key. The only predefined [IAM role](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) that allows this call is `roles/claude.admin`. View cost data on the **Cost** page in the [Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console).
+</Note>
+
 ## Which API do you need?
 
 Anthropic provides cost and usage reporting through two APIs, depending on which Claude product your organization manages:

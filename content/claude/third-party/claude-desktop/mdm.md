@@ -41,7 +41,7 @@ The window is organized into sections in the left sidebar. Work through them in 
 | **Connection** | Inference provider (Gateway, Claude API, Google Cloud's Agent Platform, Bedrock, Bedrock Mantle, or Foundry) and its credentials Model list Organization UUID Optional credential-helper script |
 | **Capabilities** | Which of Cowork, Code, and Chat are available Allowed egress hosts for the sandbox Disabled built-in tools Allowed workspace folders |
 | **Connectors** | Managed MCP servers pushed to all users Whether users can add their own local MCP servers Whether desktop extensions (`.mcpb`) are allowed Whether unsigned extensions are rejected |
-| **Telemetry & updates** | OpenTelemetry collector endpoint Whether auto-updates are blocked, and the enforcement window if not The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
+| **Telemetry & updates** | OpenTelemetry collector endpoint Whether auto-updates are blocked The enforcement window for downloaded updates, or the restart for versions you install yourself The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
 | **Limits** | Per-device token cap and its window length Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted, and the hold that suspends deletion |
 | **Appearance** | Persistent banner shown across the app window Deployment display name and subtitle Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
 | **Plugins** | [Plugin marketplaces](/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
@@ -139,7 +139,7 @@ A user who signs in to any organization that uses the [Enterprise Admin Console]
 
 A small group of **app-behavior keys** is treated specially, so you can set an update policy, a restart window, or a network proxy from MDM without managing the whole configuration:
 
-* The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel).
+* The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `installedUpdateEnforcementEnabled`, `installedUpdateEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel).
 * The configuration lifecycle keys [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes), which MDM can set from version 1.46388.1.
 * The network proxy keys `egressProxyUrl` and `egressProxyPacUrl`. See [Network proxy](/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
 

@@ -518,10 +518,9 @@ Returning search results from your custom tools lets you build dynamic RAG appli
                   input.get("query").asStringOrThrow()
               );
 
-              // Append Claude's entire turn to the running conversation, then the tool result.
+              // Append Claude's turn, then the tool result, to the running conversation.
               // Rebuilding only the tool_use block would drop any other content blocks Claude
-              // returned (e.g. leading text when the tool call is not forced) — append the
-              // full turn, as the other language tabs do.
+              // returned, for example leading text when the tool call is not forced.
               messages.add(response.toParam());
               messages.add(MessageParam.ofUserOfContentBlockParams(List.of(
                   ContentBlockParam.ofToolResult(
@@ -555,7 +554,9 @@ Returning search results from your custom tools lets you build dynamic RAG appli
                           .text("To configure the product, navigate to Settings > Configuration. The default timeout is 30 seconds, but can be adjusted between 10-120 seconds based on your needs.")
                           .build()
                   ))
-                  .citations(CitationsConfigParam.builder().enabled(true).build())
+                  .citations(CitationsConfigParam.builder()
+                      .enabled(true)
+                      .build())
                   .build()
           ),
           ToolResultBlockParam.Content.Block.ofSearchResult(
@@ -567,7 +568,9 @@ Returning search results from your custom tools lets you build dynamic RAG appli
                           .text("If you encounter timeout errors, first check the configuration settings. Common causes include network latency and incorrect timeout values.")
                           .build()
                   ))
-                  .citations(CitationsConfigParam.builder().enabled(true).build())
+                  .citations(CitationsConfigParam.builder()
+                      .enabled(true)
+                      .build())
                   .build()
           )
       );
@@ -592,7 +595,8 @@ Returning search results from your custom tools lets you build dynamic RAG appli
       ]
   ];
 
-  function searchKnowledgeBase($query) {
+  function searchKnowledgeBase($query)
+  {
       return [
           [
               'type' => 'search_result',
@@ -1046,7 +1050,9 @@ You can also provide search results directly in user messages. This is useful fo
                               .text("All API requests must include an API key in the Authorization header. Keys can be generated from the dashboard. Rate limits: 1000 requests per hour for standard tier, 10000 for premium.")
                               .build()
                       ))
-                      .citations(CitationsConfigParam.builder().enabled(true).build())
+                      .citations(CitationsConfigParam.builder()
+                          .enabled(true)
+                          .build())
                       .build()
               ),
               ContentBlockParam.ofSearchResult(
@@ -1058,7 +1064,9 @@ You can also provide search results directly in user messages. This is useful fo
                               .text("To get started: 1) Sign up for an account, 2) Generate an API key from the dashboard, 3) Install our SDK using pip install company-sdk, 4) Initialize the client with your API key.")
                               .build()
                       ))
-                      .citations(CitationsConfigParam.builder().enabled(true).build())
+                      .citations(CitationsConfigParam.builder()
+                          .enabled(true)
+                          .build())
                       .build()
               ),
               ContentBlockParam.ofText(
@@ -1114,7 +1122,7 @@ You can also provide search results directly in user messages. This is useful fo
               ]
           ]
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
   );
 
   echo json_encode($message, JSON_PRETTY_PRINT);
@@ -1443,7 +1451,7 @@ The following example replays a complete conversation. The first user message ca
   }
 
   # Replay a conversation that provides search results both ways: the first
-  # user message carries a pre-fetched result, the tool result returns another
+  # user message carries a pre-fetched result, and the tool result returns another
   response = client.messages.create(
       model="claude-opus-5-5",
       max_tokens=1024,
@@ -1529,7 +1537,7 @@ The following example replays a complete conversation. The first user message ca
   };
 
   // Replay a conversation that provides search results both ways: the first
-  // user message carries a pre-fetched result, the tool result returns another
+  // user message carries a pre-fetched result, and the tool result returns another
   const response = await client.messages.create({
     model: "claude-opus-5-5",
     max_tokens: 1024,
@@ -1601,7 +1609,7 @@ The following example replays a complete conversation. The first user message ca
   AnthropicClient client = new();
 
   // Replay a conversation that provides search results both ways: the first
-  // user message carries a pre-fetched result, the tool result returns another
+  // user message carries a pre-fetched result, and the tool result returns another
   var response = await client.Messages.Create(new()
   {
       Model = Model.ClaudeOpus5_5,
@@ -1697,7 +1705,7 @@ The following example replays a complete conversation. The first user message ca
   }
 
   // Replay a conversation that provides search results both ways: the first
-  // user message carries a pre-fetched result, the tool result returns another
+  // user message carries a pre-fetched result, and the tool result returns another
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 1024,
@@ -1772,7 +1780,7 @@ The following example replays a complete conversation. The first user message ca
           .build();
 
       // Replay a conversation that provides search results both ways: the first
-      // user message carries a pre-fetched result, the tool result returns another
+      // user message carries a pre-fetched result, and the tool result returns another
       MessageCreateParams params = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024L)
@@ -1784,7 +1792,9 @@ The following example replays a complete conversation. The first user message ca
                   .content(List.of(TextBlockParam.builder()
                       .text("Acme Dashboard is a monitoring tool for distributed systems. It supports real-time alerting and custom metric dashboards.")
                       .build()))
-                  .citations(CitationsConfigParam.builder().enabled(true).build())
+                  .citations(CitationsConfigParam.builder()
+                      .enabled(true)
+                      .build())
                   .build()),
               ContentBlockParam.ofText(TextBlockParam.builder()
                   .text("What does Acme Dashboard do, and what plans is it available on?")
@@ -1810,7 +1820,9 @@ The following example replays a complete conversation. The first user message ca
                           .content(List.of(TextBlockParam.builder()
                               .text("Acme Dashboard is available on the Starter plan at $10 per user per month and the Enterprise plan with custom pricing.")
                               .build()))
-                          .citations(CitationsConfigParam.builder().enabled(true).build())
+                          .citations(CitationsConfigParam.builder()
+                              .enabled(true)
+                              .build())
                           .build())
                   ))
                   .build())
@@ -1838,7 +1850,7 @@ The following example replays a complete conversation. The first user message ca
   ];
 
   // Replay a conversation that provides search results both ways: the first
-  // user message carries a pre-fetched result, the tool result returns another
+  // user message carries a pre-fetched result, and the tool result returns another
   $response = $client->messages->create(
       maxTokens: 1024,
       tools: [$knowledgeBaseTool],
@@ -1900,7 +1912,7 @@ The following example replays a complete conversation. The first user message ca
               ]
           ]
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
   );
 
   echo json_encode($response, JSON_PRETTY_PRINT);
@@ -1922,7 +1934,7 @@ The following example replays a complete conversation. The first user message ca
   }
 
   # Replay a conversation that provides search results both ways: the first
-  # user message carries a pre-fetched result, the tool result returns another
+  # user message carries a pre-fetched result, and the tool result returns another
   response = client.messages.create(
     model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
@@ -2116,7 +2128,7 @@ When `citations.enabled` is set to `true`, Claude attaches citation references t
 
 ## Limitations
 
-* Search result content blocks are available on Claude API, Amazon Bedrock, and Google Cloud.
+* Search result content blocks are available on the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed).
 * Only text content is supported within search results (no images or other media).
 * `search_result` blocks can only appear in user messages (including inside tool results). Assistant messages with search results are rejected.
 * When the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) is enabled in the same request, citations must be enabled on all `search_result` blocks.

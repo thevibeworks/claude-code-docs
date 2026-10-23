@@ -255,6 +255,8 @@ Set `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`
 
 A `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) list blocks the hosts you list and their subdomains, and no other host. The same content can still reach the agent from web archives, caches, mirrors, or related domains you did not list. Do not rely on `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) for security. Use `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) and name the hosts you trust.
 
+An administrator can turn off web search or web fetch, or restrict their domains, on the [**Capabilities**](https://platform.claude.com/settings/capabilities) page of the Claude Console. These settings also apply in a session. With a tool turned off, its calls return an error result to the agent, and the session continues. With domain restrictions set, a search result or a fetched URL must pass both the organization's restrictions and the tool's own domain lists. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
+
 In a `limited` environment, the `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) list from [Limit the network](https://platform.claude.com/docs/en/managed-agents/secure-deployment#limit-the-network) also limits the web tools. An `unrestricted` environment or a self-hosted sandbox does not limit the web tools.
 
 | In a `limited` environment                                                   | Result                                                                                                                                                                                                                                                       |
@@ -568,22 +570,17 @@ The following sample limits `web_fetch` to `help.example.com` with `allowed_doma
   ```go Go
   tools := []anthropic.BetaAgentNewParamsToolUnion{{
   	OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
-  		Type: anthropic.BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401,
   		DefaultConfig: anthropic.BetaManagedAgentsAgentToolsetDefaultConfigParams{
   			Enabled: anthropic.Bool(false),
   			PermissionPolicy: anthropic.BetaManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion{
-  				OfAlwaysAsk: &anthropic.BetaManagedAgentsAlwaysAskPolicyParam{
-  					Type: anthropic.BetaManagedAgentsAlwaysAskPolicyTypeAlwaysAsk,
-  				},
+  				OfAlwaysAsk: &anthropic.BetaManagedAgentsAlwaysAskPolicyParam{},
   			},
   		},
   		Configs: []anthropic.BetaManagedAgentsAgentToolConfigParamsUnion{
   			{OfRead: &anthropic.BetaManagedAgentsReadToolConfigParams{
   				Enabled: anthropic.Bool(true),
   				PermissionPolicy: anthropic.BetaManagedAgentsReadToolConfigParamsPermissionPolicyUnion{
-  					OfAlwaysAllow: &anthropic.BetaManagedAgentsAlwaysAllowPolicyParam{
-  						Type: anthropic.BetaManagedAgentsAlwaysAllowPolicyTypeAlwaysAllow,
-  					},
+  					OfAlwaysAllow: &anthropic.BetaManagedAgentsAlwaysAllowPolicyParam{},
   				},
   			}},
   			{OfWrite: &anthropic.BetaManagedAgentsWriteToolConfigParams{
@@ -603,7 +600,6 @@ The following sample limits `web_fetch` to `help.example.com` with `allowed_doma
   	},
   }, {
   	OfCustom: &anthropic.BetaManagedAgentsCustomToolParams{
-  		Type:        anthropic.BetaManagedAgentsCustomToolParamsTypeCustom,
   		Name:        "lookup_order",
   		Description: "Look up one order by its ID. Returns the status, the items, and the delivery date.",
   		InputSchema: anthropic.BetaManagedAgentsCustomToolInputSchemaParam{

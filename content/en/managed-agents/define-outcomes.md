@@ -156,7 +156,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   	"os"
   	"time"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   )
 
   const rubric = `# DCF Model Rubric
@@ -393,7 +393,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
       Title = "Financial analysis on Costco",
   });
 
-  // Define the outcome — agent starts working on receipt
+  // Define the outcome. The agent starts working on receipt.
   await client.Beta.Sessions.Events.Send(session.ID, new()
   {
       Events =
@@ -422,20 +422,17 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
   	panic(err)
   }
 
-  // Define the outcome — agent starts working on receipt
+  // Define the outcome. The agent starts working on receipt.
   _, err = client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   		OfUserDefineOutcome: &anthropic.BetaManagedAgentsUserDefineOutcomeEventParams{
-  			Type:        anthropic.BetaManagedAgentsUserDefineOutcomeEventParamsTypeUserDefineOutcome,
   			Description: "Build a DCF model for Costco in .xlsx",
   			Rubric: anthropic.BetaManagedAgentsUserDefineOutcomeEventParamsRubricUnion{
   				OfText: &anthropic.BetaManagedAgentsTextRubricParams{
-  					Type:    anthropic.BetaManagedAgentsTextRubricParamsTypeText,
   					Content: rubric,
   				},
   			},
-  			// or: OfFile: &anthropic.BetaManagedAgentsFileRubricParams{
-  			//     Type: anthropic.BetaManagedAgentsFileRubricParamsTypeFile, FileID: uploaded.ID},
+  			// or: OfFile: &anthropic.BetaManagedAgentsFileRubricParams{FileID: uploaded.ID},
   			MaxIterations: anthropic.Int(5), // optional; default 3, max 20
   		},
   	}},
@@ -454,7 +451,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
           .title("Financial analysis on Costco")
           .build());
 
-  // Define the outcome — agent starts working on receipt
+  // Define the outcome. The agent starts working on receipt.
   client.beta().sessions().events().send(
       session.id(),
       EventSendParams.builder()
@@ -477,7 +474,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
       title: 'Financial analysis on Costco',
   );
 
-  // Define the outcome — agent starts working on receipt
+  // Define the outcome. The agent starts working on receipt.
   $client->beta->sessions->events->send(
       $session->id,
       events: [

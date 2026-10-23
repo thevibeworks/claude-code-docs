@@ -146,10 +146,8 @@ Stream events from the session to receive real-time updates as the agent works. 
   	if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   		Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   			OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  				Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   				Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   					OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  						Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   						Text: "Summarize the repo README",
   					},
   				}},
@@ -329,7 +327,7 @@ To reconnect to an existing session without missing events, combine a new stream
 
   // Tail live events, skipping anything already seen
   tail: for await (const event of stream) {
-    // Preview events (event_start/event_delta) carry no top-level id
+    // Preview events (event_start/event_delta) carry no top-level `id`
     if (event.type === "event_start" || event.type === "event_delta") {
       continue;
     }
@@ -588,10 +586,8 @@ Send a `user.message` event to start or continue the agent's work:
   if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   					Text: "Analyze the performance of the sort function in utils.py",
   				},
   			}},
@@ -696,7 +692,7 @@ The following example answers each call as it arrives:
       for event in stream:
           match event.type:
               case "agent.custom_tool_use":
-                  # Execute the tool
+                  # Run the tool
                   result = call_tool(event.name, event.input)
 
                   # Send the result back
@@ -721,7 +717,7 @@ The following example answers each call as it arrives:
   loop: for await (const event of stream) {
     switch (event.type) {
       case "agent.custom_tool_use": {
-        // Execute the tool
+        // Run the tool
         const result = await callTool(event.name, event.input);
 
         // Send the result back
@@ -750,7 +746,7 @@ The following example answers each call as it arrives:
   {
       if (streamEvent.Value is BetaManagedAgentsAgentCustomToolUseEvent toolUse)
       {
-          // Execute the tool
+          // Run the tool
           var result = await CallTool(toolUse.Name, toolUse.Input);
 
           // Send the result back
@@ -782,17 +778,15 @@ The following example answers each call as it arrives:
   	for stream.Next() {
   		switch event := stream.Current().AsAny().(type) {
   		case anthropic.BetaManagedAgentsAgentCustomToolUseEvent:
-  			// Execute the tool
+  			// Run the tool
   			result := callTool(event.Name, event.Input)
   			// Send the result back
   			if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   				Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   					OfUserCustomToolResult: &anthropic.BetaManagedAgentsUserCustomToolResultEventParams{
-  						Type:            anthropic.BetaManagedAgentsUserCustomToolResultEventParamsTypeUserCustomToolResult,
   						CustomToolUseID: event.ID,
   						Content: []anthropic.BetaManagedAgentsUserCustomToolResultEventParamsContentUnion{{
   							OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  								Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   								Text: result,
   							},
   						}},
@@ -818,7 +812,7 @@ The following example answers each call as it arrives:
       for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
           switch (event.type().value()) {
               case AGENT_CUSTOM_TOOL_USE -> {
-                  // Execute the tool
+                  // Run the tool
                   var toolUse = event.asAgentCustomToolUse();
                   var result = callTool(toolUse.name(), toolUse.input());
 
@@ -848,7 +842,7 @@ The following example answers each call as it arrives:
   foreach ($stream as $event) {
       switch (true) {
           case $event instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsAgentCustomToolUseEvent:
-              // Execute the tool
+              // Run the tool
               $result = callTool($event->name, $event->input);
 
               // Send the result back
@@ -876,7 +870,7 @@ The following example answers each call as it arrives:
   client.beta.sessions.events.stream_events(session.id).each do |event|
     case event
     when Anthropic::Beta::Sessions::BetaManagedAgentsAgentCustomToolUseEvent
-      # Execute the tool
+      # Run the tool
       result = call_tool.call(event.name, event.input)
       # Send the result back
       client.beta.sessions.events.send_(
@@ -1011,7 +1005,6 @@ The following example approves every pending call:
   				if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   					Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   						OfUserToolConfirmation: &anthropic.BetaManagedAgentsUserToolConfirmationEventParams{
-  							Type:      anthropic.BetaManagedAgentsUserToolConfirmationEventParamsTypeUserToolConfirmation,
   							ToolUseID: eventID,
   							Result:    anthropic.BetaManagedAgentsUserToolConfirmationEventParamsResultAllow,
   						},
@@ -1202,10 +1195,8 @@ Sessions persist between interactions. To resume a session, send a `user.message
   if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   					Text: "Now run the tests against the changes you made earlier.",
   				},
   			}},
@@ -1376,16 +1367,12 @@ Send a `user.interrupt` event to stop the agent while it runs, then follow up wi
   if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   	Events: []anthropic.BetaManagedAgentsEventParamsUnion{
   		{
-  			OfUserInterrupt: &anthropic.BetaManagedAgentsUserInterruptEventParams{
-  				Type: anthropic.BetaManagedAgentsUserInterruptEventParamsTypeUserInterrupt,
-  			},
+  			OfUserInterrupt: &anthropic.BetaManagedAgentsUserInterruptEventParams{},
   		},
   		{
   			OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  				Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   				Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   					OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  						Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   						Text: "Instead, focus on fixing the bug in line 42.",
   					},
   				}},
@@ -1714,9 +1701,7 @@ The event's `content` (csharp, go: `Content`) accepts 1–1,000 text items. The 
   if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   		OfSystemMessage: &anthropic.BetaManagedAgentsSystemMessageEventParams{
-  			Type: anthropic.BetaManagedAgentsSystemMessageEventParamsTypeSystemMessage,
   			Content: []anthropic.BetaManagedAgentsSystemContentBlockParam{{
-  				Type: anthropic.BetaManagedAgentsSystemContentBlockTypeText,
   				Text: "The user's current timezone is America/New_York.",
   			}},
   		},

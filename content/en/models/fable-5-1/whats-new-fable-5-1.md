@@ -69,7 +69,7 @@ With the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/too
 
 ### Change effort mid-conversation (beta)
 
-On Claude Fable 5.1 you can change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level mid-conversation without invalidating the prompt cache. Raise it for a hard step and lower it for routine ones. Per-message effort is in beta: include the `mid-conversation-output-config-2026-07-01` beta header. Claude Fable 5.1 and Claude Mythos 5.1 support it on the Claude API, Google Cloud, and Amazon Bedrock. To use it with Claude Fable 5.1 through the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), send that value in the `anthropic_beta` array of the request body instead. For the other models that support it and the platforms for each, see [Change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#changing-effort-mid-conversation).
+On Claude Fable 5.1 you can change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level mid-conversation without invalidating the prompt cache. Raise it for a hard step and lower it for routine ones. Per-message effort is in beta: include the `mid-conversation-output-config-2026-07-01` beta header. Claude Fable 5.1 and Claude Mythos 5.1 support it on the Claude API, Claude Models on Google Cloud (Google managed), and Amazon Bedrock. To use it with Claude Fable 5.1 through the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), send that value in the `anthropic_beta` array of the request body instead. For the other models that support it and the platforms for each, see [Change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#changing-effort-mid-conversation).
 
 <CodeGroup>
   ```bash cURL
@@ -220,10 +220,9 @@ On Claude Fable 5.1 you can change the [effort](https://platform.claude.com/docs
   	},
   	Messages: []anthropic.BetaMessageParam{
   		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Plan a migration from SQLite to PostgreSQL in three short steps.")),
-  		{
-  			Role:    anthropic.BetaMessageParamRoleAssistant,
+  		{OfAssistant: &anthropic.BetaAssistantMessageParam{
   			Content: []anthropic.BetaContentBlockParamUnion{anthropic.NewBetaTextBlock("1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts.")},
-  		},
+  		}},
   		// Effort-only system message: the new level takes effect from the next user turn.
   		anthropic.NewBetaSystemMessage(anthropic.BetaSystemMessageOutputConfigParam{
   			Effort: anthropic.BetaSystemMessageOutputConfigEffortLow,
@@ -399,7 +398,7 @@ Claude Fable 5.1 improves on Claude Fable 5, and the gap is widest at higher [ef
 * **Long-context work**, reasoning over and connecting details across the full [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows)
 * **Computer use**, operating a browser and desktop applications more reliably and recovering from failed steps
 
-Multilingual performance is comparable to Claude Fable 5.
+Multilingual performance is at the same level as Claude Fable 5's.
 
 ## Refusals, fallback, and billing
 
@@ -425,10 +424,10 @@ Cache reads (hits and refreshes) cost 0.025 times the base input price on these 
 
 Claude Fable 5.1 is available on:
 
-* **Claude API:** all customers, as `claude-fable-5-1`.
-* **AWS:** [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), as `anthropic.claude-fable-5-1`, and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), as `claude-fable-5-1`.
-* **Google Cloud:** [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), as `claude-fable-5-1`.
-* **Microsoft Foundry:** [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), on Anthropic infrastructure.
+* **Claude API:** all customers, as `claude-fable-5-1`
+* **AWS:** [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), as `anthropic.claude-fable-5-1`, and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), as `claude-fable-5-1`
+* **Google Cloud:** [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), as `claude-fable-5-1`, and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), as `claude-fable-5-1`
+* **Microsoft Foundry:** [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), on Anthropic infrastructure
 
 Claude Mythos 5.1 is available only to organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). To request access, apply to the program that covers your use case, or contact your Anthropic, AWS, or Google Cloud account team.
 

@@ -40,7 +40,7 @@ This release does not include standalone skills (skills a member writes in the s
 * Your primary owner creates an Admin API key with the `read:plugins` scope, the `write:plugins` scope, or both in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). See [Create a key for a Claude Enterprise organization](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization).
 * Every request carries three headers: `x-api-key`, `anthropic-version: 2023-06-01`, and `anthropic-beta: ce-plugins-2026-09-01`.
 
-The SDK exposes these endpoints under `client.beta.organization` (csharp, go: `client.Beta.Organization`; java: `client.beta().organization()`; php: `$client->beta->organization`), and the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under `ant beta:organization`; they send the `anthropic-version` and `anthropic-beta` headers for you. The examples on this page use the SDK's default client, which, like the CLI, reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable; the curl examples read the key from the same variable and pass it in the `x-api-key` header. Where an SDK or the CLI fetches more pages for you, `limit` sets the page size, not the total (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)).
+In Python, TypeScript, C#, Go, Java, PHP, and Ruby, the SDK exposes these endpoints under `client.beta.organization` (csharp, go: `client.Beta.Organization`; java: `client.beta().organization()`; php: `$client->beta->organization`), and the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under `ant beta:organization`; they send the `anthropic-version` and `anthropic-beta` headers for you. The examples on this page use the SDK's default client, which, like the CLI, reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable; the curl examples read the key from the same variable and pass it in the `x-api-key` header. Where an SDK or the CLI fetches more pages for you, `limit` sets the page size, not the total (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)).
 
 API keys belong to the organization and keep working after the person who created them leaves. Do not share them or check them into source control.
 
@@ -762,7 +762,7 @@ Upload an archive:
   void main() throws Exception {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-      // Build the `files[]` part by hand so the archive is sent with its filename,
+      // Build the `files[]` part by hand so the archive is sent with its file name,
       // which the upload requires.
       var archive = MultipartField.<List<InputStream>>builder()
           .value(List.of(Files.newInputStream(Path.of("dist/sales-toolkit.zip"))))
@@ -944,7 +944,7 @@ Upload individual files into a named marketplace. Attach each file under its pat
   }
   defer skillMd.Close()
 
-  // anthropic.File keeps each file's path within the plugin as the part's filename;
+  // anthropic.File keeps each file's path within the plugin as the part's file name;
   // a bare *os.File would be sent under its base name and the manifest would not be found.
   plugin, err := client.Beta.Organization.Plugins.New(context.Background(), anthropic.BetaOrganizationPluginNewParams{
   	Files: []io.Reader{
@@ -968,9 +968,9 @@ Upload individual files into a named marketplace. Attach each file under its pat
   void main() throws Exception {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-      // The `files` setters on PluginCreateParams take one filename for the whole
+      // The `files` setters on PluginCreateParams take one file name for the whole
       // list, so upload the plugin as one archive instead: a single hand-built
-      // part that carries the archive's filename, which the upload requires.
+      // part that carries the archive's file name, which the upload requires.
       var archive = MultipartField.<List<InputStream>>builder()
           .value(List.of(Files.newInputStream(Path.of("dist/sales-toolkit.zip"))))
           .filename("sales-toolkit.zip")
@@ -1624,7 +1624,7 @@ A `{version}` that lacks the `pluginver_` prefix returns `400` (except the liter
   void main() throws Exception {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-      // Build the `files[]` part by hand so the archive is sent with its filename,
+      // Build the `files[]` part by hand so the archive is sent with its file name,
       // which the upload requires.
       var archive = MultipartField.<List<InputStream>>builder()
           .value(List.of(Files.newInputStream(Path.of("dist/sales-toolkit.zip"))))
@@ -3086,7 +3086,7 @@ Validate a local copy of the marketplace directory instead, as a `.zip`; the res
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-      // Pass a Path so the `archive` part is sent with a filename, which this endpoint requires.
+      // Pass a Path so the `archive` part is sent with a file name, which this endpoint requires.
       var params = PluginMarketplaceValidateArchiveParams.builder()
           .archive(Path.of("marketplace.zip"))
           .build();

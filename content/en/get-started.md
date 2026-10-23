@@ -339,7 +339,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```bash
         mkdir claude-quickstart && cd claude-quickstart
         go mod init claude-quickstart
-        go get github.com/anthropics/anthropic-sdk-go
+        go get github.com/anthropics/anthropic-sdk-go/v2
         ```
       </Step>
 
@@ -354,7 +354,7 @@ description: Make your first API call to Claude and build a simple web search as
         	"fmt"
         	"log"
 
-        	"github.com/anthropics/anthropic-sdk-go"
+        	"github.com/anthropics/anthropic-sdk-go/v2"
         )
 
         func main() {

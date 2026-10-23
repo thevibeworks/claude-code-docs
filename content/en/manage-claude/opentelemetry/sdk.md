@@ -11,7 +11,7 @@ featureMetadata:
     Claude API: beta
     Claude Platform on AWS: beta
     Amazon Bedrock: beta
-    Google Cloud: beta
+    Claude Models on Google Cloud (Google managed): beta
     Microsoft Foundry: beta
   rows:
     - label: Works with
@@ -69,7 +69,7 @@ Install or upgrade to the latest version of the Claude SDK:
 
   <Tab title="Go">
     ```bash
-    go get github.com/anthropics/anthropic-sdk-go@latest
+    go get github.com/anthropics/anthropic-sdk-go/v2@latest
     ```
 
     If your application doesn't use the OpenTelemetry SDK yet, install it with a console exporter, which you use in the next step to print spans:
@@ -215,7 +215,7 @@ The following example registers a tracer provider that prints each span to the c
   	"context"
   	"fmt"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   	"go.opentelemetry.io/otel"
   	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
   	"go.opentelemetry.io/otel/propagation"
@@ -481,7 +481,10 @@ The following example shows how to use each option:
       .build();
 
   // Turn spans off for one client.
-  var quietClient = AnthropicOkHttpClient.builder().fromEnv().openTelemetry(false).build();
+  var quietClient = AnthropicOkHttpClient.builder()
+      .fromEnv()
+      .openTelemetry(false)
+      .build();
 
   // Set a conversation ID in the request options of one call.
   var params = MessageCreateParams.builder()
@@ -490,7 +493,9 @@ The following example shows how to use each option:
       .addUserMessage("Hello, Claude")
       .build();
   var message = client.messages().create(params, RequestOptions.builder()
-      .openTelemetry(OpenTelemetryRequestOptions.builder().conversationId("conv_42").build())
+      .openTelemetry(OpenTelemetryRequestOptions.builder()
+          .conversationId("conv_42")
+          .build())
       .build());
   ```
 
@@ -625,7 +630,9 @@ To stop the SDK from sending these headers, for example when your HTTP client in
   var envOptions = OpenTelemetryOptions.fromEnv();
   var client = AnthropicOkHttpClient.builder()
       .fromEnv()
-      .openTelemetry(envOptions.toBuilder().propagation(false).build())
+      .openTelemetry(envOptions.toBuilder()
+          .propagation(false)
+          .build())
       .build();
   ```
 

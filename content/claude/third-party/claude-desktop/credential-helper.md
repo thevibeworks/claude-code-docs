@@ -40,7 +40,7 @@ Set [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configura
 }
 ```
 
-In a macOS configuration profile or the Windows registry, write the array as a JSON string, as with the other [array-typed keys](/docs/third-party/claude-desktop/configuration.md#value-types). A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) can deliver `inferenceCredentialHelperArgs` too, under the same [user-consent rule](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) as the helper path. In the nested response format ([`bootstrap-config-v2`](/docs/third-party/claude-desktop/bootstrap#response-schema)), set `args` next to `command` in `inference.credential`.
+In a macOS configuration profile or the Windows registry, write the array as a JSON string, as with the other [array-typed keys](/docs/third-party/claude-desktop/configuration-format.md#value-types). A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) can deliver `inferenceCredentialHelperArgs` too, under the same [user-consent rule](/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) as the helper path. In the nested response format ([`bootstrap-config-v2`](/docs/third-party/claude-desktop/bootstrap#response-schema)), set `args` next to `command` in `inference.credential`.
 
 On Windows, a `.cmd` or `.bat` helper receives each argument wrapped in double quotes, so read the values with `%~1`, `%~2`, and so on to remove the quotes. A `.ps1` helper, a `.exe` helper, and helpers on macOS and Linux receive each value as written.
 

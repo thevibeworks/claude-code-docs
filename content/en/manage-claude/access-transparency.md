@@ -36,8 +36,8 @@ Anthropic personnel access customer content only under defined conditions. Acces
 * **Your own organization's activity:** Your API calls, admin actions, and Compliance API reads are covered by standard [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) event types.
 * **Claude for Enterprise and Claude Apps:** claude.ai Enterprise seats, Claude for Work, Cowork, and Claude in Chrome are not covered.
 * **Claude consumer products:** Claude Free, Pro, or Max plans.
-* **Partner-operated platforms:** Amazon Bedrock and Google Cloud; refer to those platforms' transparency controls.
-* **Anything ZDR does not cover:** Products that are not covered by ZDR (for example, the Files API, Anthropic-hosted stateful applications, and the Batch API) are not covered by Access Transparency. See [ZDR documentation](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) for additional details.
+* **Partner-operated platforms:** Amazon Bedrock and Claude Models on Google Cloud (Google managed). Refer to those platforms' transparency controls.
+* **Anything ZDR does not cover:** Products that are not covered by ZDR (for example, the Files API, Anthropic-hosted stateful applications, and the Batch API) are not covered by Access Transparency. See [Zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) for additional details.
 
 ## Getting started
 
@@ -165,18 +165,18 @@ The set of reason codes is closed. Anthropic will update this page in the event 
 
 The following table lists which surfaces are covered by Access Transparency. Coverage means human access to content from that surface generates `anthropic_access` events.
 
-| Surface                                         | Covered | Details                                                                                                    |
-| ----------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| Claude API (`api.anthropic.com`)                | Yes     | Prompts, completions, and data directly embedded in the API inputs                                         |
-| Claude Code (using an API key)                  | Yes     | API traffic from Claude Code is covered as Claude API traffic                                              |
-| Claude Platform on AWS                          | Yes     | Claude Platform on AWS generates Access Transparency events within the Compliance API (not AWS CloudTrail) |
-| Claude API (`api.anthropic.com`) (Batch, Files) | No      | The Claude API Batch and Files APIs are not covered, just like they are not covered by ZDR                 |
-| Claude for Enterprise (claude.ai seats)         | No      | Not covered                                                                                                |
-| Claude for Work                                 | No      | Not covered                                                                                                |
-| Claude Free, Pro, Max                           | No      | Consumer plans are not eligible                                                                            |
-| Playground (Claude Console)                     | No      | Not covered                                                                                                |
-| Microsoft Foundry                               | No      | Not available                                                                                              |
-| Amazon Bedrock, Google Cloud                    | No      | Partner-operated platforms; refer to those platforms' transparency controls                                |
+| Surface                                                        | Covered | Details                                                                                                    |
+| -------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| Claude API (`api.anthropic.com`)                               | Yes     | Prompts, completions, and data directly embedded in the API inputs                                         |
+| Claude Code (using an API key)                                 | Yes     | API traffic from Claude Code is covered as Claude API traffic                                              |
+| Claude Platform on AWS                                         | Yes     | Claude Platform on AWS generates Access Transparency events within the Compliance API (not AWS CloudTrail) |
+| Claude API (`api.anthropic.com`) (Batch, Files)                | No      | The Claude API Batch and Files APIs are not covered, just like they are not covered by ZDR                 |
+| Claude for Enterprise (claude.ai seats)                        | No      | Not covered                                                                                                |
+| Claude for Work                                                | No      | Not covered                                                                                                |
+| Claude Free, Pro, Max                                          | No      | Consumer plans are not eligible                                                                            |
+| Playground (Claude Console)                                    | No      | Not covered                                                                                                |
+| Microsoft Foundry                                              | No      | Not available                                                                                              |
+| Amazon Bedrock, Claude Models on Google Cloud (Google managed) | No      | Partner-operated platforms; refer to those platforms' transparency controls                                |
 
 ## Limitations and exclusions
 

@@ -110,9 +110,7 @@ The examples use curl, the `ant` CLI, or the SDK. If you haven't set one up, the
   	},
   	System: anthropic.String("You are a helpful coding agent."),
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
-  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
-  			Type: anthropic.BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401,
-  		},
+  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{},
   	}},
   })
   if err != nil {

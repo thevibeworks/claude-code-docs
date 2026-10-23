@@ -30,9 +30,9 @@ This library uses named parameters to specify optional arguments. Parameters wit
 $client = new Client();
 
 $message = $client->messages->create(
-  maxTokens: 1024,
-  messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-  model: 'claude-opus-5-5',
+    maxTokens: 1024,
+    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+    model: 'claude-opus-5-5',
 );
 
 $textBlock = array_find($message->content, static fn ($block): bool => $block->type === 'text');
@@ -43,9 +43,9 @@ For authentication options including Workload Identity Federation, see [Authenti
 
 ## Value objects
 
-The recommended way to initialize value objects is the static `with` constructor `Base64ImageSource::with(data: "U3RhaW5sZXNzIHJvY2tz", ...)` with named parameters.
+The recommended way to initialize value objects is the static `with` constructor `Base64ImageSource::with(data: 'U3RhaW5sZXNzIHJvY2tz', ...)` with named parameters.
 
-However, builders are also provided `(new Base64ImageSource)->withData("U3RhaW5sZXNzIHJvY2tz")`.
+However, builders are also provided, for example `(new Base64ImageSource())->withData('U3RhaW5sZXNzIHJvY2tz')`.
 
 ## Streaming
 
@@ -55,13 +55,13 @@ The SDK provides support for streaming responses using Server-Sent Events (SSE).
 $client = new Client();
 
 $stream = $client->messages->createStream(
-  maxTokens: 1024,
-  messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-  model: 'claude-opus-5-5',
+    maxTokens: 1024,
+    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+    model: Model::CLAUDE_OPUS_5_5,
 );
 
 foreach ($stream as $event) {
-  echo $event->type . PHP_EOL;
+    echo $event->type . PHP_EOL;
 }
 ```
 
@@ -69,7 +69,7 @@ Streaming requires an HTTP client that returns the response body incrementally. 
 
 ```php
 $client = new Client(
-  requestOptions: RequestOptions::with(streamingTransporter: $myStreamingClient),
+    requestOptions: RequestOptions::with(streamingTransporter: $myStreamingClient),
 );
 ```
 
@@ -83,21 +83,22 @@ When the library is unable to connect to the API, or if the API returns a non-su
 use Anthropic\Core\Exceptions\APIConnectionException;
 use Anthropic\Core\Exceptions\APIStatusException;
 use Anthropic\Core\Exceptions\RateLimitException;
+use Anthropic\Messages\Model;
 // ...
 try {
-  $message = $client->messages->create(
-    maxTokens: 1024,
-    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-    model: 'claude-opus-5-5',
-  );
+    $message = $client->messages->create(
+        maxTokens: 1024,
+        messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+        model: Model::CLAUDE_OPUS_5_5,
+    );
 } catch (APIConnectionException $e) {
-  echo "The server could not be reached", PHP_EOL;
-  echo $e->getPrevious()?->getMessage(), PHP_EOL;
+    echo 'The server could not be reached', PHP_EOL;
+    echo $e->getPrevious()?->getMessage(), PHP_EOL;
 } catch (RateLimitException $_) {
-  echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
+    echo 'A 429 status code was received; we should back off a bit.', PHP_EOL;
 } catch (APIStatusException $e) {
-  echo "Another non-200-range status code was received", PHP_EOL;
-  echo $e->getMessage();
+    echo 'Another non-200-range status code was received', PHP_EOL;
+    echo $e->getMessage();
 }
 ```
 
@@ -126,6 +127,7 @@ Connection errors (for example, because of a network connectivity problem), 408 
 You can use the `maxRetries` option to configure or disable this:
 
 ```php
+use Anthropic\Messages\Model;
 use Anthropic\RequestOptions;
 // ...
 // Configure the default for all requests:
@@ -133,10 +135,10 @@ $client = new Client(requestOptions: RequestOptions::with(maxRetries: 0));
 
 // Or, configure per-request:
 $result = $client->messages->create(
-  maxTokens: 1024,
-  messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-  model: 'claude-opus-5-5',
-  requestOptions: RequestOptions::with(maxRetries: 5),
+    maxTokens: 1024,
+    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+    model: Model::CLAUDE_OPUS_5_5,
+    requestOptions: RequestOptions::with(maxRetries: 5),
 );
 ```
 
@@ -153,12 +155,12 @@ $page = $client->beta->messages->batches->list(limit: 20);
 
 // fetch items from the current page
 foreach ($page->getItems() as $item) {
-  echo $item->id, PHP_EOL;
+    echo $item->id, PHP_EOL;
 }
 // make additional network requests to fetch items from all pages, including and after the current page
 // ...
 foreach ($page->pagingEachItem() as $item) {
-  echo $item->id, PHP_EOL;
+    echo $item->id, PHP_EOL;
 // ...
 }
 ```
@@ -179,14 +181,14 @@ You can send undocumented parameters to any endpoint, and read undocumented resp
 use Anthropic\RequestOptions;
 // ...
 $message = $client->messages->create(
-  maxTokens: 1024,
-  messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-  model: 'claude-opus-5-5',
-  requestOptions: RequestOptions::with(
-    extraQueryParams: ['my_query_parameter' => 'value'],
-    extraBodyParams: ['my_body_parameter' => 'value'],
-    extraHeaders: ['my-header' => 'value'],
-  ),
+    maxTokens: 1024,
+    messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+    model: 'claude-opus-5-5',
+    requestOptions: RequestOptions::with(
+        extraQueryParams: ['my_query_parameter' => 'value'],
+        extraBodyParams: ['my_body_parameter' => 'value'],
+        extraHeaders: ['my-header' => 'value'],
+    ),
 );
 ```
 
@@ -202,11 +204,11 @@ To make requests to undocumented endpoints while retaining the benefit of authen
 $client = new Client();
 
 $response = $client->request(
-  method: "post",
-  path: '/undocumented/endpoint',
-  query: ['dog' => 'woof'],
-  headers: ['useful-header' => 'interesting-value'],
-  body: ['hello' => 'world']
+    method: 'post',
+    path: '/undocumented/endpoint',
+    query: ['dog' => 'woof'],
+    headers: ['useful-header' => 'interesting-value'],
+    body: ['hello' => 'world']
 );
 ```
 
@@ -218,13 +220,15 @@ $response = $client->request(
   * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
   * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
   * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
-  * [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)
+  * [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)
   * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
+
+  See also [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed).
 </Note>
 
 The PHP SDK supports the following platforms:
 
-* **Agent Platform:** `Anthropic\Vertex\Client`. Use `::fromEnvironment()`.
+* **Claude Models on Google Cloud (Google managed):** `Anthropic\Vertex\Client`. Use `::fromEnvironment()`.
 * **Bedrock:** `Anthropic\Bedrock\MantleClient`. Use `new MantleClient(awsRegion: ...)`.
 * **Bedrock (legacy):** `Anthropic\Bedrock\Client`. Use `::fromEnvironment()` or `::withCredentials()`.
 * **Claude Platform on AWS:** `Anthropic\Aws\Client` (requires `aws/aws-sdk-php` as a soft dependency). Use `new Anthropic\Aws\Client(workspaceId: ...)` or set `ANTHROPIC_AWS_WORKSPACE_ID`. Available in beta.
@@ -232,9 +236,11 @@ The PHP SDK supports the following platforms:
 
 Use `MantleClient` for new projects; `Anthropic\Bedrock\Client` remains for existing applications using the Bedrock `InvokeModel` API.
 
+The PHP SDK also supports Claude Models on Google Cloud (Anthropic managed) through `Anthropic\GoogleCloud\Client`. This client is in beta. `Anthropic\GoogleCloud\Client` requires `google/auth` as a soft dependency. Use `new Anthropic\GoogleCloud\Client(workspaceId: ...)` or set the `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID` environment variable. See [Project, location, and workspace resolution](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#project-location-and-workspace-resolution).
+
 ## Semantic versioning
 
-Each major version of this SDK sends one API version in the `anthropic-version` header by default, and a new major version comes with each new API version. The first major version that sends `2026-10-21` is 1.0.0; see [Upgrade to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
+Each major version of this SDK sends one API version by default, and a new major version comes with each new API version. The first major version that sends `2026-10-21` is 1.0.0; see [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
 
 This package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions.
 

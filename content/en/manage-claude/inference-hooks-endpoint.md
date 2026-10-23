@@ -709,7 +709,7 @@ The following samples are server implementations, so there is no shell tab: an A
           byte[] key;
           try {
               key = Base64.getDecoder().decode(
-                      secret.startsWith("whsec_") ? secret.substring("whsec_".length()) : secret);
+                  secret.startsWith("whsec_") ? secret.substring("whsec_".length()) : secret);
           } catch (IllegalArgumentException _) {
               return false; // misconfigured secret: reject rather than crash
           }
@@ -720,7 +720,7 @@ The following samples are server implementations, so there is no shell tab: an A
               mac.init(new SecretKeySpec(key, "HmacSHA256"));
               mac.update((messageId + "." + timestamp + ".").getBytes(StandardCharsets.UTF_8));
               expected = ("v1," + Base64.getEncoder().encodeToString(mac.doFinal(body)))
-                      .getBytes(StandardCharsets.UTF_8);
+                  .getBytes(StandardCharsets.UTF_8);
           } catch (GeneralSecurityException impossible) {
               // Every JVM ships HmacSHA256, so this never fires at runtime.
               throw new IllegalStateException(impossible);

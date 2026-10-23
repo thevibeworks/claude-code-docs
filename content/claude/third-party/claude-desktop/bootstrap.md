@@ -27,8 +27,6 @@ Either way, the bootstrap server supplies everything else after the user signs i
 
 On a device whose MDM profile carries the bootstrap keys, a user who signs in to any organization that uses the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. The app then stops contacting your server. To prevent that, set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true` in the profile itself, not only in your server's response, as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
-If you set `deploymentOrganizationUuid`, include it in the MDM profile or imported configuration file, and return the same value in your bootstrap response, as a plain UUID without braces in both places. Claude Desktop uses the device-side value at startup to locate sessions, skills, and plugins stored on the device.
-
 ## How it works
 
 1. Your managed configuration (MDM or imported) sets `bootstrapUrl` (and `bootstrapOidc` if you use a separate identity provider).
@@ -41,7 +39,7 @@ If the user has not yet signed in, or the fetch fails with no cached response fr
 
 ### Availability
 
-The full response is held **in memory only**. If your bootstrap server is unreachable when Claude Desktop launches, the user stays in the degraded sign-in state until the server recovers. A failed refetch *during* a running session keeps the in-memory response and retries, so an outage that starts mid-session does not disrupt active users until they relaunch.
+The full response is held **in memory only**. If your bootstrap server is unreachable when Claude Desktop launches, the user stays in the degraded sign-in state until the server recovers. On Claude Desktop 3.6556.1 or later, the Cowork tasks, Code sessions, projects, and scheduled tasks already on the device stay listed during that time. On those versions, scheduled tasks don't run until the app gets its configuration from your server, and then each task that missed a run runs once. A failed refetch *during* a running session keeps the in-memory response and retries, so an outage that starts mid-session does not disrupt active users until they relaunch.
 
 Each device also keeps a small record from the last response it applied, and applies the settings in that record at the next launch until your server answers. Signing out of Claude Desktop deletes the record. It holds only these values, when the response sets them:
 
@@ -330,7 +328,7 @@ The response can supply any key in that schema, including inference credentials,
 A small set of keys are **structurally excluded** and ignored if returned:
 
 * `bootstrapUrl`, `bootstrapOidc`, `bootstrapHeaders`, `bootstrapHeadersHelper`, `bootstrapEnabled`, and `trustBootstrapDelivery`: the trust anchor cannot redirect itself, authenticate itself, or grant trust in itself.
-* `egressProxyUrl` and `egressProxyPacUrl`: the app may need the [network proxy](/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration) to reach your endpoint in the first place, so these keys are read from device management or the local configuration file only. These two and the six keys above are the keys whose Availability column reads **MDM only** in the [configuration reference](/docs/third-party/claude-desktop/configuration.md).
+* `egressProxyUrl` and `egressProxyPacUrl`: the app may need the [network proxy](/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration) to reach your endpoint in the first place, so these keys are read from device management or the local configuration file only. These two and the six keys above are the keys labeled **MDM only** in the [configuration reference](/docs/third-party/claude-desktop/configuration.md).
 * Loopback hosts (`127.0.0.1`, `localhost`, `[::1]`) in any URL-valued key, regardless of scheme.
 
 `managedMcpServers` entries are not restricted by transport in version 1.19367.0 and later: remote (`http`/`sse`) servers, local `stdio` commands, and the built-in `microsoft365` and `websearch` connectors can all be delivered in the bootstrap response. Earlier versions accept only remote entries and drop the rest. Because a `stdio` entry names a command that runs on the device, a bootstrap response can start local processes — part of why the warning at the top of this page says to treat this endpoint as fully trusted. Entries whose server URL or OAuth authorization-server URL is loopback or non-HTTPS are still dropped, and the desktop log (see [Troubleshooting](#troubleshooting)) records which keys were dropped and why.
@@ -379,39 +377,133 @@ When you supply `bootstrapOidc`, your configuration server and gateway are indep
 
 ## MDM configuration keys
 
-| Setting | Type | Availability | Default | Description |
-| - | - | - | - | - |
-| Use bootstrap config `bootstrapEnabled` | `boolean` | MDM only Added in 1.10628.0 | `true` | Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch. Defaults to `true`. |
-| Bootstrap config URL `bootstrapUrl` | `string` | MDM only Added in 1.10628.0 | — | HTTPS endpoint that returns a per-user JSON config overlay. Values from the response override local settings and become read-only. |
-| Bootstrap OIDC parameters `bootstrapOidc` | `object` | MDM only Added in 1.10628.0 | — | When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE). |
-| Bootstrap request headers `bootstrapHeaders` | `object` | MDM only Added in 1.32885.1 | — | HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL. |
-| Bootstrap headers helper script `bootstrapHeadersHelper` | `string` | MDM only Added in 1.32885.1 | — | Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins. |
-| Trust bootstrap-delivered settings `trustBootstrapDelivery` | `boolean` | MDM only Added in 1.26832.0 | `false` | Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers. Defaults to `false`. |
+[Entry labels](/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
 
-> **bootstrapOidc details**
+### `bootstrapEnabled`
+
+booleanDefault: true
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 1.10628.0
+
+**Use bootstrap config.** Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch.
+
+***
+
+### `bootstrapUrl`
+
+string
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 1.10628.0
+
+**Bootstrap config URL.** HTTPS endpoint that returns a per-user JSON config overlay. Values from the response override local settings and become read-only.
+
+***
+
+### `bootstrapOidc`
+
+object
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 1.10628.0
+
+**Bootstrap OIDC parameters.** When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE).
+
+> **More detail**
 >
 > Set this to use a separate identity provider (Microsoft Entra ID, Okta, Ping, or any compliant OIDC provider) for the bootstrap sign-in. The app runs an authorization-code-with-PKCE flow in the system browser. Omit to use device-code mode against the bootstrap server's own origin.
 >
 > This is an **object-typed key** — in an MDM profile it is a single JSON-string value, not separate keys with dotted names like `bootstrapOidc.clientId`. Writing the sub-fields as separate registry values causes the app to silently fall through to device-code mode.
->
-> | Field | Type | Default | Description |
-> | - | - | - | - |
-> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-> | `scopes` | `string` | — | Space-separated; the token’s audience must match what your bootstrap server validates. |
-> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
-> **bootstrapHeaders details**
+> **Child attributes (8)**
+>
+> **clientId** `string` *required*
+>
+> OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).
+>
+> **issuer** `string`
+>
+> HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.
+>
+> **authorizationUrl** `string`
+>
+> HTTPS authorization endpoint. Used with the token URL when no issuer is set.
+>
+> **tokenUrl** `string`
+>
+> HTTPS token endpoint. Used with the authorization URL when no issuer is set.
+>
+> **scopes** `string`
+>
+> Space-separated; the token’s audience must match what your bootstrap server validates.
+>
+> **redirectPort** `integer`
+>
+> Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.
+>
+> **redirectHost** `enum`
+>
+> Use localhost only if your IdP’s registered redirect URI specifies it.
+>
+> One of: `127.0.0.1`, `localhost`
+>
+> **additionalRedirectReferrerHosts** `string`
+>
+> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+>
+> > **More detail**
+> >
+> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+
+***
+
+### `bootstrapHeaders`
+
+object: name → value
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 1.32885.1
+
+**Bootstrap request headers.** HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL.
+
+> **More detail**
 >
 > Static headers sent on every request to the bootstrap config URL — for a service-account credential (`Authorization: Basic …`, an API key header) or a routing/tenant header. When either this or the headers helper script is set and no separate `bootstrapOidc` provider is configured, the app treats the headers as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. These headers (and the helper script's below) also accompany requests to a plugin marketplace this server hosts on its own origin (`allowedPluginMarketplaces` with `credentialKind: "inferenceCredential"`). Header values are masked in diagnostics and telemetry. For a rotating token, use the headers helper script instead.
 
-> **bootstrapHeadersHelper details**
+***
+
+### `bootstrapHeadersHelper`
+
+string
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 1.32885.1
+
+**Bootstrap headers helper script.** Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins.
+
+> **More detail**
 >
 > Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The app runs it (no arguments; output cached for a few minutes) before each bootstrap config fetch and merges the result over **Bootstrap request headers** (the helper wins on conflict). Use this instead of embedding `user:pass@` in the bootstrap URL, or when the bootstrap server needs a rotating token from a secrets manager. When either this or the static headers are set and no separate `bootstrapOidc` provider is configured, the app treats them as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs (`bootstrapOidc` or the server’s own device-code flow), that Bearer token wins on `Authorization`.
+
+***
+
+### `trustBootstrapDelivery`
+
+booleanDefault: false
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 1.26832.0
+
+**Trust bootstrap-delivered settings.** Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers.
+
+***
 
 No `inferenceProvider` is needed in the MDM profile when using bootstrap; the response supplies it.
 

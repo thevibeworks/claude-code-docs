@@ -28,17 +28,17 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792699200&amp;signature=0279567beacb7c49fcb0ac630e17fb63ea8408251b2f77a383ab92595dcd267e&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBL9Yu1gN0ADj5oqFBeTsNrSHtV2pgiX%2Bb7%0AxTPaGFafqiuGebBUH4o%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792756800&amp;signature=39085252b12b294fbdfdd5f05cd858b1b6feb3172ab10f0b11a31aced3c4102c&amp;req=dSgjFcp8nYZdXvMW3nq%2BgWGE%2FNALMAOb%2BdvFBtvjxAmqXNLR8Iyz2wXjNgFm%0Avgm6SBnEs%2BKSeu1m7qv3ASXVb%2Bk%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
-Claude clarifies which sites it’s planning to access and the actions it will take upfront, allowing you to review the proposed plan and ensure it’s correct before starting. You can also click "Make changes" to reject the current proposal, then prompt Claude again to make any necessary changes. Once you click "Approve plan," Claude will be able to act independently within the outlined parameters, but will still check with you before other sensitive actions, like downloading a file or entering sensitive information into a page. Claude will not deviate from the stated plan without requesting your permission first. There are certain actions that Claude cannot take for your security, such as making purchases, creating accounts, bypassing bot authorizations, executing trades, permanently deleting files, or taking certain actions that may indicate a prompt injection risk (see **[Prohibited actions](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide#h_e199f8f523)**).
+Claude clarifies which sites it’s planning to access and the actions it will take upfront, allowing you to review the proposed plan and ensure it’s correct before starting. You can also click "Make changes" to reject the current proposal, then prompt Claude again to make any necessary changes. Once you click "Approve plan," Claude will be able to act independently within the outlined parameters, but will still check with you before other sensitive actions, like downloading a file or entering sensitive information into a page. Claude will not deviate from the stated plan without requesting your permission first. There are certain actions that Claude cannot take for your security, such as making purchases, creating accounts, bypassing bot authorizations, executing trades, permanently deleting files, or taking certain actions that may indicate a prompt injection risk (see **[Prohibited actions](#h_e199f8f523)**).
 
 ### In the Cowork side panel
 
 Claude doesn't create a plan for you to approve before starting. Claude may ask you a question or two to clarify what you want, then begins work and asks for your approval before each action. You review each request and choose Allow all for this website, Allow this time only, or Deny.
 
-Claude still checks with you before sensitive actions like downloading a file or entering sensitive information into a page, and some actions are blocked regardless of mode. See **[Actions requiring explicit permission](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide#h_b209fa12fc)** and **[Prohibited actions](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide#h_e199f8f523)** below.
+Claude still checks with you before sensitive actions like downloading a file or entering sensitive information into a page, and some actions are blocked regardless of mode. See **[Actions requiring explicit permission](#h_b209fa12fc)** and **[Prohibited actions](#h_e199f8f523)** below.
 
 ---
 
@@ -48,7 +48,7 @@ When you choose "Automatically approve," Claude keeps working without stopping t
 
 We tested Claude's safety check extensively before releasing it, including working with outside security experts who tried to sneak dangerous actions past it. It gives you the speed of letting Claude work without interruptions, with a layer of protection that "Skip all approvals" doesn't have: every action still gets reviewed before it happens. *Of course, no defense is perfect and no mode replaces your judgment. For work with real consequences—money, messages sent as you, important files—stay close and review what Claude does or consider switching back to "Manually approve."*
 
-You'll see fewer prompts than in "Manually approve," but the safety checks still run in the background. Because Claude does this extra checking for you, **auto mode consumes more of your usage limit than the other modes**.
+You'll see fewer prompts than in "Manually approve," but the safety checks still run in the background.
 
 ---
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792699200&amp;signature=71cfbe0cde2e939a9ea0f32b055e32aed68e27f92cd0946d6628e602ed657ad0&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R2gSXu7A4lHPBihAXUqoPyUP1GJ8GLyE0t%0ABFw6ZgwKZN3vBNsBUPA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792756800&amp;signature=6d6cba0c48175f2c355da17d9f44aae8cb29f233f82faa9d621c129064809db5&amp;req=diYnEsB5nYldXPMW3nq%2BgcHRFEUTsmE5GrTSEFo4rGf6AAqMS3MWzBSNwLRH%0AA53NSkJjfwexuNL70LiJAhQv2uI%3D%0A)
 
 ### Permission options
 

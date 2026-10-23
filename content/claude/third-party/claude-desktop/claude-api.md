@@ -24,6 +24,12 @@ Claude Desktop versions before 3.1623.0 created a personal API key in the Consol
 
 ### Configuration keys
 
-| Setting | Type | Availability | Default | Description |
-| - | - | - | - | - |
-| Claude API key `inferenceAnthropicApiKey` | `string` | MDM + Bootstrap Added in 1.8089.0 | — | Leave blank to sign in with your browser, or to supply the key via a credential helper. |
+[Entry labels](/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
+
+#### `inferenceAnthropicApiKey`
+
+stringSince 1.8089.0
+
+**Claude API key.** Leave blank to sign in with your browser, or to supply the key via a credential helper.
+
+***

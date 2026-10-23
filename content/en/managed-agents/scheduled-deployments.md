@@ -142,17 +142,14 @@ When creating a deployment, you pass the [session configurations](https://platfo
   	EnvironmentID: environment.ID,
   	InitialEvents: []anthropic.BetaManagedAgentsDeploymentInitialEventParamsUnion{{
   		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   					Text: "Run the weekly compliance scan.",
   				},
   			}},
   		},
   	}},
   	Schedule: anthropic.BetaManagedAgentsScheduleParams{
-  		Type:       anthropic.BetaManagedAgentsScheduleParamsTypeCron,
   		Expression: "0 20 * * 5",
   		Timezone:   "America/New_York",
   	},
@@ -344,7 +341,6 @@ The following example sets a budget on an existing deployment:
   ```go Go
   updatedDeployment, err := client.Beta.Deployments.Update(ctx, deployment.ID, anthropic.BetaDeploymentUpdateParams{
   	Budget: anthropic.BetaManagedAgentsBudgetLimitParam{
-  		Type: anthropic.BetaManagedAgentsBudgetLimitTypeLimit,
   		MaxListCost: anthropic.BetaMonetaryAmountParam{
   			Amount:   "2000",
   			Currency: anthropic.BetaCurrencyUsd,

@@ -71,7 +71,7 @@ Building the configuration in the app is optional. The [in-app configuration win
 
 Choose a bootstrap server when your organization doesn't use MDM, or when per-user credentials or frequently changing settings would make per-group profiles unwieldy. The tradeoff is that you operate the endpoint.
 
-A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) uses that configuration, except as described under [Devices with a managed profile](/docs/third-party/claude-desktop/admin-console.md#devices-with-a-managed-profile). When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration.md)).
+A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) uses that configuration, except as described under [Devices with a managed profile](/docs/third-party/claude-desktop/admin-console.md#devices-with-a-managed-profile). When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (the keys labeled **MDM only** in the [configuration reference](/docs/third-party/claude-desktop/configuration.md)).
 
 Pick your path:
 
@@ -213,19 +213,47 @@ By default, Claude Desktop downloads updates from Anthropic's update server auto
 In 3P deployments you can:
 
 * **Leave auto-update enabled** (recommended) so fixes reach users without IT intervention. Set `autoUpdaterEnforcementHours` to shorten the enforcement window (1 to 72 hours; values above 72 are rejected). Setting the key also makes the window strict: the restart fires as soon as the window elapses, without waiting for a pause in user activity.
-* **Take releases later** by setting [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel) to `staggered`, the slower channel. Devices on the default, `stable`, take each release as it rolls out. Devices on `staggered` update to the release that Anthropic has marked for that channel. On Thursdays, Anthropic marks a release that has fully rolled out on `stable`, a tested production build from at least one week prior. A device on a release newer than the marked one stays on it until Anthropic marks a release newer than its own. Features and fixes, including security fixes, reach `staggered` devices later.
-* **Disable auto-update** (`disableAutoUpdates`) and redistribute new builds through your MDM on your own cadence. This is required for [air-gapped environments](#offline-installation) but means your IT team owns the update pipeline.
+* **Switch to a slower release channel** by setting [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel) to `staggered`. Devices on the default release channel, `stable`, take each release as it rolls out. Devices on `staggered` typically trail `stable` by 7-14 days. Usually once a week, Anthropic marks a tested release from `stable` as the new `staggered` release. Urgent fixes may be released sooner. Features and fixes, including security fixes, reach `staggered` devices later.
+* **Disable auto-update** (`disableAutoUpdates`) and redistribute new builds through your MDM on your own cadence. This is required for [air-gapped environments](#offline-installation) but means your IT team owns the update pipeline. To move open apps to each version you install, see [Restart open apps after you install a new version](#restart-open-apps-after-you-install-a-new-version).
 
 > [!WARNING]
 >
-> Moving a device from `staggered` to `stable` updates it to a newer release, and setting `staggered` again doesn't take it back to the older one. A device also follows `stable` if you remove `releaseChannel` or set it only where the device doesn't read it.
+> `stable` is the default. Moving a device from `staggered` to `stable` updates it to a newer release, and setting `staggered` again doesn't move it back to the older one. Removing `releaseChannel`, or setting it only where the device doesn't read it, does the same.
 
-Set `releaseChannel` in the first of these that the device has:
+Set `releaseChannel` in:
 
-* **An MDM profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)**, such as an update policy, a restart window, or a network proxy: put the key in that profile
-* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md) or the [admin console](/docs/third-party/claude-desktop/admin-console.md)**: return the key in the server's response, or set it in the console
-* **Any other configuration**, such as an MDM profile that sets the inference provider: put the key with the rest of that configuration
+* **An MDM profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)**: put the key in that profile, even if the device also has a bootstrap server or the admin console
+* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap.md)**: return the key from the server
+* **The [admin console](/docs/third-party/claude-desktop/admin-console.md)**: open **Organization settings**, go to the **Telemetry & updates** page, and set the **Release channel**
+* **Any other configuration, with no bootstrap server and no admin console**, such as an MDM profile that sets the inference provider: put the key with the rest of that configuration
 
-`releaseChannel` has no effect on devices where something else installs updates, such as Linux devices, which [update through apt](/docs/third-party/claude-desktop/telemetry.md#auto-updates), and devices that installed Claude Desktop from the Microsoft Store.
+`releaseChannel` has no effect on Linux, which [updates through apt](/docs/third-party/claude-desktop/telemetry.md#auto-updates), or on installs from the Microsoft Store.
+
+App versions from before `releaseChannel` existed may reject a Windows or Linux machine policy that names it, and then turn off local settings.
 
 See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry.md) for the network paths the updater uses.
+
+### Restart open apps after you install a new version
+
+When you set [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) and install new versions with your own tools, an install can land while Claude Desktop is open. The open app finds the newer version on the device and shows **Relaunch to update** in the sidebar. Clicking **Relaunch to update** moves the person to the newer version.
+
+On Windows, the app shows **Relaunch to update** for installs from the `.msix` package. Clicking it closes Claude Desktop, and Windows may then open the newer version. If Claude Desktop stays closed, open it again to get the newer version. Quitting and reopening Claude Desktop without the click can start the earlier version again, while signing out of Windows and back in moves the person to the newer version.
+
+You can also have Claude Desktop restart itself when nobody clicks. Two keys control the restart:
+
+* [`installedUpdateEnforcementEnabled`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementenabled): set it to `true` to turn on the restart, which is off by default
+* [`installedUpdateEnforcementHours`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementhours): how long the app waits after it finds the newer version. With a number from 1 to 72, the app restarts when those hours end, even while someone is using the computer. With the key unset, the app waits 72 hours and then until the computer has been idle for 10 minutes.
+
+The hours count only while the app is open and the computer is awake, and they start again from zero each time the app starts. The restart also waits while Claude is working on a task, except a task on an SSH host that the app expects to pick up again afterward.
+
+On Windows, the restart covers installs from the `.msix` package. Claude Desktop closes and switches to the newest version on the device, and Windows may then open it. If the configuration that turns on the restart also reaches Windows devices, plan for the following:
+
+* **Claude Desktop can stay closed**: where Windows doesn't open it, scheduled tasks and other background work stop until someone opens Claude Desktop. Opened more than five minutes after it closed, it starts on its default page instead of the page it was showing.
+* **Windows can refuse the switch**: Claude Desktop comes back on the version it had and shows **Relaunch to update** again. It doesn't try again by itself until Claude Desktop next starts, such as after someone quits and reopens it, or until you install a newer version.
+* **Other people use the same computer**: the switch can end the Cowork tasks of anyone else signed in to it, and the newest version on the device can be one that was installed for someone else.
+
+Set the restart keys in the same place as `disableAutoUpdates`, such as the same MDM profile or configuration file. If an MDM profile sets only the restart keys, devices ignore a `disableAutoUpdates` value from any other source, such as a configuration file or a bootstrap server. See [Update keys and managed precedence](/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence).
+
+> [!NOTE]
+>
+> Add the restart keys after your devices have a version that supports them. An earlier version can show people a configuration warning at every launch, or reject the managed configuration that holds the keys and ignore the device's own configuration too. For what each platform does with a key it doesn't know, see [`installedUpdateEnforcementEnabled`](/docs/third-party/claude-desktop/configuration#installedupdateenforcementenabled).

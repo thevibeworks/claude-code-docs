@@ -223,17 +223,17 @@ Using the memory tool takes two steps:
   ```java Java
   import com.anthropic.models.messages.MemoryTool20250818;
   // ...
-    AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-    MessageCreateParams params = MessageCreateParams.builder()
-      .model(Model.CLAUDE_OPUS_5_5)
-      .maxTokens(2048L)
-      .addTool(MemoryTool20250818.builder().build())
-      .addUserMessage("Help me respond to this customer service ticket.")
-      .build();
+      MessageCreateParams params = MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(2048L)
+          .addTool(MemoryTool20250818.builder().build())
+          .addUserMessage("Help me respond to this customer service ticket.")
+          .build();
 
-    Message message = client.messages().create(params);
-    IO.println(message);
+      Message message = client.messages().create(params);
+      IO.println(message);
   ```
 
   ```php PHP
@@ -248,7 +248,7 @@ Using the memory tool takes two steps:
               'content' => 'Help me respond to this customer service ticket.',
           ],
       ],
-      tools: [new MemoryTool20250818],
+      tools: [new MemoryTool20250818()],
   );
 
   echo $message;
@@ -378,7 +378,7 @@ Four SDKs provide memory tool helpers that handle the tool interface and the loo
   	"sort"
   	"strings"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   )
 
   // An in-memory store that maps memory file paths to their contents.
@@ -512,28 +512,28 @@ Four SDKs provide memory tool helpers that handle the tool interface and the loo
   import java.nio.file.Path;
 
   void main() {
-    AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-    // Your BetaMemoryToolHandler implementation of the six memory commands
-    BetaMemoryToolHandler handler = new FileSystemMemoryToolHandler(Path.of("memories"));
+      // Your BetaMemoryToolHandler implementation of the six memory commands
+      BetaMemoryToolHandler handler = new FileSystemMemoryToolHandler(Path.of("memories"));
 
-    MessageCreateParams createParams = MessageCreateParams.builder()
-      .model(Model.CLAUDE_OPUS_5_5)
-      .maxTokens(1024L)
-      .addTool(BetaMemoryTool20250818.builder().build())
-      .addUserMessage("Remember that customer Acme Corp prefers email follow-ups.")
-      .build();
+      MessageCreateParams createParams = MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024L)
+          .addTool(BetaMemoryTool20250818.builder().build())
+          .addUserMessage("Remember that customer Acme Corp prefers email follow-ups.")
+          .build();
 
-    ToolRunnerCreateParams runnerParams = ToolRunnerCreateParams.builder()
-      .betaMemoryToolHandler(handler)
-      .initialMessageParams(createParams)
-      .maxIterations(10)
-      .build();
+      ToolRunnerCreateParams runnerParams = ToolRunnerCreateParams.builder()
+          .betaMemoryToolHandler(handler)
+          .initialMessageParams(createParams)
+          .maxIterations(10)
+          .build();
 
-    BetaToolRunner runner = client.beta().messages().toolRunner(runnerParams);
-    for (BetaMessage message : runner) {
-      IO.println(message);
-    }
+      BetaToolRunner runner = client.beta().messages().toolRunner(runnerParams);
+      for (BetaMessage message : runner) {
+          IO.println(message);
+      }
   }
   ```
 
@@ -552,7 +552,7 @@ Four SDKs provide memory tool helpers that handle the tool interface and the loo
   $store = [];
 
   $memory = new BetaRunnableTool(
-      definition: new BetaMemoryTool20250818,
+      definition: new BetaMemoryTool20250818(),
       run: function (array $input) use (&$store): string {
           $path = $input['path'] ?? '';
           switch ($input['command']) {
@@ -588,7 +588,7 @@ Four SDKs provide memory tool helpers that handle the tool interface and the loo
                   }
                   $lines = explode("\n", $store[$path]);
                   if ($input['insert_line'] < 0 || $input['insert_line'] > count($lines)) {
-                      return "Error: Invalid `insert_line` parameter: {$input['insert_line']}. It should be within the range of lines of the file: [0, " . count($lines) . "]";
+                      return "Error: Invalid `insert_line` parameter: {$input['insert_line']}. It should be within the range of lines of the file: [0, " . count($lines) . ']';
                   }
                   array_splice($lines, $input['insert_line'], 0, [preg_replace('/\n\z/', '', $input['insert_text'])]);
                   $store[$path] = implode("\n", $lines);

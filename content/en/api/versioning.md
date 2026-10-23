@@ -26,7 +26,7 @@ Anthropic recommends using the latest API version whenever possible.
 
   * [Migrating to API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21) shows how to upgrade.
 
-  * Available on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai). On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it's available for Claude 4.7 and later models. For other models on Bedrock, see the [migration guide](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
+  * Available on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed). On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it's available for Claude 4.7 and later models. For other models on Bedrock, see the [migration guide for API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
 
   * Messages API:
 

@@ -3469,6 +3469,8 @@ This example allows any URL under `https://hooks.example.com/` and any `http://l
 
 Hostname matching is case-insensitive and treats `hooks.example.com.`, with the trailing dot that marks a fully qualified domain name, the same as `hooks.example.com`, which is how DNS treats them. The allowlist applies to hooks from every source, including managed settings.
 
+In the Agent SDK's `managedSettings` option, Claude Code ignores this key when its list has entries, so pass the list in the SDK's `settings` option instead. See [what each value does in parent settings](/docs/en/claude-apps-gateway#how-hook-and-skill-keys-in-parent-settings-take-effect).
+
 ### `allowManagedHooksOnly`
 
 Restrict hook execution to hooks your organization deploys.
@@ -3517,6 +3519,7 @@ Turn off [hooks](/docs/en/hooks.md#disable-or-remove-hooks), any custom [status 
 The reach depends on which file carries the key:
 
 * **In managed settings**: Claude Code disables every configured hook, including managed ones, and keeps running the hooks the [Agent SDK](/docs/en/agent-sdk/overview.md) registers in process
+* **In the Agent SDK's `managedSettings` option**: Claude Code treats the key as `allowManagedHooksOnly: true`, so see [what runs under `allowManagedHooksOnly`](#what-runs-under-allowmanagedhooksonly) for which hooks stop. On a machine where an administrator deploys managed settings, Claude Code ignores this key unless the administrator [lets an embedding host add policy](/docs/en/managed-settings.md#let-an-embedding-host-add-policy). Requires Claude Code v2.1.309 or later.
 * **In any other settings file**: Claude Code disables user, project, local, and plugin hooks; managed hooks, Agent SDK hooks, and hooks from plugins force-enabled in managed [`enabledPlugins`](#enabledplugins) keep running
 
 The key also stops [mods](/docs/en/plugins/mods/overview.md), which are plugins whose code registers hooks:
@@ -3619,6 +3622,8 @@ This example limits header interpolation to `MY_TOKEN` and `HOOK_SECRET`:
 ```
 
 The allowlist applies to hooks from every source, including managed settings.
+
+In the Agent SDK's `managedSettings` option, Claude Code ignores this key when its list has entries, so pass the list in the SDK's `settings` option instead. See [what each value does in parent settings](/docs/en/claude-apps-gateway#how-hook-and-skill-keys-in-parent-settings-take-effect).
 
 ### `workflowKeywordTriggerEnabled`
 
@@ -4975,6 +4980,8 @@ This example adds one connection named `Dev VM` that connects to `user@dev.examp
 ### `sshHostAllowlist`
 
 Limit the hosts a [Desktop SSH session](/docs/en/desktop.md#restrict-which-ssh-hosts-users-can-connect-to) can connect to. Only the Desktop app reads this key; the CLI doesn't. Patterns are case-insensitive: `*` matches any host, `*.example.com` matches `example.com` and every subdomain, and anything else is an exact match against the hostname after `~/.ssh/config` resolution. An empty array turns SSH sessions off.
+
+With Claude Desktop v3.1623.0 or later, a session's [jump hosts](/docs/en/desktop.md#allow-jump-hosts) have to match a pattern too.
 
 * **Scope**: [`Managed`](#scopes). By default, Desktop reads the key from [one managed source](/docs/en/managed-settings.md#how-claude-code-combines-managed-sources).
 * **Type**: array of hostname patterns

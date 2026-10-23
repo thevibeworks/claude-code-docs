@@ -26,7 +26,7 @@ Claude Sonnet 5.5 has the same prices as Claude Sonnet 5, except for prompt cach
 
 ## Send a request to Claude Sonnet 5.5
 
-This request works on Claude Sonnet 5.5 as written. The example sets an effort level and, in the SDK, reads the reply by block type. It leaves out five settings that return a 400 error: [thinking budgets](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#sonnet-46-breaking-changes), [sampling parameters](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#sonnet-46-breaking-changes), [assistant prefill](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-sonnet-45), [forced tool choice](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#forced-tool-use), and [`thinking: {"type": "disabled"}`](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#turn-off-up-front-thinking).
+This request works on Claude Sonnet 5.5 as written. It sets an effort level, and the SDK example reads the reply by block type. It leaves out five settings that return a 400 error: [thinking budgets](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#sonnet-46-breaking-changes), [sampling parameters](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#sonnet-46-breaking-changes), [assistant prefill](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-sonnet-45), [forced tool choice](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#forced-tool-use), and [`thinking: {"type": "disabled"}`](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#turn-off-up-front-thinking).
 
 <CodeGroup>
   ```bash cURL
@@ -106,7 +106,8 @@ This request works on Claude Sonnet 5.5 as written. The example sets an effort l
       Model = Model.ClaudeSonnet5_5,
       MaxTokens = 4096,
       Messages = [
-          new UserMessageParam {
+          new UserMessageParam
+          {
               Content = "Analyze the trade-offs between microservices and monolithic architectures"
           }
       ],
@@ -475,8 +476,8 @@ Work down the groups and stop after the one that names your model. On Claude Hai
 * To keep running without up-front thinking, send the [lowest thinking setting](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#turn-off-up-front-thinking) at `high` effort or below.
 * Replace [forced tool use](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#forced-tool-use) with `auto` and strict tools.
 * Keep conversations [append-only](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#thinking-blocks).
-* On the Claude API and Google Cloud, move computer use to the [toolset](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset), without the `fine-grained-tool-streaming-2025-05-14` beta header.
-* Pair the [advisor tool](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#advisor-tool) with a supported advisor, and expect encrypted advice.
+* On the Claude API and Claude Models on Google Cloud (Google managed), move computer use to the [toolset](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset), without the `fine-grained-tool-streaming-2025-05-14` beta header.
+* [Pair the advisor tool](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#advisor-tool) with a supported advisor, and expect encrypted advice.
 * Read [text between tool calls](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#text-between-tool-calls) from `thinking` blocks.
 * [Handle refusals](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#safety-classifiers-and-fallback), and configure fallback.
 * [Re-run your effort sweep](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#recommended-changes), and re-baseline cost.
@@ -797,7 +798,9 @@ After (Claude Sonnet 5.5):
       // strict tool use: every call matches the tool's input_schema
       .tools(tools.stream()
           .map(tool -> tool.tool()
-              .map(customTool -> customTool.toBuilder().strict(true).build())
+              .map(customTool -> customTool.toBuilder()
+                  .strict(true)
+                  .build())
               .map(ToolUnion::ofTool)
               .orElse(tool))
           .toList())
@@ -842,18 +845,18 @@ The example marks every tool in the list strict. A request can have at most 20 s
 
 ### Thinking blocks are tied to the model and the conversation
 
-Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and earlier models, and, on the Claude API and Google Cloud, from Claude Haiku 5.5. It doesn't read blocks from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model. The API drops blocks the model can't read. The request still returns 200, and dropped blocks aren't billed. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
+Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and earlier models, and, on the Claude API and Claude Models on Google Cloud (Google managed), from Claude Haiku 5.5. It doesn't read blocks from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model. The API drops blocks the model can't read. The request still returns 200, and dropped blocks aren't billed. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
 
-Each Claude Sonnet 5.5 thinking block is also signed over the conversation before it. For accounts created on or after August 31, 2026, 00:00 UTC, the API enforces this by default, on the Claude API, Amazon Bedrock, and Google Cloud. On those accounts, a request that replays a block after an edit to earlier history returns a 400 error. Keep conversations append-only, and change instructions or tools with [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages). Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them, or in an account linked to it. See [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
+Each Claude Sonnet 5.5 thinking block is also signed over the conversation before it. For accounts created on or after August 31, 2026, 00:00 UTC, the API enforces this by default, on the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed). On those accounts, a request that replays a block after an edit to earlier history returns a 400 error. Keep conversations append-only, and change instructions or tools with [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages). Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them, or in an account linked to it. See [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
-### Computer use needs the toolset on the Claude API and Google Cloud
+### Computer use needs the toolset on the Claude API and Claude Models on Google Cloud (Google managed)
 
-On the Claude API and Google Cloud, Claude Sonnet 5.5 supports computer use only through the `computer_toolset_20260801` toolset. There, `computer_20251124` returns a 400 error. Claude Sonnet 5.5 doesn't accept `computer_20250124` on any platform. Find the version you send today:
+On the Claude API and Claude Models on Google Cloud (Google managed), Claude Sonnet 5.5 supports computer use only through the `computer_toolset_20260801` toolset. There, `computer_20251124` returns a 400 error. Claude Sonnet 5.5 doesn't accept `computer_20250124` on any platform. Find the version you send today:
 
-| Version you send today | Starting models that send it                         | Send on the Claude API and Google Cloud | Send on Amazon Bedrock |
-| ---------------------- | ---------------------------------------------------- | --------------------------------------- | ---------------------- |
-| `computer_20251124`    | Claude Sonnet 5, Claude Sonnet 4.6                   | `computer_toolset_20260801`             | `computer_20251124`    |
-| `computer_20250124`    | Claude Sonnet 4.5, Claude Haiku 4.5, Claude Sonnet 4 | `computer_toolset_20260801`             | `computer_20251124`    |
+| Version you send today | Starting models that send it                         | Send on the Claude API and Claude Models on Google Cloud (Google managed) | Send on Amazon Bedrock |
+| ---------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------- |
+| `computer_20251124`    | Claude Sonnet 5, Claude Sonnet 4.6                   | `computer_toolset_20260801`                                               | `computer_20251124`    |
+| `computer_20250124`    | Claude Sonnet 4.5, Claude Haiku 4.5, Claude Sonnet 4 | `computer_toolset_20260801`                                               | `computer_20251124`    |
 
 If you send the `fine-grained-tool-streaming-2025-05-14` beta header, remove it when you move to the toolset. Alongside a toolset entry, it returns a 400 error. Set `eager_input_streaming: true` on each tool that needs it instead.
 
@@ -879,7 +882,7 @@ Claude Sonnet 5.5 declines in more categories than Claude Sonnet 5. A decline re
 * **`"reasoning_extraction"`:** The request asks the model to reproduce its internal reasoning in the response text.
 * **`"general_harms"`:** The request falls under another usage-policy area. Benign work can also trigger this category.
 
-[Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (`fallbacks: "default"`, beta, Claude API only) retries `"cyber"` and `"frontier_llm"` declines on Claude Sonnet 5. It doesn't retry `"bio"`, `"reasoning_extraction"`, or `"general_harms"` declines. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) and [How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
+[Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (`fallbacks: "default"`), in beta on the Claude API and on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), retries `"cyber"` and `"frontier_llm"` declines on Claude Sonnet 5. It doesn't retry `"bio"`, `"reasoning_extraction"`, or `"general_harms"` declines. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) and [How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
 
 Real-time cyber safeguards are new for code from Claude Sonnet 4.6, Claude Sonnet 4.5, and Claude Haiku 4.5. For legitimate security work, apply to the [Cyber Verification Program](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet).
 
@@ -1164,7 +1167,7 @@ After (Claude Sonnet 5.5):
   $message = $client->messages->create(
       maxTokens: 16000,
       messages: [['role' => 'user', 'content' => '...']],
-      model: 'claude-sonnet-5-5',
+      model: Model::CLAUDE_SONNET_5_5,
       thinking: ['type' => 'adaptive'],
       outputConfig: ['effort' => 'high'], // or 'max', 'xhigh', 'medium', 'low'
   );
@@ -1231,7 +1234,7 @@ Replace each prefill according to what it was for:
 
 ### Migrating from Claude Sonnet 4 or earlier
 
-Claude Sonnet 4 is retired on the Claude API and still available on Amazon Bedrock and Google Cloud. Claude 3.7 Sonnet is retired. From either model, first apply every preceding section, then these changes:
+Claude Sonnet 4 is retired on the Claude API and still available on Amazon Bedrock and Claude Models on Google Cloud (Google managed). Claude 3.7 Sonnet is retired. From either model, first apply every preceding section, then these changes:
 
 * **Tool versions:** Use `text_editor_20250728`, with the tool name `str_replace_based_edit_tool` and no `undo_edit` command. Use `code_execution_20260521`. See the [text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool) and the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version).
 * **Stop reasons:** Handle `refusal`. Claude 4.5 and later models also stop with `model_context_window_exceeded` at the context window limit. See [Handling stop reasons](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).

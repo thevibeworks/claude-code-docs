@@ -68,7 +68,7 @@ If you'd rather use the previous side panel, click the three dots in the upper r
 
 ## Usage limits
 
-Usage limits apply across different interfaces, so using Claude in Chrome will count against the same plan limits that apply to Claude or Claude Code. Browser interactions are more compute-intensive than regular chats with Claude, so you can expect the extension to use more of your limit. With the long-running workflow capabilities, tasks can continue for extended periods, which may use more of your usage allocation. The Cowork side panel defaults to "Automatically approve" mode, which runs extra safety checks on each action and uses more of your usage limit than the other modes.
+Usage limits apply across different interfaces, so using Claude in Chrome will count against the same plan limits that apply to Claude or Claude Code. Browser interactions are more compute-intensive than regular chats with Claude, so you can expect the extension to use more of your limit. With the long-running workflow capabilities, tasks can continue for extended periods, which may use more of your usage allocation.
 
 ---
 

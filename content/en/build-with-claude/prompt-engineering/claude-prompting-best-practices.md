@@ -213,7 +213,7 @@ Setting a role in the system prompt focuses Claude's behavior and tone for your 
       messages: [
           ['role' => 'user', 'content' => 'How do I sort a list of dictionaries by key?']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       system: 'You are a helpful coding assistant specializing in Python.',
   );
 
@@ -716,7 +716,9 @@ If you are migrating from [extended thinking](https://platform.claude.com/docs/e
   client.messages().create(MessageCreateParams.builder()
       .model(Model.CLAUDE_SONNET_4_5_20250929)
       .maxTokens(16000L)
-      .thinking(ThinkingConfigEnabled.builder().budgetTokens(10000L).build())
+      .thinking(ThinkingConfigEnabled.builder()
+          .budgetTokens(10000L)
+          .build())
       .addUserMessage("...")
       .build());
 

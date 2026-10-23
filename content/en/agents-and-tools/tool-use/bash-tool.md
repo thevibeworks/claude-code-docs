@@ -146,12 +146,13 @@ The current version of the tool is `bash_20250124`. For model support, beta head
   ```
 
   ```php PHP
+  use Anthropic\Messages\Model;
   use Anthropic\Messages\ToolBash20250124;
 
   $client = new Client();
 
   $response = $client->messages->create(
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       maxTokens: 1024,
       tools: [new ToolBash20250124()],
       messages: [
@@ -306,7 +307,7 @@ Claude determines which command to run. Your application owns everything else: t
 
           def execute_command(self, command):
               """Run a command in the session and return its output."""
-              sentinel = f"__CLAUDE_BASH_DONE_{uuid.uuid4().hex}__"  # unique per call
+              sentinel = f"__CLAUDE_BASH_DONE_{uuid.uuid4().hex}__"  # unique for each call
               self.process.stdin.write(f"{command}\necho {sentinel}\n")
               self.process.stdin.flush()
 
@@ -352,7 +353,7 @@ Claude determines which command to run. Your application owns everything else: t
 
         // Run a command in the session and return its output.
         executeCommand(command: string): Promise<string> {
-          const sentinel = `__CLAUDE_BASH_DONE_${randomUUID()}__`; // unique per call
+          const sentinel = `__CLAUDE_BASH_DONE_${randomUUID()}__`; // unique for each call
           const output: string[] = [];
           const result = new Promise<string>((resolve) => {
             const onLine = (line: string): void => {
@@ -416,7 +417,7 @@ Claude determines which command to run. Your application owns everything else: t
           // Run a command in the session and return its output.
           public string ExecuteCommand(string command)
           {
-              var sentinel = $"__CLAUDE_BASH_DONE_{Guid.NewGuid():N}__"; // unique per call
+              var sentinel = $"__CLAUDE_BASH_DONE_{Guid.NewGuid():N}__"; // unique for each call
               Process.StandardInput.Write($"{command}\necho {sentinel}\n");
               Process.StandardInput.Flush();
 
@@ -483,7 +484,7 @@ Claude determines which command to run. Your application owns everything else: t
       func (s *BashSession) ExecuteCommand(command string) string {
       	buf := make([]byte, 16)
       	rand.Read(buf)
-      	sentinel := fmt.Sprintf("__CLAUDE_BASH_DONE_%s__", hex.EncodeToString(buf)) // unique per call
+      	sentinel := fmt.Sprintf("__CLAUDE_BASH_DONE_%s__", hex.EncodeToString(buf)) // unique for each call
       	fmt.Fprintf(s.stdin, "%s\necho %s\n", command, sentinel)
 
       	var output strings.Builder
@@ -547,7 +548,7 @@ Claude determines which command to run. Your application owns everything else: t
 
           // Run a command in the session and return its output.
           String executeCommand(String command) throws IOException {
-              String sentinel = "__CLAUDE_BASH_DONE_" + UUID.randomUUID() + "__"; // unique per call
+              String sentinel = "__CLAUDE_BASH_DONE_" + UUID.randomUUID() + "__"; // unique for each call
               stdin.write(command + "\necho " + sentinel + "\n");
               stdin.flush();
 
@@ -604,7 +605,7 @@ Claude determines which command to run. Your application owns everything else: t
           // Run a command in the session and return its output.
           public function executeCommand(string $command): string
           {
-              $sentinel = '__CLAUDE_BASH_DONE_' . bin2hex(random_bytes(16)) . '__'; // unique per call
+              $sentinel = '__CLAUDE_BASH_DONE_' . bin2hex(random_bytes(16)) . '__'; // unique for each call
               fwrite($this->stdin, "{$command}\necho {$sentinel}\n");
               fflush($this->stdin);
 
@@ -627,8 +628,8 @@ Claude determines which command to run. Your application owns everything else: t
       }
 
       $session = new BashSession();
-      echo $session->executeCommand("cd /tmp && pwd");
-      echo $session->executeCommand("pwd"); // still /tmp: the session kept its state
+      echo $session->executeCommand('cd /tmp && pwd');
+      echo $session->executeCommand('pwd'); // still /tmp: the session kept its state
       ```
 
       ```ruby Ruby
@@ -645,7 +646,7 @@ Claude determines which command to run. Your application owns everything else: t
 
         # Run a command in the session and return its output.
         def execute_command(command)
-          sentinel = "__CLAUDE_BASH_DONE_#{SecureRandom.hex(16)}__" # unique per call
+          sentinel = "__CLAUDE_BASH_DONE_#{SecureRandom.hex(16)}__" # unique for each call
           @stdin.write("#{command}\necho #{sentinel}\n")
           @stdin.flush
 
@@ -697,7 +698,7 @@ Claude determines which command to run. Your application owns everything else: t
                   command = content.input.get("command")
                   result = bash_session.execute_command(command)
 
-              # One tool_result per tool_use block, all returned in the next user message
+              # One tool_result for each tool_use block, all returned in the next user message
               tool_results.append(
                   {"type": "tool_result", "tool_use_id": content.id, "content": result}
               )
@@ -715,7 +716,7 @@ Claude determines which command to run. Your application owns everything else: t
             result = await bashSession.executeCommand(block.input.command ?? "");
           }
 
-          // One tool_result per tool_use block, all returned in the next user message
+          // One tool_result for each tool_use block, all returned in the next user message
           toolResults.push({ type: "tool_result", tool_use_id: block.id, content: result });
         }
       }
@@ -739,7 +740,7 @@ Claude determines which command to run. Your application owns everything else: t
                   result = bashSession.ExecuteCommand(command);
               }
 
-              // One tool_result per tool_use block, all returned in the next user message
+              // One tool_result for each tool_use block, all returned in the next user message
               toolResults.Add(new ToolResultBlockParam { ToolUseID = toolUse.ID, Content = result });
           }
       }
@@ -765,7 +766,7 @@ Claude determines which command to run. Your application owns everything else: t
       			result = bashSession.ExecuteCommand(input.Command)
       		}
 
-      		// One tool_result per tool_use block, all returned in the next user message
+      		// One tool_result for each tool_use block, all returned in the next user message
       		toolResults = append(toolResults, anthropic.NewToolResultBlock(block.ID, result, false))
       	}
       }
@@ -784,7 +785,7 @@ Claude determines which command to run. Your application owns everything else: t
                   result = bashSession.executeCommand(command);
               }
 
-              // One tool_result per tool_use block, all returned in the next user message
+              // One tool_result for each tool_use block, all returned in the next user message
               toolResults.add(Map.of("type", "tool_result", "tool_use_id", block.id(), "content", result));
           }
       }
@@ -801,7 +802,7 @@ Claude determines which command to run. Your application owns everything else: t
                   $result = $bashSession->executeCommand($block->input['command']);
               }
 
-              // One tool_result per tool_use block, all returned in the next user message
+              // One tool_result for each tool_use block, all returned in the next user message
               $toolResults[] = ['type' => 'tool_result', 'tool_use_id' => $block->id, 'content' => $result];
           }
       }
@@ -820,7 +821,7 @@ Claude determines which command to run. Your application owns everything else: t
             bash_session.execute_command(block.input[:command])
           end
 
-        # One tool_result per tool_use block, all returned in the next user message
+        # One tool_result for each tool_use block, all returned in the next user message
         tool_results << {type: "tool_result", tool_use_id: block.id, content: result}
       end
       ```
@@ -1106,12 +1107,13 @@ Claude determines which command to run. Your application owns everything else: t
       ```
 
       ```php PHP
+      use Anthropic\Messages\Model;
       use Anthropic\Messages\ToolBash20250124;
 
       $client = new Client();
 
       $response = $client->messages->create(
-          model: 'claude-opus-5-5',
+          model: Model::CLAUDE_OPUS_5_5,
           maxTokens: 1024,
           tools: [new ToolBash20250124()],
           messages: [
@@ -1604,7 +1606,7 @@ When a command fails or the session breaks, tell Claude what occurred. Return th
       // readable output before each fgets() so the loop can check the deadline.
       function executeWithTimeout(BashSession $session, string $command, int $timeout = 30): string
       {
-          $sentinel = '__CLAUDE_BASH_DONE_' . bin2hex(random_bytes(16)) . '__'; // unique per call
+          $sentinel = '__CLAUDE_BASH_DONE_' . bin2hex(random_bytes(16)) . '__'; // unique for each call
           fwrite($session->stdin, "{$command}\necho {$sentinel}\n");
           fflush($session->stdin);
 

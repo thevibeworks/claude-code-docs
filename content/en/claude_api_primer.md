@@ -145,7 +145,7 @@ Claude can read both text and images in requests. Both `base64` and `url` source
 
 <CodeGroup exclude="shell:cURL, typescript, csharp, go, java, php, ruby">
   ```bash CLI
-  # Option 1: Base64-encoded image (@ prefix auto-encodes binary files as base64)
+  # Option 1: base64-encoded image (@ prefix auto-encodes binary files as base64)
   curl -sSo vision-example.jpg \
     https://platform.claude.com/docs/images/vision-example.jpg
 
@@ -185,7 +185,7 @@ Claude can read both text and images in requests. Both `base64` and `url` source
   import base64
   import httpx2
 
-  # Option 1: Base64-encoded image
+  # Option 1: base64-encoded image
   image_url = "https://platform.claude.com/docs/images/vision-example.jpg"
   image_media_type = "image/jpeg"
   image_data = base64.standard_b64encode(httpx2.get(image_url).content).decode("utf-8")
@@ -339,7 +339,7 @@ Important limitations:
 
   weather_data = {"temperature": 72}
 
-  # First request - Claude responds with thinking and tool request
+  # First request: Claude responds with thinking and tool request
   response = client.messages.create(
       model="claude-opus-5-5",
       max_tokens=16000,
@@ -356,7 +356,7 @@ Important limitations:
       (block for block in response.content if block.type == "tool_use"), None
   )
 
-  # Second request - Include thinking block and tool result
+  # Second request: include thinking block and tool result
   continuation = client.messages.create(
       model="claude-opus-5-5",
       max_tokens=16000,

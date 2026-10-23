@@ -385,7 +385,7 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
     function send(UserMessageParam|AssistantMessageParam|SystemMessageParam $message): void {}
     ```
 
-    * `MessageParam::fromArray()` and `(new MessageParam)->withContent()` throw "Call to undefined method". Call them on the role's class, which sets `role` itself.
+    * `MessageParam::fromArray()` and `(new MessageParam())->withContent()` throw "Call to undefined method". Call them on the role's class, which sets `role` itself.
     * `withRole()` takes only the string now: PHP throws a `TypeError` for a `Role` case. To give a message another role, build that role's class.
     * `clearAt` and `outputConfig` exist only on `BetaSystemMessageParam`, and `BetaMessageParam::with()` drops them for the other two roles. The `BetaMessageParam\ClearAt` enum is now `BetaSystemMessageParam\ClearAt`.
     * `MessageParam\Content` is now `MessageContentParam`, and `BetaMessageParam\Content` is now `BetaMessageContentParam`. Their PHPStan types take the new name too: `ContentShape` is now `MessageContentParamShape`.
@@ -616,7 +616,7 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
 
 ### Client-side compaction is removed from the tool runner
 
-This affects the TypeScript and Ruby SDKs. Client-side compaction in the tool runner has been removed in favor of server-side compaction, which summarizes the conversation inside the API instead of with an extra request from the client.
+This affects the TypeScript and Ruby SDKs. Client-side compaction in the tool runner is removed in favor of server-side compaction, which summarizes the conversation inside the API instead of with an extra request from the client.
 
 <Tabs exclude="shell, python, csharp, go, java, php">
   <Tab title="TypeScript">
@@ -674,133 +674,7 @@ The trigger threshold must be at least 50,000 tokens. See [compaction](https://p
 
 ### Text Completions is removed
 
-The legacy Text Completions API is removed from the TypeScript, Go, Java, and Ruby SDKs and from the CLI. Newer models and features don't support it. Use the [Messages API](https://platform.claude.com/docs/en/api/messages) instead.
-
-<Tabs exclude="shell:cURL, python, csharp, php">
-  <Tab title="CLI">
-    The `ant completions create` command is gone.
-
-    ```bash
-    # Before
-    ant completions create \
-      --model "$MODEL" \
-      --max-tokens-to-sample 1024 \
-      --prompt $'\n\nHuman: Hello, Claude\n\nAssistant:'
-
-    # After
-    ant messages create \
-      --model "$MODEL" \
-      --max-tokens 1024 \
-      --message '{role: user, content: "Hello, Claude"}'
-    ```
-
-    The reply text moves from the `completion` field to `content.0.text`, so a script that passed `--transform completion` passes `--transform content.0.text` instead.
-
-    `ant messages create` also takes `--stream`, but its events have another shape: the text arrives in `delta.text` of `content_block_delta` events, so `--transform content.0.text` does not apply to a stream.
-  </Tab>
-
-  <Tab title="TypeScript">
-    `client.completions` is gone, along with the `Completions` resource class and the `Completion`, `CompletionCreateParams`, `CompletionCreateParamsNonStreaming`, and `CompletionCreateParamsStreaming` types. `AnthropicBedrock` no longer has a `completions` property either. The `HUMAN_PROMPT` and `AI_PROMPT` constants, which only Text Completions prompts used, are gone too, both as exports and as static properties of the client.
-
-    ```typescript
-    // Before
-    const completion = await client.completions.create({
-      model,
-      max_tokens_to_sample: 1024,
-      prompt: "\n\nHuman: Hello, Claude\n\nAssistant:"
-    });
-    console.log(completion.completion);
-
-    // After
-    const message = await client.messages.create({
-      model,
-      max_tokens: 1024,
-      messages: [{ role: "user", content: "Hello, Claude" }]
-    });
-    console.log(message.content);
-    ```
-
-    `client.completions.create({ ..., stream: true })` becomes `client.messages.create({ ..., stream: true })` or `client.messages.stream({ ... })`.
-  </Tab>
-
-  <Tab title="Go">
-    `client.Completions` is gone, along with `CompletionService`, `NewCompletionService`, `CompletionNewParams`, and `Completion`. `aws.Client` no longer has a `Completions` field either. `bedrock.DefaultEndpoints` no longer lists `/v1/complete`.
-
-    ```go
-    // Before
-    completion, err := client.Completions.New(ctx, anthropic.CompletionNewParams{
-    	Model:             model,
-    	MaxTokensToSample: 1024,
-    	Prompt:            "\n\nHuman: Hello, Claude\n\nAssistant:",
-    })
-    fmt.Println(completion.Completion)
-
-    // After
-    message, err := client.Messages.New(ctx, anthropic.MessageNewParams{
-    	Model:     model,
-    	MaxTokens: 1024,
-    	Messages: []anthropic.MessageParam{
-    		anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
-    	},
-    })
-    fmt.Println(message.Content[0].Text)
-    ```
-
-    `client.Completions.NewStreaming` becomes `client.Messages.NewStreaming`.
-  </Tab>
-
-  <Tab title="Java">
-    `client.completions()` is gone from `AnthropicClient` and `AnthropicClientAsync`, along with `CompletionService`, `CompletionServiceAsync`, and the `com.anthropic.models.completions` package (`CompletionCreateParams` and `Completion`).
-
-    ```java
-    // Before
-    CompletionCreateParams params = CompletionCreateParams.builder()
-        .model(model)
-        .maxTokensToSample(1024)
-        .prompt("\n\nHuman: Hello, Claude\n\nAssistant:")
-        .build();
-
-    System.out.println(client.completions().create(params).completion());
-
-    // After
-    MessageCreateParams params = MessageCreateParams.builder()
-        .model(model)
-        .maxTokens(1024)
-        .addUserMessage("Hello, Claude")
-        .build();
-
-    client.messages().create(params).content().stream()
-        .flatMap(contentBlock -> contentBlock.text().stream())
-        .forEach(textBlock -> System.out.println(textBlock.text()));
-    ```
-
-    `client.completions().createStreaming` becomes `client.messages().createStreaming`.
-  </Tab>
-
-  <Tab title="Ruby">
-    `client.completions` is gone, along with `Anthropic::Resources::Completions`, `Anthropic::CompletionCreateParams`, and `Anthropic::Completion`. `Anthropic::BedrockClient` no longer has a `completions` reader either. On `Anthropic::BedrockMantleClient` and `Anthropic::GoogleCloudClient`, where `completions` raised `NotImplementedError`, the method no longer exists.
-
-    ```ruby
-    # Before
-    completion = client.completions.create(
-      model: model,
-      max_tokens_to_sample: 1024,
-      prompt: "\n\nHuman: Hello, Claude\n\nAssistant:"
-    )
-    puts(completion.completion)
-
-    # After
-    message = client.messages.create(
-      model: model,
-      max_tokens: 1024,
-      messages: [{role: "user", content: "Hello, Claude"}]
-    )
-    puts(message.content)
-    ```
-
-    `client.completions.create_streaming` becomes `client.messages.stream`.
-  </Tab>
-</Tabs>
+The legacy Text Completions API is removed from the TypeScript, Go, Java, and Ruby SDKs and from the CLI. Newer models and features don't support it. Use the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) instead.
 
 ### `betas` is removed from the non-beta Models methods
 
@@ -881,13 +755,17 @@ The non-beta Models methods no longer take `betas` (csharp, go: `Betas`; java: `
     import com.anthropic.models.models.ModelListPage;
     import com.anthropic.models.models.ModelListParams;
 
-    ModelListPage page = client.models().list(ModelListParams.builder().addBeta(beta).build());
+    ModelListPage page = client.models().list(ModelListParams.builder()
+        .addBeta(beta)
+        .build());
 
     // After
     import com.anthropic.models.beta.models.ModelListPage;
     import com.anthropic.models.beta.models.ModelListParams;
 
-    ModelListPage page = client.beta().models().list(ModelListParams.builder().addBeta(beta).build());
+    ModelListPage page = client.beta().models().list(ModelListParams.builder()
+        .addBeta(beta)
+        .build());
     ```
   </Tab>
 
@@ -922,7 +800,7 @@ The non-beta Models methods no longer take `betas` (csharp, go: `Betas`; java: `
 
 ### API keys are sent as `Authorization: Bearer`
 
-The SDK and the CLI send your API key as `Authorization: Bearer <key>` instead of in the `X-Api-Key` header, so change any proxy or gateway that reads or sets `X-Api-Key` to use `Authorization`, or [send the key in `X-Api-Key` yourself](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-proxy-x-api-key). The Claude API accepts a key in either header, so a program that talks to the API directly needs no change.
+The SDK and the CLI send your API key as `Authorization: Bearer <key>` instead of in the `X-Api-Key` header, so change any proxy or gateway that reads or sets `X-Api-Key` to use `Authorization`, or [send the key in `X-Api-Key` yourself](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-proxy-x-api-key). Also change code in your own program that reads `X-Api-Key`, such as middleware, a log filter, or a test stub. The Claude API accepts a key in either header.
 
 ```text wrap
 # Before
@@ -949,8 +827,6 @@ Authorization: Bearer <key>
     `Authorization` is the header the `authToken` option already uses.
 
     This applies to the `apiKey` option, the `ANTHROPIC_API_KEY` environment variable, and `apiKey` and `ANTHROPIC_AWS_API_KEY` in `@anthropic-ai/aws-sdk`. `apiKey` in `@anthropic-ai/foundry-sdk` still goes out as `X-Api-Key`, and `apiKey` in `@anthropic-ai/bedrock-sdk` was already a bearer token.
-
-    Middleware or a custom `fetch` that reads the key from the `x-api-key` request header needs to read `authorization` instead, where the key follows `Bearer `.
   </Tab>
 
   <Tab title="C#">
@@ -967,8 +843,6 @@ Authorization: Bearer <key>
     `Authorization` is the header `authToken` already uses.
 
     This applies to `apiKey` on the `AnthropicOkHttpClient`, `AnthropicOkHttpClientAsync`, and `AnthropicBackend` builders, the `ANTHROPIC_API_KEY` environment variable, and the `anthropic.apiKey` system property. `apiKey` on the `FoundryBackend` builder still goes out as `x-api-key`. `apiKey` on the `AwsBackend`, `BedrockBackend`, and `BedrockMantleBackend` builders was already a bearer token.
-
-    An interceptor now sees the key in `Authorization` instead of `X-Api-Key`.
   </Tab>
 
   <Tab title="PHP">
@@ -1185,7 +1059,7 @@ An API key and an authentication token now share a header, so an SDK client hold
     // Before: sent the API key and ignored `credentials`
     const client = new Anthropic({ apiKey, credentials });
 
-    // After: the line above throws a TypeError
+    // After: the previous line throws a TypeError
     const client = new Anthropic({ credentials });
     ```
 
@@ -1206,7 +1080,7 @@ An API key and an authentication token now share a header, so an SDK client hold
     // Before: sent both, each in its own header
     AnthropicClient client = new() { ApiKey = apiKey, AuthToken = token };
 
-    // After: the line above throws an ArgumentException
+    // After: the previous line throws an ArgumentException
     AnthropicClient client = new() { AuthToken = token };
     ```
 
@@ -1232,7 +1106,7 @@ An API key and an authentication token now share a header, so an SDK client hold
     	option.WithProfile("work"),
     )
 
-    // After: every request of the client above fails, so pass the one you want
+    // After: every request the previous client makes fails, so pass the one you want
     client := anthropic.NewClient(option.WithAPIKey(apiKey))
     ```
 
@@ -1426,10 +1300,14 @@ These changes each affect one SDK or the CLI.
 
     ```java
     // Before
-    request.toBuilder().putHeader("anthropic-version", version).build();
+    request.toBuilder()
+        .putHeader("anthropic-version", version)
+        .build();
 
     // After
-    request.toBuilder().replaceHeaders("anthropic-version", version).build();
+    request.toBuilder()
+        .replaceHeaders("anthropic-version", version)
+        .build();
     ```
   </Tab>
 
@@ -1454,7 +1332,7 @@ These changes each affect one SDK or the CLI.
 
 ### The license is Apache 2.0
 
-Starting with these versions, the SDK and the CLI are licensed under the Apache License, Version 2.0. Earlier versions remain under the MIT License. No code changes are needed. If you track the licenses of your dependencies, update their entries.
+Starting with the versions under [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade), the SDK and the CLI are licensed under the Apache License, Version 2.0. Earlier versions remain under the MIT License. No code changes are needed. If you track the licenses of your dependencies, update their entries.
 
 * **TypeScript:** The platform packages (`@anthropic-ai/bedrock-sdk`, `@anthropic-ai/vertex-sdk`, `@anthropic-ai/foundry-sdk`, `@anthropic-ai/aws-sdk`, and `@anthropic-ai/google-cloud-sdk`) change license in their own 1.0.0 releases.
 * **C#:** The other packages (`Anthropic.Bedrock`, `Anthropic.Vertex`, `Anthropic.Foundry`, `Anthropic.Aws`, `Anthropic.GoogleCloud`, and `Anthropic.Mcp`) change license in their own 1.0.0 releases.

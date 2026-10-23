@@ -45,7 +45,7 @@ Set up OpenTelemetry tracing with the Claude API and Claude SDK
 | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | [Messages API](https://platform.claude.com/docs/en/api/messages/create) requests                                                  | ✅                                                                           | ✅                                                                                          | ✅                                                                                          |
 | [Sessions API](https://platform.claude.com/docs/en/managed-agents/sessions) requests                                              | ✅                                                                           | ✅                                                                                          | ✅                                                                                          |
-| [Token counts](https://platform.claude.com/docs/en/manage-claude/opentelemetry#count-tokens)                                      | ✅                                                                           | ✅                                                                                          | ✅                                                                                          |
+| Token usage (see [Counting tokens](https://platform.claude.com/docs/en/manage-claude/opentelemetry#count-tokens))                 | ✅                                                                           | ✅                                                                                          | ✅                                                                                          |
 | Each model run within a request                                                                                                   | —                                                                           | ✅                                                                                          | ✅                                                                                          |
 | [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) turns                                               | —                                                                           | ✅                                                                                          | ✅                                                                                          |
 | [Server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), run by the API                        | —                                                                           | ✅                                                                                          | ✅                                                                                          |
@@ -80,6 +80,14 @@ Send traces to any observability platform that accepts OTLP, including these par
     AI-powered observability and security.
   </Card>
 
+  <Card title="Dynatrace" image="https://platform.claude.com/docs/images/partner-logos/dynatrace.svg" imageDark="https://platform.claude.com/docs/images/partner-logos/dynatrace-dark.svg" imageHeight={22} href="https://docs.dynatrace.com/docs/observe/dynatrace-for-ai-observability/integrations/claude-platform">
+    Observability built for the age of AI.
+  </Card>
+
+  <Card title="Elastic" image="https://platform.claude.com/docs/images/partner-logos/elastic.svg" imageDark="https://platform.claude.com/docs/images/partner-logos/elastic-dark.svg" imageHeight={32} href="https://www.elastic.co/docs/reference/opentelemetry/motlp">
+    Observability built on open source.
+  </Card>
+
   <Card title="Grafana Cloud" image="https://platform.claude.com/docs/images/partner-logos/grafana.svg" imageDark="https://platform.claude.com/docs/images/partner-logos/grafana-dark.svg" imageHeight={34} imageOffsetLeft={2} href="https://grafana.com/docs/grafana-cloud/observe-and-act/agent-observability/guides/send-claude-platform-traces/">
     Fully managed open observability platform.
   </Card>
@@ -104,8 +112,16 @@ Send traces to any observability platform that accepts OTLP, including these par
     All-in-one platform for building successful products.
   </Card>
 
+  <Card title="Pydantic Logfire" image="https://platform.claude.com/docs/images/partner-logos/pydantic.svg" imageDark="https://platform.claude.com/docs/images/partner-logos/pydantic-dark.svg" imageHeight={24} href="https://pydantic.dev/docs/logfire/integrations/llms/claude-platform/">
+    Production-grade AI & general observability.
+  </Card>
+
   <Card title="Sentry" image="https://platform.claude.com/docs/images/partner-logos/sentry.svg" imageDark="https://platform.claude.com/docs/images/partner-logos/sentry-dark.svg" imageHeight={25} href="https://sentry.io/cookbook/trace-claude-platform-with-opentelemetry/">
     Debug your broken code and misbehaving agents.
+  </Card>
+
+  <Card title="Snowflake" image="https://platform.claude.com/docs/images/partner-logos/snowflake.svg" imageHeight={30} imageOffsetLeft={2} href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-ai-gateway/observability#trace-claude-requests">
+    AI Data Cloud.
   </Card>
 
   <Card title="Splunk" image="https://platform.claude.com/docs/images/partner-logos/splunk.svg" imageDark="https://platform.claude.com/docs/images/partner-logos/splunk-dark.svg" imageHeight={27} imageOffsetLeft={1} href="https://agent-observability-docs.splunk.com/sdk-api/third-party-integrations/claude">

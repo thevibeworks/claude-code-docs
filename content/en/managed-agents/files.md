@@ -65,7 +65,9 @@ First, upload a file using the [Files API](https://platform.claude.com/docs/en/b
 
   ```java Java
   var file = client.files().upload(
-      FileUploadParams.builder().file(dataCsv).build()
+      FileUploadParams.builder()
+          .file(dataCsv)
+          .build()
   );
   IO.println("File ID: " + file.id());
   ```
@@ -174,7 +176,6 @@ Mount uploaded files into the sandbox by adding them to the `resources` (csharp,
   	EnvironmentID: environment.ID,
   	Resources: []anthropic.BetaSessionNewParamsResourceUnion{{
   		OfFile: &anthropic.BetaManagedAgentsFileResourceParams{
-  			Type:      anthropic.BetaManagedAgentsFileResourceParamsTypeFile,
   			FileID:    file.ID,
   			MountPath: anthropic.String("/data.csv"),
   		},
@@ -324,11 +325,17 @@ Mount multiple files by adding entries to the `resources` (csharp, go: `Resource
 
   var resources = List.of(
       BetaManagedAgentsFileResourceParams.builder()
-          .fileId("file_abc123").mountPath("/data.csv").build(),
+          .fileId("file_abc123")
+          .mountPath("/data.csv")
+          .build(),
       BetaManagedAgentsFileResourceParams.builder()
-          .fileId("file_def456").mountPath("/config.json").build(),
+          .fileId("file_def456")
+          .mountPath("/config.json")
+          .build(),
       BetaManagedAgentsFileResourceParams.builder()
-          .fileId("file_ghi789").mountPath("/src/main.py").build()
+          .fileId("file_ghi789")
+          .mountPath("/src/main.py")
+          .build()
   );
   ```
 
@@ -406,7 +413,6 @@ You can add or remove files from a session after creation using the session reso
   ```go Go
   resource, err := client.Beta.Sessions.Resources.Add(ctx, session.ID, anthropic.BetaSessionResourceAddParams{
   	BetaManagedAgentsFileResourceParams: anthropic.BetaManagedAgentsFileResourceParams{
-  		Type:   anthropic.BetaManagedAgentsFileResourceParamsTypeFile,
   		FileID: file.ID,
   	},
   })
@@ -535,7 +541,9 @@ List all resources on a session with `GET /v1/sessions/{session_id}/resources` (
 
   client.beta().sessions().resources().delete(
       resource.id(),
-      ResourceDeleteParams.builder().sessionId(session.id()).build()
+      ResourceDeleteParams.builder()
+          .sessionId(session.id())
+          .build()
   );
   ```
 

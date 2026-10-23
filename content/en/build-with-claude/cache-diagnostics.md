@@ -1026,7 +1026,7 @@ This matrix applies to turns where you passed a real `previous_message_id`. On t
 
 ## Limitations
 
-* **Claude API only:** Not available on Amazon Bedrock or Google Cloud.
+* **Claude API only:** Not available on Amazon Bedrock or Claude Models on Google Cloud (Google managed).
 * **Limited retention:** Fingerprints for `previous_message_id` lookup expire after a short period. Run diagnostic comparisons between closely spaced requests.
 * **Same workspace:** The previous request must have run in the same organization and workspace. To check, compare the `anthropic-workspace-id` [response header](https://platform.claude.com/docs/en/api/overview#response-headers) on the two responses.
 * **Comparison horizon:** For very long conversations where the only change is deep in the message list, the response might be `unavailable` rather than a precise location.

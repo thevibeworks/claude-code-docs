@@ -6,6 +6,28 @@
 
 > Release notes for Claude Desktop
 
+**v3.6556.2**
+
+2026-10-22
+
+Bundled Claude Code version: 2.1.308.
+
+**General**
+
+* No user-facing changes.
+
+**Code**
+
+* No user-facing changes.
+
+**Cowork**
+
+* No user-facing changes.
+
+**3P**
+
+* No user-facing changes.
+
 **v3.6556.1**
 
 2026-10-22

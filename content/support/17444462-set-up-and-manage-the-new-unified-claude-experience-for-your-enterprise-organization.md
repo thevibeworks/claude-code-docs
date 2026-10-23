@@ -103,7 +103,7 @@ To learn how to create a role, see **[Set up role-based permissions on Enterpris
 | Computer access                                                     | Organization settings                                 | When off, web, mobile, and scheduled tasks can't use a member's linked computer.                                                                                                                                                                                                                                               |
 | Require Trusted Devices                                             | Organization settings                                 | Require members to verify each new device before it can connect to Claude on their computer remotely.                                                                                                                                                                                                                          |
 | Scheduled tasks                                                     | Organization settings                                 | When off, scheduled tasks that execute remotely are disabled for your org. Users will not be able to create new scheduled tasks in the cloud.                                                                                                                                                                                  |
-| Custom data retention                                               | Organization settings                                 | Governs conversations and projects. See Data retention and deletion below.                                                                                                                                                                                                                                                     |
+| Custom data retention                                               | Organization settings                                 | Governs conversations, projects, and artifacts. See Data retention and deletion below, and learn more in **[Configure custom data retention controls for Enterprise plans](https://support.claude.com/en/articles/10440198)**.                                                                                                 |
 | Compliance API                                                      | Organization settings                                 | Covers conversations in the new unified Claude experience with your existing access keys. For setup and endpoint reference, see **[Access the Compliance API](https://support.claude.com/en/articles/13015708)** and the **[Compliance API documentation](https://platform.claude.com/docs/en/manage-claude/compliance-api)**. |
 | Analytics API                                                       | Organization settings                                 | Covers analytics for the new unified Claude experience with your existing access keys. Please refer to the **[Analytics API documentation](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.<br>                                                                                                             |
 | Admin API                                                           | Organization settings                                 | Works with your existing access keys. The new unified Claude experience appears as the chat\_cowork\_unified permission when you list a custom role's permissions. For endpoint reference, see the **[Admin API documentation](https://platform.claude.com/docs/en/manage-claude/user-management)**.                           |
@@ -118,11 +118,13 @@ For recommended Security settings and architecture, see **[Unified Claude and Co
 
 ## Data retention and deletion
 
-1. Conversations. Conversations are kept until the member deletes them or according to your organization's custom data retention setting if you’ve set one (minimum 30 days). See **[custom data retention](https://support.claude.com/en/articles/10440198)**. Conversations in a project follow the project’s retention period. The period is measured from the most recent activity in the conversation or in any cloud session Claude started from it, so a conversation isn’t deleted while one of its cloud sessions is in use.
+1. **Conversations.** Conversations are kept until the member deletes them or according to your organization's custom data retention setting if you’ve set one (minimum 30 days). See **[custom data retention](https://support.claude.com/en/articles/10440198)**. Conversations in a project follow the project’s retention period. The period is measured from the most recent activity in the conversation or in any cloud session Claude started from it, so a conversation isn’t deleted while one of its cloud sessions is in use.
 
-2. Cloud sessions started from a conversation. When a conversation is deleted, whether by a member, by deleting its project, or under your retention period, the cloud sessions Claude started in it are deleted too, including their transcripts.
+2. **Cloud sessions started from a conversation.** When a conversation is deleted, whether by a member, by deleting its project, or under your retention period, the cloud sessions Claude started in it are deleted too, including their transcripts.
 
-3. Not deleted with a conversation. Custom data retention doesn’t cover:
+3. **Artifacts.** When a conversation is deleted under your retention period, the artifacts made in it aren't deleted with it. They follow the retention period that covers artifacts, if you have one. Research reports and artifacts in some older chats are the exception, and they're deleted with their conversation.
+
+4. **Not deleted with a conversation.** Custom data retention doesn’t cover:
 
   1. Cowork cloud sessions a member starts directly, including in a project. These are kept until the member deletes them.
 
@@ -130,7 +132,7 @@ For recommended Security settings and architecture, see **[Unified Claude and Co
 
   3. Cowork history stored on a member’s computer.
 
-4. Memory during the public beta. Memory isn’t covered by your retention setting during the beta. When you turn on the new experience, each member’s existing memory is copied into it, and memory from conversations that are later deleted can remain. If you turn the experience off, that memory is kept. We plan to apply your retention setting to memory, including memory created during the beta, at general availability, and will update this article.
+5. **Memory during the public beta.** Memory isn’t covered by your retention setting during the beta. When you turn on the new experience, each member’s existing memory is copied into it, and memory from conversations that are later deleted can remain. If you turn the experience off, that memory is kept. We plan to apply your retention setting to memory, including memory created during the beta, at general availability, and will update this article.
 
 As with chat, we may retain content flagged by our trust and safety systems or as required by law. See **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**
 
@@ -168,11 +170,11 @@ The new unified Claude experience gets its own line in your reports. When a memb
 
 - **A page of its own.** Admins who can view analytics will find a Chat and Cowork unified page under Apps, marked Beta. It shows daily active users.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719814921/59cd7abb6c99192d741223dd2016/f2fadd45-8cb0-49db-a9a2-c8f367f29c91?expires=1792699200&amp;signature=149731a39d0dc76b423314e884fbbc7b10ee944b5b5c1d4f7fc2de2b3b040c08&amp;req=dicmH8F%2FmYhdWPMW1HO4zdLa5Q1uaaeCf83E9koMvr%2FK1NgxJRvSwgbbBwjU%0A%2FD9r%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719814921/59cd7abb6c99192d741223dd2016/f2fadd45-8cb0-49db-a9a2-c8f367f29c91?expires=1792821600&amp;signature=5168a6366a0b11fb8c6cfdecafb642088f6fcfb06ef2a4f00f0aff8abcce0f68&amp;req=dicmH8F%2FmYhdWPMW3nq%2BgbJHOpVrn9%2FZGL6gL%2F%2BcHiMGXFke%2Bm3LkMWBxdle%0AfF9d2QKcDG8CFSTTSVuSS8Ix2rw%3D%0A)
 
 - **Across the dashboard.** You can pick "Chat and Cowork unified (beta)" in the Active users, Active members, Total spend, and Spend by model charts. The See all members table on the Overview page has a "Messages in Chat and Cowork unified (beta)" column. The Top connectors and Top skills cards don't include it yet.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719816289/17e3ba22d470c32e8df9b3c20251/385c6be9-7019-451d-85f8-025a6e12a34c?expires=1792699200&amp;signature=2c0916244195537cbdffeefd2154b18f96ce6dda4fdcc87703eb867ffe673a0f&amp;req=dicmH8F%2Fm4NXUPMW1HO4zRXO8A0XSYy7JG9o%2B2MbcGpIEyPOgI%2BjD5wROlof%0AV4hO%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719816289/17e3ba22d470c32e8df9b3c20251/385c6be9-7019-451d-85f8-025a6e12a34c?expires=1792821600&amp;signature=744cee854a21f384fbf2811f58926346baa9e8750bb29031f1a3f9ea68618fbe&amp;req=dicmH8F%2Fm4NXUPMW3nq%2BgTeAtlvnIqi0a%2BTv3uEHtAV9RkBaXnct2w9%2B2AWD%0Aw1%2B4Kqs8P3WfBWyxi8OK%2FJlB584%3D%0A)
 
 - **Who sees it.** The page appears for every organization that can turn on the new unified Claude experience, whether or not it is on yet.
 

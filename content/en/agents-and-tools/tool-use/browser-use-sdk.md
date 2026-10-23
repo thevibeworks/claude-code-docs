@@ -702,7 +702,7 @@ A driver with request interception can also check those requests in its request 
   ```
 </CodeGroup>
 
-A request hook like this one doesn't see WebSocket handshakes, service-worker requests, or redirect hops. Block service workers. Check WebSocket handshakes and redirect hops with a hook that sees them. The example policy refuses `ws://` and `wss://` URLs, so change `ws://` to `http://` and `wss://` to `https://` before you pass a WebSocket URL to `is_allowed` (typescript: `isAllowed`).
+A request hook like this one doesn't see WebSocket handshakes, service-worker requests, or redirect hops. Block service workers. Check WebSocket handshakes and redirect hops with a hook that sees them. The example policy refuses `ws://` and `wss://` URLs, so change `ws://` to `http://` and `wss://` to `https://` before you pass a WebSocket URL to `is_allowed()` (typescript: `isAllowed()`).
 
 ### Put egress policy on the container
 
@@ -770,7 +770,7 @@ Set up downloads this way:
 
 Return `True` (typescript: `true`) to run the call, or `False` (typescript: `false`) to refuse it. When your callable asks a person, show them the member, the page's URL, and the call's input. First, escape every character outside printable ASCII in the URL and the input, because both can carry text from the page.
 
-This example asks about the two gated members through your own `ask_user` (typescript: `askUser`) function, and approves the rest:
+This example asks about the two gated members through your own `ask_user()` (typescript: `askUser()`) function, and approves the rest:
 
 <CodeGroup exclude="shell:cURL, shell:CLI, csharp, go, java, php, ruby">
   ```python Python
@@ -920,7 +920,7 @@ The class takes `configs`, `confirm`, and `tool_configs` (typescript: `toolConfi
 
 ### Write a desktop driver
 
-This driver implements five of the 17 tools listed under [Available actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#available-actions). A tool you don't implement is sent to the API as disabled, as [Implement a driver](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#implement-a-driver) explains. In the example, `display` stands for your own wrapper around whatever controls the desktop, such as a VNC client or `xdotool`, and `ask_user` (typescript: `askUser`) stands for your own function that asks a person.
+This driver implements five of the 17 tools listed under [Available actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#available-actions). A tool you don't implement is sent to the API as disabled, as [Implement a driver](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#implement-a-driver) explains. In the example, `display` stands for your own wrapper around whatever controls the desktop, such as a VNC client or `xdotool`, and `ask_user()` (typescript: `askUser()`) stands for your own function that asks a person.
 
 <CodeGroup exclude="shell:cURL, shell:CLI, csharp, go, java, php, ruby">
   ```python Python
@@ -1157,7 +1157,7 @@ If your screenshots are a different size from the display, convert in both direc
   ```
 </CodeGroup>
 
-Call `to_display` (typescript: `toDisplay`) on each `coordinate` and `start_coordinate` before you act on it, and `to_screenshot` (typescript: `toScreenshot`) on the position that `cursor_position` reports. A click or scroll with no `coordinate` acts at the cursor, so it has nothing to convert. Scale a `zoom` `region` by the same factor. A `zoom` image doesn't change this: the next points Claude sends are still pixel positions in the full screenshot.
+Call `to_display()` (typescript: `toDisplay()`) on each `coordinate` and `start_coordinate` before you act on it, and `to_screenshot()` (typescript: `toScreenshot()`) on the position that `cursor_position` reports. A click or scroll with no `coordinate` acts at the cursor, so it has nothing to convert. Scale a `zoom` `region` by the same factor. A `zoom` image doesn't change this: the next points Claude sends are still pixel positions in the full screenshot.
 
 The SDK never reads or resizes an image. The API rejects an image over the model's limits, which ends the run. Scale each screenshot and `zoom` image in the driver. See [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions). On a long run, one request can hold more than 20 images, and the API then holds each one to a stricter limit. See [Manage screenshot history](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#manage-screenshot-history).
 
@@ -1193,7 +1193,7 @@ Before you run a driver against anything but a throwaway machine, take these fiv
 
 The SDK applies step 2 through the callable you pass. The other steps are up to your driver and your deployment. The precautions under [Security considerations for the computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#security-considerations) apply as well.
 
-The following `confirm` asks a person before any keyboard input, through your own `ask_user` (typescript: `askUser`) function, and approves every other call. `context.member` (typescript: `ctx.member`) is the tool's name. To have a person approve clicks too, set `ASK_FIRST` to `KEYBOARD | CLICKS` (typescript: `new Set([...KEYBOARD, ...CLICKS])`).
+The following `confirm` asks a person before any keyboard input, through your own `ask_user()` (typescript: `askUser()`) function, and approves every other call. `context.member` (typescript: `ctx.member`) is the tool's name. To have a person approve clicks too, set `ASK_FIRST` to `KEYBOARD | CLICKS` (typescript: `new Set([...KEYBOARD, ...CLICKS])`).
 
 <CodeGroup exclude="shell:cURL, shell:CLI, csharp, go, java, php, ruby">
   ```python Python

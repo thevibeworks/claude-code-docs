@@ -302,7 +302,7 @@ claude.ai does not support centralized admin management or org-wide distribution
 The exact runtime environment available to your Skill depends on the product surface where you use it.
 
 * **claude.ai:**
-  * **Varying network access:** Depending on user/admin settings, Skills might have full, partial, or no network access. For more details, see the [Create and Edit Files](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_6b7e833898) support article.
+  * **Varying network access:** Depending on user/admin settings, Skills might have full, partial, or no network access. For more details, see the [Create and edit files with Claude](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_6b7e833898) support article.
 
 * **Claude API:**
 

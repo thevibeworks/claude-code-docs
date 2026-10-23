@@ -53,7 +53,7 @@ If you still want more updates, for example when pair programming or in other hu
 Before you start, say in a line what you're about to do; brief updates while you work help the user follow along. Close with a short recap that stands on its own — what you found, what you did, and what's next — so a reader who only sees the last message has the full picture.
 ```
 
-If your product collapses or hides tool output, tell the model. Otherwise it may run commands to "show" the user output that your UI never displays. Each time you send back tool output that your UI hides, follow it with the note in a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (`clear_at: "next_user_message"`, beta):
+If your product collapses or hides tool output, tell the model. Otherwise it might run commands to "show" the user output that your UI never displays. Each time you send back tool output that your UI hides, follow it with the note in a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (`clear_at: "next_user_message"`, beta):
 
 ```text wrap
 Only you see that command's output — the user's terminal shows at most a few lines of it. If the user needs to read any of it, put it in your reply.
@@ -385,7 +385,7 @@ The following loop shows this placement. Each assistant turn goes back exactly a
   	"fmt"
   	"log"
 
-  	"github.com/anthropics/anthropic-sdk-go"
+  	"github.com/anthropics/anthropic-sdk-go/v2"
   )
 
   const batchNudge = "First privately list what you need next; then request every item " +
@@ -465,11 +465,10 @@ The following loop shows this placement. Each assistant turn goes back exactly a
   		// turn-scoped system message. Leave earlier copies in place: the API clears them,
   		// so the model sees only the newest one.
   		messages = append(messages, anthropic.NewBetaUserMessage(toolResults...))
-  		messages = append(messages, anthropic.BetaMessageParam{
-  			Role:    anthropic.BetaMessageParamRoleSystem,
-  			Content: []anthropic.BetaContentBlockParamUnion{anthropic.NewBetaTextBlock(batchNudge)},
-  			ClearAt: anthropic.BetaMessageParamClearAtNextUserMessage,
-  		})
+  		messages = append(messages, anthropic.BetaMessageParam{OfSystem: &anthropic.BetaSystemMessageParam{
+  			Content: []anthropic.BetaSystemMessageParamContentUnion{{OfText: &anthropic.BetaTextBlockParam{Text: batchNudge}}},
+  			ClearAt: anthropic.BetaSystemMessageParamClearAtNextUserMessage,
+  		}})
   	}
 
   	for _, block := range response.Content {

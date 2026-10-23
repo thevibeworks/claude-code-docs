@@ -98,7 +98,7 @@ A supported pattern is to list a connector in the directory with safe, broadly a
 
 ### Per-tenant URLs
 
-If your server URL varies per tenant, such as `{tenant}.mcp.example.com`, submit one directory listing with a URL pattern. Each user enters their own URL when they connect. See [Servers with per-customer URLs](/docs/connectors/building/authentication.md#servers-with-per-customer-urls) for how this choice limits your authentication options.
+If your server URL varies per tenant, such as `{tenant}.mcp.example.com`, submit one directory listing with a URL pattern. Each user enters their own URL when they connect. A listing with a URL pattern can be published only once it has the **Verified** label. See [Servers with per-customer URLs](/docs/connectors/building/authentication.md#servers-with-per-customer-urls) for how this choice limits your authentication options.
 
 ## Next steps
 

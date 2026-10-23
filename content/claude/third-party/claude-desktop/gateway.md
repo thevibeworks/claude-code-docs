@@ -168,25 +168,86 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
 ### Configuration keys
 
-| Setting | Type | Availability | Default | Description |
-| - | - | - | - | - |
-| Gateway base URL `inferenceGatewayBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Full URL of the inference gateway endpoint. |
-| Gateway API key `inferenceGatewayApiKey` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | API key for the configured inference gateway. |
-| Gateway auth scheme `inferenceGatewayAuthScheme` | `enum` | MDM + Bootstrap Added in 1.3036.0 | `bearer` | How the gateway credential is sent on the wire (Authorization: Bearer vs x-api-key header). One of: `bearer`, `x-api-key`. Defaults to `bearer`. Deprecated: `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original spelling will keep working; no end date has been set. |
-| Gateway sign-in flow `inferenceGatewayOidcAuthFlow` | `enum` | MDM + Bootstrap Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. Deprecated: `inferenceGatewayOidcAuthFlow`; use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
-| Gateway SSO IdP (OIDC) `inferenceGatewayOidc` | `object` | MDM + Bootstrap Added in 1.6889.0 | — | External IdP for gateway sign-in. The user’s token from this issuer is sent to the gateway as the Bearer credential. Deprecated: `inferenceGatewayOidc`; use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
-| Identity provider sign-in flow `inferenceIdpAuthFlow` | `enum` | MDM + Bootstrap Added in 2.7032.0 | — | How the identity-provider sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
-| Identity provider (OIDC) `inferenceIdpOidc` | `object` | MDM + Bootstrap Added in 2.7032.0 | — | Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy. |
-| Stream idle timeout `inferenceStreamIdleTimeoutSec` | `integer` | MDM + Bootstrap Added in 1.44121.1 | — | Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300. Range: 300–1800. |
+[Entry labels](/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
 
-> **inferenceGatewayOidcAuthFlow details**
+#### `inferenceGatewayBaseUrl`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
+
+Since 1.2581.0
+
+**Gateway base URL.** Full URL of the inference gateway endpoint.
+
+***
+
+#### `inferenceGatewayApiKey`
+
+stringSince 1.2581.0
+
+**Gateway API key.** API key for the configured inference gateway.
+
+***
+
+#### `inferenceGatewayAuthScheme`
+
+enumDefault: bearerSince 1.3036.0
+
+**Gateway auth scheme.** How the gateway credential is sent on the wire (Authorization: Bearer vs x-api-key header).
+
+One of: `bearer` (default), `x-api-key`
+
+> [!WARNING]
+>
+> **Deprecated**
+>
+> * `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original spelling will keep working; no end date has been set.
+
+***
+
+#### `inferenceGatewayOidcAuthFlow`
+
+enumSince 1.25927.0
+
+**Gateway sign-in flow.** How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker.
+
+One of: `browser`, `broker`
+
+> [!WARNING]
+>
+> **Deprecated**
+>
+> * Use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
+
+> **More detail**
 >
 > * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration.
 > * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceGatewayOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
 >
 > Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes`, and forwards it to the customer's own gateway; both endpoints of that trust relationship are inside the customer's control. A desktop that has the `external-idp` kind reads this key, together with `inferenceGatewayOidc`, as that kind's sign-in flow; it stays readable.
 
-> **inferenceGatewayOidc details**
+***
+
+#### `inferenceGatewayOidc`
+
+object
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.6889.0
+
+**Gateway SSO IdP (OIDC).** External IdP for gateway sign-in. The user’s token from this issuer is sent to the gateway as the Bearer credential.
+
+> [!WARNING]
+>
+> **Deprecated**
+>
+> * Use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
+
+> **More detail**
 >
 > **External IdP mode.** The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code-with-PKCE sign-in in the system browser with `clientId`, and sends the resulting token as `Authorization: Bearer` on every inference request. Leave this unset for a gateway that hosts its own RFC 8414 metadata at `<baseUrl>/.well-known/oauth-authorization-server`. A desktop that has the `external-idp` kind reads this block as that kind's identity-provider key; it stays readable, so a fleet keeps this spelling until every desktop is on such a release.
 >
@@ -195,29 +256,105 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 > **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` by default (`http://localhost:<port>/callback` with `redirectHost: "localhost"`); register exactly the one you use and include `/callback`. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI of `http://127.0.0.1/callback` (any port; omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the gateway API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with the exact URI `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
 >
 > **Refresh.** With `offline_access` the app renews the token silently and prompts a browser sign-in only when refresh fails. Google never returns an `id_token` on refresh, so a Google Workspace-backed gateway in `id_token` mode re-prompts about hourly; `access_token` mode is unaffected.
->
-> | Field | Type | Default | Description |
-> | - | - | - | - |
-> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-> | `bearerTokenType` | `enum` | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`. |
-> | `scopes` | `string` | — | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
-> | `appendOfflineAccess` | `boolean` | `true` | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh. |
-> | `resource` | `string` | — | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID. |
-> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
-> **inferenceIdpAuthFlow details**
+> **Child attributes (11)**
+>
+> **clientId** `string` *required*
+>
+> OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).
+>
+> **issuer** `string`
+>
+> HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.
+>
+> **authorizationUrl** `string`
+>
+> HTTPS authorization endpoint. Used with the token URL when no issuer is set.
+>
+> **tokenUrl** `string`
+>
+> HTTPS token endpoint. Used with the authorization URL when no issuer is set.
+>
+> **bearerTokenType** `enum` (default: id\_token)
+>
+> Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server.
+>
+> One of: `id_token` (default), `access_token`
+>
+> > **More detail**
+> >
+> > In **access-token** mode the token's audience must be your gateway or proxy. On IdPs where the requested scopes decide the audience (**Entra ID**), include its API resource scope in `scopes` — `api://<gateway-app-id>/.default`, or a named delegated scope you exposed via *Expose an API*. With only the standard OIDC scopes (`openid profile email offline_access`) Entra returns a v1.0 Microsoft Graph token whose issuer (`https://sts.windows.net/<tenant>/`) doesn't match the v2.0 issuer configured here, so a gateway that validates `iss` rejects it. On IdPs that set the access-token audience out-of-band (Keycloak audience mapper, Auth0 default audience, Okta custom authorization server), a resource scope in `scopes` isn't required — the audience comes from the IdP-side configuration.
+>
+> **scopes** `string`
+>
+> Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below.
+>
+> **appendOfflineAccess** `boolean` (default: true)
+>
+> Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.
+>
+> > **More detail**
+> >
+> > Turn off only if your authorization server rejects `offline_access` as an unknown scope; include the server’s own refresh-token scope in **Scopes** instead.
+>
+> **resource** `string`
+>
+> Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID.
+>
+> > **More detail**
+> >
+> > Set this only for an IdP that implements RFC 8707 resource indicators. The app then sends `resource=<value>` on the authorization, token and refresh requests, so the access token the IdP issues is audience-restricted to the gateway or proxy rather than to the IdP's own APIs. Use it with `bearerTokenType: access_token`; in `id_token` mode the ID token's audience is always `clientId`. Ignored with the OS-broker sign-in flow (the sign-in flow key set to `broker`), which is Entra-only.
+> >
+> > **Microsoft Entra ID:** leave unset — the v2.0 endpoint rejects `resource`; request the API scope in `scopes` instead (`api://<gateway-app-id>/.default`). **AD FS:** enter one of the relying-party trust's identifiers, spelled as it is registered there. A value with no scheme (a host name with or without a port or path, a single name, or a GUID; `name:digits` also reads as a host name with a port) is sent as `https://<value>`; an identifier with a scheme of its own (`urn:…`, or an organization-defined one such as `VENDOR:URI:…`) is sent exactly as written. A trust whose only identifier is a bare name or GUID will not match, because those are sent as `https://<value>`: add an `https://…` or `urn:…` identifier to the trust and enter that one here. With any other identity provider, use an absolute URI without a fragment (RFC 8707 — the IdP rejects one as `invalid_target`). Changing it signs users in again.
+>
+> **redirectPort** `integer`
+>
+> Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.
+>
+> **redirectHost** `enum`
+>
+> Use localhost only if your IdP’s registered redirect URI specifies it.
+>
+> One of: `127.0.0.1`, `localhost`
+>
+> **additionalRedirectReferrerHosts** `string`
+>
+> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+>
+> > **More detail**
+> >
+> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+
+***
+
+#### `inferenceIdpAuthFlow`
+
+enumSince 2.7032.0
+
+**Identity provider sign-in flow.** How the identity-provider sign-in runs: system browser (default) or the OS Microsoft Entra broker.
+
+One of: `browser`, `broker`
+
+> **More detail**
 >
 > * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceIdpOidc` for redirect-URI registration.
 > * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceIdpOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
 >
 > Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes` and forwards it to the customer's own gateway or proxy; both endpoints of that trust relationship are inside the customer's control.
 
-> **inferenceIdpOidc details**
+***
+
+#### `inferenceIdpOidc`
+
+object
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 2.7032.0
+
+**Identity provider (OIDC).** Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy.
+
+> **More detail**
 >
 > Used with `inferenceCredentialKind: "external-idp"`. The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code (PKCE) sign-in in the browser with `clientId` (or through the OS broker, see `inferenceIdpAuthFlow`) and sends the token as `Authorization: Bearer` on every inference request: to `inferenceGatewayBaseUrl` on the gateway provider, or on Bedrock to `inferenceBedrockBaseUrl`, which is then required: only a proxy that validates the token accepts it, never Amazon Bedrock itself (to sign in straight to Bedrock use `interactive`, AWS IAM Identity Center). On Bedrock this kind has no model discovery: list the models in `inferenceModels`.
 >
@@ -228,26 +365,90 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 > **Refresh.** With `offline_access` the app renews the token silently and asks for a browser sign-in only when refresh fails (Google returns no `id_token` on refresh, so `id_token` mode there re-prompts about hourly).
 >
 > **Older names.** Gateway configurations written before this key use `inferenceGatewayOidc` / `inferenceGatewayOidcAuthFlow` with the `interactive` kind; they stay readable and mean the same sign-in.
->
-> | Field | Type | Default | Description |
-> | - | - | - | - |
-> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-> | `bearerTokenType` | `enum` | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`. |
-> | `scopes` | `string` | — | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
-> | `appendOfflineAccess` | `boolean` | `true` | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh. |
-> | `resource` | `string` | — | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID. |
-> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
-> **inferenceStreamIdleTimeoutSec details**
+> **Child attributes (11)**
+>
+> **clientId** `string` *required*
+>
+> OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).
+>
+> **issuer** `string`
+>
+> HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.
+>
+> **authorizationUrl** `string`
+>
+> HTTPS authorization endpoint. Used with the token URL when no issuer is set.
+>
+> **tokenUrl** `string`
+>
+> HTTPS token endpoint. Used with the authorization URL when no issuer is set.
+>
+> **bearerTokenType** `enum` (default: id\_token)
+>
+> Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server.
+>
+> One of: `id_token` (default), `access_token`
+>
+> > **More detail**
+> >
+> > In **access-token** mode the token's audience must be your gateway or proxy. On IdPs where the requested scopes decide the audience (**Entra ID**), include its API resource scope in `scopes` — `api://<gateway-app-id>/.default`, or a named delegated scope you exposed via *Expose an API*. With only the standard OIDC scopes (`openid profile email offline_access`) Entra returns a v1.0 Microsoft Graph token whose issuer (`https://sts.windows.net/<tenant>/`) doesn't match the v2.0 issuer configured here, so a gateway that validates `iss` rejects it. On IdPs that set the access-token audience out-of-band (Keycloak audience mapper, Auth0 default audience, Okta custom authorization server), a resource scope in `scopes` isn't required — the audience comes from the IdP-side configuration.
+>
+> **scopes** `string`
+>
+> Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below.
+>
+> **appendOfflineAccess** `boolean` (default: true)
+>
+> Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.
+>
+> > **More detail**
+> >
+> > Turn off only if your authorization server rejects `offline_access` as an unknown scope; include the server’s own refresh-token scope in **Scopes** instead.
+>
+> **resource** `string`
+>
+> Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID.
+>
+> > **More detail**
+> >
+> > Set this only for an IdP that implements RFC 8707 resource indicators. The app then sends `resource=<value>` on the authorization, token and refresh requests, so the access token the IdP issues is audience-restricted to the gateway or proxy rather than to the IdP's own APIs. Use it with `bearerTokenType: access_token`; in `id_token` mode the ID token's audience is always `clientId`. Ignored with the OS-broker sign-in flow (the sign-in flow key set to `broker`), which is Entra-only.
+> >
+> > **Microsoft Entra ID:** leave unset — the v2.0 endpoint rejects `resource`; request the API scope in `scopes` instead (`api://<gateway-app-id>/.default`). **AD FS:** enter one of the relying-party trust's identifiers, spelled as it is registered there. A value with no scheme (a host name with or without a port or path, a single name, or a GUID; `name:digits` also reads as a host name with a port) is sent as `https://<value>`; an identifier with a scheme of its own (`urn:…`, or an organization-defined one such as `VENDOR:URI:…`) is sent exactly as written. A trust whose only identifier is a bare name or GUID will not match, because those are sent as `https://<value>`: add an `https://…` or `urn:…` identifier to the trust and enter that one here. With any other identity provider, use an absolute URI without a fragment (RFC 8707 — the IdP rejects one as `invalid_target`). Changing it signs users in again.
+>
+> **redirectPort** `integer`
+>
+> Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.
+>
+> **redirectHost** `enum`
+>
+> Use localhost only if your IdP’s registered redirect URI specifies it.
+>
+> One of: `127.0.0.1`, `localhost`
+>
+> **additionalRedirectReferrerHosts** `string`
+>
+> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+>
+> > **More detail**
+> >
+> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+
+***
+
+#### `inferenceStreamIdleTimeoutSec`
+
+integerRange: 300–1,800Since 1.44121.1
+
+**Stream idle timeout.** Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300.
+
+> **More detail**
 >
 > Raises how long Cowork, Chat and Code sessions wait for the next model event on an open streaming response (Claude Code's `CLAUDE_STREAM_IDLE_TIMEOUT_MS`). It only helps when the gateway writes SSE keep-alive `ping` events (or `:` comment lines) into the response while the upstream model is silent — for example a LiteLLM proxy with keep-alive pings enabled in front of Amazon Bedrock. With pings arriving, Claude Code accepts at least about five minutes of keep-alives and then waits this many seconds more for real model output before abandoning the request. Gateway provider only; the other providers keep Claude Code's defaults.
 >
 > A response on which nothing at all arrives — no pings — still fails after about 5 minutes regardless of this key, because at the device a silent connection cannot be told apart from a dead one. If long generations fail behind a gateway that does not send pings, configure the gateway to send them rather than raising this value. A common case is automatic compaction, in which a session sends its whole conversation in one streaming request and waits for a long summary; when that request fails, the error reads `Prompt is too long · automatic compaction failed:` followed by the cause. While this key is set, the app's value takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's own managed settings for sessions the app starts; when it is unset, that setting still applies. Values outside 300–1800 are rejected at parse time (the error is listed in the diagnostics report) and the default applies.
+
+***
 
 To send additional HTTP headers on every inference request (tenant routing, org IDs, and similar), set [`inferenceCustomHeaders`](/docs/third-party/claude-desktop/configuration#inferencecustomheaders). It applies to all providers, not just gateways.
 
@@ -281,7 +482,7 @@ The `inferenceGatewayOidc` value is one JSON object with these fields:
 
 > [!WARNING]
 >
-> `inferenceGatewayOidc` is **one MDM key whose value is a JSON string** — not separate keys like `inferenceGatewayOidc.clientId`. See [how object-typed keys are encoded](/docs/third-party/claude-desktop/configuration.md#value-types). The in-app **Export** produces the correct format automatically.
+> `inferenceGatewayOidc` is **one MDM key whose value is a JSON string** — not separate keys like `inferenceGatewayOidc.clientId`. See [how object-typed keys are encoded](/docs/third-party/claude-desktop/configuration-format.md#value-types). The in-app **Export** produces the correct format automatically.
 
 In a macOS `.mobileconfig` payload (Okta example):
 

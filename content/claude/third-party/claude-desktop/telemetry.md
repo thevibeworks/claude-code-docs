@@ -78,7 +78,7 @@ Set [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoint
 
 The receiver must implement the OpenTelemetry protocol (OTLP) over HTTP in both its protobuf and JSON encodings, as an OpenTelemetry Collector does by default. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and set `otlpEndpoint` to the collector's address. Each device opens its own connection to the collector, so the collector must present a TLS certificate the operating system trusts. See [TLS-intercepting proxies](/docs/third-party/claude-desktop/network-proxy.md#tls-intercepting-proxies) if a TLS-intercepting proxy sits in between.
 
-[`otlpHeaders`](/docs/third-party/claude-desktop/configuration#otlpheaders) is a JSON object that maps each header name to its value, for example `{"Authorization":"Bearer <token>","X-Tenant":"agency"}`. As with the other object-typed keys described under [Value types](/docs/third-party/claude-desktop/configuration.md#value-types), write it as a JSON string.
+[`otlpHeaders`](/docs/third-party/claude-desktop/configuration#otlpheaders) is a JSON object that maps each header name to its value, for example `{"Authorization":"Bearer <token>","X-Tenant":"agency"}`. As with the other object-typed keys described under [Value types](/docs/third-party/claude-desktop/configuration-format.md#value-types), write it as a JSON string.
 
 The app reads both keys at launch, so users must restart it after a change. If the collector refuses requests or cannot be reached, the app keeps working, shows no error, and drops the affected telemetry batches. Check the collector's own request logs to confirm data is arriving.
 

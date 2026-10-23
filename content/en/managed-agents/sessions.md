@@ -144,7 +144,6 @@ To pin a session to a specific agent version, pass an object. This lets you cont
   pinnedSession, err := client.Beta.Sessions.New(ctx, anthropic.BetaSessionNewParams{
   	Agent: anthropic.BetaSessionNewParamsAgentUnion{
   		OfBetaManagedAgentsAgents: &anthropic.BetaManagedAgentsAgentParams{
-  			Type:    anthropic.BetaManagedAgentsAgentParamsTypeAgent,
   			ID:      agent.ID,
   			Version: anthropic.Int(1),
   		},
@@ -310,10 +309,8 @@ The following example creates a session with a single `user.message` in `initial
   	EnvironmentID: environment.ID,
   	InitialEvents: []anthropic.BetaSessionNewParamsInitialEventUnion{{
   		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   					Text: "List the files in the working directory.",
   				},
   			}},
@@ -531,8 +528,7 @@ The following example starts a session that overrides the model and clears the s
   overrideSession, err := client.Beta.Sessions.New(ctx, anthropic.BetaSessionNewParams{
   	Agent: anthropic.BetaSessionNewParamsAgentUnion{
   		OfBetaManagedAgentsAgentWithOverridess: &anthropic.BetaManagedAgentsAgentWithOverridesParams{
-  			Type: anthropic.BetaManagedAgentsAgentWithOverridesParamsTypeAgentWithOverrides,
-  			ID:   agent.ID,
+  			ID: agent.ID,
   			Model: anthropic.BetaManagedAgentsModelConfigParams{
   				ID: anthropic.BetaManagedAgentsModelClaudeSonnet5_5,
   			},
@@ -571,7 +567,7 @@ The following example starts a session that overrides the model and clears the s
       id: $agent->id,
       model: ['id' => 'claude-sonnet-5-5'],
   );
-  // Clear the system prompt for this session. Array access is load-bearing here:
+  // Clear the system prompt for this session. Array access is required here:
   // create() strips nulls from raw arrays and ::with() treats null args as omitted.
   $overrides['system'] = null;
 
@@ -687,8 +683,7 @@ The following example starts a session from an agent whose model has no geo pin,
   session, err := client.Beta.Sessions.New(ctx, anthropic.BetaSessionNewParams{
   	Agent: anthropic.BetaSessionNewParamsAgentUnion{
   		OfBetaManagedAgentsAgentWithOverridess: &anthropic.BetaManagedAgentsAgentWithOverridesParams{
-  			Type: anthropic.BetaManagedAgentsAgentWithOverridesParamsTypeAgentWithOverrides,
-  			ID:   agent.ID,
+  			ID: agent.ID,
   			// Replaces the agent's `model` in full: restate `id`, add `inference_geo` to pin.
   			Model: anthropic.BetaManagedAgentsModelConfigParams{
   				ID:           anthropic.BetaManagedAgentsModelClaudeOpus5_5,
@@ -827,7 +822,6 @@ The following example creates a session with a $1.25 USD budget:
   	},
   	EnvironmentID: environment.ID,
   	Budget: anthropic.BetaManagedAgentsBudgetLimitParam{
-  		Type: anthropic.BetaManagedAgentsBudgetLimitTypeLimit,
   		MaxListCost: anthropic.BetaMonetaryAmountParam{
   			Amount:   "125",
   			Currency: anthropic.BetaCurrencyUsd,
@@ -973,7 +967,7 @@ If your agent uses MCP tools that require authentication, pass `vault_ids` (java
 
 ## Starting the session
 
-Creating a session without `initial_events` (java, php: `initialEvents`; csharp, go: `InitialEvents`) registers the session but does not start any work; the environment's sandbox begins provisioning as soon as the session is created, so the first tool call does not wait on it. To delegate a task, send events to the session using a [user event](https://platform.claude.com/docs/en/managed-agents/reference#event-types). To supply the first event in the create request instead, see [Seed the session with initial events](https://platform.claude.com/docs/en/managed-agents/sessions#seed-the-session-with-initial-events). The session acts as a state machine that tracks progress while events drive the actual execution.
+Creating a session without `initial_events` (java, php: `initialEvents`; csharp, go: `InitialEvents`) registers the session but does not start any work; the environment's sandbox starts provisioning as soon as the session is created, so the first tool call does not wait on it. To delegate a task, send events to the session using a [user event](https://platform.claude.com/docs/en/managed-agents/reference#event-types). To supply the first event in the create request instead, see [Seed the session with initial events](https://platform.claude.com/docs/en/managed-agents/sessions#seed-the-session-with-initial-events). The session acts as a state machine that tracks progress while events drive the actual execution.
 
 <CodeGroup>
   ```bash cURL
@@ -1050,10 +1044,8 @@ Creating a session without `initial_events` (java, php: `initialEvents`; csharp,
   if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
   	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
   		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-  			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
   			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
   				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
   					Text: "List the files in the working directory.",
   				},
   			}},

@@ -38,7 +38,7 @@ Claude supports the following authentication types for remote MCP servers.
 | - | - | - |
 | `oauth_dcr` | OAuth 2.0 with Dynamic Client Registration ([RFC 7591](https://www.rfc-editor.org/rfc/rfc7591)) | Supported by default |
 | `oauth_cimd` | OAuth 2.0 with [Client ID Metadata Document](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#client-id-metadata-documents) | Supported by default |
-| `oauth_anthropic_creds` | OAuth 2.0 with [Anthropic-held client credentials](#anthropic-held-client-credentials) | Contact `mcp-review@anthropic.com` |
+| `oauth_anthropic_creds` | OAuth 2.0 with [Anthropic-held client credentials](#anthropic-held-client-credentials) | Supported. [Enter the client in the developer portal](#enter-your-oauth-client-in-the-developer-portal) |
 | `custom_connection` | Custom URL or OAuth client credentials [entered at connection time](#credentials-entered-at-connection-time) | Contact `mcp-review@anthropic.com` |
 | `static_headers` | Fixed credential (API key or bearer token) entered by an organization Owner as a request header when adding the connector | Beta, for a limited set of organizations |
 | `none` | No authentication (authless server) | Supported by default. To leave some tools open and require sign-in for others, see [Lazy authentication](/docs/connectors/building/lazy-authentication.md) |
@@ -62,7 +62,7 @@ The submission portal's **Connection** step asks how users reach your server, an
 * **Multiple URLs**: you list a fixed set of labeled URLs, such as one per region, and users pick one when they connect
 * **URL pattern**: you give an anchored regular expression that every customer's URL must match, such as `^https://[a-z0-9-]+\.mcp\.example\.com/mcp$`. Each user enters their own URL when they connect, and Claude accepts it only if it matches. Keep the host part of the pattern lowercase, because Claude lowercases the host of the URL the user enters before checking it
 
-Listings with **Multiple URLs** or a **URL pattern** take longer to review.
+You can choose any option under **Users connect to different URLs**, such as **Multiple URLs** or a **URL pattern**, in a new submission. A listing that uses one can be published only once it has the **Verified** label, and its review takes longer.
 
 You choose the URL option and the authentication type separately, but the URL option limits which authentication types work. The table shows which combinations work. Request headers (`static_headers`) are set up by the organization Owner who adds the connector and aren't covered here.
 
@@ -98,15 +98,48 @@ For servers expecting high traffic from the directory, prefer CIMD or `oauth_ant
 
 ### Anthropic-held client credentials
 
-With `oauth_anthropic_creds`, you create an OAuth client for Claude in your own authorization server and Anthropic holds its credentials, so Claude has a stable, registered client without DCR or CIMD on your end. Users still go through your standard OAuth consent screen when they connect. A pure machine-to-machine `client_credentials` grant, where a token is issued with no user in the loop, isn't supported.
+With `oauth_anthropic_creds`, you create an OAuth client for Claude in your authorization server and enter its client ID and secret in the developer portal. Anthropic uses the credentials only for token exchange on behalf of consenting users. Users still go through your standard OAuth consent screen when they connect. A machine-to-machine `client_credentials` grant, where a token is issued with no user, isn't supported.
 
-To use this type:
+A listing can use Anthropic-held client credentials whether it's labeled **Community** or **Verified**. The credentials are tied to exact server URLs, so they can't be used with a [URL pattern](#servers-with-per-customer-urls), where each customer enters their own URL.
 
-* **Create a confidential client**: create a `client_id` and `client_secret` for Claude in your authorization server
-* **Send the credentials to Anthropic**: email `mcp-review@anthropic.com` with the `client_id` to set up Anthropic-held credentials. Anthropic replies with how to transfer the client secret securely, so don't put the secret in the email. Anthropic uses the credentials only for token exchange on behalf of consenting users
-* **Plan for Claude Code separately**: the hosted Claude apps, which are claude.ai on the web, Desktop, mobile, and Cowork, share this client. Claude Code doesn't use it: it runs its own OAuth flow on the user's machine, identifies itself with its own [Client ID Metadata Document](#callback-urls), and redirects to a loopback callback URL
-* **Tell Anthropic before you migrate authorization servers**: the credentials are bound to the authorization server that issued them. Email `mcp-review@anthropic.com` with the new `client_id` before cutting over, and transfer the new secret the same way as the first
-* **Don't combine it with a URL pattern**: the credentials are tied to exact server URLs, so they can't be used where each customer enters their own server URL. See [Servers with per-customer URLs](#servers-with-per-customer-urls) for the alternatives
+Before you enter the client in the portal:
+
+* **Create a confidential client**: create a client ID and secret for Claude in your authorization server, and register the redirect URI `https://claude.ai/api/mcp/auth_callback`
+* **Plan for Claude Code separately**: claude.ai on the web, Desktop, mobile, and Cowork share this client. Claude Code doesn't use it, and instead uses its own Client ID Metadata Document and a loopback redirect, as [Callback URLs](#callback-urls) describes
+
+### Enter your OAuth client in the developer portal
+
+If your listing uses Anthropic-held client credentials, enter your OAuth client in the **How users authenticate** section when you [submit your connector](/docs/connectors/building/submission.md):
+
+1. Under **Authentication requirement**, select **Always required** or **Required when the server asks**.
+2. Under **Authentication methods**, find the **OAuth sign-in** card. If there's none, click **Add OAuth sign-in**.
+3. Under **OAuth client**, select **Anthropic-held client credentials** and enter your client ID in the **Client ID** field.
+4. Under **Client secret**, select **Anthropic holds a client secret** and enter the secret.
+
+When you submit, the portal stores the secret and doesn't show it again. If you reload the page before you submit, enter the secret again. Once your listing is published, Claude uses the client for new connections, except in the cases that [Which credentials Claude uses when several are set](#which-credentials-claude-uses-when-several-are-set) describes.
+
+To change the client later, open your listing's submission detail page in the [developer portal](https://claude.ai/directory/manage), go to **Connection & authentication**, and click **Edit authentication** or **Author authentication**, whichever the section shows. On a published listing:
+
+* **A new client ID waits for a reviewer**: keep your old client working on your authorization server, because people who connected earlier signed in with it
+* **Switching from another sign-in method needs Anthropic**: email `directory@anthropic.com` with your listing's name and its exact server URLs, then save the change once Anthropic confirms. Don't put the secret in the email
+
+### Which credentials Claude uses when several are set
+
+For a directory listing where Anthropic holds your client secret, the client Claude signs users in with can come from three places:
+
+* **The user's organization**: a client that an admin in the user's organization entered for your server's URL, such as when adding your server as a custom connector
+* **You**: the client you entered in the developer portal
+* **Anthropic**: a client that Anthropic set up for your server's URL
+
+For new connections, Claude checks them in that order and uses the first one it finds. If the organization's or Anthropic's client has a different client ID from your listing's, sign-in fails instead of moving on to the next one.
+
+These cases change which client is used, or whether you can save yours:
+
+* **Some connections, such as older ones**: these don't use the client you entered. They use the organization's or Anthropic's client if either exists, and otherwise your server's own [DCR or CIMD](#dcr-and-cimd-details) registration. If there's no such client and your server supports neither, sign-in fails for those connections
+* **A client Anthropic already holds**: if Anthropic holds a client for any of your listing's URLs, you can't save your client secret or request header values on a published listing. You can save them once Anthropic removes its client or checks your listing again. On a listing that isn't published yet, you can save them, but the listing can't go live until Anthropic checks it. In either case, email `directory@anthropic.com` with your listing's name and its exact server URLs, and don't put the secret in the email
+* **Custom connectors**: a custom connector that someone adds with your server's URL never uses the client secret you entered in the portal
+
+For each request header on your listing, select the **Anthropic holds one shared value** checkbox in the developer portal to enter one value yourself that every organization uses. Leave it unchecked so each person who adds your connector enters their own value. You can't select the checkbox on a listing with a [URL pattern](#servers-with-per-customer-urls). Header values come only from you or from the people who add your connector, never from Anthropic.
 
 ### Credentials entered at connection time
 

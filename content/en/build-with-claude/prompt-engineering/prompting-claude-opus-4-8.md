@@ -14,7 +14,7 @@ Claude Opus 4.8 has particular strengths in long-horizon agentic work, knowledge
 
 ## Response length and verbosity
 
-Claude Opus 4.8 calibrates response length to the complexity of the task, rather than defaulting to a fixed verbosity. This usually means shorter answers on simple lookups and much longer ones on open-ended analysis.
+Claude Opus 4.8 calibrates response length to its estimate of the task's complexity, rather than defaulting to a fixed verbosity. This usually means shorter answers on simple lookups and much longer ones on open-ended analysis.
 
 If your product depends on a certain style or verbosity of output, you might need to tune your prompts. As an example, to decrease verbosity, you might add:
 
@@ -157,6 +157,6 @@ Iterate on prompts against a subset of your evals or test cases to validate reca
 
 ## Computer use
 
-Claude Opus 4.8 supports the `computer_toolset_20260801` toolset (on the Claude API and Google Cloud) and the earlier `computer_20251124` tool version. On the Claude API and Google Cloud, Claude Opus 4.8 also supports the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) (`browser_toolset_20260801`) for tasks inside webpages. [Computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) capability works across resolutions, up to a maximum resolution of 2576px / 3.75MP. Internal computer use testing shows that sending images at 1080p provides a good balance of performance and cost.
+Claude Opus 4.8 supports the earlier `computer_20251124` tool version and, on the Claude API and Claude Models on Google Cloud (Google managed), the `computer_toolset_20260801` toolset. On those two platforms, Claude Opus 4.8 also supports the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) (`browser_toolset_20260801`) for tasks inside webpages. [Computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) capability works across resolutions, up to a maximum resolution of 2576px / 3.75MP. Internal computer use testing shows that sending images at 1080p provides a good balance of performance and cost.
 
 For particularly cost-sensitive workloads, 720p or 1366×768 are lower-cost options with strong performance. Conduct your own testing to find the ideal settings for your use case; experimenting with effort settings can also help tune the model's behavior.

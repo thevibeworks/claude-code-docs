@@ -49,23 +49,135 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
 Mantle reuses the `inferenceBedrock*` key names. Only `inferenceBedrockRegion`, `inferenceBedrockBearerToken`, and `inferenceBedrockBaseUrl` apply; the other keys below (`inferenceBedrockProfile`, `inferenceBedrockSso*`, `inferenceBedrockAwsDir`, `inferenceBedrockAwsCliPath`, `inferenceBedrockServiceTier`) are ignored for this provider.
 
-| Setting | Type | Availability | Default | Description |
-| - | - | - | - | - |
-| AWS region `inferenceBedrockRegion` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | AWS region for the Bedrock runtime endpoint. |
-| Bedrock base URL `inferenceBedrockBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | For VPC endpoints or gateway proxies. Host origin only. |
-| Bedrock service tier `inferenceBedrockServiceTier` | `enum` | MDM + Bootstrap Added in 1.5186.0 | — | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`. |
-| AWS bearer token `inferenceBedrockBearerToken` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
-| AWS SSO start URL `inferenceBedrockSsoStartUrl` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below. |
-| AWS SSO region `inferenceBedrockSsoRegion` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | IAM Identity Center home region. |
-| AWS SSO account ID `inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | 12-digit AWS account ID assigned to users in IAM Identity Center. |
-| AWS SSO role name `inferenceBedrockSsoRoleName` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above. |
-| AWS profile name `inferenceBedrockProfile` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | AWS named profile to use for Bedrock inference credentials. |
-| AWS config directory `inferenceBedrockAwsDir` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set. |
-| AWS CLI path `inferenceBedrockAwsCliPath` | `string` | MDM + Bootstrap Added in 1.13576.0 | — | Absolute path to the aws executable. Leave unset to find it on PATH. |
+[Entry labels](/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
 
-> **inferenceBedrockServiceTier details**
+#### `inferenceBedrockRegion`
+
+stringSince 1.2581.0
+
+**AWS region.** AWS region for the Bedrock runtime endpoint.
+
+***
+
+#### `inferenceBedrockBaseUrl`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
+
+Since 1.2581.0
+
+**Bedrock base URL.** For VPC endpoints or gateway proxies. Host origin only.
+
+***
+
+#### `inferenceBedrockServiceTier`
+
+enumSince 1.5186.0
+
+**Bedrock service tier.** Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand.
+
+One of: `flex`, `priority`
+
+> **More detail**
 >
 > Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
+
+***
+
+#### `inferenceBedrockBearerToken`
+
+stringSince 1.2581.0
+
+**AWS bearer token.** Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those.
+
+***
+
+#### `inferenceBedrockSsoStartUrl`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.6259.0
+
+**AWS SSO start URL.** Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below.
+
+***
+
+#### `inferenceBedrockSsoRegion`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.6259.0
+
+**AWS SSO region.** IAM Identity Center home region.
+
+***
+
+#### `inferenceBedrockSsoAccountId`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.6259.0
+
+**AWS SSO account ID.** 12-digit AWS account ID assigned to users in IAM Identity Center.
+
+***
+
+#### `inferenceBedrockSsoRoleName`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.6259.0
+
+**AWS SSO role name.** IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above.
+
+***
+
+#### `inferenceBedrockProfile`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.2581.0
+
+**AWS profile name.** AWS named profile to use for Bedrock inference credentials.
+
+***
+
+#### `inferenceBedrockAwsDir`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.2581.0
+
+**AWS config directory.** Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set.
+
+***
+
+#### `inferenceBedrockAwsCliPath`
+
+string
+
+Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 1.13576.0
+
+**AWS CLI path.** Absolute path to the aws executable. Leave unset to find it on PATH.
+
+***
 
 You must also set `inferenceModels`. As with the standard Amazon Bedrock provider, server-side Web Search is not supported. See the [Configuration reference](/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 

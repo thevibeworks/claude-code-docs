@@ -373,7 +373,6 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
   		EnvironmentID: environmentID,
   		Resources: []anthropic.BetaSessionNewParamsResourceUnion{{
   			OfMemoryStore: &anthropic.BetaManagedAgentsMemoryStoreResourceParam{
-  				Type:          anthropic.BetaManagedAgentsMemoryStoreResourceParamTypeMemoryStore,
   				MemoryStoreID: outputStoreID,
   			},
   		}},
@@ -589,7 +588,9 @@ Returns all non-archived dreams in the workspace, newest first. Use `limit` (csh
 
   ```java Java
   for (var listedDream : client.beta().dreams().list(
-      DreamListParams.builder().limit(20).build()
+      DreamListParams.builder()
+          .limit(20)
+          .build()
   ).autoPager()) {
       IO.println(listedDream.id() + " " + listedDream.status());
   }
