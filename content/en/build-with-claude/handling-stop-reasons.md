@@ -24,7 +24,7 @@ For the full response schema, see the [Messages API reference](https://platform.
 
 The `stop_reason` field is part of every successful Messages API response. Unlike errors, which indicate failures in processing your request, `stop_reason` tells you why Claude completed its response generation.
 
-```text Example response wrap
+```json Example response
 {
   "id": "msg_01234",
   "type": "message",
@@ -1484,7 +1484,7 @@ A `tool_use` response can also contain a `server_tool_use` block whose `id` has 
   With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block's own result block arrives once the code completes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response's `container` field, as that page shows.
 </Note>
 
-```text A mixed tool_use response wrap
+```json A mixed tool_use response
 {
   "stop_reason": "tool_use",
   "content": [

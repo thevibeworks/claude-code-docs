@@ -819,7 +819,7 @@ Because each class is immutable, builder modification never affects already buil
 
 To send a request to the Claude API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it is deserialized into an instance of a Java class.
 
-For example, `client.messages().create(...)` should be called with an instance of `MessageCreateParams`, and it returns an instance of `Message`.
+For example, `client.messages().create(...)` takes an instance of `MessageCreateParams` and returns an instance of `Message`.
 
 ### Undocumented parameters
 

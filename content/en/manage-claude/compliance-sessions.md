@@ -14,7 +14,7 @@ description: List the sessions your users run in Claude apps and agents, such as
   **Prerequisite:** None for listing sessions organization-wide. To filter the remote session list (sessions in the cloud) to specific users, you need user IDs from [List organization users](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users); the local session list has no user filter.
 </Check>
 
-The endpoints on this page expose transcripts of the sessions your users run in Claude apps and agents (today: Cowork, Claude Code, Claude Science, Claude for Microsoft 365, the Claude add-ins for Google Docs, Google Sheets, and Google Slides, and Claude in Chrome) from your Claude Enterprise organizations to compliance reviewers. Each session is a single conversation with Claude; its transcript is the sequence of user prompts, assistant responses, and tool calls and results in that conversation. The endpoints support eDiscovery (electronic discovery) exports and data loss prevention (DLP) enforcement.
+The endpoints on this page expose session transcripts from your Claude Enterprise organizations to compliance reviewers. The transcripts cover the sessions your users run in Claude apps and agents (today: Cowork, Claude Code, Claude Science, Claude for Microsoft 365, the Claude add-ins for Google Docs, Google Sheets, and Google Slides, and Claude in Chrome). Each session is a single conversation with Claude; its transcript is the sequence of user prompts, assistant responses, and tool calls and results in that conversation. The endpoints support eDiscovery (electronic discovery) exports and data loss prevention (DLP) enforcement.
 
 The Compliance API groups sessions into two endpoint families according to where they run: local session endpoints for sessions on users' machines, and remote session endpoints for sessions that run in the cloud in Anthropic-managed environments. Both families are read-only, and neither is available to Admin API keys (`sk-ant-admin01-...`): calls authenticated with an Admin API key return [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
 
@@ -58,7 +58,14 @@ Anthropic recommends the Compliance API for retrieving session content. The foll
 
 ## Sessions on users' machines (local sessions)
 
-Local sessions run on users' machines while they are signed in with their Claude Enterprise account: today, Cowork in Claude Desktop, Claude Code (in the terminal, in Claude Desktop, or in an IDE extension), the Claude Science desktop app, Claude for Microsoft 365 (in Excel, PowerPoint, Word, and Outlook), the Claude add-ins for Google Docs, Google Sheets, and Google Slides, and the Claude in Chrome browser extension.
+Local sessions run on users' machines while they are signed in with their Claude Enterprise account, today in the following products:
+
+* Cowork in Claude Desktop
+* Claude Code (in the terminal, in Claude Desktop, or in an IDE extension)
+* The Claude Science desktop app
+* Claude for Microsoft 365 (in Excel, PowerPoint, Word, and Outlook)
+* The Claude add-ins for Google Docs, Google Sheets, and Google Slides
+* The Claude in Chrome browser extension
 
 The Compliance API exposes local sessions through three endpoints: `GET /v1/compliance/apps/sessions/local` lists session metadata, `GET /v1/compliance/apps/sessions/local/{session_id}` retrieves one session's metadata, and `GET /v1/compliance/apps/sessions/local/{session_id}/messages` returns one session's transcript. All three require the `read:compliance_user_data` scope and count only against the shared Compliance API rate limit; they are not subject to the second request budget that applies to the remote session endpoints. See [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests). If local sessions are not available to your parent organization, all three endpoints return 404 with the message `Local sessions are not available.` (see [Local session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-session-not-found)); while session listings or captured content are temporarily unavailable, they return 503 (see [Local sessions temporarily unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable)).
 
@@ -77,7 +84,7 @@ curl --fail-with-body -sS -G \
   --data-urlencode "limit=100"
 ```
 
-```text Response wrap
+```json Response
 {
   "data": [
     {
@@ -123,7 +130,12 @@ The list is built from session activity metadata, so it can include sessions who
 
 Captured local session content is stored for 6 years from capture by default. If the organization that ran the session has set a finite custom conversation retention period in [claude.ai > Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls), that period applies instead, whether it is shorter or longer than the default; when the organization has more than one custom retention period configured, the shortest applies. A change to that setting takes effect in two different ways: the endpoints stop returning activity older than the organization's current period as soon as the setting changes, whereas each captured message is stored for the period that was in effect when it was captured, so lengthening the period later does not restore content that has already expired. In organizations with [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled, captured local session content is stored for 30 days from capture, or for the organization's custom conversation retention period when that is shorter; the 6-year default does not apply.
 
-To fetch one session's metadata directly, pass its ID to `GET /v1/compliance/apps/sessions/local/{session_id}`. The response is the same session object the list endpoint returns, with no envelope and no transcript content. A malformed session ID returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request). A single [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#404-not-found) covers four cases that the response does not distinguish: the session is not in an organization your key can read (including sessions under another parent organization), it does not exist, zero data retention is in effect for it, or every call in it has aged past retention.
+To fetch one session's metadata directly, pass its ID to `GET /v1/compliance/apps/sessions/local/{session_id}`. The response is the same session object the list endpoint returns, with no envelope and no transcript content. A malformed session ID returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request). A single [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#404-not-found) covers four cases that the response does not distinguish:
+
+* The session is not in an organization your key can read (including sessions under another parent organization).
+* The session does not exist.
+* Zero data retention is in effect for the session.
+* Every call in the session has aged past retention.
 
 `product_surface` (string or `null`) tells you which product the session came from. It is `null` if the product was not recorded. Otherwise, it is one of these values:
 
@@ -164,7 +176,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```text Response
+```json Response
 {
   "session": {
     "type": "compliance_local_session",
@@ -285,7 +297,7 @@ On a very large session, the messages endpoint can return a 400 for a page, with
 
 On a very large session, the messages endpoint might also return a 429 whose `error.details.error_code` is `transcript_read_server_busy`. It does not mean that your organization exceeded a rate limit. Unlike the 400, retry it: wait the number of seconds in the `retry-after` header, then send the same request again, unchanged (with the same `page` value, if it had one). See [Server busy reading large transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-errors#server-busy-reading-large-transcripts).
 
-Each message carries a `role` (`user` or `assistant`) and a `content` array of `text`, `tool_use`, and `tool_result` blocks. It also carries a `model`: on an assistant turn captured from the Claude API this is the model that served the turn, and it is `null` on user messages and on any assistant message whose `provenance` is set, because client-asserted history and synthetic markers were not produced by a model and the serving model is unknown for unavailable content. A `text` block carries `text` and `truncated`. A `tool_use` block carries `id`, `name`, `input`, and `truncated`, where `input` is a JSON-encoded string rather than an object. A `tool_result` block carries `tool_use_id`, `name`, `is_error`, a `content` array of `text` entries, and `truncated`. MCP tool calls and results, and most server tool calls and results, are normalized into these same `tool_use` and `tool_result` shapes; any other block type appears as a `[<block type> content not shown]` placeholder. A message `id` is stable while the turn is retained. Every message reconstructed from the same inference call carries that call's timestamp, so consecutive messages often share a `created_at` value; preserve the returned order rather than re-sorting by timestamp.
+Each message carries a `role` (`user` or `assistant`) and a `content` array of `text`, `tool_use`, and `tool_result` blocks. It also carries a `model`: on an assistant turn captured from the Claude API, this is the model that served the turn. The `model` is `null` on user messages and on any assistant message whose `provenance` is set, because client-asserted history and synthetic markers were not produced by a model and the serving model is unknown for unavailable content. A `text` block carries `text` and `truncated`. A `tool_use` block carries `id`, `name`, `input`, and `truncated`, where `input` is a JSON-encoded string rather than an object. A `tool_result` block carries `tool_use_id`, `name`, `is_error`, a `content` array of `text` entries, and `truncated`. MCP tool calls and results, and most server tool calls and results, are normalized into these same `tool_use` and `tool_result` shapes; any other block type appears as a `[<block type> content not shown]` placeholder. A message `id` is stable while the turn is retained. Every message reconstructed from the same inference call carries that call's timestamp, so consecutive messages often share a `created_at` value; preserve the returned order rather than re-sorting by timestamp.
 
 Each message also carries a `provenance` field describing how its content was captured. `provenance` is `null` for verified content captured by the Claude API, which is the common case. Otherwise it is an object whose `type` marks the exception:
 
@@ -316,14 +328,14 @@ curl --fail-with-body -sS -G \
   --data-urlencode "limit=100"
 ```
 
-```text Response wrap
+```json Response
 {
   "data": [
     {
       "id": "cse_01WpQrStUvXyZaBcDeFgHjK6",
       "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
       "user": {
-        "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+        "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
         "email_address": "user@example.com"
       },
       "agent_id": null,
@@ -340,7 +352,7 @@ curl --fail-with-body -sS -G \
       "user": null,
       "agent_id": "cagt_01MnPqRsTuVwXyZaBcDeFgH8",
       "started_by_user": {
-        "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+        "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
         "email_address": "user@example.com"
       },
       "status": "archived",
@@ -381,13 +393,13 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```text Response
+```json Response
 {
   "session": {
     "id": "cse_01WpQrStUvXyZaBcDeFgHjK6",
     "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
     "user": {
-      "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+      "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
       "email_address": null
     },
     "agent_id": null,

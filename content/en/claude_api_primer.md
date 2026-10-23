@@ -44,7 +44,7 @@ Previous Haiku model: Claude Haiku 4.5: claude-haiku-4-5-20251001
   ```
 </CodeGroup>
 
-```text Output wrap
+```json Output
 {
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -590,7 +590,7 @@ The response has a `stop_reason` of `tool_use` and one or more `tool_use` conten
 * `name`: The name of the tool being used
 * `input`: An object containing the input being passed to the tool
 
-```text wrap
+```json
 {
   "role": "assistant",
   "content": [
@@ -699,7 +699,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 
 #### Text delta
 
-```text wrap
+```json
 {
   "type": "content_block_delta",
   "index": 0,
@@ -711,7 +711,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 
 For `tool_use` content blocks, deltas are *partial JSON strings*:
 
-```text
+```json
 {"type": "content_block_delta","index": 1,"delta": {"type": "input_json_delta","partial_json": "{\"location\": \"San Fra"}}}
 ```
 
@@ -719,7 +719,7 @@ For `tool_use` content blocks, deltas are *partial JSON strings*:
 
 When using thinking with streaming:
 
-```text wrap
+```json
 {
   "type": "content_block_delta",
   "index": 0,
@@ -732,7 +732,7 @@ When using thinking with streaming:
 
 ### Basic streaming request example
 
-```text
+```sse
 event: message_start
 data: {"type": "message_start", "message": {"id": "msg_1nZdL29xx5MUA1yADyHTEsnR8uuvGzszyY", "type": "message", "role": "assistant", "content": [], "model": "claude-opus-5-5", "stop_reason": null, "stop_sequence": null, "usage": {"input_tokens": 25, "output_tokens": 1}}}
 

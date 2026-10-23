@@ -504,9 +504,9 @@ The following features work on Claude Models on Google Cloud (Anthropic managed)
 
 * **Fast mode:** [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) for Claude Opus 5.5.
 
-- **Beta features:** If a beta is limited to selected organizations on the Claude API, the Anthropic organization that setup creates needs the same access.
+* **Beta features:** If a beta is limited to selected organizations on the Claude API, the Anthropic organization that setup creates needs the same access.
 
-- **Tools:** [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), including:
+* **Tools:** [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), including:
 
   * Web search
   * Web fetch
@@ -515,9 +515,9 @@ The following features work on Claude Models on Google Cloud (Anthropic managed)
   * The advisor tool
   * The MCP connector
 
-- **Skills and files:** [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) and the [Files API](https://platform.claude.com/docs/en/build-with-claude/files).
+* **Skills and files:** [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) and the [Files API](https://platform.claude.com/docs/en/build-with-claude/files).
 
-- **Model capabilities:**
+* **Model capabilities:**
 
   * [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
   * [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)
@@ -526,11 +526,11 @@ The following features work on Claude Models on Google Cloud (Anthropic managed)
   * [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
   * [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-- **Batches and models:** The [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) and the Models API.
+* **Batches and models:** The [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) and the Models API.
 
 To turn the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) on or off for the Anthropic organization that setup creates, [open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console), go to **Settings > Compliance**, and use the **Compliance API** toggle.
 
-Customer-managed encryption keys (CMEK) are available with Google Cloud KMS keys. To activate CMEK for the Anthropic organization that setup creates, see [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek). To set up a key, follow [Configure Google Cloud KMS for CMEK](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms). Then register, verify, and attach the key in the [Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console), as the setup page's **Claude Console** tab describes.
+Customer-managed encryption keys (CMEK) are available with Google Cloud KMS keys. To activate CMEK for the Anthropic organization that setup creates, see [Who can use CMEK](https://platform.claude.com/docs/en/manage-claude/cmek#availability). To set up a key, follow [Set up CMEK with Google Cloud KMS](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms). Then register, verify, and attach the key in the [Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console), as the setup page's **Claude Platform** tab describes.
 
 ### Claude Managed Agents
 

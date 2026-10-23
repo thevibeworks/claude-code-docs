@@ -654,7 +654,7 @@ Each server tool's page describes its own trigger boundary in more detail.
 
   For example, given a `get_weather` tool that requires a `location` parameter, if you ask Claude "What's the weather?" without specifying a location, Claude (particularly Claude Sonnet) might guess values you didn't supply:
 
-  ```text JSON wrap
+  ```json JSON
   {
     "type": "tool_use",
     "id": "toolu_01A09q90qw90lq917835lq9",

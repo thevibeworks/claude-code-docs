@@ -81,7 +81,17 @@ One hook governs conversations across all Claude products in your Claude Enterpr
 
 Governed requests are the inference requests behind the user's conversation or session. System prompts and tool definitions are never included in what is sent. In voice mode, prompts and tool calls are sent to your endpoint too, though a small share of tool calls isn't, so don't rely on Inference hooks as your only control for voice. If your endpoint denies a request in voice mode, the voice call usually ends with a general error message, and your deny reason isn't shown.
 
-With **Validate tool calls** on, `tool_call` events may leave out calls to some of claude.ai's own tools, such as tools that list, search for, or suggest connectors, plugins, or skills, suggest starting research or turning on web search, search for other tools, switch to a larger model, end the chat, give Claude the user's local time, or read the user's own past chats and saved memory. These calls and their results stay in the conversation, so the next `prompt` event from that conversation, if there is one, includes them.
+With **Validate tool calls** on, `tool_call` events might leave out calls to some of claude.ai's own tools, such as tools that do the following:
+
+* List, search for, or suggest connectors, plugins, or skills
+* Suggest starting research or turning on web search
+* Search for other tools
+* Switch to a larger model
+* End the chat
+* Give Claude the user's local time
+* Read the user's own past chats and saved memory
+
+These calls and their results stay in the conversation, so the next `prompt` event from that conversation, if there is one, includes them.
 
 Some features that Anthropic runs for your organization make model calls of their own. Your organization sees the results of those calls but not their transcripts. These calls aren't governed requests and aren't sent to your endpoint. They include the following:
 

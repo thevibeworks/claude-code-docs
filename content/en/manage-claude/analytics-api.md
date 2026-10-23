@@ -95,7 +95,11 @@ Claude Enterprise Analytics API data is available for dates on or after January 
 
 ## How metrics are defined
 
-**Active users.** A user counts as active for a day if any of the following is true: they sent at least one chat message in Claude, they had at least one Claude Code session (local or remote) associated with your Claude Enterprise organization that included tool use or git activity, or they had at least one Cowork session with tool use or message activity.
+**Active users.** A user counts as active for a day if any of the following is true:
+
+* They sent at least one chat message in Claude.
+* They had at least one Claude Code session (local or remote) associated with your Claude Enterprise organization that included tool use or git activity.
+* They had at least one Cowork session with tool use or message activity.
 
 **Chat and Cowork unified (beta).** Chat and Cowork unified brings Cowork's features into claude.ai chat. Most activity in Chat and Cowork unified is reported under the `chat_cowork_unified` product value, not `chat` or `cowork`.
 

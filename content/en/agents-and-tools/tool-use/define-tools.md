@@ -869,7 +869,7 @@ When using tools, Claude often comments on what it's doing or responds naturally
 
 For example, given the prompt "What's the weather like in San Francisco right now, and what time is it there?", Claude might respond with:
 
-```text JSON
+```json JSON
 {
   "role": "assistant",
   "content": [

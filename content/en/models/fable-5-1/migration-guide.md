@@ -40,7 +40,15 @@ Where the two models diverge:
 
 ## Migrating to Claude Fable 5.1 from Claude Fable 5
 
-Migration is mostly drop-in. The API surface, limits, per-token pricing, tokenizer, always-on adaptive thinking, refusal handling, and `stop_details` categories all match Claude Fable 5. What changes: forced tool choice returns a 400 error; only Claude Fable 5.1 and Claude Mythos 5.1 read Claude Fable 5.1's thinking blocks, and only in the conversation that produced them; cache reads cost less; the advisor tool (beta) accepts fewer advisors; and agent-loop behavior differs in three ways. The same changes apply to the [Claude Mythos 5.1 migration](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-mythos-5-to-claude-mythos-5-1), except the conversation check on thinking blocks, which Claude Mythos 5.1 doesn't run.
+Migration is mostly drop-in. The API surface, limits, per-token pricing, tokenizer, always-on adaptive thinking, refusal handling, and `stop_details` categories all match Claude Fable 5. The following changes apply:
+
+* Forced tool choice returns a 400 error.
+* Only Claude Fable 5.1 and Claude Mythos 5.1 read Claude Fable 5.1's thinking blocks, and only in the conversation that produced them.
+* Cache reads cost less.
+* The advisor tool (beta) accepts fewer advisors.
+* Agent-loop behavior differs in three ways.
+
+The same changes apply to the [Claude Mythos 5.1 migration](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-mythos-5-to-claude-mythos-5-1), except the conversation check on thinking blocks, which Claude Mythos 5.1 doesn't run.
 
 ### Update your model name
 
@@ -1512,7 +1520,7 @@ These changes aren't required, but each one lowers cost or latency or removes a 
 * If you use the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) (beta), update the advisor `model` as well. An advisor less capable than Claude Fable 5.1, such as `claude-fable-5` or `claude-opus-5-5`, returns a 400 error.
 * Keep passing `thinking` blocks back unchanged on every turn, including empty ones. Claude Fable 5.1 reads blocks from Claude Opus 5, Claude Fable 5, Claude Mythos 5, and earlier models. Moving a conversation from Claude Fable 5.1 to any model other than Claude Mythos 5.1 drops its blocks.
 * If your code builds the `messages` array itself, check whether it [edits earlier turns](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-preserved-thinking): run a session with the `thinking-binding-controls-2026-08-01` beta header and `prefix_mismatch_behavior: "drop_block"`, log `input_transformations`, and fix every `prefix_binding_mismatch`. `model_binding_mismatch` entries after a model switch are expected.
-* Keep conversation history append-only: freeze `system` and `tools` at session start and move mid-session changes to `role: "system"` messages and `tool_addition` / `tool_removal` blocks, send per-turn reminders as turn-scoped system messages you never remove, trim context server-side or strip thinking blocks from any turns you carry across a client-side summary, and reference cross-turn files by `file_id`.
+* Keep conversation history append-only. Freeze `system` and `tools` at session start, and move mid-session changes to `role: "system"` messages and `tool_addition` / `tool_removal` blocks. Send per-turn reminders as turn-scoped system messages you never remove. Trim context server-side, or strip thinking blocks from any turns you carry across a client-side summary. Reference cross-turn files by `file_id`.
 * Pick a production `prefix_mismatch_behavior` (`"error"` by default, or `"drop_block"`) and monitor it. If you maintain a tool that others run with their own API key, test with the field set: new accounts are enforced by default even if yours isn't.
 * Review agent loops for one-tool-call-per-turn behavior and add the batching instruction.
 * If your interface renders progress text between tool calls, set `thinking.display` to `"updates"` (beta) or `"summarized"` and prompt for updates.
@@ -1593,7 +1601,13 @@ model = "claude-mythos-5-1"  # After
 
 [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) is the counterpart to Claude Fable 5.1 for organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). Confirm that your organization has access to Claude Mythos 5.1 before you switch model IDs.
 
-The API-level delta matches [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1): forced tool choice returns a 400 error, the advisor tool accepts fewer advisors, and only Claude Mythos 5.1 and Claude Fable 5.1 read Claude Mythos 5.1's thinking blocks (Claude Mythos 5.1 reads Claude Mythos 5's blocks, not the reverse). Unlike Claude Fable 5.1, Claude Mythos 5.1 doesn't run the conversation check, so editing earlier turns doesn't [invalidate thinking blocks](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-preserved-thinking), though it still restarts the prompt cache.
+The API-level delta matches [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1):
+
+* Forced tool choice returns a 400 error.
+* The advisor tool accepts fewer advisors.
+* Only Claude Mythos 5.1 and Claude Fable 5.1 read Claude Mythos 5.1's thinking blocks (Claude Mythos 5.1 reads Claude Mythos 5's blocks, not the reverse).
+
+Unlike Claude Fable 5.1, Claude Mythos 5.1 doesn't run the conversation check, so editing earlier turns doesn't [invalidate thinking blocks](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-preserved-thinking), though it still restarts the prompt cache.
 
 ### Update your model name
 

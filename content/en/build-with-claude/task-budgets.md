@@ -312,7 +312,7 @@ Consider a loop with `task_budget: {type: "tokens", total: 100000}` and a single
 
 Claude thinks, then emits a tool call and stops with `stop_reason: "tool_use"`:
 
-```text
+```json
 {
   "role": "assistant",
   "content": [

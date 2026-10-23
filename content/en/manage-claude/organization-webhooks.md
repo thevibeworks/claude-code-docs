@@ -85,7 +85,7 @@ An organization webhook endpoint has these fields:
 | `updated_at`      | string           | When the endpoint last changed. Set by Anthropic.                                                                                                                                         |
 | `signing_secret`  | string           | A `whsec_`-prefixed secret, created with the endpoint. Only the responses that create the endpoint or replace the secret include it, so store it securely.                                |
 
-```text wrap
+```json
 {
   "id": "wep_011CZkZDf8HnUq2mTxRbVn4s",
   "url": "https://example.com/anthropic-webhooks",
@@ -232,7 +232,7 @@ Send the `anthropic-beta: webhooks-2026-10-07` header with every request. The SD
 
 With no endpoints, the API returns an empty list:
 
-```text wrap
+```json
 {
   "data": [],
   "has_more": false

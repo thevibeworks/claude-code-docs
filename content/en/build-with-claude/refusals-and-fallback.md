@@ -152,7 +152,7 @@ The following sections cover what a refusal response contains, when to use serve
 
 A refusal is a successful HTTP 200 response with `stop_reason: "refusal"`:
 
-```text
+```json
 {
   "id": "msg_01XFUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -484,7 +484,7 @@ Only a safety classifier decline triggers the fallback. A rate limit, overload, 
 
 Instead of default routing, you can set `fallbacks` to a list of up to three models. When the requested model declines, the API runs the next model in the chain on the same request. Use this form when you want to control exactly which models serve refused requests, such as pinning a model your application has qualified.
 
-Named fallback models count toward the [oversized-image check](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error): a request whose image block sets `"oversized_image": "error"` is checked up front against the requested model and every named fallback, is rejected if any of them would resize that image, and the rejection's reported rescale target fits them all.
+Named fallback models count toward the [oversized-image check](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error). A request whose image block sets `"oversized_image": "error"` is checked up front against the requested model and every named fallback. The request is rejected if any of them would resize that image, and the rejection's reported rescale target fits them all.
 
 The highlighted lines are the only difference from the default-routing request.
 
@@ -645,7 +645,7 @@ The response looks like any other message, with two additions:
 
 On a refusal before any output, the `fallback` block is the first content block. For example, when default routing selects Claude Opus 4.8 for the refusal's category:
 
-```text wrap
+```json
 {
   "id": "msg_01XFUDYJgAACzvnptvVoYEL",
   "type": "message",
@@ -726,7 +726,7 @@ On a streaming request, the retry occurs on the same stream, and nothing you hav
 
 ### Non-streaming responses
 
-On a non-streaming request, a mid-output decline behaves differently: the response omits the declined model's partial output, and the fallback model starts a new answer. The result looks like a decline before any output, with the `fallback` block first. The declined attempt and its output tokens still appear in `usage.iterations`.
+On a non-streaming request, a mid-output decline behaves differently: the response omits the declined model's partial output, and the fallback model answers without that output as context. The result looks like a decline before any output, with the `fallback` block first. The declined attempt and its output tokens still appear in `usage.iterations`.
 
 <Note>
   **Declines during tool use:** completed tool work does not block fallback. When a decline fires after server tools (for example, web search or code execution) have finished executing within a request, the fallback attempt proceeds: the completed tool results carry over, and the fallback model can keep invoking server tools. The one case that does not retry is a streaming decline that fires while a tool-use block of any type (a client tool, a server tool, or an MCP tool call) is still open on the stream: that refusal is returned directly, and if the `fallback-credit-2026-07-01` header is set it still carries a credit token redeemable by continuing the partial response. Non-streaming requests are unaffected; the API clears the partial work and retries before responding.

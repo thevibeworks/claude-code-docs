@@ -349,7 +349,7 @@ For example, suppose a booking system needs `passengers: int`. Without strict mo
 
 **Response format:** Tool use blocks with validated inputs in `response.content[x].input`
 
-```text Output wrap
+```json Output
 {
   "type": "tool_use",
   "name": "get_weather",

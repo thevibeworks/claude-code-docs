@@ -53,7 +53,7 @@ Keep sending the full history on every request, thinking blocks included, and le
 
 With the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers), the response lists each dropped block in a top-level `input_transformations` array with `reason: "model_binding_mismatch"`:
 
-```text wrap
+```json
 {
   "input_transformations": [
     {
@@ -716,7 +716,7 @@ Neither turn drops a block because nothing earlier changed. Check that the first
 
 Log `input_transformations` on every turn of your own integration. When the API drops a block, the entry looks like the following:
 
-```text wrap
+```json
 {
   "input_transformations": [
     {
@@ -746,7 +746,7 @@ Two plain turns rarely show the problem. Run a session through each of the follo
 
 On an older account, you can also watch production traffic without opting into enforcement: send the beta header, leave `block_binding` out, and log `input_transformations`. Sending the header alone doesn't change what the model receives. Every thinking block that comes after the content you edited fails the check and gets its own `thinking_mismatch_allowed` entry, with the same `path` and `reason` fields as a `thinking_dropped` entry. Blocks before the edit still pass. An edit to `system` or `tools` comes before every block, so it fails every thinking block in the request. One entry looks like this:
 
-```text wrap
+```json
 {
   "input_transformations": [
     {
@@ -1475,7 +1475,7 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
 
 The response carries the new assistant turn as usual, plus one `input_transformations` entry for each dropped block. For the history in the diagram, that's the thinking on assistant turns 3 and 4:
 
-```text wrap
+```json
 {
   "input_transformations": [
     {

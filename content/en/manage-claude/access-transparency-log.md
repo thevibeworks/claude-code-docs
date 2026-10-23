@@ -13,6 +13,8 @@ Learn how to cryptographically verify that no [Access Transparency](https://plat
 
   Your log is created when the first Access Transparency event is recorded for your organization after enablement. Until then, every transparency log endpoint returns `404`.
 
+  If you already run `axt-verify` on a schedule, see [Upgrade for a new leaf version](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#upgrade-for-a-new-leaf-version).
+
   The transparency log is provided for your information. It is not designed or certified to satisfy any security, privacy, or regulatory requirement. You are responsible for determining whether it fits your own obligations.
 </Note>
 
@@ -38,12 +40,12 @@ When Access Transparency is enabled, Anthropic maintains a transparency log for 
 
 * It does not prove that every access was recorded, or that a recorded event accurately describes the access. It proves only that what Anthropic committed to the log has not changed since.
 * It does not change [what Access Transparency covers](https://platform.claude.com/docs/en/manage-claude/access-transparency#what-access-transparency-covers) or when events arrive.
-* Served fields outside the leaf, such as `workspace_uuid` and any field added later, are not covered by the proof.
+* Served fields that no [leaf version](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf) includes, such as `workspace_uuid`, are not covered by the proof. A field added to events later is covered only once a leaf version includes it.
 * An inclusion proof speaks for an event you were served. It does not by itself prove that the feed listed every leaf the log holds. The log's [entry bundles](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-an-entry-bundle) contain every leaf, so you can read the complete set of committed events directly when you need it.
 * The presence of `transparency_log_leaf_index` on an event is a pointer, not a proof. Always verify inclusion before treating an event as committed in the log.
 * The protection against a rewritten history comes from the checkpoints you keep. A checkpoint's signature by a key listed in [Published key fingerprints](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#published-key-fingerprints) proves that it came from Anthropic's log. A consistency proof from the checkpoint you saved last time proves that the history you already observed only grew.
 
-## Before you begin
+## Before you start
 
 You need:
 
@@ -148,7 +150,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```text
+```json
 {
   "type": "transparency_log_keys",
   "origin": "axt.anthropic.com/25f6429a-3293-49bf-afed-cb312911554b",
@@ -212,7 +214,7 @@ curl --fail-with-body -sS -G \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```text
+```json
 {
   "type": "transparency_log_inclusion_proof",
   "leaf_index": 41,
@@ -258,7 +260,7 @@ curl --fail-with-body -sS -G \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```text
+```json
 {
   "type": "transparency_log_consistency_proof",
   "hashes": [
@@ -309,19 +311,31 @@ Returns `application/octet-stream`: consecutive leaf entries, each prefixed with
 
 ## How an event becomes a leaf
 
-A leaf entry is the schema-version byte `0x01` followed by canonical JSON of 11 fields. The JSON follows [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785) (JSON Canonicalization Scheme), and the fields are taken from the event exactly as the Activity Feed serves it:
+A leaf entry is one schema-version byte followed by canonical JSON of that version's fields. The JSON follows [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785) (JSON Canonicalization Scheme), and the fields are taken from the event exactly as the Activity Feed serves it.
+
+A leaf version is a fixed set of fields, and each field is either required or optional.
+
+Version `0x01` has 11 required fields and no optional field:
 
 * `id`, `type`, `created_at`, `accessed_at`, `organization_id`, `organization_uuid`, `workspace_id`, `accessor_department`, and `reason_code`
 * `actor`, with its nested `type` and `email_address`
 * `resource_details`, with its nested `type`, `id`, and `parent`
 
+Version `0x02` has the same 11 required fields and one optional field:
+
+* `user_profile_id`, the ID of the [user profile](https://platform.claude.com/docs/en/api/beta/user_profiles) the accessed or preserved data was created under
+
+Once your log starts writing a version, it writes every new leaf under that version until it starts writing the next one, even when the event has none of the version's optional fields. [Upgrade for a new leaf version](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#upgrade-for-a-new-leaf-version) says when your log can start writing a new version. A leaf never changes once it is written, so it keeps its version for good. One log can therefore hold leaves of more than one version. Nothing the Activity Feed or the proof endpoints serve says which version a leaf has (only the leaf's own bytes in an [entry bundle](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-an-entry-bundle) do), and you do not need to know: the last of the following rules says which entries to rebuild for an event.
+
 The rules:
 
-* Served fields outside that set, such as `workspace_uuid` and `transparency_log_leaf_index` itself, are ignored.
+* Served fields outside a version's set, such as `workspace_uuid` and `transparency_log_leaf_index` itself, are ignored.
 
-* A documented field that the served event omits enters the leaf as `null`. An empty string is distinct from `null`.
+* A required field that the served event omits, or serves as `null`, enters the leaf as `null`. An empty string is distinct from `null`.
 
-* `actor` and `resource_details` are objects with exactly their documented keys when the served event carries them. Under version `0x01`, `actor.email_address` and `resource_details.parent` are always `null`. When the served event omits one of these objects or serves it as `null`, the whole value is `null` in the leaf, not an object of `null` fields. Many access events carry no `resource_details`.
+* An optional field enters the leaf only when the served event has it as a string, the empty string included, and it enters as that string. When the served event omits it or serves it as `null`, the leaf has no such key at all. An optional field is never `null` in a leaf. Reject a served event that has any other JSON value for an optional field.
+
+* `actor` and `resource_details` are objects with exactly their documented keys when the served event carries them. `actor.email_address` and `resource_details.parent` are always `null`. When the served event omits one of these objects or serves it as `null`, the whole value is `null` in the leaf, not an object of `null` fields. Many access events carry no `resource_details`.
 
 * String values, including both timestamps and `reason_code`, are taken byte for byte as served. If you re-derive a timestamp from another representation, reproduce the served rendering exactly:
 
@@ -333,11 +347,13 @@ The rules:
 
 * The leaf hash is RFC 6962's `SHA-256(0x00 || entry)`. Interior nodes hash as `SHA-256(0x01 || left || right)`.
 
-* A verifier rejects an unknown version byte, and a `0x01` leaf whose `type` is not one of the two Access Transparency types. New event types or rule changes ship under a new version byte. Existing leaves never re-hash.
+* A verifier that reads leaf entries, for example from an [entry bundle](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-an-entry-bundle), rejects an unknown version byte, and a leaf whose `type` is not one of the two Access Transparency types. New fields, new event types, and rule changes ship under a new version byte. Existing leaves never re-hash.
+
+* Rebuild a served event's entry under each leaf version whose fields include every optional field the served event has as a string (every version, when it has none), and under no other version. The event verifies if its inclusion proof matches the leaf hash of any one of them. If an optional field is removed from, added to, or changed in the event you are served, the event fails verification on any verifier that rebuilds a leaf version with that field, whichever leaf the log holds.
 
 For example, this access event as the Activity Feed serves it:
 
-```text wrap
+```json
 {
   "id": "activity_01GPXmAhizavrUuoXNn3tzeA",
   "type": "anthropic_access",
@@ -355,13 +371,21 @@ For example, this access event as the Activity Feed serves it:
 }
 ```
 
-becomes this canonical JSON. It has exactly the 11 documented keys, sorted, on one line. `workspace_uuid` and `transparency_log_leaf_index` drop out, and `resource_details.parent`, absent from the served event, enters as `null`:
+becomes this canonical JSON. It has exactly the 11 required keys, sorted, on one line. `workspace_uuid` and `transparency_log_leaf_index` drop out, and `resource_details.parent`, absent from the served event, enters as `null`:
 
-```text wrap
+```json
 {"accessed_at":"2025-07-08T18:39:58Z","accessor_department":"Trust & Safety","actor":{"email_address":null,"type":"anthropic_actor"},"created_at":"2025-07-08T18:40:00Z","id":"activity_01GPXmAhizavrUuoXNn3tzeA","organization_id":"org_015gtSHLz269eTwgrH8NX5yk","organization_uuid":"25f6429a-3293-49bf-afed-cb312911554b","reason_code":"safety_review","resource_details":{"id":"msg_01HXAMPLE12345678","parent":null,"type":"message"},"type":"anthropic_access","workspace_id":"wrkspc_01PaGUP2rbg1XDh7Z9W1CEpd"}
 ```
 
-The leaf entry is the byte `0x01` followed by those UTF-8 bytes. Its leaf hash, `SHA-256(0x00 || entry)`, is `6ro7vTcFq+sYDZiiGvZaFetUIoMSLig3DGDrCKK1HFU=` in base64. Use this example as a test vector for your own canonicalization code.
+This event has no optional field, so its version `0x02` and version `0x01` entries hold the same JSON and differ only in the first byte. The version `0x02` entry is the byte `0x02` followed by those UTF-8 bytes. Its leaf hash, `SHA-256(0x00 || entry)`, is `1iKC1LbEakcNTfp8OwW4LtItQu4+/K/pzaDDLVIA5XE=` in base64. The version `0x01` entry is the byte `0x01` followed by the same bytes, with leaf hash `6ro7vTcFq+sYDZiiGvZaFetUIoMSLig3DGDrCKK1HFU=`.
+
+The same event served with an optional field, here `"user_profile_id": "uprof_01H7Z9W1CEpdPaGUP2rbg1XD"`, has 12 keys in its version `0x02` JSON. The optional key sorts with the others, between `type` and `workspace_id`:
+
+```json
+{"accessed_at":"2025-07-08T18:39:58Z","accessor_department":"Trust & Safety","actor":{"email_address":null,"type":"anthropic_actor"},"created_at":"2025-07-08T18:40:00Z","id":"activity_01GPXmAhizavrUuoXNn3tzeA","organization_id":"org_015gtSHLz269eTwgrH8NX5yk","organization_uuid":"25f6429a-3293-49bf-afed-cb312911554b","reason_code":"safety_review","resource_details":{"id":"msg_01HXAMPLE12345678","parent":null,"type":"message"},"type":"anthropic_access","user_profile_id":"uprof_01H7Z9W1CEpdPaGUP2rbg1XD","workspace_id":"wrkspc_01PaGUP2rbg1XDh7Z9W1CEpd"}
+```
+
+Its version `0x02` entry, the only one to rebuild, is the byte `0x02` followed by those UTF-8 bytes, with leaf hash `onAlpkDfdXmHPvbffiTpHAgBacf/mJCzTfNDibDrYp4=`. Use these three hashes as test vectors for your own canonicalization code.
 
 ## Verify your log
 
@@ -372,13 +396,37 @@ Verification runs on your own infrastructure. Everything the API returns is untr
 3. Check the checkpoint's origin line first. Compare its first line, byte for byte, with the origin you derived. Reject any checkpoint whose origin differs, before doing anything else.
 4. Verify the checkpoint's signature. Find the signature line named for your origin whose first four decoded bytes equal the `key_hash` of a currently valid key you kept. Verify the remaining bytes as an ECDSA P-256 signature over the SHA-256 of the note body, using that key's `public_key`. If no signature line matches such a key, or the signature does not verify, reject the checkpoint.
 5. Prove append-only. If the new tree size is smaller than the one you saved, fail. If it is equal, the root hashes must match. If it is larger, verify the RFC 9162 consistency proof from your saved size and root hash to the new size and root hash.
-6. Prove each event is included. Read every Access Transparency event the Activity Feed serves. For each new one, rebuild its [leaf](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf), hash it, and fetch its [inclusion proof](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#fetch-an-inclusion-proof). Walk the audit path from your leaf hash at the event's index up to the checkpoint's root hash. A mismatch means the event you were served is not the event the log committed. The proof response can carry a different checkpoint from the one you hold. Link it into your history with a consistency proof before you verify anything against it.
+6. Prove each event is included. Read every Access Transparency event the Activity Feed serves. For each new one, rebuild each [leaf to rebuild for it](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf), hash each, and fetch its [inclusion proof](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#fetch-an-inclusion-proof). Walk the audit path from each leaf hash at the event's index up to the checkpoint's root hash. The event verifies if one of them reproduces the root hash. If none does, the event you were served is not the event the log committed. The proof response can carry a different checkpoint from the one you hold. Check its origin line and signature (steps 3 and 4), and link it into your history with a consistency proof (step 5), before you verify anything against it.
 7. Re-check what you saw before. Whenever you read an event again, it must be served with the same index and the same leaf bytes as when you verified it. No event may lose the index it had, and while you are enrolled no event may newly appear without one. The events served without an index on your first run are your pre-log history. A run that re-reads only recent events re-checks only those. To re-check older ones, verify the copies you kept (step 8) again.
 8. Save the checkpoint you verified and a record of each event you verified. They are your evidence and your starting point for the next run.
 
+### Upgrade for a new leaf version
+
+Each `axt-verify` release rebuilds only [leaf versions](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf) that were defined when it was released. Assume that your log can start writing a new version at any time once a release that rebuilds it is published. Install that release as soon as it is published.
+
+| Leaf version | `axt-verify` releases that rebuild it |
+| ------------ | ------------------------------------- |
+| `0x01`       | Every release                         |
+| `0x02`       | `v0.2.0` and later                    |
+
+`axt-verify version` prints the release you run. A new installation gets the newest release. If the table's last row does not include your release, upgrade to a release in that row. If none is published yet, upgrade as soon as one is:
+
+1. Install the newest release the way you installed before (the `go install` line in [Verify with axt-verify](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#verify-with-axt-verify)).
+2. Keep running it as before: same `--org`, same `--state` file, same schedule.
+
+What to expect:
+
+* **Before your log starts writing the new version.** The newer release verifies your log as before, because it also rebuilds the earlier leaf versions.
+* **After your log starts writing the new version, on a release that does not rebuild it.** The release reports every event whose leaf has that version as a verification failure, with exit status `1`, even when the event has none of the version's optional fields. Leaves of the versions your release rebuilds are not affected. They verify as they did before. The failures clear once you run a release that rebuilds the version on the same `--state` file, and the append-only check continues from where your last run ended.
+* **If you return to an earlier release.** Do not give an earlier release a state file that a newer release has saved. The earlier release reports every event that was waiting for a checkpoint as a verification failure. If you may need to return to the earlier release, copy the state file before the first run of the newer one, and give the earlier release that copy.
+
+A verifier you maintain yourself needs a new version's fields, and the rule for which entries to rebuild, from [How an event becomes a leaf](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf) before your log starts writing that version.
+
 ### Verify with axt-verify
 
-[`axt-verify`](https://github.com/anthropics/axt-verify) is Anthropic's open-source verifier for this log. It is a single Go binary that you run on your own infrastructure. Each release has exactly one log signing key from [Published key fingerprints](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#published-key-fingerprints) built in, so it never asks the API which key to trust. When Anthropic rotates the key, you upgrade to the release that carries the new one on the switch date. `axt-verify` derives your origin from the organization UUID you pass with `--org`, which is the one you took from the Console in [Before you begin](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#before-you-begin). It rejects any checkpoint whose origin line differs.
+If you already run `axt-verify` on a schedule, read [Upgrade for a new leaf version](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#upgrade-for-a-new-leaf-version) first.
+
+[`axt-verify`](https://github.com/anthropics/axt-verify) is Anthropic's open-source verifier for this log. It is a single Go binary that you run on your own infrastructure. Each release has exactly one log signing key from [Published key fingerprints](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#published-key-fingerprints) built in, so it never asks the API which key to trust. When Anthropic rotates the key, you upgrade to the release that carries the new one on the switch date. `axt-verify` derives your origin from the organization UUID you pass with `--org`, which is the one you took from the Console in [Before you start](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#before-you-begin). It rejects any checkpoint whose origin line differs.
 
 Install it with Go 1.26 or newer. It reads your Compliance Access Key from the `ANTHROPIC_COMPLIANCE_ACCESS_KEY` environment variable, never from a flag or a file. The `run` command is the one to schedule:
 
@@ -391,7 +439,7 @@ axt-verify --org 25f6429a-3293-49bf-afed-cb312911554b \
   run
 ```
 
-Each `run` fetches the latest checkpoint and verifies its signature and origin line. It then proves the log is an append-only extension of the checkpoint the previous run saved. Next it pages through the Access Transparency events on your Activity Feed. It starts seven days (by `created_at`) before the newest event the previous run read, so that events listed late or out of order are still picked up. It rebuilds each event's leaf, verifies an inclusion proof for it, and compares any event it verified before against what it recorded then. Finally, it saves the new checkpoint and its progress to the `--state` file, which the next run starts from. Run it at least daily. Hourly is reasonable. With a parent-organization key, run one copy per child organization, each with its own `--org` and `--state` file. Each child organization's UUID also comes from the Claude Console, not from the Compliance API responses you are verifying. To find it, switch to the child organization in the account menu at the bottom of the Console sidebar, then open the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`). You can also find it in your parent organization's list of organizations in the Console. `axt-verify checkpoint` does only the checkpoint and append-only steps. `axt-verify events FILE` verifies events you already hold, such as an auditor's sample or your own export. It proves that each event in the file is still committed in the log under the current checkpoint. It does not read the feed or touch the state file.
+Each `run` fetches the latest checkpoint and verifies its signature and origin line. It then proves the log is an append-only extension of the checkpoint the previous run saved. Next it pages through the Access Transparency events on your Activity Feed. It starts 7 days (by `created_at`) before the newest event the previous run read, so that events listed late or out of order are still picked up. It rebuilds each [leaf to rebuild for the event](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf), verifies an inclusion proof against them, and compares any event it verified before against what it recorded then. Finally, it saves the new checkpoint and its progress to the `--state` file, which the next run starts from. Run it at least daily. Hourly is reasonable. With a parent-organization key, run one copy for each child organization, each with its own `--org` and `--state` file. Each child organization's UUID also comes from the Claude Console, not from the Compliance API responses you are verifying. To find it, switch to the child organization in the account menu at the bottom of the Console sidebar, then open the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`). You can also find it in your parent organization's list of organizations in the Console. `axt-verify checkpoint` does only the checkpoint and append-only steps. `axt-verify events FILE` verifies events you already hold, such as an auditor's sample or your own export. It proves that each event in the file is still committed in the log under the current checkpoint. It does not read the feed or touch the state file.
 
 One limit follows from that window: `run` re-reads only the last 7 days of events, so it re-checks recently served events (step 7), not your whole history. Keep the events you export (see [Keep your own checkpoint archive](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#keep-your-own-checkpoint-archive)). `axt-verify events FILE` proves at any later date that those copies are still committed in the log, but it does not re-read the feed. To detect an older event removed from or rewritten on the feed, re-export that range from the Activity Feed and compare it with the copies you kept. You can also verify the re-export itself with `axt-verify events FILE`. The 7-day overlap is longer than the feed's 2-business-day delivery time, so a late-arriving event still falls inside a later run's window. `--overlap` changes the duration if you need to.
 
@@ -401,8 +449,8 @@ If you need your own implementation instead, follow the preceding checklist with
 
 `axt-verify` prints your origin, the tree size and root hash of the checkpoint it verified, the tree size the append-only check started from, and a count of events by outcome. Pass `--json` to get the same report as one JSON object on each line. Each event has one of four outcomes:
 
-* **Verified:** the leaf rebuilt from the served event is committed at the event's index in the signed log.
-* **Pending:** the event's index is beyond the latest published checkpoint. This is normal for a short time after an event appears. In `run`, `axt-verify` remembers the event, verifies it on a later run once a checkpoint covers it, and fails it if that takes longer than 24 hours. `events FILE` has no later run to settle it, so it waits up to a minute for a covering checkpoint to be published. If none arrives, it reports the event as not yet covered and ends with exit status `3`. Run it again later. If `events FILE` reports the same event as not yet covered on two runs at least a day apart, treat it as a verification failure and escalate as for exit status `1`.
+* **Verified:** a leaf rebuilt from the served event is committed at the event's index in the signed log.
+* **Pending:** the event's index is beyond the latest published checkpoint. This is normal for a short time after an event appears. In `run`, `axt-verify` records the event, verifies it on a later run once a checkpoint covers it, and fails it if that takes longer than 24 hours. `events FILE` has no later run to settle it, so it waits up to a minute for a covering checkpoint to be published. If none arrives, it reports the event as not yet covered and ends with exit status `3`. Run it again later. If `events FILE` reports the same event as not yet covered on two runs at least a day apart, treat it as a verification failure and escalate as for exit status `1`.
 * **Not logged:** the event was served without an index. An event is served without `transparency_log_leaf_index` only while your organization is not enrolled in Access Transparency, or when it was recorded before your organization's log was created (see [The `transparency_log_leaf_index` field on Activity Feed events](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#the-transparency-log-leaf-index-field-on-activity-feed-events)). `axt-verify` reports such events as not logged and does not fail the run on them. An index-less event is not expected when it is dated after your log was created and falls inside a period when you were enrolled. Review the not-logged list in the run's summary or `--json` output rather than relying on the exit status alone.
 * **Failed:** see exit status `1`.
 
@@ -410,14 +458,14 @@ The exit status tells your scheduler what occurred:
 
 * **`0`:** Nothing failed. Not-logged events are reported, not failed, and so are pending events in `run`.
 
-* **`1`:** A verification failure. This is a security finding, not a transient error. Keep the state file and the output, and report it to your Anthropic account representative or [Anthropic support](https://support.claude.com). The causes are:
+* **`1`:** A verification failure. If every new event fails because its inclusion proof does not reproduce the signed root hash, first rule out a release that does not rebuild your log's newest leaf version, as that item in this list describes. If that is not the cause, and for any other failure, treat it as a security finding, not a transient error. Keep the state file and the output, and report it to your Anthropic account representative or [Anthropic support](https://support.claude.com). The causes are:
 
   * A checkpoint with the wrong origin, or a signature that does not verify under the key built into your `axt-verify` release. Compare the `key_hash` on the failing checkpoint's signature line with [Published key fingerprints](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#published-key-fingerprints). A key listed there with a switch date you have not upgraded for means you need the matching release. A key not listed there is a security finding, whatever release you run. On this failure `axt-verify` prints the key hash of every signature on the served checkpoint and the key hash of the key it trusts, as eight hex digits each. That output is enough to make the comparison.
   * A checkpoint that is not a well-formed signed note, for example one whose root hash is not 32 bytes.
   * A log that shrank, or that cannot prove it extends the checkpoint you saved. The output then carries both checkpoints and the proof, so the evidence stands on its own.
   * Two signed checkpoints for the same tree size with different root hashes. The output carries both checkpoints.
   * A checkpoint file passed with `--from` whose signature does not verify under the key built into your `axt-verify` release, or a `--from` or `--from-trusted` file whose origin is not yours. For an archive signed before a key rotation, see [Keep your own checkpoint archive](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#keep-your-own-checkpoint-archive).
-  * An inclusion proof that does not reproduce the signed root hash for the event you were served.
+  * An inclusion proof that does not reproduce the signed root hash for the event you were served. A release that does not rebuild a leaf version reports this for every event whose leaf has that version. If every new event fails this way at once, check first that you run the newest `axt-verify` release (see [Upgrade for a new leaf version](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#upgrade-for-a-new-leaf-version)). If you do not, copy the state file, keep the copy and the output, and run the newest release on the original `--state` file. The failures clear once you run a release that rebuilds the version. If you already run the newest release, or the failures remain after you upgrade, it is a security finding.
   * An event inside the run's window served differently from how an earlier run recorded it: different leaf bytes, a different index, or no index where it had one.
   * An event still pending 24 hours after the run first saw it.
   * A refused inclusion proof (`400`, `401`, or `403`) for an event the feed served you.
@@ -460,6 +508,10 @@ The strongest evidence you can hold is your own record of what the log said on a
 
   <Accordion title="What happens when Anthropic rotates the signing key?">
     Planned rotations are announced in [Published key fingerprints](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#published-key-fingerprints) at least 30 days ahead, with a switch date. On the switch date Anthropic starts signing with the new key and publishes the `axt-verify` release that carries it. On the same date Anthropic re-issues every organization's latest checkpoint under the new key, even for a log that has not grown. Each `axt-verify` release carries one key, so upgrade on the switch date. Running the old release after the switch fails with exit status `1`, and so does running the new release before it. Either failure clears once you run the matching release. Checkpoints you saved under the old key stay valid starting points, because the append-only proof from a saved checkpoint to a new one does not depend on which key signed the old one. The new key appears at the front of the [verifier key set](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-the-verifier-keys) and earlier keys stay listed. Checkpoints you already verified or archived therefore keep verifying against that set. A verifier of your own that pins the published fingerprints needs the new fingerprint, with its switch date, added before that date. A verifier that holds the key set locally re-fetches it when it meets a signature whose key hash it does not hold. A checkpoint commits to the whole history. Once one checkpoint signed by the new key verifies, and a consistency proof from your saved checkpoint leads to it, every earlier entry is re-established as well.
+  </Accordion>
+
+  <Accordion title="What is a leaf version, and do I need to track which one a leaf has?">
+    A leaf version is the first byte of a leaf entry. It says which set of fields the leaf commits to (see [How an event becomes a leaf](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf)). You do not need to track it. Your log can hold leaves of more than one version, and a verifier rebuilds the entries that the last rule in that section names for an event, and accepts the event if its inclusion proof matches one. What you do need is an `axt-verify` release that rebuilds the newest version your log writes (see [Upgrade for a new leaf version](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#upgrade-for-a-new-leaf-version)).
   </Accordion>
 
   <Accordion title="Can I compute proofs myself instead of calling the proof endpoints?">

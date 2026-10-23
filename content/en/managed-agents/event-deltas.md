@@ -31,7 +31,7 @@ A subagent's previews appear on [that subagent's own thread stream](https://plat
 
 When a previewed event starts, the stream emits an `event_start` carrying the upcoming event's type and `id`:
 
-```text wrap
+```json
 {
   "type": "event_start",
   "event": {
@@ -43,7 +43,7 @@ When a previewed event starts, the stream emits an `event_start` carrying the up
 
 For `agent.message`, the start is followed by `event_delta` events carrying incremental text. Each delta names the event it extends in `event_id` and the content block it extends in `delta.index`:
 
-```text wrap
+```json
 {
   "type": "event_delta",
   "event_id": "sevt_01abc...",

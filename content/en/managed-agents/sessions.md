@@ -600,7 +600,7 @@ The following example starts a session that overrides the model and clears the s
 
 #### Pin the inference geo for a session
 
-Because a `model` (csharp, go: `Model`) override replaces the agent's `model` (csharp, go: `Model`) object in full, it also sets or clears the model's [inference geo](https://platform.claude.com/docs/en/manage-claude/data-residency) pin for the session: an override that includes `inference_geo` (java, php: `inferenceGeo`; csharp, go: `InferenceGeo`) pins the geography that serves the session's model requests, and one that omits it clears the agent's pin so the session follows the workspace's `default_inference_geo`. The overridden value is validated against the workspace's `allowed_inference_geos` when the session is created.
+Because a `model` (csharp, go: `Model`) override replaces the agent's `model` (csharp, go: `Model`) object in full, it also sets or clears the model's [inference geo](https://platform.claude.com/docs/en/manage-claude/data-residency) pin for the session. An override that includes `inference_geo` (java, php: `inferenceGeo`; csharp, go: `InferenceGeo`) pins the geography that serves the session's model requests. An override that omits it clears the agent's pin, so the session follows the workspace's `default_inference_geo`. The overridden value is validated against the workspace's `allowed_inference_geos` when the session is created.
 
 The following example starts a session from an agent whose model has no geo pin, and pins the session's model requests to US inference by including `inference_geo` (java, php: `inferenceGeo`; csharp, go: `InferenceGeo`) in the `model` (csharp, go: `Model`) override. The response echoes the value in `agent.model` (csharp, go: `Agent.Model`):
 
@@ -967,7 +967,7 @@ If your agent uses MCP tools that require authentication, pass `vault_ids` (java
 
 ## Starting the session
 
-Creating a session without `initial_events` (java, php: `initialEvents`; csharp, go: `InitialEvents`) registers the session but does not start any work; the environment's sandbox starts provisioning as soon as the session is created, so the first tool call does not wait on it. To delegate a task, send events to the session using a [user event](https://platform.claude.com/docs/en/managed-agents/reference#event-types). To supply the first event in the create request instead, see [Seed the session with initial events](https://platform.claude.com/docs/en/managed-agents/sessions#seed-the-session-with-initial-events). The session acts as a state machine that tracks progress while events drive the actual execution.
+Creating a session without `initial_events` (java, php: `initialEvents`; csharp, go: `InitialEvents`) registers the session but does not start any work; the environment's sandbox starts provisioning as soon as the session is created, so the first tool call does not wait on it. To delegate a task, send events to the session using a [user event](https://platform.claude.com/docs/en/managed-agents/reference#event-types). To supply the first event in the create request instead, see [Seed the session with initial events](https://platform.claude.com/docs/en/managed-agents/sessions#seed-the-session-with-initial-events). The session acts as a state machine that tracks progress, and events drive the actual execution.
 
 <CodeGroup>
   ```bash cURL

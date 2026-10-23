@@ -142,7 +142,6 @@ When creating an agent, you can apply a policy to every tool in `agent_toolset_2
   if err != nil {
   	panic(err)
   }
-  _ = agent
   ```
 
   ```java Java
@@ -358,7 +357,6 @@ This example connects a GitHub MCP server and allows its tools to run without co
   if err != nil {
   	panic(err)
   }
-  _ = agent
   ```
 
   ```java Java
@@ -567,7 +565,6 @@ Use the `configs` (csharp, go: `Configs`) array to override the default for indi
   		}},
   	},
   }}
-  _ = tools
   ```
 
   ```java Java
@@ -849,7 +846,6 @@ The following example sets `auto` as the default for the agent toolset and for t
   if err != nil {
   	panic(err)
   }
-  _ = agent
   ```
 
   ```java Java
@@ -974,7 +970,7 @@ Under any permission policy, each `agent.tool_use` and `agent.mcp_tool_use` even
 
 For example, when `bash` is under `auto` and the server evaluates a call as high-risk, the denied call appears on the event stream as follows:
 
-```text wrap
+```json
 {
   "type": "agent.tool_use",
   "id": "sevt_01pqr...",
@@ -1021,7 +1017,7 @@ A tool call evaluates to `ask` under an `always_ask` policy, or under `auto` whe
 
 For example, a `bash` call paused under an `always_ask` policy appears on the stream as follows:
 
-```text wrap
+```json
 {
   "type": "agent.tool_use",
   "id": "sevt_01def...",

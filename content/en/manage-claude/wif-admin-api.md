@@ -12,7 +12,7 @@ Every request on this page authenticates with an OAuth bearer token that carries
 
 ### Interactive (your terminal)
 
-Log in with the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under a dedicated profile, requesting the `org:admin` scope (see [Admin access](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#admin-access)), then export the bearer token. Logging in with `--profile admin` stores the `org:admin` credential under its own profile name and also makes it the CLI's active profile, and the exported variable applies to every SDK and CLI call in that shell; so use a shell you reserve for administration, unset the variable when you are done, and switch the CLI back with `ant profile activate default`:
+Log in with the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under a dedicated profile, requesting the `org:admin` scope (see [Admin access](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#admin-access)), then export the bearer token. Logging in with `--profile admin` stores the `org:admin` credential under its own profile name and also makes it the CLI's active profile. The exported variable applies to every SDK and CLI call in that shell. For these reasons, use a shell you reserve for administration, unset the variable when you are done, and switch the CLI back with `ant profile activate default`:
 
 ```bash CLI
 ant auth login --profile admin --scope "org:admin"
@@ -25,7 +25,7 @@ The SDK and the `ant` CLI read `ANTHROPIC_AUTH_TOKEN` automatically; leave `ANTH
 
 ### Workload (CI and automation)
 
-Create a federation rule with `oauth_scope: org:admin` that targets a service account whose `organization_role` is `admin`. The rule itself must be created in the Claude Console: granting a workload organization-admin access is a deliberate human action, not something automation can bootstrap for itself. The next section walks through this once-per-organization setup.
+Create a federation rule with `oauth_scope: org:admin` that targets a service account whose `organization_role` is `admin`. You must create the rule itself in the Claude Console: granting a workload organization-admin access is a deliberate human action, not something automation can bootstrap for itself. The next section walks through this once-per-organization setup.
 
 ## Bootstrap a workload to manage WIF
 
@@ -471,7 +471,7 @@ Archive a service account:
 
 The create endpoint returns the new service account:
 
-```text wrap
+```json
 {
   "id": "svac_...",
   "name": "inference-worker",
@@ -1242,7 +1242,7 @@ Archive a rule:
 
 The list endpoint returns a page of rules and the cursor for the next page:
 
-```text wrap
+```json
 {
   "data": [{ "id": "fdrl_...", "name": "gha-deploy", "...": "..." }],
   "next_page": "..."

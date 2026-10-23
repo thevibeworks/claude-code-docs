@@ -38,7 +38,7 @@ With `ant beta:sessions connect`, you can open the same viewer from the `ant` CL
 
 The session object includes a `usage` field with the session's cumulative usage: token counts, server tool use, active time, and the tracked list cost. Fetch the session after it goes idle to read the latest totals.
 
-```text wrap
+```json
 {
   "id": "sesn_01...",
   "status": "idle",

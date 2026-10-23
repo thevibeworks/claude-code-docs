@@ -375,7 +375,7 @@ The response `usage` object includes a `speed` field that indicates which speed 
   ```
 </CodeGroup>
 
-```text Output wrap
+```json Output
 {
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",

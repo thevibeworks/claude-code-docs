@@ -611,7 +611,7 @@ message = (
 print(message.content)
 ```
 
-These methods return an `APIResponse` object. On the async client they return an `AsyncAPIResponse`, and `.parse()`, `.read()`, `.text()`, and `.json()` must be awaited.
+These methods return an `APIResponse` object. On the async client they return an `AsyncAPIResponse`, and you must await `.parse()`, `.read()`, `.text()`, and `.json()`.
 
 ### Streaming response body
 

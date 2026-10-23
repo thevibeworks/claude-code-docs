@@ -142,7 +142,7 @@ curl https://ai.mongodb.com/v1/embeddings \
 
 The response is a JSON object containing the embeddings and the token usage:
 
-```text wrap
+```json
 {
   "object": "list",
   "data": [

@@ -311,7 +311,7 @@ You can find a workspace's ID in the **ID** column on the [Workspaces](https://p
 
 If a request made with a key that isn't scoped to a workspace omits the header, the API returns a 400 `invalid_request_error`:
 
-```text JSON
+```json JSON
 {
   "type": "error",
   "error": {
@@ -354,7 +354,7 @@ To replace a workspace key with a personal or service account key:
 
 ## Workload Identity Federation
 
-Workload Identity Federation (WIF) lets a workload authenticate with a short-lived identity token issued by an identity provider (IdP) you already trust, such as AWS IAM, Google Cloud, or any standards-compliant OIDC issuer (such as GitHub Actions, Kubernetes service accounts, SPIFFE, Microsoft Entra ID, or Okta). The workload exchanges its IdP-issued JWT at `POST /v1/oauth/token` for a short-lived Claude API access token, and the SDK refreshes that token automatically before it expires. There is no `sk-ant-api...` string to mint, distribute, or rotate.
+Workload Identity Federation (WIF) lets a workload authenticate with a short-lived identity token issued by an identity provider (IdP) you already trust. Such IdPs include AWS IAM, Google Cloud, and any standards-compliant OIDC issuer (such as GitHub Actions, Kubernetes service accounts, SPIFFE, Microsoft Entra ID, or Okta). The workload exchanges its IdP-issued JWT at `POST /v1/oauth/token` for a short-lived Claude API access token, and the SDK refreshes that token automatically before it expires. There is no `sk-ant-api...` string to mint, distribute, or rotate.
 
 Federation removes long-lived Claude API keys from your environment, which limits the damage that a leaked credential can cause and lets you manage access with the same IdP controls you already use for cloud resources. It does not, on its own, guarantee end-to-end security: the trust chain is only as strong as your identity provider's configuration, and a long-lived secret one step earlier in that chain (for example, a static cloud credential that can mint IdP tokens) can still undermine it. Pair federation with your provider's controls, such as IP allowlists, MFA, and audit logging.
 

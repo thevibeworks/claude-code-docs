@@ -23,11 +23,11 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-```text Response wrap
+```json Response
 {
   "data": [
     {
-      "id": "activity_01XyDMpzjS89pFZXqSFUBDr6",
+      "id": "activity_01DeFgHjKmNpQrStUvWxYzAb",
       "created_at": "2026-04-10T08:09:10Z",
       "organization_id": "org_01Wv6QeBcDfGhJkLmNpQrSt8",
       "organization_uuid": "abcdef01-2345-6789-abcd-ef0123456789",
@@ -39,13 +39,13 @@ curl --fail-with-body -sS \
         "user_agent": "Mozilla/5.0..."
       },
       "type": "claude_chat_created",
-      "claude_chat_id": "claude_chat_01XyDMpzjS89pFZXqSFUBDr6",
+      "claude_chat_id": "claude_chat_01CdEfGhJkMnPqRsTuVwXyZa",
       "claude_project_id": "claude_proj_01KGp4eZNug9ri4kE35RSppq"
     }
   ],
   "has_more": true,
-  "first_id": "activity_01XyDMpzjS89pFZXqSFUBDr6",
-  "last_id": "activity_01XyDMpzjS89pFZXqSFUBDr6"
+  "first_id": "activity_01DeFgHjKmNpQrStUvWxYzAb",
+  "last_id": "activity_01DeFgHjKmNpQrStUvWxYzAb"
 }
 ```
 
@@ -152,7 +152,7 @@ The `actor` field is a discriminated union. The `type` discriminator tells you w
 
 | `actor.type`                 | When it appears                                                                                                                                                                        | Key fields                                                                                                                                            |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `user_actor`                 | A signed-in claude.ai or Claude Console user took the action, or a process Anthropic runs on that user's behalf did (see the paragraph after this table).                              | `email_address`, `user_id`, `ip_address`, `user_agent`                                                                                                |
+| `user_actor`                 | A signed-in claude.ai or Claude Console user took the action. Processes Anthropic runs on the user's behalf can also appear as this type; see the paragraph after this table.          | `email_address`, `user_id`, `ip_address`, `user_agent`                                                                                                |
 | `api_actor`                  | A request called the Claude API or the Compliance API with a customer-issued API key. Compliance API calls produce this actor type for both Compliance Access Keys and Admin API keys. | `api_key_id`, `ip_address`, `user_agent`                                                                                                              |
 | `admin_api_key_actor`        | An organization admin used an Admin API key to manage users, invites, workspaces, or API keys.                                                                                         | `admin_api_key_id`, `ip_address`, `user_agent`                                                                                                        |
 | `unauthenticated_user_actor` | An action occurred before sign-in completed, for example `sso_login_initiated`.                                                                                                        | `unauthenticated_email_address`, `ip_address`, `user_agent`                                                                                           |
@@ -160,7 +160,7 @@ The `actor` field is a discriminated union. The `type` discriminator tells you w
 | `system_actor`               | Automated background processing performed by Anthropic systems, acting without a user or customer credential.                                                                          | `service` (nullable; the name of the automated process that performed the action, when known)                                                         |
 | `scim_directory_sync_actor`  | An identity provider (such as Okta, Microsoft Entra ID, or JumpCloud) pushed a change through SCIM directory sync.                                                                     | `workos_event_id`, `directory_id`, `idp_connection_type` (nullable; for example `OktaSCIMV2`, `AzureSCIMV2`)                                          |
 
-A `user_actor` activity does not always mean the user took the action. Processes that Anthropic runs on a user's behalf can currently appear as `user_actor` for the affected user rather than as `system_actor`, and this attribution may change. For example, memory activities from a migration, such as `platform_memory_store_created`, `platform_memory_created`, and `platform_memory_deleted`, are attributed this way. Memory activities can show an `ip_address` of `0.0.0.0` whoever performed them, so this value does not on its own identify activity from a platform process.
+A `user_actor` activity does not always mean the user took the action. Processes that Anthropic runs on a user's behalf can currently appear as `user_actor` for the affected user rather than as `system_actor`, and this attribution may change. For example, memory activities from a migration, such as `platform_memory_store_created`, `platform_memory_created`, and `platform_memory_deleted`, are attributed this way. The memory activities `platform_memory_store_created`, `platform_memory_created`, `platform_memory_updated`, and `platform_memory_deleted` currently show an `ip_address` of `0.0.0.0` whoever performed them. As a result, this value does not on its own identify a process that Anthropic runs on the user's behalf.
 
 A `claude_*_viewed` activity means a Claude app loaded content, not that a person viewed it. Types such as `claude_chat_viewed`, `claude_file_viewed`, and `claude_project_viewed` are recorded each time a Claude app loads the chat, file, or project from Anthropic's servers. Repeated loads are not deduplicated. The web, desktop, and mobile apps load content at different moments, sometimes in the background, and can display a cached copy without loading it. Counts of these activities vary by platform as a result, and they do not correspond to messages sent or screens viewed.
 

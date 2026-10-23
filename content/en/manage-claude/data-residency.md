@@ -208,7 +208,7 @@ The `inference_geo` parameter controls where model inference runs for a specific
 
 The response `usage` object includes an `inference_geo` field indicating where inference ran:
 
-```text Output wrap
+```json Output
 {
   "usage": {
     "input_tokens": 25,

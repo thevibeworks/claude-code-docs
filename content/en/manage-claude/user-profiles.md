@@ -181,7 +181,7 @@ The following example registers a company that buys API access through a gateway
 
 The response is the new profile:
 
-```text wrap
+```json
 {
   "type": "user_profile",
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
@@ -403,7 +403,7 @@ A `passthrough` profile identifies a company, not the person making the request.
 
 A profile's `enforcement_status` and `enforcement_actions` fields report the enforcement actions that Anthropic has open on the end customer. An enforcement action is a restriction or a ban. Every response that returns a profile includes both fields: create, retrieve, update, and each profile in a list. Send these requests with no `user-profiles-` value in the `anthropic-beta` header, because `user-profiles-2026-09-04` and earlier values leave the fields out. The following example shows the fields on a retrieved profile, with the other fields left out:
 
-```text wrap
+```json
 {
   "type": "user_profile",
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",

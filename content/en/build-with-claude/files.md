@@ -143,7 +143,7 @@ Upload a file to reference in future API calls:
 
 The response from uploading a file includes:
 
-```text Response wrap
+```json Response
 {
   "id": "file_011CNha8iCJcU1wXNR6q4V8w",
   "type": "file",
@@ -997,7 +997,7 @@ Common errors when using the Files API include:
 * **File too large (413):** The file exceeds the 500 MB limit.
 * **Storage limit exceeded (400):** Your organization has reached the 1 TB storage limit.
 
-```text Output wrap
+```json Output
 {
   "type": "error",
   "error": {

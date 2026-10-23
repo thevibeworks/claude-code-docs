@@ -147,7 +147,6 @@ The following example enables the toolset and disables `web_fetch`:
   if err != nil {
   	panic(err)
   }
-  _ = agent
   ```
 
   ```java Java
@@ -406,7 +405,6 @@ The following example creates an agent with the built-in toolset and one custom 
   if err != nil {
   	panic(err)
   }
-  _ = agent
   ```
 
   ```java Java
