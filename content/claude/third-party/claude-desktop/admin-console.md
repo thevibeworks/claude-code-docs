@@ -211,7 +211,7 @@ The telemetry categories, keys, and egress hosts on [Telemetry and egress](https
 
 ### Configuration kept on devices
 
-From Claude Desktop 2.7032.0, each device keeps a copy of part of the last configuration it downloaded from the admin console, and applies it at the next launch, before the app has downloaded the current configuration. The copy holds your organization's ID and name, the **Block essential telemetry** and **Block nonessential telemetry** switches, the **Microsoft 365 native sign-in broker** and **Default Quick Entry shortcut** settings, and restrictions, such as **Block nonessential services** turned on or **Allow user-added MCP servers** turned off. It doesn't hold lists, such as the folders and network hosts the app may use, or whether Chat, Cowork, and Code are available. Signing out of Claude Desktop deletes the copy.
+From Claude Desktop 2.7032.0, each device keeps a copy of part of the last configuration it downloaded from the admin console, and applies it at the next launch, before the app has downloaded the current configuration. The copy holds your organization's ID and name, the **Block essential telemetry** and **Block nonessential telemetry** switches, the **Microsoft 365 native sign-in broker** and **Default Quick Entry shortcut** settings, and restrictions, such as **Block nonessential services** turned on or **Allow local MCP servers** turned off. It doesn't hold lists, such as the folders and network hosts the app may use, or whether Chat, Cowork, and Code are available. Signing out of Claude Desktop deletes the copy.
 
 To keep less on devices, open **Organization settings**, go to the **Telemetry & updates** page under **Desktop 3P**, and turn on the **Keep only your organization ID and restrictions on disk** switch. The copy then holds only your organization ID and restrictions. Releases before 2.7032.0 keep the whole configuration except secrets, and ignore the switch.
 
@@ -257,6 +257,12 @@ The reports never contain prompts, responses, file names or contents, tool names
 
 When you turn off the **Report desktop usage to this organization** switch on the **Telemetry & updates** page under **Desktop 3P** in **Organization settings**, users' apps stop reporting at their next configuration check and discard any counts they haven't sent. Turning the switch off doesn't delete counts that Anthropic has already received. While the switch is off, the **Desktop usage** page shows a notice instead of the counts. If you remove a user from the organization, your totals still include the user's counts, shown without a name or email.
 
+### Audit administrator changes
+
+The Compliance API's [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) keeps an audit record of administrator activity, such as a member's role change and saves of the Claude Desktop configuration and permission policies. The **Compliance API** switch starts recording in every organization under the same parent organization, so first check [what it captures](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention) in your other organizations.
+
+As the Primary Owner, switch to your deployment's organization, go to [**Organization settings > API**](https://claude.ai/admin-settings/api-access), and turn on the **Compliance API** switch. [Create a key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access) with the `read:compliance_activities` scope.
+
 ## Onboard users
 
 Before the first user signs in, confirm the following:
@@ -300,7 +306,7 @@ On a device whose managed profile sets an inference provider or bootstrap keys, 
 
 ### Configuration updates
 
-From Claude Desktop 1.46388.1, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. Some settings, such as the token limit and the banner, apply to the running app without a relaunch. For any other change, the app shows a **Relaunch Claude Desktop** card in the sidebar and gives the user 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
+From Claude Desktop 1.46388.1, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. Some settings, such as the token limit and the banner, apply to the running app without a relaunch. For any other change, a card in the sidebar counts down to a required restart, and the user has 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
 
 To change the window, set **Configuration relaunch window** on the **Telemetry & updates** page. The window can be 0 to 336 hours, and 0 requires the restart as soon as the app sees the change. The setting applies to Claude Desktop 1.46388.1 and later. Earlier releases always allow 1 hour.
 
@@ -313,7 +319,7 @@ If a setting is changed that affects where users' apps connect or sign in, or wh
 About once a month, a user's sign-in to Claude on a device expires.
 
 * **App not running**: the app asks the user to sign in again at its next launch.
-* **App running**: the app keeps its current settings, and conversations continue. Until the user signs in again, the app doesn't download [configuration changes](#configuration-updates) or report [usage analytics](#usage-analytics). From Claude Desktop 2.42304.0, the app shows a **Your session has expired** banner with a **Sign in again** button. The banner appears in places such as the home screen and Code, but not in an open chat or Cowork task. Earlier releases show no message, and the user quits and reopens the app to sign in again.
+* **App running**: the app keeps its current settings, and conversations continue. Until the user signs in again, the app doesn't download [configuration changes](#configuration-updates) or report [usage analytics](#usage-analytics). From Claude Desktop 2.42304.0, the app shows a **Your session has expired** banner with a **Sign in again** button. The banner appears in places such as the home screen and Code. Earlier releases show no message, and the user quits and reopens the app to sign in again.
 
 ## Migrate an existing fleet to the admin console
 
@@ -404,7 +410,7 @@ While a device whose profile sets any other key is on the admin console's config
 
 * The [network proxy keys](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
 * [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) set to `true`.
-* [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) set to `false`, for local (stdio) servers in the console's managed MCP servers only. The app starts such a server only if the profile's own [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists a local (stdio) server of the same name, and it uses the profile's command, arguments, and environment. The profile's value doesn't block local MCP servers that users add. To keep blocking them, turn off **Allow user-added MCP servers** on the console's **Connectors** page.
+* [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) set to `false`, for local (stdio) servers in the console's managed MCP servers only. The app starts such a server only if the profile's own [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists a local (stdio) server of the same name, and it uses the profile's command, arguments, and environment. The profile's value doesn't block local MCP servers that users add. To keep blocking them, turn off **Allow local MCP servers** on the console's **Connectors** page.
 * `disableDeploymentModeChooser` and `forceLoginOrgUUID`, as described under [Keep a device on its managed profile](#keep-a-device-on-its-managed-profile).
 
 Other settings come from the console, including the inference provider, restrictions, telemetry, and the update, relaunch window, and re-check keys. The profile's values, and its bootstrap server's, don't apply even where the console leaves a setting unset. Before the app downloads the console's configuration at a launch, it applies [what it kept of the last download](#configuration-kept-on-devices), not the profile's values. That copy doesn't hold [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates), so until a download succeeds, neither the console's nor the profile's value blocks updates.

@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/skills/versions
 
 ## Create Skill Version
 
-`$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
+`$client->beta->skills->versions->create(string skillID, list<FileParam | string> files, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -21,7 +21,7 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
-- `files: list<string>`
+- `files: list<FileParam | string>`
 
   Files to upload for the skill.
 

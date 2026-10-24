@@ -112,7 +112,7 @@ Google Docs added to chats and projects sync directly from Google Drive, so you'
 
 3. The file opens in a pane next to the conversation, and you can keep working in it while Claude edits.
 
-  1. The pane works on Claude on the web in Chrome, and on Claude Desktop when the **[built-in browser](https://support.claude.com/en/articles/16607400)** is turned on. On Enterprise plans, the built-in browser is off by default. If the pane isn't available, select “Open in Google” on the file card to open the file in your regular browser.
+  1. The pane works on Claude on the web in Chrome, and on Claude Desktop when the **[built-in browser](https://support.claude.com/en/articles/16607400)** is turned on. If the pane isn't available, select “Open in Google” on the file card to open the file in your regular browser.
 
 4. Use the pane header to copy the file's Google link or open it directly in Google.
 

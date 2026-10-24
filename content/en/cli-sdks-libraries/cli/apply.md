@@ -208,6 +208,40 @@ Relative paths are how these files point at each other. `ant apply` pins agent a
 
 To point at a resource these files don't manage, write its ID (`agent_...`, `skill_...`) instead. Anything else, such as `{type: anthropic, skill_id: xlsx}`, is sent to the API as written. A skill reference can also be a GitHub URL of the form `https://github.com/<owner>/<repo>/tree/<branch>/<dir>`, for example a directory of Anthropic's open-source [skills repository](https://github.com/anthropics/skills): `ant apply` downloads and uploads that directory, pinned to the resolved commit until you run with `--upgrade` (set `GITHUB_TOKEN` for a private repository).
 
+A path can also be a glob. Under `skills`, a glob references every skill it matches and skips anything else it matches, such as a README. Under an agent's `tools`, a path or glob names YAML or JSON files instead of resources: `ant apply` inserts each file's contents, one tool or a list of tools, into the list at that position. Put those files in a subdirectory such as `agents/tools/`, because `ant apply` refuses to insert a file that it would also read as an agent. A path or glob that matches nothing is an error.
+
+```markdown agents/reviewer.md
+---
+name: Code reviewer
+model: claude-opus-5-5
+tools:
+  - type: agent_toolset_20260401
+  - ./tools/*.json # the tools in these files are inserted here
+skills:
+  - ../skills/* # every skill under skills/
+---
+
+You review pull requests for correctness, security, and readability.
+```
+
+```json agents/tools/get_ci_status.json
+{
+  "type": "custom",
+  "name": "get_ci_status",
+  "description": "Get the CI status of a pull request",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "pull_request": {
+        "type": "integer",
+        "description": "Pull request number"
+      }
+    },
+    "required": ["pull_request"]
+  }
+}
+```
+
 ### How ant apply infers a file's kind
 
 When `ant apply` walks a directory, it determines each file's kind from the first of these that matches:
@@ -239,7 +273,54 @@ Without a terminal, `ant apply` prints the plan and stops with `cannot ask for c
 * Run one apply at a time, because nothing locks the lockfile.
 * Authenticate with [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rather than a stored API key, as an identity that reaches the organization and workspace recorded in `claude-lock.json`. `ant apply` refuses credentials that resolve to any other organization or workspace.
 
-For a complete GitHub Actions workflow, see the [CI example in the CLI README](https://github.com/anthropics/anthropic-cli#in-ci).
+This GitHub Actions workflow does all of that except the pull request plan. It applies on every push to `main`:
+
+```yaml .github/workflows/ant-apply.yml
+name: ant apply
+on:
+  push:
+    branches: [main]
+    paths-ignore: [claude-lock.json] # so the lockfile commit doesn't start this workflow again
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    environment: agents-prod # protect it in GitHub: required reviewers, main only
+    concurrency: ant-apply # one apply at a time
+    permissions:
+      id-token: write # to request the identity token
+      contents: write # to push the lockfile commit
+    env:
+      ANTHROPIC_FEDERATION_RULE_ID: fdrl_...
+      ANTHROPIC_ORGANIZATION_ID: 00000000-0000-0000-0000-000000000000
+      ANTHROPIC_SERVICE_ACCOUNT_ID: svac_...
+      ANTHROPIC_IDENTITY_TOKEN_FILE: /tmp/gha-jwt
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main # the tip of main, so a queued run has the previous run's lockfile commit
+      - uses: anthropics/setup-ant@v1 # installs the ant CLI
+      - name: Fetch GitHub OIDC token
+        run: |
+          curl -fsS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.anthropic.com" \
+            | jq -r .value > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
+      - name: Apply
+        run: ant apply --yes .
+      - name: Commit the lockfile
+        if: always() # a partial apply still records what it created
+        run: |
+          git diff --quiet claude-lock.json && exit 0 # nothing changed
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "Update claude-lock.json [skip ci]"
+          git pull --rebase # main can move during the apply, and a plain push would then be rejected
+          git push
+```
+
+Run the first `ant apply` on your machine and commit `claude-lock.json` before you turn the workflow on. The last step commits changes only to a lockfile that Git already tracks.
+
+To create the federation rule and service account that the `env` block names, see [Use WIF with GitHub Actions](https://platform.claude.com/docs/en/manage-claude/wif-providers/github-actions). Enable the rule for a single workspace, the one recorded in `claude-lock.json`, so that the token exchange doesn't need a workspace ID. Because the job names an environment, its identity token's `sub` claim is `repo:<owner>/<repo>:environment:agents-prod`, so that's the value the rule's `subject_prefix` must match.
 
 ## Flags
 

@@ -126,7 +126,7 @@ The table lists the features that run a session in the cloud or control a sessio
 | Claude Code Remote Control, which continues a local session from a phone or browser                                             | *Not available*  | *❌ Not available*           |
 | Computer access, which lets sessions and scheduled tasks that run in the cloud use a linked computer's files, apps, and browser | *Not available*  | *❌ Not available*           |
 | Dispatch, the Cowork agent that runs tasks in the background                                                                    | *Not available*  | *❌ Not available*           |
-| Routines, which run on a schedule in the cloud                                                                                  | *Not available*  | *❌ Not available*           |
+| Scheduled tasks that run in the cloud                                                                                           | *Not available*  | *❌ Not available*           |
 | Claude Code Review, which reviews GitHub pull requests                                                                          | *Not available*  | *❌ Not available*           |
 | Claude Security, the managed service that monitors repositories                                                                 | *Not available*  | *❌ Not available*           |
 | Self-hosted environments, which run cloud sessions on your own infrastructure                                                   | *Not available*  | *❌ Not available*           |

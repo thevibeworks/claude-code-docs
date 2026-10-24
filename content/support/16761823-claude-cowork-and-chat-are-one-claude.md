@@ -2,7 +2,7 @@
 
 We’re introducing a new way to use both Claude Cowork and chat that removes the distinction between the two products: in the new experience, these are merged into a single conversation, so you don’t need to decide which option better suits your task before getting started. Ask Claude for what you need, and it can decide which tool to use. Claude can answer a quick question, and it can also take on more complex work, like research, reports, spreadsheets, and presentations, and hand it back as finished files you can edit. With the new Claude experience, you ask for all of it in the same conversation, with no mode to choose. What you could previously only do in Claude Cowork is available from any conversation.
 
-The new Claude experience is rolling out gradually, starting with Pro and Max plans on web, desktop, and mobile. It's also generally available on Enterprise plans, where it appears in admin settings as **Chat and Cowork unified**. More plans will follow soon.
+The new Claude experience is rolling out gradually, starting with Pro and Max plans on web, desktop, and mobile. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on.
 
 ## Why you might not have it yet
 
@@ -86,7 +86,7 @@ You can change the setting at any time, and you can stop or redirect Claude whil
 
 - **Projects:** Keep files, instructions, and context together for related work. Projects work in every conversation.
 
-- **Instructions for Claude:** Set preferences that apply to every conversation in **[Settings > General](https://claude.ai/chats#settings/general)**.
+- **Instructions for Claude:** Set preferences that apply to every conversation in **Settings > Your Claude** (or **Settings > Account** in the older Settings layout).
 
 ## What happened to Claude Cowork?
 
@@ -96,7 +96,7 @@ In the new experience, everything Claude Cowork does is available from any conve
 
 - **Cowork tasks:** Together with your chats in **[Recents](https://claude.ai/chats)**.
 
-- **Global instructions:** The Cowork **Global instructions** setting is now part of **Instructions for Claude** in **[Settings > General](https://claude.ai/chats#settings/general)**. Check that your instructions are what you want.
+- **Global instructions:** The Cowork **Global instructions** setting is now part of **Instructions for Claude** in **Settings > Your Claude** (or **Settings > Account** in the older Settings layout). Check that your instructions are what you want.
 
 - **Web search:** There's no web search toggle. Claude searches the web when it helps.
 

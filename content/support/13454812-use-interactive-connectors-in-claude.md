@@ -108,7 +108,7 @@ No. Purchases through third-party interactive connectors are not supported.
 
 - Try refreshing the page or restarting Claude Desktop.
 
-- If the issue persists, disconnect and reconnect the connector in **[Settings > Connectors](https://claude.ai/settings/connectors)**.
+- If the issue persists, disconnect and reconnect the connector in **Customize > Connectors**.
 
 ### I want to disable interactive connectors
 

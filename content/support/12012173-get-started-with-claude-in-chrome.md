@@ -2,7 +2,9 @@
 
 Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites alongside you. You can launch Claude in Chrome tasks from the side panel in your Chrome browser, or through Claude Cowork or Claude Code.
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome side panel. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
+## Availability
+
+Claude in Chrome is available on paid plans (Pro, Max, Team, and Enterprise), in the Chrome side panel, Claude Cowork, and Claude Code. The side panel runs as a Claude Cowork session. On Enterprise plans, this requires an owner to enable Claude in Chrome and Cowork in the cloud; until then, the side panel uses the classic experience.
 
 **Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is enhanced with our safety classifiers but is still risky. Please review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
 
@@ -32,13 +34,13 @@ Follow these steps to connect Claude in Chrome in your desktop app:
 
 1. Click your initials in the lower left corner, then select “Settings.”
 
-2. Navigate to “Connectors.”
+2. Navigate to "Customize," then "Connectors."
 
 3. Find **Claude in Chrome** in the list and click “Configure.”
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1792785600&amp;signature=e790c149973d8f1d2f3f3989645e030b9bfb1cb6019ba737dc2b24182c5de2d1&amp;req=diYnEsB9noleWPMW1HO4zUOPbf7BnueLnt%2F2nPMwUPgaRTp31y906ckqOQt0%0ATj1a%2BPKTSfn4nIJ4YIQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1792886400&amp;signature=acd36f6195f779a2ffd51f5ba6b087ee5b38be92e114b0b69b46cf059c35905f&amp;req=diYnEsB9noleWPMW3nq%2BgYRoBvFL9O7MNtFouCD7O2hc6hyIVJ%2BJ7266MH28%0Atxu8xpYTIkH9%2FWrMq%2FTOUEboKVU%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
@@ -66,7 +68,7 @@ The side panel starts in "Automatically approve" mode: Claude works continuously
 
 **Note:** On Enterprise plans, the Cowork side panel requires your admin to enable Cowork in the cloud and Claude in Chrome for your organization. If you see the classic side panel, contact your admin. Learn more in **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
 
-To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Install Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome#h_e0aabae2db)** below.
+To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Install Claude in Chrome](#h_e0aabae2db)** below.
 
 **Note:** The side panel reads the tab you're on with no extra setup. Tasks that need your local files, your computer, or Claude driving Chrome from another surface still need the Claude Desktop app open and connected, even though your session runs in the cloud.
 

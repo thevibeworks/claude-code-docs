@@ -173,7 +173,11 @@ All [standard attributes](#standard-attributes), plus:
 | `output_tokens` | Number of output tokens |
 | `cache_read_tokens` | Number of tokens read from cache |
 | `cache_creation_tokens` | Number of tokens used for cache creation |
+| `cache_creation_5m_tokens` | Portion of `cache_creation_tokens` written with a 5-minute cache lifetime |
+| `cache_creation_1h_tokens` | Portion of `cache_creation_tokens` written with a 1-hour cache lifetime |
 | `speed` | `"fast"` or `"normal"` |
+
+Claude Desktop 3.1623.0 and later send `cache_creation_5m_tokens` and `cache_creation_1h_tokens`. Both are `0` when the API response doesn't report the split, even when `cache_creation_tokens` is above zero. If your deployment uses an [LLM gateway](https://claude.com/docs/third-party/claude-desktop/gateway.md), confirm that the gateway returns the `cache_creation` object in each response's `usage`.
 
 ### API error event
 

@@ -86,7 +86,7 @@ Claude Duet is designed to ask before each purchase, and each purchase uses a on
 
 Claude Duet can search your past chats to pick up context from earlier work, so you don't have to repeat yourself. It searches your Claude Duet chats and your chats in Claude outside of projects. When you delete a chat, it's removed from search.
 
-This uses the same **[Search and reference chats](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_a11816bb20)** setting as Claude. To stop Claude Duet from searching your past chats, turn off **Search and reference chats** in **[Settings > Memory](https://claude.ai/settings/memory)**.
+This uses the same **[Search and reference chats](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_a11816bb20)** setting as Claude. To stop Claude Duet from searching your past chats, turn off **Search and reference chats** in **Settings > Your Claude** (or **Settings > Memory** in the older Settings layout).
 
 ## Limitations
 

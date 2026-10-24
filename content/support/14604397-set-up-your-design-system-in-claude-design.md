@@ -40,7 +40,7 @@ Each design system becomes an artifact Claude can use in any chat, including in 
 
 ## Manage your design systems
 
-Manage your design systems in **[Settings > Design systems](https://claude.ai/settings/design-systems)**. On Enterprise plans, admins can reserve publishing, setting the organization default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+Manage your design systems in **Settings > Customize > Design systems** (or **Settings > Design systems** in the older Settings layout). On Enterprise plans, admins can reserve publishing, setting the organization default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
 
 ---
 

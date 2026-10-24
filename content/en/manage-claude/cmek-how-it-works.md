@@ -28,7 +28,7 @@ An AWS KMS key policy can [name workspaces](https://platform.claude.com/docs/en/
 
 Your key lives in AWS KMS, Google Cloud KMS, or Azure Key Vault. Your provider might charge for it.
 
-On Claude Platform and Claude Enterprise, CMEK is available in US regions, and Anthropic processes all encryption operations there. [Each setup page](https://platform.claude.com/docs/en/manage-claude/cmek#set-it-up) names the lowest-latency regions.
+On Claude Platform and Claude Enterprise, Anthropic processes all encryption operations in US regions. Your key can be outside the US, at some cost in latency. [Each setup page](https://platform.claude.com/docs/en/manage-claude/cmek#set-it-up) names the lowest-latency regions.
 
 ## When your key takes effect
 

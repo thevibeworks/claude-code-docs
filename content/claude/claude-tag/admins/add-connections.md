@@ -208,7 +208,7 @@ After you save a credential, you can narrow it further than its allowed websites
 
 To narrow a credential before any channel can use it, add the connector to a new [bundle](#create-a-bundle), select **Edit** from the menu on its row under **What's in it**, and add the bundle's places last.
 
-Agent Proxy starts applying an edit to a credential or a domain entry within about a minute after you save it, in existing threads as well as new ones. It checks the channel's credentials and domain entries first, then the workspace's, then the organization's, and within each by priority. A request that matches no credential, no domain entry, and nothing in the environment's network access is blocked. Private IP ranges and cloud metadata endpoints stay blocked regardless.
+Agent Proxy starts applying an edit to a credential or a domain entry within about a minute after you save it, in existing threads as well as new ones. It checks the channel's credentials and domain entries first, then the workspace's, then the organization's, and within each by priority. A request that matches no credential, no domain entry, and nothing in the environment's network access is blocked, apart from [GitHub API requests and git operations](https://claude.com/docs/claude-tag/concepts/security-and-data.md#network-egress), which a separate GitHub proxy handles. Private IP ranges and cloud metadata endpoints stay blocked regardless.
 
 ## Create a bundle
 
@@ -268,7 +268,7 @@ Claude does channel work in an isolated [sandbox](https://claude.com/docs/claude
 * **A [connector](#add-a-connector)**: a credential that applies to the channel. Requests matching its [allowed websites](#set-allowed-websites) pass with that credential attached.
 * **The channel's [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment)**: the compute configuration the channel's sessions run in, which carries its own network access setting, starting at the Trusted access level that covers common package registries. Requests to hosts it allows pass with no credential; see [Broad web access through the environment](#broad-web-access-through-the-environment).
 
-A host that none of these allows stays unreachable, and when more than one bundle applies to a channel, the entries of all of them apply. Web search is governed by none of them, because searching happens on Anthropic's servers rather than in the sandbox; see [Web search vs. network requests](#web-search-vs-network-requests).
+A host that none of these allows stays unreachable, and when more than one bundle applies to a channel, the entries of all of them apply. Web search is governed by none of them, because searching happens on Anthropic's servers rather than in the sandbox; see [Web search vs. network requests](#web-search-vs-network-requests). Claude's GitHub API requests and git operations are governed by none of them either, because they go through a separate GitHub proxy. That proxy limits them to the repositories you [granted to the channel](https://claude.com/docs/claude-tag/admins/configure-github.md#grant-repository-access), except that git may still be able to clone public repositories you didn't grant.
 
 ### Add a domain
 

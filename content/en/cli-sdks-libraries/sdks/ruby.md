@@ -341,6 +341,10 @@ When all available connections from the pool are checked out, requests wait for 
 
 Unless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.
 
+## OpenTelemetry tracing
+
+When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+
 ## Making custom or undocumented requests
 
 ### Undocumented properties

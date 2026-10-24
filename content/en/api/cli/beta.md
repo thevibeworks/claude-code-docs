@@ -54129,7 +54129,7 @@ Upload File
 
 #### Parameters
 
-- `--file: string`
+- `--file: file path`
 
   The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 
@@ -54592,7 +54592,7 @@ Create Skill
 
 #### Parameters
 
-- `--file: array of string`
+- `--file: array of file`
 
   Files to upload for the skill.
 
@@ -55046,7 +55046,7 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
-- `--file: array of string`
+- `--file: array of file`
 
   Files to upload for the skill.
 
@@ -72907,7 +72907,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Parameters
 
-- `--file: array of string`
+- `--file: array of file`
 
   The version's files: one part per file, the part's filename being the file's path within the Plugin (for example `skills/review-pr/SKILL.md`), or a single `.zip` or `.plugin` archive holding them all. On the wire each part is named `files[]`, and a part named plain `files` is not read; with cURL, `-F 'files[]=@SKILL.md;filename=skills/review-pr/SKILL.md'`. The files must include the manifest, `.claude-plugin/plugin.json`.
 
@@ -74153,7 +74153,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   ID of the Plugin (prefixed `plugin_`).
 
-- `--file: array of string`
+- `--file: array of file`
 
   The version's files: one part per file, the part's filename being the file's path within the Plugin (for example `skills/review-pr/SKILL.md`), or a single `.zip` or `.plugin` archive holding them all. On the wire each part is named `files[]`, and a part named plain `files` is not read; with cURL, `-F 'files[]=@SKILL.md;filename=skills/review-pr/SKILL.md'`. The files must include the manifest, `.claude-plugin/plugin.json`.
 
@@ -76022,7 +76022,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Parameters
 
-- `--archive: string`
+- `--archive: file path`
 
   A .zip of the marketplace directory (its contents at the root, or wrapped in one folder as a Git host's download produces), sent as a file part with a filename; DEFLATE- or STORE-compressed, at most 32 MB. A part sent without a filename, a second archive part, or any other form field is a 400; a larger archive is a 413.
 

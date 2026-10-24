@@ -1,12 +1,12 @@
 # Let Claude use your computer in Cowork
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it's generally available on Enterprise plans, where it appears in admin settings as **Chat and Cowork unified**.
-
-If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
-
 Claude can now use your computer to complete tasks in Claude Cowork and Claude Code (refer to our **[Claude Code Docs](https://code.claude.com/docs/en/desktop#let-claude-use-your-computer)** for more information about this). When computer use is enabled and Claude doesn't have a connector or tool for what you need, it may navigate to your screen directly—clicking, typing, and opening apps just like you would. It can work in your browser, open files, and run your dev tools automatically, with no setup required other than enablement.
 
+## Availability
+
 Computer use is in beta for Pro and Max plans. It’s available in Cowork and Claude Code in the Claude Desktop application for both macOS and Windows. This capability comes with risks—review **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-cowork-safely)** before using it.
+
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -38,7 +38,7 @@ If your work involves a physical machine, Claude keeps working while you step aw
 
 On macOS (version 15 or later), Claude works in background windows, so you can keep using your computer while it runs. Claude doesn't take over your pointer or keyboard, and it generally waits if you're in the middle of typing. Claude asks for your permission the first time a task needs the full screen in each session before taking over.
 
-**Note:** Working in the background is the default on macOS 15 or later. If you’d rather have Claude take over the screen while it works, go to **Settings > General** (under **Desktop app**) and set **When Claude requests access to an app** to “Full control.”
+**Note:** Working in the background is the default on macOS 15 or later. If you'd rather have Claude take over the screen while it works, go to the **Computer use** section in **Settings > Capabilities** (or, if it isn't there, **Settings > System**, under **This computer**) and set **How Claude uses the apps you allow** to "Full control."
 
 ---
 
@@ -88,7 +88,7 @@ We strongly advise against using computer use to manage or take actions on sensi
 
 ### Memory
 
-Cowork in the cloud shares the memory you use in chat, so Claude can start from what it already knows about how you work. By default, Claude doesn't save topics some people consider sensitive, such as health information, unless you turn on **Include sensitive topics in memory** in **[Settings > Memory](https://claude.ai/settings/memory)**. Some information is never saved, including government ID numbers, criminal history, financial account numbers, and immigration status. You can view, edit, and delete what Claude remembers at any time. Learn more about **[Claude's memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**.
+Cowork in the cloud shares the memory you use in chat, so Claude can start from what it already knows about how you work. By default, Claude doesn't save topics some people consider sensitive, such as health information, unless you turn on **Include sensitive topics in memory** in **Settings > Your Claude** (or **Settings > Memory** in the older Settings layout). Some information is never saved, including government ID numbers, criminal history, financial account numbers, and immigration status. You can view, edit, and delete what Claude remembers at any time. Learn more about **[Claude's memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**.
 
 ---
 
@@ -128,7 +128,7 @@ To start using computer use:
 
 1. Make sure you have the latest version of Claude Desktop. Download or update at claude.com/download.
 
-2. Open the desktop app and go to **Settings > General** (under **Desktop app**).
+2. Open the desktop app and go to **Settings > Capabilities**. If there's no **Computer use** section there, go to **Settings > System**, under **This computer**.
 
 3. Find the **Enable computer use** toggle and turn it on.
 

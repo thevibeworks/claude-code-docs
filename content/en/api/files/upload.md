@@ -25,7 +25,7 @@ Upload File
 
 ## Body parameters (form-data)
 
-- `file: string`
+- `file: file`
 
   The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 

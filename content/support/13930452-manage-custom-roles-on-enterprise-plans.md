@@ -65,7 +65,7 @@ Each custom role can grant or restrict access to the following capabilities:
 | Motion                                    | Ability to make short motion pieces that play in place and export as video.                                                                                                                                                                                                                            |
 | Claude Design [standalone]                | Access to standalone Claude Design at claude.ai/design. This doesn't control Claude Design in conversations and the Artifacts tab, which has its own capability, Design (under **Artifacts**).                                                                                                         |
 | Cowork                                    | Access to Claude Cowork.                                                                                                                                                                                                                                                                               |
-| Cowork in the cloud (beta)                | Lets members run Cowork tasks on Anthropic's infrastructure instead of their own computer, so tasks can keep running across desktop, web, and mobile.                                                                                                                                                  |
+| Cowork in the cloud                       | Lets members run Cowork tasks on Anthropic's infrastructure instead of their own computer, so tasks can keep running across desktop, web, and mobile.                                                                                                                                                  |
 | Claude for Chrome                         | Access to Claude for Chrome, the browser extension that lets Claude browse and act on web pages on the user's behalf.                                                                                                                                                                                  |
 
 *Claude Code dynamic workflows are on for your whole organization by default. Because a single run can last for hours and use more tokens than a typical session, decide which roles should have access. For members on custom roles, this capability follows the additive model like any other—a role must grant it for those members to use it. To restrict a specific group, leave this capability off in their role.
@@ -74,7 +74,7 @@ This can be disabled organization-wide via `managed-settings.json` by adding `"d
 
 An owner can turn it off across your entire organization by going to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)** and toggling **Workflows** off.
 
-Custom roles also govern admin permissions, connectors, and model access, which are configured on separate **Permissions**, **Connectors**, and **Models** tabs in the role editor. See **[Admin permissions](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_fde60b08bd)**, **[Connector permissions](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**, and **[Model access](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_fca0f9a6b5)** below.
+Custom roles also govern admin permissions, connectors, and model access, which are configured on separate **Permissions**, **Connectors**, and **Models** tabs in the role editor. See **[Admin permissions](#h_fde60b08bd)**, **[Connector permissions](#h_979e558d00)**, and **[Model access](#h_fca0f9a6b5)** below.
 
 **Note:** Chat is enabled by default for all custom roles, including ones created before this capability was added. If you want to restrict chat for a specific role, toggle it off when editing the role.
 
@@ -300,7 +300,7 @@ A connector or tool passes through several layers before a member can use it, ev
 
 For members using Claude Code, one more layer applies: Managed Settings policies and connector permissions compose by most-restrictive. A tool is callable without a prompt only when both allow it. For more information, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
 
-For members using Claude Cowork, write-capable connector tools pass through one more gate. See **[Cowork approval setting for write tools](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_85bd7c30e9)** below.
+For members using Claude Cowork, write-capable connector tools pass through one more gate. See **[Cowork approval setting for write tools](#h_85bd7c30e9)** below.
 
 This table shows how the organization-wide tool policy and a member’s role grant combine:
 
@@ -356,7 +356,7 @@ For setup steps and what members see, see **[Manage model access for your organi
 
 ## What members see when capability access is restricted
 
-When a capability is restricted, here’s what members see. For connector and tool restrictions, see **[Connector permissions](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)** above.
+When a capability is restricted, here’s what members see. For connector and tool restrictions, see **[Connector permissions](#h_979e558d00)** above.
 
 | **Reason**                                    | **What the member sees**                                                                                           |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |

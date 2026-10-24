@@ -403,6 +403,10 @@ Enable debug logging by setting an environment variable:
 export ANTHROPIC_LOG=debug
 ```
 
+### OpenTelemetry tracing
+
+When your application adds the SDK's sources to its OpenTelemetry tracer provider with `AddSource("com.anthropic.sdk.csharp*")`, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+
 ### Undocumented API functionality
 
 The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.

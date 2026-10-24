@@ -17604,7 +17604,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Upload File
 
-`$client->beta->files->upload(string file, ?int expiresInSeconds, ?list<AnthropicBeta> betas, ?string workspaceID): BetaFileMetadata`
+`$client->beta->files->upload(FileParam | string file, ?int expiresInSeconds, ?list<AnthropicBeta> betas, ?string workspaceID): BetaFileMetadata`
 
 **POST** `/v1/files`
 
@@ -17612,7 +17612,7 @@ Upload File
 
 #### Parameters
 
-- `file: string`
+- `file: FileParam | string`
 
   The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 
@@ -18077,7 +18077,7 @@ var_dump($betaDeletedFile);
 
 ### Create Skill
 
-`$client->beta->skills->create(list<string> files, ?string displayName, ?list<AnthropicBeta> betas, ?string workspaceID): BetaSkill`
+`$client->beta->skills->create(list<FileParam | string> files, ?string displayName, ?list<AnthropicBeta> betas, ?string workspaceID): BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -18085,7 +18085,7 @@ Create Skill
 
 #### Parameters
 
-- `files: list<string>`
+- `files: list<FileParam | string>`
 
   Files to upload for the skill.
 
@@ -18509,7 +18509,7 @@ var_dump($betaDeletedSkill);
 
 ### Create Skill Version
 
-`$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
+`$client->beta->skills->versions->create(string skillID, list<FileParam | string> files, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -18523,7 +18523,7 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
-- `files: list<string>`
+- `files: list<FileParam | string>`
 
   Files to upload for the skill.
 
@@ -32376,7 +32376,7 @@ var_dump($page);
 
 ### Create Plugin
 
-`$client->beta->organization->plugins->create(list<string> files, ?string marketplaceID, ?string releaseNotes, ?list<AnthropicBeta> betas): Plugin`
+`$client->beta->organization->plugins->create(list<FileParam | string> files, ?string marketplaceID, ?string releaseNotes, ?list<AnthropicBeta> betas): Plugin`
 
 **POST** `/v1/organizations/plugins`
 
@@ -32414,7 +32414,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Parameters
 
-- `files: list<string>`
+- `files: list<FileParam | string>`
 
   The version's files: one part per file, the part's filename being the file's path within the Plugin (for example `skills/review-pr/SKILL.md`), or a single `.zip` or `.plugin` archive holding them all. On the wire each part is named `files[]`, and a part named plain `files` is not read; with cURL, `-F 'files[]=@SKILL.md;filename=skills/review-pr/SKILL.md'`. The files must include the manifest, `.claude-plugin/plugin.json`.
 
@@ -33255,7 +33255,7 @@ var_dump($betaDeletedPlugin);
 
 ### Create Plugin Version
 
-`$client->beta->organization->plugins->versions->create(string pluginID, list<string> files, ?string releaseNotes, ?list<AnthropicBeta> betas): BetaPluginVersion`
+`$client->beta->organization->plugins->versions->create(string pluginID, list<FileParam | string> files, ?string releaseNotes, ?list<AnthropicBeta> betas): BetaPluginVersion`
 
 **POST** `/v1/organizations/plugins/{plugin_id}/versions`
 
@@ -33290,7 +33290,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   ID of the Plugin (prefixed `plugin_`).
 
-- `files: list<string>`
+- `files: list<FileParam | string>`
 
   The version's files: one part per file, the part's filename being the file's path within the Plugin (for example `skills/review-pr/SKILL.md`), or a single `.zip` or `.plugin` archive holding them all. On the wire each part is named `files[]`, and a part named plain `files` is not read; with cURL, `-F 'files[]=@SKILL.md;filename=skills/review-pr/SKILL.md'`. The files must include the manifest, `.claude-plugin/plugin.json`.
 
@@ -34732,7 +34732,7 @@ var_dump($betaPluginMarketplaceValidationReport);
 
 ### Validate Plugin Marketplace Archive
 
-`$client->beta->organization->pluginMarketplaces->validateArchive(string archive, ?list<AnthropicBeta> betas): PluginMarketplaceValidationReport`
+`$client->beta->organization->pluginMarketplaces->validateArchive(FileParam | string archive, ?list<AnthropicBeta> betas): PluginMarketplaceValidationReport`
 
 **POST** `/v1/organizations/plugin_marketplaces/validate_archive`
 
@@ -34759,7 +34759,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Parameters
 
-- `archive: string`
+- `archive: FileParam | string`
 
   A .zip of the marketplace directory (its contents at the root, or wrapped in one folder as a Git host's download produces), sent as a file part with a filename; DEFLATE- or STORE-compressed, at most 32 MB. A part sent without a filename, a second archive part, or any other form field is a 400; a larger archive is a 413.
 

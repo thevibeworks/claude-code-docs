@@ -18,7 +18,7 @@ When Claude in Chrome is on, Claude can open and work in tabs in the user's brow
 
 In **Organization settings** on claude.ai, open the **Claude in Chrome** page and turn on the **Enable for your team** switch. On the same page, choose whether Claude in Chrome works on every site except the ones you block, or only on the sites you allow. Then add sites with the **Add websites** button. These site permissions are the same ones the built-in browser uses for your organization.
 
-Claude in Chrome also needs the **Allow user-added MCP servers** switch on the **Connectors** page under **Desktop 3P** in **Organization settings** to stay on. While that switch is off, Claude Desktop doesn't connect to Claude in Chrome.
+Claude in Chrome also needs the **Allow local MCP servers** switch on the **Connectors** page under **Desktop 3P** in **Organization settings** to stay on. While that switch is off, Claude Desktop doesn't connect to Claude in Chrome.
 
 ### Set up Claude in Chrome on a device
 

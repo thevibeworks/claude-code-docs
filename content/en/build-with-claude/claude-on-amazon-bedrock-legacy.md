@@ -58,20 +58,20 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
   <Tab title="Java">
     <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
       ```groovy Gradle
-      implementation("com.anthropic:anthropic-java:3.2.0")
-      implementation("com.anthropic:anthropic-java-bedrock:3.2.0")
+      implementation("com.anthropic:anthropic-java:3.3.0")
+      implementation("com.anthropic:anthropic-java-bedrock:3.3.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java</artifactId>
-          <version>3.2.0</version>
+          <version>3.3.0</version>
       </dependency>
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java-bedrock</artifactId>
-          <version>3.2.0</version>
+          <version>3.3.0</version>
       </dependency>
       ```
 

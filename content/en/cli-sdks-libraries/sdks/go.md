@@ -674,6 +674,10 @@ fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
 ```
 
+### OpenTelemetry tracing
+
+When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+
 ### Making custom/undocumented requests
 
 This library is typed for convenient access to the documented API. If you need to access undocumented endpoints, parameters, or response properties, the library can still be used.
