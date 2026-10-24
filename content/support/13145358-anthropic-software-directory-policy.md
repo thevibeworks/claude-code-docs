@@ -4,17 +4,19 @@ Anthropic allows users to discover high-quality Model Context Protocol servers, 
 
 # 1. Safety and Security
 
-A. Software must not violate or facilitate violation of our [Usage Policy](https://www.anthropic.com/legal/aup). All Software must comply with our Universal Usage Standards and High-Risk Use Case requirements and with our policy on the [countries and regions Anthropic currently supports](https://www.anthropic.com/supported-countries).
+A. Software must not violate or facilitate violation of our [Usage Policy](https://www.anthropic.com/legal/aup), including high-risk use cases around legal, healthcare, insurance, finance and other areas. All Software must comply with our Universal Usage Standards and High-Risk Use Case requirements and with our policy on the [countries and regions Anthropic currently supports](https://www.anthropic.com/supported-countries).
 
-B. Software must not evade or enable users to circumvent Claude's safety guardrails, system instructions, or sandbox environments.
+B. When Software is providing a high-risk use case, Developers must comply with the human-in-the-loop measures and provide direct disclosure to consumers (as detailed in our [AUP](https://www.anthropic.com/legal/aup)) to be included in our directory.
 
-C. Software must prioritize protecting user privacy and the privacy interests of third parties. Developers must take care to responsibly handle personal and other sensitive data, follow privacy best practices, and ensure compliance with applicable laws.
+C. Software must not evade or enable users to circumvent Claude's safety guardrails, system instructions, or sandbox environments.
 
-D. Software must only collect data from the user’s context that is necessary to perform their function. Software must not collect extraneous conversation data, even for logging purposes.
+D. Software must prioritize protecting user privacy and the privacy interests of third parties. Developers must take care to responsibly handle personal and other sensitive data, follow privacy best practices, and ensure compliance with applicable laws.
 
-E. Software must not infringe on the intellectual property rights of others.
+E. Software must only collect data from the user’s context that is necessary to perform their function. Software must not collect extraneous conversation data, even for logging purposes.
 
-F. Software must not query or extract data from Claude's memory, chat history, conversation summaries, or user-generated or uploaded files.
+F. Software must not infringe on the intellectual property rights of others.
+
+G. Software must not query or extract data from Claude’s memory, chat history, conversation summaries, or user-generated or uploaded files and must not persistently store or use conversation content to build user profiles or attempt to make any changes to Claude’s behavior across sessions.
 
 # 2. Compatibility
 
@@ -50,17 +52,29 @@ F. Developers must verify that they own or control any API endpoint, domain, or 
 
 G. Developers must maintain their Software and address issues within reasonable timeframes.
 
-H. Developers must agree to our [Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms) and follow design guidelines Anthropic publishes applicable to Software.
+H. Developers must notify Anthropic of material changes to their Software’s functionality, tool or capability descriptions, data practices, or connected endpoints after inclusion in a Directory. Material changes may be subject to re-review.
+
+I. Developers must agree to our [Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms) and follow design guidelines Anthropic publishes applicable to Software.
 
 # 4. Unsupported Use Cases
 
 Unless otherwise expressly permitted by us in writing, we do not allow Software with certain capabilities into our Directories. We may revisit these restrictions as our Directories and Anthropic Services evolve.
 
-A. Software that transfers money, cryptocurrency, or other financial assets, or executes financial transactions on behalf of users.
+A. Software that transfers money, cryptocurrency, or other financial assets, or executes financial transactions autonomously on behalf of users, without human-in-the-loop safeguards.
 
-B. Software that uses AI models to generate images, video, or audio content. Design-focused software that uses AI models to create visual aids (such as slides, diagrams, charts, UI mockups, logos, or other design assets) are permitted. These servers may generate images as part of a design workflow, provided the developer does not offer standalone image generation as a primary service.
+B. Software that uses AI models to generate images, video, or audio content. Only design-focused image software that uses AI models to exclusively create visual aids (such as slides, diagrams, charts, UI mockups, logos, or other design assets) are permitted. These servers may generate images as part of a design-only workflow, provided the developer does not offer standalone image generation as a service in our products. This includes:
+
+a. Video generation models (text-to-video, video extension using AI, video editing, video-to-video, audiovisual generation)
+
+b. Audio and voice models (speech-to-speech/native audio models, text-to-speech, music models)
+
+c. Image generation models that are not purely design focused (text-to-image, image editing, people-generation capabilities)
 
 C. Software that serves [advertisements](https://www.anthropic.com/news/claude-is-a-space-to-think), sponsored content, paid product placements, or exists primarily as an advertising or promotional vehicle.
+
+D. Software that primarily serves adult and/or sexual content (18+ content) to users.
+
+E. Software that may redirect users to evade our safeguards and violate our AUP to conduct high-harm misuse.
 
 # 5. Additional Requirements for Model Context Protocol Servers
 
