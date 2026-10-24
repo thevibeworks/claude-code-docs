@@ -384,7 +384,7 @@ When an HTTP or SSE server's first connection fails with a transient error, such
 Those retries don't apply in these cases:
 
 * A stdio server's first connection. To try it again, see [Stdio servers that exit or fail to start](#stdio-servers-that-exit-or-fail-to-start)
-* A WebSocket server's first connection
+* A WebSocket server's first connection. To try it again in an interactive terminal session, select **Reconnect** from the server's menu in `/mcp`
 * An authentication or not-found error, because it requires a configuration change to resolve. When a [`headersHelper`](#use-dynamic-headers-for-custom-authentication) is the server's only source of the `Authorization` header, Claude Code retries an authentication error anyway, because it re-runs the helper on each attempt and can pick up a fresh credential
 
 #### Stdio servers that exit or fail to start
@@ -403,7 +403,7 @@ After a server connects, Claude Code sends it capability discovery requests such
 
 #### Retry failed servers yourself
 
-To retry every server that failed or needs authentication, run `/mcp reconnect all`. In the interactive terminal this requires Claude Code v2.1.284 or later, and earlier versions print `MCP server "all" not found` there.
+To retry every server that failed or needs authentication, run `/mcp reconnect all` at the Claude Code prompt in an interactive terminal session. This requires Claude Code v2.1.284 or later. Earlier versions print `MCP server "all" not found`.
 
 #### How Claude learns that a server failed
 

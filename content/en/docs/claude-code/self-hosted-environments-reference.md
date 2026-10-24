@@ -231,6 +231,8 @@ spec:
       interval: 30s
 ```
 
+### Sample alert rules
+
 These sample alert rules are a starting point; tune the thresholds for your fleet size:
 
 ```yaml theme={null}
@@ -303,6 +305,66 @@ groups:
         annotations:
           summary: "Orchestrator {{ $labels.pod }}: >3 spawn-runner hook failures in 5m"
 ```
+
+### Alert on lost runners and waiting sessions
+
+On a [fixed fleet](https://code.claude.com/docs/en/self-hosted-environments-deploy.md#scale-the-fleet), load `ClaudeRunnersBelowFloor`. With [on-demand runners](https://code.claude.com/docs/en/self-hosted-environments-configuration.md#on-demand-runners), load `ClaudeOrchestratorSessionsWaiting` and `ClaudeOrchestratorQueueWaitHigh` instead.
+
+#### Alert when a fixed fleet loses runners
+
+`ClaudeRunnersBelowFloor` fires when fewer registered, scraped runners than the floor are left for 10 minutes:
+
+```yaml theme={null}
+groups:
+  # Fixed fleets only. With on-demand runners the count follows demand,
+  # so ClaudeRunnersBelowFloor would fire whenever demand is low.
+  - name: claude-code-self-hosted-fixed-fleet-capacity
+    rules:
+      - alert: ClaudeRunnersBelowFloor
+        expr: (count(claude_code_self_hosted_runner_info{namespace="claude-runners"}) or vector(0)) < 2
+        for: 10m
+        labels: {severity: critical, namespace: claude-runners}
+        annotations:
+          summary: "Runners registered and scraped: {{ $value }}, below the floor. Check the runner workloads first, then the scrape targets if all are running."
+```
+
+* **Floor**: set the `2` in `expr` to about half your replica count, rounded up. With three replicas keep `2`, and the alert fires when one runner or none is left.
+* **Namespace**: replace `claude-runners` in the matcher and in `labels`, and copy the alert for each further namespace. If your targets have no `namespace` label, remove the matcher and the label, or the alert reads 0 and fires.
+* **`ClaudeRunnerPollStale` and `ClaudeRunnerPollErrors`**: keep them loaded from the [sample alert rules](#sample-alert-rules), because `ClaudeRunnersBelowFloor` still counts a runner that can't poll
+
+#### Alert when sessions wait for on-demand runners
+
+`ClaudeOrchestratorSessionsWaiting` fires when the number of sessions waiting for a runner stays above 0 for 10 minutes. `ClaudeOrchestratorQueueWaitHigh` fires when over 1% of queue waits in the last 10 minutes exceeded 160 seconds, and that holds for 5 minutes:
+
+```yaml theme={null}
+groups:
+  # On-demand runners only. Needs no edit for the namespace.
+  - name: claude-code-self-hosted-on-demand-capacity
+    rules:
+      - alert: ClaudeOrchestratorSessionsWaiting
+        expr: |
+          max by (namespace) (
+            claude_code_self_hosted_orchestrator_pool_pending_sessions
+            and on (instance)
+            max_over_time(claude_code_self_hosted_orchestrator_connected[2m]) == 1
+          ) > 0
+        for: 10m
+        labels: {severity: warning}
+        annotations:
+          summary: "Sessions waiting for a runner: {{ $value }}, above the threshold for 10 minutes. Check claude_code_self_hosted_orchestrator_spawn_hooks_total by result, then runner workloads that don't start."
+      - alert: ClaudeOrchestratorQueueWaitHigh
+        expr: |
+          histogram_quantile(0.99, sum by (namespace, le) (
+            rate(claude_code_self_hosted_orchestrator_session_queue_wait_seconds_bucket[10m])
+          )) > 160
+        for: 5m
+        labels: {severity: warning}
+        annotations:
+          summary: "Over 1% of queue waits in the last 10 minutes exceeded 160 seconds. Check whether ClaudeOrchestratorDisconnected is firing, then claude_code_self_hosted_orchestrator_spawn_hooks_total by result and claude_code_self_hosted_orchestrator_spawn_hook_duration_seconds."
+```
+
+* **Threshold**: if some session is always waiting, raise the `> 0` in `ClaudeOrchestratorSessionsWaiting` above the number you usually see
+* **`ClaudeOrchestratorDisconnected`**: keep it loaded from the [sample alert rules](#sample-alert-rules), because `ClaudeOrchestratorSessionsWaiting` stops firing about 2 minutes after the last orchestrator in the namespace disconnects
 
 ### Pass through session-child metrics
 
