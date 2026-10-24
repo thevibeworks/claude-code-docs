@@ -44,11 +44,11 @@ These capabilities make it easy to produce professional documents by simply chat
 
 **Team plans:** This capability is enabled by default at the organization level with **Allow network egress** toggled on with access to package managers only. An organization owner can manually disable this for the organization in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** if needed.
 
-**Free, Pro, and Max plans:** Enable file creation from **[Settings > Capabilities](https://claude.ai/settings/capabilities)** by toggling **Code execution and file creation** on.
+**Free, Pro, and Max plans:** Enable file creation from **Settings > Capabilities** by toggling **Code execution and file creation** (called **Create and edit files** in the updated Settings layout) on.
 
 To give Claude access to external data sources, toggle **Allow network egress** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1792785600&amp;signature=c1cabe2a213cc8e320f01bd0ba158f3a61527f47ca086ffdda4de9bc9d5b6ce9&amp;req=diAiEs55mYFfXPMW1HO4zYFJyg9CBJzIPQVowIiib2llq34giDpP%2BEDnJ%2BJ0%0ADswJ%2BUb7mz78ElTNyz0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1792886400&amp;signature=34671a89f19e777a788a77437ec889cfae3a1eabb2c054a381531623dadd76ac&amp;req=diAiEs55mYFfXPMW3nq%2BgWwhvHahTfga7ex%2BPMWT8Divjb8q5aLDIYVXzUYa%0A1tUlmH92O1qSdkXsoB5Cb1IRers%3D%0A)
 
 ### Enabling on Claude Mobile
 
@@ -66,11 +66,11 @@ Team and Enterprise organization owners can control network access settings in *
 
 - **Allow network egress to package managers and specific domains:** Claude can access package managers plus additional domains you specify. Add domains individually to whitelist specific resources your organization needs:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1792785600&amp;signature=ff647bfe3f8c4f65e21ae7bfd01c2c50b82db444e7c313ff8e185d0febad90cc&amp;req=dScvH8B6mIJZW%2FMW1HO4zXJcB29EnSxNpMW6Iph6YZf4NBx8vT6ymlAxmeIG%0AkZuRjdVF6x8sk0gV%2F64%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1792886400&amp;signature=331cd199fb27f3c1468ba8bed4525ea58cfd3dca6b6ea7b838dc2fdaf45d7041&amp;req=dScvH8B6mIJZW%2FMW3nq%2BgdQoTgnuVt1QDprNBj0zeZTEL5ev%2BLuGNxxavS45%0ARzSuysGbK095NDWluLnoZzBQfhc%3D%0A)
 
 **All domains:** Claude has full internet access except for domains on Anthropic's legal blocklist. While this provides maximum flexibility for file creation and analysis tasks, it’s also the riskiest option. Please review the **[security considerations below](#h_0ee9d698a1)** before enabling “All domains”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1792785600&amp;signature=cca7443327630bf2a60ffae630015faed89873cc1e9ba628e61d3b4cfda4929d&amp;req=dScvH8B6mIJZWPMW1HO4zdnseRaV5jqkqgKIA6CM1tpOxHggJOCUqOJQ%2B6H6%0AhuZctpwPd61GEDCDIqA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1792886400&amp;signature=85f2efd83ba2718cd2c544cbf33add81d43545a90c985711b8e86077b0710e58&amp;req=dScvH8B6mIJZWPMW3nq%2BgcDM0aePnZNFk%2BOqj03ykB7zsvY%2BVs3fnz1zvgAn%0Aip63a2g9ARBBXPfNVzL8If4bga4%3D%0A)
 
 ---
 

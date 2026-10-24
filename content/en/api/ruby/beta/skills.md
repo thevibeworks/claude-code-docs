@@ -15,7 +15,7 @@ Create Skill
 
 ### Parameters
 
-- `files: Array[String]`
+- `files: Array[FileInput]`
 
   Files to upload for the skill.
 
@@ -1013,7 +1013,7 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
-- `files: Array[String]`
+- `files: Array[FileInput]`
 
   Files to upload for the skill.
 

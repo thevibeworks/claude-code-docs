@@ -264,6 +264,7 @@ If you don't need to process text as it arrives, the SDK provides a way to use s
   $accumulator = MessageAccumulator::forMessages();
   foreach ($stream as $event) {
       $accumulator->accumulate($event);
+      // Call $accumulator->message() here for a snapshot of the message so far.
   }
 
   echo array_find($accumulator->message()->content, static fn ($block): bool => $block->type === 'text')->text;

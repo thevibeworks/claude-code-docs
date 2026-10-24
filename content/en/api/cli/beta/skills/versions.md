@@ -21,7 +21,7 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
-- `--file: array of string`
+- `--file: array of file`
 
   Files to upload for the skill.
 

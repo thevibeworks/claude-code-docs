@@ -10,9 +10,9 @@ To set your instructions:
 
 1. Click your initials in the lower left corner.
 
-2. Select "Settings."
+2. Select "Settings," then "Your Claude" (or "Account" in the older Settings layout).
 
-3. Under "Instructions for Claude," describe your instructions, such as:
+3. Under "Instructions" (or "Instructions for Claude" in the older Settings layout), describe your instructions, such as:
 
   - Your preferred approaches or methods
 

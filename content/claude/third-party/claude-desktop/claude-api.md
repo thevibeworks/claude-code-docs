@@ -20,6 +20,14 @@ Claude Desktop versions before 3.1623.0 created a personal API key in the Consol
 
 [Code](https://claude.com/docs/third-party/claude-desktop/code.md) sessions also ask Anthropic for the Claude Code [server-managed settings](https://code.claude.com/docs/en/server-managed-settings) of the organization that owns the credential. See [Interaction with Claude Code's own managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) for how they combine with your Claude Desktop configuration.
 
+## Which devices offer the Claude API account sign-in
+
+On a device with no Claude Desktop configuration, the standard sign-in screen in Claude Desktop 3.1623.1 or later also links to a screen titled **Use your Claude API account**. There a user can click **Sign in with Claude Console** or enter an API key, with no setup from you.
+
+Claude Desktop doesn't offer or accept that sign-in on a device where an [MDM profile or registry policy](https://claude.com/docs/third-party/claude-desktop/mdm.md#4-deploy-the-configuration), or the [root-owned configuration file on Linux](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file), manages the configuration. To confirm that a profile manages a device's configuration, check that the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer > Configure Third-Party Inference…**) opens read-only on that device. If the window is still editable, the profile doesn't manage the configuration, for example because it sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence). A profile takes effect at the app's next launch, and until then a running app can still offer and accept the sign-in.
+
+Under a profile that manages the configuration, the app ignores any configuration that an earlier Claude API account sign-in saved. A profile can itself select the Claude API with no static key or credential helper. Users then sign in with **Sign in with Claude Console**, and each selects the Console organization that their usage is billed to, as described under [Choose an authentication approach](#choose-an-authentication-approach). A user who already signed in with Claude Console keeps that sign-in, and the Console organization they chose, until the app next asks them to sign in.
+
 ## Configure the app
 
 ### Configuration keys

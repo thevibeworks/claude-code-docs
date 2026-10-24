@@ -17,7 +17,7 @@ Create Skill
 
 - `SkillCreateParams parameters`
 
-  - `required IReadOnlyList<string> files`
+  - `required IReadOnlyList<BinaryContent> files`
 
     Files to upload for the skill.
 
@@ -1028,7 +1028,7 @@ Create Skill Version
 
     The format and length of IDs may change over time.
 
-  - `required IReadOnlyList<string> files`
+  - `required IReadOnlyList<BinaryContent> files`
 
     Files to upload for the skill.
 

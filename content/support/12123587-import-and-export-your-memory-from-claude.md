@@ -6,9 +6,9 @@ You can transfer your memory between Claude and other AI providers. This lets yo
 
 **Important:** We've introduced an improved experience for memory from chats. The new experience is available on all plans (free, Pro, Max, Team, and Enterprise). A small number of Team and Enterprise organizations still use the legacy experience.
 
-- If you see **[Settings > Memory](https://claude.ai/new#settings/customize-memory)**, you’re using the new memory experience, and the main sections that follow apply to you.
+- If you see **Settings > Memory**, or a **Memory from chats** setting in **Settings > Your Claude** in the updated Settings layout, you're using the new memory experience, and the main sections that follow apply to you.
 
-- If you see **Memory** in **[Settings > Capabilities](https://claude.ai/settings/capabilities)**, you’re using the legacy memory experience and can skip to **[Information for legacy memory users](#h_6e403e5d1a)**.
+- If you see **Memory** in **Settings > Capabilities**, or a **Generate memory from chat history** setting in the updated Settings layout, you're using the legacy memory experience and can skip to **Information for legacy memory users**.
 
 ## Import memory into Claude
 
@@ -26,7 +26,7 @@ You can customize this prompt to exclude any sensitive information before import
 
 To start the import:
 
-- Go to **[Settings > Memory](https://claude.ai/new#settings/customize-memory)** and select "Start import."
+- Go to **Settings > Your Claude** (or **Settings > Memory** in the older Settings layout) and select "Start import."
 
 The import flow will display the prompt shown above, along with a text box where you can paste the results.
 
@@ -36,19 +36,19 @@ Paste the exported text from your previous AI provider into the text box and cli
 
 Once the import is complete, you'll see your updated memory shortly after. Click the "See what Claude learned about you" button to start a new conversation using this prompt: "I updated my memory. What did you learn about me?"
 
-Claude's memory is designed to focus on work-related topics to enhance its effectiveness as a collaborator. As a result, Claude may not retain imported personal details unrelated to work. If you want to add specific information into Claude's memory, go to **[Settings > Memory](https://claude.ai/new#settings/customize-memory)** and add that information using the "Tell Claude what to change or remove" box, or by asking Claude in chat.
+Claude's memory is designed to focus on work-related topics to enhance its effectiveness as a collaborator. As a result, Claude may not retain imported personal details unrelated to work. If you want to add specific information into Claude's memory, go to **Settings > Your Claude** and select "Manage" next to **Your memory** (or go to **Settings > Memory** in the older Settings layout), and add that information using the "Tell Claude what to change or remove" box, or by asking Claude in chat.
 
 **Important:** Memory imports are **experimental and still in active development,** and at this stage,  Claude may not always successfully incorporate imported memories.
 
 ## Export memory from Claude
 
-To view your memory exactly how Claude sees it, go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** and click “View and edit your memory.” Alternatively, you can access memory directly in a chat with Claude by asking it, "Write out your memories of me verbatim, exactly as they appear in your memory." You can save this exported memory as a backup or bring it to another AI service by copying and pasting it into a local file on your computer.
+To view your memory exactly how Claude sees it, go to **Settings > Your Claude** and select "Manage" next to **Your memory**. Alternatively, you can access memory directly in a chat with Claude by asking it, "Write out your memories of me verbatim, exactly as they appear in your memory." You can save this exported memory as a backup or bring it to another AI service by copying and pasting it into a local file on your computer.
 
 ---
 
 ## Information for legacy memory users
 
-**Important:** We've introduced an improved experience for memory from chats. If you see **[Settings > Memory](https://claude.ai/new#settings/customize-memory)**, you’re using the new memory experience and the sections above apply to you. The sections below only apply to people who have the legacy memory experience and see **Memory** in **[Settings > Capabilities](https://claude.ai/settings/capabilities)**.
+**Important:** We've introduced an improved experience for memory from chats. If you see **Settings > Memory**, or a **Memory from chats** setting in **Settings > Your Claude** in the updated Settings layout, you're using the new memory experience and the sections above apply to you. The sections below only apply to people who have the legacy memory experience and see **Memory** in **Settings > Capabilities**, or a **Generate memory from chat history** setting in the updated Settings layout.
 
 ### Import memory into Claude
 
@@ -66,7 +66,7 @@ You can customize this prompt to exclude any sensitive information before import
 
 There are two ways to start the import:
 
-- Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)**, find the **Memory** section, and select “Start import.”
+- Go to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout), find the **Memory** section, and select "Start import."
 
 - From the home screen, click “Get started” on the "Import memory to Claude" card.
 
@@ -78,10 +78,10 @@ Paste the exported text from your previous AI provider into the text box and cli
 
 Once the import is complete, you'll see your updated memory within 24 hours. Click the “See what Claude learned about you” button to start a new conversation using this prompt: "I updated my memory. What did you learn about me?"
 
-Claude's memory is designed to focus on work-related topics to enhance its effectiveness as a collaborator. As a result, Claude may not retain imported personal details unrelated to work. If you want to add specific information into Claude's memory, go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)**, click “View and edit your memory,” and add that information as an edit.
+Claude's memory is designed to focus on work-related topics to enhance its effectiveness as a collaborator. As a result, Claude may not retain imported personal details unrelated to work. If you want to add specific information into Claude's memory, go to **Settings > Your Claude** and select "Manage" next to **Your memory** (or, in the older Settings layout, go to **Settings > Capabilities** and click "View and manage memory"), and add that information as an edit.
 
 **Important:** Memory imports are **experimental and still in active development,** and at this stage,  Claude may not always successfully incorporate imported memories.
 
 ### Export memory from Claude
 
-To view your memory exactly how Claude sees it, go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** and click “View and edit your memory.” Alternatively, you can access memory directly in a chat with Claude by asking it, "Write out your memories of me verbatim, exactly as they appear in your memory." You can save this exported memory as a backup or bring it to another AI service by copying and pasting it into a local file on your computer.
+To view your memory exactly how Claude sees it, go to **Settings > Your Claude** and select "Manage" next to **Your memory** (or, in the older Settings layout, go to **Settings > Capabilities** and click "View and manage memory"). Alternatively, you can access memory directly in a chat with Claude by asking it, "Write out your memories of me verbatim, exactly as they appear in your memory." You can save this exported memory as a backup or bring it to another AI service by copying and pasting it into a local file on your computer.

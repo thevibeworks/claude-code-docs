@@ -22,7 +22,7 @@ These keys are passed directly to the Claude Code process as environment variabl
 | - | - |
 | `inferenceProvider` and all provider credential keys (`inferenceGateway*`, `inferenceAnthropicApiKey`, `inferenceVertex*`, `inferenceBedrock*`, `inferenceFoundry*`, `inferenceCredentialHelper*`) | Selects the inference backend and supplies credentials. Code sessions use the same provider, endpoint, and credentials as Cowork sessions. |
 | `inferenceModels` | Populates the model picker. The first entry is the default for new Code sessions. |
-| `autoModeEnabled` | Controls **Auto mode**. When the key is not set, Code sessions offer Auto mode and new sessions start in it unless the user has already chosen another mode or a Claude Code `permissions.defaultMode` applies. Set it to `false` to remove Auto mode from Code and Cowork. Set it to `true` to also offer **Automatically approve** in Cowork. A separately deployed Claude Code managed-settings file that sets `disableAutoMode` to `"disable"` overrides this key and keeps Auto mode hidden; see below. |
+| `autoModeEnabled` | Controls **Auto mode**. When the key isn't set, Code sessions offer **Auto mode** and new sessions start in it unless the user has already chosen another mode or a Claude Code `permissions.defaultMode` applies. Set it to `false` to remove **Auto mode** from Code and Cowork. Set it to `true` to also offer the mode in Cowork, where it appears as **Automatically approve**. In Code sessions, a separately deployed Claude Code [managed-settings file](#interaction-with-claude-code%E2%80%99s-own-managed-settings) that sets `disableAutoMode` to `"disable"` also keeps **Auto mode** hidden, whatever this key is set to. To change what **Auto mode** allows and blocks, see [Tune the Auto mode classifier](#tune-the-auto-mode-classifier). |
 | `scheduledTasksEnabled` | When `false`, the routines list in Code is hidden and Code sessions start without Claude Code's in-session scheduling tools, so the `/loop` command cannot schedule recurring work. Cowork's scheduled tasks are turned off by the same key. |
 | `disabledBuiltinTools` | Removes the listed tools from Code sessions. Tools your provider does not support, such as WebSearch on Amazon Bedrock, are removed automatically in addition to your list. |
 | `builtinToolPolicy` | Tools set to `"ask"` require approval on each call in Code sessions, enforced via a PreToolUse hook and Claude Code `permissions.ask` rules. Argument-scoped rules such as `Bash(curl *)` are [applied as managed policy](#applied-as-managed-policy) instead. |
@@ -87,6 +87,61 @@ With `"merge"`, two Claude Code policy keys weaken `blockReadsOutsideWorkingDire
 > With the [Claude API](https://claude.com/docs/third-party/claude-desktop/claude-api.md) as the inference provider, Code sessions ask Anthropic for the server-managed settings of [the organization that owns the credential](https://code.claude.com/docs/en/server-managed-settings#platform-availability). This holds for an API key in your configuration, an API key from a credential helper, and **Sign in with Claude Console**. If that organization has server-managed settings, set [`parentSettingsBehavior`](https://code.claude.com/docs/en/managed-settings#let-an-embedding-host-add-policy) to `"merge"` in them to keep Claude Desktop's [policy values](#applied-as-managed-policy). While server-managed settings apply, Claude Code by default [ignores most keys](https://code.claude.com/docs/en/managed-settings#how-claude-code-combines-managed-sources) in a file or OS profile on the device, and a `"merge"` set there has no effect.
 >
 > Without a Claude Code `managed-settings.json` file, OS profile, or server-managed settings, Claude Desktop's policy applies automatically and you don't need to set `parentSettingsBehavior`.
+
+## Tune the Auto mode classifier
+
+In [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), which Cowork shows as **Automatically approve**, a safety classifier reviews Claude's actions and blocks the ones it judges risky. To tell it what your organization trusts, or to add block and allow rules, deploy Claude Code's [`autoMode` settings](https://code.claude.com/docs/en/auto-mode-config) in [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) on each device. Check which of your sessions read those settings:
+
+* **Cowork sessions** read the managed settings on the device, and never read [server-managed settings](https://code.claude.com/docs/en/server-managed-settings).
+* **Local Code sessions** read the managed settings on the device too, unless server-managed settings or [a Claude apps gateway's `code` settings](https://code.claude.com/docs/en/claude-apps-gateway-config#apply-code-settings-in-the-code-tab) [take priority](https://code.claude.com/docs/en/managed-settings#how-claude-code-combines-managed-sources). They also read `autoMode` entries from the user's own `~/.claude/settings.json`, which Cowork sessions don't read.
+* **For Code sessions on an SSH host**, see [Managed configuration on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#managed-configuration-on-the-remote-host).
+* **For a self-hosted install**, see [Configuration on a self-hosted install](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#configuration-on-a-self-hosted-install).
+
+For example, on a device with no other Claude Code managed settings, deploy this file to describe an internal service and add one allow rule:
+
+```json managed-settings.json theme={null}
+{
+  "parentSettingsBehavior": "merge",
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Key internal services: the ticket tracker at tickets.example.corp"
+    ],
+    "allow": [
+      "$defaults",
+      "Creating and updating tickets in the ticket tracker is allowed: routine support work"
+    ]
+  }
+}
+```
+
+* **Start each list with `"$defaults"`** to keep the built-in rules. Without it, a list can [replace its built-in rules](https://code.claude.com/docs/en/auto-mode-config#override-the-block-and-allow-rules), the block lists included.
+* **Keep `parentSettingsBehavior`.** Without it, Claude Code ignores the [managed policy](#applied-as-managed-policy) values that Claude Desktop supplies to Cowork and Code sessions, except [in a Code session that gets `code` settings from a Claude apps gateway](#interaction-with-claude-code%E2%80%99s-own-managed-settings). For example, without it, Claude doesn't ask for approval in Cowork's **Automatically approve** before calling a connector tool whose [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers) is `"ask"`, and the classifier reviews the call.
+* **Deploy to [Claude Code's policy locations](https://code.claude.com/docs/en/managed-settings#where-each-mechanism-stores-the-policy)**, not to [Claude Desktop's configuration locations](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#where-claude-desktop-reads-configuration-on-a-device). In a macOS configuration profile for Claude Code, use the same keys as in `managed-settings.json`, with nested settings as dictionaries and lists as arrays. In a Windows registry policy, put the file's JSON in the `Settings` value under `HKLM\SOFTWARE\Policies\ClaudeCode`.
+* **If the device already has a Claude Code managed-settings file, profile, or `HKLM` registry policy, add the `autoMode` block to it.** By default, Claude Code [reads most keys from one managed source](https://code.claude.com/docs/en/managed-settings#how-claude-code-combines-managed-sources), so a second source is either ignored or hides the first.
+
+On a device that has the Claude Code CLI, run `claude auto-mode config` in a terminal to check that the CLI reads your entries. It lists your entries among the built-in rules, and any from the user's `~/.claude/settings.json`.
+
+### Run vetted connector tools without classifier review
+
+In Cowork's [**Automatically approve**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), the safety classifier reviews calls to a connector tool whose [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers) in `managedMcpServers` is `"allow"`, and can block them. To run a tool without that review, add a `permissions.allow` rule for it to your Claude Code managed settings, beside any `autoMode` block:
+
+```json managed-settings.json theme={null}
+{
+  "parentSettingsBehavior": "merge",
+  "permissions": {
+    "allow": ["mcp__tickets__create_ticket"]
+  }
+}
+```
+
+Write the rule as [`mcp__<server>__<tool>`](https://code.claude.com/docs/en/permissions#mcp), from the `name` of the server's `managedMcpServers` entry and the tool's name. In both names, replace each character that isn't an ASCII letter or digit, `_`, or `-` with `_`. For example, a server named `Ticket Tracker` becomes `Ticket_Tracker`. The rule doesn't cover the server's other tools.
+
+> [!WARNING]
+>
+> Claude runs a connector tool named in `permissions.allow` with no classifier review, whatever the call's arguments and even if the server marks the tool as destructive. A `permissions.ask` or `permissions.deny` rule for the same tool still applies. Without `parentSettingsBehavior` set to `"merge"`, Claude Code ignores a `toolPolicy` of `"ask"` for that tool, except [in a Code session that gets `code` settings from a Claude apps gateway](#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+>
+> List only tools that you would let run unattended, and leave destructive ones out. The rule matches by name. If a user's own MCP server, such as a local MCP server that the user adds to Claude Desktop, has the same server name, the rule also covers a tool of the same name on it.
 
 ## Claude Code mods
 

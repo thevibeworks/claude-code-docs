@@ -22,7 +22,7 @@ Requests from Claude to your services originate from Anthropic's network. To let
 
 The authoritative list is [Anthropic's published IP addresses](https://platform.claude.com/docs/en/api/ip-addresses); check it when you create the rule.
 
-The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites) are what scope which of *your* systems Claude can call.
+The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites) are what scope which of *your* systems Claude can call. For GitHub, the repositories you granted to the channel do that scoping instead, except that git may still be able to clone public repositories you didn't grant; see [Network egress](https://claude.com/docs/claude-tag/concepts/security-and-data.md#network-egress).
 
 > [!NOTE]
 >

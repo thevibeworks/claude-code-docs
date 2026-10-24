@@ -16,6 +16,7 @@ October 21, 2026
 
 October 21, 2026
 
+* As a precaution following the publicly reported compromise of several emSign (eMudhra) intermediate certificate authority (CA) keys, most of the connections Claude Science makes itself, and many of the package installs it runs itself, no longer trust emSign (eMudhra) root certificates or one other root certificate. Versions 0.1.69 and later include all of these changes; to update, see [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md)
 * A new **Trouble updating?** link opens [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
 * Cloud storage in Settings now works with Google Cloud Storage HMAC keys on computers where no AWS region is set
 * Mac: if `config.toml` has `auto_update = false` under `[update]`, Claude Science in its own window no longer checks for updates in the background. You can still check with **Claude Science > Check for App Updates…** in the menu bar

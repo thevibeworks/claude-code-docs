@@ -10,7 +10,7 @@ Each active session displays the following information:
 
 - **Location** — The approximate geographic location based on IP address
 
-- **Updated** — When this session was last used or modified by a policy change
+- Updated (called Last active in the updated Settings layout) — When this session was last used or modified by a policy change
 
 - **Current session** — A badge indicating which session you're using right now
 
@@ -20,7 +20,7 @@ Each active session displays the following information:
 
 2. Navigate to [Settings > Account](https://claude.ai/settings/account).
 
-3. Scroll to the **Active sessions** section.
+3. Scroll to the **Active sessions** section (called **Where you're logged in** in the updated Settings layout).
 
 ## Terminate a session
 

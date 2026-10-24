@@ -10,7 +10,7 @@ This feature is available to Enterprise plan customers. A retention period set o
 
 Data retention is based on the last observed activity:
 
-- **For chats:** Retention period starts from the time of the last message in the conversation.
+- **For chats:** The period is measured from the most recent activity in the conversation or in any cloud session Claude started from it.
 
 - **For projects:** Retention period starts from the time of the most recent action that resets it.
 
@@ -52,9 +52,11 @@ When data reaches the end of its retention period:
 
 - **For artifacts:** Artifacts are deleted under a retention period that covers artifacts, not with the chat or project they were made in. This includes artifacts Claude creates in chats, with some exceptions. For example, Research reports and artifacts in some older chats are deleted with their chat, along with any link published from them. A retention period that covers artifacts doesn't delete artifacts published with a public link.
 
+- If your organization has the new unified Claude experience, see “Data retention and deletion” in **Set up and manage the new unified Claude experience for your Enterprise organization** for what custom data retention covers there.
+
 ## Important considerations
 
-- Deletion occurs at midnight UTC on the scheduled day.
+- Deletion happens after the period ends rather than at an exact moment, and deleted data is removed from our back-end systems. As with chat, we may retain content flagged by our trust and safety systems or as required by law.
 
 - By default, data is retained indefinitely unless a custom retention period is set.
 
@@ -76,11 +78,11 @@ To set custom retention periods:
 
 4. Save your changes.
 
-**Important:** Custom retention periods apply to content in chats, projects, and artifacts. They don't apply to standalone **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)** at claude.ai/design,[**Claude Tag**](https://support.claude.com/en/articles/15594475-what-is-claude-tag), **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other feature that runs **[Claude Code in the cloud](https://support.claude.com/en/articles/12618689)**. A Claude Design project or design system that moves, or has already moved, to Claude becomes an artifact. If your organization has a retention period that covers artifacts (a single period for all data, or the private or shared artifact period if you use separate periods), that artifact can be permanently deleted if nobody opens it for that period. The period starts on the day of the move and restarts when someone opens or edits the artifact.
+**Important:** Custom retention periods apply to content in chats, projects, and artifacts. They don't apply to standalone **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)** at claude.ai/design,[**Claude Tag**](https://support.claude.com/en/articles/15594475-what-is-claude-tag), **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other feature that runs **[Claude Code in the cloud](https://support.claude.com/en/articles/12618689)**. Cloud sessions Claude starts from a chat are deleted with that chat. A Claude Design project or design system that moves, or has already moved, to Claude becomes an artifact. If your organization has a retention period that covers artifacts (a single period for all data, or the private or shared artifact period if you use separate periods), that artifact can be permanently deleted if nobody opens it for that period. The period starts on the day of the move and restarts when someone opens or edits the artifact.
 
 ## Example retention calculation
 
-If a conversation’s last message is at 3PM UTC on March 1 with a 30-day retention period, the deletion will occur at midnight UTC on March 31.
+If a conversation’s last message is at 3PM UTC on March 1 with a 30-day retention period, the conversation is deleted after March 31.
 
 ## Monitor retention-related activities
 

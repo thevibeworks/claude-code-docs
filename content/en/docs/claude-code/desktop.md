@@ -831,9 +831,20 @@ Find the environment's entry in the [environment selector](#start-a-session):
 * **Edit or delete**: hover over the entry and click the gear icon. To delete a local or SSH environment, click **Delete environment** in **Edit environment**.
 * **Archive cloud environments**: see [Archive an environment](https://code.claude.com/docs/en/cloud-environments.md#archive-an-environment).
 
-### Local sessions
+### Environment variables in local sessions
 
-The desktop app does not always inherit your full shell environment. On macOS, when you launch the app from the Dock or Finder, it reads your shell profile, such as `~/.zshrc` or `~/.bashrc`, to give Claude Code `PATH` and a fixed set of Claude Code variables, but not other variables you export there. On Windows, the app inherits user and system environment variables but does not read PowerShell profiles.
+To set an environment variable for a local session, [add it to a saved local environment](#set-environment-variables-for-local-sessions), then start a new session from that environment.
+
+Variables such as `PATH` and `CLAUDE_CONFIG_DIR` have their own instructions:
+
+| Variable | What to do instead |
+| :- | :- |
+| `PATH`, the folders your system searches for programs such as `npm` | See [Session not finding installed tools](#session-not-finding-installed-tools). On Windows, Desktop doesn't read PowerShell profiles, so set `PATH` in your user or system environment variables, then quit and reopen Desktop. |
+| A variable for an MCP server from [`claude_desktop_config.json`](#mcp-servers-from-the-claude-desktop-chat-app) | Quit Desktop, set it in that server's `env` block, then reopen Desktop |
+| [`CLAUDE_CONFIG_DIR`](https://code.claude.com/docs/en/env-vars#variables) or [`CLAUDE_CODE_TMPDIR`](https://code.claude.com/docs/en/env-vars#variables) | Set it in [one of the places you'd set a variable for dev servers](#set-environment-variables-for-dev-servers), then quit and reopen Desktop |
+| `API_TIMEOUT_MS`, `ANTHROPIC_BASE_URL`, or another variable Desktop sets itself | See [Environment variables Desktop sets itself](#environment-variables-desktop-sets-itself) |
+
+On macOS or Linux, if you already set your variable with `export` in `~/.zshrc` or `~/.bashrc`, see [Exported variable missing or wrong in commands Claude runs](#exported-variable-missing-or-wrong-in-commands-claude-runs).
 
 #### Set environment variables for local sessions
 
@@ -843,9 +854,10 @@ Add the variables to a saved local environment and start your sessions from it. 
 >
 > If your environment selector is above the prompt box, you have the [earlier layout](#check-which-layout-you-have), which has no saved local environments. Use the [local environment editor](#use-the-local-environment-editor) instead.
 
-**1. Open the environment's form**
+**1. Open a local environment's form**
 
-Open [**New environment**](#create-a-saved-environment) or [**Edit environment**](#use-edit-or-remove-a-saved-environment).
+* **To create a saved local environment**: select [**New environment**](#create-a-saved-environment) at the bottom of the environment selector's menu, then the **Local** tab
+* **To change one you already have**: in the environment selector, hover over a saved environment under **Local** and click the gear icon to open [**Edit environment**](#use-edit-or-remove-a-saved-environment)
 
 **2. Enter the variables**
 
@@ -878,6 +890,28 @@ To open the local environment editor, click the gear icon on the entry for your 
 
 Enter one `KEY=value` per line and select **Save changes**. Variables you save here are stored encrypted on your machine. Local sessions get them, except any variable that [Desktop sets itself](#environment-variables-desktop-sets-itself), such as `API_TIMEOUT_MS`. Restart Desktop to give your variables to dev servers.
 
+#### Exported variable missing or wrong in commands Claude runs
+
+If a command Claude runs on macOS or Linux doesn't get a variable you set with `export` in `~/.zshrc` or `~/.bashrc`, or gets the wrong value, try these in order:
+
+**1. Start a new session**
+
+Ask Claude to run the command again.
+
+**2. Quit and reopen Desktop**
+
+Then start a new session.
+
+**3. Check your saved variables**
+
+If a command gets the wrong value, check whether you also set the variable in a [saved environment](#use-edit-or-remove-a-saved-environment) or the [local environment editor](#use-the-local-environment-editor). If so, change the value there and start a new session.
+
+**4. Use a saved environment**
+
+Add the variable to a [saved local environment](#set-environment-variables-for-local-sessions), then start a new session from that environment. For a variable such as `PATH` or `CLAUDE_CONFIG_DIR`, follow [its own instructions](#environment-variables-in-local-sessions) instead.
+
+Before v2.1.304, Claude Code doesn't pass exported variables to commands, so [check which version the session runs](#claude-code-version-in-the-code-tab).
+
 #### Environment variables Desktop sets itself
 
 If you set `API_TIMEOUT_MS` or `ANTHROPIC_BASE_URL` and nothing changed in your local sessions, it's because Desktop sets those [variables](https://code.claude.com/docs/en/env-vars.md#variables), among others, itself. A local session gets Desktop's value whether you set yours in your shell profile, your Windows user or system variables, the local environment editor, or a saved environment. Moving yours to a settings file doesn't help, because Claude Code [ignores that value](https://code.claude.com/docs/en/settings-reference.md#how-env-values-interact-with-your-shell) in a local session.
@@ -895,7 +929,7 @@ On Opus 5, also select effort `high` or lower before you start the session. In t
 
 On models with [adaptive reasoning](https://code.claude.com/docs/en/model-config.md#adjust-effort-level), Claude Code ignores the number itself in a positive `MAX_THINKING_TOKENS` value because adaptive reasoning controls thinking depth instead. On Opus 4.6 and Sonnet 4.6, set `CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING` to `1` to use a fixed thinking budget; Fable models, Sonnet 5 and later, Haiku 5.5, and Opus 4.7 and later always use adaptive reasoning and have no fixed-budget mode.
 
-#### Local sessions on managed devices
+### Local sessions on managed devices
 
 If the entry for your computer is grayed out in the environment selector, with the tooltip **Disabled by your organization**, your administrator has [turned off local sessions](#managed-settings). On Windows the [WSL](https://code.claude.com/docs/en/desktop-wsl.md) entry, whose availability on managed devices is [governed separately](https://code.claude.com/docs/en/admin-setup.md#wsl-sessions-in-claude-code-desktop), is grayed out the same way.
 

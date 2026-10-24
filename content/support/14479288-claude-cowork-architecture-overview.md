@@ -2,13 +2,13 @@
 
 This article explains where Claude Cowork runs, how each execution mode is isolated, and the admin controls available for restricting its scope.
 
-This article is for Enterprise admins. The architecture described here is the same across all plans. The device-level admin controls at the end apply to Team and Enterprise plans.
+## Availability
 
-Claude Cowork runs in the cloud on Pro and Max plans. It’s generally available on web and mobile for Enterprise plans when enabled by an owner, and in beta for Team plans.
+This article is for Enterprise admins, but the architecture described here is the same across all plans. The device-level admin controls at the end apply to Team and Enterprise plans.
 
-**Note:** Claude Cowork and chat are now one Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it's generally available on Enterprise plans, where it appears in admin settings as **Chat and Cowork unified**.
+Claude Cowork runs in the cloud on Pro and Max plans, on Team plans (in beta), and on Enterprise plans when an owner enables it.
 
-Team organizations, and Enterprise organizations that haven’t turned it on, keep chat and Claude Cowork as they are today, so everything in this article still applies. If you’re an Enterprise admin, learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 

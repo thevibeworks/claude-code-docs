@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/files
 
 ## Upload File
 
-`$client->beta->files->upload(string file, ?int expiresInSeconds, ?list<AnthropicBeta> betas, ?string workspaceID): BetaFileMetadata`
+`$client->beta->files->upload(FileParam | string file, ?int expiresInSeconds, ?list<AnthropicBeta> betas, ?string workspaceID): BetaFileMetadata`
 
 **POST** `/v1/files`
 
@@ -15,7 +15,7 @@ Upload File
 
 ### Parameters
 
-- `file: string`
+- `file: FileParam | string`
 
   The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 

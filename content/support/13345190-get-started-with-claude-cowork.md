@@ -168,7 +168,7 @@ Auto mode applies to all of your existing connectors, plugins, the built-in brow
 
 You can give Claude standing instructions that apply to every Cowork session. Use this to specify your preferred tone, output format, or background on your role.
 
-**Note:** In the new Claude experience, **Global instructions** are part of **Instructions for Claude** in **[Settings > General](https://claude.ai/settings/general)**, and they apply to every conversation.
+**Note:** In the new Claude experience, **Global instructions** are part of **Instructions for Claude** in **Settings > Your Claude** (or **Settings > Account** in the older Settings layout), and they apply to every conversation.
 
 To set global instructions:
 

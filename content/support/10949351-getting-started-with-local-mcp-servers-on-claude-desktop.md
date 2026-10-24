@@ -10,7 +10,7 @@ Desktop extensions provide a streamlined way to install and manage local MCP ser
 
 ## Installing desktop extensions from the directory
 
-1. Navigate to Settings > Extensions on Claude Desktop.
+1. Navigate to **Settings > Desktop app** and select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout) on Claude Desktop.
 
 2. Click “Browse extensions” to view our directory and click on any Anthropic-reviewed tools you want to use. Click "Install" on your desired extension.
 
@@ -20,7 +20,7 @@ Desktop extensions provide a streamlined way to install and manage local MCP ser
 
 ## Installing custom desktop extensions
 
-1. Navigate to Settings > Extensions on Claude Desktop.
+1. Navigate to **Settings > Desktop app** and select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout) on Claude Desktop.
 
 2. Click “Advanced settings” and find the **Extension Developer** section.
 
@@ -46,9 +46,9 @@ for specific instructions.
 
 ### Create and upload custom extensions for your organization
 
-Custom desktop extensions uploads allow Team and Enterprise plans to leverage organization-specific workflows that aren’t available in the public directory. After creating a custom desktop extension, Owners and Primary Owners can navigate to Settings > Extensions within Claude Desktop and click “Advanced settings” to access the **Extension Developer** section:
+Custom desktop extensions uploads allow Team and Enterprise plans to leverage organization-specific workflows that aren’t available in the public directory. After creating a custom desktop extension, Owners and Primary Owners can navigate to **Settings > Desktop app**, select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout), and click "Advanced settings" to access the **Extension Developer** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1792785600&amp;signature=3fc749101b2f9fc0bb709f854ba813eae98bc9d2b1f2eb3c6eac7edb60222837&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxUJ4Pzg0Hn9K2IaIG2JpzGAO0InN0wXiJI%2F%2B%0AXfs%2FUWl0JZTtAVlNmlg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1792951200&amp;signature=53ec6c711bbb2b9b107da6cf5189d870ceb78b488bdf4b4b13182bedf6675535&amp;req=dSYvF89%2BmodfXvMW3nq%2BgXMWSvTBIQsjXEoJZkgz4cNlJA1ULSOGuMBPG4Je%0A3x1EhiyFv%2FAyRPHimjfRwtCgK%2F0%3D%0A)
 
 Click “Install Extension…” and select the .mcpb file. Follow the prompts to install and configure your custom desktop extension. For more in-depth information, please refer to our [desktop extension developer documentation](https://github.com/anthropics/mcpb).
 
@@ -78,7 +78,7 @@ For controlling desktop extensions through system policies, please refer to our 
 
 ### Extension configuration issues
 
-- Navigate to Settings > Extensions and click on the extension to review its settings.
+- Navigate to **Settings > Desktop app** and select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout), then click on the extension to review its settings.
 
 - Ensure all required configuration fields are completed.
 
@@ -96,7 +96,7 @@ For controlling desktop extensions through system policies, please refer to our 
 
 ### How do I check if my MCP servers are properly connected in Claude Desktop?
 
-Click the "+" button on bottom the chat box within Claude Desktop, then select "Connectors." This will show you connected MCP servers and their tools. Alternatively, you can visit Developer settings (under **Desktop app**) to see connection status and look at the logs for any MCP servers.
+Click the "+" button on bottom the chat box within Claude Desktop, then select "Connectors." This will show you connected MCP servers and their tools. Alternatively, go to the **Local MCP servers** section of the Extensions page (**Settings > Desktop app**, then "Manage" next to **Extensions**), or to **Settings > Developer**, under **This computer**, in the older Settings layout, to see connection status and look at the logs for any MCP servers.
 
 ### How do I convert my existing MCP server to a desktop extension?
 

@@ -101,7 +101,7 @@ Claude Enterprise Analytics API data is available for dates on or after January 
 * They had at least one Claude Code session (local or remote) associated with your Claude Enterprise organization that included tool use or git activity.
 * They had at least one Cowork session with tool use or message activity.
 
-**Chat and Cowork unified (beta).** Chat and Cowork unified brings Cowork's features into claude.ai chat. Most activity in Chat and Cowork unified is reported under the `chat_cowork_unified` product value, not `chat` or `cowork`.
+**Chat and Cowork unified.** Chat and Cowork unified brings Cowork's features into claude.ai chat. Most activity in Chat and Cowork unified is reported under the `chat_cowork_unified` product value, not `chat` or `cowork`.
 
 In user activity and in skill, connector, and plugin usage, this usage appears in the `chat_cowork_unified_metrics` object. In activity summaries, it is counted in `chat_cowork_unified_daily_active_user_count`, `chat_cowork_unified_weekly_active_user_count`, and `chat_cowork_unified_monthly_active_user_count`.
 
@@ -133,7 +133,18 @@ Send the `anthropic-version` header on every request; see [API versions](https:/
 
 ## Known limitations
 
+### Claude Code through Amazon Bedrock
+
 If your organization uses Claude Code through Amazon Bedrock, the Claude Enterprise Analytics API does not return Claude Code activity for that usage.
+
+### Claude Code and Cowork with customer-managed encryption keys
+
+If your organization uses [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek), Anthropic leaves some details of Claude Code and Cowork use out of its usage analytics, to protect your data. As a result, do not use the following Claude Enterprise Analytics API numbers to measure how much your organization uses Claude Code or Cowork. They can be zero or lower than actual use:
+
+* **Code changes:** In user activity, these fields in `claude_code_metrics.core_metrics` can be zero: `lines_of_code` (lines added and removed) and `commit_count`. The `pull_request_count` field can be lower than the real number of pull requests.
+* **Skills started with a slash command:** If a user starts a skill in Claude Code or Cowork by typing a slash command, such as `/skill-name`, that use is not counted. This applies to skill usage, and to Cowork skill counts in user activity. Skills that Claude invokes without a slash command are still counted.
+
+For other analytics changes with customer-managed encryption keys, see [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek#disabled-or-modified).
 
 ## Next steps
 

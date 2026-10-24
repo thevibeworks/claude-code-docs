@@ -101,7 +101,7 @@ Desktop extensions transform how you connect Claude to your desktop applications
 
 - **Enjoy enterprise-ready security**: Extensions use code signing, encrypted storage for sensitive data like API keys, and enterprise policy controls.
 
-To explore desktop extensions, navigate to Settings > Extensions within the Claude Desktop app after installation.
+To explore desktop extensions, navigate to **Settings > Desktop app** and select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout) within the Claude Desktop app after installation.
 
 **Note:** If you’re a developer who wants to list a desktop extension (a local MCP server for Claude Desktop) in the directory, submit it through the **[desktop extension submission form](https://clau.de/desktop-extention-submission)**. To submit a plugin or a remote connector instead, use the **[developer portal](https://claude.ai/directory/manage)**. See **[Submitting your plugin](https://claude.com/docs/plugins/submit)** for what each route accepts.
 

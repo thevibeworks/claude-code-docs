@@ -1,12 +1,12 @@
 # Use the built-in browser in Claude Cowork
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it's generally available on Enterprise plans, where it appears in admin settings as **Chat and Cowork unified**.
-
-If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
-
 Claude Cowork has a browser built into the Claude Desktop app. This article explains how the built-in browser works, how it differs from Claude in Chrome, and how to choose which one Claude uses.
 
-The built-in browser is rolling out gradually to Cowork in Claude Desktop for macOS, Windows, and Linux (beta) on Pro, Max, and Team plans, and on Enterprise plans where an owner has enabled it. If you don't see it yet, check back later. When the desktop app is online, the built-in browser is also available in Cowork on web or mobile.
+## Availability
+
+The built-in browser is available in Cowork in Claude Desktop for macOS, Windows, and Linux (beta) on Pro and Max plans, and on Team and Enterprise plans unless an owner has turned it off. When the desktop app is online, it's also available in Cowork on web or mobile.
+
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ## How the built-in browser works
 
@@ -38,7 +38,7 @@ Cowork can use the web in two ways:
 
 - **Claude in Chrome.** Claude works in your own Chrome browser through the Claude in Chrome extension, on the page you're already on, with the accounts you're already signed in to. Use it when the work is on a page in front of you. Learn more in **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173)**.
 
-If you already use Claude in Chrome, it stays your default for web tasks in Cowork. If you don't have the extension, or you're new to browser use in Cowork, Claude uses the built-in browser once it's available to you.
+If you already use Claude in Chrome, it stays your default for web tasks in Cowork. If you don't have the extension, or you're new to browser use in Cowork, Claude uses the built-in browser.
 
 ## Change which browser Claude uses
 

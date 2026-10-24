@@ -8,7 +8,7 @@ The monthly recap is in beta for users with Free, Pro, and Max plans using Claud
 
 1. Open Claude on the web or Claude Desktop.
 
-2. Go to **[Settings > Reflect](https://claude.ai/settings/reflect)**.
+2. Go to **Settings > Wellbeing** and, under **Reflect**, select "View" (or go to **Settings > Reflect** in the older Settings layout).
 
 3. Your recap loads for the past month. Click the “Past month” dropdown at the top and select another option to load your recap for a different range (this month so far, past 3 months, past 6 months, past year).
 
@@ -28,7 +28,7 @@ A short headline and paragraph describing your month with Claude. It names the a
 
 Three headline stats: your **most active day**, your **peak hour**, and your **total conversations**. Below them, a daily activity chart shows how your conversations were spread across the period.
 
-Below the chart, click “Set quiet hours and breaks” to open your **Time and focus** settings. See **[Set break reminders and quiet hours](https://support.claude.com/en/articles/15672868)** for details.
+To set quiet hours and breaks, go to **Settings > Wellbeing** (in the older Settings layout, click "Set quiet hours and breaks" below the chart). See **[Set break reminders and quiet hours](https://support.claude.com/en/articles/15672868)** for details.
 
 ### What you spent time on
 
@@ -90,9 +90,9 @@ People bring all kinds of things to Claude, and some conversations touch on diff
 
 Your recap is available by default for eligible accounts where memory is on.
 
-You can disable it by turning **Generate memory from chat history** off in **[Settings > Capabilities](https://claude.ai/settings/capabilities)**. There is no dedicated toggle for the recap, so if the memory setting is on, the recap will also be enabled. Even with memory enabled, your recap is only generated when you navigate to the **[Settings > Reflect](https://claude.ai/settings/reflect)** page; if you don’t land on that page, Claude won’t create a recap for you.
+You can disable it by turning **Generate memory from chat history** off in **Settings > Your Claude**. There is no dedicated toggle for the recap, so if the memory setting is on, the recap will also be enabled. Even with memory enabled, your recap is only generated when you open it (**Settings > Wellbeing**, then "View" under **Reflect**, or the **Settings > Reflect** page in the older Settings layout); if you don't open it, Claude won't create a recap for you.
 
-Turning the recap off doesn’t affect your chat history or any break reminders or quiet hours you’ve already set in **[Settings > Time and focus](https://claude.ai/settings/time-limits)**.
+Turning the recap off doesn't affect your chat history or any break reminders or quiet hours you've already set in **Settings > Wellbeing** (or **Settings > Time and focus** in the older Settings layout).
 
 ---
 
@@ -104,7 +104,9 @@ Viewing your recap doesn’t count toward your usage limits. If you start a conv
 
 ### Why don’t I see Reflect in Settings?
 
-Check that memory is toggled on under **[Settings > Capabilities](https://claude.ai/settings/capabilities)**, that you’re on a Free, Pro, or Max plan, and that you’re using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
+Check that memory is toggled on under **Settings > Your Claude**, that you're on a Free, Pro, or Max plan, and that you're using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
+
+In the updated Settings layout, your recap is under **Settings > Wellbeing**.
 
 ### Why does a percentage or stat look off?
 

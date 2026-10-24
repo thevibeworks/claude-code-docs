@@ -15,7 +15,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
 <Tabs>
   <Tab title="Gradle">
     ```kotlin
-    implementation("com.anthropic:anthropic-java:3.2.0")
+    implementation("com.anthropic:anthropic-java:3.3.0")
     ```
   </Tab>
 
@@ -24,7 +24,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
     <dependency>
         <groupId>com.anthropic</groupId>
         <artifactId>anthropic-java</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
     </dependency>
     ```
   </Tab>
@@ -1170,6 +1170,10 @@ export ANTHROPIC_LOG=debug
 
   ProGuard and R8 should automatically detect and use the published rules, but you can also manually copy the keep rules if necessary.
 </Accordion>
+
+### OpenTelemetry tracing
+
+When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
 
 ### Undocumented API functionality
 

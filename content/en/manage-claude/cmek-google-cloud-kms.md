@@ -39,7 +39,7 @@ anthropic-cmek-client-us@gcp-anthropic-cmek-clients.iam.gserviceaccount.com
 
 Use only this address, never one sent by email or chat.
 
-For the lowest latency, use `us-east5` or `us-central1`. Anthropic strongly recommends HSM protection.
+You can use any Cloud KMS location. For the lowest latency, use `us-east5` or `us-central1`. Anthropic strongly recommends HSM protection.
 
 To use a key you already have, [add the organization label](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms#organization-label) first.
 
@@ -47,7 +47,7 @@ To use a key you already have, [add the organization label](https://platform.cla
   <Tab title="Google Cloud Console">
     <Steps>
       <Step title="Create or choose a key ring">
-        In the Google Cloud console, go to the [Key management](https://console.cloud.google.com/security/kms) page. Open a key ring in a single-region US location, such as `us-east5`, or create one.
+        In the Google Cloud console, go to the [Key management](https://console.cloud.google.com/security/kms) page. Open a key ring, or create one in a location such as `us-east5`.
       </Step>
 
       <Step title="Configure the key">

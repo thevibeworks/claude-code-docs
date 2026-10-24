@@ -30,7 +30,7 @@ When Claude works on a channel task, the request moves through three places:
 
 The diagram below traces one request through this process.
 
-![Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no stored credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request that no rule, domain entry, or environment network access setting allows is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude.](https://mintcdn.com/claude-ai/lijct3C2aoA3LHFn/images/claude-tag/diagrams/request-path.svg?fit=max\&auto=format\&n=lijct3C2aoA3LHFn\&q=85\&s=10d796e77738a52a505dcab2c9950cda)
+![Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no stored credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request that no rule, domain entry, or environment network access setting allows is blocked. Credentialed requests reach your systems, like an issue tracker, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude.](https://mintcdn.com/claude-ai/y3Hxae32FdEU67_n/images/claude-tag/diagrams/request-path.svg?fit=max\&auto=format\&n=y3Hxae32FdEU67_n\&q=85\&s=0cf396f807a5bc0ed4aec73a9feb5d06)
 
 **1. Tag Claude in a channel**
 
@@ -42,7 +42,7 @@ Claude does the work in an isolated environment built for this thread, reading f
 
 **3. The request crosses Agent Proxy**
 
-When the work needs something outside the sandbox, like calling the GitHub API or querying a warehouse, the request crosses Agent Proxy, the network boundary between the sandbox and everything else. Agent Proxy checks it against the rules an admin configured, and decides whether it proceeds and what credential, if any, travels with it.
+When the work needs something outside the sandbox, like querying a warehouse, the request crosses Agent Proxy, the network boundary between the sandbox and everything else. Agent Proxy checks it against the rules an admin configured, and decides whether it proceeds and what credential, if any, travels with it.
 
 **4. Agent Proxy attaches a credential**
 
@@ -50,11 +50,11 @@ A matching credential comes from the credential store, which keeps the credentia
 
 **5. The result posts back, as Claude**
 
-The credentialed request reaches your system, like GitHub or the warehouse, and the result returns to the thread.
+The credentialed request reaches your system, like the warehouse, and the result returns to the thread.
 
 ### Agent Proxy
 
-For each outbound request from the sandbox, Agent Proxy checks the destination against three allow layers. A request goes through if any one of them allows it; a host that none of them allows is blocked.
+For each outbound request from the sandbox, other than a GitHub API request or a git operation, Agent Proxy checks the destination against three allow layers. A request goes through if any one of them allows it; a host that none of them allows is blocked.
 
 | When the destination | Result |
 | :- | :- |
@@ -74,6 +74,8 @@ For the endpoints and addresses your network team may need to allowlist, see [Ne
 ### How a host gets allowed
 
 A host that none of the three layers above allows is blocked, and Claude names the blocked host in the thread so an admin can add it; see [Give Claude access to your tools](https://claude.com/docs/claude-tag/admins/add-connections.md).
+
+A GitHub API request or a git operation doesn't go through those layers. It goes through a separate GitHub proxy. See [Network egress](https://claude.com/docs/claude-tag/concepts/security-and-data.md#network-egress) for what governs those requests instead.
 
 ### Web search vs. network requests
 

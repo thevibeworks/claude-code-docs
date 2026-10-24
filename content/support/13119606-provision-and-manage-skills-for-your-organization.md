@@ -82,19 +82,17 @@ Users can submit a skill or plugin they've built to your organization's library 
 
 Your starting setting depends on your plan:
 
-- **Team plans:** Publishing is set to “Open,” unless you already had **Share with organization** turned off, in which case “Off” is the default.
+- **Team plans:** Publishing is set to "Open," unless you already had **Share with organization** turned off, in which case "Off" is the default.
 
-- **Enterprise plans:** Publishing starts off.
+- **Enterprise plans:** If you haven’t chosen a setting, Publishing is set to “Requires review.” Starting [placeholder: date the default changes to “Open”], it changes to “Open” for organizations that have **Skill and plugin security scanning** on. Skills and plugins that users publish are then listed in your organization’s library once they pass the automatic security scan, without waiting for owner approval. Users whose custom role doesn’t allow publishing to the whole organization still go through review. To keep reviewing every submission, select “Requires review” yourself before then. Organizations that already chose a setting keep it.
 
   - If your organization already had **Share with organization** turned on, it starts as “Open” instead.
 
-  - If you haven't chosen a setting, it switches to “Requires review” on October 2, 2026. To keep publishing off, or to choose a different setting, select it yourself before then.
-
-Turning **Publishing** off doesn't remove anything that's already published. Published items stay in the library until an owner removes them.
+Turning **Publishing** off doesn’t delete anything. Published items stay in the library until an owner removes them. Skills that users shared with everyone in your organization under the older **Share with organization** setting are hidden while **Publishing** is off, except from their authors. Shares with specific people or groups aren’t affected. When you switch to "Requires review" or "Open," those organization-wide shares become visible to everyone again, without going through review. A skill that failed a security scan stays blocked. A publish that was in progress when you turned Publishing off is stopped, and the author needs to publish it again.
 
 ### Review a submission
 
-Owners, and anyone whose role has Libraries set to “Can manage,” can review requests. You can't approve your own.
+Owners, and anyone whose role has Libraries set to “Can manage,” can review requests. Your own submissions don’t go through review: when you click “Publish to org,” the item is published to the organization library right away. On Enterprise plans with **[Skill and plugin security scanning](https://support.claude.com/en/articles/15927065)** on, it’s published once it passes the scan.
 
 **To review a submission:**
 
@@ -225,7 +223,7 @@ The “Inventory” tab in **[Organization settings > Plugins & skills](https://
 
 ## Scan skills and plugins for malicious content
 
-On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is off by default until October 2, 2026. From that date it's on by default, where available, for Enterprise organizations that haven't set it. Organizations that already turned it on or off keep their choice.
+On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is on by default, where available, for Enterprise organizations that haven’t set it. Organizations that already turned it on or off keep their choice.
 
 To turn on skill scanning for your organization:
 

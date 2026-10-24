@@ -13,7 +13,7 @@ Create Skill
 
 ## Parameters
 
-- `files: Array[String]`
+- `files: Array[FileInput]`
 
   Files to upload for the skill.
 
