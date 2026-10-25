@@ -609,7 +609,7 @@ The table lists each message and its fix. To declare dependencies as an author, 
 | `<Plugin or Dependency> "<name>" has conflicting version requirements` | No version satisfies every range that pins it. The message lists the ranges. | Uninstall or update one of the conflicting plugins, or ask the upstream author to widen its constraint. |
 | `... has version requirements too complex to intersect` or `has an invalid version requirement` | A range isn't valid semver, or the combined ranges can't be intersected. | Fix the invalid range or simplify long `\|\|` chains. |
 | `... has no git tag satisfying <range>` | The dependency's repository has no `<name>--v*` tag in the range. | Check that the upstream tags releases with that convention, or relax the range. |
-| `Dependency "<dep>" (required by <plugin>) is in <marketplace>, which is not in the allowlist` | The dependency is in a different marketplace, and cross-marketplace resolution is off by default. | Install the dependency yourself at the same scope, in your shell with `claude plugin install <dep>@<marketplace>` plus the `--scope` you're installing the plugin at, then retry. |
+| `Dependency "<dep>" (required by <plugin>) is in marketplace "<marketplace>", which is not in the allowlist` | The dependency is in a different marketplace, and cross-marketplace resolution is off by default. | Install the dependency yourself at the same scope, in your shell with `claude plugin install <dep>@<marketplace>` plus the `--scope` you're installing the plugin at, then retry. |
 
 To see these programmatically, run `claude plugin list --json` in your shell. Plugins with problems carry an `errors` field with the messages and an `errorDetails` field with a `type` for each: the first three rows are `dependency-unsatisfied` and the fourth is `dependency-version-unsatisfied`.
 
@@ -979,9 +979,9 @@ Claude Code copies an installed plugin into its cache and loads it from there, s
 
 ### `${CLAUDE_PLUGIN_ROOT}` shows forward slashes on Windows
 
-On Windows, a plugin hook receives `${CLAUDE_PLUGIN_ROOT}` as `C:/Users/you/...` rather than `C:\Users\you\...`, and a script that expected backslashes breaks.
+On Windows, a plugin hook that runs through Git Bash receives `${CLAUDE_PLUGIN_ROOT}` as `C:/Users/you/...` rather than `C:\Users\you\...`, and a script that expected backslashes breaks.
 
-Claude Code runs shell-form hooks through Git Bash on Windows and substitutes the plugin root in the forward-slash Win32 form on purpose. Bash builtins, MSYS tools, and native Windows binaries all accept that form.
+With Git Bash installed, a [shell-form hook](https://code.claude.com/docs/en/hooks.md#exec-form-and-shell-form) runs through Git Bash by default. For a hook that runs through Git Bash, Claude Code passes the path with forward slashes so that Bash doesn't read backslashes as escapes. Bash builtins, MSYS tools, and native Windows binaries all accept that form.
 
 If your script needs backslashes, switch the hook to one of the forms that keep native paths, described under [exec form and shell form](https://code.claude.com/docs/en/hooks.md#exec-form-and-shell-form):
 
@@ -1121,7 +1121,7 @@ Your organization deploys managed settings that restrict plugins, and a command 
 
 ### `Marketplace source '<source>' is blocked by enterprise policy`
 
-You ran `/plugin marketplace add`, `update`, or an install, and Claude Code refused with this line. For a GitHub or git source, the host follows the source in parentheses, as in `'github:owner/repo' (github.com)`.
+You ran `/plugin marketplace add`, `update`, or an install, and Claude Code refused with this line.
 
 Your administrator set `blockedMarketplaces` or `strictKnownMarketplaces` in managed settings, and this source isn't permitted. Ask your administrator to allow the source, or add one of the allowed sources the message lists.
 

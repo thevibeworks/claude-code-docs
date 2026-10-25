@@ -1747,7 +1747,7 @@ To run a hook when a specific file changes on disk, whatever wrote it, use [File
 
 Use [PreToolUse decision control](#pretooluse-decision-control) to allow, deny, ask, or defer the tool call.
 
-An [Agent SDK callback hook](https://code.claude.com/docs/en/agent-sdk/hooks.md) on `PreToolUse` that exceeds its timeout blocks the tool call, and Claude receives an error result naming the timeout.
+An [Agent SDK callback hook](https://code.claude.com/docs/en/agent-sdk/hooks.md#hook-timeout) on `PreToolUse` that exceeds its timeout blocks the tool call.
 
 #### PreToolUse input
 

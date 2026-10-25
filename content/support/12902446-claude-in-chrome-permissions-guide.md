@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792925100&amp;signature=c39b7f50129d463dff3be1872fe546e12bdbf91d4d62766921456f8127c348ba&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBE%2Foe2gN0ADj5oqFA2tHBAlz2iSNHRc7V6%0A2P3Orfb2kB6JmuGDFNs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792941300&amp;signature=db21b7af4c660e86b5d6b902c039fc6bda16088aaa7ef5b9569fafe603b7cb15&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBE%2BIO0gN0ADj5oqFCBVdNu5bd8Gj415zhG%0AvRRfCiEfgO5ciB24WTY%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792925100&amp;signature=fd6a94fdf1ad24353929301e0bba2b5470be2eee8af1c22f4438639343fa28bf&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R5iint7A4lHPBihAW8By0eGiO5PNRBCWYT%0AGsPeg1g9JXx%2FpUj3fAI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792941300&amp;signature=d8741b1bb3ae7ce193e611e0f55055a945d1328f3f87fcb3a51444d5b38c0065&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R5jC3v7A4lHPBihAVkho9ipIycq7QcrOsk%0AFabLdP0ZgTcGhCHw4pI%3D%0A)
 
 ### Permission options
 
