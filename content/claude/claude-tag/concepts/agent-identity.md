@@ -63,7 +63,7 @@ For each outbound request from the sandbox, other than a GitHub API request or a
 | Is allowed by the network access setting of the [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment) the [scope](https://claude.com/docs/claude-tag/concepts/glossary.md#scope)'s sessions run on | The proxy forwards the request without a credential. |
 | Matches none of these | The proxy blocks the request. |
 
-A new environment's network access level defaults to Trusted access, so a fresh setup can reach a documented set of package registries and developer hosts before an admin has configured anything. The [cloud environments documentation](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains) lists the covered hosts. To narrow that default, pin an environment with a stricter level, such as No access.
+A new environment's network access level defaults to **Limited access**, so a fresh setup can reach a documented set of package registries and developer hosts before an admin has configured anything. The [cloud environments documentation](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains) lists the covered hosts. To narrow that default, pin an environment with a stricter level, such as **No access**.
 
 The same rules apply to code Claude runs in the sandbox, like `curl` or a `fetch` call: a request is blocked unless its host is allowed by one of the layers above.
 

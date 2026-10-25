@@ -266,7 +266,7 @@ Claude does channel work in an isolated [sandbox](https://claude.com/docs/claude
 
 * **A domain entry**: a hostname added to a bundle that applies to the channel. Requests to it pass with no credential attached; see [Add a domain](#add-a-domain).
 * **A [connector](#add-a-connector)**: a credential that applies to the channel. Requests matching its [allowed websites](#set-allowed-websites) pass with that credential attached.
-* **The channel's [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment)**: the compute configuration the channel's sessions run in, which carries its own network access setting, starting at the Trusted access level that covers common package registries. Requests to hosts it allows pass with no credential; see [Broad web access through the environment](#broad-web-access-through-the-environment).
+* **The channel's [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment)**: the compute configuration the channel's sessions run in, which carries its own network access setting, starting at the **Limited access** level that covers common package registries. Requests to hosts it allows pass with no credential; see [Broad web access through the environment](#broad-web-access-through-the-environment).
 
 A host that none of these allows stays unreachable, and when more than one bundle applies to a channel, the entries of all of them apply. Web search is governed by none of them, because searching happens on Anthropic's servers rather than in the sandbox; see [Web search vs. network requests](#web-search-vs-network-requests). Claude's GitHub API requests and git operations are governed by none of them either, because they go through a separate GitHub proxy. That proxy limits them to the repositories you [granted to the channel](https://claude.com/docs/claude-tag/admins/configure-github.md#grant-repository-access), except that git may still be able to clone public repositories you didn't grant.
 
@@ -293,7 +293,7 @@ You don't have to predict the full list up front. When a request is blocked, Cla
 * **The bundle applied before the thread started.** A bundle added to a channel after a thread started isn't guaranteed to reach that thread, so start a fresh thread to use its entries.
 * **The request came from a channel, not a DM.** A bundle added to a channel doesn't apply in DMs.
 
-Typical entries are hosts the work calls without a key, such as a docs site or a public API. Common package registries are usually already reachable through the [environment's Trusted access default](#broad-web-access-through-the-environment), and a host that needs a credential belongs in a [connector](#add-a-connector) instead. Entries appear under **What's in it** with the type **Domain**, and each row's menu has **Edit** and **Remove**.
+Typical entries are hosts the work calls without a key, such as a docs site or a public API. Common package registries are usually already reachable through the [environment's **Limited access** default](#broad-web-access-through-the-environment), and a host that needs a credential belongs in a [connector](#add-a-connector) instead. Entries appear under **What's in it** with the type **Domain**, and each row's menu has **Edit** and **Remove**.
 
 > [!NOTE]
 >
@@ -303,7 +303,7 @@ Typical entries are hosts the work calls without a key, such as a docs site or a
 
 Domain entries allow hosts one at a time. For a channel whose work needs more of the web, the environment setting grants broader access. An [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment) is the sandboxed compute configuration the channel's sessions run in, and it carries its own network access setting.
 
-A new environment's network access level is Trusted access, which allows a [documented set of package registries and developer hosts](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains). A channel can already reach hosts like `pypi.org` and `registry.npmjs.org` with no domain entry.
+A new environment's network access level is **Limited access**, which allows a [documented set of package registries and developer hosts](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains). A channel can already reach hosts like `pypi.org` and `registry.npmjs.org` with no domain entry.
 
 To give a workspace or channel broader access, create an organization-shared environment with a more permissive level and set it on that place's page, under **Advanced > Sessions > Environment**, as described in [Configure the environment for a scope](https://claude.com/docs/claude-tag/admins/customize.md#configure-the-environment-for-a-scope). **Full access** allows any domain; see [Network access in the Claude Code docs](https://code.claude.com/docs/en/cloud-environments#network-access) for the other levels.
 
