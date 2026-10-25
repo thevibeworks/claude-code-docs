@@ -318,6 +318,8 @@ Then retry in the same shell.
 
 If the repository is a monorepo, limit the checkout to the directories you name with `claude plugin marketplace add <source> --sparse <paths>`.
 
+If the repository has large git submodules, update Claude Code. On v2.1.295 and later, Claude Code fetches only the [submodules that hold plugin files](https://code.claude.com/docs/en/plugins/marketplace-reference.md#git-submodules-in-the-marketplace-repository). Earlier versions fetch every submodule, which can use up the 120 seconds on its own.
+
 ### Marketplace updates keep failing offline
 
 You work in an environment where the marketplace's git host is unreachable, and every session repeats a failed refresh in the background. Your existing checkout of the marketplace stays in place and startup isn't delayed.
@@ -1089,6 +1091,14 @@ When a user adds a URL-based marketplace, Claude Code downloads only the `market
 ```
 
 Alternatively, host the marketplace in a git repository and tell users to add it with the repository URL. For a git source, Claude Code clones the whole repository, so relative paths resolve. Source types are on the [marketplace reference](https://code.claude.com/docs/en/plugins/marketplace-reference.md).
+
+### A root plugin's files from a git submodule are missing after install
+
+Your plugin is at the marketplace root and runs or reads a file from a git submodule of the repository. After install, the submodule's directory is empty. Before v2.1.295, Claude Code fetched every submodule, so the directory was populated.
+
+When Claude Code clones your marketplace, it fetches only the [submodules that hold plugin files](https://code.claude.com/docs/en/plugins/marketplace-reference.md#git-submodules-in-the-marketplace-repository). For a plugin at the root, it decides by reading the paths in the plugin's configuration and the text of the plugin's files. It can't see a path that a script builds while it runs.
+
+Write a path into the submodule out in full where Claude Code can read it, such as `${CLAUDE_PLUGIN_ROOT}/vendor/tool/run.sh` in a hook command. Claude Code then fetches every submodule in the repository for that plugin.
 
 ### Marketplace validation errors
 
