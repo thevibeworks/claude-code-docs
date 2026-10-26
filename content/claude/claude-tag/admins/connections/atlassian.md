@@ -40,7 +40,7 @@ The Agent Proxy injects the credential at the network boundary; the model and th
 
 ## Connect a token with scopes through the Atlassian gateway
 
-If your organization requires tokens with scopes, connect through the gateway instead of the **Jira & Confluence** entry. Add the gateway connector inside a new bundle. A new bundle applies nowhere until you add places to it, so you can limit the token to your site's paths before any channel can use it.
+If your organization requires tokens with scopes, connect through the gateway instead of the **Jira & Confluence** entry. Add the gateway connector inside a new bundle. A new bundle applies nowhere until you add places to it, so no channel can use the token until you choose where it applies.
 
 **1. Create a bundle for the gateway**
 
@@ -48,13 +48,11 @@ Go to [**Organization settings > Claude Tag > Bundles**](https://claude.ai/admin
 
 **2. Add the gateway connector**
 
-Under **What's in it**, click **Add**, select **Connector**, and select **Custom connector**. In the [custom connector](https://claude.com/docs/claude-tag/admins/connections/custom.md) form, enter a **Name**, choose the **Basic** credential type, enter the dedicated account's email as the **Username** and the API token as the **Password**, and enter `api.atlassian.com` under **Allowed websites**. Click **Connect** to save the connector.
+Under **What's in it**, click **Add**, select **Connector**, and select **Custom connector**. In the [custom connector](https://claude.com/docs/claude-tag/admins/connections/custom.md) form, enter a **Name**, choose the **Basic** credential type, enter the dedicated account's email as the **Username** and the API token as the **Password**, and enter `api.atlassian.com` under **Allowed websites**.
 
-**3. Limit the credential to your site's paths**
+Under **Path prefixes**, add `/ex/jira/<cloud-id>/` and `/ex/confluence/<cloud-id>/`, using the same cloud ID in both, in lowercase. Find your cloud ID at `https://<your-site>.atlassian.net/_edge/tenant_info`. The cloud ID in a gateway request's path chooses which Atlassian site the request reaches, so a connector on this host can't be saved without path prefixes for one site, even though the form marks the field optional. Click **Connect** to save the connector.
 
-Under **What's in it**, open the menu on the new connector's row and click **Edit**. In the **Edit connection** dialog, add `/ex/jira/<cloud-id>/` and `/ex/confluence/<cloud-id>/` under **Path prefixes**, then click **Save**. The cloud ID in a gateway request's path chooses which Atlassian site the request reaches.
-
-**4. Choose where the bundle applies**
+**3. Choose where the bundle applies**
 
 Under **Where it applies**, click **Add place**, choose a workspace or channel under **Where**, and click **Add**. Click **Save changes** to save the places.
 

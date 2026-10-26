@@ -8,7 +8,7 @@
 
 > **Who this is for:** Anyone who used Claude for Government Web (the web app) and now uses Claude Desktop connected to Claude for Government.
 
-The import copies your conversations, their attached files, and the projects you created, including each project's files and instructions. It does not copy projects that other people shared with you.
+The import copies your conversations, their attached files, and the projects you created, including each project's files and instructions.
 
 ## Before you begin
 
@@ -38,10 +38,11 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 >
 > If you can sign in but the model picker is empty, ask your organization's owner to check your seat tier and its models.
 
+* **Claude Desktop is up to date.** Update Claude Desktop to 3.1623.0 or later and restart it, or ask your IT administrator to update it.
 * **You have an account on the web app.** It must use the same work email address as your account in Claude Desktop.
 * **You are signed in to the web app in your default browser.** The import opens a browser tab there and asks for a one-time code, which expires after a few minutes.
 
-> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist. To remind members to run the import, turn on the [**Show the Claude for Government Web import banner**](https://claude.com/docs/government/config/settings.md#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
+> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist.
 
 ## Run the import
 
