@@ -206,6 +206,16 @@ Download the installer from a connected machine and bring it across your boundar
 
 Pair the offline installer with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates). The app cannot reach the update feed from an air-gapped network, and you update the fleet by distributing each new offline installer through your MDM. Also set [`modelCatalogEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false`, or point [`modelCatalogUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogurl) at a mirror inside your network. Otherwise the app tries to fetch the signed model catalog from `downloads.claude.ai` at launch and every 5 to 15 minutes after that, and while those requests fail the model picker keeps the names and effort options that ship with the app. With updates and the catalog fetch handled this way, the only egress an air-gapped deployment needs is your inference provider; see [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths).
 
+### SSH remote sessions with the offline installer
+
+With the offline installer, neither the device nor the host needs to reach `downloads.claude.ai` to set up a Linux host for an [SSH remote session](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md). The installed Claude Desktop package then includes copies of the two programs that Claude Desktop [puts on a host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements), the remote server and the Claude Code engine. Claude Desktop uses those copies without a setting.
+
+* **Linux hosts**: both programs are included for x64 and arm64, with glibc or musl. Claude Desktop uploads them over the SSH connection. Expect an upload for each user account on a host and each Claude Desktop version, of about 3 MB for the remote server and 100 MB for the engine.
+* **macOS and Windows hosts**: neither program is included. Where `downloads.claude.ai` is blocked, the session fails with a message that the installer doesn't include the programs, so connect to Linux hosts only.
+* **Updates of both programs**: the Claude Desktop version determines the version of both programs. With [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) set, both programs change on your hosts only when you distribute a new installer. Claude Desktop also starts the engine with [`DISABLE_AUTOUPDATER`](https://code.claude.com/docs/en/env-vars) set to `1`, which turns off the engine's background updates.
+
+The host still has to reach your inference endpoint and, if configured, your OTLP collector. See [Host requirements](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements).
+
 ## Updates
 
 By default, Claude Desktop downloads updates from Anthropic's update server automatically and applies them the next time the app restarts. If the app hasn't restarted within 72 hours of downloading an update, it restarts itself, waiting for 10 minutes of user inactivity before doing so. This enforcement is always on and offers no in-app prompt to defer the restart; the `autoUpdaterEnforcementHours` key tunes the 72-hour window rather than enabling it.
