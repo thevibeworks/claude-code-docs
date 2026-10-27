@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1793081700&amp;signature=d83532189388295076b54bdfa80a207acc87bb9cfcb766063d09baaff46c1fbd&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMFN9IOwgN0ADj5oqFA62pkUdqIsRLmOweYs%0AsEyn%2FGYEou3W2IUpWcY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1793101500&amp;signature=8da7a141dfc1c8f97263f24b44961c29bd744c937cf80a79712d872a89d69ef3&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMFM%2FIOygN0ADj5oqFD0f4Wk%2FqCP37cmFid8%0AhTT5veBB403VvtLo%2Fgo%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1793081700&amp;signature=02ea72d6db2be2a5e3fbcead8d3e3c47eb7e7cc6f575e3214f7d673fd2db2e68&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2VwgC3r7A4lHPBihAWtSTRghALad%2Fq7tYgN%0AvKVv6Po0iHw9d8sAtEU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1793101500&amp;signature=bbfa90c019e1037330ae0b415503176bd3ac03fc203084c68b56ddf6ee1775d1&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2VxiC3p7A4lHPBihAUSIA6A3%2BR1xvlZyRTA%0ABimTYO2keIPEUMMlTTk%3D%0A)
 
 ### Permission options
 
