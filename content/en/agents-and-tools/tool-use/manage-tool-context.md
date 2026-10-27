@@ -12,7 +12,7 @@ Each approach targets a different source of context pressure. Pick the one that 
 
 | Approach                  | What it reduces                         | When it fits                                                         | Learn more                                                                                                                 |
 | ------------------------- | --------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Tool search               | Tool definitions loaded upfront         | Large toolsets (20+ tools) where most tools aren't needed every turn | [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)                         |
+| Tool search               | Tool definitions loaded upfront         | Large toolsets (20+ tools) where most tools aren’t needed every turn | [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)                         |
 | Programmatic tool calling | `tool_result` roundtrips                | Chains of tool calls that can run as a single script                 | [Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)       |
 | Prompt caching            | Token cost of repeated tool definitions | Stable toolsets across many requests                                 | [Tool use with prompt caching](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching) |
 | Context editing           | Old `tool_result` blocks in history     | Long conversations where early results are no longer relevant        | [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing)                                   |
@@ -23,19 +23,19 @@ Tool search keeps tool definitions out of the context window until Claude asks f
 
 ### Programmatic tool calling
 
-Programmatic tool calling collapses a sequence of tool calls into a single code block that Claude writes and Anthropic's code execution sandbox runs. Rather than five roundtrips of `tool_use` and `tool_result`, Claude emits one script that calls all five functions from within the sandbox. The intermediate results never enter the conversation history.
+Programmatic tool calling collapses a sequence of tool calls into a single code block that Claude writes and Anthropic’s code execution sandbox runs. Rather than five roundtrips of `tool_use` and `tool_result`, Claude emits one script that calls all five functions from within the sandbox. The intermediate results never enter the conversation history.
 
 ### Prompt caching
 
-Prompt caching doesn't reduce the number of tokens in context, but it reduces what you pay for them on subsequent requests. If your tool definitions are stable, cache them once and reuse the cached prefix across thousands of requests. This is the right choice when the toolset is large but fixed.
+Prompt caching doesn’t reduce the number of tokens in context, but it reduces what you pay for them on subsequent requests. If your tool definitions are stable, cache them once and reuse the cached prefix across thousands of requests. This is the right choice when the toolset is large but fixed.
 
 ### Context editing
 
-Context editing removes old `tool_result` blocks from the conversation history once they've served their purpose. A long agent loop might produce hundreds of intermediate results that were useful at the time but are no longer needed. Context editing lets you trim them without restarting the conversation.
+Context editing removes old `tool_result` blocks from the conversation history once they’ve served their purpose. A long agent loop might produce hundreds of intermediate results that were useful at the time but are no longer needed. Context editing lets you trim them without restarting the conversation.
 
 ## Combining approaches
 
-These approaches compose. A long-running agent might use tool search to keep the toolset lean, prompt caching to amortize the cost of the remaining definitions, and context editing to trim stale results as the conversation grows. Each solves a different part of the problem, so there's no conflict in using them together.
+These approaches compose. A long-running agent might use tool search to keep the toolset lean, prompt caching to amortize the cost of the remaining definitions, and context editing to trim stale results as the conversation grows. Each solves a different part of the problem, so there’s no conflict in using them together.
 
 A reasonable starting point for a high-volume agent:
 

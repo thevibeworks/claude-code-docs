@@ -8,9 +8,9 @@
 
 > [!NOTE]
 >
-> When [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) is on, a message sent from the home screen starts a Cowork session on a device that can run Cowork.
+> When [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) is on, a message sent from the home screen starts a Cowork session where Cowork is on and the device can run it. From November 10, 2026, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, Unified Claude is on by default.
 
-Chat in Claude Desktop on third-party (3P) is a conversational surface for quick questions and drafting. Unlike [Cowork](https://claude.com/docs/cowork/overview.md) and [Code](https://claude.com/docs/third-party/claude-desktop/code.md), which run agentic sessions with access to folders you grant and a code-execution environment, a Chat conversation runs with a deliberately small tool surface: it can search and fetch the web under your admin configuration, read files attached to the conversation, read and update the project's memory and read the files in the project's folders when the conversation is inside a project, write files into a scratch space of its own, and use skills from the plugins you provision, and nothing else on the machine. Chat is off by default and is enabled with a single configuration key.
+Chat in Claude Desktop on third-party (3P) is a conversational surface for quick questions and drafting. Unlike [Cowork](https://claude.com/docs/cowork/overview.md) and [Code](https://claude.com/docs/third-party/claude-desktop/code.md), which run agentic sessions with access to folders you grant and a code-execution environment, a Chat conversation runs with a deliberately small tool surface: it can search and fetch the web under your admin configuration, read files attached to the conversation, read and update the project's memory and read the files in the project's folders when the conversation is inside a project, write files into a scratch space of its own, and use skills from the plugins you provision, and nothing else on the machine. While Unified Claude is off, Chat is off by default and is enabled with a single configuration key.
 
 Chat conversations run against your configured inference provider, and their history is stored on the user's device. See [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations) for exactly what is written where and what can leave the device.
 
@@ -81,7 +81,7 @@ Commands that Claude runs in the advanced file analysis sandbox can reach the ho
 > By default, commands in the sandbox run without an approval prompt. A command can upload anything the sandbox can read to a listed host, and can run what it downloads from one. [Web fetch](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-fetch) in Chat uses the same list, so a host you list for web fetch is also open to sandbox commands. With `"*"` in the list, network filtering in the sandbox is off, so commands can reach any host.
 >
 > * **To have Claude ask before each command**, set `"Bash"` to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy). That policy also applies to Cowork and Code sessions.
-> * **To keep web fetch but turn off sandbox commands**, set [`chatAdvancedFileAnalysisEnabled`](#configuration) to `false`.
+> * **To keep web fetch but turn off sandbox commands**, set [`chatAdvancedFileAnalysisEnabled`](#configuration) to `false`. While Unified Claude and Cowork are on, Claude Desktop ignores that key, so add `"Bash"` to [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools) instead. With that entry, Claude also can't run commands with its shell tool in Cowork or Code sessions, including the Cowork sessions that users start from the [home screen](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#what-users-see-with-unified-claude).
 
 > [!NOTE]
 >
@@ -91,18 +91,18 @@ Commands that Claude runs in the advanced file analysis sandbox can reach the ho
 
 | Key | Default | Effect |
 | - | - | - |
-| [`chatTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chattabenabled) | off | Makes Chat available. Chat is opt-in: it appears in the app only when this key is explicitly `true`. |
+| [`chatTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chattabenabled) | off | Makes Chat available. While Unified Claude is off, Chat is opt-in: it appears in the app only when this key is explicitly `true`. |
 | [`chatAdvancedFileAnalysisEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chatadvancedfileanalysisenabled) | off | Allows code execution in the sandbox described under [Advanced file analysis](#advanced-file-analysis), on attached files and, inside a project, on files in the project's folders. Has no effect unless Chat is enabled. |
 
-While the `desktopHome` key for [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#how-unified-claude-interacts-with-chat-and-cowork-settings) has a value, Claude Desktop ignores `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled`.
+While the `desktopHome` key for [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#how-unified-claude-interacts-with-chat-and-cowork-settings) has a value, Claude Desktop ignores `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled`. Where Unified Claude is [on by default](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude), Claude Desktop ignores `chatTabEnabled` and `chatAdvancedFileAnalysisEnabled` while Cowork is on, and follows them while `coworkTabEnabled` is `false`.
 
-When `chatTabEnabled` is `true`, Claude Desktop presents Chat and Cowork together as **Home** in its sidebar, next to **Code**. From Home, the user chooses **Chat** or **Cowork** in the message box, and the sidebar lists chats and tasks together. When the key is unset or `false`, the sidebar shows **Cowork** in place of Home and the message box offers no choice. If [`coworkTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#coworktabenabled) is `false` while Chat is enabled, the message box offers Chat only.
+While Unified Claude is off, the layout follows `chatTabEnabled`. When the key is `true`, Claude Desktop presents Chat and Cowork together as **Home** in its sidebar, next to **Code**. From Home, the user chooses **Chat** or **Cowork** in the message box, and the sidebar lists chats and tasks together. When the key is unset or `false`, the sidebar shows **Cowork** in place of Home and the message box offers no choice. If [`coworkTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#coworktabenabled) is `false` while Chat is enabled, the message box offers Chat only.
 
 > [!NOTE]
 >
 > This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat** (when enabled), **Cowork**, and **Code** as separate tabs, controlled by the same keys.
 
-Enforcement of `chatTabEnabled` happens in the app's main process: when the key is unset or `false`, Chat does not appear in the app, and the app additionally refuses to start or continue a Chat conversation, including conversations created before an admin turned the key off.
+While Unified Claude is off, enforcement of `chatTabEnabled` happens in the app's main process: when the key is unset or `false`, Chat does not appear in the app, and the app additionally refuses to start or continue a Chat conversation, including conversations created before an admin turned the key off.
 
 The rule that at least one surface must stay enabled counts Chat only when `chatTabEnabled` is explicitly `true`: a configuration that disables Cowork and Code without enabling Chat re-enables Cowork with a validation warning, rather than leaving users with an empty app. With `chatTabEnabled` set to `true`, a chat-only configuration is valid.
 

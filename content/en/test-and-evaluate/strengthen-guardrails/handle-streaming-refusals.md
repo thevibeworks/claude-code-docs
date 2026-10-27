@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails
 description: Detect and handle refusal stop reasons in streaming responses, and retry refused requests on a fallback model.
 ---
 
-Starting with Claude 4 models, streaming responses from Claude's API return **`stop_reason`: `"refusal"`** when streaming classifiers intervene to handle potential policy violations. This safety feature helps maintain content compliance during real-time streaming.
+Starting with Claude 4 models, streaming responses from Claude’s API return **`stop_reason`: `"refusal"`** when streaming classifiers intervene to handle potential policy violations. This safety feature helps maintain content compliance during real-time streaming.
 
 <Tip>
   This page covers how refusals appear in streaming responses. For every `stop_reason` value and how to handle it, see [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons). To retry refused requests on another Claude model, see [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
@@ -12,7 +12,7 @@ Starting with Claude 4 models, streaming responses from Claude's API return **`s
 
 ## API response format
 
-When streaming classifiers detect content that violates Anthropic's policies, the API returns this response:
+When streaming classifiers detect content that violates Anthropic’s policies, the API returns this response:
 
 ```json
 {
@@ -54,7 +54,7 @@ When you receive **`stop_reason`: `refusal`**, you must reset the conversation c
 
 ## Implementation guide
 
-Here's how to detect and handle streaming refusals in your application:
+Here’s how to detect and handle streaming refusals in your application:
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
@@ -305,15 +305,15 @@ The API currently handles refusals in three different ways:
 * **Monitor for refusals:** Include **`stop_reason`: `refusal`** checks in your error handling.
 * **Reset automatically:** Implement automatic context reset when refusals are detected.
 * **Fall back to another model:** Configure [server-side fallback or the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) so refused requests are retried on another Claude model instead of surfacing a refusal to the user. Claude Haiku 5.5 has no server-side fallback, so set up its retry in your client.
-* **Redeem fallback credit on manual retries:** If you build the retry yourself, pass the refusal's [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) token so the retry doesn't pay the prompt-cache cost twice. Claude Haiku 5.5 refusals carry no fallback credit.
+* **Redeem fallback credit on manual retries:** If you build the retry yourself, pass the refusal’s [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) token so the retry doesn’t pay the prompt-cache cost twice. Claude Haiku 5.5 refusals carry no fallback credit.
 * **Provide custom messaging:** Create user-friendly messages for better UX when refusals occur.
 * **Track refusal patterns:** Monitor refusal frequency to identify potential issues with your prompts.
 
 ## Migration notes
 
-If you built refusal handling when this feature first shipped, or you're adding it to an existing integration, check the following:
+If you built refusal handling when this feature first shipped, or you’re adding it to an existing integration, check the following:
 
-* **Refusals are responses, not errors.** A refusal arrives as a successful HTTP 200 response with `stop_reason`: `"refusal"`, so monitoring built only on error rates won't surface it. Track refusals as their own signal.
+* **Refusals are responses, not errors.** A refusal arrives as a successful HTTP 200 response with `stop_reason`: `"refusal"`, so monitoring built only on error rates won’t surface it. Track refusals as their own signal.
 * **Refusals include structured detail.** On every model, a refusal also includes a `stop_details` object that identifies the policy category behind the decline. See [What a refusal looks like](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the full response shape.
 * **Retry on a different model.** Re-sending a refused request to the same model usually results in another refusal. Instead of only resetting context, retry on a fallback model with [server-side fallback, the SDK middleware, or a manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback), and redeem [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) when you build the retry yourself. Claude Haiku 5.5 has no server-side fallback, and its refusals carry no fallback credit, so set up its retry in your client.
 * **Check batch results for refusals.** A refused request in a [Message Batch](https://platform.claude.com/docs/en/build-with-claude/batch-processing) is returned as a succeeded result with `stop_reason`: `"refusal"`, not as an errored result.
@@ -335,6 +335,6 @@ If you built refusal handling when this feature first shipped, or you're adding 
   </Card>
 
   <Card title="Multilingual support" icon="text-aa" href="https://platform.claude.com/docs/en/build-with-claude/multilingual-support">
-    Serve users across languages with Claude's cross-lingual capabilities.
+    Serve users across languages with Claude’s cross-lingual capabilities.
   </Card>
 </CardGroup>

@@ -12,21 +12,21 @@ Workload Identity Federation strengthens your security posture by replacing stat
 
 ## Concepts
 
-You configure three resources in the Claude Console before any workload can federate. Together they express "tokens signed by issuer X, with claims that look like Y, may act as service account Z."
+You configure three resources in the Claude Console before any workload can federate. Together they express “tokens signed by issuer X, with claims that look like Y, may act as service account Z.”
 
 ### Service accounts
 
-A **service account** (`svac_...`) is a named, non-human identity inside your Anthropic organization. It is the principal that a [service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) or a federated token acts as. Service accounts live at the organization level and become active in a workspace when you add them as members of that workspace. At exchange time, Anthropic checks that the federation rule's workspace matches one of the service account's workspace memberships; the minted token then follows that workspace's rate limits and usage attribution, the same as an API key. Unlike a human user, a service account has no email, no password, and no Console login. Every service account is implicitly a member of your organization's default workspace; add explicit memberships for any other workspace it should act in. To let an all-workspaces service account key act in a workspace, add the service account to that workspace.
+A **service account** (`svac_...`) is a named, non-human identity inside your Anthropic organization. It is the principal that a [service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) or a federated token acts as. Service accounts live at the organization level and become active in a workspace when you add them as members of that workspace. At exchange time, Anthropic checks that the federation rule’s workspace matches one of the service account’s workspace memberships; the minted token then follows that workspace’s rate limits and usage attribution, the same as an API key. Unlike a human user, a service account has no email, no password, and no Console login. Every service account is implicitly a member of your organization’s default workspace; add explicit memberships for any other workspace it should act in. To let an all-workspaces service account key act in a workspace, add the service account to that workspace.
 
 The key distinction versus a workspace API key: a workspace API key *is* a credential, whereas a service account *has* credentials. You can more easily audit which workloads acted as which service account.
 
 ### Federation issuers
 
-A **federation issuer** (`fdis_...`) registers an OIDC identity provider with your organization. Registering an issuer tells Anthropic "JWTs signed by this provider may assert workload identity for my org."
+A **federation issuer** (`fdis_...`) registers an OIDC identity provider with your organization. Registering an issuer tells Anthropic “JWTs signed by this provider may assert workload identity for my org.”
 
 An issuer has two pieces of configuration:
 
-* **Issuer URL:** The exact `iss` claim value that appears in the provider's JWTs, for example `https://token.actions.githubusercontent.com` or `https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLE`.
+* **Issuer URL:** The exact `iss` claim value that appears in the provider’s JWTs, for example `https://token.actions.githubusercontent.com` or `https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLE`.
 * **JWKS source:** How Anthropic fetches the public keys to verify JWT signatures. Use `discovery` (the default) for any provider that serves `/.well-known/openid-configuration` at its issuer URL. Use `explicit_url` to point at a JWKS endpoint directly, or `inline` to upload the key set for issuers that are not reachable from the public internet (for example, a private Kubernetes cluster).
 
 Issuer and JWKS URLs must be `https`, on port 443, and use a public DNS hostname that resolves to public IP addresses; IP literals are not accepted. These constraints apply only to URLs Anthropic fetches; in `explicit_url` and `inline` modes the `issuer_url` is compared as a string and may reference an internal hostname.
@@ -35,7 +35,7 @@ You typically register one issuer for each environment: your production EKS clus
 
 ### Federation rules
 
-A **federation rule** (`fdrl_...`) is the bridge between an issuer and a service account: "when a JWT from issuer X has claims that look like Y, mint a token for service account Z with scope S."
+A **federation rule** (`fdrl_...`) is the bridge between an issuer and a service account: “when a JWT from issuer X has claims that look like Y, mint a token for service account Z with scope S.”
 
 A rule defines match conditions, a target, and the authorization scope and token lifetime that apply when the rule matches:
 
@@ -43,12 +43,12 @@ A rule defines match conditions, a target, and the authorization scope and token
 * **Target:** The service account the matched JWT maps to.
 * **Authorization:** The OAuth `scope` granted on the minted token. The default is `workspace:developer`, which grants the same access as a workspace API key. Some products lock the scope when you create a rule from their flow; for example, the [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) create-tunnel modal creates rules scoped to `workspace:manage_tunnels`. See [OAuth scopes](https://platform.claude.com/docs/en/manage-claude/wif-reference#oauth-scopes). The rule also sets `token_lifetime_seconds` (60 to 86400, default 3600).
 
-A single issuer can have many rules: one for each team, namespace, or permission level. Rules are evaluated by ID: the client specifies which rule to use in the exchange request, and Anthropic verifies the JWT satisfies that rule's match criteria. There is no implicit rule search.
+A single issuer can have many rules: one for each team, namespace, or permission level. Rules are evaluated by ID: the client specifies which rule to use in the exchange request, and Anthropic verifies the JWT satisfies that rule’s match criteria. There is no implicit rule search.
 
 ## How it works
 
-1. **Your IdP issues a JWT to the workload.** On most platforms this is ambient: a Kubernetes projected service-account token, the Google Cloud metadata server, Azure IMDS, or the GitHub Actions OIDC endpoint. The JWT's `iss` claim identifies the provider, and its `sub` and other claims identify the specific workload.
-2. **The SDK exchanges the JWT for an Anthropic access token.** The SDK posts the JWT to `POST /v1/oauth/token` using the [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523) `jwt-bearer` grant. Anthropic verifies the JWT against the issuer's JWKS and the federation rule's match conditions, then returns a short-lived `sk-ant-oat01-...` token that acts on behalf of the rule's target service account.
+1. **Your IdP issues a JWT to the workload.** On most platforms this is ambient: a Kubernetes projected service-account token, the Google Cloud metadata server, Azure IMDS, or the GitHub Actions OIDC endpoint. The JWT’s `iss` claim identifies the provider, and its `sub` and other claims identify the specific workload.
+2. **The SDK exchanges the JWT for an Anthropic access token.** The SDK posts the JWT to `POST /v1/oauth/token` using the [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523) `jwt-bearer` grant. Anthropic verifies the JWT against the issuer’s JWKS and the federation rule’s match conditions, then returns a short-lived `sk-ant-oat01-...` token that acts on behalf of the rule’s target service account.
 3. **The SDK sends the token on every request and refreshes it before it expires.** Your application code constructs the client with no API key and calls the API as usual. The SDK re-runs the exchange before the token expires.
 
 ## Set up federation
@@ -63,7 +63,7 @@ The **Connect workload** wizard creates all three resources (the issuer, the ser
   </Step>
 
   <Step title="Choose your provider">
-    Select the tile for your identity provider: GitHub Actions, AWS, Google Cloud, Microsoft Entra ID, or Kubernetes. Each tile prefills the issuer URL pattern and the match fields that provider's JWTs support. For any other standards-compliant provider (such as SPIFFE or Okta), select **Custom OIDC**.
+    Select the tile for your identity provider: GitHub Actions, AWS, Google Cloud, Microsoft Entra ID, or Kubernetes. Each tile prefills the issuer URL pattern and the match fields that provider’s JWTs support. For any other standards-compliant provider (such as SPIFFE or Okta), select **Custom OIDC**.
   </Step>
 
   <Step title="Fill in the guided fields">
@@ -75,7 +75,7 @@ The **Connect workload** wizard creates all three resources (the issuer, the ser
   </Step>
 
   <Step title="Test the connection">
-    The wizard creates the issuer, service account, and federation rule, then listens for a successful token exchange for 15 minutes. Trigger an exchange from your workload within that window (see [Authenticate from your workload](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#authenticate-from-your-workload)) to confirm the setup works. If the window elapses, the resources persist; you can re-run the test from the federation rule's detail page. Note the rule's ID (`fdrl_...`) and the service account ID (`svac_...`) the wizard creates: your workload passes both, along with your organization ID (and your workspace ID when the rule covers more than one workspace), in every token-exchange request.
+    The wizard creates the issuer, service account, and federation rule, then listens for a successful token exchange for 15 minutes. Trigger an exchange from your workload within that window (see [Authenticate from your workload](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#authenticate-from-your-workload)) to confirm the setup works. If the window elapses, the resources persist; you can re-run the test from the federation rule’s detail page. Note the rule’s ID (`fdrl_...`) and the service account ID (`svac_...`) the wizard creates: your workload passes both, along with your organization ID (and your workspace ID when the rule covers more than one workspace), in every token-exchange request.
   </Step>
 </Steps>
 
@@ -346,7 +346,7 @@ The token-exchange response follows [RFC 6749 §5.1](https://www.rfc-editor.org/
 Every SDK resolves credentials in the same five-tier order: constructor arguments, then `ANTHROPIC_API_KEY` / `ANTHROPIC_AUTH_TOKEN`, then an explicit `ANTHROPIC_PROFILE`, then the federation environment variables, then the implicit active profile. The first source that yields a credential wins.
 
 <Warning>
-  `ANTHROPIC_API_KEY` sits above the federation tiers, so a leftover key in the environment silently shadows federation. When migrating a workload from API keys to Workload Identity Federation, confirm `ANTHROPIC_API_KEY` is unset everywhere that workload runs (container env, CI secrets, shell profiles). The CLI's [`ant auth status`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#check-authentication-status) command reports which source won.
+  `ANTHROPIC_API_KEY` sits above the federation tiers, so a leftover key in the environment silently shadows federation. When migrating a workload from API keys to Workload Identity Federation, confirm `ANTHROPIC_API_KEY` is unset everywhere that workload runs (container env, CI secrets, shell profiles). The CLI’s [`ant auth status`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#check-authentication-status) command reports which source won.
 </Warning>
 
 For the full precedence table, the per-tier semantics, and the profile file schema, see [Credential precedence in the WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference#credential-precedence).
@@ -355,14 +355,14 @@ For the full precedence table, the per-tier semantics, and the profile file sche
 
 To switch an existing workload from a static API key to federation without downtime:
 
-1. **Configure federation in parallel.** Complete the [setup walkthrough](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#set-up-federation) and confirm the federation rule matches your workload's token. Leave the existing `ANTHROPIC_API_KEY` in place for now.
+1. **Configure federation in parallel.** Complete the [setup walkthrough](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#set-up-federation) and confirm the federation rule matches your workload’s token. Leave the existing `ANTHROPIC_API_KEY` in place for now.
 2. **Smoke-test which credential wins.** Run `ant auth status` from inside the workload (or inspect SDK debug logs). Because `ANTHROPIC_API_KEY` sits above the federation tiers in the precedence chain, the API key still wins at this stage.
 3. **Unset `ANTHROPIC_API_KEY` everywhere it is injected.** Remove it from CI secrets, container environment, and shell profiles (see the preceding warning). Re-run `ant auth status` and confirm the federation source now wins.
 4. **Delete the API key.** Once the workload is running on the federated token, delete the key on the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Claude Console.
 
 ## Token lifetime and refresh
 
-The minted Anthropic token's lifetime is the lesser of (a) the rule's `token_lifetime_seconds` (default 3,600 seconds) and (b) twice the remaining lifetime of the IdP JWT you presented. The result is never less than 60 seconds. The second bound prevents an Anthropic token from outliving the upstream identity it was derived from by more than a small margin.
+The minted Anthropic token’s lifetime is the lesser of (a) the rule’s `token_lifetime_seconds` (default 3,600 seconds) and (b) twice the remaining lifetime of the IdP JWT you presented. The result is never less than 60 seconds. The second bound prevents an Anthropic token from outliving the upstream identity it was derived from by more than a small margin.
 
 The SDK caches the token and refreshes it on a two-tier schedule modeled on `botocore`:
 
@@ -371,7 +371,7 @@ The SDK caches the token and refreshes it on a two-tier schedule modeled on `bot
 
 Because the SDK re-reads `ANTHROPIC_IDENTITY_TOKEN_FILE` on every exchange, it transparently picks up rotated projected tokens (Kubernetes service-account tokens, for example, rotate well before their `exp`).
 
-By default, identity tokens that carry a `jti` claim are single-use: each exchange must present a JWT that has not been exchanged before, and re-presenting one fails with the reason `jti_reused` on the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console. If your workload fetches its own tokens from your identity provider, mint a fresh JWT for each exchange instead of reusing a cached one (retry loops are the usual cause of reuse). The same applies to a token read from `ANTHROPIC_IDENTITY_TOKEN_FILE`: the SDK re-reads the file on every exchange, so the file must hold a new token before each refresh. A refresh that re-reads an unrotated token, or a restarted process that re-presents a token it already exchanged, is rejected the same way. Rotating the token well within the minted token's lifetime keeps the file ahead of the refresh schedule. If your token source cannot rotate that often, you can disable `check_jti` for that issuer as a last resort. This removes replay protection for every rule on the issuer. See [JWT verification](https://platform.claude.com/docs/en/manage-claude/wif-reference#jwt-verification) for details.
+By default, identity tokens that carry a `jti` claim are single-use: each exchange must present a JWT that has not been exchanged before, and re-presenting one fails with the reason `jti_reused` on the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console. If your workload fetches its own tokens from your identity provider, mint a fresh JWT for each exchange instead of reusing a cached one (retry loops are the usual cause of reuse). The same applies to a token read from `ANTHROPIC_IDENTITY_TOKEN_FILE`: the SDK re-reads the file on every exchange, so the file must hold a new token before each refresh. A refresh that re-reads an unrotated token, or a restarted process that re-presents a token it already exchanged, is rejected the same way. Rotating the token well within the minted token’s lifetime keeps the file ahead of the refresh schedule. If your token source cannot rotate that often, you can disable `check_jti` for that issuer as a last resort. This removes replay protection for every rule on the issuer. See [JWT verification](https://platform.claude.com/docs/en/manage-claude/wif-reference#jwt-verification) for details.
 
 ## Identity providers
 
@@ -411,5 +411,5 @@ Each guide covers where the JWT comes from on that platform, what its claims loo
 
 * [Manage WIF with the Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api): create issuers, service accounts, and rules from infrastructure as code
 * [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference): environment variables, profile file schema, validation rules, and error codes
-* [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication): all the SDK's authentication options
+* [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication): all the SDK’s authentication options
 * [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization): generated request and response schemas for every Admin API endpoint

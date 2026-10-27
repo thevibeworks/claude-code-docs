@@ -9,9 +9,9 @@ Batch processing is a powerful approach for handling large volumes of requests e
 * You need to process large volumes of data
 * Immediate responses are not required
 * You want to optimize for cost efficiency
-* You're running large-scale evaluations or analyses
+* You’re running large-scale evaluations or analyses
 
-The Message Batches API is Anthropic's first implementation of this pattern.
+The Message Batches API is Anthropic’s first implementation of this pattern.
 
 <Note>
   To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
@@ -19,7 +19,7 @@ The Message Batches API is Anthropic's first implementation of this pattern.
 
 # Message Batches API
 
-The Message Batches API is a powerful, cost-effective way to asynchronously process large volumes of [Messages](https://platform.claude.com/docs/en/api/messages/create) requests. This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.
+The Message Batches API is a powerful, cost-effective way to asynchronously process large volumes of [Messages](https://platform.claude.com/docs/en/api/messages/create) requests. This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50 percent and increasing throughput.
 
 You can [explore the API reference directly](https://platform.claude.com/docs/en/api/messages/batches/create), in addition to this guide.
 
@@ -31,7 +31,7 @@ When you send a request to the Message Batches API:
 2. The batch is then processed asynchronously, with each request handled independently.
 3. You can poll for the status of the batch and retrieve results when processing has ended for all requests.
 
-This is especially useful for bulk operations that don't require immediate results, such as:
+This is especially useful for bulk operations that don’t require immediate results, such as:
 
 * Large-scale evaluations: Process thousands of test cases efficiently.
 * Content moderation: Analyze large volumes of user-generated content asynchronously.
@@ -46,7 +46,7 @@ This is especially useful for bulk operations that don't require immediate resul
 * Batches are scoped to a [Workspace](https://platform.claude.com/settings/workspaces) in the Claude Console. You may view all batches (and their results) that were created within the Workspace your request runs in.
 * Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. See [Message Batches API rate limits](https://platform.claude.com/docs/en/api/rate-limits#message-batches-api). Additionally, processing might be slowed down based on current demand and your request volume. In that case, you might see more requests expiring after 24 hours.
 * Because of high throughput and concurrent processing, batches may go slightly over the [spend limit](https://platform.claude.com/settings/billing) configured in the Claude Console for your Workspace.
-* Each batched request must have `max_tokens` of at least `1`. `max_tokens: 0` ([cache pre-warming](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)) is not supported inside a batch, because an ephemeral cache entry written during batch processing would likely expire before the follow-up request runs.
+* Each batched request must have [`max_tokens`](https://platform.claude.com/docs/en/api/messages/create#create.max_tokens) of at least `1`. `max_tokens: 0` ([cache pre-warming](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)) is not supported inside a batch, because an ephemeral cache entry written during batch processing would likely expire before the follow-up request runs.
 
 ### Supported models
 
@@ -70,8 +70,8 @@ A small number of Messages API parameters are **not** supported in batch request
 | Parameter                                                                                                                              | Why                                                                                                                                                                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `stream: true`                                                                                                                         | Batch results come back as a single file, not a stream.                                                                                                                                                               |
-| `speed` ([Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode))                                                 | Fast mode tunes synchronous latency, which doesn't apply to asynchronous batch processing.                                                                                                                            |
-| `fallbacks` ([Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)) | Server-side fallback doesn't apply to batches. To retry refused requests, see [Refusals in Message Batches](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusals-in-message-batches). |
+| `speed` ([Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode))                                                 | Fast mode tunes synchronous latency, which doesn’t apply to asynchronous batch processing.                                                                                                                            |
+| `fallbacks` ([Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)) | Server-side fallback doesn’t apply to batches. To retry refused requests, see [Refusals in Message Batches](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusals-in-message-batches). |
 | `max_tokens: 0`                                                                                                                        | See [Batch limitations](https://platform.claude.com/docs/en/build-with-claude/batch-processing#batch-limitations).                                                                                                    |
 
 <Tip>
@@ -116,8 +116,8 @@ The Batches API offers significant cost savings. All usage is charged at 50 perc
 
 A Message Batch is composed of a list of requests to create a Message. The shape of an individual request comprises:
 
-* A unique `custom_id` for identifying the Messages request. Must be 1 to 64 characters and contain only alphanumeric characters, hyphens, and underscores (matching `^[a-zA-Z0-9_-]{1,64}$`).
-* A `params` object with the standard [Messages API](https://platform.claude.com/docs/en/api/messages/create) parameters
+* A unique [`custom_id`](https://platform.claude.com/docs/en/api/messages/batches/create#create.requests.custom_id) for identifying the Messages request. Must be 1 to 64 characters and contain only alphanumeric characters, hyphens, and underscores (matching `^[a-zA-Z0-9_-]{1,64}$`).
+* A [`params`](https://platform.claude.com/docs/en/api/messages/batches/create#create.requests.params) object with the standard [Messages API](https://platform.claude.com/docs/en/api/messages/create) parameters
 
 You can [create a batch](https://platform.claude.com/docs/en/api/messages/batches/create) by passing this list into the `requests` parameter:
 
@@ -411,7 +411,7 @@ You can [create a batch](https://platform.claude.com/docs/en/api/messages/batche
   ```
 </CodeGroup>
 
-In this example, two separate requests are batched together for asynchronous processing. Each request has a unique `custom_id` and contains the standard parameters you'd use for a Messages API call.
+In this example, two separate requests are batched together for asynchronous processing. Each request has a unique `custom_id` and contains the standard parameters you’d use for a Messages API call.
 
 <Tip>
   **Test your batch requests with the Messages API**
@@ -443,11 +443,13 @@ When a batch is first created, the response has a processing status of `in_progr
 
 ### Tracking your batch
 
-The Message Batch's `processing_status` field indicates the stage of processing the batch is in. It starts as `in_progress`, then updates to `ended` once all the requests in the batch have finished processing, and results are ready. You can monitor the state of your batch by visiting the [Console](https://platform.claude.com/settings/workspaces/default/batches), or using the [retrieval endpoint](https://platform.claude.com/docs/en/api/messages/batches/retrieve).
+The Message Batch’s [`processing_status`](https://platform.claude.com/docs/en/api/messages/batches/retrieve#message_batch.processing_status) field indicates the stage of processing the batch is in. It starts as `in_progress`, then updates to `ended` once all the requests in the batch have finished processing, and results are ready. You can monitor the state of your batch by visiting the [Console](https://platform.claude.com/settings/workspaces/default/batches), or using the retrieval endpoint.
+
+(See the `messages/batches/retrieve` method in [the API reference](https://platform.claude.com/docs/en/api/messages/batches/retrieve).)
 
 #### Polling for Message Batch completion
 
-To poll a Message Batch, you'll need its `id`, which is provided in the response when creating a batch or by listing batches. You can implement a polling loop that checks the batch status periodically until processing has ended:
+To poll a Message Batch, you’ll need its `id`, which is provided in the response when creating a batch or by listing batches. You can implement a polling loop that checks the batch status periodically until processing has ended:
 
 <CodeGroup>
   ```bash cURL
@@ -709,9 +711,11 @@ Once batch processing has ended, each Messages request in the batch has a result
 | `canceled`  | User canceled the batch before this request could be sent to the model. You will not be billed for these requests.                                                          |
 | `expired`   | Batch reached its 24-hour expiration before this request could be sent to the model. You will not be billed for these requests.                                             |
 
-The batch's `request_counts` shows an overview of your results, indicating how many requests reached each of these four states.
+The batch’s `request_counts` object counts the requests still processing and the requests with each result type.
 
-Results of the batch are available for download at the `results_url` property on the Message Batch, and if the organization permission allows, in the Console. Because of the potentially large size of the results, it's recommended to [stream results](https://platform.claude.com/docs/en/api/messages/batches/results) back rather than download them all at once.
+(See `message_batch.request_counts` on `messages/batches/retrieve` in [the API reference](https://platform.claude.com/docs/en/api/messages/batches/retrieve#message_batch.request_counts).)
+
+Results of the batch are available for download at the [`results_url`](https://platform.claude.com/docs/en/api/messages/batches/retrieve#message_batch.results_url) property on the Message Batch, and if the organization permission allows, in the Console. Because of the potentially large size of the results, it’s recommended to [stream results](https://platform.claude.com/docs/en/api/messages/batches/results) back rather than download them all at once.
 
 <CodeGroup>
   ```bash cURL
@@ -935,7 +939,7 @@ Batch results use the API version of the request that created the batch.
 
 ### Canceling a Message Batch
 
-You can cancel a Message Batch that is currently processing using the [cancel endpoint](https://platform.claude.com/docs/en/api/messages/batches/cancel). Immediately after cancellation, a batch's `processing_status` will be `canceling`. You can use the same polling technique described earlier to wait until cancellation is finalized. Canceled batches end up with a status of `ended` and may contain partial results for requests that were processed before cancellation.
+You can cancel a Message Batch that is currently processing using the [cancel endpoint](https://platform.claude.com/docs/en/api/messages/batches/cancel). Immediately after cancellation, a batch’s `processing_status` will be `canceling`. You can use the same polling technique described earlier to wait until cancellation is finalized. Canceled batches end up with a status of `ended` and may contain partial results for requests that were processed before cancellation.
 
 <CodeGroup>
   ```bash cURL
@@ -1545,7 +1549,7 @@ All [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use
 
 Because there is no open connection to maintain, the batch loop can run **more iterations in a turn** than a synchronous request before it returns `stop_reason: "pause_turn"`. If a batch result comes back with `pause_turn`, the turn did not complete; you can continue it by submitting the paused assistant content in a follow-up request (batch or synchronous) exactly as shown in the [pause\_turn continuation pattern](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn).
 
-The batch worker additionally throttles `web_search` for each organization so that highly concurrent batch processing does not exhaust your organization's web-search rate limit. The batch retries throttled requests automatically; you don't need to handle this yourself, but very large web-search batches might take longer to complete.
+The batch worker additionally throttles `web_search` for each organization so that highly concurrent batch processing does not exhaust your organization’s web-search rate limit. The batch retries throttled requests automatically; you don’t need to handle this yourself, but very large web-search batches might take longer to complete.
 
 ### Extended output (beta)
 
@@ -1798,8 +1802,8 @@ To use the Batches API effectively:
 
 If experiencing unexpected behavior:
 
-* Verify that the total batch request size doesn't exceed 256 MB. If the request size is too large, you might get a 413 `request_too_large` error.
-* Check that you're using [supported models](https://platform.claude.com/docs/en/build-with-claude/batch-processing#supported-models) for all requests in the batch.
+* Verify that the total batch request size doesn’t exceed 256 MB. If the request size is too large, you might get a 413 `request_too_large` error.
+* Check that you’re using [supported models](https://platform.claude.com/docs/en/build-with-claude/batch-processing#supported-models) for all requests in the batch.
 * Ensure each request in the batch has a unique `custom_id`.
 * Ensure that it has been less than 29 days since batch `created_at` (not processing `ended_at`) time. If over 29 days have passed, results will no longer be viewable.
 * Confirm that the batch has not been canceled.
@@ -1814,7 +1818,7 @@ Note that the failure of one request in a batch does not affect the processing o
 
 ## Data retention
 
-Batch processing stores request and response data for up to 29 days after batch creation. You can delete a message batch at any time after processing using the `DELETE /v1/messages/batches/{batch_id}` endpoint. To delete an in-progress batch, cancel it first. Asynchronous processing requires server-side storage of both inputs and outputs until batch completion and result retrieval.
+Batch processing stores request and response data for up to 29 days after batch creation. You can delete a message batch at any time after processing using the [`DELETE /v1/messages/batches/{batch_id}`](https://platform.claude.com/docs/en/api/messages/batches/delete) endpoint. To delete an in-progress batch, cancel it first. Asynchronous processing requires server-side storage of both inputs and outputs until batch completion and result retrieval.
 
 For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
@@ -1837,7 +1841,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     The Message Batches API offers a 50 percent discount on all usage compared to standard API prices. This applies to input tokens, output tokens, and any special tokens. For more on pricing, visit [Pricing](https://claude.com/pricing#anthropic-api).
   </Accordion>
 
-  <Accordion title="Can I update a batch after it's been submitted?">
+  <Accordion title="Can I update a batch after it’s been submitted?">
     No, once a batch has been submitted, it cannot be modified. If you need to make changes, cancel the current batch and submit a new one. Note that cancellation might not take immediate effect.
   </Accordion>
 
@@ -1854,7 +1858,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
 
     1. Batches and their results are isolated within the Workspace in which they were created. This means they can only be accessed by API requests in that same Workspace.
     2. Each request within a batch is processed independently, with no data leakage between requests.
-    3. Results are only available for a limited time (29 days), and follow Anthropic's [data retention policy](https://support.claude.com/en/articles/7996866-how-long-do-you-store-personal-data).
+    3. Results are only available for a limited time (29 days), and follow Anthropic’s [data retention policy](https://support.claude.com/en/articles/7996866-how-long-do-you-store-personal-data).
     4. Downloading batch results in the Console can be disabled on the organization level or on a per-workspace basis.
   </Accordion>
 

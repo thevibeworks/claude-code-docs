@@ -36,7 +36,7 @@ Voyage AI offers the following text embedding models:
 
 **Previous generation**
 
-For each model's lifecycle status and recommended replacement, see [Model deprecations, lifecycle states, and support](https://www.mongodb.com/docs/voyageai/models/lifecycle/) in the MongoDB documentation.
+For each model’s lifecycle status and recommended replacement, see [Model deprecations, lifecycle states, and support](https://www.mongodb.com/docs/voyageai/models/lifecycle/) in the MongoDB documentation.
 
 | Model              | Context length | Embedding dimension            | Description                                                                                                                                                                                         |
 | ------------------ | -------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ The following contextualized chunk embedding models produce chunk-level vectors 
 | `voyage-context-4` | 120,000        | 1024 (default), 256, 512, 2048 | Contextualized chunk embeddings optimized for general-purpose and multilingual retrieval quality. See the [voyage-context-4 blog post](https://blog.voyageai.com/2026/06/29/voyage-context-4/) for details. |
 | `voyage-context-3` | 120,000        | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-context-4`. See the [voyage-context-3 blog post](https://blog.voyageai.com/2025/07/23/voyage-context-3/) for details.                                                        |
 
-The 120,000-token limit applies when you set `enable_auto_chunking` to `true`. Otherwise, the total number of tokens across all inputs can't exceed 32,000.
+The 120,000-token limit applies when you set `enable_auto_chunking` to `true`. Otherwise, the total number of tokens across all inputs can’t exceed 32,000.
 
 Voyage AI also offers rerankers, which take a query and a list of documents and return them ranked by relevance to the query. Call these models with `rerank()`:
 
@@ -164,13 +164,13 @@ The response is a JSON object containing the embeddings and the token usage:
 }
 ```
 
-Model API keys from Atlas work with `ai.mongodb.com`, except keys scoped to a geography, which use that geography's endpoint. If you have an API key from the Voyage AI platform instead, see [Migrate your applications to use the Atlas Embedding and Reranking API](https://www.mongodb.com/docs/voyageai/tutorials/migrate-to-atlas/) in the MongoDB documentation.
+Model API keys from Atlas work with `ai.mongodb.com`, except keys scoped to a geography, which use that geography’s endpoint. If you have an API key from the Voyage AI platform instead, see [Migrate your applications to use the Atlas Embedding and Reranking API](https://www.mongodb.com/docs/voyageai/tutorials/migrate-to-atlas/) in the MongoDB documentation.
 
 For the full request and response reference, see [Create text embeddings](https://www.mongodb.com/docs/api/doc/atlas-embedding-and-reranking-api/operation/operation-createembedding) in the Atlas Embedding and Reranking API documentation.
 
 ### AWS Marketplace
 
-Voyage AI models are also available on AWS Marketplace through [MongoDB's seller profile](https://aws.amazon.com/marketplace/seller-profile?id=c9032c7b-70dd-459f-834f-c1e23cf3d092). For instructions, see [Deploy Voyage AI models using AWS Marketplace](https://www.mongodb.com/docs/voyageai/management/aws-marketplace/) in the MongoDB documentation.
+Voyage AI models are also available on AWS Marketplace through [MongoDB’s seller profile](https://aws.amazon.com/marketplace/seller-profile?id=c9032c7b-70dd-459f-834f-c1e23cf3d092). For instructions, see [Deploy Voyage AI models using AWS Marketplace](https://www.mongodb.com/docs/voyageai/management/aws-marketplace/) in the MongoDB documentation.
 
 ## Quickstart example
 
@@ -237,14 +237,14 @@ If you are looking for a detailed set of recipes on how to do RAG with embedding
 
 <AccordionGroup>
   <Accordion title="Why do Voyage AI embeddings have superior quality?">
-    Embedding models rely on powerful neural networks to capture and compress semantic context, similar to generative models. Voyage AI's team of experienced AI researchers optimizes every component of the embedding process, including:
+    Embedding models rely on powerful neural networks to capture and compress semantic context, similar to generative models. Voyage AI’s team of experienced AI researchers optimizes every component of the embedding process, including:
 
     * Model architecture
     * Data collection
     * Loss functions
     * Optimizer selection
 
-    Learn more about Voyage AI's technical approach on the [Voyage AI blog](https://blog.voyageai.com/).
+    Learn more about Voyage AI’s technical approach on the [Voyage AI blog](https://blog.voyageai.com/).
   </Accordion>
 
   <Accordion title="What embedding models are available and which should I use?">
@@ -293,8 +293,8 @@ If you are looking for a detailed set of recipes on how to do RAG with embedding
     >
     > * Example
     >
-    >   * When `input_type="query"`, a query such as "When is Apple's conference call scheduled?" will become "**Represent the query for retrieving supporting documents:** When is Apple's conference call scheduled?"
-    >   * When `input_type="document"`, a document such as "Apple's conference call to discuss fourth fiscal quarter results and business updates is scheduled for Thursday, November 2, 2023 at 2:00 p.m. PT / 5:00 p.m. ET." will become "**Represent the document for retrieval:** Apple's conference call to discuss fourth fiscal quarter results and business updates is scheduled for Thursday, November 2, 2023 at 2:00 p.m. PT / 5:00 p.m. ET."
+    >   * When `input_type="query"`, a query such as “When is Apple’s conference call scheduled?” will become “**Represent the query for retrieving supporting documents:** When is Apple’s conference call scheduled?”
+    >   * When `input_type="document"`, a document such as “Apple’s conference call to discuss fourth fiscal quarter results and business updates is scheduled for Thursday, November 2, 2023 at 2:00 p.m. PT / 5:00 p.m. ET.” will become “**Represent the document for retrieval:** Apple’s conference call to discuss fourth fiscal quarter results and business updates is scheduled for Thursday, November 2, 2023 at 2:00 p.m. PT / 5:00 p.m. ET.”
   </Accordion>
 
   <Accordion title="What quantization options are available?">

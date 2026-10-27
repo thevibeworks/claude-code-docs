@@ -15,7 +15,7 @@ description: Specify tool schemas, write effective descriptions, and control whe
 
 ## Specifying client tools
 
-Client tools are specified in the `tools` top-level parameter of the API request. Anthropic-schema client tools, such as the bash and text editor tools, are declared by a date-versioned `type`; see each tool's page, linked from the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference), for the fields it accepts. The computer use and browser use tools are [client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets): a single entry with no `name` that declares a fixed set of member tools. A user-defined tool definition includes:
+Client tools are specified in the `tools` top-level parameter of the API request. Anthropic-schema client tools, such as the bash and text editor tools, are declared by a date-versioned `type`; see each tool’s page, linked from the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference), for the fields it accepts. The computer use and browser use tools are [client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets): a single entry with no `name` that declares a fixed set of member tools. A user-defined tool definition includes:
 
 | Parameter        | Description                                                                                                                                                                                                                   |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -49,7 +49,7 @@ For the full set of optional properties available on any single tool definition,
   }
   ```
 
-  This tool, named `get_weather`, expects an input object with a required `location` string and an optional `unit` string that must be either "celsius" or "fahrenheit".
+  This tool, named `get_weather`, expects an input object with a required `location` string and an optional `unit` string that must be either `celsius` or `fahrenheit`.
 </Accordion>
 
 ### Tool use system prompt
@@ -73,8 +73,8 @@ To get the best performance out of Claude when using tools, follow these guideli
 * **Provide extremely detailed descriptions.** This is by far the most important factor in tool performance. Your descriptions should explain every detail about the tool, including:
 
   * What the tool does
-  * When it should be used (and when it shouldn't)
-  * What each parameter means and how it affects the tool's behavior
+  * When it should be used (and when it shouldn’t)
+  * What each parameter means and how it affects the tool’s behavior
   * Any important caveats or limitations, such as what information the tool does not return if the tool name is unclear. The more context you can give Claude about your tools, the better it will be at determining when and how to use them. Aim for at least 3–4 sentences for each tool description, more if the tool is complex.
 
 * **Prioritize descriptions, but consider using `input_examples` for complex tools.** Clear descriptions are most important, but for tools with complex inputs, nested objects, or format-sensitive parameters, you can use the `input_examples` field to provide schema-validated examples. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) for details.
@@ -85,7 +85,7 @@ To get the best performance out of Claude when using tools, follow these guideli
 
 * **Design tool responses to return only high-signal information.** Return semantic, stable identifiers (for example, slugs or UUIDs) rather than opaque internal references, and include only the fields Claude needs to reason about its next step. Bloated responses waste context and make it harder for Claude to extract what matters.
 
-* **Ask for an explanation, not reasoning.** If a parameter asks Claude why it is making the call, ask for a short explanation or the supporting evidence. A parameter that asks for the model's thinking or step-by-step reasoning might lead to a `reasoning_extraction` refusal. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
+* **Ask for an explanation, not reasoning.** If a parameter asks Claude why it is making the call, ask for a short explanation or the supporting evidence. A parameter that asks for the model’s thinking or step-by-step reasoning might lead to a `reasoning_extraction` refusal. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
 
 <AccordionGroup>
   <Accordion title="Example of a good tool description">
@@ -126,7 +126,7 @@ To get the best performance out of Claude when using tools, follow these guideli
   </Accordion>
 </AccordionGroup>
 
-The good description clearly explains what the tool does, when to use it, what data it returns, and what the `ticker` parameter means. The poor description is too brief and leaves Claude with many open questions about the tool's behavior and usage.
+The good description clearly explains what the tool does, when to use it, what data it returns, and what the `ticker` parameter means. The poor description is too brief and leaves Claude with many open questions about the tool’s behavior and usage.
 
 <Tip>
   For deeper guidance on tool design (consolidation, naming, and response shaping), see [Writing tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents).
@@ -138,7 +138,7 @@ You can provide concrete examples of valid tool inputs to show Claude how to use
 
 ### Basic usage
 
-Add an optional `input_examples` field to your tool definition with an array of example input objects. Each example must be valid according to the tool's `input_schema`:
+Add an optional `input_examples` field to your tool definition with an array of example input objects. Each example must be valid according to the tool’s `input_schema`:
 
 <CodeGroup>
   ```bash cURL
@@ -542,21 +542,21 @@ Examples are included in the prompt alongside your tool schema, showing Claude c
 
 ### Requirements and limitations
 
-* **Schema validation** - Each example must be valid according to the tool's `input_schema`. Invalid examples return a 400 error.
+* **Schema validation** - Each example must be valid according to the tool’s `input_schema`. Invalid examples return a 400 error.
 * **Not supported for server-side tools or client toolsets** - Input examples work on user-defined and Anthropic-schema client tools other than the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolsets, but not on server tools such as web search or code execution.
 * **Token cost** - Examples add to prompt tokens: \~20–50 tokens for simple examples, \~100–200 tokens for complex nested objects.
 
-## Controlling Claude's output
+## Controlling Claude’s output
 
 ### Forcing tool use
 
-In some cases, you might want Claude to use a specific tool to answer the user's question, even if Claude would otherwise answer directly without calling a tool. You can do this by specifying the tool in the `tool_choice` field of the request.
+In some cases, you might want Claude to use a specific tool to answer the user’s question, even if Claude would otherwise answer directly without calling a tool. You can do this by specifying the tool in the `tool_choice` field of the request.
 
-Not every model and setting supports forced tool use. Where it isn't supported, `tool_choice: {"type": "any"}` and `tool_choice: {"type": "tool", "name": "..."}` fail, whereas `tool_choice: {"type": "auto"}` (the default) and `tool_choice: {"type": "none"}` still work:
+Not every model and setting supports forced tool use. Where it isn’t supported, `tool_choice: {"type": "any"}` and `tool_choice: {"type": "tool", "name": "..."}` fail, whereas `tool_choice: {"type": "auto"}` (the default) and `tool_choice: {"type": "none"}` still work:
 
 | Model or setting                                                                                                                              | Restriction                                                                                                         | What to use instead                                                                                                                                                                                                                                                                                                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Manual [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) (`thinking: {type: "enabled"}`)           | `any` and `tool` are not supported and result in an error                                                           | `auto` or `none`. [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) itself doesn't block forced tool use (models with thinking on by default, such as Claude Opus 5 and Claude Haiku 5.5, accept it, but a forced call skips thinking: the response starts with the tool call and has no `thinking` block); the models in the next row reject forced tool use regardless of thinking settings |
+| Manual [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) (`thinking: {type: "enabled"}`)           | `any` and `tool` are not supported and result in an error                                                           | `auto` or `none`. [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) itself doesn’t block forced tool use (models with thinking on by default, such as Claude Opus 5 and Claude Haiku 5.5, accept it, but a forced call skips thinking: the response starts with the tool call and has no `thinking` block); the models in the next row reject forced tool use regardless of thinking settings |
 | Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) | `any` and `tool` return a [400 error](https://platform.claude.com/docs/en/api/errors#forced-tool-use-not-supported) | `auto` with [strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use) to guarantee schema-valid tool inputs, or [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) when you need a response in a fixed JSON shape. Prompting still influences which tool `auto` picks. `none` is also supported                                              |
 
 On models that support it, the highlighted lines are the only difference from a standard tool use request:
@@ -837,7 +837,7 @@ On models that support it, the highlighted lines are the only difference from a 
 When working with the `tool_choice` parameter, there are four possible options:
 
 * `auto` allows Claude to determine whether to call any provided tools. This is the default value when `tools` are provided.
-* `any` tells Claude that it must use one of the provided tools, but doesn't force a particular tool.
+* `any` tells Claude that it must use one of the provided tools, but doesn’t force a particular tool.
 * `tool` forces Claude to always use a particular tool.
 * `none` prevents Claude from using any tools. This is the default value when no `tools` are provided.
 
@@ -865,9 +865,9 @@ Forcing a tool also skips thinking on every model that accepts forced tool use: 
 
 ### Model responses with tools
 
-When using tools, Claude often comments on what it's doing or responds naturally to the user before calling tools.
+When using tools, Claude often comments on what it’s doing or responds naturally to the user before calling tools.
 
-For example, given the prompt "What's the weather like in San Francisco right now, and what time is it there?", Claude might respond with:
+For example, given the prompt “What’s the weather like in San Francisco right now, and what time is it there?”, Claude might respond with:
 
 ```json JSON
 {
@@ -889,7 +889,7 @@ For example, given the prompt "What's the weather like in San Francisco right no
 
 This natural response style helps users understand what Claude is doing and creates a more conversational interaction. You can guide the style and content of these responses through your system prompts and by providing `<examples>` in your prompts.
 
-It's important to note that Claude might use various phrasings and approaches when explaining its actions. Your code should treat these responses like any other assistant-generated text, and not rely on specific formatting conventions.
+It’s important to note that Claude might use various phrasings and approaches when explaining its actions. Your code should treat these responses like any other assistant-generated text, and not rely on specific formatting conventions.
 
 ## Next steps
 

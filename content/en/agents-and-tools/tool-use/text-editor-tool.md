@@ -226,7 +226,7 @@ Use the text editor tool in the following way:
 <Steps>
   <Step title="Provide Claude with the text editor tool and a user prompt">
     * Include the text editor tool in your API request.
-    * Provide a user prompt that might require examining or modifying files, such as "Can you fix the syntax error in my code?"
+    * Provide a user prompt that might require examining or modifying files, such as “Can you fix the syntax error in my code?”
   </Step>
 
   <Step title="Claude uses the tool to examine files or directories">
@@ -235,8 +235,8 @@ Use the text editor tool in the following way:
   </Step>
 
   <Step title="Run the view command and return results">
-    * Extract the file or directory path from Claude's tool use request.
-    * Read the file's contents or list the directory contents.
+    * Extract the file or directory path from Claude’s tool use request.
+    * Read the file’s contents or list the directory contents.
     * If you specified a `max_characters` parameter in the tool configuration, truncate the file contents to that length.
     * Return the results to Claude by continuing the conversation with a new `user` message containing a `tool_result` content block.
   </Step>
@@ -247,7 +247,7 @@ Use the text editor tool in the following way:
   </Step>
 
   <Step title="Make the edit and return results">
-    * Extract the file path, old text, and new text from Claude's tool use request.
+    * Extract the file path, old text, and new text from Claude’s tool use request.
     * Perform the text replacement in the file.
     * Return the results to Claude.
   </Step>
@@ -267,7 +267,7 @@ The `view` command allows Claude to examine the contents of a file or list the c
 
 Parameters:
 
-* `command`: Must be "view"
+* `command`: Must be `view`
 * `path`: The path to the file or directory to view
 * `view_range` (optional): An array of two integers specifying the start and end line numbers to view. Line numbers are 1-indexed, and -1 for the end line means read to the end of the file. This parameter only applies when viewing files, not directories.
 
@@ -307,7 +307,7 @@ The `str_replace` command allows Claude to replace a specific string in a file w
 
 Parameters:
 
-* `command`: Must be "str\_replace"
+* `command`: Must be `str_replace`
 * `path`: The path to the file to modify
 * `old_str`: The text to replace (must match exactly, including whitespace and indentation)
 * `new_str`: The new text to insert in place of the old text
@@ -334,7 +334,7 @@ The `create` command allows Claude to create a new file with specified content.
 
 Parameters:
 
-* `command`: Must be "create"
+* `command`: Must be `create`
 * `path`: The path where the new file should be created
 * `file_text`: The content to write to the new file
 
@@ -359,7 +359,7 @@ The `insert` command allows Claude to insert text at a specific location in a fi
 
 Parameters:
 
-* `command`: Must be "insert"
+* `command`: Must be `insert`
 * `path`: The path to the file to modify
 * `insert_line`: The line number after which to insert the text (0 for beginning of file)
 * `insert_text`: The text to insert
@@ -1016,7 +1016,7 @@ Your application should then read the file and return its contents to Claude:
 <Tip>
   **Line numbers**
 
-  In the preceding example, the `view` tool result includes file contents with line numbers prepended to each line (for example, "1: def is\_prime(n):"). Line numbers are not required, but they are essential for successfully using the `view_range` parameter to examine specific sections of files and the `insert_line` parameter to add content at precise locations.
+  In the preceding example, the `view` tool result includes file contents with line numbers prepended to each line (for example, “1: def is\_prime(n):”). Line numbers are not required, but they are essential for successfully using the `view_range` parameter to examine specific sections of files and the `insert_line` parameter to add content at precise locations.
 </Tip>
 
 Claude identifies the syntax error and uses the `str_replace` command to fix it:
@@ -1478,7 +1478,7 @@ Finally, Claude provides a complete explanation of the fix:
 
 ## Implement the text editor tool
 
-The text editor tool is implemented as a schema-less tool. When using this tool, you don't need to provide an input schema as with other tools; the schema is built into Claude's model and can't be modified.
+The text editor tool is implemented as a schema-less tool. When using this tool, you don’t need to provide an input schema as with other tools; the schema is built into Claude’s model and can’t be modified.
 
 The tool type is `type: "text_editor_20250728"` for Claude 4 and later models.
 
@@ -1648,8 +1648,8 @@ The tool type is `type: "text_editor_20250728"` for Claude 4 and later models.
     * Implement permissions checks
   </Step>
 
-  <Step title="Process Claude's responses">
-    Extract and handle tool calls from Claude's responses:
+  <Step title="Process Claude’s responses">
+    Extract and handle tool calls from Claude’s responses:
 
     <CodeGroup exclude="shell">
       ```python Python
@@ -1777,7 +1777,7 @@ When using the text editor tool, various errors might occur. Here is guidance on
 
 <AccordionGroup>
   <Accordion title="File not found">
-    If Claude attempts to view or modify a file that doesn't exist, return an appropriate error message in the `tool_result`:
+    If Claude attempts to view or modify a file that doesn’t exist, return an appropriate error message in the `tool_result`:
 
     ```json
     {
@@ -1795,7 +1795,7 @@ When using the text editor tool, various errors might occur. Here is guidance on
   </Accordion>
 
   <Accordion title="Multiple matches for replacement">
-    If Claude's `str_replace` command matches multiple locations in the file, return an appropriate error message:
+    If Claude’s `str_replace` command matches multiple locations in the file, return an appropriate error message:
 
     ```json
     {
@@ -1813,7 +1813,7 @@ When using the text editor tool, various errors might occur. Here is guidance on
   </Accordion>
 
   <Accordion title="No matches for replacement">
-    If Claude's `str_replace` command doesn't match any text in the file, return an appropriate error message:
+    If Claude’s `str_replace` command doesn’t match any text in the file, return an appropriate error message:
 
     ```json
     {
@@ -1855,17 +1855,17 @@ When using the text editor tool, various errors might occur. Here is guidance on
   <Accordion title="Provide clear context">
     When asking Claude to fix or modify code, be specific about what files to examine or what issues to address. Clear context helps Claude identify the right files and make appropriate changes.
 
-    **Less helpful prompt:** "Can you fix my code?"
+    **Less helpful prompt:** “Can you fix my code?”
 
-    **Better prompt:** "There's a syntax error in my primes.py file that prevents it from running. Can you fix it?"
+    **Better prompt:** “There’s a syntax error in my primes.py file that prevents it from running. Can you fix it?”
   </Accordion>
 
   <Accordion title="Be explicit about file paths">
-    Specify file paths clearly when needed, especially if you're working with multiple files or files in different directories.
+    Specify file paths clearly when needed, especially if you’re working with multiple files or files in different directories.
 
-    **Less helpful prompt:** "Review my helper file"
+    **Less helpful prompt:** “Review my helper file”
 
-    **Better prompt:** "Can you check my utils/helpers.py file for any performance issues?"
+    **Better prompt:** “Can you check my utils/helpers.py file for any performance issues?”
   </Accordion>
 
   <Accordion title="Create backups before editing">
@@ -2227,7 +2227,7 @@ When using the text editor tool, various errors might occur. Here is guidance on
 
 ## Pricing and token usage
 
-The text editor tool uses the same pricing structure as other tools used with Claude. It follows the standard input and output token pricing based on the Claude model you're using.
+The text editor tool uses the same pricing structure as other tools used with Claude. It follows the standard input and output token pricing based on the Claude model you’re using.
 
 In addition to the base tokens, the following additional input tokens are needed for the text editor tool:
 
@@ -2242,7 +2242,7 @@ For more detailed information about tool pricing, see [Tool use pricing](https:/
 
 You can use the text editor tool alongside other Claude tools. When combining tools, ensure you:
 
-* Match the tool version with the model you're using
+* Match the tool version with the model you’re using
 * Account for the additional token usage for all tools included in your request
 
 ## Change log

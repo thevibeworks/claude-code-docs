@@ -1175,7 +1175,7 @@ You can also provide search results directly in user messages. This is useful fo
   ```
 </CodeGroup>
 
-## Claude's response with citations
+## Claude’s response with citations
 
 Regardless of how search results are provided, Claude automatically includes citations when using information from them:
 
@@ -1232,10 +1232,10 @@ Each citation includes:
 | `title`               | string or null | The title from the original search result                                                                                                                                 |
 | `cited_text`          | string         | The full text of the cited block(s), concatenated. Equals the contents of `content[start_block_index:end_block_index]` joined together. Not counted toward output tokens. |
 | `search_result_index` | integer        | 0-based index of the cited search result among all `search_result` blocks in the request, in the order they appear (across all messages and tool results).                |
-| `start_block_index`   | integer        | 0-based index of the first cited block in the search result's `content` array.                                                                                            |
-| `end_block_index`     | integer        | Exclusive end index of the cited block range in the search result's `content` array. Always greater than `start_block_index`.                                             |
+| `start_block_index`   | integer        | 0-based index of the first cited block in the search result’s `content` array.                                                                                            |
+| `end_block_index`     | integer        | Exclusive end index of the cited block range in the search result’s `content` array. Always greater than `start_block_index`.                                             |
 
-The block indices identify a slice of the search result's `content` array, and `cited_text` is the full text of that slice. The text block is the minimal citable unit: Claude cites whole blocks, not substrings within a block. To get finer-grained citations, split your search result content into smaller blocks (see [Multiple content blocks](https://platform.claude.com/docs/en/build-with-claude/search-results#multiple-content-blocks)).
+The block indices identify a slice of the search result’s `content` array, and `cited_text` is the full text of that slice. The text block is the minimal citable unit: Claude cites whole blocks, not substrings within a block. To get finer-grained citations, split your search result content into smaller blocks (see [Multiple content blocks](https://platform.claude.com/docs/en/build-with-claude/search-results#multiple-content-blocks)).
 
 ## Multiple content blocks
 
@@ -1278,7 +1278,7 @@ A citation referencing the rate limits block looks like:
 }
 ```
 
-When this search result is cited, `start_block_index` and `end_block_index` identify which of these blocks the citation covers, and `cited_text` contains exactly those blocks' text. Splitting content into smaller, focused blocks gives Claude finer citation boundaries; combining content into one block means every citation returns the full text. This is the same model used by [custom content documents](https://platform.claude.com/docs/en/build-with-claude/citations#custom-content-documents) in the Citations feature.
+When this search result is cited, `start_block_index` and `end_block_index` identify which of these blocks the citation covers, and `cited_text` contains exactly those blocks’ text. Splitting content into smaller, focused blocks gives Claude finer citation boundaries; combining content into one block means every citation returns the full text. This is the same model used by [custom content documents](https://platform.claude.com/docs/en/build-with-claude/citations#custom-content-documents) in the Citations feature.
 
 ## Advanced usage
 
@@ -1286,7 +1286,7 @@ When this search result is cited, `start_block_index` and `end_block_index` iden
 
 You can mix both methods in the same conversation. Claude cites from either source, and `search_result_index` counts all `search_result` blocks in request order, regardless of source.
 
-The following example replays a complete conversation. The first user message carries a pre-fetched search result, the assistant turn calls a knowledge base tool, and the tool result returns a second search result. Claude's answer cites both sources:
+The following example replays a complete conversation. The first user message carries a pre-fetched search result, the assistant turn calls a knowledge base tool, and the tool result returns a second search result. Claude’s answer cites both sources:
 
 <CodeGroup>
   ```bash cURL
@@ -2055,7 +2055,7 @@ The response cites both sources. The pre-fetched result is `search_result_index:
 
 In user messages, `search_result` blocks can sit alongside any other content block. The Method 2 example pairs search results with a `text` question, and image or document blocks can join them the same way.
 
-Tool results are stricter: if any block in a `tool_result` content array is a `search_result`, all of its blocks must be `search_result`. Mixing search results with other block types in the same tool result returns a validation error. To return supporting text alongside tool-sourced search results, include it as a text block inside one of the search results' `content` arrays, where it also becomes citable.
+Tool results are stricter: if any block in a `tool_result` content array is a `search_result`, all of its blocks must be `search_result`. Mixing search results with other block types in the same tool result returns a validation error. To return supporting text alongside tool-sourced search results, include it as a text block inside one of the search results’ `content` arrays, where it also becomes citable.
 
 ### Cache control
 
@@ -2141,7 +2141,7 @@ When `citations.enabled` is set to `true`, Claude attaches citation references t
   </Card>
 
   <Card title="Citations" icon="book" href="https://platform.claude.com/docs/en/build-with-claude/citations">
-    Ground Claude's responses in your source documents. Citations return the exact passages that support each claim, so you can verify answers and surface sources to your users.
+    Ground Claude’s responses in your source documents. Citations return the exact passages that support each claim, so you can verify answers and surface sources to your users.
   </Card>
 
   <Card title="Web search tool" icon="magnifying-glass" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool">

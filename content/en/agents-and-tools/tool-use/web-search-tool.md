@@ -24,7 +24,7 @@ The examples on this page use `web_search_20250305` for basic search and `web_se
   For [Claude Mythos Preview](https://anthropic.com/glasswing), web search is supported on the Claude API, Claude Models on Google Cloud (Google managed), and Microsoft Foundry.
 </Note>
 
-For web search's Zero Data Retention eligibility and the related `allowed_callers` configuration, see [Server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#zdr-and-allowed-callers).
+For web search’s Zero Data Retention eligibility and the related `allowed_callers` configuration, see [Server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#zdr-and-allowed-callers).
 
 For model support, see the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference).
 
@@ -58,11 +58,11 @@ Triggering is steerable through your system prompt: you can encourage Claude to 
 
 ### Dynamic filtering
 
-With basic web search, every search result is loaded into Claude's context window, and much of that content can be irrelevant to the request. With `web_search_20260209` or later, Claude instead writes and runs code that filters the results first, so only relevant content reaches the context window. This reduces token use on search-heavy requests.
+With basic web search, every search result is loaded into Claude’s context window, and much of that content can be irrelevant to the request. With `web_search_20260209` or later, Claude instead writes and runs code that filters the results first, so only relevant content reaches the context window. This reduces token use on search-heavy requests.
 
-Dynamic filtering runs web search from inside [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool): on `web_search_20260209` and later, the tool's `allowed_callers` field defaults to `["code_execution_20260120"]`, and when dynamic filtering runs, the API provisions the code execution it needs for the request automatically. You don't need to add the code execution tool to `tools` yourself. There are no additional charges for code execution calls made this way beyond the standard token costs.
+Dynamic filtering runs web search from inside [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool): on `web_search_20260209` and later, the tool’s `allowed_callers` field defaults to `["code_execution_20260120"]`, and when dynamic filtering runs, the API provisions the code execution it needs for the request automatically. You don’t need to add the code execution tool to `tools` yourself. There are no additional charges for code execution calls made this way beyond the standard token costs.
 
-To call web search directly, without dynamic filtering, set `allowed_callers: ["direct"]`. Models that don't support programmatic tool calling require this setting. Without it, the API returns a 400 error that tells you to set it.
+To call web search directly, without dynamic filtering, set `allowed_callers: ["direct"]`. Models that don’t support programmatic tool calling require this setting. Without it, the API returns a 400 error that tells you to set it.
 
 <Note>
   The web search tool (with and without dynamic filtering) is available on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). On Microsoft Foundry, deployments [hosted on Azure](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure) support only the basic web search tool (`web_search_20250305`, without dynamic filtering). Deployments hosted on Anthropic support all versions. On Claude Models on Google Cloud (Google managed), only the basic web search tool (without dynamic filtering) is available.
@@ -236,10 +236,10 @@ The following examples use `web_search_20260318`:
 ## How to use web search
 
 <Note>
-  Web search is enabled for your organization unless an administrator has disabled it in the [Claude Console](https://platform.claude.com/settings/capabilities), where they can also restrict which domains it searches. If it's disabled, a Messages API request that includes the tool fails with a 400 `invalid_request_error` that says web search is not enabled, rather than an [error code](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#errors) inside a search result.
+  Web search is enabled for your organization unless an administrator has disabled it in the [Claude Console](https://platform.claude.com/settings/capabilities), where they can also restrict which domains it searches. If it’s disabled, a Messages API request that includes the tool fails with a 400 `invalid_request_error` that says web search is not enabled, rather than an [error code](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#errors) inside a search result.
 </Note>
 
-For how your organization's web search settings apply in Claude Managed Agents sessions, see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
+For how your organization’s web search settings apply in Claude Managed Agents sessions, see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
 
 Provide the web search tool in your API request:
 
@@ -454,7 +454,7 @@ On [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/ov
 
 ### Localization
 
-The `user_location` parameter allows you to localize search results based on a user's location. Provide at least one of `city`, `region`, `country`, or `timezone`.
+The `user_location` parameter allows you to localize search results based on a user’s location. Provide at least one of `city`, `region`, `country`, or `timezone`.
 
 * `type`: The type of location (must be `approximate`)
 * `city`: The city name
@@ -470,7 +470,7 @@ On Claude Managed Agents, the `web_search` entry of the agent toolset also accep
   Requires `web_search_20260318` or later.
 </Note>
 
-The `response_inclusion` parameter controls how search result blocks appear in the API response when the result was consumed by a completed [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) call in the same turn. Set `"response_inclusion": "excluded"` to drop those nested `server_tool_use` and result block pairs entirely from the response, reducing output token costs for agentic workflows that don't need to echo raw search content back to the client. The default is `"full"`. Results from direct calls, or from code execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+The `response_inclusion` parameter controls how search result blocks appear in the API response when the result was consumed by a completed [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) call in the same turn. Set `"response_inclusion": "excluded"` to drop those nested `server_tool_use` and result block pairs entirely from the response, reducing output token costs for agentic workflows that don’t need to echo raw search content back to the client. The default is `"full"`. Results from direct calls, or from code execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
 ```json JSON
 {
@@ -486,7 +486,7 @@ The `response_inclusion` parameter controls how search result blocks appear in t
 
 ## Response
 
-Here's an example response structure:
+Here’s an example response structure:
 
 ```json Output
 {
@@ -562,7 +562,7 @@ Search results include:
 * `page_age`: When the site was last updated
 * `encrypted_content`: Encrypted content that you must pass back in multi-turn conversations
 
-To continue a conversation that contains search results, send the assistant's content blocks back exactly as you received them, including each result's `encrypted_content`. The API decrypts that content on later turns to restore the search results in Claude's context. If `encrypted_content` is missing or modified, the request fails with a 400 validation error.
+To continue a conversation that contains search results, send the assistant’s content blocks back exactly as you received them, including each result’s `encrypted_content`. The API decrypts that content on later turns to restore the search results in Claude’s context. If `encrypted_content` is missing or modified, the request fails with a 400 validation error.
 
 ### Citations
 
@@ -619,7 +619,7 @@ To cache tool definitions across turns, see [Tool use with prompt caching](https
 
 ## Streaming
 
-With streaming enabled, you'll receive search events as part of the stream. There is a pause while the search runs:
+With streaming enabled, you’ll receive search events as part of the stream. There is a pause while the search runs:
 
 ```sse Output
 event: message_start
@@ -650,7 +650,7 @@ data: {"type": "content_block_start", "index": 2, "content_block": {"type": "web
 
 You can include the web search tool in the [Messages Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing). Web search tool calls through the Messages Batches API are priced the same as those in regular Messages API requests.
 
-To protect shared capacity, the Batches API throttles web search requests for each organization, so large batches with many searches might take longer to complete. You can see your organization's web search rate limit on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console. To request a higher limit, contact sales from that page.
+To protect shared capacity, the Batches API throttles web search requests for each organization, so large batches with many searches might take longer to complete. You can see your organization’s web search rate limit on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console. To request a higher limit, contact sales from that page.
 
 ## Usage and pricing
 
@@ -678,7 +678,7 @@ Each web search counts as one use, regardless of the number of results returned.
 
 <CardGroup cols={3}>
   <Card title="Web fetch tool" icon="link" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool">
-    Fetch and read content from specific URLs to augment Claude's context with live web content.
+    Fetch and read content from specific URLs to augment Claude’s context with live web content.
   </Card>
 
   <Card title="Server tools" icon="tool" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools">

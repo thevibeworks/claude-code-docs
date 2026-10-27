@@ -8,10 +8,10 @@ This guide explains which model you are using, how usage is metered, and how to 
 
 How you signed in determines how usage is metered. Everything else about Claude Code behaves the same way regardless.
 
-| **You signed in with…**                                  | **You get**                                                                      | **What "running out" looks like**                      |
-| -------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Claude Enterprise seat (via `/login`)                    | A pool of usage included in your organization's plan, reset on a rolling window. | A "limit reached, resets at *time*" message.           |
-| API key (Console, Bedrock, Vertex, or Microsoft Foundry) | Pay-as-you-go, billed per token to that cloud or Console account.                | No hard stop; the account is charged for what it uses. |
+| **You signed in with…**                                                                | **You get**                                                                      | **What "running out" looks like**                      |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| Claude Enterprise seat (signed in through Claude Desktop, or `/login` in the terminal) | A pool of usage included in your organization's plan, reset on a rolling window. | A "limit reached, resets at *time*" message.           |
+| API key (Console, Bedrock, Vertex, or Microsoft Foundry)                               | Pay-as-you-go, billed per token to that cloud or Console account.                | No hard stop; the account is charged for what it uses. |
 
 If you signed in with an Enterprise seat, you generally do not need to think about tokens until you reach a limit. If you are using an API key, the **`/cost`** command shows your running spend for the current session.
 
@@ -69,7 +69,7 @@ Almost every "I burned through my limit by lunchtime" report traces back to one 
 
 Every previous message is resent on every turn, so a session that has wandered through three unrelated problems pays for all three on each new message.
 
-**In practice:** you just finished debugging a login redirect and now want to write a database migration. Run `/clear` first. A simple test: if your next prompt would make perfect sense in a brand-new terminal, clear before sending it. Your `CLAUDE.md` and project files stay put; only the chat history goes.
+**In practice:** you just finished debugging a login redirect and now want to write a database migration. Run `/clear` first. A simple test: if your next prompt would make perfect sense in a brand-new session, clear before sending it. Your `CLAUDE.md` and project files stay put; only the chat history goes.
 
 **One warning:** `/clear` cannot be undone. If you might still need something from the history, copy it out first or run `/compact` instead, which preserves a summary rather than wiping everything.
 

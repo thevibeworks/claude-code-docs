@@ -10,14 +10,14 @@ description: Google operates Claude Models on Google Cloud (Google managed) as p
 
 To use Claude Models on Google Cloud (Google managed), you need:
 
-1. A Google Cloud project that can use Agent Platform. For setup steps, see Google Cloud's [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page.
+1. A Google Cloud project that can use Agent Platform. For setup steps, see Google Cloud’s [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page.
 2. The [gcloud CLI](https://cloud.google.com/sdk/docs/install) installed, for local development.
-3. For the identity making the calls, an IAM role that includes the `aiplatform.endpoints.predict` permission, such as Agent Platform User (`roles/aiplatform.user`). For details, see Google Cloud's [Agent Platform partner models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models) page.
-4. Google Cloud credentials for that identity. For the SDK examples, you might need to run `gcloud auth application-default login` to authenticate with Google Cloud. The cURL examples for Claude Models on Google Cloud (Google managed) get their token with `gcloud auth print-access-token`. That command uses the gcloud CLI's own login, not Application Default Credentials. For those examples, run `gcloud auth login` or `gcloud init` first.
+3. For the identity making the calls, an IAM role that includes the `aiplatform.endpoints.predict` permission, such as Agent Platform User (`roles/aiplatform.user`). For details, see Google Cloud’s [Agent Platform partner models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models) page.
+4. Google Cloud credentials for that identity. For the SDK examples, you might need to run `gcloud auth application-default login` to authenticate with Google Cloud. The cURL examples for Claude Models on Google Cloud (Google managed) get their token with `gcloud auth print-access-token`. That command uses the gcloud CLI’s own login, not Application Default Credentials. For those examples, run `gcloud auth login` or `gcloud init` first.
 
 ### Install an SDK
 
-Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Claude Models on Google Cloud (Google managed) through `AnthropicVertex` (csharp: `AnthropicVertexClient`; go: `vertex.WithGoogleAuth()`; java: `VertexBackend`; php: `Anthropic\Vertex\Client`; ruby: `Anthropic::VertexClient`). Install the package that provides it:
+Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Claude Models on Google Cloud (Google managed) through `AnthropicVertex` (csharp: `AnthropicVertexClient`; go: `vertex.WithGoogleAuth()`; java: `VertexBackend`; php: `Anthropic\Vertex\Client`; ruby: `Anthropic::VertexClient`). Install the package that provides it:
 
 <Tabs>
   <Tab title="Python">
@@ -81,7 +81,7 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
   </Tab>
 </Tabs>
 
-The `ant` CLI doesn't support Claude Models on Google Cloud (Google managed).
+The `ant` CLI doesn’t support Claude Models on Google Cloud (Google managed).
 
 ## Making requests
 
@@ -107,7 +107,7 @@ The following examples use the global endpoint. For the other endpoint types, se
   ```
 
   <CodeGroupItem language="CLI">
-    The `ant` CLI doesn't support Claude Models on Google Cloud (Google managed).
+    The `ant` CLI doesn’t support Claude Models on Google Cloud (Google managed).
   </CodeGroupItem>
 
   ```python Python
@@ -306,9 +306,9 @@ The following examples use the global endpoint. For the other endpoint types, se
 | Claude Haiku 4.5                                                                                      | `claude-haiku-4-5@20251001`  |
 | Claude Haiku 3.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations))  | `claude-3-5-haiku@20241022`  |
 
-Claude Models on Google Cloud (Google managed) offers different Claude models in different regions. To check which models a region offers, search "Claude" in [Model Garden](https://cloud.google.com/model-garden) or see Google Cloud's [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page.
+Claude Models on Google Cloud (Google managed) offers different Claude models in different regions. To check which models a region offers, search “Claude” in [Model Garden](https://cloud.google.com/model-garden) or see Google Cloud’s [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page.
 
-Google sets the lifecycle dates for the models that Claude Models on Google Cloud (Google managed) serves. These dates can differ from the Claude API schedule. For a model's current retirement date, see Google Cloud's [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page. For what Deprecated and Retired mean, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
+Google sets the lifecycle dates for the models that Claude Models on Google Cloud (Google managed) serves. These dates can differ from the Claude API schedule. For a model’s current retirement date, see Google Cloud’s [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page. For what Deprecated and Retired mean, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 
 <Note>
   Claude Mythos Preview is a research preview. Claude Models on Google Cloud (Google managed) offers it to invited customers. For more information, see [Project Glasswing](https://anthropic.com/glasswing).
@@ -360,7 +360,7 @@ The following examples use the `us` multi-region endpoint. The highlighted lines
   ```
 
   <CodeGroupItem language="CLI">
-    The `ant` CLI doesn't support Claude Models on Google Cloud (Google managed).
+    The `ant` CLI doesn’t support Claude Models on Google Cloud (Google managed).
   </CodeGroupItem>
 
   ```python Python
@@ -473,7 +473,7 @@ Features supported on Claude Models on Google Cloud (Google managed) include the
 
 ### Features not supported
 
-Claude Models on Google Cloud (Google managed) doesn't support the following:
+Claude Models on Google Cloud (Google managed) doesn’t support the following:
 
 * **Input sources:** URL sources for images and documents, and the Files API
 * **Server-side tools:** Code execution, web fetch, and advisor
@@ -508,11 +508,11 @@ Agent Platform limits request payloads to 30 MB. When you send large documents 
 
 ### Rate limits
 
-Google Cloud manages rate limits and quotas for Claude Models on Google Cloud (Google managed). For details, including how to request a quota increase, see Google Cloud's [Quotas for Anthropic Claude models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/quotas) page.
+Google Cloud manages rate limits and quotas for Claude Models on Google Cloud (Google managed). For details, including how to request a quota increase, see Google Cloud’s [Quotas for Anthropic Claude models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/quotas) page.
 
 ### Billing
 
-Google Cloud invoices you for Claude Models on Google Cloud (Google managed). For prices, see Google Cloud's [Generative AI pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models) page. Prices also depend on the endpoint type. See [Global, multi-region, and regional endpoints](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#global-multi-region-and-regional-endpoints).
+Google Cloud invoices you for Claude Models on Google Cloud (Google managed). For prices, see Google Cloud’s [Generative AI pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models) page. Prices also depend on the endpoint type. See [Global, multi-region, and regional endpoints](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#global-multi-region-and-regional-endpoints).
 
 ### Data retention
 
@@ -520,12 +520,12 @@ Google Cloud governs data handling for Claude Models on Google Cloud (Google man
 
 ### Monitoring and logging
 
-To log prompts and completions for Claude Models on Google Cloud (Google managed), use Agent Platform's [request-response logging service](https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/request-response-logging).
+To log prompts and completions for Claude Models on Google Cloud (Google managed), use Agent Platform’s [request-response logging service](https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/request-response-logging).
 
 Anthropic recommends that you keep at least the last 30 days of logs. The logs help you understand your activity and investigate possible misuse.
 
 <Note>
-  Turning on this service doesn't give Google or Anthropic any access to your content.
+  Turning on this service doesn’t give Google or Anthropic any access to your content.
 </Note>
 
 ## Migrating from Claude Models on Google Cloud (Anthropic managed)
@@ -638,7 +638,7 @@ For what changes when you move, see [How the two Google Cloud offerings differ](
       ```
 
       <CodeGroupItem language="CLI">
-        The `ant` CLI doesn't support Claude Models on Google Cloud (Google managed). Use cURL or an SDK instead.
+        The `ant` CLI doesn’t support Claude Models on Google Cloud (Google managed). Use cURL or an SDK instead.
       </CodeGroupItem>
 
       ```python Python
@@ -728,7 +728,7 @@ For what changes when you move, see [How the two Google Cloud offerings differ](
 
   <Step title="Check model IDs and features">
     * **Model IDs:** If you use a model earlier than Claude 4.6, replace the hyphen before the snapshot date in its ID with `@`. For example, `claude-haiku-4-5-20251001` becomes `claude-haiku-4-5@20251001`. For the models and their IDs, see [API model IDs](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#api-model-ids).
-    * **Features:** Check that the features your code uses aren't listed in [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#features-not-supported).
+    * **Features:** Check that the features your code uses aren’t listed in [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#features-not-supported).
   </Step>
 
   <Step title="Run a test request">
@@ -740,7 +740,7 @@ For what changes when you move, see [How the two Google Cloud offerings differ](
 
 <CardGroup cols={2}>
   <Card title="Features overview" icon="stack" href="https://platform.claude.com/docs/en/build-with-claude/overview">
-    Explore Claude's features.
+    Explore Claude’s features.
   </Card>
 
   <Card title="Anthropic Claude models on Agent Platform" icon="book" href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude">
@@ -748,10 +748,10 @@ For what changes when you move, see [How the two Google Cloud offerings differ](
   </Card>
 
   <Card title="Agent Platform documentation" icon="book" href="https://cloud.google.com/vertex-ai/docs">
-    Read Google Cloud's Agent Platform documentation.
+    Read Google Cloud’s Agent Platform documentation.
   </Card>
 
   <Card title="Global endpoint for Claude models" icon="link" href="https://cloud.google.com/blog/products/ai-machine-learning/global-endpoint-for-claude-models-generally-available-on-vertex-ai">
-    Read Google Cloud's blog post about the global endpoint for Claude models.
+    Read Google Cloud’s blog post about the global endpoint for Claude models.
   </Card>
 </CardGroup>

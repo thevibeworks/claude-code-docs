@@ -67,7 +67,7 @@ Previous Haiku model: Claude Haiku 4.5: claude-haiku-4-5-20251001
 
 ### Multiple conversational turns
 
-The Messages API is stateless, which means that you always send the full conversational history to the API. You can use this pattern to build up a conversation over time. Earlier conversational turns don't necessarily need to actually originate from Claude. You can use synthetic `assistant` messages.
+The Messages API is stateless, which means that you always send the full conversational history to the API. You can use this pattern to build up a conversation over time. Earlier conversational turns don’t necessarily need to actually originate from Claude. You can use synthetic `assistant` messages.
 
 <CodeGroup exclude="shell:cURL, typescript, csharp, go, java, php, ruby">
   ```bash CLI
@@ -100,9 +100,9 @@ The Messages API is stateless, which means that you always send the full convers
   ```
 </CodeGroup>
 
-### Prefilling Claude's response
+### Prefilling Claude’s response
 
-You can prefill part of Claude's response in the last position of the input messages list. Use this technique to shape Claude's response. The following example uses `"max_tokens": 1` to get a single multiple choice answer from Claude.
+You can prefill part of Claude’s response in the last position of the input messages list. Use this technique to shape Claude’s response. The following example uses `"max_tokens": 1` to get a single multiple choice answer from Claude.
 
 <Note>
   Claude 4.6 and later models and Claude Mythos Preview do not support assistant message prefill; requests to those models must end with a user message. The following examples use a model that supports prefill.
@@ -316,7 +316,7 @@ Thinking can be used alongside tool use, allowing Claude to reason through tool 
 
 Important limitations:
 
-1. **Tool choice limitation:** With manual extended thinking (`thinking: {"type": "enabled"}`), only `tool_choice: {"type": "auto"}` (default) or `tool_choice: {"type": "none"}` is supported. Adaptive thinking accepts forced tool use, except on the models listed under [Forcing tool use](https://platform.claude.com/docs/en/claude_api_primer#forcing-tool-use). Where it's accepted, a forced tool call skips thinking: the response starts with the tool call and has no `thinking` block.
+1. **Tool choice limitation:** With manual extended thinking (`thinking: {"type": "enabled"}`), only `tool_choice: {"type": "auto"}` (default) or `tool_choice: {"type": "none"}` is supported. Adaptive thinking accepts forced tool use, except on the models listed under [Forcing tool use](https://platform.claude.com/docs/en/claude_api_primer#forcing-tool-use). Where it’s accepted, a forced tool call skips thinking: the response starts with the tool call and has no `thinking` block.
 2. **Preserving thinking blocks:** During tool use, you must pass `thinking` blocks back to the API for the last assistant message.
 
 ### Preserving thinking blocks
@@ -528,8 +528,8 @@ Client tools are specified in the `tools` top-level parameter of the API request
 **Provide extremely detailed descriptions.** This is by far the most important factor in tool performance. Your descriptions should explain every detail about the tool, including:
 
 * What the tool does
-* When it should be used (and when it shouldn't)
-* What each parameter means and how it affects the tool's behavior
+* When it should be used (and when it shouldn’t)
+* What each parameter means and how it affects the tool’s behavior
 * Any important caveats or limitations
 
 **Consider using `input_examples` for complex tools.** For tools with nested objects, optional parameters, or format-sensitive inputs, you can provide concrete examples using the `input_examples` field (beta). This shows Claude the expected input patterns. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) for details.
@@ -553,7 +553,7 @@ Example of a good tool description:
 }
 ```
 
-## Controlling Claude's output
+## Controlling Claude’s output
 
 ### Forcing tool use
 
@@ -570,7 +570,7 @@ When working with the `tool_choice` parameter, there are four possible options:
 * `tool` forces Claude to always use a particular tool.
 * `none` prevents Claude from using any tools.
 
-On Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and Claude Mythos 5.1, `any` and `tool` return a 400 error. Leave `tool_choice` at `auto` and set `"strict": true` on the tool definition to guarantee that any call Claude makes matches the tool's `input_schema`. See [Strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use).
+On Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and Claude Mythos 5.1, `any` and `tool` return a 400 error. Leave `tool_choice` at `auto` and set `"strict": true` on the tool definition to guarantee that any call Claude makes matches the tool’s `input_schema`. See [Strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use).
 
 ### JSON output
 
@@ -625,7 +625,7 @@ When you receive a tool use response, you should:
 
 ### Handling the `max_tokens` stop reason
 
-If Claude's response is cut off because it hits the `max_tokens` limit during tool use, retry the request with a higher `max_tokens` value.
+If Claude’s response is cut off because it hits the `max_tokens` limit during tool use, retry the request with a higher `max_tokens` value.
 
 ### Handling the `pause_turn` stop reason
 
@@ -653,7 +653,7 @@ If the tool itself throws an error during execution, return the error message wi
 
 ### Invalid tool name
 
-If Claude's attempted use of a tool is invalid (for example, missing required parameters), try the request again with more-detailed `description` values in your tool definitions.
+If Claude’s attempted use of a tool is invalid (for example, missing required parameters), try the request again with more-detailed `description` values in your tool definitions.
 
 ## Streaming messages
 

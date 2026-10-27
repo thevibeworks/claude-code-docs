@@ -96,9 +96,33 @@ Aside from these files, credentials delivered through managed configuration are 
 
 By default, chats, Cowork tasks, and Code sessions stay on the device until the user deletes them. To delete them after a period without activity, set [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays), [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays), or [`codeSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#codesessionretentiondays) to a number of days from 1 to 3650. Each key covers one kind of session, and a kind you leave unset is kept until the user deletes it. Idle time counts from the session's last activity, and pinned sessions are not exempt.
 
-With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a conversation started from the home screen on a device that can run Cowork is a Cowork session. `coworkSessionRetentionDays` covers it along with users' other Cowork tasks, and `chatSessionRetentionDays` still covers Chat conversations. While `coworkSessionRetentionDays` is unset, neither key deletes a home-screen conversation that is a Cowork session, even if `chatSessionRetentionDays` is set. If you use `chatSessionRetentionDays`, keep it and set `coworkSessionRetentionDays` as well.
+With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a conversation started from the home screen where Cowork is on and the device can run it is a Cowork session. `coworkSessionRetentionDays` covers it along with users' other Cowork tasks, and `chatSessionRetentionDays` still covers Chat conversations. While `coworkSessionRetentionDays` is unset, neither key deletes a home-screen conversation that is a Cowork session, even if `chatSessionRetentionDays` is set. If you use `chatSessionRetentionDays`, keep it and set `coworkSessionRetentionDays` as well.
 
-The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host are not affected. A session that is running or open on screen is skipped until a later pass. To suspend all automatic deletion for some users, for example under a legal hold, set [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) to `true` for them. While the hold is on, nothing is deleted, and a device that gets its configuration from a server and cannot reach that server also deletes nothing. These keys require Claude Desktop 1.52386.0 or later.
+The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host aren't affected. A session that is running or open on screen is skipped until a later pass.
+
+### What a legal hold stops
+
+To stop the [automatic deletion of idle sessions](#automatic-deletion-of-idle-sessions) for some users, for example under a legal hold, set [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) to `true` for them. While the hold is on, `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` delete nothing. They also delete nothing on a device that gets its configuration from a server and can't reach that server. All four keys require Claude Desktop 1.52386.0 or later.
+
+Other deletions continue, such as these:
+
+* **By users**: users can delete their own sessions, for example from the sidebar or in the [**Storage** window](#how-users-free-up-disk-space)
+* **By Claude Code**: [Claude Code's own cleanup](https://code.claude.com/docs/en/claude-directory#cleaned-up-automatically) deletes some of its older files, such as checkpoints and large tool outputs. If [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) set `cleanupPeriodDays`, it also deletes Code session conversations older than that number of days.
+
+## How users free up disk space
+
+The **Storage** window shows how much disk space Claude uses on the device. To open it, users go to **Settings > This computer > System** and click **Manage** next to **Storage**. They can also enter `/storage` in the message box in Chat, Cowork, or Code. The window requires Claude Desktop 3.6556.1 or later.
+
+In the window, users can clean up their own inactive sessions on the device, except pinned ones:
+
+* **Chats and Cowork tasks**: the app deletes them, including runs of scheduled tasks. It also deletes their outputs and their copies of attached files in the [application-data directory](#where-data-lives). Files outside that directory stay, such as files in `~/Claude/` or in folders that the user connected.
+* **Code sessions**: the app removes their [Git worktrees](https://code.claude.com/docs/en/worktrees) and, if the user chooses, deletes the sessions with their conversations
+
+Users can't undo these deletions.
+
+When the disk that holds the application-data directory has less than 10 GB free, the app shows a **Low disk space** notice. Users can click **Manage storage** in the notice to open the **Storage** window.
+
+You can't hide the **Storage** window or the **Low disk space** notice with a configuration key.
 
 ## Move a user to a new device
 

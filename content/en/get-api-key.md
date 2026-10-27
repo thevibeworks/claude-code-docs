@@ -16,7 +16,7 @@ You can also create a **workspace key**, a legacy key without an owner: it belon
 
 <Steps>
   <Step title="Sign in to the Claude Console">
-    Go to the Claude Console at [platform.claude.com](https://platform.claude.com/) and sign in, or create an account if you don't have one yet.
+    Go to the Claude Console at [platform.claude.com](https://platform.claude.com/) and sign in, or create an account if you don’t have one yet.
   </Step>
 
   <Step title="Open the API keys page">
@@ -28,7 +28,7 @@ You can also create a **workspace key**, a legacy key without an owner: it belon
   </Step>
 
   <Step title="Copy and store the key">
-    The Console shows the full key, which starts with `sk-ant-`, only once, at creation. Copy it and store it somewhere safe, such as a secrets manager. If you lose a key, you can't view it again in the Console. Create a new key instead.
+    The Console shows the full key, which starts with `sk-ant-`, only once, at creation. Copy it and store it somewhere safe, such as a secrets manager. If you lose a key, you can’t view it again in the Console. Create a new key instead.
   </Step>
 </Steps>
 
@@ -42,14 +42,14 @@ Set the key as an environment variable:
 export ANTHROPIC_API_KEY="sk-ant-api03-..."
 ```
 
-The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) reads `ANTHROPIC_API_KEY` automatically. Direct HTTP requests send the key as `Authorization: Bearer <key>`. If your API key isn't scoped to a workspace, you must also send the `anthropic-workspace-id` header on each Claude API request, as shown in [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace). For the Admin API, see [API keys and the Admin API](https://platform.claude.com/docs/en/get-api-key#api-keys-and-the-admin-api).
+The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) reads `ANTHROPIC_API_KEY` automatically. Direct HTTP requests send the key as `Authorization: Bearer <key>`. If your API key isn’t scoped to a workspace, you must also send the `anthropic-workspace-id` header on each Claude API request, as shown in [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace). For the Admin API, see [API keys and the Admin API](https://platform.claude.com/docs/en/get-api-key#api-keys-and-the-admin-api).
 
 To make your first request, follow the [Quickstart](https://platform.claude.com/docs/en/get-started), and see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication) for complete details, including short-lived credentials with Workload Identity Federation.
 
 ## API keys and the Admin API
 
-The [Admin API](https://platform.claude.com/docs/en/api/organization) includes endpoints for managing your organization's API keys programmatically, such as [Retrieve API Key](https://platform.claude.com/docs/en/api/organization/api_keys/retrieve) and [List API Keys](https://platform.claude.com/docs/en/api/organization/api_keys/list). These endpoints are for organization admins automating key management. They accept an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn't scoped to a specific workspace; workspace keys don't work there. They never return a key's secret value, only a partially redacted hint.
+The [Admin API](https://platform.claude.com/docs/en/api/organization) includes endpoints for managing your organization’s API keys programmatically, such as [Retrieve API Key](https://platform.claude.com/docs/en/api/organization/api_keys/retrieve) and [List API Keys](https://platform.claude.com/docs/en/api/organization/api_keys/list). These endpoints are for organization admins automating key management. They accept an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn’t scoped to a specific workspace; workspace keys don’t work there. They never return a key’s secret value, only a partially redacted hint.
 
 <Note>
-  The Admin API can't recover a lost key or give you a key to call the Claude API with. To get a usable API key, create one on the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Claude Console.
+  The Admin API can’t recover a lost key or give you a key to call the Claude API with. To get a usable API key, create one on the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Claude Console.
 </Note>

@@ -31,7 +31,7 @@ Claude works with any standard PDF. Ensure your request size meets these require
 | Requirement               | Limit                                                                                                                       |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Maximum request size      | 32 MB (varies by platform; see [request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits)) |
-| Maximum pages per request | 600 (100 when the request's context window is under 1M tokens)                                                              |
+| Maximum pages per request | 600 (100 when the request’s context window is under 1M tokens)                                                              |
 | Format                    | Standard PDF (no passwords/encryption)                                                                                      |
 
 Both limits are on the entire request payload, including any other content sent alongside PDFs. For large PDFs, consider uploading with the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) and referencing by `file_id` to keep request payloads small.
@@ -40,18 +40,18 @@ Both limits are on the entire request payload, including any other content sent 
   Dense PDFs (many small-font pages, complex tables, or heavy graphics) can fill the context window before reaching the page limit. Requests with large PDFs can also fail before reaching the page limit, even when using the Files API. Try splitting the document into sections; for large files, because each page is processed as an image, downsampling embedded images can also help.
 </Tip>
 
-Because PDF support relies on Claude's vision capabilities, it is subject to the same [limitations and considerations](https://platform.claude.com/docs/en/build-with-claude/vision#limitations) as other vision tasks.
+Because PDF support relies on Claude’s vision capabilities, it is subject to the same [limitations and considerations](https://platform.claude.com/docs/en/build-with-claude/vision#limitations) as other vision tasks.
 
 ### Supported platforms and models
 
-All [active models](https://platform.claude.com/docs/en/models/overview) support PDF processing. For PDF support through Amazon Bedrock's Converse API, see [Amazon Bedrock PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support#amazon-bedrock-pdf-support).
+All [active models](https://platform.claude.com/docs/en/models/overview) support PDF processing. For PDF support through Amazon Bedrock’s Converse API, see [Amazon Bedrock PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support#amazon-bedrock-pdf-support).
 
 ### Amazon Bedrock PDF support
 
 When using PDF support through the Converse API, part of [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), there are two distinct document processing modes:
 
 <Note>
-  **Important:** To access Claude's full visual PDF understanding capabilities in the Converse API, you must enable citations. Without citations enabled, the API falls back to basic text extraction only. Learn more about [working with citations](https://platform.claude.com/docs/en/build-with-claude/citations).
+  **Important:** To access Claude’s full visual PDF understanding capabilities in the Converse API, you must enable citations. Without citations enabled, the API falls back to basic text extraction only. Learn more about [working with citations](https://platform.claude.com/docs/en/build-with-claude/citations).
 </Note>
 
 #### Document processing modes
@@ -78,7 +78,7 @@ When using PDF support through the Converse API, part of [Claude on Amazon Bedro
 
 #### Common issues
 
-If Claude isn't seeing images or charts in your PDFs when using the Converse API, you likely need to enable the citations flag. Without it, Converse falls back to basic text extraction only.
+If Claude isn’t seeing images or charts in your PDFs when using the Converse API, you likely need to enable the citations flag. Without it, Converse falls back to basic text extraction only.
 
 <Note>
   This is a known constraint with the Converse API. For applications that require visual PDF analysis without citations, consider using the InvokeModel API instead.
@@ -347,7 +347,7 @@ The simplest approach is to reference a PDF directly from a URL:
   ```
 </CodeGroup>
 
-The response returns Claude's analysis as text blocks in `content`, with token consumption in `usage`:
+The response returns Claude’s analysis as text blocks in `content`, with token consumption in `usage`:
 
 ```json Output
 {
@@ -371,7 +371,7 @@ The response returns Claude's analysis as text blocks in `content`, with token c
 
 #### Option 2: Base64-encoded PDF document
 
-If you need to send PDFs from your local system or when a URL isn't available:
+If you need to send PDFs from your local system or when a URL isn’t available:
 
 <CodeGroup>
   ```bash cURL
@@ -712,7 +712,7 @@ If you need to send PDFs from your local system or when a URL isn't available:
 
 #### Option 3: Files API
 
-For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
+For PDFs you’ll use repeatedly, or when you want to avoid encoding overhead, use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
 
 <CodeGroup>
   ```bash cURL
@@ -1020,7 +1020,7 @@ When you send a PDF to Claude, the following steps occur:
 <Steps>
   <Step title="The system extracts the contents of the document.">
     * The system converts each page of the document into an image.
-    * The text from each page is extracted and provided alongside each page's image.
+    * The text from each page is extracted and provided alongside each page’s image.
   </Step>
 
   <Step title="Claude analyzes both the text and images.">
@@ -1028,7 +1028,7 @@ When you send a PDF to Claude, the following steps occur:
     * This allows users to ask for insights on visual elements of a PDF, such as charts, diagrams, and other non-textual content.
   </Step>
 
-  <Step title="Claude responds, referencing the PDF's contents if relevant.">
+  <Step title="Claude responds, referencing the PDF’s contents if relevant.">
     Claude can reference both textual and visual content when it responds. You can further improve performance by integrating PDF support with:
 
     * [Use prompt caching](https://platform.claude.com/docs/en/build-with-claude/pdf-support#use-prompt-caching): To improve performance for repeated analysis.
@@ -1977,7 +1977,7 @@ Batches process asynchronously. To check progress and retrieve results once proc
 
 <CardGroup cols={2}>
   <Card title="Vision" icon="image" href="https://platform.claude.com/docs/en/build-with-claude/vision">
-    Claude's vision capabilities allow it to process and analyze images, opening up exciting possibilities for multimodal interaction.
+    Claude’s vision capabilities allow it to process and analyze images, opening up exciting possibilities for multimodal interaction.
   </Card>
 
   <Card title="Try PDF examples" icon="file" href="https://platform.claude.com/cookbook/multimodal-getting-started-with-vision">

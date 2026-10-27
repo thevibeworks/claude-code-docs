@@ -26,7 +26,7 @@ A permission policy controls when an enabled tool runs. To remove a tool from th
 
 ## Set a policy for a toolset
 
-You set permission policies in the agent's `tools` (csharp, go: `Tools`) configuration when you create the agent, and you can change them later by [updating the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent). Running sessions keep the toolset configuration they were created with. Updates apply to sessions created afterward.
+You set permission policies in the agent’s `tools` (csharp, go: `Tools`) configuration when you create the agent, and you can change them later by [updating the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent). Running sessions keep the toolset configuration they were created with. Updates apply to sessions created afterward.
 
 ### Agent toolset permissions
 
@@ -632,13 +632,13 @@ Pass this `tools` (csharp, go: `Tools`) configuration in the agent create reques
 
 ## Let the server evaluate each call with `auto`
 
-With the `auto` permission policy, the server evaluates each call before it runs. Because the evaluation considers the tool, the call's input, and the session's content up to that point, the server can treat two calls to the same tool differently. Each call has one of three outcomes:
+With the `auto` permission policy, the server evaluates each call before it runs. Because the evaluation considers the tool, the call’s input, and the session’s content up to that point, the server can treat two calls to the same tool differently. Each call has one of three outcomes:
 
 * **The call runs.** When the server determines that the call is safe, the tool runs as it would under `always_allow`.
 * **The call is denied.** When the server evaluates the call as high-risk, the tool does not run. The agent receives an error tool result with the content `Permission to use {tool_name} has been denied.` and `is_error: true`. The session keeps running, and your client cannot override the denial.
 * **The call pauses for your approval.** When the server reaches no determination, the session pauses as it does under `always_ask`. See [Respond to confirmation requests](https://platform.claude.com/docs/en/managed-agents/permission-policies#respond-to-confirmation-requests).
 
-To turn on `auto`, set `permission_policy` to `{"type": "auto"}`. It goes in the same two places as the other policies: a toolset's [`default_config` (java, php: `defaultConfig`; csharp, go: `DefaultConfig`)](https://platform.claude.com/docs/en/managed-agents/permission-policies#set-a-policy-for-a-toolset) for the whole toolset, or a [`configs` (csharp, go: `Configs`) entry](https://platform.claude.com/docs/en/managed-agents/permission-policies#override-an-individual-tool-policy) for one tool. The agent toolset and MCP toolsets both accept it. No toolset uses `auto` by default.
+To turn on `auto`, set `permission_policy` to `{"type": "auto"}`. It goes in the same two places as the other policies: a toolset’s [`default_config` (java, php: `defaultConfig`; csharp, go: `DefaultConfig`)](https://platform.claude.com/docs/en/managed-agents/permission-policies#set-a-policy-for-a-toolset) for the whole toolset, or a [`configs` (csharp, go: `Configs`) entry](https://platform.claude.com/docs/en/managed-agents/permission-policies#override-an-individual-tool-policy) for one tool. The agent toolset and MCP toolsets both accept it. No toolset uses `auto` by default.
 
 The following example sets `auto` as the default for the agent toolset and for the `github` MCP toolset, and overrides `bash` to `always_ask`:
 
@@ -958,15 +958,15 @@ The following example sets `auto` as the default for the agent toolset and for t
   ```
 </CodeGroup>
 
-What you post in `user.message` events counts as your intent, and it can lead the server to allow a call it would otherwise deny. The server does not read intent from a tool result, a fetched webpage, an MCP server's response, or a message between [session threads](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools). It assesses that content but does not take instructions from it. The server evaluates some calls as high-risk no matter who asks. If you relay untrusted end-user input in `user.message` events, the server reads that input as your intent too, and it can get a call allowed. Configure `always_ask` on the tools you would not let that end user run without review.
+What you post in `user.message` events counts as your intent, and it can lead the server to allow a call it would otherwise deny. The server does not read intent from a tool result, a fetched webpage, an MCP server’s response, or a message between [session threads](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools). It assesses that content but does not take instructions from it. The server evaluates some calls as high-risk no matter who asks. If you relay untrusted end-user input in `user.message` events, the server reads that input as your intent too, and it can get a call allowed. Configure `always_ask` on the tools you would not let that end user run without review.
 
 <Warning>
-  `auto` is not a human checkpoint. If the server determines that a call is safe, the call runs before anyone sees it, and its effects might not be reversible. If a person must review a tool's calls before they run, configure `always_ask` on that tool.
+  `auto` is not a human checkpoint. If the server determines that a call is safe, the call runs before anyone sees it, and its effects might not be reversible. If a person must review a tool’s calls before they run, configure `always_ask` on that tool.
 </Warning>
 
 ## See how each call was evaluated
 
-Under any permission policy, each `agent.tool_use` and `agent.mcp_tool_use` event carries `evaluated_permission`, the outcome of the call's permission check: `"allow"`, `"ask"`, or `"deny"`. Most events also carry an `evaluation` object whose `type` names the policy that produced that outcome. Under `auto`, the object also records the server's determination, plus a `reason_code` when the outcome is `ask` or `deny`.
+Under any permission policy, each `agent.tool_use` and `agent.mcp_tool_use` event carries `evaluated_permission`, the outcome of the call’s permission check: `"allow"`, `"ask"`, or `"deny"`. Most events also carry an `evaluation` object whose `type` names the policy that produced that outcome. Under `auto`, the object also records the server’s determination, plus a `reason_code` when the outcome is `ask` or `deny`.
 
 For example, when `bash` is under `auto` and the server evaluates a call as high-risk, the denied call appears on the event stream as follows:
 
@@ -1000,7 +1000,7 @@ The `evaluation` object takes one of the forms in the following table.
 | `{"type": "auto", "evaluated_permission": {"type": "ask", "reason_code": "indeterminate"}}` | `"ask"`                          | Under `auto`, the server reached no determination, so the call paused for your approval. |
 | `{"type": "auto", "evaluated_permission": {"type": "deny", "reason_code": "high_risk"}}`    | `"deny"`                         | Under `auto`, the server evaluated the call as high-risk and denied it.                  |
 
-When `evaluation.type` is `"auto"`, its nested `evaluated_permission.type` repeats the event's top-level `evaluated_permission`, so you can read the outcome from either field. A `reason_code` is a value for your client to branch on and keep in audit records, not text to display to end users.
+When `evaluation.type` is `"auto"`, its nested `evaluated_permission.type` repeats the event’s top-level `evaluated_permission`, so you can read the outcome from either field. A `reason_code` is a value for your client to branch on and keep in audit records, not text to display to end users.
 
 `evaluation` is absent in two cases. When the agent names a tool that is not enabled in the session, the server denies the call without evaluating a policy: the event carries `evaluated_permission: "deny"` and no `evaluation`. Events recorded before `evaluation` was introduced also omit it: read those as `always_allow` when `evaluated_permission` is `"allow"` and as `always_ask` when it is `"ask"`.
 

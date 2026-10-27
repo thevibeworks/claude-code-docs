@@ -60,7 +60,7 @@ I. Developers must agree to our [Software Directory Terms](https://support.claud
 
 Unless otherwise expressly permitted by us in writing, we do not allow Software with certain capabilities into our Directories. We may revisit these restrictions as our Directories and Anthropic Services evolve.
 
-A. Software that transfers money, cryptocurrency, or other financial assets, or executes financial transactions autonomously on behalf of users, without human-in-the-loop safeguards.
+A. Software that transfers money or other financial assets, or executes financial transactions autonomously on behalf of users, without human-in-the-loop safeguards. We do not generally allow cryptocurrency software in our directory.
 
 B. Software that uses AI models to generate images, video, or audio content. Only design-focused image software that uses AI models to exclusively create visual aids (such as slides, diagrams, charts, UI mockups, logos, or other design assets) are permitted. These servers may generate images as part of a design-only workflow, provided the developer does not offer standalone image generation as a service in our products. This includes:
 

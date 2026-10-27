@@ -34,7 +34,7 @@ Background compaction, often called async compaction, changes two things in the 
 The compaction request and the block it returns are the same as in the loop. Your history grows between sending the request and using its result, and the swap must leave that growth in place.
 
 1. Send the [compaction request](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#request-a-summary) with your history as it stands, and record how many messages it held.
-2. While that request runs, keep the conversation going on the full history. Append each new turn, don't edit anything already in the history, and don't start another compaction request until this one is swapped in or has failed.
+2. While that request runs, keep the conversation going on the full history. Append each new turn, don’t edit anything already in the history, and don’t start another compaction request until this one is swapped in or has failed.
 3. When the response arrives with `stop_reason` `"compaction"`, drop exactly the messages you sent from the front of your history and put the returned message in their place. Every turn appended since step 1 stays after it.
 4. Send the swapped history on the first request after the block arrives, so that thinking produced while the summary was being written stays valid.
 
@@ -50,7 +50,7 @@ If the response has any other `stop_reason`, no summary was produced, which coun
 
 The compaction request counts against your rate limits like any other request, and while it runs your application has two requests open at once. The conversation keeps growing on its full history until the swap, so start the compaction request while the context window still has room for the turns that arrive meanwhile.
 
-The following program is the loop from [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop) with the compaction request taken off the conversation's path. The highlighted lines show where it differs from the loop, and the following list takes them in the order the program runs them.
+The following program is the loop from [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop) with the compaction request taken off the conversation’s path. The highlighted lines show where it differs from the loop, and the following list takes them in the order the program runs them.
 
 <CodeGroup exclude="shell, php">
   ```python Python
@@ -464,7 +464,7 @@ The following program is the loop from [Compact in a loop](https://platform.clau
   ```
 
   <CodeGroupItem language="PHP">
-    The PHP SDK sends requests synchronously, so it can't run the compaction request in the background while the conversation goes on.
+    The PHP SDK sends requests synchronously, so it can’t run the compaction request in the background while the conversation goes on.
   </CodeGroupItem>
 
   ```ruby Ruby
@@ -535,10 +535,10 @@ The following program is the loop from [Compact in a loop](https://platform.clau
 </CodeGroup>
 
 * **Deciding when to compact:** The size check also requires that no compaction request is pending.
-* **Starting the request:** Where the loop waits for the compaction response, this version records how many messages the history holds, starts the request on a copy of the history with the language's own concurrency tool, and goes on to the next turn without waiting.
-* **Checking for the result:** At the top of each turn, the program checks whether the pending request has completed. If it has, the program makes the swap before it sends that turn's request.
-* **Making the swap:** Where the loop replaces the whole history with the returned message, this version's swap function replaces only the messages the request held, counted from the front, and keeps everything appended since.
-* **Ending the loop:** If the compaction request is still pending when the loop ends, the program waits for it and makes the swap, so a summary that is still on its way isn't lost before you save or continue the conversation.
+* **Starting the request:** Where the loop waits for the compaction response, this version records how many messages the history holds, starts the request on a copy of the history with the language’s own concurrency tool, and goes on to the next turn without waiting.
+* **Checking for the result:** At the top of each turn, the program checks whether the pending request has completed. If it has, the program makes the swap before it sends that turn’s request.
+* **Making the swap:** Where the loop replaces the whole history with the returned message, this version’s swap function replaces only the messages the request held, counted from the front, and keeps everything appended since.
+* **Ending the loop:** If the compaction request is still pending when the loop ends, the program waits for it and makes the swap, so a summary that is still on its way isn’t lost before you save or continue the conversation.
 
 The `stop_reason` check is unchanged from the loop: a response without a block leaves the history as it was. Because nothing is pending any more, the program can then start a new compaction request.
 

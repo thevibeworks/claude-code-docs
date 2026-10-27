@@ -68,10 +68,10 @@ for block in message.content:
 ```
 
 <Tip>
-  Consider using [python-dotenv](https://pypi.org/project/python-dotenv/) to add `ANTHROPIC_API_KEY="my-anthropic-api-key"` to your `.env` file so that your API key isn't stored in source control.
+  Consider using [python-dotenv](https://pypi.org/project/python-dotenv/) to add `ANTHROPIC_API_KEY="my-anthropic-api-key"` to your `.env` file so that your API key isn’t stored in source control.
 </Tip>
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn’t scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ## Async usage
 
@@ -204,7 +204,7 @@ asyncio.run(main())
 
 Streaming with `client.messages.stream(...)` exposes various helpers including accumulation and SDK-specific events.
 
-Alternatively, you can use `client.messages.create(..., stream=True)`, which only returns an iterable of the events in the stream and uses less memory (it doesn't build up a final message object for you).
+Alternatively, you can use `client.messages.create(..., stream=True)`, which only returns an iterable of the events in the stream and uses less memory (it doesn’t build up a final message object for you).
 
 ## Token counting
 
@@ -556,7 +556,7 @@ client.messages.with_raw_response.create(
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev), which also have helper methods for things such as serializing back into JSON ([Pydantic `v1`](https://docs.pydantic.dev/1.10/usage/models/), [Pydantic `v2`](https://docs.pydantic.dev/latest/concepts/serialization/)).
 
-Typed requests and responses provide auto-complete and documentation within your editor. If you'd like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+Typed requests and responses provide auto-complete and documentation within your editor. If you’d like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
 ### Response models
 
@@ -593,7 +593,7 @@ if response.my_field is None:
 
 ### Accessing raw response data (for example, headers)
 
-The "raw" `Response` returned by `httpx2` can be accessed through the `.with_raw_response` property on the client. This is useful for accessing response headers or other metadata:
+The “raw” `Response` returned by `httpx2` can be accessed through the `.with_raw_response` property on the client. This is useful for accessing response headers or other metadata:
 
 ```python
 client = Anthropic()
@@ -702,10 +702,10 @@ client.with_options(http_client=DefaultHttpxClient(...))
 ```
 
 <Note>
-  Use `DefaultHttpxClient` and `DefaultAsyncHttpxClient` instead of raw `httpx2.Client` and `httpx2.AsyncClient` to ensure the SDK's default configuration (such as timeouts and connection limits) is preserved. The `http_client` argument must be an `httpx2` client. Passing a client from the separate `httpx` package raises a `TypeError`.
+  Use `DefaultHttpxClient` and `DefaultAsyncHttpxClient` instead of raw `httpx2.Client` and `httpx2.AsyncClient` to ensure the SDK’s default configuration (such as timeouts and connection limits) is preserved. The `http_client` argument must be an `httpx2` client. Passing a client from the separate `httpx` package raises a `TypeError`.
 </Note>
 
-Tracing and mocking tools that patch `httpx` itself, such as OpenTelemetry's `HTTPXClientInstrumentor`, Sentry's `httpx` integration, `respx`, or `pytest-httpx`, do not see the SDK's requests by default. To use them, call `httpx2.alias_httpx()` once at startup, before anything imports `httpx`. This makes `import httpx` resolve to `httpx2` for the whole process.
+Tracing and mocking tools that patch `httpx` itself, such as OpenTelemetry’s `HTTPXClientInstrumentor`, Sentry’s `httpx` integration, `respx`, or `pytest-httpx`, do not see the SDK’s requests by default. To use them, call `httpx2.alias_httpx()` once at startup, before anything imports `httpx`. This makes `import httpx` resolve to `httpx2` for the whole process.
 
 ### Managing HTTP resources
 
@@ -720,7 +720,7 @@ with Anthropic() as client:
 
 ## Beta features
 
-Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
+Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude’s capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
 You can access most beta API features through the `beta` property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
 
@@ -774,11 +774,11 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 1. Changes that only affect static types, without breaking runtime behavior.
 2. Changes to library internals that are technically public but not intended or documented for external use.
-3. Changes that aren't expected to impact the vast majority of users in practice.
+3. Changes that aren’t expected to impact the vast majority of users in practice.
 
 ### Determining the installed version
 
-If you've upgraded to the latest version but aren't seeing new features you were expecting, your Python environment is likely still using an older version. You can determine the version being used at runtime with:
+If you’ve upgraded to the latest version but aren’t seeing new features you were expecting, your Python environment is likely still using an older version. You can determine the version being used at runtime with:
 
 ```python
 print(anthropic.__version__)

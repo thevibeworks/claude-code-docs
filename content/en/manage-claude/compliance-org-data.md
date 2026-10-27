@@ -70,7 +70,7 @@ This endpoint requires `read:compliance_user_data`, not `read:compliance_org_dat
 
 See [List organization users](https://platform.claude.com/docs/en/api/compliance/organizations/users/list) in the API reference for the `limit` and `page` query parameter defaults and ranges.
 
-Results are sorted by organization join date ascending. Unlike the Activity Feed's `before_id`/`after_id` cursors (see [Paginate results](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed#paginate-results)), the directory endpoints paginate with a `next_page` token: when `has_more` is `true`, pass `next_page` back unchanged as the `page` query parameter on the next request.
+Results are sorted by organization join date ascending. Unlike the Activity Feed’s `before_id`/`after_id` cursors (see [Paginate results](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed#paginate-results)), the directory endpoints paginate with a `next_page` token: when `has_more` is `true`, pass `next_page` back unchanged as the `page` query parameter on the next request.
 
 ```bash cURL
 curl --fail-with-body -sS -G \
@@ -96,7 +96,7 @@ curl --fail-with-body -sS -G \
 }
 ```
 
-The user IDs returned here are the same `user_...` identifiers accepted by the [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) `actor_ids[]` filter. The `user_ids[]` filters on [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) and the [remote session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-remote-sessions) accept the same identifiers. The [local session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) has no user filter, so attribute local sessions by the `user.id` on each session object. The `organization_role` field carries the user's built-in membership level within the listed organization (one of `admin`, `billing`, `claude_code_user`, `developer`, `managed`, `membership_admin`, `owner`, `primary_owner`, or `user`), an axis independent of any custom RBAC role assignments returned by [List roles](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-roles). A typical eDiscovery flow lists users for one or more organizations, filters against your own external records, and feeds the resulting IDs into chat and project queries.
+The user IDs returned here are the same `user_...` identifiers accepted by the [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) `actor_ids[]` filter. The `user_ids[]` filters on [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) and the [remote session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-remote-sessions) accept the same identifiers. The [local session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) has no user filter, so attribute local sessions by the `user.id` on each session object. The `organization_role` field carries the user’s built-in membership level within the listed organization (one of `admin`, `billing`, `claude_code_user`, `developer`, `managed`, `membership_admin`, `owner`, `primary_owner`, or `user`), an axis independent of any custom RBAC role assignments returned by [List roles](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-roles). A typical eDiscovery flow lists users for one or more organizations, filters against your own external records, and feeds the resulting IDs into chat and project queries.
 
 A user only appears here while they are an active member of the organization. Removed users are dropped from the list immediately. Their historical activity remains queryable through the Activity Feed for the full retention window, indexed by the same `user_...` ID.
 
@@ -222,17 +222,17 @@ curl --fail-with-body -sS -G \
 }
 ```
 
-See the [List Compliance Group Members](https://platform.claude.com/docs/en/api/compliance/groups/members/list) response schema for the full member record shape. The `user_id` field is the same `user_...` identifier that the Activity Feed, chat list, and remote session list accept; it also matches `user.id` on local session objects and on user-owned remote session objects (agent-owned remote sessions carry the human's ID in `started_by_user.id` instead). To get a member's full name, look it up through the organization users list.
+See the [List Compliance Group Members](https://platform.claude.com/docs/en/api/compliance/groups/members/list) response schema for the full member record shape. The `user_id` field is the same `user_...` identifier that the Activity Feed, chat list, and remote session list accept; it also matches `user.id` on local session objects and on user-owned remote session objects (agent-owned remote sessions carry the human’s ID in `started_by_user.id` instead). To get a member’s full name, look it up through the organization users list.
 
 ## Get effective organization settings
 
 The [Get effective organization settings](https://platform.claude.com/docs/en/api/compliance/organizations/settings/retrieve) endpoint returns the settings in force for one organization under your parent: the enforced state after regulatory restrictions (such as HIPAA), feature-availability rules, organization-type defaults, and inter-feature dependencies are applied, which can differ from what an administrator configured. Use it to attest that retention windows, content redaction, single sign-on enforcement, the IP allowlist, and session-duration controls match your documented baseline, without administrator Console access.
 
-This endpoint requires `read:compliance_org_data`; a key without that scope returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden). The target must be one of the parent's linked organizations: the parent organization itself is not a valid target. All of the following return the same [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#404-not-found):
+This endpoint requires `read:compliance_org_data`; a key without that scope returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden). The target must be one of the parent’s linked organizations: the parent organization itself is not a valid target. All of the following return the same [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#404-not-found):
 
 * An unknown organization
 * An organization ID that is not a valid UUID
-* An organization outside your parent's tree
+* An organization outside your parent’s tree
 * A parent organization that does not yet have access to this endpoint
 
 A 404 therefore does not reveal whether an organization exists. The settings endpoint is enabled per parent organization separately from the rest of the Compliance API; if every request returns 404, contact your Anthropic representative.
@@ -248,7 +248,7 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2023-06-01"
 ```
 
-The response is a list of typed setting rows, and which rows appear varies by organization: a setting the organization's administrators cannot change, because it is controlled by Anthropic policy or not available to the organization, is omitted from the list. Treat a missing row as "not controllable by this organization's administrators", not as "off". The following abridged example shows three of the rows a response can contain:
+The response is a list of typed setting rows, and which rows appear varies by organization: a setting the organization’s administrators cannot change, because it is controlled by Anthropic policy or not available to the organization, is omitted from the list. Treat a missing row as “not controllable by this organization’s administrators”, not as “off”. The following abridged example shows three of the rows a response can contain:
 
 ```json Response
 {
@@ -294,9 +294,9 @@ The response is a list of typed setting rows, and which rows appear varies by or
 
 Each row carries `name`, `type`, and `value`; the `type` field (`boolean`, `integer`, `string_list`, `provisioning_mode`, or `data_retention`) tells you the shape of `value`. The full list of setting names, and the `value` schema for each type, is in [Get effective organization settings](https://platform.claude.com/docs/en/api/compliance/organizations/settings/retrieve) in the API reference.
 
-The `api_keys` array lists every Compliance Access Key configured for your parent organization, so the same list is returned regardless of which linked organization you query. Each entry carries the key's `type` (`compliance_api_key`), `id`, `name`, `scopes`, `is_active` flag, `created_at` and `expires_at` timestamps, and `created_by_id` (the ID of the user who created the key, or `null`). The key's secret value is never returned. Deactivated keys are included with `is_active: false` so you can review keys that previously had access, and keys that carry only the retired `read:compliance_org_settings` scope remain in the list for audit and cleanup visibility even though that scope no longer grants access.
+The `api_keys` array lists every Compliance Access Key configured for your parent organization, so the same list is returned regardless of which linked organization you query. Each entry carries the key’s `type` (`compliance_api_key`), `id`, `name`, `scopes`, `is_active` flag, `created_at` and `expires_at` timestamps, and `created_by_id` (the ID of the user who created the key, or `null`). The key’s secret value is never returned. Deactivated keys are included with `is_active: false` so you can review keys that previously had access, and keys that carry only the retired `read:compliance_org_settings` scope remain in the list for audit and cleanup visibility even though that scope no longer grants access.
 
-The top-level `organization_id` is the organization's bare UUID: the same value as `uuid` in the organizations list, not the `org_`-prefixed form that `organization_id` carries on Activity Feed, chat, and project records (see the [organization identifier table](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organizations)).
+The top-level `organization_id` is the organization’s bare UUID: the same value as `uuid` in the organizations list, not the `org_`-prefixed form that `organization_id` carries on Activity Feed, chat, and project records (see the [organization identifier table](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organizations)).
 
 Rows reflect the enforced state rather than the last-stored configuration, as in these examples:
 
@@ -308,16 +308,16 @@ The response reflects the state at read time; nothing is snapshotted. Changes to
 
 ## Read plugins and plugin marketplaces
 
-Your organization's plugins and plugin marketplaces are part of the [Admin API](https://platform.claude.com/docs/en/manage-claude/plugins-api) rather than the Compliance API, but a Compliance Access Key with `read:compliance_org_data` can call the Plugins API's read endpoints directly:
+Your organization’s plugins and plugin marketplaces are part of the [Admin API](https://platform.claude.com/docs/en/manage-claude/plugins-api) rather than the Compliance API, but a Compliance Access Key with `read:compliance_org_data` can call the Plugins API’s read endpoints directly:
 
 * List plugins and retrieve a plugin
-* List a plugin's versions, retrieve a version, and download a version's files
-* List a plugin's installation settings and its shares
+* List a plugin’s versions, retrieve a version, and download a version’s files
+* List a plugin’s installation settings and its shares
 * List plugin marketplaces and retrieve a marketplace
 
-Send the `anthropic-beta: ce-plugins-2026-09-01` header on every request; without it these endpoints return [404 Not Found](https://platform.claude.com/docs/en/manage-claude/plugins-api#error-responses). Each call reads one organization: a key that covers the parent organization reads the linked organization it was created in unless you pass the `organization_id` query parameter (a linked organization's UUID or its `org_`-prefixed ID) to [read a different one](https://platform.claude.com/docs/en/manage-claude/plugins-api#reading-another-organization-under-the-same-parent), and a key restricted to one organization reads only that organization. These calls count against the Admin API's [rate limits](https://platform.claude.com/docs/en/manage-claude/plugins-api#rate-limiting), not the Compliance API's.
+Send the `anthropic-beta: ce-plugins-2026-09-01` header on every request; without it these endpoints return [404 Not Found](https://platform.claude.com/docs/en/manage-claude/plugins-api#error-responses). Each call reads one organization: a key that covers the parent organization reads the linked organization it was created in unless you pass the `organization_id` query parameter (a linked organization’s UUID or its `org_`-prefixed ID) to [read a different one](https://platform.claude.com/docs/en/manage-claude/plugins-api#reading-another-organization-under-the-same-parent), and a key restricted to one organization reads only that organization. These calls count against the Admin API’s [rate limits](https://platform.claude.com/docs/en/manage-claude/plugins-api#rate-limiting), not the Compliance API’s.
 
-Creating or changing plugins, their installation settings, or a marketplace's settings requires an Admin API key with `write:plugins`. Of the read calls, only downloading the files of a plugin in a member's personal marketplace records an [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) event (`claude_plugin_archive_accessed`). See the [Plugins API guide](https://platform.claude.com/docs/en/manage-claude/plugins-api) for each endpoint, request examples, and the [events the API records](https://platform.claude.com/docs/en/manage-claude/plugins-api#activity-feed-events).
+Creating or changing plugins, their installation settings, or a marketplace’s settings requires an Admin API key with `write:plugins`. Of the read calls, only downloading the files of a plugin in a member’s personal marketplace records an [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) event (`claude_plugin_archive_accessed`). See the [Plugins API guide](https://platform.claude.com/docs/en/manage-claude/plugins-api) for each endpoint, request examples, and the [events the API records](https://platform.claude.com/docs/en/manage-claude/plugins-api#activity-feed-events).
 
 ## Next steps
 

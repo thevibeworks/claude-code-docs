@@ -18,7 +18,7 @@ Here are some key indicators that you should employ an LLM such as Claude to sum
   </Accordion>
 
   <Accordion title="You need automated extraction of key metadata">
-    Claude can efficiently extract and categorize important metadata from legal documents, such as parties involved, dates, contract terms, or specific clauses. This automated extraction can help organize information, making it easier to search, analyze, and manage large document sets. It's especially useful for contract management, compliance checks, or creating searchable databases of legal information. 
+    Claude can efficiently extract and categorize important metadata from legal documents, such as parties involved, dates, contract terms, or specific clauses. This automated extraction can help organize information, making it easier to search, analyze, and manage large document sets. It’s especially useful for contract management, compliance checks, or creating searchable databases of legal information. 
   </Accordion>
 
   <Accordion title="You want to generate clear, concise, and standardized summaries">
@@ -169,7 +169,7 @@ To help estimate these costs, the following is a comparison of the cost to summa
 
 * **Estimated tokens**
 
-  * Input tokens: 108M, about 108,000 per agreement (about 1 token per 2.8 characters, the rate both models showed on this guide's sample agreement)
+  * Input tokens: 108M, about 108,000 per agreement (about 1 token per 2.8 characters, the rate both models showed on this guide’s sample agreement)
   * Output tokens per summary, including any thinking tokens, which are billed as output: about 6,200 on Claude Opus 5.5 and 3,100 on Claude Haiku 5.5
   * Total output tokens: 6.2M on Claude Opus 5.5 and 3.1M on Claude Haiku 5.5
 
@@ -190,7 +190,7 @@ To help estimate these costs, the following is a comparison of the cost to summa
 
   [Build a strong prompt](https://platform.claude.com/docs/en/about-claude/use-case-guides/legal-summarization#build-a-strong-prompt)
 
-   section on this guide's sample agreement, about 105,000 input tokens, and output length varies with the document and from run to run. Each agreement here is one prompt of about 108,000 tokens, over the 100,000-token threshold of Claude Haiku 5.5's 
+   section on this guide’s sample agreement, about 105,000 input tokens, and output length varies with the document and from run to run. Each agreement here is one prompt of about 108,000 tokens, over the 100,000-token threshold of Claude Haiku 5.5’s 
 
   [long-prompt prices](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing)
 
@@ -211,7 +211,7 @@ To help estimate these costs, the following is a comparison of the cost to summa
 
 ### Transform documents into a format that Claude can process
 
-Before you start summarizing documents, you need to prepare your data. This involves extracting text from PDFs, cleaning the text, and ensuring it's ready to be processed by Claude.
+Before you start summarizing documents, you need to prepare your data. This involves extracting text from PDFs, cleaning the text, and ensuring it’s ready to be processed by Claude.
 
 Here is a demonstration of this process on a sample PDF:
 
@@ -465,7 +465,7 @@ Here is a demonstration of this process on a sample PDF:
   ```
 </CodeGroup>
 
-In this example, you first download a PDF of a sample sublease agreement used in the Claude Cookbook's [summarization recipe](https://platform.claude.com/cookbook/capabilities-summarization-guide). This agreement was sourced from a publicly available sublease agreement from the [sec.gov website](https://www.sec.gov/Archives/edgar/data/1045425/000119312507044370/dex1032.htm).
+In this example, you first download a PDF of a sample sublease agreement used in the Claude Cookbook’s [summarization recipe](https://platform.claude.com/cookbook/capabilities-summarization-guide). This agreement was sourced from a publicly available sublease agreement from the [sec.gov website](https://www.sec.gov/Archives/edgar/data/1045425/000119312507044370/dex1032.htm).
 
 The example uses the `pypdf` (typescript: `pdf-parse`; csharp: `PdfPig`; go: `github.com/ledongthuc/pdf`; java: `org.apache.pdfbox:pdfbox`; php: `smalot/pdfparser`; ruby: `pdf-reader`) library to extract the contents of the PDF and convert it to text. The text data is then cleaned by removing page numbers and extra whitespace.
 
@@ -887,7 +887,7 @@ In complex scenarios, it might be helpful to consider additional strategies to i
 
 Legal summarization often involves handling long documents or many related documents at once, such that you surpass Claude’s context window. You can use a chunking method known as meta-summarization to handle this use case. This technique involves breaking down documents into smaller, manageable chunks and then processing each chunk separately. You can then combine the summaries of each chunk to create a meta-summary of the entire document.
 
-Here's an example of how to perform meta-summarization:
+Here’s an example of how to perform meta-summarization:
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -1327,7 +1327,7 @@ The `summarize_long_document()` (typescript, go, java: `summarizeLongDocument()`
 
 The code achieves this by applying the `summarize_document()` (typescript, go, java: `summarizeDocument()`; php: `$summarizeDocument()`; csharp: `SummarizeDocument()`) function to each chunk of 20,000 characters within the original document. The individual summaries are then combined, and a final summary is created from these chunk summaries.
 
-Note that the `summarize_long_document()` (typescript, go, java: `summarizeLongDocument()`; php: `$summarizeLongDocument()`; csharp: `SummarizeLongDocument()`) function isn't strictly necessary for the example PDF, as the entire document fits within Claude's context window. However, it becomes essential for documents exceeding Claude's context window or when summarizing multiple related documents together. Regardless, this meta-summarization technique often captures additional important details in the final summary that were missed in the earlier single-summary approach.
+Note that the `summarize_long_document()` (typescript, go, java: `summarizeLongDocument()`; php: `$summarizeLongDocument()`; csharp: `SummarizeLongDocument()`) function isn’t strictly necessary for the example PDF, as the entire document fits within Claude’s context window. However, it becomes essential for documents exceeding Claude’s context window or when summarizing multiple related documents together. Regardless, this meta-summarization technique often captures additional important details in the final summary that were missed in the earlier single-summary approach.
 
 ### Use summary indexed documents to explore a large collection of documents
 
@@ -1335,11 +1335,11 @@ Searching a collection of documents with an LLM usually involves retrieval-augme
 
 ### Fine-tune Claude to learn from your dataset
 
-Another advanced technique to improve Claude's ability to generate summaries is fine-tuning. Fine-tuning involves training Claude on a custom dataset that specifically aligns with your legal summarization needs, ensuring that Claude adapts to your use case. Here’s an overview on how to perform fine-tuning:
+Another advanced technique to improve Claude’s ability to generate summaries is fine-tuning. Fine-tuning involves training Claude on a custom dataset that specifically aligns with your legal summarization needs, ensuring that Claude adapts to your use case. Here’s an overview on how to perform fine-tuning:
 
 1. **Identify errors:** Start by collecting instances where Claude’s summaries are inadequate. This could include missing critical legal details, misunderstanding context, or using inappropriate legal terminology.
 
-2. **Curate a dataset:** Once you've identified these issues, compile a dataset of these problematic examples. This dataset should include the original legal documents alongside your corrected summaries, ensuring that Claude learns the behavior you want.
+2. **Curate a dataset:** Once you’ve identified these issues, compile a dataset of these problematic examples. This dataset should include the original legal documents alongside your corrected summaries, ensuring that Claude learns the behavior you want.
 
 3. **Perform fine-tuning:** Fine-tuning involves retraining the model on your curated dataset to adjust its weights and parameters. This retraining helps Claude better adapt to the specific requirements of your legal domain, improving its ability to summarize documents according to your standards.
 

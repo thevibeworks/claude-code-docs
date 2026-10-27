@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/about-claude/use-case-guides/commerce-a
 description: Build a shopping agent and a merchant agent on Claude using Claude for commerce, an open-source blueprint with working implementations on the Messages API, the Claude Agent SDK, and Claude Managed Agents.
 ---
 
-This guide shows how to build commerce agents on Claude: a shopping agent that customers use inside your app, and a merchant agent for the people running the store, whether that is the business's own operations staff or the sellers on its platform. It does that through Claude for commerce, an open-source blueprint that includes the following:
+This guide shows how to build commerce agents on Claude: a shopping agent that customers use inside your app, and a merchant agent for the people running the store, whether that is the business’s own operations staff or the sellers on its platform. It does that through Claude for commerce, an open-source blueprint that includes the following:
 
 * A working implementation of each agent on the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages), the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview), and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 * Runnable examples for retail, travel, telecom, and entertainment
@@ -38,7 +38,7 @@ The merchant agent supports the people running the store. It reaches your analyt
 * Explain how the business is doing: why a metric moved, which segment drove it, and pace against a comparable period. An optional analysis delegate runs read-only queries under a time and size budget.
 * Present a daily digest of what needs attention, including low stock, slow movers, and order exceptions.
 * Improve listing content and fix catalog data from material the operator supplies.
-* Recommend price changes and promotions within the store's guardrails, with a margin preview.
+* Recommend price changes and promotions within the store’s guardrails, with a margin preview.
 * Draft marketing campaigns with audiences, placements, and budget.
 
 Its five skills cover performance insights, inventory and operations, catalog and listings, pricing and promotions, and marketing campaigns.
@@ -58,7 +58,7 @@ Each example includes a customer storefront and a merchant portal over fictional
 
 ## Where it runs
 
-The Messages API and Agent SDK runtimes run against the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), or [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), or through your own gateway. The Claude Managed Agents path runs on the Claude API. The repository's deployment guide shows where each path selects its platform and which model ID format each expects.
+The Messages API and Agent SDK runtimes run against the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), or [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), or through your own gateway. The Claude Managed Agents path runs on the Claude API. The repository’s deployment guide shows where each path selects its platform and which model ID format each expects.
 
 ## Build your own with the Claude Code plugin
 
@@ -73,7 +73,7 @@ The blueprint ships with a [Claude Code](https://code.claude.com/docs/en/overvie
 
 The plugin also carries six skills on the architecture, prompt caching, UI as tools, trust and safety, evals, and merchant operations, which load whenever a Claude Code conversation matches them. Installation instructions are in the repository README.
 
-To adapt the reference by hand instead, implement the shopping or merchant backend interface over your services, switch off the systems you don't have with the configuration flags so their tools and prompt lines drop out, and set your brand name, assistant name, and voice. The repository's backend guide walks through identity and credentials, ordered flows, checkout hand-off, and products with options. A pilot can implement search and product details and stub the rest.
+To adapt the reference by hand instead, implement the shopping or merchant backend interface over your services, switch off the systems you don’t have with the configuration flags so their tools and prompt lines drop out, and set your brand name, assistant name, and voice. The repository’s backend guide walks through identity and credentials, ordered flows, checkout hand-off, and products with options. A pilot can implement search and product details and stub the rest.
 
 ## Get started
 

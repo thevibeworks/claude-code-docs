@@ -25,7 +25,9 @@ Token counting lets you determine the number of tokens in a message before you s
 
 ## How to count message tokens
 
-The [token counting](https://platform.claude.com/docs/en/api/messages/count_tokens) endpoint accepts the same structured list of inputs for creating a message, including support for system prompts, [tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), [images](https://platform.claude.com/docs/en/build-with-claude/vision), and [PDFs](https://platform.claude.com/docs/en/build-with-claude/pdf-support). The response contains the total number of input tokens.
+The [token counting](https://platform.claude.com/docs/en/api/messages/count_tokens) endpoint accepts the same structured list of inputs for creating a message, including support for system prompts, [tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), [images](https://platform.claude.com/docs/en/build-with-claude/vision), and [PDFs](https://platform.claude.com/docs/en/build-with-claude/pdf-support). The response contains the total number of [input tokens](https://platform.claude.com/docs/en/api/messages/count_tokens#message_tokens_count.input_tokens).
+
+(See the `messages/count_tokens` method in [the API reference](https://platform.claude.com/docs/en/api/messages/count_tokens).)
 
 This endpoint returns an `invalid_request_error` for a few inputs that the Messages API accepts:
 
@@ -33,7 +35,7 @@ This endpoint returns an `invalid_request_error` for a few inputs that the Messa
 * The [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector)
 * `image` or `document` blocks with a `url` or `file` source
 
-Send images and PDFs as base64 to count them. For requests that use server tools or MCP servers, the Messages API response reports the tokens used in its `usage` object.
+Send images and PDFs as base64 to count them. For requests that use server tools or MCP servers, the Messages API response reports the tokens used in its [`usage`](https://platform.claude.com/docs/en/api/messages/create#message.usage) object.
 
 <Note>
   The token count is an **estimate**. In some cases, the actual number of input tokens used when creating a message might differ by a small amount.
@@ -199,7 +201,7 @@ All [active models](https://platform.claude.com/docs/en/models/overview) support
 ### Count tokens in messages with tools
 
 <Note>
-  Token counting supports client tools and the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool). Requests that include other [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) return an error. For the advisor tool, the count covers the executor's first sampling call only.
+  Token counting supports client tools and the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool). Requests that include other [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) return an error. For the advisor tool, the count covers the executor’s first sampling call only.
 </Note>
 
 <CodeGroup>
@@ -1116,7 +1118,7 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
 ### Count tokens in messages with PDFs
 
 <Note>
-  Token counting supports base64-encoded PDFs with the same [PDF requirements](https://platform.claude.com/docs/en/build-with-claude/pdf-support#check-pdf-requirements) as the Messages API. This endpoint doesn't support `url` or `file` document sources.
+  Token counting supports base64-encoded PDFs with the same [PDF requirements](https://platform.claude.com/docs/en/build-with-claude/pdf-support#check-pdf-requirements) as the Messages API. This endpoint doesn’t support `url` or `file` document sources.
 </Note>
 
 <CodeGroup>
@@ -1406,7 +1408,7 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
 Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5 share the tokenizer introduced with Claude Opus 4.7. A prompt counts the same on all four, and roughly 30 percent higher than on models before Claude Opus 4.7 (the exact increase depends on the content). The token counting endpoint counts under the tokenizer of the `model` you pass. To measure the difference for your workload, count the same request twice, once with your current model and once with the model you plan to move to, and compare the two `input_tokens` values.
 
 <Note>
-  **Billing and migration:** Usage and billing on these models reflect this tokenizer's counts. When migrating from a model before Claude Opus 4.7, don't reuse token counts measured on the older model to estimate costs or context window fit. Count your prompts with the `model` ID you plan to use (for example, `"claude-fable-5-1"`).
+  **Billing and migration:** Usage and billing on these models reflect this tokenizer’s counts. When migrating from a model before Claude Opus 4.7, don’t reuse token counts measured on the older model to estimate costs or context window fit. Count your prompts with the `model` ID you plan to use (for example, `"claude-fable-5-1"`).
 </Note>
 
 ***
@@ -1445,7 +1447,7 @@ Token counting is **free to use** but subject to requests per minute rate limits
   </Card>
 
   <Card title="Context windows" icon="arrows-maximize" href="https://platform.claude.com/docs/en/build-with-claude/context-windows">
-    Use token counts to keep prompts within a model's context window.
+    Use token counts to keep prompts within a model’s context window.
   </Card>
 
   <Card title="Rate limits" icon="gauge" href="https://platform.claude.com/docs/en/api/rate-limits">

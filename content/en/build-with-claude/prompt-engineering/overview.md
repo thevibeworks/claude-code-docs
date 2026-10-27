@@ -16,11 +16,11 @@ If not, spend time establishing that first. See [Define success criteria and bui
 
 <CardGroup cols={2}>
   <Card title="Prompt generator notebook" icon="link" href="https://colab.research.google.com/github/anthropics/claude-cookbooks/blob/main/misc/metaprompt.ipynb">
-    Don't have a first draft prompt? Generate one with the metaprompt recipe from the Claude Cookbook.
+    Don’t have a first draft prompt? Generate one with the metaprompt recipe from the Claude Cookbook.
   </Card>
 
   <Card title="Prompting best practices" icon="link" href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">
-    For model-specific tuning guidance for Claude's latest models, start here.
+    For model-specific tuning guidance for Claude’s latest models, start here.
   </Card>
 </CardGroup>
 
@@ -34,7 +34,7 @@ This guide focuses on success criteria that are controllable through prompt engi
 
 ## How to prompt engineer
 
-All prompting techniques (from clarity and examples to XML structuring, role prompting, thinking, and prompt chaining) are covered in [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices). That's the living reference; start there.
+All prompting techniques (from clarity and examples to XML structuring, role prompting, thinking, and prompt chaining) are covered in [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices). That’s the living reference; start there.
 
 For general prompt engineering craft beyond Claude-specific techniques, see the blog post on [best practices for prompt engineering](https://claude.com/blog/best-practices-for-prompt-engineering).
 
@@ -42,7 +42,7 @@ For general prompt engineering craft beyond Claude-specific techniques, see the 
 
 ## Prompt engineering tutorial
 
-If you're an interactive learner, you can start with the interactive tutorials instead!
+If you’re an interactive learner, you can start with the interactive tutorials instead!
 
 <CardGroup cols={2}>
   <Card title="GitHub prompting tutorial" icon="link" href="https://github.com/anthropics/prompt-eng-interactive-tutorial">
