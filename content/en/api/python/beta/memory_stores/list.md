@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/list
 
 # List Memory Stores
 
-`beta.memory_stores.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryStore]`
+`beta.memory_stores.list(**kwargs) -> SyncPageCursor[BetaManagedAgentsMemoryStore]`
 
 **GET** `/v1/memory_stores`
 

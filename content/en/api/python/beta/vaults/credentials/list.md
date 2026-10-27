@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/list
 
 # List Credentials
 
-`beta.vaults.credentials.list(vault_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsCredential]`
+`beta.vaults.credentials.list(vault_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsCredential]`
 
 **GET** `/v1/vaults/{vault_id}/credentials`
 

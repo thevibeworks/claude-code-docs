@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/certificates/re
 
 # Get Tunnel Certificate
 
-`beta.tunnels.certificates.retrieve(certificate_id, **kwargs)  -> BetaTunnelCertificate`
+`beta.tunnels.certificates.retrieve(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 

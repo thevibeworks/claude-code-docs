@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/messages/batches/retrie
 
 # Retrieve a Message Batch
 
-`beta.messages.batches.retrieve(message_batch_id, **kwargs)  -> BetaMessageBatch`
+`beta.messages.batches.retrieve(message_batch_id, **kwargs) -> BetaMessageBatch`
 
 **GET** `/v1/messages/batches/{message_batch_id}`
 

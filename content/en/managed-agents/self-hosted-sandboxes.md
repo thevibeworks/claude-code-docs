@@ -33,7 +33,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
 ### Prerequisites
 
 * **An agent:** If you don't have one, complete [Get started with Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/quickstart) first and note the agent ID.
-* **A Linux host:** The host needs `/bin/bash` at that exact path. The worker needs only outbound HTTPS.
+* **A Linux or macOS host:** The host needs `/bin/bash` at that exact path. The worker needs only outbound HTTPS.
 * **A Claude API key:** You use it from your own machine to create sessions and read queue stats. Keep it off the worker host, where agent tool calls could read it.
 * **The `ant` CLI or the SDK on your own machine:** The stats and session steps in this quickstart run there, not on the worker host. Install the CLI the same way the [install step](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session) does for the worker, or install the [SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview).
 
@@ -41,6 +41,10 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
   On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), the worker authenticates with AWS IAM (SigV4) or an [API key generated in the AWS Console](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication), not an environment key. Attach the [`AnthropicSelfHostedEnvironmentAccess`](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#managed-policies) managed policy to the IAM principal your worker runs as. Environment keys generated in the Claude Console don't work with the Claude Platform on AWS endpoint.
 
   On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), the worker authenticates with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication), not an environment key. Grant the Google Cloud identity your worker uses `roles/claude.user` or `roles/claude.admin` on the project. Both roles include [`environments.processWork`](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments), which the worker needs to poll for and manage work items, and the session and skill permissions it needs to run a session. Environment keys generated in the Claude Console don't work with the Claude Models on Google Cloud (Anthropic managed) endpoint. The pre-built workers in the `ant` CLI and in the Python, TypeScript, and Go SDKs don't support Claude Models on Google Cloud (Anthropic managed), so implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly. See [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported).
+</Note>
+
+<Note>
+  On macOS, the worker's bash tool runs the system Bash 3.2 at `/bin/bash`, even if you install a newer Bash with Homebrew. To use memory stores on macOS, first [prepare the macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host).
 </Note>
 
 ### Run your first session
@@ -208,12 +212,27 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
   </Step>
 
   <Step title="Start the worker">
-    Create the working directory, then start the worker. `--workdir` defaults to the current directory, so pass `/workspace` to match the system default.
+    Create the working directory, then start the worker with `--workdir` set to it. Without the flag, the worker uses the current directory.
 
-    ```bash
-    sudo mkdir -p /workspace && sudo chown "$USER" /workspace
-    ant beta:worker poll --workdir /workspace
-    ```
+    <Tabs>
+      <Tab title="Linux">
+        Pass `/workspace` to match the system default.
+
+        ```bash
+        sudo mkdir -p /workspace && sudo chown "$USER" /workspace
+        ant beta:worker poll --workdir /workspace
+        ```
+      </Tab>
+
+      <Tab title="macOS">
+        The root volume is read-only, so `mkdir` can't create `/workspace`. Use a directory in your home directory instead. If the agent uses skills, add this directory's full path (`echo ~/workspace` prints it) to its system prompt, as [Sandbox filesystem](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-reference#sandbox-filesystem) describes.
+
+        ```bash
+        mkdir -p ~/workspace
+        ant beta:worker poll --workdir ~/workspace
+        ```
+      </Tab>
+    </Tabs>
 
     The worker reads the two variables you exported and polls until you stop it.
   </Step>
@@ -501,9 +520,19 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
   <Step title="Confirm the tools ran on your host">
     On the worker host, read the file the agent wrote:
 
-    ```bash
-    cat /workspace/hello.txt
-    ```
+    <Tabs>
+      <Tab title="Linux">
+        ```bash
+        cat /workspace/hello.txt
+        ```
+      </Tab>
+
+      <Tab title="macOS">
+        ```bash
+        cat ~/workspace/hello.txt
+        ```
+      </Tab>
+    </Tabs>
 
     The file describes your own host's kernel, so the agent's tool calls ran there. To follow the agent's work in real time, see [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
   </Step>

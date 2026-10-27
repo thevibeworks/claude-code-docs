@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/certificates/li
 
 # List Tunnel Certificates
 
-`beta.tunnels.certificates.list(tunnel_id, **kwargs)  -> SyncPageCursor[BetaTunnelCertificate]`
+`beta.tunnels.certificates.list(tunnel_id, **kwargs) -> SyncPageCursor[BetaTunnelCertificate]`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 

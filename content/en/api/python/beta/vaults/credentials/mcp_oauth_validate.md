@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/mcp_
 
 # Validate an MCP OAuth Credential
 
-`beta.vaults.credentials.mcp_oauth_validate(credential_id, **kwargs)  -> BetaManagedAgentsCredentialValidation`
+`beta.vaults.credentials.mcp_oauth_validate(credential_id, **kwargs) -> BetaManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 

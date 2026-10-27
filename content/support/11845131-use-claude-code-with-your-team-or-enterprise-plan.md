@@ -4,11 +4,11 @@ This article applies to members of Team or Enterprise plan organizations using t
 
 ## What is Claude Code?
 
-Claude Code is a coding tool that gives you access to Claude models directly in your terminal or supported IDE, allowing you to delegate complex coding tasks while maintaining transparency and control.
+Claude Code is a coding tool that lets you delegate complex coding tasks to Claude while keeping transparency and control. It’s included in Claude Desktop, and you can also run it in your terminal or a supported IDE.
 
 Claude Code is included with every Team plan seat. Premium seats offer more usage for team members with heavier workloads. For Enterprise plans, Claude Code is included with the single Enterprise seat on new and self-serve plans. On older Enterprise plans, Claude Code is available on Chat + Claude Code seats (usage-based billing) and Premium seats (seat-based billing).
 
-With a Team or Enterprise plan, you can access Claude on the web, desktop, and mobile apps, plus Claude Code in your terminal—all with one unified subscription.
+With a Team or Enterprise plan, you can access Claude on the web, desktop, and mobile apps, plus Claude Code, with one subscription.
 
 ### Why use Claude and Claude Code?
 
@@ -16,7 +16,7 @@ Combine two powerful AI products in one unified subscription:
 
 - Use Claude for writing, research, analysis, and collaboration across teams.
 
-- Use Claude Code for terminal-based coding workflows and development tasks.
+- Use Claude Code for coding and development tasks in Claude Desktop, your terminal, or your IDE.
 
 ---
 
@@ -30,15 +30,17 @@ If your organization is on a new or self-serve Enterprise plan, Claude Code is a
 
 If your organization is on an older Enterprise plan with Chat and Chat + Claude Code seats, or Standard and Premium seats, you'll need to ensure you have a seat type that includes Claude Code. Owners can purchase or reassign **Chat + Claude Code / Premium seats** in **[Organization settings > Organization](https://claude.ai/admin-settings/organization)**. See **[Purchase and manage seats on Enterprise plans](https://support.claude.com/en/articles/13393991-purchase-and-manage-seats-on-enterprise-plans)** for details.
 
-### Step 2: Download and install Claude Code
+### Step 2: Open Claude Code
+
+**Recommended:** Download **Claude Desktop**, sign in with your Team or Enterprise account, and open the “Code” tab. Claude Desktop includes Claude Code, so there’s nothing else to install, and it uses the account you signed in with. Follow the **desktop quickstart** in the Claude Code docs for your first session. You can skip Step 3.
+
+To use the terminal instead, follow the installation instructions in our **[Claude Code Docs](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code)** for the environment you’re using.
 
 **Note:** If you already have Claude Code installed on your computer, proceed to Step 3.
 
-Once you confirm you have access, follow the installation instructions in our **[Claude Code Docs](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code)** for the environment you're using.
+### Step 3: Authenticate in the terminal
 
-### Step 3: Authenticate with the Team or Enterprise account
-
-1. Type `claude` within your Terminal window to start a Claude Code session.
+1. Type `claude` in your terminal to start a Claude Code session.
 
 2. When prompted during setup or first use, select a login method.
 
@@ -54,7 +56,7 @@ Once you're signed in, skills and plugins from your Claude account, including th
 
 ### Having trouble using your Team or Enterprise account to access Claude Code?
 
-If you're not seeing the option to authenticate with your preferred account, follow these steps to update Claude Code:
+If you’re not seeing the option to authenticate with your preferred account in the terminal, follow these steps to update Claude Code:
 
 1. Log out of your active session completely using the `/logout` command.
 
@@ -66,7 +68,7 @@ If you're not seeing the option to authenticate with your preferred account, fol
 
 ## Use Claude Code in your IDE
 
-Your seat also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Team or Enterprise account you use in the terminal. IDE usage is limited and billed the same way as terminal usage on your plan.
+Your seat also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Team or Enterprise account you use in Claude Desktop or the terminal. IDE usage is limited and billed the same way as terminal usage on your plan.
 
 To install and set up the extension for your IDE, see **[Platforms and integrations](https://code.claude.com/docs/en/platforms)** in our Claude Code Docs.
 

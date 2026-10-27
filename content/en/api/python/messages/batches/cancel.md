@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/messages/batches/cancel
 
 # Cancel a Message Batch
 
-`messages.batches.cancel(message_batch_id, **kwargs)  -> MessageBatch`
+`messages.batches.cancel(message_batch_id, **kwargs) -> MessageBatch`
 
 **POST** `/v1/messages/batches/{message_batch_id}/cancel`
 

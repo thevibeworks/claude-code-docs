@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/delete
 
 # Delete Session
 
-`beta.sessions.delete(session_id, **kwargs)  -> BetaManagedAgentsDeletedSession`
+`beta.sessions.delete(session_id, **kwargs) -> BetaManagedAgentsDeletedSession`
 
 **DELETE** `/v1/sessions/{session_id}`
 

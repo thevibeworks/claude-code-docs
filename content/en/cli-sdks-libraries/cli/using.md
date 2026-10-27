@@ -117,7 +117,7 @@ ant beta:agents create \
   --name "Research Agent" \
   --model '{id: claude-opus-5-5}' \
   --tool '{type: agent_toolset_20260401}' \
-  --tool '{type: custom, name: search_docs, input_schema: {type: object, properties: {query: {type: string}}}}'
+  --tool '{type: custom, name: search_docs, description: Search the documentation, input_schema: {type: object, properties: {query: {type: string}}}}'
 ```
 
 ### Stdin

@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials
 
 ## Create a Credential
 
-`beta.vaults.credentials.create(vault_id, **kwargs)  -> BetaManagedAgentsCredential`
+`beta.vaults.credentials.create(vault_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
@@ -512,7 +512,7 @@ print(beta_managed_agents_credential.id)
 
 ## List Credentials
 
-`beta.vaults.credentials.list(vault_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsCredential]`
+`beta.vaults.credentials.list(vault_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsCredential]`
 
 **GET** `/v1/vaults/{vault_id}/credentials`
 
@@ -856,7 +856,7 @@ print(page.id)
 
 ## Retrieve a Credential
 
-`beta.vaults.credentials.retrieve(credential_id, **kwargs)  -> BetaManagedAgentsCredential`
+`beta.vaults.credentials.retrieve(credential_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -1185,7 +1185,7 @@ print(beta_managed_agents_credential.id)
 
 ## Update a Credential
 
-`beta.vaults.credentials.update(credential_id, **kwargs)  -> BetaManagedAgentsCredential`
+`beta.vaults.credentials.update(credential_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -1654,7 +1654,7 @@ print(beta_managed_agents_credential.id)
 
 ## Delete a Credential
 
-`beta.vaults.credentials.delete(credential_id, **kwargs)  -> BetaManagedAgentsDeletedCredential`
+`beta.vaults.credentials.delete(credential_id, **kwargs) -> BetaManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -1827,7 +1827,7 @@ print(beta_managed_agents_deleted_credential.id)
 
 ## Archive a Credential
 
-`beta.vaults.credentials.archive(credential_id, **kwargs)  -> BetaManagedAgentsCredential`
+`beta.vaults.credentials.archive(credential_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
@@ -2156,7 +2156,7 @@ print(beta_managed_agents_credential.id)
 
 ## Validate an MCP OAuth Credential
 
-`beta.vaults.credentials.mcp_oauth_validate(credential_id, **kwargs)  -> BetaManagedAgentsCredentialValidation`
+`beta.vaults.credentials.mcp_oauth_validate(credential_id, **kwargs) -> BetaManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 

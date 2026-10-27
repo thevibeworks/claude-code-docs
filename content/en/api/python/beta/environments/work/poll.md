@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/poll
 
 # Poll for Work
 
-`beta.environments.work.poll(environment_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.poll(environment_id, **kwargs) -> BetaSelfHostedWork`
 
 **GET** `/v1/environments/{environment_id}/work/poll`
 

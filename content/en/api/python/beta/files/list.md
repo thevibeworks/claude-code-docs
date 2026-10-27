@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/files/list
 
 # List Files
 
-`beta.files.list(**kwargs)  -> SyncPageCursor[BetaFileMetadata]`
+`beta.files.list(**kwargs) -> SyncPageCursor[BetaFileMetadata]`
 
 **GET** `/v1/files`
 

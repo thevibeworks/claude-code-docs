@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/retriev
 
 # Get Skill Version
 
-`beta.skills.versions.retrieve(version, **kwargs)  -> BetaSkillVersion`
+`beta.skills.versions.retrieve(version, **kwargs) -> BetaSkillVersion`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 

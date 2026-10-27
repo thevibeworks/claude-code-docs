@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/archive
 
 # Archive a Vault
 
-`beta.vaults.archive(vault_id, **kwargs)  -> BetaManagedAgentsVault`
+`beta.vaults.archive(vault_id, **kwargs) -> BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources/retr
 
 # Get Session Resource
 
-`beta.sessions.resources.retrieve(resource_id, **kwargs)  -> ResourceRetrieveResponse`
+`beta.sessions.resources.retrieve(resource_id, **kwargs) -> ResourceRetrieveResponse`
 
 **GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 

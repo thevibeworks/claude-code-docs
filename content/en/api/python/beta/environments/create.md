@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/create
 
 # Create Environment
 
-`beta.environments.create(**kwargs)  -> BetaEnvironment`
+`beta.environments.create(**kwargs) -> BetaEnvironment`
 
 **POST** `/v1/environments`
 

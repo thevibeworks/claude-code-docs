@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/rotate_token
 
 # Rotate Tunnel Token
 
-`beta.tunnels.rotate_token(tunnel_id, **kwargs)  -> BetaTunnelToken`
+`beta.tunnels.rotate_token(tunnel_id, **kwargs) -> BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 

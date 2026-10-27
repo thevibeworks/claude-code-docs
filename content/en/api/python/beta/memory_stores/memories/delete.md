@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memories/
 
 # Delete a Memory
 
-`beta.memory_stores.memories.delete(memory_id, **kwargs)  -> BetaManagedAgentsDeletedMemory`
+`beta.memory_stores.memories.delete(memory_id, **kwargs) -> BetaManagedAgentsDeletedMemory`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 

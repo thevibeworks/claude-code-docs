@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/files/delete
 
 # Delete File
 
-`beta.files.delete(file_id, **kwargs)  -> BetaDeletedFile`
+`beta.files.delete(file_id, **kwargs) -> BetaDeletedFile`
 
 **DELETE** `/v1/files/{file_id}`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/unpause
 
 # Unpause Deployment
 
-`beta.deployments.unpause(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
+`beta.deployments.unpause(deployment_id, **kwargs) -> BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}/unpause`
 

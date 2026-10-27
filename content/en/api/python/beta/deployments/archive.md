@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/archive
 
 # Archive Deployment
 
-`beta.deployments.archive(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
+`beta.deployments.archive(deployment_id, **kwargs) -> BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}/archive`
 

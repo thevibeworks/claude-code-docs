@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/list
 
 # List Vaults
 
-`beta.vaults.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsVault]`
+`beta.vaults.list(**kwargs) -> SyncPageCursor[BetaManagedAgentsVault]`
 
 **GET** `/v1/vaults`
 

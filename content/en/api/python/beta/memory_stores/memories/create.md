@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memories/
 
 # Create a Memory
 
-`beta.memory_stores.memories.create(memory_store_id, **kwargs)  -> BetaManagedAgentsMemory`
+`beta.memory_stores.memories.create(memory_store_id, **kwargs) -> BetaManagedAgentsMemory`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memories`
 

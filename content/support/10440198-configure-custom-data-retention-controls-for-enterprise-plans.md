@@ -4,7 +4,7 @@
 
 Custom data retention controls allow organizations to manage how long Claude stores conversation, project, and artifact data. This article explains how to set up and manage data retention periods for your organization.
 
-This feature is available to Enterprise plan customers. A retention period set on an Enterprise plan still applies to artifacts if your organization later changes to a Team plan. To set custom retention periods for your organization, you must have either a Primary Owner or Owner role.
+This feature is available to Enterprise plan customers. To set custom retention periods for your organization, you must have either a Primary Owner or Owner role.
 
 ## How data retention works
 

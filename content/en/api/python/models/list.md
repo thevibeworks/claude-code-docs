@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/models/list
 
 # List Models
 
-`models.list(**kwargs)  -> SyncPage[ModelInfo]`
+`models.list(**kwargs) -> SyncPage[ModelInfo]`
 
 **GET** `/v1/models`
 

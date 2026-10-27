@@ -244,6 +244,7 @@ Match the message you see to a section below.
 | `MCP server "<name>" was not saved to` / `was not removed from` | [Command-line errors](#mcp-server-was-not-saved-or-removed) |
 | `MCP server "<name>" may not have been saved` / `may not have been removed` | [Command-line errors](#mcp-server-may-not-have-been-saved-or-removed) |
 | `Server rejected the Authorization header minted by the configured headersHelper` | [Command-line errors](#server-rejected-the-authorization-header-minted-by-the-configured-headershelper) |
+| `This server (Java MCP SDK 0.17.0 or older) rejected Claude Code's elicitation capability` | [Command-line errors](#mcp-server-rejected-the-elicitation-capability) |
 | `Error: MCP tool <name> (passed via --permission-prompt-tool) not found` | [Command-line errors](#mcp-permission-prompt-tool-not-found) |
 | `OAuth callback port <port> is already in use — another process may be holding it` | [Command-line errors](#oauth-callback-port-is-already-in-use) |
 | `No available ports for OAuth redirect` | [Command-line errors](#no-available-ports-for-oauth-redirect) |
@@ -374,7 +375,7 @@ Match the message you see to a section below.
 | `This conversation is already open in another running Claude session` | [Background session errors](#this-session-is-running-in-another-terminal) |
 | `This session's saved conversation is no longer on disk` | [Background session errors](#this-sessions-saved-conversation-is-no-longer-on-disk) |
 | `Bypass permissions was requested at launch and ignored` | [Bypass permissions ignored in a background session](https://code.claude.com/docs/en/permission-modes.md#bypass-permissions-ignored-in-a-background-session) |
-| `kept <id> — its worktree is still at <path>` | [Background session errors](#worktree-has-commits-that-are-not-pushed-anywhere) |
+| `kept <id> — its worktree is still at <path>` | [Background session errors](#worktree-has-commits-that-are-not-pushed-anywhere) if the message's next line mentions unpushed commits, otherwise [What deleting a session removes](https://code.claude.com/docs/en/agent-view.md#what-deleting-a-session-removes) |
 | `kept <id> — <n> unpushed commits on <branch>` | [Background session errors](#worktree-has-commits-that-are-not-pushed-anywhere) |
 | `kept <id> — worktree has commits that are not pushed anywhere` | [Background session errors](#worktree-has-commits-that-are-not-pushed-anywhere) |
 | `terminal host process died — press Enter to restart` / `This session's terminal host process died` | [Background session errors](#terminal-host-process-died) |
@@ -3473,6 +3474,37 @@ Claude Code re-runs the helper on each connection attempt, so a retry after a tr
 
 Before v2.1.248, Claude Code ran OAuth discovery for a server whose helper supplied the `Authorization` header. That discovery could fail with `Incompatible auth server: does not support dynamic client registration` instead of reporting the rejected credential.
 
+### MCP server rejected the elicitation capability
+
+An MCP server built on Java MCP SDK 0.11.0 through 0.17.0 refused the connection. Those SDK versions can't parse the `form` and `url` [elicitation modes](https://code.claude.com/docs/en/mcp.md#elicitation-modes-claude-code-declares) that Claude Code declares in its handshake. `claude mcp list` shows the server as failed with this message in place of the server's own error:
+
+```text theme={null}
+This server (Java MCP SDK 0.17.0 or older) rejected Claude Code's elicitation capability. Set "bareElicitationCapability": true for it, or upgrade to Java MCP SDK 0.17.1+ (Spring AI 1.0.7+ or 1.1.6+).
+```
+
+**What to do:**
+
+* Upgrade the server to Java MCP SDK 0.17.1 or later, or to one of the Spring AI releases the message names
+* Or add `"bareElicitationCapability": true` to that server's entry in your MCP configuration, then restart Claude Code. The field is accepted on stdio, `sse`, `http`, and `ws` entries and requires Claude Code v2.1.281 or later
+
+This `.mcp.json` entry sets the field for one HTTP server:
+
+```json theme={null}
+{
+  "mcpServers": {
+    "inventory": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp",
+      "bareElicitationCapability": true
+    }
+  }
+}
+```
+
+After the restart, `/mcp` shows the server as connected. Claude Code declares form mode only to that server, so remove the field once you upgrade it.
+
+A server can also fail with its own error text, such as one containing `Unrecognized field "form"`. The same fixes apply.
+
 ### MCP permission prompt tool not found
 
 The tool you passed to [`--permission-prompt-tool`](https://code.claude.com/docs/en/cli-reference#cli-flags) wasn't among the connected MCP tools when the run first needed a permission decision, either because its server never connected or because no connected server exposes a tool by that name. Claude Code still sends your prompt: the [non-interactive](https://code.claude.com/docs/en/headless.md) run exits with this error, and exit code 1, on the first tool call, so it produces no answer even though the request was made. Before the first prompt, Claude Code waits up to the per-server connection timeout of 30 seconds set by [`MCP_TIMEOUT`](https://code.claude.com/docs/en/env-vars) for that server to connect. Before v2.1.206, startup didn't wait for the server to finish connecting, so a slow-starting but healthy server produced this error too.
@@ -5083,12 +5115,12 @@ Commits on a remote don't block the delete. Neither do commits on the local copy
 **What to do:**
 
 * To keep the commits, push the worktree's branch, or merge it into the default branch checked out in your main checkout, then delete the session again
-* To discard the commits, run the `claude rm <id> --discard-unpushed` command the message printed, or press `Ctrl+X` twice on the session's row in agent view again. This removes the session and the worktree along with its branch, the unpushed commits, and any uncommitted changes. If the worktree has gained a commit since the refusal, Claude Code keeps it again and shows the updated state
+* To discard the commits, run the `claude rm <id> --discard-unpushed` command the message printed, or press `Ctrl+X` twice on the session's row in agent view again. This removes the session and the worktree along with its branch, the unpushed commits, and any uncommitted changes. If the delete is refused again, follow the new message.
 * When the message says the worktree is also recorded by another finished session, deleting again doesn't discard it: push the commits, then delete the session again
 
 Before v2.1.268, `claude rm` put the commit summary on the `kept` line itself. When `claude rm` couldn't summarize the commits, the `kept` line read `worktree has commits that are not pushed anywhere` in place of the summary.
 
-Before v2.1.260, the message didn't name the branch or the commits, and deleting again was refused the same way: deleting the session without pushing meant removing the worktree yourself with `git worktree remove --force <path>`, then running `claude rm <id>` again.
+Before v2.1.260, the message didn't name the branch or commits, and there was no discard route. You can still delete the session, losing uncommitted changes but keeping the branch and commits. Run `git worktree remove --force --force <path>` with the path the refusal printed, then `claude rm <id>`. Git needs `--force` twice for a locked worktree.
 
 Before v2.1.248, the default branch checked out in your main checkout didn't count: a branch you had already merged there still triggered this refusal until its commits reached a remote.
 

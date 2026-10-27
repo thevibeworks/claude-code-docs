@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/crea
 
 # Create a Credential
 
-`beta.vaults.credentials.create(vault_id, **kwargs)  -> BetaManagedAgentsCredential`
+`beta.vaults.credentials.create(vault_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 

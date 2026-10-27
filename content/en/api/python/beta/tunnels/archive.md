@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/archive
 
 # Archive Tunnel
 
-`beta.tunnels.archive(tunnel_id, **kwargs)  -> BetaTunnel`
+`beta.tunnels.archive(tunnel_id, **kwargs) -> BetaTunnel`
 
 **POST** `/v1/tunnels/{tunnel_id}/archive`
 

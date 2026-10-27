@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources/upda
 
 # Update Session Resource
 
-`beta.sessions.resources.update(resource_id, **kwargs)  -> ResourceUpdateResponse`
+`beta.sessions.resources.update(resource_id, **kwargs) -> ResourceUpdateResponse`
 
 **POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 

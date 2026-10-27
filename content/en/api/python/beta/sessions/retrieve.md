@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/retrieve
 
 # Get Session
 
-`beta.sessions.retrieve(session_id, **kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.retrieve(session_id, **kwargs) -> BetaManagedAgentsSession`
 
 **GET** `/v1/sessions/{session_id}`
 

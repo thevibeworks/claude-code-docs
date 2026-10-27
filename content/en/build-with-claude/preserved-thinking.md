@@ -73,6 +73,8 @@ Thinking blocks that Claude Sonnet 5.5 or Claude Haiku 5.5 produces work only in
 
 On the Claude API and Claude Models on Google Cloud (Google managed), with the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers), the response lists each dropped block in `input_transformations` as a `thinking_dropped` entry with `reason: "organization_binding_mismatch"`. Without the header, the drop is silent.
 
+The API can also leave out a thinking block that another account produced, if that account is no longer in good standing. This applies to requests to Claude Fable and Claude Mythos models, Claude Opus 5, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5. The request still succeeds, and the model answers without that block's reasoning.
+
 ## Keeping the prefix unchanged
 
 On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, a thinking block stays valid only while everything you sent before it is unchanged on later requests. The checked prefix has three parts:
@@ -439,19 +441,13 @@ Each row compares two consecutive requests:
 
 ### Check whether your code edits the prefix
 
-<Tip>
-  **Automate this check with the Claude API skill.** In the latest version of [Claude Code](https://code.claude.com/docs/en/overview), open the repository that builds your requests and run the bundled [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#checking-an-integration-for-preserved-thinking):
+Let Claude Code check your code for you
 
-  Let Claude Code check your code for you
+```text
+/claude-api preserved-thinking-migration
+```
 
-  ```text
-  /claude-api preserved-thinking-migration
-  ```
-
-  The skill captures a few of your own multi-turn sessions and diffs consecutive requests to find where your code edits the prefix. It then replays the sessions with `"drop_block"` and counts the thinking blocks the API drops. After that, it fixes one cause at a time and measures again after each fix.
-</Tip>
-
-First, diff what you send. Capture the request bodies your integration sends over a few normal turns, including a compaction or a tool change. For each pair of consecutive requests, compare `system`, `tools`, and the `messages` they share. They should be identical up to the newly appended turns.
+To check by hand, first diff what you send. Capture the request bodies your integration sends over a few normal turns, including a compaction or a tool change. For each pair of consecutive requests, compare `system`, `tools`, and the `messages` they share. They should be identical up to the newly appended turns.
 
 Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` beta header, set `prefix_mismatch_behavior` to `"drop_block"`, and run a normal multi-turn session through your integration on claude-fable-5-1. The following example runs two turns the way your integration should: `messages` only grows, each assistant turn goes back exactly as the API returned it, `thinking` blocks included, and `block_binding` is set on every request. After each turn it prints the number of `thinking` blocks in the response and the number of dropped blocks:
 

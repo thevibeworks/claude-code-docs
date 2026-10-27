@@ -8,36 +8,36 @@ Five sections follow the arc of a developer’s first weeks: getting started, da
 
 ## 1. Getting started
 
-| **Question**                                                    | **Answer**                                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1.1 How do I install it?**                                    | **macOS/Linux:** `curl -fsSL <https://claude.ai/install.sh> | bash`
+| **Question**                                                    | **Answer**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1.1 How do I install it?**                                    | **Easiest:** download Claude Desktop, sign in with your plan, and open the “Code” tab. Claude Code is built in, so there’s nothing else to install.<br>**Terminal:**<br>**macOS/Linux:** `curl -fsSL <https://claude.ai/install.sh> | bash`
 ​**Windows PowerShell:** `irm <https://claude.ai/install.ps1> | iex`
 ​**Homebrew:** `brew install --cask claude-code`
 ​**WinGet:** `winget install Anthropic.ClaudeCode`
 Then run `claude` from any repo.<br>
-Reference: **[Quickstart](https://code.claude.com/docs/en/quickstart)**                                                     |
+Reference: **[Quickstart](https://code.claude.com/docs/en/quickstart)** |
 | **1.2 Installed, but “claude: command not found”**              | The native installer puts the binary at `~/.local/bin/claude` (Windows: `%USERPROFILE%\.local\bin`). Add that directory to your PATH, e.g. `export PATH="$PATH:$HOME/.local/bin"` in `~/.zshrc` or `~/.bashrc`, then restart your terminal.<br>
-Reference: **[Troubleshooting: PATH](https://code.claude.com/docs/en/troubleshooting)**                                                                               |
+Reference: **[Troubleshooting: PATH](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                                                                                                   |
 | **1.3 Login opens a browser on the wrong machine / I’m on SSH** | Press `c` at the login prompt to copy the auth URL. Open it in a local browser, then paste the code back into the terminal.<br>
-Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                                                                                               |
+Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                                                                                                                                                                                                                   |
 | **1.4 Auth errors right after login, but I have access**        | **400 “organization disabled”:** a stray `ANTHROPIC_API_KEY` env var is overriding your login. Unset it, remove from your shell profile, restart. Run `/status` to confirm which auth is active.
 ​**403 Forbidden:** your admin hasn’t enabled Claude Code for your workspace yet, or a corporate proxy is interfering.<br>
-Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)** |
-| **1.5 Is Claude Code included in my plan?**                     | Yes. It’s included with Team and Enterprise seats and with Console (API) access. Log in with your work account; SSO is handled automatically. A 403 after login usually means your admin still needs to enable it for the workspace.<br>
-Reference: **[Authentication](https://code.claude.com/docs/en/authentication)**                                                                                              |
-| **1.6 Claude Code vs. desktop app vs. claude.ai?**              | **Claude Code:** terminal agent that reads your repo, edits files, runs commands.
-​**Desktop / claude.ai:** chat interfaces for conversations and one-off questions.
-Same model family underneath, different shape of tool.<br>
-Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                                               |
+Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                     |
+| **1.5 Is Claude Code included in my plan?**                     | Yes. It’s included with paid Claude plans and with Console (API) access. Sign in with your work account; SSO is handled automatically. A 403 after login usually means your admin still needs to enable it for the workspace.<br>
+Reference: **[Authentication](https://code.claude.com/docs/en/authentication)**                                                                                                                                                                                                                         |
+| **1.6 Claude Code vs. chat in Claude?**                         | **Claude Code:** a coding agent that reads your repo, edits files, and runs commands. It’s the “Code” tab in Claude Desktop, and also runs in your terminal or IDE.
+**Chat in Claude** (web, Claude Desktop, or mobile): chat for conversations and one-off questions.
+Same models underneath, different shape of tool.<br>
+Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                                                                       |
 | **1.7 Does it work in my IDE?**                                 | Yes. Extensions are available for VS Code and JetBrains IDEs (IntelliJ, PyCharm, etc.). Same features, embedded in the editor instead of a separate terminal.<br>
-Reference: **[VS Code](https://code.claude.com/docs/en/vs-code)** · **[JetBrains](https://code.claude.com/docs/en/jetbrains)**                                                                                                                      |
+Reference: **[VS Code](https://code.claude.com/docs/en/vs-code)** · **[JetBrains](https://code.claude.com/docs/en/jetbrains)**                                                                                                                                                                                                                                          |
 | **1.8 How is this different from Copilot/Cursor autocomplete?** | Autocomplete suggests the next few lines. Claude Code is an agent: give it a task (“fix the failing tests”) and it reads files, runs commands, and makes multi-file edits until done. Less “finish my sentence,” more “here’s a problem, go work it.”<br>
-Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                         |
+Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                                                                                                                                             |
 | **1.9 What should I try first?**                                | Point it at a tedious-but-not-hard bug you’ve been putting off. Example: *“the test in [file] is flaky, figure out why.”* Let it read the code instead of you explaining the code.<br>
-Reference: **[Common use cases](https://code.claude.com/docs/en/common-workflows)**                                                                                                                                            |
+Reference: **[Common use cases](https://code.claude.com/docs/en/common-workflows)**                                                                                                                                                                                                                                                                |
 | **1.10 How do I update it?**                                    | Native installs auto-update in the background. To force one now, run `claude update`.
 Homebrew/WinGet don’t auto-update: run `brew upgrade claude-code` or `winget upgrade Anthropic.ClaudeCode` periodically.<br>
-Reference: **[Setup: updates](https://code.claude.com/docs/en/setup)**                                                                                                                           |
+Reference: **[Setup: updates](https://code.claude.com/docs/en/setup)**                                                                                                                                                                                                                                               |
 
 ---
 

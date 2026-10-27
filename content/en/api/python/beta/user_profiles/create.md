@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/create
 
 # Create User Profile
 
-`beta.user_profiles.create(**kwargs)  -> BetaUserProfile`
+`beta.user_profiles.create(**kwargs) -> BetaUserProfile`
 
 **POST** `/v1/user_profiles`
 

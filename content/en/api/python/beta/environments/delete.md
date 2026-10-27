@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/delete
 
 # Delete Environment
 
-`beta.environments.delete(environment_id, **kwargs)  -> BetaEnvironmentDeleteResponse`
+`beta.environments.delete(environment_id, **kwargs) -> BetaEnvironmentDeleteResponse`
 
 **DELETE** `/v1/environments/{environment_id}`
 

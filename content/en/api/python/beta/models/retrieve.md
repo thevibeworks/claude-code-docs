@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/models/retrieve
 
 # Get a Model
 
-`beta.models.retrieve(model_id, **kwargs)  -> BetaModelInfo`
+`beta.models.retrieve(model_id, **kwargs) -> BetaModelInfo`
 
 **GET** `/v1/models/{model_id}`
 

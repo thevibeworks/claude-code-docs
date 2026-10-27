@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/retr
 
 # Retrieve a Credential
 
-`beta.vaults.credentials.retrieve(credential_id, **kwargs)  -> BetaManagedAgentsCredential`
+`beta.vaults.credentials.retrieve(credential_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 

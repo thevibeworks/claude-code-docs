@@ -144,7 +144,7 @@ If your organization uses [customer-managed encryption keys](https://platform.cl
 * **Code changes:** In user activity, these fields in `claude_code_metrics.core_metrics` can be zero: `lines_of_code` (lines added and removed) and `commit_count`. The `pull_request_count` field can be lower than the real number of pull requests.
 * **Skills started with a slash command:** If a user starts a skill in Claude Code or Cowork by typing a slash command, such as `/skill-name`, that use is not counted. This applies to skill usage, and to Cowork skill counts in user activity. Skills that Claude invokes without a slash command are still counted.
 
-For other analytics changes with customer-managed encryption keys, see [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek#disabled-or-modified).
+For other analytics changes with customer-managed encryption keys, see [What CMEK covers on Claude Enterprise](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#turned-off-or-changed).
 
 ## Next steps
 

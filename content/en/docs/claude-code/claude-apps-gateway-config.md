@@ -927,6 +927,11 @@ managed:
 
 When you switch, delete any `serve_to_desktop` line in the same edit that renames the blocks. Where an instruction names the `cli` block, use your `code` block.
 
+`serve_to_desktop: true` is a legacy way to offer a policy's `cli` settings to the Code tab. It has no effect when Claude Desktop connects through [`bootstrapUrl`](#claude-desktop-overlay). While your policies use `cli`, a boot warning that names this key means those settings aren't reaching the Code tab:
+
+* **To cover the Code tab**: switch to `code`, once users' machines meet the conditions in [Apply `code` settings in the Code tab](#apply-code-settings-in-the-code-tab)
+* **To stay on `cli`**: set `serve_to_desktop: false` beside `cli` in a policy to silence the warning
+
 #### What goes in `cli`
 
 Each `code` or `cli` value is a complete Claude Code `managed-settings.json` document, the same schema you would deploy via MDM or `/etc/claude-code/managed-settings.json`, expressed here as YAML. The CLI applies the delivered document at the managed tier, above user and project settings, in place of server-managed settings. It therefore ignores the settings [restricted to OS-level policy sources](https://code.claude.com/docs/en/server-managed-settings.md#current-limitations), such as `policyHelper` and `wslInheritsWindowsSettings`.
@@ -1002,6 +1007,10 @@ A [non-interactive run](https://code.claude.com/docs/en/server-managed-settings.
 If a developer declines, Claude Code exits that session rather than applying the policy. When you push a new hook, or any env var that triggers the dialog, to a broad policy, every matching developer therefore sees the dialog in their interactive sessions. A running interactive session shows it on the next hourly poll, and otherwise it appears at the developer's next interactive startup.
 
 The `cli` key was named `settings` in earlier releases, and the gateway still accepts that spelling as an alias. For new deployments, use [`code`](#choose-cli-or-code).
+
+#### Test a policy before deployment
+
+To test a policy change, start the gateway against a throwaway Postgres database. The gateway connects to Postgres and applies its schema migrations before it checks the contents of `cli`, `code`, and `desktop` blocks. When it can't reach the database, the start stops at `could not connect to Postgres` and reports nothing about their contents.
 
 #### Context window in terminal sessions
 

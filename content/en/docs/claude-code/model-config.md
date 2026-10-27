@@ -542,7 +542,7 @@ When Claude Code switches your session to the fallback model, it keeps the effor
 A different level applies in cases such as these:
 
 * **Your own change**: once you choose an effort level, pick a model in `/model`, or resume the session later, the flagged request's level no longer carries over.
-* **Skill effort**: a level that a skill's `effort` frontmatter set for the flagged request applies to that turn, and later turns run at the level the [effort resolution order](#adjust-effort-level) gives the fallback model.
+* **Effort set for one turn**: if you raised the flagged turn with `ultrathink`, or a skill's `effort` frontmatter set its level, that level applies to that turn. Later turns run at the level the [effort resolution order](#adjust-effort-level) gives the fallback model.
 
 In the session, run `/effort status` to see the level in effect, or `/effort` to change it.
 
@@ -674,13 +674,19 @@ Opus 5.5 [defaults to `medium`](#adjust-effort-level), one level below Opus 5's 
 
 #### Use ultrathink for one-off deep reasoning
 
-Include `ultrathink` anywhere in your prompt to request deeper reasoning on that turn without changing your session effort setting. Claude Code recognizes the keyword and adds an in-context instruction. The effort level sent to the API is unchanged. Claude Code passes other phrases such as "think", "think hard", and "think more" through as ordinary prompt text and doesn't recognize them as keywords.
+Include `ultrathink` anywhere in your prompt to request deeper reasoning on that turn without changing your session effort setting. Claude Code recognizes the keyword and adds an in-context instruction. Claude Code passes other phrases such as "think", "think hard", and "think more" through as ordinary prompt text and doesn't recognize them as keywords.
+
+Typed in the terminal prompt, the word can also raise that turn to `xhigh` effort. When it can, the word shows in rainbow colors. Requires Claude Code v2.1.311 or later. If the word isn't rainbow when you start a new turn, try one of these:
+
+* Retype it outside anything such as quotes, brackets, a path, or a command, in a prompt that doesn't start with `/`
+* Unset `CLAUDE_CODE_EFFORT_LEVEL` if it's set below `xhigh`, raise your own [`maxEffortLevel`](https://code.claude.com/docs/en/settings-reference#maxeffortlevel) to `xhigh` or above, or ask an organization admin to raise your [organization's limit](#organization-effort-limits)
+* Run `/model` in your session to switch to an Opus 5.5, Sonnet 5.5, Haiku 5.5, or Fable 5.1 model. Where the word can't raise a turn, such as on Amazon Bedrock, [set the effort level](#set-the-effort-level) instead
 
 #### Set the effort level
 
 You can change effort through any of the following:
 
-* **`/effort`**: run `/effort` with no arguments to open an interactive slider, `/effort` followed by a level name to set it directly, or `/effort auto` to clear your saved level for the active model. You can run it while Claude is working, and once you confirm the [cache warning](https://code.claude.com/docs/en/prompt-caching.md#changing-effort-level), if Claude Code shows one, Claude Code applies the new level to the next request in the turn
+* **`/effort`**: run `/effort` with no arguments to open an interactive slider, `/effort` followed by a level name to set it directly, or `/effort auto` to clear your saved level for the active model
 * **In `/model`**: use left/right arrow keys to adjust the effort slider when selecting a model
 * **`--effort` flag**: pass a level name to set it for a single session when launching Claude Code
 * **Environment variable**: set `CLAUDE_CODE_EFFORT_LEVEL` to a level name or `auto`
@@ -692,7 +698,18 @@ Frontmatter effort applies when that skill or subagent is active, overriding the
 
 If you set `effortLevel` in [managed settings](https://code.claude.com/docs/en/managed-settings.md), Claude Code applies it at the settings step of the [effort resolution order](#adjust-effort-level), and users can still change the level with `/effort` or `--effort`. To keep users at or below a level, set [`maxEffortLevel`](https://code.claude.com/docs/en/settings-reference#maxeffortlevel).
 
-The effort slider appears in `/model` when a supported model is selected. The current effort level is also shown in the session header next to the model name, for example "with low effort", so you can confirm which setting is active without opening `/model`. The footer also briefly shows the effort level at startup and when it changes.
+#### Check the effort level you set
+
+The effort slider appears in `/model` when a supported model is selected. A level in the session header, for example "with low effort", comes from your effort setting, even if Claude is [still working at the old level](#when-a-new-effort-level-starts). The footer also briefly shows the effort level at startup and when it changes.
+
+#### When a new effort level starts
+
+In a terminal session, once `/effort` confirms the new level, the next message you send runs at that level. You can send it after the turn in progress ends or [while Claude is still working](https://code.claude.com/docs/en/interactive-mode.md#queue-messages-while-claude-works):
+
+* **After the turn ends**: you don't have to do anything until then, and it's expected if the turn finishes at the old level
+* **While Claude is still working**: type a message, such as `keep going`, and press `Enter` to queue it without interrupting the turn. Claude gets it when its current tool calls finish, or when the turn ends at the latest, and works at the new level from then on.
+
+Before v2.1.242, Claude Code could queue `/effort` itself until the turn finished, and always did in a session that doesn't [fetch feature flags](https://code.claude.com/docs/en/env-vars.md#features-that-need-feature-flag-fetching), such as on a [third-party provider](https://code.claude.com/docs/en/third-party-integrations.md).
 
 #### Adaptive reasoning and fixed thinking budgets
 

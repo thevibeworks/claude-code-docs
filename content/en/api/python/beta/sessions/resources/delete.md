@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources/dele
 
 # Delete Session Resource
 
-`beta.sessions.resources.delete(resource_id, **kwargs)  -> BetaManagedAgentsDeleteSessionResource`
+`beta.sessions.resources.delete(resource_id, **kwargs) -> BetaManagedAgentsDeleteSessionResource`
 
 **DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 

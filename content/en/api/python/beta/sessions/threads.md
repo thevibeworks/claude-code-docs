@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/threads
 
 ## List Session Threads
 
-`beta.sessions.threads.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionThread]`
+`beta.sessions.threads.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionThread]`
 
 **GET** `/v1/sessions/{session_id}/threads`
 
@@ -1113,7 +1113,7 @@ print(page.id)
 
 ## Get Session Thread
 
-`beta.sessions.threads.retrieve(thread_id, **kwargs)  -> BetaManagedAgentsSessionThread`
+`beta.sessions.threads.retrieve(thread_id, **kwargs) -> BetaManagedAgentsSessionThread`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
@@ -2192,7 +2192,7 @@ print(beta_managed_agents_session_thread.id)
 
 ## Archive Session Thread
 
-`beta.sessions.threads.archive(thread_id, **kwargs)  -> BetaManagedAgentsSessionThread`
+`beta.sessions.threads.archive(thread_id, **kwargs) -> BetaManagedAgentsSessionThread`
 
 **POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 
@@ -7823,7 +7823,7 @@ print(beta_managed_agents_session_thread.id)
 
 ### List Session Thread Events
 
-`beta.sessions.threads.events.list(thread_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.threads.events.list(thread_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
@@ -10936,7 +10936,7 @@ print(page)
 
 ### Stream Session Thread Events
 
-`beta.sessions.threads.events.stream(thread_id, **kwargs)  -> Stream[BetaManagedAgentsStreamSessionThreadEvents]`
+`beta.sessions.threads.events.stream(thread_id, **kwargs) -> Stream[BetaManagedAgentsStreamSessionThreadEvents]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 

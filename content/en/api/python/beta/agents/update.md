@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/agents/update
 
 # Update Agent
 
-`beta.agents.update(agent_id, **kwargs)  -> BetaManagedAgentsAgent`
+`beta.agents.update(agent_id, **kwargs) -> BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}`
 

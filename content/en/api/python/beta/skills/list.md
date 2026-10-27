@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/list
 
 # List Skills
 
-`beta.skills.list(**kwargs)  -> SyncPageCursor[BetaSkill]`
+`beta.skills.list(**kwargs) -> SyncPageCursor[BetaSkill]`
 
 **GET** `/v1/skills`
 

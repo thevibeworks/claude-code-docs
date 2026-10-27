@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/retrieve
 
 # Retrieve a Vault
 
-`beta.vaults.retrieve(vault_id, **kwargs)  -> BetaManagedAgentsVault`
+`beta.vaults.retrieve(vault_id, **kwargs) -> BetaManagedAgentsVault`
 
 **GET** `/v1/vaults/{vault_id}`
 

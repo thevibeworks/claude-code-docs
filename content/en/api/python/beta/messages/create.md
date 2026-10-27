@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/messages/create
 
 # Create a Message
 
-`beta.messages.create(**kwargs)  -> BetaMessage`
+`beta.messages.create(**kwargs) -> BetaMessage`
 
 **POST** `/v1/messages`
 

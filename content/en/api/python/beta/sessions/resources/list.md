@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources/list
 
 # List Session Resources
 
-`beta.sessions.resources.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionResource]`
+`beta.sessions.resources.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionResource]`
 
 **GET** `/v1/sessions/{session_id}/resources`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/files/download
 
 # Download File
 
-`beta.files.download(file_id, **kwargs)  -> BinaryResponseContent`
+`beta.files.download(file_id, **kwargs) -> BinaryResponseContent`
 
 **GET** `/v1/files/{file_id}/content`
 

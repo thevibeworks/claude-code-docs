@@ -23,22 +23,22 @@ This matrix shows which MCP clients support each [official extension](https://mo
 
 ## Support matrix
 
-| Client | [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | [Enterprise Auth](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | [Skills](https://modelcontextprotocol.io/extensions/skills/overview.md) |
-| - | :-: | :-: | :-: | :-: |
-| [Claude (web)](https://claude.ai) | | | | |
-| [Claude Desktop](https://claude.ai/download) | | | | |
-| [VS Code GitHub Copilot](https://code.visualstudio.com/) | | | | |
-| [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | | | | |
-| [Goose](https://block.github.io/goose/) | | | | |
-| [Postman](https://postman.com) | | | | |
-| [MCPJam](https://www.mcpjam.com/) | | | | |
-| [ChatGPT](https://chatgpt.com/) | | | | [Partial](https://developers.openai.com/plugins/build/mcp-server#import-skills-from-the-mcp-server) |
-| [Cursor](https://cursor.com/) | | | | |
-| [Archestra.AI](https://www.archestra.ai/) | | | | |
-| [PostHog Code](https://posthog.com/code/) | | | | |
-| [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) |
-| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) |
-| [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | |
+| Client | [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | [Enterprise Auth](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | [Skills](https://modelcontextprotocol.io/extensions/skills/overview.md) | [Tasks](https://modelcontextprotocol.io/extensions/tasks/overview.md) |
+| - | :-: | :-: | :-: | :-: | :-: |
+| [Claude (web)](https://claude.ai) | | | | | |
+| [Claude Desktop](https://claude.ai/download) | | | | | |
+| [VS Code GitHub Copilot](https://code.visualstudio.com/) | | | | | |
+| [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | | | | | |
+| [Goose](https://block.github.io/goose/) | | | | | |
+| [Postman](https://postman.com) | | | | | |
+| [MCPJam](https://www.mcpjam.com/) | | | | | |
+| [ChatGPT](https://chatgpt.com/) | | | | [Partial](https://developers.openai.com/plugins/build/mcp-server#import-skills-from-the-mcp-server) | |
+| [Cursor](https://cursor.com/) | | | | | |
+| [Archestra.AI](https://www.archestra.ai/) | | | | | |
+| [PostHog Code](https://posthog.com/code/) | | | | | |
+| [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) | |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | |
+| [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | |
 
 > [!NOTE]
 >

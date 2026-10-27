@@ -2,7 +2,9 @@
 
 These ten issues account for the large majority of installation and authentication support tickets related to Claude Code. Each entry includes the most reliable fix.
 
-## 1. **claude: command not found** right after installing.
+**Note:** If you’re using Claude Code in Claude Desktop, there’s nothing to install. Sign in to the app with your paid Claude plan and open the “Code” tab. If a terminal install is giving you trouble, Claude Desktop is also the quickest way to get unblocked.
+
+## 1. claude: command not found right after installing.
 
 The installer added `claude` to your PATH, but your current shell has not picked it up yet. Open a new terminal, or run `source ~/.zshrc` (or `~/.bashrc`). On Windows, close and reopen PowerShell.
 

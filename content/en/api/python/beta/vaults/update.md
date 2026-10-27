@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/update
 
 # Update a Vault
 
-`beta.vaults.update(vault_id, **kwargs)  -> BetaManagedAgentsVault`
+`beta.vaults.update(vault_id, **kwargs) -> BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}`
 

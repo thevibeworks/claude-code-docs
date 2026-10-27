@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/ack
 
 # Acknowledge Work
 
-`beta.environments.work.ack(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.ack(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 

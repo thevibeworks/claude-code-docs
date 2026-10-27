@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/messages/create
 
 # Create a Message
 
-`messages.create(**kwargs)  -> Message`
+`messages.create(**kwargs) -> Message`
 
 **POST** `/v1/messages`
 

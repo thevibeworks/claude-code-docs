@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/agents/retrieve
 
 # Get Agent
 
-`beta.agents.retrieve(agent_id, **kwargs)  -> BetaManagedAgentsAgent`
+`beta.agents.retrieve(agent_id, **kwargs) -> BetaManagedAgentsAgent`
 
 **GET** `/v1/agents/{agent_id}`
 

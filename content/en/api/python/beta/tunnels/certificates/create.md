@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/certificates/cr
 
 # Create Tunnel Certificate
 
-`beta.tunnels.certificates.create(tunnel_id, **kwargs)  -> BetaTunnelCertificate`
+`beta.tunnels.certificates.create(tunnel_id, **kwargs) -> BetaTunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 

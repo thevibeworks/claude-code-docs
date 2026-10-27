@@ -8,17 +8,11 @@ description: Switch to Claude Haiku 5.5 from earlier Haiku models with this migr
   This guide covers migrating [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) code. If you use [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview), no changes beyond updating the model name are required.
 </Note>
 
-<Tip>
-  **Automate your migration with the [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model).** It comes bundled with Claude Code and works for any current Claude model as the target:
+Let Claude Code migrate your code for you
 
-  Let Claude Code migrate your code for you
-
-  ```text
-  /claude-api migrate this project to claude-haiku-5-5
-  ```
-
-  The skill applies the model ID swap and, as needed, breaking parameter changes, prefill replacement, and effort calibration for your target model across your code base, then produces a checklist of items to verify manually. It asks you to confirm the migration scope (entire working directory, a subdirectory, or a specific file list) before editing any files. The skill also detects Amazon Bedrock and Claude Platform on AWS clients and adjusts model ID formats and feature changes for those platforms.
-</Tip>
+```text
+/claude-api migrate this project to claude-haiku-5-5
+```
 
 This guide covers moving code that calls Claude Haiku 4.5 to Claude Haiku 5.5. For code that calls Claude Haiku 3.5 or Claude Haiku 3, also make the changes in [Migrating to Claude Haiku 5.5 from Claude Haiku 3.5 and earlier Haiku models](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#migrating-from-haiku-35). To move up to a Sonnet or Opus model instead, see [Upgrade between model versions](https://platform.claude.com/docs/en/about-claude/models/migration-guide). For how long Claude Haiku 4.5 stays available, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 

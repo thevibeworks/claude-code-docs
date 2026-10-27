@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/create
 
 # Create a Vault
 
-`beta.vaults.create(**kwargs)  -> BetaManagedAgentsVault`
+`beta.vaults.create(**kwargs) -> BetaManagedAgentsVault`
 
 **POST** `/v1/vaults`
 

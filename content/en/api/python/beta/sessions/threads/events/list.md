@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/threads/events
 
 # List Session Thread Events
 
-`beta.sessions.threads.events.list(thread_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.threads.events.list(thread_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 

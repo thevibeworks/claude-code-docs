@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/messages/batches/create
 
 # Create a Message Batch
 
-`messages.batches.create(**kwargs)  -> MessageBatch`
+`messages.batches.create(**kwargs) -> MessageBatch`
 
 **POST** `/v1/messages/batches`
 

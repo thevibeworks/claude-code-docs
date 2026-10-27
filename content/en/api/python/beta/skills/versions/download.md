@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/downloa
 
 # Download Skill Version Content
 
-`beta.skills.versions.download(version, **kwargs)  -> BinaryResponseContent`
+`beta.skills.versions.download(version, **kwargs) -> BinaryResponseContent`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
