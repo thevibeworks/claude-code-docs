@@ -48,7 +48,7 @@ for specific instructions.
 
 Custom desktop extensions uploads allow Team and Enterprise plans to leverage organization-specific workflows that aren’t available in the public directory. After creating a custom desktop extension, Owners and Primary Owners can navigate to **Settings > Desktop app**, select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout), and click "Advanced settings" to access the **Extension Developer** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1793101500&amp;signature=f1b175f1f3fd76dd485f18b4b7ceb1a4ece7df34426a00196557d655cdf94dc9&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxUN%2BNzw3Hn9K2IaIG2JEN7Pv6ZECoz3vpRYS%0AL47qrcgLIUoC2n50YMA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1793133900&amp;signature=0053499a612b37551c09807bbc98f8dc20deea7887c7605e80bed0469d4372a3&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxUN%2BND47Hn9K2IaIG2LyALgiTDh9A60zT91k%0AP%2B81qx6o5T4RodC7tgM%3D%0A)
 
 Click “Install Extension…” and select the .mcpb file. Follow the prompts to install and configure your custom desktop extension. For more in-depth information, please refer to our [desktop extension developer documentation](https://github.com/anthropics/mcpb).
 

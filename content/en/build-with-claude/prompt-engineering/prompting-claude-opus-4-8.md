@@ -14,7 +14,7 @@ Claude Opus 4.8 has particular strengths in long-horizon agentic work, knowledge
 
 ## Response length and verbosity
 
-Claude Opus 4.8 calibrates response length to its estimate of the task's complexity, rather than defaulting to a fixed verbosity. This usually means shorter answers on simple lookups and much longer ones on open-ended analysis.
+Claude Opus 4.8 calibrates response length to its estimate of the task’s complexity, rather than defaulting to a fixed verbosity. This usually means shorter answers on simple lookups and much longer ones on open-ended analysis.
 
 If your product depends on a certain style or verbosity of output, you might need to tune your prompts. As an example, to decrease verbosity, you might add:
 
@@ -26,7 +26,7 @@ If you see specific examples of kinds of verbosity (such as over-explaining), yo
 
 ## Calibrating effort and thinking depth
 
-The [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) allows you to tune Claude's intelligence versus token spend, trading off capability for faster speed and lower costs. Start with the `xhigh` effort level for coding and agentic use cases, and use a minimum of `high` effort for most intelligence-sensitive use cases. Experiment with other effort levels to further tune token usage and intelligence:
+The [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) allows you to tune Claude’s intelligence versus token spend, trading off capability for faster speed and lower costs. Start with the `xhigh` effort level for coding and agentic use cases, and use a minimum of `high` effort for most intelligence-sensitive use cases. Experiment with other effort levels to further tune token usage and intelligence:
 
 * **`max`:** Max effort can deliver performance gains in some use cases, but might show diminishing returns from increased token usage. This setting can also sometimes be prone to overthinking. Test max effort for intelligence-demanding tasks.
 * **`xhigh`:** Extra high effort is the best setting for most coding and agentic use cases.
@@ -44,13 +44,13 @@ This task involves multistep reasoning. Think carefully through the problem befo
 
 Effort is likely to be more important for this model than for any prior Opus, so experiment with it actively when you upgrade.
 
-On Claude Opus 4.8, thinking is off unless you explicitly set `thinking: {type: "adaptive"}`. The triggering behavior for [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is steerable. If you find the model thinking more often than you'd like, which can occur with large or complex system prompts, add guidance to steer it. As always, measure the effect of any prompting changes on performance. Example:
+On Claude Opus 4.8, thinking is off unless you explicitly set `thinking: {type: "adaptive"}`. The triggering behavior for [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is steerable. If you find the model thinking more often than you’d like, which can occur with large or complex system prompts, add guidance to steer it. As always, measure the effect of any prompting changes on performance. Example:
 
 ```text wrap
 Thinking adds latency and should only be used when it will meaningfully improve answer quality — typically for problems that require multistep reasoning. When in doubt, respond directly.
 ```
 
-Conversely, if you're running hard workloads at `medium` and seeing under-thinking, the first lever is to raise effort. If you need finer control, prompt for it directly.
+Conversely, if you’re running hard workloads at `medium` and seeing under-thinking, the first lever is to raise effort. If you need finer control, prompt for it directly.
 
 <Note>
   If you are running Claude Opus 4.8 at `max` or `xhigh` effort, set a large max output token budget so the model has room to think and act across its subagents and tool calls. Start at 64k tokens and tune from there.
@@ -62,11 +62,11 @@ Claude Opus 4.8 has a tendency to favor reasoning over tool calls. This produces
 
 ## User-facing progress updates
 
-Claude Opus 4.8 provides more regular, higher-quality updates to the user throughout long agentic traces. If you've added scaffolding to force interim status messages ("After every 3 tool calls, summarize progress"), try removing it. If you find that the length or contents of Claude Opus 4.8's user-facing updates are not well-calibrated to your use case, explicitly describe what these updates should look like in the prompt and provide examples.
+Claude Opus 4.8 provides more regular, higher-quality updates to the user throughout long agentic traces. If you’ve added scaffolding to force interim status messages (“After every 3 tool calls, summarize progress”), try removing it. If you find that the length or contents of Claude Opus 4.8’s user-facing updates are not well-calibrated to your use case, explicitly describe what these updates should look like in the prompt and provide examples.
 
 ## More literal instruction following
 
-Claude Opus 4.8 interprets prompts literally and explicitly, particularly at lower effort levels. It does not silently generalize an instruction from one item to another, and it does not infer requests you didn't make. The upside of this literalism is precision and less thrash, and it generally performs better for API use cases with carefully tuned prompts, structured extraction, and pipelines where you want predictable behavior. If you need Claude to apply an instruction broadly, state the scope explicitly (for example, "Apply this formatting to every section, not just the first one").
+Claude Opus 4.8 interprets prompts literally and explicitly, particularly at lower effort levels. It does not silently generalize an instruction from one item to another, and it does not infer requests you didn’t make. The upside of this literalism is precision and less thrash, and it generally performs better for API use cases with carefully tuned prompts, structured extraction, and pipelines where you want predictable behavior. If you need Claude to apply an instruction broadly, state the scope explicitly (for example, “Apply this formatting to every section, not just the first one”).
 
 ## Tone and writing style
 
@@ -92,7 +92,7 @@ Spawn multiple subagents in the same turn when fanning out across items or readi
 
 Claude Opus 4.8 has strong design instincts, with a consistent default house style: warm cream/off-white backgrounds (\~`#F4F1EA`), serif display type (Georgia, Fraunces, Playfair), italic word-accents, and a terracotta/amber accent. This reads well for editorial, hospitality, and portfolio briefs, but is a poor fit for dashboards, dev tools, fintech, healthcare, or enterprise apps. The default appears in slide decks and web UIs.
 
-This default is persistent. Generic instructions ("don't use cream," "make it clean and minimal") tend to shift the model to a different fixed palette rather than producing variety. Two approaches work reliably:
+This default is persistent. Generic instructions (“don’t use cream,” “make it clean and minimal”) tend to shift the model to a different fixed palette rather than producing variety. Two approaches work reliably:
 
 **1. Specify a concrete alternative.** The model follows explicit specs precisely:
 
@@ -125,7 +125,7 @@ Color palette should stay within this range:
 Before building, propose 4 distinct visual directions tailored to this brief (each as: bg hex / accent hex / typeface — one-line rationale). Ask the user to pick one, then implement only that direction.
 ```
 
-Additionally, Claude Opus 4.8 requires less frontend design prompting than previous models to avoid generic patterns that users call the "AI slop" aesthetic. With earlier models, Anthropic recommended a lengthier prompt snippet in the [frontend-design skill](https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md). However, Claude Opus 4.8 generates distinctive, creative front ends with more minimal prompting guidance. This prompt snippet works well with the preceding prompting advice for variety:
+Additionally, Claude Opus 4.8 requires less frontend design prompting than previous models to avoid generic patterns that users call the “AI slop” aesthetic. With earlier models, Anthropic recommended a lengthier prompt snippet in the [frontend-design skill](https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md). However, Claude Opus 4.8 generates distinctive, creative front ends with more minimal prompting guidance. This prompt snippet works well with the preceding prompting advice for variety:
 
 ```text wrap
 <frontend_aesthetics>
@@ -135,13 +135,13 @@ NEVER use generic AI-generated aesthetics like overused font families (Inter, Ro
 
 ## Interactive coding products
 
-Claude Opus 4.8's token usage and behavior can differ between autonomous, asynchronous coding agents with a single user turn and interactive, synchronous coding agents with multiple user turns. Specifically, it tends to use more tokens in interactive settings, primarily because it reasons more after user turns. This can improve long-horizon coherence, instruction following, and coding capabilities in long, interactive coding sessions, but also comes with more token usage. To maximize both performance and token efficiency in coding products, use `xhigh` or `high` effort, add autonomous features such as an auto mode, and reduce the number of human interactions required from your users.
+Claude Opus 4.8’s token usage and behavior can differ between autonomous, asynchronous coding agents with a single user turn and interactive, synchronous coding agents with multiple user turns. Specifically, it tends to use more tokens in interactive settings, primarily because it reasons more after user turns. This can improve long-horizon coherence, instruction following, and coding capabilities in long, interactive coding sessions, but also comes with more token usage. To maximize both performance and token efficiency in coding products, use `xhigh` or `high` effort, add autonomous features such as an auto mode, and reduce the number of human interactions required from your users.
 
-Of course, when limiting the number of required user interactions, it's important to specify the task, intent, and relevant constraints upfront in the first human turn. Providing well-specified, clear, and accurate task descriptions upfront can help maximize autonomy and intelligence while minimizing extra token usage after user turns. Because Claude Opus 4.8 is more autonomous than prior models, this usage pattern helps to maximize performance. In contrast, ambiguous or underspecified prompts conveyed progressively over multiple user turns tend to relatively reduce token efficiency and sometimes performance.
+Of course, when limiting the number of required user interactions, it’s important to specify the task, intent, and relevant constraints upfront in the first human turn. Providing well-specified, clear, and accurate task descriptions upfront can help maximize autonomy and intelligence while minimizing extra token usage after user turns. Because Claude Opus 4.8 is more autonomous than prior models, this usage pattern helps to maximize performance. In contrast, ambiguous or underspecified prompts conveyed progressively over multiple user turns tend to relatively reduce token efficiency and sometimes performance.
 
 ## Code review harnesses
 
-Claude Opus 4.8 is meaningfully better at finding bugs than prior models, and has both higher recall and precision in internal evals. However, if your code-review harness was tuned for an earlier model, you might initially see lower recall. This is likely a harness effect, not a capability regression. When a review prompt says things such as "only report high-severity issues," "be conservative," or "don't nitpick," Claude Opus 4.8 might follow that instruction more faithfully than earlier models did: it might investigate the code just as thoroughly, identify the bugs, and then not report findings it determines to be below your stated bar. This can show up as the model doing the same depth of investigation but converting fewer investigations into reported findings, especially on lower-severity bugs. Precision typically rises, but measured recall can fall even though the model's underlying bug-finding ability has improved.
+Claude Opus 4.8 is meaningfully better at finding bugs than prior models, and has both higher recall and precision in internal evals. However, if your code-review harness was tuned for an earlier model, you might initially see lower recall. This is likely a harness effect, not a capability regression. When a review prompt says things such as “only report high-severity issues,” “be conservative,” or “don’t nitpick,” Claude Opus 4.8 might follow that instruction more faithfully than earlier models did: it might investigate the code just as thoroughly, identify the bugs, and then not report findings it determines to be below your stated bar. This can show up as the model doing the same depth of investigation but converting fewer investigations into reported findings, especially on lower-severity bugs. Precision typically rises, but measured recall can fall even though the model’s underlying bug-finding ability has improved.
 
 Some recommended prompt language:
 
@@ -151,7 +151,7 @@ Report every issue you find, including ones you are uncertain about or consider 
 
 This prompt can be used without having an actual second step, but moving confidence filtering out of the finding step often helps. If your harness has a separate verification, deduplication, or ranking stage, tell the model explicitly that its job at the finding stage is coverage rather than filtering.
 
-If you do want the model to self-filter in a single pass, be concrete about what the reporting threshold is rather than using qualitative terms such as "important": for example, "report any bugs that could cause incorrect behavior, a test failure, or a misleading result; only omit nits like pure style or naming preferences."
+If you do want the model to self-filter in a single pass, be concrete about what the reporting threshold is rather than using qualitative terms such as “important”: for example, “report any bugs that could cause incorrect behavior, a test failure, or a misleading result; only omit nits like pure style or naming preferences.”
 
 Iterate on prompts against a subset of your evals or test cases to validate recall or F1 score gains.
 
@@ -159,4 +159,4 @@ Iterate on prompts against a subset of your evals or test cases to validate reca
 
 Claude Opus 4.8 supports the earlier `computer_20251124` tool version and, on the Claude API and Claude Models on Google Cloud (Google managed), the `computer_toolset_20260801` toolset. On those two platforms, Claude Opus 4.8 also supports the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) (`browser_toolset_20260801`) for tasks inside webpages. [Computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) capability works across resolutions, up to a maximum resolution of 2576px / 3.75MP. Internal computer use testing shows that sending images at 1080p provides a good balance of performance and cost.
 
-For particularly cost-sensitive workloads, 720p or 1366×768 are lower-cost options with strong performance. Conduct your own testing to find the ideal settings for your use case; experimenting with effort settings can also help tune the model's behavior.
+For particularly cost-sensitive workloads, 720p or 1366×768 are lower-cost options with strong performance. Conduct your own testing to find the ideal settings for your use case; experimenting with effort settings can also help tune the model’s behavior.

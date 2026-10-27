@@ -252,7 +252,7 @@ Members on Team and Enterprise plans can publish a plugin they made to your orga
 
 #### Set the publishing policy
 
-The **Publishing** setting decides whether members can publish to your organization and whether each request waits for review. Set it in [**Organization settings > Plugins & skills > Policy**](https://claude.ai/admin-settings/skills?tab=policy). Owners and Primary Owners can change it. The same setting covers skills and plugins, and it has these values:
+The **Publishing** setting decides whether members can publish to your organization and whether each request waits for review. Set it under [**Policy** in **Organization settings**](https://claude.ai/admin-settings/skills?tab=policy). Owners and Primary Owners can change it. The same setting covers skills and plugins, and it has these values:
 
 | Publishing | What members can do |
 | :- | :- |
@@ -263,7 +263,13 @@ The **Publishing** setting decides whether members can publish to your organizat
 If nobody in your organization has chosen a **Publishing** value, your plan's default applies:
 
 * **Team**: **Open**
-* **Enterprise**: **Off**. On October 2, 2026, the Enterprise default becomes **Requires review**. To keep a different value, choose it before then
+* **Enterprise**: **Requires review**
+
+> [!NOTE]
+>
+> Starting November 4, 2026, the Enterprise default changes to **Open** for organizations that have security scanning on. Published skills and plugins are then listed in the organization's library once they pass the automatic security scan, without waiting for admin approval. Members whose custom role doesn't allow publishing to the whole organization still need review.
+>
+> To keep reviewing every submission, select **Requires review** before then. Your choice is saved when the label beside the setting changes from **Default** to **Set by admin**. Organizations that already chose a setting keep it.
 
 #### Review a request
 

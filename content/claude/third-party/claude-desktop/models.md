@@ -14,16 +14,18 @@ Claude Desktop on third-party (3P) builds the model picker in Chat, Cowork, and 
 
 If you leave `inferenceModels` unset and your provider supports [model discovery](https://claude.com/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled), Claude Desktop fills the picker from the provider's model list at launch. The first discovered model is then the default model.
 
-Each entry is either a model ID string or an object. In an object, `name` holds the model ID and every other field is optional. Three of the optional fields change how the picker shows the model:
+Each entry is either a model ID string or an object. In an object, `name` holds the model ID and every other field is optional. These optional fields change how the picker shows the model:
 
 * `labelOverride` sets the display name for an ID the picker can't turn into a readable name, such as a gateway routing alias or an Amazon Bedrock application inference profile ARN. Claude Desktop still sends `name` to your provider.
 * `supports1m: true` adds a second entry that shows the same name with **1M context window** beneath it. Set it only when your deployment accepts 1M-token requests for that model. Otherwise, requests from the 1M entry fail at the provider.
 * `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window. To do this for every entry that sets `supports1m`, set [`modelPrefer1mContext`](https://claude.com/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`. When discovery fills the picker from a gateway, that key applies to every model the gateway [marks as supporting 1M](https://claude.com/docs/third-party/claude-desktop/gateway.md#models).
+* `behavesAs` names the Claude model behind an ID that Claude Desktop can't identify, such as a gateway routing alias. The picker then shows that model's **Effort** control. See [Map an unrecognized model ID to a Claude model](#map-an-unrecognized-model-id-to-a-claude-model).
 
 On any provider, a Chat conversation, Cowork session, or Code session on an entry without `supports1m` assumes a context window from the model ID:
 
 * **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For earlier Claude Desktop versions, see [Context window and compaction](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction) on the LLM gateway page. To check a model, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
-* **An ID for a model without a native 1M context window, or an unrecognized ID**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, set `supports1m` on its entry.
+* **An ID for a model without a native 1M context window, or an unrecognized ID whose entry doesn't set `behavesAs`**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, set `supports1m` on its entry.
+* **An unrecognized ID whose entry sets [`behavesAs`](#map-an-unrecognized-model-id-to-a-claude-model)**, through an LLM gateway: the assumed window is the window of the model that `behavesAs` names.
 
 ## Effort levels
 
@@ -43,9 +45,31 @@ In Code sessions, the cap also limits Claude Code's own effort settings, such as
 
 `defaultModelEffort` also applies when [model discovery](https://claude.com/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
 
-### Models without an Effort control
+### Map an unrecognized model ID to a Claude model
 
-Some model IDs, such as a gateway routing alias, don't name a specific Claude model. For such a model, the picker shows no **Effort** control, so users can't change its effort level. Its conversations and sessions never run above the `maxEffort` on its entry. When such a model is the default model, its conversations and sessions run at [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort), up to that cap. With only `maxEffort` set, they run at that cap.
+Some model IDs, such as a gateway routing alias, don't name a specific Claude model, so the picker shows no **Effort** control for them. To give such an ID the controls of the Claude model behind it, set [`behavesAs`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodels) on its `inferenceModels` entry to that model's ID. In the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md), enter that ID in the model's **Claude model behind this ID** field. Requires Claude Desktop 4.29.0 or later.
+
+```json theme={null}
+{
+  "inferenceModels": [
+    {
+      "name": "acme-claude-sonnet",
+      "behavesAs": "claude-sonnet-5"
+    }
+  ]
+}
+```
+
+With this entry, the picker shows `acme-claude-sonnet` with the controls of Claude Sonnet 5: its effort levels in Chat, Cowork, and Code, and its **Thinking** switch in Chat and Cowork. The model starts at Claude Sonnet 5's recommended level, and `defaultModelEffort` and `maxEffort` still apply. Claude Desktop still sends `name` to your provider. Through an LLM gateway, sessions also assume Claude Sonnet 5's [context window](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction).
+
+If the ID contains a Claude model version, write the version with hyphens and set `behavesAs` to that same model. Whatever `behavesAs` says, sessions treat `acme-claude-sonnet-4.6` as Claude Sonnet 4 and send no effort level, but treat `acme-claude-sonnet-4-6` as Claude Sonnet 4.6. If the ID routes to a different model, use an ID without a version.
+
+To check a value, go to **Help > Troubleshooting > Generate Diagnostic Report**, click **Export to file**, and open the saved `.zip` file:
+
+* **`model-selection.txt`**: the entry's `behavesAs` line says whether the picker uses the value. `(the picker offers that model's options)` means it does.
+* **`managed-config.txt`**: `behavesAs dropped: not an accepted value` under `Parse errors` means the value isn't a model ID. Enter a full ID such as `claude-sonnet-5`, not a family name such as `sonnet`.
+
+Without `behavesAs`, users can't change an unrecognized model's effort level. Its conversations and sessions never run above the `maxEffort` on its entry. When it's the default model, they run at [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort), up to that cap. With only `maxEffort` set, they run at that cap.
 
 ## Start every conversation on the default model
 

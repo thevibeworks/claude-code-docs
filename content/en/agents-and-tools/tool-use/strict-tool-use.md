@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-u
 description: Enforce JSON Schema compliance on Claude's tool inputs with grammar-constrained sampling.
 ---
 
-Setting `strict: true` on a tool definition guarantees Claude's tool inputs match your JSON Schema by constraining the model's token sampling to schema-valid outputs (a technique called grammar-constrained sampling). This page covers why strict mode matters for agents, how to enable it, and common use cases. For the supported JSON Schema subset, see [JSON Schema limitations](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations). For non-strict schema guidance, see [Define tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools).
+Setting `strict: true` on a tool definition guarantees Claude’s tool inputs match your JSON Schema by constraining the model’s token sampling to schema-valid outputs (a technique called grammar-constrained sampling). This page covers why strict mode matters for agents, how to enable it, and common use cases. For the supported JSON Schema subset, see [JSON Schema limitations](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations). For non-strict schema guidance, see [Define tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools).
 
 Strict tool use validates tool parameters, ensuring Claude calls your functions with correctly typed arguments. Use strict tool use when you need to:
 
@@ -368,7 +368,7 @@ For example, suppose a booking system needs `passengers: int`. Without strict mo
 
 <Steps>
   <Step title="Define your tool schema">
-    Create a JSON schema for your tool's `input_schema`. The schema uses standard JSON Schema format with some limitations (see [JSON Schema limitations](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations)).
+    Create a JSON schema for your tool’s `input_schema`. The schema uses standard JSON Schema format with some limitations (see [JSON Schema limitations](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations)).
   </Step>
 
   <Step title="Add strict: true">
@@ -380,7 +380,7 @@ For example, suppose a booking system needs `passengers: int`. Without strict mo
   </Step>
 </Steps>
 
-The [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolset entries (`computer_toolset_20260801` and `browser_toolset_20260801`) don't accept `strict: true`; a request that sets it on either entry is rejected.
+The [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolset entries (`computer_toolset_20260801` and `browser_toolset_20260801`) don’t accept `strict: true`; a request that sets it on either entry is rejected.
 
 ## Common use cases
 
@@ -1127,7 +1127,7 @@ For ZDR and HIPAA eligibility across all features, see [API and data retention](
 
 <CardGroup cols={2}>
   <Card title="Web fetch tool" icon="link" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool">
-    Fetch and read content from specific URLs to bring live web content into Claude's context.
+    Fetch and read content from specific URLs to bring live web content into Claude’s context.
   </Card>
 
   <Card title="Tool use with prompt caching" icon="database" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching">

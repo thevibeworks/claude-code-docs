@@ -33,7 +33,7 @@ Write the agent as a Markdown file under `agents/` and apply it:
   </CodeGroupItem>
 </CodeGroup>
 
-The frontmatter holds the agent's configuration (the fields from [Define your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup)) and the body is its system prompt. `ant apply` [infers](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply#kind-inference) that the file is an agent from its path, here the `agents/` directory.
+The frontmatter holds the agent’s configuration (the fields from [Define your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup)) and the body is its system prompt. `ant apply` [infers](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply#kind-inference) that the file is an agent from its path, here the `agents/` directory.
 
 In an interactive terminal, `ant apply` prints the plan and waits for your approval:
 
@@ -93,11 +93,11 @@ The first `ant apply` writes `claude-lock.json`, the lockfile, in the directory 
 }
 ```
 
-Commit it with your files. It's how the next run, on your machine or in CI, finds these resources instead of creating them again, and it's where you read an agent's ID to [start a session](https://platform.claude.com/docs/en/managed-agents/sessions). The two hashes fingerprint what was last sent and what the API returned. That's how a later run detects an edited file, or a resource changed outside these files.
+Commit it with your files. It’s how the next run, on your machine or in CI, finds these resources instead of creating them again, and it’s where you read an agent’s ID to [start a session](https://platform.claude.com/docs/en/managed-agents/sessions). The two hashes fingerprint what was last sent and what the API returned. That’s how a later run detects an edited file, or a resource changed outside these files.
 
 ## Grow it into a project
 
-You can declaratively define the other resources as files as well. A file holds the request body you would send to that kind's create endpoint:
+You can declaratively define the other resources as files as well. A file holds the request body you would send to that kind’s create endpoint:
 
 * An [environment](https://platform.claude.com/docs/en/managed-agents/environments) is a YAML file in `environments/`.
 * A [memory store](https://platform.claude.com/docs/en/managed-agents/memory) is a YAML file in `memory_stores/`.
@@ -105,9 +105,9 @@ You can declaratively define the other resources as files as well. A file holds 
 * A [skill](https://platform.claude.com/docs/en/managed-agents/skills) is a directory with a `SKILL.md` at its root, conventionally under `skills/`, uploaded as one bundle.
 * A [vault](https://platform.claude.com/docs/en/managed-agents/vaults) is a YAML file in `vaults/` whose only fields are `display_name` and, optionally, `metadata`. Vault files need CLI version 1.34.0 or later.
 
-Any resource except a skill can be written as YAML, JSON, or Markdown. In Markdown, the frontmatter is the body and the prose fills the kind's text field: an agent's `system`, an environment's or memory store's `description`, a deployment's first message. A vault has no text field, so `ant apply` refuses a vault Markdown file that has prose.
+Any resource except a skill can be written as YAML, JSON, or Markdown. In Markdown, the frontmatter is the body and the prose fills the kind’s text field: an agent’s `system`, an environment’s or memory store’s `description`, a deployment’s first message. A vault has no text field, so `ant apply` refuses a vault Markdown file that has prose.
 
-Resources refer to each other by path. Wherever the API expects another resource's ID, write the relative path to that resource's file instead. In this project, the reviewer agent lists `../skills/pr-summary` under `skills`, the agent in `agents/lead.md` lists `./reviewer.md` under `multiagent.subagents.predefined_agents`, and the deployment names its agent, environment, and memory store by path. `ant apply` creates them in dependency order and fills in the real IDs. A path under `multiagent.subagents.predefined_agents` or `multiagent.workflows.predefined_agents` needs CLI version 1.40.0 or later. The project has six files:
+Resources refer to each other by path. Wherever the API expects another resource’s ID, write the relative path to that resource’s file instead. In this project, the reviewer agent lists `../skills/pr-summary` under `skills`, the agent in `agents/lead.md` lists `./reviewer.md` under `multiagent.subagents.predefined_agents`, and the deployment names its agent, environment, and memory store by path. `ant apply` creates them in dependency order and fills in the real IDs. A path under `multiagent.subagents.predefined_agents` or `multiagent.workflows.predefined_agents` needs CLI version 1.40.0 or later. The project has six files:
 
 <FileExplorer>
   <File filename="agents/reviewer.md">
@@ -204,11 +204,11 @@ ant apply .
 
 `claude-lock.json` then has an entry for every file in the project.
 
-Relative paths are how these files point at each other. `ant apply` pins agent and skill references to the version it just applied, so editing `reviewer.md` or the skill updates everything that references them in the same run. A path also works inside an object, as in the deployment's `resources` entry, where the other keys such as `access` are kept.
+Relative paths are how these files point at each other. `ant apply` pins agent and skill references to the version it just applied, so editing `reviewer.md` or the skill updates everything that references them in the same run. A path also works inside an object, as in the deployment’s `resources` entry, where the other keys such as `access` are kept.
 
-To point at a resource these files don't manage, write its ID (`agent_...`, `skill_...`) instead. Anything else, such as `{type: anthropic, skill_id: xlsx}`, is sent to the API as written. A skill reference can also be a GitHub URL of the form `https://github.com/<owner>/<repo>/tree/<branch>/<dir>`, for example a directory of Anthropic's open-source [skills repository](https://github.com/anthropics/skills): `ant apply` downloads and uploads that directory, pinned to the resolved commit until you run with `--upgrade` (set `GITHUB_TOKEN` for a private repository).
+To point at a resource these files don’t manage, write its ID (`agent_...`, `skill_...`) instead. Anything else, such as `{type: anthropic, skill_id: xlsx}`, is sent to the API as written. A skill reference can also be a GitHub URL of the form `https://github.com/<owner>/<repo>/tree/<branch>/<dir>`, for example a directory of Anthropic’s open-source [skills repository](https://github.com/anthropics/skills): `ant apply` downloads and uploads that directory, pinned to the resolved commit until you run with `--upgrade` (set `GITHUB_TOKEN` for a private repository).
 
-A path can also be a glob. Under `skills`, a glob references every skill it matches and skips anything else it matches, such as a README. Under an agent's `tools`, a path or glob names YAML or JSON files instead of resources: `ant apply` inserts each file's contents, one tool or a list of tools, into the list at that position. Put those files in a subdirectory such as `agents/tools/`, because `ant apply` refuses to insert a file that it would also read as an agent. A path or glob that matches nothing is an error.
+A path can also be a glob. Under `skills`, a glob references every skill it matches and skips anything else it matches, such as a README. Under an agent’s `tools`, a path or glob names YAML or JSON files instead of resources: `ant apply` inserts each file’s contents, one tool or a list of tools, into the list at that position. Put those files in a subdirectory such as `agents/tools/`, because `ant apply` refuses to insert a file that it would also read as an agent. A path or glob that matches nothing is an error.
 
 ```markdown agents/reviewer.md
 ---
@@ -242,9 +242,9 @@ You review pull requests for correctness, security, and readability.
 }
 ```
 
-### How ant apply infers a file's kind
+### How ant apply infers a file’s kind
 
-When `ant apply` walks a directory, it determines each file's kind from the first of these that matches:
+When `ant apply` walks a directory, it determines each file’s kind from the first of these that matches:
 
 1. A top-level `type` field in the file.
 2. The directory the file is directly in: `agents/`, `environments/`, `memory_stores/`, `deployments/`, or `vaults/`.
@@ -255,20 +255,20 @@ It skips files that match none of these, such as READMEs and CI configuration, u
 
 ## Edit and reapply
 
-Running `ant apply` with no arguments reconciles every file the lockfile tracks. At a terminal, it also lists untracked resource files under the lockfile's directory and offers to add them. Deleting a field from a file clears it on the resource if the API allows that field to be cleared. A field you never set, or one the API can't clear, keeps its current value.
+Running `ant apply` with no arguments reconciles every file the lockfile tracks. At a terminal, it also lists untracked resource files under the lockfile’s directory and offers to add them. Deleting a field from a file clears it on the resource if the API allows that field to be cleared. A field you never set, or one the API can’t clear, keeps its current value.
 
 If a resource was edited, archived, or deleted outside these files (in the Claude Console, for example), the plan ends with `This plan cannot be applied:` and the reason. The command then exits with `refusing to apply`. Pass `--force` to overwrite the edit or create a replacement.
 
 Deleting a file leaves its resource in place with a warning, and `--prune` removes it (archiving it, or deleting it for a skill). Renaming a file therefore declares a new resource and leaves the old one in place until you prune.
 
-`ant apply` can't adopt a resource you created in the Console or with `ant beta:agents create`. Only what's in the lockfile is managed, and applying a file that describes an existing agent creates a second one. If you downloaded your agent from the Console with **Export as code**, the download includes its own `claude-lock.json`, so applying it updates the resources you built there.
+`ant apply` can’t adopt a resource you created in the Console or with `ant beta:agents create`. Only what’s in the lockfile is managed, and applying a file that describes an existing agent creates a second one. If you downloaded your agent from the Console with **Export as code**, the download includes its own `claude-lock.json`, so applying it updates the resources you built there.
 
 ## Run ant apply in CI
 
 Without a terminal, `ant apply` prints the plan and stops with `cannot ask for confirmation without a terminal; re-run with --yes to apply, or --dry-run to see the plan only`. Set up CI as follows:
 
 * Run `ant apply --yes .` on your default branch after merge, naming the project directory. A bare `ant apply --yes` reconciles only files the lockfile already tracks and skips a newly added one.
-* On pull requests, run `ant apply --dry-run .` to print the plan for reviewers. It's informational only and exits 0 even when the plan is blocked.
+* On pull requests, run `ant apply --dry-run .` to print the plan for reviewers. It’s informational only and exits 0 even when the plan is blocked.
 * Commit the updated `claude-lock.json` at the end of the job, even when the apply step failed partway, because a partial apply still records what it created.
 * Run one apply at a time, because nothing locks the lockfile.
 * Authenticate with [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rather than a stored API key, as an identity that reaches the organization and workspace recorded in `claude-lock.json`. `ant apply` refuses credentials that resolve to any other organization or workspace.
@@ -320,18 +320,18 @@ jobs:
 
 Run the first `ant apply` on your machine and commit `claude-lock.json` before you turn the workflow on. The last step commits changes only to a lockfile that Git already tracks.
 
-To create the federation rule and service account that the `env` block names, see [Use WIF with GitHub Actions](https://platform.claude.com/docs/en/manage-claude/wif-providers/github-actions). Enable the rule for a single workspace, the one recorded in `claude-lock.json`, so that the token exchange doesn't need a workspace ID. Because the job names an environment, its identity token's `sub` claim is `repo:<owner>/<repo>:environment:agents-prod`, so that's the value the rule's `subject_prefix` must match.
+To create the federation rule and service account that the `env` block names, see [Use WIF with GitHub Actions](https://platform.claude.com/docs/en/manage-claude/wif-providers/github-actions). Enable the rule for a single workspace, the one recorded in `claude-lock.json`, so that the token exchange doesn’t need a workspace ID. Because the job names an environment, its identity token’s `sub` claim is `repo:<owner>/<repo>:environment:agents-prod`, so that’s the value the rule’s `subject_prefix` must match.
 
 ## Flags
 
 | Flag                 | Effect                                                                                                                                                                                                                |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--dry-run`          | Print the plan and exit without applying or writing the lockfile. Exits 0 even when the plan is blocked.                                                                                                              |
-| `--yes`              | Apply without asking for confirmation. Required when there's no terminal.                                                                                                                                             |
+| `--yes`              | Apply without asking for confirmation. Required when there’s no terminal.                                                                                                                                             |
 | `--force`            | Apply even where a resource was changed, archived, or deleted outside these files.                                                                                                                                    |
 | `--prune`            | Remove resources that are in the lockfile but no longer declared in a file.                                                                                                                                           |
 | `--upgrade`          | Re-resolve skills referenced by GitHub URL, which otherwise stay pinned to the commit recorded in the lockfile.                                                                                                       |
-| `--lock-file <path>` | Use this lockfile instead of searching upward from the current directory. Keep one for each organization or workspace: `ant apply` refuses a lockfile whose organization or workspace doesn't match your credentials. |
+| `--lock-file <path>` | Use this lockfile instead of searching upward from the current directory. Keep one for each organization or workspace: `ant apply` refuses a lockfile whose organization or workspace doesn’t match your credentials. |
 | `--verbose`, `-v`    | Show unchanged resources and full field values in the plan.                                                                                                                                                           |
 
 ## Next steps

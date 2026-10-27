@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/build-with-claude/skills-guide
 description: Learn how to use Agent Skills to extend Claude's capabilities through the API.
 ---
 
-Agent Skills extend Claude's capabilities through organized folders of instructions, scripts, and resources. This guide shows you how to use both pre-built and custom Skills with the Claude API.
+Agent Skills extend Claude’s capabilities through organized folders of instructions, scripts, and resources. This guide shows you how to use both pre-built and custom Skills with the Claude API.
 
 <Note>
   For complete API reference including request/response schemas and all parameters, see:
@@ -35,7 +35,7 @@ Agent Skills extend Claude's capabilities through organized folders of instructi
   For a detailed look at the architecture and real-world applications of Agent Skills, read the engineering blog post: [Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills).
 </Note>
 
-Skills integrate with the Messages API through the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool). Whether using pre-built Skills managed by Anthropic or custom Skills you've uploaded, the integration shape is identical: both require code execution and use the same `container` structure.
+Skills integrate with the Messages API through the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool). Whether using pre-built Skills managed by Anthropic or custom Skills you’ve uploaded, the integration shape is identical: both require code execution and use the same `container` structure.
 
 ### Using Skills
 
@@ -51,7 +51,7 @@ You can use Skills from two sources:
 | **Management**     | Pre-built and maintained by Anthropic      | Upload and manage through the [Skills API](https://platform.claude.com/docs/en/api/skills/create) |
 | **Availability**   | Available to all users                     | Private to your workspace                                                                         |
 
-Both skill sources are returned by the [List Skills endpoint](https://platform.claude.com/docs/en/api/skills/list) (use the `source` parameter to filter). The integration shape and execution environment are identical. The only difference is where the Skills come from and how they're managed.
+Both skill sources are returned by the [List Skills endpoint](https://platform.claude.com/docs/en/api/skills/list) (use the `source` parameter to filter). The integration shape and execution environment are identical. The only difference is where the Skills come from and how they’re managed.
 
 ### Prerequisites
 
@@ -865,7 +865,7 @@ To provide input files for Skills to work on, [upload them with the Files API](h
 
 ### Multi-turn conversations
 
-The response's `container` object carries the container's `id` and `expires_at` timestamp (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) for lifetime details). Reuse the same container across multiple messages by specifying the container ID:
+The response’s `container` object carries the container’s `id` and `expires_at` timestamp (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) for lifetime details). Reuse the same container across multiple messages by specifying the container ID:
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
@@ -1951,16 +1951,16 @@ Combine multiple Skills in a single request to handle complex workflows:
 <Warning id="workspace-scoped-access">
   **Custom Skills are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key with access to a workspace can read, use, and delete every custom Skill uploaded to that workspace. Every service account, and every user whose organization role allows API access, can use the Default Workspace in addition to any workspace you add them to. For that reason, keep Skills that must stay separate in their own workspace and access them only with [keys scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping).
 
-  If you are building a multitenant platform on the Skills API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for custom Skills, so a workspace for each tenant gives that tenant's Skills hard isolation from every other tenant. Each organization can have up to 100 workspaces by default (see [How workspaces work](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work)); if you need more for tenant isolation, contact your account team.
+  If you are building a multitenant platform on the Skills API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for custom Skills, so a workspace for each tenant gives that tenant’s Skills hard isolation from every other tenant. Each organization can have up to 100 workspaces by default (see [How workspaces work](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work)); if you need more for tenant isolation, contact your account team.
 </Warning>
 
 ### Creating a Skill
 
 A Skill bundle is a directory containing a `SKILL.md` file at the top level with `name` and `description` YAML frontmatter, plus any supporting scripts or resources. See [Get started with Agent Skills in the API](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstart) to author one, and the **Requirements** list following the examples for the full constraints.
 
-Upload your custom Skill to make it available in your workspace. You can upload a zip archive or individual file objects. The Python SDK also provides a `files_from_dir` helper that accepts a directory path, and the CLI's `ant apply` uploads the directory itself.
+Upload your custom Skill to make it available in your workspace. You can upload a zip archive or individual file objects. The Python SDK also provides a `files_from_dir` helper that accepts a directory path, and the CLI’s `ant apply` uploads the directory itself.
 
-Files are identified by the file name you attach (the `;filename=` suffix in the cURL example and the file name arguments in the SDK examples). For the walkthrough's skill, create a zip with `zip -r financial_skill.zip financial_skill/` and substitute it for the `example_skill.zip` placeholder in the zip-upload options.
+Files are identified by the file name you attach (the `;filename=` suffix in the cURL example and the file name arguments in the SDK examples). For the walkthrough’s skill, create a zip with `zip -r financial_skill.zip financial_skill/` and substitute it for the `example_skill.zip` placeholder in the zip-upload options.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -2257,7 +2257,7 @@ Files are identified by the file name you attach (the `;filename=` suffix in the
 
 * YAML frontmatter requirements:
 
-  * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words ("anthropic", "claude")
+  * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words (`anthropic`, `claude`)
   * `description`: Maximum 1,024 characters, non-empty, no XML tags
 
 For complete request/response schemas, see the [Create Skill](https://platform.claude.com/docs/en/api/skills/create) API reference.
@@ -2588,7 +2588,7 @@ Skills support versioning to manage updates safely:
 * Use `"latest"` to always get the most recent version
 * Create new versions when updating Skill files
 
-A new version is a complete snapshot, not a delta: upload the Skill's full file set each time. Files you omit are not carried over, and the `name` in the new version's `SKILL.md` must match the Skill's existing name. The following examples re-upload the complete `financial_skill/` bundle from [Creating a Skill](https://platform.claude.com/docs/en/build-with-claude/skills-guide#creating-a-skill).
+A new version is a complete snapshot, not a delta: upload the Skill’s full file set each time. Files you omit are not carried over, and the `name` in the new version’s `SKILL.md` must match the Skill’s existing name. The following examples re-upload the complete `financial_skill/` bundle from [Creating a Skill](https://platform.claude.com/docs/en/build-with-claude/skills-guide#creating-a-skill).
 
 <CodeGroup>
   ```bash cURL
@@ -3114,7 +3114,7 @@ See the [Create Skill Version API reference](https://platform.claude.com/docs/en
 When you specify Skills in a container:
 
 1. **Metadata discovery:** Claude receives metadata for each Skill (name, description) in the system prompt.
-2. **File loading:** Skill files are copied into the container at `/skills/{skill-name}/`. The directory is the Skill's name (`pptx` for an Anthropic Skill, the `SKILL.md` `name` for a custom Skill), not its `skill_01...` ID.
+2. **File loading:** Skill files are copied into the container at `/skills/{skill-name}/`. The directory is the Skill’s name (`pptx` for an Anthropic Skill, the `SKILL.md` `name` for a custom Skill), not its `skill_01...` ID.
 3. **Automatic use:** Claude automatically loads and uses Skills when relevant to your request.
 4. **Composition:** Multiple Skills compose together for complex workflows.
 
@@ -3258,7 +3258,7 @@ Combine Excel and custom DCF analysis Skills. First, create the custom DCF analy
   ```
 </CodeGroup>
 
-Then use it with the Excel Skill to create a financial model. Pass the ID of the Skill you created as the custom Skill's `skill_id`:
+Then use it with the Excel Skill to create a financial model. Pass the ID of the Skill you created as the custom Skill’s `skill_id`:
 
 <CodeGroup>
   ```bash cURL
@@ -3546,7 +3546,7 @@ Then use it with the Excel Skill to create a financial model. Pass the ID of the
 
 * **YAML frontmatter requirements:**
 
-  * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words ("anthropic", "claude")
+  * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words (`anthropic`, `claude`)
   * `description`: Maximum 1,024 characters, non-empty, no XML tags
 
 ### Environment constraints
@@ -4255,7 +4255,7 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   ```
 </CodeGroup>
 
-For best caching performance, keep your Skills list, including its order, consistent across requests. Pinning custom Skill versions also helps: with `"latest"`, publishing a new version can invalidate the cached prefix if it changes the Skill's description.
+For best caching performance, keep your Skills list, including its order, consistent across requests. Pinning custom Skill versions also helps: with `"latest"`, publishing a new version can invalidate the cached prefix if it changes the Skill’s description.
 
 ### Error handling
 
@@ -4513,7 +4513,7 @@ The Skills API is out of beta and needs no beta header. Migrating off `skills-20
 | List responses                  | `{ data, has_more, next_page }`                                                 | `{ data, next_page }`; `limit` from 1 to 1,000 (default 20)                                                                                       |
 | Versions list order             | Oldest first                                                                    | Newest first, default `limit` 20. Page cursors from one shape are not valid on the other.                                                         |
 | Deleting a Skill                | Returns a 400 error while any version exists                                    | Deletes the Skill and all of its versions                                                                                                         |
-| Deleting a Skill's only version | Allowed, leaving a Skill with no versions                                       | Returns a 400 error; upload a replacement version first, or delete the Skill                                                                      |
+| Deleting a Skill’s only version | Allowed, leaving a Skill with no versions                                       | Returns a 400 error; upload a replacement version first, or delete the Skill                                                                      |
 | Upload layout                   | Files must sit inside a top-level directory whose name matches the Skill `name` | `SKILL.md` may sit at the root of the upload; stored paths are the same either way                                                                |
 | Response types                  | `CreateSkillResponse`, `GetSkillResponse`, and one type per operation           | `Skill`, `SkillVersion`, `DeletedSkill`, `DeletedSkillVersion`                                                                                    |
 
@@ -4521,8 +4521,8 @@ To migrate:
 
 1. **Remove the beta header.** Drop `anthropic-beta: skills-2025-10-02` from your requests. With the SDK, call `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) instead of `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`); keeping `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) works only on the [SDK releases that no longer send the header](https://platform.claude.com/docs/en/build-with-claude/skills-guide#sdk-beta-namespace). Earlier releases send it from `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) even when you pass no beta names.
 2. **Rename fields** in your code: `display_title` to `display_name` and `latest_version` to `latest_version_id`. Read `source.type` instead of comparing `source` to a string.
-3. **Use version IDs.** Wherever you stored an epoch-microsecond version, store the version's `id` instead, or use `latest`. Skill references in Messages requests accept a version ID, `latest`, or (for Anthropic Skills) the catalog version.
-4. **Review delete calls.** `DELETE /v1/skills/{skill_id}` now deletes every version with the Skill. If you relied on the beta's refusal as a safeguard, add your own check.
+3. **Use version IDs.** Wherever you stored an epoch-microsecond version, store the version’s `id` instead, or use `latest`. Skill references in Messages requests accept a version ID, `latest`, or (for Anthropic Skills) the catalog version.
+4. **Review delete calls.** `DELETE /v1/skills/{skill_id}` now deletes every version with the Skill. If you relied on the beta’s refusal as a safeguard, add your own check.
 
 <Warning>
   After migrating, deleting a Skill through `client.skills` (csharp, go: `client.Skills`; java: `client.skills()`; php: `$client->skills`) or `client.beta.skills` (csharp, go: `client.Beta.Skills`; java: `client.beta().skills()`; php: `$client->beta->skills`) also deletes all of its versions in one call.
@@ -4536,7 +4536,7 @@ Starting with Python SDK 1.2.0, TypeScript SDK 0.122.0, Go SDK 1.68.0, Java SDK 
 
 ## Data retention
 
-Agent Skills are not covered by ZDR arrangements. Skill definitions and execution data are retained according to Anthropic's standard data retention policy.
+Agent Skills are not covered by ZDR arrangements. Skill definitions and execution data are retained according to Anthropic’s standard data retention policy.
 
 For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 

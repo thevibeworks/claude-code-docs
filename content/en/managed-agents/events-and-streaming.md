@@ -17,11 +17,11 @@ Communication with Claude Managed Agents is event-based. You open a stream to fo
 Events flow in two directions: you send events to the agent, and the session sends events back to you.
 
 * **Events you send:** `user.*` events start a session and steer it as it progresses. [`system.message`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#send-system-messages) events append system-level context.
-* **Events you receive:** Session events, span events, and agent events report the session's state and the agent's progress.
+* **Events you receive:** Session events, span events, and agent events report the session’s state and the agent’s progress.
 
 These event type strings follow a `{domain}.{action}` naming convention. See [Event types](https://platform.claude.com/docs/en/managed-agents/reference#event-types) in the reference for the full catalog.
 
-[Webhook event types](https://platform.claude.com/docs/en/managed-agents/webhooks#supported-event-types) are separate, and some of their names differ from the stream's. For example, webhooks use `session.status_idled` rather than `session.status_idle`.
+[Webhook event types](https://platform.claude.com/docs/en/managed-agents/webhooks#supported-event-types) are separate, and some of their names differ from the stream’s. For example, webhooks use `session.status_idled` rather than `session.status_idle`.
 
 ## Stream events
 
@@ -274,7 +274,7 @@ Stream events from the session to receive real-time updates as the agent works. 
 
 The session reports errors through the `session.error` event. See [Event types](https://platform.claude.com/docs/en/managed-agents/reference#event-types) for its fields.
 
-The agent's response text arrives as buffered `agent.message` events, each emitted only after the model request that produced it completes. To render the text while the model is still generating it, see [Preview responses with event deltas](https://platform.claude.com/docs/en/managed-agents/event-deltas).
+The agent’s response text arrives as buffered `agent.message` events, each emitted only after the model request that produced it completes. To render the text while the model is still generating it, see [Preview responses with event deltas](https://platform.claude.com/docs/en/managed-agents/event-deltas).
 
 ### Reconnect without missing events
 
@@ -499,7 +499,7 @@ To reconnect to an existing session without missing events, combine a new stream
 
 ## Send events
 
-Send a `user.message` event to start or continue the agent's work:
+Send a `user.message` event to start or continue the agent’s work:
 
 <CodeGroup>
   ```bash cURL
@@ -643,7 +643,7 @@ Send a `user.message` event to start or continue the agent's work:
   ```
 </CodeGroup>
 
-Every event in the session's history includes a `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) timestamp, set when the event finishes processing. On events you send, `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) is `null` (python: `None`; ruby: `nil`; java: `Optional.empty()`; go: `time.Time{}`) while the event is still queued behind earlier events. The exceptions are `user.define_outcome`, `user.custom_tool_result`, and `user.tool_result`, which are processed on receipt and echoed back with `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) already populated.
+Every event in the session’s history includes a `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) timestamp, set when the event finishes processing. On events you send, `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) is `null` (python: `None`; ruby: `nil`; java: `Optional.empty()`; go: `time.Time{}`) while the event is still queued behind earlier events. The exceptions are `user.define_outcome`, `user.custom_tool_result`, and `user.tool_result`, which are processed on receipt and echoed back with `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) already populated.
 
 ## Respond when the session goes idle
 
@@ -653,7 +653,7 @@ A `session.status_idle` event means the agent has stopped and is waiting for inp
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `end_turn`         | The agent finished its turn, or [you interrupted it](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent). | [Send a `user.message`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#resume-an-idle-session) when you have more work for the agent. |
 | `requires_action`  | One or more tool calls need an answer from you, such as a custom tool call or a confirmation request.                                              | [Answer each blocking tool call](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#answer-tool-calls-that-pause-the-session).            |
-| `budget_reached`   | The session's tracked list cost reached its [budget](https://platform.claude.com/docs/en/managed-agents/budgets).                                  | [Change or remove the budget](https://platform.claude.com/docs/en/managed-agents/budgets#resume-a-session-at-its-budget).                                      |
+| `budget_reached`   | The session’s tracked list cost reached its [budget](https://platform.claude.com/docs/en/managed-agents/budgets).                                  | [Change or remove the budget](https://platform.claude.com/docs/en/managed-agents/budgets#resume-a-session-at-its-budget).                                      |
 
 No event you send resumes a session paused at its budget. The work that the budget paused resumes automatically when you change the budget to a value above the consumed list cost, or remove it. When the work resumes, the session emits a `workflow_run.status_running` event for each [workflow run that the budget paused](https://platform.claude.com/docs/en/managed-agents/workflow-runs#budgets-and-limits). A run that an interrupt paused stays paused; see [Resume a session at its budget](https://platform.claude.com/docs/en/managed-agents/budgets#resume-a-session-at-its-budget). See [When a session reaches its budget](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget) for the events that mark the pause and the events the session still accepts.
 
@@ -663,10 +663,10 @@ A session pauses when the agent calls a [custom tool](https://platform.claude.co
 
 1. The session emits the tool call as an `agent.custom_tool_use`, `agent.tool_use`, or `agent.mcp_tool_use` event.
 2. The session pauses with a `session.status_idle` event whose `stop_reason.type` is `requires_action`. The blocking event IDs are in the `stop_reason.event_ids` array.
-3. For each blocking event ID, send a [`user.custom_tool_result`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#return-a-custom-tool-result) or a [`user.tool_confirmation`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#confirm-a-tool-call) event. A custom tool result doesn't have to wait for step 2.
+3. For each blocking event ID, send a [`user.custom_tool_result`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#return-a-custom-tool-result) or a [`user.tool_confirmation`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#confirm-a-tool-call) event. A custom tool result doesn’t have to wait for step 2.
 4. Once all blocking events are resolved, the session transitions back to `running`.
 
-In a multiagent session, a subagent's blocking events are cross-posted to the primary thread. See [Tool permissions and custom tools](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools).
+In a multiagent session, a subagent’s blocking events are cross-posted to the primary thread. See [Tool permissions and custom tools](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools).
 
 ### Return a custom tool result
 
@@ -876,7 +876,7 @@ The following example answers each call as it arrives:
   ```
 </CodeGroup>
 
-If the agent has [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) open, a custom tool call can arrive while the session stays `running`. The `requires_action` idle event arrives only when none of the [session's threads](https://platform.claude.com/docs/en/managed-agents/session-threads) is working. Don't wait for it: answer each call when its `agent.custom_tool_use` event arrives. The sample in [Follow a run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#follow-a-run) shows how.
+If the agent has [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) open, a custom tool call can arrive while the session stays `running`. The `requires_action` idle event arrives only when none of the [session’s threads](https://platform.claude.com/docs/en/managed-agents/session-threads) is working. Don’t wait for it: answer each call when its `agent.custom_tool_use` event arrives. The sample in [Follow a run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#follow-a-run) shows how.
 
 ### Confirm a tool call
 
@@ -1073,7 +1073,7 @@ The following example approves every pending call:
   ```
 </CodeGroup>
 
-The previous example approves each call after the session goes idle. If the agent has [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) open, a tool call can wait for your confirmation while the session stays `running`. Don't wait for the idle event: when an `agent.tool_use` or `agent.mcp_tool_use` event arrives whose [`evaluated_permission` (java, php: `evaluatedPermission`; csharp, go: `EvaluatedPermission`)](https://platform.claude.com/docs/en/managed-agents/permission-policies#see-how-each-call-was-evaluated) is `ask`, answer it. The sample in [Follow a run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#follow-a-run) answers custom tool calls this way, and its introduction says how to add confirmations.
+The previous example approves each call after the session goes idle. If the agent has [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) open, a tool call can wait for your confirmation while the session stays `running`. Don’t wait for the idle event: when an `agent.tool_use` or `agent.mcp_tool_use` event arrives whose [`evaluated_permission` (java, php: `evaluatedPermission`; csharp, go: `EvaluatedPermission`)](https://platform.claude.com/docs/en/managed-agents/permission-policies#see-how-each-call-was-evaluated) is `ask`, answer it. The sample in [Follow a run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#follow-a-run) answers custom tool calls this way, and its introduction says how to add confirmations.
 
 ## Resume an idle session
 
@@ -1416,11 +1416,11 @@ Send a `user.interrupt` event to stop the agent while it runs, then follow up wi
 
 The call returns as soon as the events are queued. The interrupt then takes effect in this order:
 
-1. The agent applies the interrupt. Until then, the interrupt's `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) stays `null` (python: `None`; ruby: `nil`; java: `Optional.empty()`; go: `time.Time{}`) and the session stays `running`. A model response in progress stops immediately, but the interrupt can take longer to apply while tool calls are running.
+1. The agent applies the interrupt. Until then, the interrupt’s `processed_at` (java, php: `processedAt`; csharp, go: `ProcessedAt`) stays `null` (python: `None`; ruby: `nil`; java: `Optional.empty()`; go: `time.Time{}`) and the session stays `running`. A model response in progress stops immediately, but the interrupt can take longer to apply while tool calls are running.
 2. The `user.interrupt` event appears on the stream, and the interrupted turn ends with a `session.status_idle` event.
 3. The agent starts its next turn with the `user.message` you sent after the interrupt.
 
-The idle event's `stop_reason.type` is `end_turn`, the same value as a turn that completes on its own. If workflow runs are open, the interrupt ends none of them. A run that's running can keep the session `running`, so the `session.status_idle` event in step 2 might not arrive. See [Interrupt a session with runs open](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open).
+The idle event’s `stop_reason.type` is `end_turn`, the same value as a turn that completes on its own. If workflow runs are open, the interrupt ends none of them. A run that’s running can keep the session `running`, so the `session.status_idle` event in step 2 might not arrive. See [Interrupt a session with runs open](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open).
 
 ## List past events
 
@@ -1593,7 +1593,7 @@ Pass a `types` (curl: `types[]`; cli: `--type`; csharp, go: `Types`) filter to r
 
 On a [supported model](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#supported-models), send a `system.message` event to give the agent privileged system-level context. The context applies to the accompanying turn and all subsequent turns. Use it when the agent needs updated system-level guidance mid-session, for example a different persona, revised constraints, or context fetched at runtime.
 
-The event's `content` (csharp, go: `Content`) accepts 1–1,000 text items. The content is appended to the session's system context as a `role: "system"` turn. It doesn't replace the top-level system prompt, which the `system` (csharp, go: `System`; ruby: `system_`) field on the agent definition sets.
+The event’s `content` (csharp, go: `Content`) accepts 1–1,000 text items. The content is appended to the session’s system context as a `role: "system"` turn. It doesn’t replace the top-level system prompt, which the `system` (csharp, go: `System`; ruby: `system_`) field on the agent definition sets.
 
 <CodeGroup>
   ```bash cURL
@@ -1746,7 +1746,7 @@ The event's `content` (csharp, go: `Content`) accepts 1–1,000 text items. The 
 * Claude Sonnet 5.5
 * Claude Haiku 5.5
 
-If the agent's primary model does not support mid-conversation system injection, the event is rejected with a `model_does_not_support_mid_conversation_system` validation error. Subagent models are not checked, because `system.message` lands on the primary thread only.
+If the agent’s primary model does not support mid-conversation system injection, the event is rejected with a `model_does_not_support_mid_conversation_system` validation error. Subagent models are not checked, because `system.message` lands on the primary thread only.
 
 ### System messages while a tool call is pending
 
@@ -1756,7 +1756,7 @@ While the session is idle with a `requires_action` stop reason, a `system.messag
 
 <CardGroup cols={2}>
   <Card title="Preview responses with event deltas" icon="text" href="https://platform.claude.com/docs/en/managed-agents/event-deltas">
-    Render the agent's response text while the model is still generating it.
+    Render the agent’s response text while the model is still generating it.
   </Card>
 
   <Card title="Inspect sessions and track usage" icon="magnifying-glass" href="https://platform.claude.com/docs/en/managed-agents/session-observability">

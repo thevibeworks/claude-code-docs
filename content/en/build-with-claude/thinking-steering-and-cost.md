@@ -8,7 +8,7 @@ description: Steer how often and how deeply Claude thinks with effort levels, sy
   To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
-Claude's thinking is adaptive: the model evaluates each request and determines whether to think and how much. You set an intent, optionally specify the effort, and the model allocates reasoning where reasoning is likely to help.
+Claude’s thinking is adaptive: the model evaluates each request and determines whether to think and how much. You set an intent, optionally specify the effort, and the model allocates reasoning where reasoning is likely to help.
 
 This makes thinking a strong fit for workloads that mix trivial and complex requests, and for long-horizon agentic workflows where the right amount of reasoning varies from step to step.
 
@@ -18,13 +18,13 @@ To learn how to turn thinking on and how to read thinking output, see the [Think
 
 Thinking is optional for the model. On each request, Claude evaluates the complexity of the input and determines whether deeper reasoning would improve the answer. A simple factual question might get a direct response with no thinking block at all; a multistep math problem or a tricky debugging task triggers deeper reasoning.
 
-This determination occurs for each request. The same conversation can contain turns with and without thinking, and a turn where Claude skips thinking contains no thinking block. Don't build application logic that assumes every assistant turn starts with one.
+This determination occurs for each request. The same conversation can contain turns with and without thinking, and a turn where Claude skips thinking contains no thinking block. Don’t build application logic that assumes every assistant turn starts with one.
 
 The primary control over this determination is the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter, which acts as soft guidance for how often and how deeply Claude uses thinking; see [Effort levels](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#effort-levels) on this page for what each level does.
 
 If you want Claude to think less often, lower the effort level before reaching for prompt-based steering.
 
-Thinking also interleaves with tool use automatically: Claude can think between tool calls, evaluating each tool result before determining what to do next ([interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)). You don't need a beta header or any additional configuration for this.
+Thinking also interleaves with tool use automatically: Claude can think between tool calls, evaluating each tool result before determining what to do next ([interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)). You don’t need a beta header or any additional configuration for this.
 
 For full details on how the thinking configuration and the effort parameter interact, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort).
 
@@ -34,11 +34,11 @@ Whether Claude thinks on a given turn is promptable. Effort sets the overall pos
 
 Use the two levers together in this order:
 
-1. Set the effort level that matches your workload's default balance of quality and latency.
-2. Add prompt guidance only if Claude's triggering still doesn't match your needs at that level.
+1. Set the effort level that matches your workload’s default balance of quality and latency.
+2. Add prompt guidance only if Claude’s triggering still doesn’t match your needs at that level.
 
 <Note>
-  To get less thinking on Claude Sonnet 5.5 and Claude Haiku 5.5, lower the effort level. Asking Claude Sonnet 5.5 in the system prompt to think less doesn't reliably reduce its thinking, and in Anthropic's testing, telling Claude Haiku 5.5 in the prompt to answer directly didn't stop it from thinking. See [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort) and [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking).
+  To get less thinking on Claude Sonnet 5.5 and Claude Haiku 5.5, lower the effort level. Asking Claude Sonnet 5.5 in the system prompt to think less doesn’t reliably reduce its thinking, and in Anthropic’s testing, telling Claude Haiku 5.5 in the prompt to answer directly didn’t stop it from thinking. See [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort) and [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking).
 </Note>
 
 For broader prompting guidance with thinking, see [leverage thinking and interleaved thinking capabilities](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#leverage-thinking-and-interleaved-thinking-capabilities).
@@ -74,7 +74,7 @@ Level availability varies by model; the [effort availability table](https://plat
 
 ### System prompt guidance
 
-System prompt guidance shifts Claude's thinking threshold for every request in the conversation. If Claude is thinking more often than your workload needs, add guidance such as the following to your system prompt:
+System prompt guidance shifts Claude’s thinking threshold for every request in the conversation. If Claude is thinking more often than your workload needs, add guidance such as the following to your system prompt:
 
 ```text wrap
 Extended thinking adds latency and should only be used when it
@@ -88,7 +88,7 @@ To encourage thinking instead, use a phrase such as:
 This task involves multistep reasoning. Think carefully before responding.
 ```
 
-Steering effectiveness can be sensitive to exact wording. If one phrasing doesn't produce the behavior you want, try a more direct variant.
+Steering effectiveness can be sensitive to exact wording. If one phrasing doesn’t produce the behavior you want, try a more direct variant.
 
 ### Per-message steering
 
@@ -96,7 +96,7 @@ You can also steer thinking on a per-message basis from the user turn, independe
 
 Per-message steering is useful when only some requests in a conversation warrant extended reasoning. An agent harness, for example, can append the encouraging phrase on planning steps and the discouraging phrase on routine confirmations, without touching the system prompt or changing any request parameters between turns.
 
-On Claude Haiku 5.5, the discouraging phrase doesn't reliably reduce thinking. On the Claude API and Claude Models on Google Cloud (Google managed), run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
+On Claude Haiku 5.5, the discouraging phrase doesn’t reliably reduce thinking. On the Claude API and Claude Models on Google Cloud (Google managed), run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
 
 ### Verify steering on your workload
 
@@ -112,19 +112,19 @@ Three mechanics follow from Claude managing its own thinking: turn validation, p
 
 ### Turn validation
 
-Assistant turns don't need to start with a thinking block. (Models using a legacy manual thinking budget enforce that the final assistant turn of a thinking-enabled request starts with one; see [Turn structure in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#turn-structure-in-manual-mode).)
+Assistant turns don’t need to start with a thinking block. (Models using a legacy manual thinking budget enforce that the final assistant turn of a thinking-enabled request starts with one; see [Turn structure in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#turn-structure-in-manual-mode).)
 
 For multi-turn applications, this means you can pass back conversation history in whatever shape you have it:
 
 * Assistant turns that Claude produced without thinking are valid history as-is.
 * You can resume a conversation that started without thinking, or that used a different thinking configuration, without rewriting its history.
-* History assembled from mixed sources doesn't need thinking blocks reinserted at the start of each assistant turn to pass validation.
+* History assembled from mixed sources doesn’t need thinking blocks reinserted at the start of each assistant turn to pass validation.
 
-The relaxation is about validation, not about what you should send. When you have thinking blocks, pass them back unmodified, particularly during tool use, where they carry the reasoning behind Claude's tool calls. See the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview for the full rules.
+The relaxation is about validation, not about what you should send. When you have thinking blocks, pass them back unmodified, particularly during tool use, where they carry the reasoning behind Claude’s tool calls. See the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview for the full rules.
 
 ### Prompt caching
 
-Consecutive requests that keep the same thinking configuration and effort level preserve prompt caching; see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching) for the full rules. The resolved effort value is rendered into the prompt, so changing it between requests invalidates cache breakpoints, just as changing the legacy [`budget_tokens`](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#extended-thinking-with-prompt-caching) parameter does on models that use it. Setting `effort` explicitly to the model's default is equivalent to omitting it and does not break the cache.
+Consecutive requests that keep the same thinking configuration and effort level preserve prompt caching; see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching) for the full rules. The resolved effort value is rendered into the prompt, so changing it between requests invalidates cache breakpoints, just as changing the legacy [`budget_tokens`](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#extended-thinking-with-prompt-caching) parameter does on models that use it. Setting `effort` explicitly to the model’s default is equivalent to omitting it and does not break the cache.
 
 The practical consequence: pick a thinking configuration and a top-level effort level for each conversation and keep them. If some turns need more or less thinking, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) on models that support it, or steer with [per-message prompting](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#tuning-thinking-behavior). Both leave earlier cache breakpoints intact, where a change to the thinking configuration or the top-level effort level does not.
 
@@ -848,10 +848,10 @@ The following example demonstrates the invalidation with a multi-turn script you
 
 ### Cost control
 
-You don't set a thinking token budget. Two controls bound cost:
+You don’t set a thinking token budget. Two controls bound cost:
 
-* `max_tokens` is a hard cap on total output for the request, thinking and response text combined. Claude never generates past it. In a tool-use loop, each request in the turn has its own `max_tokens`, so it doesn't bound the whole turn's spend.
-* `effort` is soft guidance on how much of that output Claude allocates to thinking. It shapes behavior but doesn't guarantee a token count.
+* `max_tokens` is a hard cap on total output for the request, thinking and response text combined. Claude never generates past it. In a tool-use loop, each request in the turn has its own `max_tokens`, so it doesn’t bound the whole turn’s spend.
+* `effort` is soft guidance on how much of that output Claude allocates to thinking. It shapes behavior but doesn’t guarantee a token count.
 
 Because thinking counts toward `max_tokens`, set it high enough to leave room for both the reasoning and the answer. A `max_tokens` sized for a response with no thinking is often too small once Claude starts thinking on hard requests.
 
@@ -874,7 +874,7 @@ Thinking incurs charges for:
   When thinking is active, a specialized system prompt is automatically included to support this feature.
 </Note>
 
-What you're billed for is the same regardless of the `display` setting; only what you see changes:
+What you’re billed for is the same regardless of the `display` setting; only what you see changes:
 
 |                             | `display: "summarized"`                              | `display: "omitted"`                                 |
 | --------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |

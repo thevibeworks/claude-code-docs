@@ -16,7 +16,7 @@ Here are some key indicators that you should use an LLM such as Claude instead o
 
 <AccordionGroup>
   <Accordion title="You have limited labeled training data available">
-    Traditional ML processes require massive labeled datasets. Claude's pre-trained model can effectively classify tickets with just a few dozen labeled examples, significantly reducing data preparation time and costs.
+    Traditional ML processes require massive labeled datasets. Claude’s pre-trained model can effectively classify tickets with just a few dozen labeled examples, significantly reducing data preparation time and costs.
   </Accordion>
 
   <Accordion title="Your classification categories are likely to change or evolve over time">
@@ -24,7 +24,7 @@ Here are some key indicators that you should use an LLM such as Claude instead o
   </Accordion>
 
   <Accordion title="You need to handle complex, unstructured text inputs">
-    Traditional ML models often struggle with unstructured data and require extensive feature engineering. Claude's advanced language understanding allows for accurate classification based on content and context, rather than relying on strict ontological structures.
+    Traditional ML models often struggle with unstructured data and require extensive feature engineering. Claude’s advanced language understanding allows for accurate classification based on content and context, rather than relying on strict ontological structures.
   </Accordion>
 
   <Accordion title="Your classification rules are based on semantic understanding">
@@ -36,11 +36,11 @@ Here are some key indicators that you should use an LLM such as Claude instead o
   </Accordion>
 
   <Accordion title="You want to handle edge cases and ambiguous tickets more effectively">
-    Traditional ML systems often struggle with outliers and ambiguous inputs, frequently misclassifying them or defaulting to a catch-all category. Claude's natural language processing capabilities allow it to better interpret context and nuance in support tickets, potentially reducing the number of misrouted or unclassified tickets that require manual intervention.
+    Traditional ML systems often struggle with outliers and ambiguous inputs, frequently misclassifying them or defaulting to a catch-all category. Claude’s natural language processing capabilities allow it to better interpret context and nuance in support tickets, potentially reducing the number of misrouted or unclassified tickets that require manual intervention.
   </Accordion>
 
   <Accordion title="You need multilingual support without maintaining separate models">
-    Traditional ML approaches typically require separate models or extensive translation processes for each supported language. Claude's multilingual capabilities allow it to classify tickets in various languages without the need for separate models or extensive translation processes, streamlining support for global customer bases.
+    Traditional ML approaches typically require separate models or extensive translation processes for each supported language. Claude’s multilingual capabilities allow it to classify tickets in various languages without the need for separate models or extensive translation processes, streamlining support for global customer bases.
   </Accordion>
 </AccordionGroup>
 
@@ -50,7 +50,7 @@ Here are some key indicators that you should use an LLM such as Claude instead o
 
 ### Understand your current support approach
 
-Before you automate, it's crucial to understand your existing ticketing system. Start by investigating how your support team currently handles ticket routing.
+Before you automate, it’s crucial to understand your existing ticketing system. Start by investigating how your support team currently handles ticket routing.
 
 Consider questions such as:
 
@@ -159,7 +159,7 @@ Here are some standard criteria and benchmarks when using LLMs for support ticke
 
 <AccordionGroup>
   <Accordion title="Classification consistency">
-    This metric assesses how consistently Claude classifies similar tickets over time. It's crucial for maintaining routing reliability. Measure this by periodically testing the model with a set of standardized inputs and aiming for a consistency rate of 95 percent or higher.
+    This metric assesses how consistently Claude classifies similar tickets over time. It’s crucial for maintaining routing reliability. Measure this by periodically testing the model with a set of standardized inputs and aiming for a consistency rate of 95 percent or higher.
   </Accordion>
 
   <Accordion title="Adaptation speed">
@@ -167,15 +167,15 @@ Here are some standard criteria and benchmarks when using LLMs for support ticke
   </Accordion>
 
   <Accordion title="Multilingual handling">
-    This assesses Claude's ability to accurately route tickets in multiple languages. Measure the routing accuracy across different languages, aiming for no more than a 5–10 percent drop in accuracy for non-primary languages.
+    This assesses Claude’s ability to accurately route tickets in multiple languages. Measure the routing accuracy across different languages, aiming for no more than a 5–10 percent drop in accuracy for non-primary languages.
   </Accordion>
 
   <Accordion title="Edge case handling">
-    This evaluates Claude's performance on unusual or complex tickets. Create a test set of edge cases and measure the routing accuracy, aiming for at least 80 percent accuracy on these challenging inputs.
+    This evaluates Claude’s performance on unusual or complex tickets. Create a test set of edge cases and measure the routing accuracy, aiming for at least 80 percent accuracy on these challenging inputs.
   </Accordion>
 
   <Accordion title="Bias mitigation">
-    This measures Claude's fairness in routing across different customer demographics. Regularly audit routing decisions for potential biases, aiming for consistent routing accuracy (within 2–3 percent) across all customer groups.
+    This measures Claude’s fairness in routing across different customer demographics. Regularly audit routing decisions for potential biases, aiming for consistent routing accuracy (within 2–3 percent) across all customer groups.
   </Accordion>
 
   <Accordion title="Prompt efficiency">
@@ -183,7 +183,7 @@ Here are some standard criteria and benchmarks when using LLMs for support ticke
   </Accordion>
 
   <Accordion title="Explainability score">
-    This evaluates the quality and relevance of Claude's explanations for its routing decisions. Human raters can score explanations on a scale (for example, 1–5), with the goal of achieving an average score of 4 or higher.
+    This evaluates the quality and relevance of Claude’s explanations for its routing decisions. Human raters can score explanations on a scale (for example, 1–5), with the goal of achieving an average score of 4 or higher.
   </Accordion>
 </AccordionGroup>
 
@@ -235,7 +235,7 @@ Here are some common success criteria that might be useful regardless of whether
 
 The choice of model depends on the trade-offs among cost, accuracy, and response time.
 
-Claude Haiku 5.5 (`claude-haiku-5-5`) suits ticket routing: it's the fastest and most cost-effective current model, and at `low` effort it handles simple, high-volume requests such as classification. If your classification problem requires deep subject matter expertise, a large volume of intent categories, or complex reasoning, you may opt for the [larger Sonnet model](https://platform.claude.com/docs/en/models/overview).
+Claude Haiku 5.5 (`claude-haiku-5-5`) suits ticket routing: it’s the fastest and most cost-effective current model, and at `low` effort it handles simple, high-volume requests such as classification. If your classification problem requires deep subject matter expertise, a large volume of intent categories, or complex reasoning, you may opt for the [larger Sonnet model](https://platform.claude.com/docs/en/models/overview).
 
 ### Build a strong prompt
 
@@ -247,7 +247,7 @@ Write a ticket classification prompt. The initial prompt should contain the cont
   Try the [metaprompt recipe from the Claude Cookbook](https://colab.research.google.com/github/anthropics/claude-cookbooks/blob/main/misc/metaprompt.ipynb) to have Claude write a first draft for you.
 </Tip>
 
-Here's an example ticket routing classification prompt:
+Here’s an example ticket routing classification prompt:
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -678,9 +678,9 @@ Here's an example ticket routing classification prompt:
 Here are the key components of this prompt:
 
 * The prompt template inserts `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) into the `<request>` tags.
-* The prompt gives Claude a clearly defined role as a classification system that carefully analyzes the ticket content to determine the customer's core intent and needs.
+* The prompt gives Claude a clearly defined role as a classification system that carefully analyzes the ticket content to determine the customer’s core intent and needs.
 * The prompt instructs Claude on proper output formatting, in this case to provide its reasoning and analysis inside `<reasoning>` tags, followed by the appropriate classification label inside `<intent>` tags.
-* The prompt specifies the valid intent categories: "Support, Feedback, Complaint", "Order Tracking", and "Refund/Exchange".
+* The prompt specifies the valid intent categories: `Support, Feedback, Complaint`, `Order Tracking`, and `Refund/Exchange`.
 * The prompt includes a few examples (a.k.a. few-shot prompting) to illustrate how the output should be formatted, which improves accuracy and consistency.
 
 Having Claude split its response into separate XML tag sections lets you use regular expressions to extract the reasoning and intent from the output independently. This lets you create targeted next steps in the ticket routing workflow, such as using only the intent to decide which person to route the ticket to.
@@ -689,7 +689,7 @@ Having Claude split its response into separate XML tag sections lets you use reg
 
 It’s hard to know how well your prompt works without deploying it in a test production setting and [running evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
-Build the deployment structure. Start by defining the function signature for wrapping the call to Claude. Extend the function you started writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the reasoning and the intent as output. If you have an existing automation using traditional ML, you'll want to follow that signature instead.
+Build the deployment structure. Start by defining the function signature for wrapping the call to Claude. Extend the function you started writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the reasoning and the intent as output. If you have an existing automation using traditional ML, you’ll want to follow that signature instead.
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -1016,7 +1016,7 @@ This code:
 * Creates a client instance using your API key.
 * Defines a `classify_support_request()` (typescript, go, java, php: `classifySupportRequest()`; csharp: `ClassifySupportRequest()`) function that takes a `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) string.
 * Sends the `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) to Claude for classification using the `classification_prompt` (typescript, csharp, go, java: `classificationPrompt`; php: `$classificationPrompt`).
-* Returns the model's reasoning and intent extracted from the response.
+* Returns the model’s reasoning and intent extracted from the response.
 
 Because the entire reasoning and intent text must be generated before parsing, the example does not stream the response.
 
@@ -1037,7 +1037,7 @@ The example evaluation for this guide measures Claude’s performance along two 
 
 You might need to assess Claude on other axes depending on which factors are important to you.
 
-To assess this, first modify the script so that it compares the predicted intent with the actual intent. Then have it return the API call's token usage, from which you can calculate cost.
+To assess this, first modify the script so that it compares the predicted intent with the actual intent. Then have it return the API call’s token usage, from which you can calculate cost.
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -1426,7 +1426,7 @@ As the number of classes grows, the number of examples required also expands, po
 1. Organize your intents in a taxonomic tree structure.
 2. Create a series of classifiers at every level of the tree to make a cascading routing approach possible.
 
-For example, you might have a top-level classifier that broadly categorizes tickets into "Technical Issues," "Billing Questions," and "General Inquiries." Each of these categories can then have its own sub-classifier to further refine the classification.
+For example, you might have a top-level classifier that broadly categorizes tickets into “Technical Issues,” “Billing Questions,” and “General Inquiries.” Each of these categories can then have its own sub-classifier to further refine the classification.
 
 ```mermaid
 ---
@@ -1474,7 +1474,7 @@ Here are some scenarios where Claude might misclassify tickets (there might be o
 
 <AccordionGroup>
   <Accordion title="Customers make implicit requests">
-    Customers often express needs indirectly. For example, "I've been waiting for my package for over two weeks now" might be an indirect request for order status.
+    Customers often express needs indirectly. For example, “I’ve been waiting for my package for over two weeks now” might be an indirect request for order status.
 
     * **Solution:** Provide Claude with some real customer examples of these kinds of requests, along with what the underlying intent is. You can get even better results if you include a classification rationale for particularly nuanced ticket intents, so that Claude can better generalize the logic to other tickets.
   </Accordion>

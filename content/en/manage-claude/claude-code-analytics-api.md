@@ -19,7 +19,7 @@ This API allows you to better monitor, analyze, and optimize your Claude Code ad
 * **Usage justification:** Provide metrics to justify and expand Claude Code adoption internally
 
 <Check>
-  **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn't scoped to a workspace; workspace API keys don't work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
+  **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn’t scoped to a workspace; workspace API keys don’t work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
 </Check>
 
 <Note>
@@ -32,7 +32,7 @@ This API allows you to better monitor, analyze, and optimize your Claude Code ad
 
 ## Quick start
 
-Get your organization's Claude Code analytics for a specific day:
+Get your organization’s Claude Code analytics for a specific day:
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/usage_report/claude_code?\
@@ -45,7 +45,7 @@ limit=20" \
 <Tip>
   **Set a User-Agent header for integrations**
 
-  If you're building an integration, set your User-Agent header to help Anthropic understand usage patterns:
+  If you’re building an integration, set your User-Agent header to help Anthropic understand usage patterns:
 
   ```text wrap
   User-Agent: YourApp/1.0.0 (https://yourapp.com)
@@ -59,7 +59,7 @@ Track Claude Code usage, productivity metrics, and developer activity across you
 ### Key concepts
 
 * **Daily aggregation:** Returns metrics for a single day specified by the `starting_at` parameter
-* **User-level data:** Each record represents one user's activity for the specified day
+* **User-level data:** Each record represents one user’s activity for the specified day
 * **Productivity metrics:** Track sessions, lines of code, commits, pull requests, and tool usage
 * **Token and cost data:** Monitor usage and estimated costs broken down by Claude model
 * **Cursor-based pagination:** Handle large datasets with stable pagination using opaque cursors
@@ -102,7 +102,7 @@ page=page_MjAyNS0wNS0xNFQwMDowMDowMFo=" \
 | ------------- | ------- | -------- | ----------------------------------------------------------------------- |
 | `starting_at` | string  | Yes      | UTC date in YYYY-MM-DD format; returns metrics for this single day only |
 | `limit`       | integer | No       | Number of records per page (default: 20, max: 1000)                     |
-| `page`        | string  | No       | Opaque cursor token from previous response's `next_page` field          |
+| `page`        | string  | No       | Opaque cursor token from previous response’s `next_page` field          |
 
 ### Available metrics
 
@@ -121,8 +121,8 @@ Each response record contains the following metrics for a single user on a singl
 * **num\_sessions:** Number of distinct Claude Code sessions initiated by this actor
 * **lines\_of\_code.added:** Total number of lines of code added across all files by Claude Code
 * **lines\_of\_code.removed:** Total number of lines of code removed across all files by Claude Code
-* **commits\_by\_claude\_code:** Number of git commits created through Claude Code's commit functionality
-* **pull\_requests\_by\_claude\_code:** Number of pull requests created through Claude Code's PR functionality
+* **commits\_by\_claude\_code:** Number of git commits created through Claude Code’s commit functionality
+* **pull\_requests\_by\_claude\_code:** Number of pull requests created through Claude Code’s PR functionality
 
 #### Tool action metrics
 
@@ -216,7 +216,7 @@ The API supports cursor-based pagination for organizations with large numbers of
 2. If `has_more` is `true` in the response, use the `next_page` value in your next request.
 3. Continue until `has_more` is `false`.
 
-The cursor encodes the position of the last record and ensures stable pagination even as new data arrives. Each pagination session maintains a consistent data boundary to ensure you don't miss or duplicate records.
+The cursor encodes the position of the last record and ensures stable pagination even as new data arrives. Each pagination session maintains a consistent data boundary to ensure you don’t miss or duplicate records.
 
 ## Common use cases
 
@@ -248,15 +248,15 @@ The `customer_type` field is either `api` or `subscription`. Every record, which
 
 ### Does this API include usage from Claude subscription plans?
 
-No. When someone signs in to Claude Code with a Claude subscription plan, such as Pro, Max, Team, or Enterprise, their usage is attributed to their claude.ai organization, and this API doesn't return it.
+No. When someone signs in to Claude Code with a Claude subscription plan, such as Pro, Max, Team, or Enterprise, their usage is attributed to their claude.ai organization, and this API doesn’t return it.
 
 To track that usage, use one of these options:
 
-* **Claude Enterprise Analytics API:** Reports Claude Code activity for Claude Enterprise organizations and isn't available on other plans. See [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api).
+* **Claude Enterprise Analytics API:** Reports Claude Code activity for Claude Enterprise organizations and isn’t available on other plans. See [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api).
 * **Analytics dashboard in claude.ai:** Available on Team and Enterprise plans. See [Track team usage with analytics](https://code.claude.com/docs/en/analytics).
 * **OpenTelemetry export:** Works on any plan. See [Monitoring usage with OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage).
 
-### What's the data retention period?
+### What’s the data retention period?
 
 Historical Claude Code analytics data is retained and accessible through the API. There is no specified deletion period for this data.
 
@@ -278,7 +278,7 @@ All dates are in UTC. The `starting_at` parameter should be in YYYY-MM-DD format
 
 ## See also
 
-The Claude Code Analytics API helps you understand and optimize your team's development workflow. Learn more about related features:
+The Claude Code Analytics API helps you understand and optimize your team’s development workflow. Learn more about related features:
 
 * [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)
 * [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization)

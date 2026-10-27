@@ -10,7 +10,7 @@ This guide lists the code changes for moving from API version `2023-06-01` to `2
 
 <Steps>
   <Step title="Switch to 2026-10-21">
-    If you use an SDK, your requests use the API version that was current when your SDK's major version was released. The versions shown for your language are the first to use `2026-10-21`, so upgrade to them. If you call the API without an SDK, set the `anthropic-version` header to `2026-10-21`.
+    If you use an SDK, your requests use the API version that was current when your SDK’s major version was released. The versions shown for your language are the first to use `2026-10-21`, so upgrade to them. If you call the API without an SDK, set the `anthropic-version` header to `2026-10-21`.
 
     <Tabs>
       <Tab title="cURL">
@@ -32,7 +32,7 @@ This guide lists the code changes for moving from API version `2023-06-01` to `2
       <Tab title="CLI">
         Upgrade the `ant` CLI to version 2.0.0. The Homebrew command and the release downloads stay the same.
 
-        Go requires the path of a module at major version 2 or later to end in that version, so the CLI's module path is now `github.com/anthropics/anthropic-cli/v2`. If you install with `go install`, add `/v2` to the path:
+        Go requires the path of a module at major version 2 or later to end in that version, so the CLI’s module path is now `github.com/anthropics/anthropic-cli/v2`. If you install with `go install`, add `/v2` to the path:
 
         ```bash
         # Before
@@ -108,13 +108,13 @@ In `2026-10-21`, a request that places a `document` block directly in an `assist
 
 Affects you if you send `citations` on `text` blocks in `user` messages, including inside `search_result` blocks.
 
-In `2026-10-21`, a request that sends a `text` block with a non-empty `citations` array in a `user` message returns a 400 error. Remove `citations` from those blocks. Citations on `text` blocks in `assistant` messages, such as Claude's earlier replies that you send back, are still accepted, and so is the `"citations": {"enabled": true}` setting on documents and search results.
+In `2026-10-21`, a request that sends a `text` block with a non-empty `citations` array in a `user` message returns a 400 error. Remove `citations` from those blocks. Citations on `text` blocks in `assistant` messages, such as Claude’s earlier replies that you send back, are still accepted, and so is the `"citations": {"enabled": true}` setting on documents and search results.
 
 #### Sampling parameters are removed
 
 Affects you if you send `temperature`, `top_p`, or `top_k` in Messages requests or Message Batch requests.
 
-In `2026-10-21`, a request that sends `temperature`, `top_p`, or `top_k` returns a 400 error, even at the parameter's default value.
+In `2026-10-21`, a request that sends `temperature`, `top_p`, or `top_k` returns a 400 error, even at the parameter’s default value.
 
 Remove the three parameters from your requests.
 
@@ -135,7 +135,7 @@ Admin API:
 | [RBAC groups](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/list): create, list, retrieve, and update                                                                                                                                    | `roles`        | `role_ids`                                                                                                                                      |
 | [RBAC group members](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list): list and add, and the response to [removing a member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/remove)            | `group_id`     | `rbac_group_id`                                                                                                                                 |
 | [RBAC roles](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list): list and retrieve                                                                                                                                                       | `name`         | `display_name`                                                                                                                                  |
-| [Organization](https://platform.claude.com/docs/en/api/organization/rate_limits/list) and [workspace](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list) rate limits: list, and the response to setting a workspace's rate limits | `group_type`   | `group.type`                                                                                                                                    |
+| [Organization](https://platform.claude.com/docs/en/api/organization/rate_limits/list) and [workspace](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list) rate limits: list, and the response to setting a workspace’s rate limits | `group_type`   | `group.type`                                                                                                                                    |
 | [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list): list, retrieve, and update                                                                                                                                                       | `workspace_id` | `scope` (different values; see [`workspace_id` on API keys](https://platform.claude.com/docs/en/api/migration-2026-10-21#api-key-workspace-id)) |
 
 Claude Enterprise Analytics API:
@@ -151,15 +151,15 @@ The `group_type` query parameter on the rate-limit list endpoints and the `works
 
 Affects you if your code reads `workspace_id` on API keys.
 
-In `2023-06-01`, an API key's `workspace_id` is the ID of the workspace the key is bound to, or `null` for a key bound to the Default Workspace and for a key that isn't bound to one workspace (an all-workspaces key).
+In `2023-06-01`, an API key’s `workspace_id` is the ID of the workspace the key is bound to, or `null` for a key bound to the Default Workspace and for a key that isn’t bound to one workspace (an all-workspaces key).
 
-In `2026-10-21`, `workspace_id` is removed. Read `scope` instead: for a key bound to a workspace, including the Default Workspace, `scope.workspace_id` is that workspace's real ID, and an all-workspaces key has a `scope` of `{"type": "organization"}`, with no `workspace_id`.
+In `2026-10-21`, `workspace_id` is removed. Read `scope` instead: for a key bound to a workspace, including the Default Workspace, `scope.workspace_id` is that workspace’s real ID, and an all-workspaces key has a `scope` of `{"type": "organization"}`, with no `workspace_id`.
 
-If your code treated a `null` `workspace_id` as the Default Workspace, compare `scope.workspace_id` with your Default Workspace's ID instead. To find that ID, call [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) with `include_default=true` and take the workspace named `"Default"`.
+If your code treated a `null` `workspace_id` as the Default Workspace, compare `scope.workspace_id` with your Default Workspace’s ID instead. To find that ID, call [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) with `include_default=true` and take the workspace named `"Default"`.
 
 ## SDK and CLI changes
 
-Earlier SDK and CLI versions sent `anthropic-version: 2023-06-01` with every request. The versions under [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade) send `2026-10-21`, including their Amazon Bedrock and Google Cloud clients. The changes in [Breaking changes](https://platform.claude.com/docs/en/api/migration-2026-10-21#breaking-changes) apply to them too: the removed parameters and the old field names are also gone from the SDK's types and from the CLI's flags and output.
+Earlier SDK and CLI versions sent `anthropic-version: 2023-06-01` with every request. The versions under [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade) send `2026-10-21`, including their Amazon Bedrock and Google Cloud clients. The changes in [Breaking changes](https://platform.claude.com/docs/en/api/migration-2026-10-21#breaking-changes) apply to them too: the removed parameters and the old field names are also gone from the SDK’s types and from the CLI’s flags and output.
 
 ### `MessageParam` is a union with one type for each role
 
@@ -200,7 +200,7 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
 
     Two more apply to `BetaMessageParam` only:
 
-    * `clear_at` and `output_config` are keys of `BetaSystemMessageParam`, so a user or assistant message can't have them.
+    * `clear_at` and `output_config` are keys of `BetaSystemMessageParam`, so a user or assistant message can’t have them.
     * `content` is optional in `BetaSystemMessageParam`, so pyright reports `message["content"]`. Read it with `message.get("content")`, or check first that `message["role"]` is not `"system"`.
   </Tab>
 
@@ -233,7 +233,7 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
 
     The type `BetaMessageParam["content"]` includes `undefined` too. For the content of a user or assistant message, use `BetaMessageContentParam`.
 
-    An interface can't extend a union, and a class can't implement one. Use a type alias, or name the type of one role instead.
+    An interface can’t extend a union, and a class can’t implement one. Use a type alias, or name the type of one role instead.
 
     ```typescript
     // Before
@@ -267,7 +267,7 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
     * A system message has a content class of its own. A `SystemMessageParamContent` holds a string or a list of `TextBlockParam`, and a `BetaSystemMessageParamContent` holds a string or a list of `SystemMessageContentBlock`. A `List<ContentBlockParam>` or a `List<BetaContentBlockParam>` no longer converts to it.
     * `ClearAt` and `OutputConfig` are on `BetaSystemMessageParam` only.
 
-    When you read a message, the union still has `Role` and `Content`, but you can't set them, so a `with` expression goes on the class for the role. `Role` now holds a `MessageParamRole` or a `BetaMessageParamRole`. `BetaMessageParam.Content` can be `null`, because `Content` is optional on `BetaSystemMessageParam`.
+    When you read a message, the union still has `Role` and `Content`, but you can’t set them, so a `with` expression goes on the class for the role. `Role` now holds a `MessageParamRole` or a `BetaMessageParamRole`. `BetaMessageParam.Content` can be `null`, because `Content` is optional on `BetaSystemMessageParam`.
 
     ```csharp
     // Before
@@ -324,7 +324,7 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
   <Tab title="Java">
     In v2, `MessageParam` was a single class with a `role` and a `content`. In v3 it is a union of the three classes, and `MessageParam.Content` is now the top-level `MessageContentParam`. `BetaMessageParam` changes the same way, and its classes have the same names with a `Beta` prefix. The JSON that the SDK sends is the same, except that a beta system message now has `role` before `content`.
 
-    `addUserMessage`, `addAssistantMessage`, and `addSystemMessage` with a `String`, `addMessage` with a `Message` or a `MessageParam`, and `Message.toParam()` don't change.
+    `addUserMessage`, `addAssistantMessage`, and `addSystemMessage` with a `String`, `addMessage` with a `Message` or a `MessageParam`, and `Message.toParam()` don’t change.
 
     `MessageParam.builder()` and `toBuilder()` are gone. Call the factory method for the role, which is `ofUser`, `ofAssistant`, or `ofSystem`:
 
@@ -347,7 +347,7 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
     | `addAssistantMessageOfBlockParams` | `addAssistantMessageOfBetaContentBlockParams` | `addAssistantMessageOfContentBlockParams` |
     | `addSystemMessageOfBlockParams`    | `addSystemMessageOfBetaContentBlockParams`    | `addSystemMessageOfBlocks`                |
 
-    On the content class, `BlockParams` (`BetaContentBlockParams` in beta) becomes `ContentBlockParams` in `ofBlockParams`, `blockParams()`, `isBlockParams()`, `asBlockParams()`, and the visitor's `visitBlockParams`.
+    On the content class, `BlockParams` (`BetaContentBlockParams` in beta) becomes `ContentBlockParams` in `ofBlockParams`, `blockParams()`, `isBlockParams()`, `asBlockParams()`, and the visitor’s `visitBlockParams`.
 
     A system message has its own content class, `SystemMessageParam.Content`, which `addSystemMessage` now takes. Its blocks are `TextBlockParam`, not `ContentBlockParam`. In beta they are `BetaSystemMessageParam.Content.SystemMessageContentBlock`, which has `ofText`, `ofToolAddition`, and `ofToolRemoval`.
 
@@ -359,13 +359,13 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
     builder.addSystemMessageOfBlocks(List.of(textBlock));
     ```
 
-    When you read a message, `role()` doesn't change. `content()` returns a `MessageContentParam`, or an `Optional<BetaMessageContentParam>` in beta, where a system message can have no content. `_role()`, `_content()`, and `_additionalProperties()` are now on the class for the role, which `asUser()`, `asAssistant()`, or `asSystem()` returns.
+    When you read a message, `role()` doesn’t change. `content()` returns a `MessageContentParam`, or an `Optional<BetaMessageContentParam>` in beta, where a system message can have no content. `_role()`, `_content()`, and `_additionalProperties()` are now on the class for the role, which `asUser()`, `asAssistant()`, or `asSystem()` returns.
   </Tab>
 
   <Tab title="PHP">
-    The classes are in `Anthropic\Messages`, and the beta classes in `Anthropic\Beta\Messages`. Messages you write as arrays don't change, and still need their `'role'`.
+    The classes are in `Anthropic\Messages`, and the beta classes in `Anthropic\Beta\Messages`. Messages you write as arrays don’t change, and still need their `'role'`.
 
-    `MessageParam::with()` and `BetaMessageParam::with()` remain, and return the class that goes with `role`. A call with named arguments needs no change. `role` is now the first parameter, so in a positional call swap `content` and `role`, or call `with()` on the role's class, which takes no `role`. For arguments in the old order PHP throws `UnhandledMatchError`, which PHPStan does not warn about, or a `TypeError` if `content` is a list or `role` is an enum case.
+    `MessageParam::with()` and `BetaMessageParam::with()` remain, and return the class that goes with `role`. A call with named arguments needs no change. `role` is now the first parameter, so in a positional call swap `content` and `role`, or call `with()` on the role’s class, which takes no `role`. For arguments in the old order PHP throws `UnhandledMatchError`, which PHPStan does not warn about, or a `TypeError` if `content` is a list or `role` is an enum case.
 
     ```php
     // Before
@@ -385,21 +385,21 @@ In earlier versions, `MessageParam` was one type for all roles. Each role now ha
     function send(UserMessageParam|AssistantMessageParam|SystemMessageParam $message): void {}
     ```
 
-    * `MessageParam::fromArray()` and `(new MessageParam())->withContent()` throw "Call to undefined method". Call them on the role's class, which sets `role` itself.
-    * `withRole()` takes only the string now: PHP throws a `TypeError` for a `Role` case. To give a message another role, build that role's class.
+    * `MessageParam::fromArray()` and `(new MessageParam())->withContent()` throw “Call to undefined method”. Call them on the role’s class, which sets `role` itself.
+    * `withRole()` takes only the string now: PHP throws a `TypeError` for a `Role` case. To give a message another role, build that role’s class.
     * `clearAt` and `outputConfig` exist only on `BetaSystemMessageParam`, and `BetaMessageParam::with()` drops them for the other two roles. The `BetaMessageParam\ClearAt` enum is now `BetaSystemMessageParam\ClearAt`.
     * `MessageParam\Content` is now `MessageContentParam`, and `BetaMessageParam\Content` is now `BetaMessageContentParam`. Their PHPStan types take the new name too: `ContentShape` is now `MessageContentParamShape`.
     * An array whose `'role'` is a `Role` case still works, but PHPStan now reports it. Write the string.
   </Tab>
 
   <Tab title="Ruby">
-    Messages you write as hashes don't change.
+    Messages you write as hashes don’t change.
 
     In v2, `Anthropic::MessageParam` is a union of `Anthropic::UserMessageParam`, `Anthropic::AssistantMessageParam`, and `Anthropic::SystemMessageParam`. In the same way, `Anthropic::Beta::BetaMessageParam` is a union of its three classes.
 
     `Anthropic::MessageParam.new(role: :user, content: "Hello, Claude")` still works, and returns an instance of the class for that role. You can also build that class yourself, with no `role:`, as `Anthropic::UserMessageParam.new(content: "Hello, Claude")`. Four things change for code that builds or inspects these instances:
 
-    * `MessageParam.new` takes keywords only, so pass a hash as `MessageParam.new(**hash)`. It raises an `ArgumentError` when `role:` is missing or isn't one of the three roles.
+    * `MessageParam.new` takes keywords only, so pass a hash as `MessageParam.new(**hash)`. It raises an `ArgumentError` when `role:` is missing or isn’t one of the three roles.
     * `message.is_a?(Anthropic::MessageParam)` is `false`. A `when Anthropic::MessageParam` branch and `messages.grep(Anthropic::MessageParam)` still match.
     * An instance built with `.new` has no `:role` in its `to_h`, and `message[:role]` is `nil`. `message.role` still returns the role.
     * Only `BetaSystemMessageParam` has `clear_at` and `output_config`. On a user or assistant message they returned `nil`, and now raise a `NoMethodError`.
@@ -471,7 +471,7 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
     if (message.Type.GetString() == "agent.message") { }
     ```
 
-    To tell the variants of a union apart, keep using its `TryPick*`, `Switch`, and `Match` methods, which don't change.
+    To tell the variants of a union apart, keep using its `TryPick*`, `Switch`, and `Match` methods, which don’t change.
   </Tab>
 
   <Tab title="Go">
@@ -518,7 +518,7 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
     * `BetaManagedAgentsMultiagentRosterEntryParamsOfBetaManagedAgentsAgents`
     * `BetaManagedAgentsMultiagentRosterEntryParamsOfBetaManagedAgentsAdvisors`
 
-    These four took no other argument, so they are gone. Set the union's field to a pointer to the empty struct, such as `BetaManagedAgentsEventParamsUnion{OfUserInterrupt: &anthropic.BetaManagedAgentsUserInterruptEventParams{}}`:
+    These four took no other argument, so they are gone. Set the union’s field to a pointer to the empty struct, such as `BetaManagedAgentsEventParamsUnion{OfUserInterrupt: &anthropic.BetaManagedAgentsUserInterruptEventParams{}}`:
 
     * `BetaManagedAgentsEventParamsOfUserInterrupt`
     * `BetaManagedAgentsMultiagentRosterEntryParamsOfBetaManagedAgentsMultiagentSelfs`
@@ -527,7 +527,7 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
   </Tab>
 
   <Tab title="Java">
-    An example of such an enum is the nested class `BetaManagedAgentsTextBlock.Type`, with its one member `TEXT`. Nearly all of them are the `type` of a class under `com.anthropic.models.beta`: `agents`, `deploymentruns`, `deployments`, `dreams`, `environments`, `memorystores`, `sessions`, `userprofiles`, and `vaults`. In v3 these fields are a `JsonValue` that the builder fills in, as `TextBlockParam`'s already was. An optional field, such as the `type` of `BetaManagedAgentsBashToolConfigParams`, keeps its enum.
+    An example of such an enum is the nested class `BetaManagedAgentsTextBlock.Type`, with its one member `TEXT`. Nearly all of them are the `type` of a class under `com.anthropic.models.beta`: `agents`, `deploymentruns`, `deployments`, `dreams`, `environments`, `memorystores`, `sessions`, `userprofiles`, and `vaults`. In v3 these fields are a `JsonValue` that the builder fills in, as `TextBlockParam`’s already was. An optional field, such as the `type` of `BetaManagedAgentsBashToolConfigParams`, keeps its enum.
 
     When you build an object, delete the call:
 
@@ -556,13 +556,13 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
     if (message._type().equals(JsonValue.from("agent.message"))) {}
     ```
 
-    To tell the variants of a union apart, keep using its `is*()` and `as*()` methods and its visitor, which don't change.
+    To tell the variants of a union apart, keep using its `is*()` and `as*()` methods and its visitor, which don’t change.
   </Tab>
 
   <Tab title="PHP">
     An example of such an enum case is `Anthropic\Beta\Sessions\Events\ManagedAgentsTextBlock\Type::TEXT`. Nearly all of them are the `type` of a Managed Agents class under `Anthropic\Beta`. These properties are now a string with that one value as their default, as the `type` of `Anthropic\Messages\TextBlockParam` already was. An optional property, such as the `type` of `Anthropic\Beta\Environments\BetaPackages`, keeps its enum.
 
-    `with()` no longer takes `type`. Remove it: PHP throws "Unknown named parameter" for a leftover `type:`, and in a positional call the arguments after it move up by one.
+    `with()` no longer takes `type`. Remove it: PHP throws “Unknown named parameter” for a leftover `type:`, and in a positional call the arguments after it move up by one.
 
     ```php
     // Before
@@ -583,7 +583,7 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
     ```
 
     * `withType()` and the `type` argument of `$client->beta->sessions->resources->add()` take only the string now. In `add()` it defaults to `'file'`, so you can leave it out.
-    * Requests you write as arrays don't change, and still need their `'type'`.
+    * Requests you write as arrays don’t change, and still need their `'type'`.
   </Tab>
 
   <Tab title="Ruby">
@@ -599,7 +599,7 @@ This affects the C#, Go, Java, PHP, and Ruby SDKs and one CLI flag. In earlier v
     event.type == :"agent.message"
     ```
 
-    Requests you write as hashes don't change, and still need their `type`:
+    Requests you write as hashes don’t change, and still need their `type`:
 
     ```ruby
     client.beta.sessions.events.send_(
@@ -620,7 +620,7 @@ This affects the TypeScript and Ruby SDKs. Client-side compaction in the tool ru
 
 <Tabs exclude="shell, python, csharp, go, java, php">
   <Tab title="TypeScript">
-    The `compactionControl` option and the `@anthropic-ai/sdk/lib/tools/CompactionControl` module are gone. The option stopped working in v0.129.0, where passing it threw an `AnthropicError`. It isn't in the tool runner's parameters type, so TypeScript reports it as an unknown property.
+    The `compactionControl` option and the `@anthropic-ai/sdk/lib/tools/CompactionControl` module are gone. The option stopped working in v0.129.0, where passing it threw an `AnthropicError`. It isn’t in the tool runner’s parameters type, so TypeScript reports it as an unknown property.
 
     To keep compacting automatically at a token threshold:
 
@@ -674,7 +674,7 @@ The trigger threshold must be at least 50,000 tokens. See [compaction](https://p
 
 ### Text Completions is removed
 
-The legacy Text Completions API is removed from the TypeScript, Go, Java, and Ruby SDKs and from the CLI. Newer models and features don't support it. Use the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) instead.
+The legacy Text Completions API is removed from the TypeScript, Go, Java, and Ruby SDKs and from the CLI. Newer models and features don’t support it. Use the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) instead.
 
 ### `betas` is removed from the non-beta Models methods
 
@@ -864,7 +864,7 @@ Authorization: Bearer <key>
 
 <Tabs exclude="shell:cURL">
   <Tab title="CLI">
-    If `--base-url` or `ANTHROPIC_BASE_URL` points `ant` at a proxy or gateway that reads `X-Api-Key`, change it to read the key from `Authorization`. `ant` has no flag or environment variable for adding a header of your own, so it can't send `X-Api-Key`.
+    If `--base-url` or `ANTHROPIC_BASE_URL` points `ant` at a proxy or gateway that reads `X-Api-Key`, change it to read the key from `Authorization`. `ant` has no flag or environment variable for adding a header of your own, so it can’t send `X-Api-Key`.
   </Tab>
 
   <Tab title="Python">
@@ -956,7 +956,7 @@ Authorization: Bearer <key>
     $client = new Client(apiKey: $apiKey, requestOptions: ['middleware' => [$sendXApiKey]]);
     ```
 
-    Do not use the client's `extraHeaders` for this. A request that has `extraHeaders` of its own replaces the client's, and every endpoint under `$client->beta` that needs a beta header has them.
+    Do not use the client’s `extraHeaders` for this. A request that has `extraHeaders` of its own replaces the client’s, and every endpoint under `$client->beta` that needs a beta header has them.
   </Tab>
 
   <Tab title="Ruby">
@@ -971,7 +971,7 @@ Authorization: Bearer <key>
     client = Anthropic::Client.new(api_key: api_key, middleware: send_x_api_key)
     ```
 
-    The first line leaves a request alone when it doesn't carry the key, such as one that was redirected to another origin.
+    The first line leaves a request alone when it doesn’t carry the key, such as one that was redirected to another origin.
 
     `Anthropic::AWSClient` takes no `middleware:` argument. Pass the middleware with each request instead, as `request_options: {middleware: send_x_api_key}`.
   </Tab>
@@ -981,17 +981,17 @@ Authorization: Bearer <key>
 
 This affects the Python, TypeScript, Go, PHP, and Ruby SDKs.
 
-If you removed `X-Api-Key` so that a request sent only an authentication token, delete that code instead of changing it, because removing `Authorization` would remove the token. [A client holds one credential](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-one-credential), so make sure that it's the token: with none passed in code and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client uses the key.
+If you removed `X-Api-Key` so that a request sent only an authentication token, delete that code instead of changing it, because removing `Authorization` would remove the token. [A client holds one credential](https://platform.claude.com/docs/en/api/migration-2026-10-21#sdk-one-credential), so make sure that it’s the token: with none passed in code and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client uses the key.
 
 <Tabs exclude="shell, csharp, java">
   <Tab title="Python">
     Code that passes `extra_headers={"X-Api-Key": omit}` to keep the key off a request no longer does that. Pass `extra_headers={"Authorization": omit}` instead.
 
-    `extra_headers={"X-Api-Key": other_key}` no longer replaces the client's key: both keys go out. To send another key with one request, pass `extra_headers={"Authorization": f"Bearer {other_key}"}`.
+    `extra_headers={"X-Api-Key": other_key}` no longer replaces the client’s key: both keys go out. To send another key with one request, pass `extra_headers={"Authorization": f"Bearer {other_key}"}`.
   </Tab>
 
   <Tab title="TypeScript">
-    `headers: { "X-Api-Key": otherKey }` in a request's options no longer replaces the client's key: both keys go out. To send another key with one request, pass ``headers: { Authorization: `Bearer $\{otherKey}` }``.
+    `headers: { "X-Api-Key": otherKey }` in a request’s options no longer replaces the client’s key: both keys go out. To send another key with one request, pass ``headers: { Authorization: `Bearer $\{otherKey}` }``.
   </Tab>
 
   <Tab title="Go">
@@ -1005,13 +1005,13 @@ If you removed `X-Api-Key` so that a request sent only an authentication token, 
     client.Messages.New(ctx, params, option.WithHeaderDel("Authorization"))
     ```
 
-    `option.WithHeader("X-Api-Key", otherKey)` no longer replaces the client's key: both keys go out. To send another key with one request, pass `option.WithAPIKey(otherKey)`.
+    `option.WithHeader("X-Api-Key", otherKey)` no longer replaces the client’s key: both keys go out. To send another key with one request, pass `option.WithAPIKey(otherKey)`.
   </Tab>
 
   <Tab title="PHP">
     `'extraHeaders' => ['X-Api-Key' => null]` no longer keeps the key off a request. To send a request with no credential, set `Authorization` to `null` instead, or remove it in a middleware if you did this for the whole client.
 
-    `'extraHeaders' => ['X-Api-Key' => $otherKey]` no longer replaces the client's key: both keys go out. To send another key with one request, set `Authorization` to `"Bearer {$otherKey}"`.
+    `'extraHeaders' => ['X-Api-Key' => $otherKey]` no longer replaces the client’s key: both keys go out. To send another key with one request, set `Authorization` to `"Bearer {$otherKey}"`.
   </Tab>
 
   <Tab title="Ruby">
@@ -1027,10 +1027,10 @@ An API key and an authentication token now share a header, so an SDK client hold
   <Tab title="Python">
     v1 sent both an API key and an authentication token when the client had both, each in its own header. The credential is one of `api_key`, `auth_token`, `credentials`, `config`, or `profile`.
 
-    * **Pass at most one.** Two or more in the constructor, or in one `copy()` or `with_options()` call, raise `ValueError`. `None` doesn't count. v1 raised `TypeError`, and only for two of `credentials`, `config`, and `profile`.
+    * **Pass at most one.** Two or more in the constructor, or in one `copy()` or `with_options()` call, raise `ValueError`. `None` doesn’t count. v1 raised `TypeError`, and only for two of `credentials`, `config`, and `profile`.
     * **The one you pass is the only one.** As in v1, the client does not look for another in the environment or on disk.
     * **With none passed, only the first of these that is set is used:** `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, the profile that `ANTHROPIC_PROFILE` names, the workload identity federation variables, the active profile on disk (the one the `active_config` file names, otherwise `default`). When both of the first two are set, the client logs a warning once. v1 used the active profile ahead of the federation variables when `ANTHROPIC_CONFIG_DIR` was set or an `active_config` file existed; set `ANTHROPIC_PROFILE` to keep using it.
-    * **`copy()` and `with_options()` replace.** A credential you pass replaces the client's own, whichever kind either one is. A base URL and headers that came from the old credential's config or profile go with it, and the new credential's are used. A base URL you passed stays.
+    * **`copy()` and `with_options()` replace.** A credential you pass replaces the client’s own, whichever kind either one is. A base URL and headers that came from the old credential’s config or profile go with it, and the new credential’s are used. A base URL you passed stays.
 
     ```python
     client = Anthropic(api_key=key, auth_token=token)
@@ -1049,11 +1049,11 @@ An API key and an authentication token now share a header, so an SDK client hold
   <Tab title="TypeScript">
     In v0 a client that had both an API key and an authentication token sent both, each in its own header. The credential is one of `apiKey`, `authToken`, `credentials`, `config`, or `profile`.
 
-    * **Pass at most one.** Two or more in `new Anthropic()`, or in one `withOptions()` call, throw a `TypeError`. `null` and `undefined` don't count.
+    * **Pass at most one.** Two or more in `new Anthropic()`, or in one `withOptions()` call, throw a `TypeError`. `null` and `undefined` don’t count.
     * **The one you pass is the only one.** The client does not look for another in the environment or on disk.
     * **With none passed, the first of these is used:** `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, the profile that `ANTHROPIC_PROFILE` names, the workload identity federation variables, the active profile on disk (the one the `active_config` file names, otherwise `default`). When both of the first two are set, the client logs a warning once. In v0 the active profile came before the federation variables. An `ANTHROPIC_PROFILE` that names a missing profile was skipped in v0, and now the first request throws an `AnthropicError`. `loadConfig()` with no argument follows the same order and throws the same error.
     * **`withOptions` replaces.** A credential you pass replaces the one of the client you copy, so `client.withOptions({ authToken })` no longer needs `apiKey: null` next to it.
-    * **A platform client takes only its platform's credentials.** The AWS, Bedrock, and Foundry clients and `AnthropicVertex` throw an `AnthropicError` for a credential option they don't authenticate with, as `AnthropicGoogleCloud` already did. On the AWS and Bedrock clients `apiKey: null` now clears the key, so the client signs with AWS credentials. `AnthropicBedrock` keeps its key in `client.apiKey`, where v0 kept it in `client.authToken`.
+    * **A platform client takes only its platform’s credentials.** The AWS, Bedrock, and Foundry clients and `AnthropicVertex` throw an `AnthropicError` for a credential option they don’t authenticate with, as `AnthropicGoogleCloud` already did. On the AWS and Bedrock clients `apiKey: null` now clears the key, so the client signs with AWS credentials. `AnthropicBedrock` keeps its key in `client.apiKey`, where v0 kept it in `client.authToken`.
 
     ```typescript
     // Before: sent the API key and ignored `credentials`
@@ -1063,7 +1063,7 @@ An API key and an authentication token now share a header, so an SDK client hold
     const client = new Anthropic({ credentials });
     ```
 
-    The doc comments on `ClientOptions` in [`client.ts`](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/src/client.ts) say how each option behaves, and the doc comment on each of those platform clients' constructors lists the options it rejects.
+    The doc comments on `ClientOptions` in [`client.ts`](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/src/client.ts) say how each option behaves, and the doc comment on each of those platform clients’ constructors lists the options it rejects.
 
     If you relied on sending both, for example a token for a gateway and a key for the API behind it, set `X-Api-Key` in `defaultHeaders` and keep `authToken`. Have the gateway remove its `Authorization` header before it forwards the request. The Claude API expects one credential for each request.
   </Tab>
@@ -1071,10 +1071,10 @@ An API key and an authentication token now share a header, so an SDK client hold
   <Tab title="C#">
     In v12 a client that had both an API key and an authentication token sent both, each in its own header. The credential is one of `ApiKey`, `AuthToken`, or `ClientOptions.Credentials`.
 
-    * **Passing two is an error.** Setting a second one throws an `ArgumentException`. `null` doesn't count, so to swap the credential in `ClientOptions` that you built yourself, set the old one to `null` first.
-    * **Passing one uses it and ignores the environment.** No credential environment variable or profile on disk is read. In the same way, `AnthropicCredentials.Resolve(profile: "name")` now returns that profile's credentials when `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` is set.
-    * **Passing none uses the first match in the environment:** `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_PROFILE`, the workload identity federation variables, then the active profile on disk. An empty `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` counts as unset. When both of the first two are set, a warning goes to stderr once. The client looks when it is first used, so an `ANTHROPIC_PROFILE` that doesn't exist now throws from the first request instead of the constructor.
-    * **`WithOptions` replaces.** A credential you pass in the modifier replaces the client's, whichever kind that was, so `AuthToken = token` no longer needs `ApiKey = null` next to it. With none passed, the copy keeps the client's credential, `BaseUrl`, and `ExtraHeaders`, even when the modifier returns new `ClientOptions`.
+    * **Passing two is an error.** Setting a second one throws an `ArgumentException`. `null` doesn’t count, so to swap the credential in `ClientOptions` that you built yourself, set the old one to `null` first.
+    * **Passing one uses it and ignores the environment.** No credential environment variable or profile on disk is read. In the same way, `AnthropicCredentials.Resolve(profile: "name")` now returns that profile’s credentials when `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` is set.
+    * **Passing none uses the first match in the environment:** `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_PROFILE`, the workload identity federation variables, then the active profile on disk. An empty `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` counts as unset. When both of the first two are set, a warning goes to stderr once. The client looks when it is first used, so an `ANTHROPIC_PROFILE` that doesn’t exist now throws from the first request instead of the constructor.
+    * **`WithOptions` replaces.** A credential you pass in the modifier replaces the client’s, whichever kind that was, so `AuthToken = token` no longer needs `ApiKey = null` next to it. With none passed, the copy keeps the client’s credential, `BaseUrl`, and `ExtraHeaders`, even when the modifier returns new `ClientOptions`.
 
     ```csharp
     // Before: sent both, each in its own header
@@ -1094,10 +1094,10 @@ An API key and an authentication token now share a header, so an SDK client hold
   <Tab title="Go">
     In v1 a client that had both an API key and an authentication token sent both, each in its own header. The credential comes from `option.WithAPIKey`, `option.WithAuthToken`, `option.WithConfig`, `option.WithProfile`, or `option.WithFederationTokenProvider`.
 
-    * **Two of them passed to `anthropic.NewClient` are an error.** `NewClient` returns no error, so every request the client makes fails with it. `NewClient` already applies `anthropic.DefaultClientOptions()`, so don't pass its result as well: the credential it finds in the environment then counts as one you passed.
+    * **Two of them passed to `anthropic.NewClient` are an error.** `NewClient` returns no error, so every request the client makes fails with it. `NewClient` already applies `anthropic.DefaultClientOptions()`, so don’t pass its result as well: the credential it finds in the environment then counts as one you passed.
     * **One of them is used as it is.** No credential is read from the environment or from a profile on disk. In v1 `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` won over the last three.
     * **With none of them, the first of these that is set is used,** in the same order as v1: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk. When both of the first two are set, the SDK logs a warning once.
-    * **One of them on a request replaces the client's credential for that request,** so `option.WithAuthToken` no longer needs `option.WithHeaderDel("X-Api-Key")` next to it.
+    * **One of them on a request replaces the client’s credential for that request,** so `option.WithAuthToken` no longer needs `option.WithHeaderDel("X-Api-Key")` next to it.
 
     ```go
     // Before: the API key was sent and a warning was logged
@@ -1157,8 +1157,8 @@ An API key and an authentication token now share a header, so an SDK client hold
     Earlier versions sent both an API key and an authentication token when the client had both, each in its own header. `Anthropic\Client` takes one credential, from `apiKey`, `authToken`, or `credentials`:
 
     * Passing more than one of them throws `\InvalidArgumentException`. Only `null` counts as not passed. An empty string counts as passed, so `new Client(apiKey: '')` sends no credential.
-    * Passing one uses it, and no credential is read from the environment or from a profile on disk. With `ANTHROPIC_API_KEY` set, `new Client(authToken: $token)` sends the token. Earlier versions sent the environment's key with it.
-    * Passing none uses the first of these that is set: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, the profile named by `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk (the one the `active_config` file names, otherwise `default`). Earlier versions used the active profile before the federation variables, and used no profile when there was no `active_config` file. They also skipped an `ANTHROPIC_PROFILE` that named a missing or invalid profile. For that, `new Client()` now throws `Anthropic\Core\Exceptions\AnthropicException`. With both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client sends the key and its `authToken` property is empty. The first client built that way also writes a warning with `error_log()`, once for each process, which on a web server means once for each request: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` To stop it, unset the variable you don't use.
+    * Passing one uses it, and no credential is read from the environment or from a profile on disk. With `ANTHROPIC_API_KEY` set, `new Client(authToken: $token)` sends the token. Earlier versions sent the environment’s key with it.
+    * Passing none uses the first of these that is set: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, the profile named by `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk (the one the `active_config` file names, otherwise `default`). Earlier versions used the active profile before the federation variables, and used no profile when there was no `active_config` file. They also skipped an `ANTHROPIC_PROFILE` that named a missing or invalid profile. For that, `new Client()` now throws `Anthropic\Core\Exceptions\AnthropicException`. With both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, the client sends the key and its `authToken` property is empty. The first client built that way also writes a warning with `error_log()`, once for each process, which on a web server means once for each request: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` To stop it, unset the variable you don’t use.
 
     ```php
     // Before: sent the key as X-Api-Key and the token as Authorization.
@@ -1176,7 +1176,7 @@ An API key and an authentication token now share a header, so an SDK client hold
     * **One passed:** The client uses it, and does not fall back to a credential from the environment or from a profile on disk.
     * **None passed:** The client uses the first of these it finds: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk. The order has not changed, but with both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, `client.auth_token` is now `nil`. An empty `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` now counts as unset, where earlier versions let an empty `ANTHROPIC_API_KEY` hide the token and everything after it.
 
-    When no credential is passed and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are set, the SDK also warns once for each process, on standard error through `Kernel#warn`: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` Unset the variable you don't use to silence it.
+    When no credential is passed and both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` are set, the SDK also warns once for each process, on standard error through `Kernel#warn`: `Anthropic: ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN are both set. Using ANTHROPIC_API_KEY.` Unset the variable you don’t use to silence it.
 
     ```ruby
     # Before: sent the key and ignored the token.
@@ -1220,7 +1220,7 @@ These changes each affect one SDK or the CLI.
   </Tab>
 
   <Tab title="C#">
-    **A union's `Type` is an enum.** In v12, the `Type` property of a union class, such as `ContentBlock.Type` or `RawMessageStreamEvent.Type`, was a `JsonElement`. In v13 it is an `ApiEnum<string, T>`, where `T` is a new enum with one member for each variant, such as `ContentBlockType`. A few unions are told apart by `Name` or `Command` instead, such as `BetaMemoryTool20250818Command.Command`, and those properties change in the same way. The `Type` of a variant class, such as `TextBlock.Type`, is still a `JsonElement`.
+    **A union’s `Type` is an enum.** In v12, the `Type` property of a union class, such as `ContentBlock.Type` or `RawMessageStreamEvent.Type`, was a `JsonElement`. In v13 it is an `ApiEnum<string, T>`, where `T` is a new enum with one member for each variant, such as `ContentBlockType`. A few unions are told apart by `Name` or `Command` instead, such as `BetaMemoryTool20250818Command.Command`, and those properties change in the same way. The `Type` of a variant class, such as `TextBlock.Type`, is still a `JsonElement`.
 
     ```csharp
     // Before
@@ -1312,7 +1312,7 @@ These changes each affect one SDK or the CLI.
   </Tab>
 
   <Tab title="PHP">
-    **Enum cases you pass are read back as their values.** `with()` and setters such as `withAllowedCallers()` still take an enum case or its value. Earlier versions kept a case as you passed it. v1 keeps the case's value, which is what the property types already declare. Objects that the SDK builds from a response don't change, and the JSON that the SDK sends is the same. If you read a property back and compare it with a case, the comparison is now false and nothing throws, so compare it with the case's value:
+    **Enum cases you pass are read back as their values.** `with()` and setters such as `withAllowedCallers()` still take an enum case or its value. Earlier versions kept a case as you passed it. v1 keeps the case’s value, which is what the property types already declare. Objects that the SDK builds from a response don’t change, and the JSON that the SDK sends is the same. If you read a property back and compare it with a case, the comparison is now false and nothing throws, so compare it with the case’s value:
 
     ```php
     $tool = CodeExecutionTool20250825::with(allowedCallers: [AllowedCaller::DIRECT]);

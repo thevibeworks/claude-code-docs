@@ -265,7 +265,7 @@ Prompt caching introduces a new pricing structure. The following table shows the
   * Cache write tokens with a 1-hour TTL are 2 times the base input tokens price.
   * Cache read tokens are 0.1 times the base input tokens price (see the table footnote for per-model exceptions).
 
-  These multipliers stack with other pricing modifiers such as the Batch API discount, [long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing), and data residency. On a model priced by prompt length, cache reads and cache writes count toward a request's prompt length. See [Claude pricing](https://platform.claude.com/docs/en/about-claude/pricing) for full details.
+  These multipliers stack with other pricing modifiers such as the Batch API discount, [long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing), and data residency. On a model priced by prompt length, cache reads and cache writes count toward a request’s prompt length. See [Claude pricing](https://platform.claude.com/docs/en/about-claude/pricing) for full details.
 </Note>
 
 ***
@@ -474,7 +474,7 @@ With automatic caching, the cache point moves forward automatically as conversat
 | Request 2 | System<br />+ User(1) + Asst(1)<br />+ User(2) + Asst(2)<br />+ **User(3)** ◀ cache                          | System through User(2) read from cache;<br />Asst(2) + User(3) written to cache |
 | Request 3 | System<br />+ User(1) + Asst(1)<br />+ User(2) + Asst(2)<br />+ User(3) + Asst(3)<br />+ **User(4)** ◀ cache | System through User(3) read from cache;<br />Asst(3) + User(4) written to cache |
 
-The cache breakpoint automatically moves to the last cacheable block in each request, so you don't need to update any `cache_control` markers as the conversation grows.
+The cache breakpoint automatically moves to the last cacheable block in each request, so you don’t need to update any `cache_control` markers as the conversation grows.
 
 ### TTL support
 
@@ -543,7 +543,7 @@ You can use just one cache breakpoint at the end of your static content, and the
 
 2. **Cache reads look backward for entries that prior requests wrote.** On each request the system computes the prefix hash at your breakpoint and checks for a matching cache entry. If none exists, it walks backward one block at a time, checking whether the prefix hash at each earlier position matches something already in the cache. It is looking for prior writes, not for stable content.
 
-3. **The lookback window is 20 blocks.** The system checks at most 20 positions for each breakpoint, counting the breakpoint itself as the first. If the system finds no matching entry in that window, checking stops (or resumes from the next explicit breakpoint, if any). On the Claude API, a run of consecutive `tool_use` blocks counts as one position, and so does a run of consecutive `tool_result` blocks, so a turn with many parallel tool calls doesn't push the previous request's entry out of the window on its own.
+3. **The lookback window is 20 blocks.** The system checks at most 20 positions for each breakpoint, counting the breakpoint itself as the first. If the system finds no matching entry in that window, checking stops (or resumes from the next explicit breakpoint, if any). On the Claude API, a run of consecutive `tool_use` blocks counts as one position, and so does a run of consecutive `tool_result` blocks, so a turn with many parallel tool calls doesn’t push the previous request’s entry out of the window on its own.
 
 **Example: Lookback in a growing conversation**
 
@@ -562,7 +562,7 @@ Your prompt has a large static system context (blocks 1 through 5) followed by a
 
 The lookback does not find stable content behind your breakpoint and cache it. It finds entries that prior requests already wrote, and writes occur only at breakpoints. Move `cache_control` to block 5, the last block that stays the same across requests, and every subsequent request reads the cached prefix. [Automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) has the same problem: it places the breakpoint on the last cacheable block, which in this structure is the one that changes every request, so use an explicit breakpoint on block 5 instead.
 
-**Key takeaway:** Place `cache_control` on the last block whose prefix is identical across the requests you want to share a cache. In a growing conversation the final block works as long as each turn adds fewer than 20 blocks: earlier content never changes, so the next request's lookback finds the prior write. For a prompt with a varying suffix (timestamps, per-request context, the incoming message), place the breakpoint at the end of the static prefix, not on the varying block.
+**Key takeaway:** Place `cache_control` on the last block whose prefix is identical across the requests you want to share a cache. In a growing conversation the final block works as long as each turn adds fewer than 20 blocks: earlier content never changes, so the next request’s lookback finds the prior write. For a prompt with a varying suffix (timestamps, per-request context, the incoming message), place the breakpoint at the end of the static prefix, not on the varying block.
 
 #### When to use multiple breakpoints
 
@@ -578,13 +578,13 @@ You can define up to 4 cache breakpoints if you want to:
 
 ### Understanding cache breakpoint costs
 
-**Cache breakpoints themselves don't add any cost.** You are only charged for:
+**Cache breakpoints themselves don’t add any cost.** You are only charged for:
 
 * **Cache writes:** When new content is written to the cache (25% more than base input tokens for 5-minute TTL)
 * **Cache reads:** When cached content is used (10% of base input token price, or 2.5% on Claude Fable 5.1 and Claude Mythos 5.1, and 5% on Claude Opus 5.5 and Claude Sonnet 5.5)
 * **Regular input tokens:** For any uncached content
 
-Adding more `cache_control` breakpoints doesn't increase your costs; you still pay the same amount based on what content is actually cached and read. The breakpoints give you control over what sections can be cached independently.
+Adding more `cache_control` breakpoints doesn’t increase your costs; you still pay the same amount based on what content is actually cached and read. The breakpoints give you control over what sections can be cached independently.
 
 ***
 
@@ -613,7 +613,7 @@ If your prompt falls just short of the minimum for your model and platform, expa
 
 For concurrent requests, note that a cache entry only becomes available after the first response starts. If you need cache hits for parallel requests, wait for the first response before sending subsequent requests.
 
-Currently, "ephemeral" is the only supported cache type, which by default has a 5-minute lifetime.
+Currently, `ephemeral` is the only supported cache type, which by default has a 5-minute lifetime.
 
 ### What can be cached
 
@@ -656,11 +656,11 @@ The following table shows which parts of the cache are invalidated by different 
 | **Tool choice**                                       | ✓              | ✓              | ✘              | Changes to the `tool_choice` parameter only affect message blocks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Images**                                            | ✓              | ✓              | ✘              | Adding/removing images anywhere in the prompt affects message blocks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | **Thinking parameters**                               | Model-specific | Model-specific | ✘              | The thinking configuration (mode, and `budget_tokens` in extended mode) is rendered into the prompt, so changing it always invalidates message blocks; tool and system caches are also invalidated on models that render the configuration ahead of them. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).                                                                                                                                                                                                           |
-| **Effort setting**                                    | Model-specific | Model-specific | ✘              | Changing the [`output_config.effort`](https://platform.claude.com/docs/en/build-with-claude/effort) value always invalidates message blocks, with the same model-specific effect on tool and system caches as thinking parameters. Setting effort explicitly to the model's default is equivalent to omitting it and does not invalidate. On models that support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta), an effort change carried in a `role: "system"` message inside `messages` leaves the cached prefix intact. |
+| **Effort setting**                                    | Model-specific | Model-specific | ✘              | Changing the [`output_config.effort`](https://platform.claude.com/docs/en/build-with-claude/effort) value always invalidates message blocks, with the same model-specific effect on tool and system caches as thinking parameters. Setting effort explicitly to the model’s default is equivalent to omitting it and does not invalidate. On models that support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta), an effort change carried in a `role: "system"` message inside `messages` leaves the cached prefix intact. |
 | **Non-tool results passed to requests with thinking** | ✓              | ✓              | Model-specific | On Opus 4.5+, Sonnet 4.6+, and Haiku 5.5, thinking blocks are preserved by default, so the cache remains valid (✓). On earlier Opus/Sonnet models and Haiku models through Claude Haiku 4.5, all previously-cached thinking blocks are stripped from context, and any messages that follow those thinking blocks are removed from the cache (✘). For more details, see [Caching with thinking blocks](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#caching-with-thinking-blocks).                                                                                          |
-| **Dropped thinking blocks**                           | ✓              | ✓              | ✘              | When the API drops a Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Haiku 5.5 thinking block that isn't [preserved](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking) on that request, the cached prefix changes from that block's position onward on that request. Blocks the receiving model can read, passed back unchanged, keep the cache intact.                                                                                                                                                                        |
+| **Dropped thinking blocks**                           | ✓              | ✓              | ✘              | When the API drops a Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Haiku 5.5 thinking block that isn’t [preserved](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking) on that request, the cached prefix changes from that block’s position onward on that request. Blocks the receiving model can read, passed back unchanged, keep the cache intact.                                                                                                                                                                        |
 
-On models that support [mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes), the `inline-tools-2026-09-15` beta header lets you add a tool, or change a tool's definition, partway through a conversation without editing `tools`. Send the definition in a `tool_addition` block in a mid-conversation system message and leave `tools` exactly as you first sent it. The cached prefix still matches, so only the appended message is processed as new input. The one exception is a `tools` array with no non-deferred tool, where the first tool defined this way costs one full cache miss on that request. See [Define tools in a message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta).
+On models that support [mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes), the `inline-tools-2026-09-15` beta header lets you add a tool, or change a tool’s definition, partway through a conversation without editing `tools`. Send the definition in a `tool_addition` block in a mid-conversation system message and leave `tools` exactly as you first sent it. The cached prefix still matches, so only the appended message is processed as new input. The one exception is a `tools` array with no non-deferred tool, where the first tool defined this way costs one full cache miss on that request. See [Define tools in a message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta).
 
 <Note>
   On Claude Fable 5.1, [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), Claude Fable 5, [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Opus 5.5, Claude Opus 4.8, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5, you can add a new system instruction partway through a conversation without invalidating the system or message caches. Append a `{"role": "system"}` message to `messages` instead of editing the top-level `system` field, so the cached prefix stays unchanged. This feature is not available on Claude Sonnet 5. Use the top-level `system` field instead. See [Mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages).
@@ -764,7 +764,7 @@ To optimize prompt caching performance:
 * Start with [automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) for multi-turn conversations. It handles breakpoint management automatically.
 * Use [explicit block-level breakpoints](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) when you need to cache different sections with different change frequencies.
 * Cache stable, reusable content such as system instructions, background information, large contexts, or frequent tool definitions.
-* Place cached content at the prompt's beginning for best performance.
+* Place cached content at the prompt’s beginning for best performance.
 * Use cache breakpoints strategically to separate different cacheable prefix sections.
 * Place the breakpoint on the last block that stays identical across requests. For a prompt with a static prefix and a varying suffix (timestamps, per-request context, the incoming message), that is the end of the prefix, not the varying block.
 * Regularly analyze cache hit rates and adjust your strategy as needed.
@@ -776,7 +776,7 @@ Tailor your prompt caching strategy to your scenario:
 * Conversational agents: Reduce cost and latency for extended conversations, especially those with long instructions or uploaded documents.
 * Coding assistants: Improve auto-complete and code base Q\&A by keeping relevant sections or a summarized version of the code base in the prompt.
 * Large document processing: Incorporate complete long-form material including images in your prompt without increasing response latency.
-* Detailed instruction sets: Share extensive lists of instructions, procedures, and examples to fine-tune Claude's responses. Developers often include an example or two in the prompt, but with prompt caching you can get even better performance by including 20+ diverse examples of high-quality answers.
+* Detailed instruction sets: Share extensive lists of instructions, procedures, and examples to fine-tune Claude’s responses. Developers often include an example or two in the prompt, but with prompt caching you can get even better performance by including 20+ diverse examples of high-quality answers.
 * Agentic tool use: Enhance performance for scenarios involving multiple tool calls and iterative code changes, where each step typically requires a new API call.
 * Books, papers, documentation, podcast transcripts, and other long-form content: Make any knowledge base interactive by embedding the entire document(s) into the prompt, and letting users ask it questions.
 
@@ -839,7 +839,7 @@ The response includes detailed cache information like the following:
 
 Note that the current `cache_creation_input_tokens` field equals the sum of the values in the `cache_creation` object.
 
-If you see `ephemeral_5m_input_tokens` writes you didn't request while using server tools such as web search, see [Server tool results are cached automatically](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#server-tool-results-are-cached-automatically).
+If you see `ephemeral_5m_input_tokens` writes you didn’t request while using server tools such as web search, see [Server tool results are cached automatically](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#server-tool-results-are-cached-automatically).
 
 ### When to use the 1-hour cache
 
@@ -891,7 +891,7 @@ Cache pre-warming lets you load your system prompt or tool definitions into the 
 
 Set `max_tokens: 0` in your request. The API reads your prompt into the model and writes the cache at any `cache_control` breakpoint, then returns immediately without generating any output. The response has an empty `content` array, `stop_reason: "max_tokens"`, and a fully populated `usage` block.
 
-Place the `cache_control` breakpoint on the last block that is shared with the follow-up request (typically your system prompt or tool definitions), not on the placeholder user message. Otherwise the cache entry is keyed to the placeholder and the follow-up request won't hit it. Use the same thinking configuration and `output_config.effort` as your follow-up requests too: those values are rendered into the prompt (see [What invalidates the cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#what-invalidates-the-cache)), so a pre-warm with a different configuration can write an entry your real traffic never hits. This means using an [explicit cache breakpoint](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) rather than [automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching), because automatic caching places the breakpoint on the last block, which here is the placeholder. The placeholder user message can be any string with non-whitespace content (the examples here use `"warmup"`); its content is read into the model but never answered.
+Place the `cache_control` breakpoint on the last block that is shared with the follow-up request (typically your system prompt or tool definitions), not on the placeholder user message. Otherwise the cache entry is keyed to the placeholder and the follow-up request won’t hit it. Use the same thinking configuration and `output_config.effort` as your follow-up requests too: those values are rendered into the prompt (see [What invalidates the cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#what-invalidates-the-cache)), so a pre-warm with a different configuration can write an entry your real traffic never hits. This means using an [explicit cache breakpoint](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) rather than [automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching), because automatic caching places the breakpoint on the last block, which here is the placeholder. The placeholder user message can be any string with non-whitespace content (the examples here use `"warmup"`); its content is read into the model but never answered.
 
 <Note>
   A pre-warm request incurs a **cache write** charge if the prefix is not already cached, the same as any other request. Check `usage.cache_creation_input_tokens` in the response to confirm a write occurred. Zero output tokens are billed.
@@ -3158,7 +3158,7 @@ The following code snippets showcase various prompt caching patterns. These exam
 
 ## Data retention
 
-Prompt caching (both automatic and explicit) is ZDR eligible. Anthropic does not store the raw text of your prompts or Claude's responses.
+Prompt caching (both automatic and explicit) is ZDR eligible. Anthropic does not store the raw text of your prompts or Claude’s responses.
 
 KV (key-value) cache representations and cryptographic hashes of cached content are held in memory only and are not stored at rest. Cached entries have a minimum lifetime of 5 minutes (standard) or 1 hour (extended), after which they are promptly, though not immediately, deleted. Cache entries are isolated between organizations and, on the Claude API, Claude Platform on AWS, and Microsoft Foundry, between workspaces within an organization.
 
@@ -3188,7 +3188,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     * Reading from cache (a fraction of the base input token price, see [Pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing))
     * Regular input tokens for uncached content
 
-    The number of breakpoints doesn't affect pricing; only the amount of content cached and read matters.
+    The number of breakpoints doesn’t affect pricing; only the amount of content cached and read matters.
   </Accordion>
 
   <Accordion title="How do I calculate total input tokens from the usage fields?">
@@ -3200,7 +3200,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
 
     * `cache_read_input_tokens`: Tokens retrieved from cache (everything before cache breakpoints that was cached)
     * `cache_creation_input_tokens`: New tokens being written to cache (at cache breakpoints)
-    * `input_tokens`: Tokens **after the last cache breakpoint** that aren't cached
+    * `input_tokens`: Tokens **after the last cache breakpoint** that aren’t cached
 
     **Important:** `input_tokens` does NOT represent all input tokens, only the portion after your last cache breakpoint. If you have cached content, `input_tokens` will typically be much smaller than your total input.
 
@@ -3215,7 +3215,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
   </Accordion>
 
   <Accordion title="What is the cache lifetime?">
-    The cache's default minimum lifetime (TTL) is 5 minutes. This lifetime is refreshed each time the cached content is used.
+    The cache’s default minimum lifetime (TTL) is 5 minutes. This lifetime is refreshed each time the cached content is used.
 
     If you find that 5 minutes is too short, Anthropic also offers a [1-hour cache TTL](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration).
   </Accordion>
@@ -3257,7 +3257,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
   </Accordion>
 
   <Accordion title="Can I manually clear the cache?">
-    Currently, there's no way to manually clear the cache. Cached prefixes automatically expire after a minimum of 5 minutes of inactivity.
+    Currently, there’s no way to manually clear the cache. Cached prefixes automatically expire after a minimum of 5 minutes of inactivity.
   </Accordion>
 
   <Accordion title="How can I track the effectiveness of my caching strategy?">
@@ -3277,7 +3277,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
 
     3. The caching mechanism is designed to maintain the integrity and privacy of each unique conversation or context.
 
-    4. It's safe to use `cache_control` anywhere in your prompts. For caching to produce reads, place the breakpoint at the end of a stable prefix: placing it on a block that changes every request (such as a timestamp or the user's arbitrary input) writes a fresh entry each time and never hits.
+    4. It’s safe to use `cache_control` anywhere in your prompts. For caching to produce reads, place the breakpoint at the end of a stable prefix: placing it on a block that changes every request (such as a timestamp or the user’s arbitrary input) writes a fresh entry each time and never hits.
 
     These measures ensure that prompt caching maintains data privacy and security while offering performance benefits.
   </Accordion>
@@ -3291,7 +3291,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     * Send a batch request with a single request that has this shared prefix and a 1-hour cache block. This writes the prefix to the 1-hour cache.
     * As soon as this is complete, submit the rest of the requests. You have to monitor the job to know when it completes.
 
-    This is typically better than using the 5-minute cache because it's common for batch requests to take between 5 minutes and 1 hour to complete.
+    This is typically better than using the 5-minute cache because it’s common for batch requests to take between 5 minutes and 1 hour to complete.
   </Accordion>
 
   <Accordion title="Why am I seeing the error `AttributeError: 'Beta' object has no attribute 'prompt_caching'` in Python?">
@@ -3312,7 +3312,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Why am I seeing 'TypeError: Cannot read properties of undefined (reading 'messages')'?">
+  <Accordion title="Why am I seeing ‘TypeError: Cannot read properties of undefined (reading ‘messages’)’?">
     This error typically appears when you have upgraded your SDK or you are using outdated code examples. Prompt caching no longer requires the beta prefix. Instead of:
 
     ```typescript TypeScript

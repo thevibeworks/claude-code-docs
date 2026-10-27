@@ -32,19 +32,19 @@ featureMetadata:
 ---
 
 <Note>
-  **Start with the SDK toolsets:** For `computer_toolset_20260801`, the Python and TypeScript SDKs have a computer toolset class, in beta. Start from [a partner's integration](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#partner-integrations), or see the [computer toolset](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#computer-toolset) section of the SDK toolsets page. Use this page as the tool reference, or when you handle the tool calls yourself.
+  **Start with the SDK toolsets:** For `computer_toolset_20260801`, the Python and TypeScript SDKs have a computer toolset class, in beta. Start from [a partner’s integration](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#partner-integrations), or see the [computer toolset](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#computer-toolset) section of the SDK toolsets page. Use this page as the tool reference, or when you handle the tool calls yourself.
 </Note>
 
 Claude can interact with computer environments through the computer use tool, which provides screenshot capabilities and mouse/keyboard control for autonomous desktop interaction.
 
-The computer use tool is an Anthropic-defined [client toolset](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets): one `{"type": "computer_toolset_20260801"}` entry in `tools` gives Claude 17 member tools such as `screenshot`, `left_click`, `type`, and `zoom`, and your application runs every call in an environment you control. It isn't currently available in [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/tools). Claude's calls are `tool_use` blocks whose `name` is the member and which carry `"toolset_name": "computer"`, often several in one turn (a [batch action](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions)).
+The computer use tool is an Anthropic-defined [client toolset](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets): one `{"type": "computer_toolset_20260801"}` entry in `tools` gives Claude 17 member tools such as `screenshot`, `left_click`, `type`, and `zoom`, and your application runs every call in an environment you control. It isn’t currently available in [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/tools). Claude’s calls are `tool_use` blocks whose `name` is the member and which carry `"toolset_name": "computer"`, often several in one turn (a [batch action](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions)).
 
-For tasks that stay inside webpages, the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) is the closer fit: its member tools read and act on the page itself, and it doesn't need a full desktop environment.
+For tasks that stay inside webpages, the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) is the closer fit: its member tools read and act on the page itself, and it doesn’t need a full desktop environment.
 
 <Note>
   Computer use is available on the Claude API and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) as the `computer_toolset_20260801` toolset; see [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#compatibility) for the supported models.
 
-  Existing `computer_20251124` integrations keep working on the models listed for it under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions), and earlier tool versions remain available in beta for models and platforms that don't support the toolset. See [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124) to upgrade, or [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) for the beta headers.
+  Existing `computer_20251124` integrations keep working on the models listed for it under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions), and earlier tool versions remain available in beta for models and platforms that don’t support the toolset. See [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124) to upgrade, or [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) for the beta headers.
 </Note>
 
 ## Security considerations
@@ -64,7 +64,7 @@ In some circumstances, Claude follows commands found in content even when they c
 
 Anthropic has trained the model to resist these prompt injections and has added an extra layer of defense. If you use the computer use tools, classifiers will automatically scan what the tools return, such as screenshots, to flag potential prompt injections. When these classifiers identify a potential prompt injection, they will automatically steer the model to check whether the instruction really came from you before acting on it.
 
-This extra protection isn't ideal for every use case (for example, use cases without a human in the loop), so if you'd like to opt out and turn it off, [contact support](https://support.claude.com/en/). The precautions listed earlier remain important even with these classifiers in place.
+This extra protection isn’t ideal for every use case (for example, use cases without a human in the loop), so if you’d like to opt out and turn it off, [contact support](https://support.claude.com/en/). The precautions listed earlier remain important even with these classifiers in place.
 
 Inform end users of relevant risks and obtain their consent prior to enabling computer use in your own products.
 
@@ -317,17 +317,17 @@ Your application runs each call in order in your own environment, returns one `t
 <Steps>
   <Step title="Provide Claude with the computer use tool and a user prompt">
     * Add the computer use toolset (and optionally other tools) to the `tools` array of your API request.
-    * Include a user prompt that requires desktop interaction, for example, "Save a picture of a cat to my desktop."
+    * Include a user prompt that requires desktop interaction, for example, “Save a picture of a cat to my desktop.”
   </Step>
 
   <Step title="Claude responds with member tool calls">
-    * Claude assesses whether acting on the desktop can help with the user's query.
+    * Claude assesses whether acting on the desktop can help with the user’s query.
     * If so, Claude responds with one or more member `tool_use` blocks, such as `screenshot`, `left_click`, or `type`, each carrying `"toolset_name": "computer"`. A response with several of these blocks is a [batch action](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions).
     * The API response has a `stop_reason` of `tool_use`, signaling a tool use request.
   </Step>
 
   <Step title="Run the calls in order and return results">
-    * Iterate over every `tool_use` block in the response, in order. For each one, dispatch on the member `name` together with `toolset_name`, and perform that action with the block's `input` on your container or virtual machine.
+    * Iterate over every `tool_use` block in the response, in order. For each one, dispatch on the member `name` together with `toolset_name`, and perform that action with the block’s `input` on your container or virtual machine.
     * Continue the conversation with a new `user` message that contains one `tool_result` block for each `tool_use` block, matched by `tool_use_id` and each echoing `"toolset_name": "computer"`. Return an image for `screenshot` and `zoom`; a short text such as `OK` is enough for the other actions.
     * If an action fails, return `is_error: true` for that block and answer the rest of the batch as described in [Batch actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions).
   </Step>
@@ -339,7 +339,7 @@ Your application runs each call in order in your own environment, returns one `t
   </Step>
 </Steps>
 
-The repetition of steps 3 and 4 without user input is referred to as the "agent loop" (that is, Claude responding with a tool use request and your application responding to Claude with the results of evaluating that request).
+The repetition of steps 3 and 4 without user input is referred to as the “agent loop” (that is, Claude responding with a tool use request and your application responding to Claude with the results of evaluating that request).
 
 ### Batch actions
 
@@ -413,7 +413,7 @@ Return one `tool_result` block for each `tool_use` block, matched by `tool_use_i
 }
 ```
 
-**Run blocks in order and stop at the first failure.** Later actions in a batch usually depend on earlier ones: the `type` in this example enters text into whatever the preceding click focused. Run the blocks sequentially in the order they appear in `content`, and if one fails, don't run the rest. Every `tool_use` block still needs a `tool_result`, so answer the batch as follows:
+**Run blocks in order and stop at the first failure.** Later actions in a batch usually depend on earlier ones: the `type` in this example enters text into whatever the preceding click focused. Run the blocks sequentially in the order they appear in `content`, and if one fails, don’t run the rest. Every `tool_use` block still needs a `tool_result`, so answer the batch as follows:
 
 * For each action that succeeded, return its normal result.
 * For the action that failed, return `is_error: true` with a text description of what went wrong.
@@ -431,7 +431,7 @@ Return one `tool_result` block for each `tool_use` block, matched by `tool_use_i
 
 Claude then reads which actions succeeded, which one failed, and which were skipped, and replans on its next turn. A request that leaves any `tool_use` block in the batch unanswered is rejected with an `invalid_request_error`, so an agent loop that reads only the first block fails on its next call. If your application asks a human to confirm consequential actions, make that check before each block runs, because a batch can complete a multistep action within one turn.
 
-Claude typically finishes a batch with `screenshot` so it can observe the outcome before determining what to do next. When a batch doesn't end with one, your application can attach a screenshot as an extra `image` block on the last result in the batch so that Claude always receives the current state of the screen, which saves a round trip compared with waiting for Claude to ask. You can also prompt Claude to end every batch with a screenshot (see [Optimize model performance with prompting](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#optimize-model-performance-with-prompting)).
+Claude typically finishes a batch with `screenshot` so it can observe the outcome before determining what to do next. When a batch doesn’t end with one, your application can attach a screenshot as an extra `image` block on the last result in the batch so that Claude always receives the current state of the screen, which saves a round trip compared with waiting for Claude to ask. You can also prompt Claude to end every batch with a screenshot (see [Optimize model performance with prompting](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#optimize-model-performance-with-prompting)).
 
 ### The computing environment
 
@@ -443,13 +443,13 @@ Computer use requires a sandboxed computing environment where Claude can safely 
 
 3. **Applications:** Pre-installed Linux applications such as Firefox, LibreOffice, text editors, and file managers that Claude can use to complete tasks.
 
-4. **Tool implementations:** Integration code that translates Claude's abstract tool requests (such as "move mouse" or "take screenshot") into actual operations in the virtual environment.
+4. **Tool implementations:** Integration code that translates Claude’s abstract tool requests (such as “move mouse” or “take screenshot”) into actual operations in the virtual environment.
 
-5. **Agent loop:** A program that handles communication between Claude and the environment, sending Claude's actions to the environment and returning the results (screenshots, command outputs) back to Claude.
+5. **Agent loop:** A program that handles communication between Claude and the environment, sending Claude’s actions to the environment and returning the results (screenshots, command outputs) back to Claude.
 
-When you use computer use, Claude doesn't directly connect to this environment. Instead, your application:
+When you use computer use, Claude doesn’t directly connect to this environment. Instead, your application:
 
-1. Receives Claude's tool use requests
+1. Receives Claude’s tool use requests
 2. Translates them into actions in your computing environment
 3. Captures the results (such as screenshots and command outputs)
 4. Returns these results to Claude
@@ -468,7 +468,7 @@ Upgrading an existing `computer_20251124` integration? Start with [Migrate from 
 
 ### Understand the agent loop
 
-The core of computer use is the "agent loop": a cycle where Claude requests tool actions, and your application runs them and returns results to Claude. The loop uses the client you created in the [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#quick-start), a `tools` array that declares only the computer use toolset, and the tool-call processing helper under [Implement the computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#implement-the-computer-use-tool). If you also declare other tools, such as the Quick start's bash and text editor tools, dispatch their `tool_use` blocks in the same pass; the helper answers only computer use member calls, and the loop treats a turn with no answered calls as complete. Here's a simplified example:
+The core of computer use is the “agent loop”: a cycle where Claude requests tool actions, and your application runs them and returns results to Claude. The loop uses the client you created in the [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#quick-start), a `tools` array that declares only the computer use toolset, and the tool-call processing helper under [Implement the computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#implement-the-computer-use-tool). If you also declare other tools, such as the Quick start’s bash and text editor tools, dispatch their `tool_use` blocks in the same pass; the helper answers only computer use member calls, and the loop treats a turn with no answered calls as complete. Here’s a simplified example:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -710,8 +710,8 @@ The loop continues until either Claude responds without requesting any tools (ta
 3. Some UI elements (such as dropdowns and scrollbars) might be tricky for Claude to manipulate using mouse movements. If you experience this, try prompting the model to use keyboard shortcuts.
 4. For repeatable tasks or UI interactions, include example screenshots and tool calls of successful outcomes in your prompt.
 5. If you need the model to log in, provide it with the username and password in your prompt inside XML tags such as `<robot_credentials>`. Using computer use within applications that require login increases the risk of bad outcomes as a result of prompt injection. Review [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks) before providing the model with login credentials.
-6. When constructing a user turn's `content` array, place the instruction text *before* the screenshot image. Providing the target description before the image is processed improves click accuracy.
-7. Claude uses the `zoom` action to inspect a region at full resolution when asked about small text or specific UI elements that aren't legible at the screenshot's default resolution, such as file names in a sidebar, tab titles, status-bar text, line numbers, or button labels. If Claude isn't zooming when you expect, ask about a specific region or element rather than the screen as a whole.
+6. When constructing a user turn’s `content` array, place the instruction text *before* the screenshot image. Providing the target description before the image is processed improves click accuracy.
+7. Claude uses the `zoom` action to inspect a region at full resolution when asked about small text or specific UI elements that aren’t legible at the screenshot’s default resolution, such as file names in a sidebar, tab titles, status-bar text, line numbers, or button labels. If Claude isn’t zooming when you expect, ask about a specific region or element rather than the screen as a whole.
 8. If you want every [batch action](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions) to end with a screenshot, say so in the system prompt, for example, `End each group of actions with a screenshot so you can verify the result before continuing.`
 
 <Tip>
@@ -724,26 +724,26 @@ The loop continues until either Claude responds without requesting any tools (ta
 
 ### System prompts
 
-When you include the computer use tool in a request, the API generates a computer use-specific system prompt. It's similar to the [tool use system prompt](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#tool-use-system-prompt) but starts with:
+When you include the computer use tool in a request, the API generates a computer use-specific system prompt. It’s similar to the [tool use system prompt](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#tool-use-system-prompt) but starts with:
 
-> You have access to a set of functions you can use to answer the user's question. This includes access to a sandboxed computing environment. You do NOT currently have the ability to inspect files or interact with external resources, except by invoking the below functions.
+> You have access to a set of functions you can use to answer the user’s question. This includes access to a sandboxed computing environment. You do NOT currently have the ability to inspect files or interact with external resources, except by invoking the below functions.
 
 As with regular tool use, the user-provided `system` parameter is still respected and used in the construction of the combined system prompt.
 
 ### Available actions
 
-Each action is a member tool of the computer use toolset: Claude names the member in a `tool_use` block that carries `"toolset_name": "computer"`, and the block's `input` holds only that member's parameters, with no `action` field. The toolset has 17 member tools:
+Each action is a member tool of the computer use toolset: Claude names the member in a `tool_use` block that carries `"toolset_name": "computer"`, and the block’s `input` holds only that member’s parameters, with no `action` field. The toolset has 17 member tools:
 
 | Member                                                        | Input                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                                                   |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `screenshot`                                                  | None (`{}`)                                                                                                                                                                                                  | Capture the full display and return it as an image.                                                                                                                                                                                                                           |
-| `zoom`                                                        | `region`: `[x0, y0, x1, y1]`, the top-left and bottom-right corners of the area to inspect                                                                                                                   | Capture only that region of the display at full resolution and return it as an image, scaled to fit within your usual screenshot dimensions with its aspect ratio preserved. This lets Claude read small text or dense UI that isn't legible in a downscaled full screenshot. |
+| `zoom`                                                        | `region`: `[x0, y0, x1, y1]`, the top-left and bottom-right corners of the area to inspect                                                                                                                   | Capture only that region of the display at full resolution and return it as an image, scaled to fit within your usual screenshot dimensions with its aspect ratio preserved. This lets Claude read small text or dense UI that isn’t legible in a downscaled full screenshot. |
 | `left_click`                                                  | `coordinate` (optional): `[x, y]`; `text` (optional): modifier keys to hold during the click: `shift`, `ctrl`, `alt`, `super` (the Command or Windows key), or a `+`-joined combination such as `ctrl+shift` | Click the left mouse button at `coordinate`, or at the current cursor position when `coordinate` is omitted.                                                                                                                                                                  |
 | `right_click`, `middle_click`, `double_click`, `triple_click` | Same as `left_click`                                                                                                                                                                                         | Other mouse buttons and multiple clicks.                                                                                                                                                                                                                                      |
 | `left_click_drag`                                             | `start_coordinate`: `[x, y]`; `coordinate`: `[x, y]`; `text` (optional): modifier keys                                                                                                                       | Press at `start_coordinate`, drag to `coordinate`, and release.                                                                                                                                                                                                               |
 | `mouse_move`                                                  | `coordinate`: `[x, y]`                                                                                                                                                                                       | Move the cursor without clicking, for example, to hover.                                                                                                                                                                                                                      |
-| `left_mouse_down`, `left_mouse_up`                            | None (`{}`)                                                                                                                                                                                                  | Press or release the left mouse button at the current cursor position, for drags that `left_click_drag` can't express. Move the cursor with `mouse_move` first.                                                                                                               |
-| `cursor_position`                                             | None (`{}`)                                                                                                                                                                                                  | Report the cursor's current `[x, y]` position as text.                                                                                                                                                                                                                        |
+| `left_mouse_down`, `left_mouse_up`                            | None (`{}`)                                                                                                                                                                                                  | Press or release the left mouse button at the current cursor position, for drags that `left_click_drag` can’t express. Move the cursor with `mouse_move` first.                                                                                                               |
+| `cursor_position`                                             | None (`{}`)                                                                                                                                                                                                  | Report the cursor’s current `[x, y]` position as text.                                                                                                                                                                                                                        |
 | `scroll`                                                      | `scroll_direction`: `"up"`, `"down"`, `"left"`, or `"right"`; `scroll_amount`: number of scroll-wheel clicks; `coordinate` (optional): `[x, y]`; `text` (optional): modifier keys                            | Scroll at `coordinate`, or at the current cursor position.                                                                                                                                                                                                                    |
 | `type`                                                        | `text`: the string to type                                                                                                                                                                                   | Type literal text at the current keyboard focus.                                                                                                                                                                                                                              |
 | `key`                                                         | `text`: a key or a `+`-joined combination such as `"Return"`, `"ctrl+s"`, or `"alt+Tab"`; `repeat` (optional): 1 to 100, default 1                                                                           | Press a key or key combination, `repeat` times.                                                                                                                                                                                                                               |
@@ -752,12 +752,12 @@ Each action is a member tool of the computer use toolset: Claude names the membe
 
 Keep the following in mind when implementing the members:
 
-* **Coordinates are in screenshot pixels.** Every `coordinate`, `start_coordinate`, and `region` value, and the position that `cursor_position` reports, is in the pixel space of the full-display screenshots you return, with the origin at the top left. Zoom images don't change this: after a `zoom`, Claude still expresses coordinates in the full screenshot's space, never relative to the zoomed image. If you scale screenshots down before returning them, scale Claude's coordinates back up before applying them to the real display (see [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions)).
-* **All members are enabled by default, including `zoom`.** If your environment can't produce zoom images, withhold the member with `configs` (see [Tool parameters](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#tool-parameters)) rather than leaving it enabled and returning errors. If Claude calls a member that you have withheld or don't implement, return a `tool_result` with `is_error: true` for that block.
-* **Dispatch on the pair (`toolset_name`, `name`).** `toolset_name` is what marks a block as a computer action: a custom tool in the same request can share a member's name, and a later toolset version can add members (see [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets)).
+* **Coordinates are in screenshot pixels.** Every `coordinate`, `start_coordinate`, and `region` value, and the position that `cursor_position` reports, is in the pixel space of the full-display screenshots you return, with the origin at the top left. Zoom images don’t change this: after a `zoom`, Claude still expresses coordinates in the full screenshot’s space, never relative to the zoomed image. If you scale screenshots down before returning them, scale Claude’s coordinates back up before applying them to the real display (see [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions)).
+* **All members are enabled by default, including `zoom`.** If your environment can’t produce zoom images, withhold the member with `configs` (see [Tool parameters](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#tool-parameters)) rather than leaving it enabled and returning errors. If Claude calls a member that you have withheld or don’t implement, return a `tool_result` with `is_error: true` for that block.
+* **Dispatch on the pair (`toolset_name`, `name`).** `toolset_name` is what marks a block as a computer action: a custom tool in the same request can share a member’s name, and a later toolset version can add members (see [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets)).
 
 <Accordion title="Example actions">
-  Each example is a complete `tool_use` block as it appears in Claude's response.
+  Each example is a complete `tool_use` block as it appears in Claude’s response.
 
   Shift+click at a position, for example, to extend a selection. Unlike `hold_key`, `text` holds the modifiers only for the duration of that click or scroll:
 
@@ -850,7 +850,7 @@ The toolset entry in the `tools` array accepts four parameters; the rules they s
 | `cache_control`   | No       | [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) breakpoint at the toolset definition; entry only. A breakpoint on any `tool_use` or `tool_result` block in a batch takes effect at the end of that batch; see [Tool use with prompt caching](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#cache-control-on-tool-definitions). |
 | `allowed_callers` | No       | `["direct"]` only.                                                                                                                                                                                                                                                                                                                                                                                                 |
 
-For example, this entry withholds `zoom` for an environment that doesn't implement it and sets a cache breakpoint at the toolset definition:
+For example, this entry withholds `zoom` for an environment that doesn’t implement it and sets a cache breakpoint at the toolset definition:
 
 ```json
 {
@@ -870,7 +870,7 @@ The entry rejects these parameters from earlier tool versions, and a request tha
 * `display_width_px`, `display_height_px`, and `display_number`: coordinates are always in the pixel space of the screenshots you return.
 * `enable_zoom`: zoom is a member tool that you control through `configs`.
 
-The entry also can't be declared in the same request as a `computer_20251124` entry or another tool named `computer`. For `strict`, `input_examples`, `defer_loading` placement, `tool_choice`, streaming, and caller restrictions, see [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets).
+The entry also can’t be declared in the same request as a `computer_20251124` entry or another tool named `computer`. For `strict`, `input_examples`, `defer_loading` placement, `tool_choice`, streaming, and caller restrictions, see [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets).
 
 ### Combining with thinking
 
@@ -894,13 +894,13 @@ For tasks that stay inside webpages, you can also [declare the browser use tool 
 The [reference implementation](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo) is meant to help you get started with computer use. It includes all of the components needed to have Claude use a computer. However, you can build your own environment for computer use to suit your needs. You need:
 
 * A virtualized or containerized environment suitable for computer use with Claude
-* An implementation of the computer use tool's actions
+* An implementation of the computer use tool’s actions
 * An agent loop that interacts with the Claude API and runs the `tool_use` results using your tool implementations
 * An API or UI that allows user input to start the agent loop
 
 ### Implement the computer use tool
 
-The computer use tool is implemented as a schema-less tool. When using this tool, you don't need to provide an input schema as with other tools; the schema is built into Claude's model and can't be modified.
+The computer use tool is implemented as a schema-less tool. When using this tool, you don’t need to provide an input schema as with other tools; the schema is built into Claude’s model and can’t be modified.
 
 <Steps>
   <Step title="Set up your computing environment">
@@ -1253,8 +1253,8 @@ The computer use tool is implemented as a schema-less tool. When using this tool
     </CodeGroup>
   </Step>
 
-  <Step title="Process Claude's tool calls">
-    Extract and run tool calls from Claude's responses:
+  <Step title="Process Claude’s tool calls">
+    Extract and run tool calls from Claude’s responses:
 
     <CodeGroup exclude="shell">
       ```python Python
@@ -1602,13 +1602,13 @@ Use the same shape for coordinates outside the display bounds and for actions th
 
 ### Size screenshots to fit image limits
 
-Screenshots and zoom images that you return to the computer use toolset must already fit within your model's [image size limits](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size): the toolset takes no display dimensions and the API doesn't downscale for you, so an oversized `tool_result` image is rejected with a validation error. Because Claude returns coordinates in the pixel space of the image it receives, keep the scale factor you used so you can map those coordinates back to your screen.
+Screenshots and zoom images that you return to the computer use toolset must already fit within your model’s [image size limits](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size): the toolset takes no display dimensions and the API doesn’t downscale for you, so an oversized `tool_result` image is rejected with a validation error. Because Claude returns coordinates in the pixel space of the image it receives, keep the scale factor you used so you can map those coordinates back to your screen.
 
 <Note>
-  Limits vary by model. Claude Opus 4.7 and later models, including every model that supports `computer_toolset_20260801`, accept up to 2,576 pixels on the long edge and 4,784 visual tokens total (`⌈width / 28⌉ × ⌈height / 28⌉`, approximately 3.75 megapixels); earlier models accept up to 1,568 pixels on the long edge and approximately 1.15 megapixels total (see [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) for each model's tier). The following example uses the earlier-model 1,568 px / 1.15 MP limits. For a high-resolution-tier model, size to the visual-token limit rather than a pixel total, for example with the resize helper in [Resize your image before uploading](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading).
+  Limits vary by model. Claude Opus 4.7 and later models, including every model that supports `computer_toolset_20260801`, accept up to 2,576 pixels on the long edge and 4,784 visual tokens total (`⌈width / 28⌉ × ⌈height / 28⌉`, approximately 3.75 megapixels); earlier models accept up to 1,568 pixels on the long edge and approximately 1.15 megapixels total (see [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) for each model’s tier). The following example uses the earlier-model 1,568 px / 1.15 MP limits. For a high-resolution-tier model, size to the visual-token limit rather than a pixel total, for example with the resize helper in [Resize your image before uploading](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading).
 </Note>
 
-If your screen is larger than the limit, resize each screenshot before returning it and scale Claude's returned coordinates back to the original screen space. Because the toolset takes no display dimensions, the resize and the coordinate scaling in your application code are all you need:
+If your screen is larger than the limit, resize each screenshot before returning it and scale Claude’s returned coordinates back to the original screen space. Because the toolset takes no display dimensions, the resize and the coordinate scaling in your application code are all you need:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -1820,7 +1820,7 @@ When you choose a display resolution and return screenshots:
 
 ### Manage screenshot history
 
-Long agent loops accumulate screenshots quickly (roughly 1,000–1,800 input tokens each). The API's [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) also apply. Once a single request carries more than 20 images, every image in it is held to a stricter per-side limit. A loop that keeps its screenshot history reaches that count within a few dozen turns, so either resize each screenshot so that neither side exceeds 2000 px or prune older screenshots to keep 20 or fewer in the request.
+Long agent loops accumulate screenshots quickly (roughly 1,000–1,800 input tokens each). The API’s [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) also apply. Once a single request carries more than 20 images, every image in it is held to a stricter per-side limit. A loop that keeps its screenshot history reaches that count within a few dozen turns, so either resize each screenshot so that neither side exceeds 2000 px or prune older screenshots to keep 20 or fewer in the request.
 
 To keep [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) effective while bounding context:
 
@@ -1834,9 +1834,9 @@ If clicks miss their targets, the cause is usually one of the following:
 
 | Symptom                                           | Likely cause                                                                                                                                         | Try                                                                                                                                                                                                                                                                                                                                            |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Clicks consistently offset in one direction       | Claude's coordinates, which are in the pixel space of the screenshots you return, are being applied to a display of a different size without scaling | Scale each coordinate by the ratio of your screen size to your screenshot size before clicking (see [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions)); on macOS Retina displays, account for the 2x device pixel ratio |
+| Clicks consistently offset in one direction       | Claude’s coordinates, which are in the pixel space of the screenshots you return, are being applied to a display of a different size without scaling | Scale each coordinate by the ratio of your screen size to your screenshot size before clicking (see [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions)); on macOS Retina displays, account for the 2x device pixel ratio |
 | Clicks land in the right area but miss the target | Target is very small, detail was lost downscaling a 4K+ source, or aspect ratio was distorted                                                        | Keep the `zoom` member enabled and implement it so Claude can inspect the region at full resolution; capture at lower DPI or crop to the relevant region; preserve aspect ratio when resizing                                                                                                                                                  |
-| Claude clicks the wrong element entirely          | Ambiguous instruction, or visually similar elements nearby                                                                                           | Use positional prompts ("the blue Submit button in the bottom-right"); break the interaction into smaller steps                                                                                                                                                                                                                                |
+| Claude clicks the wrong element entirely          | Ambiguous instruction, or visually similar elements nearby                                                                                           | Use positional prompts (“the blue Submit button in the bottom-right”); break the interaction into smaller steps                                                                                                                                                                                                                                |
 | Accuracy is consistently poor                     | Resolution too low                                                                                                                                   | Try 1280x720 as a baseline                                                                                                                                                                                                                                                                                                                     |
 
 <Tip>
@@ -2117,12 +2117,12 @@ Upgrading from `computer_20251124` to the toolset is optional: the models listed
 
 1. **Remove the beta header.** Drop `anthropic-beta: computer-use-2025-11-24` from your requests. With the SDK, remove `betas` (csharp, go: `Betas`; java: `.addBeta()`) and call the Messages API through the standard client rather than the beta namespace.
 2. **Change the `tools` entry.** Set `type` to `computer_toolset_20260801` and delete `name`, `display_width_px`, `display_height_px`, `display_number`, and `enable_zoom`. The toolset rejects each of these fields.
-3. **Choose whether to keep zoom enabled.** Zoom is enabled by default on the toolset, whereas `enable_zoom` defaults to `false`. If your environment doesn't implement zoom, add `"configs": {"zoom": {"enabled": false}}` to keep the previous behavior; otherwise implement it (see [Available actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#available-actions)).
-4. **Handle every block in a turn.** Update your agent loop to iterate over every `tool_use` block in a response rather than reading only the first, and to dispatch on the block's `name` together with `toolset_name` instead of on `input.action`. Member inputs no longer contain an `action` field; the remaining fields are unchanged.
-5. **Run blocks in order and use the halt text.** Run the blocks sequentially, stop at the first failure, and answer the remaining blocks with `Not executed: an earlier computer action in this turn failed.` as described in [Batch actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions). If your loop can't run batches yet, [Tool parameters](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#tool-parameters) explains how to limit Claude to one action for each turn.
+3. **Choose whether to keep zoom enabled.** Zoom is enabled by default on the toolset, whereas `enable_zoom` defaults to `false`. If your environment doesn’t implement zoom, add `"configs": {"zoom": {"enabled": false}}` to keep the previous behavior; otherwise implement it (see [Available actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#available-actions)).
+4. **Handle every block in a turn.** Update your agent loop to iterate over every `tool_use` block in a response rather than reading only the first, and to dispatch on the block’s `name` together with `toolset_name` instead of on `input.action`. Member inputs no longer contain an `action` field; the remaining fields are unchanged.
+5. **Run blocks in order and use the halt text.** Run the blocks sequentially, stop at the first failure, and answer the remaining blocks with `Not executed: an earlier computer action in this turn failed.` as described in [Batch actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions). If your loop can’t run batches yet, [Tool parameters](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#tool-parameters) explains how to limit Claude to one action for each turn.
 6. **Echo `toolset_name` on results.** Add `"toolset_name": "computer"` to every `tool_result` that answers a member call. Results may contain only `text` and `image` content.
 7. **Support `repeat` on `key`.** The `key` member accepts an optional `repeat` count from 1 to 100. A handler that ignores unrecognized fields would press the key once, so make your `key` handler honor `repeat`.
-8. **Resize screenshots yourself.** The toolset rejects a screenshot or zoom image that exceeds the model's image limits instead of downscaling it. Resize before returning the image and keep scaling coordinates as described in [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions).
+8. **Resize screenshots yourself.** The toolset rejects a screenshot or zoom image that exceeds the model’s image limits instead of downscaling it. Resize before returning the image and keep scaling coordinates as described in [Size screenshots to fit image limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions).
 9. **Remove unsupported options.** Move any `defer_loading` from the entry into `configs`, with the same value on every enabled member. The other options not supported on toolset entries are listed under [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets).
 
 This is the `tools` entry before the change, sent with the `anthropic-beta: computer-use-2025-11-24` header:
@@ -2137,7 +2137,7 @@ This is the `tools` entry before the change, sent with the `anthropic-beta: comp
 }
 ```
 
-This is the `tools` entry after the change, sent with no beta header. The `configs` object keeps zoom off to match the earlier entry, which doesn't set `enable_zoom`; omit `configs` entirely to accept the default and let Claude zoom:
+This is the `tools` entry after the change, sent with no beta header. The `configs` object keeps zoom off to match the earlier entry, which doesn’t set `enable_zoom`; omit `configs` entirely to accept the default and let Claude zoom:
 
 ```json
 {
@@ -2171,7 +2171,7 @@ The following pair shows a `tool_use` block before and after the change. The act
 
 ## Earlier tool versions
 
-Two earlier versions of the computer use tool remain available in beta for existing integrations, for models that don't support the toolset, and on platforms where the toolset isn't currently available. Each requires its [beta header](https://platform.claude.com/docs/en/api/beta-headers) on every request, and their parameters are documented in the [beta Messages API reference](https://platform.claude.com/docs/en/api/beta/messages/create). With the SDK, pass the header through `betas` (csharp, go: `Betas`; java: `.addBeta()`) and use the beta namespace; only the computer use tool needs the header, not the bash or text editor tools in the same request.
+Two earlier versions of the computer use tool remain available in beta for existing integrations, for models that don’t support the toolset, and on platforms where the toolset isn’t currently available. Each requires its [beta header](https://platform.claude.com/docs/en/api/beta-headers) on every request, and their parameters are documented in the [beta Messages API reference](https://platform.claude.com/docs/en/api/beta/messages/create). With the SDK, pass the header through `betas` (csharp, go: `Betas`; java: `.addBeta()`) and use the beta namespace; only the computer use tool needs the header, not the bash or text editor tools in the same request.
 
 | Tool version        | Beta header               | Use with                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Parameters                                                                    |
 | ------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
@@ -2182,16 +2182,16 @@ Two earlier versions of the computer use tool remain available in beta for exist
 
 ## Limitations
 
-1. **Latency:** The current computer use latency for human-AI interactions might be too slow compared to regular human-directed computer actions. Focus on use cases where speed isn't critical (for example, background information gathering, automated software testing) in trusted environments.
-2. **Computer vision accuracy and reliability:** Claude might make mistakes or hallucinate when outputting specific coordinates while generating actions. Claude's [summarized thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking) output can help you understand the model's reasoning and identify potential issues; set `display: "summarized"` on the thinking configuration, because the models that support the toolset omit thinking text by default.
+1. **Latency:** The current computer use latency for human-AI interactions might be too slow compared to regular human-directed computer actions. Focus on use cases where speed isn’t critical (for example, background information gathering, automated software testing) in trusted environments.
+2. **Computer vision accuracy and reliability:** Claude might make mistakes or hallucinate when outputting specific coordinates while generating actions. Claude’s [summarized thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking) output can help you understand the model’s reasoning and identify potential issues; set `display: "summarized"` on the thinking configuration, because the models that support the toolset omit thinking text by default.
 3. **Tool selection accuracy and reliability:** Claude might make mistakes or hallucinate when selecting tools while generating actions or take unexpected actions to solve problems. Additionally, reliability might be lower when interacting with niche applications or multiple applications at once. Prompt the model carefully when requesting complex tasks.
-4. **Scrolling reliability:** The scroll action supports direction control (up, down, left, right) and a specified amount. In applications where scrolling doesn't take effect, keyboard alternatives such as Page Down can help.
+4. **Scrolling reliability:** The scroll action supports direction control (up, down, left, right) and a specified amount. In applications where scrolling doesn’t take effect, keyboard alternatives such as Page Down can help.
 5. **Spreadsheet interaction:** Use the fine-grained mouse control actions (`left_mouse_down`, `left_mouse_up`) and modifier-key combinations to select individual cells. Complex spreadsheet operations might still require multiple attempts.
 6. **Account creation and content generation on social and communications platforms:** Although Claude visits websites, its ability to create accounts, generate and share content, or otherwise engage in human impersonation across social media websites and platforms is limited.
 7. **Vulnerabilities:** Jailbreaks and prompt injection can affect computer use as they can any frontier AI system, including through instructions embedded in webpages or images; apply the precautions in [Security considerations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#security-considerations).
-8. **Inappropriate or illegal actions:** Under Anthropic's Terms of Service, you must not employ computer use to violate any laws or the Acceptable Use Policy.
+8. **Inappropriate or illegal actions:** Under Anthropic’s Terms of Service, you must not employ computer use to violate any laws or the Acceptable Use Policy.
 
-Always carefully review and verify Claude's computer use actions and logs. Do not use Claude for tasks requiring perfect precision or sensitive user information without human oversight.
+Always carefully review and verify Claude’s computer use actions and logs. Do not use Claude for tasks requiring perfect precision or sensitive user information without human oversight.
 
 ## Data retention
 
@@ -2216,14 +2216,14 @@ Computer use follows the standard [tool use pricing](https://platform.claude.com
 * Tool execution results returned to Claude
 
 <Note>
-  If you're also using bash or text editor tools alongside computer use, those tools have their own token costs as documented in their respective pages.
+  If you’re also using bash or text editor tools alongside computer use, those tools have their own token costs as documented in their respective pages.
 </Note>
 
 ## Next steps
 
 <CardGroup cols={2}>
   <Card title="Computer toolset in the SDKs" icon="code" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk#computer-toolset">
-    Start from a partner's driver, or write your own in Python or TypeScript. The SDK runs the loop and the approval callback you pass.
+    Start from a partner’s driver, or write your own in Python or TypeScript. The SDK runs the loop and the approval callback you pass.
   </Card>
 
   <Card title="Troubleshooting tool use" icon="wrench" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/troubleshooting-tool-use">

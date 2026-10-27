@@ -17,7 +17,7 @@ This guide shows both paths. For the underlying concepts (service accounts, fede
 
 ## Use STS web identity tokens (recommended)
 
-The AWS STS `GetWebIdentityToken` API returns an OIDC token signed by AWS that asserts the caller's IAM identity. Because it uses the workload's ambient AWS credentials, the same integration covers Lambda, EC2, ECS, and EKS.
+The AWS STS `GetWebIdentityToken` API returns an OIDC token signed by AWS that asserts the caller’s IAM identity. Because it uses the workload’s ambient AWS credentials, the same integration covers Lambda, EC2, ECS, and EKS.
 
 ### Configure AWS
 
@@ -32,7 +32,7 @@ The AWS STS `GetWebIdentityToken` API returns an OIDC token signed by AWS that a
     If this is not enabled, calls to `GetWebIdentityToken` fail with `OutboundWebIdentityFederationDisabledException`.
   </Step>
 
-  <Step title="Grant the workload's IAM role permission to call the API">
+  <Step title="Grant the workload’s IAM role permission to call the API">
     Attach this policy to the IAM role that your Lambda function, EC2 instance, or ECS task runs as:
 
     ```json
@@ -49,7 +49,7 @@ The AWS STS `GetWebIdentityToken` API returns an OIDC token signed by AWS that a
     ```
   </Step>
 
-  <Step title="Find your account's STS issuer URL">
+  <Step title="Find your account’s STS issuer URL">
     After you enable outbound federation, the **IAM > Account settings** page shows a **Get Token Issuer URL** field with a value of the form `https://<uuid>.tokens.sts.global.api.aws`. This URL is unique to your AWS account; copy it for the next step. To retrieve it programmatically:
 
     ```bash
@@ -74,7 +74,7 @@ The wizard creates these resources for you. Use the following values whether you
 }
 ```
 
-**Federation rule:** Match the audience you pass to `GetWebIdentityToken` and the calling role's IAM role ARN in the `sub` claim. The `sub` value is the IAM role ARN of the workload that called the API, in the form `arn:aws:iam::<account>:role/<role-name>`. The token also carries an `https://sts.amazonaws.com/` claim with `aws_account`, `org_id`, `principal_id`, and any `request_tags` you passed; you can match on those with the rule's `claims` map or a CEL `condition` for finer control.
+**Federation rule:** Match the audience you pass to `GetWebIdentityToken` and the calling role’s IAM role ARN in the `sub` claim. The `sub` value is the IAM role ARN of the workload that called the API, in the form `arn:aws:iam::<account>:role/<role-name>`. The token also carries an `https://sts.amazonaws.com/` claim with `aws_account`, `org_id`, `principal_id`, and any `request_tags` you passed; you can match on those with the rule’s `claims` map or a CEL `condition` for finer control.
 
 ```json
 {
@@ -95,7 +95,7 @@ Be as specific as the workload allows. Match the exact role ARN, and only broade
 
 ### Acquire and use the token
 
-Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider()`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK calls STS again on each refresh.
+Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK’s federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider()`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK calls STS again on each refresh.
 
 <Note>
   `GetWebIdentityToken` is available only on regional STS endpoints. If you receive `'STS' object has no attribute 'get_web_identity_token'` or a similar error, pin your STS client to a region (for example, `boto3.client("sts", region_name="us-east-1")`) and ensure your AWS SDK is recent enough to include the API.
@@ -491,7 +491,7 @@ This path additionally requires an EKS cluster with an [IAM OIDC provider enable
 ### Configure your EKS cluster
 
 <Steps>
-  <Step title="Find your cluster's OIDC issuer URL">
+  <Step title="Find your cluster’s OIDC issuer URL">
     Each EKS cluster has a unique OIDC issuer. Retrieve it with the AWS CLI:
 
     ```bash CLI
@@ -501,7 +501,7 @@ This path additionally requires an EKS cluster with an [IAM OIDC provider enable
       --output text
     ```
 
-    The output looks like `https://oidc.eks.us-west-2.amazonaws.com/id/6FA42E7BFDE8549CB...`. You'll register this URL as a federation issuer in the next section.
+    The output looks like `https://oidc.eks.us-west-2.amazonaws.com/id/6FA42E7BFDE8549CB...`. You’ll register this URL as a federation issuer in the next section.
   </Step>
 
   <Step title="Create the service account and project an Anthropic-audience token">
@@ -554,8 +554,8 @@ This path additionally requires an EKS cluster with an [IAM OIDC provider enable
     ```
   </Step>
 
-  <Step title="Note the token's claim shape">
-    The projected token is a JSON Web Token (JWT) signed by your cluster's OIDC issuer. Its `sub` claim follows the Kubernetes convention `system:serviceaccount:<namespace>:<service-account-name>`:
+  <Step title="Note the token’s claim shape">
+    The projected token is a JSON Web Token (JWT) signed by your cluster’s OIDC issuer. Its `sub` claim follows the Kubernetes convention `system:serviceaccount:<namespace>:<service-account-name>`:
 
     ```json
     {
@@ -581,7 +581,7 @@ In the Claude Console, go to the [Workload identity](https://platform.claude.com
 
 The wizard creates these resources for you. Use the following values whether you enter them in the wizard or send them to the [Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api):
 
-**Federation issuer:** EKS issuers expose a public JWKS endpoint, so use discovery mode. The issuer URL must exactly match the token's `iss` claim. Register one issuer for each cluster.
+**Federation issuer:** EKS issuers expose a public JWKS endpoint, so use discovery mode. The issuer URL must exactly match the token’s `iss` claim. Register one issuer for each cluster.
 
 ```json
 {
@@ -591,7 +591,7 @@ The wizard creates these resources for you. Use the following values whether you
 }
 ```
 
-**Federation rule:** Match the Kubernetes `sub` claim and the Anthropic audience `https://api.anthropic.com`. (Project a dedicated service-account token with that audience; don't reuse the IRSA default `sts.amazonaws.com` token.)
+**Federation rule:** Match the Kubernetes `sub` claim and the Anthropic audience `https://api.anthropic.com`. (Project a dedicated service-account token with that audience; don’t reuse the IRSA default `sts.amazonaws.com` token.)
 
 ```json
 {
@@ -612,7 +612,7 @@ Be as specific as the workload allows. Loosen `subject_prefix` to `system:servic
 
 ### Acquire and use the token
 
-Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token` (exposed as `ANTHROPIC_IDENTITY_TOKEN_FILE` in the Pod spec). Pass that file to the SDK's federation credentials and the SDK handles the exchange and refresh.
+Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token` (exposed as `ANTHROPIC_IDENTITY_TOKEN_FILE` in the Pod spec). Pass that file to the SDK’s federation credentials and the SDK handles the exchange and refresh.
 
 <CodeGroup>
   ```bash cURL
@@ -835,7 +835,7 @@ curl -sS https://api.anthropic.com/v1/oauth/token \
 JSON
 ```
 
-A successful exchange returns an `access_token` starting with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange). The most common EKS-side cause is the projected token's `aud` not matching the rule (project a token with `audience: https://api.anthropic.com`, not the IRSA default `sts.amazonaws.com`).
+A successful exchange returns an `access_token` starting with `sk-ant-oat01-` and an `expires_in` value in seconds. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange). The most common EKS-side cause is the projected token’s `aud` not matching the rule (project a token with `audience: https://api.anthropic.com`, not the IRSA default `sts.amazonaws.com`).
 
 ## Scope your rule
 
@@ -843,14 +843,14 @@ A successful exchange returns an `access_token` starting with `sk-ant-oat01-` an
   A `subject_prefix` of `arn:aws:iam::123456789012:role/*` matches every IAM role in the account. Any principal that can assume any matching role can obtain a federated Anthropic token.
 </Warning>
 
-Lock the rule's `match` block to the narrowest scope that fits your use case:
+Lock the rule’s `match` block to the narrowest scope that fits your use case:
 
 * **Pin the full role ARN:** Use `subject_prefix: "arn:aws:iam::<account>:role/<role-name>"` with no trailing `*` so other roles in the account do not match.
-* **Pin the account ID:** Match the `aws_account` field of the token's `https://sts.amazonaws.com/` claim with the `claims` map or a CEL `condition` as a defense-in-depth check against a misconfigured prefix.
+* **Pin the account ID:** Match the `aws_account` field of the token’s `https://sts.amazonaws.com/` claim with the `claims` map or a CEL `condition` as a defense-in-depth check against a misconfigured prefix.
 * **Pin namespace and service account on EKS:** Use the exact `system:serviceaccount:<namespace>:<name>` value with no `*` after the `system:serviceaccount:` prefix.
 * **Use a separate rule for each environment:** Create distinct rules for production, staging, and development workloads rather than widening one prefix to cover them all.
 
 ## Next steps
 
 * Review the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference) for the full credential precedence, profile configuration, and rule matching reference.
-* For self-managed Kubernetes clusters that aren't on EKS, see [Use WIF with Kubernetes](https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes).
+* For self-managed Kubernetes clusters that aren’t on EKS, see [Use WIF with Kubernetes](https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes).

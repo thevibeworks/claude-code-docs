@@ -8,7 +8,7 @@ By default, Claude may call multiple tools in a single response. This page cover
 
 ## Execution semantics
 
-When Claude calls tools, the response has a `stop_reason` of `tool_use` and can contain several `tool_use` blocks in a single assistant turn. How you run those calls is your decision. The API doesn't prescribe an execution order: you can run the calls concurrently (`Promise.all`, `asyncio.gather`), sequentially in the order they appear, or in any combination that suits your tools.
+When Claude calls tools, the response has a `stop_reason` of `tool_use` and can contain several `tool_use` blocks in a single assistant turn. How you run those calls is your decision. The API doesn’t prescribe an execution order: you can run the calls concurrently (`Promise.all`, `asyncio.gather`), sequentially in the order they appear, or in any combination that suits your tools.
 
 Choose the strategy based on what your tools do. Independent, read-only operations are usually safe to run in parallel for lower latency. Tools with side effects, shared state, or ordering requirements might be better run sequentially.
 
@@ -28,7 +28,7 @@ The [computer use tool](https://platform.claude.com/docs/en/agents-and-tools/too
 ## Test parallel tool calls
 
 <Note>
-  **Use the Tool Runner for most applications:** the SDK [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) handles responses with multiple tool calls and formats the results for you, so you don't write this handling yourself. Use the manual pattern on this page when you need direct control over how the calls run, such as custom batching, ordering, or error handling.
+  **Use the Tool Runner for most applications:** the SDK [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) handles responses with multiple tool calls and formats the results for you, so you don’t write this handling yourself. Use the manual pattern on this page when you need direct control over how the calls run, such as custom batching, ordering, or error handling.
 </Note>
 
 The following script sends a request that should trigger parallel tool calls, verifies the response contains them, and formats the tool results so parallelism keeps working. Run it with `ANTHROPIC_API_KEY` set in your environment:
@@ -810,7 +810,7 @@ Claude 4 and later models make parallel tool calls by default when a request ben
     For maximum efficiency, whenever you need to perform multiple independent operations, invoke all relevant tools simultaneously rather than sequentially.
     ```
 
-    For even stronger parallel tool use (recommended if the default isn't sufficient), use:
+    For even stronger parallel tool use (recommended if the default isn’t sufficient), use:
 
     ```text wrap
     <use_parallel_tool_calls>
@@ -1130,7 +1130,7 @@ When the `tool_choice` type is `auto` (the default), setting `disable_parallel_t
 
 ### Exactly one tool call
 
-When `tool_choice` type is `any` or `tool`, setting `disable_parallel_tool_use: true` means Claude calls exactly one tool. Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and Claude Mythos 5.1 don't support these `tool_choice` types (see [Forcing tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#forcing-tool-use)). The following example uses `any`. The same field works with `tool`:
+When `tool_choice` type is `any` or `tool`, setting `disable_parallel_tool_use: true` means Claude calls exactly one tool. Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and Claude Mythos 5.1 don’t support these `tool_choice` types (see [Forcing tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#forcing-tool-use)). The following example uses `any`. The same field works with `tool`:
 
 <CodeGroup>
   ```bash cURL
@@ -1413,11 +1413,11 @@ When `tool_choice` type is `any` or `tool`, setting `disable_parallel_tool_use: 
 
 ## Troubleshooting
 
-If Claude isn't making parallel tool calls when expected, check these common issues:
+If Claude isn’t making parallel tool calls when expected, check these common issues:
 
 **1. Incorrect tool result formatting**
 
-The most common issue is formatting tool results incorrectly in the conversation history. This "teaches" Claude to avoid parallel calls.
+The most common issue is formatting tool results incorrectly in the conversation history. This “teaches” Claude to avoid parallel calls.
 
 Specifically for parallel tool use:
 
@@ -1574,13 +1574,13 @@ To verify parallel tool calls are working:
 
 **4. Calls in a batch appear to depend on each other**
 
-Execution order is your choice. If your tools have ordering dependencies, running the batch sequentially and stopping on the first failure is a valid strategy (and the required one for the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#batch-actions) tools): return `is_error: true` for any call you didn't run. If you run in parallel and a call fails because its prerequisite hadn't completed, return `is_error: true` with the natural error message. Claude will reissue the call on the next turn. To reduce dependent calls appearing together, add this to your system prompt: "Only batch tool calls that are independent of each other."
+Execution order is your choice. If your tools have ordering dependencies, running the batch sequentially and stopping on the first failure is a valid strategy (and the required one for the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#batch-actions) tools): return `is_error: true` for any call you didn’t run. If you run in parallel and a call fails because its prerequisite hadn’t completed, return `is_error: true` with the natural error message. Claude will reissue the call on the next turn. To reduce dependent calls appearing together, add this to your system prompt: “Only batch tool calls that are independent of each other.”
 
 ## Next steps
 
 <CardGroup cols={3}>
   <Card title="Tool runner (SDK)" icon="wrench" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner">
-    Use the SDK's tool runner abstraction to handle the agentic loop, error wrapping, and type safety automatically.
+    Use the SDK’s tool runner abstraction to handle the agentic loop, error wrapping, and type safety automatically.
   </Card>
 
   <Card title="Handle tool calls" icon="arrows-left-right" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls">

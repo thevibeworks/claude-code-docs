@@ -4,11 +4,11 @@ url: https://platform.claude.com/docs/en/build-with-claude/context-windows
 description: Understand how the context window works, how extended thinking and tool use count toward it, and how to manage context as conversations grow.
 ---
 
-As conversations grow, you'll eventually approach context window limits. For long-running conversations and agentic workflows, [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) is the primary strategy for context management.
+As conversations grow, you’ll eventually approach context window limits. For long-running conversations and agentic workflows, [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) is the primary strategy for context management.
 
 ## How the context window works
 
-The "context window" refers to all the text a language model can reference when generating a response, including the response itself. This is different from the large corpus of data the language model was trained on, and instead represents a "working memory" for the model. A larger context window allows the model to handle more complex and lengthy prompts, but more context isn't automatically better. As token count grows, accuracy and recall degrade, a phenomenon known as *context rot*. This makes curating what's in context just as important as how much space is available.
+The “context window” refers to all the text a language model can reference when generating a response, including the response itself. This is different from the large corpus of data the language model was trained on, and instead represents a “working memory” for the model. A larger context window allows the model to handle more complex and lengthy prompts, but more context isn’t automatically better. As token count grows, accuracy and recall degrade, a phenomenon known as *context rot*. This makes curating what’s in context just as important as how much space is available.
 
 <Tip>
   For more on why long contexts degrade and how to engineer around it, see [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents).
@@ -20,7 +20,7 @@ The following diagram illustrates the standard context window behavior for API r
   ![Diagram of turns accumulating in the context window until the conversation approaches the token limit](https://platform.claude.com/docs/images/context-window.svg)
 </Frame>
 
-*1 Chat interfaces such as [claude.ai](https://claude.ai/) can also manage the context window on a rolling "first in, first out" basis.*
+*1 Chat interfaces such as [claude.ai](https://claude.ai/) can also manage the context window on a rolling “first in, first out” basis.*
 
 * **Progressive token accumulation:** As the conversation advances through turns, each user message and assistant response accumulates within the context window, and previous turns are preserved completely.
 
@@ -37,7 +37,7 @@ Everything in the request counts toward the context window: the system prompt, e
 
 Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Haiku 5.5, and [Claude Mythos Preview](https://anthropic.com/glasswing) have a 1M-token context window. A single request to any of them can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5 (deprecated), have a 200k-token context window.
 
-For every model with a 1M-token context window, 1M is the default: you don't need a beta header, and long-context requests are billed at [standard pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing), except on Claude Haiku 5.5, where prompts over 100,000 tokens cost more.
+For every model with a 1M-token context window, 1M is the default: you don’t need a beta header, and long-context requests are billed at [standard pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing), except on Claude Haiku 5.5, where prompts over 100,000 tokens cost more.
 
 A single request can include up to 600 images or PDF pages (100 for models with a 200k-token context window). If you send many images or large documents, you might reach [request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits) before the token limit.
 
@@ -57,8 +57,8 @@ The following diagram shows how tokens are managed when thinking is enabled on a
   ![Thinking on a model that strips previous thinking: each turn's thinking is generated but not carried into later turns' input](https://platform.claude.com/docs/images/context-window-thinking.svg)
 </Frame>
 
-* **Stripping thinking blocks:** On models that strip previous thinking blocks, thinking blocks (shown in dark gray) are generated during each turn's output phase but are not carried forward as input tokens for subsequent turns. You do not need to strip the thinking blocks yourself: if you pass them back, the Claude API strips them automatically.
-* **Billing:** Thinking tokens are billed as output tokens once, when they are generated. On models that keep previous thinking blocks, the kept blocks are then part of later requests' input and are billed as input tokens, like the rest of the conversation history.
+* **Stripping thinking blocks:** On models that strip previous thinking blocks, thinking blocks (shown in dark gray) are generated during each turn’s output phase but are not carried forward as input tokens for subsequent turns. You do not need to strip the thinking blocks yourself: if you pass them back, the Claude API strips them automatically.
+* **Billing:** Thinking tokens are billed as output tokens once, when they are generated. On models that keep previous thinking blocks, the kept blocks are then part of later requests’ input and are billed as input tokens, like the rest of the conversation history.
 
 <Note>
   You can read more about the context window and thinking in the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) guide.
@@ -107,7 +107,7 @@ To reduce the context consumed by the tool definitions themselves, see [Manage t
 
 ## Context awareness
 
-Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5 (deprecated), and Claude Haiku 4.5 have **context awareness:** these models track their remaining context window (their "token budget") throughout a conversation. This lets the model manage long-running tasks against the space that remains rather than guess how many tokens are left. Context awareness is automatic: there is nothing for you to enable, and you never send the tags shown in this section yourself. The API injects them.
+Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5 (deprecated), and Claude Haiku 4.5 have **context awareness:** these models track their remaining context window (their “token budget”) throughout a conversation. This lets the model manage long-running tasks against the space that remains rather than guess how many tokens are left. Context awareness is automatic: there is nothing for you to enable, and you never send the tags shown in this section yourself. The API injects them.
 
 ### How it works
 
@@ -127,10 +127,10 @@ After each tool call, the API gives Claude an update on its remaining capacity:
 
 Image tokens are included in these budgets.
 
-Claude Opus 4.7 and later Opus models, Claude Sonnet 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Haiku 5.5 don't receive these injected tags. On these models, you can give the model an explicit budget with [task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets), which are in beta.
+Claude Opus 4.7 and later Opus models, Claude Sonnet 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Haiku 5.5 don’t receive these injected tags. On these models, you can give the model an explicit budget with [task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets), which are in beta.
 
 <Tip>
-  For agents that span multiple sessions, design your state artifacts so that context recovery is fast when a new session starts. The [memory tool's multisession pattern](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#multisession-software-development-pattern) walks through a concrete approach. See also [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
+  For agents that span multiple sessions, design your state artifacts so that context recovery is fast when a new session starts. The [memory tool’s multisession pattern](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#multisession-software-development-pattern) walks through a concrete approach. See also [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 </Tip>
 
 For prompting guidance on using context awareness, see [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#context-awareness-and-multiwindow-workflows).
@@ -148,7 +148,7 @@ Cached prompt prefixes still occupy the context window: [prompt caching](https:/
 
 ## Context window overflow behavior
 
-If the input alone already exceeds the model's context window, the API returns a 400 `invalid_request_error` ("prompt is too long") on every model.
+If the input alone already exceeds the model’s context window, the API returns a 400 `invalid_request_error` (“prompt is too long”) on every model.
 
 On Claude 4.5 models and newer, if input tokens plus `max_tokens` exceeds the context window size, the API accepts the request. If generation then reaches the context window limit, it stops with `stop_reason: "model_context_window_exceeded"`. On earlier models, the API returns a [validation error](https://platform.claude.com/docs/en/api/errors) instead. To opt in to the `model_context_window_exceeded` behavior on those models, use the `model-context-window-exceeded-2025-08-26` beta header. See [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons) for details.
 

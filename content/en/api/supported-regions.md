@@ -40,7 +40,7 @@ description: "Here are the countries, regions, and territories Anthropic can sup
 * Comoros
 * Congo, Republic of the
 * Costa Rica
-* Côte d'Ivoire
+* Côte d’Ivoire
 * Croatia
 * Cyprus
 * Czechia (Czech Republic)

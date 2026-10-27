@@ -137,7 +137,7 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
 
 ## Get the final message without handling events
 
-If you don't need to process text as it arrives, the SDK provides a way to use streaming internally while returning the complete `Message` object, identical to what `client.messages.create()` (go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`) returns. This is especially useful for requests with large `max_tokens` values, where the SDK requires streaming to avoid HTTP timeouts.
+If you don’t need to process text as it arrives, the SDK provides a way to use streaming internally while returning the complete `Message` object, identical to what `client.messages.create()` (go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`) returns. This is especially useful for requests with large `max_tokens` values, where the SDK requires streaming to avoid HTTP timeouts.
 
 <CodeGroup exclude="shell:cURL">
   ```bash CLI
@@ -285,7 +285,7 @@ If you don't need to process text as it arrives, the SDK provides a way to use s
   ```
 </CodeGroup>
 
-The `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) call keeps the HTTP connection alive with server-sent events, and then the SDK's message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), collects all events into the complete `Message` object.
+The `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) call keeps the HTTP connection alive with server-sent events, and then the SDK’s message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), collects all events into the complete `Message` object.
 
 ## Event types
 
@@ -293,7 +293,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 
 Each stream uses the following event flow:
 
-1. `message_start`: contains a `Message` object with empty `content`. Under the [`thinking-binding-controls-2026-08-01`](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking-controls) beta header, this `Message` object also carries the `input_transformations` array. After a mid-stream [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback), the final `message_delta` event carries the array again with the serving model's entries.
+1. `message_start`: contains a `Message` object with empty `content`. Under the [`thinking-binding-controls-2026-08-01`](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking-controls) beta header, this `Message` object also carries the `input_transformations` array. After a mid-stream [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback), the final `message_delta` event carries the array again with the serving model’s entries.
 2. A series of content blocks, each of which has a `content_block_start`, one or more `content_block_delta` events, and a `content_block_stop` event. Each content block has an `index` that corresponds to its index in the final Message `content` array. One exception: during [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) responses, a `fallback` content block arrives at each model boundary as a `content_block_start` and `content_block_stop` pair with no deltas in between.
 3. One or more `message_delta` events, indicating top-level changes to the final `Message` object.
 4. A final `message_stop` event.
@@ -336,7 +336,7 @@ data: {"type": "content_block_delta","index": 0,"delta": {"type": "text_delta", 
 
 The deltas for `tool_use` content blocks correspond to updates for the `input` field of the block. To support maximum granularity, the deltas are *partial JSON strings*, whereas the final `tool_use.input` is always an *object*.
 
-You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library such as [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the SDK's [streaming helpers](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks). In the Python and TypeScript SDKs, these helpers also give you access to the parsed `input` incrementally, as it streams.
+You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library such as [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the SDK’s [streaming helpers](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks). In the Python and TypeScript SDKs, these helpers also give you access to the parsed `input` incrementally, as it streams.
 
 A `tool_use` content block delta looks like:
 
@@ -349,7 +349,7 @@ Note: Current models only support emitting one complete key and value property f
 
 ### Thinking delta
 
-When using [thinking with streaming enabled](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking), you'll receive thinking content through `thinking_delta` events. These deltas correspond to the `thinking` field of the `thinking` content blocks.
+When using [thinking with streaming enabled](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking), you’ll receive thinking content through `thinking_delta` events. These deltas correspond to the `thinking` field of the `thinking` content blocks.
 
 For thinking content, a special `signature_delta` event is sent just before the `content_block_stop` event. This signature is used to verify the integrity of the thinking block.
 
@@ -958,7 +958,7 @@ data: {"type":"message_stop"}
 
 ### Streaming request with thinking
 
-This request enables thinking with streaming. The `display: "summarized"` setting streams a condensed summary of Claude's reasoning rather than the full chain of thought.
+This request enables thinking with streaming. The `display: "summarized"` setting streams a condensed summary of Claude’s reasoning rather than the full chain of thought.
 
 <CodeGroup>
   ```bash cURL
@@ -1504,7 +1504,7 @@ For Claude 4.6 and later models, the same capture-and-resume strategy applies, b
 
 ### Error recovery best practices
 
-1. **Use SDK features:** Rely on the SDK's built-in message accumulation and error handling capabilities.
+1. **Use SDK features:** Rely on the SDK’s built-in message accumulation and error handling capabilities.
 2. **Handle content types:** Be aware that messages can contain multiple content blocks (`text`, `tool_use`, `thinking`). Tool use and thinking blocks cannot be partially recovered. You can resume streaming from the most recent text block.
 
 ## Next steps
@@ -1527,6 +1527,6 @@ For Claude 4.6 and later models, the same capture-and-resume strategy applies, b
   </Card>
 
   <Card title="Batch processing" icon="stack" href="https://platform.claude.com/docs/en/build-with-claude/batch-processing">
-    Process large volumes of requests asynchronously when you don't need real-time responses.
+    Process large volumes of requests asynchronously when you don’t need real-time responses.
   </Card>
 </CardGroup>

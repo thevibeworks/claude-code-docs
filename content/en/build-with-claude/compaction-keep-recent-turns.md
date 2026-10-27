@@ -491,7 +491,7 @@ The following program is the loop from [Compact in a loop](https://platform.clau
 * **Picking the cut:** The program keeps the last two turns, where a turn is one `user` message and the reply to it. It splits the history four messages from the end, so the kept turns start with a `user` message.
 * **Deciding when to compact:** The size check also requires that the conversation has more turns than the program keeps, so the older part is never empty.
 * **The compaction request:** Where the loop sends the whole history, this version sends only the older messages.
-* **The swap:** Where the loop replaces the whole history with the returned message, this version's new history is the returned message followed by the kept turns.
+* **The swap:** Where the loop replaces the whole history with the returned message, this version’s new history is the returned message followed by the kept turns.
 
 The `stop_reason` check and every request after the swap are unchanged from the loop.
 
@@ -499,4 +499,4 @@ The `stop_reason` check and every request after the swap are unchanged from the 
 
 If you send thinking blocks back on a model with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking), the thinking in the kept turns stays valid only while the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) hold, and one of them limits where the cut can fall.
 
-The program's cut, between a reply and the next `user` message, meets that condition. So does a cut at the end of a request you already made: compact exactly that request's `messages`, and keep everything your history has gained since.
+The program’s cut, between a reply and the next `user` message, meets that condition. So does a cut at the end of a request you already made: compact exactly that request’s `messages`, and keep everything your history has gained since.

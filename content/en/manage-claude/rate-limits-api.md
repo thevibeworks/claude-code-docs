@@ -17,7 +17,7 @@ Use this API to:
 * **Audit workspace configuration:** Verify that workspace overrides match what your provisioning automation expects.
 
 <Check>
-  **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn't scoped to a workspace; workspace API keys don't work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
+  **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn’t scoped to a workspace; workspace API keys don’t work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
 </Check>
 
 The SDK and CLI examples on this page construct the default client, which reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable. The SDKs expose these endpoints as `client.organization.rate_limits` (typescript: `client.organization.rateLimits`; csharp, go: `client.Organization.RateLimits`; java: `client.organization().rateLimits()`; php: `$client->organization->rateLimits`) and `client.organization.workspaces.rate_limits` (typescript: `client.organization.workspaces.rateLimits`; csharp, go: `client.Organization.Workspaces.RateLimits`; java: `client.organization().workspaces().rateLimits()`; php: `$client->organization->workspaces->rateLimits`); the Python, TypeScript, C#, Go, and Java list methods return an iterator that follows `next_page` for you, while the PHP, Ruby, and curl examples read one page.
@@ -152,10 +152,10 @@ The `/v1/organizations/rate_limits` endpoint returns the rate limits applied at 
 ### Key concepts
 
 * **Rate limit groups:** Each entry in the response represents one rate limit group. Model rate limits are grouped so that several model versions share a single set of limits, and other groups cover resources such as the Message Batches API, the Files API, the Token Counting API, agent skills, and the web search tool.
-* **`group` object:** Present on every entry, it identifies the rate limit group the entry applies to. It always has `type`, which is one of the `group_type` values, and `id`, an opaque identifier with the `rlg_` prefix. On `model_group` entries it also has `display_name`, Anthropic's current label for the group, such as `Claude Sonnet 4.x`. The label is for display only and may change. Other group types have no `display_name`.
-* **The `id` inside `group`:** A group has the same `id` in every organization and on every workspace override, and it never changes. Use it to match entries across organizations or against your own catalog. The entry's own `id` differs for each organization, and `models` changes when Anthropic moves a model between groups. Neither is a stable key for the group.
+* **`group` object:** Present on every entry, it identifies the rate limit group the entry applies to. It always has `type`, which is one of the `group_type` values, and `id`, an opaque identifier with the `rlg_` prefix. On `model_group` entries it also has `display_name`, Anthropic’s current label for the group, such as `Claude Sonnet 4.x`. The label is for display only and may change. Other group types have no `display_name`.
+* **The `id` inside `group`:** A group has the same `id` in every organization and on every workspace override, and it never changes. Use it to match entries across organizations or against your own catalog. The entry’s own `id` differs for each organization, and `models` changes when Anthropic moves a model between groups. Neither is a stable key for the group.
 * **`group_type`:** The query parameter that restricts the list to one group type. See [Filtering by group type](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#filtering-by-group-type) for the values.
-* **`models` list:** For `model_group` entries, the `models` field lists every model ID and alias that counts against that group's limits. Use this list to look up which group any model string falls under. For other group types, `models` is `null`.
+* **`models` list:** For `model_group` entries, the `models` field lists every model ID and alias that counts against that group’s limits. Use this list to look up which group any model string falls under. For other group types, `models` is `null`.
 * **`limits` list:** Each group carries a list of `{type, value}` pairs. The `type` field identifies the limiter (such as `requests_per_minute`, `input_tokens_per_minute`, or `output_tokens_per_minute`) and `value` is the configured limit. See [Rate limits](https://platform.claude.com/docs/en/api/rate-limits) for how each limiter is measured and enforced.
 * **`source` on workspace limits:** On the workspace endpoint, every limit value also carries `source`, which says where `value` comes from: `{"type": "workspace"}` for an override stored on the workspace, or `{"type": "organization"}` for a value inherited from the organization. By default, the workspace endpoint returns overrides only, so `source.type` is always `workspace` there; inherited values appear when you pass `include_inherited=true`. See [Workspace rate limits](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#workspace-rate-limits).
 
@@ -478,7 +478,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
   ```
 </CodeGroup>
 
-If the model string doesn't match any group, the endpoint returns a 404 error. Any model your organization has access to matches its group. The `model` parameter is supported on the organization endpoint only; the workspace endpoint doesn't accept it.
+If the model string doesn’t match any group, the endpoint returns a 404 error. Any model your organization has access to matches its group. The `model` parameter is supported on the organization endpoint only; the workspace endpoint doesn’t accept it.
 
 ## Workspace rate limits
 
@@ -493,7 +493,7 @@ By default, the response only includes overrides, so anything missing from it is
 For complete parameter details and response schemas, see the [Workspace Rate Limits API reference](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list).
 
 <Tip>
-  To retrieve your organization's workspace IDs, use the [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) endpoint, or find them under [Workspaces in the Claude Console](https://platform.claude.com/settings/workspaces). List Workspaces includes the default workspace only when you pass `include_default=true`.
+  To retrieve your organization’s workspace IDs, use the [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) endpoint, or find them under [Workspaces in the Claude Console](https://platform.claude.com/settings/workspaces). List Workspaces includes the default workspace only when you pass `include_default=true`.
 </Tip>
 
 <CodeGroup>
@@ -698,11 +698,11 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
 
 ### Include inherited values
 
-To read a workspace's applicable limits in one request, add the optional `include_inherited` query parameter. It defaults to `false`; a value that isn't a Boolean returns a 400 error. With `include_inherited=true`:
+To read a workspace’s applicable limits in one request, add the optional `include_inherited` query parameter. It defaults to `false`; a value that isn’t a Boolean returns a 400 error. With `include_inherited=true`:
 
 * `data` has one entry for each group that applies to the workspace and has an organization-level value, even if the workspace overrides none of it. A model group applies when the workspace can access at least one of its models.
-* Each entry's `limits[]` lists every limiter type the organization has a value for on that group, plus any type the workspace overrides. Each type appears once, with the workspace's override where one is stored and the organization's value otherwise, so one entry can mix the two.
-* Each value's `source` tells them apart: `{"type": "workspace"}` is a stored override, and `{"type": "organization"}` is an inherited value, where `value` equals `org_limit`.
+* Each entry’s `limits[]` lists every limiter type the organization has a value for on that group, plus any type the workspace overrides. Each type appears once, with the workspace’s override where one is stored and the organization’s value otherwise, so one entry can mix the two.
+* Each value’s `source` tells them apart: `{"type": "workspace"}` is a stored override, and `{"type": "organization"}` is an inherited value, where `value` equals `org_limit`.
 
 <CodeGroup>
   ```bash cURL
@@ -1099,17 +1099,17 @@ Both endpoints accept a `page` query parameter and return a `next_page` field. R
 
 ### Which model strings appear in the `models` list?
 
-Every model ID and alias that counts against the group, including dated IDs (such as `claude-sonnet-4-5-20250929`) and undated aliases (such as `claude-sonnet-4-5`). Look up any model string you pass to the Messages API and you'll find it in exactly one `model_group` entry.
+Every model ID and alias that counts against the group, including dated IDs (such as `claude-sonnet-4-5-20250929`) and undated aliases (such as `claude-sonnet-4-5`). Look up any model string you pass to the Messages API and you’ll find it in exactly one `model_group` entry.
 
 The list covers the models your organization has access to, so it can differ among organizations.
 
 ### What does it mean if a group is missing from the workspace response?
 
-By default, the workspace response lists only overrides, so a missing group has no workspace override and inherits the organization-level limit. Pass `include_inherited=true` to see inherited values on the workspace endpoint, or query the organization endpoint. With `include_inherited=true`, a group is missing only when it doesn't apply to the workspace or the organization has no limit set for it.
+By default, the workspace response lists only overrides, so a missing group has no workspace override and inherits the organization-level limit. Pass `include_inherited=true` to see inherited values on the workspace endpoint, or query the organization endpoint. With `include_inherited=true`, a group is missing only when it doesn’t apply to the workspace or the organization has no limit set for it.
 
 ### Can I update rate limits with this API?
 
-**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace's overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint's response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. You can also set workspace rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console: select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
+**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace’s overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint’s response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. You can also set workspace rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console: select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 **For an organization:** No. To request higher limits, see [Requesting higher limits](https://platform.claude.com/docs/en/api/rate-limits#requesting-higher-limits).
 

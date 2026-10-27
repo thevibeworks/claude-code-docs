@@ -53,7 +53,7 @@ foreach (var block in message.Content)
 }
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn’t scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ## Client configuration
 
@@ -110,9 +110,9 @@ The `WithOptions` method does not affect the original client or service.
 
 ## Streaming
 
-The SDK defines methods that return response "chunk" streams, where each chunk can be individually processed as soon as it arrives instead of waiting on the full response. Streaming methods generally correspond to [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) or [JSONL](https://jsonlines.org) responses.
+The SDK defines methods that return response “chunk” streams, where each chunk can be individually processed as soon as it arrives instead of waiting on the full response. Streaming methods generally correspond to [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) or [JSONL](https://jsonlines.org) responses.
 
-A streaming method always has a `Streaming` suffix in its name, even if it doesn't have a non-streaming variant.
+A streaming method always has a `Streaming` suffix in its name, even if it doesn’t have a non-streaming variant.
 
 These streaming methods return [`IAsyncEnumerable`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1):
 
@@ -156,7 +156,7 @@ Additionally, all 4xx errors inherit from `Anthropic4xxException`.
 
 * `AnthropicIOException`: I/O networking errors.
 
-* `AnthropicInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+* `AnthropicInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that’s supposed to be required, but the API unexpectedly omitted it from the response.
 
 * `AnthropicException`: Base class for all exceptions.
 
@@ -263,7 +263,7 @@ while (true)
 
 ## Response validation
 
-In rare cases, the API might return a response that doesn't match the expected type. By default, the SDK does not throw an exception in this case. It throws `AnthropicInvalidDataException` only if you directly access the property.
+In rare cases, the API might return a response that doesn’t match the expected type. By default, the SDK does not throw an exception in this case. It throws `AnthropicInvalidDataException` only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `Validate`:
 
@@ -322,7 +322,7 @@ Console.WriteLine(await chatClient.GetResponseAsync("Tell me about IChatClient",
 
 ## Requests and responses
 
-To send a request to the Claude API, build an instance of a `Params` class and pass it to the corresponding client method. When the response is received, it's deserialized into an instance of a C# class.
+To send a request to the Claude API, build an instance of a `Params` class and pass it to the corresponding client method. When the response is received, it’s deserialized into an instance of a C# class.
 
 For example, `client.Messages.Create` takes an instance of `MessageCreateParams` and returns an instance of `Task<Message>`.
 
@@ -330,7 +330,7 @@ For example, `client.Messages.Create` takes an instance of `MessageCreateParams`
 
 ### Binary responses
 
-The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, such as non-JSON data.
+The SDK defines methods that return binary responses, which are used for API responses that shouldn’t necessarily be parsed, such as non-JSON data.
 
 These methods return `HttpResponse`:
 
@@ -405,7 +405,7 @@ export ANTHROPIC_LOG=debug
 
 ### OpenTelemetry tracing
 
-When your application adds the SDK's sources to its OpenTelemetry tracer provider with `AddSource("com.anthropic.sdk.csharp*")`, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+When your application adds the SDK’s sources to its OpenTelemetry tracer provider with `AddSource("com.anthropic.sdk.csharp*")`, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
 
 ### Undocumented API functionality
 
@@ -443,7 +443,7 @@ Each major version of this SDK sends one API version in the `anthropic-version` 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes to library internals that are technically public but not intended or documented for external use.
-2. Changes that aren't expected to impact the vast majority of users in practice.
+2. Changes that aren’t expected to impact the vast majority of users in practice.
 
 Backward compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 

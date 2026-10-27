@@ -99,7 +99,7 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
     .build();
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn’t scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ### Configuration options
 
@@ -112,7 +112,7 @@ For authentication options including Workload Identity Federation, see [Authenti
 System properties take precedence over environment variables.
 
 <Tip>
-  Don't create more than one client in the same application. Each client has a connection pool and thread pools, which are more efficient to share between requests.
+  Don’t create more than one client in the same application. Each client has a connection pool and thread pools, which are more efficient to share between requests.
 </Tip>
 
 ### Modifying configuration
@@ -176,7 +176,7 @@ The asynchronous client supports the same options as the synchronous one, except
 
 ## Streaming
 
-The SDK defines methods that return response "chunk" streams, where each chunk can be individually processed as soon as it arrives instead of waiting on the full response.
+The SDK defines methods that return response “chunk” streams, where each chunk can be individually processed as soon as it arrives instead of waiting on the full response.
 
 ### Synchronous streaming
 
@@ -314,11 +314,11 @@ For complete structured outputs documentation including Java examples, see [Stru
 
 ## Tool use
 
-[Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model's responses. Instead of producing plain text, the model can output instructions (with parameters) for calling a tool or function when appropriate. You define JSON schemas for tools, and the model uses the schemas to determine when and how to use these tools.
+[Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model’s responses. Instead of producing plain text, the model can output instructions (with parameters) for calling a tool or function when appropriate. You define JSON schemas for tools, and the model uses the schemas to determine when and how to use these tools.
 
-The tool use feature supports a "strict" mode that guarantees that the JSON output from the AI model conforms to the JSON schema you provide in the input parameters.
+The tool use feature supports a “strict” mode that guarantees that the JSON output from the AI model conforms to the JSON schema you provide in the input parameters.
 
-The SDK can derive a tool and its parameters automatically from the structure of an arbitrary Java class: the class's name (converted to snake case) provides the tool name, and the class's fields define the tool's parameters.
+The SDK can derive a tool and its parameters automatically from the structure of an arbitrary Java class: the class’s name (converted to snake case) provides the tool name, and the class’s fields define the tool’s parameters.
 
 <Note>
   Declare your tool classes as top-level classes or `static` nested classes. This requirement comes from the Jackson Databind library (`com.fasterxml.jackson.databind`), which the SDK uses to deserialize tool inputs into your class instances and cannot instantiate non-static inner classes.
@@ -381,9 +381,9 @@ static class Weather {
 
 ### Calling tools
 
-After you define your tool classes, add them to the message parameters using `MessageCreateParams.Builder.addTool(Class<T>)` and then call them if requested to do so in the AI model's response. `BetaToolUseBlock.input(Class<T>)` can be used to parse a tool's parameters in JSON form to an instance of your tool-defining class.
+After you define your tool classes, add them to the message parameters using `MessageCreateParams.Builder.addTool(Class<T>)` and then call them if requested to do so in the AI model’s response. `BetaToolUseBlock.input(Class<T>)` can be used to parse a tool’s parameters in JSON form to an instance of your tool-defining class.
 
-After calling the tool, use `BetaToolResultBlockParam.Builder.contentAsJson(Object)` to pass the tool's result back to the AI model:
+After calling the tool, use `BetaToolResultBlockParam.Builder.contentAsJson(Object)` to pass the tool’s result back to the AI model:
 
 ```java
 import com.anthropic.client.AnthropicClient;
@@ -436,7 +436,7 @@ Tool names are derived from the camel case tool class names (for example, `GetWe
 
 ### Local tool JSON schema validation
 
-You can perform local validation to check that the JSON schema derived from your tool class respects Anthropic's restrictions. Local validation is enabled by default, but it can be disabled:
+You can perform local validation to check that the JSON schema derived from your tool class respects Anthropic’s restrictions. Local validation is enabled by default, but it can be disabled:
 
 ```java
 MessageCreateParams.Builder createParamsBuilder = MessageCreateParams.builder()
@@ -453,8 +453,8 @@ You can use annotations to add further information about tools to the JSON schem
 * `@JsonClassDescription` - Add a description to a tool class detailing when and how to use that tool.
 * `@JsonTypeName` - Set the tool name to something other than the simple name of the class converted to snake case.
 * `@JsonPropertyDescription` - Add a detailed description to a tool parameter.
-* `@JsonIgnore` - Exclude a `public` field or getter method from the generated JSON schema for a tool's parameters.
-* `@JsonProperty` - Include a non-`public` field or getter method in the generated JSON schema for a tool's parameters.
+* `@JsonIgnore` - Exclude a `public` field or getter method from the generated JSON schema for a tool’s parameters.
+* `@JsonProperty` - Include a non-`public` field or getter method in the generated JSON schema for a tool’s parameters.
 
 ## Message batches
 
@@ -523,7 +523,7 @@ FileMetadata fileMetadata = client.files().upload(params);
 
 ### Binary responses
 
-The SDK defines methods that return binary responses for API responses that aren't necessarily parsed as JSON:
+The SDK defines methods that return binary responses for API responses that aren’t necessarily parsed as JSON:
 
 ```java
 import com.anthropic.core.http.HttpResponse;
@@ -568,7 +568,7 @@ The SDK throws custom unchecked exception types:
 * `AnthropicServiceException` - Base class for HTTP errors
 * `AnthropicIoException` - I/O networking errors
 * `AnthropicRetryableException` - Generic error indicating a failure that could be retried
-* `AnthropicInvalidDataException` - Failure to interpret successfully parsed data (for example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it)
+* `AnthropicInvalidDataException` - Failure to interpret successfully parsed data (for example, when accessing a property that’s supposed to be required, but the API unexpectedly omitted it)
 * `AnthropicException` - Base class for all exceptions
 
 ### Status code mapping
@@ -903,7 +903,7 @@ JsonValue complexValue = JsonValue.from(Map.of("a", List.of(1, 2), "b", List.of(
 
 ### Forcibly omitting required parameters
 
-Normally a `Builder` class's `build` method will throw `IllegalStateException` if any required parameter or property is unset. To forcibly omit a required parameter or property, pass `JsonMissing`:
+Normally a `Builder` class’s `build` method will throw `IllegalStateException` if any required parameter or property is unset. To forcibly omit a required parameter or property, pass `JsonMissing`:
 
 ```java
 import com.anthropic.core.JsonMissing;
@@ -953,7 +953,7 @@ String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
 });
 ```
 
-To access a property's raw JSON value, call its `_` prefixed method:
+To access a property’s raw JSON value, call its `_` prefixed method:
 
 ```java
 import com.anthropic.core.JsonField;
@@ -977,7 +977,7 @@ if (stopReason.isMissing()) {
 
 ### Response validation
 
-By default, the SDK does not throw an exception when the API returns a response that doesn't match the expected type. It throws `AnthropicInvalidDataException` only if you directly access the property.
+By default, the SDK does not throw an exception when the API returns a response that doesn’t match the expected type. It throws `AnthropicInvalidDataException` only if you directly access the property.
 
 To check that the response is completely well-typed upfront, call `validate()`:
 
@@ -1052,7 +1052,7 @@ The SDK consists of three artifacts:
 * `anthropic-java-client-okhttp` - Depends on OkHttp. Exposes `AnthropicOkHttpClient` and `AnthropicOkHttpClientAsync`.
 * `anthropic-java` - Depends on and exposes the APIs of both `anthropic-java-core` and `anthropic-java-client-okhttp`. Does not have its own logic.
 
-This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
+This structure allows replacing the SDK’s default HTTP client without pulling in unnecessary dependencies.
 
 #### Customized OkHttpClient
 
@@ -1063,7 +1063,7 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 To use a customized `OkHttpClient`:
 
 1. Replace your `anthropic-java` dependency with `anthropic-java-core`.
-2. Copy `anthropic-java-client-okhttp`'s `OkHttpClient` class into your code and customize it.
+2. Copy `anthropic-java-client-okhttp`’s `OkHttpClient` class into your code and customize it.
 3. Construct `AnthropicClientImpl` or `AnthropicClientAsyncImpl` using your customized client.
 
 #### Completely custom HTTP client
@@ -1156,13 +1156,13 @@ export ANTHROPIC_LOG=debug
 
   The SDK throws an exception if it detects an incompatible Jackson version at runtime (for example, if the default version was overridden in your Maven or Gradle config).
 
-  If the SDK threw an exception, but you're certain the version is compatible, then disable the version check using `checkJacksonVersionCompatibility` on `AnthropicOkHttpClient` or `AnthropicOkHttpClientAsync`.
+  If the SDK threw an exception, but you’re certain the version is compatible, then disable the version check using `checkJacksonVersionCompatibility` on `AnthropicOkHttpClient` or `AnthropicOkHttpClientAsync`.
 
   <Warning>
     There is no guarantee that the SDK works correctly when the Jackson version check is disabled.
   </Warning>
 
-  There are also bugs in older Jackson versions that can affect the SDK. The SDK doesn't work around all Jackson bugs and expects users to upgrade Jackson for those instead.
+  There are also bugs in older Jackson versions that can affect the SDK. The SDK doesn’t work around all Jackson bugs and expects users to upgrade Jackson for those instead.
 </Accordion>
 
 <Accordion title="ProGuard/R8 configuration">
@@ -1215,7 +1215,7 @@ Prefer the well-typed constants (for example, `Model.CLAUDE_OPUS_5`) so you get 
 
 ## Beta features
 
-Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
+Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude’s capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
 You can access most beta API features through the `beta()` method on the client. To enable a particular beta feature, add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) with `.addBeta()` when building the message parameters.
 
@@ -1242,10 +1242,10 @@ void main() {
 ## Frequently asked questions
 
 <AccordionGroup>
-  <Accordion title="Why doesn't the SDK use plain enum classes?">
+  <Accordion title="Why doesn’t the SDK use plain enum classes?">
     Java `enum` classes are not trivially forward compatible. Using them in the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.
 
-    Because these classes are open, you can also construct them with any string value through their `of(String)` factory method. See [New or unreleased enum values](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#new-or-unreleased-enum-values) if you need to use a value that isn't in your SDK version yet.
+    Because these classes are open, you can also construct them with any string value through their `of(String)` factory method. See [New or unreleased enum values](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#new-or-unreleased-enum-values) if you need to use a value that isn’t in your SDK version yet.
   </Accordion>
 
   <Accordion title="Why are fields represented using JsonField<T> instead of just plain T?">
@@ -1256,11 +1256,11 @@ void main() {
     * Representing absent versus explicitly null values
   </Accordion>
 
-  <Accordion title="Why doesn't the SDK use data classes?">
+  <Accordion title="Why doesn’t the SDK use data classes?">
     It is not backwards compatible to add new fields to a data class, and the SDK avoids introducing a breaking change every time a field is added to a class.
   </Accordion>
 
-  <Accordion title="Why doesn't the SDK use checked exceptions?">
+  <Accordion title="Why doesn’t the SDK use checked exceptions?">
     Checked exceptions are widely considered a mistake in the Java programming language. In fact, they were omitted from Kotlin for this reason.
 
     Checked exceptions:
@@ -1268,7 +1268,7 @@ void main() {
     * Are verbose to handle
     * Encourage error handling at the wrong level of abstraction, where nothing can be done about the error
     * Are tedious to propagate because of the function coloring problem
-    * Don't work well with lambdas (also because of the function coloring problem)
+    * Don’t work well with lambdas (also because of the function coloring problem)
   </Accordion>
 </AccordionGroup>
 
@@ -1279,7 +1279,7 @@ Each major version of this SDK sends one API version in the `anthropic-version` 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes to library internals that are technically public but not intended or documented for external use.
-2. Changes that aren't expected to impact the vast majority of users in practice.
+2. Changes that aren’t expected to impact the vast majority of users in practice.
 
 ## Additional resources
 

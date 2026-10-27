@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-a
 description: Create an AWS KMS key in your AWS account and attach it to a workspace on Claude Platform on AWS.
 ---
 
-If your Claude Console sidebar doesn't show **Account managed by AWS**, follow [Set up CMEK with AWS KMS](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms) instead.
+If your Claude Console sidebar doesn’t show **Account managed by AWS**, follow [Set up CMEK with AWS KMS](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms) instead.
 
 ## Before you start
 
@@ -24,7 +24,7 @@ If your Claude Console sidebar doesn't show **Account managed by AWS**, follow [
 
   To scope them, see [IAM actions](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#encryption-keys).
 
-* You have a workspace with no key attached, ideally a new one, because [existing data stays under Anthropic's key](https://platform.claude.com/docs/en/manage-claude/cmek-how-it-works#when-your-key-takes-effect). The key policy lists its compartment ID.
+* You have a workspace with no key attached, ideally a new one, because [existing data stays under Anthropic’s key](https://platform.claude.com/docs/en/manage-claude/cmek-how-it-works#when-your-key-takes-effect). The key policy lists its compartment ID.
 
 In the Claude Console, open the [Data retention](https://platform.claude.com/settings/privacy) page and select the workspace from the dropdown menu at the top. Copy the **Compartment ID** under **Encryption key**. The [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) endpoint returns it as `compartment_id`.
 
@@ -76,7 +76,7 @@ This policy gives the AWS service principal `aws-external-anthropic.amazonaws.co
 
 Replace `<AWS_ACCOUNT_ID>` with your [AWS account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/console-account-id.html) and `<COMPARTMENT_UUID>` with the [compartment ID](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#prerequisites).
 
-The optional `EncryptionContext` condition limits the key to the workspaces you list. Before you attach the key to another workspace, add that workspace's compartment ID and [replace the policy on the key](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms-workspaces#replace-the-key-policy). To do without the condition, delete the `Condition` block from the `AllowClaudePlatformOnAWSCrypto` statement. If you add the condition later, list every workspace the key is already attached to.
+The optional `EncryptionContext` condition limits the key to the workspaces you list. Before you attach the key to another workspace, add that workspace’s compartment ID and [replace the policy on the key](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms-workspaces#replace-the-key-policy). To do without the condition, delete the `Condition` block from the `AllowClaudePlatformOnAWSCrypto` statement. If you add the condition later, list every workspace the key is already attached to.
 
 To narrow access further, use the key policy, not IP-based restrictions. Add an `aws:SourceArn` condition to both service principal statements. This one allows every workspace in your AWS account:
 
@@ -125,7 +125,7 @@ Create the key in the AWS account that hosts your organization, in the same regi
       </Step>
 
       <Step title="Define key administrative permissions">
-        Don't select any key administrators. Your key policy already gives your AWS account full admin control. Click **Next**.
+        Don’t select any key administrators. Your key policy already gives your AWS account full admin control. Click **Next**.
 
         <Frame caption="Leave key administrators empty.">
           ![AWS KMS Define key administrative permissions step listing IAM roles that can administer the key.](https://platform.claude.com/docs/images/cmek/aws-admin-permissions.png)
@@ -133,7 +133,7 @@ Create the key in the AWS account that hosts your organization, in the same regi
       </Step>
 
       <Step title="Define key usage permissions">
-        Don't select any key users, and don't add anything under **Other AWS accounts**. Your key policy already grants the access that's needed. Click **Next**.
+        Don’t select any key users, and don’t add anything under **Other AWS accounts**. Your key policy already grants the access that’s needed. Click **Next**.
       </Step>
 
       <Step title="Edit key policy">
@@ -151,7 +151,7 @@ Create the key in the AWS account that hosts your organization, in the same regi
   </Tab>
 
   <Tab title="AWS CLI">
-    Save your key policy as `key-policy.json`, then create the key. Replace `<REGION>` with the key's region.
+    Save your key policy as `key-policy.json`, then create the key. Replace `<REGION>` with the key’s region.
 
     ```bash
     aws kms create-key \
@@ -171,7 +171,7 @@ Sign in to the Claude Console through AWS. To script this part instead, use the 
 
 <Steps>
   <Step title="Open the encryption key settings">
-    In the Claude Console, open [Encryption keys](https://platform.claude.com/settings/privacy#encryption-keys) on the Data retention page. If the section isn't there, select **Organization** from the dropdown menu at the top.
+    In the Claude Console, open [Encryption keys](https://platform.claude.com/settings/privacy#encryption-keys) on the Data retention page. If the section isn’t there, select **Organization** from the dropdown menu at the top.
   </Step>
 
   <Step title="Add the key">
@@ -179,12 +179,12 @@ Sign in to the Claude Console through AWS. To script this part instead, use the 
   </Step>
 
   <Step title="Enter the key ARN">
-    In **KMS key ARN**, select your key. If it isn't listed, click **Enter ARN manually** and paste the ARN. Anthropic rejects alias ARNs and multi-Region keys. Click **Add**.
+    In **KMS key ARN**, select your key. If it isn’t listed, click **Enter ARN manually** and paste the ARN. Anthropic rejects alias ARNs and multi-Region keys. Click **Add**.
   </Step>
 
   <Step title="Attach the key to a workspace">
     <Warning>
-      Attaching a key [can't be undone](https://platform.claude.com/docs/en/manage-claude/cmek-key-lifecycle#what-each-action-does). You can't remove it from the workspace or replace it. If the key is deleted, Anthropic can't recover the data it protects.
+      Attaching a key [can’t be undone](https://platform.claude.com/docs/en/manage-claude/cmek-key-lifecycle#what-each-action-does). You can’t remove it from the workspace or replace it. If the key is deleted, Anthropic can’t recover the data it protects.
     </Warning>
 
     1. At the top of the Data retention page, select the workspace from the dropdown menu.

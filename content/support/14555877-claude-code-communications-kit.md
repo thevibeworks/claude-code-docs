@@ -16,22 +16,22 @@ One announcement in two formats, plus two optional variants. Pick whichever fits
 
 ### 1.1 Before you send
 
-| **Item**                                                                                                                     | **Why it matters**                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **`#claude-code` channel created** and linked in the message                                                                 | Gives questions one place to land                                                   |
-| **Install command tested** on at least one machine in your environment                                                       | Catches proxy/firewall issues before 200 people hit them                            |
-| **Security/data-handling link** ready — [Data Usage](https://code.claude.com/docs/en/data-usage) or your internal equivalent | “Where does my code go?” will be the first reply                                    |
-| **One concrete first task** chosen — a real bug or file in *your* codebase                                                   | Generic examples don’t convert; “fix the flaky test in `auth_test.go`” does         |
-| **A named owner** for the channel for the first 48 hours                                                                     | Unanswered launch-day questions kill momentum                                       |
-| **A C-suite sponsor** lined up to send (or co-sign) the announcement                                                         | Exec-sent launches consistently see higher first-week adoption than admin-sent ones |
+| **Item**                                                                                                                                | **Why it matters**                                                                  |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **`#claude-code` channel created** and linked in the message                                                                            | Gives questions one place to land                                                   |
+| **Claude Desktop sign-in tested** on at least one machine in your environment (and the terminal install command, if you’re offering it) | Catches proxy/firewall issues before 200 people hit them                            |
+| **Security/data-handling link** ready — [Data Usage](https://code.claude.com/docs/en/data-usage) or your internal equivalent            | “Where does my code go?” will be the first reply                                    |
+| **One concrete first task** chosen — a real bug or file in *your* codebase                                                              | Generic examples don’t convert; “fix the flaky test in `auth_test.go`” does         |
+| **A named owner** for the channel for the first 48 hours                                                                                | Unanswered launch-day questions kill momentum                                       |
+| **A C-suite sponsor** lined up to send (or co-sign) the announcement                                                                    | Exec-sent launches consistently see higher first-week adoption than admin-sent ones |
 
 ### 1.2 The announcement
 
-Use this as your standard org-wide rollout message. It covers what Claude Code is, gives a two-minute install, hands readers one concrete task to try, and answers “where does my code go?” before anyone has to ask.
+Use this as your standard org-wide rollout message. It covers what Claude Code is, gets readers running in two minutes, hands them one concrete task to try, and answers “where does my code go?” before anyone has to ask.
 
 **Email**
 
-- **Subject:** Claude Code is live for [Engineering / your team]Team —As of today you have access to **Claude Code** — an AI coding agent that runs in your terminal, reads your actual codebase, and works through real tasks end-to-end: debugging, refactors, tests, PRs. It’s not autocomplete and it’s not a chat window. It edits files, runs your commands, and asks permission before anything risky.**Get running in two minutes:**```
+- **Subject:** Claude Code is live for [Engineering / your team]Team —As of today you have access to **Claude Code** — an AI coding agent that reads your actual codebase and works through real tasks end-to-end: debugging, refactors, tests, PRs. It’s not autocomplete and it’s not a chat window. It edits files, runs your commands, and asks permission before anything risky.Get running in two minutes: download Claude Desktop, sign in with your company account, and open the Code tab. Claude Code is built in. Prefer the terminal?```
 curl -fsSL https://claude.ai/install.sh | bash
 cd <your-repo>
 claude
@@ -45,11 +45,11 @@ Then run `/init` once — Claude reads your project and writes a `CLAUDE.md` wit
 
 - *“Look at my working diff and tell me what’s risky before I push”*
 
-**Where your code goes.** Claude Code runs in your terminal and talks directly to Anthropic’s API — no third-party servers in the loop. It asks before editing files or running commands. Under our Enterprise agreement, Anthropic does not use your code or prompts to train its models. Details: **[Data Usage](https://code.claude.com/docs/en/data-usage)** · **[Security](https://code.claude.com/docs/en/security)****Where to go with questions:** `#claude-code`. [Owner name] is watching it this week.— [Name]**P.S.** Prefer your editor? There’s a **[VS Code extension](https://code.claude.com/docs/en/vs-code)** and **[JetBrains plugin](https://code.claude.com/docs/en/jetbrains)** — same agent, no terminal.
+**Where your code goes.** Where your code goes. Claude Code runs on your machine and talks directly to Anthropic’s API — no third-party servers in the loop. It asks before editing files or running commands. Under our Enterprise agreement, Anthropic does not use your code or prompts to train its models. Details: **[Data Usage](https://code.claude.com/docs/en/data-usage)** · **[Security](https://code.claude.com/docs/en/security)****Where to go with questions:** `#claude-code`. [Owner name] is watching it this week.— [Name]**P.S.** Prefer your editor or terminal? There’s a **[VS Code extension](https://code.claude.com/docs/en/vs-code)**, a **[JetBrains plugin](https://code.claude.com/docs/en/jetbrains)**, and a terminal CLI — same agent.
 
 **Slack / Teams**
 
-- 🚀 **Claude Code is live for [team]**AI coding agent, runs in your terminal, reads your repo, does real work — bugs, refactors, tests, PRs. Asks before it touches anything.```
+- 🚀 **Claude Code is live for [team]**AI coding agent, reads your repo, does real work — bugs, refactors, tests, PRs. Asks before it touches anything.Get started: download Claude Desktop, sign in with your [company] account, open the Code tab. Terminal instead?```
 curl -fsSL https://claude.ai/install.sh | bash
 cd <your-repo>
 claude
@@ -65,7 +65,7 @@ This version is deliberately stripped to **one ask**: install it and run it on o
 
 **Email**
 
-| **Subject:** One thing I’d like every engineer to try this week<br>Team —<br>We’ve turned on **Claude Code** for all of engineering. It’s an AI agent that works directly in your terminal, on your actual codebase — and the early results from teams already using it are strong enough that I want everyone on it this week.<br>I’m asking for ten minutes:
+| **Subject:** One thing I’d like every engineer to try this week<br>Team —<br>We’ve turned on **Claude Code** for all of engineering. It’s an AI agent that works directly on your actual codebase — and the early results from teams already using it are strong enough that I want everyone on it this week.<br>I’m asking for ten minutes: download Claude Desktop, sign in with your [company] account, and open the Code tab. Or, if you prefer the terminal:
 
 ```
 curl -fsSL https://claude.ai/install.sh | bash
@@ -75,11 +75,11 @@ claude
 
 <br>Then hand it one real task — the bug you’ve been putting off, or *“walk me through how [module] works.”*<br>That’s the whole ask. [Owner name] and team are in `#claude-code` for anything you hit along the way.<br>— [Exec Name]
 [Title]<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Slack / Teams**
 
-| 📣 **From [Exec Name]: one thing to try this week**<br>We’ve turned on **Claude Code** for all of engineering. Early results are strong enough that I’m asking everyone to give it ten minutes on real work this week.<br>
+| 📣 **From [Exec Name]: one thing to try this week**<br>We’ve turned on **Claude Code** for all of engineering. Early results are strong enough that I’m asking everyone to give it ten minutes on real work this week.<br>I’m asking for ten minutes: download Claude Desktop, sign in with your [company] account, and open the Code tab. Or, if you prefer the terminal:
 
 ```
 curl -fsSL https://claude.ai/install.sh | bash
@@ -88,7 +88,7 @@ claude
 ```
 
 <br>→ hand it one real task.<br>That’s it. Questions → `#claude-code`.<br> |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ### 1.4 Variant: Pilot / early-access group
 
@@ -101,8 +101,8 @@ Use for a phased rollout. Send to the pilot cohort only.
 
 After launch, DM the two or three people who are most active in `#claude-code`.
 
-| Hey [name] — your `#claude-code` posts are doing more for adoption than my announcement did. A couple of people told me your [thread / screenshot] was why they actually tried it.<br>Want to make that semi-official? Low lift — mostly keep posting what you’re posting, plus first crack at new features and a direct line to the Anthropic team. I can share a short playbook for that if you’re in.<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hey [name] — your `#claude-code` posts are doing more for adoption than my announcement did. A couple of people told me your [thread / screenshot] was why they actually tried it.<br>Want to make that semi-official? Low lift — mostly keep posting what you’re posting, plus first crack at new features and a direct line to the Anthropic team. I can share a short playbook for that if you’re in. |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ---
 
@@ -129,8 +129,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 2 — Quick wins to try first**
 
-| 🚀 **Tip: Three things to try in your first 10 minutes**<br>Installed Claude Code but not sure what to actually ask it? Start with the stuff that’s been bugging you all week.<br>     Fix something annoying — *“the test in [file] is flaky — figure out why”*<br>Get oriented in code you didn’t write — *“walk me through how [module] works”*<br>Sanity-check before you push — *“look at my working diff and tell me what looks risky”*<br>None of these need setup. Just `cd` into your repo and run `claude`.<br>**Try it now:** pick the bug you’ve been avoiding and paste the error message in. That’s it.<br>📖 **[Quickstart](https://code.claude.com/docs/en/quickstart)**<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 🚀 **Tip: Three things to try in your first 10 minutes**<br>Installed Claude Code but not sure what to actually ask it? Start with the stuff that’s been bugging you all week.<br>     Fix something annoying — *“the test in [file] is flaky — figure out why”*<br>Get oriented in code you didn’t write — *“walk me through how [module] works”*<br>Sanity-check before you push — *“look at my working diff and tell me what looks risky”*<br>None of these need setup. Just open the Code tab in Claude Desktop and pick your repo, or `cd` into it and run `claude`.<br>**Try it now:** pick the bug you’ve been avoiding and paste the error message in. That’s it.<br>📖 **[Quickstart](https://code.claude.com/docs/en/quickstart)**<br> |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ### 2.2 Project memory
 
@@ -176,8 +176,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 9 — IDE integrations**
 
-| 💻 **Tip: You don’t have to leave your editor**<br>Terminal not your thing? The same agent runs inside VS Code and JetBrains.<br>VS Code extension and JetBrains plugin available now — same model, same features, embedded in your editor. No alt-tabbing to the terminal.<br>**Try it now:** search “Claude Code” in your editor’s extension marketplace and hit install. You’ll be running in under a minute.<br>📖 **[VS Code extension](https://code.claude.com/docs/en/vs-code)**<br> |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 💻 **Tip: You don’t have to leave your editor**<br>Prefer your editor? The same agent runs inside VS Code and JetBrains.<br>VS Code extension and JetBrains plugin available now — same model, same features, embedded in your editor. No alt-tabbing to the terminal.<br>**Try it now:** search “Claude Code” in your editor’s extension marketplace and hit install. You’ll be running in under a minute.<br>📖 **[VS Code extension](https://code.claude.com/docs/en/vs-code)**<br> |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 ### 2.5 Automate Your Workflows
 
@@ -234,8 +234,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 19 — Security architecture**
 
-| 🔐 **Tip: The answer to “is this safe?” — for the next time you’re asked**<br>Someone on your team is going to ask “wait, where does my code go?” Here’s the short version you can paste.<br>Permission-first by design. Every file edit, shell command, and external call is gated by your approval. The CLI runs in your terminal and talks directly to Anthropic’s API — no third-party servers — with optional OS-level sandboxing for shell commands. Under our Enterprise plan, Anthropic does not use your code or prompts to train its models.<br>**Try it now:** save these two links for the next time the question comes up — they answer most security-review questions.<br>📖 **[Security and permissions](https://code.claude.com/docs/en/security)** · **[Data usage](https://code.claude.com/docs/en/data-usage)**<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 🔐 **Tip: The answer to “is this safe?” — for the next time you’re asked**<br>Someone on your team is going to ask “wait, where does my code go?” Here’s the short version you can paste.<br>Permission-first by design. Every file edit, shell command, and external call is gated by your approval. Claude Code runs on your machine and talks directly to Anthropic’s API — no third-party servers — with optional OS-level sandboxing for shell commands. Under our Enterprise plan, Anthropic does not use your code or prompts to train its models.<br>**Try it now:** save these two links for the next time the question comes up — they answer most security-review questions.<br>📖 **[Security and permissions](https://code.claude.com/docs/en/security)** · **[Data usage](https://code.claude.com/docs/en/data-usage)**<br> |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Message 20 — Best practices**
 
@@ -250,14 +250,14 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 One-line Slack replies for the questions you’ll get asked most.
 
-| **Question**                             | **Response**                                                                                                                                                                                                                                            |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| “Does it work in VS Code?”               | Yes — VS Code extension and JetBrains plugin. Same features, embedded in your editor. **[Docs →](https://code.claude.com/docs/en/vs-code)**                                                                                                             |
-| “Do I have to configure anything first?” | No — install, then `claude` in any repo. Run `/init` once and you’re set. **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                                                                                |
-| “Where does my code go?”                 | The CLI runs in your terminal and sends context to Anthropic’s API for inference — no third-party servers. Under our Enterprise plan, your code and prompts aren’t used to train models. **[Data Usage →](https://code.claude.com/docs/en/data-usage)** |
-| “Can it see my whole repo?”              | It reads what you give it access to. File reads inside your working directory don’t prompt; permission prompts gate edits, shell commands, and anything outside that directory. **[Permissions →](https://code.claude.com/docs/en/permissions)**        |
-| “How is this different from Copilot?”    | Copilot autocompletes lines. Claude Code is an agent — reads files, runs commands, makes multi-file edits. **[Overview →](https://code.claude.com/docs/en/overview)**                                                                                   |
-| “What should I try first?”               | A bug you’ve been putting off because it’s tedious. *“the test in [file] is flaky — figure out why.”* **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                                                    |
+| **Question**                             | **Response**                                                                                                                                                                                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| “Does it work in VS Code?”               | Yes — VS Code extension and JetBrains plugin. Same features, embedded in your editor. **[Docs →](https://code.claude.com/docs/en/vs-code)**                                                                                                                |
+| “Do I have to configure anything first?” | No — sign in to Claude Desktop and open the Code tab, or install the CLI and run `claude` in any repo. Run `/init` once and you’re set. **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                     |
+| “Where does my code go?”                 | Claude Code runs on your machine and sends context to Anthropic’s API for inference — no third-party servers. Under our Enterprise plan, your code and prompts aren’t used to train models. **[Data Usage →](https://code.claude.com/docs/en/data-usage)** |
+| “Can it see my whole repo?”              | It reads what you give it access to. File reads inside your working directory don’t prompt; permission prompts gate edits, shell commands, and anything outside that directory. **[Permissions →](https://code.claude.com/docs/en/permissions)**           |
+| “How is this different from Copilot?”    | Copilot autocompletes lines. Claude Code is an agent — reads files, runs commands, makes multi-file edits. **[Overview →](https://code.claude.com/docs/en/overview)**                                                                                      |
+| “What should I try first?”               | A bug you’ve been putting off because it’s tedious. *“the test in [file] is flaky — figure out why.”* **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                                                       |
 
 ### 3.2 Prompt templates
 

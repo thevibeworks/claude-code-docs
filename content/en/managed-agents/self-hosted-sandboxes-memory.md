@@ -12,19 +12,19 @@ featureMetadata:
 
 Sessions on a self-hosted environment attach [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) exactly as sessions on cloud environments do. List them in `resources` (csharp, go: `Resources`) when you create the session, as shown in [Attach a memory store to a session](https://platform.claude.com/docs/en/managed-agents/memory#attach-a-memory-store-to-a-session). A session accepts up to 8 memory stores.
 
-The difference is who materializes the store. On a self-hosted environment your worker, rather than Anthropic's infrastructure, downloads each store into the sandbox and syncs the agent's changes back.
+The difference is who materializes the store. On a self-hosted environment your worker, rather than Anthropic’s infrastructure, downloads each store into the sandbox and syncs the agent’s changes back.
 
 ## Requirements
 
 * **A worker that mounts memory stores:** Use `ant` CLI 1.33.0 or later, or `EnvironmentWorker` from the Python, TypeScript, or Go SDK.
 * **A POSIX filesystem:** Windows hosts are not supported, because the worker requires `O_NOFOLLOW` when it opens memory files. A case-sensitive filesystem is recommended, so that memory paths that differ only in case do not collide. macOS volumes are case-insensitive by default, so such paths collide there.
 * **A writable `/mnt/memory` directory:** See [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-the-host). On macOS, see [Prepare a macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host).
-* **The work item's secret:** If your own code launches the worker, [forward the work item's secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#forward-the-work-items-secret) to it.
+* **The work item’s secret:** If your own code launches the worker, [forward the work item’s secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#forward-the-work-items-secret) to it.
 
 <Note>
   Memory stores cannot be attached to sessions on self-hosted environments on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
 
-  On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), memory stores aren't supported for sessions on self-hosted environments.
+  On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), memory stores aren’t supported for sessions on self-hosted environments.
 </Note>
 
 ## Prepare the host
@@ -37,19 +37,19 @@ Before you start the worker, create the parent directory and make it writable by
 sudo mkdir -p /mnt/memory && sudo chown "$USER" /mnt/memory
 ```
 
-Do not create the per-store directories yourself. The worker creates each store's `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) directory (for example, `/mnt/memory/user-preferences`) when a session starts and removes it when the session ends. If something already exists at that path, the worker refuses to start the session's work.
+Do not create the per-store directories yourself. The worker creates each store’s `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) directory (for example, `/mnt/memory/user-preferences`) when a session starts and removes it when the session ends. If something already exists at that path, the worker refuses to start the session’s work.
 
-In the [sandbox-per-session pattern](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session), the sandbox image needs a writable `/mnt/memory`. You don't need to bind-mount the memory directories to the host, because the worker uploads their contents to the store before the sandbox exits.
+In the [sandbox-per-session pattern](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session), the sandbox image needs a writable `/mnt/memory`. You don’t need to bind-mount the memory directories to the host, because the worker uploads their contents to the store before the sandbox exits.
 
 ### Prepare a macOS host
 
-On macOS, the root volume is read-only, so `mkdir` can't create `/mnt`. Instead, create `/System/Volumes/Data/mnt/memory` on the data volume, which is writable. Then add a line to `/etc/synthetic.conf`, so that macOS creates `/mnt` as a symbolic link to `/System/Volumes/Data/mnt`. These steps need administrator rights.
+On macOS, the root volume is read-only, so `mkdir` can’t create `/mnt`. Instead, create `/System/Volumes/Data/mnt/memory` on the data volume, which is writable. Then add a line to `/etc/synthetic.conf`, so that macOS creates `/mnt` as a symbolic link to `/System/Volumes/Data/mnt`. These steps need administrator rights.
 
-Without this setup, the worker can't create a store's directory, so it fails the work item. The session then stays idle with no error event. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
+Without this setup, the worker can’t create a store’s directory, so it fails the work item. The session then stays idle with no error event. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
 
 <Steps>
   <Step title="Create the directory on the data volume">
-    Create the `memory` directory and make the worker's user its owner. `$USER` is your own username. If the worker runs as another user, replace `"$USER"` with that user's name.
+    Create the `memory` directory and make the worker’s user its owner. `$USER` is your own username. If the worker runs as another user, replace `"$USER"` with that user’s name.
 
     ```bash
     sudo mkdir -p /System/Volumes/Data/mnt/memory && sudo chown "$USER" /System/Volumes/Data/mnt/memory
@@ -63,8 +63,8 @@ Without this setup, the worker can't create a store's directory, so it fails the
 
     * If a line reads `mnt^ISystem/Volumes/Data/mnt$`, this step is already done. Go to the next step.
     * If another line starts with `mnt`, stop. Something else on this Mac already defines `/mnt`.
-    * If the last line doesn't end with `$`, run `echo | sudo tee -a /etc/synthetic.conf` to end it.
-    * If it prints nothing or reports `No such file or directory`, continue. The `printf` command creates the file if it's missing.
+    * If the last line doesn’t end with `$`, run `echo | sudo tee -a /etc/synthetic.conf` to end it.
+    * If it prints nothing or reports `No such file or directory`, continue. The `printf` command creates the file if it’s missing.
 
     Then add the line, unless one of the first two cases applies. Run this command only once, because each run appends another line.
 
@@ -90,7 +90,7 @@ Without this setup, the worker can't create a store's directory, so it fails the
     ls -ld /mnt /mnt/memory
     ```
 
-    The first line ends with `/mnt -> System/Volumes/Data/mnt`. The second line shows the worker's user as the owner of `/mnt/memory`. You can now start the worker.
+    The first line ends with `/mnt -> System/Volumes/Data/mnt`. The second line shows the worker’s user as the owner of `/mnt/memory`. You can now start the worker.
   </Step>
 </Steps>
 
@@ -104,14 +104,14 @@ Two sessions cannot mount the same store on one host at the same time, because b
 
 When the worker claims a work item whose session has memory stores attached, it:
 
-1. **Downloads each store to its `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`).** This is the same directory under `/mnt/memory/` that cloud sessions use, and the session's system prompt describes it to the agent. For example, a store named "User Preferences" lands at `/mnt/memory/user-preferences/`.
+1. **Downloads each store to its `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`).** This is the same directory under `/mnt/memory/` that cloud sessions use, and the session’s system prompt describes it to the agent. For example, a store named “User Preferences” lands at `/mnt/memory/user-preferences/`.
 2. **Opens those directories to the file tools.** The agent works on memories with the same file tools it uses in the working directory.
 3. **Reconciles changes after tool calls,** at most once per sync interval (15 seconds by default). Memories that changed in the store are written to disk, and files the agent changed are uploaded to the store.
 4. **Runs a final sync when the session ends.** It flushes any uploads still pending for up to 30 seconds, then removes the directories it created.
 
-The memory store on Anthropic's side remains the source of truth. [Memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes), redaction, and viewing or editing memories in the Claude Console work as they do for cloud sessions. The agent's memory reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary tool events.
+The memory store on Anthropic’s side remains the source of truth. [Memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes), redaction, and viewing or editing memories in the Claude Console work as they do for cloud sessions. The agent’s memory reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary tool events.
 
-Because each worker syncs on an interval, a change written in one session becomes visible to another running session only after both have synced. That is typically well under a minute at the default interval. Sessions on cloud sandboxes see each other's changes almost immediately.
+Because each worker syncs on an interval, a change written in one session becomes visible to another running session only after both have synced. That is typically well under a minute at the default interval. Sessions on cloud sandboxes see each other’s changes almost immediately.
 
 Each store directory contains a marker file named `.anthropic-memory-store` that ties the directory to its store. Leave it in place: the worker does not sync a directory whose marker is missing or altered.
 
@@ -208,11 +208,11 @@ For a store attached with `access: "read_only"`, the `write` and `edit` tools re
 
 Changes made through `bash`, or through a custom tool or MCP server you serve from the sandbox, are not blocked locally. They are never synced to the store, and the next remote change to that memory overwrites them. If the local copy itself must stay unchanged during the session:
 
-* Disable the `bash` tool for that agent, and give it no custom tool that writes to the sandbox's filesystem.
+* Disable the `bash` tool for that agent, and give it no custom tool that writes to the sandbox’s filesystem.
 * Do not mount the store path read-only. The worker itself must create the directory and write the downloaded memories into it.
 
-Conflicts resolve in favor of the store. Suppose the agent changes a memory file that also changed in the store since the session last synced it. At the next sync, the worker keeps the store's version, overwrites the local file with it, and logs a warning. The `write` and `edit` tools themselves succeed and no error reaches the agent. If the agent's change still applies, it can re-read the file after the sync and make the change again.
+Conflicts resolve in favor of the store. Suppose the agent changes a memory file that also changed in the store since the session last synced it. At the next sync, the worker keeps the store’s version, overwrites the local file with it, and logs a warning. The `write` and `edit` tools themselves succeed and no error reaches the agent. If the agent’s change still applies, it can re-read the file after the sync and make the change again.
 
 ## Troubleshooting
 
-See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount) for the worker's log messages and their fixes.
+See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount) for the worker’s log messages and their fixes.

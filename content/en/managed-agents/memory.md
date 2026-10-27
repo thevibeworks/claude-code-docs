@@ -10,14 +10,14 @@ featureMetadata:
 Each Managed Agents session starts with a fresh context by default. When a session ends, any state the agent built up is gone. Memory stores let the agent carry information across sessions: user preferences, project conventions, prior mistakes, and domain context.
 
 <Note>
-  Don't combine `agent-memory-2026-07-22` with `managed-agents-2026-04-01` on a memory store request: sending both returns a `400` error. If your code sets beta headers explicitly, replace `managed-agents-2026-04-01` with `agent-memory-2026-07-22` on memory store calls rather than adding a second value. Session endpoints, including attaching a memory store to a session, still use `managed-agents-2026-04-01`.
+  Don’t combine `agent-memory-2026-07-22` with `managed-agents-2026-04-01` on a memory store request: sending both returns a `400` error. If your code sets beta headers explicitly, replace `managed-agents-2026-04-01` with `agent-memory-2026-07-22` on memory store calls rather than adding a second value. Session endpoints, including attaching a memory store to a session, still use `managed-agents-2026-04-01`.
 
   `GET /v1/memory_stores/{memory_store_id}/memories` behaves the same under either header: results come back in a stable, server-defined order, and `path_prefix` and `depth` apply the same way.
 </Note>
 
 ## Overview
 
-A **memory store** is a workspace-scoped collection of text documents optimized for Claude. When you attach a store to a session, it is mounted as a directory inside the session's sandbox. The agent reads and writes it with the same file tools it uses for the rest of the filesystem, and a note describing each mount is automatically added to the system prompt, telling the agent where to look. The [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools) is required for these interactions; make sure to enable it during [agent creation](https://platform.claude.com/docs/en/managed-agents/agent-setup). On [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory), that directory is not a live mount. Instead, your environment worker downloads each attached store into your sandbox before the agent's tools run and keeps that copy in sync with the store.
+A **memory store** is a workspace-scoped collection of text documents optimized for Claude. When you attach a store to a session, it is mounted as a directory inside the session’s sandbox. The agent reads and writes it with the same file tools it uses for the rest of the filesystem, and a note describing each mount is automatically added to the system prompt, telling the agent where to look. The [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools) is required for these interactions; make sure to enable it during [agent creation](https://platform.claude.com/docs/en/managed-agents/agent-setup). On [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory), that directory is not a live mount. Instead, your environment worker downloads each attached store into your sandbox before the agent’s tools run and keeps that copy in sync with the store.
 
 Each **memory** in a store is addressed by a path and can be read and edited directly through the API or the Claude Console, allowing for tuning, importing, and exporting.
 
@@ -217,9 +217,9 @@ Pre-load a store with reference material before any agent runs:
 
 ## Attach a memory store to a session
 
-Memory stores are attached in the session's `resources` (csharp, go: `Resources`) array when the [session is created](https://platform.claude.com/docs/en/managed-agents/sessions#creating-a-session). Unlike file resources, memory stores can only be attached at session creation time; adding or removing one from a running session is not supported. You attach memory stores the same way for sessions on cloud and [self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory); self-hosted environments accept only `memory_store` resources.
+Memory stores are attached in the session’s `resources` (csharp, go: `Resources`) array when the [session is created](https://platform.claude.com/docs/en/managed-agents/sessions#creating-a-session). Unlike file resources, memory stores can only be attached at session creation time; adding or removing one from a running session is not supported. You attach memory stores the same way for sessions on cloud and [self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory); self-hosted environments accept only `memory_store` resources.
 
-Optionally include `instructions` (csharp, go: `Instructions`) to provide session-specific guidance for how the agent should use this store. It is shown to the agent alongside the store's `name` (csharp, go: `Name`) and `description` (csharp, go: `Description`), and is capped at 4,096 characters.
+Optionally include `instructions` (csharp, go: `Instructions`) to provide session-specific guidance for how the agent should use this store. It is shown to the agent alongside the store’s `name` (csharp, go: `Name`) and `description` (csharp, go: `Description`), and is capped at 4,096 characters.
 
 You can configure `access` (csharp, go: `Access`) as well. It defaults to `read_write` (shown explicitly in the following example), but `read_only` is also supported.
 
@@ -375,23 +375,23 @@ You can configure `access` (csharp, go: `Access`) as well. It defaults to `read_
 
 A maximum of **8 memory stores** is supported for each session. Attach multiple stores when different parts of memory have different owners or access rules. Common reasons:
 
-* **Shared reference material:** one read-only store attached to many sessions (standards, conventions, domain knowledge), kept separate from each session's own read-write store
-* **Mapping to your product's structure:** one store for each end user, team, or project, while sharing a single agent configuration
+* **Shared reference material:** one read-only store attached to many sessions (standards, conventions, domain knowledge), kept separate from each session’s own read-write store
+* **Mapping to your product’s structure:** one store for each end user, team, or project, while sharing a single agent configuration
 * **Different lifecycles:** a store that outlives any single session, or one you want to archive on its own schedule
 
 ### How the agent accesses memory
 
-Each attached store is mounted inside the session's sandbox as a directory under `/mnt/memory/`. The directory name is the store's display name sanitized to a filesystem-safe slug (lowercased, with each non-alphanumeric run replaced by a single hyphen), so a store named "Demo Memory" mounts at `/mnt/memory/demo-memory/`. The exact path is returned in the `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) field on the session's memory-store resource; read it from there rather than constructing it yourself. The agent reads and writes the store with the standard [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools). Writes under the mount path are persisted back to the store and stay in sync across sessions that share it; writes to any other path under `/mnt/memory/` fail, because the sandbox mounts that parent directory read-only. A short description of each mount (display name, mount path, access mode, store `description` (csharp, go: `Description`), and any `instructions` (csharp, go: `Instructions`)) is automatically added to the system prompt.
+Each attached store is mounted inside the session’s sandbox as a directory under `/mnt/memory/`. The directory name is the store’s display name sanitized to a filesystem-safe slug (lowercased, with each non-alphanumeric run replaced by a single hyphen), so a store named “Demo Memory” mounts at `/mnt/memory/demo-memory/`. The exact path is returned in the `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) field on the session’s memory-store resource; read it from there rather than constructing it yourself. The agent reads and writes the store with the standard [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools). Writes under the mount path are persisted back to the store and stay in sync across sessions that share it; writes to any other path under `/mnt/memory/` fail, because the sandbox mounts that parent directory read-only. A short description of each mount (display name, mount path, access mode, store `description` (csharp, go: `Description`), and any `instructions` (csharp, go: `Instructions`)) is automatically added to the system prompt.
 
 `access` (csharp, go: `Access`) is enforced at the filesystem level: a `read_only` mount rejects writes, whereas writes to a `read_write` mount produce [memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes) attributed to the session.
 
 <Note>
-  On [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory), each store's directory is a local copy that the worker manages rather than a live mount. The worker reconciles each copy with its store after tool calls, at most once per sync interval (15 seconds by default), and once more when the session ends. The agent's `write` and `edit` tools change only the local copy; the worker uploads those changes at its next sync, so another session running on a self-hosted sandbox sees a change only after both workers have synced. Paths under `/mnt/memory/` outside the store directories are not scratch space there: the worker's file tools refuse to write to them, and anything a shell command writes there is never synced to a store.
+  On [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory), each store’s directory is a local copy that the worker manages rather than a live mount. The worker reconciles each copy with its store after tool calls, at most once per sync interval (15 seconds by default), and once more when the session ends. The agent’s `write` and `edit` tools change only the local copy; the worker uploads those changes at its next sync, so another session running on a self-hosted sandbox sees a change only after both workers have synced. Paths under `/mnt/memory/` outside the store directories are not scratch space there: the worker’s file tools refuse to write to them, and anything a shell command writes there is never synced to a store.
 
-  For a `read_only` store, the worker's `write` and `edit` tools refuse changes under that directory and the worker never uploads anything from it. To learn how the worker resolves write conflicts, and what the `bash` tool can still change in a read-only store's local copy, see [Read-only stores and conflicts](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#read-only-stores-and-conflicts).
+  For a `read_only` store, the worker’s `write` and `edit` tools refuse changes under that directory and the worker never uploads anything from it. To learn how the worker resolves write conflicts, and what the `bash` tool can still change in a read-only store’s local copy, see [Read-only stores and conflicts](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#read-only-stores-and-conflicts).
 </Note>
 
-The agent's reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary `agent.tool_use` and `agent.tool_result` events for whichever tool touched the mount.
+The agent’s reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary `agent.tool_use` and `agent.tool_result` events for whichever tool touched the mount.
 
 ## View and edit memories
 
@@ -922,7 +922,7 @@ Past memory versions might be deleted after 30 days. To preserve memory history 
 
 ### List versions
 
-List version history for a store, newest first. The example filters to a single memory's history:
+List version history for a store, newest first. The example filters to a single memory’s history:
 
 <CodeGroup>
   ```bash cURL
@@ -1328,7 +1328,7 @@ To [permanently delete a store](https://platform.claude.com/docs/en/api/beta/mem
 
 ## Best practices for memory management
 
-When a store reaches its 10,000-memory limit, writes to new memories fail: both direct `POST /v1/memory_stores/{memory_store_id}/memories` (python, ruby: `client.beta.memory_stores.memories.create()`; typescript: `client.beta.memoryStores.memories.create()`; go: `client.Beta.MemoryStores.Memories.New()`; java: `client.beta().memoryStores().memories().create()`; csharp: `client.Beta.MemoryStores.Memories.Create()`; php: `$client->beta->memoryStores->memories->create()`; cli: `ant beta:memory-stores:memories create`) calls and the agent's file writes to unmapped paths. Existing memories remain readable and editable. The following practices help you stay well under the limit and recover gracefully if you reach it.
+When a store reaches its 10,000-memory limit, writes to new memories fail: both direct `POST /v1/memory_stores/{memory_store_id}/memories` (python, ruby: `client.beta.memory_stores.memories.create()`; typescript: `client.beta.memoryStores.memories.create()`; go: `client.Beta.MemoryStores.Memories.New()`; java: `client.beta().memoryStores().memories().create()`; csharp: `client.Beta.MemoryStores.Memories.Create()`; php: `$client->beta->memoryStores->memories->create()`; cli: `ant beta:memory-stores:memories create`) calls and the agent’s file writes to unmapped paths. Existing memories remain readable and editable. The following practices help you stay well under the limit and recover gracefully if you reach it.
 
 * **Use focused stores.** Rather than one large general-purpose store, use smaller purpose-built stores: one for each user, one for shared domain knowledge, and one for project-specific context. Each store has its own 10,000-memory limit, so keeping stores scoped reduces the chance any single one fills up.
 
@@ -1336,4 +1336,4 @@ When a store reaches its 10,000-memory limit, writes to new memories fail: both 
 
 * **Attach a new store when it makes sense.** If a store has grown beyond its useful scope, attach a fresh one for new content and attach the original with `read_only` access. The agent can read from both while only writing to the new one.
 
-* **Limit write access where appropriate.** Sessions that only read shared reference material don't need `read_write`. Keeping write access scoped to sessions that actually add new memories makes it easier to track where growth is coming from.
+* **Limit write access where appropriate.** Sessions that only read shared reference material don’t need `read_write`. Keeping write access scoped to sessions that actually add new memories makes it easier to track where growth is coming from.

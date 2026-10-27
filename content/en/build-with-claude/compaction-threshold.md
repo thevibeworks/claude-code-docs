@@ -510,7 +510,7 @@ The default summarization prompt varies by model. Each default instructs Claude 
 You have written a partial transcript for the initial task above. Please write a summary of the transcript. The purpose of this summary is to provide continuity so you can continue to make progress towards solving the task in a future context, where the raw history above may not be accessible and will be replaced with this summary. Write down anything that would be helpful, including the state, next steps, learnings etc. You must wrap your summary in a <summary></summary> block.
 ```
 
-You can provide custom instructions through the `instructions` parameter. Custom instructions don't supplement the default prompt. They replace it completely:
+You can provide custom instructions through the `instructions` parameter. Custom instructions don’t supplement the default prompt. They replace it completely:
 
 <CodeGroup>
   ```bash cURL
@@ -726,7 +726,7 @@ You can provide custom instructions through the `instructions` parameter. Custom
   ```
 </CodeGroup>
 
-On Claude 5.1 and later models, a request with custom `instructions` summarizes from the visible conversation only: earlier thinking blocks are not part of the summarizer's input.
+On Claude 5.1 and later models, a request with custom `instructions` summarizes from the visible conversation only: earlier thinking blocks are not part of the summarizer’s input.
 
 ### Pausing after compaction
 
@@ -1650,7 +1650,7 @@ When the API receives a `compaction` block, all content blocks before it are ign
 * Keep the original messages in your list and let the API handle removing the compacted content
 * Manually drop the compacted messages and only include the compaction block onward
 
-On Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, thinking blocks from before a `compaction` block aren't carried forward, so the summary is all the model has of that earlier work. If you write your own `instructions`, tell the model what the summary must retain; see [Tell the model what to preserve in compaction summaries](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#tell-the-model-what-to-preserve-in-compaction-summaries).
+On Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, thinking blocks from before a `compaction` block aren’t carried forward, so the summary is all the model has of that earlier work. If you write your own `instructions`, tell the model what the summary must retain; see [Tell the model what to preserve in compaction summaries](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#tell-the-model-what-to-preserve-in-compaction-summaries).
 
 ### Streaming
 
@@ -2277,12 +2277,12 @@ Compaction requires an additional sampling step, which contributes to rate limit
 }
 ```
 
-The `iterations` array shows usage for each sampling iteration. When compaction occurs, you'll see a `compaction` iteration followed by the main `message` iteration. The top-level `input_tokens` and `output_tokens` match the `message` iteration exactly in this example because there is only one non-compaction iteration. The final iteration's token counts reflect the effective context size after compaction.
+The `iterations` array shows usage for each sampling iteration. When compaction occurs, you’ll see a `compaction` iteration followed by the main `message` iteration. The top-level `input_tokens` and `output_tokens` match the `message` iteration exactly in this example because there is only one non-compaction iteration. The final iteration’s token counts reflect the effective context size after compaction.
 
 <Note>
   The top-level `input_tokens` and `output_tokens` do not include compaction iteration usage. They reflect the sum of all non-compaction iterations. To calculate total tokens consumed and billed for a request, sum across all entries in the `usage.iterations` array.
 
-  If you previously relied on `usage.input_tokens` and `usage.output_tokens` for cost tracking or auditing, you'll need to update your tracking logic to aggregate across `usage.iterations` when compaction is enabled. With the compaction beta enabled, every response includes `usage.iterations`, even if no compaction occurred. A `compaction` entry appears only when a new compaction is triggered during the request. Re-applying a previous `compaction` block incurs no additional compaction cost, and the top-level usage fields remain accurate in that case.
+  If you previously relied on `usage.input_tokens` and `usage.output_tokens` for cost tracking or auditing, you’ll need to update your tracking logic to aggregate across `usage.iterations` when compaction is enabled. With the compaction beta enabled, every response includes `usage.iterations`, even if no compaction occurred. A `compaction` entry appears only when a new compaction is triggered during the request. Re-applying a previous `compaction` block incurs no additional compaction cost, and the top-level usage fields remain accurate in that case.
 </Note>
 
 ## Combining with other features
@@ -2468,7 +2468,7 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
 
 ## Examples
 
-Here's a complete example of a long-running conversation with compaction:
+Here’s a complete example of a long-running conversation with compaction:
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
@@ -2767,7 +2767,7 @@ Here's a complete example of a long-running conversation with compaction:
 
 On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, remove the `thinking` and `redacted_thinking` blocks from any assistant turn you re-insert after the compaction block, or send `thinking.block_binding.prefix_mismatch_behavior: "drop_block"` with the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers). Those blocks were produced when the full history was present, so they no longer pass the [conversation check](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation). Where the check is enforced, the continuation request is rejected with a 400 error. The preserved text and tool blocks can stay as they are. Letting the API summarize everything, without re-inserting earlier turns, avoids this. On Claude Sonnet 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools`, remove the blocks instead. On Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`, so with `thinking: {"type": "disabled"}`, remove the blocks instead.
 
-Here's an example that uses `pause_after_compaction` to preserve the prior exchange and the current user message (three messages total) instead of summarizing them. It keeps their text and tool blocks unchanged, removes the `thinking` and `redacted_thinking` blocks from the preserved assistant turn, and drops that turn if nothing else is left:
+Here’s an example that uses `pause_after_compaction` to preserve the prior exchange and the current user message (three messages total) instead of summarizing them. It keeps their text and tool blocks unchanged, removes the `thinking` and `redacted_thinking` blocks from the preserved assistant turn, and drops that turn if nothing else is left:
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">

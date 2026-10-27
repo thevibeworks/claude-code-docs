@@ -98,9 +98,9 @@ Agent not found.
 
 [Claude Code](https://code.claude.com/docs/en/overview) can use the `ant` CLI out of the box. With the CLI installed and authenticated, you can ask Claude Code to operate on your API resources directly. For example:
 
-* "List my recent agent sessions and summarize which ones errored."
-* "Upload every PDF in `./reports` to the Files API and print the resulting IDs."
-* "Pull the events for session `session_01...` and tell me where the agent got stuck."
+* “List my recent agent sessions and summarize which ones errored.”
+* “Upload every PDF in `./reports` to the Files API and print the resulting IDs.”
+* “Pull the events for session `session_01...` and tell me where the agent got stuck.”
 
 Claude Code runs `ant` commands, parses the structured output, and reasons over the results (no custom integration code required).
 
@@ -108,7 +108,7 @@ Claude Code runs `ant` commands, parses the structured output, and reasons over 
 
 Scripts that call the API with `curl` or another HTTP client can use the credentials stored by [`ant auth login`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart#authentication) instead of a static API key. The OAuth access token goes in the `Authorization` header as a bearer token; the `x-api-key` header is only for static API keys.
 
-`ant auth print-credentials --access-token` prints the active profile's access token, refreshing it first if it is expired or near expiry:
+`ant auth print-credentials --access-token` prints the active profile’s access token, refreshing it first if it is expired or near expiry:
 
 ```bash cURL
 curl https://api.anthropic.com/v1/messages \

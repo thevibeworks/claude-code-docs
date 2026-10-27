@@ -159,28 +159,28 @@ A group's policy can also turn on Unified Claude for that group, as described un
 
 [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) combines Chat and Cowork into one experience. These switches under **Allowed surfaces** on the **Capabilities** page control Unified Claude for your organization:
 
-* **Opt into the new Chat and Cowork unified view** turns Unified Claude on or off
+* **Opt into the new Chat and Cowork unified view** turns on Unified Claude. From November 10, 2026, Unified Claude is on by default while this switch is off, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, and the switch's description says so where it is.
 * **Chat and Cowork unified view** takes the place of the separate **Chat** and **Cowork** switches when you turn on the **Opt into the new Chat and Cowork unified view** switch. Turn on the **Chat and Cowork unified view** switch to give users the unified view. Turn it off to turn Chat and Cowork off entirely. Code is not affected.
 
 A group's policy has the same two switches in its **Capabilities** section.
 
-Unified Claude is in beta. In an organization with no saved configuration, the console starts with Unified Claude on and stores it when you first click **Save changes** on the **Connection** page. In an organization with a saved configuration, nothing changes until you turn Unified Claude on.
+Unified Claude is in beta. In an organization with no saved configuration, the console starts with Unified Claude on and stores it when you first click **Save changes** on the **Connection** page. Where the saved configuration leaves the **Opt into the new Chat and Cowork unified view** switch off, Unified Claude stays off until you turn it on or, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, until November 10, 2026. The default goes by the settings each user gets from the organization and their groups.
 
-While Unified Claude is on, it overrides the **Chat**, [**Advanced file analysis**](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off.
+When you turn on Unified Claude yourself, it overrides the **Chat**, [**Advanced file analysis**](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off. On by default, it overrides the **Chat** and **Advanced file analysis** switches where the **Cowork** switch is on, and follows all three where the **Cowork** switch is off.
 
 > [!WARNING]
 >
-> While Unified Claude is on for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off. You can't return a group to separate Chat and Cowork until you turn Unified Claude off for your organization.
+> When you turn on Unified Claude for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off.
 >
-> To keep Chat, advanced file analysis, and Cowork off for a group, turn off the **Chat and Cowork unified view** switch in the group's policy. Where Unified Claude is still off for your organization, set the group's switches before you turn Unified Claude on. Turn on the group's **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is on, turn it off. To keep a group's own **Chat** and **Cowork** switches in effect, keep Unified Claude off for your organization. Turn it on only in the policies of the groups that should have it. For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
+> To keep Chat, advanced file analysis, and Cowork off for a group, turn off the **Chat and Cowork unified view** switch in the group's policy. Where Unified Claude is still off for your organization, set the group's switches before you turn Unified Claude on. Turn on the group's **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is on, turn it off. For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
 
 To turn on Unified Claude for your whole organization, open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on. Click **Save changes**.
 
-To turn on Unified Claude for some groups only:
+Where Unified Claude isn't on by default, you can turn it on for some groups only:
 
 **1. Make sure Unified Claude is off for your organization**
 
-Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**.
+Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**. From November 10, 2026, continue only if the switch's description doesn't say that Unified Claude is on by default.
 
 **2. Open the group's policy**
 
@@ -194,12 +194,12 @@ In the policy's **Capabilities** section, turn on the **Opt into the new Chat an
 
 Click **Save changes**.
 
-Turn off Unified Claude for your organization or for a group:
+From November 10, 2026, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, these steps leave Unified Claude on by default. Until then, they turn it off for your organization or for a group:
 
 * **For your whole organization**: open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn off the **Opt into the new Chat and Cowork unified view** switch. The **Chat** and **Cowork** switches reappear in the positions they had. Switches that nobody set are at their defaults. Cowork is on, and Chat and advanced file analysis are off. Set the switches as you want, then click **Save changes**.
 * **For a group**: while Unified Claude is off for your organization, open **Organization settings**, go to the **Permission policies** page under **People**, and open the group's policy. If the policy has other settings, click **Reset to default** in the **Opt into the new Chat and Cowork unified view** row, then click **Save changes**. If the policy has no other settings, remove the policy with **Remove policy** on the **Permission policies** page. The **Chat** and **Cowork** switches then apply to the group again.
 
-Turning on Unified Claude sets the [`desktopHome`](https://claude.com/docs/third-party/claude-desktop/configuration#desktophome) key, and turning it off removes the key. The **Chat and Cowork unified view** switch saves the value `standard` when it is on and `off` when it is off. With the value `off`, the **Opt into the new Chat and Cowork unified view** switch stays on, and Chat and Cowork are off entirely. Users' apps pick up the change as described under [Configuration updates](#configuration-updates).
+Turning on the **Opt into the new Chat and Cowork unified view** switch sets the [`desktopHome`](https://claude.com/docs/third-party/claude-desktop/configuration#desktophome) key, and turning it off removes the key. The **Chat and Cowork unified view** switch saves the value `standard` when it is on and `off` when it is off. With the value `off`, the **Opt into the new Chat and Cowork unified view** switch stays on, and Chat and Cowork are off entirely. Users' apps pick up the change as described under [Configuration updates](#configuration-updates).
 
 ### Plugin marketplaces
 

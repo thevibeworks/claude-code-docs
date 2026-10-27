@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner
 description: Use the SDK's tool runner to handle the agentic loop, error wrapping, and type safety automatically.
 ---
 
-The tool runner handles the agentic loop, error wrapping, and type safety so you don't have to. When you need human-in-the-loop approval, custom logging, or conditional execution, use the [manual loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) instead.
+The tool runner handles the agentic loop, error wrapping, and type safety so you don’t have to. When you need human-in-the-loop approval, custom logging, or conditional execution, use the [manual loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) instead.
 
 Instead of manually handling tool calls, tool results, and conversation management, the tool runner automatically:
 
@@ -21,14 +21,14 @@ Instead of manually handling tool calls, tool results, and conversation manageme
 
 Define tools using the SDK helpers, then use the tool runner to run them.
 
-Depending on the SDK's tool signature, a tool returns its result as a string or as content blocks (text, image, or document blocks), so a tool can return multimodal results. A returned string becomes a single text content block. To return structured data, such as a JSON object or a number, encode it as a string first.
+Depending on the SDK’s tool signature, a tool returns its result as a string or as content blocks (text, image, or document blocks), so a tool can return multimodal results. A returned string becomes a single text content block. To return structured data, such as a JSON object or a number, encode it as a string first.
 
 <Tabs exclude="shell">
   <Tab title="Python">
     Use the `@beta_tool` decorator to define tools with type hints and docstrings.
 
     <Note>
-      If you're using the async client, replace `@beta_tool` with `@beta_async_tool` and define the function with `async def`.
+      If you’re using the async client, replace `@beta_tool` with `@beta_async_tool` and define the function with `async def`.
     </Note>
 
     ```python
@@ -251,7 +251,7 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
   </Tab>
 
   <Tab title="Go">
-    Define a tool with `toolrunner.NewBetaToolFromJSONSchema`. The handler's input type is a struct with `jsonschema:` tags. The SDK reflects on it to generate the JSON schema.
+    Define a tool with `toolrunner.NewBetaToolFromJSONSchema`. The handler’s input type is a struct with `jsonschema:` tags. The SDK reflects on it to generate the JSON schema.
 
     ```go
     package main
@@ -443,7 +443,7 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
   </Tab>
 
   <Tab title="PHP">
-    Define each tool as a `BetaRunnableTool` that pairs the tool's JSON schema definition with a closure that runs it.
+    Define each tool as a `BetaRunnableTool` that pairs the tool’s JSON schema definition with a closure that runs it.
 
     ```php
     <?php
@@ -589,7 +589,7 @@ The tool runner is an iterable that yields messages from Claude. On each iterati
 
 You can end the loop at any iteration with a `break` statement. The runner loops until Claude returns a message without a tool use, or until it reaches `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) if you set it.
 
-If you don't need intermediate messages, you can get the final message directly:
+If you don’t need intermediate messages, you can get the final message directly:
 
 <Tabs exclude="shell">
   <Tab title="Python">
@@ -773,13 +773,13 @@ If you don't need intermediate messages, you can get the final message directly:
 
 ## Advanced usage
 
-Within the loop, you can read each response message and modify the runner's state before the next API call. Each iteration follows this lifecycle:
+Within the loop, you can read each response message and modify the runner’s state before the next API call. Each iteration follows this lifecycle:
 
 1. The runner sends a request to the Messages API with its current state.
 
 2. The runner yields the response message to your loop body.
 
-3. Your loop body runs. You can read the message and optionally modify the runner's state.
+3. Your loop body runs. You can read the message and optionally modify the runner’s state.
 
 4. When your loop body returns, the runner checks whether you modified its message history.
 
@@ -812,13 +812,13 @@ sequenceDiagram
 
 By default, the runner manages conversation state for you: after each tool-call turn, it appends the assistant message and any tool results to its own message history. You take over message history when you want to retry a turn (discard the response and resend), inject a follow-up message, or build the tool result yourself.
 
-You take over by modifying the runner's messages from inside the loop body. The exact method depends on the SDK. See the per-language tabs that follow.
+You take over by modifying the runner’s messages from inside the loop body. The exact method depends on the SDK. See the per-language tabs that follow.
 
 When you take over for an iteration, the runner does not append the assistant message or tool results from that turn. You become responsible for keeping the conversation valid: append the assistant message and a tool result yourself (if you want the turn to count), modify state conditionally so the loop can still exit when there are no tool calls, and pass `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) to bound the loop. The SDK supports `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) in all seven languages.
 
 <Tabs exclude="shell">
   <Tab title="Python">
-    Use `generate_tool_call_response()` to inspect or compute the tool result. Calling `append_messages()` inside the loop tells the runner you're managing history yourself, so include the assistant message and tool result in what you append.
+    Use `generate_tool_call_response()` to inspect or compute the tool result. Calling `append_messages()` inside the loop tells the runner you’re managing history yourself, so include the assistant message and tool result in what you append.
 
     ```python
     runner = client.beta.messages.tool_runner(
@@ -852,7 +852,7 @@ When you take over for an iteration, the runner does not append the assistant me
   </Tab>
 
   <Tab title="TypeScript">
-    Use `runner.params` to read the current request parameters and `setMessagesParams()` to replace them. Calling `setMessagesParams()` or `pushMessages()` inside the loop tells the runner you're managing state yourself: the assistant message and tool result from this iteration are dropped, and the next request goes out with your state.
+    Use `runner.params` to read the current request parameters and `setMessagesParams()` to replace them. Calling `setMessagesParams()` or `pushMessages()` inside the loop tells the runner you’re managing state yourself: the assistant message and tool result from this iteration are dropped, and the next request goes out with your state.
 
     The following example retries a truncated response with a larger `max_tokens` budget.
 
@@ -892,7 +892,7 @@ When you take over for an iteration, the runner does not append the assistant me
   </Tab>
 
   <Tab title="C#">
-    Calling `SetParams()` or `PushMessages()` flags state as modified, which causes the runner to skip its auto-append for that turn. The C# runner still runs the matched tools for that turn and discards their auto-built results, so a tool you also run yourself inside the loop body runs twice unless you account for it. When you take over, push the assistant message and a tool result yourself. Otherwise the conversation won't make forward progress. The C# runner always exits when a response has no tool calls, so condition any state mutation on the presence of a `tool_use` block.
+    Calling `SetParams()` or `PushMessages()` flags state as modified, which causes the runner to skip its auto-append for that turn. The C# runner still runs the matched tools for that turn and discards their auto-built results, so a tool you also run yourself inside the loop body runs twice unless you account for it. When you take over, push the assistant message and a tool result yourself. Otherwise the conversation won’t make forward progress. The C# runner always exits when a response has no tool calls, so condition any state mutation on the presence of a `tool_use` block.
 
     ```csharp
     var runner = client.Beta.Messages.ToolRunner(
@@ -1022,7 +1022,7 @@ When you take over for an iteration, the runner does not append the assistant me
   </Tab>
 
   <Tab title="PHP">
-    Use `setMessagesParams()` and `pushMessages()` to modify the runner's state, and `getParams()` to read it. Calling either setter inside the loop tells the runner to skip its automatic append, so the conversation continues from your modified state instead.
+    Use `setMessagesParams()` and `pushMessages()` to modify the runner’s state, and `getParams()` to read it. Calling either setter inside the loop tells the runner to skip its automatic append, so the conversation continues from your modified state instead.
 
     The following example doubles `max_tokens` and retries when a response is cut off.
 
@@ -1096,13 +1096,13 @@ When you take over for an iteration, the runner does not append the assistant me
 
 ### Automatic context management
 
-For long-running agentic tasks, the TypeScript and Ruby tool runners support automatic [compaction](https://platform.claude.com/docs/en/build-with-claude/context-editing#client-side-compaction-sdk), which generates summaries when token usage exceeds a threshold so the conversation can continue beyond context window limits. Both SDKs have deprecated this client-side option in favor of [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold), which works with every SDK's tool runner through the `context_management` request parameter. The Python SDK (v1.0 and later) and the Go, Java, C#, and PHP tool runners don't include client-side compaction. The tool runner has a `compact_before_next_turn()` (typescript, java, php: `compactBeforeNextTurn()`; csharp, go: `CompactBeforeNextTurn()`) helper for on-demand compaction. See [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop). Use it or a `context_management` compaction edit on a runner, not both.
+For long-running agentic tasks, the TypeScript and Ruby tool runners support automatic [compaction](https://platform.claude.com/docs/en/build-with-claude/context-editing#client-side-compaction-sdk), which generates summaries when token usage exceeds a threshold so the conversation can continue beyond context window limits. Both SDKs have deprecated this client-side option in favor of [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold), which works with every SDK’s tool runner through the `context_management` request parameter. The Python SDK (v1.0 and later) and the Go, Java, C#, and PHP tool runners don’t include client-side compaction. The tool runner has a `compact_before_next_turn()` (typescript, java, php: `compactBeforeNextTurn()`; csharp, go: `CompactBeforeNextTurn()`) helper for on-demand compaction. See [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop). Use it or a `context_management` compaction edit on a runner, not both.
 
 ### Debugging tool execution
 
-When a tool throws an exception, the tool runner catches it and returns the error to Claude as a tool result with `is_error: true`. The tool result carries the exception's message (in Python, its type and message), not the full stack trace.
+When a tool throws an exception, the tool runner catches it and returns the error to Claude as a tool result with `is_error: true`. The tool result carries the exception’s message (in Python, its type and message), not the full stack trace.
 
-What the SDK logs is language-specific. The Python SDK logs the full exception, including its stack trace, through the standard `logging` module whenever a tool raises an unhandled exception. The Python, TypeScript, and Java SDKs read the `ANTHROPIC_LOG` environment variable to turn on the SDK's logging, which includes request and response detail:
+What the SDK logs is language-specific. The Python SDK logs the full exception, including its stack trace, through the standard `logging` module whenever a tool raises an unhandled exception. The Python, TypeScript, and Java SDKs read the `ANTHROPIC_LOG` environment variable to turn on the SDK’s logging, which includes request and response detail:
 
 ```bash
 # Log at info level
@@ -1112,7 +1112,7 @@ export ANTHROPIC_LOG=info
 export ANTHROPIC_LOG=debug
 ```
 
-The Go, Ruby, C#, and PHP SDKs don't read `ANTHROPIC_LOG`. Outside Python, no SDK logs a failed tool: to see why a tool failed, catch and log the exception inside the tool function before returning or rethrowing it.
+The Go, Ruby, C#, and PHP SDKs don’t read `ANTHROPIC_LOG`. Outside Python, no SDK logs a failed tool: to see why a tool failed, catch and log the exception inside the tool function before returning or rethrowing it.
 
 ### Intercepting tool errors
 
@@ -1199,7 +1199,7 @@ By default, the tool runner passes tool errors back to Claude, which can then re
   </Tab>
 
   <Tab title="C#">
-    The C# tool runner doesn't expose a hook for inspecting the tool result before it's sent to Claude. To control error content, throw `BetaToolError` from inside the tool body. The runner converts it to a `tool_result` with `is_error: true` and the content you supply.
+    The C# tool runner doesn’t expose a hook for inspecting the tool result before it’s sent to Claude. To control error content, throw `BetaToolError` from inside the tool body. The runner converts it to a `tool_result` with `is_error: true` and the content you supply.
 
     ```csharp
     var client = new AnthropicClient();
@@ -1252,15 +1252,15 @@ By default, the tool runner passes tool errors back to Claude, which can then re
   </Tab>
 
   <Tab title="Go">
-    Intercepting tool errors before they're sent to Claude is not currently supported in the Go SDK. The runner converts an error returned from your handler into a tool result with `is_error: true` internally. To customize the error content, catch the error inside your handler and return a result instead of returning the error.
+    Intercepting tool errors before they’re sent to Claude is not currently supported in the Go SDK. The runner converts an error returned from your handler into a tool result with `is_error: true` internally. To customize the error content, catch the error inside your handler and return a result instead of returning the error.
   </Tab>
 
   <Tab title="Java">
-    Intercepting tool errors before they're sent to Claude is not currently supported in the Java SDK. The runner catches any exception thrown from a tool's function and converts it into a tool result with `is_error: true` automatically. To control the error content, catch the exception inside the function and return your own content.
+    Intercepting tool errors before they’re sent to Claude is not currently supported in the Java SDK. The runner catches any exception thrown from a tool’s function and converts it into a tool result with `is_error: true` automatically. To control the error content, catch the exception inside the function and return your own content.
   </Tab>
 
   <Tab title="PHP">
-    The PHP tool runner does not currently expose tool results before they are appended. Exceptions thrown from a tool's `run` closure are caught and sent to Claude as tool results with `is_error: true` automatically. To inspect or replace error content, use the manual `pushMessages()` pattern shown in [Modifying tool results](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner#modifying-tool-results).
+    The PHP tool runner does not currently expose tool results before they are appended. Exceptions thrown from a tool’s `run` closure are caught and sent to Claude as tool results with `is_error: true` automatically. To inspect or replace error content, use the manual `pushMessages()` pattern shown in [Modifying tool results](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner#modifying-tool-results).
   </Tab>
 
   <Tab title="Ruby">
@@ -1316,7 +1316,7 @@ By default, the tool runner passes tool errors back to Claude, which can then re
 
 ### Modifying tool results
 
-You can modify tool results before they're sent back to Claude. This is useful for adding metadata such as `cache_control` to enable [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) on tool results, or for transforming the tool output.
+You can modify tool results before they’re sent back to Claude. This is useful for adding metadata such as `cache_control` to enable [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) on tool results, or for transforming the tool output.
 
 <Tabs exclude="shell">
   <Tab title="Python">
@@ -1407,7 +1407,7 @@ You can modify tool results before they're sent back to Claude. This is useful f
   </Tab>
 
   <Tab title="C#">
-    Modifying tool results before they're appended (for example, to add `cache_control`) is not currently supported in the C# SDK. The runner constructs the `tool_result` block internally and provides no hook to alter it.
+    Modifying tool results before they’re appended (for example, to add `cache_control`) is not currently supported in the C# SDK. The runner constructs the `tool_result` block internally and provides no hook to alter it.
   </Tab>
 
   <Tab title="Go">
@@ -1482,7 +1482,7 @@ You can modify tool results before they're sent back to Claude. This is useful f
   </Tab>
 
   <Tab title="PHP">
-    The PHP tool runner has no callback to mutate the auto-generated `tool_result` block. To add fields such as `cache_control`, build the tool result yourself and push it. Calling `pushMessages()` skips the runner's auto-append for that turn.
+    The PHP tool runner has no callback to mutate the auto-generated `tool_result` block. To add fields such as `cache_control`, build the tool result yourself and push it. Calling `pushMessages()` skips the runner’s auto-append for that turn.
 
     ```php
     $client = new Client();
@@ -1576,7 +1576,7 @@ You can modify tool results before they're sent back to Claude. This is useful f
 
 ## Streaming
 
-Enable streaming to process each turn's response incrementally. Each iteration yields a stream object that you can iterate for events.
+Enable streaming to process each turn’s response incrementally. Each iteration yields a stream object that you can iterate for events.
 
 <Tabs exclude="shell">
   <Tab title="Python">
@@ -1768,7 +1768,7 @@ Enable streaming to process each turn's response incrementally. Each iteration y
 
 <CardGroup cols={2}>
   <Card title="Strict tool use" icon="check" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use">
-    Enforce JSON Schema compliance on Claude's tool inputs with grammar-constrained sampling.
+    Enforce JSON Schema compliance on Claude’s tool inputs with grammar-constrained sampling.
   </Card>
 
   <Card title="Handle tool calls" icon="arrows-left-right" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls">

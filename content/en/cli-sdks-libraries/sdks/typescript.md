@@ -55,7 +55,7 @@ for (const block of message.content) {
 }
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication). If your API key is a [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn’t scoped to a workspace, set the workspace ID in the `anthropic-workspace-id` request header; [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) shows the per-request option for this SDK.
 
 ## Request and response types
 
@@ -279,7 +279,7 @@ await anthropic.files.upload({ file: mcpResourceToFile(fileResource) });
 
 ### MCP error handling
 
-The conversion functions throw `UnsupportedMCPValueError` if an MCP value isn't supported by the Claude API (for example, unsupported content type, unsupported MIME type, non-HTTP/HTTPS resource link).
+The conversion functions throw `UnsupportedMCPValueError` if an MCP value isn’t supported by the Claude API (for example, unsupported content type, unsupported MIME type, non-HTTP/HTTPS resource link).
 
 ## Message batches
 
@@ -545,7 +545,7 @@ const message = await client.messages.create(
 
 ### Accessing raw Response data (for example, headers)
 
-The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return. This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
+The “raw” `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return. This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
 
 You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data. Unlike `.asResponse()`, this method consumes the body, returning once it is parsed.
 
@@ -604,7 +604,7 @@ At the `'debug'` level, all HTTP requests and responses are logged, including he
 
 #### Custom logger
 
-By default, this library logs to `globalThis.console`. You can also provide a custom logger. Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, open an issue.
+By default, this library logs to `globalThis.console`. You can also provide a custom logger. Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn’t work, open an issue.
 
 When providing a custom logger, the `logLevel` option still controls which messages are emitted; messages below the configured level are not sent to your logger.
 
@@ -640,7 +640,7 @@ await client.post("/some/path", {
 
 #### Undocumented request parameters
 
-To make requests using undocumented parameters, you can use `// @ts-expect-error` on the undocumented parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you send are sent as-is.
+To make requests using undocumented parameters, you can use `// @ts-expect-error` on the undocumented parameter. This library doesn’t validate at runtime that the request matches the type, so any extra values you send are sent as-is.
 
 ```typescript
 client.messages.create({
@@ -734,7 +734,7 @@ To modify proxy behavior, you can provide custom `fetchOptions` that add runtime
 
 ## Beta features
 
-Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
+Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude’s capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
 You can access most beta API features through the `beta` property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
 
@@ -760,7 +760,7 @@ const response = await client.beta.messages.create({
   In certain scenarios where enabling browser support might not pose significant risks:
 
   * **Internal tools:** If the application is used solely within a controlled internal environment where the users are trusted, the risk of credential exposure can be mitigated.
-  * **Development or debugging purpose:** Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren't also used in production environments, or are frequently rotated.
+  * **Development or debugging purpose:** Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren’t also used in production environments, or are frequently rotated.
 </Accordion>
 
 ## Platform integrations
@@ -796,7 +796,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 1. Changes that only affect static types, without breaking runtime behavior.
 2. Changes to library internals that are technically public but not intended or documented for external use.
-3. Changes that aren't expected to impact the vast majority of users in practice.
+3. Changes that aren’t expected to impact the vast majority of users in practice.
 
 Backward compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 

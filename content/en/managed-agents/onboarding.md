@@ -18,10 +18,10 @@ The [visual interface](https://platform.claude.com/workspaces/default/agent-quic
 
 * **Model and system prompt:** Pick a model and write the system prompt in a full-width editor.
 * **MCP servers:** Add remote MCP servers by URL and authenticate your agent to take action on your behalf.
-* **Tools:** Extend your agent's capabilities using a pre-built agent toolset and MCP tools.
-* **Skills:** Attach Anthropic or custom skills from your organization's library.
+* **Tools:** Extend your agent’s capabilities using a pre-built agent toolset and MCP tools.
+* **Skills:** Attach Anthropic or custom skills from your organization’s library.
 
-As you configure, Console shows the equivalent API request so you can copy it into your code once you're satisfied.
+As you configure, Console shows the equivalent API request so you can copy it into your code once you’re satisfied.
 
 ## Testing an agent
 

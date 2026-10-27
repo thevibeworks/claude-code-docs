@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/pr
 description: Behavioral differences and prompting patterns for Claude Fable 5 and Claude Mythos 5, covering effort, instruction following, long runs, memory, and scaffolding changes.
 ---
 
-This guide covers the prompting and scaffolding patterns specific to Claude Fable 5 and Claude Mythos 5. For the model's specifications, pricing, and availability, see [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview). For techniques that apply across all current Claude models, see [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
+This guide covers the prompting and scaffolding patterns specific to Claude Fable 5 and Claude Mythos 5. For the model’s specifications, pricing, and availability, see [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview). For techniques that apply across all current Claude models, see [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
 
 Claude Fable 5 takes on problems that were previously too complex, long-running, or ambiguous for prior models, and is particularly effective at end-to-end work that takes a person hours, days, or weeks to complete. The teams seeing the best outcomes apply Claude Fable 5 to their hardest unsolved problems; testing it only on simpler workloads tends to undersell its capability range. It also performs reliably on more straightforward tasks.
 
@@ -13,7 +13,7 @@ Claude Fable 5 has several behavioral differences from Claude Opus 4.8 that migh
 <Note>
   For how thinking works on Claude Fable 5 and Claude Mythos 5 (adaptive thinking only, summarized-only thinking output, no extended thinking budgets), see [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking). For the `refusal` stop reason and fallback handling, see [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
 
-  Claude Fable 5 runs safety classifiers that target offensive cybersecurity techniques (such as building exploits, malware, or attack tooling), biology and life sciences content (such as lab methods or molecular mechanisms), and extraction of the model's summarized thinking. Benign cybersecurity work and beneficial life sciences tasks might also trigger these safeguards. To re-route declined requests automatically, configure [server-side or client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) to Claude Opus 4.8.
+  Claude Fable 5 runs safety classifiers that target offensive cybersecurity techniques (such as building exploits, malware, or attack tooling), biology and life sciences content (such as lab methods or molecular mechanisms), and extraction of the model’s summarized thinking. Benign cybersecurity work and beneficial life sciences tasks might also trigger these safeguards. To re-route declined requests automatically, configure [server-side or client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) to Claude Opus 4.8.
 </Note>
 
 ## Capability improvements
@@ -50,7 +50,7 @@ Don't add features, refactor, or introduce abstractions beyond what the task req
 
 ## Strong instruction following
 
-Instruction-following is improved enough that you can steer most behaviors with a brief instruction rather than enumerating each behavior by name. For example, when un-steered, Claude Fable 5 can elaborate beyond what the task needs, especially at higher effort settings: surveying options it won't pursue, explaining root causes at length, producing heavily structured PR descriptions, or writing comments that narrate what the next line does. A short brevity instruction is as effective as listing each pattern:
+Instruction-following is improved enough that you can steer most behaviors with a brief instruction rather than enumerating each behavior by name. For example, when un-steered, Claude Fable 5 can elaborate beyond what the task needs, especially at higher effort settings: surveying options it won’t pursue, explaining root causes at length, producing heavily structured PR descriptions, or writing comments that narrate what the next line does. A short brevity instruction is as effective as listing each pattern:
 
 ```text wrap
 Lead with the outcome. Your first sentence after finishing should answer "what happened" or "what did you find": the thing the user would ask for if they said "just give me the TLDR." Supporting detail and reasoning come after. Being readable and being concise are different things, and readability matters more.
@@ -66,7 +66,7 @@ Pause for the user only when the work genuinely requires them: a destructive or 
 
 ## Ground progress claims during long runs
 
-On long autonomous runs, instruct Claude Fable 5 to audit progress against actual tool results. In Anthropic's testing, this nearly eliminated fabricated status reports even on tasks designed to elicit them:
+On long autonomous runs, instruct Claude Fable 5 to audit progress against actual tool results. In Anthropic’s testing, this nearly eliminated fabricated status reports even on tasks designed to elicit them:
 
 ```text wrap
 Before reporting progress, audit each claim against a tool result from this session. Only report work you can point to evidence for; if something is not yet verified, say so explicitly. Report outcomes faithfully: if tests fail, say so with the output; if a step was skipped, say that; when something is done and verified, state it plainly without hedging.
@@ -104,7 +104,7 @@ Reflect on the previous sessions we've had together. Use subagents to identify c
 
 ## Rare cases of early stopping
 
-Deep into a long session, Claude Fable 5 can occasionally end a turn with a text-only statement of intent ("I'll now run X") without issuing the corresponding tool call, or pause to ask permission when it already has enough to proceed. A "continue" or "go ahead and do it end to end" suffices. To define when pausing is appropriate, pair this with the checkpoint instruction in [Strong instruction following](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5#strong-instruction-following). For autonomous pipelines, add a system reminder:
+Deep into a long session, Claude Fable 5 can occasionally end a turn with a text-only statement of intent (“I’ll now run X”) without issuing the corresponding tool call, or pause to ask permission when it already has enough to proceed. A “continue” or “go ahead and do it end to end” suffices. To define when pausing is appropriate, pair this with the checkpoint instruction in [Strong instruction following](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5#strong-instruction-following). For autonomous pipelines, add a system reminder:
 
 ```text wrap
 You are operating autonomously. The user is not watching in real time and cannot answer questions mid-task, so asking "Want me to…?" or "Shall I…?" will block the work. For reversible actions that follow from the original request, proceed without asking. Offering follow-ups after the task is done is fine; asking permission after already discussing with the user before doing the work is not. Before ending your turn, check your last paragraph. If it is a plan, an analysis, a question, a list of next steps, or a promise about work you have not done ("I'll…", "let me know when…"), do that work now with tool calls. End your turn only when the task is complete or you are blocked on input only the user can provide.
@@ -120,7 +120,7 @@ You have ample context remaining. Do not stop, summarize, or suggest a new sessi
 
 ## Give the reason, not only the request
 
-Claude Fable 5 tends to perform better when the prompt states the intent behind a request: context lets it connect the task to relevant information rather than inferring intent on its own. Provide context about why you're asking, especially for long-running agents drawing on multiple workstreams:
+Claude Fable 5 tends to perform better when the prompt states the intent behind a request: context lets it connect the task to relevant information rather than inferring intent on its own. Provide context about why you’re asking, especially for long-running agents drawing on multiple workstreams:
 
 ```text wrap
 I'm working on [the larger task] for [who it's for]. They need [what the output enables]. With that in mind: [request].
@@ -128,7 +128,7 @@ I'm working on [the larger task] for [who it's for]. They need [what the output 
 
 ## Readability when communicating with the user
 
-In extended or agentic conversations (many tool calls, large working context), Claude Fable 5 can produce text that's hard to follow: dense arrow-chain shorthand, deep implementation detail, references to thinking the user never saw, or overly technical phrasing. A communication-style addendum mitigates this:
+In extended or agentic conversations (many tool calls, large working context), Claude Fable 5 can produce text that’s hard to follow: dense arrow-chain shorthand, deep implementation detail, references to thinking the user never saw, or overly technical phrasing. A communication-style addendum mitigates this:
 
 ```text wrap
 Terse shorthand is fine between tool calls. Your final summary is different: it's for a reader who didn't see any of that.
@@ -140,7 +140,7 @@ When you write the summary at the end, drop the working shorthand. Write complet
 
 ## Create a send-to-user tool
 
-When running long, asynchronous agents, give the agent a way to surface a message the user must see exactly as written, without ending its turn: a deliverable (a generated code snippet or a drafted message), a progress update with specific numbers, or a direct reply to a question the user asked mid-loop. The tool's input is the message to display; when Claude calls it, render the input directly in your UI and return a simple acknowledgement as the tool result. Tool inputs are never summarized, so the content arrives intact.
+When running long, asynchronous agents, give the agent a way to surface a message the user must see exactly as written, without ending its turn: a deliverable (a generated code snippet or a drafted message), a progress update with specific numbers, or a direct reply to a question the user asked mid-loop. The tool’s input is the message to display; when Claude calls it, render the input directly in your UI and return a simple acknowledgement as the tool result. Tool inputs are never summarized, so the content arrives intact.
 
 ```json
 {
@@ -159,7 +159,7 @@ When running long, asynchronous agents, give the agent a way to surface a messag
 }
 ```
 
-Add this tool whenever your UX depends on delivering content or direct user interactions verbatim mid-task. For agents that only narrate routine progress, the model's own summaries are typically adequate. Defining the tool is not sufficient on its own; without an instruction in the system prompt, Claude Fable 5 rarely calls it. Pair the tool with elicitation language such as:
+Add this tool whenever your UX depends on delivering content or direct user interactions verbatim mid-task. For agents that only narrate routine progress, the model’s own summaries are typically adequate. Defining the tool is not sufficient on its own; without an instruction in the system prompt, Claude Fable 5 rarely calls it. Pair the tool with elicitation language such as:
 
 ```text wrap
 Between tool calls, when you have content the user must read verbatim (a partial deliverable, a direct answer to their question), call the send_to_user tool with that content. Use send_to_user only for user-facing content, not for narration or reasoning.
@@ -169,8 +169,8 @@ Do not route narration or internal reasoning through `send_to_user`; over-callin
 
 ## Recommended scaffolding changes
 
-* **Start at the top of your difficulty range.** Pick a task harder than what you'd assign to prior models, and have Claude Fable 5 scope it, ask clarifying questions, and carry it out.
+* **Start at the top of your difficulty range.** Pick a task harder than what you’d assign to prior models, and have Claude Fable 5 scope it, ask clarifying questions, and carry it out.
 * **Make self-verification explicit in long-run prompts.** Separate, fresh-context verifier subagents tend to outperform self-critique. For long-running tasks, instruct: `Establish a method for checking your own work at an interval of [X] as you build. Run this every [X interval], verifying your work with subagents against the specification.`
 * **Refactor existing prompts and skills.** Skills developed for prior models are often too prescriptive for Claude Fable 5 and can degrade output quality. Review and consider removing older instructions if default performance is better. Claude Fable 5 also does a good job of updating skills as it works, based on what it learns from the current task.
-* **Don't instruct Claude to reproduce its reasoning in the response.** Prompts, skills, or harness instructions that tell the model to echo, transcribe, or explain its internal reasoning as response text might trigger the [`reasoning_extraction` refusal category](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) on Claude Fable 5. Server-side fallback with `fallbacks: "default"` doesn't retry requests declined with `reasoning_extraction`; that refusal is returned to you. Audit existing skills and system prompts for reflection or show-your-thinking instructions when migrating. If your application needs reasoning visibility, read the structured `thinking` blocks from [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead, and use a [send-to-user tool](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5#create-a-send-to-user-tool) to surface progress during long runs. You can still ask for a short explanation of the answer or a summary of the actions taken; see [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
+* **Don’t instruct Claude to reproduce its reasoning in the response.** Prompts, skills, or harness instructions that tell the model to echo, transcribe, or explain its internal reasoning as response text might trigger the [`reasoning_extraction` refusal category](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) on Claude Fable 5. Server-side fallback with `fallbacks: "default"` doesn’t retry requests declined with `reasoning_extraction`; that refusal is returned to you. Audit existing skills and system prompts for reflection or show-your-thinking instructions when migrating. If your application needs reasoning visibility, read the structured `thinking` blocks from [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead, and use a [send-to-user tool](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5#create-a-send-to-user-tool) to surface progress during long runs. You can still ask for a short explanation of the answer or a summary of the actions taken; see [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
 * **Create a send-to-user tool.** For long, asynchronous agents, a client-side tool delivers messages to the user verbatim without ending the turn. See [Create a send-to-user tool](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5#create-a-send-to-user-tool).

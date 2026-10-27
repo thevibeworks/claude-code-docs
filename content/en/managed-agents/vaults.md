@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-Vaults and credentials are authentication primitives that let you register credentials for third-party services once and reference them by ID at session creation. This means you don't need to run your own secret store, transmit tokens on every call, or lose track of which end user an agent acted on behalf of.
+Vaults and credentials are authentication primitives that let you register credentials for third-party services once and reference them by ID at session creation. This means you don’t need to run your own secret store, transmit tokens on every call, or lose track of which end user an agent acted on behalf of.
 
 The vault reference is a per-session parameter, so you can manage your product at the `agent` resource granularity and your users at the `session` resource granularity.
 
@@ -359,7 +359,7 @@ To get the same behavior with a self-hosted sandbox, you can run your own proxy 
       ```
     </CodeGroup>
 
-    Set `refresh.token_endpoint` (java, php: `refresh.tokenEndpoint`; csharp, go: `Refresh.TokenEndpoint`) to the token endpoint of the OAuth flow that issued the refresh token, because Anthropic sends every refresh request to that URL and the field can't be changed after the credential is created.
+    Set `refresh.token_endpoint` (java, php: `refresh.tokenEndpoint`; csharp, go: `Refresh.TokenEndpoint`) to the token endpoint of the OAuth flow that issued the refresh token, because Anthropic sends every refresh request to that URL and the field can’t be changed after the credential is created.
   </Tab>
 
   <Tab title="MCP static bearer">
@@ -483,7 +483,7 @@ To get the same behavior with a self-hosted sandbox, you can run your own proxy 
   <Tab title="Environment variable">
     Use `environment_variable` to authenticate to external services through an environment variable, such as CLIs, SDKs, or direct API calls. Environment variable credentials work for clients that send the secret value verbatim in an outbound request, so check the client eligibility criteria in this tab before configuring one.
 
-    The `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) array in `networking` (csharp, go: `Networking`) controls which outbound hosts the secret can be substituted for. Use `"type": "limited"` with a specific list, or `"type": "unrestricted"` if the caller reaches domains you can't enumerate in advance.
+    The `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) array in `networking` (csharp, go: `Networking`) controls which outbound hosts the secret can be substituted for. Use `"type": "limited"` with a specific list, or `"type": "unrestricted"` if the caller reaches domains you can’t enumerate in advance.
 
     Limiting domains is strongly recommended for security purposes, and prevents your key from ever being shared with unauthorized hosts.
 
@@ -685,7 +685,7 @@ To get the same behavior with a self-hosted sandbox, you can run your own proxy 
 
     Request payloads are often assembled from content the agent is working with, so the request body is the broader exposure surface. Most services read an API key from a request header, so enabling only `header` (csharp, go: `Header`) is the narrower configuration. It scopes substitution to request header values for that credential.
 
-    The credential's `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) controls which parts of an outbound request the secret is substituted into. It is an optional object, a sibling of `networking` (csharp, go: `Networking`), with two Boolean fields: `header` (csharp, go: `Header`) (request headers) and `body` (csharp, go: `Body`) (request body). `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) is independent of `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) in `networking` (csharp, go: `Networking`): `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) scopes which hosts the secret is substituted for, and `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) scopes which parts of the request it is substituted into.
+    The credential’s `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) controls which parts of an outbound request the secret is substituted into. It is an optional object, a sibling of `networking` (csharp, go: `Networking`), with two Boolean fields: `header` (csharp, go: `Header`) (request headers) and `body` (csharp, go: `Body`) (request body). `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) is independent of `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) in `networking` (csharp, go: `Networking`): `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) scopes which hosts the secret is substituted for, and `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) scopes which parts of the request it is substituted into.
 
     `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) behaves differently on create and on update:
 
@@ -694,15 +694,15 @@ To get the same behavior with a self-hosted sandbox, you can run your own proxy 
     | Create credential | If you provide the object, any field you omit inside it defaults to `false`: `{"header": true}` creates a header-only credential. Omit the object entirely and both locations are enabled. |
     | Update credential | Fields merge individually: `{"body": false}` disables body substitution and leaves `header` unchanged.                                                                                     |
 
-    A credential must have at least one location enabled, so a create or update that would disable both locations returns a 400 error. Passing an explicit `null` for the `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) object or for either field also returns a 400 error ("omit the field instead"). The response always returns both fields with their resolved values.
+    A credential must have at least one location enabled, so a create or update that would disable both locations returns a 400 error. Passing an explicit `null` for the `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) object or for either field also returns a 400 error (“omit the field instead”). The response always returns both fields with their resolved values.
 
-    A placeholder in a disabled location is neither substituted nor stripped. The request is sent to the third party with the literal opaque placeholder string in that location. If a request arrives at the third party containing the literal placeholder string, either that location is disabled for the credential or the destination host is not covered by the `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) in the credential's `networking` (csharp, go: `Networking`).
+    A placeholder in a disabled location is neither substituted nor stripped. The request is sent to the third party with the literal opaque placeholder string in that location. If a request arrives at the third party containing the literal placeholder string, either that location is disabled for the credential or the destination host is not covered by the `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) in the credential’s `networking` (csharp, go: `Networking`).
 
     <Note>
       Credentials created in the Claude Console enable header injection only. If your client sends the secret in the request body, such as a form-encoded token request, the placeholder passes through literally and the service rejects it with its own authentication error. Enable body injection in the Console form when you create the credential, or update the credential with `{"injection_location": {"body": true}}`.
     </Note>
 
-    The substitution occurs at egress, not inside the sandbox. Anything that processes the credential locally sees the opaque placeholder, not the real value: clients that validate the credential format at startup might reject it, and clients that compute a request signature from the secret (for example, AWS SigV4) produce an invalid signature. Environment variable credentials work for clients that send the secret value verbatim in an outbound request, in a location the credential's `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) enables.
+    The substitution occurs at egress, not inside the sandbox. Anything that processes the credential locally sees the opaque placeholder, not the real value: clients that validate the credential format at startup might reject it, and clients that compute a request signature from the secret (for example, AWS SigV4) produce an invalid signature. Environment variable credentials work for clients that send the secret value verbatim in an outbound request, in a location the credential’s `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) enables.
 
     Substitution is outbound only. If a client uses the stored secret to fetch a session token (for example, an OAuth client-credentials grant), the returned token arrives in the sandbox unredacted. For exchange-based flows, perform the exchange yourself and store the resulting token in the vault instead.
 
@@ -825,7 +825,7 @@ Runtime behavior:
 
 ## Rotate a credential
 
-Secret values, `display_name` (java, php: `displayName`; csharp, go: `DisplayName`), and (on environment variable credentials) `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) can be updated. `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) updates merge field by field, as described in the **Environment variable** tab of [Add a credential](https://platform.claude.com/docs/en/managed-agents/vaults#add-a-credential). For a running session, an `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) update takes effect the same way as a secret rotation: the session's credentials are re-resolved without a restart, as described in [Credential lifecycle](https://platform.claude.com/docs/en/managed-agents/vaults#credential-lifecycle), and the updated locations apply to the session's subsequent outbound requests. Structural fields (`mcp_server_url` (java: `mcpServerUrl`; php: `mcpServerURL`; csharp: `McpServerUrl`; go: `MCPServerURL`), `secret_name` (java, php: `secretName`; csharp, go: `SecretName`), `token_endpoint` (java, php: `tokenEndpoint`; csharp, go: `TokenEndpoint`), `client_id` (java: `clientId`; php: `clientID`; csharp, go: `ClientID`)) are locked after creation. To change them, archive the credential and create a new one.
+Secret values, `display_name` (java, php: `displayName`; csharp, go: `DisplayName`), and (on environment variable credentials) `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) can be updated. `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) updates merge field by field, as described in the **Environment variable** tab of [Add a credential](https://platform.claude.com/docs/en/managed-agents/vaults#add-a-credential). For a running session, an `injection_location` (java, php: `injectionLocation`; csharp, go: `InjectionLocation`) update takes effect the same way as a secret rotation: the session’s credentials are re-resolved without a restart, as described in [Credential lifecycle](https://platform.claude.com/docs/en/managed-agents/vaults#credential-lifecycle), and the updated locations apply to the session’s subsequent outbound requests. Structural fields (`mcp_server_url` (java: `mcpServerUrl`; php: `mcpServerURL`; csharp: `McpServerUrl`; go: `MCPServerURL`), `secret_name` (java, php: `secretName`; csharp, go: `SecretName`), `token_endpoint` (java, php: `tokenEndpoint`; csharp, go: `TokenEndpoint`), `client_id` (java: `clientId`; php: `clientID`; csharp, go: `ClientID`)) are locked after creation. To change them, archive the credential and create a new one.
 
 <CodeGroup>
   ```bash cURL

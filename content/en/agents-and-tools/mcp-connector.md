@@ -12,7 +12,7 @@ featureMetadata:
     Microsoft Foundry: beta
 ---
 
-Claude's Model Context Protocol (MCP) connector feature allows you to connect to remote MCP servers directly from the Messages API without a separate MCP client.
+Claude’s Model Context Protocol (MCP) connector feature allows you to connect to remote MCP servers directly from the Messages API without a separate MCP client.
 
 <Note>
   The previous version of this feature (`mcp-client-2025-04-04`) is deprecated. See [Deprecated version: mcp-client-2025-04-04](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#deprecated-version-mcp-client-2025-04-04).
@@ -29,9 +29,9 @@ Claude's Model Context Protocol (MCP) connector feature allows you to connect to
 
 ## When Claude uses MCP tools
 
-Once an MCP server is connected, Claude calls its tools when the user's request maps to a tool's described capability, either explicitly ("search Jira for open bugs") or implicitly ("what's blocking the release?" with a Jira server attached).
+Once an MCP server is connected, Claude calls its tools when the user’s request maps to a tool’s described capability, either explicitly (“search Jira for open bugs”) or implicitly (“what’s blocking the release?” with a Jira server attached).
 
-Claude does **not** call an MCP tool for general knowledge questions about a connected service. Asking "how do Notion databases work?" with a Notion server attached is answered directly; asking "what's in my Projects database?" triggers the tool.
+Claude does **not** call an MCP tool for general knowledge questions about a connected service. Asking “how do Notion databases work?” with a Notion server attached is answered directly; asking “what’s in my Projects database?” triggers the tool.
 
 You can steer how readily Claude calls MCP tools through your system prompt. See [When Claude uses tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#when-claude-uses-tools) for general guidance and example phrasings.
 
@@ -318,7 +318,7 @@ Each MCP server in the `mcp_servers` array defines the connection details:
 
 | Property              | Type   | Required | Description                                                                                                                                                                                                                                                                                                            |
 | --------------------- | ------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`                | string | Yes      | Currently only "url" is supported.                                                                                                                                                                                                                                                                                     |
+| `type`                | string | Yes      | Currently only `url` is supported.                                                                                                                                                                                                                                                                                     |
 | `url`                 | string | Yes      | The URL of the MCP server. Must start with `https://`.                                                                                                                                                                                                                                                                 |
 | `name`                | string | Yes      | A unique identifier for this MCP server. Must be referenced by exactly one MCPToolset in the `tools` array.                                                                                                                                                                                                            |
 | `authorization_token` | string | No       | OAuth authorization token if required by the MCP server. See [Authentication](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#authentication) for how to obtain one, or the [MCP specification](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization) for protocol details. |
@@ -350,13 +350,13 @@ The MCPToolset lives in the `tools` array and configures which tools from the MC
 
 | Property          | Type   | Required | Description                                                                                                                             |
 | ----------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | string | Yes      | Must be "mcp\_toolset".                                                                                                                 |
+| `type`            | string | Yes      | Must be `mcp_toolset`.                                                                                                                  |
 | `mcp_server_name` | string | Yes      | Must match a server name defined in the `mcp_servers` array.                                                                            |
 | `default_config`  | object | No       | Default configuration applied to all tools in this set. Individual tool configs in `configs` override these defaults.                   |
 | `configs`         | object | No       | Per-tool configuration overrides. Keys are tool names; values are configuration objects.                                                |
 | `cache_control`   | object | No       | [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) cache breakpoint configuration for this toolset. |
 
-With the `mcp-client-2026-09-15` beta header, an MCPToolset also accepts `tools`, a pinned copy of the server's tool list. See [Pin an MCP server's tool list](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#pin-mcp-tool-list).
+With the `mcp-client-2026-09-15` beta header, an MCPToolset also accepts `tools`, a pinned copy of the server’s tool list. See [Pin an MCP server’s tool list](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#pin-mcp-tool-list).
 
 ### Tool configuration options
 
@@ -490,7 +490,7 @@ The API enforces these validation rules:
 * **Server must exist:** The `mcp_server_name` in an MCPToolset must match a server defined in the `mcp_servers` array.
 * **Server must be used:** Every MCP server defined in `mcp_servers` must be referenced by exactly one MCPToolset.
 * **Unique toolset for each server:** Each MCP server can only be referenced by one MCPToolset.
-* **Unknown tool names:** If a tool name in `configs` doesn't exist on the MCP server, a backend warning is logged but no error is returned (MCP servers might have dynamic tool availability).
+* **Unknown tool names:** If a tool name in `configs` doesn’t exist on the MCP server, a backend warning is logged but no error is returned (MCP servers might have dynamic tool availability).
 
 ## Response content types
 
@@ -524,9 +524,9 @@ When Claude uses MCP tools, the response includes two new content block types:
 }
 ```
 
-## Pin an MCP server's tool list (beta)
+## Pin an MCP server’s tool list (beta)
 
-An MCP server can change its tools at any time. The `mcp-client-2026-09-15` beta header records the tool list each server returns and lets you pin it, so a server that changes its tools doesn't change what Claude receives partway through a conversation. It includes everything `mcp-client-2025-11-20` does, so send it in place of that header. It's available on the Claude API.
+An MCP server can change its tools at any time. The `mcp-client-2026-09-15` beta header records the tool list each server returns and lets you pin it, so a server that changes its tools doesn’t change what Claude receives partway through a conversation. It includes everything `mcp-client-2025-11-20` does, so send it in place of that header. It’s available on the Claude API.
 
 When the API asks an MCP server for its tools while producing a response, the response starts with an `mcp_tool_listing` block for that server, one block for each server it asked:
 
@@ -550,7 +550,7 @@ When the API asks an MCP server for its tools while producing a response, the re
 
 If your code reads `content[0]`, skip these blocks. Send the assistant message back unchanged, `mcp_tool_listing` blocks included, and keep sending `mcp-client-2026-09-15` on every request that carries one. Later requests then use the recorded list for that server instead of asking it again.
 
-To pin a list yourself, copy a block's `tools` into the `tools` field of that server's MCPToolset. The API then doesn't ask the server for its tools, and the toolset's tools are exactly those entries, with `default_config` and `configs` applied:
+To pin a list yourself, copy a block’s `tools` into the `tools` field of that server’s MCPToolset. The API then doesn’t ask the server for its tools, and the toolset’s tools are exactly those entries, with `default_config` and `configs` applied:
 
 ```json
 {
@@ -570,9 +570,9 @@ To pin a list yourself, copy a block's `tools` into the `tools` field of that se
 }
 ```
 
-Each entry in `tools` holds the tool's `name` as the server lists it (without the server name), its `description`, and its `input_schema`.
+Each entry in `tools` holds the tool’s `name` as the server lists it (without the server name), its `description`, and its `input_schema`.
 
-The following example sends one request with an unpinned toolset, copies the returned list into the toolset's `tools` field, and sends the request again. The second response has no `mcp_tool_listing` block, because the API doesn't ask the server:
+The following example sends one request with an unpinned toolset, copies the returned list into the toolset’s `tools` field, and sends the request again. The second response has no `mcp_tool_listing` block, because the API doesn’t ask the server:
 
 <CodeGroup>
   ```bash cURL
@@ -1181,7 +1181,7 @@ With many tools available, Claude selects based on tool names and descriptions. 
 
 ## Authentication
 
-For MCP servers that require OAuth authentication, you'll need to obtain an access token. The MCP connector beta supports passing an `authorization_token` parameter in the MCP server definition. API consumers are expected to handle the OAuth flow and obtain the access token prior to making the API call, and to refresh the token as needed.
+For MCP servers that require OAuth authentication, you’ll need to obtain an access token. The MCP connector beta supports passing an `authorization_token` parameter in the MCP server definition. API consumers are expected to handle the OAuth flow and obtain the access token prior to making the API call, and to refresh the token as needed.
 
 ### Obtaining an access token for testing
 
@@ -1209,7 +1209,7 @@ The MCP inspector can guide you through the process of obtaining an access token
 
 ### Using the access token
 
-Once you've obtained an access token, you can use it in your MCP server configuration:
+Once you’ve obtained an access token, you can use it in your MCP server configuration:
 
 ```json
 {
@@ -1374,7 +1374,7 @@ Import the helpers for your language:
 
 ### Use MCP tools
 
-Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner), which handles tool execution automatically:
+Convert MCP tools for use with the SDK’s [tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner), which handles tool execution automatically:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -1978,7 +1978,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
 
 ### Error handling
 
-The conversion functions fail with `UnsupportedMCPValueError` (go: `UnsupportedValueError`; java, csharp: `AnthropicInvalidDataException`) if an MCP value isn't supported by the Claude API (thrown, or in Go returned as an error). This can occur with unsupported content types, MIME types, or resource links (resolve resource links with your MCP client before converting).
+The conversion functions fail with `UnsupportedMCPValueError` (go: `UnsupportedValueError`; java, csharp: `AnthropicInvalidDataException`) if an MCP value isn’t supported by the Claude API (thrown, or in Go returned as an error). This can occur with unsupported content types, MIME types, or resource links (resolve resource links with your MCP client before converting).
 
 ## Batch requests
 
@@ -1986,13 +1986,13 @@ You can include `mcp_servers` in [Message Batches API](https://platform.claude.c
 
 ## Data retention
 
-The MCP connector is not covered by ZDR arrangements. Data exchanged with MCP servers, including tool definitions and execution results, is retained according to Anthropic's standard data retention policy.
+The MCP connector is not covered by ZDR arrangements. Data exchanged with MCP servers, including tool definitions and execution results, is retained according to Anthropic’s standard data retention policy.
 
 For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ## Migration guide
 
-If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this guide to migrate to the new version.
+If you’re using the deprecated `mcp-client-2025-04-04` beta header, follow this guide to migrate to the new version.
 
 ### Key changes
 

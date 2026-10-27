@@ -227,7 +227,7 @@ On Windows, write the same string to the `allowedPluginMarketplaces` value in th
 | `ref` | Branch name, tag name, or full 40-character commit SHA. Git sources only. **Required, and must be a full commit SHA,** when `installationPreference` is `"auto_install"` or `"required"`. |
 | `path` | Subdirectory containing `.claude-plugin/marketplace.json` when not at the repository root. Git sources only. |
 | `manifestSha256` | 64-character hex SHA-256 of the exact `marketplace.json` file to accept. `url` sources only. **Required** when `installationPreference` is `"auto_install"` or `"required"`; a served manifest with any other digest is refused. |
-| `expectedName` | If set, the fetch is rejected unless the `name` in `marketplace.json` matches this value exactly, so a change to the manifest name cannot silently replace another configured marketplace. |
+| `expectedName` | If set, the fetch is rejected unless the `name` in `marketplace.json` matches this value exactly, so a change to the manifest name can't silently replace another configured marketplace. Set it on the new entry when you [move a marketplace to a new source](#move-a-marketplace-to-a-new-source) to keep users' installed plugins. |
 | `credentialKind` | `"anonymous"` (default), `"userGit"`, `"credentialHelper"`, or (for `url` sources) `"inferenceCredential"`. See [Marketplace credentials](#marketplace-credentials). |
 | `credentialHelper` | Path to an executable that prints an access token on stdout. Required, and only valid, when `credentialKind` is `"credentialHelper"`. |
 | `installationPreference` | `"available"` (default), `"auto_install"`, or `"required"`. See [Marketplace installation preferences](#marketplace-installation-preferences). |
@@ -288,6 +288,31 @@ Because the fetch happens on the host, the marketplace host does not need to be 
 ### Roll out marketplace updates
 
 For a git marketplace, commit the change to the repository, update the `ref` in `allowedPluginMarketplaces` to the new commit SHA, and distribute the updated managed configuration. For a `url` marketplace with a `manifestSha256` pin, publish the new archive, update its `url` and `sha256` in `marketplace.json`, and update `manifestSha256` in configuration to the new file's digest. For a `url` marketplace using [per-plugin auto-install from a trusted origin](#per-plugin-auto-install-from-a-trusted-origin), publish the new `marketplace.json` and no configuration change is needed. Devices sync to the new revision on the next app launch or periodic re-fetch. To remove a marketplace, delete its entry; Claude Desktop unregisters it and uninstalls its plugins on the next sync.
+
+### Move a marketplace to a new source
+
+Claude Desktop identifies a marketplace entry by its `repo` or `url` and its `path`. If you change one of them, for example to move from a git repository to a hosted `marketplace.json`, Claude Desktop treats the change as removing one marketplace and adding another, and uninstalls the plugins users installed from the old one. Changing `ref` is an update, not a move.
+
+To keep users' installed plugins, first make sure that every device is running Claude Desktop 3.6556.1 or later. Earlier versions uninstall them when they sync the move. Then make the move:
+
+**1. Keep the marketplace and plugin names**
+
+In the new source's `marketplace.json`, keep the marketplace `name` and the plugin names the same as in the old source. Point each plugin's `source` at content in the new marketplace's [own repository](#create-the-marketplace-repository) or [archives](#host-the-marketplace-over-https-instead-of-git). Claude Desktop doesn't carry over any other plugin, such as one whose code comes from another repository.
+
+**2. Swap the entries in one configuration change**
+
+In `allowedPluginMarketplaces`, delete the old entry and add the new entry with `expectedName` set to that `name`. The value must match exactly, including letter case. If you delete the old entry in an earlier change, devices that sync in between uninstall the plugins.
+
+**3. Leave expectedName set on the new entry**
+
+Without `expectedName`, a device that hasn't yet loaded the new source removes the old marketplace and uninstalls its plugins.
+
+On the next sync, the plugins users installed from the marketplace's own repository or archives stay installed and load from the new source. Under `"available"`, each one stays on or off as the user left it. The new entry's `installationPreference` applies as it does for a new marketplace.
+
+Move a marketplace this way when the new source holds the same marketplace. At their next session, users' installed plugins run what the new source lists under those names.
+
+* **If a device can't fetch the new source or rejects it**: the plugins from that marketplace stop loading on that device, and the **Directory** shows the reason in a banner on the **Organization** tab. That device also uninstalls a plugin that a Claude Desktop version before 1.44121.0 installed outside the marketplace's folder on the device. Once the device loads the new source, the plugins that stayed installed load again without a reinstall, and the user can install the uninstalled plugin again if the [**Organization** tab](#plugin-marketplaces-admin) lists it.
+* **If Claude Desktop drops an entry in `allowedPluginMarketplaces` as invalid**: the move waits, and the plugins already installed from the old source keep loading, until you fix the entry.
 
 ## Organization plugins (admin)
 
@@ -403,14 +428,18 @@ Claude Code [managed settings](https://claude.com/docs/third-party/claude-deskto
 
 On a Windows device without Git for Windows, Claude Code runs a [hook](https://code.claude.com/docs/en/hooks) in PowerShell when the hook sets neither `shell` nor `args`. Hooks in Cowork sessions run the same way, on the device itself and not in Cowork's virtual machine. PowerShell rejects some commands that Bash accepts, such as a quoted program path followed by arguments.
 
-A [`PreToolUse`](https://code.claude.com/docs/en/hooks#pretooluse) or [`PermissionRequest`](https://code.claude.com/docs/en/hooks#permissionrequest) hook that runs this way and has no `onFailure` field blocks the tool call when it fails or times out. The hook error that Claude receives includes `blocking because Git Bash wasn't found`.
+When a hook blocks tool calls on such a device, check for each of these causes:
+
+* **The hook fails or times out**: on a Windows device without Git for Windows, a [`PreToolUse`](https://code.claude.com/docs/en/hooks#pretooluse) or [`PermissionRequest`](https://code.claude.com/docs/en/hooks#permissionrequest) command hook that has no `args` and no `onFailure` field blocks the tool call when it fails or times out, whatever `shell` it sets. A hook written for Bash that was given `"shell": "powershell"` can block every tool call that it matches. Under Windows PowerShell 5.1, which Claude Code uses when PowerShell 7 isn't installed, a program that writes to stderr under a redirect in the command, such as `2>&1`, can make the hook count as failed although the program exits with 0. The hook error that Claude receives includes `blocking because Git Bash wasn't found`.
+* **The hook ends with exit code 2**: a `PreToolUse` hook that ends with exit code 2 blocks the tool call whatever `onFailure` says, and the error that Claude then receives is the hook's own error output. In PowerShell a `PreToolUse` hook ends with 2 when its command ends with a program that exits with 2. That reaches a hook written for Bash such as `python $CLAUDE_PROJECT_DIR/check.py`, even with `"onFailure": "continue"`. A bare `$CLAUDE_PROJECT_DIR` is empty in PowerShell, so Python can't open its script and exits with 2.
 
 If your Windows devices have hooks, in a plugin or in Claude Code [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings), make one of these changes:
 
-* **Keep a hook written for Bash**: install Git for Windows in its default location (`C:\Program Files\Git`) on each device, then quit and reopen Claude Desktop
-* **Run the hook without a shell**: write the hook in [exec form](https://code.claude.com/docs/en/hooks#exec-form-and-shell-form), with an executable such as an `.exe` (not a `.cmd` or `.bat` file) in `command` and its arguments in `args`
+* **Keep a hook written for Bash**: install Git for Windows in its default location (`C:\Program Files\Git`) on each device, remove `"shell": "powershell"` from the hook if it has it, then quit and reopen Claude Desktop
+* **Run the hook without a shell**: write the hook in [exec form](https://code.claude.com/docs/en/hooks#exec-form-and-shell-form), with an executable such as an `.exe` (not a `.cmd` or `.bat` file) in `command` and its arguments in `args` (`"args": []` if it has none). Write the project folder as `${CLAUDE_PROJECT_DIR}`, braces included, since no shell expands `$CLAUDE_PROJECT_DIR` there. A Bash script can't run this way without Git.
+* **Keep a hook written for PowerShell**: set `"shell": "powershell"` and `"onFailure": "block"` on it, and start its program with the call operator, as in `& "C:\path\guard.exe"`, since a quoted path alone starts nothing. Make the program the last thing that the command runs, and in a `PreToolUse` hook have it exit with 0 to let the tool call go on and with 2 to block it. A `.ps1` script does so through its own `exit 0` or `exit 2`. A script whose last line runs a program ends with 0 even when that program exits with 2, so start the program from the command and not from inside a script. Don't redirect the program's stderr in the command, and don't end the command with `exit $LASTEXITCODE`. If the program can't start, `exit $LASTEXITCODE` exits with 0 and the tool call goes ahead, even with `"onFailure": "block"`.
 
-After either change, a hook that fails or times out lets the tool call go ahead. To stop the tool call instead, add [`"onFailure": "block"`](https://code.claude.com/docs/en/hooks#block-the-action-when-a-hook-fails) to the hook.
+After either of the first two changes, a hook that fails or times out lets the tool call go ahead. To stop the tool call instead, add [`"onFailure": "block"`](https://code.claude.com/docs/en/hooks#block-the-action-when-a-hook-fails) to the hook.
 
 ## User extensions
 

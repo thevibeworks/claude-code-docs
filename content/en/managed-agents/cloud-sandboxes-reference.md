@@ -35,7 +35,7 @@ Common Python data and document libraries, including NumPy, pandas, Matplotlib, 
 | ------------- | ----------------------------------------------------------------------------- |
 | PostgreSQL 16 | Server and `psql` client are installed. The server is not running by default. |
 | Redis 7       | Server and `redis-cli` are installed. The server is not running by default.   |
-| SQLite        | Available through language bindings, such as Python's `sqlite3` module.       |
+| SQLite        | Available through language bindings, such as Python’s `sqlite3` module.       |
 
 ## Utilities
 

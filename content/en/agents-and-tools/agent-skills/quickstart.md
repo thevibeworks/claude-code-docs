@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstar
 description: Learn how to use Agent Skills to create documents with the Claude API in under 10 minutes.
 ---
 
-This tutorial shows you how to use Agent Skills to create a PowerPoint presentation. You'll learn how to enable Skills, make a request, and access the generated file.
+This tutorial shows you how to use Agent Skills to create a PowerPoint presentation. You’ll learn how to enable Skills, make a request, and access the generated file.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ This tutorial shows you how to use Agent Skills to create a PowerPoint presentat
 
 ## Agent Skills overview
 
-Pre-built Agent Skills extend Claude's capabilities with specialized expertise for tasks such as creating documents, analyzing data, and processing files. Anthropic provides the following pre-built Agent Skills in the API:
+Pre-built Agent Skills extend Claude’s capabilities with specialized expertise for tasks such as creating documents, analyzing data, and processing files. Anthropic provides the following pre-built Agent Skills in the API:
 
 * **PowerPoint (pptx):** Create and edit presentations
 * **Excel (xlsx):** Create and analyze spreadsheets
@@ -117,7 +117,7 @@ First, check what Skills are available. Use the Skills API to list all Anthropic
 
 You see the following Skills: `pptx`, `xlsx`, `docx`, and `pdf`.
 
-This API returns each Skill's metadata: its name and description. Claude loads this metadata at startup to determine which Skills are available. This is the first level of **progressive disclosure**, where Claude discovers Skills without loading their full instructions yet.
+This API returns each Skill’s metadata: its name and description. Claude loads this metadata at startup to determine which Skills are available. This is the first level of **progressive disclosure**, where Claude discovers Skills without loading their full instructions yet.
 
 ## Step 2: Create a presentation
 
@@ -350,7 +350,7 @@ The request includes the following parts:
   The examples use the `code_execution_20260521` tool version, and the Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement. If you use a different version, use the tool `type` listed on the code execution tool page.
 </Note>
 
-When you make this request, Claude automatically matches your task to the relevant Skill. Because you asked for a presentation, Claude determines the PowerPoint Skill is relevant and loads its full instructions: the second level of progressive disclosure. Then Claude runs the Skill's code to create your presentation.
+When you make this request, Claude automatically matches your task to the relevant Skill. Because you asked for a presentation, Claude determines the PowerPoint Skill is relevant and loads its full instructions: the second level of progressive disclosure. Then Claude runs the Skill’s code to create your presentation.
 
 ## Step 3: Download the created file
 
@@ -1173,7 +1173,7 @@ Try these variations:
   </Card>
 
   <Card title="Using Agent Skills with the API" icon="book" href="https://platform.claude.com/docs/en/build-with-claude/skills-guide">
-    Learn how to use Agent Skills to extend Claude's capabilities through the API.
+    Learn how to use Agent Skills to extend Claude’s capabilities through the API.
   </Card>
 
   <Card title="Create custom Skills" icon="code" href="https://platform.claude.com/docs/en/api/skills/create">

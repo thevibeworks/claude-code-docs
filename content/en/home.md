@@ -430,7 +430,7 @@ with Claude"
         Deployable starter apps.
       </Card>
 
-      <Card icon="star" title="What's new" href="https://platform.claude.com/docs/en/release-notes/overview">
+      <Card icon="star" title="What’s new" href="https://platform.claude.com/docs/en/release-notes/overview">
         Latest features and updates.
       </Card>
 

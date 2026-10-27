@@ -16,9 +16,9 @@ Context window: 1M tokens · Max output: 128K tokens · Input pricing: $4 / MTok
 
 ## Overview
 
-Claude Opus 5.5 is built for long-running agentic coding and knowledge work, priced at $4 / $20 USD per million input / output tokens. Four breaking changes affect code already running on Claude Opus 5: [thinking can't be disabled](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#thinking-cant-be-disabled), [forced tool use returns an error](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#forced-tool-use-is-not-supported), [thinking blocks are tied to the model and the conversation](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#thinking-blocks-are-tied-to-the-model-that-produced-them), and, on the Claude API and Claude Models on Google Cloud (Google managed), [the earlier `computer_20251124` computer use tool is not accepted](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#computer-20251124-is-not-supported). The first three also apply on Claude Fable 5.1. A further change alters the response shape without failing any request: [text between tool calls comes back in `thinking` blocks](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#text-between-tool-calls) whose text is empty at the default `display` setting. An application that streams that text to its users as progress updates goes quiet between tool calls until it sets a `display` value that returns the text.
+Claude Opus 5.5 is built for long-running agentic coding and knowledge work, priced at $4 / $20 USD per million input / output tokens. Four breaking changes affect code already running on Claude Opus 5: [thinking can’t be disabled](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#thinking-cant-be-disabled), [forced tool use returns an error](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#forced-tool-use-is-not-supported), [thinking blocks are tied to the model and the conversation](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#thinking-blocks-are-tied-to-the-model-that-produced-them), and, on the Claude API and Claude Models on Google Cloud (Google managed), [the earlier `computer_20251124` computer use tool is not accepted](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#computer-20251124-is-not-supported). The first three also apply on Claude Fable 5.1. A further change alters the response shape without failing any request: [text between tool calls comes back in `thinking` blocks](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5#text-between-tool-calls) whose text is empty at the default `display` setting. An application that streams that text to its users as progress updates goes quiet between tool calls until it sets a `display` value that returns the text.
 
-[What's new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5)
+[What’s new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5)
 
 ## How it compares
 
@@ -88,7 +88,7 @@ Claude Opus 5.5 is built for long-running agentic coding and knowledge work, pri
 
 ## Good to know
 
-* Adaptive thinking is always on and can't be turned off. Control thinking depth with the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort).
+* Adaptive thinking is always on and can’t be turned off. Control thinking depth with the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort).
 * On the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing#extended-output-beta), Claude Opus 5.5 supports up to 300k output tokens with the `output-300k-2026-03-24` beta header.
 * The minimum cacheable prompt length is 512 tokens. See [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#cache-limitations).
 * Query limits and capabilities programmatically with the [Models API](https://platform.claude.com/docs/en/api/models/list).

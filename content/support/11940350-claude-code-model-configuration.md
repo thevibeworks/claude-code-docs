@@ -4,9 +4,9 @@ This guide shows you three ways to change which Claude model you're using with C
 
 ## Easiest method: Use /model command
 
-The simplest way to change models is to use the /model command directly within Claude Code. This works immediately without restarting your terminal.
+The simplest way to change models is to use the `/model` command directly within Claude Code. It works in Claude Desktop and in the terminal, and takes effect immediately.
 
-1. Start Claude Code: `claude`
+1. Start a Claude Code session: open the “Code” tab in Claude Desktop, or run `claude` in your terminal.
 
 2. Type `/model` and choose your desired model from the interactive menu.
 
@@ -46,7 +46,7 @@ The simplest way to change models is to use the /model command directly within C
 
 ## Change model for current session only
 
-Use the `--model` flag when starting Claude Code.
+Use the `--model` flag when starting Claude Code. The `--model` flag and the environment variables in the next section apply to terminal sessions.
 
 1. Start a fresh Terminal session.
 

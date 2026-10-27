@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-To control which sites the agent's web tools can reach, set a domain list on the `web_search` and `web_fetch` entries of the [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools#configuring-the-toolset). Each of these `configs` (csharp, go: `Configs`) entries takes one of two lists:
+To control which sites the agent’s web tools can reach, set a domain list on the `web_search` and `web_fetch` entries of the [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools#configuring-the-toolset). Each of these `configs` (csharp, go: `Configs`) entries takes one of two lists:
 
 * **`allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`):** The tool can reach only these hosts.
 * **`blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`):** The tool can never reach these hosts.
@@ -18,12 +18,12 @@ To control which sites the agent's web tools can reach, set a domain list on the
 Each tool carries its own list, so `web_search` and `web_fetch` can have different restrictions.
 
 <Note>
-  `web_search` and `web_fetch` run on Anthropic's servers, not in the sandbox. A cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) also applies its `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) to them; see [Set domain lists on an agent](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#set-domain-lists-on-an-agent). `unrestricted` networking and self-hosted environments do not limit them. The per-tool lists restrict these tools further.
+  `web_search` and `web_fetch` run on Anthropic’s servers, not in the sandbox. A cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) also applies its `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) to them; see [Set domain lists on an agent](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#set-domain-lists-on-an-agent). `unrestricted` networking and self-hosted environments do not limit them. The per-tool lists restrict these tools further.
 </Note>
 
-Your organization's web search settings on the [**Capabilities**](https://platform.claude.com/settings/capabilities) page of the Claude Console also apply to `web_search` in a session. If an administrator disables web search, `web_search` calls return an error result to the agent, and the session continues. If the organization restricts web search domains, the agent receives only the search results that both the organization's domain restrictions and the agent's per-tool lists allow.
+Your organization’s web search settings on the [**Capabilities**](https://platform.claude.com/settings/capabilities) page of the Claude Console also apply to `web_search` in a session. If an administrator disables web search, `web_search` calls return an error result to the agent, and the session continues. If the organization restricts web search domains, the agent receives only the search results that both the organization’s domain restrictions and the agent’s per-tool lists allow.
 
-Your organization's web fetch settings on the same page also apply to `web_fetch` in a session. If an administrator turns off web fetch, `web_fetch` calls return an error result to the agent, and the session continues. If the organization sets allowed or blocked domains for web fetch, a URL must pass the organization's list and the agent's per-tool lists, and so must any URL a redirect leads to. A `web_fetch` call for a URL that any of them excludes also returns an error result to the agent.
+Your organization’s web fetch settings on the same page also apply to `web_fetch` in a session. If an administrator turns off web fetch, `web_fetch` calls return an error result to the agent, and the session continues. If the organization sets allowed or blocked domains for web fetch, a URL must pass the organization’s list and the agent’s per-tool lists, and so must any URL a redirect leads to. A `web_fetch` call for a URL that any of them excludes also returns an error result to the agent.
 
 ## Set domain lists on an agent
 
@@ -366,9 +366,9 @@ The following example creates an agent that limits `web_search` to two sites and
   ```
 </CodeGroup>
 
-In a cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), the environment's `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) also applies to `web_search` and `web_fetch`. Creating a session fails with a 400 error when an enabled web tool's `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) has an entry that is not within `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). So does a session update that adds such an entry. To fix it, add the host to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) or remove the entry from `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`). At runtime, a `web_fetch` call for a URL on a host that `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) does not match returns a `url_not_allowed` error result. `web_search` omits results from such hosts. The two lists match differently: a tool's entry covers its subdomains, but an `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) entry matches one exact host unless it starts with `*.`. For example, the tool entry `docs.example.com` is not within an `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) of `["example.com"]`, but it is within `["docs.example.com"]` or `["*.example.com"]`.
+In a cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), the environment’s `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) also applies to `web_search` and `web_fetch`. Creating a session fails with a 400 error when an enabled web tool’s `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) has an entry that is not within `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). So does a session update that adds such an entry. To fix it, add the host to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) or remove the entry from `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`). At runtime, a `web_fetch` call for a URL on a host that `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) does not match returns a `url_not_allowed` error result. `web_search` omits results from such hosts. The two lists match differently: a tool’s entry covers its subdomains, but an `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) entry matches one exact host unless it starts with `*.`. For example, the tool entry `docs.example.com` is not within an `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) of `["example.com"]`, but it is within `["docs.example.com"]` or `["*.example.com"]`.
 
-In the Claude Console, set allowed or blocked domains from the `web_search` and `web_fetch` rows of the **Built-in tools** card on the agent form. Set `max_content_tokens` and `user_location` in the **Raw** view of the agent's configuration.
+In the Claude Console, set allowed or blocked domains from the `web_search` and `web_fetch` rows of the **Built-in tools** card on the agent form. Set `max_content_tokens` and `user_location` in the **Raw** view of the agent’s configuration.
 
 ## Settings
 
@@ -414,7 +414,7 @@ Each domain is a registrable domain name, or a subdomain of one, written as a pl
 | A port                                                                         | `example.com:443`        | `example.com`                         |
 | A wildcard                                                                     | `*.example.com`          | `example.com`                         |
 | A path on a `web_fetch` domain                                                 | `example.com/*`          | `example.com`                         |
-| An IP address in any form, whether IPv4, IPv6, bracketed, or numeric shorthand | `127.1`                  | The site's domain name                |
+| An IP address in any form, whether IPv4, IPv6, bracketed, or numeric shorthand | `127.1`                  | The site’s domain name                |
 | A bare top-level domain or registry suffix                                     | `com`, `co.uk`, `gov.uk` | A full domain such as `example.co.uk` |
 | A single-label name                                                            | `intranet`               | A full domain such as `example.co.uk` |
 | Non-ASCII characters, as in an internationalized domain name                   |                          | The `xn--` (Punycode) form            |
@@ -437,15 +437,15 @@ Format and limit violations are rejected with a 400 `invalid_request_error`:
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | An entry sets both lists.      | Includes `Only one of allowed_domains or blocked_domains may be set.`                                                                                          |
 | A list is empty.               | Includes `allowed_domains: Empty list of domains is ambiguous. Provide at least one domain or null.`                                                           |
-| A domain breaks a format rule. | Names the domain's list and zero-based position. For example, `allowed_domains.0: IP addresses are not supported; provide a plain hostname like "example.com"` |
+| A domain breaks a format rule. | Names the domain’s list and zero-based position. For example, `allowed_domains.0: IP addresses are not supported; provide a plain hostname like "example.com"` |
 
 On the same requests, the API also rejects three settings that depend on the search and fetch providers:
 
-* A domain in `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) that Anthropic's crawler is not allowed to access.
+* A domain in `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) that Anthropic’s crawler is not allowed to access.
 * A `user_location.country` that the search provider does not support. The message ends in `user_location.country: not a country the search provider supports`.
 * A `user_location.timezone` that is not a valid IANA name.
 
-In a cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), session create and update also check `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) against the environment's `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). See the rule in [Set domain lists on an agent](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#set-domain-lists-on-an-agent).
+In a cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), session create and update also check `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) against the environment’s `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). See the rule in [Set domain lists on an agent](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#set-domain-lists-on-an-agent).
 
 ### When an accepted setting is no longer valid
 
@@ -453,7 +453,7 @@ The session checks the configuration again when it first initializes the tool. I
 
 To continue the session:
 
-1. Fix the setting by [updating the session's tools](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-agent-configuration).
+1. Fix the setting by [updating the session’s tools](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-agent-configuration).
 2. Update the agent as well, so that new sessions start with the corrected configuration.
 3. Send a new `user.message`.
 
@@ -471,16 +471,16 @@ The settings combine as follows:
 | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `allowed_domains`                     | The tool can reach a host only if every list covers it.                                                                                                                                                  |
 | `blocked_domains`                     | The lists add together.                                                                                                                                                                                  |
-| `max_content_tokens`, `user_location` | Not combined. A thread uses the value from its own tool configuration if set. Otherwise it uses the value from the agent that called it, and otherwise the current configuration of the session's agent. |
+| `max_content_tokens`, `user_location` | Not combined. A thread uses the value from its own tool configuration if set. Otherwise it uses the value from the agent that called it, and otherwise the current configuration of the session’s agent. |
 
 A listed agent can therefore narrow what a tool reaches but never widen it:
 
-* A listed agent that sets `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) keeps the `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) of the session's agent and blocks those hosts within it.
-* A listed agent that sets its own `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) can reach only the hosts that both its list and the list of the session's agent cover.
+* A listed agent that sets `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) keeps the `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) of the session’s agent and blocks those hosts within it.
+* A listed agent that sets its own `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) can reach only the hosts that both its list and the list of the session’s agent cover.
 
-A `{"type": "self"}` entry in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) has no web settings of its own and follows the current settings of the session's agent.
+A `{"type": "self"}` entry in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) has no web settings of its own and follows the current settings of the session’s agent.
 
-If the combined `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) lists have no domain in common, the tool stays available to that agent, but every call fails. Each call returns a `url_not_allowed` error whose text includes `no domain is permitted`. The tool description tells the model the same. To avoid this, keep each listed agent's `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) inside the `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) of the session's agent.
+If the combined `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) lists have no domain in common, the tool stays available to that agent, but every call fails. Each call returns a `url_not_allowed` error whose text includes `no domain is permitted`. The tool description tells the model the same. To avoid this, keep each listed agent’s `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) inside the `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) of the session’s agent.
 
 The grader in [outcome-driven sessions](https://platform.claude.com/docs/en/managed-agents/define-outcomes) runs without `web_search` and `web_fetch`, regardless of these settings.
 
@@ -488,7 +488,7 @@ The grader in [outcome-driven sessions](https://platform.claude.com/docs/en/mana
 
 You can change the lists on an idle session by [updating its tools](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-agent-configuration). The new lists apply to the rest of the session.
 
-In a multiagent session, every thread applies the new lists from its next turn. For an agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`), the update does not change the agent's own lists. Those stay as the agent's definition set them when the session was created.
+In a multiagent session, every thread applies the new lists from its next turn. For an agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`), the update does not change the agent’s own lists. Those stay as the agent’s definition set them when the session was created.
 
 ## Differences from the Messages API tools
 
@@ -511,7 +511,7 @@ These settings use the same `allowed_domains` (java, php: `allowedDomains`; csha
   </Card>
 
   <Card title="Cloud environment setup" icon="settings" href="https://platform.claude.com/docs/en/managed-agents/environments">
-    Control the sandbox's own outbound network access.
+    Control the sandbox’s own outbound network access.
   </Card>
 
   <Card title="Multiagent orchestration" icon="sitemap" href="https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration">

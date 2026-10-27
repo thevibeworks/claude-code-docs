@@ -74,7 +74,7 @@ Upload with `POST /v1/tunnels/{tunnel_id}/certificates`. A tunnel can hold up to
 Presented by the proxy during [inner TLS](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components).
 
 * Signed directly by a registered CA (no intermediates).
-* `AuthorityKeyIdentifier` extension present and matching the CA's `SubjectKeyIdentifier`.
+* `AuthorityKeyIdentifier` extension present and matching the CA’s `SubjectKeyIdentifier`.
 * Subject Alternative Name includes a DNS name matching `<route>.<tunnel-domain>`. A wildcard `*.<tunnel-domain>` covers all routes.
 * If the `ExtendedKeyUsage` extension is present, it includes `serverAuth`.
 * Within its validity period.
@@ -84,7 +84,7 @@ The setup component generates an ECDSA P-256 CA with 5-year validity and an RSA 
 
 ## Setup component
 
-The setup component ships inside the `mcp-proxy` image as the `setup` binary. Run it with `docker compose run --rm setup <subcommand>` (Compose) or rely on the chart's hooks and CronJobs (Helm).
+The setup component ships inside the `mcp-proxy` image as the `setup` binary. Run it with `docker compose run --rm setup <subcommand>` (Compose) or rely on the chart’s hooks and CronJobs (Helm).
 
 ### `setup init`
 
@@ -110,4 +110,4 @@ Issues a new server certificate signed by the stored CA. Makes no API calls.
 | `--cert-duration` | New certificate validity period.                                                                    | `2160h` (90 days)                                                                            |
 | `--renew-before`  | Skip renewal if the existing certificate has more than this duration remaining.                     | `0` (always renew)                                                                           |
 
-Setting `--renew-before=720h` makes the command a no-op when more than 30 days of validity remain, so it's safe to run on a fixed schedule.
+Setting `--renew-before=720h` makes the command a no-op when more than 30 days of validity remain, so it’s safe to run on a fixed schedule.

@@ -20,7 +20,7 @@ This guide covers common patterns for working with the Messages API, including b
 ## Basic request and response
 
 <Note>
-  The `temperature`, `top_p`, and `top_k` sampling parameters are not supported on Claude 4.7 and later models and Claude Mythos Preview, or on any model starting with [API version `2026-10-21`](https://platform.claude.com/docs/en/api/migration-2026-10-21#sampling-parameters). Setting them to a non-default value returns a 400 error, and starting with `2026-10-21` any value does. Omit them from request payloads and use prompting to guide the model's behavior instead. See the [breaking changes in the migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#opus-46-breaking-changes).
+  The `temperature`, `top_p`, and `top_k` sampling parameters are not supported on Claude 4.7 and later models and Claude Mythos Preview, or on any model starting with [API version `2026-10-21`](https://platform.claude.com/docs/en/api/migration-2026-10-21#sampling-parameters). Setting them to a non-default value returns a 400 error, and starting with `2026-10-21` any value does. Omit them from request payloads and use prompting to guide the model’s behavior instead. See the [breaking changes in the migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#opus-46-breaking-changes).
 </Note>
 
 <CodeGroup>
@@ -158,7 +158,7 @@ Refusal responses (`stop_reason: "refusal"`) also include a `stop_details` objec
 
 ## Multiple conversational turns
 
-The Messages API is stateless, which means that you always send the full conversational history to the API. You can use this pattern to build up a conversation over time. Earlier conversational turns don't necessarily need to actually originate from Claude. You can use synthetic `assistant` messages.
+The Messages API is stateless, which means that you always send the full conversational history to the API. You can use this pattern to build up a conversation over time. Earlier conversational turns don’t necessarily need to actually originate from Claude. You can use synthetic `assistant` messages.
 
 <CodeGroup>
   ```bash cURL
@@ -329,9 +329,9 @@ A mid-conversation system message has the same authority as the top-level `syste
 
 See [Mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) for the complete guide, including how to combine it with [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 
-## Prefilling Claude's response
+## Prefilling Claude’s response
 
-You can prefill part of Claude's response in the last position of the input messages list. Use this technique to shape Claude's response. The following example uses `"max_tokens": 1` to get a single multiple choice answer from Claude.
+You can prefill part of Claude’s response in the last position of the input messages list. Use this technique to shape Claude’s response. The following example uses `"max_tokens": 1` to get a single multiple choice answer from Claude.
 
 <Warning>
   Prefilling is not supported on Claude 4.6 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing). Requests using prefill with these models return a 400 error. Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) on models that support it, or system prompt instructions, instead. See the [migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) for migration patterns.

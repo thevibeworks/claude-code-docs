@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/manage-claude/admin-api
 description: Manage organization members, workspaces, invites, and API keys programmatically with the Admin API, using an Admin API key, an `org:admin` OAuth token, or a personal or service account key.
 ---
 
-The [Admin API](https://platform.claude.com/docs/en/api/organization) lets you manage your organization's members, workspaces, invites, and API keys programmatically instead of by hand in the [Claude Console](https://platform.claude.com/).
+The [Admin API](https://platform.claude.com/docs/en/api/organization) lets you manage your organization’s members, workspaces, invites, and API keys programmatically instead of by hand in the [Claude Console](https://platform.claude.com/).
 
 ## Availability
 
@@ -18,7 +18,7 @@ On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claud
 * The external key endpoints, for [CMEK](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws): register, get, list, update, and delete on `/v1/organizations/external_keys`. There is no validate endpoint, because keys are validated when attached to a workspace.
 * The [telemetry destination endpoints](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#telemetry-destinations).
 
-Organization members, workspace members, invites, API keys, and the usage, cost, and rate limit reports aren't available on Claude Platform on AWS.
+Organization members, workspace members, invites, API keys, and the usage, cost, and rate limit reports aren’t available on Claude Platform on AWS.
 
 ## Authentication
 
@@ -26,15 +26,15 @@ The Admin API accepts any of these three credentials:
 
 * An **Admin API key** (starting with `sk-ant-admin...`) sent in the `x-api-key` header. Only organization members with the admin role can provision one. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys).
 * An **OAuth bearer token** with the `org:admin` scope sent in the `authorization: Bearer` header. Only members with the admin, owner, or primary owner role can obtain one. See [Obtain an OAuth bearer token](https://platform.claude.com/docs/en/manage-claude/admin-api#oauth-bearer-token).
-* A **personal key** or **service account key** that isn't scoped to a specific workspace, sent in the `x-api-key` header. The key has the same permissions as the linked account. See [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types).
+* A **personal key** or **service account key** that isn’t scoped to a specific workspace, sent in the `x-api-key` header. The key has the same permissions as the linked account. See [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types).
 
 An Admin API key covers most endpoints. The service-account, federation-issuer, and federation-rule endpoints accept only an `org:admin` OAuth token. Send a personal key or service account key in the `x-api-key` header, as you would an Admin API key. The following examples call the [organization info endpoint](https://platform.claude.com/docs/en/manage-claude/admin-api#accessing-organization-info) with an OAuth token and with an Admin API key.
 
-In Python, TypeScript, C#, Go, Java, PHP, and Ruby, the SDK exposes the endpoints on this page under `client.organization` (csharp, go: `client.Organization`; java: `client.organization()`; php: `$client->organization`), and the `ant` CLI under `ant organization`. The examples on this page use the default client, which reads an Admin API key from `ANTHROPIC_API_KEY` or an OAuth bearer token from `ANTHROPIC_AUTH_TOKEN`. SDK list methods in Python, TypeScript, C#, Go, and Java return an iterator that fetches more pages on demand, so `limit` sets the page size, not the total. The PHP, Ruby, and curl examples return one page. In the CLI, `--limit` caps the results on the member, invite, workspace, workspace-member, and API-key lists. For each endpoint's parameters and responses, see the [Admin API reference](https://platform.claude.com/docs/en/api/organization).
+In Python, TypeScript, C#, Go, Java, PHP, and Ruby, the SDK exposes the endpoints on this page under `client.organization` (csharp, go: `client.Organization`; java: `client.organization()`; php: `$client->organization`), and the `ant` CLI under `ant organization`. The examples on this page use the default client, which reads an Admin API key from `ANTHROPIC_API_KEY` or an OAuth bearer token from `ANTHROPIC_AUTH_TOKEN`. SDK list methods in Python, TypeScript, C#, Go, and Java return an iterator that fetches more pages on demand, so `limit` sets the page size, not the total. The PHP, Ruby, and curl examples return one page. In the CLI, `--limit` caps the results on the member, invite, workspace, workspace-member, and API-key lists. For each endpoint’s parameters and responses, see the [Admin API reference](https://platform.claude.com/docs/en/api/organization).
 
 ### OAuth bearer token
 
-Log in with the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under a dedicated profile with the `org:admin` scope (see [Admin access](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#admin-access)), then export the bearer token. `--profile admin` stores the `org:admin` credential under its own profile and makes it the CLI's active profile. The exported variable applies to every SDK and CLI call in that shell. Use a shell you reserve for administration, unset the variable when you're done, and switch the CLI back with `ant profile activate default`:
+Log in with the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under a dedicated profile with the `org:admin` scope (see [Admin access](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#admin-access)), then export the bearer token. `--profile admin` stores the `org:admin` credential under its own profile and makes it the CLI’s active profile. The exported variable applies to every SDK and CLI call in that shell. Use a shell you reserve for administration, unset the variable when you’re done, and switch the CLI back with `ant profile activate default`:
 
 ```bash CLI
 ant auth login --profile admin --scope "org:admin"
@@ -341,7 +341,7 @@ List the members of your organization:
   ```
 </CodeGroup>
 
-Update a member's role:
+Update a member’s role:
 
 <CodeGroup>
   ```bash cURL
@@ -1103,7 +1103,7 @@ List the members of a workspace:
   ```
 </CodeGroup>
 
-Update a workspace member's role:
+Update a workspace member’s role:
 
 <CodeGroup>
   ```bash cURL
@@ -1342,7 +1342,7 @@ Remove a member from a workspace:
 
 ### API keys
 
-Monitor and manage [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list). Each key in the response includes its `expires_at` timestamp (`null` for keys without an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration)) and `principal`, the identity it acts as (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)). For a personal key, `principal` is `{"type": "user_actor", "user_id": "user_..."}`. For a service account key, it is `{"type": "service_account_actor", "service_account_id": "svac_..."}`. For a workspace key, it is `null`. Each key also has a `scope` object: `{"type": "workspace", "workspace_id": "wrkspc_..."}` for a key bound to one workspace, or `{"type": "organization"}` for a key that can work across any workspace the account has access to. Filtering the list by `workspace_id` with the Default Workspace's ID returns only keys bound to the Default Workspace; keys without a workspace scope aren't returned under any `workspace_id` filter.
+Monitor and manage [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list). Each key in the response includes its `expires_at` timestamp (`null` for keys without an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration)) and `principal`, the identity it acts as (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)). For a personal key, `principal` is `{"type": "user_actor", "user_id": "user_..."}`. For a service account key, it is `{"type": "service_account_actor", "service_account_id": "svac_..."}`. For a workspace key, it is `null`. Each key also has a `scope` object: `{"type": "workspace", "workspace_id": "wrkspc_..."}` for a key bound to one workspace, or `{"type": "organization"}` for a key that can work across any workspace the account has access to. Filtering the list by `workspace_id` with the Default Workspace’s ID returns only keys bound to the Default Workspace; keys without a workspace scope aren’t returned under any `workspace_id` filter.
 
 List the active API keys in a workspace:
 
@@ -1716,7 +1716,7 @@ For parameter details and response schemas, see the [Organization Info API refer
 
 ## Usage and cost reports
 
-Track your organization's usage and costs with the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api).
+Track your organization’s usage and costs with the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api).
 
 ## Claude Code analytics
 
@@ -1732,7 +1732,7 @@ Retrieve audit and activity data for your organization with the [Compliance API]
 
 ## Organization webhooks
 
-Register webhook endpoints for events about enforcement actions on your organization's user profiles with [organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks).
+Register webhook endpoints for events about enforcement actions on your organization’s user profiles with [organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks).
 
 ## Best practices
 
@@ -1740,13 +1740,13 @@ Register webhook endpoints for events about enforcement actions on your organiza
 * Handle errors from failed operations
 * Regularly audit member roles and permissions
 * Clean up unused workspaces and expired invites
-* Monitor API key usage, audit each key's [`expires_at`](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration), and rotate keys periodically
+* Monitor API key usage, audit each key’s [`expires_at`](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration), and rotate keys periodically
 
 ## FAQ
 
 <AccordionGroup>
   <Accordion title="What permissions are needed to use the Admin API?">
-    The Admin API accepts an Admin API key (starting with `sk-ant-admin`), an OAuth bearer token with the `org:admin` scope, or a personal key or service account key that isn't scoped to a specific workspace. Only organization members with the admin role can provision Admin API keys, and only members with the admin, owner, or primary owner role can obtain `org:admin` tokens. A personal key or service account key has the same permissions as the linked account. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication).
+    The Admin API accepts an Admin API key (starting with `sk-ant-admin`), an OAuth bearer token with the `org:admin` scope, or a personal key or service account key that isn’t scoped to a specific workspace. Only organization members with the admin role can provision Admin API keys, and only members with the admin, owner, or primary owner role can obtain `org:admin` tokens. A personal key or service account key has the same permissions as the linked account. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication).
   </Accordion>
 
   <Accordion title="Can I create new API keys through the Admin API?">
@@ -1760,11 +1760,11 @@ Register webhook endpoints for events about enforcement actions on your organiza
   </Accordion>
 
   <Accordion title="Can organization admins be removed through the API?">
-    No. The API can't remove members with the admin role.
+    No. The API can’t remove members with the admin role.
   </Accordion>
 
   <Accordion title="How long do organization invites last?">
-    Invites expire after 21 days. The expiration period isn't configurable.
+    Invites expire after 21 days. The expiration period isn’t configurable.
   </Accordion>
 </AccordionGroup>
 

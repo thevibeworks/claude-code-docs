@@ -9,10 +9,10 @@ featureMetadata:
     Claude API: beta
 ---
 
-An organization webhook endpoint receives an event when Anthropic restricts or bans one of your organization's [user profiles](https://platform.claude.com/docs/en/manage-claude/user-profiles), and when the restriction or ban ends. You manage it with the Admin API under `/v1/organizations/webhooks`.
+An organization webhook endpoint receives an event when Anthropic restricts or bans one of your organization’s [user profiles](https://platform.claude.com/docs/en/manage-claude/user-profiles), and when the restriction or ban ends. You manage it with the Admin API under `/v1/organizations/webhooks`.
 
 <Note>
-  Event delivery isn't live: Anthropic doesn't send the two events, so an endpoint you register receives nothing. You can register endpoints and build your handler from the event format on this page.
+  Event delivery isn’t live: Anthropic doesn’t send the two events, so an endpoint you register receives nothing. You can register endpoints and build your handler from the event format on this page.
 </Note>
 
 Any member of your organization can list and view organization webhook endpoints with the API, but only members with the admin, owner, or primary owner role can create, change, or delete them, or replace their signing secret.
@@ -21,13 +21,13 @@ Any member of your organization can list and view organization webhook endpoints
 
 You need the following:
 
-* An organization on the Claude API that has organization webhooks turned on and doesn't have [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled. To request access, contact your Anthropic account team.
+* An organization on the Claude API that has organization webhooks turned on and doesn’t have [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled. To request access, contact your Anthropic account team.
 
 * One of these credentials:
 
   * An [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys).
   * An [OAuth bearer token](https://platform.claude.com/docs/en/manage-claude/admin-api#oauth-bearer-token) with the `org:admin` scope.
-  * A [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn't scoped to a workspace.
+  * A [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn’t scoped to a workspace.
 
 ## Event types
 
@@ -44,11 +44,11 @@ Deleting a profile ends its open actions without a `user_profile.enforcement_act
 
 In any request whose `anthropic-beta` header has `user-profiles-2026-09-04` or an earlier value, responses leave out the `enforcement_status` and `enforcement_actions` fields and the `enforcement_status[]` list filter returns a `400`. To get the fields, remove that value from your requests.
 
-If an enforcement action opened before Anthropic turned on event delivery for your organization, or before you registered your endpoint, you don't get a `user_profile.enforcement_action_opened` event for it. The action still appears on the profile. To find these actions, [list your profiles](https://platform.claude.com/docs/en/api/user_profiles/list) with `enforcement_status[]=restricted` and `enforcement_status[]=banned`. A response might return fewer profiles than `limit`, or none, before the list ends, so keep requesting pages until `next_page` is `null`.
+If an enforcement action opened before Anthropic turned on event delivery for your organization, or before you registered your endpoint, you don’t get a `user_profile.enforcement_action_opened` event for it. The action still appears on the profile. To find these actions, [list your profiles](https://platform.claude.com/docs/en/api/user_profiles/list) with `enforcement_status[]=restricted` and `enforcement_status[]=banned`. A response might return fewer profiles than `limit`, or none, before the list ends, so keep requesting pages until `next_page` is `null`.
 
 ### What an event contains
 
-Events carry IDs, not the action or the profile. `data.id` is the profile's ID, and `data.enforcement_action_id` is the action's ID, which starts with `enac_`:
+Events carry IDs, not the action or the profile. `data.id` is the profile’s ID, and `data.enforcement_action_id` is the action’s ID, which starts with `enac_`:
 
 ```json
 {
@@ -66,7 +66,7 @@ Events carry IDs, not the action or the profile. `data.id` is the profile's ID, 
 
 To see what changed, [retrieve the profile](https://platform.claude.com/docs/en/api/user_profiles/retrieve) with `GET /v1/user_profiles/{id}` (python, ruby: `client.user_profiles.retrieve()`; typescript: `client.userProfiles.retrieve()`; go: `client.UserProfiles.Get()`; java: `client.userProfiles().retrieve()`; csharp: `client.UserProfiles.Retrieve()`; php: `$client->userProfiles->retrieve()`; cli: `ant user-profiles retrieve`), using `data.id`. Its `enforcement_actions` list shows its open actions. Each action has a `type` (`restriction` or `ban`), an `id`, a `reason`, an `opened_at` time, and an `expires_at` time or `null`. `enforcement_status` summarizes them: `banned` while a ban is open, `restricted` while any other action is open, and `unrestricted` when none is. Treat any other value as `restricted`.
 
-Anthropic sends an event only after the profile shows the change, so the profile you retrieve shows that change or a later one. Events might arrive late or out of order, so use the profile's current state, not the order events arrive in. After `user_profile.enforcement_action_resolved`, the resolved action is no longer in the list. A `404` means the profile was deleted.
+Anthropic sends an event only after the profile shows the change, so the profile you retrieve shows that change or a later one. Events might arrive late or out of order, so use the profile’s current state, not the order events arrive in. After `user_profile.enforcement_action_resolved`, the resolved action is no longer in the list. A `404` means the profile was deleted.
 
 ## Endpoint fields
 
@@ -74,8 +74,8 @@ An organization webhook endpoint has these fields:
 
 | Field             | Type             | Description                                                                                                                                                                               |
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`              | string           | The endpoint's ID, which starts with `wep_`. Set by Anthropic.                                                                                                                            |
-| `url`             | string           | Where Anthropic sends events. Must be HTTPS on port 443, with a public domain name, not an IP address. Two enabled organization webhook endpoints in your organization can't share a URL. |
+| `id`              | string           | The endpoint’s ID, which starts with `wep_`. Set by Anthropic.                                                                                                                            |
+| `url`             | string           | Where Anthropic sends events. Must be HTTPS on port 443, with a public domain name, not an IP address. Two enabled organization webhook endpoints in your organization can’t share a URL. |
 | `enabled_events`  | array of strings | The [event types](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#event-types) this endpoint receives. A create request must list at least one.                   |
 | `name`            | string           | An optional label for your own use.                                                                                                                                                       |
 | `description`     | string           | An optional description for your own use.                                                                                                                                                 |
@@ -106,7 +106,7 @@ An organization can have up to 32 organization webhook endpoints. Disabled webho
 
 ## Deliveries
 
-Deliveries follow the [Standard Webhooks](https://www.standardwebhooks.com/) specification. Each one carries the `webhook-id`, `webhook-timestamp`, and `webhook-signature` headers. Before you trust an event, verify its signature with the endpoint's signing secret, using any Standard Webhooks library.
+Deliveries follow the [Standard Webhooks](https://www.standardwebhooks.com/) specification. Each one carries the `webhook-id`, `webhook-timestamp`, and `webhook-signature` headers. Before you trust an event, verify its signature with the endpoint’s signing secret, using any Standard Webhooks library.
 
 Return any `2xx` status within 5 seconds, and do slow work afterward. Any other response, or no response, counts as a failed attempt.
 
@@ -120,7 +120,7 @@ Return any `2xx` status within 5 seconds, and do slow work afterward. Any other 
   * Its URL resolves to a non-public IP address.
   * Its deliveries keep failing.
 
-  Anthropic skips events for a disabled endpoint and doesn't send them later.
+  Anthropic skips events for a disabled endpoint and doesn’t send them later.
 
 ## Manage endpoints
 
@@ -128,20 +128,20 @@ With the Admin API, you can make these requests:
 
 | Task                                                                            | Request                                                                                                                                                                           |
 | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| List your organization's endpoints                                              | [`GET /v1/organizations/webhooks`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/list)                                                                       |
+| List your organization’s endpoints                                              | [`GET /v1/organizations/webhooks`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/list)                                                                       |
 | Create an endpoint                                                              | [`POST /v1/organizations/webhooks`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/create)                                                                    |
 | Get one endpoint                                                                | [`GET /v1/organizations/webhooks/{webhook_endpoint_id}`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/retrieve)                                             |
-| Update an endpoint's `url`, `name`, `description`, `enabled_events`, or `state` | [`POST /v1/organizations/webhooks/{webhook_endpoint_id}`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/update)                                              |
+| Update an endpoint’s `url`, `name`, `description`, `enabled_events`, or `state` | [`POST /v1/organizations/webhooks/{webhook_endpoint_id}`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/update)                                              |
 | Delete an endpoint                                                              | [`DELETE /v1/organizations/webhooks/{webhook_endpoint_id}`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/delete)                                            |
 | Replace the signing secret                                                      | [`POST /v1/organizations/webhooks/{webhook_endpoint_id}/regenerate_signing_secret`](https://platform.claude.com/docs/en/api/beta/organization/webhooks/regenerate_signing_secret) |
 
-In an update, `enabled_events` replaces the endpoint's whole list of event types. An empty list doesn't clear the list: the endpoint keeps the event types it had. To stop deliveries, send `"state": "disabled"` or delete the endpoint.
+In an update, `enabled_events` replaces the endpoint’s whole list of event types. An empty list doesn’t clear the list: the endpoint keeps the event types it had. To stop deliveries, send `"state": "disabled"` or delete the endpoint.
 
 To turn an endpoint back on, including after Anthropic disabled it, send `"state": "enabled"` in an update request.
 
 When you replace the signing secret, the old secret stops working at once. Deliveries from then on, including retries of earlier events, are signed with the new secret, so update your receiver right away.
 
-Send the `anthropic-beta: webhooks-2026-10-07` header with every request. The SDK and the CLI send it for you. This example lists your organization's endpoints, using an Admin API key from `ANTHROPIC_API_KEY`.
+Send the `anthropic-beta: webhooks-2026-10-07` header with every request. The SDK and the CLI send it for you. This example lists your organization’s endpoints, using an Admin API key from `ANTHROPIC_API_KEY`.
 
 <CodeGroup>
   ```bash cURL
@@ -239,7 +239,7 @@ With no endpoints, the API returns an empty list:
 }
 ```
 
-A list returns up to 20 endpoints by default. Set `limit` to get up to 100. If `has_more` is `true`, pass the response's `last_id` as `after_id` to get the next page.
+A list returns up to 20 endpoints by default. Set `limit` to get up to 100. If `has_more` is `true`, pass the response’s `last_id` as `after_id` to get the next page.
 
 This example creates an endpoint that receives both event types:
 
@@ -391,23 +391,23 @@ The response is the new endpoint, as shown in [Endpoint fields](https://platform
 
 A request returns a `400` if:
 
-* Its `url` doesn't meet the rules in [Endpoint fields](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#endpoint-fields), or a create request lists no event types. The error message says what's wrong.
+* Its `url` doesn’t meet the rules in [Endpoint fields](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#endpoint-fields), or a create request lists no event types. The error message says what’s wrong.
 * Your organization has no default workspace.
-* Organization webhooks aren't available for your organization because its default workspace uses a [customer-managed encryption key](https://platform.claude.com/docs/en/manage-claude/cmek). The error message says so.
+* Organization webhooks aren’t available for your organization because its default workspace uses a [customer-managed encryption key](https://platform.claude.com/docs/en/manage-claude/cmek). The error message says so.
 * It would give your organization more than 32 organization webhook endpoints.
 * It puts an event type other than the two in [Event types](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#event-types) in `enabled_events`. The error message lists the accepted types.
 
-A request returns a `403` if your account's role doesn't include the permission the request needs. The error names that permission.
+A request returns a `403` if your account’s role doesn’t include the permission the request needs. The error names that permission.
 
 A request returns a `404` if:
 
-* It doesn't send the `anthropic-beta: webhooks-2026-10-07` header.
-* Anthropic hasn't turned on organization webhooks for your organization.
+* It doesn’t send the `anthropic-beta: webhooks-2026-10-07` header.
+* Anthropic hasn’t turned on organization webhooks for your organization.
 * Your organization has HIPAA readiness enabled.
-* It uses a kind of credential these requests don't accept.
-* Its `webhook_endpoint_id` doesn't match an endpoint in your organization.
+* It uses a kind of credential these requests don’t accept.
+* Its `webhook_endpoint_id` doesn’t match an endpoint in your organization.
 
 A request returns a `409` if:
 
 * It would make two enabled organization webhook endpoints share a URL.
-* Another request changed your organization's endpoints at the same time. Retry the request.
+* Another request changed your organization’s endpoints at the same time. Retry the request.

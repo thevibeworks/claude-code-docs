@@ -10,7 +10,7 @@ description: Connect Claude to a private MCP server using a local Docker Compose
 
 This quickstart takes you from creating a tunnel to Claude calling a private MCP server through it. It uses Docker Compose with [manual](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#credential-provisioning) credential provisioning, which is the shortest path for local testing. For production deployments, see [Deploy with Helm](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/deploy-helm) or [Deploy with Docker Compose](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/deploy-compose).
 
-## What you'll build
+## What you’ll build
 
 A two-container [tunnel stack](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) (the [proxy](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) and [cloudflared](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components)) plus a sample MCP server running alongside it. When everything is running, the sample server is reachable from Claude at `https://echo.<your-tunnel-domain>/mcp` even though nothing is listening on a public port.
 
@@ -24,7 +24,7 @@ A two-container [tunnel stack](https://platform.claude.com/docs/en/agents-and-to
   <Step title="Create a tunnel">
     In the Claude Console, go to the [MCP tunnels](https://platform.claude.com/settings/workspaces/default/mcp-tunnels) page (`platform.claude.com/settings/workspaces/default/mcp-tunnels`). Each tunnel belongs to one workspace. Select the workspace you want in the workspace picker in the sidebar. Click **New tunnel** and give it a name. Leave **Set up programmatic access** off; this quickstart uses manual credential provisioning.
 
-    After it's created, open the tunnel. Copy two values from the **Connection** section:
+    After it’s created, open the tunnel. Copy two values from the **Connection** section:
 
     * **Domain** (looks like `abcd1234.tunnel.anthropic.com`)
     * **Token** (click the eye icon, then copy)
@@ -107,7 +107,7 @@ A two-container [tunnel stack](https://platform.claude.com/docs/en/agents-and-to
       </Tab>
     </Tabs>
 
-    Back in the Console, on the tunnel detail page, click **Add certificate** and upload `data/ca.crt` (or paste its contents). The **Needs certificate** badge next to the tunnel's name goes away.
+    Back in the Console, on the tunnel detail page, click **Add certificate** and upload `data/ca.crt` (or paste its contents). The **Needs certificate** badge next to the tunnel’s name goes away.
   </Step>
 
   <Step title="Write the sample MCP server">

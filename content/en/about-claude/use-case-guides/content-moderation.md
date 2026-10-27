@@ -7,7 +7,7 @@ description: Content moderation is a critical aspect of maintaining a safe, resp
 > Visit the [content moderation recipe](https://platform.claude.com/cookbook/misc-building-moderation-filter) in the Claude Cookbook to see an example content moderation implementation using Claude.
 
 <Tip>
-  This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, refer to 
+  This guide is focused on moderating user-generated content within your application. If you’re looking for guidance on moderating interactions with Claude, refer to 
 
   [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks)
 
@@ -46,7 +46,7 @@ Here are some key indicators that you should use an LLM such as Claude instead o
   </Accordion>
 
   <Accordion title="You need multimodal support">
-    Claude's multimodal capabilities allow it to analyze and interpret content across both text and images. This makes it a versatile tool for comprehensive content moderation in environments where different media types need to be evaluated together.
+    Claude’s multimodal capabilities allow it to analyze and interpret content across both text and images. This makes it a versatile tool for comprehensive content moderation in environments where different media types need to be evaluated together.
   </Accordion>
 </AccordionGroup>
 
@@ -310,9 +310,9 @@ Before developing a content moderation solution, first create examples of conten
   ```
 </CodeGroup>
 
-Effectively moderating these examples requires a nuanced understanding of language. In the comment, `This movie was great, I really enjoyed it. The main actor really killed it!`, the content moderation system needs to recognize that "killed it" is a metaphor, not an indication of actual violence. Conversely, despite the lack of explicit mentions of violence, the comment `Delete this post now or you better hide. I am coming after you and your family.` should be flagged by the content moderation system.
+Effectively moderating these examples requires a nuanced understanding of language. In the comment, `This movie was great, I really enjoyed it. The main actor really killed it!`, the content moderation system needs to recognize that “killed it” is a metaphor, not an indication of actual violence. Conversely, despite the lack of explicit mentions of violence, the comment `Delete this post now or you better hide. I am coming after you and your family.` should be flagged by the content moderation system.
 
-The unsafe categories can be customized to fit your specific needs. For example, if you want to prevent minors from creating content on your website, you could add "Underage Posting" to the categories.
+The unsafe categories can be customized to fit your specific needs. For example, if you want to prevent minors from creating content on your website, you could add “Underage Posting” to the categories.
 
 ***
 
@@ -873,11 +873,11 @@ To use Claude for content moderation, Claude must interpret the moderation requi
 
 In this example, the `moderate_message` function contains an assessment prompt that includes the unsafe content categories and the message to evaluate. The prompt asks Claude to assess whether the message should be moderated, based on the unsafe categories you defined earlier.
 
-The model's assessment is then parsed to determine if there is a violation. If there is a violation, Claude also returns a list of violated categories and an explanation as to why the message is unsafe.
+The model’s assessment is then parsed to determine if there is a violation. If there is a violation, Claude also returns a list of violated categories and an explanation as to why the message is unsafe.
 
 ### Evaluate your prompt
 
-Content moderation is a classification problem. Thus, you can use the same techniques outlined in the Claude Cookbook's [classification recipe](https://platform.claude.com/cookbook/capabilities-classification-guide) to determine the accuracy of your content moderation system.
+Content moderation is a classification problem. Thus, you can use the same techniques outlined in the Claude Cookbook’s [classification recipe](https://platform.claude.com/cookbook/capabilities-classification-guide) to determine the accuracy of your content moderation system.
 
 One additional consideration is that instead of treating content moderation as a binary classification problem, you can create multiple categories to represent various risk levels. Creating multiple risk levels allows you to adjust the aggressiveness of your moderation. For example, you might want to automatically block user queries that are deemed high risk, whereas users with many medium risk queries are flagged for human review.
 
@@ -1433,7 +1433,7 @@ This approach allows flexible content moderation by assigning risk levels. It ca
 
 ### Deploy your prompt
 
-Once you are confident in the quality of your solution, it's time to deploy it to production. Here are some best practices to follow when using content moderation in production:
+Once you are confident in the quality of your solution, it’s time to deploy it to production. Here are some best practices to follow when using content moderation in production:
 
 1. **Provide clear feedback to users:** When user input is blocked or a response is flagged because of content moderation, provide informative and constructive feedback to help users understand why their message was flagged and how they can rephrase it appropriately. In the earlier coding examples, this is done through the `explanation` field in the Claude response.
 
@@ -2190,7 +2190,7 @@ Notably, the definition for the `Specialized Advice` category now specifies the 
 
 ### Consider batch processing
 
-To reduce costs in situations where real-time moderation isn't necessary, consider moderating messages in batches. Include multiple messages within the prompt's context, and ask Claude to assess which messages should be moderated.
+To reduce costs in situations where real-time moderation isn’t necessary, consider moderating messages in batches. Include multiple messages within the prompt’s context, and ask Claude to assess which messages should be moderated.
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -2728,7 +2728,7 @@ To reduce costs in situations where real-time moderation isn't necessary, consid
   ```
 </CodeGroup>
 
-In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call. Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its `id`, which corresponds to the message's position in the batch. Keep in mind that finding the optimal batch size for your specific needs might require some experimentation. Although larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you might need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](https://platform.claude.com/docs/en/models/overview#latest-models-comparison).
+In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call. Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its `id`, which corresponds to the message’s position in the batch. Keep in mind that finding the optimal batch size for your specific needs might require some experimentation. Although larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you might need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](https://platform.claude.com/docs/en/models/overview#latest-models-comparison).
 
 <CardGroup cols={2}>
   <Card title="Content moderation recipe" icon="link" href="https://platform.claude.com/cookbook/misc-building-moderation-filter">
