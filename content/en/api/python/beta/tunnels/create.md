@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/create
 
 # Create Tunnel
 
-`beta.tunnels.create(**kwargs)  -> BetaTunnel`
+`beta.tunnels.create(**kwargs) -> BetaTunnel`
 
 **POST** `/v1/tunnels`
 

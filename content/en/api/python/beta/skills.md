@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills
 
 ## Create Skill
 
-`beta.skills.create(**kwargs)  -> BetaSkill`
+`beta.skills.create(**kwargs) -> BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -248,7 +248,7 @@ print(beta_skill.id)
 
 ## List Skills
 
-`beta.skills.list(**kwargs)  -> SyncPageCursor[BetaSkill]`
+`beta.skills.list(**kwargs) -> SyncPageCursor[BetaSkill]`
 
 **GET** `/v1/skills`
 
@@ -504,7 +504,7 @@ print(page.id)
 
 ## Get Skill
 
-`beta.skills.retrieve(skill_id, **kwargs)  -> BetaSkill`
+`beta.skills.retrieve(skill_id, **kwargs) -> BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -739,7 +739,7 @@ print(beta_skill.id)
 
 ## Delete Skill
 
-`beta.skills.delete(skill_id, **kwargs)  -> BetaDeletedSkill`
+`beta.skills.delete(skill_id, **kwargs) -> BetaDeletedSkill`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -1030,7 +1030,7 @@ print(beta_deleted_skill.id)
 
 ### Create Skill Version
 
-`beta.skills.versions.create(skill_id, **kwargs)  -> BetaSkillVersion`
+`beta.skills.versions.create(skill_id, **kwargs) -> BetaSkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -1241,7 +1241,7 @@ print(beta_skill_version.id)
 
 ### List Skill Versions
 
-`beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[BetaSkillVersion]`
+`beta.skills.versions.list(skill_id, **kwargs) -> SyncPageCursor[BetaSkillVersion]`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -1463,7 +1463,7 @@ print(page.id)
 
 ### Download Skill Version Content
 
-`beta.skills.versions.download(version, **kwargs)  -> BinaryResponseContent`
+`beta.skills.versions.download(version, **kwargs) -> BinaryResponseContent`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
@@ -1625,7 +1625,7 @@ print(content)
 
 ### Get Skill Version
 
-`beta.skills.versions.retrieve(version, **kwargs)  -> BetaSkillVersion`
+`beta.skills.versions.retrieve(version, **kwargs) -> BetaSkillVersion`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -1836,7 +1836,7 @@ print(beta_skill_version.id)
 
 ### Delete Skill Version
 
-`beta.skills.versions.delete(version, **kwargs)  -> BetaDeletedSkillVersion`
+`beta.skills.versions.delete(version, **kwargs) -> BetaDeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 

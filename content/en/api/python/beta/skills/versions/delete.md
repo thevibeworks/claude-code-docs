@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/delete
 
 # Delete Skill Version
 
-`beta.skills.versions.delete(version, **kwargs)  -> BetaDeletedSkillVersion`
+`beta.skills.versions.delete(version, **kwargs) -> BetaDeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 

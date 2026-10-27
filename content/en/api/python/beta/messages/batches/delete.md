@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/messages/batches/delete
 
 # Delete a Message Batch
 
-`beta.messages.batches.delete(message_batch_id, **kwargs)  -> BetaDeletedMessageBatch`
+`beta.messages.batches.delete(message_batch_id, **kwargs) -> BetaDeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 

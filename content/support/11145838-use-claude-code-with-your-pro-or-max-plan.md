@@ -4,7 +4,7 @@ This article applies to individual consumers using Pro or Max plan subscriptions
 
 ## What is Claude Code?
 
-Claude Code is a coding tool that gives you access to Claude models directly in your terminal or supported IDE, allowing you to delegate complex coding tasks while maintaining transparency and control. With Pro and Max plans, you now have access to both Claude on the web, desktop, and mobile apps and Claude Code in your terminal with one unified subscription.
+Claude Code is a coding tool that lets you delegate complex coding tasks to Claude while keeping transparency and control. It’s included in Claude Desktop, and you can also run it in your terminal or a supported IDE. With a Pro or Max plan, you have access to Claude on the web, desktop, and mobile apps and to Claude Code with one subscription.
 
 ### Why use Claude and Claude Code?
 
@@ -12,7 +12,7 @@ Use two powerful AI products in one simple subscription.
 
 - Use Claude for writing, research, analysis, and more—at work and at home.
 
-- Use Claude Code for your terminal-based coding workflows.
+- Use Claude Code for coding work in Claude Desktop, your terminal, or your IDE.
 
 ---
 
@@ -22,23 +22,23 @@ Use two powerful AI products in one simple subscription.
 
   - If you're not already subscribed, upgrade at **[claude.ai/upgrade](https://claude.ai/upgrade)**
 
-2. **Install Claude Code**
+2. **Open Claude Code**
 
-  - Visit the **[Claude Code page in our Claude Docs](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code)** to download and install Claude Code.
+  - **Recommended:** Download **Claude Desktop**, sign in with your Pro or Max plan, and open the “Code” tab. Claude Desktop includes Claude Code, so there’s nothing else to install, and it uses the account you signed in with. Follow the **desktop quickstart** in the Claude Code docs for your first session.
 
-  - Follow the installation instructions for your operating system.
+  - To use the terminal instead, visit the **[Claude Code quickstart](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code)** in the Claude Code docs and follow the installation instructions for your operating system.
 
-3. **Authenticate with your Claude credentials**
+3. **Authenticate (terminal and IDE only)**
 
   - When prompted during setup or first use, log in with the same credentials you use for Claude.
 
-  - This will connect your Pro or Max plan subscription to Claude Code.
+  - This connects your Pro or Max plan subscription to Claude Code.
 
-  - If you're already logged in to Claude Code via Claude Console PAYG, run /login from within Claude Code to switch to your subscription plan.
+  - If you’re already logged in to Claude Code via Claude Console pay-as-you-go, run `/login` from within Claude Code to switch to your subscription plan.
 
 ### Having trouble using your Pro or Max plan to access Claude Code?
 
-If you're not seeing the option to authenticate with your preferred account, follow these steps to update Claude Code:
+If you’re not seeing the option to authenticate with your preferred account in the terminal, follow these steps to update Claude Code:
 
 1. Log out of your active session completely using the `/logout` command.
 
@@ -52,7 +52,7 @@ If you're not seeing the option to authenticate with your preferred account, fol
 
 ## Use Claude Code in your IDE
 
-Your Pro or Max plan also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Claude credentials you use in the terminal. IDE usage counts toward the same usage limits shared across Claude and Claude Code.
+Your Pro or Max plan also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Claude credentials you use in Claude Desktop or the terminal. IDE usage counts toward the same usage limits shared across Claude and Claude Code.
 
 To install and set up the extension for your IDE, see **[Platforms and integrations](https://code.claude.com/docs/en/platforms)** in our Claude Code Docs.
 

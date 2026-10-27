@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/archive
 
 # Archive Environment
 
-`beta.environments.archive(environment_id, **kwargs)  -> BetaEnvironment`
+`beta.environments.archive(environment_id, **kwargs) -> BetaEnvironment`
 
 **POST** `/v1/environments/{environment_id}/archive`
 

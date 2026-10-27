@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/files/upload
 
 # Upload File
 
-`beta.files.upload(**kwargs)  -> BetaFileMetadata`
+`beta.files.upload(**kwargs) -> BetaFileMetadata`
 
 **POST** `/v1/files`
 

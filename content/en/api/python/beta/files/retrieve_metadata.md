@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/files/retrieve_metadata
 
 # Get File Metadata
 
-`beta.files.retrieve_metadata(file_id, **kwargs)  -> BetaFileMetadata`
+`beta.files.retrieve_metadata(file_id, **kwargs) -> BetaFileMetadata`
 
 **GET** `/v1/files/{file_id}`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memory_ve
 
 # List Memory Versions
 
-`beta.memory_stores.memory_versions.list(memory_store_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
+`beta.memory_stores.memory_versions.list(memory_store_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 

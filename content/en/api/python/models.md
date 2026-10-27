@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/models
 
 ## List Models
 
-`models.list(**kwargs)  -> SyncPage[ModelInfo]`
+`models.list(**kwargs) -> SyncPage[ModelInfo]`
 
 **GET** `/v1/models`
 
@@ -369,7 +369,7 @@ print(page.id)
 
 ## Get a Model
 
-`models.retrieve(model_id, **kwargs)  -> ModelInfo`
+`models.retrieve(model_id, **kwargs) -> ModelInfo`
 
 **GET** `/v1/models/{model_id}`
 

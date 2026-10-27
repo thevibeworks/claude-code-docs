@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/create
 
 # Create Session
 
-`beta.sessions.create(**kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.create(**kwargs) -> BetaManagedAgentsSession`
 
 **POST** `/v1/sessions`
 

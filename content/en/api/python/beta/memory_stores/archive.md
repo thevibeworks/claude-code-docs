@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/archive
 
 # Archive a Memory Store
 
-`beta.memory_stores.archive(memory_store_id, **kwargs)  -> BetaManagedAgentsMemoryStore`
+`beta.memory_stores.archive(memory_store_id, **kwargs) -> BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores/{memory_store_id}/archive`
 

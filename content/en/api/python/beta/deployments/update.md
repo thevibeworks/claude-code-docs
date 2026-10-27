@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/update
 
 # Update Deployment
 
-`beta.deployments.update(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
+`beta.deployments.update(deployment_id, **kwargs) -> BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}`
 

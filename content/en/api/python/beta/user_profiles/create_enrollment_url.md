@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/create_en
 
 # Create Enrollment URL
 
-`beta.user_profiles.create_enrollment_url(user_profile_id, **kwargs)  -> BetaUserProfileEnrollmentURL`
+`beta.user_profiles.create_enrollment_url(user_profile_id, **kwargs) -> BetaUserProfileEnrollmentURL`
 
 **POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 

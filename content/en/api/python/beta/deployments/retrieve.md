@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/retrieve
 
 # Get Deployment
 
-`beta.deployments.retrieve(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
+`beta.deployments.retrieve(deployment_id, **kwargs) -> BetaManagedAgentsDeployment`
 
 **GET** `/v1/deployments/{deployment_id}`
 

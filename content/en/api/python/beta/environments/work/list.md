@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/list
 
 # List Work Items
 
-`beta.environments.work.list(environment_id, **kwargs)  -> SyncPageCursor[BetaSelfHostedWork]`
+`beta.environments.work.list(environment_id, **kwargs) -> SyncPageCursor[BetaSelfHostedWork]`
 
 **GET** `/v1/environments/{environment_id}/work`
 

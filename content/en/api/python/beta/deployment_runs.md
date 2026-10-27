@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployment_runs
 
 ## List Deployment Runs
 
-`beta.deployment_runs.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsDeploymentRun]`
+`beta.deployment_runs.list(**kwargs) -> SyncPageCursor[BetaManagedAgentsDeploymentRun]`
 
 **GET** `/v1/deployment_runs`
 
@@ -457,7 +457,7 @@ print(page.id)
 
 ## Get Deployment Run
 
-`beta.deployment_runs.retrieve(deployment_run_id, **kwargs)  -> BetaManagedAgentsDeploymentRun`
+`beta.deployment_runs.retrieve(deployment_run_id, **kwargs) -> BetaManagedAgentsDeploymentRun`
 
 **GET** `/v1/deployment_runs/{deployment_run_id}`
 

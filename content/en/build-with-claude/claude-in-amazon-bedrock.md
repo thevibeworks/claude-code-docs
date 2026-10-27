@@ -350,17 +350,11 @@ Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Mod
 
 Use the latest version of Claude Code with Claude in Amazon Bedrock; run `claude update` to upgrade.
 
-<Tip>
-  Upgrading to a newer Claude model? The [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model) in Claude Code applies model ID swaps and breaking parameter changes across your code base:
+Let Claude Code migrate your code to a newer model
 
-  Let Claude Code migrate your code for you
-
-  ```text
-  /claude-api migrate this project to the latest Claude Opus model
-  ```
-
-  The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform.
-</Tip>
+```text
+/claude-api migrate this project to the latest Claude Opus model
+```
 
 ## Feature support
 

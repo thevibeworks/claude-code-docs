@@ -1,6 +1,6 @@
 # Claude Code: Common developer use cases
 
-Claude Code is a command-line agent that runs in your terminal, reads your repository, edits files, executes commands, and requests confirmation before performing potentially destructive actions. It is designed to assist at every stage of the software development lifecycle—from exploring an unfamiliar codebase to shipping and maintaining production code.
+Claude Code is a coding agent that reads your repository, edits files, runs commands, and asks for confirmation before performing potentially destructive actions. It’s built into Claude Desktop, and it also runs in your terminal and supported IDEs. It’s designed to assist at every stage of the software development lifecycle, from exploring an unfamiliar codebase to shipping and maintaining production code.
 
 The table below summarizes where Claude Code fits across the development lifecycle. The remainder of this article walks through the ten tasks developers most frequently use it for, with a sample prompt and expected result for each.
 

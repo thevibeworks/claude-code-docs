@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles
 
 ## Create User Profile
 
-`beta.user_profiles.create(**kwargs)  -> BetaUserProfile`
+`beta.user_profiles.create(**kwargs) -> BetaUserProfile`
 
 **POST** `/v1/user_profiles`
 
@@ -398,7 +398,7 @@ print(beta_user_profile.id)
 
 ## List User Profiles
 
-`beta.user_profiles.list(**kwargs)  -> SyncPageCursor[BetaUserProfile]`
+`beta.user_profiles.list(**kwargs) -> SyncPageCursor[BetaUserProfile]`
 
 **GET** `/v1/user_profiles`
 
@@ -737,7 +737,7 @@ print(page.id)
 
 ## Get User Profile
 
-`beta.user_profiles.retrieve(user_profile_id, **kwargs)  -> BetaUserProfile`
+`beta.user_profiles.retrieve(user_profile_id, **kwargs) -> BetaUserProfile`
 
 **GET** `/v1/user_profiles/{user_profile_id}`
 
@@ -1040,7 +1040,7 @@ print(beta_user_profile.id)
 
 ## Update User Profile
 
-`beta.user_profiles.update(user_profile_id, **kwargs)  -> BetaUserProfile`
+`beta.user_profiles.update(user_profile_id, **kwargs) -> BetaUserProfile`
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 
@@ -1437,7 +1437,7 @@ print(beta_user_profile.id)
 
 ## Delete User Profile
 
-`beta.user_profiles.delete(user_profile_id, **kwargs)  -> BetaDeletedUserProfile`
+`beta.user_profiles.delete(user_profile_id, **kwargs) -> BetaDeletedUserProfile`
 
 **DELETE** `/v1/user_profiles/{user_profile_id}`
 
@@ -1605,7 +1605,7 @@ print(beta_deleted_user_profile.id)
 
 ## Create Enrollment URL
 
-`beta.user_profiles.create_enrollment_url(user_profile_id, **kwargs)  -> BetaUserProfileEnrollmentURL`
+`beta.user_profiles.create_enrollment_url(user_profile_id, **kwargs) -> BetaUserProfileEnrollmentURL`
 
 **POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
@@ -2076,7 +2076,7 @@ print(beta_user_profile_enrollment_url.expires_at)
 
 ### Create Action URL
 
-`beta.user_profiles.action_urls.create(user_profile_id, **kwargs)  -> BetaUserProfileActionURL`
+`beta.user_profiles.action_urls.create(user_profile_id, **kwargs) -> BetaUserProfileActionURL`
 
 **POST** `/v1/user_profiles/{user_profile_id}/action_urls`
 

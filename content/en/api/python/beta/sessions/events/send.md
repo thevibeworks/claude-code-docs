@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/events/send
 
 # Send Events
 
-`beta.sessions.events.send(session_id, **kwargs)  -> BetaManagedAgentsSendSessionEvents`
+`beta.sessions.events.send(session_id, **kwargs) -> BetaManagedAgentsSendSessionEvents`
 
 **POST** `/v1/sessions/{session_id}/events`
 

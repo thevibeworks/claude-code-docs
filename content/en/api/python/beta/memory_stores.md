@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores
 
 ## Create a Memory Store
 
-`beta.memory_stores.create(**kwargs)  -> BetaManagedAgentsMemoryStore`
+`beta.memory_stores.create(**kwargs) -> BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores`
 
@@ -239,7 +239,7 @@ print(beta_managed_agents_memory_store.id)
 
 ## List Memory Stores
 
-`beta.memory_stores.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryStore]`
+`beta.memory_stores.list(**kwargs) -> SyncPageCursor[BetaManagedAgentsMemoryStore]`
 
 **GET** `/v1/memory_stores`
 
@@ -477,7 +477,7 @@ print(page.id)
 
 ## Retrieve a Memory Store
 
-`beta.memory_stores.retrieve(memory_store_id, **kwargs)  -> BetaManagedAgentsMemoryStore`
+`beta.memory_stores.retrieve(memory_store_id, **kwargs) -> BetaManagedAgentsMemoryStore`
 
 **GET** `/v1/memory_stores/{memory_store_id}`
 
@@ -691,7 +691,7 @@ print(beta_managed_agents_memory_store.id)
 
 ## Update a Memory Store
 
-`beta.memory_stores.update(memory_store_id, **kwargs)  -> BetaManagedAgentsMemoryStore`
+`beta.memory_stores.update(memory_store_id, **kwargs) -> BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores/{memory_store_id}`
 
@@ -927,7 +927,7 @@ print(beta_managed_agents_memory_store.id)
 
 ## Delete a Memory Store
 
-`beta.memory_stores.delete(memory_store_id, **kwargs)  -> BetaManagedAgentsDeletedMemoryStore`
+`beta.memory_stores.delete(memory_store_id, **kwargs) -> BetaManagedAgentsDeletedMemoryStore`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}`
 
@@ -1097,7 +1097,7 @@ print(beta_managed_agents_deleted_memory_store.id)
 
 ## Archive a Memory Store
 
-`beta.memory_stores.archive(memory_store_id, **kwargs)  -> BetaManagedAgentsMemoryStore`
+`beta.memory_stores.archive(memory_store_id, **kwargs) -> BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores/{memory_store_id}/archive`
 
@@ -1379,7 +1379,7 @@ print(beta_managed_agents_memory_store.id)
 
 ### Create a Memory
 
-`beta.memory_stores.memories.create(memory_store_id, **kwargs)  -> BetaManagedAgentsMemory`
+`beta.memory_stores.memories.create(memory_store_id, **kwargs) -> BetaManagedAgentsMemory`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -1637,7 +1637,7 @@ print(beta_managed_agents_memory.id)
 
 ### List Memories
 
-`beta.memory_stores.memories.list(memory_store_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryListItem]`
+`beta.memory_stores.memories.list(memory_store_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsMemoryListItem]`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -1927,7 +1927,7 @@ print(page)
 
 ### Retrieve a Memory
 
-`beta.memory_stores.memories.retrieve(memory_id, **kwargs)  -> BetaManagedAgentsMemory`
+`beta.memory_stores.memories.retrieve(memory_id, **kwargs) -> BetaManagedAgentsMemory`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
@@ -2174,7 +2174,7 @@ print(beta_managed_agents_memory.id)
 
 ### Update a Memory
 
-`beta.memory_stores.memories.update(memory_id, **kwargs)  -> BetaManagedAgentsMemory`
+`beta.memory_stores.memories.update(memory_id, **kwargs) -> BetaManagedAgentsMemory`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
@@ -2445,7 +2445,7 @@ print(beta_managed_agents_memory.id)
 
 ### Delete a Memory
 
-`beta.memory_stores.memories.delete(memory_id, **kwargs)  -> BetaManagedAgentsDeletedMemory`
+`beta.memory_stores.memories.delete(memory_id, **kwargs) -> BetaManagedAgentsDeletedMemory`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
@@ -2630,7 +2630,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### List Memory Versions
 
-`beta.memory_stores.memory_versions.list(memory_store_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
+`beta.memory_stores.memory_versions.list(memory_store_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
@@ -3019,7 +3019,7 @@ print(page.id)
 
 ### Retrieve a Memory Version
 
-`beta.memory_stores.memory_versions.retrieve(memory_version_id, **kwargs)  -> BetaManagedAgentsMemoryVersion`
+`beta.memory_stores.memory_versions.retrieve(memory_version_id, **kwargs) -> BetaManagedAgentsMemoryVersion`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
@@ -3349,7 +3349,7 @@ print(beta_managed_agents_memory_version.id)
 
 ### Redact a Memory Version
 
-`beta.memory_stores.memory_versions.redact(memory_version_id, **kwargs)  -> BetaManagedAgentsMemoryVersion`
+`beta.memory_stores.memory_versions.redact(memory_version_id, **kwargs) -> BetaManagedAgentsMemoryVersion`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 

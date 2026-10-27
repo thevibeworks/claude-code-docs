@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/list
 
 # List Environments
 
-`beta.environments.list(**kwargs)  -> SyncPageCursor[BetaEnvironment]`
+`beta.environments.list(**kwargs) -> SyncPageCursor[BetaEnvironment]`
 
 **GET** `/v1/environments`
 

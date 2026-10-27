@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/reveal_token
 
 # Reveal Tunnel Token
 
-`beta.tunnels.reveal_token(tunnel_id, **kwargs)  -> BetaTunnelToken`
+`beta.tunnels.reveal_token(tunnel_id, **kwargs) -> BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 

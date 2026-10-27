@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/updat
 
 # Update Work Item
 
-`beta.environments.work.update(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.update(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}`
 

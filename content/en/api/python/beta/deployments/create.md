@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/create
 
 # Create Deployment
 
-`beta.deployments.create(**kwargs)  -> BetaManagedAgentsDeployment`
+`beta.deployments.create(**kwargs) -> BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments`
 

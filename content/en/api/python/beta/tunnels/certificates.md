@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/certificates
 
 ## Create Tunnel Certificate
 
-`beta.tunnels.certificates.create(tunnel_id, **kwargs)  -> BetaTunnelCertificate`
+`beta.tunnels.certificates.create(tunnel_id, **kwargs) -> BetaTunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -215,7 +215,7 @@ print(beta_tunnel_certificate.id)
 
 ## Get Tunnel Certificate
 
-`beta.tunnels.certificates.retrieve(certificate_id, **kwargs)  -> BetaTunnelCertificate`
+`beta.tunnels.certificates.retrieve(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
@@ -421,7 +421,7 @@ print(beta_tunnel_certificate.id)
 
 ## List Tunnel Certificates
 
-`beta.tunnels.certificates.list(tunnel_id, **kwargs)  -> SyncPageCursor[BetaTunnelCertificate]`
+`beta.tunnels.certificates.list(tunnel_id, **kwargs) -> SyncPageCursor[BetaTunnelCertificate]`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -642,7 +642,7 @@ print(page.id)
 
 ## Archive Tunnel Certificate
 
-`beta.tunnels.certificates.archive(certificate_id, **kwargs)  -> BetaTunnelCertificate`
+`beta.tunnels.certificates.archive(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 

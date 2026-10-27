@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources
 
 ## Add Session Resource
 
-`beta.sessions.resources.add(session_id, **kwargs)  -> BetaManagedAgentsFileResource`
+`beta.sessions.resources.add(session_id, **kwargs) -> BetaManagedAgentsFileResource`
 
 **POST** `/v1/sessions/{session_id}/resources`
 
@@ -205,7 +205,7 @@ print(beta_managed_agents_file_resource.id)
 
 ## List Session Resources
 
-`beta.sessions.resources.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionResource]`
+`beta.sessions.resources.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionResource]`
 
 **GET** `/v1/sessions/{session_id}/resources`
 
@@ -497,7 +497,7 @@ print(page)
 
 ## Get Session Resource
 
-`beta.sessions.resources.retrieve(resource_id, **kwargs)  -> ResourceRetrieveResponse`
+`beta.sessions.resources.retrieve(resource_id, **kwargs) -> ResourceRetrieveResponse`
 
 **GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -770,7 +770,7 @@ print(resource)
 
 ## Update Session Resource
 
-`beta.sessions.resources.update(resource_id, **kwargs)  -> ResourceUpdateResponse`
+`beta.sessions.resources.update(resource_id, **kwargs) -> ResourceUpdateResponse`
 
 **POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -1050,7 +1050,7 @@ print(resource)
 
 ## Delete Session Resource
 
-`beta.sessions.resources.delete(resource_id, **kwargs)  -> BetaManagedAgentsDeleteSessionResource`
+`beta.sessions.resources.delete(resource_id, **kwargs) -> BetaManagedAgentsDeleteSessionResource`
 
 **DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 

@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/models
 
 ## List Models
 
-`beta.models.list(**kwargs)  -> SyncPage[BetaModelInfo]`
+`beta.models.list(**kwargs) -> SyncPage[BetaModelInfo]`
 
 **GET** `/v1/models`
 
@@ -504,7 +504,7 @@ print(page.id)
 
 ## Get a Model
 
-`beta.models.retrieve(model_id, **kwargs)  -> BetaModelInfo`
+`beta.models.retrieve(model_id, **kwargs) -> BetaModelInfo`
 
 **GET** `/v1/models/{model_id}`
 

@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/threads/events
 
 ## List Session Thread Events
 
-`beta.sessions.threads.events.list(thread_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.threads.events.list(thread_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
@@ -3120,7 +3120,7 @@ print(page)
 
 ## Stream Session Thread Events
 
-`beta.sessions.threads.events.stream(thread_id, **kwargs)  -> Stream[BetaManagedAgentsStreamSessionThreadEvents]`
+`beta.sessions.threads.events.stream(thread_id, **kwargs) -> Stream[BetaManagedAgentsStreamSessionThreadEvents]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 

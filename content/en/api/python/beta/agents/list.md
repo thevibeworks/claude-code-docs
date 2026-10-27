@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/agents/list
 
 # List Agents
 
-`beta.agents.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsAgent]`
+`beta.agents.list(**kwargs) -> SyncPageCursor[BetaManagedAgentsAgent]`
 
 **GET** `/v1/agents`
 

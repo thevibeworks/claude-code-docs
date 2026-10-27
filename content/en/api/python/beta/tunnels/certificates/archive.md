@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/certificates/ar
 
 # Archive Tunnel Certificate
 
-`beta.tunnels.certificates.archive(certificate_id, **kwargs)  -> BetaTunnelCertificate`
+`beta.tunnels.certificates.archive(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 

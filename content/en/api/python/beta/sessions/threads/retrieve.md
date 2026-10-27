@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/threads/retrie
 
 # Get Session Thread
 
-`beta.sessions.threads.retrieve(thread_id, **kwargs)  -> BetaManagedAgentsSessionThread`
+`beta.sessions.threads.retrieve(thread_id, **kwargs) -> BetaManagedAgentsSessionThread`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/run
 
 # Run Deployment Now
 
-`beta.deployments.run(deployment_id, **kwargs)  -> BetaManagedAgentsDeploymentRun`
+`beta.deployments.run(deployment_id, **kwargs) -> BetaManagedAgentsDeploymentRun`
 
 **POST** `/v1/deployments/{deployment_id}/run`
 

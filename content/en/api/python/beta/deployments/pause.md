@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/deployments/pause
 
 # Pause Deployment
 
-`beta.deployments.pause(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
+`beta.deployments.pause(deployment_id, **kwargs) -> BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}/pause`
 

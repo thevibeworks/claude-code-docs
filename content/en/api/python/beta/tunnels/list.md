@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/list
 
 # List Tunnels
 
-`beta.tunnels.list(**kwargs)  -> SyncPageCursor[BetaTunnel]`
+`beta.tunnels.list(**kwargs) -> SyncPageCursor[BetaTunnel]`
 
 **GET** `/v1/tunnels`
 

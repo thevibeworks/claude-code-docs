@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/create
 
 # Create Skill Version
 
-`beta.skills.versions.create(skill_id, **kwargs)  -> BetaSkillVersion`
+`beta.skills.versions.create(skill_id, **kwargs) -> BetaSkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 

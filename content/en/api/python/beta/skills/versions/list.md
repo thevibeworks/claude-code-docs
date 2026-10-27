@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/list
 
 # List Skill Versions
 
-`beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[BetaSkillVersion]`
+`beta.skills.versions.list(skill_id, **kwargs) -> SyncPageCursor[BetaSkillVersion]`
 
 **GET** `/v1/skills/{skill_id}/versions`
 

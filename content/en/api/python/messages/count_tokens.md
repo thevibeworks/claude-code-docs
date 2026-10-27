@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/messages/count_tokens
 
 # Count tokens in a Message
 
-`messages.count_tokens(**kwargs)  -> MessageTokensCount`
+`messages.count_tokens(**kwargs) -> MessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 

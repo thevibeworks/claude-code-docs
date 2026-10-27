@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/update
 
 # Update User Profile
 
-`beta.user_profiles.update(user_profile_id, **kwargs)  -> BetaUserProfile`
+`beta.user_profiles.update(user_profile_id, **kwargs) -> BetaUserProfile`
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 

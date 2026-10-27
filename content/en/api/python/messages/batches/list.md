@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/messages/batches/list
 
 # List Message Batches
 
-`messages.batches.list(**kwargs)  -> SyncPage[MessageBatch]`
+`messages.batches.list(**kwargs) -> SyncPage[MessageBatch]`
 
 **GET** `/v1/messages/batches`
 

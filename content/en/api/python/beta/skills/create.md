@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/create
 
 # Create Skill
 
-`beta.skills.create(**kwargs)  -> BetaSkill`
+`beta.skills.create(**kwargs) -> BetaSkill`
 
 **POST** `/v1/skills`
 

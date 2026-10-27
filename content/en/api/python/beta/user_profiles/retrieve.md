@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/retrieve
 
 # Get User Profile
 
-`beta.user_profiles.retrieve(user_profile_id, **kwargs)  -> BetaUserProfile`
+`beta.user_profiles.retrieve(user_profile_id, **kwargs) -> BetaUserProfile`
 
 **GET** `/v1/user_profiles/{user_profile_id}`
 

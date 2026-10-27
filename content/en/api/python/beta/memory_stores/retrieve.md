@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/retrieve
 
 # Retrieve a Memory Store
 
-`beta.memory_stores.retrieve(memory_store_id, **kwargs)  -> BetaManagedAgentsMemoryStore`
+`beta.memory_stores.retrieve(memory_store_id, **kwargs) -> BetaManagedAgentsMemoryStore`
 
 **GET** `/v1/memory_stores/{memory_store_id}`
 

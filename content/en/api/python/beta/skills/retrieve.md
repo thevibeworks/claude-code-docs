@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/skills/retrieve
 
 # Get Skill
 
-`beta.skills.retrieve(skill_id, **kwargs)  -> BetaSkill`
+`beta.skills.retrieve(skill_id, **kwargs) -> BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 

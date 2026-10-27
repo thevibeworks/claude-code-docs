@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/threads/archiv
 
 # Archive Session Thread
 
-`beta.sessions.threads.archive(thread_id, **kwargs)  -> BetaManagedAgentsSessionThread`
+`beta.sessions.threads.archive(thread_id, **kwargs) -> BetaManagedAgentsSessionThread`
 
 **POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 

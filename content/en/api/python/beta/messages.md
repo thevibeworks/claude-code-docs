@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/messages
 
 ## Create a Message
 
-`beta.messages.create(**kwargs)  -> BetaMessage`
+`beta.messages.create(**kwargs) -> BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -8549,7 +8549,7 @@ print(beta_message.id)
 
 ## Count tokens in a Message
 
-`beta.messages.count_tokens(**kwargs)  -> BetaMessageTokensCount`
+`beta.messages.count_tokens(**kwargs) -> BetaMessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -90241,7 +90241,7 @@ print(beta_message_tokens_count.context_management)
 
 ### Create a Message Batch
 
-`beta.messages.batches.create(**kwargs)  -> BetaMessageBatch`
+`beta.messages.batches.create(**kwargs) -> BetaMessageBatch`
 
 **POST** `/v1/messages/batches`
 
@@ -94679,7 +94679,7 @@ print(beta_message_batch.id)
 
 ### Retrieve a Message Batch
 
-`beta.messages.batches.retrieve(message_batch_id, **kwargs)  -> BetaMessageBatch`
+`beta.messages.batches.retrieve(message_batch_id, **kwargs) -> BetaMessageBatch`
 
 **GET** `/v1/messages/batches/{message_batch_id}`
 
@@ -94961,7 +94961,7 @@ print(beta_message_batch.id)
 
 ### List Message Batches
 
-`beta.messages.batches.list(**kwargs)  -> SyncPage[BetaMessageBatch]`
+`beta.messages.batches.list(**kwargs) -> SyncPage[BetaMessageBatch]`
 
 **GET** `/v1/messages/batches`
 
@@ -95261,7 +95261,7 @@ print(page.id)
 
 ### Cancel a Message Batch
 
-`beta.messages.batches.cancel(message_batch_id, **kwargs)  -> BetaMessageBatch`
+`beta.messages.batches.cancel(message_batch_id, **kwargs) -> BetaMessageBatch`
 
 **POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
@@ -95545,7 +95545,7 @@ print(beta_message_batch.id)
 
 ### Delete a Message Batch
 
-`beta.messages.batches.delete(message_batch_id, **kwargs)  -> BetaDeletedMessageBatch`
+`beta.messages.batches.delete(message_batch_id, **kwargs) -> BetaDeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -95721,7 +95721,7 @@ print(beta_deleted_message_batch.id)
 
 ### Retrieve Message Batch results
 
-`beta.messages.batches.results(message_batch_id, **kwargs)  -> JSONLDecoder[BetaMessageBatchIndividualResponse]`
+`beta.messages.batches.results(message_batch_id, **kwargs) -> JSONLDecoder[BetaMessageBatchIndividualResponse]`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

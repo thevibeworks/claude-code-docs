@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/threads/list
 
 # List Session Threads
 
-`beta.sessions.threads.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionThread]`
+`beta.sessions.threads.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionThread]`
 
 **GET** `/v1/sessions/{session_id}/threads`
 

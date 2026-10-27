@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/update
 
 # Update Session
 
-`beta.sessions.update(session_id, **kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.update(session_id, **kwargs) -> BetaManagedAgentsSession`
 
 **POST** `/v1/sessions/{session_id}`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/agents/versions/list
 
 # List Agent Versions
 
-`beta.agents.versions.list(agent_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsAgent]`
+`beta.agents.versions.list(agent_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsAgent]`
 
 **GET** `/v1/agents/{agent_id}/versions`
 

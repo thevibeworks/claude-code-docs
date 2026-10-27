@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/list
 
 # List Sessions
 
-`beta.sessions.list(**kwargs)  -> SyncBidirectionalPageCursor[BetaManagedAgentsSession]`
+`beta.sessions.list(**kwargs) -> SyncBidirectionalPageCursor[BetaManagedAgentsSession]`
 
 **GET** `/v1/sessions`
 

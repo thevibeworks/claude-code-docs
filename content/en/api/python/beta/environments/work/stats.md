@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/stats
 
 # Get Queue Statistics
 
-`beta.environments.work.stats(environment_id, **kwargs)  -> BetaSelfHostedWorkQueueStats`
+`beta.environments.work.stats(environment_id, **kwargs) -> BetaSelfHostedWorkQueueStats`
 
 **GET** `/v1/environments/{environment_id}/work/stats`
 

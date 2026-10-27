@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/agents/archive
 
 # Archive Agent
 
-`beta.agents.archive(agent_id, **kwargs)  -> BetaManagedAgentsAgent`
+`beta.agents.archive(agent_id, **kwargs) -> BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}/archive`
 

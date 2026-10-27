@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions
 
 ## Create Session
 
-`beta.sessions.create(**kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.create(**kwargs) -> BetaManagedAgentsSession`
 
 **POST** `/v1/sessions`
 
@@ -2626,7 +2626,7 @@ print(beta_managed_agents_session.id)
 
 ## List Sessions
 
-`beta.sessions.list(**kwargs)  -> SyncBidirectionalPageCursor[BetaManagedAgentsSession]`
+`beta.sessions.list(**kwargs) -> SyncBidirectionalPageCursor[BetaManagedAgentsSession]`
 
 **GET** `/v1/sessions`
 
@@ -4200,7 +4200,7 @@ print(page.id)
 
 ## Get Session
 
-`beta.sessions.retrieve(session_id, **kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.retrieve(session_id, **kwargs) -> BetaManagedAgentsSession`
 
 **GET** `/v1/sessions/{session_id}`
 
@@ -5687,7 +5687,7 @@ print(beta_managed_agents_session.id)
 
 ## Update Session
 
-`beta.sessions.update(session_id, **kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.update(session_id, **kwargs) -> BetaManagedAgentsSession`
 
 **POST** `/v1/sessions/{session_id}`
 
@@ -7754,7 +7754,7 @@ print(beta_managed_agents_session.id)
 
 ## Delete Session
 
-`beta.sessions.delete(session_id, **kwargs)  -> BetaManagedAgentsDeletedSession`
+`beta.sessions.delete(session_id, **kwargs) -> BetaManagedAgentsDeletedSession`
 
 **DELETE** `/v1/sessions/{session_id}`
 
@@ -7918,7 +7918,7 @@ print(beta_managed_agents_deleted_session.id)
 
 ## Archive Session
 
-`beta.sessions.archive(session_id, **kwargs)  -> BetaManagedAgentsSession`
+`beta.sessions.archive(session_id, **kwargs) -> BetaManagedAgentsSession`
 
 **POST** `/v1/sessions/{session_id}/archive`
 
@@ -19587,7 +19587,7 @@ print(beta_managed_agents_session.id)
 
 ### List Events
 
-`beta.sessions.events.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.events.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
 **GET** `/v1/sessions/{session_id}/events`
 
@@ -22817,7 +22817,7 @@ print(page)
 
 ### Send Events
 
-`beta.sessions.events.send(session_id, **kwargs)  -> BetaManagedAgentsSendSessionEvents`
+`beta.sessions.events.send(session_id, **kwargs) -> BetaManagedAgentsSendSessionEvents`
 
 **POST** `/v1/sessions/{session_id}/events`
 
@@ -23801,7 +23801,7 @@ print(beta_managed_agents_send_session_events.data)
 
 ### Stream Events
 
-`beta.sessions.events.stream(session_id, **kwargs)  -> Stream[BetaManagedAgentsStreamSessionEvents]`
+`beta.sessions.events.stream(session_id, **kwargs) -> Stream[BetaManagedAgentsStreamSessionEvents]`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 
@@ -26948,7 +26948,7 @@ for event in client.beta.sessions.events.stream(
 
 ### Add Session Resource
 
-`beta.sessions.resources.add(session_id, **kwargs)  -> BetaManagedAgentsFileResource`
+`beta.sessions.resources.add(session_id, **kwargs) -> BetaManagedAgentsFileResource`
 
 **POST** `/v1/sessions/{session_id}/resources`
 
@@ -27146,7 +27146,7 @@ print(beta_managed_agents_file_resource.id)
 
 ### List Session Resources
 
-`beta.sessions.resources.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionResource]`
+`beta.sessions.resources.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionResource]`
 
 **GET** `/v1/sessions/{session_id}/resources`
 
@@ -27438,7 +27438,7 @@ print(page)
 
 ### Get Session Resource
 
-`beta.sessions.resources.retrieve(resource_id, **kwargs)  -> ResourceRetrieveResponse`
+`beta.sessions.resources.retrieve(resource_id, **kwargs) -> ResourceRetrieveResponse`
 
 **GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -27711,7 +27711,7 @@ print(resource)
 
 ### Update Session Resource
 
-`beta.sessions.resources.update(resource_id, **kwargs)  -> ResourceUpdateResponse`
+`beta.sessions.resources.update(resource_id, **kwargs) -> ResourceUpdateResponse`
 
 **POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -27991,7 +27991,7 @@ print(resource)
 
 ### Delete Session Resource
 
-`beta.sessions.resources.delete(resource_id, **kwargs)  -> BetaManagedAgentsDeleteSessionResource`
+`beta.sessions.resources.delete(resource_id, **kwargs) -> BetaManagedAgentsDeleteSessionResource`
 
 **DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -28160,7 +28160,7 @@ print(beta_managed_agents_delete_session_resource.id)
 
 ### List Session Threads
 
-`beta.sessions.threads.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionThread]`
+`beta.sessions.threads.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionThread]`
 
 **GET** `/v1/sessions/{session_id}/threads`
 
@@ -29266,7 +29266,7 @@ print(page.id)
 
 ### Get Session Thread
 
-`beta.sessions.threads.retrieve(thread_id, **kwargs)  -> BetaManagedAgentsSessionThread`
+`beta.sessions.threads.retrieve(thread_id, **kwargs) -> BetaManagedAgentsSessionThread`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
@@ -30345,7 +30345,7 @@ print(beta_managed_agents_session_thread.id)
 
 ### Archive Session Thread
 
-`beta.sessions.threads.archive(thread_id, **kwargs)  -> BetaManagedAgentsSessionThread`
+`beta.sessions.threads.archive(thread_id, **kwargs) -> BetaManagedAgentsSessionThread`
 
 **POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 
@@ -31426,7 +31426,7 @@ print(beta_managed_agents_session_thread.id)
 
 ### List Session Thread Events
 
-`beta.sessions.threads.events.list(thread_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.threads.events.list(thread_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
@@ -34539,7 +34539,7 @@ print(page)
 
 ### Stream Session Thread Events
 
-`beta.sessions.threads.events.stream(thread_id, **kwargs)  -> Stream[BetaManagedAgentsStreamSessionThreadEvents]`
+`beta.sessions.threads.events.stream(thread_id, **kwargs) -> Stream[BetaManagedAgentsStreamSessionThreadEvents]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 

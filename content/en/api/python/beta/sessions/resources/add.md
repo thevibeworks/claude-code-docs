@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources/add
 
 # Add Session Resource
 
-`beta.sessions.resources.add(session_id, **kwargs)  -> BetaManagedAgentsFileResource`
+`beta.sessions.resources.add(session_id, **kwargs) -> BetaManagedAgentsFileResource`
 
 **POST** `/v1/sessions/{session_id}/resources`
 

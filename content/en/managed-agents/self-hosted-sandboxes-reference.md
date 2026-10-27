@@ -42,13 +42,15 @@ This page documents the pre-built workers that serve a `self_hosted` environment
 
 ## Host requirements
 
-| Worker             | Requirement                                                                                                              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| All workers        | A Linux host with `/bin/bash` at that exact path. The worker's bash tool invokes it directly, without consulting `PATH`. |
-| TypeScript SDK     | `unzip` and `tar` on the `PATH`, and Node.js 22 or later.                                                                |
-| Python and Go SDKs | No additional binaries. These SDKs use their standard libraries for archive extraction.                                  |
+| Worker             | Requirement                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| All workers        | A Linux or macOS host with `/bin/bash` at that exact path. The worker's bash tool invokes it directly, without consulting `PATH`. On macOS, that is the system Bash 3.2. |
+| TypeScript SDK     | `unzip` and `tar` on the `PATH`, and Node.js 22 or later.                                                                                                                |
+| Python and Go SDKs | No additional binaries. These SDKs use their standard libraries for archive extraction.                                                                                  |
 
 [Memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#requirements) add their own requirements.
+
+On macOS, the root volume is read-only, so `mkdir` can't create `/workspace`. Set the worker's working directory to one that you can write to, such as a `workspace` directory in your home directory. To use memory stores on macOS, first [prepare the macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host).
 
 ## Sandbox filesystem
 

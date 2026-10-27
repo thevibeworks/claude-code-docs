@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/agents/create
 
 # Create Agent
 
-`beta.agents.create(**kwargs)  -> BetaManagedAgentsAgent`
+`beta.agents.create(**kwargs) -> BetaManagedAgentsAgent`
 
 **POST** `/v1/agents`
 

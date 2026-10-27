@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work
 
 ## Get Work Item
 
-`beta.environments.work.retrieve(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.retrieve(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **GET** `/v1/environments/{environment_id}/work/{work_id}`
 
@@ -264,7 +264,7 @@ print(beta_self_hosted_work.id)
 
 ## Poll for Work
 
-`beta.environments.work.poll(environment_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.poll(environment_id, **kwargs) -> BetaSelfHostedWork`
 
 **GET** `/v1/environments/{environment_id}/work/poll`
 
@@ -528,7 +528,7 @@ print(beta_self_hosted_work.id)
 
 ## Acknowledge Work
 
-`beta.environments.work.ack(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.ack(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
@@ -779,7 +779,7 @@ print(beta_self_hosted_work.id)
 
 ## Record Heartbeat
 
-`beta.environments.work.heartbeat(work_id, **kwargs)  -> BetaSelfHostedWorkHeartbeatResponse`
+`beta.environments.work.heartbeat(work_id, **kwargs) -> BetaSelfHostedWorkHeartbeatResponse`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
@@ -981,7 +981,7 @@ print(beta_self_hosted_work_heartbeat_response.last_heartbeat)
 
 ## Stop Work
 
-`beta.environments.work.stop(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.stop(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
@@ -1244,7 +1244,7 @@ print(beta_self_hosted_work.id)
 
 ## List Work Items
 
-`beta.environments.work.list(environment_id, **kwargs)  -> SyncPageCursor[BetaSelfHostedWork]`
+`beta.environments.work.list(environment_id, **kwargs) -> SyncPageCursor[BetaSelfHostedWork]`
 
 **GET** `/v1/environments/{environment_id}/work`
 
@@ -1508,7 +1508,7 @@ print(page.id)
 
 ## Update Work Item
 
-`beta.environments.work.update(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.update(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}`
 
@@ -1770,7 +1770,7 @@ print(beta_self_hosted_work.id)
 
 ## Get Queue Statistics
 
-`beta.environments.work.stats(environment_id, **kwargs)  -> BetaSelfHostedWorkQueueStats`
+`beta.environments.work.stats(environment_id, **kwargs) -> BetaSelfHostedWorkQueueStats`
 
 **GET** `/v1/environments/{environment_id}/work/stats`
 

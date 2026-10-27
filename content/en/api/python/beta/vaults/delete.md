@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/vaults/delete
 
 # Delete a Vault
 
-`beta.vaults.delete(vault_id, **kwargs)  -> BetaManagedAgentsDeletedVault`
+`beta.vaults.delete(vault_id, **kwargs) -> BetaManagedAgentsDeletedVault`
 
 **DELETE** `/v1/vaults/{vault_id}`
 

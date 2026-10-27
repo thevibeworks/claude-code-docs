@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/events
 
 ## List Events
 
-`beta.sessions.events.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.events.list(session_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
 **GET** `/v1/sessions/{session_id}/events`
 
@@ -3237,7 +3237,7 @@ print(page)
 
 ## Send Events
 
-`beta.sessions.events.send(session_id, **kwargs)  -> BetaManagedAgentsSendSessionEvents`
+`beta.sessions.events.send(session_id, **kwargs) -> BetaManagedAgentsSendSessionEvents`
 
 **POST** `/v1/sessions/{session_id}/events`
 
@@ -4221,7 +4221,7 @@ print(beta_managed_agents_send_session_events.data)
 
 ## Stream Events
 
-`beta.sessions.events.stream(session_id, **kwargs)  -> Stream[BetaManagedAgentsStreamSessionEvents]`
+`beta.sessions.events.stream(session_id, **kwargs) -> Stream[BetaManagedAgentsStreamSessionEvents]`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/retri
 
 # Get Work Item
 
-`beta.environments.work.retrieve(work_id, **kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.retrieve(work_id, **kwargs) -> BetaSelfHostedWork`
 
 **GET** `/v1/environments/{environment_id}/work/{work_id}`
 

@@ -479,7 +479,7 @@ An `id` that is not a valid `slch_` identifier returns `400`. A valid one that n
 
   ```java Java
   import com.anthropic.models.beta.organization.claudetag.BetaClaudeTagSettingsCreate;
-  import com.anthropic.models.beta.organization.claudetag.slackchannels.BetaClaudeTagSlackChannelIdentifiers;
+  import com.anthropic.models.beta.organization.claudetag.BetaClaudeTagSlackChannelIdentifiers;
   import com.anthropic.models.beta.organization.claudetag.slackchannels.SlackChannelCreateParams;
 
   void main() {
@@ -1497,7 +1497,7 @@ An `id` that is not a valid `slws_` identifier returns `400`. A valid one that n
       new() { Settings = new() { GuestPolicy = new BetaClaudeTagGuestPolicyRestrict() } }
   );
 
-  Console.WriteLine(workspace.Settings.GuestPolicy?.Type.GetString());
+  Console.WriteLine(workspace.Settings.GuestPolicy?.Type.Raw());
   ```
 
   ```go Go
@@ -1850,7 +1850,7 @@ The Bundle that claude.ai attaches as part of an on-call setup is listed and can
 
   await foreach (var target in page.Paginate())
   {
-      Console.WriteLine($"{target.ID}: {target.Type.GetString()}");
+      Console.WriteLine($"{target.ID}: {target.Type.Raw()}");
   }
   ```
 
@@ -1952,8 +1952,7 @@ Attach a Bundle to a channel:
   ```bash CLI
   ant beta:organization:claude-tag:bundles:targets create \
     --bundle-id capp_011CZkZjLP1cWxj5EtMmdgbq \
-    --type slack_channel \
-    --slack-channel-id slch_011CZkZmRt4vNq8sHbYw2KdX
+    --target '{type: slack_channel, slack_channel_id: slch_011CZkZmRt4vNq8sHbYw2KdX}'
   ```
 
   ```python Python
@@ -1961,8 +1960,10 @@ Attach a Bundle to a channel:
 
   target = client.beta.organization.claude_tag.bundles.targets.create(
       "capp_011CZkZjLP1cWxj5EtMmdgbq",
-      type="slack_channel",
-      slack_channel_id="slch_011CZkZmRt4vNq8sHbYw2KdX",
+      target={
+          "type": "slack_channel",
+          "slack_channel_id": "slch_011CZkZmRt4vNq8sHbYw2KdX",
+      },
   )
 
   print(target.id)
@@ -1973,7 +1974,7 @@ Attach a Bundle to a channel:
 
   const target = await client.beta.organization.claudeTag.bundles.targets.create(
     "capp_011CZkZjLP1cWxj5EtMmdgbq",
-    { type: "slack_channel", slack_channel_id: "slch_011CZkZmRt4vNq8sHbYw2KdX" }
+    { target: { type: "slack_channel", slack_channel_id: "slch_011CZkZmRt4vNq8sHbYw2KdX" } }
   );
 
   console.log(target.id);
@@ -1988,7 +1989,7 @@ Attach a Bundle to a channel:
       "capp_011CZkZjLP1cWxj5EtMmdgbq",
       new()
       {
-          BetaClaudeTagBundleTargetCreate = new BetaClaudeTagSlackChannelBundleTargetCreate
+          Target = new BetaClaudeTagSlackChannelBundleTargetCreate
           {
               SlackChannelID = "slch_011CZkZmRt4vNq8sHbYw2KdX",
           },
@@ -2005,7 +2006,7 @@ Attach a Bundle to a channel:
   	context.Background(),
   	"capp_011CZkZjLP1cWxj5EtMmdgbq",
   	anthropic.BetaOrganizationClaudeTagBundleTargetNewParams{
-  		BetaClaudeTagBundleTargetCreate: anthropic.BetaClaudeTagBundleTargetCreateUnionParam{
+  		Target: anthropic.BetaClaudeTagBundleTargetCreateUnionParam{
   			OfSlackChannel: &anthropic.BetaClaudeTagSlackChannelBundleTargetCreateParam{
   				SlackChannelID: "slch_011CZkZmRt4vNq8sHbYw2KdX",
   			},
@@ -2026,7 +2027,7 @@ Attach a Bundle to a channel:
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       var params = TargetCreateParams.builder()
-          .slackChannelBetaClaudeTagBundleTargetCreate("slch_011CZkZmRt4vNq8sHbYw2KdX")
+          .slackChannelTarget("slch_011CZkZmRt4vNq8sHbYw2KdX")
           .build();
       var target = client.beta().organization().claudeTag().bundles().targets()
           .create("capp_011CZkZjLP1cWxj5EtMmdgbq", params);
@@ -2040,7 +2041,7 @@ Attach a Bundle to a channel:
 
   $target = $client->beta->organization->claudeTag->bundles->targets->create(
       bundleID: 'capp_011CZkZjLP1cWxj5EtMmdgbq',
-      betaClaudeTagBundleTargetCreate: [
+      target: [
           'type' => 'slack_channel',
           'slackChannelID' => 'slch_011CZkZmRt4vNq8sHbYw2KdX',
       ],
@@ -2055,7 +2056,7 @@ Attach a Bundle to a channel:
   bundle_id = "capp_011CZkZjLP1cWxj5EtMmdgbq"
   target = client.beta.organization.claude_tag.bundles.targets.create(
     bundle_id,
-    beta_claude_tag_bundle_target_create: {
+    target: {
       type: :slack_channel,
       slack_channel_id: "slch_011CZkZmRt4vNq8sHbYw2KdX"
     }
@@ -2092,8 +2093,7 @@ Attach a Bundle to a workspace:
   ```bash CLI
   ant beta:organization:claude-tag:bundles:targets create \
     --bundle-id capp_011CZkZjLP1cWxj5EtMmdgbq \
-    --type slack_workspace \
-    --slack-workspace-id slws_011CZkZnWa7xPc3uJfZe5LgT
+    --target '{type: slack_workspace, slack_workspace_id: slws_011CZkZnWa7xPc3uJfZe5LgT}'
   ```
 
   ```python Python
@@ -2101,8 +2101,10 @@ Attach a Bundle to a workspace:
 
   target = client.beta.organization.claude_tag.bundles.targets.create(
       "capp_011CZkZjLP1cWxj5EtMmdgbq",
-      type="slack_workspace",
-      slack_workspace_id="slws_011CZkZnWa7xPc3uJfZe5LgT",
+      target={
+          "type": "slack_workspace",
+          "slack_workspace_id": "slws_011CZkZnWa7xPc3uJfZe5LgT",
+      },
   )
 
   print(target.id)
@@ -2113,7 +2115,7 @@ Attach a Bundle to a workspace:
 
   const target = await client.beta.organization.claudeTag.bundles.targets.create(
     "capp_011CZkZjLP1cWxj5EtMmdgbq",
-    { type: "slack_workspace", slack_workspace_id: "slws_011CZkZnWa7xPc3uJfZe5LgT" }
+    { target: { type: "slack_workspace", slack_workspace_id: "slws_011CZkZnWa7xPc3uJfZe5LgT" } }
   );
 
   console.log(target.id);
@@ -2128,7 +2130,7 @@ Attach a Bundle to a workspace:
       "capp_011CZkZjLP1cWxj5EtMmdgbq",
       new()
       {
-          BetaClaudeTagBundleTargetCreate = new BetaClaudeTagSlackWorkspaceBundleTargetCreate
+          Target = new BetaClaudeTagSlackWorkspaceBundleTargetCreate
           {
               SlackWorkspaceID = "slws_011CZkZnWa7xPc3uJfZe5LgT",
           },
@@ -2145,7 +2147,7 @@ Attach a Bundle to a workspace:
   	context.Background(),
   	"capp_011CZkZjLP1cWxj5EtMmdgbq",
   	anthropic.BetaOrganizationClaudeTagBundleTargetNewParams{
-  		BetaClaudeTagBundleTargetCreate: anthropic.BetaClaudeTagBundleTargetCreateUnionParam{
+  		Target: anthropic.BetaClaudeTagBundleTargetCreateUnionParam{
   			OfSlackWorkspace: &anthropic.BetaClaudeTagSlackWorkspaceBundleTargetCreateParam{
   				SlackWorkspaceID: "slws_011CZkZnWa7xPc3uJfZe5LgT",
   			},
@@ -2166,7 +2168,7 @@ Attach a Bundle to a workspace:
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       var params = TargetCreateParams.builder()
-          .slackWorkspaceBetaClaudeTagBundleTargetCreate("slws_011CZkZnWa7xPc3uJfZe5LgT")
+          .slackWorkspaceTarget("slws_011CZkZnWa7xPc3uJfZe5LgT")
           .build();
       var target = client.beta().organization().claudeTag().bundles().targets()
           .create("capp_011CZkZjLP1cWxj5EtMmdgbq", params);
@@ -2180,7 +2182,7 @@ Attach a Bundle to a workspace:
 
   $target = $client->beta->organization->claudeTag->bundles->targets->create(
       bundleID: 'capp_011CZkZjLP1cWxj5EtMmdgbq',
-      betaClaudeTagBundleTargetCreate: [
+      target: [
           'type' => 'slack_workspace',
           'slackWorkspaceID' => 'slws_011CZkZnWa7xPc3uJfZe5LgT',
       ],
@@ -2195,7 +2197,7 @@ Attach a Bundle to a workspace:
   bundle_id = "capp_011CZkZjLP1cWxj5EtMmdgbq"
   target = client.beta.organization.claude_tag.bundles.targets.create(
     bundle_id,
-    beta_claude_tag_bundle_target_create: {
+    target: {
       type: :slack_workspace,
       slack_workspace_id: "slws_011CZkZnWa7xPc3uJfZe5LgT"
     }
@@ -2255,7 +2257,7 @@ An attachment to a channel has conditions under which it applies, such as only w
       new() { BundleID = "capp_011CZkZjLP1cWxj5EtMmdgbq" }
   );
 
-  Console.WriteLine(target.Type.GetString());
+  Console.WriteLine(target.Type.Raw());
   ```
 
   ```go Go

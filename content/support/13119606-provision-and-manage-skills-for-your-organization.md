@@ -84,7 +84,7 @@ Your starting setting depends on your plan:
 
 - **Team plans:** Publishing is set to "Open," unless you already had **Share with organization** turned off, in which case "Off" is the default.
 
-- **Enterprise plans:** If you haven’t chosen a setting, Publishing is set to “Requires review.” Starting [11/4/26 the default changes to “Open”], it changes to “Open” for organizations that have **Skill and plugin security scanning** on. Skills and plugins that users publish are then listed in your organization’s library once they pass the automatic security scan, without waiting for owner approval. Users whose custom role doesn’t allow publishing to the whole organization still go through review. To keep reviewing every submission, select “Requires review” yourself before then. Organizations that already chose a setting keep it.
+- **Enterprise plans:** If you haven’t chosen a setting, Publishing is set to “Requires review.” Starting November 4, it changes to “Open” for organizations that have that have **Skill and plugin security scanning** on. Skills and plugins that users publish are then listed in your organization’s library once they pass the automatic security scan, without waiting for owner approval. Users whose custom role doesn’t allow publishing to the whole organization still go through review. To keep reviewing every submission, select “Requires review” yourself before then. Organizations that already chose a setting keep it.
 
   - If your organization already had **Share with organization** turned on, it starts as “Open” instead.
 

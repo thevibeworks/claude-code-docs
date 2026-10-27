@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/work/heart
 
 # Record Heartbeat
 
-`beta.environments.work.heartbeat(work_id, **kwargs)  -> BetaSelfHostedWorkHeartbeatResponse`
+`beta.environments.work.heartbeat(work_id, **kwargs) -> BetaSelfHostedWorkHeartbeatResponse`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 

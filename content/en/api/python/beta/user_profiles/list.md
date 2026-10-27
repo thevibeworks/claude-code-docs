@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/list
 
 # List User Profiles
 
-`beta.user_profiles.list(**kwargs)  -> SyncPageCursor[BetaUserProfile]`
+`beta.user_profiles.list(**kwargs) -> SyncPageCursor[BetaUserProfile]`
 
 **GET** `/v1/user_profiles`
 

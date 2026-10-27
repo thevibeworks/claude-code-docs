@@ -17,8 +17,8 @@ The difference is who materializes the store. On a self-hosted environment your 
 ## Requirements
 
 * **A worker that mounts memory stores:** Use `ant` CLI 1.33.0 or later, or `EnvironmentWorker` from the Python, TypeScript, or Go SDK.
-* **A POSIX filesystem:** Windows hosts are not supported, because the worker requires `O_NOFOLLOW` when it opens memory files. A case-sensitive filesystem is recommended, so that memory paths that differ only in case do not collide.
-* **A writable `/mnt/memory` directory:** See [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-the-host).
+* **A POSIX filesystem:** Windows hosts are not supported, because the worker requires `O_NOFOLLOW` when it opens memory files. A case-sensitive filesystem is recommended, so that memory paths that differ only in case do not collide. macOS volumes are case-insensitive by default, so such paths collide there.
+* **A writable `/mnt/memory` directory:** See [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-the-host). On macOS, see [Prepare a macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host).
 * **The work item's secret:** If your own code launches the worker, [forward the work item's secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#forward-the-work-items-secret) to it.
 
 <Note>
@@ -29,6 +29,8 @@ The difference is who materializes the store. On a self-hosted environment your 
 
 ## Prepare the host
 
+On macOS, skip the next command and follow [Prepare a macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host) instead.
+
 Before you start the worker, create the parent directory and make it writable by the user the worker runs as:
 
 ```bash
@@ -38,6 +40,61 @@ sudo mkdir -p /mnt/memory && sudo chown "$USER" /mnt/memory
 Do not create the per-store directories yourself. The worker creates each store's `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) directory (for example, `/mnt/memory/user-preferences`) when a session starts and removes it when the session ends. If something already exists at that path, the worker refuses to start the session's work.
 
 In the [sandbox-per-session pattern](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session), the sandbox image needs a writable `/mnt/memory`. You don't need to bind-mount the memory directories to the host, because the worker uploads their contents to the store before the sandbox exits.
+
+### Prepare a macOS host
+
+On macOS, the root volume is read-only, so `mkdir` can't create `/mnt`. Instead, create `/System/Volumes/Data/mnt/memory` on the data volume, which is writable. Then add a line to `/etc/synthetic.conf`, so that macOS creates `/mnt` as a symbolic link to `/System/Volumes/Data/mnt`. These steps need administrator rights.
+
+Without this setup, the worker can't create a store's directory, so it fails the work item. The session then stays idle with no error event. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
+
+<Steps>
+  <Step title="Create the directory on the data volume">
+    Create the `memory` directory and make the worker's user its owner. `$USER` is your own username. If the worker runs as another user, replace `"$USER"` with that user's name.
+
+    ```bash
+    sudo mkdir -p /System/Volumes/Data/mnt/memory && sudo chown "$USER" /System/Volumes/Data/mnt/memory
+    ```
+
+    This location is only one option. If you use another, change the path in the `synthetic.conf` line to match. Anthropic has tested only `/System/Volumes/Data/mnt`.
+  </Step>
+
+  <Step title="Add a line to synthetic.conf">
+    Run `cat -et /etc/synthetic.conf`, which shows each tab as `^I` and each line end as `$`.
+
+    * If a line reads `mnt^ISystem/Volumes/Data/mnt$`, this step is already done. Go to the next step.
+    * If another line starts with `mnt`, stop. Something else on this Mac already defines `/mnt`.
+    * If the last line doesn't end with `$`, run `echo | sudo tee -a /etc/synthetic.conf` to end it.
+    * If it prints nothing or reports `No such file or directory`, continue. The `printf` command creates the file if it's missing.
+
+    Then add the line, unless one of the first two cases applies. Run this command only once, because each run appends another line.
+
+    ```bash
+    printf 'mnt\tSystem/Volumes/Data/mnt\n' | sudo tee -a /etc/synthetic.conf
+    ```
+
+    The command prints the line that it adds. The line maps the name `mnt` to the directory that holds `memory`. The file needs a tab between the two columns, which `\t` writes.
+  </Step>
+
+  <Step title="Create the link">
+    Run `apfs.util` with the `-t` option. It creates the link from the line you added, without a restart.
+
+    ```bash
+    sudo /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
+    ```
+  </Step>
+
+  <Step title="Check the result">
+    List `/mnt` and `/mnt/memory`.
+
+    ```bash
+    ls -ld /mnt /mnt/memory
+    ```
+
+    The first line ends with `/mnt -> System/Volumes/Data/mnt`. The second line shows the worker's user as the owner of `/mnt/memory`. You can now start the worker.
+  </Step>
+</Steps>
+
+Anthropic has tested this setup on macOS 26.7.1 with the `ant` CLI worker.
 
 ### Isolate sessions that share a store
 

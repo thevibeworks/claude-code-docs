@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memory_ve
 
 ## List Memory Versions
 
-`beta.memory_stores.memory_versions.list(memory_store_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
+`beta.memory_stores.memory_versions.list(memory_store_id, **kwargs) -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
@@ -396,7 +396,7 @@ print(page.id)
 
 ## Retrieve a Memory Version
 
-`beta.memory_stores.memory_versions.retrieve(memory_version_id, **kwargs)  -> BetaManagedAgentsMemoryVersion`
+`beta.memory_stores.memory_versions.retrieve(memory_version_id, **kwargs) -> BetaManagedAgentsMemoryVersion`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
@@ -726,7 +726,7 @@ print(beta_managed_agents_memory_version.id)
 
 ## Redact a Memory Version
 
-`beta.memory_stores.memory_versions.redact(memory_version_id, **kwargs)  -> BetaManagedAgentsMemoryVersion`
+`beta.memory_stores.memory_versions.redact(memory_version_id, **kwargs) -> BetaManagedAgentsMemoryVersion`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 

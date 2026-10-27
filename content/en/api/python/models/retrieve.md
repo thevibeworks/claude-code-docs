@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/models/retrieve
 
 # Get a Model
 
-`models.retrieve(model_id, **kwargs)  -> ModelInfo`
+`models.retrieve(model_id, **kwargs) -> ModelInfo`
 
 **GET** `/v1/models/{model_id}`
 

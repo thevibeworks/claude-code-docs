@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/environments/retrieve
 
 # Get Environment
 
-`beta.environments.retrieve(environment_id, **kwargs)  -> BetaEnvironment`
+`beta.environments.retrieve(environment_id, **kwargs) -> BetaEnvironment`
 
 **GET** `/v1/environments/{environment_id}`
 

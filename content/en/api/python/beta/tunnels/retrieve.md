@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/tunnels/retrieve
 
 # Get Tunnel
 
-`beta.tunnels.retrieve(tunnel_id, **kwargs)  -> BetaTunnel`
+`beta.tunnels.retrieve(tunnel_id, **kwargs) -> BetaTunnel`
 
 **GET** `/v1/tunnels/{tunnel_id}`
 
