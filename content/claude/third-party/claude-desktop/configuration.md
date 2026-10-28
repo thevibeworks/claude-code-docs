@@ -146,6 +146,7 @@
 | [`sessionRetentionHold`](#sessionretentionhold) | Suspend session deletion | Limits | Self-hosted Admin Console |
 | [`inferenceMaxTokensPerWindow`](#inferencemaxtokensperwindow) | Max tokens per window | Limits | Self-hosted Admin Console |
 | [`inferenceTokenWindowHours`](#inferencetokenwindowhours) | Token cap window | Limits | Self-hosted Admin Console |
+| [`inferenceTokenWarningPercent`](#inferencetokenwarningpercent) | Token limit warning | Limits | Admin Console |
 | [`endUserAttribution`](#enduserattribution) | End-user attribution | Appearance | Self-hosted Admin Console |
 | [`deploymentDisplayName`](#deploymentdisplayname) | Deployment display name | Appearance | Self-hosted Admin Console |
 | [`deploymentDisplaySubtitle`](#deploymentdisplaysubtitle) | Deployment display subtitle | Appearance | Self-hosted |
@@ -396,7 +397,7 @@ Since 1.44121.1
 >
 > At launch the app downloads the PAC script and asks it which proxy to use for each request, as a browser would, instead of following the operating system's proxy settings. Same value rules, coverage, exclusions, and delivery as `egressProxyUrl`, except that bypassing is the script's decision: `localhost`, `127.0.0.1`, and `[::1]` still never use a proxy, but `*.local` names and everything else follow whatever it returns. If the PAC file cannot be downloaded, the app connects directly rather than failing.
 >
-> On macOS and Windows the Cowork workspace VM is handed a copy of the script when it starts and evaluates it for each request itself; there `myIpAddress()` returns the VM's internal address rather than the device's, so a script that chooses by client subnet gives the VM its off-network answer (if that download fails, the VM connects directly). The Claude Code engine behind Chat, Cowork, and Code cannot evaluate a PAC file, so the app hands it one proxy (whichever the script returns for your inference endpoint) plus a bypass for loopback and `*.local` names. If the script answers `DIRECT` or only `SOCKS` for that endpoint, the engine uses no proxy at all, so have it return an HTTP `PROXY host:port` entry there; if the engine needs different rules, set `HTTPS_PROXY` and `NO_PROXY` in Claude Code managed settings, which win for the engine on the host.
+> On macOS and Windows the Cowork workspace VM is handed a copy of the script when it starts and evaluates it for each request itself; there `myIpAddress()` returns the VM's internal address rather than the device's, so a script that chooses by client subnet gives the VM its off-network answer. The app downloads that copy each time the VM starts and does not try again while the VM runs. If the download fails, or brings back something other than a PAC script (a sign-in page, for example), the VM connects directly until it next starts, even once the script can be reached again; quitting and reopening the app restarts the VM. The app shows no warning, only log lines, so block direct connections at the network layer if they are not acceptable. The Claude Code engine behind Chat, Cowork, and Code cannot evaluate a PAC file, so the app hands it one proxy (whichever the script returns for your inference endpoint) plus a bypass for loopback and `*.local` names. If the script answers `DIRECT` or only `SOCKS` for that endpoint, the engine uses no proxy at all, so have it return an HTTP `PROXY host:port` entry there; if the engine needs different rules, set `HTTPS_PROXY` and `NO_PROXY` in Claude Code managed settings, which win for the engine on the host.
 
 ***
 
@@ -1255,7 +1256,7 @@ object\[]Since 1.2581.0
 >
 > **Auto mode on a gateway:** its safety classifier calls `claude-sonnet-5` by default, so include that exact ID in the list (see `autoModeEnabled`).
 
-> **Child attributes (7)**
+> **Child attributes (8)**
 >
 > **name** `string` *required*
 >
@@ -1282,6 +1283,22 @@ object\[]Since 1.2581.0
 > **isFamilyDefault** `boolean`
 >
 > When several models share a tier alias, marks this one as the model the alias resolves to. Otherwise the first listed wins.
+>
+> **behavesAs** `string`
+>
+> The Claude model this ID routes to, for IDs Claude Desktop cannot identify, such as a gateway alias. The ID then gets that model’s effort levels and limits.
+>
+> > **More detail**
+> >
+> > Set this when Claude Desktop cannot tell which Claude model a Model ID stands for, such as a gateway alias (`acme-claude-sonnet`), an opaque Bedrock ARN or a Foundry deployment name. Enter the ID of the Claude model it routes to. Region prefixes, dates and upper case are fine. A family name without `claude-` (`sonnet`, `sonnet-5`) is not a model ID. Claude Desktop ignores it and lists it in the diagnostic report.
+> >
+> > ```json theme={null}
+> > [{"name": "acme-claude-sonnet", "behavesAs": "claude-sonnet-5"}]
+> > ```
+> >
+> > The model picker then offers that model's effort levels for this entry in Chat, Cowork and Code, and its Thinking control in Chat and Cowork. Where nobody has picked a level, new sessions start at that model's default effort level unless `defaultModelEffort` or `maxEffort` says otherwise. Claude Code also uses that model's output limit, context window (1M where the model has it natively, even if this entry does not offer 1M) and list price. If that model cannot run in Auto mode, sessions on this entry do not start in it.
+> >
+> > The model picker ignores this value in two cases: when Claude Desktop already has effort or Thinking options for the Model ID, or when the value names a model that Claude Desktop does not know. If the Model ID contains a Claude model ID (`acme-claude-sonnet-4-6`) or a Claude model family with its major version (`claude-sonnet-4`, as in `acme-claude-sonnet-4`), Claude Code uses the model that the ID names and ignores this value. In this case, set this value to that same model. If the route serves a different model, give the route an ID that contains no version. For any other ID, update this value when the route changes to a different model. After any selectable entry sets this value, sessions that Claude Desktop starts no longer read a person's own `modelPicker` setting from Claude Code's settings.
 >
 > **maxEffort** `enum`
 >
@@ -1493,7 +1510,7 @@ Since 1.46388.1
 
 > **More detail**
 >
-> Pins which OpenSSH client the app runs wherever it starts `ssh`: evaluating the user's SSH configuration (`ssh -G`), making the SSH connection and its channels, and the Code tab's terminal. `ssh-keygen` and `ssh-add` are taken from the same directory when they exist there, otherwise from PATH. The program must be OpenSSH 7.6 or newer. To carry the connection on Windows it must be Win32-OpenSSH 9.4 or newer, or another OpenSSH 8.5 or newer under Program Files, such as Git for Windows' `usr\bin\ssh.exe`, only where device policy, or the configuration server it names, sets this key and sets the SSH connection engine setting to `system-openssh`; the app points such a client at the `.ssh` folder of the user's Windows profile, and asks for a password, code or key passphrase only on a direct connection (no jump host, `ProxyCommand`, `Match exec`, `KnownHostsCommand`, `PKCS11Provider` or `SecurityKeyProvider`); otherwise only a key that needs nothing typed signs in. Set such a client only on desktops with one user. On macOS and Linux a wrapper script that ends in one is accepted, on Windows it must be an `.exe` (no .cmd, .bat or .ps1). When this key is set and the program is missing, cannot be run, or is too old, SSH sessions fail with an error telling the user to ask their IT administrator — the app never falls back to another ssh. The connection itself runs through this program on the system-OpenSSH engine, which the SSH connection engine setting's `system-openssh` value selects on every platform; when the app's built-in SSH library makes the connection instead, this key still governs configuration evaluation (`ssh -G`), host-key lookups (`ssh-keygen`) and the terminal. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in admin settings (which cannot name such a client). There, until the organization's configuration has loaded, no client is pinned.
+> Pins which OpenSSH client the app runs wherever it starts `ssh`: evaluating the user's SSH configuration (`ssh -G`), making the SSH connection and its channels, and the Code tab's terminal. `ssh-keygen` and `ssh-add` are taken from the same directory when they exist there, otherwise from PATH. The program must be OpenSSH 7.6 or newer. To carry the connection on Windows it must be Win32-OpenSSH 9.4 or newer, or another OpenSSH 8.5 or newer under Program Files, such as Git for Windows' `usr\bin\ssh.exe`, only where device policy, or the configuration server it names, sets this key and sets the SSH connection engine setting to `system-openssh`; the app points such a client at the `.ssh` folder of the user's Windows profile, and asks for a password, code or key passphrase only on a direct connection (no jump host, `ProxyCommand`, `Match exec`, `KnownHostsCommand`, `PKCS11Provider` or `SecurityKeyProvider`); otherwise only a key that needs nothing typed signs in. Set such a client only on desktops with one user. On macOS and Linux a wrapper script that ends in one is accepted, on Windows it must be an `.exe` (no .cmd, .bat or .ps1). When the program is missing, cannot be run, or is too old, SSH sessions fail with an error telling the user to ask their IT administrator — the app never falls back to another ssh. This program carries the connection on the system-OpenSSH engine; where the built-in SSH library does, this key still governs `ssh -G`, host-key lookups (`ssh-keygen`) and the terminal. A configuration server's settings, once loaded, replace device policy's even if they omit this key: serve it too, to one platform's devices only, with the SSH connection engine setting. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in admin settings (which cannot name such a client). There, until the organization's configuration has loaded, no client is pinned.
 
 ***
 
@@ -1541,7 +1558,7 @@ booleanSince 1.13576.0
 
 enumSince 1.52386.0
 
-**Desktop home.** Unifies Chat and Cowork into one home. When set, it replaces Allow Chat, Advanced file analysis, and Allow Cowork. Leave unset to keep those.
+**Desktop home.** Unified Claude: Chat and Cowork in one view. It replaces Allow Chat, Advanced file analysis, and Allow Cowork.
 
 One of: `standard`, `off`
 
@@ -1549,7 +1566,7 @@ One of: `standard`, `off`
 
 > **More detail**
 >
-> `standard` turns on Unified Claude, which combines Chat and Cowork into one experience. `off` turns Chat and Cowork off entirely. `isClaudeCodeForDesktopEnabled` still decides Code. Remove the key to hand control back to `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled`. Values are case-sensitive, so `Standard` is not recognized. A value that the app does not recognize is read as `off`, so update the app on devices before you deploy a value added in a later version.
+> `standard` turns on Unified Claude, which combines Chat and Cowork into one experience. `off` turns Chat and Cowork off entirely. `isClaudeCodeForDesktopEnabled` still decides Code. While the key is unset, `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled` decide until November 10, 2026 (12:00 PM PT). Current versions of Claude Desktop launched after that open Unified Claude for an unset key. Where `coworkTabEnabled` is not `false`, they read it as `standard`, whatever the other two say. Where it is `false`, Cowork stays off, and Chat and file analysis stay as the other two set them. Two cases keep those three keys deciding, as before that date. One: Cowork is allowed, `chatSessionRetentionDays` is set, and `coworkSessionRetentionDays` is not set to the same number of days. Two: Chat, Cowork, and `isClaudeCodeForDesktopEnabled` are all off, where the app turns one of them back on. Values are case-sensitive, so `Standard` is not recognized. A value that the app does not recognize is read as `off`, so update the app on devices before you deploy a value added in a later version.
 
 ***
 
@@ -1557,7 +1574,7 @@ One of: `standard`, `off`
 
 booleanSince 1.14271.0
 
-**Advanced file analysis.** Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint. Off by default.
+**Advanced file analysis.** Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint.
 
 [Self-hosted install](#self-hosted-column): Not supported. Configures a Chat session's local sandbox, and no Chat session can start on a self-hosted install.
 
@@ -1589,7 +1606,7 @@ string\[]Since 1.2581.0
 >
 > Applies only to **tool calls**, in Cowork, Code and Chat. In Cowork it covers the sandbox's web fetch, shell commands and package installs. In Chat it covers web fetch and commands in the file-analysis sandbox. In Code it's [translated into Claude Code's network sandbox allowlist](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy), and by default a separately deployed Claude Code managed-settings file takes precedence. It does **not** cover Web Search (which runs at your inference provider), inference, or MCP traffic. A list other than `*` also bounds where Claude may browse in the built-in browser. When unset, Cowork and Chat refuse web fetch.
 >
-> Entries are exact hostnames (`api.github.com`), wildcards (`*.corp.com` matches subdomains at any depth, not `corp.com` itself), or `*` to allow all. IP addresses match only when listed exactly. In Cowork and Chat, web fetch always blocks `localhost` and private addresses, and shells reach only listed hosts (not your inference provider's, unless listed), or none when unset. Code's shell obeys that limit only on macOS, and with bubblewrap and socat on Linux or WSL2; elsewhere, Windows included, it reaches any host. Code's web fetch isn't limited.
+> Entries are exact hostnames (`api.github.com`), wildcards (`*.corp.com` matches subdomains at any depth, not `corp.com` itself), or `*` to allow all. IP addresses match only when listed exactly. In Cowork and Chat, web fetch always blocks `localhost` and private addresses, and shells reach only listed hosts (not your inference provider's, unless listed), or none when unset. Code's shell obeys that limit only where its sandbox runs (macOS; Linux and WSL2 need bubblewrap and socat); elsewhere, Windows included, it reaches any host. Code's web fetch isn't limited.
 >
 > Any entry except bare `*` may carry a `:port` suffix (`*.corp.com:8443`) restricting it to that port. IPv6 literals are not supported. Invalid entries are dropped with a log warning and the rest still work. An unreadable value counts as an empty list. Ports are enforced for the Cowork sandbox's web fetch, shell, and package-install egress; plugin CLIs also reach hosts their plugin declares and ignore port-scoped entries for now, and the Code translation treats them as the bare host. Only deploy port-scoped entries once your whole fleet supports them (`disableAutoUpdates` pins builds). On an older build, a single one invalidates the session's whole shell and package-install allowlist.
 >
@@ -1601,17 +1618,17 @@ string\[]Since 1.2581.0
 
 object\[]Since 1.2581.0
 
-**Allowed workspace folders.** Folders where Claude may work. Applies to Cowork and Code sessions and to the project folders a chat reads. Leave unset for unrestricted access.
+**Allowed workspace folders.** Folders where Claude may work, in Cowork, Code (shell commands only in part) and the project folders a chat reads. Leave unset for unrestricted access.
 
 [Self-hosted install](#self-hosted-column): Server side. The host refuses file access outside folders listed as full paths, and Desktop checks those listed with \~ or a variable.
 
 > **More detail**
 >
-> Paths can reference `~` and these environment variables, expanded per user: `%OneDrive%`, `%OneDriveCommercial%`, `%OneDriveConsumer%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%USERNAME%`, `%XDG_DOCUMENTS_DIR%`. The set is fixed; an entry that references any other `%VAR%`, or one that is unset on the device, allows none.
+> Paths can reference `~` and these environment variables, expanded per user: `%OneDrive%`, `%OneDriveCommercial%`, `%OneDriveConsumer%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%USERNAME%`, `%XDG_DOCUMENTS_DIR%`. An entry that references any other `%VAR%`, or one that is unset on the device, allows none.
 >
-> Each folder is interpreted on the machine the session runs on. For a Code session on an SSH host, `~` means the remote user's home, an entry that references a `%VAR%` allows none there, and the session's working directory must be inside one of the folders as they exist on that host. One list serves every machine: `["~/work", "/srv/work"]` governs `~/work` for each user, on a managed Mac or a Linux host, and `/srv/work` on a host that has it. A folder that names nothing real on a given machine allows nothing there. On an SSH host, an entry counts only if it is an absolute path as that host spells one (`~/work`, not `work`; on Windows `C:\work`, not `\work`), with no `..`. On Linux or Mac a `\` counts as `/`, except a leading `\\`. One inside another listed folder does not count on its own (its read-only mode still applies); if it is a link, list the folder it points to. An empty list allows none; unset leaves access unrestricted.
+> Each folder is interpreted on the machine the session runs on. For a Code session on an SSH host, `~` means the remote user's home, an entry that references a `%VAR%` allows none there, and the session's working directory must be inside one of the folders as they exist on that host. One list serves every machine: in `["~/work", "/srv/work"]`, `~/work` is each user's own and `/srv/work` counts only where it exists. On an SSH host, an entry counts only if it is an absolute path as that host spells one (`~/work`, not `work`; on Windows `C:\work`, not `\work`), with no `..`. On Linux or Mac a `\` counts as `/`, except a leading `\\`. One inside another listed folder does not count on its own (its read-only mode still applies); if it is a link, list the folder it points to. An empty list allows none; unset allows all.
 >
-> A listed folder is one Claude may write as well as read, unless the entry's `mode` (Access mode in Setup) makes it read-only; that field's own description says how far read-only reaches. A Code session can reach every listed folder, not only the one it was opened in. Setting this key also turns on Claude Code's sandbox where it runs (macOS, or Linux and SSH hosts with bubblewrap): there a shell command normally writes in the listed folders without an approval prompt, and its writes to most other places, such as a package cache in the home directory, are refused. A home directory holds shell start-up files and SSH keys, so list work folders, not a whole home directory.
+> Claude may write as well as read a listed folder, unless the entry's `mode` (Access mode in Setup) makes it read-only; that field's description says how far read-only reaches. A Code session reaches every listed folder, not only the one it was opened in. Setting this key also turns on Claude Code's sandbox where it runs (macOS; Linux and WSL2 need bubblewrap and socat): there a shell command normally writes in the listed folders with no approval prompt, and most of its other writes, such as to a package cache, are refused (its reads are not). Elsewhere, Windows included, the list binds Claude's file tools, not Code's shell commands; the permission mode and `builtinToolPolicy` still apply to those. A home directory holds shell start-up files and SSH keys, so list work folders instead.
 >
 > The list also limits which folders of a project a chat reads.
 
@@ -1655,7 +1672,7 @@ booleanSince 1.46388.1
 
 > **More detail**
 >
-> When set to `true`, Code sessions refuse reads outside their working directories (the session folder plus any `allowedWorkspaceFolders`). The file tools (Read, Grep, Glob) refuse them in every permission mode; where Claude Code's sandbox runs (macOS, or Linux and SSH hosts with bubblewrap, once `allowedWorkspaceFolders` is set or an egress allowlist applies: in third-party deployments one applies unless `coworkEgressAllowedHosts` contains `*`, in first-party deployments none does) shell commands cannot see the home directory and other user folders (`/Users`, `/home`, mounted volumes) and a read there is refused with no prompt; elsewhere (Windows, Linux without bubblewrap, or neither folders nor an egress allowlist in effect) such shell reads prompt for approval. The app keeps the user's git configuration files (which may themselves embed credentials such as URL tokens; a symlinked one stays hidden), its own Claude Code installation, and the session's plugin and attachment folders readable (not on a Windows SSH host, where plugin files and attachments stay out of the file tools' reach under the block). An allowed folder that is or contains the home directory leaves it readable.
+> When set to `true`, Code sessions refuse reads outside their working directories (the session folder plus any `allowedWorkspaceFolders`). The file tools (Read, Grep, Glob) refuse them in every permission mode; where Claude Code's sandbox runs (macOS; Linux and WSL2 need bubblewrap and socat) once `allowedWorkspaceFolders` is set or an egress allowlist applies (in third-party deployments one applies unless `coworkEgressAllowedHosts` contains `*`; in first-party deployments none does), shell commands cannot see the home directory and other user folders (`/Users`, `/home`, mounted volumes) and a read there is refused with no prompt; elsewhere (Windows, Linux where the sandbox does not start, or neither folders nor an egress allowlist in effect) such shell reads prompt for approval. The app keeps the user's git configuration files (which may themselves embed credentials such as URL tokens; a symlinked one stays hidden), its own Claude Code installation, and the session's plugin and attachment folders readable (not on a Windows SSH host, where plugin files and attachments stay out of the file tools' reach under the block). An allowed folder that is or contains the home directory leaves it readable.
 >
 > Users can re-open folders (even their whole home) in their own Claude Code settings with `sandbox.filesystem.allowRead` or `permissions.additionalDirectories`; settings files tracked in a git repository cannot. The key travels on Claude Code's managed-settings channel: another Claude Code managed-settings source replaces it unless that source sets `parentSettingsBehavior` to `"merge"`, and one that sets `sandbox.filesystem.allowManagedReadPathsOnly` reduces it to approval prompts. This is `permissions.blockReadsOutsideWorkingDirectories` in Claude Code's [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
 >
@@ -1927,7 +1944,7 @@ object: name → valueSince 1.8089.0
 
 > **More detail**
 >
-> Keys use the same tool names and argument-scoped rule syntax as **Disabled built-in tools** (`disabledBuiltinTools`), and scopes apply in the same sessions. A bare `Bash` key also governs Claude Code's `PowerShell` tool (its shell on Windows PCs without Git for Windows); argument-scoped `Bash(…)` keys do not. Scoped **ask** rules reach sessions only through Claude Code's managed-settings channel, so another Claude Code managed-settings source replaces them unless it sets `parentSettingsBehavior` to `"merge"` (bare names hold either way). They need the same fleet-wide build support, and an older build drops a scoped **ask** entry as a configuration error (which also blocks WSL sessions on Windows until that client updates), so the tool runs unprompted.
+> Keys use the same tool names and argument-scoped rule syntax as **Disabled built-in tools** (`disabledBuiltinTools`), and scopes apply in the same sessions. As there, command patterns match command text, not the program, and [aren't a security boundary](https://code.claude.com/docs/en/permissions#bash-rule-limits). A bare `Bash` key also governs Claude Code's `PowerShell` tool (its shell on Windows PCs without Git for Windows) and its `Monitor` tool (background commands and WebSocket watches); argument-scoped `Bash(…)` keys cover `Monitor`'s commands but not `PowerShell`'s. Scoped **ask** rules reach sessions only through Claude Code's managed-settings channel, so another Claude Code managed-settings source replaces them unless it sets `parentSettingsBehavior` to `"merge"` (bare names hold either way). They need the same fleet-wide build support, and an older build drops a scoped **ask** entry as a configuration error (which also blocks WSL sessions on Windows until that client updates), so the tool runs unprompted.
 >
 > An **ask** entry, bare or scoped, also turns off the app's remembered “always allow” choices for that tool, so each prompted call is confirmed individually. **ask** on a file tool (`Read`, `Write`, `Edit`, `Glob`, `Grep`) prompts in Cowork, Chat and Code sessions. Calls that Cowork and Chat always refuse are still refused without a prompt: paths outside the session's connected folders (in Chat, outside its scratch directory and its project's folders) and protected or sensitive files inside them. A scheduled task in Cowork waits at the prompt, which appears in the task's session and, when that session is not in view, as a desktop notification. Code side chats cannot prompt, so they block matching calls. An unusable entry is dropped and recorded as a configuration error; a value other than `allow` or `ask` is treated as `ask` and reported. To remove a tool or deny a rule outright, use **Disabled built-in tools** instead.
 
@@ -1943,9 +1960,9 @@ string\[]Since 1.2581.0
 
 > **More detail**
 >
-> Each entry is a Claude Code [tool name](https://code.claude.com/docs/en/tools-reference) such as `Bash`, `Edit`, `WebFetch` or `WebSearch`, or an argument-scoped [permission rule](https://code.claude.com/docs/en/permissions#permission-rule-syntax) such as `Bash(curl *)` or `Edit(//**/*.env)`. A bare name covers every call (a bare `Bash` entry also covers the `PowerShell` tool); a scoped rule covers matching calls in every permission mode, including Auto and bypass. Scopes are matched for `Bash(…)` and `PowerShell(…)` (a command pattern) and for file paths written as `Read(…)` (covers `Read`, `Grep`, `Glob`) or `Edit(…)` (covers `Edit`, `Write`, `NotebookEdit`); many other tools take `Tool(<field>:<pattern>)`. `WebSearch` and `WebFetch` are bare-name only: to allow specific hosts, use `coworkEgressAllowedHosts`.
+> Each entry is a Claude Code [tool name](https://code.claude.com/docs/en/tools-reference) such as `Bash`, `Edit`, `WebFetch` or `WebSearch`, or an argument-scoped [permission rule](https://code.claude.com/docs/en/permissions#permission-rule-syntax) such as `Bash(curl *)` or `Edit(//**/*.env)`. A bare name covers every call (bare `Bash` also covers `PowerShell` and `Monitor`, WebSocket watches included); a scoped rule covers matching calls in every permission mode. Scopes are matched for `Bash(…)` and `PowerShell(…)` (a command pattern) and for file paths written as `Read(…)` (covers `Read`, `Grep`, `Glob`) or `Edit(…)` (covers `Edit`, `Write`, `NotebookEdit`); many other tools take `Tool(<field>:<pattern>)`. `WebSearch` and `WebFetch` are bare-name only: to allow specific hosts, use `coworkEgressAllowedHosts`.
 >
-> Scoped `Bash(…)` rules apply in Code sessions only; Cowork's shell follows only a bare `Bash` entry. Start absolute file paths with `//`, not `/`: a relative pattern such as `Read(**/.env)` covers only a Code session's project folder and none of Cowork's connected folders. Scoped rules need fleet-wide build support (`disableAutoUpdates` pins builds): an older build passes a scoped entry to Claude Code unchecked. An entry whose pattern contains `)` followed by a space or comma is enforced only through Claude Code's managed-settings channel, so another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) replaces it unless that source sets `parentSettingsBehavior` to `"merge"`; every other entry is enforced either way.
+> Scoped `Bash(…)` rules apply in Code sessions only; Cowork's shell follows only a bare `Bash` entry. Command patterns match command text, not the program, and [aren't a security boundary](https://code.claude.com/docs/en/permissions#bash-rule-limits). Start absolute file paths with `//`, not `/`: a relative pattern such as `Read(**/.env)` covers only a Code session's project folder and none of Cowork's connected folders. Scoped rules need fleet-wide build support: an older build passes a scoped entry to Claude Code unchecked. An entry whose pattern contains `)` followed by a space or comma is enforced only through Claude Code's managed-settings channel, so another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) replaces it unless that source sets `parentSettingsBehavior` to `"merge"`; every other entry is enforced either way.
 >
 > An unusable entry (a tool name in the wrong letter case, an unbalanced parenthesis, a scoped `WebSearch(…)` or `WebFetch(…)`) is kept, because the deny list is served exactly as written, and raises a configuration warning.
 
@@ -2205,7 +2222,7 @@ object\[]Since 1.2581.0
 > >
 > > Any value other than `allow`, `ask` or `blocked` is read as `blocked` for that tool, and a `toolPolicy` that is not a map of tool names blocks every tool of the server; both are reported as configuration errors.
 > >
-> > For a plugin server that Claude Code launches or connects to itself (a marketplace plugin's), the permissions travel on Claude Code's managed-settings channel: another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the device replaces them unless that source sets `parentSettingsBehavior` to `"merge"`. `blocked` on a server the app connects to itself holds either way.
+> > For a plugin server that Claude Code launches or connects to itself (a marketplace plugin's), the permissions travel on Claude Code's managed-settings channel: another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) replaces them unless that source sets `parentSettingsBehavior` to `"merge"`. `blocked` on a server the app connects to itself holds either way.
 >
 > **microsoft365**
 >
@@ -2239,7 +2256,7 @@ object\[]Since 1.2581.0
 >
 > > **More detail**
 > >
-> > With Continuous Access Evaluation the server declares the `cp1` client capability, so Microsoft Entra issues access tokens that live up to about 28 hours and are cut off within minutes by a claims challenge when an administrator revokes sessions, disables the account, or the user’s risk changes — and, where the tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is presented from outside that network. Tenants without such a policy get the longer lifetime and the fast revocation but no network-based replay protection; set `disabled` to keep standard one-hour, non-CAE tokens on every sign-in path. A change applies to tokens issued after the connector respawns with it; an already-cached long-lived token is served until it expires (Disconnect → Connect signs in afresh).
+> > With Continuous Access Evaluation the server declares the `cp1` client capability, so Microsoft Entra issues access tokens that live up to about 28 hours and are cut off within minutes by a claims challenge when an administrator revokes sessions, disables the account, or the user’s risk changes — and, where the tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is presented from outside that network. Tenants without such a policy get the longer lifetime and the fast revocation but no network-based replay protection; set `disabled` to keep standard one-hour, non-CAE tokens on every sign-in path. A change takes effect when Claude Desktop restarts, and users then sign in again; an older Claude Desktop keeps serving an already-cached long-lived token until it expires (Disconnect → Connect signs in afresh).
 >
 > **scope** `string`
 >
@@ -2315,6 +2332,34 @@ object\[]Since 1.2581.0
 > >
 > > To turn web search off entirely, or to require approval for each search, list the bare `WebSearch` name in `disabledBuiltinTools` or `builtinToolPolicy`; it takes no per-host scope.
 >
+> **platformOverrides** `object`
+>
+> Each setting here replaces the server’s own on that operating system. A setting left out keeps the server’s own.
+>
+> > **More detail**
+> >
+> > Lets one configuration serve devices on different operating systems. Under `win32` (Windows), `darwin` (macOS) or `linux` (Linux), repeat only the settings that differ on that operating system. Each setting written there replaces the entry’s own value whole: lists and maps are not merged. A setting left out keeps the entry’s value, so giving only `command` for an operating system still runs it with the entry’s `args`.
+> >
+> > A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. A remote (`http` or `sse`) or web search entry can repeat `headersHelper` and `headersHelperArgs`; an entry that gives `headersHelper` here needs one of its own as well. Nothing else can differ by operating system, and other kinds of entry do not take this setting. An empty list or map here gives that operating system no arguments or variables. An empty path is an error, so a command or helper cannot be left out for one operating system only, and an entry cannot be limited to some operating systems.
+> >
+> > A full path under `win32` starts with a drive letter; a path under `darwin` or `linux` has no drive letter and no backslash. Every device checks the values of every operating system, so a mistake in any of them drops the server, with a configuration error, on every operating system.
+> >
+> > A local entry still needs its own `command`, even when every operating system has one here. Desktop releases that predate this setting ignore it, with a notice in their log, and run the entry’s own values on every operating system. While such releases are in use, put the Windows values in the entry itself and the macOS and Linux values here.
+>
+> > **Child attributes (3)**
+> >
+> > **platformOverrides.win32** `object: name → value`
+> >
+> > On Windows, these replace the server’s own settings. A setting left out keeps the server’s own.
+> >
+> > **platformOverrides.darwin** `object: name → value`
+> >
+> > On macOS, these replace the server’s own settings. A setting left out keeps the server’s own.
+> >
+> > **platformOverrides.linux** `object: name → value`
+> >
+> > On Linux, these replace the server’s own settings. A setting left out keeps the server’s own.
+>
 > **customUrl** `string`
 >
 > POST endpoint accepting \{q} JSON and returning a results\[] array. Only used when provider is Custom.
@@ -2348,6 +2393,10 @@ object\[]Since 1.2581.0
 > **toolsets** `string`
 >
 > Comma-separated github-mcp-server toolsets to enable. If blank, the bundled server’s default toolsets are used.
+>
+> > **More detail**
+> >
+> > Every tool that can change something asks before each call unless `toolPolicy` says otherwise. These cannot be loosened below `ask` (an `allow` setting resolves to `ask`, and where no prompt can be shown the call is refused): `merge_pull_request`, `push_files`, `create_or_update_file`, `delete_file`, `actions_run_trigger`, `pull_request_review_write`, `delete_repository`.
 >
 > **readOnly** `boolean`
 >
@@ -2442,7 +2491,7 @@ object\[]Since 1.2581.0
 > >
 > > **oauth.scope** `string`
 > >
-> > Space-separated scopes sent on the authorize request. Leave unset to use the scopes the server advertises. Required when Tenant ID is set.
+> > Space-separated scopes to request. Leave unset to use the scopes the server advertises. Required when Tenant ID is set or the resource parameter is omitted.
 > >
 > > **oauth.appendOfflineAccess** `boolean`
 > >
@@ -2453,6 +2502,22 @@ object\[]Since 1.2581.0
 > > > Leave off if Scope already includes `offline_access` or the server rejects it.
 > > >
 > > > With explicit endpoints (Authorization URL / Token URL, no discovery) this toggle can’t take effect on its own — the app can’t confirm the AS advertises `offline_access`, so include `offline_access` in **Scope** instead for silent refresh.
+> >
+> > **oauth.omitResource** `boolean`
+> >
+> > Sends no OAuth resource parameter. Use only if your IdP rejects it (Entra ID: AADSTS9010010). Requires Client ID, Scope and one sign-in server set here.
+> >
+> > > **More detail**
+> > >
+> > > By default, sign-in and each token renewal send the URL this server publishes as the OAuth `resource` parameter (RFC 8707). This ties the token to this server.
+> > >
+> > > Turn this on when the identity provider rejects that value. Microsoft Entra ID rejects it with error `AADSTS9010010` when the URL is not registered in your tenant as an Application ID URI. That is usually not possible for a server on a vendor’s domain. With this on, Entra ID’s v2.0 endpoint takes the token’s audience from the prefix of the API scope in **Scope**, as in `api://<app-id>/<scope>`. It reads a scope without that prefix as a Microsoft Graph scope, so write the scope in full.
+> > >
+> > > Requires **Client ID**, a **Scope** with at least one scope beyond `openid`, `profile`, `email`, `address`, `phone` and `offline_access`, and exactly one sign-in server named on this entry: **Tenant ID**, a single **Authorization server**, or **Authorization URL** and **Token URL**. An entry that breaks one of these rules is not loaded, so the server is missing for everyone. For a GCC High or DoD tenant, leave **Tenant ID** empty and set **Authorization server** to `https://login.microsoftonline.us/<tenant-id>/v2.0`.
+> > >
+> > > Why the sign-in server: where the entry names none, or several, this server’s own metadata has a say in where sign-in goes. The `resource` parameter is then what lets your identity provider refuse a sign-in that someone in control of this server’s replies has pointed elsewhere.
+> > >
+> > > Leave it off unless the identity provider rejects the value. Without the parameter, **Scope** alone tells the identity provider which API the token is for. Check that it names this server’s app. With this on, a scope for another app is accepted, and this server then receives a token meant for that app. Some identity providers also issue a token that their other APIs accept, so this server could use it to call them.
 > >
 > > **oauth.callbackHost** `enum`
 > >
@@ -2488,7 +2553,7 @@ object\[]Since 1.2581.0
 > >
 > > **oauth.scope** `string`
 > >
-> > Space-separated scopes sent on the authorize request. Leave unset to use the scopes the server advertises. Required when Tenant ID is set.
+> > Space-separated scopes to request. Leave unset to use the scopes the server advertises. Required when Tenant ID is set or the resource parameter is omitted.
 >
 > **headers** `object: name → value`
 >
@@ -2528,6 +2593,46 @@ object\[]Since 1.2581.0
 >
 > Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime.
 >
+> **platformOverrides** `object`
+>
+> Each setting here replaces the server’s own on that operating system. A setting left out keeps the server’s own.
+>
+> > **More detail**
+> >
+> > Lets one configuration serve devices on different operating systems. Under `win32` (Windows), `darwin` (macOS) or `linux` (Linux), repeat only the settings that differ on that operating system. Each setting written there replaces the entry’s own value whole: lists and maps are not merged. A setting left out keeps the entry’s value, so giving only `command` for an operating system still runs it with the entry’s `args`.
+> >
+> > A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. A remote (`http` or `sse`) or web search entry can repeat `headersHelper` and `headersHelperArgs`; an entry that gives `headersHelper` here needs one of its own as well. Nothing else can differ by operating system, and other kinds of entry do not take this setting. An empty list or map here gives that operating system no arguments or variables. An empty path is an error, so a command or helper cannot be left out for one operating system only, and an entry cannot be limited to some operating systems.
+> >
+> > A full path under `win32` starts with a drive letter; a path under `darwin` or `linux` has no drive letter and no backslash. Every device checks the values of every operating system, so a mistake in any of them drops the server, with a configuration error, on every operating system.
+> >
+> > A local entry still needs its own `command`, even when every operating system has one here. Desktop releases that predate this setting ignore it, with a notice in their log, and run the entry’s own values on every operating system. While such releases are in use, put the Windows values in the entry itself and the macOS and Linux values here.
+>
+> > **Child attributes (3)**
+> >
+> > **platformOverrides.win32** `object: name → value`
+> >
+> > On Windows, these replace the server’s own settings. A setting left out keeps the server’s own.
+> >
+> > **platformOverrides.darwin** `object: name → value`
+> >
+> > On macOS, these replace the server’s own settings. A setting left out keeps the server’s own.
+> >
+> > **platformOverrides.linux** `object: name → value`
+> >
+> > On Linux, these replace the server’s own settings. A setting left out keeps the server’s own.
+>
+> **toolTimeoutSec** `integer`
+>
+> Maximum time in seconds that Claude waits for one tool call to this server. Leave empty to use the MCP tool call timeout.
+>
+> > **More detail**
+> >
+> > This value sets how long Claude waits for one tool call to this server. After that time, the call fails with a timeout error that Claude can see. For this server, the value takes the place of `mcpToolTimeoutSec` and of the default, and it can be higher or lower than either. It applies in Cowork, Chat and Code, and in scheduled tasks. For example, set 600 on a database server whose queries take minutes, and leave the other servers unchanged.
+> >
+> > The limit is fixed for each call. Progress messages from the server do not extend it. Time that a person spends on a sign-in or consent step during the call counts toward the limit. On a server that asks for sign-in, set a generous value. A value that is not a whole number from 5 to 3600 is ignored: a device reports a configuration warning, and the admin console will not save the value.
+> >
+> > Cowork's built-in shell tool and servers that plugins provide follow `mcpToolTimeoutSec` instead. For calls that a widget or an artifact makes, this setting can make the limit longer but never shorter. On a self-hosted session host, this setting applies only if the version of the host supports it. If the host does not support it, every server on that host follows `mcpToolTimeoutSec` in the host's policy document, or 180 seconds when the policy document does not set it.
+>
 > **icon** `string`
 >
 > Icon shown for this connector: a PNG or JPEG image as a base64 data: URI, at most 4,096 characters.
@@ -2535,6 +2640,16 @@ object\[]Since 1.2581.0
 > > **More detail**
 > >
 > > Replaces the website's icon or the generic connector icon for this connector. The image is stored in the configuration itself, so the app makes no network request to show it. A PNG of 48 by 48 pixels or smaller works well. A URL, an SVG or another format, or a value over 4,096 characters (spaces and line breaks not counted) is not used: a device reports a configuration warning and shows the default icon, and the admin console will not save it. Each icon adds to the size of the configuration every device receives, and Windows Group Policy holds the whole `managedMcpServers` list in one value of at most 65,535 characters, so keep icons small.
+>
+> **defaultState** `enum`
+>
+> Whether this connector starts on or off for each person.
+>
+> One of: `on`, `off`
+>
+> > **More detail**
+> >
+> > `off` leaves the connector out of a person's sessions until they turn it on under Connectors in the + menu. `on`, the default, includes it until they turn it off. Once a person has switched it, it follows their switch. This sets a starting point and is not a restriction: each person can turn it on for themselves. To withhold a connector, remove it or block its tools with `toolPolicy`. Adding `off` to a connector people already use turns it off for everyone who has not switched it on themselves, scheduled tasks included. Unlike `toolPolicy`, it does not apply to a plugin's server that matches this entry. A change applies at the latest after the app restarts. A value other than `on` or `off` is read as `off` and reported.
 >
 > **stdio**
 >
@@ -2604,6 +2719,46 @@ object\[]Since 1.2581.0
 > **startupTimeoutSec** `integer` (default: 120)
 >
 > Maximum wait in seconds for the server to start and list its tools.
+>
+> **platformOverrides** `object`
+>
+> Each setting here replaces the server’s own on that operating system. A setting left out keeps the server’s own.
+>
+> > **More detail**
+> >
+> > Lets one configuration serve devices on different operating systems. Under `win32` (Windows), `darwin` (macOS) or `linux` (Linux), repeat only the settings that differ on that operating system. Each setting written there replaces the entry’s own value whole: lists and maps are not merged. A setting left out keeps the entry’s value, so giving only `command` for an operating system still runs it with the entry’s `args`.
+> >
+> > A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. A remote (`http` or `sse`) or web search entry can repeat `headersHelper` and `headersHelperArgs`; an entry that gives `headersHelper` here needs one of its own as well. Nothing else can differ by operating system, and other kinds of entry do not take this setting. An empty list or map here gives that operating system no arguments or variables. An empty path is an error, so a command or helper cannot be left out for one operating system only, and an entry cannot be limited to some operating systems.
+> >
+> > A full path under `win32` starts with a drive letter; a path under `darwin` or `linux` has no drive letter and no backslash. Every device checks the values of every operating system, so a mistake in any of them drops the server, with a configuration error, on every operating system.
+> >
+> > A local entry still needs its own `command`, even when every operating system has one here. Desktop releases that predate this setting ignore it, with a notice in their log, and run the entry’s own values on every operating system. While such releases are in use, put the Windows values in the entry itself and the macOS and Linux values here.
+>
+> > **Child attributes (3)**
+> >
+> > **platformOverrides.win32** `object: name → value`
+> >
+> > On Windows, these replace the server’s own settings. A setting left out keeps the server’s own.
+> >
+> > **platformOverrides.darwin** `object: name → value`
+> >
+> > On macOS, these replace the server’s own settings. A setting left out keeps the server’s own.
+> >
+> > **platformOverrides.linux** `object: name → value`
+> >
+> > On Linux, these replace the server’s own settings. A setting left out keeps the server’s own.
+>
+> **toolTimeoutSec** `integer`
+>
+> Maximum time in seconds that Claude waits for one tool call to this server. Leave empty to use the MCP tool call timeout.
+>
+> > **More detail**
+> >
+> > This value sets how long Claude waits for one tool call to this server. After that time, the call fails with a timeout error that Claude can see. For this server, the value takes the place of `mcpToolTimeoutSec` and of the default, and it can be higher or lower than either. It applies in Cowork, Chat and Code, and in scheduled tasks. For example, set 600 on a database server whose queries take minutes, and leave the other servers unchanged.
+> >
+> > The limit is fixed for each call. Progress messages from the server do not extend it. Time that a person spends on a sign-in or consent step during the call counts toward the limit. On a server that asks for sign-in, set a generous value. A value that is not a whole number from 5 to 3600 is ignored: a device reports a configuration warning, and the admin console will not save the value.
+> >
+> > Cowork's built-in shell tool and servers that plugins provide follow `mcpToolTimeoutSec` instead. For calls that a widget or an artifact makes, this setting can make the limit longer but never shorter. On a self-hosted session host, this setting applies only if the version of the host supports it. If the host does not support it, every server on that host follows `mcpToolTimeoutSec` in the host's policy document, or 180 seconds when the policy document does not set it.
 >
 > **icon** `string`
 >
@@ -2681,11 +2836,11 @@ booleanDefault: trueSince 1.2581.0
 
 > **More detail**
 >
-> On third-party deployments, `false` from any source also stops plugins' local (`stdio`) MCP servers in Cowork, Chat and Code sessions. That covers `.mcpb` bundles and plugins from every marketplace, your organization's included. In Code it also stops the local servers in Claude Code's own configuration files (`~/.claude.json`, a project's `.mcp.json`). It also stops a local server in Claude Code's `managed-mcp.json` whose command, arguments or environment use `${VAR}`. Remote servers keep working. Plugins placed in the org-plugins directory on the computer are not affected: the desktop still runs their servers.
+> On third-party deployments, `false` from any source also stops plugins' local (`stdio`) MCP servers in Cowork, Chat and Code sessions. That covers `.mcpb` bundles and plugins from every marketplace, your organization's included. In Code it also stops the local servers in Claude Code's own configuration files (`~/.claude.json`, a project's `.mcp.json`). It also stops a local server in Claude Code's `managed-mcp.json` whose command or arguments use `${VAR}`. Remote servers keep working. Plugins placed in the org-plugins directory on the computer (macOS and Windows only) are not affected: the desktop still runs the servers of each one that is turned on, except `.mcpb` bundles and local servers that use `${user_config.…}`, which it never runs from that directory.
 >
 > Set to `false` in a device-management profile, this key also locks down the local (`stdio`) entries of `managedMcpServers`: the app starts one only when that profile itself lists an entry of the same name, and with the profile's own command, arguments and environment. Only the profile's value engages this. A `false` from a configuration server or the admin console turns user-added servers off and does not engage it.
 >
-> Claude Code's own managed settings, on the device or (for Code sessions on a Claude API key) from the Claude Console, may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+> Claude Code's own managed settings, on the device, on an SSH host, or served to Code sessions (for example from the Claude Console), may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
 
 ***
 
@@ -2695,7 +2850,7 @@ object\[]Since 2.2553.0
 
 **Allowed plugin MCP servers.** Servers plugins may connect in sessions, beyond the managed list above and organization plugins. An empty list allows none; unset keeps today’s rules.
 
-[Self-hosted install](#self-hosted-column): Server side. The host connects a plugin's remote MCP server only where this list admits it; while it is unset, none connects.
+[Self-hosted install](#self-hosted-column): Server side. Unset, the host admits every remote MCP server of the admin's marketplace plugins; set, only matching ones; empty, none.
 
 > **More detail**
 >
@@ -2703,7 +2858,7 @@ object\[]Since 2.2553.0
 >
 > When set, Cowork, Chat and Code sessions connect the managed list above and the servers the desktop serves from the administrator's org-plugins directory, plus only servers declared by other plugins (user-installed or marketplace) that match an entry. An entry in the managed list above with `transport: "policy-only"` sets a plugin server's tool permissions but does not admit it; to admit that server, list the server's own URL here. Claude Code configuration-file servers (`~/.claude.json`, a project's `.mcp.json`, `claude mcp add`) are never connected. With the key set, the desktop starts no plugin server on the computer itself, whatever the entries say. The one exception is the MCP servers it serves to sessions from the org-plugins directory. Each entry is a URL pattern in Claude Code's form, `{"serverUrl": "https://*.example.com/*"}` (`*` wildcards; a host `*` spans `a.b`): a plugin's remote server connects when its URL matches an entry. No entry admits a plugin's local (stdio) server, and an empty list admits no plugin server. Other shapes, the `serverName` and `serverCommand` forms included, are dropped and reported; a value that is not a list, or has no readable entry, locks sessions to the managed list and the org-plugins directory's servers, and stops every other desktop-started plugin server. User-added local servers and extensions keep their own keys.
 >
-> Claude Code's own managed settings, on the device or (for Code sessions on a Claude API key) from the Claude Console, may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+> Claude Code's own managed settings, on the device, on an SSH host, or served to Code sessions (for example from the Claude Console), may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
 
 > **Child attributes (1)**
 >
@@ -2727,7 +2882,7 @@ object\[]Since 2.16120.0
 >
 > When set, Cowork, Chat and Code sessions do not connect a plugin's remote server whose URL matches an entry. The key works with or without `allowedPluginMcpServers`; a server that matches both lists stays blocked. In a Code session that reads Claude Code configuration-file servers (`~/.claude.json`, a project's `.mcp.json`, `claude mcp add`), a matching remote server from those files is refused as well. The managed list above, the servers the desktop serves from the administrator's org-plugins directory, user-added local servers and extensions are not affected: remove those at their own keys. Each entry is a URL pattern in Claude Code's form, `{"serverUrl": "https://*.example.com/*"}` (`*` wildcards; a host `*` spans `a.b`). An entry matches an address, not a server: the same server under another host name or an IP address, or behind a plugin's local (stdio) server, which has no URL, is not matched. `https://*.example.com/*` does not match `http://`, `wss://` or the bare `example.com`; a pattern such as `example.com/*`, which names no scheme, matches nothing, and a lone `*` matches every URL. To keep a plugin's servers out whatever address they use, set `allowedPluginMcpServers`, which admits only the servers it lists. The desktop reads no other shape, the `serverName` and `serverCommand` forms included: a value that is not a list, or that holds any entry the desktop cannot read, is reported and blocks every plugin's remote server (and those configuration-file remote servers), because skipping an entry of a block list would let its server connect. The servers named above as not affected still connect.
 >
-> Claude Code's own managed settings, on the device or (for Code sessions on a Claude API key) from the Claude Console, may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+> Claude Code's own managed settings, on the device, on an SSH host, or served to Code sessions (for example from the Claude Console), may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings).
 
 > **Child attributes (1)**
 >
@@ -2749,7 +2904,7 @@ integerRange: 60–3,600Since 1.37937.0
 >
 > Sets the per-call timeout the agent applies to every MCP tool call; a call that runs longer fails with a timeout error the model can see. Cowork and chat sessions default to 180 seconds. Code sessions have no desktop-imposed MCP tool timeout today, so setting this key introduces one there as well. The desktop's own request deadlines toward MCP servers — the managed servers above and, where `isLocalDevMcpEnabled` permits them, user-added local servers — follow this value so they never cut a call short first; while the key is unset, calls to user-added local servers are additionally limited to 60 seconds by the desktop. Values outside 60–3600 are rejected at parse time (the error is listed in the diagnostics report) and the defaults apply.
 >
-> The timeout is global (there is no per-server or per-tool form), so size it for the slowest tool you need to complete: long-running tools on one server extend the window during which a stuck call on any server holds its turn. Cowork's built-in shell tool runs under the same cap: a single command's `timeout_ms` (itself limited to 600 seconds) cannot exceed this value.
+> A server's own `toolTimeoutSec` on its `managedMcpServers` entry takes the place of this value for that server. Every other server follows this value, so a high value also lets a stuck call on any of them keep Claude waiting that long. Cowork's built-in shell tool runs under the same cap: a single command's `timeout_ms` (itself limited to 600 seconds) cannot exceed this value.
 
 ***
 
@@ -2783,7 +2938,7 @@ One of: `enabled`, `disabled` (default)
 
 > **More detail**
 >
-> `disabled` (default): Connect shows the account picker when no account is connected. `enabled`: on Windows, when `microsoftAuthBroker` is not `disabled`, Connect first signs in silently with the account Windows already uses. The `tenantId` on the `microsoft365` entry in managed MCP servers must be a tenant GUID. With `common`, `organizations` or `consumers`, users always get the picker. Users also get the picker for accounts from another tenant, guest accounts and personal Microsoft accounts, when the silent sign-in fails, and when the computer cannot store credentials securely. A user who already signed in to Microsoft 365 through the browser keeps that account. After a user disconnects Microsoft 365, or a different person signs in to Claude on this computer, Connect always shows the picker for that connector on this computer, including for a disconnect that happened before this setting was turned on. Turning this setting off stops new silent sign-ins and signs nobody out: users already connected keep their account until they disconnect. macOS and Linux are not affected. Third-party deployments only: first-party installs ignore this setting.
+> `disabled` (default): Connect shows the account picker when no account is connected. `enabled`: on Windows, when `microsoftAuthBroker` is not `disabled`, Connect first signs in silently with the account Windows already uses. The `tenantId` on the `microsoft365` entry in managed MCP servers must be a tenant GUID. With `common`, `organizations` or `consumers`, users always get the picker. Users also get the picker for accounts from another tenant, guest accounts and personal Microsoft accounts, when the silent sign-in fails, and when the computer cannot store credentials securely. A user who is already connected keeps that account until the saved sign-in is reset. A change to the entry's client ID, tenant, cloud or Continuous Access Evaluation setting resets it, and from then on that user gets the account picker, as after a disconnect. An older Claude Desktop does not reset the saved sign-in. After a user disconnects Microsoft 365, or a different person signs in to Claude on this computer, Connect always shows the picker for that connector on this computer, including for a disconnect that happened before this setting was turned on. Turning this setting off stops new silent sign-ins and signs nobody out. macOS and Linux are not affected. Third-party deployments only: first-party installs ignore this setting.
 
 ***
 
@@ -2863,7 +3018,7 @@ booleanDefault: falseSince 1.2581.0
 
 > **More detail**
 >
-> "Nonessential" covers two things: **product-usage analytics** (which features get used, navigation patterns; no prompts or completions) and the **Send** action in Help → Generate Diagnostic Report. Turning this on stops both.
+> "Nonessential" covers two things: **product-usage analytics** (which features get used, navigation patterns; no prompts or completions) and the **Send** action in Help → Generate Diagnostic Report. Turning this on stops both. This key applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
 >
 > Destinations are listed under Egress Requirements → Nonessential telemetry.
 
@@ -3311,6 +3466,24 @@ integerRange: 1–720Since 1.2581.0
 
 ***
 
+#### `inferenceTokenWarningPercent`
+
+integerRange: 1–100Since 4.29.0
+
+**Token limit warning.** Warn people once they have used this percent of their token limit (1 to 100). Leave blank to warn at 75%. At 100, the only warning comes at the limit.
+
+[Self-hosted install](#self-hosted-column): Not supported. A session host does not yet warn people before they reach their token limit.
+
+> **More detail**
+>
+> Has no effect unless `inferenceMaxTokensPerWindow` and `inferenceTokenWindowHours` are both set.
+>
+> The warning appears in Cowork, Chat and Code. It shows the percent used and when the limit resets, and it links to the Usage page. A person can close it until their next window starts. At the limit it changes to “Token limit reached” and cannot be closed.
+>
+> Usage is added to the count each time Claude finishes replying to a message, however long that takes, so one long-running request can pass this percent and reach the limit before the warning appears.
+
+***
+
 ## Appearance
 
 ### `endUserAttribution`
@@ -3585,7 +3758,7 @@ object\[]Since 1.8089.0
 >
 > If a Managed MCP servers entry is for the same server (same URL, else same name), that entry decides alone: its `toolPolicy` (if any) applies and the entry here is ignored. A value that cannot be read blocks every tool of every plugin-provided MCP server no Managed MCP servers entry covers.
 >
-> For a plugin server that Claude Code launches or connects to itself (a marketplace plugin's), the permissions travel on Claude Code's managed-settings channel: another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the device replaces them unless that source sets `parentSettingsBehavior` to `"merge"`. `blocked` on a server the app connects to itself holds either way.
+> For a plugin server that Claude Code launches or connects to itself (a marketplace plugin's), the permissions travel on Claude Code's managed-settings channel: another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) replaces them unless that source sets `parentSettingsBehavior` to `"merge"`. `blocked` on a server the app connects to itself holds either way.
 
 > **Child attributes (2)**
 >

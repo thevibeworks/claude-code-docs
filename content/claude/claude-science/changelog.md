@@ -6,6 +6,20 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+**0.1.71**
+
+October 27, 2026
+
+* If usage credits are turned on at claude.ai while Claude Science is open, it now pauses at your usage limit and asks before it keeps spending them
+* When Claude's servers time out before a reply starts, Claude Science now tries again instead of stopping right away with an error
+* Fixed custom connectors failing to load behind a proxy with "unexpected end of file" when their server sends an empty reply marked as compressed
+* The sandbox now protects `.devcontainer`, `.cursor`, `.codex`, and `.gemini` folders in a folder you've granted. On a Mac, use your own terminal to clone or unpack a project that holds one; on Linux they look empty inside the sandbox, so committing all changes there (for example with `git commit -a`) records their files as deleted
+* Mac and Linux: Claude now installs pip packages into [task environments](https://claude.com/docs/claude-science/tools-and-environments.md#task-environments) only as prebuilt packages (wheels), not from a git repository, web address, or local folder or file. A package with no wheel for your computer and Python version won't install there; if an older version has one, pip may install that instead. For other ways to install a package, see [Tools and environments](https://claude.com/docs/claude-science/tools-and-environments.md#python-package-sources-for-starter-and-task-environments)
+* Linux: as in 0.1.61, Claude Science again runs bubblewrap and socat only from system folders such as `/usr/bin` and `/usr/local/bin`, not from your PATH. With your distribution's bubblewrap (0.8.0 or later) and socat, nothing changes; Ubuntu 22.04 and earlier, Debian 11 and earlier, RHEL and Rocky 8 and 9, and Amazon Linux 2 ship an older bubblewrap or none
+* Linux: if your bubblewrap or socat is your own copy (for example from conda or pixi), [approve it once](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#approve-your-own-copy-of-bubblewrap-or-socat) or ask an administrator to install both. Until then, updating from the app or running the install command again keeps your current version and says what to do
+* Linux: with your own copy, don't update by typing `claude-science update`. It can replace your current version, and 0.1.71 then won't start until your copy is approved (see [Troubleshooting](https://claude.com/docs/claude-science/troubleshooting.md#not-approved))
+* Bug fixes and reliability improvements
+
 **0.1.70**
 
 October 21, 2026
@@ -17,6 +31,9 @@ October 21, 2026
 October 21, 2026
 
 * As a precaution following the publicly reported compromise of several emSign (eMudhra) intermediate certificate authority (CA) keys, most of the connections Claude Science makes itself, and many of the package installs it runs itself, no longer trust emSign (eMudhra) root certificates or one other root certificate. Versions 0.1.69 and later include all of these changes; to update, see [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md)
+* [Auto mode](https://claude.com/docs/claude-science/auto-mode.md) is on by default wherever it's available to you: it lets Claude Science run code and call connectors without stopping to ask about every step. Turn it off for new sessions in **Settings > Permissions**, or for one session in its settings menu in the message box
+* Auto mode: if **Auto mode on for new sessions** is off, then in the Windows app, or when Claude Science runs from a terminal or in a browser tab, turning auto mode on for a single session may not take effect until you quit Claude Science fully, reopen it and turn the session on again, usually once for each organization. To quit it fully, see [the steps in Troubleshoot Claude Science](https://claude.com/docs/claude-science/troubleshooting.md#environments-failed)
+* Team and Enterprise: auto mode works only where it's allowed for your organization. Where it isn't, the **Auto mode on for new sessions** toggle is grayed out (point at it to see why), and Claude Science asks for approval as it does without auto mode
 * A new **Trouble updating?** link opens [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md), a help page with other ways to update. It shows in **Settings > General > About**, in the **Update required** box, and on the "Update available" notice while an update downloads or after one fails
 * Cloud storage in Settings now works with Google Cloud Storage HMAC keys on computers where no AWS region is set
 * Mac: if `config.toml` has `auto_update = false` under `[update]`, Claude Science in its own window no longer checks for updates in the background. You can still check with **Claude Science > Check for App Updates…** in the menu bar

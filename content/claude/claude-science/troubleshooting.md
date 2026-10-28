@@ -93,12 +93,14 @@ Claude Science couldn't reach the update server. Check your internet connection,
 
 On the "Update available" notice, this means the new version was downloaded but didn't start. On a Mac or Linux, if the message says "restart aborted" and you started Claude Science from a terminal, follow [the terminal steps](https://claude.com/docs/claude-science/update-claude-science.md#from-a-terminal-or-on-a-server). Otherwise, if Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. On Windows, if trying again fails, leave Claude Science open and follow [the Windows steps](https://claude.com/docs/claude-science/update-claude-science.md#if-the-update-still-fails). If Claude Science has stopped, start it again.
 
-On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so updating again now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.
-
 In version 0.1.67 and later, the notice can show one of these two sentences, with the new version's error on a **Reason** line when there is one:
 
 * "Update failed: the new version couldn't start. You're still on version …" (Linux only) means Claude Science went back to the version you had.
 * "The update is installed, but the restart failed. The next start will run the new version." means the new version is in place but didn't start; the steps for "restart aborted" still apply.
+
+### Not updated; the current version still works
+
+On Linux, the "Update available" notice shows these words on its **Reason** line when the new version checked your computer before it was installed and couldn't confirm that it would start there. Claude Science keeps running the version you had. The rest of the line says what the new version needs. If it names bubblewrap or socat, version 0.1.71 and later run both only from system folders or a copy you've approved. Install them with the command for your distribution in the Linux tab of [Install](https://claude.com/docs/claude-science/get-started.md#install). Without administrator access, [get a copy of your own](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#approve-your-own-copy-of-bubblewrap-or-socat) first, then run the install command from that tab again: it keeps the version you have and prints the steps to approve that copy.
 
 ### Couldn't check for updates
 
@@ -108,3 +110,34 @@ On a Mac where Claude Science opens in its own window, the **Updates** window sh
 * If you cancelled a request from macOS for an administrator's password, select **Try again**.
 * Otherwise, such as when it says "Updates aren't available right now", wait a few minutes, then select **Try again**.
 * On a corporate network, ask your IT team to allow `storage.googleapis.com` (see [Proxy and certificates for updates in the Mac app window](https://claude.com/docs/claude-science/corporate-networks.md#proxy-and-certificates-for-updates-in-the-mac-app-window)).
+
+### not approved
+
+On Linux, version 0.1.71 can refuse to start after you type `claude-science update` if your bubblewrap or socat isn't in `/usr/bin`, `/usr/local/bin`, or `/bin`. That includes copies from conda, pixi, a cluster module, or your home folder. The refusal includes "Sandbox unavailable:". The `claude-science sandbox approve` command that it suggests then says "not approved", for example if your copy needs a library "which this system does not have".
+
+To go back to version 0.1.70, run this command in a terminal on the computer where Claude Science runs. The flag is safe only in this command, because version 0.1.70 stores sessions the same way as version 0.1.71:
+
+```bash theme={null}
+claude-science update --to f866abff --accept-layout-downgrade
+```
+
+When it prints "Updated" and `f866abff`, start Claude Science again.
+
+Claude Science then offers 0.1.71 again. Don't type `claude-science update` until you've approved copies that work. [Updating from the app](https://claude.com/docs/claude-science/update-claude-science.md#update-from-the-app) or with the Linux command under [Install Claude Science again](https://claude.com/docs/claude-science/update-claude-science.md#install-claude-science-again) is safe, because you keep your version if the new one can't start.
+
+Instead of going back, run the commands for your case in a terminal, type `y` at "Approve? \[y/N]", and start Claude Science again. If only one of the two tools is your own copy, give only that tool's option, `--bwrap` or `--socat`. If you installed the tools with `pixi global install`, approve pixi's real programs, because its launchers in `~/.pixi/bin`, which `command -v bwrap socat` shows, can't be approved:
+
+```bash theme={null}
+claude-science sandbox approve --bwrap ~/.pixi/envs/bubblewrap/bin/bwrap --socat ~/.pixi/envs/socat/bin/socat
+```
+
+If those paths don't exist, `ls ~/.pixi/envs/*/bin/bwrap ~/.pixi/envs/*/bin/socat` shows where pixi put the programs.
+
+If you have conda and a network connection, install both tools into a folder of their own and approve those copies:
+
+```bash theme={null}
+conda create -y --copy --override-channels -p ~/claude-science-tools -c conda-forge bubblewrap socat
+claude-science sandbox approve --bwrap ~/claude-science-tools/bin/bwrap --socat ~/claude-science-tools/bin/socat
+```
+
+On 0.1.70, which has no `sandbox approve`, these approve commands don't work. Run the `conda create` line if you use conda, then the Linux install command. In the approval steps that it prints, give the paths of copies that work, such as `~/claude-science-tools/bin/bwrap` and `~/claude-science-tools/bin/socat` or pixi's real programs, not what `command -v bwrap socat` shows, which would be refused. If you have neither conda nor pixi, stay on 0.1.70 and ask your administrator to install bubblewrap 0.8.0 or later and socat in `/usr/local/bin`.

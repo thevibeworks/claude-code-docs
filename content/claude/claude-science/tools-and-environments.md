@@ -29,11 +29,19 @@ Claude installs from these sources by default:
 
 To have conda and pip download packages from an internal mirror instead, see [Point package installs at an internal mirror](https://claude.com/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror).
 
-A package installed into an environment is permanent and available in every session and project using that environment. A package installed inline in a code cell (`pip install` or `install.packages()`) lasts only until the kernel restarts. To keep a package, ask Claude to install it into the environment.
+A package installed into an environment is permanent and available in every session and project using that environment. A package installed inline in a code cell (`pip install` or `install.packages()`) lasts only until the kernel restarts. To keep a package, ask Claude to install it into the environment. For a Python package Claude can't install there with pip, see [Python package sources for starter and task environments](#python-package-sources-for-starter-and-task-environments).
 
 For tools without a package, Claude downloads source, builds it in the sandbox with compilers from conda-forge, and saves the build as an artifact for reuse.
 
 The sandbox has no root access or system package manager. `apt` and `sudo` aren't available; Claude uses conda-forge or builds from source instead.
+
+### Python package sources for starter and task environments
+
+When Claude uses pip to install a Python package into a [starter](#starter-environments) or [task environment](#task-environments), it installs only prebuilt packages (wheels) from PyPI or, if one is set up, your [internal mirror](https://claude.com/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror). It doesn't install a package from a git repository, a web address, a local folder, or a local file. If the package, or a package it depends on, has no wheel for your computer and Python version, the install fails. That includes a package published only as source code.
+
+When the newest version of a package has no wheel for your computer and Python version but an older version does, pip installs the older version. To find out which version you have, ask Claude. If you need the newest version, use one of the ways below.
+
+To use a package Claude can't install this way, ask Claude to install it into the environment with conda if conda-forge has it. Otherwise, ask Claude to install it with pip in a code cell, where it lasts only until the kernel restarts.
 
 ### Environments in granted folders
 

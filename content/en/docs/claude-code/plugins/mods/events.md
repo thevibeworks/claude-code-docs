@@ -313,6 +313,12 @@ Claude's response streams to the screen as it does without the mod. After each r
 
 To see the tool calls that the API ran itself during the request, such as calls to the [advisor tool](https://code.claude.com/docs/en/advisor.md), read `result.serverToolUses`. Claude Code doesn't run these calls, so no `tool.call` or `tool.check` hook fires for them. The field is absent when the response has no such calls, and it requires Claude Code v2.1.290 or later.
 
+#### Send a request to a different model
+
+If a `turn.step` request fails with a model error when `model` is an alias such as `haiku`, update to Claude Code v2.1.309 or later, or use a full model id. Before v2.1.309, an alias went out as written.
+
+To send a request to a different model, pass `next` the event with `model` changed, as in `yield* next({ ...e, model: 'haiku' })`.
+
 ### Change or refuse a settings read
 
 Use a `settings.read` hook to change or refuse a settings read, either a mod's or Claude Code's own:

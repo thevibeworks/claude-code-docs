@@ -44,13 +44,14 @@ Turning a control off doesn't delete anything on the members' computers. What me
 
 ### Capabilities in custom roles
 
-On Enterprise plans, seven of the controls on this page also have a capability in custom roles, so you can leave a control on for the organization and, among members with custom roles, limit it to certain roles. Go to [**Organization settings > Roles**](https://claude.ai/admin-settings/roles), open a custom role, and go to its **Capabilities** tab. In the **Claude Science** section, the seven are listed under the **Claude Science** capability.
+On Enterprise plans, eight of the controls on this page also have a capability in custom roles, so you can leave a control on for the organization and, among members with custom roles, limit it to certain roles. Go to [**Organization settings > Roles**](https://claude.ai/admin-settings/roles), open a custom role, and go to its **Capabilities** tab. In the **Claude Science** section, the eight are listed under the **Claude Science** capability.
 
 The table shows each capability and the control on the **Claude Science** page that it goes with.
 
 | Capability in a custom role | Control on the **Claude Science** page |
 | - | - |
 | **Access previously saved work** | [**Allow members to access Claude Science work previously saved on their computer**](#previously-saved-claude-science-work) |
+| **Auto mode** | [**Allow members to use auto mode**](#auto-mode) |
 | **Connect to SSH hosts** | [**Allow members to connect SSH hosts**](#ssh-hosts) |
 | **Custom connectors** | [**Allow custom connectors**](#custom-connectors) |
 | **Custom skills** | [**Allow custom skills**](#custom-skills) |
@@ -64,7 +65,7 @@ The control on the **Claude Science** page is the upper limit, and roles narrow 
 * **Control on, built-in role**: members whose role is User, Admin, Owner, or Primary Owner can use the feature, because custom roles affect only members whose role is set to **Custom**. On Team plans, which don't have custom roles, that's every member.
 * **Control on, custom roles**: a member whose role is set to **Custom** can use the feature only if at least one of their custom roles has the capability turned on.
 
-Turning on the **Claude Science** capability in a role also turns on the seven under it, and you can then turn off the ones that role shouldn't have. Any capability whose control your organization can't turn on stays off. Turning the **Claude Science** capability off turns them all off. A role whose **Capability access** setting is **All capabilities** already includes all seven. A role set to **All generally available** gets them when you turn on its **Claude Science** capability (see [Who gets access after you enable](https://claude.com/docs/claude-science/enable-claude-science.md#who-gets-access-after-you-enable)).
+Turning on the **Claude Science** capability in a role also turns on the eight under it, and you can then turn off the ones that role shouldn't have. Any capability whose control your organization can't turn on stays off. Turning the **Claude Science** capability off turns them all off. A role whose **Capability access** setting is **All capabilities** already includes all eight. A role set to **All generally available** gets them when you turn on its **Claude Science** capability (see [Who gets access after you enable](https://claude.com/docs/claude-science/enable-claude-science.md#who-gets-access-after-you-enable)).
 
 > [!NOTE]
 >
@@ -216,7 +217,9 @@ When Claude recalls saved facts for a session, those facts are sent to Anthropic
 
 ### Auto mode
 
-With auto mode, an automated safety check approves a member's code and connector requests that look safe, so the member answers fewer permission cards in the Claude Science app (see [Auto mode](https://claude.com/docs/claude-science/auto-mode.md)). The **Allow members to use auto mode** switch decides whether members can use auto mode at all in Claude Science. It's on by default for Team organizations and off by default for Enterprise organizations. While the switch is on, auto mode starts on for members who can use it, and each member can turn it off in the Claude Science app. While the switch is off, members get a permission card for each request that needs one, as they do without auto mode, and the auto mode toggle in the Claude Science app's **Settings > Permissions** is grayed out. The switch applies to members whose app is recent enough to support it.
+The **Allow members to use auto mode** switch is on by default for Team organizations and off by default for Enterprise organizations. It decides whether members can enable auto mode in Claude Science. [Auto mode](https://claude.com/docs/claude-science/auto-mode.md) lets Claude Science run code and call connectors without stopping to ask about every step. Instead, Claude Science reviews these actions for safety and automatically blocks anything it determines to be unsafe. While the switch is on, auto mode starts on for members who can use it, and each member can turn it off in the Claude Science app. While the switch is off, members get a permission card for each request that needs one, as they do without auto mode, and the auto mode toggle in the Claude Science app's **Settings > Permissions** is grayed out. The switch applies to members whose app is recent enough to support it.
+
+On Enterprise plans, you can also limit auto mode to certain custom roles with the **Auto mode** capability (see [Capabilities in custom roles](#capabilities-in-custom-roles)). For a member whose custom roles don't include it, the **Auto mode on for new sessions** toggle in the app's **Settings > Permissions** is grayed out.
 
 ## How other admin settings apply to Claude Science
 
@@ -238,7 +241,7 @@ The status column in each table shows one of four values:
 | Organization and access > Domains | Supported in Claude Science | Domain verification, and the **Migrate accounts using your domains** and **Restrict organization creation** settings that build on it, act on claude.ai accounts before anyone reaches the app, so they apply unchanged. |
 | Members | Supported in Claude Science | Adding or removing members controls who can sign in to Claude Science. |
 | Roles (built-in) | Supported in Claude Science | Every built-in role (User, Admin, Owner, and Primary Owner) can use Claude Science once it's turned on for the organization. |
-| Roles > Claude Science permission in custom roles (Enterprise) | Supported in Claude Science | Add the Claude Science permission to a custom role to give the app to that role's members. Members whose custom roles don't include it can't use the app. On the role's **Capabilities** tab, seven capabilities under **Claude Science** decide which of the app's features that role's members can use (see [Capabilities in custom roles](#capabilities-in-custom-roles)). Team plans don't have custom roles, so everyone gets access when Claude Science is on. |
+| Roles > Claude Science permission in custom roles (Enterprise) | Supported in Claude Science | Add the Claude Science permission to a custom role to give the app to that role's members. Members whose custom roles don't include it can't use the app. On the role's **Capabilities** tab, eight capabilities under **Claude Science** decide which of the app's features that role's members can use (see [Capabilities in custom roles](#capabilities-in-custom-roles)). Team plans don't have custom roles, so everyone gets access when Claude Science is on. |
 | Groups (Enterprise) | Supported in Claude Science | Members get the Claude Science access of the roles their groups assign. |
 | IP allowlist (Enterprise) | Partially supported in Claude Science | The app's sign-in, its requests to Claude, and its Directory connector calls are checked against your allowlist (see [Restrict access to Claude with IP allowlisting](https://support.claude.com/en/articles/13200993-restrict-access-to-claude-with-ip-allowlisting)). Traffic that doesn't go to Anthropic isn't checked, which covers code on the member's computer, SSH hosts, or Modal account, and custom connectors members add in the app. You can turn SSH hosts, Modal, and custom connectors off under [Organization settings](#organization-settings). |
 | Organization and access > Shortened session length (Enterprise) | Partially supported in Claude Science | Applies to the browser sign-in a member completes to connect the app. It doesn't shorten the app's own sign-in after that, so members aren't asked to sign in again on your schedule. Turning Claude Science off for the organization or removing a member still stops their app within a few minutes. |
