@@ -25,7 +25,7 @@ Check these on Windows devices before rollout:
 * **Log on as a service**: Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace).
 * **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](https://claude.com/docs/third-party/claude-desktop/extensions.md#hooks-on-windows-devices-without-git-for-windows).
 
-With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a message sent from the home screen starts a Cowork session where Cowork is on and the device can run it, and a Chat conversation otherwise.
+With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a message sent from the home screen starts a Cowork session where Cowork is on and the device can run it. On a device that can't run Cowork's virtual machine, the message starts a Chat conversation.
 
 ## Check device readiness
 

@@ -6,6 +6,60 @@
 
 > Release notes for Claude Desktop
 
+**v4.29.0**
+
+2026-10-27
+
+Bundled Claude Code version: 2.1.309.
+
+**General**
+
+* Fixed a new chat whose first reply was stopped early refusing every later message with “That chat is no longer available.”
+* Fixed deleting a folder on Windows sometimes also deleting files outside it, through a junction or a mounted volume inside it.
+* Fixed session starts waiting a minute each, until the app restarted, for a local MCP server whose launch hangs.
+* Fixed the automatic local cleanup, in organizations with the Claude Code + Cowork HIPAA configuration, deleting work on an out-of-date retention period after an admin changed it, or on the member’s own or the default period when the admin’s value was invalid.
+* Fixed the window sometimes staying blank until you quit the app after a page stopped responding, and the app reloading its window after a long freeze even though the page had started responding again.
+* Fixed words in a new chat’s message box being lost when the app returned to New chat because the first message failed to send or the chat turned out not to exist, and a too-long message being lost when its Retry was refused while a newer draft was in the message box.
+
+**Code**
+
+* Changed which `CLAUDE_*`, `ANTHROPIC_*` and `DISABLE_*` variables SSH and WSL sessions take from your computer’s environment: most settings, on/off values and numbers still go; most other text, such as a cloud provider’s key or base URL, goes only if saved under Environment variables.
+* Fixed archiving an SSH or WSL session removing its worktree with uncommitted changes after a cancelled start.
+* Fixed environments saved from another window or device disappearing when a window that had been open for a while saved its own list.
+* Fixed messages being lost: queued messages in a local session when Claude Code crashed or stopped responding mid-turn, which now stay queued until you send them, and an unsent message to an SSH or WSL session when you pressed Esc with text in the message box.
+* Fixed SSH sessions failing to connect or start when a background job from the host’s start-up file prints text after login or the host’s SSH config sets `SessionType`, when the connection dropped as a session started, and on some hosts with a false “shell start-up files” error.
+* Fixed the app resending an SSH password after the server had refused it and disconnected, which could lock the account.
+
+**Cowork**
+
+* Changed deleting a task or a Dispatch chat so that, when the deletion can’t be completed, it is kept with an error and you can try again. Deleting a Dispatch chat also removes earlier copies of it on this computer.
+* Changed Skip all approvals to follow your organization’s Cowork setting instead of its Claude Code settings. A device’s own Claude Code managed settings still apply. When an admin turns it or Auto off, tasks in that mode drop lower at their next start or message. Not in third-party deployments.
+* Changed web fetch in scheduled tasks, outside Auto and Skip all approvals modes, to need a URL named in the task’s instructions or found by search or an earlier fetch. Not in third-party deployments.
+* Fixed a task that could stay stuck on “working” after a follow-up message’s attachment failed to upload, or after you pressed Stop while an attachment was still uploading.
+* Fixed computer use working in the background on Mac replacing all the text in a field when the app was slow to respond, leaving a field you were typing in selected so one key press wiped it, sending clicks aimed outside a window to its edge, and getting stuck at Finder’s Go to Folder.
+* Fixed shell commands continuing to run, or starting, after you pressed Stop.
+
+**3P**
+
+* Added `behavesAs` to `inferenceModels` entries. It names the Claude model behind a gateway alias or other Model ID that Claude Desktop can’t identify, so the ID gets that model’s effort levels and limits. Once any entry sets it, sessions ignore `modelPicker` in people’s own Claude Code settings.
+* Added `defaultState` to remote `managedMcpServers` entries. Set it to `off` to provide a connector that stays out of each person’s sessions until they turn it on under Connectors in the + menu. Adding `off` to a connector in use turns it off for everyone who has not switched it on.
+* Added `oauth.omitResource` to remote `managedMcpServers` entries, for an identity provider that rejects the OAuth `resource` parameter, as Microsoft Entra ID can (AADSTS9010010). It needs `oauth.clientId`, an API `oauth.scope` and exactly one sign-in server, or the server is not loaded.
+* Added `platformOverrides` to local, remote and web search `managedMcpServers` entries, so that one configuration can give a server a different command, arguments, environment or helper on Windows, macOS and Linux. An invalid value under any one of them drops the server on every device.
+* Added `toolTimeoutSec` to local and remote `managedMcpServers` entries. It sets how many seconds, 5 to 3,600, a tool call to that one server may run, in place of `mcpToolTimeoutSec` for that server.
+* Added a warning in Cowork, Chat and Code once a person has used 75% of the token limit set with `inferenceMaxTokensPerWindow` and `inferenceTokenWindowHours`. Set `inferenceTokenWarningPercent` (1 to 100) to change the percent. At the limit it reads “Token limit reached” and cannot be closed.
+* Changed `managedMcpServers` entries with `server: "github"` so that `pull_request_review_write` asks before every call, comment-only reviews and thread resolves included, even when `toolPolicy` allows it. Where no prompt can be shown, the call is refused. `toolPolicy` can still block it.
+* Changed a failed `PreToolUse` or `PermissionRequest` hook with `"shell": "powershell"` to block the call on PCs without Git for Windows unless it sets `args` or `"onFailure": "continue"`. If written for Bash: remove `shell`, add `"onFailure": "block"` to keep blocking, install Git, reopen Claude.
+* Changed an unset `desktopHome` to open Unified Claude at launches after 12:00 PM PT on November 10, 2026. Where `coworkTabEnabled` is `false`, no feature turns on or off. With Cowork on, a set `chatSessionRetentionDays` without an equal `coworkSessionRetentionDays` keeps the current view.
+* Changed an unset `desktopHome` with Cowork on to also turn on Chat and Advanced file analysis when it starts to open Unified Claude (November 10, 2026), even if `chatTabEnabled` or `chatAdvancedFileAnalysisEnabled` is `false`.
+* Changed Chat, Cowork and Code sessions to no longer start while Claude’s provider connection settings are missing, invalid or not yet fetched from your organization’s server. Claude says so at once.
+* Changed the Microsoft 365 connector to keep each saved sign-in per `tenantId`, `clientId`, `azureCloud` and `continuousAccessEvaluation`. Connected users sign in again once after this update. Where `microsoftAuthDefaultAccount` is `enabled` on Windows, they get the account picker from then on.
+* Improved the “Configuration sync issue” banner for a fetched configuration with no connection settings that Claude can use. It now says to contact your administrator and adds “Copy report for IT”.
+* Updated the built-in GitHub connector to github-mcp-server v2.0.2. New tools that make changes ask before every call by default: `update_issue_comment` and, in toolsets that are off by default, `create_repository_ruleset`, `custom_properties_write` and `assign_copilot_to_issue_with_intent`.
+* Fixed Cowork and Chat saying that a connector your organization set up needs authorization or failed to connect, when Claude Code’s own configuration on the device, such as `managed-mcp.json`, lists a server of the same name. Cowork and Chat now leave out the device’s server of that name.
+* Fixed Cowork and Chat showing an error when Claude Code’s process was ended from outside the app while idle after a response had finished. On macOS that error blamed security software.
+* Fixed memory being impossible to pause when Cowork is turned off. Memory’s settings are now in Settings > General.
+* Fixed the Setup window leaving a typed value out of the saved or exported configuration: a host typed in “Allowed egress hosts” or “SSH host allowlist” before pressing Tab, or a tool picked under “Disabled built-in tools” without Add. Saving is now blocked while a JSON field holds invalid text.
+
 **v3.6556.2**
 
 2026-10-22

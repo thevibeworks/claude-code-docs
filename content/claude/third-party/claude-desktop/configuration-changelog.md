@@ -8,6 +8,35 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v4.29.0**
+
+2026-10-27
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`inferenceTokenWarningPercent`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencetokenwarningpercent) | `integer` | Token limit warning |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "appearance": {
+    "tokenLimitWarningPercent": "<integer>"
+  }
+}
+```
+
+**Changed:**
+
+* `desktopHome`: from November 10, 2026 (12:00 PM PT, by the device's clock), an unset key opens Unified Claude at the app's next launch. Where `coworkTabEnabled` is not `false`, Chat and Advanced file analysis come on with Cowork, even if `chatTabEnabled` or `chatAdvancedFileAnalysisEnabled` is `false`. Where `coworkTabEnabled` is `false`, Cowork, Chat and Advanced file analysis stay on or off as they are today. A deployment with Cowork on that sets `chatSessionRetentionDays`, and does not set `coworkSessionRetentionDays` to the same number of days, keeps its current view. Earlier releases are unchanged.
+* `inferenceModels`: an entry accepts `behavesAs`, the Claude model behind a Model ID that Claude Desktop cannot identify, such as a gateway alias. The ID then gets that model's effort levels and limits. Once any entry sets it, sessions that Claude Desktop starts no longer read a person's own `modelPicker` setting from Claude Code's settings.
+* `managedMcpServers`: a remote entry accepts `defaultState`. Set it to `"off"` and the connector stays out of each person's sessions until they turn it on under Connectors in the + menu. Adding `"off"` to a connector in use turns it off for everyone who has not switched it on.
+* `managedMcpServers`: a remote entry's `oauth` accepts `omitResource`. Set it to `true` when the identity provider rejects the OAuth `resource` parameter (Microsoft Entra ID: AADSTS9010010). It needs the entry's client ID, a scope that names the API, and exactly one sign-in server: a tenant ID, one authorization server, or an authorization URL and token URL. Otherwise the server is not loaded.
+* `managedMcpServers`: a local, remote or web search entry accepts `platformOverrides`, which gives it a different command, arguments, environment or helper on Windows, macOS or Linux. A setting left out keeps the entry's own. A mistake under any operating system drops the server on every device. Earlier releases use the entry's own settings on every device.
+* `managedMcpServers`: a local or remote entry accepts `toolTimeoutSec`, how many seconds (5 to 3,600) Claude waits for one tool call to that server, in place of `mcpToolTimeoutSec` for that server.
+* `managedMcpServers` with `server: "github"`: `pull_request_review_write` now asks before every call whatever `toolPolicy` says, and is refused where Claude can show no prompt. `toolPolicy` can still block it. The connector is updated to github-mcp-server v2.0.2, whose new tools that make changes ask before every call unless `toolPolicy` allows them by name or with `"*"`.
+* `managedMcpServers` with `server: "microsoft365"`: each user's saved sign-in is now kept per `tenantId`, `clientId`, `azureCloud` and `continuousAccessEvaluation`, so a change to any of them starts users from a fresh sign-in. Users who had connected sign in again once after this update.
+
 **v3.6556.2**
 
 2026-10-22

@@ -8,7 +8,7 @@
 
 3. Select from Light, Match System, and Dark under **Color mode**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1648260417/d478c757c7115ad58a12026d4caf/AD_4nXc__Qop4X9hknWGfGj_y_DCpLutLruhxIclJIfir0ilsgNMg7X8ksIVnqk1Oce5FKlGIOYu9CKbVsu8DqD7iIY2aC0ZfXMyFTeAdNq-Cao2mXcj_WUpNF0kM2HoYR_dEx6N_cuJow?expires=1793133900&amp;signature=633c8c561efccf739814031363e6252d46339e3d9a9d35869436ad6504068d8f&amp;req=dSYjHst4nYVeXvMW1HO4zc2jJqE8g4jtSBkgeTglJrqj7FCuuAIA%2BE4B2SmD%0Agx%2F8gquirmPkAEZ5XOA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1648260417/d478c757c7115ad58a12026d4caf/AD_4nXc__Qop4X9hknWGfGj_y_DCpLutLruhxIclJIfir0ilsgNMg7X8ksIVnqk1Oce5FKlGIOYu9CKbVsu8DqD7iIY2aC0ZfXMyFTeAdNq-Cao2mXcj_WUpNF0kM2HoYR_dEx6N_cuJow?expires=1793170800&amp;signature=55328eb9d194a30713818bcf79da30642b686be32e87f288164c28ae1388acaf&amp;req=dSYjHst4nYVeXvMW1HO4zc2jJqE8h4vsSBkgeTglJroI69xvmTDSk0kG%2BuDR%0AMa9Fjie%2BC07%2B91bhtaY%3D%0A)
 
 ## How to change your font
 
@@ -16,10 +16,10 @@
 
 2. Select from Default, Match System, and Dyslexic Friendly.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1648260416/7fc0803d44d8de40f8e6636b2eb6/AD_4nXf0UEDa1i2QmqlQtoB5BgpQ-FfZVzss_7wMVQdvkmEDSfoTxixnG0GSxC6qrOs21HdkXH-I2Yn_GHDAf8yjd6FJtoh9FadALozvIErFp9r8LychDGLPb7OpN1CN4PRcgVAYNCre?expires=1793133900&amp;signature=5bc14730e1a16a7e891f9e188896ce791be4e2e53d71777155fd847755852ba6&amp;req=dSYjHst4nYVeX%2FMW1HO4zc896mPkXnI1QtNFlF5%2FHEe6AB%2FloLodKSvFMjPE%0AYpMn4QBVuJR0gxSlk7A%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1648260416/7fc0803d44d8de40f8e6636b2eb6/AD_4nXf0UEDa1i2QmqlQtoB5BgpQ-FfZVzss_7wMVQdvkmEDSfoTxixnG0GSxC6qrOs21HdkXH-I2Yn_GHDAf8yjd6FJtoh9FadALozvIErFp9r8LychDGLPb7OpN1CN4PRcgVAYNCre?expires=1793170800&amp;signature=18fe53c9029797290568fe40f47b1a895bb29eb0a9c16e2b062f868bb254338f&amp;req=dSYjHst4nYVeX%2FMW1HO4zc896mPkWnE0QtNFlF5%2FHEdJP9uVRZxGTvSAo%2FZZ%0AXne7kUM%2BbF8cdlCkBV4%3D%0A)
 
 ## Can I disable the sidebar?
 
 It's not currently possible to completely disable the sidebar. You can click the button on the top right of the sidebar to open or close it.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1941108004/5217903737ddd9bb62fe5d7a904c/CleanShot+2026-01-14+at+09_12_58.png?expires=1793133900&amp;signature=ba75bd536f04a02717c6dba33177d63e4c68187cd45257f478c2b8883f3b4ecf&amp;req=dSkjF8h%2BlYFfXfMW1HO4zUS%2BBlz3WnjmylfYa7uDb9mKO%2FXY5D03GbD0oYxk%0ARY%2F%2B7IJ984ZH7s%2FUc0k%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1941108004/5217903737ddd9bb62fe5d7a904c/CleanShot+2026-01-14+at+09_12_58.png?expires=1793170800&amp;signature=3aa71ec14331e1d01327d9ee5d33531c1996310a6a892ee12cd5c78b149cf528&amp;req=dSkjF8h%2BlYFfXfMW1HO4zUS%2BBlz3XnvnylfYa7uDb9mq1AfrC4V4ZsBtdwPn%0A7h%2FBUAT3XknMv7LlzWc%3D%0A)

@@ -62,7 +62,7 @@ A custom role whose **Capability access** setting is **All capabilities** alread
 
 This is the same pattern as other Claude apps you enable per organization.
 
-In a custom role, the **Claude Science** capability has seven capabilities under it, one for each feature you can limit by role, such as SSH hosts, Modal, and memory. Turning on the **Claude Science** capability turns these on too, and you can then turn off the ones that role shouldn't have (see [Capabilities in custom roles](https://claude.com/docs/claude-science/admin-controls.md#capabilities-in-custom-roles)). Any that goes with an organization setting you can't turn on stays off.
+In a custom role, the **Claude Science** capability has eight capabilities under it, one for each feature you can limit by role, such as SSH hosts, Modal, and memory. Turning on the **Claude Science** capability turns these on too, and you can then turn off the ones that role shouldn't have (see [Capabilities in custom roles](https://claude.com/docs/claude-science/admin-controls.md#capabilities-in-custom-roles)). Any that goes with an organization setting you can't turn on stays off.
 
 ## What members see
 

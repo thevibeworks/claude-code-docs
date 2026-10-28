@@ -18,7 +18,7 @@ Unified Claude runs without Cowork capabilities if the user's machine cannot lau
 
 ## What users see with Unified Claude
 
-With Unified Claude on, users type into the message box on the home screen without first choosing between Chat and Cowork. Where Cowork is on and the device can run it, each message sent from the home screen starts a Cowork session. Otherwise, the message starts a Chat conversation instead.
+With Unified Claude on, users type into the message box on the home screen without first choosing between Chat and Cowork. Where Cowork is on and the device can run it, each message sent from the home screen starts a Cowork session. On a device that can't run Cowork's virtual machine, the message starts a Chat conversation instead.
 
 A Cowork session started this way has Cowork-level tools and follows your Cowork settings. For example, Claude can create and change files in folders the user attaches, and create scheduled tasks.
 
@@ -26,16 +26,13 @@ Users keep their earlier chats and Cowork tasks, and the sidebar lists them toge
 
 ## Enabling Unified Claude
 
-Unified Claude is opt-in until November 10, 2026. When Claude Desktop starts after 12:00 PM Pacific Time on that date, Unified Claude is on by default where [`desktopHome`](https://claude.com/docs/third-party/claude-desktop/configuration#desktophome) is unset, except in these cases:
+Unified Claude is opt-in until November 10, 2026. When Claude Desktop starts after 12:00 PM Pacific Time on that date, Unified Claude is on by default where [`desktopHome`](https://claude.com/docs/third-party/claude-desktop/configuration#desktophome) is unset, except in cases such as these:
 
 * **A Chat retention period that differs from Cowork's**: where Cowork is on, [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) is set, and [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) isn't set to the same number of days, Unified Claude is off until the two match or you set `desktopHome`. A later change that creates this mismatch turns Unified Claude off again.
 * **Chat, Cowork, and Code all off**: Claude Desktop keeps turning one of them back on, as described under [Chat configuration](https://claude.com/docs/third-party/claude-desktop/chat.md#configuration)
 * **Earlier app versions**: the default comes with an app update, so a device switches only after it installs that update
 
-What users get by default follows [`coworkTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#coworktabenabled):
-
-* **Cowork on**: where the key isn't `false`, Claude Desktop reads `desktopHome` as `standard`. Chat and advanced file analysis come on with Cowork, even where [`chatTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chattabenabled) or [`chatAdvancedFileAnalysisEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chatadvancedfileanalysisenabled) is `false`. To turn off sandbox commands, see [Sandbox network access](https://claude.com/docs/third-party/claude-desktop/chat.md#sandbox-network-access).
-* **Cowork off**: where the key is `false`, Cowork stays off, and Chat and advanced file analysis stay as `chatTabEnabled` and `chatAdvancedFileAnalysisEnabled` set them. With Chat off as well, nothing changes, and users keep Code alone.
+Where Cowork is on, the default turns on Chat and advanced file analysis, even where [`chatTabEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chattabenabled) or [`chatAdvancedFileAnalysisEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#chatadvancedfileanalysisenabled) is `false`. To turn off sandbox commands, see [Sandbox network access](https://claude.com/docs/third-party/claude-desktop/chat.md#sandbox-network-access).
 
 To turn on Unified Claude yourself, use the setting for your deployment:
 

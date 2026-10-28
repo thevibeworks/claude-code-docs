@@ -166,7 +166,7 @@ A group's policy has the same two switches in its **Capabilities** section.
 
 Unified Claude is in beta. In an organization with no saved configuration, the console starts with Unified Claude on and stores it when you first click **Save changes** on the **Connection** page. Where the saved configuration leaves the **Opt into the new Chat and Cowork unified view** switch off, Unified Claude stays off until you turn it on or, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, until November 10, 2026. The default goes by the settings each user gets from the organization and their groups.
 
-When you turn on Unified Claude yourself, it overrides the **Chat**, [**Advanced file analysis**](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off. On by default, it overrides the **Chat** and **Advanced file analysis** switches where the **Cowork** switch is on, and follows all three where the **Cowork** switch is off.
+When you turn on Unified Claude yourself, it overrides the **Chat**, [**Advanced file analysis**](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off.
 
 > [!WARNING]
 >

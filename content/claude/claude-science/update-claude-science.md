@@ -30,7 +30,7 @@ If you can't find the menu, leave Claude Science open for ten minutes. Then quit
 
 ## From a terminal or on a server
 
-Run these commands in a terminal on the computer where Claude Science runs. The second one stops running sessions.
+Run these commands in a terminal on the computer where Claude Science runs. The second one stops running sessions. On Linux, if `command -v bwrap` or `command -v socat` prints a path that isn't in `/usr/bin`, `/usr/local/bin`, or `/bin`, [update from the app](#update-from-the-app) or [install Claude Science again](#install-claude-science-again) instead, and see [not approved](https://claude.com/docs/claude-science/troubleshooting.md#not-approved).
 
 ```bash theme={null}
 claude-science update
@@ -58,4 +58,8 @@ curl -fsSL https://claude.ai/install-claude-science.sh | bash
 * **Claude Science still asks you to update**: on Windows, if an update said "restart aborted" or "The update is installed", follow the entry above instead. On a Mac where Claude Science opens in its own window, quit it with Command-Q, wait ten seconds, then open it from your **Applications** folder. Anywhere else, run `claude-science stop` in a terminal (on a Mac or Linux, if the command isn't found, type `~/.local/bin/claude-science stop`), quit Claude Science if you're on a Mac, then open it again. If `claude-science stop` says "Not killing pid", follow [the terminal steps](#from-a-terminal-or-on-a-server).
 * **The message says "restart aborted" or "The update is installed"**: on a Mac or Linux, if you started Claude Science from a terminal, follow [the terminal steps](#from-a-terminal-or-on-a-server). Otherwise, follow [restart aborted](https://claude.com/docs/claude-science/troubleshooting.md#restart-aborted).
 * **The message says "the new version couldn't start"**: you're still on the version you had. Updating again, even from a terminal, gets the same version until a newer one is released, so contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support) with the exact words you see.
+* **On Linux, version 0.1.71 won't start after you typed `claude-science update`**: see [not approved](https://claude.com/docs/claude-science/troubleshooting.md#not-approved) before you try 0.1.71 again. To go back to version 0.1.70, run this command in a terminal on the computer where Claude Science runs, then start Claude Science again (the flag is safe only in this command):
+  ```bash theme={null}
+  claude-science update --to f866abff --accept-layout-downgrade
+  ```
 * **Anything else**: on a Mac where Claude Science opens in its own window, contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support) with your version and the exact words you see. Anywhere else, [install Claude Science again](#install-claude-science-again), and contact support if that doesn't work.
