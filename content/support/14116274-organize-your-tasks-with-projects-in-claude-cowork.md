@@ -16,23 +16,23 @@ The new Claude experience, which combines chat and Cowork, is rolling out to Pro
 
 Find **Projects** in the left navigation panel and click the “+” button to see the three different ways to create a project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183720240/6f6ef438913391703598d86d606c/CleanShot+2026-03-20+at+09_11_43.png?expires=1793257200&amp;signature=4bc1d3b37e340722c73cc7a1f5924c70d359f7c09ae4029878ee577bd201a5de&amp;req=diEvFc58nYNbWfMW1HO4zcOgiga41C93ZwSvwegvtgxP1K0MWo50fKEDpRse%0AiHRggs3uCXGC8xvD1D8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183720240/6f6ef438913391703598d86d606c/CleanShot+2026-03-20+at+09_11_43.png?expires=1793295900&amp;signature=1cb120a763db8b7c49946ef6a3166425821ba7a33276e09b9b72f1afdeb4790a&amp;req=diEvFc58nYNbWfMW1HO4zcOgiga42C18ZwSvwegvtgykTWt3GLIiwMCVVUUP%0Axg92MdWwxBUjSx6OErU%3D%0A)
 
 ### Start from scratch
 
 Selecting “Start from scratch” allows you to set up a new folder with instructions and files:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177090014/07832b50003cf7fd3b4e9c7c448b/3385d9b8-c3e7-42b9-ae3f-4d213baa53a7?expires=1793257200&amp;signature=aa5903ee106c6c224258306ec21269ae3f69ac1f46b5b25f5ff2534776cb4bbe&amp;req=diEgEcl3nYFeXfMW1HO4zZCoQo5HS3KUvb0suCMAnj3jpBvj%2FQ309JzQnqyM%0ABCyq9uzZo916oY%2F483A%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177090014/07832b50003cf7fd3b4e9c7c448b/3385d9b8-c3e7-42b9-ae3f-4d213baa53a7?expires=1793295900&amp;signature=7e0123431feea354b4546dc9c7561a8579a939ea8cab0d86dac6d6516e8d0e15&amp;req=diEgEcl3nYFeXfMW1HO4zZCoQo5HR3Cfvb0suCMAnj2EB14Z9nfspkb3Hvyv%0AjxXy8aJuszHDqxnMHcE%3D%0A)
 
 ### Import from a Claude project
 
 After selecting “Import from project,” you’ll see a “Search projects in Chat…” field:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183717962/acdc11bcc825ae76a13f508365bc/CleanShot+2026-03-20+at+09_12_08.png?expires=1793257200&amp;signature=76f83dd4679ea3d9d86dc8929e0f50dd24540828f50bcd8f110ebcf67c3e0fa2&amp;req=diEvFc5%2FmohZW%2FMW1HO4zQQ7UWBfz58djggUT7FIJz%2Br%2FWZmxNzuUR3WLCb5%0AUhXyHp%2FpJTRvucxJCP0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183717962/acdc11bcc825ae76a13f508365bc/CleanShot+2026-03-20+at+09_12_08.png?expires=1793295900&amp;signature=d38b4228dd9a74f905f6286c73722048ac6332747696c6ba42ab899c5de95b75&amp;req=diEvFc5%2FmohZW%2FMW1HO4zQQ7UWBfw50WjggUT7FIJz9VkAEPf5biCX20%2FDN3%0AzLV4kRp07cgwUGRnwIE%3D%0A)
 
 Clicking into the field will display a drop-down showing your recent projects, but you can also use it to search all your projects. After you select a chat project (bulk upload is not supported), you can name the new Cowork project and choose where to save it on your computer:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183727973/7a25430123d9e13e7c3cdd411f70/CleanShot+2026-03-20+at+09_13_41.png?expires=1793257200&amp;signature=03107b9c0275f093a2f028d749b4fa9eb2443b60c593e283e9b088cf1b9617cf&amp;req=diEvFc58mohYWvMW1HO4zU%2FKAyBE%2BSTOI7f%2FdY0VL6huuAg04Z7R%2BFS6vDsY%0AFmPOZOcx6oS5ozWlMaI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183727973/7a25430123d9e13e7c3cdd411f70/CleanShot+2026-03-20+at+09_13_41.png?expires=1793295900&amp;signature=6b8da9e9d89aee2f23d892702832beac23d0a0e6060b6bc2952bbca255bff75c&amp;req=diEvFc58mohYWvMW1HO4zU%2FKAyBE9SbFI7f%2FdY0VL6hiFtHnAUwLWDwsJHPZ%0AJkUfB%2B3z%2FsVY7ky4MNo%3D%0A)
 
 Clicking “Create” will transfer the files and instructions from your existing Claude project and create a new Cowork project.
 
@@ -40,11 +40,11 @@ Clicking “Create” will transfer the files and instructions from your existin
 
 If you select “Use an existing folder,” you’ll be prompted to pick a file to use as context for the new Cowork project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087935/2f0052dae601d0b7fecdc029e1c3/2e3ca9e7-23b1-436e-bbdb-edcd31c41f15?expires=1793257200&amp;signature=8a762fd25f9f2a59d4bc3e28b493411d27b947faa83ea5b39ee017e97e7f5097&amp;req=diEgEcl2mohcXPMW1HO4zejrnjXUECRduv8e2Xj2xOUYsi6oDF9DlhK1VRXs%0ASTs%2BXS01C3E8AAZS7n4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087935/2f0052dae601d0b7fecdc029e1c3/2e3ca9e7-23b1-436e-bbdb-edcd31c41f15?expires=1793295900&amp;signature=9c939c614eee921d2ed1c8d0690a69e49d2330ed6289e50847e6e1f0ee96832d&amp;req=diEgEcl2mohcXPMW1HO4zejrnjXUHCZWuv8e2Xj2xOWy4tvjo9pk1zEBobiD%0AyJgIml8qNCDx861Uzuc%3D%0A)
 
 After selecting a folder, you can name the new Cowork project, choose where to save it on your computer, add instructions, and attach any additional files. Click “Create” to start using your new project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087937/f59dbe3fc28448a9597ea097cb4d/96a59acb-4054-4b4b-a208-751f9711f535?expires=1793257200&amp;signature=06334287490f594466c915063680ccf18a7e5900d87beee399141a0a24ec5c26&amp;req=diEgEcl2mohcXvMW1HO4zUq4VuC2hqU4MfnqHouW6MLJ5HR0f1GwK5m8R5Oq%0AQVwYVhPOuBqD36fcL3o%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087937/f59dbe3fc28448a9597ea097cb4d/96a59acb-4054-4b4b-a208-751f9711f535?expires=1793295900&amp;signature=a3d191c2dbaea86d5e6e1bc3174f7e64c9dc97f000fd4af54fad48b5e99780a2&amp;req=diEgEcl2mohcXvMW1HO4zUq4VuC2iqczMfnqHouW6MKyRaPMyOCyeRiIgHJj%0APTD7FSzKWgdp7tsJHQA%3D%0A)
 
 ---
 
