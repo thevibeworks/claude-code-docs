@@ -80,7 +80,7 @@ To run a single chat or Cowork task without memory, open a new chat, click the �
 
 You can toggle Claude's memory on by navigating to **Settings > Your Claude** and turning on **Memory from chats** (or **Settings > Memory** and **Generate memory from chats** in the older Settings layout):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1793257200&amp;signature=a772979b0b5d74740b1e1631a37221bdc05af2c6eb1089a9a5e64b7e46f513bc&amp;req=diUkFc12n4VbWPMW1HO4zRlYr5hv51cuNshWSMEMw9dTcdsSfxt7zcoxjAyz%0Accb89SbVH3yE7AObY%2BU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1793295900&amp;signature=afbc0a02f94aba4a3241197ac0cd8ea6edac5c20609fb170e9874de0d146f9bb&amp;req=diUkFc12n4VbWPMW1HO4zRlYr5hv61UlNshWSMEMw9d33RmYFOje5Y04I%2Fda%0AZT8DS0GDiGrO0K54AiE%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle and you'll see two options:
 
@@ -276,7 +276,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout) and find the **Memory** section. Switch the toggle next to “Search and reference chats” off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1793257200&amp;signature=c3fcf3cf56c4ffb093ba4ecc93a8186801720f3344816502fd272522b9b59402&amp;req=dScmH859nYlXUPMW1HO4zRzXHlwyJjbAJG68qZhl780K2L%2Fa7TlrzAlso05v%0AyAjPpAIluUgbNJRWoso%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1793295900&amp;signature=f9dd35c545da181971def96f8c831f310cb0227ab1b383824c07185b639711d4&amp;req=dScmH859nYlXUPMW1HO4zRzXHlwyKjTLJG68qZhl782eOeYZ5DdW4FHttMtr%0AjoKZIBU4BY20UIqH1K0%3D%0A)
 
 ### Can I exclude a specific past chat from searches?
 
@@ -284,7 +284,7 @@ Incognito chats are available to all Claude users (free, Pro, Max, Team, and Ent
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1793257200&amp;signature=1dd71311cc9b432b58d6f65e323c5269f71f57d0d00879e542381c1812339039&amp;req=dScmH859nYlWWvMW1HO4za54saBuOYG5XDpzhlKsgjNtW%2B44t2Xc80YgLKUt%0AaZNUumUsS%2BDufisZ%2Blg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1793295900&amp;signature=389edcb53b9053614aa246728dd825b286d85c037c42d9a5be9985b21e33cf74&amp;req=dScmH859nYlWWvMW1HO4za54saBuNYOyXDpzhlKsgjMuapSADrjF0Bn06zvR%0A%2F4O1wMvGjH9%2BVGQIMx8%3D%0A)
 
 Clicking the ghost icon will open an incognito chat, creating a temporary conversation that isn’t saved to your chat history. Claude won’t pull information from incognito chats when searching previous conversations.
 
@@ -316,7 +316,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude's memory on by navigating to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1793257200&amp;signature=e949b438719a0d36cf8d4a8826bca39b3b58e970d2416450a6a04cfff8ae5b2e&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McLkcuNHBq9N9dRTKYeZCYF8092DHNzc%2Fkub%0A59fDhM4F6UlrnPXQLpA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1793295900&amp;signature=4aa35ff0eb3b368228f42df0748e5f4cacfb593eff9a6060cf234b31a70fe2df&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McLkfuFMBq9N9dRTKYeG3BlGIgW81rcO%2FHc0%0Az43AmLUCojqNau47fl8%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle to see two options:
 
