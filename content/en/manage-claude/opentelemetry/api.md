@@ -9,15 +9,28 @@ featureMetadata:
   status: beta
   zdr:
     eligibility: eligible
-    note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Only for features that are themselves ZDR eligible, such as the Messages API. Claude Managed Agents isn't ZDR eligible.
+    note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Beta. Spans have the same ZDR eligibility as the feature that produces them. HIPAA organizations can export metadata. SDK spans go directly from your environment to your exporter. After delivery, the data is held by the service that you chose, outside Anthropic, under that service's retention and access controls.
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: beta
     Claude Platform on AWS: beta
-  rows:
-    - label: Works with
-      value: Messages API, Claude Managed Agents
-  details:
-    - After delivery, the data is held by the service that you chose, outside Anthropic, under that service's retention and access controls.
 ---
 
 With OpenTelemetry, the Claude API can emit a span for each model request and each tool use that it runs. You can view these spans in your observability platform without changing your code.
@@ -675,6 +688,10 @@ To change a destination, open its **More actions** menu while the **Workspace** 
 | Length of all header names and values together              | 16,384 bytes     |
 | Length of an endpoint URL                                   | 2,048 characters |
 
+## Zero data retention
+
+Spans have the same ZDR eligibility as the feature that produces them. Claude Managed Agents isn’t ZDR eligible. See [Feature eligibility](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility).
+
 ## Troubleshooting
 
 | Problem                                                                            | What to check                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -700,3 +717,38 @@ When a delivery fails, the **Delivery** column shows **Failing**. Hover over it 
 | Redirect (status 3xx)                              | The endpoint redirected the request. The API doesn’t follow redirects, so use the URL it redirects to                                                     |
 | HTTP error (status 408, 429, or 5xx)               | The endpoint was overloaded, limited the rate of requests, or had an error                                                                                |
 | HTTP error (another 4xx status)                    | The endpoint refused the request, for example because of its size or format                                                                               |
+
+## Availability
+
+API tracing is in beta on every model and eligible for zero data retention.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status | Cloud platforms                                                                                                    |
+| ------ | ------------------------------------------------------------------------------------------------------------------ |
+| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+
+| Status | Cloud platforms                                                                                                    |
+| ------ | ------------------------------------------------------------------------------------------------------------------ |
+| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                                                                                                                                                                                        | HIPAA                                    |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))                                                                                                                                                                  | Not eligible                             |
+| Details | Beta. Spans have the same ZDR eligibility as the feature that produces them. HIPAA organizations can export metadata. SDK spans go directly from your environment to your exporter. After delivery, the data is held by the service that you chose, outside Anthropic, under that service’s retention and access controls. | HIPAA organizations can export metadata. |
+
+Applicable endpoints:
+
+* `/v1/organizations/telemetry_destinations`

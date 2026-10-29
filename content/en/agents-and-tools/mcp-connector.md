@@ -4,13 +4,39 @@ url: https://platform.claude.com/docs/en/agents-and-tools/mcp-connector
 description: Connect to remote MCP servers directly from the Messages API without an MCP client, and allowlist, denylist, or configure individual tools.
 featureMetadata:
   status: beta
-  betaHeader: mcp-client-2025-11-20
-  zdr: not-eligible
+  betaHeader: mcp-client-2026-09-15, mcp-client-2025-11-20
+  zdr:
+    eligibility: not-eligible
+    note: Data retained according to standard policy.
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: beta
     Claude Platform on AWS: beta
+    Claude Models on Google Cloud (Anthropic managed): beta
     Microsoft Foundry: beta
 ---
+
+**API support**: Usage differs by product.
+
+* **Messages API**: Pass `mcp_servers` and a matching `mcp_toolset` in `tools` on each request.
+* **Managed Agents**: Declare MCP servers on the agent. Each session supplies credentials by referencing a vault, so secrets stay out of the agent definition.
 
 Claude’s Model Context Protocol (MCP) connector feature allows you to connect to remote MCP servers directly from the Messages API without a separate MCP client.
 
@@ -1988,8 +2014,6 @@ You can include `mcp_servers` in [Message Batches API](https://platform.claude.c
 
 The MCP connector is not covered by ZDR arrangements. Data exchanged with MCP servers, including tool definitions and execution results, is retained according to Anthropic’s standard data retention policy.
 
-For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-
 ## Migration guide
 
 If you’re using the deprecated `mcp-client-2025-04-04` beta header, follow this guide to migrate to the new version.
@@ -2103,3 +2127,51 @@ The previous version of the MCP connector included tool configuration directly i
 | `tool_configuration`               | object  | **Deprecated:** Use MCPToolset in the `tools` array instead        |
 | `tool_configuration.enabled`       | boolean | **Deprecated:** Use `default_config.enabled` in MCPToolset         |
 | `tool_configuration.allowed_tools` | array   | **Deprecated:** Use allowlist pattern with `configs` in MCPToolset |
+
+## Availability
+
+MCP connector is in beta on every model.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+* Usage: Pass `mcp_servers` and a matching `mcp_toolset` in `tools` on each request. For OAuth servers you get and refresh the access token yourself and pass it as `authorization_token`.
+
+| Status | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                        |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+* Usage: Declare MCP servers on the agent. Each session supplies credentials by referencing a vault, so secrets stay out of the agent definition.
+
+| Status | Cloud platforms         |
+| ------ | ----------------------- |
+| Beta   | All supported platforms |
+
+### Required beta headers
+
+[Beta headers overview](https://platform.claude.com/docs/en/api/beta-headers)
+
+Beta headers allow you to access experimental features and new model capabilities before they become part of the standard API.
+
+| Header                                             | APIs                                                                                        | Cloud platforms                                                                                                                                                                                                                                                                                                                                                            |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mcp-client-2026-09-15` or `mcp-client-2025-11-20` | [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) | Claude API                                                                                                                                                                                                                                                                                                                                                                 |
+| `mcp-client-2025-11-20`                            | [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                         | HIPAA        |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Status  | Not eligible                                                                                                                                | Not eligible |
+| Details | Data retained according to standard policy. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#data-retention) | —            |
+
+Applicable endpoints:
+
+* `/v1/messages` with `mcp_servers`

@@ -4,33 +4,34 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-executio
 description: Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
 featureMetadata:
   status: ga
-  zdr: not-eligible
+  zdr:
+    eligibility: not-eligible
+    note: Container data retained up to 30 days.
   supportedModels:
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
     - claude-mythos-5
+    - claude-mythos-preview
     - claude-opus-5-5
     - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
     - claude-opus-4-8
     - claude-opus-4-7
     - claude-opus-4-6
-    - claude-opus-4-5-20251101
-    - claude-sonnet-5-5
-    - claude-sonnet-5
     - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
-    - claude-haiku-5-5
-    - claude-haiku-4-5-20251001
   supportedPlatforms:
     Claude API: ga
     Claude Platform on AWS: ga
-    Microsoft Foundry:
-      availability: ga
-      note: On [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), code execution requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
+    Claude Models on Google Cloud (Anthropic managed): ga
+    Microsoft Foundry (hosted on Anthropic): ga
   details:
     - Every supported model accepts all three [tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions). On Claude Haiku 4.5, programmatic tool calling and REPL state persistence aren't available, so the newer versions behave like `code_execution_20250825` there.
-    - For [Claude Mythos Preview](https://anthropic.com/glasswing), code execution is supported on the Claude API and Microsoft Foundry.
 ---
 
 Claude can analyze data, create visualizations, perform complex calculations, run system commands, create and edit files, and process uploaded files directly within the API conversation. The code execution tool allows Claude to run Bash commands and manipulate files, including writing code, in a secure, sandboxed environment.
@@ -45,17 +46,19 @@ Code execution also powers dynamic filtering in the [web search](https://platfor
 
 ## Tool versions
 
-The code execution tool has three current versions, and every [supported model](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#compatibility) accepts all three. Each version builds on the previous one:
+The code execution tool has three current versions, and every [supported model](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#availability-feature-support) accepts all three. Each version builds on the previous one:
 
 * `code_execution_20250825` supports Bash commands and file operations.
 * `code_execution_20260120` adds REPL state persistence and [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) from within the sandbox. Claude Haiku 4.5 accepts the `code_execution_20260120` and `code_execution_20260521` tool types, but programmatic tool calling and the REPL state persistence that depends on it aren’t available on it, so the newer versions behave like `code_execution_20250825` there.
 * `code_execution_20260521` is the same runtime as `code_execution_20260120`. The difference is that the tool description tells Claude about the 90-second wall-clock limit on each Python cell in programmatic tool calling, so Claude can budget long-running cells. A cell that exceeds the limit returns a normal code execution result with a non-zero `return_code` and a `detection_timeout` status message in its output. This is separate from the `execution_time_exceeded` [error code](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#errors), which the API returns when a whole tool call exceeds the maximum execution time.
 
+For [Claude Mythos Preview](https://anthropic.com/glasswing), code execution is supported on the Claude API and Microsoft Foundry.
+
 None of the three tool versions requires an `anthropic-beta` header. The legacy code execution beta headers remain valid opt-ins.
 
 The examples on this page use `code_execution_20250825`, which covers the Bash and file operations they demonstrate and behaves the same way on every supported model; use `code_execution_20260120` or later when you need programmatic tool calling or REPL state persistence. The current [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) and [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool) tools (`web_search_20260209`, `web_fetch_20260209`, and later) require `code_execution_20260120` or later as their code execution version.
 
-Older tool versions aren’t guaranteed to stay compatible with newer models. When you adopt a new model, check [Tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions) and [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#compatibility), and prefer the newest tool version your integration supports.
+Older tool versions aren’t guaranteed to stay compatible with newer models. When you adopt a new model, check [Tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions) and [API support](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#availability-feature-support), and prefer the newest tool version your integration supports.
 
 To check whether a model accepts the code execution tool before you send a request, read its `capabilities.server_tools.code_execution.supported` value from the Models API. Don’t use the top-level `capabilities.code_execution` value for this. It reports whether code running in this tool can call your request’s other tools, as in programmatic tool calling. [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api) describes both fields.
 
@@ -1489,7 +1492,7 @@ Code execution usage is tracked in the response:
 
 ## Upgrade to latest tool version
 
-The latest tool version is `code_execution_20260521`. To move between the three current versions, update the `type` string in your request: all three return the response blocks documented in [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format). See [Tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions) for what each version adds and [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#compatibility) for the models that support them.
+The latest tool version is `code_execution_20260521`. To move between the three current versions, update the `type` string in your request: all three return the response blocks documented in [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format). See [Tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions) for what each version adds and [API support](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#availability-feature-support) for the models that support them.
 
 The rest of this section covers migrating from the legacy Python-only `code_execution_20250522` to the current tool versions.
 
@@ -1525,8 +1528,6 @@ To upgrade, update the tool type in your API requests:
 
 Code execution runs in server-side sandbox containers. Container data, including execution artifacts, uploaded files, and outputs, is retained for up to 30 days. This retention applies to all data processed within the container environment. Files that code execution creates in the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) (retrievable with `client.files.download()` (csharp, go: `client.Files.Download()`; java: `client.files().download()`; php: `$client->files->download()`)) persist until explicitly deleted.
 
-For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-
 ## Next steps
 
 <CardGroup cols={2}>
@@ -1546,3 +1547,30 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     Learn how to use Agent Skills to extend Claude’s capabilities through the API.
   </Card>
 </CardGroup>
+
+## Availability
+
+Code execution tool is available on every model.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status    | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                   | HIPAA        |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Status  | Not eligible                                                                                                                                          | Not eligible |
+| Details | Container data retained up to 30 days. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#data-retention) | —            |
+
+Applicable endpoints:
+
+* `/v1/messages` with `code_execution` tool

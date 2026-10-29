@@ -2,7 +2,40 @@
 title: Define tools
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools
 description: Specify tool schemas, write effective descriptions, and control when Claude calls your tools.
+featureMetadata:
+  status: ga
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API: ga
+    Claude Platform on AWS: ga
+    Claude Models on Google Cloud (Anthropic managed): ga
+    Amazon Bedrock: ga
+    Amazon Bedrock (InvokeModel): ga
+    Claude Models on Google Cloud (Google managed): ga
+    Microsoft Foundry: ga
 ---
+
+**API support**: Usage differs by product.
+
+* **Messages API**: Define them in the request’s `tools`, and send the results as `tool_result` blocks.
+* **Managed Agents**: Declare them on the agent with `type` `"custom"`; calls arrive as `agent.custom_tool_use` events.
 
 ## Prerequisites
 
@@ -906,3 +939,27 @@ It’s important to note that Claude might use various phrasings and approaches 
     Directory of Anthropic-provided tools and optional properties.
   </Card>
 </CardGroup>
+
+## Availability
+
+Custom tools are available on every model.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+* Usage: Define them in the request’s `tools`. Claude’s response contains `tool_use` blocks, and you send the results as `tool_result` blocks in the next request.
+
+| Status    | Cloud platforms         |
+| --------- | ----------------------- |
+| Available | All supported platforms |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+* Usage: Declare them on the agent with `type` `"custom"`. Calls arrive as `agent.custom_tool_use` events, and you reply with `user.custom_tool_result` events.
+
+| Status    | Cloud platforms                                                                                                    |
+| --------- | ------------------------------------------------------------------------------------------------------------------ |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |

@@ -2,11 +2,42 @@
 title: Agent Skills
 url: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
 description: Agent Skills are modular capabilities that extend Claude's functionality. Each Skill packages instructions, metadata, and optional resources (scripts, templates) that Claude uses automatically when relevant.
+featureMetadata:
+  status: ga
+  zdr:
+    eligibility: not-eligible
+    note: Skill data retained according to standard policy.
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API: ga
+    Claude Platform on AWS: ga
+    Claude Models on Google Cloud (Anthropic managed): ga
+    Microsoft Foundry (hosted on Anthropic):
+      availability: ga
+      note: Hosted on Anthropic deployments only; the skill version download endpoint (`GET /v1/skills/{skill_id}/versions/{version}/content`) is not supported on Foundry.
 ---
 
-<Note>
-  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-</Note>
+**API support**: Usage differs by product.
+
+* **Messages API**: List `skill_ids` in the `container` parameter and include the code execution tool, whose container the skills run in.
+* **Managed Agents**: Attach skills in the agent’s `skills` array, or load them from a GitHub repository mounted on the session.
 
 ## Why use Skills
 
@@ -269,8 +300,6 @@ For complete examples of custom Skills, see the [Agent Skills Cookbook](https://
 
 Agent Skills is not covered by ZDR arrangements. Skill definitions and execution data are retained according to Anthropic’s standard data retention policy.
 
-For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-
 For audit logging of Skills API operations, see [Audit logging](https://platform.claude.com/docs/en/build-with-claude/skills-guide#audit-logging) in Using Agent Skills with the API.
 
 ## Limitations and constraints
@@ -336,3 +365,44 @@ Plan your Skills to work within these constraints.
     Learn how to write effective Skills that Claude can discover and use successfully.
   </Card>
 </CardGroup>
+
+## Availability
+
+Agent Skills are available on every model.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+* Usage: List `skill_ids` in the `container` parameter and include the code execution tool, whose container the skills run in.
+
+| Status                | Cloud platforms                                                                                                                                                                                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Available             | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
+| Available<sup>1</sup> | [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                   |
+
+1. Hosted on Anthropic deployments only; the skill version download endpoint (`GET /v1/skills/{skill_id}/versions/{version}/content`) is not supported on Foundry.
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+* Usage: Attach skills in the agent’s `skills` array, or load them from a GitHub repository mounted on the session.
+
+| Status    | Cloud platforms         |
+| --------- | ----------------------- |
+| Available | All supported platforms |
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                       | HIPAA        |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Status  | Not eligible                                                                                                                                              | Not eligible |
+| Details | Skill data retained according to standard policy. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#data-retention) | —            |
+
+Applicable endpoints:
+
+* `/v1/skills`
+* `/v1/messages` with `skills`

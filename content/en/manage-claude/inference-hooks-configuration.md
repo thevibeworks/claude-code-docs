@@ -107,9 +107,23 @@ To use shadow mode, set **Mode** to **Shadow mode** under **Failure handling**, 
 
 ## Exclusions
 
-Under **Exclusions**, select roles whose members are not covered by Inference hooks: their prompts are never sent to your AI security server. Only custom roles your organization created can be excluded; the built-in roles aren’t offered. Select them in the role selector, whose placeholder reads **Select roles to exclude**, and manage who holds each role from the roles admin page (**Manage roles**); changing exclusions requires identity management permission. The list is empty by default, and with no roles excluded, every governed request is inspected.
+Under **Who is inspected**, with **Limit by role** turned on, select roles whose members are not covered by Inference hooks: their prompts are never sent to your AI security server. Only custom roles your organization created can be excluded; the built-in roles aren’t offered. Select them in the role selector, whose placeholder reads **Select roles to exclude**, and manage who holds each role from the roles admin page (**Manage roles**); changing exclusions requires identity management permission. The list is empty by default, and with no roles excluded, every governed request is inspected, unless **Inspect** is set to **Only selected roles**.
 
 Exclusion applies to a user’s interactive sessions. Changes to the exclusion list are recorded in your organization’s [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) as role permission changes (`rbac_role_permission_added` and `rbac_role_permission_removed`).
+
+### Inspect only selected roles
+
+Everything in the **Who is inspected** section sits behind one switch, **Limit by role**. When you turn the switch on, **Inspect** starts on **Everyone except excluded roles**, and the excluded roles are selected under it as described above.
+
+To try Inference hooks on part of your organization first, turn on **Limit by role**, set **Inspect** to **Only selected roles**, and select the roles in the dialog box that opens. From then on, only members who are set to **Custom roles** and are assigned a selected role are inspected. Members set to any other role, such as **User** or **Owner**, are not inspected, even if they are assigned a selected role. That includes you if you are set to **Owner** or **Primary owner**. Remove every excluded role before you switch: an organization uses exclusions or selected roles, not both. After the switch, add or remove roles in the role selector under **Inspect**. To go back to inspecting everyone, turn **Limit by role** off: after you confirm, this removes every excluded role and turns **Only selected roles** off.
+
+While **Only selected roles** is set:
+
+* A custom role whose **Capability access** is **All capabilities** or **All generally available** counts only if you select it, like any other role.
+* If no member set to **Custom roles** is assigned a selected role, no member is inspected.
+* Requests with no member behind them are not inspected, such as requests made with API keys, and Claude Tag conversations in Slack.
+
+The switch and changes to the inspected roles are recorded in your organization’s [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
 
 ## Custom blocked prompt message
 

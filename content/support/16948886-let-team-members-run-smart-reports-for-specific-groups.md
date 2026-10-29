@@ -2,7 +2,7 @@
 
 Smart reports show how your organization uses Claude. By default, only Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view smart reports. With delegated access, you can let team leads or department heads run smart reports without making them admins. They can only report on the groups, departments, or cost centers you choose, and they see only the reports they ran or that others share with them.
 
-Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK) or HIPAA configurations. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
+Smart reports are available on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK), a HIPAA configuration, or a hybrid deployment. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
 
 **Important:** Smart reports help you understand adoption and plan your investment in Claude. They aren't designed and should not be used for evaluating individual performance or making employment decisions.
 
@@ -12,13 +12,13 @@ To manage access to smart reports, you must be an Owner or Primary Owner, or in 
 
 ## Before you begin
 
-- Your organization must be on a Claude Enterprise plan with "Smart Reports (beta)" turned on in **Organization settings > Capabilities > Analytics**.
+- Your organization must be on a Claude Enterprise plan with "Smart reports" turned on in **Organization settings > Capabilities > Analytics**.
 
 - The people you add must be on the **Custom roles** access level, which is set per member in **Organization settings > Members**.
 
 ## Step 1: Open Manage access
 
-Go to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)** and click "Manage access." The **Who can run reports** screen opens.
+Go to **[Analytics > Smart reports](https://claude.ai/analytics/insights)** and click "Manage access." The **Who can run reports** screen opens.
 
 The line at the top tells you which roles can run reports. Admins and owners can always run reports.
 
@@ -51,7 +51,7 @@ Keep in mind:
 
 - A delegate can only run a report on what you assign here. They never get a whole-organization option.
 
-**Note:** People you give access to aren’t notified. They can view smart reports by clicking on their name in the lower left corner in Claude, then going to **Analytics > Smart reports (beta)**.
+**Note:** People you give access to aren’t notified. They can view smart reports by clicking on their name in the lower left corner in Claude, then going to **[Analytics > Smart reports](https://claude.ai/analytics/insights)**.
 
 ## What happens automatically
 
@@ -103,7 +103,7 @@ Delegates cannot:
 
 - **When a group is deleted, or a department or cost center value no longer exists**, it disappears from the person's row and from their selections. If a delegate tries to run a report with a selection that no longer exists, the report is refused and they can pick again. You can also open their row and choose new values.
 
-## FAQ
+## Frequently asked questions
 
 ### Can I grant the permission through my own roles instead of the automatic one?
 

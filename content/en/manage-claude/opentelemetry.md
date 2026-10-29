@@ -7,6 +7,32 @@ featureMetadata:
     title: OpenTelemetry
     url: https://platform.claude.com/docs/en/manage-claude/opentelemetry
   status: beta
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API: beta
+    Claude Platform on AWS: beta
+    Claude Models on Google Cloud (Anthropic managed): beta
+    Amazon Bedrock: beta
+    Amazon Bedrock (InvokeModel): beta
+    Claude Models on Google Cloud (Google managed): beta
+    Microsoft Foundry: beta
 ---
 
 <Note>
@@ -237,3 +263,25 @@ Spans can arrive more than once, for example when a delivery is retried. If your
 <Note>
   Exported spans aren’t guaranteed to be a complete record of your API usage. Their delivery is [best effort](https://platform.claude.com/docs/en/manage-claude/opentelemetry/api#delivery-and-health), so a span can be lost. A caller can also leave out a request’s spans by turning off the sampled flag in the request’s [`traceparent` header](https://platform.claude.com/docs/en/manage-claude/opentelemetry/api#connect-api-spans-to-your-own-traces). To track each API key’s usage, for example to spot a leaked key, use the [Usage API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#usage-api), which also counts the usage of requests without spans.
 </Note>
+
+## Availability
+
+OpenTelemetry is in beta on every model.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status | Cloud platforms         | Models                                                            |
+| ------ | ----------------------- | ----------------------------------------------------------------- |
+| Beta   | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+
+| Status | Cloud platforms         | Models                                                            |
+| ------ | ----------------------- | ----------------------------------------------------------------- |
+| Beta   | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |

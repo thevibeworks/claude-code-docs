@@ -5,6 +5,37 @@ description: Give your agents persistent memory that survives across sessions us
 featureMetadata:
   status: beta
   betaHeader: agent-memory-2026-07-22
+  zdr:
+    eligibility: not-eligible
+    note: Sessions are stateful resources; transcripts persist until you delete them. Applies to all Managed Agents sub-features, including Self-hosted sandboxes.
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API:
+      availability: beta
+      note: Sending `managed-agents-2026-04-01` together with `agent-memory-2026-07-22` on a memory store call returns a 400 error.
+    Claude Platform on AWS:
+      availability: beta
+      note: On Claude Platform on AWS, sessions on self-hosted environments can't attach memory stores. Sending `managed-agents-2026-04-01` together with `agent-memory-2026-07-22` on a memory store call returns a 400 error.
+    Claude Models on Google Cloud (Anthropic managed):
+      availability: beta
+      note: On Claude Models on Google Cloud (Anthropic managed), memory stores aren't supported for sessions on self-hosted environments. Sending `managed-agents-2026-04-01` together with `agent-memory-2026-07-22` on a memory store call returns a 400 error.
 ---
 
 Each Managed Agents session starts with a fresh context by default. When a session ends, any state the agent built up is gone. Memory stores let the agent carry information across sessions: user preferences, project conventions, prior mistakes, and domain context.
@@ -1337,3 +1368,46 @@ When a store reaches its 10,000-memory limit, writes to new memories fail: both 
 * **Attach a new store when it makes sense.** If a store has grown beyond its useful scope, attach a fresh one for new content and attach the original with `read_only` access. The agent can read from both while only writing to the new one.
 
 * **Limit write access where appropriate.** Sessions that only read shared reference material don’t need `read_write`. Keeping write access scoped to sessions that actually add new memories makes it easier to track where growth is coming from.
+
+## Availability
+
+Memory stores are in beta on every model.
+
+### API support
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+
+| Status           | Cloud platforms                                                                                                                                            |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Beta<sup>1</sup> | Claude API                                                                                                                                                 |
+| Beta<sup>2</sup> | [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)                                                     |
+| Beta<sup>3</sup> | [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
+
+1. Sending `managed-agents-2026-04-01` together with `agent-memory-2026-07-22` on a memory store call returns a 400 error.
+2. On Claude Platform on AWS, sessions on self-hosted environments can’t attach memory stores. Sending `managed-agents-2026-04-01` together with `agent-memory-2026-07-22` on a memory store call returns a 400 error.
+3. On Claude Models on Google Cloud (Anthropic managed), memory stores aren’t supported for sessions on self-hosted environments. Sending `managed-agents-2026-04-01` together with `agent-memory-2026-07-22` on a memory store call returns a 400 error.
+
+### Required beta headers
+
+[Beta headers overview](https://platform.claude.com/docs/en/api/beta-headers)
+
+Beta headers allow you to access experimental features and new model capabilities before they become part of the standard API.
+
+* `agent-memory-2026-07-22`
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                      | HIPAA                                                                        |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Status  | Not eligible                                                                                                                                             | Not eligible                                                                 |
+| Details | Sessions are stateful resources; transcripts persist until you delete them. Applies to all Managed Agents sub-features, including Self-hosted sandboxes. | Applies to all Managed Agents sub-features, including Self-hosted sandboxes. |
+
+Applicable endpoints:
+
+* `/v1/agents`
+* `/v1/sessions`
+* `/v1/environments`

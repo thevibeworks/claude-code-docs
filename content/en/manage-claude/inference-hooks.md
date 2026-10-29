@@ -97,7 +97,7 @@ Some features that Anthropic runs for your organization make model calls of thei
 
 * **Claude Security scans (beta).** [Claude Security](https://claude.com/product/claude-security) runs hosted scans on your connected repositories. A session a user opens to fix a finding, and the Claude Security plugin in Claude Code, are governed.
 * **Code Review (research preview).** [Code Review](https://code.claude.com/docs/en/code-review) runs reviews on your GitHub pull requests. A review a user runs locally in Claude Code with `/code-review` is governed.
-* **Smart reports (beta).** Anthropic makes model calls to build your organization’s [smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports). What a user types or uploads when creating a report is governed.
+* **Smart reports.** Anthropic makes model calls to build your organization’s [smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports). What a user types or uploads when creating a report is governed.
 
 ***
 

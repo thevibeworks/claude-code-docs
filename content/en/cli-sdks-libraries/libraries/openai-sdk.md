@@ -2,6 +2,28 @@
 title: OpenAI SDK compatibility
 url: https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk
 description: Anthropic provides a compatibility layer that lets you use the OpenAI SDK to test the Claude API. With a few code changes, you can evaluate Anthropic model capabilities.
+featureMetadata:
+  status: ga
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API: ga
 ---
 
 <Note>
@@ -474,3 +496,17 @@ Although the OpenAI SDK automatically manages headers, here is the complete list
 | `openai-version`                 | Always `2020-10-01` |
 | `authorization`                  | Fully supported     |
 | `openai-processing-ms`           | Always empty        |
+
+## Availability
+
+OpenAI SDK compatibility is available on every model.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status    | Cloud platforms |
+| --------- | --------------- |
+| Available | Claude API      |
