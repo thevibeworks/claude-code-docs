@@ -2,7 +2,26 @@
 title: Preserved thinking
 url: https://platform.claude.com/docs/en/build-with-claude/preserved-thinking
 description: Preserved thinking lets a model use a thinking block from an earlier turn only if that model or one of a fixed set of other models produced it and nothing before the block has changed.
+featureMetadata:
+  status: ga
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-opus-5-5
+    - claude-sonnet-5-5
+    - claude-haiku-5-5
+  supportedPlatforms:
+    Claude API: ga
+    Claude Platform on AWS: ga
+    Claude Models on Google Cloud (Anthropic managed): ga
+    Claude Models on Google Cloud (Google managed): ga
+    Microsoft Foundry: ga
 ---
+
+**API support**: Usage differs by product.
+
+* **Messages API**: Always on. Keep requests append-only: send earlier turns back exactly as returned, and do not change `system`, `tools` or earlier messages.
+* **Managed Agents**: Always on. Managed Agents builds the requests.
 
 Preserved thinking is a property of newer Claude models that guards against distillation. It determines whether the model can use a thinking block that you send back from an earlier turn. Starting with Claude Fable 5.1, when a `thinking` or `redacted_thinking` block comes back in a request, the API checks the block’s `signature` for two things:
 
@@ -1579,3 +1598,27 @@ A library, proxy, or gateway sits between someone else’s history and the API, 
     Cache prompt prefixes with `cache_control` to cut costs and latency, using automatic caching or explicit breakpoints with 5-minute or 1-hour TTLs.
   </Card>
 </CardGroup>
+
+## Availability
+
+Preserved thinking is available on select models.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Always on
+* Usage: Keep requests append-only: send earlier turns back exactly as returned, and do not change `system`, `tools` or earlier messages.
+
+| Status    | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                  | Models                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Always on
+* Usage: Managed Agents builds the requests.
+
+| Status    | Cloud platforms                                                                                                                                                                                                                                                                | Models                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |

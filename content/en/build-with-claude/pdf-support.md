@@ -7,12 +7,40 @@ featureMetadata:
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: ga
     Claude Platform on AWS: ga
-    Amazon Bedrock: ga
-    Claude Models on Google Cloud (Google managed): ga
-    Microsoft Foundry: ga
+    Claude Models on Google Cloud (Anthropic managed): ga
+    Amazon Bedrock:
+      availability: ga
+      note: Base64 sources only.
+    Amazon Bedrock (InvokeModel):
+      availability: ga
+      note: Base64 sources only. With the Converse API, visual PDF analysis needs citations turned on.
+    Claude Models on Google Cloud (Google managed):
+      availability: ga
+      note: Base64 sources only.
+    Microsoft Foundry:
+      availability: ga
+      note: "`file_id` sources need a Hosted on Anthropic deployment."
 ---
 
 You can ask Claude about any text, pictures, charts, and tables in PDFs you provide. Some sample use cases:
@@ -28,11 +56,11 @@ You can ask Claude about any text, pictures, charts, and tables in PDFs you prov
 
 Claude works with any standard PDF. Ensure your request size meets these requirements:
 
-| Requirement               | Limit                                                                                                                       |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Maximum request size      | 32 MB (varies by platform; see [request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits)) |
-| Maximum pages per request | 600 (100 when the request’s context window is under 1M tokens)                                                              |
-| Format                    | Standard PDF (no passwords/encryption)                                                                                      |
+| Requirement               | Limit                                                                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Maximum request size      | 128 MB on the first-party Claude API (varies by platform; see [request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits)) |
+| Maximum pages per request | 600 (100 when the request’s context window is under 1M tokens)                                                                                             |
+| Format                    | Standard PDF (no passwords/encryption)                                                                                                                     |
 
 Both limits are on the entire request payload, including any other content sent alongside PDFs. For large PDFs, consider uploading with the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) and referencing by `file_id` to keep request payloads small.
 
@@ -1988,3 +2016,45 @@ Batches process asynchronously. To check progress and retrieve results once proc
     See complete API documentation for PDF support.
   </Card>
 </CardGroup>
+
+## Availability
+
+PDF support is available on every model and eligible for zero data retention and HIPAA readiness.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Always on
+
+| Status                | Cloud platforms                                                                                                                                                                                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Available             | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
+| Available<sup>1</sup> | [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                                         |
+| Available<sup>2</sup> | [Amazon Bedrock (InvokeModel)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)                                                                                                                                                          |
+| Available<sup>3</sup> | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)                         |
+
+1. `file_id` sources need a Hosted on Anthropic deployment.
+2. Base64 sources only. With the Converse API, visual PDF analysis needs citations turned on.
+3. Base64 sources only.
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Always on
+
+| Status    | Cloud platforms         |
+| --------- | ----------------------- |
+| Available | All supported platforms |
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                       | HIPAA                                                                                              |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible                                                                                           |
+| Details | —                                                                                                                                                         | HIPAA eligibility applies to PDFs sent inline through the Messages API, not through the Files API. |
+
+Applicable endpoints:
+
+* `/v1/messages`

@@ -8,6 +8,31 @@ featureMetadata:
     url: https://platform.claude.com/docs/en/managed-agents/overview
   status: beta
   betaHeader: managed-agents-2026-04-01
+  zdr:
+    eligibility: not-eligible
+    note: Sessions are stateful resources; transcripts persist until you delete them. Applies to all Managed Agents sub-features, including Self-hosted sandboxes.
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API: beta
+    Claude Platform on AWS: beta
+    Claude Models on Google Cloud (Anthropic managed): beta
 ---
 
 Multiagent orchestration lets one agent coordinate with others to complete complex work. Agents can act in parallel with their own isolated context, which helps improve output quality and can also improve time to completion.
@@ -1219,7 +1244,7 @@ Each consultation runs as a platform-spawned thread named `anthropic.advisor` th
 
 No `agent.tool_use` events are emitted for a consultation, and no `agent.thread_message_sent` event appears on the session’s event stream, because the consultation input is composed by the platform rather than sent by the agent. If you list the advisor thread’s own events, the advice also appears there as an `agent.thread_message_sent` event. The advice delivery (event 3) is not guaranteed to arrive before the advisor thread’s idle and terminated events, so don’t treat those as a signal that the advice has already been delivered.
 
-Whether your client can read the advice is the advisor model’s policy. It mirrors the [result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) split on the Messages API advisor tool. An advisor model that returns plaintext results there delivers readable text here. One that returns redacted results delivers a `[{"type": "redacted"}]` placeholder on every client surface, while the agent still reads the full advice server-side. The preceding example uses the newest Opus model available to you as the advisor. Claude Opus 5.5 returns redacted results, so your client sees only the placeholder. To read the advice on the event stream, use an advisor that returns plaintext, such as Claude Opus 4.8. A model’s policy can change with no change to the API, so handle both `text` and `redacted` blocks. Some agent models pair only with redacted-result advisors; see the advisor tool’s [compatibility table](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility). Advisor thinking is never surfaced. Clients cannot send `redacted` blocks themselves; an event containing one is rejected with a 400 validation error.
+Whether your client can read the advice is the advisor model’s policy. It mirrors the [result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) split on the Messages API advisor tool. An advisor model that returns plaintext results there delivers readable text here. One that returns redacted results delivers a `[{"type": "redacted"}]` placeholder on every client surface, while the agent still reads the full advice server-side. The preceding example uses the newest Opus model available to you as the advisor. Claude Opus 5.5 returns redacted results, so your client sees only the placeholder. To read the advice on the event stream, use an advisor that returns plaintext, such as Claude Opus 4.8. A model’s policy can change with no change to the API, so handle both `text` and `redacted` blocks. Some agent models pair only with redacted-result advisors; see the advisor tool’s [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility) section. Advisor thinking is never surfaced. Clients cannot send `redacted` blocks themselves; an event containing one is rejected with a 400 validation error.
 
 A failed or interrupted consultation never fails the agent’s turn: the agent continues after a generic notice that the consultation failed. A session-level `user.interrupt` during a consultation terminates the advisor thread with no advice delivered; a `user.interrupt` with the advisor thread’s `session_thread_id` (java: `sessionThreadId`; php: `sessionThreadID`; csharp, go: `SessionThreadID`) abandons only that consultation.
 
@@ -1276,3 +1301,40 @@ The update replaces the whole `multiagent` block, so send the list of agents and
 Once the agent has the `multiagent_20261001` type, a setting that a later update leaves out keeps its stored value.
 
 The update doesn’t change sessions that already exist. To use the new block, create a session after the update.
+
+## Availability
+
+Multiagent orchestration is in beta on every model.
+
+### API support
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Available
+
+| Status | Cloud platforms         |
+| ------ | ----------------------- |
+| Beta   | All supported platforms |
+
+### Required beta headers
+
+[Beta headers overview](https://platform.claude.com/docs/en/api/beta-headers)
+
+Beta headers allow you to access experimental features and new model capabilities before they become part of the standard API.
+
+* `managed-agents-2026-04-01`
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                      | HIPAA                                                                        |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Status  | Not eligible                                                                                                                                             | Not eligible                                                                 |
+| Details | Sessions are stateful resources; transcripts persist until you delete them. Applies to all Managed Agents sub-features, including Self-hosted sandboxes. | Applies to all Managed Agents sub-features, including Self-hosted sandboxes. |
+
+Applicable endpoints:
+
+* `/v1/agents`
+* `/v1/sessions`
+* `/v1/environments`

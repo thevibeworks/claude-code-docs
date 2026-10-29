@@ -2,6 +2,23 @@
 title: Browser and computer use with the SDK toolsets
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk
 description: Run the browser use tool or the computer use tool from the Python or TypeScript SDK. The SDK runs the loop and the checks you configure, and you supply the browser or the desktop.
+featureMetadata:
+  status: beta
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-opus-4-8
+  supportedPlatforms:
+    Claude API: beta
+    Claude Models on Google Cloud (Google managed): beta
 ---
 
 With the browser and computer toolsets in the Python and TypeScript SDKs, you can build an agent that works in a web browser or on a desktop. It can use applications with no programmatic interface. Through the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool), Claude navigates, reads, and interacts with webpages. Through the [computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool), Claude receives screenshots of a desktop and uses the mouse and keyboard.
@@ -1358,3 +1375,21 @@ You can’t change an option after construction. The [Python browser toolset gui
     Guardrails for any application that reads untrusted content.
   </Card>
 </CardGroup>
+
+## Availability
+
+Browser and computer use SDK toolsets are in beta on select models.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status | Cloud platforms                                                                                                                                                  | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Beta   | Claude API, [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Mythos Preview, [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview), [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview) |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Not available

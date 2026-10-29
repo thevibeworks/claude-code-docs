@@ -4,32 +4,32 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-
 description: Let Claude call your tools from code in the code execution container, cutting model round trips and token use in multi-tool workflows.
 featureMetadata:
   status: ga
-  zdr: not-eligible
+  zdr:
+    eligibility: not-eligible
+    note: Built on code execution containers; data retained up to 30 days.
   supportedModels:
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
     - claude-mythos-5
+    - claude-mythos-preview
     - claude-opus-5-5
     - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
     - claude-opus-4-8
     - claude-opus-4-7
     - claude-opus-4-6
-    - claude-opus-4-5-20251101
-    - claude-sonnet-5-5
-    - claude-sonnet-5
     - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
-    - claude-haiku-5-5
   supportedPlatforms:
     Claude API: ga
     Claude Platform on AWS: ga
-    Microsoft Foundry:
-      availability: ga
-      note: On [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), programmatic tool calling requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
+    Microsoft Foundry (hosted on Anthropic): ga
   details:
     - Programmatic tool calling requires the code execution tool with the `code_execution_20260120` or later [tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions).
-    - Claude Haiku 4.5 accepts the `code_execution_20260120` and later tool versions but doesn't support programmatic tool calling.
 ---
 
 Programmatic tool calling allows Claude to write code that calls your tools programmatically within a [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) container, rather than requiring round trips through the model for each tool call. This reduces latency for multi-tool workflows and decreases token consumption by allowing Claude to filter or process data before it reaches the model’s context window. On agentic search benchmarks such as [BrowseComp](https://arxiv.org/abs/2504.12516) and [DeepSearchQA](https://github.com/google-deepmind/deepsearchqa), which test multistep web research and complex information retrieval, adding programmatic tool calling on top of basic search tools improved performance by an average of 11 percent while using 24 percent fewer input tokens (see [Improved web search with dynamic filtering](https://claude.com/blog/improved-web-search-with-dynamic-filtering)).
@@ -40,7 +40,7 @@ Consider checking budget compliance across 20 employees: the traditional approac
   For a deeper look at the inference and context costs that programmatic tool calling addresses, see [Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use).
 </Tip>
 
-Programmatic tool calling requires the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) with tool version `code_execution_20260120` or later. To check whether a model supports programmatic tool calling before you send a request, read its `capabilities.code_execution.supported` value from the Models API. [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api) describes the field.
+Programmatic tool calling requires the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) with tool version `code_execution_20260120` or later. Claude Haiku 4.5 accepts the `code_execution_20260120` and later tool versions but doesn’t support programmatic tool calling. To check whether a model supports programmatic tool calling before you send a request, read its `capabilities.code_execution.supported` value from the Models API. [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api) describes the field.
 
 ## Quick start
 
@@ -1551,8 +1551,6 @@ Consider using Anthropic’s managed solution if you’re using the Claude API, 
 
 Programmatic tool calling is built on the code execution infrastructure and uses the same sandbox containers. Container data, including execution artifacts and outputs, is retained for up to 30 days.
 
-For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-
 ## Next steps
 
 <CardGroup cols={2}>
@@ -1572,3 +1570,34 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     Specify tool schemas, write effective descriptions, and control when Claude calls your tools.
   </Card>
 </CardGroup>
+
+## Availability
+
+Programmatic tool calling is available on select models.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status    | Cloud platforms                                                                                                                                                                                                                                  | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Mythos Preview, [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview), [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview), [Claude Opus 4.7](https://platform.claude.com/docs/en/models/opus-4-7/overview), [Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-4-6/overview), [Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-4-6/overview), [Claude Opus 4.5](https://platform.claude.com/docs/en/models/opus-4-5/overview), [Claude Sonnet 4.5](https://platform.claude.com/docs/en/models/sonnet-4-5/overview) |
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Not available
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                                                   | HIPAA        |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Status  | Not eligible                                                                                                                                                                          | Not eligible |
+| Details | Built on code execution containers; data retained up to 30 days. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling#data-retention) | —            |
+
+Applicable endpoints:
+
+* `/v1/messages` with `code_execution` tool

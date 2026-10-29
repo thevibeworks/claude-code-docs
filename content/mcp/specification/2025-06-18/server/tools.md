@@ -277,12 +277,12 @@ or data using a suitable [URI scheme](https://modelcontextprotocol.io/specificat
   "resource": {
     "uri": "file:///project/src/main.rs",
     "mimeType": "text/x-rust",
-    "text": "fn main() {\n    println!(\"Hello world!\");\n}",
-    "annotations": {
-      "audience": ["user", "assistant"],
-      "priority": 0.7,
-      "lastModified": "2025-05-03T14:30:00Z"
-    }
+    "text": "fn main() {\n    println!(\"Hello world!\");\n}"
+  },
+  "annotations": {
+    "audience": ["user", "assistant"],
+    "priority": 0.7,
+    "lastModified": "2025-05-03T14:30:00Z"
   }
 }
 ```

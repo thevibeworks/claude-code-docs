@@ -575,7 +575,7 @@ To pay for speed instead, set `speed: "fast"` on Claude Opus 5.5. [Fast mode](ht
 
 ## Combine models
 
-Tune one model before you add a second: sweep effort on your current model first, because most workloads end there, and if the sweep shows a gap, price the stronger model alone at low effort. Build a pairing only if it beats the single model’s whole curve of score against spend. The multi-model results on this page were judged against the same model at lower effort and against the next model down running alone, which is the comparison to run on your own workload.
+Tune one model before you add a second: sweep effort on your current model first, because most workloads end there, and if the sweep shows a gap, price the stronger model alone at low effort. Build a pairing only if it beats the single model’s whole curve of score against spend. On your own workload, judge a pairing against the same model at lower effort and against the next model down running alone.
 
 The following table compares the two strategies:
 
@@ -630,15 +630,13 @@ Delegation saved money in only two situations, in measurements with workers on C
 * Routine work with a long cost tail (an easy slice of BrowseComp[4](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs))
 * Work larger than one context window (an internal defect-search benchmark[8](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs))
 
-When the work is one dependent chain, or fits in a single context without a long cost tail, the orchestrator’s model alone at lower effort came out ahead in every case measured, also on earlier models (the harder BrowseComp set and DeepWideSearch[6](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs)); independent external work reports the same pattern[5](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs).
+When the work is one dependent chain, or fits in a single context without a long cost tail, the orchestrator’s model alone at lower effort came out ahead in every case measured on earlier models (the harder BrowseComp set and DeepWideSearch[6](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs)); independent external work reports the same pattern[5](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs).
 
 To build an orchestrator, use [multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) in Claude Managed Agents: configure an orchestrator agent and worker agents that it can call, each with its own model.
 
 <Frame>
   ![Diagram of the orchestrator strategy: a frontier model fans subtasks out to three lower-cost worker models](https://platform.claude.com/docs/images/model-routing-orchestrator-strategy.svg)
 </Frame>
-
-The [Model selection matrix](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model#model-selection-matrix) lists Claude Haiku 5.5 for sub-agent tasks; before you use it as a worker, [measure it on your own workload](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#measure-on-your-own-workload).
 
 The following chart plots the defect-search benchmark’s configurations by cost and score:
 
@@ -650,6 +648,7 @@ The following chart plots the defect-search benchmark’s configurations by cost
 
 * **Routine work with a long cost tail:** measure this case first, for accuracy as well as cost. The measurement behind it covers only problems that the delegated configuration answered correctly in every run (reference 4).
 * **Work larger than one context window:** delegate partitions to workers. Lowering effort cannot help, because the bill is the reading itself: on the defect-search benchmark[8](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs), Claude Fable 5.1 alone cost $468 USD to $552 USD per run across its three effort settings and took 15 to 20 hours. With earlier-model workers, delegation cost less and finished sooner, for a lower score.
+* **Claude Haiku 5.5 subagents on coding tasks:** compare them with lower effort first. On an internal coding benchmark on Claude Managed Agents, they were an alternative to lowering effort, not better. Adding them to Claude Opus 5.5 at `medium`, with a short delegation prompt, cut cost per attempt by 32% and the pass rate by about 4 percentage points (95% interval 1.3 to 7.1), about what a mix of `low` and `medium` without subagents would give at that cost[29](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs).
 
 ## Measure on your own workload
 
@@ -1132,6 +1131,17 @@ Except where a reference says otherwise, measurements are Anthropic-internal run
     * **Results, 20-issue run:** On the 20-issue run, where the job with no lever cost $0.42 USD a run, context editing cost 73% more, compaction ran once near the end of each run and cost 7% less, and the prune rewrote nothing, because no search result was over its 2,000-character threshold.
     * **Results, long run:** On the long run, where the job with no lever cost $1.09 USD a run, the prune cost 39% less, compaction 32% less, and context editing 4% more.
     * **Cache reads, long runs:** In the long runs with the prune, 89% of prompt tokens were read from the cache on the first request after a task boundary and 81% on the other requests. Over the whole of the long runs, 85% of prompt tokens were read from the cache with the prune and 85% with context editing, against 95% with no lever.
+
+29. **Internal coding benchmark (subagent measurement):**
+
+    * **What was measured:** 134 repository coding tasks, each graded pass or fail by tests the agent cannot see, five attempts per task in each of three runs, October 21 to 23, 2026, on [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) with its own [multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) (the `multiagent_20261001` type): one predefined agent as the subagent, with inline agents and dynamic workflows turned off.
+    * **Configurations:** Claude Opus 5.5 alone at `medium`, its default, and at `low`; and Claude Opus 5.5 at `medium` with Claude Haiku 5.5 subagents at `medium`, once with no added prompt and once with a 113-word delegation prompt as the orchestrator’s system prompt. A fifth configuration, with a longer prompt, is not reported. The evaluation set no thinking option, so thinking ran at its default: on, with the model choosing when to think.
+    * **Tools:** Every agent used two custom tools, a shell and a file editor that the evaluation runs in each attempt’s own sandbox, in place of the platform’s built-in tools. As part of the evaluation’s safety setup, their calls went through an extra check. In the documented setup, [permission policies do not apply to custom tools](https://platform.claude.com/docs/en/managed-agents/permission-policies#custom-tools).
+    * **Results:** Attempts passed and cost per attempt were 72.1% and $4.78 USD for Claude Opus 5.5 alone at `medium`; 68.8% and $3.35 USD with subagents and no added prompt; 67.9% and $3.27 USD with subagents and the prompt; and 63.0% and $1.84 USD alone at `low`.
+    * **Compared with Claude Opus 5.5 alone at `medium`:** With the prompt, 32% less cost (95% interval 29% to 35%) and 4.2 percentage points fewer passed (1.3 to 7.1). With no added prompt, 30% less (27% to 33%) and 3.3 fewer (0.8 to 5.8). Alone at `low`, 62% less (59% to 64%) and 9.1 fewer (5.0 to 13.3), a comparison added after the runs. Differences are paired by task within each run, and the intervals are bootstrap intervals over the 134 tasks.
+    * **Compared with lower effort:** Sending a share of tasks to `low` and the rest to `medium` gives a straight line between those two results, a calculation and not a run. At their own cost, the configurations with subagents passed 0.5 percentage points more than that line with the prompt (2.3 fewer to 3.2 more) and 1.1 more with no added prompt (1.2 fewer to 3.3 more): neither above nor below it. The cost per passed attempt was $6.63 USD alone at `medium`, $4.86 USD with subagents and no added prompt, $4.81 USD with the prompt, and $2.92 USD at `low`.
+    * **How priced:** Costs are token costs at list prices with 5-minute prompt caching, each request priced on its own prompt length ([Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing)), and exclude session runtime. The costs leave out the evaluation’s extra check on tool calls; with it counted, the saving with the prompt is 27% (25% to 30%).
+    * **What counts as a failure:** An attempt counts as a failure if a safety check stopped it, if the platform’s safeguard refused a turn, or if the evaluation voided it because it could not confirm that its safety checks saw every step. Voided attempts fell only on the configurations with subagents: 72 of 2,010 with the prompt, 57 of them in one run. With that configuration’s part of the run made again, it passed 3.6 percentage points fewer than Claude Opus 5.5 alone (1.0 to 6.3). With every attempt that a safety check stopped or the evaluation voided left out on both sides instead, it passed 1.7 fewer (4.4 fewer to 1.1 more). So part of the loss, but not all of it, comes from the evaluation’s own rules. One attempt of Claude Opus 5.5 alone at `medium`, cut at the three-hour limit, has no result and is left out; with subagents, the same cut counts as a failure.
 
 ## Next steps
 

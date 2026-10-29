@@ -2,6 +2,38 @@
 title: Tool search tool
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool
 description: Scale to hundreds or thousands of tools by letting Claude search your tool catalog and load only the tools it needs.
+featureMetadata:
+  status: ga
+  zdr:
+    eligibility: eligible
+    note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Server-side tool run by Anthropic; the tool definitions in the request are searched in memory per call and nothing is stored after the response.
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5-5
+    - claude-opus-5
+    - claude-sonnet-5-5
+    - claude-sonnet-5
+    - claude-haiku-5-5
+    - claude-haiku-4-5-20251001
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-4-6
+    - claude-opus-4-5-20251101
+    - claude-sonnet-4-5-20250929
+  supportedPlatforms:
+    Claude API: ga
+    Claude Platform on AWS: ga
+    Amazon Bedrock: ga
+    Amazon Bedrock (InvokeModel):
+      availability: ga
+      note: On Amazon Bedrock it is not available through the Converse API.
+    Claude Models on Google Cloud (Google managed): ga
+    Microsoft Foundry: ga
 ---
 
 The tool search tool lets Claude work with hundreds or thousands of tools by discovering and loading them on demand. Instead of loading all tool definitions into the context window up front, Claude searches your tool catalog (including tool names, descriptions, argument names, and argument descriptions) and loads only the tools it needs.
@@ -21,10 +53,6 @@ Tool search runs as a server-side tool, but you can also implement your own clie
 
 <Note>
   Share feedback on this feature through the [feedback form](https://forms.gle/MhcGFFwLxuwnWTkYA).
-</Note>
-
-<Note>
-  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 <Warning>
@@ -871,3 +899,37 @@ Tool search isn’t metered as a separate server tool. The response’s `usage.s
     Specify tool schemas, write effective descriptions, and control when Claude calls your tools.
   </Card>
 </CardGroup>
+
+## Availability
+
+Tool search tool is available on every model and eligible for zero data retention.
+
+### API support
+
+#### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
+
+* Availability: Available
+
+| Status                | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Models                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Available             | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) | [All models](https://platform.claude.com/docs/en/models/overview) |
+| Available<sup>1</sup> | [Amazon Bedrock (InvokeModel)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)                                                                                                                                                                                                                                                                                                                                                              | [All models](https://platform.claude.com/docs/en/models/overview) |
+
+1. On Amazon Bedrock it is not available through the Converse API.
+
+#### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
+
+* Availability: Not available
+
+### Data handling
+
+[Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
+
+| Item    | Zero data retention                                                                                                                                       | HIPAA        |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Not eligible |
+| Details | Server-side tool run by Anthropic; the tool definitions in the request are searched in memory per call and nothing is stored after the response.          | —            |
+
+Applicable endpoints:
+
+* `/v1/messages` with `tool_search` tool

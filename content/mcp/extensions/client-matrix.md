@@ -27,6 +27,7 @@ This matrix shows which MCP clients support each [official extension](https://mo
 | - | :-: | :-: | :-: | :-: | :-: |
 | [Claude (web)](https://claude.ai) | | | | | |
 | [Claude Desktop](https://claude.ai/download) | | | | | |
+| [Claude Code](https://claude.com/claude-code) | | | | | |
 | [VS Code GitHub Copilot](https://code.visualstudio.com/) | | | | | |
 | [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | | | | | |
 | [Goose](https://block.github.io/goose/) | | | | | |
@@ -36,6 +37,7 @@ This matrix shows which MCP clients support each [official extension](https://mo
 | [Cursor](https://cursor.com/) | | | | | |
 | [Archestra.AI](https://www.archestra.ai/) | | | | | |
 | [PostHog Code](https://posthog.com/code/) | | | | | |
+| [Kiro Crew](https://kiro.dev/crew/) | | | | | |
 | [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) | |
 | [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | |
 | [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | |

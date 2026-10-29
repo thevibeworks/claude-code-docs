@@ -37,23 +37,21 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | **Model**         | **Text watermarks in Claude output (first-party surfaces)** | **Text watermarks in cloud partner output (AWS, Google Cloud, Microsoft Foundry)** | **Content Credentials (C2PA) in files** |
 | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------- |
 | Claude Fable 5.1  | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Fable 5    | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Fable 5    | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5.1 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 5.5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 5     | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Opus 4.8   | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Opus 4.8   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.6   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.5   |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Sonnet 5   | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Sonnet 5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
 | Claude Haiku 5.5  | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
-
-**Rollout on Amazon Bedrock will complete by October 23.*
 
 Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
 
