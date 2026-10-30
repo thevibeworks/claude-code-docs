@@ -69,7 +69,7 @@ A package of skills that teaches Claude how to use a specific tool or follow a s
 
 A scheduled or run-once task Claude runs on its own, such as a daily digest or a channel watch. Anyone in a channel can ask Claude to set one up, list what's scheduled, or disable one. Routines run with the channel's access, not the creator's.
 
-Claude Code also has a feature named routines. Those run under an individual user's account; Claude Tag routines run under the agent identity.
+Claude Code has a separate feature, [cloud scheduled tasks](https://code.claude.com/docs/en/routines), formerly named routines. Cloud scheduled tasks run under an individual user's account; Claude Tag routines run under the agent identity.
 
 ## Rule
 

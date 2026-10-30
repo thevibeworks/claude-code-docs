@@ -139,6 +139,10 @@ Upload File
 
     - `"webhooks-2026-10-07"`
 
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -387,6 +391,10 @@ List Files
 
     - `"webhooks-2026-10-07"`
 
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -622,6 +630,10 @@ Download File
 
     - `"webhooks-2026-10-07"`
 
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -774,6 +786,10 @@ Get File Metadata
     - `"telemetry-destinations-2026-08-11"`
 
     - `"webhooks-2026-10-07"`
+
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
 
   - `workspace_id?: string` (header parameter)
 
@@ -1003,6 +1019,10 @@ Delete File
     - `"telemetry-destinations-2026-08-11"`
 
     - `"webhooks-2026-10-07"`
+
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
 
   - `workspace_id?: string` (header parameter)
 

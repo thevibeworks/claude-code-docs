@@ -2,8 +2,6 @@
 
 **Updated October 2026.** The CVP previously covered Claude Opus and Sonnet with a single level of access. We are now offering three access tiers for Claude Opus 5.5, our most capable cyber model yet, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.
 
-For more details, register for our upcoming **[webinar on the Cyber Verification Program](https://claude.com/resources/webinars/inside-the-cyber-verification-program)** on October 14th at 9am PT.
-
 ## Overview
 
 The Cyber Verification Program (CVP) makes advanced cyber capabilities and reduced blocking classifiers available to qualifying security professionals. Each tier includes access to our most capable models, including Claude Opus 5.5, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.
@@ -12,7 +10,7 @@ Our generally available models can still be used by all users for secure code re
 
 ## Access tiers
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1793295900&amp;signature=8b2e3a9e4efaa1e93c19e34006ef643b14b780b7f9e884a6946034a7792cc4e1&amp;req=dicmEM17moJWW%2FMW1HO4zVYZ0Nu8Z8FOy1US26KtMzKtqkIGRuYhAEODKzUX%0ApI%2FeQWeOEqAI%2BXQRTYk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1793469600&amp;signature=ccfdba76211449ff2419c6e5cc50b95001d10f12cf554ded22e7adb095b7d895&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7g37EtZ3g72lEz5zjFz1B8I1%2BOOKV2TCs%0A%2BlyiyxLRB0lIAaj42cbJ5UdJm0Y%3D%0A)
 
 ## How to apply
 

@@ -38,7 +38,7 @@ Use the session viewer in the Claude Console to inspect what an agent did in a s
 
 ## Inspect a session in the Console
 
-The session viewer is only accessible to Developers and Admins. To open it, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) in the Claude Console. The list shows every session in the workspace with its status, agent, token usage, cost, and creation time. Select a session to open it.
+The session viewer is only accessible to Developers and Admins. To open it, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) in the Claude Console. The list shows every session in the workspace with its status, agent, token usage, cost, creator, and creation time. Select a session to open it.
 
 The session viewer shows:
 
@@ -117,6 +117,19 @@ The event is emitted on idle transitions rather than on a timer:
 ### Enforce a spend limit
 
 To enforce a spend limit, set a session budget rather than polling usage and stopping the session yourself. The platform prices the session’s consumption continuously, and pauses each thread before its next model request once the list cost reaches the cap. See [When a session reaches its budget](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget) for what that looks like on the stream.
+
+### Find session usage across your organization
+
+Session usage counts toward your organization’s totals on the [Usage](https://platform.claude.com/usage) page (`platform.claude.com/usage`) and the [Cost](https://platform.claude.com/cost) page (`platform.claude.com/cost`) in the Claude Console. To see token usage by agent, set **Group by** to **Agent** on the **Usage** page.
+
+Session usage also appears in the [usage report](https://platform.claude.com/docs/en/api/beta/organization/usage_report/retrieve_messages) from the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api). To see which account it’s reported under, group the report by one of these fields:
+
+* **`account_id`:** The member who started the session. This covers sessions started in the Console or with a [personal key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) scoped to a single workspace.
+* **`service_account_id`:** An Anthropic-managed service account (`svac_...`). This covers sessions started with a workspace key or by a [deployment](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments). For this usage, `api_key_id` and `account_id` are `null`.
+
+Anthropic creates one of these service accounts in each workspace where sessions run. It isn’t listed with the service accounts that you create, and the Admin API’s service account endpoints don’t return it. On the **Usage** page, the **Account** filter lists it by its ID. When you set **Group by** to **API key**, its usage is labeled **Managed Agents**.
+
+To see who started a session, check the **Created by** column on the [Sessions](https://platform.claude.com/sessions) page.
 
 ## Debugging tips
 

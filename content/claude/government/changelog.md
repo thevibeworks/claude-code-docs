@@ -10,7 +10,7 @@
 
 * Fixed the tenant portal's Identity and access page so that it says its SCIM details couldn't load instead of looking as if SCIM had never been set up.
 * (breaking) Changed **Claude Desktop home** where a setting enforced at a higher level conflicts with the choice: members on Claude Desktop 1.52386.0 or later may lose Chat, Advanced file analysis or Cowork after a required relaunch.
-* Changed Claude Desktop for members who have **Cowork in Claude Desktop** off and no **Claude Desktop home** chosen: from November 9, 2026 (UTC), they may be asked to relaunch and then see the new home screen, still without Cowork.
+* Changed Claude Desktop for members who have **Chat in Claude Desktop** on, **Cowork in Claude Desktop** off, and no **Claude Desktop home** chosen: by November 9, 2026 (UTC), they may be asked to relaunch and then see the new home screen, still without Cowork.
 * Changed the Code tab in Claude Desktop to ask the member before each command Claude runs in its Terminal panel, even in bypass-permissions or Auto mode, while **Blocked shell commands** lists any command.
 * Improved directory sync (SCIM) so that one tenant's very large sync no longer holds up directory changes in other tenants.
 * Added a **Chat only** choice to the **Claude Desktop home** setting on the Config pages, which gives members Chat without Advanced file analysis or Cowork; with this choice the new home screen shows on Claude Desktop 2.2553.0 or later.

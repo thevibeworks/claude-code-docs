@@ -13,7 +13,7 @@ The Rate Limits API provides programmatic access to the rate limits configured f
 Use this API to:
 
 * **Keep gateways and proxies in sync:** Read your current limits at startup and on a schedule instead of hardcoding values that drift when Anthropic adjusts them.
-* **Power internal alerting:** Compare usage data from the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) against your configured limits.
+* **Power internal alerting:** Compare usage data from the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) against your configured limits.
 * **Audit workspace configuration:** Verify that workspace overrides match what your provisioning automation expects.
 
 <Check>
@@ -698,7 +698,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
 
 ### Include inherited values
 
-To read a workspace’s applicable limits in one request, add the optional `include_inherited` query parameter. It defaults to `false`; a value that isn’t a Boolean returns a 400 error. With `include_inherited=true`:
+To read a workspace’s applicable limits in one request, add the optional `include_inherited` query parameter. It defaults to `false`; a value that isn’t a boolean returns a 400 error. With `include_inherited=true`:
 
 * `data` has one entry for each group that applies to the workspace and has an organization-level value, even if the workspace overrides none of it. A model group applies when the workspace can access at least one of its models.
 * Each entry’s `limits[]` lists every limiter type the organization has a value for on that group, plus any type the workspace overrides. Each type appears once, with the workspace’s override where one is stored and the organization’s value otherwise, so one entry can mix the two.
@@ -1119,4 +1119,4 @@ By default, the workspace response lists only overrides, so a missing group has 
 * [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)
 * [Admin API reference](https://platform.claude.com/docs/en/api/organization)
 * [Workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces)
-* [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api)
+* [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api)

@@ -432,16 +432,21 @@ index of your mailbox.
 
 ## Chat history
 
-Chat history is stored locally in your browser using IndexedDB.
-Conversations are not stored on Anthropic's servers and are not synced
-across devices or browsers. You can clear all chat history from Settings
-at any time. The local store is also cleared when you clear your browser
-data. Chat history is specific to the combination of the add-in surface,
-your user ID, and your organization ID, so your Excel and Outlook
-histories are separate. Reinstalling the add-in or switching between
-Claude add-ins does not remove it. See
+Chat history is stored locally in your browser using IndexedDB. It is
+not synced across devices or browsers. You can clear all chat history
+from Settings at any time. The local store is also cleared when you
+clear your browser data. Chat history is specific to the combination of
+the add-in surface, your user ID, and your organization ID, so your
+Excel and Outlook histories are separate. Reinstalling the add-in or
+switching between Claude add-ins does not remove it. See
 [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md) for where it
 sits on disk and how long it is kept.
+
+When you sign in with a Claude account, the add-in sends your
+conversations to Anthropic, including the content Claude reads from your
+mailbox and calendar, and any files you attach. Clearing chat history
+removes only the copy in your browser. It does not delete the messages
+or attached files that Anthropic keeps.
 
 ## Data retention and audit
 
@@ -459,8 +464,8 @@ data retention settings your organization may have configured and is not
 included in Enterprise audit logs. For Enterprise organizations with the
 [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api)
 enabled, Claude for Outlook sessions are included in the Compliance API.
-This coverage is in public beta and requires no additional setup: the
-same Compliance Access Keys apply.
+This coverage requires no additional setup: the same Compliance Access
+Keys apply.
 
 ## Prompt injection risks
 

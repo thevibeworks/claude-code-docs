@@ -11,11 +11,13 @@ PowerPoint, Word, and Outlook. Both are enabled in your Claude settings.
 
 > [!NOTE]
 >
-> Connectors and Skills are available when you sign in with your Claude
-> account directly. When connecting through a third-party platform such
-> as Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM
-> gateway, these capabilities may not be available. See the feature
-> comparison in
+> This page describes Connectors and Skills when you sign in with your
+> Claude account directly. When connecting through a third-party platform
+> such as Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an
+> LLM gateway, connectors are the MCP servers your admin configures.
+> Skills from your Claude settings aren't available there, but built-in
+> skills, skills your admin provides, and skills you upload are. See the
+> feature comparison in
 > [Use Claude for M365 with third-party platforms](https://claude.com/docs/office-agents/third-party-platforms.md)
 > for the current status by connection mode.
 

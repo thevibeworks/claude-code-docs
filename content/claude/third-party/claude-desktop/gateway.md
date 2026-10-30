@@ -226,10 +226,10 @@ One of: `browser`, `broker`
 
 > **More detail**
 >
-> * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration.
-> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceGatewayOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+> * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
+> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
 >
-> Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes`, and forwards it to the customer's own gateway; both endpoints of that trust relationship are inside the customer's control. A desktop that has the `external-idp` kind reads this key, together with `inferenceGatewayOidc`, as that kind's sign-in flow; it stays readable.
+> `broker` needs Microsoft Entra ID, with the `issuer` in `inferenceGatewayOidc` set to `https://login.microsoftonline.com/{tenant-id}/v2.0`. Add the redirect URIs listed under [Register the Entra ID application](https://claude.com/docs/third-party/claude-desktop/entra-broker.md#register-the-entra-id-application).
 
 ***
 
@@ -251,13 +251,11 @@ Since 1.6889.0
 
 > **More detail**
 >
-> **External IdP mode.** The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code-with-PKCE sign-in in the system browser with `clientId`, and sends the resulting token as `Authorization: Bearer` on every inference request. Leave this unset for a gateway that hosts its own RFC 8414 metadata at `<baseUrl>/.well-known/oauth-authorization-server`. A desktop that has the `external-idp` kind reads this block as that kind's identity-provider key; it stays readable, so a fleet keeps this spelling until every desktop is on such a release.
+> Used with `inferenceCredentialKind` set to `interactive`. Leave it unset for a gateway that runs its own sign-in and serves `<baseUrl>/.well-known/oauth-authorization-server`.
 >
-> **Bearer token type.** `id_token` (the default) sends the OIDC ID token; the gateway validates signature, `iss`, and `aud` (the `clientId` configured here). `access_token` sends the OAuth access token, for gateways that validate as a resource server (Portkey, Kong, Envoy JWT filter, AWS API Gateway authorizers); `scopes` must then name the gateway's registered API scope. Either way the gateway must check `aud`, not just signature and issuer, or it accepts any token from your tenant.
+> Your gateway must check the token's audience (`aud`). Otherwise it accepts any token from your tenant.
 >
-> **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` by default (`http://localhost:<port>/callback` with `redirectHost: "localhost"`); register exactly the one you use and include `/callback`. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI of `http://127.0.0.1/callback` (any port; omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the gateway API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with the exact URI `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
->
-> **Refresh.** With `offline_access` the app renews the token silently and prompts a browser sign-in only when refresh fails. Google never returns an `id_token` on refresh, so a Google Workspace-backed gateway in `id_token` mode re-prompts about hourly; `access_token` mode is unaffected.
+> Register the redirect URI given under `inferenceGatewayOidcAuthFlow`.
 
 > **Child attributes (11)**
 >
@@ -285,29 +283,35 @@ Since 1.6889.0
 >
 > > **More detail**
 > >
-> > In **access-token** mode the token's audience must be your gateway or proxy. On IdPs where the requested scopes decide the audience (**Entra ID**), include its API resource scope in `scopes` — `api://<gateway-app-id>/.default`, or a named delegated scope you exposed via *Expose an API*. With only the standard OIDC scopes (`openid profile email offline_access`) Entra returns a v1.0 Microsoft Graph token whose issuer (`https://sts.windows.net/<tenant>/`) doesn't match the v2.0 issuer configured here, so a gateway that validates `iss` rejects it. On IdPs that set the access-token audience out-of-band (Keycloak audience mapper, Auth0 default audience, Okta custom authorization server), a resource scope in `scopes` isn't required — the audience comes from the IdP-side configuration.
+> > An ID token's audience (`aud`) is `clientId`. An access token's audience must be your gateway or proxy.
+> >
+> > With Entra ID the scopes decide the audience, so add the gateway's API scope to `scopes`, such as `api://<gateway-app-id>/.default`.
 >
 > **scopes** `string`
 >
-> Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below.
+> Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
+>
+> > **More detail**
+> >
+> > In ID-token mode, `offline_access` is not added to scopes that you set. Include it yourself, or users sign in again each time the token expires.
 >
 > **appendOfflineAccess** `boolean` (default: true)
 >
-> Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.
+> In access-token mode, add offline\_access to scopes so the identity provider returns a refresh token for silent refresh.
 >
 > > **More detail**
 > >
-> > Turn off only if your authorization server rejects `offline_access` as an unknown scope; include the server’s own refresh-token scope in **Scopes** instead.
+> > Turn off only if your authorization server rejects `offline_access` as an unknown scope. Then add the server’s own refresh-token scope to `scopes`.
 >
 > **resource** `string`
 >
-> Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID.
+> Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier. Leave unset for Entra ID.
 >
 > > **More detail**
 > >
-> > Set this only for an IdP that implements RFC 8707 resource indicators. The app then sends `resource=<value>` on the authorization, token and refresh requests, so the access token the IdP issues is audience-restricted to the gateway or proxy rather than to the IdP's own APIs. Use it with `bearerTokenType: access_token`; in `id_token` mode the ID token's audience is always `clientId`. Ignored with the OS-broker sign-in flow (the sign-in flow key set to `broker`), which is Entra-only.
+> > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
 > >
-> > **Microsoft Entra ID:** leave unset — the v2.0 endpoint rejects `resource`; request the API scope in `scopes` instead (`api://<gateway-app-id>/.default`). **AD FS:** enter one of the relying-party trust's identifiers, spelled as it is registered there. A value with no scheme (a host name with or without a port or path, a single name, or a GUID; `name:digits` also reads as a host name with a port) is sent as `https://<value>`; an identifier with a scheme of its own (`urn:…`, or an organization-defined one such as `VENDOR:URI:…`) is sent exactly as written. A trust whose only identifier is a bare name or GUID will not match, because those are sent as `https://<value>`: add an `https://…` or `urn:…` identifier to the trust and enter that one here. With any other identity provider, use an absolute URI without a fragment (RFC 8707 — the IdP rejects one as `invalid_target`). Changing it signs users in again.
+> > For AD FS, enter one of the relying-party trust's identifiers. A value with no scheme is sent as `https://<value>`, so a plain name or GUID does not match. Add an `https://…` or `urn:…` identifier to the trust and enter that.
 >
 > **redirectPort** `integer`
 >
@@ -321,11 +325,11 @@ Since 1.6889.0
 >
 > **additionalRedirectReferrerHosts** `string`
 >
-> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+> Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
 > > **More detail**
 > >
-> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+> > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
 ***
 
@@ -339,10 +343,10 @@ One of: `browser`, `broker`
 
 > **More detail**
 >
-> * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceIdpOidc` for redirect-URI registration.
-> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceIdpOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+> * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
+> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
 >
-> Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes` and forwards it to the customer's own gateway or proxy; both endpoints of that trust relationship are inside the customer's control.
+> `broker` needs Microsoft Entra ID, with the `issuer` in `inferenceIdpOidc` set to `https://login.microsoftonline.com/{tenant-id}/v2.0`. Add the redirect URIs listed under [Register the Entra ID application](https://claude.com/docs/third-party/claude-desktop/entra-broker.md#register-the-entra-id-application).
 
 ***
 
@@ -358,15 +362,11 @@ Since 2.7032.0
 
 > **More detail**
 >
-> Used with `inferenceCredentialKind: "external-idp"`. The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code (PKCE) sign-in in the browser with `clientId` (or through the OS broker, see `inferenceIdpAuthFlow`) and sends the token as `Authorization: Bearer` on every inference request: to `inferenceGatewayBaseUrl` on the gateway provider, or on Bedrock to `inferenceBedrockBaseUrl`, which is then required: only a proxy that validates the token accepts it, never Amazon Bedrock itself (to sign in straight to Bedrock use `interactive`, AWS IAM Identity Center). On Bedrock this kind has no model discovery: list the models in `inferenceModels`.
+> Used when `inferenceCredentialKind` is `external-idp`. Register the redirect URI given under `inferenceIdpAuthFlow` with your identity provider.
 >
-> **Bearer token type.** `id_token` (the default) sends the OIDC ID token; the receiver validates signature, `iss` and `aud` (the `clientId` here). `access_token` sends the OAuth access token, for gateways and proxies that validate as an OAuth resource server; `scopes` must then name the registered API scope. Either way the receiver must check `aud`, or it accepts any token from your tenant.
+> Your gateway or proxy must check the token's audience (`aud`). Otherwise it accepts any token from your tenant.
 >
-> **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` (`localhost` with `redirectHost: "localhost"`); register exactly that. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI `http://127.0.0.1/callback` (omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
->
-> **Refresh.** With `offline_access` the app renews the token silently and asks for a browser sign-in only when refresh fails (Google returns no `id_token` on refresh, so `id_token` mode there re-prompts about hourly).
->
-> **Older names.** Gateway configurations written before this key use `inferenceGatewayOidc` / `inferenceGatewayOidcAuthFlow` with the `interactive` kind; they stay readable and mean the same sign-in.
+> On Bedrock, set `inferenceBedrockBaseUrl` to a proxy that checks the token, because Amazon Bedrock itself does not accept it. Also list your models in `inferenceModels`.
 
 > **Child attributes (11)**
 >
@@ -394,29 +394,35 @@ Since 2.7032.0
 >
 > > **More detail**
 > >
-> > In **access-token** mode the token's audience must be your gateway or proxy. On IdPs where the requested scopes decide the audience (**Entra ID**), include its API resource scope in `scopes` — `api://<gateway-app-id>/.default`, or a named delegated scope you exposed via *Expose an API*. With only the standard OIDC scopes (`openid profile email offline_access`) Entra returns a v1.0 Microsoft Graph token whose issuer (`https://sts.windows.net/<tenant>/`) doesn't match the v2.0 issuer configured here, so a gateway that validates `iss` rejects it. On IdPs that set the access-token audience out-of-band (Keycloak audience mapper, Auth0 default audience, Okta custom authorization server), a resource scope in `scopes` isn't required — the audience comes from the IdP-side configuration.
+> > An ID token's audience (`aud`) is `clientId`. An access token's audience must be your gateway or proxy.
+> >
+> > With Entra ID the scopes decide the audience, so add the gateway's API scope to `scopes`, such as `api://<gateway-app-id>/.default`.
 >
 > **scopes** `string`
 >
-> Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below.
+> Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
+>
+> > **More detail**
+> >
+> > In ID-token mode, `offline_access` is not added to scopes that you set. Include it yourself, or users sign in again each time the token expires.
 >
 > **appendOfflineAccess** `boolean` (default: true)
 >
-> Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.
+> In access-token mode, add offline\_access to scopes so the identity provider returns a refresh token for silent refresh.
 >
 > > **More detail**
 > >
-> > Turn off only if your authorization server rejects `offline_access` as an unknown scope; include the server’s own refresh-token scope in **Scopes** instead.
+> > Turn off only if your authorization server rejects `offline_access` as an unknown scope. Then add the server’s own refresh-token scope to `scopes`.
 >
 > **resource** `string`
 >
-> Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID.
+> Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier. Leave unset for Entra ID.
 >
 > > **More detail**
 > >
-> > Set this only for an IdP that implements RFC 8707 resource indicators. The app then sends `resource=<value>` on the authorization, token and refresh requests, so the access token the IdP issues is audience-restricted to the gateway or proxy rather than to the IdP's own APIs. Use it with `bearerTokenType: access_token`; in `id_token` mode the ID token's audience is always `clientId`. Ignored with the OS-broker sign-in flow (the sign-in flow key set to `broker`), which is Entra-only.
+> > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
 > >
-> > **Microsoft Entra ID:** leave unset — the v2.0 endpoint rejects `resource`; request the API scope in `scopes` instead (`api://<gateway-app-id>/.default`). **AD FS:** enter one of the relying-party trust's identifiers, spelled as it is registered there. A value with no scheme (a host name with or without a port or path, a single name, or a GUID; `name:digits` also reads as a host name with a port) is sent as `https://<value>`; an identifier with a scheme of its own (`urn:…`, or an organization-defined one such as `VENDOR:URI:…`) is sent exactly as written. A trust whose only identifier is a bare name or GUID will not match, because those are sent as `https://<value>`: add an `https://…` or `urn:…` identifier to the trust and enter that one here. With any other identity provider, use an absolute URI without a fragment (RFC 8707 — the IdP rejects one as `invalid_target`). Changing it signs users in again.
+> > For AD FS, enter one of the relying-party trust's identifiers. A value with no scheme is sent as `https://<value>`, so a plain name or GUID does not match. Add an `https://…` or `urn:…` identifier to the trust and enter that.
 >
 > **redirectPort** `integer`
 >
@@ -430,11 +436,11 @@ Since 2.7032.0
 >
 > **additionalRedirectReferrerHosts** `string`
 >
-> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+> Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
 > > **More detail**
 > >
-> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+> > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
 ***
 
@@ -446,9 +452,9 @@ integerRange: 300–1,800Since 1.44121.1
 
 > **More detail**
 >
-> Raises how long Cowork, Chat and Code sessions wait for the next model event on an open streaming response (Claude Code's `CLAUDE_STREAM_IDLE_TIMEOUT_MS`). It only helps when the gateway writes SSE keep-alive `ping` events (or `:` comment lines) into the response while the upstream model is silent — for example a LiteLLM proxy with keep-alive pings enabled in front of Amazon Bedrock. With pings arriving, Claude Code accepts at least about five minutes of keep-alives and then waits this many seconds more for real model output before abandoning the request. Gateway provider only; the other providers keep Claude Code's defaults.
+> With pings arriving (SSE `ping` events or `:` comment lines), sessions accept at least about five minutes of them, then wait this many seconds more. With no pings, a silent response still fails after about 5 minutes whatever this value, so make the gateway send them.
 >
-> A response on which nothing at all arrives — no pings — still fails after about 5 minutes regardless of this key, because at the device a silent connection cannot be told apart from a dead one. If long generations fail behind a gateway that does not send pings, configure the gateway to send them rather than raising this value. A common case is automatic compaction, in which a session sends its whole conversation in one streaming request and waits for a long summary; when that request fails, the error reads `Prompt is too long · automatic compaction failed:` followed by the cause. While this key is set, the app's value takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's own managed settings for sessions the app starts; when it is unset, that setting still applies. Values outside 300–1800 are rejected at parse time (the error is listed in the diagnostics report) and the default applies.
+> While this key is set, it takes priority over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's managed settings for sessions the app starts.
 
 ***
 
@@ -550,6 +556,55 @@ On Claude API, Google Cloud's Agent Platform, Amazon Bedrock, and Amazon Bedrock
 > [!WARNING]
 >
 > Setting `toolSearchEnabled` causes sessions to send experimental request headers and fields to your gateway or provider. On gateway deployments running Claude Desktop 1.40609.0 or later this is only the tool-search request shape (the `tool-search-tool-2025-10-19` value in the `anthropic-beta` header, deferred tool loading, and `tool_reference` content blocks), and every other experimental Claude Code beta stays off. On earlier versions, on Microsoft Foundry, and on providers behind a custom base URL, the key instead lifts the experimental-beta suppression for these sessions, so requests also carry Claude Code's other experimental beta headers and fields for that provider. Enable it only if your gateway forwards and accepts what it will receive; when it does not, requests fail with HTTP 400. LiteLLM in passthrough mode and Cloudflare AI Gateway both forward `anthropic-beta` headers and `tool_reference` content blocks.
+
+## Block requests at a spend limit
+
+To show users your own message when your gateway blocks them at a budget or spend limit, return HTTP `402` with the message in a [Messages API error body](https://platform.claude.com/docs/en/api/errors#error-shapes):
+
+```json theme={null}
+{
+  "type": "error",
+  "error": {
+    "type": "billing_error",
+    "message": "You reached your monthly spend limit of $500. Ask your manager for an increase."
+  }
+}
+```
+
+Claude Desktop doesn't retry a `402`. Once your gateway accepts requests again, the user's next message in the same session goes through.
+
+Cowork, Chat, and Code show a **Billing issue** card, with your message below the app's own explanation.
+
+![Cowork card titled Billing issue. The app's explanation reads: You won't be able to start tasks until your IT team adds credits or updates billing. Below it, in monospace, is the gateway's message: You reached your monthly spend limit of \$500. Ask your manager for an increase.](https://mintcdn.com/claude-ai/_XP3pgAHpW92TgGc/images/third-party/gateway-billing-issue-card.png?fit=max\&auto=format\&n=_XP3pgAHpW92TgGc\&q=85\&s=b54737876348e2fa4f53a0adc5d01a1d)
+
+The Billing issue card in Cowork, with an example gateway message in monospace.
+
+> [!NOTE]
+>
+> The **Billing issue** card in Cowork and Chat requires Claude Desktop 4.4212.0 or later. In earlier versions, both show your message in a **Something went wrong** card with a **Try again** button.
+
+### Write the spend limit message
+
+Keep `error.message` short and say who can raise the limit. The **Billing issue** card shows your message as plain text, so a URL or email address in it isn't clickable. To give users a clickable HTTPS link, set `linkUrl` on the [`banner`](https://claude.com/docs/third-party/claude-desktop/configuration#banner), the notice across the top of the app window.
+
+Avoid phrases from the app's own error messages, such as "usage limit", "hit your limit", "hit your monthly limit", "out of usage", and "credit balance is too low". If your message contains one, the app can show its own card or text instead.
+
+### Other status codes at a spend limit
+
+With these status codes, users see a general error or a card about a different problem, and Code's card hides or drops your message.
+
+* **`429`**: Claude Desktop can retry for about three minutes or longer before it shows an error, unless the response carries `x-should-retry: false`. Code then shows **Server is temporarily limiting requests**.
+* **`401` or `403`**: Code shows a card about credentials, sign-in, or permissions.
+* **`400`**: Code shows **Invalid request**.
+
+### Warn users before the spend limit
+
+To tell users where they stand before your gateway blocks them, show one line of text in one of these places:
+
+* **Across the top of the app window**: set the [`banner`](https://claude.com/docs/third-party/claude-desktop/configuration#banner) configuration key to show a one-line notice. If you serve configuration per user, for example from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), each user's notice can show their own figure, such as "You have used 82% of your monthly budget."
+* **Above the message box**: set up a [status line](https://claude.com/docs/third-party/claude-desktop/status-line.md). Claude Desktop runs a program that you install on the user's device and shows the line it prints.
+
+Claude Desktop can also limit each user's tokens, separately from your gateway's budget, and warn users before they reach that limit. To set up the limit and check where it applies, see the [token limit keys](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemaxtokensperwindow) in the configuration reference.
 
 ## Troubleshoot
 

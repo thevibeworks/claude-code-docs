@@ -12,7 +12,7 @@
 
 A command is `@Claude` followed immediately by one of a few exact words starting with `!`. Claude matches the message against that word and runs a fixed action instead of starting a normal turn.
 
-`!help`, `!configure`, `!restart`, `!status`, `!mute`, and `!unmute` must stand alone: adding extra words, as in `!restart` with words tacked on, makes the message an ordinary prompt instead. `!fast` runs alone or with `on` or `off`. `!feedback`, `!routines`, and `!fork` accept text after the command, covered below.
+`!help`, `!configure`, `!restart`, `!status`, `!mute`, and `!unmute` must stand alone: adding extra words, as in `!restart` with words tacked on, makes the message an ordinary prompt instead. `!fast` runs alone or with `on` or `off`. `!feedback` and `!fork` accept text after the command, and `!scheduled` accepts a channel mention or ID.
 
 ## See the commands available to you
 
@@ -160,15 +160,17 @@ Opens a form in Slack for sending feedback on Claude Tag to the team that builds
 ## List the routines in a channel
 
 ```text wrap theme={null}
-@Claude !routines
+@Claude !scheduled
 ```
 
 Claude replies in the thread with the [routines](https://claude.com/docs/claude-tag/users/proactivity.md) set up in the channel: the scheduled jobs, watched channels, and other standing work it runs there. The list covers only that channel's routines.
 
-* **For the current channel**, run `!routines` in that channel.
-* **For another channel**, add the channel mention or its ID, as in `@Claude !routines #other-channel`. You need to be a member of that channel, and it must belong to your organization. Claude sends the list in a reply only you can see, so that channel's routines aren't posted for everyone in the channel where you asked.
+* **For the current channel**, run `!scheduled` in that channel.
+* **For another channel**, add the channel mention or its ID, as in `@Claude !scheduled #other-channel`. You need to be a member of that channel, and it must belong to your organization. Claude sends the list in a reply only you can see, so that channel's routines aren't posted for everyone in the channel where you asked.
 
-If the single word after `!routines` isn't a channel mention or ID, Claude replies with how to use the command. Adding two or more words makes the message an ordinary prompt that starts a normal turn instead.
+If the single word after `!scheduled` isn't a channel mention or ID, Claude replies with how to use the command. Adding two or more words makes the message an ordinary prompt that starts a normal turn instead.
+
+`!routines`, the command's earlier name, works the same way.
 
 ## Fork a thread
 
@@ -194,6 +196,6 @@ If the fork can't be set up, Claude replies with a note only you can see, and no
 
 ## Related resources
 
-* [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md): the standing work `!routines` lists, and how to create, edit, or disable it
+* [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md): the standing work `!scheduled` lists, and how to create, edit, or disable it
 * [Control when Claude Tag responds](https://claude.com/docs/claude-tag/users/when-claude-responds.md): what makes Claude reply without any command or mention at all
 * [Restrict where Claude Tag operates](https://claude.com/docs/claude-tag/admins/restrict-access.md): the admin controls that decide who can message Claude at all, including its commands

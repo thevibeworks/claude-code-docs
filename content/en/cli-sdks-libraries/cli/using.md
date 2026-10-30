@@ -51,8 +51,6 @@ ant models retrieve --model-id claude-opus-5-5 --format yaml
 ```yaml Output
 type: model
 id: claude-opus-5-5
-display_name: Claude Opus 5.5
-created_at: "2026-09-22T00:00:00Z"
 ...
 ```
 

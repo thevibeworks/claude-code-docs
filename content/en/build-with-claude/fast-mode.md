@@ -356,7 +356,7 @@ The response `usage` object includes a `speed` field that indicates which speed 
 }
 ```
 
-To track fast mode usage and costs across your organization, see the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api).
+To track fast mode usage and costs across your organization, see the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api).
 
 ## Retries and fallbacks
 

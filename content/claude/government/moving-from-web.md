@@ -34,7 +34,7 @@ This page answers the questions that only come up during the move and links each
 
 ## The Claude for Government Web import
 
-* **How do users bring over their conversations and projects?** Each user runs the import themselves from Claude Desktop, which signs in to their web app account. See [Import your data from Claude for Government Web](https://claude.com/docs/government/desktop/import.md).
+* **How do users bring over their conversations and projects?** Each user runs the import themselves from Claude Desktop. See [Import your data from Claude for Government Web](https://claude.com/docs/government/desktop/import.md).
 * **Can administrators remind users to run the import?** Yes. Turn on the [**Show the Claude for Government Web import banner**](https://claude.com/docs/government/config/settings.md#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
 * **The Import & export page in Claude Desktop says import isn't enabled.** See [Troubleshooting](https://claude.com/docs/government/desktop/import.md#troubleshooting) on the import page.
 * **What comes across, and how does a user redo an import?** See [Things to know](https://claude.com/docs/government/desktop/import.md#things-to-know) and [Remove an import](https://claude.com/docs/government/desktop/import.md#remove-an-import).

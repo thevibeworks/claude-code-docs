@@ -3942,6 +3942,26 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaThinkingConfigAdaptive`
 
+- `thread: BetaMessageThreadParam`
+
+  Server-held conversation state (a Thread). `{"type": "create"}` asks the server to hold this conversation's state under the response's `id`; `{"type": "continue", "previous_message_id": ...}` resumes from a previous response so only the new turn's messages are sent. The response shape is unchanged.
+
+  - `class BetaThreadCreateParams`
+
+    Start holding conversation state under this response's `id`.
+
+    - `type: :create`
+
+  - `class BetaThreadContinueParams`
+
+    Resume from the response named by `previous_message_id`.
+
+    - `type: :continue`
+
+    - `previous_message_id: String`
+
+      The `id` of the previous response in this Thread.
+
 - `tool_choice: BetaToolChoice`
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
@@ -4246,6 +4266,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `:"telemetry-destinations-2026-08-11"`
 
   - `:"webhooks-2026-10-07"`
+
+  - `:"message-threads-2026-08-12"`
+
+  - `:"analytics-usage-cost-2026-08-24"`
 
 - `user_profile_id: String` (header parameter)
 

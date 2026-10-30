@@ -6,25 +6,25 @@
     "url": "https://github.com/anthropics/claude-code/issues"
   },
   "dist": {
-    "shasum": "de62c221b1c50d0a946a0005123b37bf047ba3d4",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.312.tgz",
+    "shasum": "4ad35929e17b8e3948e9fb22c660359f09985c3c",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.314.tgz",
     "fileCount": 7,
-    "integrity": "sha512-/gx8byG8VOm4YoNuT5tal/Ov5Z5oydJzZkmHCJcBFLbNGGpyYDbKA/CNdB+iIKwcLQC8pVwBoj6Dt7H3L2J5bw==",
+    "integrity": "sha512-iD58PXZvNCykRm3ZRiV/zJOsejXH/FtLZFtsFqUHxFxBsthOyb+0MINeJ8EsNbSG8ECTsfhzPIZwl8x6NIRkSg==",
     "signatures": [
       {
-        "sig": "MEUCIFqtXNWvGV9EW3mdAR6gJ24FgxwrruR8WhMsWF52oxsvAiEAm3C9G7GUIw9+4mUZIL2Ibbk5im6KTP6lHuNXnUKyn1o=",
+        "sig": "MEUCIC4BoXKy6H0rMCTM+M0j0408O2xKs7H+7EfvHkRs3MkHAiEAgcKNFNhzncBJRl9fQ/dsNVzqk8l+n18KIuadYFtJaYM=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       },
       {
-        "sig": "MEQCIFzWxMNObg/Tpxe0Kqb0LhaVmAVGXmqlMYa4eL233Ms2AiA6IUvBeTpriqJDUscYqqyFAS4N5oL//SZTGIAvKQMJ6A==",
+        "sig": "MEYCIQDqGdWhj2ulrZKCAEJbRPQ8uKN0yqBDaMZbMMaqj3JOMAIhAOM6+iBx7FwOc/4BkIYJndrYRUiVnV7qmdE0vX9+w23M",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 190085
+    "unpackedSize": 190269
   },
   "name": "@anthropic-ai/claude-code",
   "type": "module",
-  "_from": "file:staged-npm/anthropic-ai-claude-code-2.1.312.tgz",
+  "_from": "file:staged-npm/anthropic-ai-claude-code-2.1.314.tgz",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
@@ -46,9 +46,9 @@
     }
   },
   "homepage": "https://github.com/anthropics/claude-code",
-  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/staged-npm/anthropic-ai-claude-code-2.1.312.tgz",
-  "_integrity": "sha512-/gx8byG8VOm4YoNuT5tal/Ov5Z5oydJzZkmHCJcBFLbNGGpyYDbKA/CNdB+iIKwcLQC8pVwBoj6Dt7H3L2J5bw==",
-  "_npmVersion": "11.19.0",
+  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/staged-npm/anthropic-ai-claude-code-2.1.314.tgz",
+  "_integrity": "sha512-iD58PXZvNCykRm3ZRiV/zJOsejXH/FtLZFtsFqUHxFxBsthOyb+0MINeJ8EsNbSG8ECTsfhzPIZwl8x6NIRkSg==",
+  "_npmVersion": "11.19.1",
   "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
   "directories": {},
   "maintainers": [
@@ -113,24 +113,24 @@
       "email": "joan@anthropic.com"
     }
   ],
-  "_nodeVersion": "24.21.0",
+  "_nodeVersion": "24.22.1",
   "dependencies": {},
   "_hasShrinkwrap": false,
   "readmeFilename": "README.md",
   "optionalDependencies": {
-    "@anthropic-ai/claude-code-linux-x64": "2.1.312",
-    "@anthropic-ai/claude-code-win32-x64": "2.1.312",
-    "@anthropic-ai/claude-code-darwin-x64": "2.1.312",
-    "@anthropic-ai/claude-code-linux-arm64": "2.1.312",
-    "@anthropic-ai/claude-code-win32-arm64": "2.1.312",
-    "@anthropic-ai/claude-code-darwin-arm64": "2.1.312",
-    "@anthropic-ai/claude-code-linux-x64-musl": "2.1.312",
-    "@anthropic-ai/claude-code-linux-arm64-musl": "2.1.312"
+    "@anthropic-ai/claude-code-linux-x64": "2.1.314",
+    "@anthropic-ai/claude-code-win32-x64": "2.1.314",
+    "@anthropic-ai/claude-code-darwin-x64": "2.1.314",
+    "@anthropic-ai/claude-code-linux-arm64": "2.1.314",
+    "@anthropic-ai/claude-code-win32-arm64": "2.1.314",
+    "@anthropic-ai/claude-code-darwin-arm64": "2.1.314",
+    "@anthropic-ai/claude-code-linux-x64-musl": "2.1.314",
+    "@anthropic-ai/claude-code-linux-arm64-musl": "2.1.314"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.312_1793126170045_0.6020059861887522",
+    "tmp": "tmp/claude-code_2.1.314_1793319176825_0.9178469149283283",
     "host": "s3://npm-registry-packages-npm-production"
   },
-  "_id": "@anthropic-ai/claude-code@2.1.312",
-  "version": "2.1.312"
+  "_id": "@anthropic-ai/claude-code@2.1.314",
+  "version": "2.1.314"
 }

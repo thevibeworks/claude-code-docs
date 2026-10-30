@@ -97,7 +97,7 @@ From the console you can set the same [configuration keys](https://claude.com/do
 | Page | What you configure there |
 | - | - |
 | **Connection** | The inference provider ([gateway](https://claude.com/docs/third-party/claude-desktop/gateway.md), [Amazon Bedrock](https://claude.com/docs/third-party/claude-desktop/bedrock.md), [Bedrock Mantle](https://claude.com/docs/third-party/claude-desktop/mantle.md), [Google Cloud's Agent Platform](https://claude.com/docs/third-party/claude-desktop/vertex.md), or [Microsoft Foundry](https://claude.com/docs/third-party/claude-desktop/foundry.md)), its endpoint, region, or project, how users authenticate to it, custom request headers, and, under **Models**, the model list, default model, model discovery, and cost-estimate rates. **Desktop sign-in** on this page holds the **Require this organization in Claude Desktop** switch described under [Users in more than one Claude organization](#users-in-more-than-one-claude-organization). |
-| **Capabilities** | Whether Chat, Cowork, and Code are each available, [Unified Claude](#turn-on-unified-claude), the folders and network hosts the app may use, permission modes and built-in tool policy, the [built-in browser](https://claude.com/docs/third-party/claude-desktop/browser.md#manage-the-built-in-browser-from-the-enterprise-admin-console) and its site permissions, whether users may add their own skills and plugins, organization instructions, and [**Claude.ai data import**](https://claude.com/docs/third-party/claude-desktop/import.md) |
+| **Capabilities** | Whether Chat, Cowork, and Code are each available, [Unified Claude](#turn-on-unified-claude), the folders and network hosts the app may use, permission modes and built-in tool policy, the [built-in browser](https://claude.com/docs/third-party/claude-desktop/browser.md#manage-the-built-in-browser-from-the-enterprise-admin-console) and its site permissions, whether users may add their own skills and plugins, [skill scanning](https://claude.com/docs/third-party/claude-desktop/extensions.md#skill-scanning), organization instructions, and [**Claude.ai data import**](https://claude.com/docs/third-party/claude-desktop/import.md) |
 | **Connectors** | Managed MCP servers, including the [built-in connectors](https://claude.com/docs/third-party/claude-desktop/built-in-connectors.md), whether users may add their own MCP servers, and desktop extension policy |
 | **Telemetry & updates** | Which telemetry categories go to Anthropic, whether users' apps report [usage analytics](#usage-analytics) to your organization, OpenTelemetry export to your collector, update policy, the [configuration relaunch window](#configuration-updates), the configuration re-check interval, and [how much of the configuration devices keep on disk](#configuration-kept-on-devices) |
 | **Limits** | A per-user token limit and its window |
@@ -153,34 +153,34 @@ Policies are ranked in the order shown on the page, and you drag them to change 
 
 For example, if the Traders policy (ranked first) turns Code off and selects the wiki server, and the Analysts policy (ranked second) sets a token limit and selects the tickets server, a user in both groups has Code off, the Analysts token limit, and both servers. Everything these policies leave unset comes from the organization-wide settings, and a user in no listed group gets the organization-wide settings unchanged. Groups are managed on the **Groups** page under **People**, including groups synced from your identity provider.
 
-A group's policy can also turn on Unified Claude for that group, as described under [Turn on Unified Claude](#turn-on-unified-claude).
+A group's policy can also turn on Unified Claude for that group, as described under [Turn on Unified Claude](#turn-on-unified-claude). From November 10, 2026, Unified Claude is on by default even for a group whose policy turns Cowork off.
 
 ### Turn on Unified Claude
 
 [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) combines Chat and Cowork into one experience. These switches under **Allowed surfaces** on the **Capabilities** page control Unified Claude for your organization:
 
-* **Opt into the new Chat and Cowork unified view** turns on Unified Claude. From November 10, 2026, Unified Claude is on by default while this switch is off, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, and the switch's description says so where it is.
+* **Opt into the new Chat and Cowork unified view** turns on Unified Claude. From November 10, 2026, Unified Claude is [on by default](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) while this switch is off. Cowork is then on even where the **Cowork** switch is off.
 * **Chat and Cowork unified view** takes the place of the separate **Chat** and **Cowork** switches when you turn on the **Opt into the new Chat and Cowork unified view** switch. Turn on the **Chat and Cowork unified view** switch to give users the unified view. Turn it off to turn Chat and Cowork off entirely. Code is not affected.
 
 A group's policy has the same two switches in its **Capabilities** section.
 
-Unified Claude is in beta. In an organization with no saved configuration, the console starts with Unified Claude on and stores it when you first click **Save changes** on the **Connection** page. Where the saved configuration leaves the **Opt into the new Chat and Cowork unified view** switch off, Unified Claude stays off until you turn it on or, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, until November 10, 2026. The default goes by the settings each user gets from the organization and their groups.
+Unified Claude is in beta. In an organization with no saved configuration, the console starts with Unified Claude on and stores it when you first click **Save changes** on the **Connection** page. Where the saved configuration leaves the **Opt into the new Chat and Cowork unified view** switch off, Unified Claude stays off until you turn it on or until November 10, 2026.
 
-When you turn on Unified Claude yourself, it overrides the **Chat**, [**Advanced file analysis**](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off.
+While Unified Claude is on, whether you turned it on or it is on by default, it overrides the **Chat**, [**Advanced file analysis**](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off.
 
 > [!WARNING]
 >
-> When you turn on Unified Claude for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off.
+> When you turn on Unified Claude for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off. From November 10, 2026, the default does the same, so a group whose policy turns Cowork off gets Cowork.
 >
-> To keep Chat, advanced file analysis, and Cowork off for a group, turn off the **Chat and Cowork unified view** switch in the group's policy. Where Unified Claude is still off for your organization, set the group's switches before you turn Unified Claude on. Turn on the group's **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is on, turn it off. For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
+> For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
 
 To turn on Unified Claude for your whole organization, open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on. Click **Save changes**.
 
-Where Unified Claude isn't on by default, you can turn it on for some groups only:
+Until November 10, 2026, you can turn on Unified Claude for some groups only:
 
 **1. Make sure Unified Claude is off for your organization**
 
-Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**. From November 10, 2026, continue only if the switch's description doesn't say that Unified Claude is on by default.
+Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**.
 
 **2. Open the group's policy**
 
@@ -194,10 +194,10 @@ In the policy's **Capabilities** section, turn on the **Opt into the new Chat an
 
 Click **Save changes**.
 
-From November 10, 2026, unless an [exception](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) applies, these steps leave Unified Claude on by default. Until then, they turn it off for your organization or for a group:
+Until November 10, 2026, you can turn Unified Claude off again for your organization or for a group. From that date, the same changes leave Unified Claude on by default, whatever the **Chat** and **Cowork** switches say.
 
 * **For your whole organization**: open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn off the **Opt into the new Chat and Cowork unified view** switch. The **Chat** and **Cowork** switches reappear in the positions they had. Switches that nobody set are at their defaults. Cowork is on, and Chat and advanced file analysis are off. Set the switches as you want, then click **Save changes**.
-* **For a group**: while Unified Claude is off for your organization, open **Organization settings**, go to the **Permission policies** page under **People**, and open the group's policy. If the policy has other settings, click **Reset to default** in the **Opt into the new Chat and Cowork unified view** row, then click **Save changes**. If the policy has no other settings, remove the policy with **Remove policy** on the **Permission policies** page. The **Chat** and **Cowork** switches then apply to the group again.
+* **For a group**: while Unified Claude is off for your organization, open **Organization settings**, go to the **Permission policies** page under **People**, and open the group's policy. If the policy has other settings, click **Reset to default** in the **Opt into the new Chat and Cowork unified view** row, then click **Save changes**. If the policy has no other settings, remove the policy with **Remove policy** on the **Permission policies** page. Until November 10, 2026, the **Chat** and **Cowork** switches then apply to the group again.
 
 Turning on the **Opt into the new Chat and Cowork unified view** switch sets the [`desktopHome`](https://claude.com/docs/third-party/claude-desktop/configuration#desktophome) key, and turning it off removes the key. The **Chat and Cowork unified view** switch saves the value `standard` when it is on and `off` when it is off. With the value `off`, the **Opt into the new Chat and Cowork unified view** switch stays on, and Chat and Cowork are off entirely. Users' apps pick up the change as described under [Configuration updates](#configuration-updates).
 
@@ -409,7 +409,6 @@ On a device whose profile sets only [app-behavior keys](https://claude.com/docs/
 While a device whose profile sets any other key is on the admin console's configuration, the app still takes these from the profile:
 
 * The [network proxy keys](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
-* [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) set to `true`.
 * [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) set to `false`, for local (stdio) servers in the console's managed MCP servers only. The app starts such a server only if the profile's own [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists a local (stdio) server of the same name, and it uses the profile's command, arguments, and environment. The profile's value doesn't block local MCP servers that users add. To keep blocking them, turn off **Allow local MCP servers** on the console's **Connectors** page.
 * `disableDeploymentModeChooser` and `forceLoginOrgUUID`, as described under [Keep a device on its managed profile](#keep-a-device-on-its-managed-profile).
 

@@ -141,6 +141,10 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ## Returns
 
 - `BetaOrganizationTunnelCertificate object`

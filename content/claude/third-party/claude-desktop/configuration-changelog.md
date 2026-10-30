@@ -8,6 +8,37 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v4.4212.0**
+
+2026-10-29
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`skillScanningEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillscanningenabled) · Beta | `boolean` | Scan user-created skills |
+| [`projectsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#projectsenabled) | `boolean` | Allow projects |
+| [`sessionStatusLine`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionstatusline) | `object` | Status line |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "workspace": {
+    "skillScanningEnabled": "<boolean>",
+    "projectsEnabled": "<boolean>"
+  },
+  "appearance": {
+    "sessionStatusLine": {
+      "command": "<string>"
+    }
+  }
+}
+```
+
+**Changed:**
+
+* **Breaking:** `desktopHome`: at launches after 12:00 PM PT (20:00 UTC) on November 10, 2026, an unset key reads as `standard`: Unified Claude opens with Cowork on, even where `coworkTabEnabled` is `false`. In 4.29, an unset key did so only where Cowork was on. `chatTabEnabled` and `chatAdvancedFileAnalysisEnabled` have no effect under `standard`.
+* `sshClientPath`: on Windows, a value may begin with `%LOCALAPPDATA%\`, which the app reads as the signed-in user's own local app data folder. It counts only when machine-wide policy (HKLM) itself sets it as a plain string (REG\_SZ), with `sshTransport: system-openssh` set by an administrator, and only while Claude does not run with administrator rights. Otherwise SSH sessions do not connect. Where a configuration server is in use, it must repeat this value and `sshTransport`, or the device's values are not used. The user can replace a program in that folder, so with such a value that user can get around this key and `sshHostAllowlist`, and the program can see SSH passwords.
+
 **v4.29.0**
 
 2026-10-27
@@ -28,7 +59,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 **Changed:**
 
-* `desktopHome`: from November 10, 2026 (12:00 PM PT, by the device's clock), an unset key opens Unified Claude at the app's next launch. With Cowork on, Chat and Advanced file analysis come on too, even if `chatTabEnabled` or `chatAdvancedFileAnalysisEnabled` is `false`. A deployment with Cowork on that sets `chatSessionRetentionDays`, and does not set `coworkSessionRetentionDays` to the same number of days, keeps its current view. Earlier releases are unchanged.
+* `desktopHome`: from November 10, 2026 (12:00 PM PT, by the device's clock), an unset key opens Unified Claude at the app's next launch. With Cowork on, it reads as `standard`, under which `chatTabEnabled` and `chatAdvancedFileAnalysisEnabled` have no effect. A deployment with Cowork on that sets `chatSessionRetentionDays`, and does not set `coworkSessionRetentionDays` to the same number of days, keeps its current view. Earlier releases are unchanged.
 * `inferenceModels`: an entry accepts `behavesAs`, the Claude model behind a Model ID that Claude Desktop cannot identify, such as a gateway alias. The ID then gets that model's effort levels and limits. Once any entry sets it, sessions that Claude Desktop starts no longer read a person's own `modelPicker` setting from Claude Code's settings.
 * `managedMcpServers`: a remote entry accepts `defaultState`. Set it to `"off"` and the connector stays out of each person's sessions until they turn it on under Connectors in the + menu. Adding `"off"` to a connector in use turns it off for everyone who has not switched it on.
 * `managedMcpServers`: a remote entry's `oauth` accepts `omitResource`. Set it to `true` when the identity provider rejects the OAuth `resource` parameter (Microsoft Entra ID: AADSTS9010010). It needs the entry's client ID, a scope that names the API, and exactly one sign-in server: a tenant ID, one authorization server, or an authorization URL and token URL. Otherwise the server is not loaded.

@@ -688,8 +688,8 @@ To get an event when Anthropic restricts or bans one of your end customers, or w
     Choose how your services authenticate to the Claude API.
   </Card>
 
-  <Card title="Usage and Cost API" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-api">
-    Track API token usage and costs for your organization.
+  <Card title="Usage and Cost Analytics API" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api">
+    Track token usage and costs for your organization.
   </Card>
 
   <Card title="Data residency" href="https://platform.claude.com/docs/en/manage-claude/data-residency">

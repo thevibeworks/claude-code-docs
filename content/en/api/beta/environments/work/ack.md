@@ -135,6 +135,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ## Returns
 
 - `BetaSelfHostedWork object`

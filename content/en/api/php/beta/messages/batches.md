@@ -189,6 +189,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
           ],
           'display' => 'summarized',
         ],
+        'thread' => ['type' => 'create'],
         'toolChoice' => ['type' => 'auto', 'disableParallelToolUse' => true],
         'tools' => [
           [

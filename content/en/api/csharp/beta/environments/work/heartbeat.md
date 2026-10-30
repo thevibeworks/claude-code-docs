@@ -137,6 +137,10 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `MessageThreads2026_08_12("message-threads-2026-08-12")`
+
+    - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
 ## Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`

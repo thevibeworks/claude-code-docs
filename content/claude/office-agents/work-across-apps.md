@@ -127,10 +127,15 @@ settings your organization may have set, and activity is not included in
 Enterprise audit logs or data exports. For Enterprise organizations with
 the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api)
 enabled, add-in sessions are included in the Compliance API. This
-coverage is in public beta and requires no additional setup: the same
-Compliance Access Keys apply. Chat history is stored locally in your
-browser, not on Anthropic's servers, and can be cleared from Settings at
-any time.
+coverage requires no additional setup: the same Compliance Access Keys
+apply.
+
+Chat history is stored locally in your browser and can be cleared from
+Settings at any time. The add-ins also send your conversations to
+Anthropic, including the content Claude reads from your open workbooks,
+documents, presentations, email, and calendar, and any files you attach.
+Clearing chat history removes only the copy in your browser. It does not
+delete the messages or attached files that Anthropic keeps.
 
 ## Current limitations
 

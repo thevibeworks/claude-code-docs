@@ -474,6 +474,65 @@ Setting [`userPluginMarketplacesEnabled`](https://claude.com/docs/third-party/cl
 
 `userPluginMarketplacesEnabled` doesn't govern Claude Code in a terminal. To limit the marketplaces Claude Code can use in a terminal, set [marketplace restrictions in its managed settings](https://code.claude.com/docs/en/plugins/org#restrict-what-users-can-install). If you deploy Claude Code managed settings to the device, restrict marketplaces there too, because in Code sessions those settings can take precedence over the app's restrictions.
 
+## Skill scanning
+
+> [!NOTE]
+>
+> Skill scanning is in beta. It's off until an administrator turns it on.
+
+Skill scanning checks the [skills](https://claude.com/docs/skills/overview.md) that users create or upload in the app. It looks for signs that a skill is malicious, such as hidden code execution, credential exposure, or data exfiltration. With scanning on, a scan starts each time a user creates, uploads, or edits a skill in the app. The user can't use the skill until the scan finishes, and the app blocks a skill that fails the scan.
+
+Claude Desktop doesn't scan plugins, or the skills inside them. To stop users from adding their own plugins, see [Controlling user extensions](#controlling-user-extensions).
+
+### Turn on skill scanning
+
+In the Enterprise Admin Console:
+
+1. In **Organization settings**, go to the **Capabilities** page under **Desktop 3P**.
+2. Under **General restrictions**, turn on the **Scan user-created skills** switch.
+3. Click **Save changes**.
+
+The console shows the **Scan user-created skills** switch only while **Allow user-created skills** is on.
+
+A [group's permission policy](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies) has the same switch, and its setting overrides the organization's setting for that group.
+
+You can also turn on scanning in these ways:
+
+* Set [`skillScanningEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillscanningenabled) to `true` in the [MDM profile](https://claude.com/docs/third-party/claude-desktop/mdm.md) or the [bootstrap response](https://claude.com/docs/third-party/claude-desktop/bootstrap.md). A device that the console or a bootstrap server manages [ignores](https://claude.com/docs/third-party/claude-desktop/admin-console.md#which-settings-apply-on-a-device-with-a-managed-profile) the MDM profile's value for this setting.
+* Turn on the same switch under **Capabilities** in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md), then click **Apply Changes**. The change takes effect after the app relaunches.
+
+Changes from the console, a bootstrap server, or MDM take effect at the app's next [configuration check](https://claude.com/docs/third-party/claude-desktop/admin-console.md#configuration-updates), and users don't have to relaunch the app.
+
+### How a scan works
+
+The app sends the text of the skill's files to a Claude model on your organization's own inference provider, using the same credential that the user's sessions use.
+
+How well a scan detects a malicious skill depends on the model that runs it. A scan runs on one model from your organization's [model list](https://claude.com/docs/third-party/claude-desktop/models.md#model-list-and-default-model). Claude Desktop prefers an Opus model, then a Sonnet model, then a Haiku model, but only among the models it can recognize. It recognizes a model when the model ID contains "opus", "sonnet", or "haiku", or when you set `anthropicFamilyTier` on that model in [`inferenceModels`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodels). If your model IDs are a gateway's route names, Claude Desktop may not recognize them, so set `anthropicFamilyTier` on each model. If Claude Desktop recognizes none of your models, it still runs the scan on another model from the list.
+
+Your organization pays its inference provider for scans. A scan's tokens count toward the user's [token limit](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemaxtokensperwindow).
+
+A scan ends in one of these results:
+
+* **Pass**: the user can use the skill.
+* **Caution**: the scan found something that could be unsafe but couldn't confirm that the skill is unsafe. The user can use the skill.
+* **Blocked**: the skill failed the scan, and the user can't use it. The user can correct the skill and upload it again, which starts a new scan.
+* **Not reviewed**: the scan didn't produce a result, and the user can't use the skill. This happens, for example, when the provider returns an error or the user is over their token limit. Once the cause is fixed, the user can click **Retry** on the skill's page.
+
+Neither a user nor an administrator can approve a blocked skill. Turning scanning off doesn't unblock it. But while scanning is off, a user who edits a **Blocked** or **Not reviewed** skill, or uploads it again, can use it, because the app no longer scans it.
+
+The Enterprise Admin Console doesn't show scan results. To collect them, set [`otlpEndpoint`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint). Claude Desktop then sends scan records to your own [OpenTelemetry collector](https://claude.com/docs/third-party/claude-desktop/telemetry.md#sending-telemetry-to-your-own-collector) as log records whose body is `custom3p_skill_scan_completed`. It sends no scan records while [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `off`. A scan record identifies the user and includes the skill's name, the result, and the model's summary of the skill when there is one. The summary can quote the skill, and Claude Desktop sends it even when [content capture](https://claude.com/docs/third-party/claude-desktop/telemetry.md#content-capture) is off. To keep the summary out of your backend, drop the `scan_summary` attribute in the collector.
+
+### What skill scanning doesn't cover
+
+Besides plugins, the app doesn't scan these:
+
+* Skills that users saved before you turned on scanning. The app scans such a skill the next time the user saves it.
+* Changes that someone makes directly to a skill's files on disk.
+* Files inside a skill that the scan skips because of their file names, for example PNG and JPEG images, PDFs, and dependency lock files such as `package-lock.json`. The scan doesn't look at what is in these files, so it doesn't read a script that is saved as `logo.png`.
+* Skills that aren't saved in the app at all, for example [Claude Code skills](https://code.claude.com/docs/en/skills) in `.claude/skills` folders on the device. A [Code session](https://claude.com/docs/third-party/claude-desktop/code.md) in Claude Desktop loads those skills too.
+
+A pass means that the scan found no sign that the skill is malicious. It isn't a guarantee that the skill is safe.
+
 ## Related topics
 
 > **[Code](https://claude.com/docs/third-party/claude-desktop/code.md)**

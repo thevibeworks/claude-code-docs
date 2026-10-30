@@ -33,7 +33,7 @@ Within the application-data directory:
 | Path | Contents |
 | - | - |
 | `ant-did` | The random device identifier described above. |
-| `configLibrary/` | Locally authored configuration (from the in-app configuration window). `_meta.json` records which saved configuration is applied; each is a `<id>.json` file alongside it. Ignored when a managed profile is present. |
+| `configLibrary/` | Locally authored configuration (from the in-app configuration window). `_meta.json` records which saved configuration is applied; each is a `<id>.json` file alongside it. API keys in these files are encrypted (see [Credentials](#credentials)). Ignored when a managed profile is present. |
 | `local-agent-mode-sessions/.../cowork_account_settings.json` | User-level preferences set in the app, such as locale, the memory toggle, and the text entered under **Instructions for Claude** and **Global instructions**. |
 | `local-agent-mode-sessions/` | Cowork and Chat conversation history. One `local_<uuid>.json` file plus a working directory per session, scoped by the `ant-did` device identifier and the organization ID, not by who is signed in to the app. The working directory includes an `uploads/` subdirectory with copies of files attached to the conversation and an `outputs/` subdirectory for files Claude creates. |
 | `local-agent-mode-sessions/.../memory/` | Cowork memory: a `CLAUDE.md` instructions file plus a `memory/` subdirectory of Markdown notes Claude writes about the user's preferences, projects, and feedback. See [Memory](#memory). |
@@ -45,7 +45,7 @@ Within the application-data directory:
 | `cowork_plugins/` | User-installed and [org-provisioned](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin) plugins. Created on first plugin install. |
 | `IndexedDB/`, `Local Storage/`, `Session Storage/` | Renderer-side UI state (window layout, recent folders, preferences). |
 
-Files in this directory are written with owner-only permissions so other OS accounts on the same machine cannot read them. The app encrypts stored sign-in tokens and similar secrets with the operating system's secure storage (see [Credentials](#credentials)), but not conversations, settings, or locally applied configuration, including an API key saved from the in-app configuration window. Protection at rest for those files depends on the device's full-disk encryption, such as FileVault or BitLocker.
+Files in this directory are written with owner-only permissions so other OS accounts on the same machine cannot read them. The app encrypts stored sign-in tokens, API keys saved from the in-app configuration window, and similar secrets with the operating system's secure storage (see [Credentials](#credentials)). It doesn't encrypt conversations, settings, or the rest of the locally applied configuration. Protection at rest for those files depends on the device's full-disk encryption, such as FileVault or BitLocker.
 
 The logs directory contains `main.log` (application and configuration-validation events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
@@ -77,6 +77,7 @@ Deleting a conversation's session state file and working directory removes all o
 Inference credentials are handled according to how they're delivered:
 
 * **Managed configuration** (for example, `inferenceGatewayApiKey`, `inferenceBedrockBearerToken`): read from the OS preference store or registry at launch and held in memory. The app also writes resolved credentials to a small set of transient, owner-only files for its own session processes, described below.
+* **API keys saved in the in-app configuration window**: stored in the `configLibrary/` files, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows, GNOME Keyring or KWallet on Linux). Requires Claude Desktop 4.4212.0 or later, which also encrypts a key that an earlier version saved, the next time the app launches. See [Unreadable saved API keys](#unreadable-saved-api-keys).
 * **OAuth tokens** (in-app Google sign-in, MCP servers with `oauth: true`): stored in the application-data directory, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows).
 * **Credential-helper output**: held in memory for `inferenceCredentialHelperTtlSec` seconds, then discarded and re-fetched.
 
@@ -86,23 +87,56 @@ Parts of each session run as separate processes: the sandbox VM for Cowork sessi
 
 | Path (within the application-data directory) | Contents | Lifecycle |
 | - | - | - |
-| `host-creds-<random-id>.json` | The resolved inference credential (bearer token or API key, plus the endpoint), as environment values for background Claude Code worker processes. Written atomically with owner-only permissions (mode `0600` on macOS; per-user ACLs on Windows). | Rewritten on each credential refresh; deleted when the app quits; leftovers from a crash are removed at the next launch. The random path segment is regenerated when you sign out of the inference provider or its credentials are rotated, so a process holding the old path loses access. |
+| `host-creds-<random-id>.json` | The resolved inference credential (plus the endpoint), as environment values for background Claude Code worker processes. The app writes it for credentials that it renews, such as a sign-in token or credential-helper output. Before Claude Desktop 4.29.0, the app also wrote it for a static API key or bearer token. Written atomically with owner-only permissions (mode `0600` on macOS; per-user ACLs on Windows). | Rewritten on each credential refresh; deleted when the app quits; leftovers from a crash are removed at the next launch. The random path segment is regenerated when you sign out of the inference provider or its credentials are rotated, so a process holding the old path loses access. |
 | `ccd-session-secrets/<session-id>/` | File-based credentials for Code sessions: Google Cloud application default credentials for Google Cloud's Agent Platform, or AWS configuration files for Amazon Bedrock. The directory is created with owner-only permissions (mode `0700` on macOS; per-user ACLs on Windows). | Created when the session starts; removed when the session ends; the whole directory is swept before the next Code session starts and when you sign out of the inference provider. |
 | Per-session working directory | For Cowork sessions, the same file-based credentials (Google Cloud's Agent Platform and Amazon Bedrock) are written into the session's working directory. | Scoped to the session; removed with the session directory. |
 
 Aside from these files, credentials delivered through managed configuration are held in memory only.
 
+### Unreadable saved API keys
+
+An encrypted API key can be decrypted only through the secure storage of the OS user account that saved it, so a copy of the `configLibrary/` files alone can't be decrypted elsewhere. Where that account's secure storage moves with the user, for example in a Windows roaming profile that carries the user's DPAPI keys, the key also decrypts on the other device.
+
+When Claude Desktop can't decrypt the key that its connection uses, it shows the banner **Claude can’t read your saved key** and doesn't start sessions. The saved file stays as it is.
+
+Have the user enter the key again in the in-app configuration window, then restart the app, after any of these:
+
+* **The data moves without its secure storage**: the application-data directory is copied or restored to another device or another OS user account
+* **A Windows profile changes**: the profile is rebuilt, roams without the user's DPAPI keys, or belongs to a local account whose password an administrator reset
+* **The macOS login keychain is reset**
+* **The desktop environment changes on Linux**: a key saved under GNOME Keyring can't be decrypted in a KDE session, or the reverse
+* **The app is rolled back**: versions earlier than Claude Desktop 4.29.0 send the encrypted text as the key, and the provider refuses it
+
+These cases call for something else:
+
+* **Windows profiles that don't keep the user's DPAPI keys between sign-ins**: the user has to enter the key at each sign-in, so deliver the key through managed configuration instead
+* **Secure storage that isn't available as the app launches**: a restart alone is enough. For example, this happens on Linux when the app starts at login before the keyring does, and on macOS when the user dismisses the keychain prompt.
+* **Devices with no secure storage that the app can use**, such as Linux without GNOME Keyring or KWallet: the key stays unencrypted, and the configuration window shows **This key is saved unencrypted on this computer.** under the key
+* **Tools that read or write the `configLibrary/` files**: a tool that reads the key gets the encrypted value. A tool that writes an unencrypted key still works, and the app encrypts that key the next time it launches.
+
 ## Automatic deletion of idle sessions
 
 By default, chats, Cowork tasks, and Code sessions stay on the device until the user deletes them. To delete them after a period without activity, set [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays), [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays), or [`codeSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#codesessionretentiondays) to a number of days from 1 to 3650. Each key covers one kind of session, and a kind you leave unset is kept until the user deletes it. Idle time counts from the session's last activity, and pinned sessions are not exempt.
 
-With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a conversation started from the home screen where Cowork is on and the device can run it is a Cowork session. `coworkSessionRetentionDays` covers it along with users' other Cowork tasks, and `chatSessionRetentionDays` still covers Chat conversations. While `coworkSessionRetentionDays` is unset, neither key deletes a home-screen conversation that is a Cowork session, even if `chatSessionRetentionDays` is set. If you use `chatSessionRetentionDays`, keep it and set `coworkSessionRetentionDays` as well.
+With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a conversation started from the home screen on a device that can run Cowork is a Cowork session. `coworkSessionRetentionDays` covers it along with users' other Cowork tasks, and `chatSessionRetentionDays` still covers Chat conversations. While `coworkSessionRetentionDays` is unset, neither key deletes a home-screen conversation that is a Cowork session, even if `chatSessionRetentionDays` is set. If you use `chatSessionRetentionDays`, keep it and set `coworkSessionRetentionDays` as well.
 
-The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host aren't affected. A session that is running or open on screen is skipped until a later pass.
+The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host aren't affected. A session that is running or open on screen is skipped until a later pass. On a device that gets its configuration from a server, the app stops deleting idle sessions shortly after it loses contact with that server.
 
-### What a legal hold stops
+### Keep sessions for some users
 
-To stop the [automatic deletion of idle sessions](#automatic-deletion-of-idle-sessions) for some users, for example under a legal hold, set [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) to `true` for them. While the hold is on, `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` delete nothing. They also delete nothing on a device that gets its configuration from a server and can't reach that server. All four keys require Claude Desktop 1.52386.0 or later.
+> [!WARNING]
+>
+> `sessionRetentionHold` is deprecated. Claude Desktop stops reading it at 12:00 PM Pacific Time on December 17, 2026. From then on, the app deletes the idle sessions of the users it covers, under the periods that are set for them. Deleted sessions can't be recovered.
+>
+> If you use `sessionRetentionHold`, change `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` for the same users before that date, or now if it has passed, as described under [Keep sessions for some users](#keep-sessions-for-some-users). Once their devices have the change, remove `sessionRetentionHold`.
+
+To keep some users' idle sessions from being deleted, for example under a legal hold, change `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` for those users. Make the change in the source that their devices get their configuration from:
+
+* **[Bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or [MDM profile](https://claude.com/docs/third-party/claude-desktop/mdm.md)**: if those users' devices use a bootstrap server, make the change in the server's response, because the app then ignores these keys in the MDM profile. Set the three keys to `3650`, the longest period, or leave them out, which keeps sessions until the user deletes them.
+* **[Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: set the three keys to `3650` in a [per-group permission policy](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies) for those users' group. Rank that policy above their other policies. If the policy leaves a key out, those users keep the period that they had.
+* **[Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway)**: set the three keys to `3650` in the `desktop` block of a policy that matches only those users, and put that policy before every other policy that matches them. A user gets only the [first policy that matches them](https://code.claude.com/docs/en/claude-apps-gateway-config#managed), so copy in any other settings that they need. A policy that leaves a key out [takes the catch-all policy's value](https://code.claude.com/docs/en/claude-apps-gateway-config#claude-desktop-overlay).
+
+A running app finds a change on a server at its next [configuration check](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect) (every 10 minutes by default), and a change to an MDM profile once the profile reaches the device. It then stops deleting under the old period, without a restart. Until then, it can still delete sessions under the old period.
 
 Other deletions continue, such as these:
 
@@ -138,6 +172,7 @@ On devices that get their managed configuration from MDM, you can move a user to
 Ask the user to:
 
 * Sign in to the inference provider, if the app asks
+* Enter the provider API key again, if the user saved it in the in-app configuration window (see [Unreadable saved API keys](#unreadable-saved-api-keys))
 * Reconnect each connector
 * Enter the environment variables for Code sessions from their original source, because the app masks saved values
 * In each project they use from Chat, use **Choose a folder > Choose a different folder** to select the same folders again

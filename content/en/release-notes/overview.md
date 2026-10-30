@@ -12,6 +12,15 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
   For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### October 29, 2026
+
+* We’ve launched the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) in beta with the `analytics-usage-cost-2026-08-24` beta header. Its `/v1/organizations/analytics/usage` and `/v1/organizations/analytics/cost` endpoints report token usage and cost for Claude Console and Claude Enterprise organizations. You can filter and group results by dimensions such as model, workspace, API key, and the user or service account behind each request.
+* The [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) is now a legacy API, and so are the `usage_report`, `cost_report`, `user_usage_report`, and `user_cost_report` endpoints of the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api). All of them remain supported. To move an existing integration, see [Migrate from the Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api#migrate-from-usage-cost-api) or [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api#migrate-from-enterprise-analytics-reports).
+
+### October 28, 2026
+
+* We’ve raised the [maximum request size](https://platform.claude.com/docs/en/api/overview#request-size-limits) for the Messages API and the Token Counting API from 32 MB to 128 MB on the first-party Claude API.
+
 ### October 23, 2026
 
 * The [Claude Tag API](https://platform.claude.com/docs/en/manage-claude/claude-tag-api) is available in beta for Claude Enterprise organizations with the `experimental-claude-tag-2026-10-21` beta header. Its `/v1/organizations/claude_tag/` endpoints read and change [Claude Tag](https://claude.com/docs/claude-tag/overview) settings on Slack channels and Slack workspaces, show which settings apply in a channel and where each comes from, and attach Access bundles. Call it with an Admin API key that your primary owner creates in claude.ai with the `read:claude_tag` or `write:claude_tag` scope. It is not available to Claude Platform (Claude Console) organizations.

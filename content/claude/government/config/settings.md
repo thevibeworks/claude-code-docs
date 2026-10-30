@@ -14,12 +14,10 @@ Where **Applies to** gives a version, earlier versions ignore the setting. The *
 
 ## Product availability
 
-These switches control which Claude products and features are available to members.
-
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
 | **Claude Desktop** | Makes Claude Desktop available. | On | Claude Desktop |
-| **Claude Desktop home** | Chooses what members see in Claude Desktop: **Standard**, **Simple**, **Chat only**, or **Off**. **Separate settings** leaves it to the Chat, file analysis, and Cowork switches. | **Separate settings** | Claude Desktop 1.52386.0 or later |
+| **Claude Desktop home** | Chooses what members see in Claude Desktop: **Standard** (Chat and Cowork combined), **Simple** (Chat), **Chat only** (Chat without Advanced file analysis), or **Off** (Code only). **Separate settings** leaves it to the Chat, file analysis, and Cowork switches. Any other choice your agency makes overrides them, unless a level above has locked one. | Set by Anthropic | Claude Desktop 1.52386.0 or later |
 | **Chat in Claude Desktop** | Lets members chat with Claude in Claude Desktop, for quick questions and drafting. Without Chat, members cannot open their existing chats. | On | Claude Desktop |
 | **Advanced file analysis in Chat** | Lets Claude run code in a sandbox for data analysis in Chat. Only takes effect where **Shell commands** and **Chat in Claude Desktop** are both on. Without this setting, Claude cannot read Word, Excel, or PowerPoint files that members attach in Chat. | On | Claude Desktop |
 | **Cowork in Claude Desktop** | Lets members give Claude longer tasks, such as research, analysis, and drafting documents, which it works through on its own in Claude Desktop. Without Cowork, members cannot continue their Cowork tasks. | On | Claude Desktop |
@@ -30,7 +28,7 @@ These switches control which Claude products and features are available to membe
 
 Turning off **Claude Desktop**, **Claude Code**, or **Claude for Microsoft 365** stops the members the setting applies to from using that application. An organization cannot turn on a product that the tenant has turned off. These switches turn applications off, not accounts, and are not a security boundary: to cut one member off from everything at once, deactivate their account (see [Deactivated users](https://claude.com/docs/government/org-admin/users.md#deactivated-users)).
 
-The **Claude Desktop home** row appears once your agency has access to it, and it then holds the Chat, Advanced file analysis, and Cowork switches. A choice other than **Separate settings** overrides those switches, unless a level above has locked one. If you choose **Off**, keep Code turned on, or Claude Desktop has nothing to open. Under **Separate settings**, if Chat, Cowork, and Code are all turned off, Claude Desktop keeps Cowork on.
+From November 10, 2026, members whose settings give them Cowork get the [**Standard** home](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#what-users-see-with-unified-claude) in Claude Desktop 4.29.0 or later, even where Chat or Advanced file analysis is off. To change the home, use the **Config** page, not `desktopHome` in a device management profile.
 
 ## Sessions and access
 

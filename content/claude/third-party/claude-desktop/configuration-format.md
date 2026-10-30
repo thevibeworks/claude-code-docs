@@ -6,7 +6,7 @@
 
 > Compare where Claude Desktop on 3P reads configuration in each kind of deployment, and write values for a profile, the registry, or the Linux file
 
-You configure Claude Desktop on third-party (3P) with the keys in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) in every kind of deployment, but where you set them, how they reach the app, and how you write their values differ between a device's own configuration, the Enterprise Admin Console, and a self-hosted install.
+You configure Claude Desktop on third-party (3P) with the keys in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) in every kind of deployment, but where you set them, how they reach the app, and how you write their values differ between a device's own configuration and the Enterprise Admin Console.
 
 > [!NOTE]
 >
@@ -16,13 +16,13 @@ You configure Claude Desktop on third-party (3P) with the keys in the [configura
 
 Each kind of deployment stores and delivers the configuration differently.
 
-| | [Configuration on the device](#configuration-on-the-device) | [Enterprise Admin Console](#configuration-from-the-enterprise-admin-console) | [Self-hosted install](#configuration-on-a-self-hosted-install) |
-| - | - | - | - |
-| Where the configuration lives | In an MDM profile or registry policy, in the local configuration file, or on a bootstrap server that the device points to | In your organization's settings on claude.ai, which Anthropic hosts | Keys labeled **Server side** live in the document your session host reads. Keys labeled **MDM profile** live in Claude Desktop's own configuration on the device |
-| How it reaches the app | The app reads it at launch, or fetches it from your bootstrap server. Users don't sign in to a Claude account | Each user signs in with their work account, and the app downloads the settings that apply to them | Sessions run on a session host your organization operates, which applies a **Server side** key itself or passes it on to Claude Desktop. Claude Desktop reads keys labeled **MDM profile** from the device, as on any device |
-| What an MDM profile does | Carries the full configuration, or the bootstrap keys | You don't need one. A profile on the device can still decide some settings, or keep the device off the console. See [What an MDM profile does alongside the Enterprise Admin Console](#what-an-mdm-profile-does-alongside-the-enterprise-admin-console) | Usually names the session host, and carries the keys labeled **MDM profile**. See [What an MDM profile does on a self-hosted install](#what-an-mdm-profile-does-on-a-self-hosted-install) |
-| How you write values | Strings in a macOS profile or the Windows registry. JSON in the Linux file or a bootstrap response | Fields on the console's pages, or JSON in an imported file or an Admin API request | As on any device, for keys labeled **MDM profile**. See [Value types in a profile or registry policy](#value-types-in-a-profile-or-registry-policy) |
-| Where to go next | [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md), [Deploy with a bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) | [Deploy with Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) | [Keys that work on a self-hosted install](https://claude.com/docs/third-party/claude-desktop/configuration.md?works-with=self-hosted) |
+| | [Configuration on the device](#configuration-on-the-device) | [Enterprise Admin Console](#configuration-from-the-enterprise-admin-console) |
+| - | - | - |
+| Where the configuration lives | In an MDM profile or registry policy, in the local configuration file, or on a bootstrap server that the device points to | In your organization's settings on claude.ai, which Anthropic hosts |
+| How it reaches the app | The app reads it at launch, or fetches it from your bootstrap server. Users don't sign in to a Claude account | Each user signs in with their work account, and the app downloads the settings that apply to them |
+| What an MDM profile does | Carries the full configuration, or the bootstrap keys | You don't need one. A profile on the device can still decide some settings, or keep the device off the console. See [What an MDM profile does alongside the Enterprise Admin Console](#what-an-mdm-profile-does-alongside-the-enterprise-admin-console) |
+| How you write values | Strings in a macOS profile or the Windows registry. JSON in the Linux file or a bootstrap response | Fields on the console's pages, or JSON in an imported file or an Admin API request |
+| Where to go next | [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md), [Deploy with a bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) | [Deploy with Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) |
 
 ## Configuration on the device
 
@@ -126,36 +126,3 @@ From the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-d
 * **Any other key**: the device uses the profile's configuration until its user moves the device to the console's configuration by signing in, which requires Claude Desktop 2.37337.0 or later. With `forceLoginOrgUUID` set to your organization's ID, the user can move the device only to your organization's configuration. After the move, the app still takes a few keys from the profile, for example the network proxy keys. Other settings come from the console, and the profile's values don't apply even where the console leaves a setting unset.
 
 [Which settings apply on a device with a managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#which-settings-apply-on-a-device-with-a-managed-profile) lists the keys that the app takes from the profile, and [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile) covers the keys that prevent or limit the move.
-
-## Configuration on a self-hosted install
-
-On a self-hosted install, sessions run on a session host that your organization operates and not on the person's device. Each key's label in the reference says which place in the following table counts for it.
-
-| Place | Label of its keys in the reference | Who acts on the key |
-| - | - | - |
-| The document your session host reads | **Server side** | The session host. It applies the key itself, or passes it on to Claude Desktop, which applies it in its own windows or on the person's device. |
-| Claude Desktop's own configuration on the device: an MDM profile, the local file, or a bootstrap server that configuration names | **MDM profile** | Claude Desktop, by the same rules as [configuration on the device](#which-configuration-source-applies-on-a-device). The session host ignores the key. |
-| The session host's own configuration | **Not supported**, for the matching keys | Whoever runs the host sets the host's route to the model, and names your telemetry collector's address, protocol, and headers in the host's own configuration. |
-
-An MDM profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) decides all of those keys itself, whatever their label. Outside that case, nothing acts on a key labeled **Not supported**, wherever you set it.
-
-The label is what the current Claude Desktop release declares. On that release, a session host acts on a **Server side** key only from the host version that reads it. Until then, unless an MDM profile sets only app-behavior keys, nothing applies the key, and Claude Desktop doesn't fall back to a value set on the device. An earlier Claude Desktop release can still apply a value set on the device, so keep a restriction in the MDM profile as well until every device runs the current release.
-
-Each key's entry in the reference gives its label and a one-line reason. The [published schemas](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#response-schema) carry the self-hosted word (`server`, `reported`, `client`, or `none`) and its reason in `x-selfHosted` for each key they list. The [legend for the self-hosted labels](https://claude.com/docs/third-party/claude-desktop/configuration.md#self-hosted-column) defines the labels and maps each word to its label.
-
-### What an MDM profile does on a self-hosted install
-
-The MDM profile usually names the session host, and carries the keys labeled **MDM profile**. Each of those keys is about the person's device, as its reason in the reference says. For example:
-
-* **Sign-in to the session host**: on a self-hosted install [`inferenceCredentialKind`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialkind) names the device's sign-in to the host, never the host's model credential, and [`inferenceIdpOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceidpoidc) configures the sign-in that the device reuses for the host.
-* **The device's network proxy**: [`egressProxyUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#egressproxyurl) and [`egressProxyPacUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#egressproxypacurl).
-* **Telemetry and updates**: [`disableEssentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) and [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates).
-
-Write each value in the profile as [Value types in a profile or registry policy](#value-types-in-a-profile-or-registry-policy) describes.
-
-### When a change takes effect on a self-hosted install
-
-* **A key in the session host's document**: the host refreshes its own copy at least every [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) (10 minutes by default) and tells Claude Desktop how often to ask it again.
-* **A key on the device**: as on any device. The re-check interval and the restart window are themselves **Server side** keys, so the session host's document sets them, unless an MDM profile sets only app-behavior keys. See [When a configuration change on a device takes effect](#when-a-configuration-change-on-a-device-takes-effect).
-
-A value that the session host delivers for a field labeled **Consent required** applies after the user approves it. Where machine-scoped device management set the host's address, the value applies without a prompt. [`trustBootstrapDelivery`](https://claude.com/docs/third-party/claude-desktop/configuration#trustbootstrapdelivery) covers what a bootstrap server delivers, not what a session host delivers.
