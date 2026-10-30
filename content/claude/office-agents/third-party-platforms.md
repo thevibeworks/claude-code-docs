@@ -9,8 +9,11 @@
 Organizations using Amazon Bedrock, Google Cloud Vertex AI, Azure AI
 Foundry, or an LLM gateway can deploy Claude's Office add-ins without
 requiring individual Claude accounts. The add-in connects through your
-organization's infrastructure, keeping prompts and responses within your
-trust boundary.
+organization's infrastructure, sends prompts to the provider your
+organization chooses, and receives Claude's responses from it. See
+[What Anthropic collects](#what-anthropic-collects) for what reaches
+Anthropic on Amazon Bedrock, Google Cloud Vertex AI, and Azure AI
+Foundry.
 
 ## Connection paths
 
@@ -113,9 +116,11 @@ AI Foundry.
 | `oauth2.googleapis.com` | If using Vertex AI direct | Google OAuth token exchange and refresh. |
 | `aiplatform.googleapis.com` | If using Vertex AI direct | Vertex AI global inference endpoint. |
 | `<region>-aiplatform.googleapis.com` | If using Vertex AI direct | Vertex AI regional inference endpoint; replace `<region>` with your GCP region. |
+| `aiplatform.us.rep.googleapis.com`, `aiplatform.eu.rep.googleapis.com` | If using Vertex AI direct with region `us` or `eu` | Vertex AI multi-region inference endpoints. |
 | `<resource>.services.ai.azure.com` | If using Foundry direct | Azure AI Foundry inference endpoint; replace `<resource>` with your resource name. |
 | Your Vertex AI gateway URL | If using Vertex AI direct through your own gateway | The gateway or proxy set in `gcp_base_url`. Connections made while it is set do not call `aiplatform.googleapis.com` or `<region>-aiplatform.googleapis.com`. Google sign-in still uses `accounts.google.com` and `oauth2.googleapis.com`. |
 | Your Foundry gateway URL | If using Foundry direct through your own gateway | The gateway or proxy set in `azure_base_url`. Connections made while it is set do not call `<resource>.services.ai.azure.com`. |
+| Your MCP server URLs | If using connectors | The remote MCP servers listed in `mcp_servers`. The task pane calls them directly from the user's machine, so each must allow CORS for `https://pivot.claude.ai`. For servers that use OAuth sign-in, the same applies to their authorization server. |
 | `graph.microsoft.com` | If using Outlook | Microsoft Graph mailbox and calendar API. |
 
 If Anthropic serves your add-in settings from your Claude organization,
@@ -126,7 +131,7 @@ also allow `claude.ai`, `api.anthropic.com`, `hcaptcha.com`, and
 `claude.ai`, and the add-in reads your organization's settings from
 `api.anthropic.com`. The `claude.ai` sign-in and approval pages run an
 hCaptcha browser check. Inference still goes only to the gateway or cloud
-provider those settings name.
+provider the add-in connects to.
 
 ## Deploy the add-in for your organization
 
@@ -294,6 +299,46 @@ instead; a statement without a resource behaves exactly like
 `/claude-for-msft-365-install:access-policies` commands document both
 keys in full.
 
+### Skill limits for a bootstrap endpoint
+
+A bootstrap endpoint can return a `skills` array of admin-provisioned
+skills. The add-in applies these limits to each response.
+
+| Limit | Value |
+| - | - |
+| Skills kept | The first 20 skill names, in array order. No setting changes this number. Uploaded and built-in skills don't count toward it. |
+| Repeated names | One skill for each name: the last entry with that name, in the position of the first. |
+| Skill `url` | HTTPS, no redirects, CORS for `https://pivot.claude.ai`, and 15 seconds for each download. |
+| Bootstrap call | 10 seconds in total to get the user's Microsoft Entra token, when the add-in uses one, and to receive the response. This limit applies to each bootstrap call, except the call made when the add-in sets up a new connection, for example at first use or after a sign-out. |
+
+If a skill fails to load, the add-in doesn't replace it with a later
+skill. To see which skills failed to load, select the + button at the
+bottom of the chat pane, and then select Skills. A note at the top of the
+list names up to three of those skills and gives the number of any others.
+
+If a bootstrap call takes more than 10 seconds when the add-in
+loads with an existing connection, the add-in has no admin-provisioned
+skills until a later bootstrap call succeeds.
+
+To stay within these limits:
+
+* Put the most important skills first.
+* Return a different list for each app. The `X-Claude-User-Agent` header
+  on each bootstrap call starts with `claude-word`, `claude-excel`,
+  `claude-powerpoint`, or `claude-outlook`.
+* Use `url` instead of inline `content` for large skills. Inline content
+  is part of the bootstrap response, so it counts toward the 10 seconds.
+  The add-in downloads skill URLs after the bootstrap call, and only for
+  the skills that it keeps.
+
+If a response holds more than 20 different skill names, the add-in sends
+the warning log record `Bootstrap skill count exceeds cap — truncating`
+to your [OpenTelemetry collector](https://claude.com/docs/office-agents/opentelemetry.md) at
+`{your_url}/v1/logs`. Your collector might not receive this record for
+the bootstrap call made when the add-in sets up a new connection. On that
+record, `count` is the number of different skill names in the response,
+and `cap` is the limit, 20.
+
 ### Deploy to Outlook
 
 Outlook requires a separate manifest file from Excel, PowerPoint, and
@@ -366,9 +411,11 @@ Anthropic can serve the add-in's configuration to the members of a
 Claude organization directly, in place of manifest parameters, Microsoft
 Entra ID attributes, or a bootstrap endpoint. Members sign in with the
 add-in's standard "Log in" button and their Claude account. The add-in
-then reads the organization's settings from Anthropic and connects to
-the gateway or cloud provider those settings name. Prompts and responses
-still travel only to that provider, never to Anthropic.
+then reads the organization's settings from Anthropic and fills in the
+connection screen with them. Prompts and responses still travel only to
+the gateway or cloud provider the add-in connects to. What reaches
+Anthropic then depends on the provider, as
+[What Anthropic collects](#what-anthropic-collects) describes.
 
 This option is in preview. It works in Anthropic's preview environments
 and is not yet enabled for production organizations. Members need the
@@ -390,11 +437,10 @@ needed.
    verify your organization's sign-in."
 3. After the reload, the add-in reads the organization's settings from
    `api.anthropic.com` and opens the connection screen with the served
-   values filled in, such as the gateway URL, API format, authorization
-   header, and available models. When the served settings include every
-   value the connection needs, the add-in connects without further
-   input. Otherwise the member enters the missing value, typically the
-   gateway token from your IT team, and connects.
+   values filled in, such as the gateway URL. When the served settings
+   include every value the connection needs, the add-in connects without
+   further input. Otherwise the member enters the missing value,
+   typically the gateway token from your IT team, and connects.
 4. While the member stays signed in, the add-in reads the served
    settings again at each launch and periodically while it runs, so
    changes an admin makes apply without redeploying the manifest.
@@ -407,11 +453,26 @@ bootstrap endpoint, including the keys described in
 [Admin feature controls](#admin-feature-controls). A few rules are
 specific to this path:
 
-* **Single source**: for a member signed in this way, the served
-  document is the only configuration source. The add-in does not merge
-  it with manifest parameters, Entra ID attributes, or a bootstrap
-  endpoint, and nothing from the task pane URL fills a key the served
-  document leaves out.
+* **Connection values**: for a member signed in this way, the add-in
+  fills in the connection screen from the served settings, not from
+  manifest parameters, Entra ID attributes, or a bootstrap endpoint.
+* **Other connection paths**: on the connection screen, the member can
+  select another [connection path](#connection-paths) and enter their
+  own values. The add-in then sends prompts to the provider the member
+  chose.
+* **Supported providers**: served settings can name an LLM gateway,
+  Bedrock, Vertex AI, or Foundry as the inference provider.
+* **Unsupported settings**: if served settings name Bedrock Mantle or
+  set a Bedrock base URL, the add-in makes no new connection. A member
+  who is already connected keeps that connection until they sign out. A
+  member who isn't connected yet sees the connection screen without its
+  fields, with Try again and Sign out actions. After you change the
+  served settings, the member selects Try again to load them. Until
+  then, the screen shows one of these messages:
+  * Bedrock Mantle: "This add-in can't use your organization's inference
+    provider. Let your IT team know."
+  * Bedrock base URL: "This add-in can't use your organization's Bedrock
+    base URL. Let your IT team know."
 * **Applied as delivered**: the add-in applies served settings the same
   way it applies manifest configuration, with no per-setting consent
   prompt. The Claude organization admin who edits served settings can
@@ -536,7 +597,7 @@ Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
 
 **2. Authenticate**
 
-For Bedrock (Excel, PowerPoint, and Word only), sign in with your
+For Bedrock, sign in with your
 Microsoft work account. The add-in uses your Entra ID token to
 assume the AWS role your admin
 configured, so no separate AWS credentials are needed.
@@ -893,14 +954,24 @@ timings, and error rates, so Anthropic can maintain and improve the
 add-in experience. They do not transmit your prompts or Claude's
 responses.
 
-Anthropic collects information in accordance with Amazon Bedrock, Google
-Cloud Vertex AI, or Microsoft Azure's terms, consistent with Anthropic's
-arrangements with customers. Anthropic does not have access to a
-customer's AWS, Google, or Microsoft instance, including prompts or
-outputs it contains. Anthropic does not train generative models with
-such content or use it for other purposes. Anthropic can access
-metadata such as tool use and token counts, and uses such metadata for
-analytic and product-improvement purposes.
+When the add-in uses Amazon Bedrock or Google Cloud Vertex AI, directly
+or through a gateway, Anthropic collects information in accordance with
+that platform's terms, consistent with Anthropic's arrangements with
+customers. Anthropic does not have access to a customer's AWS or Google
+instance, including prompts or outputs it contains. Anthropic does not
+train generative models with such content or use it for other purposes.
+Anthropic can access metadata such as tool use and token counts, and
+uses such metadata for analytic and product-improvement purposes.
+
+When the add-in uses Azure AI Foundry, directly or through a gateway,
+Anthropic operates the Claude models as an independent processor for
+Microsoft, and Anthropic's data use terms apply. For deployments hosted
+on Azure, prompts and responses stay within Azure, and only usage
+metadata and content flagged by Anthropic's safety systems reach
+Anthropic. For deployments hosted on Anthropic, prompts and responses are
+processed on Anthropic's infrastructure. See
+[Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
+for details.
 
 For details on what your organization's gateway or cloud provider logs,
 contact your IT team.
@@ -1045,27 +1116,31 @@ Anthropic. When you connect through a third-party platform, the add-ins
 send inference requests to your organization's infrastructure instead,
 and your IT team controls how that traffic is routed and logged.
 
-Some features that rely on a Claude account are not available through
-third-party platforms yet. Support is being added. A member who signs in
+Some features work differently through third-party platforms, and
+others aren't available. A member who signs in
 with a Claude account to an organization whose settings Anthropic
 serves is in the third-party platform column too, because inference
-goes to the organization's provider.
+goes to a gateway or cloud provider.
 
 | Feature | Claude account | Third-party platform |
 | - | - | - |
 | Chat with your spreadsheet, deck, document, or email | Yes | Yes |
 | Read and edit cells, slides, formulas, and document text | Yes | Yes |
 | Read, search, and triage your mailbox and calendar (Outlook) | Yes | Yes |
-| Connectors (S\&P, FactSet, and others) | Yes | Coming soon |
+| Connectors (S\&P, FactSet, and others) | Yes | Yes: remote MCP servers your admin configures. There's no connector directory, and users can't add their own. |
 | Working across apps | Yes | No |
 | Dictation | Yes | No |
-| Skills | Yes | Coming soon |
-| File uploads | Yes | No |
-| Web search | Yes | Vertex direct, Foundry direct, and gateways the add-in detects as routing to a Foundry-compatible upstream |
-| Code execution | Yes | Foundry direct, and gateways the add-in detects as routing to a Foundry-compatible upstream |
+| Skills | Yes | Yes: built-in skills, skills your admin provides, and skills users upload. |
+| File uploads | Yes | Yes, but uploaded files aren't available to code execution. |
+| Web search | Yes | Vertex AI direct, Foundry direct, and gateways the add-in detects as routing to Vertex AI, Foundry, or the Anthropic API, where the provider allows it. The add-in checks when it connects and when you change models. Not available on Bedrock. |
+| Code execution | Yes | Foundry direct, and gateways the add-in detects as routing to Foundry or the Anthropic API, where the provider allows it, checked the same way. Not available on Bedrock or Vertex AI. |
 
-If your team needs these features, talk to your Claude admin about
-which sign-in path fits your organization.
+On a gateway using `gateway_api_format: anthropic`, the add-in tells
+where requests go from the `id` in the gateway's response, so the gateway
+must pass the provider's response ID through unchanged.
+
+If your team needs a feature that isn't available on your path, talk to
+your Claude admin about which sign-in path fits your organization.
 
 ## Troubleshooting
 
@@ -1133,6 +1208,9 @@ prevents streaming responses from reaching the add-in.
 
 ### A feature I expected is not available
 
-Connectors, Skills, file uploads, dictation, and working across apps are
-not available through third-party platforms yet. If you need these, ask your
-admin about signing in with a Claude account instead.
+Dictation and working across apps aren't available through third-party
+platforms, and connectors are limited to the MCP servers your admin
+configures. If you need these, ask your admin about signing in with a
+Claude account instead. Web search and code execution depend on where
+your gateway or cloud provider sends requests; see
+[Differences from signing in with a Claude account](#differences-from-signing-in-with-a-claude-account).

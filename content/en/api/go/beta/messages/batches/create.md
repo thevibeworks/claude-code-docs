@@ -3954,6 +3954,26 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type BetaThinkingConfigAdaptiveParam`
 
+      - `Thread BetaMessageThreadParamUnion Optional`
+
+        Server-held conversation state (a Thread). `{"type": "create"}` asks the server to hold this conversation's state under the response's `id`; `{"type": "continue", "previous_message_id": ...}` resumes from a previous response so only the new turn's messages are sent. The response shape is unchanged.
+
+        - `type BetaThreadCreateParams`
+
+          Start holding conversation state under this response's `id`.
+
+          - `Type Create`
+
+        - `type BetaThreadContinueParams`
+
+          Resume from the response named by `previous_message_id`.
+
+          - `Type Continue`
+
+          - `PreviousMessageID string`
+
+            The `id` of the previous response in this Thread.
+
       - `ToolChoice BetaToolChoiceUnionParam Optional`
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
@@ -4264,6 +4284,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
+
+    - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
 
   - `UserProfileID param.Opt[string] Optional` (header parameter)
 

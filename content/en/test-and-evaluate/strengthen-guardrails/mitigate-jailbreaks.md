@@ -204,7 +204,7 @@ Combine strategies for robust protection. Here’s an enterprise-grade example w
   Evaluate if this query violates SEC rules, FINRA guidelines, or client privacy.
   ```
 
-  Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) to constrain the response to a Boolean classification.
+  Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) to constrain the response to a boolean classification.
 </Accordion>
 
 By layering these strategies, you create a robust defense against jailbreaking and prompt injections, ensuring your Claude-powered applications maintain the highest standards of safety and compliance.

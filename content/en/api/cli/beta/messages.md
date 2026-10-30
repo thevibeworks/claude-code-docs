@@ -197,6 +197,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=cli#configuring-thinking) for each model's behavior.
 
+- `--thread: optional BetaThreadCreateParams or BetaThreadContinueParams`
+
+  Server-held conversation state (a Thread). `{"type": "create"}` asks the server to hold this conversation's state under the response's `id`; `{"type": "continue", "previous_message_id": ...}` resumes from a previous response so only the new turn's messages are sent. The response shape is unchanged.
+
 - `--tool-choice: optional BetaToolChoiceAuto or BetaToolChoiceAny or BetaToolChoiceTool or BetaToolChoiceNone`
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
@@ -47270,6 +47274,28 @@ ant beta:messages count-tokens \
 
         - `"max"`
 
+### Beta Message Thread Param
+
+- `beta_message_thread_param: BetaThreadCreateParams or BetaThreadContinueParams`
+
+  Server-held conversation state (a Thread). `{"type": "create"}` asks the server to hold this conversation's state under the response's `id`; `{"type": "continue", "previous_message_id": ...}` resumes from a previous response so only the new turn's messages are sent. The response shape is unchanged.
+
+  - `beta_thread_create_params: object`
+
+    Start holding conversation state under this response's `id`.
+
+    - `type: "create"`
+
+  - `beta_thread_continue_params: object`
+
+    Resume from the response named by `previous_message_id`.
+
+    - `type: "continue"`
+
+    - `previous_message_id: string`
+
+      The `id` of the previous response in this Thread.
+
 ### Beta Message Tokens Count
 
 - `beta_message_tokens_count: object`
@@ -74794,6 +74820,26 @@ ant beta:messages count-tokens \
   - `value: number`
 
     minimum: 1
+
+### Beta Thread Continue Params
+
+- `beta_thread_continue_params: object`
+
+  Resume from the response named by `previous_message_id`.
+
+  - `type: "continue"`
+
+  - `previous_message_id: string`
+
+    The `id` of the previous response in this Thread.
+
+### Beta Thread Create Params
+
+- `beta_thread_create_params: object`
+
+  Start holding conversation state under this response's `id`.
+
+  - `type: "create"`
 
 ### Beta Token Task Budget
 

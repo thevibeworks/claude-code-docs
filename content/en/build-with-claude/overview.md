@@ -6,7 +6,7 @@ description: Explore Claude's advanced features and capabilities.
 
 For each feature’s eligibility under zero data retention (ZDR) and HIPAA readiness, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility).
 
-For administration and governance, see the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api), and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api).
+For administration and governance, see the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api).
 
 ## Platform features
 

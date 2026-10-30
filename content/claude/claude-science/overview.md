@@ -44,7 +44,7 @@ Your Claude Science usage counts toward the same usage limits as the rest of you
 
 You pay more than your plan's price only in these cases:
 
-* **Usage credits and extra usage.** On Pro and Max plans, you can turn on usage credits under **Settings > Usage** in Claude Science to keep working past your limits, and set a monthly spend limit there. Team plans call the same option extra usage, and your admin turns it on. In Claude Science it appears as **Usage credits**, but only Pro and Max plans can change it there. On Team and Enterprise plans, your admin sets spend limits. Some models need usage credits on some plans, and [Claude pricing](https://claude.com/pricing) lists which models each plan includes.
+* **Usage credits and extra usage.** On Pro and Max plans, you can turn on usage credits in your claude.ai settings to keep working past your limits. You can then turn off usage credits or change your monthly spend limit under **Settings > Usage** in Claude Science. Team plans call the same option extra usage, and your admin turns it on. In Claude Science it appears as **Usage credits**, but only Pro and Max plans can change it there. On Team and Enterprise plans, your admin sets spend limits. Some models need usage credits on some plans, and [Claude pricing](https://claude.com/pricing) lists which models each plan includes.
 * **Usage-based Enterprise plans.** Instead of fixed usage limits, your organization pays for usage on top of the seat price, within the spend limits your admin sets.
 * **Services you connect with your own account.** Services such as [Modal](https://claude.com/docs/claude-science/compute-providers.md) bill you directly. Anthropic doesn't bill for them.
 

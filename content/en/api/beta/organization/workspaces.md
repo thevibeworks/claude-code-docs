@@ -320,6 +320,10 @@ Create Workspace
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ### Body parameters
 
 - `name: string`
@@ -2372,6 +2376,10 @@ omitted from the results.
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 #### Returns
 
 - `data: array of BetaServiceAccountWorkspaceMember`
@@ -2580,6 +2588,10 @@ accounts cannot be added and are rejected.
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
 
 #### Body parameters
 
@@ -2806,6 +2818,10 @@ account returns 404.
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 #### Returns
 
 - `BetaServiceAccountWorkspaceMember object`
@@ -3007,6 +3023,10 @@ rejected.
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
 
 #### Body parameters
 
@@ -3226,6 +3246,10 @@ membership. Archived workspaces return 400.
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
 
 #### Returns
 

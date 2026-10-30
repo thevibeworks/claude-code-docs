@@ -289,7 +289,7 @@ Origin-pinned (A URL that a bootstrap server delivers must share the origin of b
 
 Since 1.2581.0
 
-**Vertex AI base URL.** PSC endpoint, if using one.
+**Vertex AI base URL.** Private Service Connect endpoint, if you use one.
 
 ***
 
@@ -309,7 +309,7 @@ Since 1.2581.0
 
 stringSince 1.2581.0
 
-**Vertex OAuth client secret.** Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config.
+**Vertex OAuth client secret.** Secret for the Desktop-app OAuth client above. Google does not treat such secrets as confidential, so the Admin Console can set it.
 
 ***
 
@@ -363,10 +363,10 @@ One of: `browser`, `broker`
 
 > **More detail**
 >
-> * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration; the same rules apply here.
-> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the workforce-pool IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceVertexWorkforceOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+> * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
+> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
 >
-> The GCP STS token-exchange step is unchanged in either flow; only how the Entra id\_token is acquired differs.
+> `broker` needs Microsoft Entra ID, with the `issuer` in `inferenceVertexWorkforceOidc` set to `https://login.microsoftonline.com/{tenant-id}/v2.0`. Add the redirect URIs listed under [Register the Entra ID application](https://claude.com/docs/third-party/claude-desktop/entra-broker.md#register-the-entra-id-application).
 
 ***
 
@@ -378,7 +378,7 @@ Consent required (A value that a bootstrap server or a self-hosted session host 
 
 Since 1.10628.0
 
-**Workforce Identity IdP (OIDC).** Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS.
+**Workforce Identity IdP (OIDC).** Your organization’s OpenID Connect identity provider. Users sign in there, and the app exchanges their ID token at GCP STS.
 
 > **Child attributes (9)**
 >
@@ -414,15 +414,15 @@ Since 1.10628.0
 >
 > **omitOfflineAccess** `boolean`
 >
-> Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires.
+> Turn on only if your identity provider rejects offline\_access on this client. Users then sign in again each time the token expires.
 >
 > **additionalRedirectReferrerHosts** `string`
 >
-> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+> Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
 > > **More detail**
 > >
-> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+> > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
 ***
 
@@ -434,7 +434,7 @@ Consent required (A value that a bootstrap server or a self-hosted session host 
 
 Since 1.2581.0
 
-**GCP credentials file path.** Absolute path to service-account JSON. Leave blank to fall back to ADC.
+**GCP credentials file path.** Full path to a service-account JSON file. Unset: Application Default Credentials.
 
 ***
 

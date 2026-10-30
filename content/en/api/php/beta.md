@@ -117,6 +117,10 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ### Beta API Error
 
 - `class BetaAPIError`
@@ -495,7 +499,7 @@ var_dump($page);
       "deprecated_at": "2019-12-27T18:11:19.117Z",
       "display_name": "Claude Opus 5.5",
       "lifecycle": "active",
-      "line": "haiku",
+      "line": "opus",
       "max_input_tokens": 0,
       "max_tokens": 0,
       "retires_at": "2019-12-27T18:11:19.117Z",
@@ -707,7 +711,7 @@ var_dump($betaModelInfo);
   "deprecated_at": "2019-12-27T18:11:19.117Z",
   "display_name": "Claude Opus 5.5",
   "lifecycle": "active",
-  "line": "haiku",
+  "line": "opus",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "retires_at": "2019-12-27T18:11:19.117Z",
@@ -719,7 +723,7 @@ var_dump($betaModelInfo);
 
 ### Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaMessageThreadParam thread, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -904,6 +908,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
   Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=php#configuring-thinking) for each model's behavior.
+
+- `thread?:optional BetaMessageThreadParam`
+
+  Server-held conversation state (a Thread). `{"type": "create"}` asks the server to hold this conversation's state under the response's `id`; `{"type": "continue", "previous_message_id": ...}` resumes from a previous response so only the new turn's messages are sent. The response shape is unchanged.
 
 - `toolChoice?:optional BetaToolChoice`
 
@@ -1297,6 +1305,7 @@ $betaMessage = $client->beta->messages->create(
     ],
     'display' => 'summarized',
   ],
+  thread: ['type' => 'create'],
   toolChoice: ['type' => 'auto', 'disableParallelToolUse' => true],
   tools: [
     [
@@ -1946,6 +1955,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
           ],
           'display' => 'summarized',
         ],
+        'thread' => ['type' => 'create'],
         'toolChoice' => ['type' => 'auto', 'disableParallelToolUse' => true],
         'tools' => [
           [
@@ -29591,6 +29601,550 @@ var_dump($page);
 }
 ```
 
+## Beta › Organization › Analytics › Usage
+
+### Get Token Usage By Dimension
+
+`$client->beta->organization->analytics->usage->list(\Datetime startingAt, ?list<string> actorIDs, ?list<AnalyticsActorType> actorTypes, ?list<string> agentIDs, ?list<string> apiKeyIDs, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?list<string> deploymentIDs, ?\Datetime endingAt, ?list<string> environmentIDs, ?bool excludeDeletedUsers, ?list<BetaAnalyticsUsageGroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?AnalyticsUsageCostSortOrder order, ?BetaAnalyticsUsageOrderBy orderBy, ?string page, ?list<AnalyticsUsageCostProductFilter> products, ?list<string> rbacGroupIDs, ?list<AnalyticsServiceTier> serviceTiers, ?list<string> sessionIDs, ?list<string> slackChannelIDs, ?list<AnalyticsSpeed> speeds, ?AnalyticsTimeBucketWidth timeBucketWidth, ?list<string> userProfileIDs, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): ReportPageCursor<BetaAnalyticsUsageItem>`
+
+**GET** `/v1/organizations/analytics/usage`
+
+Get token usage across a date range, broken out by dimension.
+
+Returns one row per combination of the requested `group_by[]`
+dimensions (and time bucket, when `time_bucket_width` is set) that has
+usage in the range, ranked by the `order_by` metric or ordered by time
+bucket; every combination is returned across pages. With no `group_by[]`
+and no `time_bucket_width`, a single row aggregates the whole range.
+Includes all usage, whether or not it is attributable to a seat user.
+Requires an API key with the `read:analytics` scope, or an Admin API key.
+
+#### Parameters
+
+- `startingAt: \Datetime` (query parameter)
+
+  Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+- `actorIDs?:optional list<string>` (query parameter)
+
+  Filter to usage attributed to specific identities, by tagged ID: a `user_...`, `svac_...` (service account), or `apikey_...` ID. An `apikey_` entry matches only usage attributed to the key itself, not usage on that key attributed to a user or service account (use `api_key_ids[]` for every request a key authenticated). Federated identities have no tagged ID; select them with `actor_types[]`. Use `group_by[]=actor` to break out per-identity values.
+
+- `actorTypes?:optional list<AnalyticsActorType>` (query parameter)
+
+  Filter to usage attributed to specific kinds of identity. Use `group_by[]=actor_type` to break out per-kind values.
+
+- `agentIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Developer Platform organizations only.
+
+- `apiKeyIDs?:optional list<string>` (query parameter)
+
+  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Developer Platform organizations only.
+
+- `claudeTagCategories?:optional list<AnalyticsClaudeTagCategory>` (query parameter)
+
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude_tag`, so combining this filter with `products[]=claude_tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+- `claudeTagUserIDs?:optional list<string>` (query parameter)
+
+  Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+- `contextWindows?:optional list<AnalyticsContextWindow>` (query parameter)
+
+  Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+- `deploymentIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Developer Platform organizations only.
+
+- `endingAt?:optional \Datetime` (query parameter)
+
+  End of range, exclusive. Required when `time_bucket_width` is set. Without `time_bucket_width`, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+- `environmentIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Developer Platform organizations only.
+
+- `excludeDeletedUsers?:optional bool` (query parameter)
+
+  If true, omit rows whose `actor` is a `user_actor` with `deleted: true`. Requires `group_by[]=actor`. Rows for other actor types, and rows whose `actor` is null, are always kept. A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
+
+  default: false
+
+- `groupBy?:optional list<BetaAnalyticsUsageGroupBy>` (query parameter)
+
+  Dimensions to break usage out by (at most 5): one row per combination of their values with usage in the range (and per time bucket, when `time_bucket_width` is set), every combination returned across pages rather than a capped top set. When omitted, a single row aggregates the whole range.
+
+- `inferenceGeos?:optional list<AnalyticsInferenceGeoFilter>` (query parameter)
+
+  Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+- `limit?:optional int` (query parameter)
+
+  Number of rows per page (1-1000, default 20). `cost_type`/`token_type` fan-out rows (cost endpoint only) do not count toward this limit, so `data` can exceed it.
+
+  default: 20
+
+- `models?:optional list<string>` (query parameter)
+
+  Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+- `order?:optional AnalyticsUsageCostSortOrder` (query parameter)
+
+  Sort direction of the `order_by` metric, or of the time buckets when `order_by` is `time` and `time_bucket_width` is set. Defaults to `desc`.
+
+- `orderBy?:optional BetaAnalyticsUsageOrderBy` (query parameter)
+
+  Row order. A metric ranks rows by that metric in the `order` direction. `time` orders rows by time bucket in the `order` direction (newest first by default) and, within a bucket, by `total_tokens`, highest first. `time` takes effect only with `time_bucket_width`; without it, `time` is the same as `total_tokens`. Defaults to `total_tokens`.
+
+- `page?:optional string` (query parameter)
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `products?:optional list<AnalyticsUsageCostProductFilter>` (query parameter)
+
+  Product surfaces to include. Defaults to all products.
+
+- `rbacGroupIDs?:optional list<string>` (query parameter)
+
+  Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+- `serviceTiers?:optional list<AnalyticsServiceTier>` (query parameter)
+
+  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+
+- `sessionIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Developer Platform organizations only.
+
+- `slackChannelIDs?:optional list<string>` (query parameter)
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+- `speeds?:optional list<AnalyticsSpeed>` (query parameter)
+
+  Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+- `timeBucketWidth?:optional AnalyticsTimeBucketWidth` (query parameter)
+
+  Time-bucket granularity. When set, rows are returned per time bucket (one per bucket and dimension combination with usage) and each row's `starting_at` and `ending_at` are that bucket's bounds; the time bucket counts toward `limit`. `ending_at` is required when `time_bucket_width` is set, and with `time_bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the requested range with `starting_at` and `ending_at` each rounded down to the hour.
+
+- `userProfileIDs?:optional list<string>` (query parameter)
+
+  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Developer Platform organizations only.
+
+- `workspaceIDs?:optional list<string>` (query parameter)
+
+  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  This endpoint is in beta: requests must send `analytics-usage-cost-2026-08-24` in this header.
+
+#### Returns
+
+- `class BetaAnalyticsUsageItem`
+
+  - `\Datetime endingAt`
+
+    End of the period this row covers (exclusive), as an RFC 3339 UTC timestamp: the end of the row's time bucket when a time-bucket width is set; otherwise the requested `ending_at` (or, when omitted, the earlier of now and `starting_at` plus 31 days) rounded down to the hour, because without a time bucket the report covers whole hours.
+
+  - `BetaAnalyticsUsageGroup group`
+
+    The dimension values this row's usage is broken out by.
+
+  - `\Datetime startingAt`
+
+    Start of the period this row covers (inclusive), as an RFC 3339 UTC timestamp: the start of the row's time bucket when a time-bucket width is set, otherwise the requested `starting_at` rounded down to the hour.
+
+  - `BetaAnalyticsUsageMetrics usage`
+
+    Token usage for this row.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Organization\Analytics\AnalyticsActorType;
+use Anthropic\Beta\Organization\Analytics\AnalyticsClaudeTagCategory;
+use Anthropic\Beta\Organization\Analytics\AnalyticsContextWindow;
+use Anthropic\Beta\Organization\Analytics\AnalyticsInferenceGeoFilter;
+use Anthropic\Beta\Organization\Analytics\AnalyticsUsageCostSortOrder;
+use Anthropic\Beta\Organization\Analytics\AnalyticsUsageCostProductFilter;
+use Anthropic\Beta\Organization\Analytics\AnalyticsServiceTier;
+use Anthropic\Beta\Organization\Analytics\AnalyticsSpeed;
+use Anthropic\Beta\Organization\Analytics\AnalyticsTimeBucketWidth;
+use Anthropic\Beta\Organization\Analytics\Usage\BetaAnalyticsUsageGroupBy;
+use Anthropic\Beta\Organization\Analytics\Usage\BetaAnalyticsUsageOrderBy;
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->usage->list(
+  startingAt: new \DateTimeImmutable('2026-09-01T00:00:00Z'),
+  actorIDs: ['user_01WCz1FkmYMm4gnmykNKUu3Q'],
+  actorTypes: [AnalyticsActorType::SERVICE_ACCOUNT_ACTOR],
+  agentIDs: ['agent_01VHd3EAGJ6PLkP9LM7DDu3f'],
+  apiKeyIDs: ['apikey_01Rj2N8SVvo6BePZj99NhmiT'],
+  claudeTagCategories: [AnalyticsClaudeTagCategory::ENGAGED],
+  claudeTagUserIDs: ['U0123ABCDEF'],
+  contextWindows: [AnalyticsContextWindow::FROM_0_TO_200K],
+  deploymentIDs: ['depl_01JFC6ihzZHtAuyHsaENdJhY'],
+  endingAt: new \DateTimeImmutable('2026-10-01T00:00:00Z'),
+  environmentIDs: ['env_017oTjuGedHtjhJauVC5xGJD'],
+  excludeDeletedUsers: true,
+  groupBy: [BetaAnalyticsUsageGroupBy::ACTOR],
+  inferenceGeos: [AnalyticsInferenceGeoFilter::GLOBAL],
+  limit: 1,
+  models: ['string'],
+  order: AnalyticsUsageCostSortOrder::ASC,
+  orderBy: BetaAnalyticsUsageOrderBy::OUTPUT_TOKENS,
+  page: 'page',
+  products: [AnalyticsUsageCostProductFilter::CHAT],
+  rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
+  serviceTiers: [AnalyticsServiceTier::BATCH],
+  sessionIDs: ['sesn_0187kPDyNCwibNNvfaPEApCJ'],
+  slackChannelIDs: ['C0123ABCDEF'],
+  speeds: [AnalyticsSpeed::FAST],
+  timeBucketWidth: AnalyticsTimeBucketWidth::DAY,
+  userProfileIDs: ['uprof_01M33NeYUQK2WV9PpYcsPHLi'],
+  workspaceIDs: ['wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "ending_at": "2026-10-01T00:00:00Z",
+      "group": {
+        "actor": {
+          "deleted": false,
+          "email_address": "user@emaildomain.com",
+          "name": "Jane Doe",
+          "type": "user_actor",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "actor_type": "user_actor",
+        "agent_id": "agent_01VHd3EAGJ6PLkP9LM7DDu3f",
+        "api_key_id": "apikey_01Rj2N8SVvo6BePZj99NhmiT",
+        "claude_tag_category": "dm",
+        "claude_tag_user_id": "U0123ABCDEF",
+        "context_window": "0-200k",
+        "deployment_id": "depl_01JFC6ihzZHtAuyHsaENdJhY",
+        "environment_id": "env_017oTjuGedHtjhJauVC5xGJD",
+        "inference_geo": "global",
+        "model": "claude-opus-5-5",
+        "product": "chat",
+        "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+        "service_tier": "standard",
+        "session_id": "sesn_0187kPDyNCwibNNvfaPEApCJ",
+        "slack_channel_id": "C0123ABCDEF",
+        "speed": "fast",
+        "user_profile_id": "uprof_01M33NeYUQK2WV9PpYcsPHLi",
+        "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+      },
+      "starting_at": "2026-09-01T00:00:00Z",
+      "usage": {
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "cache_read_input_tokens": 3200000,
+        "output_tokens": 891000,
+        "requests": 128,
+        "server_tool_use": {
+          "web_search_requests": 10
+        },
+        "total_tokens": 5377000,
+        "uncached_input_tokens": 1284500
+      }
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Cost
+
+### Get Cost By Dimension
+
+`$client->beta->organization->analytics->cost->list(\Datetime startingAt, ?list<string> actorIDs, ?list<AnalyticsActorType> actorTypes, ?list<string> agentIDs, ?list<string> apiKeyIDs, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?list<string> deploymentIDs, ?\Datetime endingAt, ?list<string> environmentIDs, ?bool excludeDeletedUsers, ?list<BetaAnalyticsCostGroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?AnalyticsUsageCostSortOrder order, ?BetaAnalyticsCostOrderBy orderBy, ?string page, ?list<AnalyticsUsageCostProductFilter> products, ?list<string> rbacGroupIDs, ?list<AnalyticsServiceTier> serviceTiers, ?list<string> sessionIDs, ?list<string> slackChannelIDs, ?list<AnalyticsSpeed> speeds, ?AnalyticsTimeBucketWidth timeBucketWidth, ?list<string> userProfileIDs, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): ReportPageCursor<BetaAnalyticsCostItem>`
+
+**GET** `/v1/organizations/analytics/cost`
+
+Get cost in USD across a date range, broken out by dimension.
+
+Returns one row per combination of the requested `group_by[]`
+dimensions (and time bucket, when `time_bucket_width` is set) that has
+cost in the range, ranked by spend or ordered by time bucket; every
+combination is returned across pages. With no `group_by[]` and no
+`time_bucket_width`, a single row aggregates the whole range. Includes
+all cost, whether or not it is attributable to a seat user. Requires an
+API key with the `read:analytics` scope, or an Admin API key.
+
+#### Parameters
+
+- `startingAt: \Datetime` (query parameter)
+
+  Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+- `actorIDs?:optional list<string>` (query parameter)
+
+  Filter to usage attributed to specific identities, by tagged ID: a `user_...`, `svac_...` (service account), or `apikey_...` ID. An `apikey_` entry matches only usage attributed to the key itself, not usage on that key attributed to a user or service account (use `api_key_ids[]` for every request a key authenticated). Federated identities have no tagged ID; select them with `actor_types[]`. Use `group_by[]=actor` to break out per-identity values.
+
+- `actorTypes?:optional list<AnalyticsActorType>` (query parameter)
+
+  Filter to usage attributed to specific kinds of identity. Use `group_by[]=actor_type` to break out per-kind values.
+
+- `agentIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Developer Platform organizations only.
+
+- `apiKeyIDs?:optional list<string>` (query parameter)
+
+  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Developer Platform organizations only.
+
+- `claudeTagCategories?:optional list<AnalyticsClaudeTagCategory>` (query parameter)
+
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude_tag`, so combining this filter with `products[]=claude_tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+- `claudeTagUserIDs?:optional list<string>` (query parameter)
+
+  Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+- `contextWindows?:optional list<AnalyticsContextWindow>` (query parameter)
+
+  Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+- `deploymentIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Developer Platform organizations only.
+
+- `endingAt?:optional \Datetime` (query parameter)
+
+  End of range, exclusive. Required when `time_bucket_width` is set. Without `time_bucket_width`, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+- `environmentIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Developer Platform organizations only.
+
+- `excludeDeletedUsers?:optional bool` (query parameter)
+
+  If true, omit rows whose `actor` is a `user_actor` with `deleted: true`. Requires `group_by[]=actor`. Rows for other actor types, and rows whose `actor` is null, are always kept. A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
+
+  default: false
+
+- `groupBy?:optional list<BetaAnalyticsCostGroupBy>` (query parameter)
+
+  Dimensions to break cost out by (at most 5, not counting `cost_type` and `token_type`): one row per combination of their values with cost in the range (and per time bucket, when `time_bucket_width` is set), every combination returned across pages rather than a capped top set. `cost_type` and `token_type` do not count toward `limit`: `cost_type` returns one row per cost component (tokens, web search, code execution, and `session_usage`, Claude Managed Agents session time); `token_type` returns one row per token type, each with `cost_type: "tokens"`; combining both returns the per-token-type rows plus the web-search, code-execution and session-usage rows. When omitted, a single row aggregates the whole range.
+
+- `inferenceGeos?:optional list<AnalyticsInferenceGeoFilter>` (query parameter)
+
+  Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+- `limit?:optional int` (query parameter)
+
+  Number of rows per page (1-1000, default 20). `cost_type`/`token_type` fan-out rows (cost endpoint only) do not count toward this limit, so `data` can exceed it.
+
+  default: 20
+
+- `models?:optional list<string>` (query parameter)
+
+  Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+- `order?:optional AnalyticsUsageCostSortOrder` (query parameter)
+
+  Sort direction of the `order_by` metric, or of the time buckets when `order_by` is `time` and `time_bucket_width` is set. Defaults to `desc`.
+
+- `orderBy?:optional BetaAnalyticsCostOrderBy` (query parameter)
+
+  Row order. A metric ranks rows by that metric in the `order` direction. `time` orders rows by time bucket in the `order` direction (newest first by default) and, within a bucket, by `amount`, highest first. `time` takes effect only with `time_bucket_width`; without it, `time` is the same as `amount`. Defaults to `amount`.
+
+- `page?:optional string` (query parameter)
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `products?:optional list<AnalyticsUsageCostProductFilter>` (query parameter)
+
+  Product surfaces to include. Defaults to all products.
+
+- `rbacGroupIDs?:optional list<string>` (query parameter)
+
+  Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+- `serviceTiers?:optional list<AnalyticsServiceTier>` (query parameter)
+
+  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+
+- `sessionIDs?:optional list<string>` (query parameter)
+
+  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Developer Platform organizations only.
+
+- `slackChannelIDs?:optional list<string>` (query parameter)
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+- `speeds?:optional list<AnalyticsSpeed>` (query parameter)
+
+  Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+- `timeBucketWidth?:optional AnalyticsTimeBucketWidth` (query parameter)
+
+  Time-bucket granularity. When set, rows are returned per time bucket (one per bucket and dimension combination with usage) and each row's `starting_at` and `ending_at` are that bucket's bounds; the time bucket counts toward `limit`. `ending_at` is required when `time_bucket_width` is set, and with `time_bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the requested range with `starting_at` and `ending_at` each rounded down to the hour.
+
+- `userProfileIDs?:optional list<string>` (query parameter)
+
+  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Developer Platform organizations only.
+
+- `workspaceIDs?:optional list<string>` (query parameter)
+
+  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  This endpoint is in beta: requests must send `analytics-usage-cost-2026-08-24` in this header.
+
+#### Returns
+
+- `class BetaAnalyticsCostItem`
+
+  - `BetaAnalyticsCostMetrics cost`
+
+    Cost for this row.
+
+  - `\Datetime endingAt`
+
+    End of the period this row covers (exclusive), as an RFC 3339 UTC timestamp: the end of the row's time bucket when a time-bucket width is set; otherwise the requested `ending_at` (or, when omitted, the earlier of now and `starting_at` plus 31 days) rounded down to the hour, because without a time bucket the report covers whole hours.
+
+  - `BetaAnalyticsCostGroup group`
+
+    The dimension values this row's cost is broken out by.
+
+  - `\Datetime startingAt`
+
+    Start of the period this row covers (inclusive), as an RFC 3339 UTC timestamp: the start of the row's time bucket when a time-bucket width is set, otherwise the requested `starting_at` rounded down to the hour.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Organization\Analytics\AnalyticsActorType;
+use Anthropic\Beta\Organization\Analytics\AnalyticsClaudeTagCategory;
+use Anthropic\Beta\Organization\Analytics\AnalyticsContextWindow;
+use Anthropic\Beta\Organization\Analytics\AnalyticsInferenceGeoFilter;
+use Anthropic\Beta\Organization\Analytics\AnalyticsUsageCostSortOrder;
+use Anthropic\Beta\Organization\Analytics\AnalyticsUsageCostProductFilter;
+use Anthropic\Beta\Organization\Analytics\AnalyticsServiceTier;
+use Anthropic\Beta\Organization\Analytics\AnalyticsSpeed;
+use Anthropic\Beta\Organization\Analytics\AnalyticsTimeBucketWidth;
+use Anthropic\Beta\Organization\Analytics\Cost\BetaAnalyticsCostGroupBy;
+use Anthropic\Beta\Organization\Analytics\Cost\BetaAnalyticsCostOrderBy;
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->cost->list(
+  startingAt: new \DateTimeImmutable('2026-09-01T00:00:00Z'),
+  actorIDs: ['user_01WCz1FkmYMm4gnmykNKUu3Q'],
+  actorTypes: [AnalyticsActorType::SERVICE_ACCOUNT_ACTOR],
+  agentIDs: ['agent_01VHd3EAGJ6PLkP9LM7DDu3f'],
+  apiKeyIDs: ['apikey_01Rj2N8SVvo6BePZj99NhmiT'],
+  claudeTagCategories: [AnalyticsClaudeTagCategory::ENGAGED],
+  claudeTagUserIDs: ['U0123ABCDEF'],
+  contextWindows: [AnalyticsContextWindow::FROM_0_TO_200K],
+  deploymentIDs: ['depl_01JFC6ihzZHtAuyHsaENdJhY'],
+  endingAt: new \DateTimeImmutable('2026-10-01T00:00:00Z'),
+  environmentIDs: ['env_017oTjuGedHtjhJauVC5xGJD'],
+  excludeDeletedUsers: true,
+  groupBy: [BetaAnalyticsCostGroupBy::ACTOR],
+  inferenceGeos: [AnalyticsInferenceGeoFilter::GLOBAL],
+  limit: 1,
+  models: ['string'],
+  order: AnalyticsUsageCostSortOrder::ASC,
+  orderBy: BetaAnalyticsCostOrderBy::AMOUNT,
+  page: 'page',
+  products: [AnalyticsUsageCostProductFilter::CHAT],
+  rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
+  serviceTiers: [AnalyticsServiceTier::BATCH],
+  sessionIDs: ['sesn_0187kPDyNCwibNNvfaPEApCJ'],
+  slackChannelIDs: ['C0123ABCDEF'],
+  speeds: [AnalyticsSpeed::FAST],
+  timeBucketWidth: AnalyticsTimeBucketWidth::DAY,
+  userProfileIDs: ['uprof_01M33NeYUQK2WV9PpYcsPHLi'],
+  workspaceIDs: ['wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "cost": {
+        "amount": "41280.000000",
+        "currency": "USD",
+        "list_amount": "51600.000000",
+        "requests": 128
+      },
+      "ending_at": "2026-10-01T00:00:00Z",
+      "group": {
+        "actor": {
+          "deleted": false,
+          "email_address": "user@emaildomain.com",
+          "name": "Jane Doe",
+          "type": "user_actor",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "actor_type": "user_actor",
+        "agent_id": "agent_01VHd3EAGJ6PLkP9LM7DDu3f",
+        "api_key_id": "apikey_01Rj2N8SVvo6BePZj99NhmiT",
+        "claude_tag_category": "dm",
+        "claude_tag_user_id": "U0123ABCDEF",
+        "context_window": "0-200k",
+        "cost_type": "tokens",
+        "deployment_id": "depl_01JFC6ihzZHtAuyHsaENdJhY",
+        "environment_id": "env_017oTjuGedHtjhJauVC5xGJD",
+        "inference_geo": "global",
+        "model": "claude-opus-5-5",
+        "product": "chat",
+        "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+        "service_tier": "standard",
+        "session_id": "sesn_0187kPDyNCwibNNvfaPEApCJ",
+        "slack_channel_id": "C0123ABCDEF",
+        "speed": "fast",
+        "token_type": "cache_creation.ephemeral_1h_input_tokens",
+        "user_profile_id": "uprof_01M33NeYUQK2WV9PpYcsPHLi",
+        "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+      },
+      "starting_at": "2026-09-01T00:00:00Z"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page"
+}
+```
+
 ## Beta › Organization › Analytics › Usage Report
 
 ### Get Token Usage Over Time
@@ -29599,12 +30153,11 @@ var_dump($page);
 
 **GET** `/v1/organizations/analytics/usage_report`
 
-Get token usage over time across a date range.
+[Legacy] Get token usage over time across a date range.
 
-Returns token usage bucketed by minute, hour, or day, optionally broken
-down by product, model, context window, inference region, or speed.
-Available to organizations on a Claude Enterprise plan. Requires an API
-key with the `read:analytics` scope.
+Returns token usage bucketed by minute, hour, or day, optionally broken down by one or more `group_by[]` dimensions, such as product or model. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+
+This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/usage`](https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list?sdk_languages=php) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=php#migrate-from-enterprise-analytics-reports).
 
 #### Parameters
 
@@ -29776,15 +30329,11 @@ var_dump($page);
 
 **GET** `/v1/organizations/analytics/user_usage_report`
 
-Get per-user token usage across a date range.
+[Legacy] Get per-user token usage across a date range.
 
-Returns one row per user, ranked by the chosen token metric. Use this to
-see which users consume the most tokens. Only usage attributable to a
-seat user is included; for organization-wide totals including direct
-API-key and automation traffic, use the bucketed
-`/v1/organizations/analytics/usage_report` endpoint. Available to
-organizations on a Claude Enterprise plan. Requires an API key with the
-`read:analytics` scope.
+Returns usage per user, ranked by the chosen token metric; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users consume the most tokens. Only usage attributed to a user account is included; usage with no user attributed to it, such as requests attributed only to an API key, is left out. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+
+This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/usage`](https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list?sdk_languages=php) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=php#migrate-from-enterprise-analytics-reports).
 
 #### Parameters
 
@@ -30045,12 +30594,11 @@ var_dump($page);
 
 **GET** `/v1/organizations/analytics/cost_report`
 
-Get cost in USD over time across a date range.
+[Legacy] Get cost in USD over time across a date range.
 
-Returns cost bucketed by minute, hour, or day, optionally broken down by
-product, model, context window, inference region, speed, cost type, or
-token type. Available to organizations on a Claude Enterprise plan.
-Requires an API key with the `read:analytics` scope.
+Returns cost bucketed by minute, hour, or day, optionally broken down by one or more `group_by[]` dimensions, such as model or cost type. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+
+This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/cost`](https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list?sdk_languages=php) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=php#migrate-from-enterprise-analytics-reports).
 
 #### Parameters
 
@@ -30217,15 +30765,11 @@ var_dump($page);
 
 **GET** `/v1/organizations/analytics/user_cost_report`
 
-Get per-user cost in USD across a date range.
+[Legacy] Get per-user cost in USD across a date range.
 
-Returns one row per user, ranked by spend. Use this to see which users
-account for the most cost. Only cost attributable to a seat user is
-included; for organization-wide totals including direct API-key and
-automation traffic, use the bucketed
-`/v1/organizations/analytics/cost_report` endpoint. Available to
-organizations on a Claude Enterprise plan. Requires an API key with the
-`read:analytics` scope.
+Returns cost per user, ranked by spend; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users account for the most cost. Only cost attributed to a user account is included; cost with no user attributed to it, such as requests attributed only to an API key, is left out. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+
+This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/cost`](https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list?sdk_languages=php) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=php#migrate-from-enterprise-analytics-reports).
 
 #### Parameters
 

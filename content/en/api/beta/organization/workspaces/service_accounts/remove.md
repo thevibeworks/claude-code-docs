@@ -145,6 +145,10 @@ membership. Archived workspaces return 400.
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ## Returns
 
 - `type: "service_account_workspace_member_deleted"`

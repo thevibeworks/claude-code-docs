@@ -387,7 +387,7 @@ MDM only (You can set the key only in an MDM profile or the local configuration 
 
 Since 1.10628.0
 
-**Use bootstrap config.** Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch.
+**Use bootstrap config.** Fetch and apply settings from the bootstrap config URL at launch. Turn off to keep the URL saved but skip the fetch.
 
 ***
 
@@ -411,13 +411,13 @@ MDM only (You can set the key only in an MDM profile or the local configuration 
 
 Since 1.10628.0
 
-**Bootstrap OIDC parameters.** When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE).
+**Bootstrap OIDC parameters.** Your organization’s OpenID Connect identity provider. The user’s token from a browser sign-in is sent as Bearer to the bootstrap server.
 
 > **More detail**
 >
-> Set this to use a separate identity provider (Microsoft Entra ID, Okta, Ping, or any compliant OIDC provider) for the bootstrap sign-in. The app runs an authorization-code-with-PKCE flow in the system browser. Omit to use device-code mode against the bootstrap server's own origin.
+> When unset, the bootstrap sign-in uses a device code on the bootstrap server's own origin.
 >
-> This is an **object-typed key** — in an MDM profile it is a single JSON-string value, not separate keys with dotted names like `bootstrapOidc.clientId`. Writing the sub-fields as separate registry values causes the app to silently fall through to device-code mode.
+> In an MDM profile, write this key as one JSON string. Separate values such as `bootstrapOidc.clientId` do not work: the app silently uses the device-code sign-in instead.
 
 > **Child attributes (8)**
 >
@@ -453,11 +453,11 @@ Since 1.10628.0
 >
 > **additionalRedirectReferrerHosts** `string`
 >
-> Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.
+> Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
 > > **More detail**
 > >
-> > Only needed when the IdP completes sign-in from a host other than the authorization URL’s. When a callback is rejected for a referrer mismatch, the rejected host is named in the app log — add that hostname here.
+> > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
 ***
 
@@ -473,7 +473,11 @@ Since 1.32885.1
 
 > **More detail**
 >
-> Static headers sent on every request to the bootstrap config URL — for a service-account credential (`Authorization: Basic …`, an API key header) or a routing/tenant header. When either this or the headers helper script is set and no separate `bootstrapOidc` provider is configured, the app treats the headers as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. These headers (and the helper script's below) also accompany requests to a plugin marketplace this server hosts on its own origin (`allowedPluginMarketplaces` with `credentialKind: "inferenceCredential"`). Header values are masked in diagnostics and telemetry. For a rotating token, use the headers helper script instead.
+> If `bootstrapOidc` is unset, the app treats these headers as sufficient authentication and requires no per-user sign-in for the bootstrap fetch.
+>
+> These headers, and those of `bootstrapHeadersHelper`, also go to a plugin marketplace on this server's own origin, if its `allowedPluginMarketplaces` entry sets `credentialKind: "inferenceCredential"`.
+>
+> Header values are masked in diagnostics and telemetry.
 
 ***
 
@@ -489,7 +493,9 @@ Since 1.32885.1
 
 > **More detail**
 >
-> Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The app runs it (no arguments; output cached for a few minutes) before each bootstrap config fetch and merges the result over **Bootstrap request headers** (the helper wins on conflict). Use this instead of embedding `user:pass@` in the bootstrap URL, or when the bootstrap server needs a rotating token from a secrets manager. When either this or the static headers are set and no separate `bootstrapOidc` provider is configured, the app treats them as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs (`bootstrapOidc` or the server’s own device-code flow), that Bearer token wins on `Authorization`.
+> Example output: `{"Authorization": "Bearer …"}`. The app runs the helper script with no arguments and reuses its output for a few minutes.
+>
+> If `bootstrapOidc` is unset, the app treats these headers as sufficient authentication and requires no per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs, its token takes priority for the `Authorization` header.
 
 ***
 
@@ -501,7 +507,7 @@ MDM only (You can set the key only in an MDM profile or the local configuration 
 
 Since 1.26832.0
 
-**Trust bootstrap-delivered settings.** Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers.
+**Trust bootstrap-delivered settings.** Skip the per-user consent prompt for sign-in settings, inference endpoints, helper scripts, and connectors the bootstrap server delivers.
 
 ***
 

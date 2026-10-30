@@ -256,20 +256,25 @@ or generation, except in cases outlined in
 Data is cached for a number of hours after deletion so users can access
 context in recently closed presentations.
 
-Chat history is stored locally in your browser using IndexedDB.
-Conversations are not stored on Anthropic's servers, are not synced
-across devices, and can be cleared from Settings at any time.
+Chat history is stored locally in your browser using IndexedDB. It is
+not synced across devices and can be cleared from Settings at any time.
 Reinstalling the add-in or switching between Claude add-ins does not
 remove it. See [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md)
 for where it sits on disk and how long it is kept.
+
+When you sign in with a Claude account, the add-in sends your
+conversations to Anthropic, including the content Claude reads from your
+presentation and any files you attach. Clearing chat history removes
+only the copy in your browser. It does not delete the messages or
+attached files that Anthropic keeps.
 
 Claude for PowerPoint does not inherit custom data retention settings
 your organization might have set. Activity is not included in Enterprise
 audit logs. For Enterprise organizations with the
 [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api)
 enabled, Claude for PowerPoint sessions are included in the Compliance
-API. This coverage is in public beta and requires no additional setup:
-the same Compliance Access Keys apply.
+API. This coverage requires no additional setup: the same Compliance
+Access Keys apply.
 
 ## Current limitations
 

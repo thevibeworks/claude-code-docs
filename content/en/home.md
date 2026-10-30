@@ -339,7 +339,7 @@ with Claude"
             API keys in Claude Console
           </HomeJourneyLink>
 
-          <HomeJourneyLink icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-api">
+          <HomeJourneyLink icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api">
             Usage monitoring
           </HomeJourneyLink>
 
@@ -397,7 +397,7 @@ with Claude"
             API keys in Claude Console
           </HomeJourneyLink>
 
-          <HomeJourneyLink icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-api">
+          <HomeJourneyLink icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api">
             Usage monitoring
           </HomeJourneyLink>
         </HomeJourneyStep>

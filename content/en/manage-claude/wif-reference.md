@@ -192,7 +192,7 @@ A federation rule’s `match` block determines whether an incoming JWT is accept
 | ---------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `subject_prefix` | string               | Exact match against the JWT `sub` claim. A trailing `*` makes it a prefix match (the `sub` value must start with the characters before the `*`). Case-sensitive.                                             |
 | `audience`       | string               | The JWT `aud` claim must contain this exact string. When `aud` is an array, any element matching exactly satisfies the check.                                                                                |
-| `claims`         | map\<string, string> | Each key is a top-level claim name and each value is the required exact string value. For nested, numeric, Boolean, or complex claims such as lists and maps, use `condition` with a CEL expression instead. |
+| `claims`         | map\<string, string> | Each key is a top-level claim name and each value is the required exact string value. For nested, numeric, boolean, or complex claims such as lists and maps, use `condition` with a CEL expression instead. |
 | `condition`      | string (CEL)         | A [CEL](https://cel.dev/) expression that must evaluate to `true`.                                                                                                                                           |
 
 ### CEL evaluation environment

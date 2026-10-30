@@ -133,6 +133,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ### Body parameters
 
 - `endpoint_url: string`
@@ -608,6 +612,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ### Returns
 
 - `data: array of BetaTelemetryDestination`
@@ -961,6 +969,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ### Returns
 
 - `BetaTelemetryDestination object`
@@ -1308,6 +1320,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
 
 ### Body parameters
 
@@ -1791,6 +1807,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ### Returns
 
 - `BetaDeletedTelemetryDestination object`
@@ -1951,6 +1971,10 @@ Send one test span, named `anthropic.test`, to the destination with its register
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
 
 ### Returns
 
@@ -2883,6 +2907,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 #### Returns
 
 - `data: array of BetaTelemetryDestinationWorkspace`
@@ -3074,6 +3102,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 #### Returns
 
 - `BetaTelemetryDestinationWorkspace object`
@@ -3258,6 +3290,10 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
 
 #### Returns
 

@@ -3964,6 +3964,26 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `interface BetaThinkingConfigAdaptive`
 
+      - `thread?: BetaMessageThreadParam | null`
+
+        Server-held conversation state (a Thread). `{"type": "create"}` asks the server to hold this conversation's state under the response's `id`; `{"type": "continue", "previous_message_id": ...}` resumes from a previous response so only the new turn's messages are sent. The response shape is unchanged.
+
+        - `interface BetaThreadCreateParams`
+
+          Start holding conversation state under this response's `id`.
+
+          - `type: "create"`
+
+        - `interface BetaThreadContinueParams`
+
+          Resume from the response named by `previous_message_id`.
+
+          - `type: "continue"`
+
+          - `previous_message_id: string`
+
+            The `id` of the previous response in this Thread.
+
       - `tool_choice?: BetaToolChoice`
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
@@ -4276,6 +4296,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `"telemetry-destinations-2026-08-11"`
 
     - `"webhooks-2026-10-07"`
+
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
 
   - `user_profile_id?: string` (header parameter)
 

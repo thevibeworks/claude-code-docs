@@ -34,7 +34,7 @@ In the following tables, **Admin**, **User**, and **Viewer** stand for these thr
 
 ## Permissions
 
-The following tables list 68 permissions across 111 routes.
+The following tables list 69 permissions across 113 routes.
 
 The `get` and `list` permissions are the read-only ones.
 
@@ -231,11 +231,12 @@ These permissions manage your organization’s encryption key registrations. Of 
 
 ### Usage reports
 
-| Permission            | Roles | Routes authorized                             |
-| --------------------- | ----- | --------------------------------------------- |
-| `usageAnalytics.list` | Admin | `GET /v1/organizations/usage_report/messages` |
+| Permission            | Roles | Routes authorized                                                                          |
+| --------------------- | ----- | ------------------------------------------------------------------------------------------ |
+| `usageAnalytics.list` | Admin | `GET /v1/organizations/usage_report/messages`<br />`GET /v1/organizations/analytics/usage` |
+| `costAnalytics.list`  | Admin | `GET /v1/organizations/analytics/cost`                                                     |
 
-Of the three predefined roles, only `roles/claude.admin` includes `usageAnalytics.list`.
+Of the three predefined roles, only `roles/claude.admin` includes `usageAnalytics.list` and `costAnalytics.list`.
 
 ## See also
 

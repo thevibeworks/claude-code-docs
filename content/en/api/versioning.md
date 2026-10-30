@@ -47,7 +47,7 @@ Anthropic recommends using the latest API version whenever possible.
     * The per-user [usage](https://platform.claude.com/docs/en/api/beta/organization/analytics/user_usage_report/list) and [cost](https://platform.claude.com/docs/en/api/beta/organization/analytics/user_cost_report/list) reports no longer have `actor.email`. Use `actor.email_address` instead.
     * The [activity summaries](https://platform.claude.com/docs/en/api/beta/organization/analytics/summaries/list) response no longer has `summaries`. Use `data` instead.
 
-- `2023-06-01`
+* `2023-06-01`
 
   * New format for [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) server-sent events (SSE):
 
@@ -57,4 +57,4 @@ Anthropic recommends using the latest API version whenever possible.
 
   * Removed legacy `exception` and `truncated` values in responses.
 
-- `2023-01-01`: Initial release.
+* `2023-01-01`: Initial release.

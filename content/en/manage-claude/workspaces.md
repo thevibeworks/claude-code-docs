@@ -14,7 +14,7 @@ Key characteristics:
 
 * **Workspace identifiers** use the `wrkspc_` prefix (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`).
 * **Maximum 100 workspaces** for each organization by default (archived workspaces don’t count). Contact your account team if you need more.
-* **Default Workspace** has a `wrkspc_` ID like any other workspace (returned in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response) and accepted by [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve)), but it appears in [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) results only when you pass `include_default=true`, and usage reports and cost reports show `null` for its `workspace_id` (an API key’s `scope` field carries the real ID for a key bound to the Default Workspace).
+* **Default Workspace** has a `wrkspc_` ID like any other workspace (returned in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response) and accepted by [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve)), but it appears in [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) results only when you pass `include_default=true`. The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) reports its usage and cost under that ID, whereas the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) reports show `null` for its `workspace_id` (an API key’s `scope` field carries the real ID for a key bound to the Default Workspace).
 * **API keys** can be scoped to a single workspace. In this case, they can only access resources within that workspace. Other API keys aren’t scoped to a workspace. With one of these keys, send a [workspace ID header](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace) on each request to choose the workspace. The key’s user or service account must have access to that workspace.
 
 ### Claude Code workspace
@@ -1010,7 +1010,7 @@ The same accessors read the header from other Claude API endpoints too, includin
 With the workspace ID from a response, you can:
 
 * Confirm which workspace’s usage, cost, and [rate limits](https://platform.claude.com/docs/en/api/rate-limits) the request counted toward
-* Match it against the `workspace_id` field in [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) reports, which is `null` for the Default Workspace. Also match it against the `scope` field of API keys in the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), which carries the real ID of the workspace a key is bound to, including the Default Workspace
+* Match it against the `workspace_id` field in [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) rows, which carry this same ID for the Default Workspace, and against the `scope` field of API keys in the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), which carries the real ID of the workspace a key is bound to, including the Default Workspace
 * Check whether it’s your Default Workspace’s ID by passing it to [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) with an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys): the Default Workspace comes back with `"name": "Default"`, even though [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) omits it unless you pass `include_default=true`
 * Open that workspace in the [Console](https://platform.claude.com/settings/workspaces) to find the request’s resources, such as sessions, files, message batches, and skills
 
@@ -1035,20 +1035,163 @@ For detailed information on rate limits and how they work, see [Rate limits](htt
 
 ## Usage and cost tracking
 
-Track usage and costs by workspace using the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api):
+Track usage and costs by workspace using the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api):
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/usage_report/messages?\
-starting_at=2025-01-01T00:00:00Z&\
-ending_at=2025-01-08T00:00:00Z&\
-workspace_ids[]=wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ&\
-group_by[]=workspace_id&\
-bucket_width=1d" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl --globoff "https://api.anthropic.com/v1/organizations/analytics/usage?\
+  starting_at=2026-09-01T00:00:00Z&\
+  ending_at=2026-09-08T00:00:00Z&\
+  workspace_ids[]=wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ&\
+  group_by[]=workspace_id&\
+  time_bucket_width=1d" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: analytics-usage-cost-2026-08-24" \
+    -H "x-api-key: $ANTHROPIC_API_KEY"
+  ```
 
-Usage and costs attributed to the Default Workspace have a `null` value for `workspace_id`.
+  ```bash CLI
+  ant beta:organization:analytics:usage list \
+    --starting-at 2026-09-01T00:00:00Z \
+    --ending-at 2026-09-08T00:00:00Z \
+    --time-bucket-width 1d \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ \
+    --group-by workspace_id
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  rows = client.beta.organization.analytics.usage.list(
+      starting_at="2026-09-01T00:00:00Z",
+      ending_at="2026-09-08T00:00:00Z",
+      time_bucket_width="1d",
+      workspace_ids=["wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"],
+      group_by=["workspace_id"],
+  )
+
+  for row in rows:
+      print(f"{row.starting_at} {row.group.workspace_id}: {row.usage.total_tokens}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const rows = await client.beta.organization.analytics.usage.list({
+    starting_at: "2026-09-01T00:00:00Z",
+    ending_at: "2026-09-08T00:00:00Z",
+    time_bucket_width: "1d",
+    workspace_ids: ["wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"],
+    group_by: ["workspace_id"]
+  });
+
+  for await (const row of rows) {
+    console.log(`${row.starting_at} ${row.group.workspace_id}: ${row.usage.total_tokens}`);
+  }
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta.Organization.Analytics;
+  using Anthropic.Models.Beta.Organization.Analytics.Usage;
+
+  AnthropicClient client = new();
+
+  var page = await client.Beta.Organization.Analytics.Usage.List(
+      new()
+      {
+          StartingAt = DateTimeOffset.Parse("2026-09-01T00:00:00Z"),
+          EndingAt = DateTimeOffset.Parse("2026-09-08T00:00:00Z"),
+          TimeBucketWidth = BetaAnalyticsTimeBucketWidth.Day,
+          WorkspaceIds = ["wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"],
+          GroupBy = [BetaAnalyticsUsageGroupBy.WorkspaceID],
+      }
+  );
+
+  await foreach (var row in page.Paginate())
+  {
+      Console.WriteLine($"{row.StartingAt} {row.Group.WorkspaceID}: {row.Usage.TotalTokens}");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  rows := client.Beta.Organization.Analytics.Usage.ListAutoPaging(context.Background(), anthropic.BetaOrganizationAnalyticsUsageListParams{
+  	StartingAt:      time.Date(2026, time.September, 1, 0, 0, 0, 0, time.UTC),
+  	EndingAt:        anthropic.Time(time.Date(2026, time.September, 8, 0, 0, 0, 0, time.UTC)),
+  	TimeBucketWidth: anthropic.BetaAnalyticsTimeBucketWidthDay,
+  	WorkspaceIDs:    []string{"wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"},
+  	GroupBy:         []anthropic.BetaAnalyticsUsageGroupBy{anthropic.BetaAnalyticsUsageGroupByWorkspaceID},
+  })
+
+  for rows.Next() {
+  	row := rows.Current()
+  	fmt.Printf("%s %s: %d\n", row.StartingAt.Format(time.RFC3339), row.Group.WorkspaceID, row.Usage.TotalTokens)
+  }
+  if err := rows.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.analytics.BetaAnalyticsTimeBucketWidth;
+  import com.anthropic.models.beta.organization.analytics.usage.BetaAnalyticsUsageGroupBy;
+  import com.anthropic.models.beta.organization.analytics.usage.UsageListParams;
+  import java.time.OffsetDateTime;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = UsageListParams.builder()
+          .startingAt(OffsetDateTime.parse("2026-09-01T00:00:00Z"))
+          .endingAt(OffsetDateTime.parse("2026-09-08T00:00:00Z"))
+          .timeBucketWidth(BetaAnalyticsTimeBucketWidth.DAY)
+          .addWorkspaceId("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ")
+          .addGroupBy(BetaAnalyticsUsageGroupBy.WORKSPACE_ID)
+          .build();
+      var rows = client.beta().organization().analytics().usage().list(params);
+
+      for (var row : rows.autoPager()) {
+          IO.println(row.startingAt() + " " + row.group().workspaceId().orElse(null) + ": " + row.usage().totalTokens());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $rows = $client->beta->organization->analytics->usage->list(
+      startingAt: new \DateTimeImmutable('2026-09-01T00:00:00Z'),
+      endingAt: new \DateTimeImmutable('2026-09-08T00:00:00Z'),
+      timeBucketWidth: '1d',
+      workspaceIDs: ['wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ'],
+      groupBy: ['workspace_id'],
+  );
+
+  foreach ($rows->pagingEachItem() as $row) {
+      $startingAt = $row->startingAt->format(\DateTimeInterface::ATOM);
+      echo "{$startingAt} {$row->group->workspaceID}: {$row->usage->totalTokens}\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  page = client.beta.organization.analytics.usage.list(
+    starting_at: Time.utc(2026, 9, 1),
+    ending_at: Time.utc(2026, 9, 8),
+    time_bucket_width: :"1d",
+    workspace_ids: ["wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"],
+    group_by: [:workspace_id]
+  )
+
+  page.auto_paging_each do |row|
+    puts "#{row.starting_at} #{row.group.workspace_id}: #{row.usage.total_tokens}"
+  end
+  ```
+</CodeGroup>
+
+Usage and costs in the Default Workspace are reported under the Default Workspace’s own ID.
 
 ## Common use cases
 
@@ -1094,7 +1237,7 @@ Create workspaces for specific projects or products to track usage and costs sep
   </Step>
 
   <Step title="Monitor usage">
-    Use the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) to track workspace-level consumption.
+    Use the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) to track workspace-level consumption.
   </Step>
 </Steps>
 
@@ -1102,7 +1245,7 @@ Create workspaces for specific projects or products to track usage and costs sep
 
 <AccordionGroup>
   <Accordion title="What’s the Default Workspace?">
-    Every organization has a “Default Workspace” that cannot be renamed, archived, or deleted. Like every workspace, it has a `wrkspc_` ID: the API returns it in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response), and you can pass it to [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) and [Update Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/update). It has no member list of its own, because access to it follows each member’s organization role. It appears in [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) results only when you pass `include_default=true`, and usage reports and cost reports that belong to it show `null` for `workspace_id`. For an API key that belongs to it, the key’s `scope` field carries the workspace’s real ID.
+    Every organization has a “Default Workspace” that cannot be renamed, archived, or deleted. Like every workspace, it has a `wrkspc_` ID: the API returns it in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response), and you can pass it to [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) and [Update Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/update). It has no member list of its own, because access to it follows each member’s organization role. It appears in [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) results only when you pass `include_default=true`. The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) reports its usage and cost under its real ID. The legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) reports show `null` for `workspace_id`. For an API key that belongs to it, the key’s `scope` field carries the workspace’s real ID.
   </Accordion>
 
   <Accordion title="What’s the Claude Code workspace?">
@@ -1143,4 +1286,4 @@ Create workspaces for specific projects or products to track usage and costs sep
 * [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)
 * [Admin API reference](https://platform.claude.com/docs/en/api/organization)
 * [Rate limits](https://platform.claude.com/docs/en/api/rate-limits)
-* [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api)
+* [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) and the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api)

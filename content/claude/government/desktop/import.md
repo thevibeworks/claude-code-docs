@@ -40,7 +40,6 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 
 * **Claude Desktop is up to date.** Update Claude Desktop to 3.1623.0 or later and restart it, or ask your IT administrator to update it.
 * **You have an account on the web app.** It must use the same work email address as your account in Claude Desktop.
-* **You are signed in to the web app in your default browser.** The import opens a browser tab there and asks for a one-time code, which expires after a few minutes.
 
 > **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist.
 
@@ -80,7 +79,7 @@ In Claude Desktop, open **Settings**, then the **Import & export** page, and cli
 
 **2. Sign in and enter the code**
 
-Click **Sign in to Claude for Government Web…**, and in the dialog that opens, click **Sign in**. Claude Desktop shows a one-time code and opens the web app in your default browser. Sign in there with your work account if you are asked to, enter the code, and approve the request. Then return to Claude Desktop.
+Click **Sign in to Claude for Government Web…**, and in the dialog that opens, click **Sign in**. Claude Desktop shows a one-time code, which expires after a few minutes, and opens a tab in your default browser. In that tab, enter the code and approve the request. If you are asked to sign in, use your work account. Then return to Claude Desktop.
 
 **3. Fetch your export**
 
@@ -115,7 +114,7 @@ To delete what an import added, open **Settings**, then the **Import & export** 
 | What you see | Likely cause | What to do |
 | - | - | - |
 | Your export exceeds the import size limit | You have more data than the import can bring over | Remove conversations or files you no longer need in the web app, in line with your organization's records policy, then run the import again |
-| The account does not match your organization | You signed in to the web app with a different account or organization | In the browser, sign in to the web app with your work account, then click **Sign in** in the dialog again |
+| The account does not match your organization | You signed in with a different account or organization | If your browser is signed in to the web app with a different account, sign out there. Then click **Sign in** in the dialog again and use your work account in the browser tab |
 | The **Import & export** page says import isn't enabled for this deployment | Your app is out of date, or Anthropic has not yet enabled the import for your organization | Update Claude Desktop to the latest version. If the page still says import isn't enabled, contact your administrator, who can ask Anthropic to enable it |
 
 For anything else, try the import again; if it keeps failing, contact your administrator.

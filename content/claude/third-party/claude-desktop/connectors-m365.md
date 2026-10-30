@@ -311,7 +311,7 @@ The local connector calls Microsoft directly from the device, so in addition to 
 
 To read Office documents, such as Word and PowerPoint files, the connector asks Microsoft Graph for a PDF version and follows the redirect Graph returns. Microsoft chooses the host in that redirect.
 
-GCC High and DoD deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. For a Microsoft 365 GCC tenant, leave `azureCloud` at `global`. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
+GCC High and DoD deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. For a Microsoft 365 GCC tenant, leave `azureCloud` at `global`. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
 
 ### Configure scopes
 

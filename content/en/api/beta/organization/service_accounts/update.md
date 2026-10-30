@@ -140,6 +140,10 @@ interactive credential (a user OAuth token or a Console session).
 
   - `"webhooks-2026-10-07"`
 
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
 ## Body parameters
 
 - `description: optional string or null`

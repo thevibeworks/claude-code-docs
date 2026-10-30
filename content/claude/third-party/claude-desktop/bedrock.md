@@ -210,7 +210,7 @@ Origin-pinned (A URL that a bootstrap server delivers must share the origin of b
 
 Since 1.2581.0
 
-**Bedrock base URL.** For VPC endpoints or gateway proxies. Host origin only.
+**Bedrock base URL.** For VPC endpoints or gateway proxies. Enter https\:// and the host, with no path.
 
 ***
 
@@ -221,10 +221,6 @@ enumSince 1.5186.0
 **Bedrock service tier.** Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand.
 
 One of: `flex`, `priority`
-
-> **More detail**
->
-> Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
 
 ***
 

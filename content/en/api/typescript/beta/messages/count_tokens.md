@@ -4038,6 +4038,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"webhooks-2026-10-07"`
 
+    - `"message-threads-2026-08-12"`
+
+    - `"analytics-usage-cost-2026-08-24"`
+
   - `user_profile_id?: string` (header parameter)
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.

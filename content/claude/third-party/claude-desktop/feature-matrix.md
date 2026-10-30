@@ -67,6 +67,8 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > * [Admin console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)
 > * [Endpoint or gateway configuration](https://claude.com/docs/third-party/claude-desktop/configuration.md#connection)
 > * [Skills, hooks, and plugins distribution](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin)
+> * [Skill scanning](https://claude.com/docs/third-party/claude-desktop/extensions.md#skill-scanning)
+> * [Status line](https://claude.com/docs/third-party/claude-desktop/status-line.md)
 > * [MCP server allowlist](https://claude.com/docs/third-party/claude-desktop/extensions.md#controlling-user-extensions)
 > * [Feature toggles](https://claude.com/docs/third-party/claude-desktop/configuration.md#capabilities)
 > * [Auto-updates](https://claude.com/docs/third-party/claude-desktop/installation.md#updates)

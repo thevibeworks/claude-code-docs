@@ -3766,6 +3766,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
+
+    - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
+
   - `UserProfileID param.Opt[string] Optional` (header parameter)
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.

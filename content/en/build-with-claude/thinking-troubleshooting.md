@@ -152,7 +152,7 @@ Echo the assistant turn back verbatim, thinking blocks included. See [Preserving
 
 ## A 400 error says a thinking block signature is invalid
 
-A request to Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Haiku 5.5 that replays earlier thinking blocks fails with a 400 `invalid_request_error` whose message reads:
+A request that replays earlier thinking blocks to a Claude 5.1 or later model can fail with a 400 `invalid_request_error` whose message reads:
 
 ```text wrap
 messages.{i}.content.{j}: Invalid `signature` in `thinking` block. The block is bound to a different conversation. Remove the block, or set `thinking.block_binding.prefix_mismatch_behavior` to "drop_block".
@@ -164,9 +164,21 @@ The message usually ends with a sentence naming what changed: the `system` promp
 
 If the message stops after ``Invalid `signature` in `thinking` block``, the signature itself didn’t verify: it was truncated, altered, or sent back empty, and `prefix_mismatch_behavior` doesn’t apply. Edited thinking text returns a different error. See [A 400 error says thinking blocks cannot be modified](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified).
 
-On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, the API accepts a replayed thinking block only while the `system` prompt, `tools`, and messages that preceded it are unchanged. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check). The error means something earlier in the conversation changed between requests: an edited, reordered, or removed turn, a per-turn reminder that was injected and later removed, a rebuilt `system` prompt or `tools` array, or client-side compaction that kept recent turns and their thinking verbatim. The check is enforced for new accounts created on or after August 31, 2026, and for any request that sets `thinking.block_binding.prefix_mismatch_behavior`. Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger it.
+These models accept a replayed thinking block only while the `system` prompt, `tools`, and messages that preceded it are unchanged. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check). The error means something earlier in the conversation changed between requests. Common causes include the following:
 
-To fix it, keep the history append-only: pass earlier turns back exactly as sent and received, add instructions with a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) instead of editing `system` or `tools`, and let server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) or [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) do any trimming. Retrying the same request body doesn’t clear the error. To continue this request without the invalidated reasoning, send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. Alternatively, strip every `thinking` and `redacted_thinking` block from the history (at minimum the named block and every one after it, in that turn and all later turns), leave each turn’s other blocks in place, and retry once. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on.
+* An edited, reordered, or removed turn
+* A per-turn reminder that was injected and later removed
+* A rebuilt `system` prompt or `tools` array
+* Client-side compaction that kept recent turns and their thinking verbatim
+
+Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger this error. For requests that don’t set `thinking.block_binding.prefix_mismatch_behavior`, see [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
+
+Retrying the same request body doesn’t clear the error. Neither does fixing your code, because the stored history holds the edit. To continue the conversation, do one of the following:
+
+* Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"` on the retry and every later request. The request then succeeds without the invalidated reasoning. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With any other thinking setting on those models, you can’t send `block_binding`, so use the next option.
+* Strip the block the error names and every later `thinking` and `redacted_thinking` block, leaving each turn’s other blocks in place, then retry once.
+
+Then fix the cause so that new conversations don’t hit the error. Keep the history append-only: pass earlier turns back exactly as sent and received, add instructions with a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) instead of editing `system` or `tools`, and let server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) or [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) do any trimming.
 
 A block from a model the target model can’t read never produces this error: the API drops it and, under the beta header, reports it in `input_transformations`.
 

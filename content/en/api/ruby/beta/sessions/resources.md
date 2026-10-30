@@ -141,6 +141,10 @@ Add Session Resource
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"message-threads-2026-08-12"`
+
+  - `:"analytics-usage-cost-2026-08-24"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -331,6 +335,10 @@ List Session Resources
   - `:"telemetry-destinations-2026-08-11"`
 
   - `:"webhooks-2026-10-07"`
+
+  - `:"message-threads-2026-08-12"`
+
+  - `:"analytics-usage-cost-2026-08-24"`
 
 - `workspace_id: String` (header parameter)
 
@@ -610,6 +618,10 @@ Get Session Resource
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"message-threads-2026-08-12"`
+
+  - `:"analytics-usage-cost-2026-08-24"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -886,6 +898,10 @@ Update Session Resource
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"message-threads-2026-08-12"`
+
+  - `:"analytics-usage-cost-2026-08-24"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1156,6 +1172,10 @@ Delete Session Resource
   - `:"telemetry-destinations-2026-08-11"`
 
   - `:"webhooks-2026-10-07"`
+
+  - `:"message-threads-2026-08-12"`
+
+  - `:"analytics-usage-cost-2026-08-24"`
 
 - `workspace_id: String` (header parameter)
 
