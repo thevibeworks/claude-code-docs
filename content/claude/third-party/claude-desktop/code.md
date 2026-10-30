@@ -186,4 +186,6 @@ A Code session can run its Claude Code engine on a remote host over SSH while th
 
 To turn off Code, set `isClaudeCodeForDesktopEnabled` to `false` in your Claude Desktop on 3P configuration. Users can no longer open Code. Cowork is unaffected, and so is [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md#configuration) if you have enabled it.
 
+With Code off, Claude can't use a remote MCP server that requires OAuth sign-in if a marketplace plugin or a user-added plugin bundles it. With Code on, Claude can use such a server in local Code sessions that load the plugin, once the user has signed in, but still not in Cowork sessions or Chat conversations. To make it available in Cowork sessions and Chat conversations, with Code on or off, add a `managedMcpServers` entry with the same `url`, as described under [Remote MCP servers in plugins](https://claude.com/docs/third-party/claude-desktop/extensions.md#remote-mcp-servers-in-plugins).
+
 If you set `desktopHome` to `off`, keep Code on. For what `desktopHome` does, see [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md).

@@ -8,7 +8,7 @@
 
 The OAuth Client Credentials extension (`io.modelcontextprotocol/oauth-client-credentials`) adds support for the [OAuth 2.0 client credentials flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) to MCP. This enables automated systems to connect to MCP servers without interactive user authorization.
 
-> **[Specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/oauth-client-credentials.mdx)**
+> **[Specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/oauth-client-credentials/2026-07-28/oauth-client-credentials.mdx)**
 >
 > Full technical specification for the OAuth Client Credentials extension.
 
@@ -396,7 +396,7 @@ Check the [client matrix](https://modelcontextprotocol.io/extensions/client-matr
 >
 > Source code and reference implementations
 
-> **[Full specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/oauth-client-credentials.mdx)**
+> **[Full specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/oauth-client-credentials/2026-07-28/oauth-client-credentials.mdx)**
 >
 > Technical specification with normative requirements
 

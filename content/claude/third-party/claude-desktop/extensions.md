@@ -406,6 +406,19 @@ To roll out a new version of a plugin:
 
 To withdraw a plugin, remove its folder from `org-plugins/`. On Claude Desktop 1.46388.1 or later, each user's installed copy is unregistered the next time the app syncs organization plugins (at launch or when a session starts); earlier versions leave the copy installed.
 
+## Remote MCP servers in plugins
+
+A plugin can declare remote MCP servers in its `.mcp.json` file. Claude Desktop connects to the servers in [`managedMcpServers`](#managed-mcp-servers-admin) and to the servers of plugins in the [`org-plugins/` directory](#organization-plugins-admin). For a plugin from one of your [marketplaces](#plugin-marketplaces-admin), or a plugin that a user added, a session that loads the plugin connects to the plugin's servers when the session starts:
+
+* **If the server needs no sign-in**: Claude can use it in the Cowork sessions, Chat conversations, and Code sessions that load the plugin
+* **If the server requires OAuth sign-in**: Claude can use it in local Code sessions that load the plugin, once the user has signed in, but not in Cowork sessions or Chat conversations
+
+To make a plugin's server that requires OAuth sign-in available in Cowork sessions and Chat conversations, add a [`managedMcpServers`](#managed-mcp-servers-admin) entry with a `transport`, the same `url` as the plugin's server, and [OAuth sign-in](#oauth-sign-in) set up. Claude Desktop then connects to the server through your entry. Each user clicks **Connect** next to your entry's name under **Customize > Connectors** and signs in, whether [Code is on or off](https://claude.com/docs/third-party/claude-desktop/code.md#disabling-code). After that, Claude can use the server in Cowork sessions, Chat conversations, and Code sessions.
+
+Without a `managedMcpServers` entry for the server, users sign in to it from **Code**, and the sign-in applies to local Code sessions. In **Code**, the user starts a local session that loads the plugin, goes to **Customize > Plugins**, selects the plugin, selects the server on the **Connectors** tab, clicks **Connect**, and completes the sign-in in the browser. With Code on, while no local Code session that loads the plugin is running, the **Connect** button is unavailable, and its tooltip reads "Open a Code session that loads this connector, then try again". With Code turned off, users can't sign in this way, so Claude can't use the server.
+
+To limit plugin-bundled servers, see [Controlling user extensions](#controlling-user-extensions).
+
 ## Plugin hooks
 
 [Hooks](https://code.claude.com/docs/en/hooks) bundled in a plugin, under `hooks/` or declared in its manifest, run wherever the plugin itself loads:
@@ -449,7 +462,7 @@ Unless restricted by an admin, end users can add their own extensions through th
 * **Skills:** create and upload their own [skills](https://claude.com/docs/skills/overview.md), including by asking Claude to save one in a conversation
 * **Local MCP servers:** add local MCP server processes from **Settings → Developer**
 
-End users cannot add remote MCP servers from the app's settings or install desktop extension files (`.mcpb`) themselves. Remote servers come from admin-provisioned `managedMcpServers`, from organization plugins, and from other plugins that bundle them, including plugins users install. A Code session can also load the servers a user defines in Claude Code's own configuration (`~/.claude.json`, a project's `.mcp.json`, or `claude mcp add`). To limit plugin-bundled servers, see [Controlling user extensions](#controlling-user-extensions). To limit the servers a Code session loads, see [Applied as managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy).
+End users cannot add remote MCP servers from the app's settings or install desktop extension files (`.mcpb`) themselves. Remote servers come from admin-provisioned `managedMcpServers`, from organization plugins, and from other plugins that bundle them, including plugins users install. If a marketplace plugin or a user-added plugin bundles a remote MCP server that requires OAuth sign-in, Claude can't use that server in Cowork sessions or Chat conversations. To make it available there, add a `managedMcpServers` entry with the same `url`, as described under [Remote MCP servers in plugins](#remote-mcp-servers-in-plugins). A Code session can also load the servers a user defines in Claude Code's own configuration (`~/.claude.json`, a project's `.mcp.json`, or `claude mcp add`). To limit plugin-bundled servers, see [Controlling user extensions](#controlling-user-extensions). To limit the servers a Code session loads, see [Applied as managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy).
 
 User-added extensions are stored in the user's [local data directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md) and apply only to that device.
 
