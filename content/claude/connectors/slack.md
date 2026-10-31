@@ -28,39 +28,39 @@ Direct messages, the AI assistant panel, and threads all support the same Claude
 
 A Slack admin adds the app to the workspace first, and then each person connects their own Claude account.
 
-**Slack admins**
+> [tab] Slack admins
+>
+> **1. Find the app**
+>
+> Open the Claude app's listing in the Slack App Marketplace.
+>
+> **2. Add the app to Slack**
+>
+> Select **Add to Slack**, then review and approve the app for your organization.
+>
+> **3. Choose where to deploy**
+>
+> Deploy the app org-wide or to specific workspaces.
+>
+> To add the app to more workspaces later, open your Slack management workspace, go to **Integrations > Installed apps > Add to more workspaces**, and turn on each workspace that should have it.
 
-**1. Find the app**
-
-Open the Claude app's listing in the Slack App Marketplace.
-
-**2. Add the app to Slack**
-
-Select **Add to Slack**, then review and approve the app for your organization.
-
-**3. Choose where to deploy**
-
-Deploy the app org-wide or to specific workspaces.
-
-To add the app to more workspaces later, open your Slack management workspace, go to **Integrations > Installed apps > Add to more workspaces**, and turn on each workspace that should have it.
-
-**Individual users**
-
-**1. Find Claude**
-
-Find **Claude** in your Slack apps list or in the Slack App Marketplace.
-
-**2. Connect your account**
-
-Select **Connect Account**, select your Claude organization, and then select **Authorize** to grant access.
-
-**3. Start a conversation**
-
-Return to Slack and select **+ New Chat**, or mention @Claude in a channel or thread.
-
-If your company's Slack requires admin approval and you aren't an admin, you see a **Request to install** prompt instead. Ask a Slack admin to approve the app, then connect.
-
-To pin Claude to your Slack header, open the app's three-dot menu in Slack and select **Add this app to header**.
+> [tab] Individual users
+>
+> **1. Find Claude**
+>
+> Find **Claude** in your Slack apps list or in the Slack App Marketplace.
+>
+> **2. Connect your account**
+>
+> Select **Connect Account**, select your Claude organization, and then select **Authorize** to grant access.
+>
+> **3. Start a conversation**
+>
+> Return to Slack and select **+ New Chat**, or mention @Claude in a channel or thread.
+>
+> If your company's Slack requires admin approval and you aren't an admin, you see a **Request to install** prompt instead. Ask a Slack admin to approve the app, then connect.
+>
+> To pin Claude to your Slack header, open the app's three-dot menu in Slack and select **Add this app to header**.
 
 ## Search Slack with the connector
 

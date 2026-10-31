@@ -2,7 +2,7 @@
 
 Claude Dashboards turn questions about your company's data into dashboards. Connect a data warehouse or another app, ask a question in plain language, and Claude writes the queries and builds the dashboard. This guide covers connecting your data, creating and refining a dashboard, and sharing it.
 
-Claude Dashboards is available in beta on Pro, Max, Team, and Enterprise plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+Claude Dashboards is available in beta on Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
 ## How Claude Dashboards works
 

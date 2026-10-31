@@ -29,7 +29,7 @@ Some features have limits or need setup, described in [Good to know about Claude
 
 Claude Desktop on 3P is administered from the web-based [admin console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), and can also be configured through [MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
 
-> **Everyday work**
+> [card] Everyday work
 >
 > * [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md)
 > * [Cowork](https://claude.com/docs/third-party/claude-desktop/configuration.md#coworktabenabled)
@@ -42,13 +42,13 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > * Global languages
 > * [Automatically approve in Cowork](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled)
 
-> **Web and browser**
+> [card] Web and browser
 >
 > * [Built-in browser](https://claude.com/docs/third-party/claude-desktop/browser.md#built-in-browser)
 > * [Web search](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-search)
 > * [Claude in Chrome](https://claude.com/docs/third-party/claude-desktop/browser.md#claude-in-chrome)
 
-> **Connectors and extensions**
+> [card] Connectors and extensions
 >
 > * [Microsoft 365](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md) and [GitHub](https://claude.com/docs/third-party/claude-desktop/connectors-github.md) connectors
 > * [Local MCP](https://claude.com/docs/third-party/claude-desktop/extensions.md#user-extensions)
@@ -56,13 +56,13 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > * [Skills, plugins, and hooks](https://claude.com/docs/third-party/claude-desktop/extensions.md)
 > * [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin)
 
-> **Code**
+> [card] Code
 >
 > * [Code](https://claude.com/docs/third-party/claude-desktop/code.md)
 > * [Auto mode in Code](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled)
 > * [SSH remote Code sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
-> **Administration**
+> [card] Administration
 >
 > * [Admin console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)
 > * [Endpoint or gateway configuration](https://claude.com/docs/third-party/claude-desktop/configuration.md#connection)
@@ -76,7 +76,7 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > * [User management via UI](https://claude.com/docs/third-party/claude-desktop/admin-console.md#connect-your-identity-provider)
 > * [RBAC](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies)
 
-> **Monitoring and retention**
+> [card] Monitoring and retention
 >
 > * [OpenTelemetry export](https://claude.com/docs/third-party/claude-desktop/telemetry.md#sending-telemetry-to-your-own-collector)
 > * [Turning off telemetry](https://claude.com/docs/third-party/claude-desktop/telemetry.md#telemetry-categories)
@@ -84,7 +84,7 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 
 ## Good to know about Claude Desktop on 3P
 
-> **Notes on setup, limits, monitoring, and data handling**
+> [accordion] Notes on setup, limits, monitoring, and data handling
 >
 > | Topic | What to know |
 > | - | - |

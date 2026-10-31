@@ -600,7 +600,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "type": "compliance_local_session",
     "updated_at": "2025-03-12T18:22:41.123456Z",
     "user": {
-      "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
       "email_address": "jane.doe@example.com"
     },
     "workspace_id": "wrkspc_01SvYKoWVRVHoEbwESNvzYdR"

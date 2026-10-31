@@ -1,20 +1,21 @@
 ---
 title: Rate Limits API
 url: https://platform.claude.com/docs/en/manage-claude/rate-limits-api
-description: Programmatically query your organization's API rate limits with the Rate Limits API.
+description: Programmatically read your organization's API rate limits and set workspace rate limits with the Rate Limits API.
 ---
 
 <Tip>
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization on the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`) in the Claude Console.
 </Tip>
 
-The Rate Limits API provides programmatic access to the rate limits configured for your organization and its workspaces. This is the same information shown on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console.
+The Rate Limits API provides programmatic access to the rate limits configured for your organization and its workspaces. This is the same information shown on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console. You can also use it to set and clear a workspace’s rate limits.
 
 Use this API to:
 
 * **Keep gateways and proxies in sync:** Read your current limits at startup and on a schedule instead of hardcoding values that drift when Anthropic adjusts them.
 * **Power internal alerting:** Compare usage data from the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) against your configured limits.
 * **Audit workspace configuration:** Verify that workspace overrides match what your provisioning automation expects.
+* **Manage workspace limits from code:** Set and clear each workspace’s limits from your provisioning automation instead of editing them in the Console.
 
 <Check>
   **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn’t scoped to a workspace; workspace API keys don’t work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
@@ -482,7 +483,7 @@ If the model string doesn’t match any group, the endpoint returns a 404 error.
 
 ## Workspace rate limits
 
-The `/v1/organizations/workspaces/{workspace_id}/rate_limits` endpoint returns the rate limit overrides configured for a single workspace. To also see the values the workspace inherits, pass `include_inherited=true` (see [Include inherited values](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#include-inherited-values)).
+The `/v1/organizations/workspaces/{workspace_id}/rate_limits` endpoint returns the rate limit overrides configured for a single workspace. To also see the values the workspace inherits, pass `include_inherited=true` (see [Include inherited values](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#include-inherited-values)). To change the overrides, see [Set workspace rate limits](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#set-workspace-rate-limits).
 
 By default, the response only includes overrides, so anything missing from it is inherited from the organization:
 
@@ -947,9 +948,239 @@ To read a workspace’s applicable limits in one request, add the optional `incl
 }
 ```
 
+### Set workspace rate limits
+
+To set or clear a workspace’s rate limits for one rate limit group, send a `POST` request to `/v1/organizations/workspaces/{workspace_id}/rate_limits/{rate_limit_id}`. For `rate_limit_id`, pass the `id` of the group’s entry from the organization endpoint, or the `rate_limit_id` of the group’s entry from the workspace list endpoint. To find the ID of a group the workspace doesn’t override yet, call the workspace list endpoint with `include_inherited=true`, which returns the groups you can set limits for. These IDs differ among organizations, so look them up in each organization you manage.
+
+The request body has a `limits` array of one or more `{type, value}` entries, each for a different limiter type:
+
+* A `value` that is an integer, zero or greater, sets the workspace’s override for that limiter type.
+* A `value` of `null` clears the override, so the workspace inherits the organization’s value again. Clearing a limiter type that has no override changes nothing.
+* Limiter types that the request doesn’t name keep their current values.
+
+You can set these limiter types: `requests_per_minute`, `input_tokens_per_minute`, `output_tokens_per_minute`, `input_tokens_per_minute_cache_aware`, `tokens_per_minute`, `tokens_per_day`, `tool_uses_per_second`, and, where the list endpoints show them for your organization, the [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) limits `fast_itpmca` (input tokens per minute, cache-aware) and `fast_otpm` (output tokens per minute). Which of them a group accepts depends on its `group.type`:
+
+* `model_group`: every type except `tool_uses_per_second`
+* `web_search`: `tool_uses_per_second` only
+* `batch`: `requests_per_minute` only
+
+Other group types don’t accept any limiter type. You can clear any of the limiter types listed earlier on any group. The list endpoints can return limiter types that you can’t set, such as `enqueued_batch_requests`; sending one returns a 400 error.
+
+The API stores a value above the organization’s limit for the same limiter type, but it enforces the lower of the two. The response’s `org_limit` shows the organization’s value.
+
+Changes take effect within about an hour. Until a change takes effect, the workspace’s requests are still limited by the previous values.
+
+The API checks the whole request before it changes anything, so an invalid entry fails the request with a 400 error and changes nothing. If a request passes validation, the API then applies the entries one at a time. If applying one fails, the request returns an error and the entries before it stay applied. Each entry sets or clears an absolute value, so you can safely send the same request again. A resend replaces any change that someone else made in between to the limiter types it names.
+
+<Note>
+  Setting workspace rate limits isn’t available on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) yet.
+</Note>
+
+Raise the workspace’s requests per minute for the Claude Opus 5.5 group to 2,000 and clear its input tokens per minute override:
+
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/rate_limits/rlt_01NwFawrTvAijwqn8AjKVBPS" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "limits": [
+        {"type": "requests_per_minute", "value": 2000},
+        {"type": "input_tokens_per_minute", "value": null}
+      ]
+    }'
+  ```
+
+  ```bash CLI
+  ant organization:workspaces:rate-limits update \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ \
+    --rate-limit-id rlt_01NwFawrTvAijwqn8AjKVBPS <<'YAML'
+  limits:
+    - type: requests_per_minute
+      value: 2000
+    - type: input_tokens_per_minute
+      value: null
+  YAML
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  entry = client.organization.workspaces.rate_limits.update(
+      "rlt_01NwFawrTvAijwqn8AjKVBPS",
+      workspace_id="wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      limits=[
+          {"type": "requests_per_minute", "value": 2000},
+          {"type": "input_tokens_per_minute", "value": None},
+      ],
+  )
+
+  for limit in entry.limits:
+      print(f"{limit.type}: {limit.value}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const entry = await client.organization.workspaces.rateLimits.update(
+    "rlt_01NwFawrTvAijwqn8AjKVBPS",
+    {
+      workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      limits: [
+        { type: "requests_per_minute", value: 2000 },
+        { type: "input_tokens_per_minute", value: null }
+      ]
+    }
+  );
+
+  for (const limit of entry.limits) {
+    console.log(`${limit.type}: ${limit.value}`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var entry = await client.Organization.Workspaces.RateLimits.Update(
+      "rlt_01NwFawrTvAijwqn8AjKVBPS",
+      new()
+      {
+          WorkspaceID = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+          Limits =
+          [
+              new() { Type = "requests_per_minute", Value = 2000 },
+              new() { Type = "input_tokens_per_minute", Value = null },
+          ],
+      }
+  );
+
+  foreach (var limit in entry.Limits)
+  {
+      Console.WriteLine($"{limit.Type}: {limit.Value}");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  entry, err := client.Organization.Workspaces.RateLimits.Update(
+  	context.Background(),
+  	"rlt_01NwFawrTvAijwqn8AjKVBPS",
+  	anthropic.OrganizationWorkspaceRateLimitUpdateParams{
+  		WorkspaceID: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  		Limits: []anthropic.WorkspaceRateLimitUpdateValueParam{
+  			{Type: "requests_per_minute", Value: anthropic.Int(2000)},
+  			{Type: "input_tokens_per_minute", Value: param.Null[int64]()},
+  		},
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  for _, limit := range entry.Limits {
+  	fmt.Printf("%s: %d\n", limit.Type, limit.Value)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.organization.workspaces.ratelimits.RateLimitUpdateParams;
+  import com.anthropic.models.organization.workspaces.ratelimits.WorkspaceRateLimitType;
+  import com.anthropic.models.organization.workspaces.ratelimits.WorkspaceRateLimitUpdateValue;
+  import java.util.Optional;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var entry = client.organization().workspaces().rateLimits().update(
+          "rlt_01NwFawrTvAijwqn8AjKVBPS",
+          RateLimitUpdateParams.builder()
+              .workspaceId("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ")
+              .addLimit(WorkspaceRateLimitUpdateValue.builder()
+                  .type(WorkspaceRateLimitType.REQUESTS_PER_MINUTE)
+                  .value(2000L)
+                  .build())
+              .addLimit(WorkspaceRateLimitUpdateValue.builder()
+                  .type(WorkspaceRateLimitType.INPUT_TOKENS_PER_MINUTE)
+                  .value(Optional.empty())
+                  .build())
+              .build()
+      );
+
+      for (var limit : entry.limits()) {
+          IO.println(limit.type() + ": " + limit.value());
+      }
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Organization\Workspaces\RateLimits\WorkspaceRateLimitUpdateValue;
+
+  $client = new Client();
+
+  $entry = $client->organization->workspaces->rateLimits->update(
+      'rlt_01NwFawrTvAijwqn8AjKVBPS',
+      workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
+      limits: [
+          WorkspaceRateLimitUpdateValue::with(type: 'requests_per_minute', value: 2000),
+          WorkspaceRateLimitUpdateValue::with(type: 'input_tokens_per_minute', value: null),
+      ],
+  );
+
+  foreach ($entry->limits as $limit) {
+      echo "{$limit->type}: {$limit->value}\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  entry = client.organization.workspaces.rate_limits.update(
+    "rlt_01NwFawrTvAijwqn8AjKVBPS",
+    workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+    limits: [
+      { type: :requests_per_minute, value: 2000 },
+      { type: :input_tokens_per_minute, value: nil }
+    ]
+  )
+
+  entry.limits.each do |limit|
+    puts "#{limit.type}: #{limit.value}"
+  end
+  ```
+</CodeGroup>
+
+The response is the group’s entry, in the shape of one entry in the workspace list endpoint’s `data` list. Its `limits` lists the workspace’s overrides on that group after the change: a cleared limiter type isn’t listed, and `limits` is empty when no override remains. The response includes the request’s changes even when a list request made right afterward doesn’t show them yet.
+
+```json
+{
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "rate_limit_id": "rlt_01NwFawrTvAijwqn8AjKVBPS",
+  "type": "workspace_rate_limit",
+  "group_type": "model_group",
+  "group": {
+    "type": "model_group",
+    "id": "rlg_01Hq7YkP3mZ9dTwRx4cVbN2s",
+    "display_name": "Claude Opus 5.5"
+  },
+  "models": ["claude-opus-5-5"],
+  "limits": [
+    {
+      "type": "requests_per_minute",
+      "value": 2000,
+      "org_limit": 4000,
+      "source": { "type": "workspace" }
+    }
+  ]
+}
+```
+
+The endpoint returns a 400 error for an invalid request or an archived workspace. It returns a 404 error when the workspace isn’t found, or when `rate_limit_id` names a group that the workspace can’t use.
+
 ## Filtering by group type
 
-Both endpoints accept an optional `group_type` query parameter that restricts the response to a single category:
+Both list endpoints accept an optional `group_type` query parameter that restricts the response to a single category:
 
 <CodeGroup>
   ```bash cURL
@@ -1109,7 +1340,7 @@ By default, the workspace response lists only overrides, so a missing group has 
 
 ### Can I update rate limits with this API?
 
-**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace’s overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint’s response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. You can also set workspace rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console: select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
+**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace’s overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint’s response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. For the request body and an example, see [this page’s section on setting workspace rate limits](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#set-workspace-rate-limits). You can also set workspace rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console: select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 **For an organization:** No. To request higher limits, see [Requesting higher limits](https://platform.claude.com/docs/en/api/rate-limits#requesting-higher-limits).
 

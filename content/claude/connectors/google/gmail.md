@@ -6,7 +6,7 @@
 
 > Connect the Gmail connector so Claude can search your email and answer questions from your messages, with citations back to each one.
 
-The Gmail connector lets Claude search your email and answer questions from what it finds, with citations that link back to the messages it used. It's available on Pro, Max, Team, and Enterprise plans. On Team and Enterprise plans, an Owner or Primary Owner enables it for the organization before members can connect.
+The Gmail connector lets Claude search your email and answer questions from what it finds, with citations that link back to the messages it used. It's available on Pro, Max, Ultra, Team, and Enterprise plans. On Team and Enterprise plans, an Owner or Primary Owner enables it for the organization before members can connect.
 
 By the end of this page you have connected your Google account and asked Claude a first question about your email. Claude reads and searches email only; it can't create, send, or modify messages.
 

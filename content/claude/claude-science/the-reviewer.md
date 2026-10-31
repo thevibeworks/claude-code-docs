@@ -6,7 +6,7 @@
 
 > A built-in verification step that independently re-reads Claude's recent responses, the approved plan, saved artifacts, and the execution record, then checks whether its claims match what ran.
 
-The reviewer is a built-in verification step that independently re-reads Claude's recent responses, the approved plan, saved artifacts, and the execution record, then checks whether Claude's claims match what actually ran. It runs automatically after responses and periodically during long work, and you can trigger it any time with **Request review**. Automatic review is on by default on Max, Team, and Enterprise plans; on the Pro plan it starts off, and you can turn it on per session.
+The reviewer is a built-in verification step that independently re-reads Claude's recent responses, the approved plan, saved artifacts, and the execution record, then checks whether Claude's claims match what actually ran. It runs automatically after responses and periodically during long work, and you can trigger it any time with **Request review**. Automatic review is on by default on Max, Ultra, Team, and Enterprise plans; on the Pro plan it starts off, and you can turn it on per session.
 
 ## Examples of what the reviewer checks
 
@@ -29,4 +29,4 @@ In **Settings** > **Specialists**, open **Reviewer** and add checks in the **Ins
 
 ## Controls
 
-Auto-review is a per-session toggle in the session settings menu. It starts on for Max, Team, and Enterprise plans and off for the Pro plan. If you turn Auto-review off while Claude is working, no new automatic reviews start, including for delegated work that is already running. Reviews that have already started or are waiting to start still finish. Turning Auto-review back on resumes automatic reviews, starting with the work done while it was off. Reviews run against your plan's usage.
+Auto-review is a per-session toggle in the session settings menu. It starts on for Max, Ultra, Team, and Enterprise plans and off for the Pro plan. If you turn Auto-review off while Claude is working, no new automatic reviews start, including for delegated work that is already running. Reviews that have already started or are waiting to start still finish. Turning Auto-review back on resumes automatic reviews, starting with the work done while it was off. Reviews run against your plan's usage.

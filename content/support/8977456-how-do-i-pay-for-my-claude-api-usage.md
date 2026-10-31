@@ -12,11 +12,11 @@ You're billed only for successful API calls and completed tasks. Failed requests
 
 If you run out of credits, you can no longer call the API or use the playground until you add more.
 
-## Monthly API credits for Max and Team plans
+## Monthly API credits for Max, Ultra, and Team plans
 
-Claude Max and Team plans include monthly credits for the Claude API. To claim your credits, you link a Claude Console organization to your plan. Your monthly credits are spent before any credits you’ve purchased, and unused credits expire at the end of each billing cycle. Monthly API credits can’t be used in Claude Code or the Claude apps, including for extra usage.
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. To claim your credits, you link a Claude Console organization to your plan. Your monthly credits are spent before any credits you’ve purchased, and unused credits expire at the end of each billing cycle. Monthly API credits can’t be used in Claude Code or the Claude apps, including for extra usage.
 
-If your organization is invoiced through Anthropic sales, usage beyond the credits is billed as usual. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+If your organization is invoiced through Anthropic sales, usage beyond the credits is billed as usual. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 ## Buy credits
 

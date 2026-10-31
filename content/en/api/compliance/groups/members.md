@@ -90,7 +90,7 @@ curl https://api.anthropic.com/v1/compliance/groups/$GROUP_ID/members \
       "created_at": "2025-03-12T18:22:41.123456Z",
       "email": "jane.doe@example.com",
       "updated_at": "2025-03-14T09:05:17.456789Z",
-      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
     }
   ],
   "has_more": true,

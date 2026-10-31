@@ -139,6 +139,8 @@ Retrieve a service account by its ID (`svac_...`).
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `BetaServiceAccount object`

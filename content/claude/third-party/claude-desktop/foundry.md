@@ -80,7 +80,7 @@ If the app can no longer renew the credential silently, it shows a **Sign in aga
 
 > [!NOTE]
 >
-> In-app sign-in and a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) are separate layers that work together. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A bootstrap server supplies per-user configuration values when the app starts. A bootstrap server does not replace sign-in: a deployment with a bootstrap server still needs each user to sign in, and signing in does not deliver configuration.
+> A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) supplies per-user configuration values when the app starts. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A deployment with a bootstrap server still needs each user to sign in, and signing in doesn't deliver configuration.
 
 #### Allow network egress
 
@@ -141,7 +141,7 @@ Since 2.110.0
 
 **Azure AI Foundry base URL.** Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)).
 
-> **More detail**
+> [accordion] More detail
 >
 > Point it only at a gateway or proxy that you run. Requests carry the credential that the app would send to Foundry: the user's Entra ID token, the API key or the helper script's output.
 >
@@ -189,7 +189,7 @@ enumSince 1.19367.0
 
 One of: `device-code`, `browser`, `broker`
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`device-code`:** shows a code to enter at microsoft.com/devicelogin. The app registration must have **Allow public client flows** enabled.
 > * **`browser`:** register `http://127.0.0.1/callback` under **Mobile and desktop applications**. It works with **Allow public client flows** disabled. Conditional Access policies that block device-code sign-in do not affect it.
@@ -210,7 +210,7 @@ You must also set `inferenceModels` to a list of Microsoft Foundry deployment na
 
 ## Troubleshoot
 
-To confirm each key's configured or default value and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
+To check each key's value and whether the provider settings are valid, or to find out why the app doesn't enter 3P mode, see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment). Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
 
 If sign-in fails at the token step, confirm the **Azure Cognitive Services** permission is granted and consented on the app registration. For the device-code flow, also confirm **Allow public client flows** is enabled; Entra ID rejects device-code sign-in without it.
 

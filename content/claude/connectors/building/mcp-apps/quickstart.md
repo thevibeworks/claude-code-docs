@@ -145,7 +145,7 @@ Run `node --check server.mjs` to catch typos. It prints nothing when the file pa
 
 For reference, this is `server.mjs` with every edit applied. Everything below `buildServer()` is unchanged from the first quickstart.
 
-> **server.mjs with the MCP App added**
+> [accordion] server.mjs with the MCP App added
 >
 > ```js server.mjs theme={null}
 > import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';

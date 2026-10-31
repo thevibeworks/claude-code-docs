@@ -141,6 +141,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
 ## Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`
@@ -153,7 +155,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `required string LastHeartbeat`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `required bool LeaseExtended`
 

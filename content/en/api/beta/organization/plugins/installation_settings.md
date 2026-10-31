@@ -170,6 +170,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `data: array of BetaPluginInstallationSetting`
@@ -424,6 +426,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Body parameters
 
@@ -696,6 +700,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 

@@ -6,11 +6,11 @@ The Claude desktop apps bring Claude's capabilities directly to your computer, a
 
 Claude Desktop is available on macOS, Windows, and Linux (beta). What you can do depends on your plan:
 
-| **Feature**   | **Free** | **Pro** | **Max** | **Team** | **Enterprise** |
-| ------------- | -------- | ------- | ------- | -------- | -------------- |
-| Chat          | ✅        | ✅       | ✅       | ✅        | ✅              |
-| Claude Code   |          | ✅       | ✅       | ✅        | ✅              |
-| Claude Cowork |          | ✅       | ✅       | ✅        | ✅              |
+| **Feature**   | **Free** | **Pro** | **Max** | **Ultra** | **Team** | **Enterprise** |
+| ------------- | -------- | ------- | ------- | --------- | -------- | -------------- |
+| Chat          | ✅        | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Claude Code   |          | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Claude Cowork |          | ✅       | ✅       | ✅         | ✅        | ✅              |
 
 ## System Requirements
 
@@ -111,7 +111,7 @@ Read more about desktop extensions in our **[Getting Started with Local MCP Serv
 
 ## Claude Cowork
 
-Claude Cowork is available for all paid plans (Pro, Max, Team, Enterprise) using the Claude Desktop app on macOS, Windows, and Linux (beta).
+Claude Cowork is available for all paid plans (Pro, Max, Ultra, Team, Enterprise) using the Claude Desktop app on macOS, Windows, and Linux (beta).
 
 Users on paid Claude plans can access Cowork in Claude Desktop. Cowork brings Claude Code's agentic capabilities to a visual interface, allowing you to hand off complex, multi-step tasks without using a terminal.
 

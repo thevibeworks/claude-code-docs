@@ -2,7 +2,7 @@
 
 A design system captures your colors, typography, components, and layout patterns, so Claude applies them to every new design and deck. Claude extracts them from the assets you provide, like codebases, slide decks, or other design references.
 
-Design systems are available in beta on Pro, Max, Team, and Enterprise plans. They're on by default on Pro, Max, and Team plans. On Enterprise plans, they're off until an owner turns on **Design systems** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Standalone Claude Design at claude.ai/design has its own separate setting.
+Design systems are available in beta on Pro, Max, Ultra, Team, and Enterprise plans. They're on by default on Pro, Max, Ultra, and Team plans. On Enterprise plans, they're off until an owner turns on **Design systems** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Standalone Claude Design at claude.ai/design has its own separate setting.
 
 This guide is for the designer or brand owner who will set up the design system. On Team and Enterprise plans, you only need to do this once, and everyone's work picks it up after that.
 

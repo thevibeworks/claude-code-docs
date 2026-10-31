@@ -6,6 +6,13 @@
 
 > Deploy the Office add-ins through Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway, without individual Claude accounts.
 
+> [!WARNING]
+>
+> After the September and October 2026 Microsoft 365 updates on Windows, some
+> users are missing their chat history and uploaded skills in the Claude add-in.
+> Anthropic is working with Microsoft to solve this issue. In the meantime, see
+> [what you and your IT team can do](https://claude.com/docs/office-agents/data-storage.md#chat-history-and-skills-missing-after-a-microsoft-365-update-on-windows).
+
 Organizations using Amazon Bedrock, Google Cloud Vertex AI, Azure AI
 Foundry, or an LLM gateway can deploy Claude's Office add-ins without
 requiring individual Claude accounts. The add-in connects through your

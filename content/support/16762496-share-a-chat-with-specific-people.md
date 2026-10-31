@@ -2,7 +2,7 @@
 
 You can share a chat with specific people by inviting them by email. This is the default way to share a chat and keeps it private to the people you choose. Invited people can view a snapshot of the chat but can't reply, copy it into their own account, or continue the conversation.
 
-Sharing with specific people is available on all plans (Free, Pro, Max, Team, and Enterprise) on claude.ai. If you want anyone with the link to be able to view a chat instead, see **[Public links for shared chats](https://support.claude.com/en/articles/16762437)**.
+Sharing with specific people is available on all plans (Free, Pro, Max, Ultra, Team, and Enterprise) on claude.ai. If you want anyone with the link to be able to view a chat instead, see **[Public links for shared chats](https://support.claude.com/en/articles/16762437)**.
 
 ## Invite people to a chat
 

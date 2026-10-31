@@ -2,11 +2,11 @@
 
 We’re introducing a new way to use both Claude Cowork and chat that removes the distinction between the two products: in the new experience, these are merged into a single conversation, so you don’t need to decide which option better suits your task before getting started. Ask Claude for what you need, and it can decide which tool to use. Claude can answer a quick question, and it can also take on more complex work, like research, reports, spreadsheets, and presentations, and hand it back as finished files you can edit. With the new Claude experience, you ask for all of it in the same conversation, with no mode to choose. What you could previously only do in Claude Cowork is available from any conversation.
 
-The new Claude experience is rolling out gradually, starting with Pro and Max plans on web, desktop, and mobile. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on.
+The new Claude experience is rolling out gradually, starting with Pro, Max, and Ultra plans on web, desktop, and mobile. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on.
 
 ## Why you might not have it yet
 
-We're rolling this new experience out in stages, so even accounts on the same plan will see the changes at different times. You don't need to do anything to enable the new experience. If you're on a Pro or Max plan and your message box still shows "Chat" and "Cowork" options, you don't have it yet. Until then, keep using chat and Claude Cowork as you do today, where you can do most of what's in this article. Your chats, tasks, projects, and settings come with you when your account moves over. Once your account has the new experience, you can't switch back to separate "Chat" and "Cowork" options.
+We're rolling this new experience out in stages, so even accounts on the same plan will see the changes at different times. You don't need to do anything to enable the new experience. If you're on a Pro, Max, or Ultra plan and your message box still shows "Chat" and "Cowork" options, you don't have it yet. Until then, keep using chat and Claude Cowork as you do today, where you can do most of what's in this article. Your chats, tasks, projects, and settings come with you when your account moves over. Once your account has the new experience, you can't switch back to separate "Chat" and "Cowork" options.
 
 ## What Claude can do
 
@@ -46,7 +46,7 @@ Apps you've connected to Claude (like Google Drive, Gmail, Microsoft 365, or Sla
 
 - **Browsing:** Claude can open sites, read pages, click, and fill in forms, using the browser built into Claude Desktop or your own Chrome browser through Claude in Chrome. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
-- **Computer use:** In beta on Pro and Max plans, Claude can use apps on your computer directly by clicking, typing, and navigating your screen. Learn more in **Let Claude use your computer in Cowork**.
+- **Computer use:** In beta on Pro, Max, and Ultra plans, Claude can use apps on your computer directly by clicking, typing, and navigating your screen. Learn more in **Let Claude use your computer in Cowork**.
 
 Claude reaches your local files, the built-in browser, and computer use only while Claude Desktop is open, and by default it asks before permanently deleting any files.
 
@@ -72,7 +72,7 @@ A task you start at your desk shows up in Claude Mobile too, so you can see how 
 
 A permission setting in the message box controls how independently Claude works:
 
-- **Auto (default on Pro, Max, and Team plans):** Claude keeps working without stopping to ask about each step, and automated safety checks run before it takes an action.
+- **Auto (default on Pro, Max, Ultra, and Team plans):** Claude keeps working without stopping to ask about each step, and automated safety checks run before it takes an action.
 
 - **Manual (default on Enterprise plans):** Claude asks before it takes actions, and you choose whether to allow each one.
 

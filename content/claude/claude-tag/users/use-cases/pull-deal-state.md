@@ -64,10 +64,10 @@ The three lines cover what moved, what's stuck, and what's coming due, so the di
 
 ## Related resources
 
-> **[Answer data questions](https://claude.com/docs/claude-tag/users/use-cases/answer-data-questions.md)**
+> [card] [Answer data questions](https://claude.com/docs/claude-tag/users/use-cases/answer-data-questions.md)
 >
 > When the question is metrics, not accounts
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > Scheduled digests

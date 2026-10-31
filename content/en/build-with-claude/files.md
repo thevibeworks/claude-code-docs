@@ -3,7 +3,7 @@ title: Files API
 url: https://platform.claude.com/docs/en/build-with-claude/files
 description: Upload files once, reference them by file_id in Messages requests, and download outputs created by skills or the code execution tool.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: not-eligible
     note: Files retained until explicitly deleted or they reach their configured expiration.
@@ -26,10 +26,10 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Claude Models on Google Cloud (Anthropic managed): ga
-    Microsoft Foundry (hosted on Anthropic): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Claude Models on Google Cloud (Anthropic managed): stable
+    Microsoft Foundry (hosted on Anthropic): stable
 ---
 
 **API support**: Usage differs by product.

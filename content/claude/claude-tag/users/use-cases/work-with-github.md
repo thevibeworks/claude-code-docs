@@ -120,10 +120,10 @@ Each session runs in an isolated sandbox with a standard set of preinstalled too
 
 ## Related resources
 
-> **[Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)**
+> [card] [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)
 >
 > The full arc from a bug report to a draft pull request and green CI
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > Pull request subscriptions and other standing work

@@ -20,7 +20,7 @@ If you feel your account has been wrongly suspended or terminated, please go to 
 
 ## Export your data or delete your account
 
-If your Free, Pro, or Max account has been banned for violating our Usage Policy, you can still log in at **[claude.ai](https://claude.ai)** to export your data or delete your account. You don't need to contact Anthropic to do this. The options available to your account are shown on the same screen as the appeal form after you log in.
+If your Free, Pro, Max, or Ultra account has been banned for violating our Usage Policy, you can still log in at **[claude.ai](https://claude.ai)** to export your data or delete your account. You don't need to contact Anthropic to do this. The options available to your account are shown on the same screen as the appeal form after you log in.
 
 All banned users can delete their own account. Self-serve data exports are available to all banned users, but the data you’re able to access and export may be restricted depending upon the Usage Policy violation associated with your account.
 

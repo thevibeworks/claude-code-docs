@@ -50,7 +50,7 @@ curl https://api.anthropic.com/v1/organizations/users/$USER_ID \
 
 ```json
 {
-  "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
   "type": "user_deleted"
 }
 ```

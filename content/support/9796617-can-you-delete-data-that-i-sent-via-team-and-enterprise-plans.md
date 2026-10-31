@@ -1,6 +1,6 @@
 # Can you delete data that I sent via Team and Enterprise plans?
 
-*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see* *[here](https://privacy.claude.com/en/collections/10663362-consumers).*
+*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max, Ultra and when accounts from those plans use Claude Code, see [here](https://privacy.claude.com/en/collections/10663362-consumers).*
 
 While using Team and Enterprise plans, prompts and conversations in the product are maintained so you can see your conversation history in the product. You can [delete your chats](https://privacy.claude.com/en/articles/11117329-how-can-i-delete-or-rename-a-conversation) to remove them from your visible history.
 

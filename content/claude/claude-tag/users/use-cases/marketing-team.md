@@ -109,10 +109,10 @@ Keep saved entries short, since long entries crowd out everything else. For a fu
 
 ## Related resources
 
-> **[Pull deal and account state](https://claude.com/docs/claude-tag/users/use-cases/pull-deal-state.md)**
+> [card] [Pull deal and account state](https://claude.com/docs/claude-tag/users/use-cases/pull-deal-state.md)
 >
 > The full set of go-to-market prompts
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > How the scheduled digest runs, and more recipes

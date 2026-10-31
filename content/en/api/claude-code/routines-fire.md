@@ -12,7 +12,7 @@ description: Start a Claude Code routine session on demand by sending an authent
 
 This endpoint is the HTTP entry point. POSTing to it starts a new run of an existing routine and returns the resulting session ID and URL. Typical callers are alerting systems, CI pipelines, and internal tools that need to start a Claude Code session programmatically.
 
-Calling this endpoint requires a claude.ai account on a Pro, Max, Team, or Enterprise plan with [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web) enabled. Authenticate with a per-routine bearer token created in the Claude Code web UI rather than a Claude API key.
+Calling this endpoint requires a claude.ai account on a Pro, Max, Ultra, Team, or Enterprise plan with [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web) enabled. Authenticate with a per-routine bearer token created in the Claude Code web UI rather than a Claude API key.
 
 ## Differences from the Claude Platform
 

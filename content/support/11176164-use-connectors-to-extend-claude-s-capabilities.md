@@ -170,7 +170,7 @@ To manage your connected services:
 
 ## Custom connectors
 
-Custom connectors using remote MCP are available on Claude, Cowork, and Claude Desktop for users on free, Pro, Max, Team, and Enterprise plans. Free users are limited to one custom connector.
+Custom connectors using remote MCP are available on Claude, Cowork, and Claude Desktop for users on Free, Pro, Max, Ultra, Team, and Enterprise plans. Free users are limited to one custom connector.
 
 In addition to directory connectors, you can add custom connectors:
 

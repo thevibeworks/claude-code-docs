@@ -12,6 +12,10 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
   For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### October 30, 2026
+
+* We’ve deprecated [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) for Claude Opus 4.8, with removal on November 30, 2026. After removal, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. To continue using fast mode, migrate to [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-4-8). Read more in [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#supported-models).
+
 ### October 29, 2026
 
 * We’ve launched the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) in beta with the `analytics-usage-cost-2026-08-24` beta header. Its `/v1/organizations/analytics/usage` and `/v1/organizations/analytics/cost` endpoints report token usage and cost for Claude Console and Claude Enterprise organizations. You can filter and group results by dimensions such as model, workspace, API key, and the user or service account behind each request.
@@ -73,7 +77,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 * We’ve launched **Claude Haiku 5.5** (`claude-haiku-5-5`), our most capable model tuned for high-volume and latency-sensitive work. It has a [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows), 128k max output tokens, and [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) with the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort). It’s available on the Claude API, [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), and [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). See [What’s new in Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/whats-new-haiku-5-5).
 * Code written for Claude Haiku 4.5 can break on Claude Haiku 5.5. Manual extended thinking (`budget_tokens`), the sampling parameters `temperature`, `top_p`, and `top_k`, and assistant message prefill can each return a 400 error. `computer_20250124` also returns a 400 error: use the `computer_toolset_20260801` toolset on the Claude API and Google Cloud, or `computer_20251124` on Amazon Bedrock. A request that sends thinking blocks back after a change to `system`, `tools`, or earlier turns can also return a 400 error. Adaptive thinking is on by default, so a response can begin with `thinking` blocks, and their text is omitted unless you set `thinking.display` to `"summarized"`. The same text also counts as more tokens. See the [migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide) for each change. For model-specific prompting patterns, see [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5).
 * The Python and TypeScript SDKs now include classes, in beta, for the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) and the [computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool). You subclass one and write one method per tool against your own browser or desktop automation. The SDK runs the tool loop, the URL and file policies you set for the browser, and your approval callback. See [Browser and computer use with the SDK toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk).
-* Claude Max and Team plans now include monthly API credits. To learn how to claim them, see [API credits for Max and Team plans](https://platform.claude.com/docs/en/about-claude/api-credits-for-subscribers).
+* Claude Max, Ultra, and Team plans now include monthly API credits. To learn how to claim them, see [API credits for Max, Ultra, and Team plans](https://platform.claude.com/docs/en/about-claude/api-credits-for-subscribers).
 * In Claude Managed Agents, a cloud environment with `limited` networking now also applies its `allowed_hosts` to the `web_search` and `web_fetch` tools. A `web_fetch` call for a URL on a host that `allowed_hosts` does not match returns a `url_not_allowed` error result to the agent. `web_search` omits results from such hosts. When `allowed_hosts` lists no hosts, neither tool returns a page or a search result. `allow_package_managers` and `allow_mcp_servers` add no hosts for these tools. To let the tools reach a host, add it to `allowed_hosts`, which also opens it to the sandbox. `unrestricted` networking and self-hosted environments do not limit these tools. See [Environment networking](https://platform.claude.com/docs/en/managed-agents/environments#networking).
 * With `limited` networking, creating a session fails with a 400 error when an enabled web tool’s `allowed_domains` has an entry not within `allowed_hosts`. So does a session update that adds such an entry. An `allowed_hosts` entry matches one exact host unless it starts with `*.`, so `docs.example.com` is not within `["example.com"]`. To fix the error, add the host to `allowed_hosts` or remove the entry from `allowed_domains`. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
 * In Claude Managed Agents, the [`web_fetch` tool](https://platform.claude.com/docs/en/managed-agents/tools#available-tools) now fetches only URLs that have already appeared in the session, for example in the text of a user message, in a `web_search` result, or in a page that `web_fetch` returned earlier. This reduces the risk of data exfiltration. A URL that appears only in Claude’s own output, the agent’s system prompt, an attached document, or the output of a tool such as `bash`, `read`, or an MCP tool does not count: a `web_fetch` call for it returns a `url_not_in_prior_context` error result to the agent. To let the agent fetch a URL, send it in the text of a `user.message` event.
@@ -89,7 +93,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 ### October 1, 2026
 
 * We’ve added a `line` field to the [Models API](https://platform.claude.com/docs/en/api/models/list). `GET /v1/models` and `GET /v1/models/{model_id}` now return the model line each model belongs to. Claude Opus 4.5 and Claude Opus 4.6 both report `opus`, for example. Use `line` to group models without parsing their IDs. `line` is `null` for a model that belongs to no line. See [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api).
-* [Dreams](https://platform.claude.com/docs/en/managed-agents/dreams) (research preview) now supports Claude Opus 5.5, Claude Fable 5.1, and Claude Sonnet 5.5. See [Supported models](https://platform.claude.com/docs/en/managed-agents/dreams#limits).
+* [Dreams](https://platform.claude.com/docs/en/managed-agents/dreams) (research preview) now supports Claude Opus 5.5, Claude Fable 5.1, and Claude Sonnet 5.5. See [Supported models](https://platform.claude.com/docs/en/managed-agents/dreams#feature-availability).
 
 ### September 30, 2026
 
@@ -216,7 +220,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 ### August 1, 2026
 
-* [Dreams](https://platform.claude.com/docs/en/managed-agents/dreams) (research preview) now supports Claude Opus 5. See [Supported models](https://platform.claude.com/docs/en/managed-agents/dreams#limits).
+* [Dreams](https://platform.claude.com/docs/en/managed-agents/dreams) (research preview) now supports Claude Opus 5. See [Supported models](https://platform.claude.com/docs/en/managed-agents/dreams#feature-availability).
 
 ### July 24, 2026
 
@@ -250,7 +254,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 ### July 10, 2026
 
-* [Dreams](https://platform.claude.com/docs/en/managed-agents/dreams) (research preview) now supports Claude Fable 5 and Claude Sonnet 5. See [Supported models](https://platform.claude.com/docs/en/managed-agents/dreams#limits).
+* [Dreams](https://platform.claude.com/docs/en/managed-agents/dreams) (research preview) now supports Claude Fable 5 and Claude Sonnet 5. See [Supported models](https://platform.claude.com/docs/en/managed-agents/dreams#feature-availability).
 * We’ve expanded the [Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency) documentation of `cmek_preserve` events with a filter example, an example event payload, and two preservation reason codes (`policy_violation_investigation`, `csae_report`). The documentation now also clarifies that a preservation event is written whether the preservation was initiated by a human reviewer or an automated safety pipeline. See [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation).
 
 ### July 8, 2026
@@ -628,9 +632,9 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 ### August 5, 2025
 
-* We’ve launched [Claude Opus 4.1](https://www.anthropic.com/news/claude-opus-4-1), an incremental update to Claude Opus 4 with enhanced capabilities and performance improvements.\* Learn more in [Models overview](https://platform.claude.com/docs/en/models/overview).
+* We’ve launched [Claude Opus 4.1](https://www.anthropic.com/news/claude-opus-4-1), an incremental update to Claude Opus 4 with enhanced capabilities and performance improvements.<sup>\*</sup> Learn more in [Models overview](https://platform.claude.com/docs/en/models/overview).
 
-*\*Opus 4.1 does not allow both `temperature` and `top_p` parameters to be specified. Please use only one.*
+*<sup>\*Opus 4.1 does not allow both `temperature` and `top_p` parameters to be specified. Please use only one.</sup>*
 
 ### July 28, 2025
 

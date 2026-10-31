@@ -1,6 +1,6 @@
 # Respond to an Enterprise domain claim on your Claude account
 
-If your organization has set up Claude Enterprise, they may claim your existing personal Claude account (Free, Pro, or Max) and move it into their workspace. This article explains what to expect and what your options are.
+If your organization has set up Claude Enterprise, they may claim your existing personal Claude account (Free, Pro, Max, or Ultra) and move it into their workspace. This article explains what to expect and what your options are.
 
 **Note:** If your admin hasn't claimed your domain yet and you're exploring your options, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
 
@@ -34,9 +34,9 @@ Sign in before the deadline to make your choice.
 
 ## What happens to your paid subscription
 
-If you have a Pro or Max subscription, it will be automatically canceled when you migrate or when the deadline passes. You’ll receive a prorated refund for any unused time.
+If you have a Pro, Max, or Ultra subscription, it will be automatically canceled when you migrate or when the deadline passes. You’ll receive a prorated refund for any unused time.
 
-**Apple App Store subscriptions:** If you purchased your Pro or Max plan through the Apple App Store, we can’t cancel or refund it directly. You’ll need to cancel it yourself through your Apple ID settings:
+**Apple App Store subscriptions:** If you purchased your Pro, Max, or Ultra plan through the Apple App Store, we can’t cancel or refund it directly. You’ll need to cancel it yourself through your Apple ID settings:
 
 1. Open the Settings app on your iPhone or iPad.
 

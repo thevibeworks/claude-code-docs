@@ -3,7 +3,7 @@ title: Data residency
 url: https://platform.claude.com/docs/en/manage-claude/data-residency
 description: Manage where model inference runs and where data is stored with geographic controls.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
@@ -23,12 +23,12 @@ featureMetadata:
     - claude-opus-4-6
     - claude-sonnet-4-6
   supportedPlatforms:
-    Claude API: ga
+    Claude API: stable
     Claude Platform on AWS:
-      availability: ga
+      availability: stable
       note: Workspace geo is not configurable; Managed Agents sessions there run with workspace geo "us".
     Claude Models on Google Cloud (Anthropic managed):
-      availability: ga
+      availability: stable
       note: Workspace geo is not configurable.
 ---
 

@@ -143,6 +143,8 @@ Create Skill
 
     - `"analytics-usage-cost-2026-08-24"`
 
+    - `"experimental-claude-tag-2026-10-21"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -400,6 +402,8 @@ List Skills
 
     - `"analytics-usage-cost-2026-08-24"`
 
+    - `"experimental-claude-tag-2026-10-21"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -644,6 +648,8 @@ Get Skill
 
     - `"analytics-usage-cost-2026-08-24"`
 
+    - `"experimental-claude-tag-2026-10-21"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -881,6 +887,8 @@ Delete Skill
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
+
+    - `"experimental-claude-tag-2026-10-21"`
 
   - `workspace_id?: string` (header parameter)
 
@@ -1182,6 +1190,8 @@ Create Skill Version
 
     - `"analytics-usage-cost-2026-08-24"`
 
+    - `"experimental-claude-tag-2026-10-21"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1403,6 +1413,8 @@ List Skill Versions
 
     - `"analytics-usage-cost-2026-08-24"`
 
+    - `"experimental-claude-tag-2026-10-21"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1622,6 +1634,8 @@ Download a skill version's content as a zip archive.
 
     - `"analytics-usage-cost-2026-08-24"`
 
+    - `"experimental-claude-tag-2026-10-21"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1788,6 +1802,8 @@ Get Skill Version
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
+
+    - `"experimental-claude-tag-2026-10-21"`
 
   - `workspace_id?: string` (header parameter)
 
@@ -2003,6 +2019,8 @@ Delete Skill Version
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
+
+    - `"experimental-claude-tag-2026-10-21"`
 
   - `workspace_id?: string` (header parameter)
 

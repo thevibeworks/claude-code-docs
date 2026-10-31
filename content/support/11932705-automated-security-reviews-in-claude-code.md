@@ -14,7 +14,7 @@ You can use security reviews in two ways: through the `/security-review` command
 
 These features are available for all Claude Code users, including:
 
-- Users on individual paid plans (Pro or Max).
+- Users on individual paid plans (Pro, Max, or Ultra).
 
 - Individual users or enterprises with pay-as-you-go API Console accounts.
 

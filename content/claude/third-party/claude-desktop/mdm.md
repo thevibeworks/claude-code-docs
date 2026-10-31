@@ -6,13 +6,13 @@
 
 > Author a full configuration in the app, export it as a profile, and deploy it fleet-wide with Jamf, Intune, Group Policy, or any MDM
 
-On the MDM delivery model, the profile you deploy carries your organization's full configuration, and every device the profile targets gets the same settings. This page covers the workflow end to end: build the configuration in the app, export it, open the firewall, and deploy the profile and installer to your fleet.
+On the MDM delivery model, the profile you deploy carries your organization's full configuration, and every device the profile targets gets the same settings.
 
 Before you start, install Claude Desktop on an admin workstation; see [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md). If you deliver configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) instead, follow that page; your profile then carries only the bootstrap keys, but it is exported and deployed the same way described here.
 
 ## Recommended rollout
 
-Roll out in this order; the numbered sections on this page cover each step in detail.
+Roll out in this order.
 
 **1. Build a configuration in the app**
 
@@ -38,15 +38,15 @@ The window is organized into sections in the left sidebar. Work through them in 
 
 | Section | What you set |
 | - | - |
-| **Connection** | Inference provider (Gateway, Claude API, Google Cloud's Agent Platform, Bedrock, Bedrock Mantle, or Foundry) and its credentials Model list Organization UUID Optional credential-helper script |
+| **Connection** | Inference provider (Gateway, Claude API, Google Cloud's Agent Platform, Bedrock, Bedrock Mantle, or Foundry) and its credentials Model list Optional credential-helper script |
 | **Capabilities** | Which of Cowork, Code, and Chat are available Allowed egress hosts for the sandbox Disabled built-in tools Allowed workspace folders |
 | **Connectors** | Managed MCP servers pushed to all users Whether users can add their own local MCP servers Whether desktop extensions (`.mcpb`) are allowed Whether unsigned extensions are rejected |
-| **Telemetry & updates** | OpenTelemetry collector endpoint Whether auto-updates are blocked The enforcement window for downloaded updates, or the restart for versions you install yourself The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
+| **Telemetry & updates** | Organization UUID OpenTelemetry collector endpoint Whether auto-updates are blocked The enforcement window for downloaded updates, or the restart for versions you install yourself The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
 | **Limits** | Per-device token cap and its window length Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted |
 | **Appearance** | Persistent banner shown across the app window Deployment display name and subtitle Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
 | **Plugins** | [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
 | **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature **Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
-| **Source** | The bootstrap keys, if you are using the [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) delivery model instead of a full MDM profile Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key |
+| **Source** | The bootstrap keys, if you are using the [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) delivery model instead of a full MDM profile |
 
 To turn on [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude), set `desktopHome` to `standard` in your MDM profile.
 
@@ -103,33 +103,33 @@ Open these hosts on your perimeter firewall before rolling out to devices. See [
 
 Push the exported configuration through your MDM. The app reads from these locations:
 
-**macOS**
-
-| Source | Path | Precedence |
-| - | - | - |
-| Managed (per-user) | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` | Highest |
-| Managed (machine) | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` | |
-| Local (user) | `~/Library/Application Support/Claude-3p/configLibrary/` | Lowest |
-
-A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. Both managed paths are read; where a key appears in both, the per-user value wins.
-
-**Windows**
-
-| Source | Path | Precedence |
-| - | - | - |
-| Machine policy | `HKLM\SOFTWARE\Policies\Claude` | Highest |
-| User policy | `HKCU\SOFTWARE\Policies\Claude` | |
-| Local (user) | `%LOCALAPPDATA%\Claude-3p\configLibrary\` | Lowest |
-
-A Group Policy Object or Intune configuration profile writes to the registry policy paths. The hives are not merged: when machine policy is present (any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude`, including an empty string, and the key's unnamed default value when set), the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely. Deploy the complete configuration to one hive; machine policy (`HKLM`) is the recommended location.
-
-> [!WARNING]
+> [tab] macOS
 >
-> Values must sit directly under `HKLM\SOFTWARE\Policies\Claude` or `HKCU\SOFTWARE\Policies\Claude`. The app never reads values nested in a subkey, as some ADMX-based and Policy CSP tooling writes them: they do not apply as configuration and do not count as machine policy being present. Write values as `REG_SZ` (`REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value). Avoid `REG_EXPAND_SZ`: the app counts it as machine policy being present but cannot read its contents, so a single `REG_EXPAND_SZ` value under `HKLM` disables user policy without supplying any configuration. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
-
-> [!NOTE]
+> | Source | Path | Precedence |
+> | - | - | - |
+> | Managed (per-user) | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` | Highest |
+> | Managed (machine) | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` | |
+> | Local (user) | `~/Library/Application Support/Claude-3p/configLibrary/` | Lowest |
 >
-> In releases before v1.19367.0, the app read both hives and merged them key by key, with the `HKLM` value winning where a key appeared in both. Fleets that split keys across both hives must consolidate the full configuration into one hive before updating to v1.19367.0 or later.
+> A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. Both managed paths are read; where a key appears in both, the per-user value wins.
+
+> [tab] Windows
+>
+> | Source | Path | Precedence |
+> | - | - | - |
+> | Machine policy | `HKLM\SOFTWARE\Policies\Claude` | Highest |
+> | User policy | `HKCU\SOFTWARE\Policies\Claude` | |
+> | Local (user) | `%LOCALAPPDATA%\Claude-3p\configLibrary\` | Lowest |
+>
+> A Group Policy Object or Intune configuration profile writes to the registry policy paths. The hives are not merged: when machine policy is present (any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude`, including an empty string, and the key's unnamed default value when set), the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely. Deploy the complete configuration to one hive; machine policy (`HKLM`) is the recommended location.
+>
+> > [!WARNING]
+> >
+> > Values must sit directly under `HKLM\SOFTWARE\Policies\Claude` or `HKCU\SOFTWARE\Policies\Claude`. The app never reads values nested in a subkey, as some ADMX-based and Policy CSP tooling writes them: they do not apply as configuration and do not count as machine policy being present. Write values as `REG_SZ` (`REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value). Avoid `REG_EXPAND_SZ`: the app counts it as machine policy being present but cannot read its contents, so a single `REG_EXPAND_SZ` value under `HKLM` disables user policy without supplying any configuration. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
+>
+> > [!NOTE]
+> >
+> > In releases before v1.19367.0, the app read both hives and merged them key by key, with the `HKLM` value winning where a key appeared in both. Fleets that split keys across both hives must consolidate the full configuration into one hive before updating to v1.19367.0 or later.
 
 When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 

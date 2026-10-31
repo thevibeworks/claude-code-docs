@@ -20,7 +20,7 @@ Every user has access to this portal regardless of what role they hold. If you a
 
 Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Your account pages are in the web portal. In a browser, open your agency's Claude for Government address and sign in. Account shows your email, organization, role, and seat tier, all read-only.
 >

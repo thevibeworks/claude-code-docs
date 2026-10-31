@@ -62,7 +62,7 @@ If multiple organizations share the same email domain and are all discoverable, 
 
 ## Join when you already have a personal Claude account
 
-If you have a Free, Pro, or Max account on the same email address as the organization you're joining, you can choose what to do with it:
+If you have a Free, Pro, Max, or Ultra account on the same email address as the organization you're joining, you can choose what to do with it:
 
 - **Keep both accounts.** Your personal account stays active, and you switch between it and your organization account from your account menu.
 

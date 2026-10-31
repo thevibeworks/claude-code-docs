@@ -2,7 +2,7 @@
 
 Claude can now connect with your iOS device's system apps to help you take action directly from your conversations. When you chat with Claude, it can draft messages, emails, or calendar events, find locations, manage reminders, and analyze your health and fitness data — all seamlessly integrated with your mobile apps.
 
-This feature is supported on all Claude plans and works with iOS system apps (Messages, Mail, Calendar, Maps, Reminders, and Location Services), as well as compatible third-party apps. Health features are currently in beta, require a Pro or Max plan, and are available in the US only.
+This feature is supported on all Claude plans and works with iOS system apps (Messages, Mail, Calendar, Maps, Reminders, and Location Services), as well as compatible third-party apps. Health features are currently in beta, require a Pro, Max, or Ultra plan, and are available in the US only.
 
 ## What can Claude do with iOS apps?
 
@@ -20,7 +20,7 @@ Claude can help you:
 
 - **Create and manage reminders** to help you stay organized with tasks and lists.
 
-- **Read and analyze your health data** to help you understand fitness patterns, track progress toward goals, and visualize trends with native charts (Pro and Max plans only).
+- **Read and analyze your health data** to help you understand fitness patterns, track progress toward goals, and visualize trends with native charts (Pro, Max, and Ultra plans only).
 
 ### Limitations
 
@@ -32,7 +32,7 @@ Claude can help you:
 
 - **Contacts:** Claude does not have direct access to your contacts.
 
-- **Health:** Available in beta on Pro and Max plans only. Currently limited to users in the US. Claude can read health data but cannot write or modify entries in Apple Health.
+- **Health:** Available in beta on Pro, Max, and Ultra plans only. Currently limited to users in the US. Claude can read health data but cannot write or modify entries in Apple Health.
 
 ---
 
@@ -126,7 +126,7 @@ Note that when Claude uses tools to take these actions, their use is preserved i
 
 ## Access and analyze your health data
 
-**Note:** Health features are available in beta on Pro and Max plans only, and currently limited to users in the US.
+**Note:** Health features are available in beta on Pro, Max, and Ultra plans only, and currently limited to users in the US.
 
 Claude can read your health and fitness data from Apple Health to help you understand patterns, track progress, and make informed decisions about your wellbeing. When you ask Claude about your health data, it can display insights using native charts that feel integrated with iOS.
 
@@ -266,7 +266,7 @@ Claude will only request permissions if needed for specific features, and you ca
 
 ### Health data isn't appearing or seems incomplete
 
-- Verify that you have a Pro or Max plan and are located in the US.
+- Verify that you have a Pro, Max, or Ultra plan and are located in the US.
 
 - Check that you've granted Claude access to the relevant health data types in Settings > Health > Data Access & Devices > Claude.
 

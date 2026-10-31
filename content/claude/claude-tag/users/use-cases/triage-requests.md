@@ -78,10 +78,10 @@ When an answer changes, update the runbook where it lives. Edit the document, ed
 
 ## Related resources
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > How the weekly rollup runs on a schedule
 
-> **[What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md)**
+> [card] [What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md)
 >
 > How the standing role persists and improves

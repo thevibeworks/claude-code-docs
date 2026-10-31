@@ -150,7 +150,7 @@ Live editing uses separate Google Docs, Google Sheets, and Google Slides connect
 
 - We do not train our models on your Gmail, Drive, or Calendar connector data, ensuring your private information remains private.
 
-  - **Note**: If you are using our consumer products (e.g. Claude Free, Pro, and Max (when using Claude Code with those accounts) and you have chosen to allow us to use your chats and coding sessions for model training, then any content you copy/paste from your Gmail, Drive, Calendar, or Claude's responses which include specific information from these connectors may be used to improve our models. For more information, refer to **[Is my data used for model training?](https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training)**
+  - **Note**: If you are using our consumer products (e.g. Claude Free, Pro, Max, Ultra, and when using Claude Code with those accounts) and you have chosen to allow us to use your chats and coding sessions for model training, then any content you copy/paste from your Gmail, Drive, Calendar, or Claude's responses which include specific information from these connectors may be used to improve our models. For more information, refer to **[Is my data used for model training?](https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training)**
 
 - Data is encrypted at rest and in transit.
 

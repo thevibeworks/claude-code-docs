@@ -174,9 +174,9 @@ The monitoring calls on this page run from your monitoring or operations tooling
 
 Use `POST /v1/environments/{environment_id}/work/{work_id}/stop` (python, typescript, ruby: `client.beta.environments.work.stop()`; go, csharp: `client.Beta.Environments.Work.Stop()`; java: `client.beta().environments().work().stop()`; php: `$client->beta->environments->work->stop()`; cli: `ant beta:environments:work stop`) to ask the worker handling a specific session to shut it down.
 
-By default the work item moves to `stopping`. The worker detects this on its next lease heartbeat, cancels the session’s in-flight tool call, and confirms the shutdown. The work item then becomes `stopped`.
+By default the work item moves to `stopping`. The worker detects this on its next lease heartbeat, cancels the session’s in-flight tool call, and confirms the shutdown. The work item then becomes `stopped`. A Python SDK worker instead lets the in-flight tool call complete first, which can take up to 2.5 minutes.
 
-Pass `force: true` (python: `force=True`; cli: `--force`) to mark the work item `stopped` immediately instead of waiting for the worker’s confirmation.
+Pass `force: true` (python: `force=True`; cli: `--force`) to mark the work item `stopped` immediately instead of waiting for the worker’s confirmation. A forced stop doesn’t end an in-flight tool call any sooner, because the worker still detects the stop on its next heartbeat.
 
 Because these calls run from your operations tooling rather than the worker host, `ANTHROPIC_WORK_ID` isn’t set automatically. Set it to the target work item’s ID before running the following examples. To find a work item’s ID, list the environment’s work items through the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
 
@@ -319,19 +319,19 @@ Because these calls run from your operations tooling rather than the worker host
 
 ## Stop workers gracefully
 
-A worker that is canceled while a session runs stops its in-flight work before it exits. If the session has [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory) attached, the worker skips the final sync but still uploads changed files and removes the store directories.
+A worker that is canceled while a session runs shuts that session down before it exits, as it does when you [stop a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#stop-a-session-gracefully). If the session has [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory) attached, the worker skips the final sync but still uploads changed files and removes the store directories.
 
 A killed process runs no teardown. To stop a worker cleanly:
 
 1. **Make sure SIGTERM and SIGINT cancel the worker.** How depends on the worker:
 
-   | Worker                             | What to do                                                                                                                             |
-   | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-   | `ant` CLI                          | Nothing. The CLI handles both signals itself: it cancels any in-flight tool call, posts its error result, and releases the work item.  |
-   | SDK worker that is its own process | `EnvironmentWorker` installs no signal handlers. Cancel the worker from a signal handler, as the standalone worker examples do.        |
-   | SDK worker inside a webhook server | Cancel the worker from the server’s own shutdown hook, as the webhook examples do. The worker must not take over the server’s signals. |
+   | Worker                             | What to do                                                                                                                                   |
+   | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+   | `ant` CLI                          | Nothing. The CLI handles both signals itself: it cancels any in-flight tool call, posts its error result, and marks the work item `stopped`. |
+   | SDK worker that is its own process | `EnvironmentWorker` installs no signal handlers. Cancel the worker from a signal handler, as the standalone worker examples do.              |
+   | SDK worker inside a webhook server | Cancel the worker from the server’s own shutdown hook, as the webhook examples do. The worker must not take over the server’s signals.       |
 
-2. **Stop the worker with SIGTERM, and allow at least 30 seconds before any hard kill.** The final upload can take that long. Docker sends SIGKILL 10 seconds after the stop signal by default. Raise that limit with `--stop-timeout` on `docker run`, or with your orchestrator’s termination grace period.
+2. **Stop the worker with SIGTERM, and allow at least 30 seconds (3 minutes for a Python SDK worker) before any hard kill.** Uploading changed files to a memory store can take up to 30 seconds, and a Python SDK worker first lets an in-flight tool call complete. Docker sends SIGKILL 10 seconds after the stop signal by default. Raise that limit with `--stop-timeout` on `docker run`, or with your orchestrator’s termination grace period.
 
 If a worker is killed before its teardown runs, any memory edits that had not synced are lost. On a long-lived host, also remove the leftover store directory under `/mnt/memory/` before the next session that attaches that store. A sandbox that serves one session and is then discarded needs no cleanup.
 

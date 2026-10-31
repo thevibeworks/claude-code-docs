@@ -6,7 +6,7 @@ This guide covers creating your first doc, editing it with Claude and your team,
 
 **[Create an artifact with Claude](https://claude.ai/artifacts)**
 
-Claude Docs is available on Free, Pro, Max, Team, and Enterprise plans, and it's on by default. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+Claude Docs is available on Free, Pro, Max, Ultra, Team, and Enterprise plans, and it's on by default. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
 ---
 
@@ -172,7 +172,7 @@ A few things are different for docs:
 
 - **Team and Enterprise plans:** Invite specific people or a group, or share with everyone in your organization. Docs can't be shared outside your organization yet.
 
-- **Free, Pro, and Max plans:** Share with anyone who has the link.
+- **Free, Pro, Max, and Ultra plans:** Share with anyone who has the link.
 
 Opening a shared doc requires a Claude account.
 

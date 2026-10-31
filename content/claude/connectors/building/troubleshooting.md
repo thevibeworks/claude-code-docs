@@ -98,27 +98,45 @@ This error usually appears after the OAuth flow has started. These are the most 
 
 If your authorization server is Microsoft Entra ID and the token request fails with `AADSTS9010010`, sometimes surfaced as `invalid_target`, Entra is rejecting the `resource` value Claude sends because it doesn't match any Application ID URI registered on your app. Claude sets `resource` to your MCP server URL, including the path. Entra issues a token when that value is listed under **Expose an API > Application ID URI**, which is `identifierUris` in the manifest, on the app registration that represents your protected API. The default `api://{client-id}` URI alone isn't sufficient here, because Claude sends the full MCP server URL as the resource value.
 
+> [!NOTE]
+>
+> If your organization runs Claude Desktop on third-party inference, an administrator can [omit the resource parameter](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#omit-the-resource-parameter) instead of registering the URL.
+
 **How to fix:** Register the MCP server URL on the API app registration:
 
 **1. Open the API app registration**
 
 In the [Microsoft Entra admin center](https://entra.microsoft.com), open the app registration that represents your protected API. If you have separate registrations for the OAuth client and the API, this is the API registration, not the client.
 
-**2. Add the MCP server URL as an Application ID URI**
+**2. Set the access token version**
+
+If your MCP server URL is on a domain that your tenant hasn't verified, such as a vendor's hostname or `*.azurewebsites.net`, do this step. Entra by default rejects such a URL while the app registration issues v1.0 access tokens, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions).
+
+> [!WARNING]
+>
+> Setting the version to `2` changes the access tokens that every calling app gets for this API. First confirm that every service that validates them accepts v2.0 tokens, including your MCP server, whoever runs it. Among the differences in [Microsoft's access token claims reference](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference), `iss` changes and ends in `/v2.0`, `aud` is the API app's Application (client) ID, and `upn` is absent by default. If a service can't accept them, use a separate app registration, a custom domain, or `use_guid` instead. While the URL is registered, you can't return to v1.0 tokens without a tenant administrator's exemption from Microsoft's identifier URI restrictions.
+
+Select **Manifest**, set `requestedAccessTokenVersion` in the `api` object to `2`, and select **Save** before you add the URL.
+
+**3. Add the MCP server URL as an Application ID URI**
 
 Under **Expose an API**, add your MCP server URL as an additional [Application ID URI](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-configure-app-expose-web-apis). The value must match exactly, including the path, without a trailing slash.
 
-**3. Allow the API's token audiences**
+**4. Allow the API's token audiences**
 
-If your server validates the token audience, such as through Azure App Service Authentication, add the API app's Application (client) ID and its `api://` URI to the allowed token audiences so your server accepts tokens issued for the API. This is the **Allowed token audiences** setting, not **Allowed client applications**, which is a different list.
+If your server validates the token audience, such as through Azure App Service Authentication, add the API app's Application (client) ID and its `api://` URI to the allowed token audiences so your server accepts tokens issued for the API. If the app registration issues v1.0 tokens, also add the MCP server URL, because `aud` can then be that URL. This is the **Allowed token audiences** setting, not **Allowed client applications**, which is a different list.
 
-**4. Confirm the client's API permission**
+**5. Confirm the client's API permission**
 
 If the OAuth client and the API are separate app registrations, confirm the client has an admin-consented API permission for the scope your API exposes.
 
 > [!NOTE]
 >
-> By default, Microsoft Entra accepts a new Application ID URI only if it contains your tenant ID, your app ID, or a domain verified in your tenant, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions). If your MCP server runs on a platform hostname, such as `*.azurewebsites.net`, Entra rejects that URL when you add it under **Expose an API**, so serve the server from a custom domain that your tenant has verified and register that URL instead. A tenant administrator can also exempt your app registration from this policy so that Entra accepts a noncompliant URI. Microsoft notes that an `https://` URI can require a verified domain even then, which makes the custom domain the dependable fix.
+> To keep the API app registration on v1.0 tokens, use one of these options instead:
+>
+> * **Separate app registration**: if your MCP server accepts v2.0 tokens, create an app registration for it alone, expose a scope on it, follow these steps there, and have clients request that scope
+> * **Custom domain**: serve the MCP server from a custom domain verified in your tenant and register that URL
+> * **`use_guid`**: add the `aud` optional claim with the `use_guid` property before you add the URL, as described in Microsoft's [Secure a Model Context Protocol (MCP) server with Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id). `aud` then becomes the API app's Application (client) ID in every access token, so first confirm that every service that validates these tokens accepts that ID.
 
 If the OAuth flow completes successfully on your server, meaning you see the token issued in your logs, but the connection still fails, file a [GitHub issue](https://github.com/anthropics/claude-ai-mcp/issues) with the `ofid_` reference ID and the timestamps from your server's OAuth logs.
 

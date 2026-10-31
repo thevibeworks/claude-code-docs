@@ -26,60 +26,60 @@ The MCP Inspector web client after a tool call, with the monitoring sidebar pinn
 
 The Inspector requires **Node 22.19.0 or newer** and runs directly through `npx`. No installation is required:
 
-**Web**
+> [tab] Web
+>
+> ```bash theme={null}
+> # Launch the web UI and connect to a local stdio server
+> npx @modelcontextprotocol/inspector node path/to/server/index.js
+>
+> # Or launch with no target and add servers from the UI
+> npx @modelcontextprotocol/inspector
+> ```
+>
+> The command prints a URL carrying a per-launch API token and opens it in your browser (set `MCP_AUTO_OPEN_ENABLED=false` to stop it opening). See [Web client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md).
 
-```bash theme={null}
-# Launch the web UI and connect to a local stdio server
-npx @modelcontextprotocol/inspector node path/to/server/index.js
+> [tab] CLI
+>
+> ```bash theme={null}
+> # List a server's tools and exit
+> npx @modelcontextprotocol/inspector --cli node path/to/server/index.js --method tools/list
+>
+> # Call a tool and pipe the result into jq
+> npx @modelcontextprotocol/inspector --cli https://api.example.com/mcp --transport http \
+>   --method tools/call --tool-name get_weather --tool-arg city=Boston --format json | jq .result
+> ```
+>
+> See [CLI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/cli.md).
 
-# Or launch with no target and add servers from the UI
-npx @modelcontextprotocol/inspector
-```
-
-The command prints a URL carrying a per-launch API token and opens it in your browser (set `MCP_AUTO_OPEN_ENABLED=false` to stop it opening). See [Web client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md).
-
-**CLI**
-
-```bash theme={null}
-# List a server's tools and exit
-npx @modelcontextprotocol/inspector --cli node path/to/server/index.js --method tools/list
-
-# Call a tool and pipe the result into jq
-npx @modelcontextprotocol/inspector --cli https://api.example.com/mcp --transport http \
-  --method tools/call --tool-name get_weather --tool-arg city=Boston --format json | jq .result
-```
-
-See [CLI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/cli.md).
-
-**TUI**
-
-```bash theme={null}
-npx @modelcontextprotocol/inspector --tui node path/to/server/index.js
-```
-
-See [TUI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/tui.md).
+> [tab] TUI
+>
+> ```bash theme={null}
+> npx @modelcontextprotocol/inspector --tui node path/to/server/index.js
+> ```
+>
+> See [TUI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/tui.md).
 
 ### Inspecting published servers
 
 Pass the command that launches the server as the Inspector's arguments, or point it at a remote server with `--server-url`:
 
-**npm package**
+> [tab] npm package
+>
+> ```bash theme={null}
+> npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem ~/Desktop
+> ```
 
-```bash theme={null}
-npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem ~/Desktop
-```
+> [tab] PyPI package
+>
+> ```bash theme={null}
+> npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
+> ```
 
-**PyPI package**
-
-```bash theme={null}
-npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
-```
-
-**Remote HTTP server**
-
-```bash theme={null}
-npx @modelcontextprotocol/inspector --server-url https://api.example.com/mcp --transport http
-```
+> [tab] Remote HTTP server
+>
+> ```bash theme={null}
+> npx @modelcontextprotocol/inspector --server-url https://api.example.com/mcp --transport http
+> ```
 
 Always read a server's own README first, since every server requires different commands and arguments.
 
@@ -121,46 +121,46 @@ Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--meth
 
 ## Where to go next
 
-> **[Web client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md)**
+> [card] [Web client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/web.md)
 >
 > A tab-by-tab walkthrough of the graphical inspector.
 
-> **[CLI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/cli.md)**
+> [card] [CLI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/cli.md)
 >
 > Method reference, output formats, exit codes, and CI recipes.
 
-> **[TUI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/tui.md)**
+> [card] [TUI client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/tui.md)
 >
 > Terminal navigation and keyboard reference.
 
-> **[Configuration and flags](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md)**
+> [card] [Configuration and flags](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md)
 >
 > Catalog vs. config files, the full per-client flag reference, and
 > environment variables.
 
-> **[Authorization](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/authorization.md)**
+> [card] [Authorization](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/authorization.md)
 >
 > The OAuth flow end to end, mid-session re-authorization, and loopback
 > callbacks.
 
-> **[Protocol eras](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/protocol-eras.md)**
+> [card] [Protocol eras](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/protocol-eras.md)
 >
 > Legacy vs. modern (2026-07-28) operation, and how every tab changes between
 > protocol eras.
 
-> **[mcpdo connection client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/mcpdo.md)**
+> [card] [mcpdo connection client](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/mcpdo.md)
 >
 > Connect once, then run many commands against a named connection.
 
-> **[Security](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md)**
+> [card] [Security](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md)
 >
 > The threat model: the web backend's token, Docker, secret storage, stdio
 > servers, and the mcpdo daemon.
 
-> **[Recipes](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/recipes.md)**
+> [card] [Recipes](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/recipes.md)
 >
 > Importing client configs, reviewing MCP Apps, Docker, and network hosting.
 
-> **[Debugging guide](https://modelcontextprotocol.io/docs/2026-07-28/tools/debugging.md)**
+> [card] [Debugging guide](https://modelcontextprotocol.io/docs/2026-07-28/tools/debugging.md)
 >
 > Broader debugging strategies beyond the Inspector.

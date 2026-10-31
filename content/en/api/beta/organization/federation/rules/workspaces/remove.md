@@ -148,6 +148,8 @@ Console session.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `type: "federation_rule_workspace_deleted"`

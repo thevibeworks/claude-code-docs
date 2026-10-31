@@ -55,6 +55,10 @@ Get detailed information for a specific project.
 
   Project description
 
+- `href: string or null`
+
+  URL to view this project in claude.ai
+
 - `instructions: string`
 
   Project's custom instructions / prompt
@@ -113,6 +117,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
   "created_at": "2025-03-12T18:22:41.123456Z",
   "deleted_at": "2019-12-27T18:11:19.117Z",
   "description": "Planning and research for the Q3 launch",
+  "href": "https://claude.ai/project/3c9d2e1f-7a6b-4c58-9d3e-2f1a7b6c5d48",
   "instructions": "Focus on concise, actionable answers.",
   "is_private": true,
   "name": "Q3 Product Launch",
@@ -120,7 +125,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
   "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
   "updated_at": "2025-03-14T09:05:17.456789Z",
   "user": {
-    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
     "email_address": "jane.doe@example.com"
   }
 }

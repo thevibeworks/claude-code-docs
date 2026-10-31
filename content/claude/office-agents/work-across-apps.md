@@ -6,6 +6,13 @@
 
 > Let Claude read from one Microsoft 365 app and make changes in another in a single conversation.
 
+> [!WARNING]
+>
+> After the September and October 2026 Microsoft 365 updates on Windows, some
+> users are missing their chat history and uploaded skills in the Claude add-in.
+> Anthropic is working with Microsoft to solve this issue. In the meantime, see
+> [what you and your IT team can do](https://claude.com/docs/office-agents/data-storage.md#chat-history-and-skills-missing-after-a-microsoft-365-update-on-windows).
+
 Claude can coordinate between the Excel, PowerPoint, Word, and Outlook
 add-ins in your Microsoft 365 suite. Instead of switching between apps
 and re-providing context each time, Claude can read from one app and

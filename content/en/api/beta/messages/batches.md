@@ -137,6 +137,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `"anthropic-user-profile-id": optional string`
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -1056,7 +1058,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `BetaEncryptedCodeExecutionResultBlockParam object`
 
-                  Code execution result with encrypted stdout for PFC + web_search results.
+                  The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request.
 
                   - `type: "encrypted_code_execution_result"`
 
@@ -1592,7 +1594,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `BetaCodeExecutionTool20260120 object`
 
-                          Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+                          A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+                          REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+                          See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=http#tool-versions) to learn what each tool version adds.
 
                           - `type: "code_execution_20260120"`
 
@@ -4240,7 +4246,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `BetaCodeExecutionTool20260120 object`
 
-        Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+        A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+        REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+        See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=http#tool-versions) to learn what each tool version adds.
 
       - `BetaCodeExecutionTool20260521 object`
 
@@ -4613,6 +4623,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `"anthropic-workspace-id": optional string`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4908,6 +4920,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 - `"anthropic-workspace-id": optional string`
 
@@ -5214,6 +5228,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `"anthropic-workspace-id": optional string`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -5501,6 +5517,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `"anthropic-workspace-id": optional string`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -5679,6 +5697,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 - `"anthropic-workspace-id": optional string`
 
@@ -6327,7 +6347,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `BetaEncryptedCodeExecutionResultBlock object`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+                The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+                The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+                See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=http) to learn more about programmatic tool calling.
 
                 - `type: "encrypted_code_execution_result"`
 
@@ -6889,7 +6913,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `BetaCodeExecutionTool20260120 object`
 
-                        Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+                        A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+                        REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+                        See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=http#tool-versions) to learn what each tool version adds.
 
                         - `type: "code_execution_20260120"`
 
@@ -10585,7 +10613,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `BetaEncryptedCodeExecutionResultBlock object`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+                The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+                The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+                See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=http) to learn more about programmatic tool calling.
 
                 - `type: "encrypted_code_execution_result"`
 
@@ -11147,7 +11179,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                       - `BetaCodeExecutionTool20260120 object`
 
-                        Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+                        A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+                        REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+                        See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=http#tool-versions) to learn what each tool version adds.
 
                         - `type: "code_execution_20260120"`
 
@@ -14614,7 +14650,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `BetaEncryptedCodeExecutionResultBlock object`
 
-              Code execution result with encrypted stdout for PFC + web_search results.
+              The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+              The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+              See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=http) to learn more about programmatic tool calling.
 
               - `type: "encrypted_code_execution_result"`
 
@@ -15176,7 +15216,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                     - `BetaCodeExecutionTool20260120 object`
 
-                      Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+                      A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+                      REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+                      See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=http#tool-versions) to learn what each tool version adds.
 
                       - `type: "code_execution_20260120"`
 
@@ -18595,7 +18639,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `BetaEncryptedCodeExecutionResultBlock object`
 
-            Code execution result with encrypted stdout for PFC + web_search results.
+            The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+            The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+            See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=http) to learn more about programmatic tool calling.
 
             - `type: "encrypted_code_execution_result"`
 
@@ -19157,7 +19205,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `BetaCodeExecutionTool20260120 object`
 
-                    Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+                    A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+                    REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+                    See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=http#tool-versions) to learn what each tool version adds.
 
                     - `type: "code_execution_20260120"`
 

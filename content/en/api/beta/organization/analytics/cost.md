@@ -429,6 +429,8 @@ API key with the `read:analytics` scope, or an Admin API key.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `data: array of BetaAnalyticsCostItem`
@@ -745,7 +747,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/cost \
           "email_address": "user@emaildomain.com",
           "name": "Jane Doe",
           "type": "user_actor",
-          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+          "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
         },
         "actor_type": "user_actor",
         "agent_id": "agent_01VHd3EAGJ6PLkP9LM7DDu3f",
@@ -771,7 +773,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/cost \
       "starting_at": "2026-09-01T00:00:00Z"
     }
   ],
-  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "data_refreshed_at": "2026-10-01T04:02:11Z",
   "has_more": true,
   "next_page": "next_page"
 }

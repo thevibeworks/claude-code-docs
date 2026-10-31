@@ -61,10 +61,10 @@ Code approvals need the code connection. Scheduled follow-ups on repositories us
 
 ## Related resources
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > Schedules and event triggers
 
-> **[Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)**
+> [card] [Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)
 >
 > Definitions of done that close threads

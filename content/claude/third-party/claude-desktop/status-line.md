@@ -90,55 +90,55 @@ Claude Desktop starts the status line program with no arguments and no window, a
 
 Both samples print a budget line, `■■■■■■■■□□ 82% of $500 used this month`. The macOS and Linux sample reads its numbers from a file that your own scheduled job keeps up to date. The Windows sample prints fixed numbers and shows how a PowerShell script prints UTF-8, reads the input, and writes the escape character.
 
-**macOS and Linux**
+> [tab] macOS and Linux
+>
+> ```sh theme={null}
+> #!/bin/sh
+> # Prints, for example: ■■■■■■■■□□ 82% of $500 used this month
+> # Your own scheduled job keeps this file up to date. It holds dollars used and
+> # the limit as two whole numbers, for example: 410 500
+> BUDGET_FILE=/opt/example/budget.txt
+>
+> # Unless the file holds two whole numbers, print nothing so no line shows.
+> [ -r "$BUDGET_FILE" ] || exit 0
+> read -r used limit < "$BUDGET_FILE"
+> case "$used" in ''|0?*|*[!0-9]*) exit 0 ;; esac
+> case "$limit" in ''|0*|*[!0-9]*) exit 0 ;; esac
+>
+> percent=$((used * 100 / limit))
+> if [ "$percent" -ge 90 ]; then color=31      # red
+> elif [ "$percent" -ge 70 ]; then color=33    # yellow
+> else color=32                                # green
+> fi
+>
+> full="" empty=""
+> for step in 10 20 30 40 50 60 70 80 90 100; do
+>   if [ "$percent" -ge "$step" ]; then full="${full}■"; else empty="${empty}□"; fi
+> done
+>
+> printf '\033[%sm%s\033[0m%s \033[%sm%s%%\033[0m of $%s used this month\n' \
+>   "$color" "$full" "$empty" "$color" "$percent" "$limit"
+> ```
 
-```sh theme={null}
-#!/bin/sh
-# Prints, for example: ■■■■■■■■□□ 82% of $500 used this month
-# Your own scheduled job keeps this file up to date. It holds dollars used and
-# the limit as two whole numbers, for example: 410 500
-BUDGET_FILE=/opt/example/budget.txt
-
-# Unless the file holds two whole numbers, print nothing so no line shows.
-[ -r "$BUDGET_FILE" ] || exit 0
-read -r used limit < "$BUDGET_FILE"
-case "$used" in ''|0?*|*[!0-9]*) exit 0 ;; esac
-case "$limit" in ''|0*|*[!0-9]*) exit 0 ;; esac
-
-percent=$((used * 100 / limit))
-if [ "$percent" -ge 90 ]; then color=31      # red
-elif [ "$percent" -ge 70 ]; then color=33    # yellow
-else color=32                                # green
-fi
-
-full="" empty=""
-for step in 10 20 30 40 50 60 70 80 90 100; do
-  if [ "$percent" -ge "$step" ]; then full="${full}■"; else empty="${empty}□"; fi
-done
-
-printf '\033[%sm%s\033[0m%s \033[%sm%s%%\033[0m of $%s used this month\n' \
-  "$color" "$full" "$empty" "$color" "$percent" "$limit"
-```
-
-**Windows**
-
-```powershell theme={null}
-# Print UTF-8, so that characters outside ASCII show correctly.
-[Console]::OutputEncoding = New-Object Text.UTF8Encoding $false
-
-# Read the session data, one line of JSON. Use fields such as $session.model.display_name.
-$line = [Console]::In.ReadLine()
-$session = $line | ConvertFrom-Json
-
-# Fixed numbers keep the sample short. Replace them with your own budget data.
-$esc = [char]27
-$yellow = $esc + '[33m'
-$reset = $esc + '[0m'
-$full = ([string][char]0x25A0) * 8
-$empty = ([string][char]0x25A1) * 2
-$bar = $yellow + $full + $reset + $empty
-Write-Output ($bar + ' ' + $yellow + '82%' + $reset + ' of $500 used this month')
-```
+> [tab] Windows
+>
+> ```powershell theme={null}
+> # Print UTF-8, so that characters outside ASCII show correctly.
+> [Console]::OutputEncoding = New-Object Text.UTF8Encoding $false
+>
+> # Read the session data, one line of JSON. Use fields such as $session.model.display_name.
+> $line = [Console]::In.ReadLine()
+> $session = $line | ConvertFrom-Json
+>
+> # Fixed numbers keep the sample short. Replace them with your own budget data.
+> $esc = [char]27
+> $yellow = $esc + '[33m'
+> $reset = $esc + '[0m'
+> $full = ([string][char]0x25A0) * 8
+> $empty = ([string][char]0x25A1) * 2
+> $bar = $yellow + $full + $reset + $empty
+> Write-Output ($bar + ' ' + $yellow + '82%' + $reset + ' of $500 used this month')
+> ```
 
 ## When the status line updates
 

@@ -3,7 +3,7 @@ title: Web search tool
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool
 description: Give Claude access to current web content with cited sources, optional dynamic filtering, and domain controls.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Real-time web search results returned in the API response. Dynamic filtering for web search is not eligible for ZDR or HIPAA.
@@ -26,14 +26,14 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Claude Models on Google Cloud (Anthropic managed): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Claude Models on Google Cloud (Anthropic managed): stable
     Claude Models on Google Cloud (Google managed):
-      availability: ga
+      availability: stable
       note: Only the basic web search tool (`web_search_20250305`), without dynamic filtering.
     Microsoft Foundry:
-      availability: ga
+      availability: stable
       note: Only the basic web search tool (`web_search_20250305`), without dynamic filtering.
 ---
 

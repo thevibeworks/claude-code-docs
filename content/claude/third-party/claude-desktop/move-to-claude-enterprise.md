@@ -8,7 +8,7 @@
 
 Move Claude Desktop from your cloud provider, where the app is named Claude (third-party), to Claude Enterprise. After one configuration change, each user's work migrates when they sign in to Claude Enterprise on the same computer. You choose one option: move everyone to Claude Enterprise, or let each user switch between your cloud provider and Claude Enterprise at sign-in.
 
-![Flow diagram: IT updates Claude Desktop, turns on two skills settings, and changes the configuration. Each user signs in to Claude Enterprise. Cloud provider controls don't apply in Claude Enterprise. Claude Desktop migrates earlier work (chats, sessions, projects, scheduled tasks), then adds skills, plugins, extensions, and local MCP servers. The user approves tools in scheduled tasks, adds their instructions, and checks their skills.](https://mintcdn.com/claude-ai/BP86DyjBY0Cvf2zH/images/third-party/diagrams/move-to-claude-enterprise-flow.svg?fit=max\&auto=format\&n=BP86DyjBY0Cvf2zH\&q=85\&s=774e6aa22b27d437d110536d4966a648)
+![Flow diagram: IT updates Claude Desktop, turns on two skills settings, and changes the configuration. Cloud provider controls don't apply in Claude Enterprise. Each user signs in to Claude Enterprise. Claude Desktop migrates earlier work (chats, sessions, projects, scheduled tasks), then adds skills, plugins, extensions, and local MCP servers. The user approves tools in scheduled tasks, adds their instructions and Cowork memory, and checks their skills.](https://mintcdn.com/claude-ai/1Uf_o4hnNbOJpCy9/images/third-party/diagrams/move-to-claude-enterprise-flow.svg?fit=max\&auto=format\&n=1Uf_o4hnNbOJpCy9\&q=85\&s=7cd669f4802ca30d628f7a3768c1b1f0)
 
 ## What is migrated
 
@@ -28,6 +28,7 @@ The migration never changes or deletes the Claude (third-party) data.
 * Skills, and plugins users uploaded, after the [skills settings](#before-you-begin)
 * Plugin marketplaces users added over HTTPS from github.com, gitlab.com, bitbucket.org, or a GitHub Enterprise host your organization connected to Claude, after the [skills settings](#before-you-begin). Claude must be able to access the repository. Users then install the plugins they want in **Customize > Plugins**.
 * Personal instructions the account doesn't have yet, after **Add instructions** in **Settings > Import**
+* Cowork [memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#memory), after the [memory settings](#before-you-begin) and **Add to memory** in **Settings > Import**. Claude saves what's useful to the user's memory, in its own words. Requires Claude Desktop 4.4212.0 or later.
 * Code sessions in untrusted folders, after the user trusts the folder and adds them in **Settings > Import**
 
 **Not migrated:**
@@ -37,18 +38,19 @@ The migration never changes or deletes the Claude (third-party) data.
 * Scheduled Code tasks in folders Claude Code doesn't trust
 * A few system or network folders. The user can attach most of them again.
 
-Migrated sessions stay on the computer and don't sync to claude.ai. Continuing one sends its content to Anthropic. Uploaded skills, added instructions, plugin marketplaces, and MCP tool on/off settings go to the user's account. Claude also sends standard usage data.
+Migrated sessions stay on the computer and don't sync to claude.ai. Continuing one sends its content to Anthropic. Uploaded skills, added instructions, added Cowork memory, plugin marketplaces, and MCP tool on/off settings go to the user's account. Claude also sends standard usage data.
 
 ## Before you begin
 
 1. **Update first.** Update every computer to Claude Desktop 3.1623.0 or later before the configuration change. Each user's work migrates on the version installed when they first open Claude Enterprise after the change. A computer that migrated on an earlier release adds plugin marketplaces after it updates, if `importThirdPartyHistoryIntoOrgUUID` is still deployed, but doesn't add folders to the sessions and projects it already migrated.
 2. **Turn on the skills settings.** In [**Organization settings > Plugins & skills > Policy**](https://claude.ai/admin-settings/skills?tab=policy), turn on **User-created skills** and **Skill and plugin security scanning**. For custom roles, also give them the skills permissions in [**Organization settings > Roles**](https://claude.ai/admin-settings/roles). Skills need both settings. Plugins and plugin marketplaces need only **User-created skills**.
-3. **Replace the controls** listed in [What changes for your security controls](#what-changes-for-your-security-controls).
+3. **Turn on memory.** For Cowork to use each user's memory, turn on **Memory** and [**Chat and Cowork unified**](https://support.claude.com/en/articles/17444462-set-up-and-manage-the-new-unified-claude-experience-for-your-enterprise-organization) in [**Organization settings > Capabilities**](https://claude.ai/admin-settings/capabilities). Users turn on memory for themselves in the [steps for each user](#steps-for-each-user).
+4. **Replace the controls** listed in [What changes for your security controls](#what-changes-for-your-security-controls).
 
 Special cases:
 
 * If Cowork runs only in its VM sandbox in your organization (for example, because [`requireCoworkFullVmSandbox`](https://claude.com/docs/third-party/claude-desktop/configuration#requirecoworkfullvmsandbox) is enforced), nothing is migrated. Ask your Anthropic account team.
-* If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, plugin marketplaces, or instructions.
+* If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, plugin marketplaces, instructions, or Cowork memory.
 * With the MSIX install on Windows 10 Enterprise LTSC 2021, or Windows 10 older than 21H1, update Claude in place. Uninstalling or resetting it deletes the Claude (third-party) data.
 
 ## What changes for your security controls
@@ -122,13 +124,14 @@ Claude shows no error on screen when nothing migrates. The app's `main.log` usua
 Your chats (now in Cowork), sessions, projects, and scheduled tasks appear. Your Claude (third-party) work doesn't change. Then:
 
 * If a scheduled task asks to use a tool, choose **Allow for all scheduled runs**.
-* In **Settings > Import**, click **Add instructions** for each set of instructions listed, and **Import…** if a skill is missing from **Customize > Skills**.
+* Turn on [memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c9b905eb3f) in your settings. **Notes from Cowork** shows only while it's on.
+* In **Settings > Import**, click **Add instructions** for each set of instructions listed, **Add to memory** until **Notes from Cowork** disappears, and **Import…** if a skill is missing from **Customize > Skills**. Claude may leave out notes on how it should respond, so add those to your [instructions](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features).
 * Set up remote connectors and any missing plugin marketplaces again, install the plugins you want in **Customize > Plugins**, and add any keys or sign-ins your plugins and extensions need.
 
 If your IT team kept your cloud provider available, you can switch between it and Claude Enterprise:
 
 * **To go back to your cloud provider**, choose **Log out** from the account menu, then quit Claude and open it again. Claude opens with your cloud provider whenever you start it while logged out of Claude Enterprise. Sign in to your cloud provider again if Claude asks. Your Claude Enterprise work is kept for when you return.
-* **To return to Claude Enterprise**, choose **Sign out** from the account menu. Then click **Or sign in with Claude.ai** on the welcome screen. Claude restarts. Sign in, and your work is where you left it. Projects and scheduled tasks that you created with your cloud provider also appear. To add chats and sessions that you started with your cloud provider, click **Import…** in **Settings > Import**.
+* **To return to Claude Enterprise**, choose **Sign out** from the account menu. Then click **Or sign in with Claude.ai** on the welcome screen. Claude restarts. Sign in, and your work is where you left it. Projects and scheduled tasks that you created with your cloud provider also appear. In **Settings > Import**, click **Import…** to add chats and sessions that you started with your cloud provider, and click **Add to memory** until **Notes from Cowork** disappears.
 
 > [!WARNING]
 >

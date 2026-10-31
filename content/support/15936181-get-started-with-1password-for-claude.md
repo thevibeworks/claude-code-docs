@@ -2,7 +2,7 @@
 
 1Password for Claude lets Claude complete browser tasks that require signing in, using logins you've stored in 1Password. 1Password fills the credential directly on the page, so Claude never sees your password or one-time code.
 
-1Password for Claude is in beta for paid plans (Pro, Max, Team, Enterprise) using Claude Desktop on macOS. It's available to 1Password customers on individual, family, and business plans, and requires Claude in Chrome. 1Password for Claude is off by default for Team and Enterprise plans.
+1Password for Claude is in beta for paid plans (Pro, Max, Ultra, Team, Enterprise) using Claude Desktop on macOS. It's available to 1Password customers on individual, family, and business plans, and requires Claude in Chrome. 1Password for Claude is off by default for Team and Enterprise plans.
 
 ## How it works
 
@@ -52,7 +52,7 @@ Once the requirements are in place, you can set up 1Password from a few places i
 
 4. Toggle on **Password managers**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2546126596/ba71ca47e2df21cec62c243831f8/5b1c67e1-607d-4c73-8f61-d1ceb081082a?expires=1793380500&amp;signature=45646e9fa0382f92fab05576baee6ea2e936d1eb82ee96ec3327d990b77a2849&amp;req=diUjEMh8m4RWX%2FMW1HO4zU5ln2htpcVmGkiu4hEpcPXj1Us2BhxnB7Svp%2FDT%0Aj5qmmpl8WOwuu486r8M%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2546126596/ba71ca47e2df21cec62c243831f8/5b1c67e1-607d-4c73-8f61-d1ceb081082a?expires=1793430000&amp;signature=e14c3dc927746489bdda052db4bc34507333270b5839ca326f77ed876b7c8903&amp;req=diUjEMh8m4RWX%2FMW1HO4zU5ln2hqrsVjGkiu4hEpcPUV5EInTXZgdkXY%2FW9z%0At3XtrIoGeWgzFROVYKw%3D%0A)
 
 Once enabled, eligible users will see the discovery options above. Users still need to install and set up the required apps and extensions themselves.
 

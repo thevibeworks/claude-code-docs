@@ -147,6 +147,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Body parameters
 
 - `issuer_id: string`

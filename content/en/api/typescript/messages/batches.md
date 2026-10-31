@@ -874,7 +874,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `interface EncryptedCodeExecutionResultBlockParam`
 
-                    Code execution result with encrypted stdout for PFC + web_search results.
+                    The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request.
 
                     - `type: "encrypted_code_execution_result"`
 
@@ -1673,7 +1673,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `interface CodeExecutionTool20260120`
 
-          Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+          A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+          REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+          See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=typescript#tool-versions) to learn what each tool version adds.
 
           - `type: "code_execution_20260120"`
 
@@ -4472,7 +4476,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `interface EncryptedCodeExecutionResultBlock`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+                The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+                The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+                See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling.
 
                 - `type: "encrypted_code_execution_result"`
 
@@ -6028,7 +6036,11 @@ for await (const messageBatchIndividualResponse of stream) {
 
               - `interface EncryptedCodeExecutionResultBlock`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+                The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+                The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+                See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling.
 
                 - `type: "encrypted_code_execution_result"`
 
@@ -7349,7 +7361,11 @@ for await (const messageBatchIndividualResponse of stream) {
 
             - `interface EncryptedCodeExecutionResultBlock`
 
-              Code execution result with encrypted stdout for PFC + web_search results.
+              The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+              The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+              See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling.
 
               - `type: "encrypted_code_execution_result"`
 
@@ -8622,7 +8638,11 @@ for await (const messageBatchIndividualResponse of stream) {
 
           - `interface EncryptedCodeExecutionResultBlock`
 
-            Code execution result with encrypted stdout for PFC + web_search results.
+            The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+            The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+            See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling.
 
             - `type: "encrypted_code_execution_result"`
 

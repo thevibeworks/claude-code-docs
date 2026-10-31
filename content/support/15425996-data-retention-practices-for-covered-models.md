@@ -8,7 +8,7 @@ This policy, described below, goes into effect on June 9, 2026.
 
 ## Who this applies to
 
-Consumer plans (Claude Free, Pro, and Max) across our web, desktop, and mobile apps—including Claude.ai and Claude Code—are unaffected by this update, since we already retain inputs and outputs on these surfaces. Learn more about **[how we retain data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)** for consumer plans.
+Consumer plans (Claude Free, Pro, Max, and Ultra) across our web, desktop, and mobile apps—including Claude.ai and Claude Code—are unaffected by this update, since we already retain inputs and outputs on these surfaces. Learn more about **[how we retain data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)** for consumer plans.
 
 This change only applies to organizations that have set up workspaces with **[zero data retention](https://privacy.claude.com/en/articles/8956058-i-have-a-zero-data-retention-agreement-with-anthropic-what-products-does-it-apply-to)** (ZDR) in Claude Console, use Claude Code with ZDR in Claude Enterprise, or access Claude through AWS Bedrock, Google Cloud Agent Platform, or Microsoft Foundry with ZDR. Some of these organizations will receive notice that they are eligible to use Fable with ZDR, as described here: **[Zero data retention and Enterprise Frontier Safeguards](https://support.claude.com/en/articles/15425695-covered-models#h_077fc48764)**. The rest of this article applies only to the organizations with zero data retention and did not receive this notice.
 

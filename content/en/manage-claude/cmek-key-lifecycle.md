@@ -28,9 +28,9 @@ Re-enabling the key, or restoring Anthropic’s access to it, brings back access
 
 ## If Anthropic can’t reach your key
 
-Requests that store data under your key fail while Anthropic can’t reach it, for example during an outage of your KMS. On Claude Enterprise, these requests include messages in chat and in voice mode.
+An outage of your KMS, for example, can stop Anthropic from reaching your key. When that happens, requests that store data under your key might still succeed for up to 1 hour. After that, they fail until Anthropic can reach your key again. On Claude Enterprise, these requests include messages in chat and in voice mode.
 
-On the Messages API, these requests return a 503 error with the code `cmek_key_unreachable`, and you can retry them. The Message Batches API retries them for you until your key is available or the batch expires.
+On the Messages API, requests that fail this way return a 503 error with the code `cmek_key_unreachable`, and you can retry them. The Message Batches API retries them for you until your key is available or the batch expires.
 
 ## Change keys or stop using CMEK
 

@@ -35,7 +35,7 @@ Get statistics about the work queue for an environment.
 
   - `int depth`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `?string oldestQueuedAt`
 

@@ -179,54 +179,54 @@ Without this host reachable, Chat conversations, Cowork tasks, and Code sessions
 
 The host(s) for your configured provider. Conversation content goes to the host whose purpose is model inference.
 
-**Google Cloud's Agent Platform**
+> [tab] Google Cloud's Agent Platform
+>
+> | Host | Purpose |
+> | - | - |
+> | `<region>-aiplatform.googleapis.com` | Model inference for single regions. The `global` region uses `aiplatform.googleapis.com`, and the `eu` / `us` multi-regions use `aiplatform.eu.rep.googleapis.com` / `aiplatform.us.rep.googleapis.com`. Replaced by the host of `inferenceVertexBaseUrl` if set. |
+> | `oauth2.googleapis.com` | Google auth token exchange |
+> | `sts.googleapis.com` | Google auth token exchange |
+> | `accounts.google.com` | Google auth token exchange |
+> | `iamcredentials.googleapis.com` | Google auth token exchange |
 
-| Host | Purpose |
-| - | - |
-| `<region>-aiplatform.googleapis.com` | Model inference for single regions. The `global` region uses `aiplatform.googleapis.com`, and the `eu` / `us` multi-regions use `aiplatform.eu.rep.googleapis.com` / `aiplatform.us.rep.googleapis.com`. Replaced by the host of `inferenceVertexBaseUrl` if set. |
-| `oauth2.googleapis.com` | Google auth token exchange |
-| `sts.googleapis.com` | Google auth token exchange |
-| `accounts.google.com` | Google auth token exchange |
-| `iamcredentials.googleapis.com` | Google auth token exchange |
+> [tab] Amazon Bedrock
+>
+> | Host | Purpose |
+> | - | - |
+> | `bedrock-runtime.<region>.amazonaws.com` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
+> | `bedrock.<region>.amazonaws.com` | Control plane (model discovery) |
+> | `sts.amazonaws.com`, `sts.<region>.amazonaws.com` | STS token exchange (profile auth only) |
+> | `portal.sso.<sso-region>.amazonaws.com`, `oidc.<sso-region>.amazonaws.com` | IAM Identity Center sign-in and token refresh, for [in-app AWS sign-in](https://claude.com/docs/third-party/claude-desktop/bedrock.md#in-app-aws-sign-in) and for named profiles that use IAM Identity Center. `<sso-region>` is `inferenceBedrockSsoRegion` (or the profile's `sso_region`) and can differ from the inference region. |
+>
+> With `inferenceBedrockBearerToken` set, the runtime and control-plane hosts are required.
+>
+> For AWS GovCloud regions (`us-gov-*`), the app automatically uses the FIPS endpoints instead: `bedrock-runtime-fips.<region>.amazonaws.com` and `bedrock-fips.<region>.amazonaws.com`.
 
-**Amazon Bedrock**
+> [tab] Amazon Bedrock Mantle
+>
+> | Host | Purpose |
+> | - | - |
+> | `bedrock-mantle.<region>.api.aws` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
 
-| Host | Purpose |
-| - | - |
-| `bedrock-runtime.<region>.amazonaws.com` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
-| `bedrock.<region>.amazonaws.com` | Control plane (model discovery) |
-| `sts.amazonaws.com`, `sts.<region>.amazonaws.com` | STS token exchange (profile auth only) |
-| `portal.sso.<sso-region>.amazonaws.com`, `oidc.<sso-region>.amazonaws.com` | IAM Identity Center sign-in and token refresh, for [in-app AWS sign-in](https://claude.com/docs/third-party/claude-desktop/bedrock.md#in-app-aws-sign-in) and for named profiles that use IAM Identity Center. `<sso-region>` is `inferenceBedrockSsoRegion` (or the profile's `sso_region`) and can differ from the inference region. |
+> [tab] Microsoft Foundry
+>
+> | Host | Purpose |
+> | - | - |
+> | `<resource>.services.ai.azure.com` | Model inference. Replaced by the host of `inferenceFoundryBaseUrl` if set. |
+> | `login.microsoftonline.com` | Entra ID auth (interactive sign-in only) |
 
-With `inferenceBedrockBearerToken` set, the runtime and control-plane hosts are required.
+> [tab] Gateway
+>
+> | Host | Purpose |
+> | - | - |
+> | Host of `inferenceGatewayBaseUrl` | Model inference |
 
-For AWS GovCloud regions (`us-gov-*`), the app automatically uses the FIPS endpoints instead: `bedrock-runtime-fips.<region>.amazonaws.com` and `bedrock-fips.<region>.amazonaws.com`.
-
-**Amazon Bedrock Mantle**
-
-| Host | Purpose |
-| - | - |
-| `bedrock-mantle.<region>.api.aws` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
-
-**Microsoft Foundry**
-
-| Host | Purpose |
-| - | - |
-| `<resource>.services.ai.azure.com` | Model inference. Replaced by the host of `inferenceFoundryBaseUrl` if set. |
-| `login.microsoftonline.com` | Entra ID auth (interactive sign-in only) |
-
-**Gateway**
-
-| Host | Purpose |
-| - | - |
-| Host of `inferenceGatewayBaseUrl` | Model inference |
-
-**Claude API**
-
-| Host | Purpose |
-| - | - |
-| `api.anthropic.com` | Model inference; token exchange, renewal, and revocation for browser sign-in |
-| `platform.claude.com` | Browser sign-in page. Dialed only when no static key or credential helper is configured. Browser sign-in also needs the hosts that serve the browser check on the sign-in and approval pages, listed under [Optional features](#optional-features). |
+> [tab] Claude API
+>
+> | Host | Purpose |
+> | - | - |
+> | `api.anthropic.com` | Model inference; token exchange, renewal, and revocation for browser sign-in |
+> | `platform.claude.com` | Browser sign-in page. Dialed only when no static key or credential helper is configured. Browser sign-in also needs the hosts that serve the browser check on the sign-in and approval pages, listed under [Optional features](#optional-features). |
 
 ### Auto-updates (`disableAutoUpdates: false`)
 

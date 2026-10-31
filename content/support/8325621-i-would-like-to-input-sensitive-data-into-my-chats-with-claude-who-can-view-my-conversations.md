@@ -1,6 +1,6 @@
 # I would like to input sensitive data into my chats with Claude. Who can view my conversations?
 
-*This article is about our consumer products (e.g. Claude Free, Pro, Max (and when using Claude Code with those accounts)).*
+*This article is about our consumer products (e.g. Claude Free, Pro, Max, Ultra (and when using Claude Code with those accounts)).*
 
 ## How we protect your data when you help improve Claude
 

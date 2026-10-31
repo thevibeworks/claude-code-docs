@@ -82,10 +82,10 @@ Keep the checklist as a document Claude can read, in the connected tool or linke
 
 ## Related resources
 
-> **[Find answers in your docs](https://claude.com/docs/claude-tag/users/use-cases/find-answers.md)**
+> [card] [Find answers in your docs](https://claude.com/docs/claude-tag/users/use-cases/find-answers.md)
 >
 > The same connections pointed at a single question
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > How the recurring review runs on a schedule

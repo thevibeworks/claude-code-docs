@@ -148,6 +148,8 @@ holds at most two non-archived certificates.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Body parameters
 
 - `ca_certificate_pem: string`
@@ -386,6 +388,8 @@ Archived certificates are excluded unless `include_archived` is set.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `data: array of BetaOrganizationTunnelCertificate`
@@ -602,6 +606,8 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `BetaOrganizationTunnelCertificate object`
@@ -812,6 +818,8 @@ certificate is added.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 

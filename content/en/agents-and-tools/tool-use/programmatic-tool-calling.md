@@ -3,7 +3,7 @@ title: Programmatic tool calling
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling
 description: Let Claude call your tools from code in the code execution container, cutting model round trips and token use in multi-tool workflows.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: not-eligible
     note: Built on code execution containers; data retained up to 30 days.
@@ -25,9 +25,9 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Microsoft Foundry (hosted on Anthropic): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Microsoft Foundry (hosted on Anthropic): stable
   details:
     - Programmatic tool calling requires the code execution tool with the `code_execution_20260120` or later [tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions).
 ---

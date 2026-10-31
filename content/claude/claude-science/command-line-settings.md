@@ -100,14 +100,14 @@ See [How the environment variables reach the app](https://claude.com/docs/claude
 
 ## See also
 
-> **[Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md)**
+> [card] [Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md)
 >
 > Install Claude Science on a server and use it from your own browser through an SSH tunnel.
 
-> **[Configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md)**
+> [card] [Configuration file reference](https://claude.com/docs/claude-science/configuration-file-reference.md)
 >
 > Find the `config.toml` file and set its network-related keys.
 
-> **[Remote compute clusters](https://claude.com/docs/claude-science/remote-compute-clusters.md)**
+> [card] [Remote compute clusters](https://claude.com/docs/claude-science/remote-compute-clusters.md)
 >
 > Connect an SSH host and run jobs on it.

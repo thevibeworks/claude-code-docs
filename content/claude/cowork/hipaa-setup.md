@@ -72,34 +72,34 @@ The policy in this section is a sample that we recommend as a starting point. Yo
 
 The following sample sets four keys that you could add to the Claude Desktop policy your organization deploys. If your organization doesn't deploy one yet, [Enterprise configuration](https://support.claude.com/en/articles/12622667-enterprise-configuration) explains how to deliver a policy with your device management tool.
 
-**macOS**
+> [tab] macOS
+>
+> Add these keys to a configuration profile for the `com.anthropic.claudefordesktop` preference domain:
+>
+> ```xml theme={null}
+> <key>forceLoginOrgUUID</key>
+> <string>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
+> <key>isLocalDevMcpEnabled</key>
+> <string>false</string>
+> <key>isDesktopExtensionEnabled</key>
+> <string>false</string>
+> <key>otlpContentCapture</key>
+> <string>[]</string>
+> ```
 
-Add these keys to a configuration profile for the `com.anthropic.claudefordesktop` preference domain:
-
-```xml theme={null}
-<key>forceLoginOrgUUID</key>
-<string>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
-<key>isLocalDevMcpEnabled</key>
-<string>false</string>
-<key>isDesktopExtensionEnabled</key>
-<string>false</string>
-<key>otlpContentCapture</key>
-<string>[]</string>
-```
-
-**Windows**
-
-Write these values under `HKLM\SOFTWARE\Policies\Claude`:
-
-```reg theme={null}
-Windows Registry Editor Version 5.00
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Claude]
-"forceLoginOrgUUID"="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-"isLocalDevMcpEnabled"="false"
-"isDesktopExtensionEnabled"="false"
-"otlpContentCapture"="[]"
-```
+> [tab] Windows
+>
+> Write these values under `HKLM\SOFTWARE\Policies\Claude`:
+>
+> ```reg theme={null}
+> Windows Registry Editor Version 5.00
+>
+> [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Claude]
+> "forceLoginOrgUUID"="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+> "isLocalDevMcpEnabled"="false"
+> "isDesktopExtensionEnabled"="false"
+> "otlpContentCapture"="[]"
+> ```
 
 The sample writes every value as a string, including `false` and `[]`. [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types) lists the other encodings Claude Desktop accepts.
 
@@ -192,22 +192,22 @@ Web search in Cowork follows your organization's web search setting. Applying th
 
 The `disabledBuiltinTools` key takes a list of tool names, written as a string:
 
-**macOS**
+> [tab] macOS
+>
+> Add the key to the profile for the `com.anthropic.claudefordesktop` preference domain:
+>
+> ```xml theme={null}
+> <key>disabledBuiltinTools</key>
+> <string>["WebSearch"]</string>
+> ```
 
-Add the key to the profile for the `com.anthropic.claudefordesktop` preference domain:
-
-```xml theme={null}
-<key>disabledBuiltinTools</key>
-<string>["WebSearch"]</string>
-```
-
-**Windows**
-
-Add the value under `HKLM\SOFTWARE\Policies\Claude`:
-
-```reg theme={null}
-"disabledBuiltinTools"="[\"WebSearch\"]"
-```
+> [tab] Windows
+>
+> Add the value under `HKLM\SOFTWARE\Policies\Claude`:
+>
+> ```reg theme={null}
+> "disabledBuiltinTools"="[\"WebSearch\"]"
+> ```
 
 After a member restarts Claude Desktop, Claude can't search the web in Cowork tasks or Code tab sessions on that computer.
 

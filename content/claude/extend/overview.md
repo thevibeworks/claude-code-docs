@@ -18,19 +18,19 @@ You add all three from the [**Customize**](https://claude.ai/customize) page in 
 
 Each card below leads to the setup page for one of the three. The last card is for Owners who manage plugins for a Team or Enterprise organization.
 
-> **[Plugins](https://claude.com/docs/plugins/overview.md)**
+> [card] [Plugins](https://claude.com/docs/plugins/overview.md)
 >
 > Add a set of connectors, skills, and commands with one install, such as everything for one tool, or your team's standard setup.
 
-> **[MCP connectors](https://claude.com/docs/connectors/getting-started.md)**
+> [card] [MCP connectors](https://claude.com/docs/connectors/getting-started.md)
 >
 > Give Claude access to a tool or data source, such as your files, calendar, issue tracker, or an internal API.
 
-> **[Skills](https://claude.com/docs/skills/how-to.md)**
+> [card] [Skills](https://claude.com/docs/skills/how-to.md)
 >
 > Have Claude do a task a particular way, such as your release-note format, your contract checklist, or your weekly report.
 
-> **[Plugins for your organization](https://claude.com/docs/plugins/admin.md)**
+> [card] [Plugins for your organization](https://claude.com/docs/plugins/admin.md)
 >
 > If you're an Owner on a Team or Enterprise plan, choose which plugins members can add, install some for everyone, and add your organization's own.
 

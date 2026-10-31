@@ -6,9 +6,9 @@ This article explains where Claude Cowork runs, how each execution mode is isola
 
 This article is for Enterprise admins, but the architecture described here is the same across all plans. The device-level admin controls at the end apply to Team and Enterprise plans.
 
-Claude Cowork runs in the cloud on Pro and Max plans, on Team plans (in beta), and on Enterprise plans when an owner enables it.
+Claude Cowork runs in the cloud on Pro, Max, and Ultra plans, on Team plans (in beta), and on Enterprise plans when an owner enables it.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 
@@ -40,7 +40,7 @@ Because a session in the cloud runs on Anthropic's servers, the agent's work, in
 
 ### Local session architecture
 
-Local sessions apply to existing desktop deployments (on Pro and Max plans, only **[tasks and scheduled tasks started on the device before October 6, 2026](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**) and use two execution environments on the member's device:
+Local sessions apply to existing desktop deployments (on Pro, Max, and Ultra plans, only **[tasks and scheduled tasks started on the device before October 6, 2026](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**) and use two execution environments on the member's device:
 
 - **The agent loop runs natively on the device.** This includes Claude's conversation handling, file reads and writes in connected folders, web fetches, and local plugin MCP servers. Access is gated by an application-layer permission system that enforces the member's connected-folder rules and your organization's network egress settings.
 

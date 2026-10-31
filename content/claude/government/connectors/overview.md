@@ -16,7 +16,7 @@ A **connector** is a link between Claude and an external service. The service ru
 
 Video: Connectors and plugins (2 min 8 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > A connector lets Claude reach another service, such as Microsoft 365 or a system of your own. A plugin packages skills and commands for Claude Desktop.
 >

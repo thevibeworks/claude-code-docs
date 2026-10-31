@@ -172,7 +172,7 @@ No per-device preparation is required. The sign-in experience uses a Google OAut
 
 #### How it works
 
-When `inferenceVertexOAuthClientId` and `inferenceVertexOAuthClientSecret` are both set, the app shows a **Sign in with Google** page at first launch. Clicking the button opens the system browser for a standard Google consent flow, and the app listens on a loopback address for the redirect. On success, the app stores the user's Google refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows) and returns to Cowork.
+When `inferenceVertexOAuthClientId` and `inferenceVertexOAuthClientSecret` are both set, the app shows a **Sign in with Google Cloud** page at first launch. Clicking the button opens the system browser for a standard Google consent flow, and the app listens on a loopback address for the redirect. On success, the app stores the user's Google refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows) and returns to Cowork.
 
 At the start of each Cowork session, the app writes an `authorized_user` Application Default Credentials file (the same format produced by `gcloud auth application-default login`) and points `GOOGLE_APPLICATION_CREDENTIALS` at it. The Google Cloud client library handles access-token minting and refresh automatically.
 
@@ -208,13 +208,12 @@ The in-app sign-in always opens Google's authorization endpoint, because Google 
 2. Provision those users into Cloud Identity (via SCIM from your IdP, or Google Cloud Directory Sync) so IAM grants resolve.
 3. Optionally set `inferenceVertexOAuthLoginHint` so Google skips its own account chooser and routes straight to your IdP with the user's identity pre-filled.
 
-With this in place, clicking **Sign in with Google** opens the browser, Google immediately redirects to your IdP, the user authenticates there (including smart-card or PIV authentication if your IdP supports it), and Google issues the tokens on return. Claude Desktop is unchanged; the federation is configured entirely in Google Admin and your IdP.
+With this in place, clicking **Sign in with Google Cloud** opens the browser, Google immediately redirects to your IdP, the user authenticates there (including smart-card or PIV authentication if your IdP supports it), and Google issues the tokens on return. Claude Desktop is unchanged; the federation is configured entirely in Google Admin and your IdP.
 
 #### Notes and limitations
 
 * **Precedence.** When both `inferenceVertexOAuthClientId` and `inferenceVertexCredentialsFile` are set and `inferenceCredentialKind` is not, Google sign-in takes precedence and the credentials file is ignored (the app logs a multi-credential warning). To force the credentials file, set `inferenceCredentialKind` to `vendor-profile` or remove the OAuth client keys.
-* **Both keys required.** Set `inferenceVertexOAuthClientId` and `inferenceVertexOAuthClientSecret` together. With only one of them set, the app shows no **Sign in with Google** page.
-* **Client rotation.** If you replace the OAuth client in Google Cloud and push the new client ID via MDM, existing users are automatically signed out and prompted to sign in again on next launch.
+* **Both keys required.** Set `inferenceVertexOAuthClientId` and `inferenceVertexOAuthClientSecret` together. With only one of them set, the app shows no **Sign in with Google Cloud** page.
 
 ### In-app Workforce Identity sign-in
 
@@ -227,7 +226,7 @@ In your IdP, register a native OAuth client for the app. The app does not send a
 
 Register the redirect URI with `127.0.0.1` rather than `localhost`, because the app uses `127.0.0.1` by default and most IdPs do not treat the two as interchangeable. If your IdP accepts only `localhost` in a registered redirect URI, set the `redirectHost` field of [`inferenceVertexWorkforceOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencevertexworkforceoidc) to `localhost` and register `http://localhost/callback` instead, or `http://localhost:<port>/callback` when you set `redirectPort`.
 
-Distribute the workforce-pool provider audience and the IdP OIDC client in the managed configuration; the app shows a **Sign in** page on first launch, runs an authorization-code-with-PKCE flow against your IdP in the system browser, exchanges the returned ID token for a Google Cloud access token at `sts.googleapis.com`, and stores the IdP refresh token encrypted with the operating system's secure storage. No `gcloud` CLI, helper script, or Google identity is required.
+Distribute the workforce-pool provider audience and the IdP OIDC client in the managed configuration; the app shows a **Sign in with Google Cloud** page on first launch, runs an authorization-code-with-PKCE flow against your IdP in the system browser, exchanges the returned ID token for a Google Cloud access token at `sts.googleapis.com`, and stores the IdP refresh token encrypted with the operating system's secure storage. No `gcloud` CLI, helper script, or Google identity is required.
 
 The app always requests the `offline_access` scope so that the IdP returns a refresh token for silent renewal. If your IdP rejects `offline_access` on this client (for example, a PingFederate public client without the Refresh Token grant type enabled), set the `omitOfflineAccess` field of `inferenceVertexWorkforceOidc` to `true`. Without a refresh token the app cannot refresh silently, so users will be prompted to sign in again each time the IdP's ID token expires, typically about once an hour.
 
@@ -361,7 +360,7 @@ enumSince 1.25927.0
 
 One of: `browser`, `broker`
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
 > * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
@@ -380,7 +379,7 @@ Since 1.10628.0
 
 **Workforce Identity IdP (OIDC).** Your organization’s OpenID Connect identity provider. Users sign in there, and the app exchanges their ID token at GCP STS.
 
-> **Child attributes (9)**
+> [accordion] Child attributes (9)
 >
 > **clientId** `string` *required*
 >
@@ -420,7 +419,7 @@ Since 1.10628.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -449,10 +448,10 @@ The first-launch and re-authentication behavior depends on the authentication ap
 | Approach | First launch | Re-authentication |
 | - | - | - |
 | Credentials file (service-account key) | The app opens directly; no user action. | Never, until you rotate the key file. |
-| In-app Google sign-in | The app shows a **Sign in with Google** page. Clicking it opens Google's consent flow in the default browser. After approval, the app returns to Cowork. | When the refresh token is revoked, when you deploy a new OAuth client ID, or when your Google Cloud session-control policy expires it. |
+| In-app Google sign-in | The app shows a **Sign in with Google Cloud** page. Clicking it opens Google's consent flow in the default browser. After approval, the app returns to Cowork. | When the refresh token is revoked, when you deploy a new OAuth client ID, or when your Google Cloud session-control policy expires it. |
 
 For in-app Google sign-in, the browser flow runs on the host (outside the Cowork sandbox), so it can use the user's existing Google session and any security keys or passkeys configured on the device. Users can sign out by revoking the app from their Google Account's [third-party connections page](https://myaccount.google.com/connections); the app detects the revoked token and shows a **Sign in again** prompt.
 
 ## Troubleshoot
 
-To confirm each key's configured or default value and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
+To check each key's value and whether the provider settings are valid, or to find out why the app doesn't enter 3P mode, see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment). Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).

@@ -2,7 +2,7 @@
 
 Claude for Google Workspace adds a Claude sidebar to Google Docs, Google Sheets, and Google Slides. Claude reads the file you have open and edits it directly, so you can draft, analyze, restructure, and restyle without copying content back and forth.
 
-Claude for Google Workspace is available in beta for Pro, Max, Team, and Enterprise plans. You also need a Google account that is allowed to install Google Workspace Marketplace apps.
+Claude for Google Workspace is available in beta for Pro, Max, Ultra, Team, and Enterprise plans. You also need a Google account that is allowed to install Google Workspace Marketplace apps.
 
 With Claude for Google Workspace, you can:
 
@@ -28,17 +28,17 @@ If your organization already allows Marketplace apps, this takes about two minut
 
 2. Open a Google Docs, Sheets, or Slides file and go to Extensions > Claude > “Open Claude":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707281468/abc0497defca04936c9a4b97d147/8b17d05f-3fb1-4e49-8d1f-65364ac3f496?expires=1793380500&amp;signature=ed71100a34c2da5bd35ea32985d66c9bf264474fcf9a68f9e543dcbdb1c243a6&amp;req=dicnEct2nIVZUfMW1HO4zRwmJT9vXORKaAKM49NdBLObHhGsI9Za%2FMMdudZl%0AMmNE%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707281468/abc0497defca04936c9a4b97d147/8b17d05f-3fb1-4e49-8d1f-65364ac3f496?expires=1793430000&amp;signature=9af7f0cd78fb9523871ac80e506ea3bb876f17f8cfa3953ca71e47ca3dd4e62a&amp;req=dicnEct2nIVZUfMW1HO4zRwmJT9oV%2BRPaAKM49NdBLP%2FluzLiqr8br9GTx6Z%0ASGO3%0A)
 
 3. The first time, Google asks you to allow two permissions. Review them and click "Allow":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707282342/f583a396098ff16e3cbd156d4a2a/112c6459-79c6-4fbb-9bc0-748fda6f592f?expires=1793380500&amp;signature=a167680594156409286fd21b3670b5e4fa45adb9d4758af15c6e058cdeb0b37c&amp;req=dicnEct2n4JbW%2FMW1HO4zeKY3p8FiA71eBfHlrCfDWcdXUGRfrtCDStXtXpF%0Acils%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707282342/f583a396098ff16e3cbd156d4a2a/112c6459-79c6-4fbb-9bc0-748fda6f592f?expires=1793430000&amp;signature=1b4a3d42e7f6f843a4ae4b871ddd3ef7cbd224df48891bfddab2a547b0cb8ee6&amp;req=dicnEct2n4JbW%2FMW1HO4zeKY3p8Cgw7weBfHlrCfDWerjTkqBG0rj8ayFSSC%0AswKE%0A)
 
 4. Sign in with your Claude account in the sidebar, and optionally enable your connectors.
 
 5. Then ask Claude something about the file. Try "Summarize this document in five bullets" or "What does column F calculate?"
 
-If the install button is greyed out or you see "This application is not allowed by your administrator,” your Google Workspace admin needs to allow or install Claude first. See **[Install for your organization](#h_2118c53c4b)** below.
+If the install button is greyed out or you see "This application is not allowed by your administrator,” your Google Workspace admin needs to allow or install Claude first. See **[Install for your organization](https://support.claude.com/en/articles/16951679-use-claude-in-google-docs-sheets-and-slides#h_2118c53c4b)** below.
 
 ## Install Claude for Google Workspace
 
@@ -224,7 +224,7 @@ Claude requests two Google permissions, the minimum needed to show a sidebar and
 
 ### How your data is handled
 
-- Content from the open file, your messages, and any files you attach are sent to Claude to generate a response. For Team and Enterprise plans, this is governed by your organization's Commercial Terms and Data Processing Addendum. For Pro and Max it is governed by the Consumer Terms and Privacy Policy.
+- Content from the open file, your messages, and any files you attach are sent to Claude to generate a response. For Team and Enterprise plans, this is governed by your organization's Commercial Terms and Data Processing Addendum. For Pro, Max, and Ultra, it is governed by the Consumer Terms and Privacy Policy.
 
 - Anthropic does not use this content to train its models. Use of data received from Google Workspace APIs adheres to the **[Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy)**, including the Limited Use requirements.
 

@@ -50,10 +50,10 @@ If the first stretch of every morning goes to re-reading channels, schedule the 
 
 ## Related resources
 
-> **[Turn threads into docs and tickets](https://claude.com/docs/claude-tag/users/use-cases/create-artifacts.md)**
+> [card] [Turn threads into docs and tickets](https://claude.com/docs/claude-tag/users/use-cases/create-artifacts.md)
 >
 > When the catch-up should become an artifact
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > Scheduling and triggers

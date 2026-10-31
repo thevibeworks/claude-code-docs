@@ -749,13 +749,7 @@ For the full feature list with Amazon Bedrock availability, see [Features overvi
 
 ### PDF support on Bedrock
 
-PDF support is available on Bedrock through both the Converse API and InvokeModel API. For detailed information about PDF processing capabilities and limitations, see [Amazon Bedrock PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support#amazon-bedrock-pdf-support).
-
-**Important considerations for Converse API users:**
-
-* Visual PDF analysis (charts, images, layouts) requires citations to be enabled
-* Without citations, only basic text extraction is available
-* For full control without forced citations, use the InvokeModel API
+[PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support) is available on Bedrock through both the Converse API and the InvokeModel API.
 
 ### Mid-conversation system messages on Bedrock
 

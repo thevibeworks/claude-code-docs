@@ -12,7 +12,7 @@ Unlike a normal Cowork chat, you don't watch each step. Dispatch is for work you
 
 ## Prerequisites
 
-Dispatch requires a Pro or Max plan and the latest Claude Desktop app on macOS or Windows.
+Dispatch requires a Pro, Max, or Ultra plan and the latest Claude Desktop app on macOS or Windows.
 
 ## Start a Dispatch task
 

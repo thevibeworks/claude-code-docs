@@ -4,12 +4,12 @@
 
 # Install financial services plugins for Cowork
 
-> Add the open-source financial services plugin set to Cowork for financial modeling, equity research, investment banking, private equity, and wealth management workflows.
+> Add the open-source financial services plugin set to Cowork for workflows such as financial modeling, equity research, investment banking, and private equity.
 
 A set of open-source plugins extends Cowork with specialized
-capabilities for financial services workflows: financial modeling,
-equity research, investment banking, private equity, and wealth
-management. The plugins also work in Claude Code.
+capabilities for financial services workflows, including financial
+modeling, equity research, investment banking, and private equity.
+The plugins also work in Claude Code.
 
 The plugins live in a
 [public GitHub repository](https://github.com/anthropics/financial-services)
@@ -26,7 +26,6 @@ build on it.
 | Investment banking | Draft CIMs, teasers, and process letters. Build buyer lists, run merger models, and create strip profiles. |
 | Equity research | Write earnings updates and initiating coverage reports. Track catalysts and screen for new ideas. |
 | Private equity | Source and screen deals, run due diligence checklists, draft IC memos, and monitor portfolio company KPIs. |
-| Wealth management | Prep for client meetings, build financial plans, rebalance portfolios, and identify tax-loss harvesting opportunities. |
 
 The repository also includes partner-built plugins from LSEG and S\&P
 Global, which bring their financial data and analytics directly into
@@ -89,7 +88,6 @@ After installation, you can invoke Skills like the following.
 | `/one-pager [company]` | Create a one-page company profile. |
 | `/ic-memo [project name]` | Draft an investment committee memo. |
 | `/source [criteria]` | Source deals based on criteria. |
-| `/client-review [client]` | Prep for a client meeting. |
 
 ## MCP connectors
 

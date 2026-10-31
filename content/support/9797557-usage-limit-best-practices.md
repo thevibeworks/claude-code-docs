@@ -1,5 +1,7 @@
 # Usage limit best practices
 
+To learn how usage limits work, see **[How do usage and length limits work?](https://support.claude.com/en/articles/11647753)**
+
 The number of messages you can send will vary based on your Claude plan. For more information on your plan’s usage, refer to the following resources.
 
 - **[Free Claude](https://support.claude.com/en/articles/8114491-getting-started-with-claude#h_57262af5ae)**
@@ -7,6 +9,8 @@ The number of messages you can send will vary based on your Claude plan. For mor
 - **[Pro plan](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan#h_62ccc00135)**
 
 - **[Max plan](https://support.claude.com/en/articles/11049741-what-is-the-max-plan#h_cfd2904008)**
+
+- **[Ultra plan](https://support.claude.com/en/articles/17154008)**
 
 - **[Team plan](https://support.claude.com/en/articles/9266767-what-is-the-team-plan#h_b59203dff2)**
 
@@ -66,11 +70,11 @@ Planning helps reduce the number of back-and-forth messages needed.
 
   - Use phrases like "As mentioned earlier" to build on earlier parts of the conversation.
 
-- Users with paid plans (Pro, Max, Team, and Enterprise) can prompt Claude to search through previous conversations and reference relevant information in new chats. Giving Claude access to additional context prevents you from needing to provide the same information repeatedly.
+- Users with paid plans (Pro, Max, Ultra, Team, and Enterprise) can prompt Claude to search through previous conversations and reference relevant information in new chats. Giving Claude access to additional context prevents you from needing to provide the same information repeatedly.
 
   - Learn more here: **[Searching past chats with Claude](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_89b670b004)**
 
-- Users with paid plans (Pro, Max, Team, and Enterprise) can use Claude's memory and project summaries to build context across conversations.
+- Users with paid plans (Pro, Max, Ultra, Team, and Enterprise) can use Claude's memory and project summaries to build context across conversations.
 
   - Learn more here: **[What is Claude's memory?](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c1c0b33879)**
 
@@ -102,7 +106,9 @@ Projects offer significant caching benefits:
 
 ## 7. Monitor your consumption in Usage settings
 
-- If you're using a Pro, Max, Team, or seat-based Enterprise plan, you can navigate to **[Settings > Usage](https://claude.ai/settings/usage)** to view progress bars showing how much of your five-hour session and weekly usage limits you’ve consumed.
+- If you're using a Pro, Max, Ultra, Team, or seat-based Enterprise plan, you can navigate to **[Settings > Usage](https://claude.ai/settings/usage)** to view progress bars showing how much of your five-hour session and weekly usage limits you’ve consumed.
+
+  - On the Ultra plan, verified accounts won’t see a five-hour session limit. **[Learn more](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**.
 
 - The **Plan usage limits** section at the top shows your progress towards both your session limit and weekly limits.
 
@@ -110,7 +116,7 @@ Projects offer significant caching benefits:
 
   - **Weekly limits:** Check when your plan’s weekly usage limit resets, for all models, and for Fable (if included in your plan).
 
-- **Usage credits:** If you are using a Pro, Max, Team, or seat-based Enterprise plan, your usage settings page will also show how much of your plan's limit you've used. Refer to these articles for more information about enabling usage credits depending on your plan:
+- **Usage credits:** If you are using a Pro, Max, Ultra, Team, or seat-based Enterprise plan, your usage settings page will also show how much of your plan's limit you've used. Refer to these articles for more information about enabling usage credits depending on your plan:
 
   - **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-)**
 

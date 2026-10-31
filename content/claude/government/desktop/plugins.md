@@ -14,7 +14,7 @@ A plugin is a package that adds capabilities to Claude in a single step, such as
 
 Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Open Customize in the sidebar for your skills, connectors, and plugins. A connector lets Claude reach another service. The ones you can use come from your organization: here, Microsoft 365 and Web Search.
 >

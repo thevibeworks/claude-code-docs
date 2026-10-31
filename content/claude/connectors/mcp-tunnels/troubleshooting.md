@@ -138,10 +138,6 @@ Claude could not complete the token exchange, usually because the token endpoint
 
 **Token endpoint** and **Registration endpoint** accept an `https://` URL that is either under `tunnel.anthropic.com` or on the same origin (scheme, host, and port) as the **Authorization endpoint**. Any other URL is rejected, because Claude sends the token exchange and the client credentials to it. Add a route for your authorization server as shown in [Route the authorization server through the tunnel](https://claude.com/docs/connectors/mcp-tunnels/oauth.md#route-the-authorization-server-through-the-tunnel) and enter the resulting tunnel URL. The **Authorization endpoint** field has no such restriction, because browsers load it directly.
 
-### The Tunnel OAuth configuration toggle is missing
-
-Anthropic enables the option for each organization in the research preview on request. Contact your Anthropic account team.
-
 ## Get help
 
 If these steps don't resolve the problem, contact your Anthropic account team with the tunnel domain, the time of a failed request, and the relevant cloudflared and proxy log lines.

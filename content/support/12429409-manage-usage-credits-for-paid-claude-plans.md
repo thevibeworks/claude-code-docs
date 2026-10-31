@@ -1,12 +1,12 @@
 # Manage usage credits for paid Claude plans
 
-This article explains how usage credits work on your paid Claude plan (Pro, Max 5x, or Max 20x), allowing you to continue working with Claude after reaching your plan's usage limits by switching to pay-as-you-go pricing.
+This article explains how usage credits work on your paid Claude plan (Pro, Max, or Ultra), allowing you to continue working with Claude after reaching your plan's usage limits by switching to pay-as-you-go pricing.
 
 ## What are usage credits?
 
-Usage credits allow individuals subscribed to paid Claude plans (Pro, Max 5x, and Max 20x) to continue using Claude after reaching their included usage limits. Paid plans have a session limit that resets every five hours and a weekly limit. Max plans also have a separate weekly limit for Fable. Instead of being blocked when you reach one of your plan's limits, you can switch to consumption-based pricing at standard API rates and continue your work without interruption.
+Usage credits allow individuals subscribed to paid Claude plans (Pro, Max, and Ultra) to continue using Claude after reaching their included usage limits. Most paid plans have a session limit that resets every five hours and a weekly limit. The Ultra plan has a weekly limit, and verified Ultra accounts don't have a five-hour limit (**[learn more](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**). Max and Ultra plans also have a separate weekly limit for Fable. Instead of being blocked when you reach one of your plan's limits, you can switch to consumption-based pricing at standard API rates and continue your work without interruption.
 
-Usage credits are separate from the monthly API credits included with Max plans. Monthly API credits don’t apply to usage credits in Claude, Claude Code, or Claude Cowork. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+Usage credits are separate from the monthly API credits included with Max and Ultra plans. Monthly API credits don’t apply to usage credits in Claude, Claude Code, or Claude Cowork. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 **Note:** If you subscribed through one of the Claude mobile apps, you can only enable usage credits on the web version of Claude. You will need to add your payment method before enabling and purchasing usage credits on the web.
 
@@ -14,7 +14,7 @@ Usage credits are separate from the monthly API credits included with Max plans.
 
 ## How usage credits work
 
-When you fully use your plan’s included usage limits (your five-hour session limit, your weekly limit, or your Fable weekly limit on Max plans) with usage credits enabled:
+When you fully use your plan’s included usage limits (any five-hour session limit, your weekly limit, or your Fable weekly limit on Max and Ultra plans) with usage credits enabled:
 
 - Your requests switch to pay-as-you-go pricing on usage credits and keep working.
 
@@ -24,7 +24,7 @@ When you fully use your plan’s included usage limits (your five-hour session l
 
 - Your usage continues until you reach your monthly spend limit, or your balance runs out with auto-reload off.
 
-- Your session limit resets every five hours and your weekly limits reset once a week, as usual.
+- Any session limit resets every five hours and your weekly limits reset once a week, as usual.
 
 **Note:** Usage credits are charged separately from your paid Claude subscription and appear as additional charges on your bill.
 
@@ -48,9 +48,7 @@ To enable usage credits on your paid Claude plan:
 
 7. You’ll then need to prepay to cover usage beyond your plan limits. Click “Add funds,” enter the amount you want to purchase in the modal, then click “Purchase.”
 
-8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set:
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1805819785/5e203c38e6ba3f76bfd1dab0d5ce/fe062e7c-18cb-48cc-a7e2-754ac6e6c4be?expires=1793380500&amp;signature=01546ec282c9d9e9d46c1baa4a0e53c0e2948ebaca9f4b63cd8b106df2d78b00&amp;req=dSgnE8F%2FlIZXXPMW1HO4zYj2ABGarfA9opE7m38YdfcUs3JLWT8%2BAvLm7mff%0AAtKHJmN1ItOj0UD9WyM%3D%0A)
+8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set.
 
 ---
 
@@ -92,7 +90,7 @@ To manage usage credit costs while maintaining productivity:
 
 - **Choose efficient models:** Use our most efficient Haiku model, or the most recent Sonnet model for most tasks. These provide excellent performance at lower token costs than Opus models.
 
-- **Use your plan’s included usage first:** Plan intensive work sessions around your five-hour usage windows.
+- **Use your plan’s included usage first:** If your plan has a session limit, plan intensive work sessions around your five-hour usage windows.
 
 - **Start new conversations:** Begin fresh chats for new topics to minimize the size of your context window.
 
@@ -126,11 +124,11 @@ Yes, you can disable usage credits at any time through **[Settings > Usage](http
 
 ### How quickly do my regular usage limits reset?
 
-Paid plans include two usage limits: a session limit that resets every five hours, and a weekly limit that resets once a week. Max plans also have a separate weekly limit for Fable that resets once a week. Usage credits don’t affect the reset timing of any of these limits.
+Most paid plans include two usage limits: a session limit that resets every five hours, and a weekly limit that resets once a week. Verified Ultra accounts don't have a five-hour limit (**[learn more](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**). Max and Ultra plans also have a separate weekly limit for Fable that resets once a week. Usage credits don’t affect the reset timing of any of these limits.
 
 ### Can I keep using Claude after I reach my weekly limit?
 
-Yes. With usage credits enabled, once one of your included limits is fully used (your five-hour session limit or one of your weekly limits), your requests switch to pay-as-you-go pricing on usage credits and keep working. Your usage continues until you reach your monthly spend limit or your usage credit balance runs out with auto-reload off.
+Yes. With usage credits enabled, once one of your included limits is fully used (any five-hour session limit or one of your weekly limits), your requests switch to pay-as-you-go pricing on usage credits and keep working. Your usage continues until you reach your monthly spend limit or your usage credit balance runs out with auto-reload off.
 
 ### I subscribed to a paid Claude plan on the App or Play store; how can I access usage credits?
 

@@ -3,7 +3,7 @@ title: Browser use tool
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool
 description: Let Claude navigate, read, and interact with webpages in your own browser environment with the browser use tool.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Client-side tool. Anthropic does not run browser actions or retain page content beyond standard API handling.
@@ -20,8 +20,8 @@ featureMetadata:
     - claude-haiku-5-5
     - claude-opus-4-8
   supportedPlatforms:
-    Claude API: ga
-    Claude Models on Google Cloud (Google managed): ga
+    Claude API: stable
+    Claude Models on Google Cloud (Google managed): stable
 ---
 
 <Note>

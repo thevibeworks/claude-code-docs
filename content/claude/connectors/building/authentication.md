@@ -192,7 +192,7 @@ If your `401` doesn't include a `resource_metadata` pointer, Claude can still in
 
 > [!NOTE]
 >
-> If your authorization server is Microsoft Entra ID, you must also register the MCP server URL as an Application ID URI on your Entra app registration, or the token request fails with `AADSTS9010010`. By default, Entra accepts that URL as an Application ID URI only when it's on a domain your tenant has verified, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions), so an MCP server on a platform hostname such as `*.azurewebsites.net` needs a custom domain first. See [the troubleshooting entry](https://claude.com/docs/connectors/building/troubleshooting.md#microsoft-entra-id-rejects-the-resource-value) for the fix.
+> If your authorization server is Microsoft Entra ID, you must also register the MCP server URL as an Application ID URI on your Entra app registration, or the token request fails with `AADSTS9010010`. See [Microsoft Entra ID rejects the resource value](https://claude.com/docs/connectors/building/troubleshooting.md#microsoft-entra-id-rejects-the-resource-value) for the steps.
 
 If you control both hosts, an alternative is to serve the MCP endpoint and the authorization server behind a single custom domain that can route both `/.well-known/*` and your MCP path.
 

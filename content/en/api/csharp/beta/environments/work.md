@@ -135,6 +135,8 @@ Retrieve detailed information about a specific work item.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -403,6 +405,8 @@ Long poll for work items in the queue.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string anthropicWorkerID` (header parameter)
 
     Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
@@ -657,6 +661,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
 ### Returns
 
@@ -918,6 +924,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
 ### Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`
@@ -930,7 +938,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `required string LastHeartbeat`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `required bool LeaseExtended`
 
@@ -1116,6 +1124,8 @@ Stop a work item, initiating graceful or forced shutdown.
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 
@@ -1383,6 +1393,8 @@ List work items in an environment.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
 ### Returns
 
 - `class BetaSelfHostedWork`
@@ -1645,6 +1657,8 @@ Update work item metadata with merge semantics.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1901,6 +1915,8 @@ Get statistics about the work queue for an environment.
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1913,15 +1929,13 @@ Get statistics about the work queue for an environment.
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `JsonElement Type = "work_queue_stats"`
 
     The type of object
 
   - `required long Depth`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `required string? OldestQueuedAt`
 
@@ -2057,7 +2071,7 @@ Console.WriteLine(betaSelfHostedWorkQueueStats);
 
   - `required string LastHeartbeat`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `required bool LeaseExtended`
 
@@ -2171,15 +2185,13 @@ Console.WriteLine(betaSelfHostedWorkQueueStats);
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `JsonElement Type = "work_queue_stats"`
 
     The type of object
 
   - `required long Depth`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `required string? OldestQueuedAt`
 

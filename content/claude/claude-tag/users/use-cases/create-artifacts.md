@@ -77,10 +77,10 @@ Planning inputs arrive over a month, not in one sitting. Forward messages and id
 
 ## Related resources
 
-> **[Catch up](https://claude.com/docs/claude-tag/users/use-cases/catch-up.md)**
+> [card] [Catch up](https://claude.com/docs/claude-tag/users/use-cases/catch-up.md)
 >
 > When you need the summary, not the artifact
 
-> **[Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)**
+> [card] [Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)
 >
 > How to specify outputs that come back right

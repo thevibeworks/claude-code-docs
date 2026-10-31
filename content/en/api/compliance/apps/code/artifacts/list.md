@@ -195,12 +195,12 @@ curl https://api.anthropic.com/v1/compliance/apps/code/artifacts \
       "id": "cart_01Tu9VwXyZaBcDeFgHiJkLmN",
       "artifact_type": "code",
       "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
-      "owner_user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "owner_user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
       "published_version_id": "1741803761-9f3a",
       "read_mode": "org",
       "updated_at": "2025-03-14T09:05:17.456789Z",
       "user": {
-        "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+        "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
         "email_address": "jane.doe@example.com"
       },
       "versions": [

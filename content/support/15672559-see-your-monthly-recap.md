@@ -2,7 +2,7 @@
 
 Your monthly recap shows you how you’ve been using Claude—the topics you spent time on, when you tend to reach for it, and where you might try something new. It’s designed to reflect your patterns back without judgment so you can decide what, if anything, you’d like to change.
 
-The monthly recap is in beta for users with Free, Pro, and Max plans using Claude on the web or Claude Desktop. It only appears when memory is turned on, and isn't available on Team or Enterprise plans. It's available in all regions where Claude is offered.
+The monthly recap is in beta for users with Free, Pro, Max, and Ultra plans using Claude on the web or Claude Desktop. It only appears when memory is turned on, and isn't available on Team or Enterprise plans. It's available in all regions where Claude is offered.
 
 ## Open your recap
 
@@ -104,8 +104,8 @@ Viewing your recap doesn’t count toward your usage limits. If you start a conv
 
 ### Why don’t I see Reflect in Settings?
 
-Check that memory is toggled on under **Settings > Your Claude**, that you're on a Free, Pro, or Max plan, and that you're using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
-
+Check that memory is toggled on under **Settings > Your Claude**, that you're on a Free, Pro, Max, or Ultra plan, and that you're using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
+​
 In the updated Settings layout, your recap is under **Settings > Wellbeing**.
 
 ### Why does a percentage or stat look off?

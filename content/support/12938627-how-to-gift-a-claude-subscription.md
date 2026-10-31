@@ -8,7 +8,7 @@ Gift subscriptions purchased when they were available include full access to all
 
 - **[What is the Pro plan?](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan)**
 
-- **[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)**
+- **[What are the Max and Ultra plans?](https://support.claude.com/en/articles/11049741)**
 
 ## How to purchase a gift
 

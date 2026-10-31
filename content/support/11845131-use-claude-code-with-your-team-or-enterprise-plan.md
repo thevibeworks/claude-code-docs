@@ -1,6 +1,6 @@
 # Use Claude Code with your Team or Enterprise plan
 
-This article applies to members of Team or Enterprise plan organizations using their subscription plans to access Claude Code. If you’re an individual consumer using a Pro or Max plan subscription, see **[Use Claude Code with your Pro or Max plan](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan)**.
+This article applies to members of Team or Enterprise plan organizations using their subscription plans to access Claude Code. If you’re an individual consumer using a Pro, Max, or Ultra plan subscription, see **[Use Claude Code with your Pro, Max, or Ultra plan](https://support.claude.com/en/articles/11145838)**.
 
 ## What is Claude Code?
 
@@ -82,4 +82,4 @@ If your organization is on a **usage-based Enterprise plan** (including self-ser
 
 If your organization is on a Team plan or a seat-based Enterprise plan, you can enable usage credits to allow team members to continue working with Claude, Cowork, and Claude Code after reaching their included usage limits. For more information, see **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970-)**.
 
-Monthly API credits included with Team plans can’t be used in Claude Code or the Claude apps, including for extra usage. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+Monthly API credits included with Team plans can’t be used in Claude Code or the Claude apps, including for extra usage. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.

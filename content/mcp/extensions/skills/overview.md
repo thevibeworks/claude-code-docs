@@ -16,7 +16,7 @@ see the [client support matrix](https://modelcontextprotocol.io/extensions/clien
 [implementations list](https://github.com/modelcontextprotocol/ext-skills/blob/main/docs/implementations.md)
 for current coverage.
 
-> **[modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)**
+> [card] [modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)
 >
 > Specification and documentation for Skills over MCP.
 
@@ -273,7 +273,9 @@ declares `directoryRead: true`.
         "name": "checklist.md",
         "mimeType": "text/markdown"
       }
-    ]
+    ],
+    "ttlMs": 300000,
+    "cacheScope": "public"
   }
 }
 ```

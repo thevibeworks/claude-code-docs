@@ -2,7 +2,7 @@
 
 Claude Design lets your team create on-brand designs, prototypes, and interactive microsites through conversation with Claude. Presentations now have their own tool, Claude Slides.
 
-Claude Design is available on Free, Pro, Max, Team, and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then.
+Claude Design is available on Free, Pro, Max, Ultra, Team, and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then.
 
 **Note:** Settings for artifacts, templates (including **Design**), design systems, and sharing live in one place now. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**. This guide covers how to roll out Claude Design with a design system in place, and what to do before standalone Claude Design at **claude.ai/design** closes.
 

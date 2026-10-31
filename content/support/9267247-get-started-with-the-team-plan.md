@@ -18,7 +18,7 @@ To get started with the Team plan, navigate to **[claude.ai/login](https://claud
 
 ## Upgrade from an individual plan to the Team plan
 
-If you already have a Free, Pro, or Max account on your work email and want to upgrade to Team, sign in to your account and visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
+If you already have a Free, Pro, Max, or Ultra account on your work email and want to upgrade to Team, sign in to your account and visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
 
 If you see the **Keep your personal account separate** checkbox, then upgrading to Team upgrades your existing organization in place by default. Your organization ID stays the same and some of your content carries over to your new Team plan. For a full list of what does and doesn’t migrate, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
 
@@ -28,19 +28,19 @@ If you don’t see the **Keep your personal account separate** checkbox, then th
 
 What else happens during an in-place upgrade:
 
-- Your individual Pro or Max subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
+- Your individual Pro, Max, or Ultra subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
 
 - Any prepaid usage credits on your individual account are refunded.
 
 - Public projects in your account become private once the upgrade is complete. Project owners can give others in their organization access to the project from its **Share** menu. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)**.
 
-- If you’ve claimed monthly API credits on your Max plan, your Max link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
+- If you’ve claimed monthly API credits on your Max or Ultra plan, your Max or Ultra link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
 
 **Note:** If you'd rather keep your personal Claude account active alongside your new Team plan, check this box in the team-creation flow before completing your upgrade: **Keep your personal account separate**. We’ll set up a new workspace for this team and your existing chats and projects stay in your personal account. If you check this, your individual subscription stays active and your personal data stays in your individual account instead of moving into the Team org.
 
 ### Apple App Store subscribers
 
-Because Apple doesn't allow third-party cancellation of App Store subscriptions, in-place upgrades work differently if you signed up for Pro or Max through the Apple App Store. By default, you will upgrade to a new, separate Team organization. If you'd prefer to upgrade in place, you’ll need to **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** first and wait for the billing period to end.
+Because Apple doesn't allow third-party cancellation of App Store subscriptions, in-place upgrades work differently if you signed up for Pro, Max, or Ultra through the Apple App Store. By default, you will upgrade to a new, separate Team organization. If you'd prefer to upgrade in place, you’ll need to **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** first and wait for the billing period to end.
 
 ### Google Play Store subscribers
 
@@ -54,7 +54,7 @@ To use only your Team plan after upgrading separately, you'll need to **[cancel 
 
 ## Claim your team’s API credits
 
-Claude Max and Team plans include monthly credits for the Claude API. One owner links a Claude Console organization and claims the pooled credit, up to $500 a month. New subscribers can claim once they’ve been on an eligible plan for seven days.
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. One owner links a Claude Console organization and claims the pooled credit, up to $500 a month. New subscribers can claim once they’ve been on an eligible plan for seven days.
 
 To claim, you need to be a Primary Owner or Owner on your Team plan and have the Owner, Admin, or Billing role in the Console organization.
 
@@ -66,4 +66,4 @@ To claim, you need to be a Primary Owner or Owner on your Team plan and have the
 
 4. Review the **[Supplemental Credit Terms](https://www.anthropic.com/legal/credit-terms)**, then select "Link organization."
 
-Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.

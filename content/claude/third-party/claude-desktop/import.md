@@ -59,43 +59,43 @@ The wizard has three steps: **Chats** (your claude.ai export), **Cowork & Code**
 
 You can pull your claude.ai history straight into the wizard by signing in, or download it from claude.ai yourself and choose the file.
 
-**Sign in to claude.ai (recommended)**
+> [tab] Sign in to claude.ai (recommended)
+>
+> Click **Sign in to claude.ai…**. Your browser opens to claude.ai; sign in if prompted, choose your organization if you belong to more than one, and click **Authorize**.
+>
+> ![claude.ai organization selector titled Select organization, listing one organization.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-org.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=1657a03028a7ceb3d173e71ba27f591d)
+>
+> The organization selector, shown if your claude.ai account belongs to more than one workspace.
+>
+> ![claude.ai authorization card reading Claude Desktop Import would like to connect to your Claude chat account, with an Authorize button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-authorize.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=55be3501d41c9e61b49154db66b71d5b)
+>
+> The authorization prompt. The only permission granted is a one-time export of your own data.
+>
+> Back in Claude Desktop, click **Fetch export**. The wizard requests an export from claude.ai, downloads it, and shows what it found.
+>
+> ![Import from Claude wizard step 1 showing a claude.ai export row with the account email and a summary of 7 chats and 1 project.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-signed-in.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=dafc4cbfffd685321442cbd72fd73993)
+>
+> The wizard after the export finishes downloading.
 
-Click **Sign in to claude.ai…**. Your browser opens to claude.ai; sign in if prompted, choose your organization if you belong to more than one, and click **Authorize**.
-
-![claude.ai organization selector titled Select organization, listing one organization.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-org.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=1657a03028a7ceb3d173e71ba27f591d)
-
-The organization selector, shown if your claude.ai account belongs to more than one workspace.
-
-![claude.ai authorization card reading Claude Desktop Import would like to connect to your Claude chat account, with an Authorize button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-authorize.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=55be3501d41c9e61b49154db66b71d5b)
-
-The authorization prompt. The only permission granted is a one-time export of your own data.
-
-Back in Claude Desktop, click **Fetch export**. The wizard requests an export from claude.ai, downloads it, and shows what it found.
-
-![Import from Claude wizard step 1 showing a claude.ai export row with the account email and a summary of 7 chats and 1 project.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-signed-in.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=dafc4cbfffd685321442cbd72fd73993)
-
-The wizard after the export finishes downloading.
-
-**Choose a downloaded file**
-
-On claude.ai, go to **Settings → Privacy → Export data** and click **Export**. If you don't see **Export data**, ask a workspace owner to [enable member data export](#enable-member-data-export-admins).
-
-![claude.ai settings Privacy page with the Export data subpage open, showing an Export button and a note that a download link will be sent by email.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-web-export.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=1ed4aa5a08469420020d3ff83579c0de)
-
-The Export data page in claude.ai personal settings.
-
-claude.ai emails you a download link when the export is ready. The link expires after 24 hours.
-
-![Email from Claude titled Your data is ready for download with a Download data button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-email.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=cf883e9c401401686568c77cb6ac45c1)
-
-The export-ready email.
-
-Download the `.zip`, then in the import wizard click **Choose file…** and select it.
-
-![Import from Claude wizard step 1 showing a selected member-data zip file with a summary of 7 chats and 1 project.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-choose-file.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=5cb868969ebed88801296f696796d0f1)
-
-Step 1 with a downloaded export selected.
+> [tab] Choose a downloaded file
+>
+> On claude.ai, go to **Settings → Privacy → Export data** and click **Export**. If you don't see **Export data**, ask a workspace owner to [enable member data export](#enable-member-data-export-admins).
+>
+> ![claude.ai settings Privacy page with the Export data subpage open, showing an Export button and a note that a download link will be sent by email.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-web-export.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=1ed4aa5a08469420020d3ff83579c0de)
+>
+> The Export data page in claude.ai personal settings.
+>
+> claude.ai emails you a download link when the export is ready. The link expires after 24 hours.
+>
+> ![Email from Claude titled Your data is ready for download with a Download data button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-email.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=cf883e9c401401686568c77cb6ac45c1)
+>
+> The export-ready email.
+>
+> Download the `.zip`, then in the import wizard click **Choose file…** and select it.
+>
+> ![Import from Claude wizard step 1 showing a selected member-data zip file with a summary of 7 chats and 1 project.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-choose-file.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=5cb868969ebed88801296f696796d0f1)
+>
+> Step 1 with a downloaded export selected.
 
 Click **Continue**, or **Skip this step** if you only want to bring in local sessions.
 

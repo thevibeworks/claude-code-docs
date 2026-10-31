@@ -4,15 +4,15 @@ This article explains how to use **[Claude Cowork](https://claude.com/product/co
 
 ## Availability
 
-Claude Cowork is available on paid plans (Pro, Max, Team, and Enterprise):
+Claude Cowork is available on paid plans (Pro, Max, Ultra, Team, and Enterprise):
 
 - **Claude Desktop for macOS, Windows, and Linux (beta)**:  Available on all paid plans. Download or update at **[claude.com/download](https://claude.com/download)**.
 
-- **Web and Claude Mobile:** Pro, Max, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
+- **Web and Claude Mobile:** Pro, Max, Ultra, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
 
 - **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)** for more information.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 On desktop, web, and mobile, chat and Cowork share one home, so you start both from the same place. Find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat." In the Chrome side panel, opening the panel starts a Cowork session directly.
 
@@ -92,7 +92,7 @@ You maintain visibility into what Claude is planning and doing throughout the pr
 
 ### Requirements
 
-- **Paid Claude subscription:** Cowork is available to paid Claude plans (Pro, Max, Team, Enterprise) only.
+- **Paid Claude subscription:** Cowork is available to paid Claude plans (Pro, Max, Ultra, Team, Enterprise) only.
 
 - **For local file access, browser use, and computer use:** The **[Claude Desktop app](https://support.claude.com/en/articles/10065433-installing-claude-desktop)** for macOS or Windows, open and connected. These capabilities reach things on your computer, so they need the app even though your session runs in the cloud.
 
@@ -138,7 +138,7 @@ Tasks can run for extended periods depending on complexity. You can monitor prog
 
 Cowork has three modes that control when Claude asks your permission before taking an action, like using your connectors. You can change the mode at any time from the mode selector in the chat box.
 
-**Note:** If you have the new Claude experience, the permission setting in the message box offers **Auto** (default on Pro, Max, and Team plans) and **Manual** (default on Enterprise plans).
+**Note:** If you have the new Claude experience, the permission setting in the message box offers **Auto** (default on Pro, Max, Ultra, and Team plans) and **Manual** (default on Enterprise plans).
 
 |                   | **Connector tool permission: "Always allow"**                          | **Connector tool permission: "Needs approval"** | **Connector tool permission: "Blocked"** |
 | ----------------- | ---------------------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------- |
@@ -178,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1793380500&amp;signature=732570af2214d3df54025f45b3cd7ca689ffe0e9f9238fb23eda64d6d5579d77&amp;req=diUlE8B8m4lYXfMW1HO4zcDl69vvPlG18iWjaktE941JmOvkmuUEI29%2F%2BRyN%0AVNuwfUCvz5TnrodjEqg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1793534400&amp;signature=986ce353d09f68dc9db2cec05819a7df5e2ac2fb3d26e4315a60f810673d485b&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BC37Pfb1WMqW%2FkK1f08y7FTfwgFp0pAVJb%0A%2Fcchdin6x2KJa4tgJj0VPlSBRSg%3D%0A)
 
 ### Folder instructions
 
@@ -288,7 +288,7 @@ Some Cowork capabilities are not yet available:
 
 - **Some features are desktop-only:** Live artifacts created before August 19, 2026 and plugins that include local MCP servers work through the desktop app only.
 
-We're iterating on Cowork based on feedback. To share feedback on Free, Pro, and Max plans, use the feedback button in the app. If you're on a Team or Enterprise plan, you won't see a feedback button in the app, so you should contact your organization admin or your Anthropic Contact if you have suggestions.
+We're iterating on Cowork based on feedback. To share feedback on Free, Pro, Max and Ultra plans, use the feedback button in the app. If you're on a Team or Enterprise plan, you won't see a feedback button in the app, so you should contact your organization admin or your Anthropic Contact if you have suggestions.
 
 ---
 
@@ -300,7 +300,7 @@ This message is expected and indicates that Cowork is updating to the most recen
 
 ### Claude stopped working on my task
 
-For local sessions (on Pro and Max plans, **[tasks you started on your computer before October 6](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**), ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended. Sessions in the cloud keep running in the background; open the session from any surface to check its progress.
+For local sessions (on Pro, Max, and Ultra plans, **[tasks you started on your computer before October 6](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**), ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended. Sessions in the cloud keep running in the background; open the session from any surface to check its progress.
 
 ### I'm hitting usage limits quickly
 

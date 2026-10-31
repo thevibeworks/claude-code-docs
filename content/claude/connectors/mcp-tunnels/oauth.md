@@ -41,7 +41,7 @@ With a tunnel domain of `abc123.tunnel.anthropic.com`, Claude can now reach the 
 
 ## Set the Tunnel OAuth configuration
 
-When you add the tunneled MCP server as a custom connector in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors), turn on **Tunnel OAuth configuration** in the connector dialog. The values you enter replace the ones Claude would otherwise read from the authorization server's metadata. Anthropic enables this option for each organization in the research preview on request, so if the toggle does not appear in the dialog, contact your Anthropic account team.
+When you add the tunneled MCP server as a custom connector in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors), turn on **Tunnel OAuth configuration** in the connector dialog. The values you enter replace the ones Claude would otherwise read from the authorization server's metadata.
 
 | Field | What to enter | Example |
 | - | - | - |

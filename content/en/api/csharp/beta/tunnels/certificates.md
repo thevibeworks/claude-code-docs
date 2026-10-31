@@ -141,6 +141,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -349,6 +351,8 @@ Fetches a tunnel certificate by ID.
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 
@@ -569,6 +573,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -780,6 +786,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 

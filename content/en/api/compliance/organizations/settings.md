@@ -121,6 +121,8 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       - `"claude_academy_inference_enabled"`
 
+      - `"claude_ai_ccr_support_sharing_enabled"`
+
       - `"claude_ai_chat_sharing_enabled"`
 
       - `"claude_ai_feedback_collection_enabled"`
@@ -184,8 +186,6 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"connector_tools_default_always_allow"`
 
       - `"content_redaction_enabled"`
-
-      - `"cowork_trusted_devices_required"`
 
       - `"desktop_extension_allowlist_enabled"`
 
@@ -490,6 +490,8 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
 
         - `"claude_academy_inference_enabled"`
 
+        - `"claude_ai_ccr_support_sharing_enabled"`
+
         - `"claude_ai_chat_sharing_enabled"`
 
         - `"claude_ai_feedback_collection_enabled"`
@@ -553,8 +555,6 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
         - `"connector_tools_default_always_allow"`
 
         - `"content_redaction_enabled"`
-
-        - `"cowork_trusted_devices_required"`
 
         - `"desktop_extension_allowlist_enabled"`
 

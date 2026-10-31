@@ -6,6 +6,13 @@
 
 > An Outlook add-in that integrates Claude into your inbox and calendar, for Pro, Max, Team, and Enterprise plans.
 
+> [!WARNING]
+>
+> After the September and October 2026 Microsoft 365 updates on Windows, some
+> users are missing their chat history and uploaded skills in the Claude add-in.
+> Anthropic is working with Microsoft to solve this issue. In the meantime, see
+> [what you and your IT team can do](https://claude.com/docs/office-agents/data-storage.md#chat-history-and-skills-missing-after-a-microsoft-365-update-on-windows).
+
 Claude for Outlook is an add-in that brings Claude into your Outlook inbox
 and calendar. It is built for professionals whose work runs through email,
 including private equity and investment banking associates managing deal

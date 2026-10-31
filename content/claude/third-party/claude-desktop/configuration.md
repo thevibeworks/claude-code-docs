@@ -175,7 +175,7 @@ enumSince 1.2581.0
 
 One of: `gateway`, `anthropic`, `bedrock`, `mantle`, `vertex`, `foundry`
 
-> **More detail**
+> [accordion] More detail
 >
 > The app opens in third-party mode unless the user chose to sign in to Claude.ai at the login screen. `disableDeploymentModeChooser` removes that choice.
 >
@@ -223,7 +223,7 @@ object: name → valueSince 1.8089.0
 
 **Custom inference headers.** Extra headers sent with every model request. Routing and tenant headers only: do not put credentials here.
 
-> **More detail**
+> [accordion] More detail
 >
 > This key is stored and distributed as plain configuration. For tokens, and for values that differ per user or session, have `inferenceCredentialHelper` print JSON with a `headers` field. On a conflict, the helper script's header takes priority.
 
@@ -239,7 +239,7 @@ Since 1.2581.0
 
 **Helper script.** Absolute path to an executable that prints the credential, optionally with per-request headers.
 
-> **More detail**
+> [accordion] More detail
 >
 > The helper script must exit with code `0`. Its standard output must hold only one of these, with no banners, prompts or log lines:
 >
@@ -272,7 +272,7 @@ Since 2.110.0
 
 **Helper script arguments.** Arguments passed to the helper script, one per entry, in order. Leave unset to run it with none.
 
-> **More detail**
+> [accordion] More detail
 >
 > Do not put secrets in arguments: the diagnostic report and other processes on the device can see them.
 >
@@ -330,7 +330,7 @@ Since 1.44121.1
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > This sets a route. It is not a network access control. If the proxy is unreachable, requests fail instead of connecting directly.
 >
@@ -356,7 +356,7 @@ Since 1.44121.1
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > If the PAC file cannot be downloaded, the app connects directly. On macOS and Windows, the Cowork workspace VM gets its own copy at each start. If that download fails, the VM connects directly until it next starts, with no warning. Block direct connections on your network if that is unacceptable.
 >
@@ -374,7 +374,7 @@ booleanSince 1.52386.0
 
 **Enable IPv6 in the workspace VM.** Give the Cowork workspace VM an IPv6 address so Claude’s tools can reach IPv6-only hosts through the device. macOS and Windows only.
 
-> **More detail**
+> [accordion] More detail
 >
 > IPv6 works in the VM only where the device's own IPv6 works.
 >
@@ -438,7 +438,7 @@ One of: `browser`, `broker`
 >
 > * Use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
 > * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
@@ -465,7 +465,7 @@ Since 1.6889.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/gateway.md#single-sign-on-with-your-identity-provider)
 
-> **More detail**
+> [accordion] More detail
 >
 > Used with `inferenceCredentialKind` set to `interactive`. Leave it unset for a gateway that runs its own sign-in and serves `<baseUrl>/.well-known/oauth-authorization-server`.
 >
@@ -473,7 +473,7 @@ Since 1.6889.0
 >
 > Register the redirect URI given under `inferenceGatewayOidcAuthFlow`.
 
-> **Child attributes (11)**
+> [accordion] Child attributes (11)
 >
 > **clientId** `string` *required*
 >
@@ -497,7 +497,7 @@ Since 1.6889.0
 >
 > One of: `id_token` (default), `access_token`
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > An ID token's audience (`aud`) is `clientId`. An access token's audience must be your gateway or proxy.
 > >
@@ -507,7 +507,7 @@ Since 1.6889.0
 >
 > Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > In ID-token mode, `offline_access` is not added to scopes that you set. Include it yourself, or users sign in again each time the token expires.
 >
@@ -515,7 +515,7 @@ Since 1.6889.0
 >
 > In access-token mode, add offline\_access to scopes so the identity provider returns a refresh token for silent refresh.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Turn off only if your authorization server rejects `offline_access` as an unknown scope. Then add the server’s own refresh-token scope to `scopes`.
 >
@@ -523,7 +523,7 @@ Since 1.6889.0
 >
 > Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier. Leave unset for Entra ID.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
 > >
@@ -543,7 +543,7 @@ Since 1.6889.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -557,7 +557,7 @@ enumSince 2.7032.0
 
 One of: `browser`, `broker`
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
 > * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
@@ -576,7 +576,7 @@ Since 2.7032.0
 
 **Identity provider (OIDC).** Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy.
 
-> **More detail**
+> [accordion] More detail
 >
 > Used when `inferenceCredentialKind` is `external-idp`. Register the redirect URI given under `inferenceIdpAuthFlow` with your identity provider.
 >
@@ -584,7 +584,7 @@ Since 2.7032.0
 >
 > On Bedrock, set `inferenceBedrockBaseUrl` to a proxy that checks the token, because Amazon Bedrock itself does not accept it. Also list your models in `inferenceModels`.
 
-> **Child attributes (11)**
+> [accordion] Child attributes (11)
 >
 > **clientId** `string` *required*
 >
@@ -608,7 +608,7 @@ Since 2.7032.0
 >
 > One of: `id_token` (default), `access_token`
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > An ID token's audience (`aud`) is `clientId`. An access token's audience must be your gateway or proxy.
 > >
@@ -618,7 +618,7 @@ Since 2.7032.0
 >
 > Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > In ID-token mode, `offline_access` is not added to scopes that you set. Include it yourself, or users sign in again each time the token expires.
 >
@@ -626,7 +626,7 @@ Since 2.7032.0
 >
 > In access-token mode, add offline\_access to scopes so the identity provider returns a refresh token for silent refresh.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Turn off only if your authorization server rejects `offline_access` as an unknown scope. Then add the server’s own refresh-token scope to `scopes`.
 >
@@ -634,7 +634,7 @@ Since 2.7032.0
 >
 > Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier. Leave unset for Entra ID.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
 > >
@@ -654,7 +654,7 @@ Since 2.7032.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -666,7 +666,7 @@ integerRange: 300–1,800Since 1.44121.1
 
 **Stream idle timeout.** Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300.
 
-> **More detail**
+> [accordion] More detail
 >
 > With pings arriving (SSE `ping` events or `:` comment lines), sessions accept at least about five minutes of them, then wait this many seconds more. With no pings, a silent response still fails after about 5 minutes whatever this value, so make the gateway send them.
 >
@@ -918,7 +918,7 @@ enumSince 1.25927.0
 
 One of: `browser`, `broker`
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
 > * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
@@ -937,7 +937,7 @@ Since 1.10628.0
 
 **Workforce Identity IdP (OIDC).** Your organization’s OpenID Connect identity provider. Users sign in there, and the app exchanges their ID token at GCP STS.
 
-> **Child attributes (9)**
+> [accordion] Child attributes (9)
 >
 > **clientId** `string` *required*
 >
@@ -977,7 +977,7 @@ Since 1.10628.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -1021,7 +1021,7 @@ Since 2.110.0
 
 **Azure AI Foundry base URL.** Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)).
 
-> **More detail**
+> [accordion] More detail
 >
 > Point it only at a gateway or proxy that you run. Requests carry the credential that the app would send to Foundry: the user's Entra ID token, the API key or the helper script's output.
 >
@@ -1071,7 +1071,7 @@ enumSince 1.19367.0
 
 One of: `device-code`, `browser`, `broker`
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`device-code`:** shows a code to enter at microsoft.com/devicelogin. The app registration must have **Allow public client flows** enabled.
 > * **`browser`:** register `http://127.0.0.1/callback` under **Mobile and desktop applications**. It works with **Allow public client flows** disabled. Conditional Access policies that block device-code sign-in do not affect it.
@@ -1087,7 +1087,7 @@ booleanSince 1.8089.0
 
 **Model discovery.** Auto-populate the model picker from the provider at launch.
 
-> **More detail**
+> [accordion] More detail
 >
 > Turn this off if your network cannot reach your inference provider's model-list endpoint.
 >
@@ -1102,7 +1102,7 @@ booleanSince 1.28929.0
 
 **Use 1M wherever it’s available.** Every model that offers 1M context shows only its 1M option in the model picker.
 
-> **More detail**
+> [accordion] More detail
 >
 > A listed model offers 1M when its `inferenceModels` entry sets `supports1m`. Without a list, a model offers 1M when your gateway's model list marks it.
 
@@ -1114,7 +1114,7 @@ object\[]Since 1.2581.0
 
 **Model list.** Override the auto-discovered model list. First entry is the default.
 
-> **More detail**
+> [accordion] More detail
 >
 > Each entry is a model ID string or an object:
 >
@@ -1135,7 +1135,7 @@ object\[]Since 1.2581.0
 >
 > For Auto mode on a gateway, also list `claude-sonnet-5`. Its safety classifier calls that ID by default (see `autoModeEnabled`).
 
-> **Child attributes (8)**
+> [accordion] Child attributes (8)
 >
 > **name** `string` *required*
 >
@@ -1167,7 +1167,7 @@ object\[]Since 1.2581.0
 >
 > The Claude model behind an ID that the app cannot identify, such as a gateway alias. The ID gets that model’s effort levels and limits.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Enter a Claude model ID such as `claude-sonnet-5`. Region prefixes, dates and upper case are fine. A family name without `claude-`, such as `sonnet-5`, is ignored. The model picker also ignores a model that Claude Desktop does not know.
 > >
@@ -1189,7 +1189,7 @@ enumSince 2.110.0
 
 One of: `low`, `medium`, `high`, `xhigh`, `max`
 
-> **More detail**
+> [accordion] More detail
 >
 > * A user's own effort choice for that model still applies, unless `alwaysStartWithDefaultModel` is on.
 > * A level that the model does not offer becomes the nearest lower level, or its lowest if none is lower.
@@ -1213,7 +1213,7 @@ booleanSince 1.37937.0
 
 **Show estimated cost.** Show an estimated cost on the Usage page, at Anthropic list price unless you set a multiplier or per-model rates.
 
-> **More detail**
+> [accordion] More detail
 >
 > The estimate is in USD. `inferenceModelPricingMultiplier` and `inferenceModelPricing` adjust it, and are ignored while this is off.
 >
@@ -1237,7 +1237,7 @@ object\[]Since 1.37937.0
 
 **Model pricing.** Per-model rates replacing Anthropic list price in the Usage page’s estimate.
 
-> **Child attributes (5)**
+> [accordion] Child attributes (5)
 >
 > **name** `string` *required*
 >
@@ -1269,7 +1269,7 @@ booleanSince 2.110.0
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > On unless set to `false`. The app fetches Anthropic's signed catalog from `downloads.claude.ai`, or from `modelCatalogUrl` if that is set. The catalog never changes which models are offered, their order or the default model.
 >
@@ -1285,7 +1285,7 @@ stringSince 2.110.0
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > Mirror two Anthropic files unchanged: `https://downloads.claude.ai/model-catalog/v1/catalog.json` and its signature file. The app looks for the signature at this URL with `.raw-sig.json` added to the path.
 >
@@ -1329,7 +1329,7 @@ Since 1.40609.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
-> **More detail**
+> [accordion] More detail
 >
 > The app forwards the session's inference credential to the SSH host, plus your collector endpoint and auth headers when `otlpEndpoint` is set. List only hosts you trust with those.
 >
@@ -1354,7 +1354,7 @@ Since 1.46388.1
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
-> **More detail**
+> [accordion] More detail
 >
 > The app never runs another `ssh` in its place. If the program is missing, too old or cannot run, SSH sessions fail. So deliver this key only to devices that have the program.
 >
@@ -1378,7 +1378,7 @@ One of: `auto`, `system-openssh`, `builtin`
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
 
-> **More detail**
+> [accordion] More detail
 >
 > With `system-openssh`, your OpenSSH client's own Kerberos, certificate and `ssh_config` support applies. See `sshClientPath` for which program runs.
 >
@@ -1405,7 +1405,7 @@ enumSince 1.52386.0
 
 One of: `standard`, `off`
 
-> **More detail**
+> [accordion] More detail
 >
 > `standard` turns on Unified Claude. `off` turns Chat and Cowork off, which leaves only Code, or nothing where Code is off. `isClaudeCodeForDesktopEnabled` still decides Code.
 >
@@ -1421,7 +1421,7 @@ booleanSince 1.14271.0
 
 **Advanced file analysis.** Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint.
 
-> **More detail**
+> [accordion] More detail
 >
 > Of the user's files, the sandbox can read only those attached to the conversation and folders added to the chat's project through the app (read-only).
 >
@@ -1441,7 +1441,7 @@ string\[]Since 1.2581.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-fetch)
 
-> **More detail**
+> [accordion] More detail
 >
 > Does not cover web search, model requests or MCP servers.
 >
@@ -1459,7 +1459,7 @@ object\[]Since 1.2581.0
 
 **Allowed workspace folders.** Folders that Claude can use in chat projects, Cowork and Code. Code’s shell commands are only partly limited. Unset: all folders.
 
-> **More detail**
+> [accordion] More detail
 >
 > Claude can read and write in every listed folder unless its `mode` is `ro`. An empty list allows none.
 >
@@ -1468,7 +1468,7 @@ object\[]Since 1.2581.0
 >
 > Do not list a home folder: it holds SSH keys and shell start-up files.
 
-> **Child attributes (3)**
+> [accordion] Child attributes (3)
 >
 > **path** `string` *required*
 >
@@ -1484,7 +1484,7 @@ object\[]Since 1.2581.0
 >
 > One of: `rw`, `ro`
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > * **Code on the device:** Claude's file tools cannot change the folder. Shell commands still can.
 > > * **Code over SSH:** the same, but shell commands are partly limited where Claude Code's sandbox runs on the host. Nothing is enforced on Windows hosts.
@@ -1499,7 +1499,7 @@ booleanSince 1.46388.1
 
 **Block reads outside working directories.** Keep Claude’s file tools from reading outside a Code session’s working directories. Shell commands are only partly limited.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **File tools** refuse most reads outside the session folder and any `allowedWorkspaceFolders`, in every permission mode.
 > * **Shell commands:** where Claude Code's sandbox runs (see `allowedWorkspaceFolders`), most reads in the home folder and other user folders are refused. Elsewhere such reads ask for approval.
@@ -1517,7 +1517,7 @@ booleanSince 1.10628.0
 
 **Allow Auto mode.** Offer Auto mode, where Claude decides which actions need approval. Unset: in Code only. True adds Cowork.
 
-> **More detail**
+> [accordion] More detail
 >
 > Unless it is `false`, new Code sessions normally start in Auto mode.
 >
@@ -1547,7 +1547,7 @@ booleanSince 1.25927.0
 
 **Allow user-created skills.** Let users create and upload their own skills, and let Claude save skills. Skill files added outside the app are not blocked.
 
-> **More detail**
+> [accordion] More detail
 >
 > Skills already on the device stay usable. Plugins from your organization and bundled skills are not affected. To turn off bundled skills, use `disableBundledSkills`.
 
@@ -1565,7 +1565,7 @@ Since 3.1623.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/skill-scanning.md)
 
-> **More detail**
+> [accordion] More detail
 >
 > How well the scan catches unsafe skills depends on your model. A skill judged possibly unsafe becomes usable, with a caution. Scan tokens count toward the user's usage and token limit.
 >
@@ -1587,7 +1587,7 @@ booleanSince 1.37937.0
 
 **Allow user-added plugin marketplaces.** Let users add plugin marketplaces. When off, the app hides the ones your organization did not add and normally does not load their plugins.
 
-> **More detail**
+> [accordion] More detail
 >
 > Nothing is deleted: turning it back on restores the hidden marketplaces.
 >
@@ -1604,7 +1604,7 @@ booleanSince 1.37937.0
 
 **Allow user-added plugins.** Allow users to add their own plugins. When off, the app hides every option for adding one and refuses uploads.
 
-> **More detail**
+> [accordion] More detail
 >
 > Plugins that are already installed, or placed on disk outside the app, are not removed or blocked.
 >
@@ -1618,7 +1618,7 @@ booleanSince 2.110.0
 
 **Allow scheduled tasks.** Allow scheduled tasks in Cowork and Code. When off, scheduling is hidden, existing tasks stop running and Claude cannot create new ones.
 
-> **More detail**
+> [accordion] More detail
 >
 > Existing tasks are kept, not deleted, and run again when this is turned back on. While off, sessions also start without Claude Code's own scheduling tools, such as the `/loop` command.
 
@@ -1630,7 +1630,7 @@ booleanSince 4.4212.0
 
 **Allow projects.** Let users group chats and Cowork tasks into projects. When off, projects are hidden, not deleted.
 
-> **More detail**
+> [accordion] More detail
 >
 > Turning this off only hides projects. Their tasks and chats stay in the list, ungrouped. Their data stays on the user's device, and they come back when you turn it on again.
 >
@@ -1652,7 +1652,7 @@ booleanSince 2.37337.1
 
 **Allow Developer Mode.** Let users turn on Developer Mode. When off, the app’s developer tools and the option to install an unpacked extension are unavailable.
 
-> **More detail**
+> [accordion] More detail
 >
 > Unpacked extensions that are already installed keep working. An extension folder copied by hand into the app's extensions folder is not blocked. Packaged (`.mcpb`) extensions follow `isDesktopExtensionEnabled`, not this key.
 
@@ -1664,7 +1664,7 @@ stringSince 3.1623.0
 
 **Default Quick Entry shortcut.** Set the shortcut that opens Quick Entry, such as Ctrl+Alt+K, for users who haven’t set their own in Settings. Use “off” for no shortcut.
 
-> **More detail**
+> [accordion] More detail
 >
 > Unset keeps the built-in shortcut: double-tap Option on macOS, `Ctrl+Alt+Space` elsewhere.
 >
@@ -1682,7 +1682,7 @@ booleanSince 3.6556.1
 
 **Allow screenshots of the screen and other apps.** Let users screenshot their screen or other apps’ windows in Quick Entry on macOS. When off, it never asks for Screen Recording access.
 
-> **More detail**
+> [accordion] More detail
 >
 > When off, another app's window that a user mentions with @ in a chat also comes without its picture.
 >
@@ -1696,7 +1696,7 @@ booleanSince 3.6556.1
 
 **Allow sharing files open in other apps.** Let users attach the file open in another app’s window in Quick Entry on macOS. When off, it never asks for Accessibility access.
 
-> **More detail**
+> [accordion] More detail
 >
 > Off applies even where the Accessibility permission is already granted. Another app's window that a user mentions with @ in a chat then also comes without its file. Not covered: Claude's other uses of that permission, and files that users attach themselves.
 
@@ -1708,7 +1708,7 @@ booleanSince 1.37937.0
 
 **Skip WebFetch domain check.** Skip Claude Code’s WebFetch domain lookup against api.anthropic.com in Code sessions. Off by default; turn on when that host is blocked.
 
-> **More detail**
+> [accordion] More detail
 >
 > Before fetching a page, Claude Code's WebFetch tool asks `api.anthropic.com` whether the domain is on Anthropic's content blocklist.
 >
@@ -1723,7 +1723,7 @@ object: name → valueSince 1.8089.0
 
 **Built-in tool policy.** Approval per tool or rule such as Bash(curl \*). “ask” prompts the user before each matching call. To block, use Disabled built-in tools.
 
-> **More detail**
+> [accordion] More detail
 >
 > Entries use the same tool names and rules as `disabledBuiltinTools`, with the same limits. Command rules are not a security boundary, and `Bash(…)` rules do not cover `PowerShell`.
 >
@@ -1741,7 +1741,7 @@ string\[]Since 1.2581.0
 
 **Disabled built-in tools.** Built-in tools, or rules such as Read(//etc/\*\*), blocked in Cowork and Code. Shell commands do not fully follow file-path rules.
 
-> **More detail**
+> [accordion] More detail
 >
 > An entry is a [tool name](https://code.claude.com/docs/en/tools-reference) such as `Bash`, or a [permission rule](https://code.claude.com/docs/en/permissions#permission-rule-syntax) such as `Edit(//etc/**)`.
 >
@@ -1759,7 +1759,7 @@ booleanDefault: falseSince 1.21459.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/gateway.md#mcp-tool-search)
 
-> **More detail**
+> [accordion] More detail
 >
 > Your gateway or provider must accept what tool search adds, such as `tool-search-tool-2025-10-19` in the `anthropic-beta` header. Otherwise requests fail with HTTP 400. On Foundry or a custom base URL, requests also carry Claude Code's other experimental betas.
 >
@@ -1773,7 +1773,7 @@ stringSince 1.37937.0
 
 **Organization instructions.** Appended to Claude’s system prompt in Chat, Cowork, and Code. Guidance the model follows, not an enforced control. Up to 3,000 characters.
 
-> **More detail**
+> [accordion] More detail
 >
 > Claude is told that they take priority over a user's personal preferences.
 >
@@ -1805,7 +1805,7 @@ booleanDefault: falseSince 1.3834.0
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > In an MDM profile, this key also keeps that profile in charge. Without it, a user can sign in to Claude.ai with an organization that configures Claude Desktop in the Admin Console. The device then mostly follows that organization's configuration, at later launches too.
 >
@@ -1833,7 +1833,7 @@ booleanDefault: falseSince 2.2553.0
 
 [Admin Console](#the-works-with-column): Set automatically.
 
-> **More detail**
+> [accordion] More detail
 >
 > The app checks the addresses of public sites that open or are framed in the browser (query removed) against Anthropic's site safety list on `releases.claude.com`.
 >
@@ -1853,7 +1853,7 @@ One of: `allow` (default), `block`
 
 [Admin Console](#the-works-with-column): Set automatically.
 
-> **More detail**
+> [accordion] More detail
 >
 > A `coworkEgressAllowedHosts` list other than `*` applies on top of either value: Claude cannot open sites outside it.
 >
@@ -1869,7 +1869,7 @@ string\[]Since 2.2553.0
 
 [Admin Console](#the-works-with-column): Set automatically.
 
-> **More detail**
+> [accordion] More detail
 >
 > Entries use the same format as `coworkEgressAllowedHosts`, except:
 >
@@ -1888,7 +1888,7 @@ string\[]Since 2.2553.0
 
 [Admin Console](#the-works-with-column): Set automatically.
 
-> **More detail**
+> [accordion] More detail
 >
 > Entries use the same format as `coworkEgressAllowedHosts`. `*` blocks every external site. `example.com` also covers `www.example.com`, but no other subdomain. An entry outside that format matches nothing.
 >
@@ -1904,7 +1904,7 @@ objectSince 1.10628.0
 
 **Claude.ai data import.** Lets users import Claude.ai chats and projects, and earlier Claude sessions on this device.
 
-> **Child attributes (5)**
+> [accordion] Child attributes (5)
 >
 > **enabled** `boolean` (default: false)
 >
@@ -1914,7 +1914,7 @@ objectSince 1.10628.0
 >
 > When set, users import by sign-in only, and only from the Claude.ai organizations with these IDs.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > * The list narrows `enabled`. It turns nothing on by itself and does not affect `automatic3pImport`.
 > > * An empty list, or one that cannot be read, allows no organization, so no import is offered. A null or empty string counts as unset.
@@ -1924,7 +1924,7 @@ objectSince 1.10628.0
 >
 > Copy this computer’s earlier third-party sessions into the app once, in the background. Independent of `enabled`.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Unset is off, except in Admin Console organizations, where it is on unless an admin turns it off. Without the Admin Console, also set `deploymentOrganizationUuid`. Only sessions stored before you set it are copied.
 > >
@@ -1939,7 +1939,7 @@ objectSince 1.10628.0
 >
 > Lets users export this device’s chats, Cowork tasks and Code sessions as a zip to import elsewhere. No effect unless Enable import is on.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Transcripts contain conversation content including tool outputs. Treat exported zips as sensitive data.
 >
@@ -1961,7 +1961,7 @@ object\[]Since 1.2581.0
 
 **Managed MCP servers.** Org-pushed MCP servers: remote (HTTP/SSE) or local (stdio command).
 
-> **More detail**
+> [accordion] More detail
 >
 > Values of an entry's `toolPolicy`, per tool name:
 >
@@ -1971,13 +1971,13 @@ object\[]Since 1.2581.0
 >
 > A name can contain `*`, as in `read_*`. When several wildcards match, the strictest applies. An exact name normally takes priority over a wildcard. To block by default, use `"*": "blocked"` plus exact `allow` entries.
 
-> **Child attributes**
+> [accordion] Child attributes
 >
 > **name** `string` *required*
 >
 > Must be unique. A rename resets each user’s on/off choice, tool permissions and device sign-in, and can break a plugin server’s match.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > After a rename:
 > >
@@ -1992,7 +1992,7 @@ object\[]Since 1.2581.0
 >
 > Lock the approval state for specific tools. Unlisted tools stay user-controlled.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Also applies to an installed plugin's server that matches this entry by URL, or else by name (letter case is ignored).
 > >
@@ -2000,551 +2000,551 @@ object\[]Since 1.2581.0
 > > * For a server that only a plugin runs, use an entry with `transport: "policy-only"`.
 > > * Claude Code runs or connects to some plugin servers itself. For those: Claude Code's own managed settings, where a session has any, take priority by default.
 >
-> **microsoft365**
->
-> Applies when `server` is `microsoft365`. The in-app configuration window calls it **Microsoft 365**.
->
-> **server** `string` *required*
->
-> Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields.
->
-> Must be: `microsoft365`
->
-> **tenantId** `string` *required*
->
-> Your organization’s Microsoft Entra directory (tenant) ID.
->
-> **clientId** `string` *required*
->
-> OAuth app client ID for this built-in server.
->
-> **azureCloud** `enum`
->
-> Microsoft cloud for sign-in and Graph. Use global for commercial Microsoft 365. US Government clouds need your own app registration.
->
-> One of: `global`, `us-gov-high`, `us-gov-dod`
->
-> **continuousAccessEvaluation** `enum` (default: enabled)
->
-> Requests Microsoft Graph tokens that last up to about 28 hours but can be revoked within minutes. “disabled” keeps one-hour tokens.
->
-> One of: `enabled` (default), `disabled`
->
-> > **More detail**
+> > [tab] microsoft365
 > >
-> > With a Conditional Access policy on IP named locations or Global Secure Access compliant networks, a token presented from outside that network is cut off. Tenants without such a policy get no network-based replay protection.
+> > Applies when `server` is `microsoft365`. The in-app configuration window calls it **Microsoft 365**.
 > >
-> > After a change, users sign in again.
->
-> **scope** `string`
->
-> What the server may request at sign-in. If blank, Desktop’s default read set is used.
->
-> **websearch**
->
-> Applies when `server` is `websearch`. The in-app configuration window calls it **Web search**.
->
-> **headers** `object: name → value`
->
-> Static headers sent on every request: routing and tenant headers only. No credentials here: use the headers helper script for those.
->
-> **headersHelper** `string`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Script that prints the auth header as a JSON object to stdout. Runs before each request (cached for the TTL below).
->
-> > **More detail**
+> > **server** `string` *required*
 > >
-> > The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
->
-> **headersHelperArgs** `string[]`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Arguments passed to the headers helper script, one per entry, in order. Leave unset to run it with none.
->
-> > **More detail**
+> > Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields.
 > >
-> > * On every platform, an argument cannot be empty or contain a double quote, a percent sign or a control character.
-> > * Do not put secrets in arguments. They are visible in the app log and to other processes on the device.
-> > * Have the script fail when a needed argument is missing. An app version that does not know this setting passes none.
->
-> **headersHelperTtlSec** `integer`
->
-> How long the helper’s headers are reused before it runs again, in seconds. Defaults to 300.
->
-> **headersHelperRefreshBufferSec** `integer`
->
-> Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime.
->
-> **server** `string` *required*
->
-> Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields.
->
-> Must be: `websearch`
->
-> **provider** `enum` *required*
->
-> Runs web search from the user’s device, for inference providers without built-in search. Supply the API key with the headers helper script.
->
-> One of: `brave`, `tavily`, `exa`, `custom`
->
-> > **More detail**
+> > Must be: `microsoft365`
 > >
-> > Not needed on the Anthropic API or Vertex, where the model's built-in web search is available.
+> > **tenantId** `string` *required*
 > >
-> > Every search provider except `custom` needs an auth header. The API key is a credential, so have `headersHelper` print the header rather than storing it in `headers`:
+> > Your organization’s Microsoft Entra directory (tenant) ID.
 > >
-> > * **Brave:** `X-Subscription-Token`
-> > * **Exa:** `x-api-key`
-> > * **Tavily:** `Authorization` (Bearer …)
->
-> **platformOverrides** `object`
->
-> On that operating system, each setting here replaces the entry’s own. A setting left out keeps the entry’s.
->
-> > **More detail**
+> > **clientId** `string` *required*
 > >
-> > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > OAuth app client ID for this built-in server.
 > >
-> > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
-> > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
-> > * A mistake under any operating system drops the server on all of them.
-> > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
->
-> > **Child attributes (3)**
+> > **azureCloud** `enum`
 > >
-> > **platformOverrides.win32** `object: name → value`
+> > Microsoft cloud for sign-in and Graph. Use global for commercial Microsoft 365. US Government clouds need your own app registration.
 > >
-> > On Windows, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > One of: `global`, `us-gov-high`, `us-gov-dod`
 > >
-> > **platformOverrides.darwin** `object: name → value`
+> > **continuousAccessEvaluation** `enum` (default: enabled)
 > >
-> > On macOS, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > Requests Microsoft Graph tokens that last up to about 28 hours but can be revoked within minutes. “disabled” keeps one-hour tokens.
 > >
-> > **platformOverrides.linux** `object: name → value`
+> > One of: `enabled` (default), `disabled`
 > >
-> > On Linux, these replace the entry’s own settings. A setting left out keeps the entry’s.
->
-> **customUrl** `string`
->
-> POST endpoint accepting \{q} JSON and returning a results\[] array. Only used when provider is Custom.
->
-> **github**
->
-> Applies when `server` is `github`. The in-app configuration window calls it **GitHub**.
->
-> **server** `string` *required*
->
-> Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields.
->
-> Must be: `github`
->
-> **clientId** `string` *required*
->
-> GitHub OAuth app client ID (device flow must be enabled on the app).
->
-> **host** `string`
->
-> Leave blank for github.com. For GitHub Enterprise Server, your instance’s base URL.
->
-> **scope** `string`
->
-> Space-separated GitHub OAuth scopes. Unset: Desktop’s default scopes. Ignored for GitHub Apps: their registration sets the permissions.
->
-> **toolsets** `string`
->
-> Comma-separated github-mcp-server toolsets to enable. If blank, the bundled server’s default toolsets are used.
->
-> > **More detail**
+> > > [accordion] More detail
+> > >
+> > > With a Conditional Access policy on IP named locations or Global Secure Access compliant networks, a token presented from outside that network is cut off. Tenants without such a policy get no network-based replay protection.
+> > >
+> > > After a change, users sign in again.
 > >
-> > Every tool that can change something asks before each call unless `toolPolicy` says otherwise.
+> > **scope** `string`
 > >
-> > These tools cannot be set looser than `ask`, and `allow` is treated as `ask`: `merge_pull_request`, `push_files`, `create_or_update_file`, `delete_file`, `actions_run_trigger`, `pull_request_review_write`, `delete_repository`. Where no prompt can be shown, their calls are refused.
+> > What the server may request at sign-in. If blank, Desktop’s default read set is used.
 >
-> **readOnly** `boolean`
->
-> Offer only read tools — the server registers no write tools at all.
->
-> **http / sse**
->
-> Applies when `transport` is `http` or `sse`. The in-app configuration window calls it **Streamable HTTP** or **SSE (legacy)**.
->
-> **transport** `enum` *required*
->
-> How the app connects: HTTP, legacy SSE or a local command (stdio). policy-only connects to nothing: it sets a plugin server’s tool policy.
->
-> One of: `http`, `sse`
->
-> **url** `string` *required*
->
-> HTTPS endpoint of the remote MCP server. Use the server’s final address: HTTP redirects are not followed.
->
-> **oauth** `object`
->
-> OAuth sign-in for a remote server: register a client automatically, use your own client ID, or use an Anthropic-hosted client identity.
->
-> [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md)
->
-> > **More detail**
+> > [tab] websearch
 > >
-> > Choose **Bring your own client** when the provider requires an OAuth client that you register, and set `clientId`. Add `clientSecret` and `authorizationServer` only when the provider also requires the secret.
->
-> > **Child attributes**
+> > Applies when `server` is `websearch`. The in-app configuration window calls it **Web search**.
 > >
-> > **dcr**
+> > **headers** `object: name → value`
 > >
-> > Applies when `oauth.mode` is `dcr`. The in-app configuration window calls it **Auto-register (dynamic client registration)**. No other fields apply.
+> > Static headers sent on every request: routing and tenant headers only. No credentials here: use the headers helper script for those.
 > >
-> > Write `"oauth": true`. `{"mode": "dcr"}` means the same and takes no other member. To register automatically with scopes of your choice, write an object that sets any of `scope`, `appendOfflineAccess` and `additionalRedirectReferrerHosts` and nothing else, as Bring your own client describes.
-> >
-> > **byo**
-> >
-> > Applies when `oauth.mode` is `byo`. The in-app configuration window calls it **Bring your own client**.
-> >
-> > `mode` can be left out. Without `clientId` the object may set only `scope`, `appendOfflineAccess` and `additionalRedirectReferrerHosts`, and the app registers a client automatically; with any other member listed here and no `clientId`, the app drops the entry.
-> >
-> > **oauth.clientId** `string`
-> >
-> > OAuth client ID from your identity provider’s app registration. Unset: auto-register (dynamic client registration).
-> >
-> > **oauth.clientSecret** `string`
-> >
-> > Only if the provider requires one. The Admin Console stores only a Google Desktop-app secret (GOCSPX-…). For others use the helper script.
-> >
-> > **oauth.clientSecretHelper** `string`
+> > **headersHelper** `string`
 > >
 > > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
-> > Script that prints the client secret as a JSON object with a single clientSecret key. Takes priority over Client secret.
+> > Script that prints the auth header as a JSON object to stdout. Runs before each request (cached for the TTL below).
 > >
-> > > **More detail**
-> > >
-> > > * Its standard output must be exactly `{"clientSecret": "…"}`, with no other keys or lines. Any other output stops the server from connecting.
-> > > * It must exit with code `0` within 30 seconds.
-> > > * It runs with no arguments each time the server connects and each time its sign-in is renewed in the background. Choose a script that does not prompt the user.
+> > > [accordion] More detail
 > > >
 > > > The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
 > >
-> > **oauth.authorizationServer** `string[]`
+> > **headersHelperArgs** `string[]`
 > >
-> > Issuer URLs the OAuth sign-in may use, as a JSON array. Pre-filled by presets; ask your IdP admin if unsure.
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
-> > **oauth.authorizationUrl** `string`
+> > Arguments passed to the headers helper script, one per entry, in order. Leave unset to run it with none.
 > >
-> > Only for IdPs that don’t serve a .well-known discovery document. Set together with Token URL; requires Client ID.
-> >
-> > **oauth.tokenUrl** `string`
-> >
-> > Only for IdPs that don’t serve a .well-known discovery document. Set together with Authorization URL; requires Client ID.
-> >
-> > **oauth.tenantId** `string`
-> >
-> > Required for single-tenant Entra apps. Leave blank for multi-tenant or non-Microsoft IdPs.
-> >
-> > > **More detail**
+> > > [accordion] More detail
 > > >
-> > > For a GCC High or DoD tenant, leave this unset and set `authorizationServer` to `https://login.microsoftonline.us/<tenant-id>/v2.0`.
+> > > * On every platform, an argument cannot be empty or contain a double quote, a percent sign or a control character.
+> > > * Do not put secrets in arguments. They are visible in the app log and to other processes on the device.
+> > > * Have the script fail when a needed argument is missing. An app version that does not know this setting passes none.
 > >
-> > **oauth.authFlow** `enum`
+> > **headersHelperTtlSec** `integer`
 > >
-> > How Entra sign-in runs for this server: the system browser (default) or the OS identity broker.
+> > How long the helper’s headers are reused before it runs again, in seconds. Defaults to 300.
 > >
-> > One of: `browser`, `broker`
+> > **headersHelperRefreshBufferSec** `integer`
 > >
-> > > **More detail**
+> > Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime.
+> >
+> > **server** `string` *required*
+> >
+> > Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields.
+> >
+> > Must be: `websearch`
+> >
+> > **provider** `enum` *required*
+> >
+> > Runs web search from the user’s device, for inference providers without built-in search. Supply the API key with the headers helper script.
+> >
+> > One of: `brave`, `tavily`, `exa`, `custom`
+> >
+> > > [accordion] More detail
 > > >
-> > > `broker` signs in through the OS identity broker: Web Account Manager on Windows, the Company Portal SSO extension on macOS. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
+> > > Not needed on the Anthropic API or Vertex, where the model's built-in web search is available.
 > > >
-> > > * It requires `tenantId`, `clientId` and `scope`, and an Entra-registered device.
-> > > * The app registration must list the [broker redirect URIs](https://claude.com/docs/third-party/claude-desktop/entra-broker.md).
-> > > * `broker` is not supported on Linux. Where the broker is not available, sign-in falls back to the system browser.
-> >
-> > **oauth.scope** `string`
-> >
-> > Space-separated scopes to request. Unset: the scopes the server advertises. Required if Tenant ID is set or the resource parameter omitted.
-> >
-> > **oauth.appendOfflineAccess** `boolean`
-> >
-> > Adds offline\_access to the authorize request so the IdP returns a refresh token for silent renewal.
-> >
-> > > **More detail**
+> > > Every search provider except `custom` needs an auth header. The API key is a credential, so have `headersHelper` print the header rather than storing it in `headers`:
 > > >
-> > > Leave off if `scope` already includes `offline_access` or the server rejects it.
+> > > * **Brave:** `X-Subscription-Token`
+> > > * **Exa:** `x-api-key`
+> > > * **Tavily:** `Authorization` (Bearer …)
+> >
+> > **platformOverrides** `object`
+> >
+> > On that operating system, each setting here replaces the entry’s own. A setting left out keeps the entry’s.
+> >
+> > > [accordion] More detail
 > > >
-> > > If you set `authorizationUrl` and `tokenUrl`, this switch does not work on its own. Add `offline_access` to `scope` instead.
-> >
-> > **oauth.omitResource** `boolean`
-> >
-> > Sends no OAuth resource parameter. Use only if your identity provider rejects it. Requires Client ID, Scope and one sign-in server.
-> >
-> > > **More detail**
+> > > A value written here replaces the entry's value whole: lists and maps are not merged.
 > > >
-> > > By default, sign-in sends the URL that this server publishes as the OAuth `resource` parameter, which ties the token to this server. Microsoft Entra ID rejects it with `AADSTS9010010` when the URL is not an Application ID URI in your tenant.
+> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
+> > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
+> > > * A mistake under any operating system drops the server on all of them.
+> > > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
+> >
+> > > [accordion] Child attributes (3)
 > > >
-> > > * **Requires:** `clientId`, a `scope` with an API scope, and exactly one of `tenantId`, a single `authorizationServer`, or `authorizationUrl` with `tokenUrl`. Otherwise the entry is not loaded.
-> > > * **Risk:** `scope` alone now says which API the token is for, so check that it names this server's app. A scope for another app is accepted, and this server then receives a token meant for that app.
-> > > * **Entra ID:** write the scope in full, as in `api://<app-id>/<scope>`.
-> >
-> > **oauth.callbackHost** `enum`
-> >
-> > Use localhost only if your IdP’s registered redirect URI specifies it.
-> >
-> > One of: `127.0.0.1`, `localhost`
-> >
-> > **oauth.callbackPort** `integer`
-> >
-> > Only set if your IdP requires an exact-match redirect port. Entra accepts any.
-> >
-> > **oauth.additionalRedirectReferrerHosts** `string`
-> >
-> > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
-> >
-> > > **More detail**
+> > > **platformOverrides.win32** `object: name → value`
 > > >
-> > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
+> > > On Windows, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > >
+> > > **platformOverrides.darwin** `object: name → value`
+> > >
+> > > On macOS, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > >
+> > > **platformOverrides.linux** `object: name → value`
+> > >
+> > > On Linux, these replace the entry’s own settings. A setting left out keeps the entry’s.
 > >
-> > **hosted**
+> > **customUrl** `string`
 > >
-> > Applies when `oauth.mode` is `hosted`. The in-app configuration window calls it **Anthropic-hosted client identity (requires Claude.ai sign-in)**.
+> > POST endpoint accepting \{q} JSON and returning a results\[] array. Only used when provider is Custom.
+>
+> > [tab] github
 > >
-> > Always write `"mode": "hosted"`. Without it the object is read as Bring your own client, which needs `clientId` beside `authorizationServer`, so the app drops the entry.
+> > Applies when `server` is `github`. The in-app configuration window calls it **GitHub**.
 > >
-> > **oauth.clientId** `string`
+> > **server** `string` *required*
 > >
-> > Filled in by Claude.ai: the URL of Anthropic’s hosted client-metadata document. Do not set it.
+> > Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields.
 > >
-> > **oauth.authorizationServer** `string[]` *required*
+> > Must be: `github`
 > >
-> > The exact issuer string(s) that the server’s authorization server advertises, as a JSON array. Anthropic signs the identity only for these.
+> > **clientId** `string` *required*
 > >
-> > **oauth.scope** `string`
+> > GitHub OAuth app client ID (device flow must be enabled on the app).
 > >
-> > Space-separated scopes to request. Unset: the scopes the server advertises. Required if Tenant ID is set or the resource parameter omitted.
->
-> **headers** `object: name → value`
->
-> Static headers sent on every request: routing and tenant headers only. No credentials here: use the headers helper script for those.
->
-> **headersHelper** `string`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Absolute path to an executable that prints a JSON object of HTTP headers on stdout. Merged over static headers; the helper wins on conflict.
->
-> > **More detail**
+> > **host** `string`
 > >
-> > The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
->
-> **headersHelperArgs** `string[]`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Arguments passed to the headers helper script, one per entry, in order. Leave unset to run it with none.
->
-> > **More detail**
+> > Leave blank for github.com. For GitHub Enterprise Server, your instance’s base URL.
 > >
-> > * On every platform, an argument cannot be empty or contain a double quote, a percent sign or a control character.
-> > * Do not put secrets in arguments. They are visible in the app log and to other processes on the device.
-> > * Have the script fail when a needed argument is missing. An app version that does not know this setting passes none.
->
-> **headersHelperTtlSec** `integer`
->
-> How long the helper’s headers are reused before it runs again, in seconds. Defaults to 300.
->
-> **headersHelperRefreshBufferSec** `integer`
->
-> Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime.
->
-> **platformOverrides** `object`
->
-> On that operating system, each setting here replaces the entry’s own. A setting left out keeps the entry’s.
->
-> > **More detail**
+> > **scope** `string`
 > >
-> > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > Space-separated GitHub OAuth scopes. Unset: Desktop’s default scopes. Ignored for GitHub Apps: their registration sets the permissions.
 > >
-> > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
-> > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
-> > * A mistake under any operating system drops the server on all of them.
-> > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
->
-> > **Child attributes (3)**
+> > **toolsets** `string`
 > >
-> > **platformOverrides.win32** `object: name → value`
+> > Comma-separated github-mcp-server toolsets to enable. If blank, the bundled server’s default toolsets are used.
 > >
-> > On Windows, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > > [accordion] More detail
+> > >
+> > > Every tool that can change something asks before each call unless `toolPolicy` says otherwise.
+> > >
+> > > These tools cannot be set looser than `ask`, and `allow` is treated as `ask`: `merge_pull_request`, `push_files`, `create_or_update_file`, `delete_file`, `actions_run_trigger`, `pull_request_review_write`, `delete_repository`. Where no prompt can be shown, their calls are refused.
 > >
-> > **platformOverrides.darwin** `object: name → value`
+> > **readOnly** `boolean`
 > >
-> > On macOS, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > Offer only read tools — the server registers no write tools at all.
+>
+> > [tab] http / sse
 > >
-> > **platformOverrides.linux** `object: name → value`
+> > Applies when `transport` is `http` or `sse`. The in-app configuration window calls it **Streamable HTTP** or **SSE (legacy)**.
 > >
-> > On Linux, these replace the entry’s own settings. A setting left out keeps the entry’s.
->
-> **toolTimeoutSec** `integer`
->
-> Maximum time in seconds that Claude waits for one tool call to this server. Leave empty to use the MCP tool call timeout.
->
-> > **More detail**
+> > **transport** `enum` *required*
 > >
-> > For Claude's calls to this server it takes the place of `mcpToolTimeoutSec`. Use a whole number from 5 to 3600: any other value is ignored.
+> > How the app connects: HTTP, legacy SSE or a local command (stdio). policy-only connects to nothing: it sets a plugin server’s tool policy.
 > >
-> > * Progress messages from the server do not extend the limit.
-> > * Time that a user spends on a sign-in or consent step during the call counts toward the limit. On a server that asks for sign-in, set a generous value.
->
-> **icon** `string`
->
-> Icon shown for this connector: a PNG or JPEG image as a base64 data: URI, at most 4,096 characters.
->
-> > **More detail**
+> > One of: `http`, `sse`
 > >
-> > A PNG of 48 by 48 pixels or smaller works well. Keep icons small: Windows Group Policy holds the whole `managedMcpServers` list in one value of at most 65,535 characters.
->
-> **defaultState** `enum`
->
-> Whether this connector starts on or off for each person.
->
-> One of: `on`, `off`
->
-> > **More detail**
+> > **url** `string` *required*
 > >
-> > Unset means `on`.
+> > HTTPS endpoint of the remote MCP server. Use the server’s final address: HTTP redirects are not followed.
 > >
-> > * This is a starting point, not a restriction: each user can turn the connector on. To withhold a connector, remove it or block its tools with `toolPolicy`.
-> > * Adding `off` to a connector already in use turns it off for all users who have not switched it on themselves, scheduled tasks included.
-> > * This setting does not apply to a plugin's server that matches this entry.
->
-> **stdio**
->
-> Applies when `transport` is `stdio`. The in-app configuration window calls it **Local command (stdio)**.
->
-> **transport** `string` *required*
->
-> How the app connects: HTTP, legacy SSE or a local command (stdio). policy-only connects to nothing: it sets a plugin server’s tool policy.
->
-> Must be: `stdio`
->
-> **command** `string` *required*
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Absolute path to the server executable, run on the user’s machine.
->
-> **args** `string[]`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Arguments passed to the command, one per entry.
->
-> **env** `object: name → value`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Environment variables set for the command.
->
-> **envHelper** `string`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Script that prints environment variables as a JSON object to stdout. Runs when the local server starts (cached for the TTL below).
->
-> > **More detail**
+> > **oauth** `object`
 > >
-> > * Its values take priority over `env`.
-> > * If the script fails, the server does not start.
-> > * A script with nothing to set must print `{}`. Empty output counts as a failure.
-> > * The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
->
-> **envHelperArgs** `string[]`
->
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
->
-> Arguments passed to the environment helper script, one per entry, in order. Leave unset to run it with none.
->
-> > **More detail**
+> > OAuth sign-in for a remote server: register a client automatically, use your own client ID, or use an Anthropic-hosted client identity.
 > >
-> > * On every platform, an argument cannot be empty or contain a double quote, a percent sign or a control character.
-> > * Do not put secrets in arguments. They are visible in the app log and to other processes on the device.
-> > * Have the script fail when a needed argument is missing. An app version that does not know this setting passes none.
->
-> **envHelperTtlSec** `integer` (default: 300)
->
-> Maximum age of a cached helper result, in seconds (default 300). Applies when the server starts or restarts.
->
-> > **More detail**
+> > [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md)
 > >
-> > Set this at or below your token lifetime. Otherwise a server that crashes because its token expired can restart with the same cached values until this time is up.
->
-> **startupTimeoutSec** `integer` (default: 120)
->
-> Maximum wait in seconds for the server to start and list its tools.
->
-> **platformOverrides** `object`
->
-> On that operating system, each setting here replaces the entry’s own. A setting left out keeps the entry’s.
->
-> > **More detail**
+> > > [accordion] More detail
+> > >
+> > > Choose **Bring your own client** when the provider requires an OAuth client that you register, and set `clientId`. Add `clientSecret` and `authorizationServer` only when the provider also requires the secret.
 > >
-> > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > > [accordion] Child attributes
+> > >
+> > > > [tab] dcr
+> > > >
+> > > > Applies when `oauth.mode` is `dcr`. The in-app configuration window calls it **Auto-register (dynamic client registration)**. No other fields apply.
+> > > >
+> > > > Write `"oauth": true`. `{"mode": "dcr"}` means the same and takes no other member. To register automatically with scopes of your choice, write an object that sets any of `scope`, `appendOfflineAccess` and `additionalRedirectReferrerHosts` and nothing else, as Bring your own client describes.
+> > >
+> > > > [tab] byo
+> > > >
+> > > > Applies when `oauth.mode` is `byo`. The in-app configuration window calls it **Bring your own client**.
+> > > >
+> > > > `mode` can be left out. Without `clientId` the object may set only `scope`, `appendOfflineAccess` and `additionalRedirectReferrerHosts`, and the app registers a client automatically; with any other member listed here and no `clientId`, the app drops the entry.
+> > > >
+> > > > **oauth.clientId** `string`
+> > > >
+> > > > OAuth client ID from your identity provider’s app registration. Unset: auto-register (dynamic client registration).
+> > > >
+> > > > **oauth.clientSecret** `string`
+> > > >
+> > > > Only if the provider requires one. The Admin Console stores only a Google Desktop-app secret (GOCSPX-…). For others use the helper script.
+> > > >
+> > > > **oauth.clientSecretHelper** `string`
+> > > >
+> > > > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > > >
+> > > > Script that prints the client secret as a JSON object with a single clientSecret key. Takes priority over Client secret.
+> > > >
+> > > > > [accordion] More detail
+> > > > >
+> > > > > * Its standard output must be exactly `{"clientSecret": "…"}`, with no other keys or lines. Any other output stops the server from connecting.
+> > > > > * It must exit with code `0` within 30 seconds.
+> > > > > * It runs with no arguments each time the server connects and each time its sign-in is renewed in the background. Choose a script that does not prompt the user.
+> > > > >
+> > > > > The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
+> > > >
+> > > > **oauth.authorizationServer** `string[]`
+> > > >
+> > > > Issuer URLs the OAuth sign-in may use, as a JSON array. Pre-filled by presets; ask your IdP admin if unsure.
+> > > >
+> > > > **oauth.authorizationUrl** `string`
+> > > >
+> > > > Only for IdPs that don’t serve a .well-known discovery document. Set together with Token URL; requires Client ID.
+> > > >
+> > > > **oauth.tokenUrl** `string`
+> > > >
+> > > > Only for IdPs that don’t serve a .well-known discovery document. Set together with Authorization URL; requires Client ID.
+> > > >
+> > > > **oauth.tenantId** `string`
+> > > >
+> > > > Required for single-tenant Entra apps. Leave blank for multi-tenant or non-Microsoft IdPs.
+> > > >
+> > > > > [accordion] More detail
+> > > > >
+> > > > > For a GCC High or DoD tenant, leave this unset and set `authorizationServer` to `https://login.microsoftonline.us/<tenant-id>/v2.0`.
+> > > >
+> > > > **oauth.authFlow** `enum`
+> > > >
+> > > > How Entra sign-in runs for this server: the system browser (default) or the OS identity broker.
+> > > >
+> > > > One of: `browser`, `broker`
+> > > >
+> > > > > [accordion] More detail
+> > > > >
+> > > > > `broker` signs in through the OS identity broker: Web Account Manager on Windows, the Company Portal SSO extension on macOS. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
+> > > > >
+> > > > > * It requires `tenantId`, `clientId` and `scope`, and an Entra-registered device.
+> > > > > * The app registration must list the [broker redirect URIs](https://claude.com/docs/third-party/claude-desktop/entra-broker.md).
+> > > > > * `broker` is not supported on Linux. Where the broker is not available, sign-in falls back to the system browser.
+> > > >
+> > > > **oauth.scope** `string`
+> > > >
+> > > > Space-separated scopes to request. Unset: the scopes the server advertises. Required if Tenant ID is set or the resource parameter omitted.
+> > > >
+> > > > **oauth.appendOfflineAccess** `boolean`
+> > > >
+> > > > Adds offline\_access to the authorize request so the IdP returns a refresh token for silent renewal.
+> > > >
+> > > > > [accordion] More detail
+> > > > >
+> > > > > Leave off if `scope` already includes `offline_access` or the server rejects it.
+> > > > >
+> > > > > If you set `authorizationUrl` and `tokenUrl`, this switch does not work on its own. Add `offline_access` to `scope` instead.
+> > > >
+> > > > **oauth.omitResource** `boolean`
+> > > >
+> > > > Sends no OAuth resource parameter. Use only if your identity provider rejects it. Requires Client ID, Scope and one sign-in server.
+> > > >
+> > > > > [accordion] More detail
+> > > > >
+> > > > > By default, sign-in sends the URL that this server publishes as the OAuth `resource` parameter, which ties the token to this server. Microsoft Entra ID rejects it with `AADSTS9010010` when the URL is not an Application ID URI in your tenant.
+> > > > >
+> > > > > * **Requires:** `clientId`, a `scope` with an API scope, and exactly one of `tenantId`, a single `authorizationServer`, or `authorizationUrl` with `tokenUrl`. Otherwise the entry is not loaded.
+> > > > > * **Risk:** `scope` alone now says which API the token is for, so check that it names this server's app. A scope for another app is accepted, and this server then receives a token meant for that app.
+> > > > > * **Entra ID:** write the scope in full, as in `api://<app-id>/<scope>`.
+> > > >
+> > > > **oauth.callbackHost** `enum`
+> > > >
+> > > > Use localhost only if your IdP’s registered redirect URI specifies it.
+> > > >
+> > > > One of: `127.0.0.1`, `localhost`
+> > > >
+> > > > **oauth.callbackPort** `integer`
+> > > >
+> > > > Only set if your IdP requires an exact-match redirect port. Entra accepts any.
+> > > >
+> > > > **oauth.additionalRedirectReferrerHosts** `string`
+> > > >
+> > > > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
+> > > >
+> > > > > [accordion] More detail
+> > > > >
+> > > > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
+> > >
+> > > > [tab] hosted
+> > > >
+> > > > Applies when `oauth.mode` is `hosted`. The in-app configuration window calls it **Anthropic-hosted client identity (requires Claude.ai sign-in)**.
+> > > >
+> > > > Always write `"mode": "hosted"`. Without it the object is read as Bring your own client, which needs `clientId` beside `authorizationServer`, so the app drops the entry.
+> > > >
+> > > > **oauth.clientId** `string`
+> > > >
+> > > > Filled in by Claude.ai: the URL of Anthropic’s hosted client-metadata document. Do not set it.
+> > > >
+> > > > **oauth.authorizationServer** `string[]` *required*
+> > > >
+> > > > The exact issuer string(s) that the server’s authorization server advertises, as a JSON array. Anthropic signs the identity only for these.
+> > > >
+> > > > **oauth.scope** `string`
+> > > >
+> > > > Space-separated scopes to request. Unset: the scopes the server advertises. Required if Tenant ID is set or the resource parameter omitted.
 > >
-> > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
-> > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
-> > * A mistake under any operating system drops the server on all of them.
-> > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
->
-> > **Child attributes (3)**
+> > **headers** `object: name → value`
 > >
-> > **platformOverrides.win32** `object: name → value`
+> > Static headers sent on every request: routing and tenant headers only. No credentials here: use the headers helper script for those.
 > >
-> > On Windows, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > **headersHelper** `string`
 > >
-> > **platformOverrides.darwin** `object: name → value`
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
-> > On macOS, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > Absolute path to an executable that prints a JSON object of HTTP headers on stdout. Merged over static headers; the helper wins on conflict.
 > >
-> > **platformOverrides.linux** `object: name → value`
+> > > [accordion] More detail
+> > >
+> > > The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
 > >
-> > On Linux, these replace the entry’s own settings. A setting left out keeps the entry’s.
->
-> **toolTimeoutSec** `integer`
->
-> Maximum time in seconds that Claude waits for one tool call to this server. Leave empty to use the MCP tool call timeout.
->
-> > **More detail**
+> > **headersHelperArgs** `string[]`
 > >
-> > For Claude's calls to this server it takes the place of `mcpToolTimeoutSec`. Use a whole number from 5 to 3600: any other value is ignored.
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
-> > * Progress messages from the server do not extend the limit.
-> > * Time that a user spends on a sign-in or consent step during the call counts toward the limit. On a server that asks for sign-in, set a generous value.
->
-> **icon** `string`
->
-> Icon shown for this connector: a PNG or JPEG image as a base64 data: URI, at most 4,096 characters.
->
-> > **More detail**
+> > Arguments passed to the headers helper script, one per entry, in order. Leave unset to run it with none.
 > >
-> > A PNG of 48 by 48 pixels or smaller works well. Keep icons small: Windows Group Policy holds the whole `managedMcpServers` list in one value of at most 65,535 characters.
->
-> **policy-only**
->
-> Applies when `transport` is `policy-only`. The in-app configuration window calls it **Tool permissions only (plugin server)**.
->
-> **transport** `string` *required*
->
-> How the app connects: HTTP, legacy SSE or a local command (stdio). policy-only connects to nothing: it sets a plugin server’s tool policy.
->
-> Must be: `policy-only`
->
-> > **More detail**
+> > > [accordion] More detail
+> > >
+> > > * On every platform, an argument cannot be empty or contain a double quote, a percent sign or a control character.
+> > > * Do not put secrets in arguments. They are visible in the app log and to other processes on the device.
+> > > * Have the script fail when a needed argument is missing. An app version that does not know this setting passes none.
 > >
-> > For a `policy-only` entry:
+> > **headersHelperTtlSec** `integer`
 > >
-> > * Set `name` to the server's name as the plugin declares it (letter case is ignored), and `toolPolicy` to the permissions. A name that matches no installed plugin server does nothing.
-> > * It takes priority over `orgPluginSettings` for that server. With no `toolPolicy`, the server is left unrestricted.
-> > * An older version drops the entry and applies `orgPluginSettings` instead. Until all devices are updated, keep the same permissions there, and do not deploy a list made only of `policy-only` entries.
+> > How long the helper’s headers are reused before it runs again, in seconds. Defaults to 300.
+> >
+> > **headersHelperRefreshBufferSec** `integer`
+> >
+> > Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime.
+> >
+> > **platformOverrides** `object`
+> >
+> > On that operating system, each setting here replaces the entry’s own. A setting left out keeps the entry’s.
+> >
+> > > [accordion] More detail
+> > >
+> > > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > >
+> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
+> > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
+> > > * A mistake under any operating system drops the server on all of them.
+> > > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
+> >
+> > > [accordion] Child attributes (3)
+> > >
+> > > **platformOverrides.win32** `object: name → value`
+> > >
+> > > On Windows, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > >
+> > > **platformOverrides.darwin** `object: name → value`
+> > >
+> > > On macOS, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > >
+> > > **platformOverrides.linux** `object: name → value`
+> > >
+> > > On Linux, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> >
+> > **toolTimeoutSec** `integer`
+> >
+> > Maximum time in seconds that Claude waits for one tool call to this server. Leave empty to use the MCP tool call timeout.
+> >
+> > > [accordion] More detail
+> > >
+> > > For Claude's calls to this server it takes the place of `mcpToolTimeoutSec`. Use a whole number from 5 to 3600: any other value is ignored.
+> > >
+> > > * Progress messages from the server do not extend the limit.
+> > > * Time that a user spends on a sign-in or consent step during the call counts toward the limit. On a server that asks for sign-in, set a generous value.
+> >
+> > **icon** `string`
+> >
+> > Icon shown for this connector: a PNG or JPEG image as a base64 data: URI, at most 4,096 characters.
+> >
+> > > [accordion] More detail
+> > >
+> > > A PNG of 48 by 48 pixels or smaller works well. Keep icons small: Windows Group Policy holds the whole `managedMcpServers` list in one value of at most 65,535 characters.
+> >
+> > **defaultState** `enum`
+> >
+> > Whether this connector starts on or off for each person.
+> >
+> > One of: `on`, `off`
+> >
+> > > [accordion] More detail
+> > >
+> > > Unset means `on`.
+> > >
+> > > * This is a starting point, not a restriction: each user can turn the connector on. To withhold a connector, remove it or block its tools with `toolPolicy`.
+> > > * Adding `off` to a connector already in use turns it off for all users who have not switched it on themselves, scheduled tasks included.
+> > > * This setting does not apply to a plugin's server that matches this entry.
+>
+> > [tab] stdio
+> >
+> > Applies when `transport` is `stdio`. The in-app configuration window calls it **Local command (stdio)**.
+> >
+> > **transport** `string` *required*
+> >
+> > How the app connects: HTTP, legacy SSE or a local command (stdio). policy-only connects to nothing: it sets a plugin server’s tool policy.
+> >
+> > Must be: `stdio`
+> >
+> > **command** `string` *required*
+> >
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> >
+> > Absolute path to the server executable, run on the user’s machine.
+> >
+> > **args** `string[]`
+> >
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> >
+> > Arguments passed to the command, one per entry.
+> >
+> > **env** `object: name → value`
+> >
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> >
+> > Environment variables set for the command.
+> >
+> > **envHelper** `string`
+> >
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> >
+> > Script that prints environment variables as a JSON object to stdout. Runs when the local server starts (cached for the TTL below).
+> >
+> > > [accordion] More detail
+> > >
+> > > * Its values take priority over `env`.
+> > > * If the script fails, the server does not start.
+> > > * A script with nothing to set must print `{}`. Empty output counts as a failure.
+> > > * The helper script normally runs with `CLAUDE_CODE_MCP_SERVER_NAME` set to this entry's `name`, so one script can serve several servers. Put the variable in double quotes, compare it with the names you expect, and do not pass it to another command.
+> >
+> > **envHelperArgs** `string[]`
+> >
+> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> >
+> > Arguments passed to the environment helper script, one per entry, in order. Leave unset to run it with none.
+> >
+> > > [accordion] More detail
+> > >
+> > > * On every platform, an argument cannot be empty or contain a double quote, a percent sign or a control character.
+> > > * Do not put secrets in arguments. They are visible in the app log and to other processes on the device.
+> > > * Have the script fail when a needed argument is missing. An app version that does not know this setting passes none.
+> >
+> > **envHelperTtlSec** `integer` (default: 300)
+> >
+> > Maximum age of a cached helper result, in seconds (default 300). Applies when the server starts or restarts.
+> >
+> > > [accordion] More detail
+> > >
+> > > Set this at or below your token lifetime. Otherwise a server that crashes because its token expired can restart with the same cached values until this time is up.
+> >
+> > **startupTimeoutSec** `integer` (default: 120)
+> >
+> > Maximum wait in seconds for the server to start and list its tools.
+> >
+> > **platformOverrides** `object`
+> >
+> > On that operating system, each setting here replaces the entry’s own. A setting left out keeps the entry’s.
+> >
+> > > [accordion] More detail
+> > >
+> > > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > >
+> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
+> > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
+> > > * A mistake under any operating system drops the server on all of them.
+> > > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
+> >
+> > > [accordion] Child attributes (3)
+> > >
+> > > **platformOverrides.win32** `object: name → value`
+> > >
+> > > On Windows, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > >
+> > > **platformOverrides.darwin** `object: name → value`
+> > >
+> > > On macOS, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> > >
+> > > **platformOverrides.linux** `object: name → value`
+> > >
+> > > On Linux, these replace the entry’s own settings. A setting left out keeps the entry’s.
+> >
+> > **toolTimeoutSec** `integer`
+> >
+> > Maximum time in seconds that Claude waits for one tool call to this server. Leave empty to use the MCP tool call timeout.
+> >
+> > > [accordion] More detail
+> > >
+> > > For Claude's calls to this server it takes the place of `mcpToolTimeoutSec`. Use a whole number from 5 to 3600: any other value is ignored.
+> > >
+> > > * Progress messages from the server do not extend the limit.
+> > > * Time that a user spends on a sign-in or consent step during the call counts toward the limit. On a server that asks for sign-in, set a generous value.
+> >
+> > **icon** `string`
+> >
+> > Icon shown for this connector: a PNG or JPEG image as a base64 data: URI, at most 4,096 characters.
+> >
+> > > [accordion] More detail
+> > >
+> > > A PNG of 48 by 48 pixels or smaller works well. Keep icons small: Windows Group Policy holds the whole `managedMcpServers` list in one value of at most 65,535 characters.
+>
+> > [tab] policy-only
+> >
+> > Applies when `transport` is `policy-only`. The in-app configuration window calls it **Tool permissions only (plugin server)**.
+> >
+> > **transport** `string` *required*
+> >
+> > How the app connects: HTTP, legacy SSE or a local command (stdio). policy-only connects to nothing: it sets a plugin server’s tool policy.
+> >
+> > Must be: `policy-only`
+> >
+> > > [accordion] More detail
+> > >
+> > > For a `policy-only` entry:
+> > >
+> > > * Set `name` to the server's name as the plugin declares it (letter case is ignored), and `toolPolicy` to the permissions. A name that matches no installed plugin server does nothing.
+> > > * It takes priority over `orgPluginSettings` for that server. With no `toolPolicy`, the server is left unrestricted.
+> > > * An older version drops the entry and applies `orgPluginSettings` instead. Until all devices are updated, keep the same permissions there, and do not deploy a list made only of `policy-only` entries.
 
 ***
 
@@ -2554,7 +2554,7 @@ booleanDefault: trueSince 1.24012.9
 
 **Allow persistent tool approvals.** Offer the persistent “Always allow” approval options for MCP tools. Disable to keep tool approvals per-call or session-scoped only.
 
-> **More detail**
+> [accordion] More detail
 >
 > When off, persistent approvals that users saved earlier in Chat and Cowork stop applying. Scheduled tasks also stop offering and reusing them, unless `mcpScheduledTaskApprovalLifetimeDays` is 1 or more.
 >
@@ -2568,7 +2568,7 @@ integerRange: 0–3,650Since 2.7032.0
 
 **Scheduled-task tool approval lifetime.** Days a scheduled task can reuse a persistent MCP tool approval before it asks again. 0 turns reuse off. Unset: no limit.
 
-> **More detail**
+> [accordion] More detail
 >
 > * If `mcpPersistentAlwaysAllowEnabled` is off, a limit of 1 or more brings the persistent option back for scheduled tasks only.
 > * In Code, any allow rule in a user's or a project's Claude Code settings keeps allowing the tool, even at `0`, until it is removed. Earlier approvals were usually saved as such rules.
@@ -2582,7 +2582,7 @@ booleanDefault: trueSince 1.2581.0
 
 **Allow local MCP servers.** Lets users run local (stdio) MCP servers added in Developer settings. On third-party deployments, off also stops plugins’ local servers.
 
-> **More detail**
+> [accordion] More detail
 >
 > On third-party deployments, `false` covers `.mcpb` bundles and plugins from every marketplace, your organization's included. Plugins in the org-plugins directory on the device are not affected. In Code, it also stops the local servers that a user or a project configures for Claude Code.
 >
@@ -2598,7 +2598,7 @@ object\[]Since 2.2553.0
 
 **Allowed plugin MCP servers.** Remote MCP servers that user-installed and marketplace plugins can connect, as URL patterns. Empty list: none. Unset: no limit.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **Entries:** `{"serverUrl": "https://*.example.com/*"}`. No other entry form is read.
 > * **Once set:** no entry allows a plugin's local (`stdio`) server, and servers that a user or a project configures for Claude Code are not connected.
@@ -2606,7 +2606,7 @@ object\[]Since 2.2553.0
 >
 > Claude Code's own managed settings, where a session has any, take priority by default.
 
-> **Child attributes (1)**
+> [accordion] Child attributes (1)
 >
 > **serverUrl** `string` *required*
 >
@@ -2620,7 +2620,7 @@ object\[]Since 2.16120.0
 
 **Blocked plugin MCP servers.** URL patterns of remote MCP servers that plugins cannot connect, even if the Allowed plugin MCP servers list allows them.
 
-> **More detail**
+> [accordion] More detail
 >
 > An entry matches an address, not a server. The same server under another host name or IP address, or behind a plugin's local server, is not matched. To keep a plugin's servers out whatever address they use, set `allowedPluginMcpServers`.
 >
@@ -2630,7 +2630,7 @@ object\[]Since 2.16120.0
 >
 > Claude Code's own managed settings, where a session has any, take priority by default.
 
-> **Child attributes (1)**
+> [accordion] Child attributes (1)
 >
 > **serverUrl** `string` *required*
 >
@@ -2644,7 +2644,7 @@ integerRange: 60–3,600Since 1.37937.0
 
 **MCP tool call timeout.** Per-call timeout for MCP tool calls, in seconds. Unset: 180 in Chat and Cowork.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **Unset:** Chat and Cowork use 180 seconds, and the app sets no timeout in Code. Calls to user-added local servers are also limited to 60 seconds.
 > * **Set:** the value applies in Code too.
@@ -2663,7 +2663,7 @@ enumDefault: autoSince 1.19367.0
 
 One of: `auto` (default), `disabled`, `required`
 
-> **More detail**
+> [accordion] More detail
 >
 > The OS identity broker is Web Account Manager on Windows and the Company Portal SSO extension on macOS. Linux has no broker, so `required` is not supported there.
 >
@@ -2681,7 +2681,7 @@ enumDefault: disabledSince 2.26454.0
 
 One of: `enabled`, `disabled` (default)
 
-> **More detail**
+> [accordion] More detail
 >
 > It needs both of these:
 >
@@ -2702,7 +2702,7 @@ booleanDefault: falseSince 1.2581.0
 
 **Allow desktop extensions.** Let Claude Desktop load desktop extensions (.dxt and .mcpb files). Unset: on where users sign in with Claude.ai.
 
-> **More detail**
+> [accordion] More detail
 >
 > In a third-party deployment, turning this on loads extensions that are already installed. Users cannot install new ones.
 
@@ -2726,7 +2726,7 @@ stringSince 1.2581.0
 
 [Admin Console](#the-works-with-column): Set automatically.
 
-> **More detail**
+> [accordion] More detail
 >
 > If unset, the app uses the organization of your Anthropic sign-in, where the connection has one. Otherwise, local data is stored under a placeholder UUID shared with other unconfigured deployments. Telemetry is then tagged with a value the app derives from your connection settings, or with that placeholder.
 >
@@ -2742,7 +2742,7 @@ booleanDefault: falseSince 1.2581.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/telemetry.md#essential-telemetry)
 
-> **More detail**
+> [accordion] More detail
 >
 > Reports include **crash stacks**, **startup failure reasons**, **version/OS metadata**, and **crash dumps** (each an unfiltered copy of part of the app's memory). They carry a random install ID and an organization ID, which the app picks if you set none (see `deploymentOrganizationUuid`).
 >
@@ -2765,7 +2765,7 @@ booleanDefault: falseSince 1.2581.0
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/telemetry.md#non-essential-telemetry)
 
-> **More detail**
+> [accordion] More detail
 >
 > Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
 
@@ -2777,7 +2777,7 @@ booleanDefault: falseSince 1.2581.0
 
 **Block nonessential services.** Connector icons, hosted artifact previews, MCP Apps widgets and the Linux spellcheck dictionary. Widgets fall back to text.
 
-> **More detail**
+> [accordion] More detail
 >
 > With this on:
 >
@@ -2807,7 +2807,7 @@ enumDefault: http/protobufSince 1.2581.0
 
 One of: `http/protobuf` (default), `http/json`, `grpc`
 
-> **More detail**
+> [accordion] More detail
 >
 > With `grpc`, some exports still go over HTTP to the same endpoint, such as the app's own events.
 >
@@ -2831,7 +2831,7 @@ enumSince 1.30096.1
 
 One of: `none`, `inference-credential`
 
-> **More detail**
+> [accordion] More detail
 >
 > The credential can also make model requests as the user. For a collector you do not operate, use `otlpHeadersHelper` with a credential that can only send telemetry.
 >
@@ -2849,7 +2849,7 @@ Since 1.30096.1
 
 **OTLP headers helper script.** Full path to a helper script that prints collector headers as JSON. They take priority over OTLP headers and Collector authentication.
 
-> **More detail**
+> [accordion] More detail
 >
 > The app runs it with no arguments. Sample output: `{"Authorization": "Bearer …"}`.
 >
@@ -2865,7 +2865,7 @@ object: name → valueSince 1.5354.0
 
 **Resource attributes.** Extra attributes to attach to every span, metric and log. An enduser.id set here takes priority over the signed-in user’s identity.
 
-> **More detail**
+> [accordion] More detail
 >
 > `process.owner` (the OS login name) is always sent to your collector. Set it here to replace the value.
 
@@ -2889,7 +2889,7 @@ enum\[]Since 1.15962.0
 
 Any of: `userPrompts`, `assistantResponses`, `toolDetails`, `toolContent`, `rawApiBodies`
 
-> **More detail**
+> [accordion] More detail
 >
 > This data never reaches Anthropic.
 >
@@ -2911,7 +2911,7 @@ booleanSince 1.22209.0
 
 **Export traces.** Also export OpenTelemetry traces from Cowork tasks and Code sessions. Uses Claude Code’s session tracing.
 
-> **More detail**
+> [accordion] More detail
 >
 > Has no effect without `otlpEndpoint`. With it set, this key alone decides whether Cowork tasks and Code sessions export traces. Unset or `false` keeps traces off even if a user's or a project's Claude Code settings, or managed settings, turn tracing on.
 
@@ -2923,7 +2923,7 @@ integerRange: 256–15,000,000Since 2.31226.0
 
 **Telemetry attribute length limit.** Maximum length, in characters, of captured content such as a raw API body. Unset: 61,440 in Cowork tasks and Code sessions.
 
-> **More detail**
+> [accordion] More detail
 >
 > In Cowork tasks and Code sessions it applies to model responses, tool content and raw API bodies, not to user prompts.
 >
@@ -2943,7 +2943,7 @@ booleanDefault: falseSince 1.2581.0
 
 **Block auto-updates.** Stop Claude Desktop from fetching updates entirely (no time limit). You’ll need to push new versions yourself.
 
-> **More detail**
+> [accordion] More detail
 >
 > When you install a newer version while Claude is open, the app shows a restart notice in the sidebar. To have Claude restart by itself if nobody restarts it, use `installedUpdateEnforcementEnabled`.
 >
@@ -2959,7 +2959,7 @@ booleanSince 3.6556.1
 
 **Restart to apply installed updates.** With auto-updates blocked, Claude restarts by itself for a newer version installed while it was open. On Windows it may stay closed.
 
-> **More detail**
+> [accordion] More detail
 >
 > `installedUpdateEnforcementHours` sets how long the app waits.
 >
@@ -2976,7 +2976,7 @@ integerRange: 1–72Since 3.6556.1
 
 **Installed-update enforcement window.** Hours before Claude restarts for a newer version installed while it was open. Unset: 72 hours, then when idle. A number skips the idle wait.
 
-> **More detail**
+> [accordion] More detail
 >
 > Applies only while `disableAutoUpdates` is on and the restart is on (see `installedUpdateEnforcementEnabled`).
 >
@@ -2994,7 +2994,7 @@ integerRange: 1–72Since 1.2581.0
 
 **Auto-update enforcement window.** Hours before a downloaded update force-installs. Only applies when auto-updates are enabled. Blank = 72-hour default.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **Unset:** after 72 hours the app restarts once the device has been idle for 10 minutes.
 > * **Any number, even 72:** the app restarts when the time is up, whether or not the user is active.
@@ -3011,7 +3011,7 @@ booleanDefault: falseSince 1.26832.0
 
 **Check for updates on releases.claude.com.** Read the update feed from releases.claude.com so api.anthropic.com can stay blocked.
 
-> **More detail**
+> [accordion] More detail
 >
 > The installer still downloads from `downloads.claude.ai`, so keep that host open.
 >
@@ -3029,7 +3029,7 @@ enumDefault: stableSince 3.1623.0
 
 One of: `stable` (default), `staggered`
 
-> **More detail**
+> [accordion] More detail
 >
 > `staggered` usually updates on Thursdays and is typically 7 to 14 days behind `stable`.
 >
@@ -3050,7 +3050,7 @@ integerDefault: 24Range: 0–336Since 1.40609.0
 
 **Configuration relaunch window.** Hours users can keep working after a configuration change that needs a restart. 0: restart required at once. Unset: 24 hours.
 
-> **More detail**
+> [accordion] More detail
 >
 > When the time is up, a restart dialog blocks the app. The app then restarts by itself after 2 minutes with no activity and no running task.
 >
@@ -3066,7 +3066,7 @@ integerDefault: 10Range: 2–30Since 1.46388.1
 
 **Configuration re-check interval.** Minutes between the running app’s checks for a changed managed configuration. Blank = 10 minutes.
 
-> **More detail**
+> [accordion] More detail
 >
 > A change that needs a restart starts the `relaunchEnforcementHours` countdown.
 >
@@ -3084,7 +3084,7 @@ Since 2.7032.0
 
 **Keep only your organization ID and restrictions on disk.** Between launches, keep on disk only your organization ID and restrictions, not its name or anything you have allowed.
 
-> **More detail**
+> [accordion] More detail
 >
 > While this is on, the app's crash reporting does not start on these devices. Error stack traces and performance timings still leave these devices unless `disableEssentialTelemetry` is on.
 >
@@ -3104,7 +3104,7 @@ integerRange: 1–3,650Since 1.52386.0
 
 **Chat retention period.** Delete chats, with their files, after this many days without activity. Unset: no deletion. Projects and memory stay.
 
-> **More detail**
+> [accordion] More detail
 >
 > Applies only while the app runs in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it does not reliably keep it.
 >
@@ -3126,7 +3126,7 @@ integerRange: 1–3,650Since 1.52386.0
 
 **Cowork retention period.** Delete Cowork tasks, with their uploads and outputs, after this many days without activity. Unset: no deletion. Spaces and memory stay.
 
-> **More detail**
+> [accordion] More detail
 >
 > Applies only while the app runs in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it does not reliably keep it.
 >
@@ -3148,7 +3148,7 @@ integerRange: 1–3,650Since 1.52386.0
 
 **Code retention period.** Delete Code sessions, conversation included, after this many days without activity. Unset: no deletion. Uncommitted work stays on disk.
 
-> **More detail**
+> [accordion] More detail
 >
 > Applies only while the app runs in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it does not reliably keep it.
 >
@@ -3170,7 +3170,7 @@ booleanSince 1.52386.0
 
 **Suspend session deletion.** Suspend the chat, Cowork and Code retention periods (legal hold). Claude Code’s own transcript cleanup (cleanupPeriodDays) still runs.
 
-> **More detail**
+> [accordion] More detail
 >
 > Meant to be set per user or group.
 >
@@ -3189,7 +3189,7 @@ integerRange: 1 or moreSince 1.2581.0
 
 **Max tokens per window.** Caps each user’s input and output tokens per window. Cached tokens do not count, so it does not cap your bill. Unset: no limit.
 
-> **More detail**
+> [accordion] More detail
 >
 > Has no effect unless `inferenceTokenWindowHours` is also set. A user with two devices can have a separate count on each.
 
@@ -3201,7 +3201,7 @@ integerRange: 1–720Since 1.2581.0
 
 **Token cap window.** Length of each token cap window, in hours. The count resets to zero when a window ends.
 
-> **More detail**
+> [accordion] More detail
 >
 > Used with `inferenceMaxTokensPerWindow`. Each user's window starts the first time they use the app after their previous window ends. So 24 hours does not mean midnight to midnight.
 
@@ -3213,7 +3213,7 @@ integerRange: 1–100Since 4.29.0
 
 **Token limit warning.** Warn users once they have used this percent of their token limit. Unset: 75. At 100, the only warning comes at the limit.
 
-> **More detail**
+> [accordion] More detail
 >
 > Has no effect unless `inferenceMaxTokensPerWindow` and `inferenceTokenWindowHours` are both set.
 >
@@ -3229,7 +3229,7 @@ booleanSince 1.25927.0
 
 **End-user attribution.** Show the signed-in user’s identity in the app, add it to Claude’s system prompt, and send it to your OpenTelemetry collector as enduser.id.
 
-> **More detail**
+> [accordion] More detail
 >
 > The identity comes from the user's sign-in, or is the OS login name when sign-in gives none. A static `enduser.id` in `otlpResourceAttributes` takes priority in telemetry, and is sent even when this setting is off.
 >
@@ -3271,7 +3271,7 @@ objectSince 1.7196.0
 
 **Organization banner.** A persistent banner across the top of the app window after sign-in.
 
-> **Child attributes (5)**
+> [accordion] Child attributes (5)
 >
 > **enabled** `boolean`
 >
@@ -3305,20 +3305,20 @@ Since 4.4212.0
 
 **Status line.** Claude runs this program and shows the first line it prints above the message box in Cowork, Chat and Code. Off unless set.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **Runs:** on the user's device, as the signed-in user, when a session opens, a turn ends, the app regains focus or the model changes.
 > * **Input:** one JSON line on standard input: `{"session_id": "…", "model": {"id": "…", "display_name": "…"}}`. Fields with no value are left out.
 > * **Output:** Claude shows the first non-empty line, up to 200 characters. ANSI codes 31 to 36 and 91 to 96 set the color.
 > * **Limits:** 10 seconds and 64 KiB of output. Past either, Claude stops the program.
 
-> **Child attributes (1)**
+> [accordion] Child attributes (1)
 >
 > **command** `string` *required*
 >
 > Full local path to the program or executable script.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Users must not be able to change the file.
 > >
@@ -3349,13 +3349,13 @@ object\[]Since 1.17377.1
 
 **Plugin marketplaces.** Git repositories or hosted marketplace.json files shown as plugin marketplaces in the Directory’s Organization tab.
 
-> **Child attributes**
+> [accordion] Child attributes
 >
 > **expectedName** `string`
 >
 > Rejects the marketplace if its manifest name differs.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Also use it to move a marketplace. A change to an entry's `url`, `repo` or `path` (not `ref`) counts as removing the marketplace, which uninstalls the plugins that users installed from it.
 > >
@@ -3367,7 +3367,7 @@ object\[]Since 1.17377.1
 >
 > One of: `available`, `auto_install`, `required`
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > * `available` (default): users install from the Directory's Organization tab.
 > > * `auto_install`: installs once per pin. A plugin that a user removes stays removed until the pin changes.
@@ -3381,105 +3381,105 @@ object\[]Since 1.17377.1
 >
 > Executable that prints the access token to send.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > The helper script prints a token. It is sent as the Git password for user `x-access-token`, which GitHub, GitLab and Azure DevOps accept. For `url` sources it is sent as `Authorization: Bearer`.
 > >
 > > [Marketplace credentials](https://claude.com/docs/third-party/claude-desktop/extensions.md#marketplace-credentials) lists other forms, for hosts that need a username or for custom HTTP headers.
 >
-> **github**
->
-> Applies when `source` is `github`. The in-app configuration window calls it **GitHub**.
->
-> **source** `string` *required*
->
-> Where the marketplace comes from: a GitHub repository (set repo), a Git remote (set url) or a hosted marketplace.json file (set url).
->
-> Must be: `github`
->
-> **repo** `string` *required*
->
-> GitHub repository in owner/repo form. Case-insensitive.
->
-> **ref** `string`
->
-> Commit SHA, branch, or tag. Leave empty to track the default branch; auto\_install and required need a full 40-character commit SHA.
->
-> **path** `string`
->
-> Folder within the repository that contains the marketplace, when it isn’t at the root.
->
-> **credentialKind** `enum`
->
-> Sent with a fetch: nothing (unset), the user’s Git credential, a helper script’s output, or the gateway or bootstrap credential (url only).
->
-> One of: `anonymous`, `userGit`, `credentialHelper`
->
-> **git**
->
-> Applies when `source` is `git`. The in-app configuration window calls it **Git URL**.
->
-> **source** `string` *required*
->
-> Where the marketplace comes from: a GitHub repository (set repo), a Git remote (set url) or a hosted marketplace.json file (set url).
->
-> Must be: `git`
->
-> **url** `string` *required*
->
-> HTTPS Git remote of the marketplace repository (git), or direct HTTPS URL of a hosted marketplace.json file (url).
->
-> > **More detail**
+> > [tab] github
 > >
-> > For a `url` source, `marketplace.json` lists each plugin as an `archive`: a zip `url` plus its `sha256`. [Host the marketplace over HTTPS](https://claude.com/docs/third-party/claude-desktop/extensions.md#host-the-marketplace-over-https-instead-of-git) has an example.
+> > Applies when `source` is `github`. The in-app configuration window calls it **GitHub**.
 > >
-> > * Archives must be on the same origin as the manifest. Open that host on your firewall. A credential is sent only to it.
-> > * With `credentialKind` set to `inferenceCredential`, the manifest must be on your gateway's or bootstrap server's origin.
->
-> **ref** `string`
->
-> Commit SHA, branch, or tag. Leave empty to track the default branch; auto\_install and required need a full 40-character commit SHA.
->
-> **path** `string`
->
-> Folder within the repository that contains the marketplace, when it isn’t at the root.
->
-> **credentialKind** `enum`
->
-> Sent with a fetch: nothing (unset), the user’s Git credential, a helper script’s output, or the gateway or bootstrap credential (url only).
->
-> One of: `anonymous`, `userGit`, `credentialHelper`
->
-> **url**
->
-> Applies when `source` is `url`. The in-app configuration window calls it **Marketplace URL**.
->
-> **source** `string` *required*
->
-> Where the marketplace comes from: a GitHub repository (set repo), a Git remote (set url) or a hosted marketplace.json file (set url).
->
-> Must be: `url`
->
-> **url** `string` *required*
->
-> HTTPS Git remote of the marketplace repository (git), or direct HTTPS URL of a hosted marketplace.json file (url).
->
-> > **More detail**
+> > **source** `string` *required*
 > >
-> > For a `url` source, `marketplace.json` lists each plugin as an `archive`: a zip `url` plus its `sha256`. [Host the marketplace over HTTPS](https://claude.com/docs/third-party/claude-desktop/extensions.md#host-the-marketplace-over-https-instead-of-git) has an example.
+> > Where the marketplace comes from: a GitHub repository (set repo), a Git remote (set url) or a hosted marketplace.json file (set url).
 > >
-> > * Archives must be on the same origin as the manifest. Open that host on your firewall. A credential is sent only to it.
-> > * With `credentialKind` set to `inferenceCredential`, the manifest must be on your gateway's or bootstrap server's origin.
+> > Must be: `github`
+> >
+> > **repo** `string` *required*
+> >
+> > GitHub repository in owner/repo form. Case-insensitive.
+> >
+> > **ref** `string`
+> >
+> > Commit SHA, branch, or tag. Leave empty to track the default branch; auto\_install and required need a full 40-character commit SHA.
+> >
+> > **path** `string`
+> >
+> > Folder within the repository that contains the marketplace, when it isn’t at the root.
+> >
+> > **credentialKind** `enum`
+> >
+> > Sent with a fetch: nothing (unset), the user’s Git credential, a helper script’s output, or the gateway or bootstrap credential (url only).
+> >
+> > One of: `anonymous`, `userGit`, `credentialHelper`
 >
-> **manifestSha256** `string`
+> > [tab] git
+> >
+> > Applies when `source` is `git`. The in-app configuration window calls it **Git URL**.
+> >
+> > **source** `string` *required*
+> >
+> > Where the marketplace comes from: a GitHub repository (set repo), a Git remote (set url) or a hosted marketplace.json file (set url).
+> >
+> > Must be: `git`
+> >
+> > **url** `string` *required*
+> >
+> > HTTPS Git remote of the marketplace repository (git), or direct HTTPS URL of a hosted marketplace.json file (url).
+> >
+> > > [accordion] More detail
+> > >
+> > > For a `url` source, `marketplace.json` lists each plugin as an `archive`: a zip `url` plus its `sha256`. [Host the marketplace over HTTPS](https://claude.com/docs/third-party/claude-desktop/extensions.md#host-the-marketplace-over-https-instead-of-git) has an example.
+> > >
+> > > * Archives must be on the same origin as the manifest. Open that host on your firewall. A credential is sent only to it.
+> > > * With `credentialKind` set to `inferenceCredential`, the manifest must be on your gateway's or bootstrap server's origin.
+> >
+> > **ref** `string`
+> >
+> > Commit SHA, branch, or tag. Leave empty to track the default branch; auto\_install and required need a full 40-character commit SHA.
+> >
+> > **path** `string`
+> >
+> > Folder within the repository that contains the marketplace, when it isn’t at the root.
+> >
+> > **credentialKind** `enum`
+> >
+> > Sent with a fetch: nothing (unset), the user’s Git credential, a helper script’s output, or the gateway or bootstrap credential (url only).
+> >
+> > One of: `anonymous`, `userGit`, `credentialHelper`
 >
-> SHA-256 of the marketplace.json to accept (url sources). Any other file is refused. Without it, auto\_install and required act as available.
->
-> **credentialKind** `enum`
->
-> Sent with a fetch: nothing (unset), the user’s Git credential, a helper script’s output, or the gateway or bootstrap credential (url only).
->
-> One of: `anonymous`, `userGit`, `credentialHelper`, `inferenceCredential`
+> > [tab] url
+> >
+> > Applies when `source` is `url`. The in-app configuration window calls it **Marketplace URL**.
+> >
+> > **source** `string` *required*
+> >
+> > Where the marketplace comes from: a GitHub repository (set repo), a Git remote (set url) or a hosted marketplace.json file (set url).
+> >
+> > Must be: `url`
+> >
+> > **url** `string` *required*
+> >
+> > HTTPS Git remote of the marketplace repository (git), or direct HTTPS URL of a hosted marketplace.json file (url).
+> >
+> > > [accordion] More detail
+> > >
+> > > For a `url` source, `marketplace.json` lists each plugin as an `archive`: a zip `url` plus its `sha256`. [Host the marketplace over HTTPS](https://claude.com/docs/third-party/claude-desktop/extensions.md#host-the-marketplace-over-https-instead-of-git) has an example.
+> > >
+> > > * Archives must be on the same origin as the manifest. Open that host on your firewall. A credential is sent only to it.
+> > > * With `credentialKind` set to `inferenceCredential`, the manifest must be on your gateway's or bootstrap server's origin.
+> >
+> > **manifestSha256** `string`
+> >
+> > SHA-256 of the marketplace.json to accept (url sources). Any other file is refused. Without it, auto\_install and required act as available.
+> >
+> > **credentialKind** `enum`
+> >
+> > Sent with a fetch: nothing (unset), the user’s Git credential, a helper script’s output, or the gateway or bootstrap credential (url only).
+> >
+> > One of: `anonymous`, `userGit`, `credentialHelper`, `inferenceCredential`
 
 ***
 
@@ -3489,13 +3489,13 @@ object\[]Since 1.8089.0
 
 **Organization plugin settings.** Locks tool permissions on the MCP servers that plugins provide.
 
-> **More detail**
+> [accordion] More detail
 >
 > * If a `managedMcpServers` entry is for the same server (same URL, otherwise same name), the entry here is ignored. Put the locks in that entry's `toolPolicy`.
 > * Update all devices first: an older version ignores this list and enforces no locks.
 > * Claude Code's own managed settings, where a session has any, take priority by default.
 
-> **Child attributes (2)**
+> [accordion] Child attributes (2)
 >
 > **serverName** `string` *required*
 >
@@ -3505,7 +3505,7 @@ object\[]Since 1.8089.0
 >
 > Per-tool approval locks for this server.
 >
-> > **Child attributes (2)**
+> > [accordion] Child attributes (2)
 > >
 > > **tools.toolName** `string` *required*
 > >
@@ -3565,13 +3565,13 @@ Since 1.10628.0
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > When unset, the bootstrap sign-in uses a device code on the bootstrap server's own origin.
 >
 > In an MDM profile, write this key as one JSON string. Separate values such as `bootstrapOidc.clientId` do not work: the app silently uses the device-code sign-in instead.
 
-> **Child attributes (8)**
+> [accordion] Child attributes (8)
 >
 > **clientId** `string` *required*
 >
@@ -3607,7 +3607,7 @@ Since 1.10628.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -3627,7 +3627,7 @@ Since 1.32885.1
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > If `bootstrapOidc` is unset, the app treats these headers as sufficient authentication and requires no per-user sign-in for the bootstrap fetch.
 >
@@ -3651,7 +3651,7 @@ Since 1.32885.1
 
 [Admin Console](#the-works-with-column): Not available.
 
-> **More detail**
+> [accordion] More detail
 >
 > Example output: `{"Authorization": "Bearer …"}`. The app runs the helper script with no arguments and reuses its output for a few minutes.
 >
@@ -3714,55 +3714,55 @@ Unless a label in its entry says otherwise, a key can be set in an MDM profile o
 
 The profiles below are illustrative examples rather than built-in presets, and the labels are descriptive only. Use them as starting points and adjust for your environment. Layer the inference-provider keys for your cloud on top of whichever profile you choose.
 
-**Standard**
+> [tab] Standard
+>
+> Recommended for most enterprise deployments. Telemetry and auto-updates stay on so Anthropic can diagnose issues and ship fixes; users can extend Claude Desktop with their own connectors.
+>
+> | Key | Value |
+> | - | - |
+> | [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
+> | [`autoUpdaterEnforcementHours`](#autoupdaterenforcementhours) | `24` |
+> | [`isDesktopExtensionSignatureRequired`](#isdesktopextensionsignaturerequired) | `true` |
+> | [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
 
-Recommended for most enterprise deployments. Telemetry and auto-updates stay on so Anthropic can diagnose issues and ship fixes; users can extend Claude Desktop with their own connectors.
+> [tab] Restricted
+>
+> For regulated environments that need to control what users can connect Claude Desktop to, while keeping Anthropic supportability.
+>
+> | Key | Value |
+> | - | - |
+> | [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
+> | [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
+> | [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
+> | [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
+> | [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
+> | [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
+> | [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
+> | [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `["*.example.corp"]` |
+> | [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
 
-| Key | Value |
-| - | - |
-| [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
-| [`autoUpdaterEnforcementHours`](#autoupdaterenforcementhours) | `24` |
-| [`isDesktopExtensionSignatureRequired`](#isdesktopextensionsignaturerequired) | `true` |
-| [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
-
-**Restricted**
-
-For regulated environments that need to control what users can connect Claude Desktop to, while keeping Anthropic supportability.
-
-| Key | Value |
-| - | - |
-| [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
-| [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
-| [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
-| [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
-| [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
-| [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
-| [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
-| [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `["*.example.corp"]` |
-| [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
-
-**Locked down**
-
-For air-gapped or maximally restricted environments. **The app's own traffic goes only to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation). Code sessions on Windows, and on Linux without Claude Code's sandbox dependencies, [run shell commands unsandboxed](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy), so those commands can reach any host your network allows. To prevent that, [turn off Code](https://claude.com/docs/third-party/claude-desktop/code.md#disabling-code) on those devices. With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](https://claude.com/docs/third-party/claude-desktop/overview.md#data-handling-by-provider).
-
-| Key | Value |
-| - | - |
-| [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
-| [`disableEssentialTelemetry`](#disableessentialtelemetry) | `true` |
-| [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
-| [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
-| [`disableAutoUpdates`](#disableautoupdates) | `true` |
-| [`modelCatalogEnabled`](#modelcatalogenabled) | `false` |
-| [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
-| [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
-| [`skillCreationEnabled`](#skillcreationenabled) | `false` |
-| [`userPluginMarketplacesEnabled`](#userpluginmarketplacesenabled) | `false` |
-| [`userPluginUploadsEnabled`](#userpluginuploadsenabled) | `false` |
-| [`scheduledTasksEnabled`](#scheduledtasksenabled) | `false` |
-| [`disabledBuiltinTools`](#disabledbuiltintools) | `["WebSearch","WebFetch"]` |
-| [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `[]` |
-| [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
-| [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
+> [tab] Locked down
+>
+> For air-gapped or maximally restricted environments. **The app's own traffic goes only to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation). Code sessions on Windows, and on Linux without Claude Code's sandbox dependencies, [run shell commands unsandboxed](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy), so those commands can reach any host your network allows. To prevent that, [turn off Code](https://claude.com/docs/third-party/claude-desktop/code.md#disabling-code) on those devices. With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](https://claude.com/docs/third-party/claude-desktop/overview.md#data-handling-by-provider).
+>
+> | Key | Value |
+> | - | - |
+> | [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
+> | [`disableEssentialTelemetry`](#disableessentialtelemetry) | `true` |
+> | [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
+> | [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
+> | [`disableAutoUpdates`](#disableautoupdates) | `true` |
+> | [`modelCatalogEnabled`](#modelcatalogenabled) | `false` |
+> | [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
+> | [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
+> | [`skillCreationEnabled`](#skillcreationenabled) | `false` |
+> | [`userPluginMarketplacesEnabled`](#userpluginmarketplacesenabled) | `false` |
+> | [`userPluginUploadsEnabled`](#userpluginuploadsenabled) | `false` |
+> | [`scheduledTasksEnabled`](#scheduledtasksenabled) | `false` |
+> | [`disabledBuiltinTools`](#disabledbuiltintools) | `["WebSearch","WebFetch"]` |
+> | [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `[]` |
+> | [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
+> | [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
 
 ### Tool permissions for managed MCP servers
 

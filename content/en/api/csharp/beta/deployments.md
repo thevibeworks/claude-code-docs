@@ -501,6 +501,8 @@ Create Deployment
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1280,6 +1282,8 @@ List Deployments
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2020,6 +2024,8 @@ Get Deployment
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 
@@ -3130,6 +3136,8 @@ Update Deployment
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3866,6 +3874,8 @@ Archive Deployment
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 
@@ -4604,6 +4614,8 @@ Run Deployment Now
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -5002,6 +5014,8 @@ Pause Deployment
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 
@@ -5739,6 +5753,8 @@ Unpause Deployment
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
+
+    - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
   - `string workspaceID` (header parameter)
 

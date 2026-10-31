@@ -147,6 +147,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Body parameters
 
 - `issuer_url: string`
@@ -553,6 +555,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `data: array of BetaFederationIssuer`
@@ -869,6 +873,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Returns
 
@@ -1189,6 +1195,8 @@ session.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Body parameters
 
@@ -1588,6 +1596,8 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `BetaFederationIssuer object`
@@ -1911,6 +1921,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Body parameters
 
@@ -2343,6 +2355,8 @@ unless `include_archived=true`.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `data: array of BetaFederationRule`
@@ -2659,6 +2673,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Returns
 
@@ -2994,6 +3010,8 @@ Console session.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Body parameters
 
@@ -3402,6 +3420,8 @@ other scopes require a Console session.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `BetaFederationRule object`
@@ -3733,6 +3753,8 @@ other scopes require a Console session.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Body parameters
 
 - `workspace_id: string`
@@ -3948,6 +3970,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `data: array of BetaFederationRuleWorkspace`
@@ -4152,6 +4176,8 @@ Console session.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Returns
 

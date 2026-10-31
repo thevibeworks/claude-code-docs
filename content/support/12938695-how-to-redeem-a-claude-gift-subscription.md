@@ -24,13 +24,13 @@ Your experience depends on your current subscription status:
 
 **If you're a Pro subscriber (web) and receive a Pro gift:** Your Pro subscription is extended by the gift duration.
 
-**If you're a Pro subscriber (web) and receive a Max gift:** You're upgraded to the Max plan for the gift duration. When the gift ends, your Pro subscription resumes. Any unused time from your Pro billing cycle is added as account credit.
+**If you're a Pro subscriber (web) and receive a Max or Ultra gift:** You're upgraded to the Max or Ultra plan for the gift duration. When the gift ends, your Pro subscription resumes. Any unused time from your Pro billing cycle is added as account credit.
 
-**If you're a Max subscriber (web) and receive a lower-tier gift:** The gift value is converted to account credit, which is automatically applied to your future invoices.
+**If you're a Max or Ultra subscriber (web) and receive a lower-tier gift:** The gift value is converted to account credit, which is automatically applied to your future invoices.
 
-**If you're a Max subscriber (web) and receive the same or higher Max tier:** Your Max subscription is extended or upgraded accordingly.
+**If you're a Max subscriber (web) and receive a Max or Ultra gift:** Your Max subscription is extended or upgraded to Ultra accordingly.
 
-## Mobile Subscribers
+## Mobile subscribers
 
 If you have an active subscription through the iOS App Store or Google Play Store, you'll need to wait until that subscription ends before you can redeem a gift subscription. Gift subscriptions can only be redeemed on the web.
 

@@ -4,11 +4,11 @@ Scheduled tasks allow you to delegate work to Claude Cowork by creating tasks th
 
 ## Availability
 
-Scheduled tasks are available on all paid plans (Pro, Max, Team, and Enterprise), in Claude Cowork and in the new Claude experience.
+Scheduled tasks are available on all paid plans (Pro, Max, Ultra, Team, and Enterprise), in Claude Cowork and in the new Claude experience.
 
-Claude Cowork is available on desktop on all paid plans (Pro, Max, Team, and Enterprise). On web and mobile, it's available on Pro, Max, and Team plans (in beta on Team), and on Enterprise plans when an owner enables it.
+Claude Cowork is available on desktop on all paid plans (Pro, Max, Ultra, Team, and Enterprise). On web and mobile, it's available on Pro, Max, Ultra, and Team plans (in beta on Team), and on Enterprise plans when an owner enables it.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -34,7 +34,7 @@ Each scheduled task runs as its own Cowork session. You can review the results w
 
 Scheduled tasks run remotely, so they run on their cadence even when your computer is asleep or the Claude Desktop app is closed. Review upcoming and past runs by clicking "Scheduled" in the left sidebar on any surface.
 
-**Note:** Scheduled tasks use the built-in schedule options and work with your connectors and the files saved to your Claude account. On Pro and Max plans, scheduled tasks you created before October 6 that run on your computer keep running there.
+**Note:** Scheduled tasks use the built-in schedule options and work with your connectors and the files saved to your Claude account. On Pro, Max, and Ultra plans, scheduled tasks you created before October 6 that run on your computer keep running there.
 
 For Team and Enterprise organizations, admins control Cowork access through the admin toggle. For more details, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879)**.
 

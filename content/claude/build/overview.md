@@ -17,23 +17,23 @@ When the plugin is ready, you can [submit it](https://claude.com/docs/directory/
 
 ## Choose a starting page
 
-> **[Build a plugin](https://claude.com/docs/plugins/build.md)**
+> [card] [Build a plugin](https://claude.com/docs/plugins/build.md)
 >
 > Lay out the plugin folder and manifest, write the skills, reference your MCP server, and test the plugin in Claude.
 
-> **[Write skills](https://claude.com/docs/skills/how-to.md)**
+> [card] [Write skills](https://claude.com/docs/skills/how-to.md)
 >
 > Teach Claude your workflows: the SKILL.md frontmatter, the instructions, reference files, and scripts.
 
-> **[Build an MCP server](https://claude.com/docs/connectors/building/index.md)**
+> [card] [Build an MCP server](https://claude.com/docs/connectors/building/index.md)
 >
 > Give the plugin access to your product or data: implement the server, set up authentication for Claude's clients, and test it.
 
-> **[Add interactive UI](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md)**
+> [card] [Add interactive UI](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md)
 >
 > Have your MCP server show interactive components in the conversation with MCP Apps. Optional.
 
-> **[Submit your plugin or MCP server](https://claude.com/docs/directory/publish.md)**
+> [card] [Submit your plugin or MCP server](https://claude.com/docs/directory/publish.md)
 >
 > List it in Anthropic's directory so anyone can add it: who can submit, what review involves, and the developer portal steps. Submit your MCP server as a connector too, even when your plugin references it.
 

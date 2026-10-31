@@ -2,7 +2,7 @@
 
 Connecting Microsoft 365 lets Claude search and analyze content across SharePoint, OneDrive, Outlook, and Teams in your work account. If your admin has enabled write tools, Claude can also draft and send emails, manage calendar events, create and update files, and send Teams messages. Ask Claude for what you need, and it pulls the right information or takes the action.
 
-The Microsoft 365 connector is available on all Claude plans: Free, Pro, Max, Team, and Enterprise.
+The Microsoft 365 connector is available on all Claude plans: Free, Pro, Max, Ultra, Team, and Enterprise.
 
 ## Before you connect
 

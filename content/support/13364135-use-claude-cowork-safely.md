@@ -4,9 +4,9 @@ Cowork sessions run in the cloud on Anthropic's servers, and Claude reaches your
 
 ## Availability
 
-Claude Cowork is available on desktop on all paid plans (Pro, Max, Team, and Enterprise). On web and mobile, it's available on Pro, Max, and Team plans (in beta on Team), and on Enterprise plans when an owner enables it. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
+Claude Cowork is available on desktop on all paid plans (Pro, Max, Ultra, Team, and Enterprise). On web and mobile, it's available on Pro, Max, Ultra, and Team plans (in beta on Team), and on Enterprise plans when an owner enables it. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -154,7 +154,7 @@ When using the Claude for Excel and Claude for PowerPoint add-ins with Cowork, C
 
 **9. Understand what sessions** **in the cloud** **can reach on your computer**
 
-On web and mobile, your tasks run in the cloud and work with the files and connectors saved to your Claude account, not the files on your computer. On Pro and Max plans, new tasks you start on desktop run in the cloud too, and tasks you started on your computer before October 6 keep running there. If some of your work has to stay on your computer, see **[What changed for Pro and Max plans on October 6](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**. A session in the cloud reaches your computer only when the Claude Desktop app is open, only for the folders you've connected there, and with the permissions you've already set. Each local file or tool a session uses is checked against those permissions before it runs.
+On web and mobile, your tasks run in the cloud and work with the files and connectors saved to your Claude account, not the files on your computer. On Pro, Max, and Ultra plans, new tasks you start on desktop run in the cloud too, and tasks you started on your computer before October 6 keep running there. If some of your work has to stay on your computer, see **[What changed for Pro, Max, and Ultra plans on October 6](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**. A session in the cloud reaches your computer only when the Claude Desktop app is open, only for the folders you've connected there, and with the permissions you've already set. Each local file or tool a session uses is checked against those permissions before it runs.
 
 If your organization manages your computer, note that connecting local folders makes them reachable from a session in the cloud. Review what access you've granted, and consider whether that level of access is appropriate.
 

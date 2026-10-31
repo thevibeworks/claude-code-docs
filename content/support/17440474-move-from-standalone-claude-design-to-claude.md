@@ -2,7 +2,7 @@
 
 Claude Design now lives in Claude. The standalone Claude Design site (claude.ai/design) will close on December 14, 2026, and you can still access it until that date. This article explains what's changing and when, how to move your design systems today, and what happens to your projects.
 
-Claude Design is available on Free, Pro, Max, Team, and Enterprise plans.
+Claude Design is available on Free, Pro, Max, Ultra, Team, and Enterprise plans.
 
 ## What's changing and when
 
@@ -30,7 +30,7 @@ When you move a design system, the original stays in the standalone version. You
 
 ## Move your design systems
 
-**Note:** Once **Move to Claude** is available to your organization, design systems no longer have their own move. They move the same way as projects. Each design system's owner can move it, or an owner of your organization can move everything at once. See **[What happens to your projects](#h_1d425b60a1)**.
+**Note:** Once **Move to Claude** is available to your organization, design systems no longer have their own move. They move the same way as projects. Each design system's owner can move it, or an owner of your organization can move everything at once. See **[What happens to your projects](https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude#h_1d425b60a1)**.
 
 ### Before you start
 
@@ -102,7 +102,7 @@ If the whole design system is too large, the card says "It's too large. Make it 
 
 Some reasons need your organization's owner to fix them: "design systems are turned off for your team," "your team can't publish artifacts," or "its owner's role doesn't include design systems." The first two stop the move, and any design systems it hadn't started are listed under **Not started**. Once they're fixed, move again.
 
-Sometimes the card says "Can't move this design system" without saying why. If this happens, click "Download design system" to keep a copy of its files. You can click "Check again" later, and if it still can't move, let us know. See **[Get help](#h_5acf964297)**.
+Sometimes the card says "Can't move this design system" without saying why. If this happens, click "Download design system" to keep a copy of its files. You can click "Check again" later, and if it still can't move, let us know. See **[Get help](https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude#h_5acf964297)**.
 
 ### Move again
 
@@ -188,7 +188,7 @@ While **Design systems** is off, owners who click "Move team design systems" see
 
 If your organization's default design system moves, it becomes the default in Claude too, unless you've already set one there.
 
-Organizations with zero data retention (ZDR) can't turn on artifacts, so they can't move. If that's your organization, download your projects before the standalone version closes. See **[Can I download all my projects?](#h_a676b76d76)**
+Organizations with zero data retention (ZDR) can't turn on artifacts, so they can't move. If that's your organization, download your projects before the standalone version closes. See **[Can I download all my projects?](https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude#h_a676b76d76)**
 
 ---
 

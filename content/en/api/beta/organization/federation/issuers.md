@@ -145,6 +145,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Body parameters
 
 - `issuer_url: string`
@@ -551,6 +553,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `data: array of BetaFederationIssuer`
@@ -867,6 +871,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 
@@ -1187,6 +1193,8 @@ session.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Body parameters
 
@@ -1585,6 +1593,8 @@ issuer cannot be changed), or recreate them against another issuer.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 

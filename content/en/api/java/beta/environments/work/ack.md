@@ -133,6 +133,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
 ## Returns
 
 - `class BetaSelfHostedWork`

@@ -2,7 +2,7 @@
 
 This article shows you how to move in and out of an artifact, comment on it, and use the keys that Claude Docs, Claude Slides, and Claude Design share, with a keyboard alone or with a screen reader. Each template's own article covers the keys for its editor.
 
-Claude Docs, Claude Slides, and Claude Design are available on Free, Pro, Max, Team, and Enterprise plans. On Enterprise plans, they turn on by default on October 15, 2026, and owners can turn them on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Design systems are available in beta on Pro, Max, Team, and Enterprise plans. To edit an artifact, use Claude on the web or Claude Desktop.
+Claude Docs, Claude Slides, and Claude Design are available on Free, Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, they turn on by default on October 15, 2026, and owners can turn them on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Design systems are available in beta on Pro, Max, Ultra, Team, and Enterprise plans. To edit an artifact, use Claude on the web or Claude Desktop.
 
 Commonly-used shortcuts:
 
