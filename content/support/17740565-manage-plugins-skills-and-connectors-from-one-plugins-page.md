@@ -2,7 +2,7 @@
 
 Plugins, skills, and connectors are coming together in one Plugins experience. This article explains what's changing, which accounts are affected, and what you need to do. Most organizations don't need to do anything.
 
-This change reaches Enterprise plans on November 30, 2026. Free, Pro, Max, and Team plans start rolling out on October 29.
+This change reaches Enterprise plans on November 30, 2026. Free, Pro, Max, Ultra, and Team plans start rolling out on October 29.
 
 ## What's changing
 
@@ -36,10 +36,10 @@ Your existing connectors, skills, and plugins stay installed. Removing a plugin 
 
 The timing depends on your plan.
 
-| **Plan**                      | **When the change reaches you**                                            |
-| ----------------------------- | -------------------------------------------------------------------------- |
-| Free, Pro, Max and Team plans | Rolling out gradually starting October 29, generally available November 9. |
-| Enterprise plan               | On by default starting November 30                                         |
+| **Plan**                              | **When the change reaches you**                                            |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| Free, Pro, Max, Ultra, and Team plans | Rolling out gradually starting October 29, generally available November 9. |
+| Enterprise plan                       | On by default starting November 30                                         |
 
 The Skills-off rule applies to Team and Enterprise plans starting November 30.
 

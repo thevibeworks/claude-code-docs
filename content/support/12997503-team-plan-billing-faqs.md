@@ -18,7 +18,7 @@ Your organization's billing address determines where your invoices are sent. You
 
 If you want to use a name other than the one tied to your payment method, an organization Owner should check the "Use a different name on invoices" box when adding or updating your payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1793380500&amp;signature=7df1ddf82530502a25262053d568130f5fcca3fae3b8d8b45df7f16b9e9a56e1&amp;req=dSklFMh6mINaWvMW1HO4zRZTxVnCs8vWKAqLF4ERnlV7CKtpuNPgaTETmKif%0AqQKgicmW29TkdDdZKW0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1793430000&amp;signature=47f79e4ef9b18a907104098792266cab9b2301033bb9dfe9db1476bb6485d1b7&amp;req=dSklFMh6mINaWvMW1HO4zRZTxVnFuMvTKAqLF4ERnlWgVtWJvjMw%2BmW0PNcR%0ArH%2BmetxPA%2BcihiOfiew%3D%0A)
 
 ## When will I be billed?
 
@@ -28,7 +28,7 @@ See **[How is my Team plan bill calculated?](https://support.claude.com/en/artic
 
 ## Where can I see my monthly API credits?
 
-In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 ## Where can I find the invoice or receipt for my Team plan payment?
 
@@ -56,10 +56,10 @@ Please click on the message icon in the bottom right of our Help Center to conta
 
 An organization owner can resubscribe for Team plan access by navigating to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
 
-## What happens to my Pro or Max subscription when I upgrade to Team?
+## What happens to my Pro, Max, or Ultra subscription when I upgrade to Team?
 
-When you upgrade from Pro or Max to Team in place, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded
+When you upgrade from Pro, Max, or Ultra to Team in place, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded
 
-If you signed up for Pro or Max through the Apple App Store, in-place upgrades work differently. For more information, refer to **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_5d142d3f45)**.
+If you signed up for Pro, Max, or Ultra through the Apple App Store, in-place upgrades work differently. For more information, refer to **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_5d142d3f45)**.
 
 If you'd rather keep your personal subscription active, check the opt-out box (**Keep your personal account separate**)  in the team-creation flow when you upgrade.

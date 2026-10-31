@@ -1,10 +1,10 @@
 # Import and export your memory from Claude
 
-Memory imports are available for Free, Pro, Max, Team, and Enterprise plans on the web and Claude Desktop.
+Memory imports are available for Free, Pro, Max, Ultra, Team, and Enterprise plans on the web and Claude Desktop.
 
 You can transfer your memory between Claude and other AI providers. This lets you import memories from other AI providers into Claude, or export your Claude memory for backup or migration.
 
-**Important:** We've introduced an improved experience for memory from chats. The new experience is available on all plans (free, Pro, Max, Team, and Enterprise). A small number of Team and Enterprise organizations still use the legacy experience.
+**Important:** We've introduced an improved experience for memory from chats. The new experience is available on all plans (Free, Pro, Max, Ultra, Team, and Enterprise). A small number of Team and Enterprise organizations still use the legacy experience.
 
 - If you see **Settings > Memory**, or a **Memory from chats** setting in **Settings > Your Claude** in the updated Settings layout, you're using the new memory experience, and the main sections that follow apply to you.
 

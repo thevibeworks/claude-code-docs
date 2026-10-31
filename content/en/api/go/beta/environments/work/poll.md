@@ -143,6 +143,8 @@ Long poll for work items in the queue.
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
 
+    - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
+
   - `AnthropicWorkerID param.Opt[string] Optional` (header parameter)
 
     Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

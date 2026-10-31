@@ -133,6 +133,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
 
+    - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
+
   - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).

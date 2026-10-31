@@ -4,20 +4,20 @@ This article explains how to share an artifact, who can open it, and what people
 
 Artifacts start private to you. Nothing is shared until you share it.
 
-| **Sharing option**                                                 | **Free** | **Pro** | **Max** | **Team** | **Enterprise** |
-| ------------------------------------------------------------------ | -------- | ------- | ------- | -------- | -------------- |
-| Share with anyone who has the link                                 |          | ✅       | ✅       | ✅        | ✅              |
-| Share with everyone, or with specific people, in your organization |          |         |         | ✅        | ✅              |
-| Share with groups                                                  |          |         |         |          | ✅              |
-| Invite specific people by email (beta)                             |          | ✅       | ✅       | ✅        | ✅              |
-| Publish a legacy artifact (made in a chat)                         | ✅        | ✅       | ✅       |          |                |
-| Share a legacy artifact with "Share & copy link"                   |          |         |         | ✅        | ✅              |
+| **Sharing option**                                                 | **Free** | **Pro** | **Max** | **Ultra** | **Team** | **Enterprise** |
+| ------------------------------------------------------------------ | -------- | ------- | ------- | --------- | -------- | -------------- |
+| Share with anyone who has the link                                 |          | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Share with everyone, or with specific people, in your organization |          |         |         |           | ✅        | ✅              |
+| Share with groups                                                  |          |         |         |           |          | ✅              |
+| Invite specific people by email (beta)                             |          | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Publish a legacy artifact (made in a chat)                         | ✅        | ✅       | ✅       | ✅         |          |                |
+| Share a legacy artifact with "Share & copy link"                   |          |         |         |           | ✅        | ✅              |
 
 On Team and Enterprise plans, artifacts stay inside your organization by default. An owner decides whether users can share outside it. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751-artifacts-admin-guide-for-team-and-enterprise-plans#h_fd0c095985)**.
 
 **Note:** Live artifacts, which are Cowork artifacts made before August 19, 2026, have their own sharing rules. Learn more about **[using live artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
 
-**Note:** Legacy artifacts show "Publish" or "Share & copy link" instead of "Share." To share those, see **[Publish or share a legacy artifact](#h_a5750b9176)**.
+**Note:** Legacy artifacts show "Publish" or "Share & copy link" instead of "Share." To share those, see **[Publish or share a legacy artifact](https://support.claude.com/en/articles/9547008-share-artifacts#h_a5750b9176)**.
 
 ---
 
@@ -35,7 +35,7 @@ On Team and Enterprise plans, artifacts stay inside your organization by default
 
 ### Choose who has access
 
-- **Pro and Max plans:** "Only you" or "Anyone with the link." To give specific people access, invite them by email.
+- **Pro, Max, and Ultra plans:** "Only you" or "Anyone with the link." To give specific people access, invite them by email.
 
 - **Team and Enterprise plans:** "Only people invited," "Anyone at [your organization's name]," or "Anyone with the link." "Only you" shows when you haven't added anyone. "Anyone with the link" is available only when an Owner has turned on **External sharing** or has allowed that artifact individually. If it's grayed out, ask an Owner or Primary Owner.
 
@@ -53,7 +53,7 @@ The levels you can choose depend on the artifact. **Can view** or **Can edit**. 
 
 ## Invite people by email
 
-Available in beta on Pro, Max, Team, and Enterprise plans.
+Available in beta on Pro, Max, Ultra, Team, and Enterprise plans.
 
 You can invite specific people by email to access an artifact. They sign in to Claude with the email address you used and open the artifact with the access you give them. Unlike "Anyone with the link," an invitation works only for the person you invite.
 
@@ -77,7 +77,7 @@ You can invite specific people by email to access an artifact. They sign in to C
 
 1. Open the artifact and click "Share."
 
-2. In the field at the top of the **Share** menu (**Add people**, or **Invite people by email** on Pro and Max plans), type the person's email address.
+2. In the field at the top of the **Share** menu (**Add people**, or **Invite people by email** on Pro, Max, and Ultra plans), type the person's email address.
 
 3. Select the **Invite** option that shows their address.
 
@@ -105,7 +105,7 @@ If someone didn't get an invitation email because they didn't have a Claude acco
 
 - **Pending invitations expire after 30 days.** Accepted invitations don't expire.
 
-- **If you change who can open the artifact to "Only you":** On Team and Enterprise plans, everyone you invited from outside your organization loses access, and their invitations are removed. On Pro and Max plans, people you invited keep their access.
+- **If you change who can open the artifact to "Only you":** On Team and Enterprise plans, everyone you invited from outside your organization loses access, and their invitations are removed. On Pro, Max, and Ultra plans, people you invited keep their access.
 
 - **If you delete the artifact:** Everyone you invited loses access.
 
@@ -133,7 +133,7 @@ If someone didn't get an invitation email because they didn't have a Claude acco
 
 - **By link:** Artifacts that connect to your apps or use Claude can't use "Anyone with the link." On Team and Enterprise plans, docs can't use it yet either.
 
-- **By email invitation:** See the list in **[Before you invite someone](#h_4abce57435)**.
+- **By email invitation:** See the list in **[Before you invite someone](https://support.claude.com/en/articles/9547008-share-artifacts#h_4abce57435)**.
 
 ### What people see when they open your artifact
 
@@ -147,7 +147,7 @@ If someone didn't get an invitation email because they didn't have a Claude acco
 
 ## Stop sharing an artifact
 
-To stop sharing an artifact, open it, click "Share," and under **Who has access**, choose "Only you" (Pro and Max) or "Only people invited" (Team and Enterprise). To remove someone you added, open their access level and select "Remove."
+To stop sharing an artifact, open it, click "Share," and under **Who has access**, choose "Only you" (Pro, Max, and Ultra) or "Only people invited" (Team and Enterprise). To remove someone you added, open their access level and select "Remove."
 
 On Team and Enterprise plans, owners can also remove outside access to individual artifacts. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751-artifacts-admin-guide-for-team-and-enterprise-plans#h_929aa51571)**.
 
@@ -171,9 +171,9 @@ Click "Report this invitation" in the email, or "Didn't expect this? Report this
 
 ## Publish or share a legacy artifact
 
-Legacy artifacts show "Publish" (Free, Pro, and Max plans) or "Share & copy link" (Team and Enterprise plans) instead of "Share." Use the steps in this section for those artifacts.
+Legacy artifacts show "Publish" (Free, Pro, Max, and Ultra plans) or "Share & copy link" (Team and Enterprise plans) instead of "Share." Use the steps in this section for those artifacts.
 
-### Publish a legacy artifact on Free, Pro, and Max plans
+### Publish a legacy artifact on Free, Pro, Max, and Ultra plans
 
 1. Open the artifact you want to publish.
 
@@ -187,7 +187,7 @@ Publishing adds the artifact to **[Artifacts](https://claude.ai/artifacts)** in 
 
 - Anyone with the link can view and use it without a Claude account. They're asked to sign up only for features that use Claude.
 
-- People signed in on Free, Pro, or Max plans can also copy and save it. Features that use Claude count toward their own usage limits.
+- People signed in on Free, Pro, Max, or Ultra plans can also copy and save it. Features that use Claude count toward their own usage limits.
 
 ### Embed a published chat artifact
 

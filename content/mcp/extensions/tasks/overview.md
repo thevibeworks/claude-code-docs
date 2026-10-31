@@ -8,7 +8,7 @@
 
 The [ext-tasks repository](https://github.com/modelcontextprotocol/ext-tasks) contains the full specification and documentation for MCP Tasks.
 
-> **[modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)**
+> [card] [modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)
 >
 > Full specification and documentation for MCP Tasks.
 

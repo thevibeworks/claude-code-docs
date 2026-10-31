@@ -26,11 +26,11 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
+    Claude API: stable
     Claude Platform on AWS: beta
     Amazon Bedrock: beta
     Amazon Bedrock (InvokeModel): beta
-    Claude Models on Google Cloud (Google managed): ga
+    Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry: beta
   details:
     - On the Claude API and Claude Models on Google Cloud (Google managed), Claude 5.5 and later models support computer use only through the `computer_toolset_20260801` toolset and return an error for the earlier `computer_20251124` and `computer_20250124` tool versions. To move an existing integration, see [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124). To move from `computer_20250124`, see [Move computer use to the toolset](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#computer-use-toolset) in the Claude Haiku 5.5 migration guide.

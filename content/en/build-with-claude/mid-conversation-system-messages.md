@@ -3,7 +3,7 @@ title: Mid-conversation system messages and tool changes
 url: https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages
 description: Change system instructions or tool availability partway through a conversation without invalidating the cached prefix that came before them.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Request-shape capability of the Messages API; mid-conversation system messages flow through the standard inference path and nothing is stored server-side after the response.
@@ -19,10 +19,10 @@ featureMetadata:
     - claude-haiku-5-5
     - claude-opus-4-8
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Amazon Bedrock: ga
-    Claude Models on Google Cloud (Google managed): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Amazon Bedrock: stable
+    Claude Models on Google Cloud (Google managed): stable
 ---
 
 **API support**: Usage differs by product.

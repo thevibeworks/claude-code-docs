@@ -36,7 +36,7 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
 
 ### MCP Authorization Extensions
 
-> **[modelcontextprotocol/ext-auth](https://github.com/modelcontextprotocol/ext-auth)**
+> [card] [modelcontextprotocol/ext-auth](https://github.com/modelcontextprotocol/ext-auth)
 >
 > Extensions for supplementary authorization mechanisms beyond the core
 > specification.
@@ -48,7 +48,7 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
 
 ### MCP Apps
 
-> **[modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps)**
+> [card] [modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps)
 >
 > Extensions for interactive UI elements in conversational MCP clients.
 
@@ -60,7 +60,7 @@ To get started building MCP Apps, see the [quickstart guide](https://modelcontex
 
 ### MCP Tasks
 
-> **[modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)**
+> [card] [modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)
 >
 > Extensions for long-running operations.
 
@@ -70,7 +70,7 @@ To get started building MCP Apps, see the [quickstart guide](https://modelcontex
 
 ### Skills over MCP
 
-> **[modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)**
+> [card] [modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)
 >
 > Discover and read Agent Skills from MCP servers.
 
@@ -83,7 +83,7 @@ See the [Skills overview](https://modelcontextprotocol.io/extensions/skills/over
 
 ### MCP Server Cards
 
-> **[modelcontextprotocol/ext-server-card](https://github.com/modelcontextprotocol/ext-server-card)**
+> [card] [modelcontextprotocol/ext-server-card](https://github.com/modelcontextprotocol/ext-server-card)
 >
 > HTTP discovery of MCP server metadata.
 

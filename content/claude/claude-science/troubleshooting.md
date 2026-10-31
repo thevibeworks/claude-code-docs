@@ -41,7 +41,7 @@ These other retry messages can appear in the same place:
 
 ### Agent Failed
 
-An "Agent Failed" box ends a reply when Claude Science hits an error it has no specific explanation for. The box shows the error's own text, and the line under it can show an HTTP status and a request ID. If the box's text is one of the messages on this page, such as "No credentials available for Anthropic API", follow that section instead. To get help, contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support) and include the request ID.
+An "Agent Failed" box ends a reply when Claude Science hits an error it has no specific explanation for. The box shows the error's own text, and the line under it can show an HTTP status and a request ID. If the box's text is one of the messages on this page, such as "No credentials available for Anthropic API", follow that section instead. If the box says your version "is older than the minimum supported version", see [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md). To get help, contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support) and include the request ID.
 
 ## Python, R, and connectors
 
@@ -141,3 +141,25 @@ claude-science sandbox approve --bwrap ~/claude-science-tools/bin/bwrap --socat 
 ```
 
 On 0.1.70, which has no `sandbox approve`, these approve commands don't work. Run the `conda create` line if you use conda, then the Linux install command. In the approval steps that it prints, give the paths of copies that work, such as `~/claude-science-tools/bin/bwrap` and `~/claude-science-tools/bin/socat` or pixi's real programs, not what `command -v bwrap socat` shows, which would be refused. If you have neither conda nor pixi, stay on 0.1.70 and ask your administrator to install bubblewrap 0.8.0 or later and socat in `/usr/local/bin`.
+
+### Not using the data folder that config.toml names
+
+Version 0.1.71 and later check a data folder named `claude-science-data`, with or without capital letters on a Mac or Windows, each time they start. When Claude Science won't use the folder, it shows this message and a reason. After an update fails, the "Update available" notice, or `claude-science update` in a terminal, shows "downloaded binary failed to launch", then the start of this message. On the notice, it's on the **Reason** line. On a Mac where Claude Science opens in its own window, the page says "the app's Claude Science didn't finish starting", and under **details** the message says "Not using the folder `--adopt-install` names". Your data stays in the folder, and if an update failed, you're still on the version you had.
+
+If the reason is "This install did not create it", Claude Science doesn't recognize the folder, for example because you moved it, restored it from a backup, or copied it from another of your computers, or because the folder's name has capital letters. The fixes for this reason make Claude Science accept the files in the folder as its own, without checking where they came from. Files that someone else put there could approve actions or run programs on your computer, so use these fixes only for a folder that you know is yours. If other people can change files in the folder or in the folder that holds it, or the folder came with a project or download that someone else supplied, ask your IT team first. Don't remove the entry that the message names, which can hold your work or your settings.
+
+* **If your update failed and Claude Science still works**: quit Claude Science the way [Environments failed](#environments-failed) describes, because closing its window or tab leaves it running. If the folder's name has capital letters, rename it to `claude-science-data` and end the `data_dir` line of [config.toml](https://claude.com/docs/claude-science/configuration-file-reference.md) with that same name. Then open Claude Science again and update again. If Claude Science opens with none of your work, the `data_dir` line doesn't match the folder's name. Quit, correct the line, and open it again. Your work is still in the folder. If Claude Science won't start, use whichever of the other two fixes fits your computer.
+* **On a Mac where Claude Science opens in its own window**: quit Claude Science, then run this command in Terminal as it's written, with its quotation marks and without `sudo`:
+
+  ```bash theme={null}
+  "/Applications/Claude Science.app/Contents/Resources/bin/claude-science" serve --no-browser --trust-here-data
+  ```
+
+  If Terminal says there's no such file, put `$HOME` in front of `/Applications` and run the command again. When a line that starts with `[daemon] listening on 127.0.0.1:` appears, press Control-C and wait for the prompt to come back. Then open Claude Science from your **Applications** folder.
+* **Anywhere else, if Claude Science won't start**: run `claude-science serve --trust-here-data` once, without `sudo`, in a terminal on the computer where Claude Science runs. On a Mac or Linux, if the terminal says the command isn't found, type `~/.local/bin/claude-science serve --trust-here-data` instead. Wait until Claude Science opens with your work or, on a computer with no browser, until a line that starts with `[daemon] listening on 127.0.0.1:` appears. Then press Control-C in that terminal, and open Claude Science as usual.
+
+If two computers that don't share a home folder use the folder, each fix on one makes the other refuse it, so give each computer a folder of its own. Quit Claude Science on both, copy the folder onto one of them, keeping its name `claude-science-data`, and put the copy's whole path on the `data_dir` line of [config.toml](https://claude.com/docs/claude-science/configuration-file-reference.md) on that computer. If Claude Science then won't start on one of them, use the fix that fits that computer once more. From then on, each computer keeps its own work (see [Use Claude Science on more than one computer](https://claude.com/docs/claude-science/multiple-computers.md)).
+
+If the message gives another reason, or none of those causes explains yours, ask your IT team, and don't remove what the message names.
+
+If you have no one to ask, quit Claude Science, make a new, empty folder in your home folder, and put its whole path on the `data_dir` line of [config.toml](https://claude.com/docs/claude-science/configuration-file-reference.md). Claude Science then starts with none of your earlier work, and the old folder stays as it is. If an update failed, update again. Don't copy the old folder's files into the new one.

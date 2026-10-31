@@ -3,7 +3,7 @@ title: PDF support
 url: https://platform.claude.com/docs/en/build-with-claude/pdf-support
 description: "Process PDFs with Claude: extract text, analyze charts, and understand visual content from your documents."
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
@@ -26,20 +26,20 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Claude Models on Google Cloud (Anthropic managed): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Claude Models on Google Cloud (Anthropic managed): stable
     Amazon Bedrock:
-      availability: ga
+      availability: stable
       note: Base64 sources only.
     Amazon Bedrock (InvokeModel):
-      availability: ga
-      note: Base64 sources only. With the Converse API, visual PDF analysis needs citations turned on.
+      availability: stable
+      note: Base64 sources only.
     Claude Models on Google Cloud (Google managed):
-      availability: ga
+      availability: stable
       note: Base64 sources only.
     Microsoft Foundry:
-      availability: ga
+      availability: stable
       note: "`file_id` sources need a Hosted on Anthropic deployment."
 ---
 
@@ -72,45 +72,7 @@ Because PDF support relies on Claude’s vision capabilities, it is subject to t
 
 ### Supported platforms and models
 
-All [active models](https://platform.claude.com/docs/en/models/overview) support PDF processing. For PDF support through Amazon Bedrock’s Converse API, see [Amazon Bedrock PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support#amazon-bedrock-pdf-support).
-
-### Amazon Bedrock PDF support
-
-When using PDF support through the Converse API, part of [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), there are two distinct document processing modes:
-
-<Note>
-  **Important:** To access Claude’s full visual PDF understanding capabilities in the Converse API, you must enable citations. Without citations enabled, the API falls back to basic text extraction only. Learn more about [working with citations](https://platform.claude.com/docs/en/build-with-claude/citations).
-</Note>
-
-#### Document processing modes
-
-1. **Converse Document Chat** (Original mode - Text extraction only)
-
-   * Provides basic text extraction from PDFs
-   * Cannot analyze images, charts, or visual layouts within PDFs
-   * Uses approximately 1,000 tokens for a 3-page PDF
-   * Automatically used when citations are not enabled
-
-2. **Claude PDF Chat** (New mode - Full visual understanding)
-
-   * Provides complete visual analysis of PDFs
-   * Can understand and analyze charts, graphs, images, and visual layouts
-   * Processes each page as both text and image for comprehensive understanding
-   * Uses approximately 7,000 tokens for a 3-page PDF
-   * **Requires citations to be enabled** in the Converse API
-
-#### Key limitations
-
-* **Converse API:** Visual PDF analysis requires citations to be enabled. There is currently no option to use visual analysis without citations (unlike the InvokeModel API).
-* **InvokeModel API:** Provides full control over PDF processing without forced citations.
-
-#### Common issues
-
-If Claude isn’t seeing images or charts in your PDFs when using the Converse API, you likely need to enable the citations flag. Without it, Converse falls back to basic text extraction only.
-
-<Note>
-  This is a known constraint with the Converse API. For applications that require visual PDF analysis without citations, consider using the InvokeModel API instead.
-</Note>
+All [active models](https://platform.claude.com/docs/en/models/overview) support PDF processing.
 
 <Note>
   Plain text files such as .txt, .csv, or .md can be used directly in document blocks: upload them to the Files API with MIME type `text/plain` and reference them by `file_id`. Binary formats such as .xlsx or .docx are not supported in document blocks, so convert them to text or PDF first. See [Working with other file formats](https://platform.claude.com/docs/en/build-with-claude/files#working-with-other-file-formats).
@@ -1069,7 +1031,7 @@ When you send a PDF to Claude, the following steps occur:
 
 The token count of a PDF file depends on the total text extracted from the document and the number of pages:
 
-* Text token costs: Each page typically uses 1,500–3,000 tokens per page depending on content density. Standard API pricing applies with no additional PDF fees.
+* Text token costs: Each page typically uses 1,500–3,000 tokens depending on content density. Standard API pricing applies with no additional PDF fees.
 * Image token costs: Because each page is converted into an image, the same [image-based cost calculations](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) are applied.
 
 You can use [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) to estimate costs for your specific PDFs.
@@ -2032,11 +1994,10 @@ PDF support is available on every model and eligible for zero data retention and
 | Available             | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
 | Available<sup>1</sup> | [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                                         |
 | Available<sup>2</sup> | [Amazon Bedrock (InvokeModel)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)                                                                                                                                                          |
-| Available<sup>3</sup> | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)                         |
+| Available<sup>2</sup> | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)                         |
 
 1. `file_id` sources need a Hosted on Anthropic deployment.
-2. Base64 sources only. With the Converse API, visual PDF analysis needs citations turned on.
-3. Base64 sources only.
+2. Base64 sources only.
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 

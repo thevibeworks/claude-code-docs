@@ -183,4 +183,4 @@ The app opens directly on first launch with no user action. Users are never prom
 
 ## Troubleshoot
 
-To confirm each key's configured or default value and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
+To check each key's value and whether the provider settings are valid, or to find out why the app doesn't enter 3P mode, see [Verifying the deployment](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment). Application log locations are listed in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).

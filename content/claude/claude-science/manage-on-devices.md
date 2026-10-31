@@ -84,4 +84,4 @@ Windows still treats versions signed with the certificate used through version 0
 
 ## Required updates
 
-Anthropic may set a minimum supported version of the app. When a member's installed version falls below that floor, the app shows a full-page notice that the installed version is no longer supported and blocks further use until the member updates. Admins don't configure this floor; it's set by Anthropic. If your organization distributes the app through its own channel with auto-update disabled, plan to push updates promptly when Anthropic raises the floor.
+Anthropic may set a minimum supported version of the app. When a member's installed version falls below that floor, the app tells the member to [update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md), and Claude doesn't reply until the member updates. Admins don't configure this floor; it's set by Anthropic. If your organization distributes the app through its own channel with auto-update disabled, plan to push updates promptly when Anthropic raises the floor.

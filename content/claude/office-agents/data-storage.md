@@ -168,6 +168,10 @@ If chat history looks missing on Windows, check the signed-in Office account
 before anything else. Signing back in to the original account restores the
 history with nothing to copy or repair.
 
+If the account is right and the history went missing after a Microsoft 365
+update, see
+[Chat history and skills missing after a Microsoft 365 update on Windows](#chat-history-and-skills-missing-after-a-microsoft-365-update-on-windows).
+
 ## Where the data sits on macOS
 
 On macOS the store is split by Office app instead. Each app runs in its own
@@ -255,9 +259,9 @@ review to the paths that carry content off the endpoint.
 | Conversation text, attachments, and the document content Claude is asked to work with | The model endpoint your deployment is configured for. In third-party platform deployments that is your own Vertex AI, Bedrock, Azure, or gateway endpoint |
 | Files that a user attaches, with a Claude account sign-in | Uploaded to Anthropic with the user's Claude sign-in when the user attaches them, before the message is sent. Each file expires 28 days after the add-in uploads it. If Anthropic does not accept an expiry for the user's organization, the add-in uploads the file with no expiry. The add-in does not delete files itself. Earlier versions of the add-in set no expiry on the files they uploaded. The add-in started setting an expiry on September 15, 2026 |
 | Chat history, uploaded skills, and connector registrations | Not synced between devices and not backed up on any server. The add-in still sends their contents to the model endpoint when Claude uses them, as the rows above describe. Every chat request includes the name and description of each skill that is turned on. With a Claude account sign-in, it also includes the name and description of each plugin the user has turned on, with the names of its skills and connectors, and the organization's Claude settings can turn skills off, which stops both. When Claude uses a skill, the add-in also sends the skill's instructions and Markdown files. With a Claude account sign-in, files attached in a chat are also uploaded to Anthropic |
-| Claude for Outlook writing style guide, draft preferences, and scratchpad | Not synced between devices and not backed up on any server. To build the style guide and the draft preferences, the add-in sends recent sent mail, with the first recipient's address of each message, and the user's edits to drafts to the model endpoint. After that, every Outlook chat request includes the style guide and the draft preferences, and every message the user sends in Outlook includes the scratchpad |
+| Claude for Outlook writing style guide, draft preferences, and scratchpad | Not synced between devices and not backed up on any server. To build the style guide, the add-in sends recent sent mail, with the first recipient's address of each message, to the model endpoint. Learning draft preferences from the user's edits to drafts is off unless Anthropic turns it on. While it is on, the add-in saves the user's edits to drafts on the device, sends them to the model endpoint to build the draft preferences, and adds a summary of the draft preferences to the Instructions field in Settings. Turning it off does not delete edits to drafts or draft preferences already saved on the device, and does not remove a summary already added to the Instructions field. The user can delete that summary in Settings. Every Outlook chat request includes the style guide and the Instructions field, and every message the user sends in Outlook includes the scratchpad |
 | Sign-in credentials | To the services the sign-in is for, with two exceptions described last. A Bedrock sign-in sends the Entra ID token to AWS, which exchanges it for short-lived credentials. A Claude account token also goes to `claude.ai` with feature-flag requests. The exceptions: a credential that you put in the query string of the manifest URL also reaches Anthropic's server at `pivot.claude.ai` each time the add-in loads, and the server's request logs record it. A Vertex AI sign-in also returns Google's one-time authorization code to `pivot.claude.ai` in the query string, where request logs can record it. The code cannot be exchanged for a token without your OAuth client secret, so keep the client secret out of the manifest URL query string too. See [Keep credentials out of the manifest URL query string](https://claude.com/docs/office-agents/third-party-platforms.md#keep-credentials-out-of-the-manifest-url-query-string) |
-| Identifiers on model requests | Each request for a model response carries the name of the add-in, a random identifier for the device, and a session ID. For a chat message, the session ID is the conversation's ID. The add-in also sends helper requests to the same endpoint. In every Office app, they summarize a long conversation, write the status line shown while Claude thinks, and, when memory is on, check an entry before Claude saves it. In Word and PowerPoint, they check how the document or a slide looks after Claude edits it, and in Word they also check Claude's reasoning before it edits legal language. In Outlook, they rewrite a passage the user selects in a draft, and learn the user's writing style from recent sent mail and from the user's edits to drafts. Each helper request carries a session ID made from the kind of helper request, the device identifier, and the date in UTC, so helper requests of one kind from one device on one day share a session ID. With a Claude account sign-in, requests also carry the user's account ID. In third-party platform deployments, requests carry no account ID and no email address. That includes deployments whose settings Anthropic serves, where members sign in with a Claude account. The short test requests that the add-in sends to check which models and features your endpoint supports, such as web search and code execution, carry none of these values |
+| Identifiers on model requests | Each request for a model response carries the name of the add-in, a random identifier for the device, and a session ID. For a chat message, the session ID is the conversation's ID. The add-in also sends helper requests to the same endpoint. In every Office app, they summarize a long conversation, write the status line shown while Claude thinks, and, when memory is on, check an entry before Claude saves it. In Word and PowerPoint, they check how the document or a slide looks after Claude edits it, and in Word they also check Claude's reasoning before it edits legal language. In Outlook, they rewrite a passage the user selects in a draft, and learn the user's writing style from recent sent mail and, while learning draft preferences is on, from the user's edits to drafts. Each helper request carries a session ID made from the kind of helper request, the device identifier, and the date in UTC, so helper requests of one kind from one device on one day share a session ID. With a Claude account sign-in, requests also carry the user's account ID. In third-party platform deployments, requests carry no account ID and no email address. That includes deployments whose settings Anthropic serves, where members sign in with a Claude account. The short test requests that the add-in sends to check which models and features your endpoint supports, such as web search and code execution, carry none of these values |
 | Feature-flag requests | In every deployment, the add-in asks `claude.ai` which features to show. Each request includes the device identifier, the Office app, and, when the user is signed in to Office, the Entra ID tenant ID. With a Claude account sign-in, it also includes the user's email address, account ID, and organization ID. In every deployment, the add-in sends a usage event for each feature variant it showed. With a Claude account sign-in, the add-in also sends each variant it showed directly to Anthropic, with the organization ID |
 | Usage events | Sent to Anthropic's server at `pivot.claude.ai`, which forwards them to Anthropic's event logging service. Each event has a name and properties such as counts, durations, the model, and the Office app and its version, with the device identifier and an ID for the task pane session. With a Claude account sign-in, events also carry the account and organization IDs. Before sending an event, the add-in removes the fields known to carry file names, file paths, error text, and the names of your connectors and their tools. The filter matches field names, so it does not remove such text from a field it does not name. Events that load an Excel workbook or a PowerPoint presentation carry an unsalted hash of the file's path or address. With a Claude account sign-in, a user can rate a response and add a comment. The comment reaches Anthropic's server, which forwards the comment's length but not its text. When a user types a job role that is not on the list, the server forwards that the user chose Other, but not the text |
 | Identifiers from Office on usage events | When the user is signed in to Office, usage events also carry the Entra ID tenant ID, the domain of the user's email address, and the hash described in [What chat history is keyed to](#what-chat-history-is-keyed-to). The hash is unsalted, so anyone who knows the user's Entra ID object ID can match it |
@@ -300,6 +304,78 @@ In third-party platform deployments, including those whose settings Anthropic
 serves, no add-in setting stops usage events or error reports. You can block
 the Sentry host listed in the
 [network allowlist](https://claude.com/docs/office-agents/third-party-platforms.md#network-allowlist).
+
+## Chat history and skills missing after a Microsoft 365 update on Windows
+
+After the September and October 2026 Microsoft 365 updates for Windows,
+Version 2608 and 2609, Office can open the Claude add-in on a new, empty
+storage folder. The add-in then shows its first-run screens and no longer
+lists earlier chat history or uploaded skills. Nothing is deleted: the earlier
+data stays on the device in the folder Office used before, but the add-in
+can't reach it and support can't restore it into the add-in. Anthropic is
+working with Microsoft on this behavior. In the meantime, these are the best
+options:
+
+* Don't clear the Office add-in cache. Clearing it deletes the earlier data.
+* Save uploaded skills you rely on to your Claude account: in the **Skills**
+  menu, hover over a skill you uploaded and click the cloud icon, **Save to
+  claude.ai**. Keep any conversation you need with **⋮ > Download Transcript**.
+* Ask your IT team to restore the earlier store with the steps below.
+
+### Restore the earlier store on Windows
+
+These steps are for IT administrators, run on the affected PC in a PowerShell
+session signed in as the user. They copy rather than move and delete nothing,
+so each one can be undone. The add-in reads one store at a time, so while the
+earlier store is in place, chats created since the update don't appear.
+
+**1. Back up and list the stores**
+
+Close every Office app, including Outlook, and run the export script from
+[Export a user's data before a device is rebuilt](#export-a-user%E2%80%99s-data-before-a-device-is-rebuilt)
+with an output folder outside the Office folder. Then list every Claude
+store under `%LOCALAPPDATA%\Microsoft\Office\16.0\Wef\webview2` with its
+size and most recent write:
+
+```powershell theme={null}
+Get-ChildItem -Recurse -Depth 8 -Directory -Force "$env:LOCALAPPDATA\Microsoft\Office\16.0\Wef\webview2" |
+  Where-Object Name -eq 'https_pivot.claude.ai_0.indexeddb.leveldb' |
+  ForEach-Object {
+    $files = Get-ChildItem -Recurse -File -Force $_.FullName
+    $newest = ($files | Sort-Object LastWriteTime -Descending | Select-Object -First 1).LastWriteTime
+    "{0}`n  {1:N0} bytes, newest file {2}" -f $_.FullName, ($files | Measure-Object Length -Sum).Sum, $newest
+  }
+```
+
+The earlier store is the one last written just before the history stopped
+appearing.
+
+**2. Find the folder Office uses now**
+
+Open only the affected Office app and the Claude pane, send a test
+message, and with the pane still open run:
+
+```powershell theme={null}
+Get-CimInstance Win32_Process -Filter "Name='msedgewebview2.exe'" |
+  Select-Object -ExpandProperty CommandLine |
+  Select-String -SimpleMatch 'Wef\webview2'
+```
+
+The `--user-data-dir` value in the output is the folder in use. Its store
+is the `Default\IndexedDB\https_pivot.claude.ai_0.indexeddb.leveldb`
+folder inside it, with attachments in the matching
+`https_pivot.claude.ai_0.indexeddb.blob` folder.
+
+**3. Swap in the earlier store**
+
+Close every Office app again. In that `Default\IndexedDB` folder, rename
+the current `.leveldb` and `.blob` folders by adding `.bak` to each name,
+then copy the earlier store's `.leveldb` and `.blob` folders in under their
+original names. Open the Office app and the Claude pane: the earlier chats
+and skills appear. Have the user save skills to claude.ai and download the
+transcripts they need right away, because Office can change the folder
+again after a later update. To undo, close every Office app, delete the
+copied folders, and remove `.bak` from the renamed ones.
 
 ## Export a user's data before a device is rebuilt
 

@@ -1494,7 +1494,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `string lastHeartbeat`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `bool leaseExtended`
 
@@ -1985,7 +1985,7 @@ Get statistics about the work queue for an environment.
 
   - `int depth`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `?string oldestQueuedAt`
 

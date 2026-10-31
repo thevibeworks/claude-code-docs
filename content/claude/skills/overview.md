@@ -12,7 +12,7 @@ This page is for people who want to find, turn on, and use skills in Claude.
 
 > [!NOTE]
 >
-> * Skills are available on Pro, Max, Team, and Enterprise plans. They run in Claude's code sandbox, so **Code execution and file creation** must be on: turn it on under [**Settings > Capabilities**](https://claude.ai/settings/capabilities), or on Team and Enterprise plans ask an Owner to turn it on under **Organization settings > Capabilities**
+> * Skills are available on Pro, Max, Ultra, Team, and Enterprise plans. They run in Claude's code sandbox, so **Code execution and file creation** must be on: turn it on under [**Settings > Capabilities**](https://claude.ai/settings/capabilities), or on Team and Enterprise plans ask an Owner to turn it on under **Organization settings > Capabilities**
 > * If you want to write a skill of your own, see [Create custom skills](https://claude.com/docs/skills/how-to.md)
 
 For the steps, go to [Find, turn on, and use skills](#find-turn-on-and-use-skills).

@@ -615,7 +615,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID/membe
       "email": "user@emaildomain.com",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "type": "rbac_group_member",
-      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
     }
   ],
   "has_more": false,
@@ -689,7 +689,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID/membe
     -H 'anthropic-version: 2026-10-21' \
     -H "Authorization: Bearer $ANTHROPIC_API_KEY" \
     -d '{
-          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+          "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
         }'
 ```
 
@@ -701,7 +701,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID/membe
   "email": "user@emaildomain.com",
   "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "type": "rbac_group_member",
-  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
 }
 ```
 
@@ -762,6 +762,6 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID/membe
 {
   "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "type": "rbac_group_member_deleted",
-  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
 }
 ```

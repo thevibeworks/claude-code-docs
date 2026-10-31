@@ -2,7 +2,7 @@
 
 When you open Claude on a web browser ([claude.ai](https://claude.ai)), the desktop app, or a mobile app, you will see two different options for logging in to your Claude account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893216804/f2209c3ec6cf4fc2e803d13bbc9d/40520c9e-ff82-4a7c-adca-5a064fe18d8c?expires=1793380500&amp;signature=2442512682afd57d14f12bce48886949def0e7c6395683a7795565ed3facba3e&amp;req=dSguFct%2Fm4lfXfMW1HO4zXg5B4GP6xKxzWhrqpWiTMn7TN4jxIdxcpdr5awy%0A0y%2FbVMt8g03sI93w%2FcM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893216804/f2209c3ec6cf4fc2e803d13bbc9d/40520c9e-ff82-4a7c-adca-5a064fe18d8c?expires=1793430000&amp;signature=e78d06192979d1028e44347897b7cd4cbb368c9134d6f7677db67af17d06e216&amp;req=dSguFct%2Fm4lfXfMW1HO4zXg5B4GI4BK0zWhrqpWiTMmptedI%2B5HGCl6jfTLk%0AvlF1sTbV7XrMO5QWxJc%3D%0A)
 
 ## Continue with Google
 
@@ -22,7 +22,7 @@ If you requested the login email and clicked the link using a different device (
 
 ## Authenticating to subscription plans
 
-Claude offers subscription plans (Free, Pro, Max, Team, Enterprise) that let subscribers authenticate using OAuth tokens or other methods. Subscription plans can only be used by subscribers, and the usage included in these plans is designed to support ordinary use of native Anthropic applications, including the Claude web, desktop, and mobile applications and Claude Code.
+Claude offers subscription plans (Free, Pro, Max, Ultra, Team, Enterprise) that let subscribers authenticate using OAuth tokens or other methods. Subscription plans can only be used by subscribers, and the usage included in these plans is designed to support ordinary use of native Anthropic applications, including the Claude web, desktop, and mobile applications and Claude Code.
 
 The preferred way to access Anthropic services using third-party software, tools, or services (“third-party tools”), including open-source projects, is through API key authentication through Claude Console or a supported cloud provider. Anthropic may at its discretion allow paid subscribers who have enabled **[usage credits](https://support.claude.com/en/articles/12429409-)** to use certain third-party tools to access Anthropic services included in paid subscription plans, but reserves the right to draw use of such third-party tools from usage credits rather than subscription limits. Users are responsible for any usage credit charges incurred this way. Use of third-party tools that misrepresent their identity to Anthropic’s servers, attempt to route third-party traffic against subscription limits, or otherwise violate applicable terms or policies is prohibited and such use may be enforced against.
 

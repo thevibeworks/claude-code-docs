@@ -3,7 +3,7 @@ title: Code execution tool
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool
 description: Run Python and Bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: not-eligible
     note: Container data retained up to 30 days.
@@ -26,10 +26,10 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Claude Models on Google Cloud (Anthropic managed): ga
-    Microsoft Foundry (hosted on Anthropic): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Claude Models on Google Cloud (Anthropic managed): stable
+    Microsoft Foundry (hosted on Anthropic): stable
   details:
     - Every supported model accepts all three [tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions). On Claude Haiku 4.5, programmatic tool calling and REPL state persistence aren't available, so the newer versions behave like `code_execution_20250825` there.
 ---

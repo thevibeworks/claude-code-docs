@@ -22,7 +22,7 @@ How a tenant, its organizations, and their users fit together, how administrator
 
 Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Your tenant is your agency's deployment and holds its organizations. Each user belongs to one, run by Owners and Primary Owners. Tenant administrators manage the tenant.
 >
@@ -66,7 +66,7 @@ Claiming and verifying your agency's email domain, then connecting your identity
 
 Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Before your members can sign in, your tenant needs a verified email domain and a connection to your identity provider.
 >
@@ -102,7 +102,7 @@ Adding a sign-in routing rule that places new people in the right organization, 
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Routing rules decide which organization each person lands in. Organizations hold users, seats, and settings, and their seats come from a billing account.
 >
@@ -134,7 +134,7 @@ Connecting SCIM provisioning, routing directory groups to organizations, and map
 
 Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Directory sync is optional, and without it accounts are created at first sign-in. With it, your identity provider pushes users and groups, provisioning rules place them in organizations, and each organization maps groups to seat tiers and roles.
 >
@@ -164,7 +164,7 @@ Checking the **Readiness** page, assigning seat tiers and roles on the **Users**
 
 Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > In an organization, a member's role decides what they can manage, and their seat tier decides which models they can use and how much. Readiness shows what still blocks your members.
 >
@@ -190,7 +190,7 @@ Editing settings on the **Config** page for an organization or for one directory
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Config sets product behavior for the people you manage. The tenant and each organization share the same page, and each level starts from the one above it.
 >
@@ -218,7 +218,7 @@ Setting up the Microsoft 365 connector, adding a connector of your own with a to
 
 Video: Connectors and plugins (2 min 8 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > A connector lets Claude reach another service, such as Microsoft 365 or a system of your own. A plugin packages skills and commands for Claude Desktop.
 >
@@ -246,7 +246,7 @@ Connecting one copy of Claude Desktop to Claude for Government with the bootstra
 
 Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > A fresh install connects to claude.ai. One setting, the bootstrap address on your Claude for Government host, points it at Claude for Government. Everything else arrives at sign-in.
 >
@@ -272,7 +272,7 @@ Delivering the bootstrap address and the setting that hides the claude.ai sign-i
 
 Video: Deploy to your fleet (1 min 31 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Push two values as device policy, the bootstrap address and the setting that hides the claude.ai sign-in option. On macOS they live in a configuration profile, on Windows in machine policy. Deliver them before the app, and note they carry no secrets.
 >
@@ -294,7 +294,7 @@ What a correctly managed device shows, and the usual causes of an empty model pi
 
 Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > On a managed device, the sign-in screen offers only Sign in with your organization, and the configuration window is read-only. Under Help, Troubleshooting, Generate Diagnostic Report saves a report that shows what the app read.
 >

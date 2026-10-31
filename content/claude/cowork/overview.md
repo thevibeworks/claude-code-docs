@@ -19,19 +19,19 @@ Cowork uses the same agentic architecture that powers Claude Code, accessible wi
 
 Cowork supports the same extensibility features available across Claude products:
 
-> **[Connectors](https://claude.com/docs/connectors/overview.md)**
+> [card] [Connectors](https://claude.com/docs/connectors/overview.md)
 >
 > Connect Claude to your tools and data sources using MCP.
 
-> **[Skills](https://claude.com/docs/skills/overview.md)**
+> [card] [Skills](https://claude.com/docs/skills/overview.md)
 >
 > Teach Claude reusable workflows with custom instructions.
 
-> **[Plugins](https://claude.com/docs/plugins/overview.md)**
+> [card] [Plugins](https://claude.com/docs/plugins/overview.md)
 >
 > Bundle skills, connectors, and more into shareable packages.
 
-> **[Monitoring](https://claude.com/docs/cowork/monitoring.md)**
+> [card] [Monitoring](https://claude.com/docs/cowork/monitoring.md)
 >
 > Track usage and activity across your organization.
 

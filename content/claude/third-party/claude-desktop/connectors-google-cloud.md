@@ -74,4 +74,4 @@ These messages appear in `main.log` in the [logs directory](https://claude.com/d
 | Message | Cause | Fix |
 | - | - | - |
 | `client_secret is missing` after the browser sign-in succeeds | The entry has no **Client secret** | Enter the secret of the client named in **Client ID**, with **Authorization server** set to `["https://accounts.google.com"]` |
-| `invalid_client` | The secret doesn't belong to the client named in **Client ID**, or was deleted in Google Cloud | In **APIs & Services → Credentials**, add a new secret to that client and update **Client secret** in the server's entry. Users then click **Connect** again |
+| `invalid_client` | The secret doesn't belong to the client named in **Client ID**, or was deleted in Google Cloud | In **APIs & Services → Credentials**, add a new secret to that client and update **Client secret** in the server's entry. Users then open **Customize → Connectors** and sign in to the server again |

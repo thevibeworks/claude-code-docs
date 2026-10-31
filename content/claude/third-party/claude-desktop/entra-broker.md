@@ -6,7 +6,7 @@
 
 > Use the operating system's native Microsoft Entra sign-in broker so Claude Desktop on 3P satisfies device-based Conditional Access policies
 
-Several Claude Desktop on 3P features can authenticate to Microsoft Entra ID, including the Microsoft Foundry inference provider, gateway and Workforce Identity sign-in when Entra ID is the identity provider, managed MCP servers, and the Microsoft 365 connector. Each of these can run its Entra sign-in through the operating system's native identity broker instead of a browser or device code. This page covers what the broker is, when to choose it, and the prerequisites that apply wherever the app uses it. The feature-specific pages linked under [Where the broker is used](#where-the-broker-is-used) describe how to turn it on for each feature.
+Several Claude Desktop on 3P features can authenticate to Microsoft Entra ID, including the Microsoft Foundry inference provider, gateway and Workforce Identity sign-in when Entra ID is the identity provider, managed MCP servers, and the Microsoft 365 connector. Each of these can run its Entra sign-in through the operating system's native identity broker instead of a browser or device code. To turn on the broker for a feature, see [Where the broker is used](#where-the-broker-is-used).
 
 ## What the broker is
 

@@ -116,33 +116,41 @@ The tunnel exists in the Console, but no traffic flows until the tunnel stack is
 
 ## Use the tunnel in an agent
 
-Once your stack is running and has one or more MCP servers configured, attach an upstream MCP server to a Managed Agent session. To call the same servers from the Messages API instead, see [Use the tunneled MCP servers](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview#use-the-tunneled-mcp-servers).
-
-<Note>
-  The picker only shows tunnels with at least one active certificate. A tunnel that still shows **Needs certificate** in the **MCP tunnels** list does not appear in the dropdown menu; register a CA certificate first. The picker is also workspace-scoped: it lists tunnels in the same workspace as the session, not other workspaces.
-</Note>
+Once your stack is running, add a tunneled MCP server to an agent when you create a [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) session. To call the same servers from the Messages API instead, see [Use the tunneled MCP servers](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview#use-the-tunneled-mcp-servers).
 
 <Steps>
   <Step title="Open the Create session dialog box">
-    In the Claude Console, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) and click **Create session**.
+    In the Claude Console, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`). In the workspace picker in the sidebar, select the workspace that holds the tunnel. Click **Create session**.
   </Step>
 
-  <Step title="Define an inline agent">
-    In the agent picker, select **Create new agent** so you can edit the MCP server list directly.
+  <Step title="Create a new agent">
+    From the **Agent** dropdown menu, select **Create new agent**, because the dialog box can add MCP servers only to a new agent. Enter a name for the agent in the **Name** field.
   </Step>
 
   <Step title="Add the MCP server">
-    Click **+ MCP Server** and open the dropdown menu. Tunnels created in the current workspace appear at the top of the list, above the public connector catalog. Select the tunnel that fronts the server you want to reach.
+    Under **MCP servers**, click **MCP server**. On the card that appears, open the **Select a server** dropdown menu and select your tunnel from the top of the list. Only tunnels in the selected workspace that have an [active CA certificate](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#add-a-ca-certificate) are listed.
   </Step>
 
-  <Step title="Supply the routing">
-    The card shows two optional fields: **Subdomain** (prefixed to the tunnel domain) and **Path** (appended after it). Fill in one or both, depending on how your proxy’s routes are configured. The **Resolves to** line shows the full MCP server URL that the agent connects to.
+  <Step title="Enter the subdomain and path">
+    In the **Subdomain** field, enter the subdomain that your proxy’s `routes` map sends to the MCP server, such as `wiki`. In the **Path** field, enter the path that the MCP server expects, such as `mcp`. Check that the **Resolves to** line shows your subdomain and path under the tunnel domain, such as `https://wiki.abcd1234.tunnel.anthropic.com/mcp`.
+  </Step>
+
+  <Step title="Add a credential if the MCP server needs one">
+    The tunnel carries traffic to the upstream MCP server but does not authenticate to it. If the server requires OAuth or a bearer token, click **Connect** on the card and save a credential in a vault. If the card shows **Needs vault** instead, go to **Credential vaults** and add a vault that holds a credential for the **Resolves to** URL. If the server requires no authentication, ignore **Connect** or **Needs vault** on the card. To learn how vaults work, see [Authenticate with vaults](https://platform.claude.com/docs/en/managed-agents/vaults).
+  </Step>
+
+  <Step title="Select an environment">
+    In the **Environment** field, above **MCP servers**, select an environment. If no warning appears below the field, go to the next step. If a warning says that the environment blocks MCP servers, click **Edit environment**, which opens the environment in a new browser tab. Under **Networking**, add the host from the **Resolves to** line, such as `wiki.abcd1234.tunnel.anthropic.com`, to **Allowed hosts**. Leave the **Allow MCP servers** checkbox unchecked, as the [Limit the network](https://platform.claude.com/docs/en/managed-agents/secure-deployment#limit-the-network) section recommends. Click **Save** and return to the browser tab with the dialog box.
+  </Step>
+
+  <Step title="Create the session">
+    Under **Credential vaults**, remove any vault that the session does not need. If a vault remains, select the checkbox that confirms you are authorized to use it. In the dialog box, click **Create session**. The Console saves the agent and opens the session.
+  </Step>
+
+  <Step title="Test the connection">
+    Ask the agent to use one of the MCP server’s tools. You should see a tool call followed by its result. If the agent can’t reach the server, see [Troubleshoot MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/troubleshooting).
   </Step>
 </Steps>
-
-<Note>
-  The tunnel carries traffic; it does not authenticate to the upstream MCP server. Configure OAuth or bearer authentication on the MCP server the same way as for any other MCP server.
-</Note>
 
 ## Archive a tunnel
 

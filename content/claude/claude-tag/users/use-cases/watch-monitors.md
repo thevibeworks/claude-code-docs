@@ -60,18 +60,18 @@ Open the channel's [**Configure** page](https://claude.com/docs/claude-tag/users
 
 ## Related resources
 
-> **[Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)**
+> [card] [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)
 >
 > When the investigation should end in a pull request
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > Schedules and event triggers
 
-> **[Claude on call](https://claude.com/blog/ai-ci-cd-on-call)**
+> [card] [Claude on call](https://claude.com/blog/ai-ci-cd-on-call)
 >
 > How Anthropic runs Claude as first responder for CI/CD failures
 
-> **[On-call kit](https://github.com/anthropics/oncall-kit)**
+> [card] [On-call kit](https://github.com/anthropics/oncall-kit)
 >
 > Reference playbooks, templates, and guided setup for an on-call channel

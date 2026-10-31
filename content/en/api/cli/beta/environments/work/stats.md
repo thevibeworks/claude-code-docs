@@ -31,15 +31,13 @@ Get statistics about the work queue for an environment.
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `type: "work_queue_stats"`
 
     The type of object
 
   - `depth: number`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `oldest_queued_at: string`
 

@@ -51,7 +51,7 @@ Select a project in the sidebar to start a new Cowork session with that project'
 
 [Dispatch](https://claude.com/docs/cowork/guide/dispatch.md) can also route background tasks into a project, so long-running work picks up the same folders, instructions, and memory.
 
-When you drag files or folders into a project, individual files are copied into the project's first folder and folders are mounted as additional project folders. Claude reads individual files up to 50 MB.
+When you drag files or folders into a project, individual files are copied into the project's first folder and folders are mounted as additional project folders. A copied file never replaces a file that is already in that folder. A file or folder that is already inside one of the project's folders stays where it is and isn't copied or mounted. If the first folder already has a file with the same name, the copy is saved with a number added to its name, such as `notes (1).txt` for `notes.txt`. If that name and every numbered name up to `notes (19).txt` are already taken, the file isn't copied. Claude reads individual files up to 50 MB.
 
 ## Cowork projects and claude.ai projects
 

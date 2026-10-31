@@ -114,6 +114,10 @@ are sorted chronologically (time ascending) by created_at.
 
     format: date-time
 
+  - `href: string or null`
+
+    URL to view this project in claude.ai
+
   - `is_private: boolean`
 
     If false, the project is visible to all organization members; if true the project is accessible only to the creator and specified collaborators
@@ -182,7 +186,8 @@ curl https://api.anthropic.com/v1/compliance/apps/projects \
       "user": {
         "id": "user_xyz456",
         "email_address": "user@example.com"
-      }
+      },
+      "href": "https://claude.ai/project/abcdef01-2345-6789-abcd-ef0123456789"
     }
   ],
   "has_more": true,

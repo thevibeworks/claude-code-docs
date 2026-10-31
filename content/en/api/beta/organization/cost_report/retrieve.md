@@ -172,6 +172,8 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `BetaCostReport object`

@@ -12,7 +12,7 @@ Configure the helper with the `inferenceCredentialHelper` key; see the [Configur
 
 > [!NOTE]
 >
-> `inferenceCredentialHelper` supplies credentials for the inference connection only. An MCP server deployed through [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) uses the separate per-server `headersHelper` key, which follows the same execution model but prints a flat JSON header map and has its own cache and renewal settings (`headersHelperTtlSec`, default 300, versus `inferenceCredentialHelperTtlSec`, default 3600). See [Short-lived credentials with a headers helper](https://claude.com/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper).
+> `inferenceCredentialHelper` supplies credentials for the inference connection only. An MCP server deployed through [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) uses the separate per-server `headersHelper` key. See [Short-lived credentials with a headers helper](https://claude.com/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper).
 
 ## What the helper must do
 

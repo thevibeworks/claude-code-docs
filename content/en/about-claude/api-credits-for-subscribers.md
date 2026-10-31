@@ -1,10 +1,10 @@
 ---
-title: API credits for Max and Team plans
+title: API credits for Max, Ultra, and Team plans
 url: https://platform.claude.com/docs/en/about-claude/api-credits-for-subscribers
-description: Claim the monthly Claude Platform credits included with Claude Max and Team plans, and learn what they cover.
+description: Claim the monthly Claude Platform credits included with Claude Max, Ultra, and Team plans, and learn what they cover.
 ---
 
-Claude Max and Team plans include monthly credits for the Claude API. To claim them, you link a [Claude Console](https://platform.claude.com/) organization to your plan. Credits then arrive in that organization each billing cycle (or monthly for annual plans), and you can use them to build and run your own applications and agents. You don’t need to add a payment method to Claude Platform.
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. To claim them, you link a [Claude Console](https://platform.claude.com/) organization to your plan. Credits then arrive in that organization each billing cycle (or monthly for annual plans), and you can use them to build and run your own applications and agents. You don’t need to add a payment method to Claude Platform.
 
 <Note>
   Claude Platform on AWS, Amazon Bedrock, Google Cloud, and Microsoft Foundry: These credits apply only to the Claude API in the Claude Console. They can’t be used on other platforms.
@@ -14,8 +14,8 @@ Claude Max and Team plans include monthly credits for the Claude API. To claim t
 
 | Topic                                  | Details                                                                   |
 | -------------------------------------- | ------------------------------------------------------------------------- |
-| **Eligible plans**                     | Max 5x, Max 20x, and Team, including discounted Team plans                |
-| **Monthly amount**                     | $100 USD (Max 5x), $200 USD (Max 20x), up to $500 USD (Team, pooled\*)    |
+| **Eligible plans**                     | Max, Ultra, and Team, including discounted Team plans                     |
+| **Monthly amount**                     | $100 USD (Max), $200 USD (Ultra), up to $500 USD (Team, pooled\*)         |
 | **Covers**                             | Claude API, Claude Managed Agents, the Claude Agent SDK, and playground   |
 | **Doesn’t cover**                      | Claude Code, extra usage in the Claude apps                               |
 | **Refresh**                            | Each billing cycle (or monthly for annual plans)                          |
@@ -26,8 +26,8 @@ Claude Max and Team plans include monthly credits for the Claude API. To claim t
 
 | Plan                                          | Monthly credit                                                       |
 | --------------------------------------------- | -------------------------------------------------------------------- |
-| Max 5x                                        | $100 USD                                                             |
-| Max 20x                                       | $200 USD                                                             |
+| Max                                           | $100 USD                                                             |
+| Ultra                                         | $200 USD                                                             |
 | Team, Standard seat                           | $20 USD per seat\*                                                   |
 | Team, Premium seat                            | $100 USD per seat\*                                                  |
 | Discounted Team plans (Nonprofit, Scientists) | Same as Team: $20 USD per Standard seat, $100 USD per Premium seat\* |
@@ -47,10 +47,10 @@ Claude Max and Team plans include monthly credits for the Claude API. To claim t
 
 You need both of the following roles:
 
-| Where                           | Required role                                       |
-| ------------------------------- | --------------------------------------------------- |
-| **Claude plan**                 | Max: the subscriber<br />Team: Primary Owner, Owner |
-| **Claude Console organization** | Owner, Admin, or Billing                            |
+| Where                           | Required role                                                |
+| ------------------------------- | ------------------------------------------------------------ |
+| **Claude plan**                 | Max or Ultra: the subscriber<br />Team: Primary Owner, Owner |
+| **Claude Console organization** | Owner, Admin, or Billing                                     |
 
 If you don’t have a Claude Console organization, create one in the Console at [platform.claude.com](https://platform.claude.com/) first, or create one during the claim flow.
 
@@ -58,7 +58,7 @@ If you don’t have a Claude Console organization, create one in the Console at 
 
 <Steps>
   <Step title="Open billing settings">
-    On claude.ai, go to **Settings > Billing** on a Max plan, or **Organization settings > Billing** on a Team plan.
+    On claude.ai, go to **Settings > Billing** on a Max or Ultra plan, or **Organization settings > Billing** on a Team plan.
   </Step>
 
   <Step title="Link a Console organization">
@@ -130,8 +130,8 @@ Credit balance too low · Add funds: https://platform.claude.com/settings/billin
 | Change                                             | What happens                                                                                                                                                                                         |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Cancel, downgrade to an ineligible plan, or refund | New credits stop when your plan ends. Credits you already have stay usable until they expire.                                                                                                        |
-| Upgrade from Max 5x to Max 20x                     | You receive prorated API credits right away, then $200 USD each billing cycle. If you subscribe through Google Play, the $200 USD credit arrives later, by your next renewal at the latest.          |
-| Upgrade from Max to Team                           | The Max link ends. A Team owner can claim the team's credits after the Team plan has been active for 7 days.                                                                                         |
+| Upgrade from Max to Ultra                          | You receive prorated API credits right away, then $200 USD each billing cycle. If you subscribe through Google Play, the $200 USD credit arrives later, by your next renewal at the latest.          |
+| Upgrade from Max or Ultra to Team                  | The link to your Max or Ultra plan ends. A Team owner can claim the team's credits after the Team plan has been active for 7 days.                                                                   |
 | Add or remove Team seats                           | Seats added to your plan count from the next billing month’s credit. Seats you remove stay on your plan until it renews, so the credit might be lower after that. The pool stays capped at $500 USD. |
 
 ## Use your credits efficiently
@@ -148,4 +148,4 @@ Your monthly cost depends mainly on the model you choose and how often your appl
 * [Rate limits and spend limits](https://platform.claude.com/docs/en/api/rate-limits)
 * [Workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces)
 * [Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
-* [Help Center: API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)
+* [Help Center: API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)

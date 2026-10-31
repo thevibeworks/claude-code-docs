@@ -151,6 +151,8 @@ Create a Memory Store
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -386,6 +388,8 @@ List Memory Stores
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -601,6 +605,8 @@ Retrieve a Memory Store
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
+
+  - `:"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: String` (header parameter)
 
@@ -837,6 +843,8 @@ Update a Memory Store
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1052,6 +1060,8 @@ Delete a Memory Store
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1220,6 +1230,8 @@ Archive a Memory Store
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
+
+  - `:"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: String` (header parameter)
 
@@ -1528,6 +1540,8 @@ Create a Memory
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1795,6 +1809,8 @@ List Memories
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2060,6 +2076,8 @@ Retrieve a Memory
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
+
+  - `:"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: String` (header parameter)
 
@@ -2330,6 +2348,8 @@ Update a Memory
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2566,6 +2586,8 @@ Delete a Memory
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
+
+  - `:"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: String` (header parameter)
 
@@ -2811,6 +2833,8 @@ List Memory Versions
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
+
+  - `:"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: String` (header parameter)
 
@@ -3145,6 +3169,8 @@ Retrieve a Memory Version
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3461,6 +3487,8 @@ Redact a Memory Version
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
+
+  - `:"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: String` (header parameter)
 

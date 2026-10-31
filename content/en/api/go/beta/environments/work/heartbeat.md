@@ -141,6 +141,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
 
+    - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `type BetaSelfHostedWorkHeartbeatResponse`
@@ -155,7 +157,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `LastHeartbeat string`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `LeaseExtended bool`
 

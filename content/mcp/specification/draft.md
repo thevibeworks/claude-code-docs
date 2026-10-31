@@ -127,12 +127,12 @@ implementors **SHOULD**:
 
 Explore the detailed specification for each protocol component:
 
-> **[Architecture](https://modelcontextprotocol.io/specification/draft/architecture.md)**
+> [card] [Architecture](https://modelcontextprotocol.io/specification/draft/architecture.md)
 
-> **[Base Protocol](https://modelcontextprotocol.io/specification/draft/basic.md)**
+> [card] [Base Protocol](https://modelcontextprotocol.io/specification/draft/basic.md)
 
-> **[Server Features](https://modelcontextprotocol.io/specification/draft/server.md)**
+> [card] [Server Features](https://modelcontextprotocol.io/specification/draft/server.md)
 
-> **[Client Features](https://modelcontextprotocol.io/specification/draft/client)**
+> [card] [Client Features](https://modelcontextprotocol.io/specification/draft/client)
 
-> **[Contributing](https://modelcontextprotocol.io/community/contributing.md)**
+> [card] [Contributing](https://modelcontextprotocol.io/community/contributing.md)

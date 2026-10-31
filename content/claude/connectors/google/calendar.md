@@ -6,7 +6,7 @@
 
 > Connect the Google Calendar connector so Claude can answer questions about your meetings, attendees, and availability.
 
-The Google Calendar connector lets Claude read your calendar so it can answer questions about your meetings, attendees, and availability. It's available on Pro, Max, Team, and Enterprise plans. On Team and Enterprise plans, an Owner or Primary Owner enables it for the organization before members can connect.
+The Google Calendar connector lets Claude read your calendar so it can answer questions about your meetings, attendees, and availability. It's available on Pro, Max, Ultra, Team, and Enterprise plans. On Team and Enterprise plans, an Owner or Primary Owner enables it for the organization before members can connect.
 
 By the end of this page you have connected your Google account and asked Claude a first question about your schedule. Claude reads your calendar only; it can't create or change events or send invitations.
 

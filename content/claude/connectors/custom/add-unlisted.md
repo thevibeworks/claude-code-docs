@@ -24,7 +24,7 @@ A connector by URL suits internet-hosted services and public APIs. A desktop ext
 
 | You have | Use | Works in |
 | - | - | - |
-| The URL of a remote MCP server | [Add a connector by URL](#add-a-connector-by-url) | Free, Pro, Max, Team, and Enterprise plans |
+| The URL of a remote MCP server | [Add a connector by URL](#add-a-connector-by-url) | Free, Pro, Max, Ultra, Team, and Enterprise plans |
 | A desktop extension | [Install a local connector in the desktop app](#install-a-local-connector-in-the-desktop-app) | The Claude desktop app, signed in to claude.ai |
 
 ## Add a connector by URL
@@ -79,7 +79,7 @@ Find the connector with the **Custom** label.
 
 Click **Connect** to authenticate.
 
-### On a Free, Pro, or Max plan
+### On a Free, Pro, Max, or Ultra plan
 
 You add custom connectors to your own account. On the Free plan, you can add one custom connector.
 

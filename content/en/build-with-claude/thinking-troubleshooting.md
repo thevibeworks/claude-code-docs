@@ -18,29 +18,29 @@ Extended thinking (`thinking.type: "enabled"` with `budget_tokens`) is deprecate
 
 The table lists what each model supports, what it defaults to, and which `thinking.type` values it rejects with a 400 error; any value not listed as rejected is accepted. Only Claude Sonnet 5.5 accepts `"between_tools"`, and it takes that value in place of `"disabled"`.
 
-| Model                 | Thinking types                   | Default   | Rejected with 400          |
-| --------------------- | -------------------------------- | --------- | -------------------------- |
-| Claude Fable 5.1      | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Mythos 5.1     | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Fable 5        | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Mythos 5       | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Mythos Preview | Adaptive, extended               | Always on | `"disabled"`               |
-| Claude Opus 5.5       | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Opus 5         | Adaptive only                    | On        | `"enabled"`, `"disabled"`2 |
-| Claude Opus 4.8       | Adaptive only                    | Off       | `"enabled"`                |
-| Claude Opus 4.7       | Adaptive only                    | Off       | `"enabled"`                |
-| Claude Sonnet 5.5     | Adaptive, `between_tools`3       | On        | `"enabled"`, `"disabled"`  |
-| Claude Sonnet 5       | Adaptive only                    | On        | `"enabled"`                |
-| Claude Haiku 5.5      | Adaptive only                    | On        | `"enabled"`, `"disabled"`2 |
-| Claude Opus 4.6       | Adaptive, extended (deprecated)1 | Off       | None                       |
-| Claude Sonnet 4.6     | Adaptive, extended (deprecated)1 | Off       | None                       |
-| Claude Opus 4.5       | Extended only                    | Off       | `"adaptive"`               |
-| Claude Haiku 4.5      | Extended only                    | Off       | `"adaptive"`               |
-| Claude Sonnet 4.5     | Extended only                    | Off       | `"adaptive"`               |
+| Model                 | Thinking types                              | Default   | Rejected with 400                     |
+| --------------------- | ------------------------------------------- | --------- | ------------------------------------- |
+| Claude Fable 5.1      | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
+| Claude Mythos 5.1     | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
+| Claude Fable 5        | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
+| Claude Mythos 5       | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
+| Claude Mythos Preview | Adaptive, extended                          | Always on | `"disabled"`                          |
+| Claude Opus 5.5       | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
+| Claude Opus 5         | Adaptive only                               | On        | `"enabled"`, `"disabled"`<sup>2</sup> |
+| Claude Opus 4.8       | Adaptive only                               | Off       | `"enabled"`                           |
+| Claude Opus 4.7       | Adaptive only                               | Off       | `"enabled"`                           |
+| Claude Sonnet 5.5     | Adaptive, `between_tools`<sup>3</sup>       | On        | `"enabled"`, `"disabled"`             |
+| Claude Sonnet 5       | Adaptive only                               | On        | `"enabled"`                           |
+| Claude Haiku 5.5      | Adaptive only                               | On        | `"enabled"`, `"disabled"`<sup>2</sup> |
+| Claude Opus 4.6       | Adaptive, extended (deprecated)<sup>1</sup> | Off       | None                                  |
+| Claude Sonnet 4.6     | Adaptive, extended (deprecated)<sup>1</sup> | Off       | None                                  |
+| Claude Opus 4.5       | Extended only                               | Off       | `"adaptive"`                          |
+| Claude Haiku 4.5      | Extended only                               | Off       | `"adaptive"`                          |
+| Claude Sonnet 4.5     | Extended only                               | Off       | `"adaptive"`                          |
 
-*1 `enabled` and `budget_tokens` still work on these models but are deprecated; use adaptive thinking instead.*\
-*2 Claude Opus 5 and Claude Haiku 5.5 accept `"disabled"` at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below; combining it with effort `xhigh` or `max` returns a 400 error. On Claude Opus 5, this restriction is enforced on each request. On Claude Haiku 5.5, a per-message effort that differs from the level in effect also returns a 400 error.*\
-*3 Claude Sonnet 5.5 accepts `"between_tools"` at effort `high` or below. Combining it with effort `xhigh` or `max` returns a 400 error, and so does a per-message effort that differs from the level in effect.*
+*<sup>1</sup> `enabled` and `budget_tokens` still work on these models but are deprecated; use adaptive thinking instead.*\
+*<sup>2</sup> Claude Opus 5 and Claude Haiku 5.5 accept `"disabled"` at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below; combining it with effort `xhigh` or `max` returns a 400 error. On Claude Opus 5, this restriction is enforced on each request. On Claude Haiku 5.5, a per-message effort that differs from the level in effect also returns a 400 error.*\
+*<sup>3</sup> Claude Sonnet 5.5 accepts `"between_tools"` at effort `high` or below. Combining it with effort `xhigh` or `max` returns a 400 error, and so does a per-message effort that differs from the level in effect.*
 
 Models marked `Always on` cannot turn thinking off. Models marked `On` default to thinking. Claude Opus 5, Claude Sonnet 5, and Claude Haiku 5.5 accept `thinking: {type: "disabled"}`. On Claude Sonnet 5.5, send `thinking: {type: "between_tools"}` to turn off up-front thinking.
 

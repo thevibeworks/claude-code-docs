@@ -26,43 +26,43 @@ npx @modelcontextprotocol/inspector <command> <arg1> <arg2>
 
 A common way to start server packages from [npm](https://npmjs.com) or [PyPI](https://pypi.org).
 
-**npm package**
+> [tab] npm package
+>
+> ```bash theme={null}
+> npx -y @modelcontextprotocol/inspector npx <package-name> <args>
+> # For example
+> npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem /Users/username/Desktop
+> ```
 
-```bash theme={null}
-npx -y @modelcontextprotocol/inspector npx <package-name> <args>
-# For example
-npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem /Users/username/Desktop
-```
-
-**PyPI package**
-
-```bash theme={null}
-npx @modelcontextprotocol/inspector uvx <package-name> <args>
-# For example
-npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
-```
+> [tab] PyPI package
+>
+> ```bash theme={null}
+> npx @modelcontextprotocol/inspector uvx <package-name> <args>
+> # For example
+> npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
+> ```
 
 #### Inspecting locally developed servers
 
 To inspect servers locally developed or downloaded as a repository, the most common
 way is:
 
-**TypeScript**
+> [tab] TypeScript
+>
+> ```bash theme={null}
+> npx @modelcontextprotocol/inspector node path/to/server/index.js args...
+> ```
 
-```bash theme={null}
-npx @modelcontextprotocol/inspector node path/to/server/index.js args...
-```
-
-**Python**
-
-```bash theme={null}
-npx @modelcontextprotocol/inspector \
-  uv \
-  --directory path/to/server \
-  run \
-  package-name \
-  args...
-```
+> [tab] Python
+>
+> ```bash theme={null}
+> npx @modelcontextprotocol/inspector \
+>   uv \
+>   --directory path/to/server \
+>   run \
+>   package-name \
+>   args...
+> ```
 
 Please carefully read any attached README for the most accurate instructions.
 
@@ -129,10 +129,10 @@ The Inspector provides several features for interacting with your MCP server:
 
 ## Next steps
 
-> **[Inspector Repository](https://github.com/modelcontextprotocol/inspector)**
+> [card] [Inspector Repository](https://github.com/modelcontextprotocol/inspector)
 >
 > Check out the MCP Inspector source code
 
-> **[Debugging Guide](https://modelcontextprotocol.io/docs/2025-06-18/tools/debugging.md)**
+> [card] [Debugging Guide](https://modelcontextprotocol.io/docs/2025-06-18/tools/debugging.md)
 >
 > Learn about broader debugging strategies

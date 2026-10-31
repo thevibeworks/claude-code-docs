@@ -30,4 +30,4 @@ We currently support iOS version 18.0 and above, and iPadOS 18.0 and above. This
 
 To uninstall the Claude for iOS from your device, hold down on the app from your home screen until you see the menu options. Click on “Remove App.” From the next series of options, select “Delete App.”
 
-Note that if you have an active paid Claude subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription follow the instructions here: **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+Note that if you have an active paid Claude subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription follow the instructions here: **[Cancel your Pro, Max, or Ultra subscription](https://support.claude.com/en/articles/8325617)**.

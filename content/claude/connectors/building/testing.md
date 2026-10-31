@@ -12,7 +12,7 @@ This page is for developers with a running server, whether it's deployed or stil
 
 ## Test in Claude as a custom connector
 
-To test your server the way users will reach it, add it to your own Claude account as a custom connector by its URL. Any Claude account can do this, on Free, Pro, Max, Team, or Enterprise; [Add a connector that isn't in the directory](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) has the steps for each plan, starting from [**Customize > Connectors**](https://claude.ai/customize/connectors).
+To test your server the way users will reach it, add it to your own Claude account as a custom connector by its URL. Any Claude account can do this, on Free, Pro, Max, Ultra, Team, or Enterprise; [Add a connector that isn't in the directory](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) has the steps for each plan, starting from [**Customize > Connectors**](https://claude.ai/customize/connectors).
 
 Once the connector is added, check these:
 

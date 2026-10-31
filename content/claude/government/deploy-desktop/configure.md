@@ -79,7 +79,7 @@ The configuration that the app downloads for a user includes the following setti
 
 Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > A fresh install connects to claude.ai. One setting, the bootstrap address on your Claude for Government host, points it at Claude for Government. Everything else arrives at sign-in.
 >
@@ -145,7 +145,7 @@ After the test, the same configuration window has an **Export** menu that produc
 
 Video: Deploy to your fleet (1 min 31 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Push two values as device policy, the bootstrap address and the setting that hides the claude.ai sign-in option. On macOS they live in a configuration profile, on Windows in machine policy. Deliver them before the app, and note they carry no secrets.
 >
@@ -255,7 +255,7 @@ To keep Linux devices on the versions your agency distributes, add the line `CLA
 
 Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > On a managed device, the sign-in screen offers only Sign in with your organization, and the configuration window is read-only. Under Help, Troubleshooting, Generate Diagnostic Report saves a report that shows what the app read.
 >
@@ -309,7 +309,7 @@ After sign-in, what the app offers matches that user's [product availability](ht
 | On a Windows device, Cowork tasks fail, the app shows **Failed to start Claude's workspace** with a message under it about a Windows update, or Claude can't read some attached files in Chat, such as Word, Excel, or PowerPoint files | The device has installed the Windows update released September 8, 2026, but not Microsoft's later update that fixes the problem. The September 8 update stops Claude's workspace from reaching files on the device. Cowork tasks and Advanced file analysis in Chat need the workspace. | Install the latest Windows update on the device and restart it. On Windows 11 24H2 and 25H2, the fix is KB5129195. No Claude Desktop update is needed. See [Resolved: Cowork on Windows](https://claude.com/docs/cowork/changelog.md#resolved-cowork-on-windows) in the Claude Desktop changelog. |
 | Web search is on for your organization, but a user does not have it, and under **Customize**, then **Connectors**, **Web Search** shows as not connected and **Connect** fails, while chat works | A firewall or secure web gateway on that user's network path filters traffic by application. Claude Desktop connects to web search on your Claude for Government host over HTTPS, and such equipment can classify that connection as Model Context Protocol (MCP) traffic and block it even when the host itself is allowed. | Ask your network team to allow this traffic to your Claude for Government host for the affected users. The user's `main.log` records each failed attempt, including any block page the network returned. Then have the user select **Connect** next to **Web Search**, or restart the app. |
 | The app shows **Failed to start Claude's workspace** with a download error under it, or Chat conversations and Cowork tasks fail to start with "Host Claude Code binary not available. Check that the download completed." | Claude Desktop could not download a complete, verified copy of the Cowork workspace or the [agent helper](https://claude.com/docs/third-party/claude-desktop/installation.md#endpoint-security-software) from `downloads.claude.ai`. This usually means a proxy or web filter on the device's network path is blocking or altering the download. | Follow [Cowork workspace or Claude CLI fails to download](https://claude.com/docs/third-party/claude-desktop/installation.md#cowork-workspace-or-claude-cli-fails-to-download) in the Claude Desktop documentation. |
-| On a Windows device, the app shows **A Windows security policy is blocking Claude's workspace**, and Cowork tasks don't start | A Group Policy or MDM policy applied to the device assigns the **Log on as a service** right without the `NT VIRTUAL MACHINE\Virtual Machines` group, or lists that group under **Deny log on as a service** | Follow [Windows security policy blocks the Cowork workspace](https://claude.com/docs/third-party/claude-desktop/installation.md#windows-security-policy-blocks-the-cowork-workspace) in the Claude Desktop documentation. |
+| On a Windows device, the app shows **A Windows security policy is blocking Claude's workspace**, and the shell commands that Claude runs in Cowork tasks fail | A Group Policy or MDM policy applied to the device assigns the **Log on as a service** right without the `NT VIRTUAL MACHINE\Virtual Machines` group, or lists that group under **Deny log on as a service** | Follow [Windows security policy blocks the Cowork workspace](https://claude.com/docs/third-party/claude-desktop/installation.md#windows-security-policy-blocks-the-cowork-workspace) in the Claude Desktop documentation. |
 
 For anything else, the app writes its log to `~/Library/Logs/Claude-3p/main.log` on macOS, `%LOCALAPPDATA%\Claude-3p\logs\main.log` on Windows, and `~/.config/Claude-3p/logs/main.log` on Linux. The log records which configuration keys were read or dropped and why. The diagnostic report from the verification checklist produces a bundle, without conversation content, that you can send to your Anthropic representative.
 

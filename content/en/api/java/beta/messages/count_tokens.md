@@ -131,6 +131,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `Optional<String> userProfileId` (header parameter)
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
@@ -1016,7 +1018,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `class BetaEncryptedCodeExecutionResultBlockParam`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+                The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request.
 
                 - `JsonValue type = "encrypted_code_execution_result"`
 
@@ -1552,7 +1554,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       - `class BetaCodeExecutionTool20260120`
 
-                        Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+                        A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+                        REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+                        See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=java#tool-versions) to learn what each tool version adds.
 
                         - `JsonValue type = "code_execution_20260120"`
 
@@ -3717,7 +3723,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class BetaCodeExecutionTool20260120`
 
-      Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+      A `tools` entry for the code execution tool, version `code_execution_20260120`. It adds REPL state persistence to version `code_execution_20250825`.
+
+      REPL state persistence applies with programmatic tool calling. With it, the Python interpreter state, such as variable bindings, persists across requests that reuse the container.
+
+      See the [code execution tool guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool?sdk_languages=java#tool-versions) to learn what each tool version adds.
 
     - `class BetaCodeExecutionTool20260521`
 

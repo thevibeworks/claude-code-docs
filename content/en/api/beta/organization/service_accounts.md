@@ -143,6 +143,8 @@ accounts.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Body parameters
 
 - `name: string`
@@ -410,6 +412,8 @@ archived service accounts.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `data: array of BetaServiceAccount`
@@ -638,6 +642,8 @@ Retrieve a service account by its ID (`svac_...`).
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 
@@ -868,6 +874,8 @@ interactive credential (a user OAuth token or a Console session).
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Body parameters
 
@@ -1116,6 +1124,8 @@ those rules first or change their target to another service account.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 
@@ -1455,6 +1465,8 @@ rejected.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Body parameters
 
 - `workspace_id: string`
@@ -1699,6 +1711,8 @@ page to recover.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `data: array of BetaServiceAccountWorkspaceMember`
@@ -1914,6 +1928,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Returns
 

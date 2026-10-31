@@ -30,8 +30,8 @@ A directory listing is either a plugin bundle or an MCP connector.
 
 You submit from a claude.ai account, and the listing belongs to the organization you submit from. Before you start, confirm each of these:
 
-* **Plan**: Pro, Max, Team, or Enterprise. Free accounts can't submit
-* **Role**: on Pro and Max, you submit from your own account and there's no role to check. On Team and Enterprise, an Owner can submit. On Enterprise, an Owner can also grant the **Directory** permission to other members through a custom role under [**Organization settings > Roles**](https://claude.ai/admin-settings/roles). If you don't have one of those roles, ask an Owner
+* **Plan**: Pro, Max, Ultra, Team, or Enterprise. Free accounts can't submit
+* **Role**: on Pro, Max, and Ultra, you submit from your own account and there's no role to check. On Team and Enterprise, an Owner can submit. On Enterprise, an Owner can also grant the **Directory** permission to other members through a custom role under [**Organization settings > Roles**](https://claude.ai/admin-settings/roles). If you don't have one of those roles, ask an Owner
 * **Which organization**: for a plugin bundle, the first organization to submit a given repository folder holds that listing, and the portal refuses a second organization's submission of the same one. Submit from the organization that should own the listing long term
 
 ## Start a submission in the developer portal

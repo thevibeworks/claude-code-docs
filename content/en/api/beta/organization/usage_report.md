@@ -259,6 +259,8 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `BetaMessagesUsageReport object`
@@ -407,7 +409,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/messages \
       "ending_at": "2025-08-02T00:00:00Z",
       "results": [
         {
-          "account_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+          "account_id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
           "api_key_id": "apikey_01Rj2N8SVvo6BePZj99NhmiT",
           "cache_creation": {
             "ephemeral_1h_input_tokens": 0,

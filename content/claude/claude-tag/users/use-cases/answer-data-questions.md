@@ -56,14 +56,14 @@ Anyone in the thread can ask for a different cut of the same data.
 
 ## Related resources
 
-> **[Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md)**
+> [card] [Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md)
 >
 > When the question is about systems, not metrics
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > Recurring reports
 
-> **[Self-service data analytics](https://claude.com/blog/self-service-data-analytics-in-slack-how-anthropic-deploys-claude-tag-for-ad-hoc-questions)**
+> [card] [Self-service data analytics](https://claude.com/blog/self-service-data-analytics-in-slack-how-anthropic-deploys-claude-tag-for-ad-hoc-questions)
 >
 > How Anthropic answers ad-hoc data questions in Slack with Claude

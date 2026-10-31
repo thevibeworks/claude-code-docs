@@ -1,10 +1,10 @@
 # Paid plan billing FAQs
 
-This article covers Pro and Max subscriptions purchased on the web. If you subscribed through Claude for iOS or Claude for Android, your payment is handled by the Apple App Store or Google Play, and you'll manage your payment method and receipts through your app store account. To cancel or manage an app store subscription, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+This article covers Pro, Max, and Ultra subscriptions purchased on the web. If you subscribed through Claude for iOS or Claude for Android, your payment is handled by the Apple App Store or Google Play, and you'll manage your payment method and receipts through your app store account. To cancel or manage an app store subscription, see **[Cancel your Pro, Max, and Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 
-## Where can I find the invoice or receipt for my Pro or Max plan payment?
+## Where can I find the invoice or receipt for my Pro, Max, or Ultra plan payment?
 
-If you are subscribed to a paid plan (Pro or Max), follow these steps to access your invoices:
+If you are subscribed to a paid plan (Pro, Max, or Ultra), follow these steps to access your invoices:
 
 1. Click on your initials or name in the lower left corner and select “Settings” from the menu.
 
@@ -30,9 +30,9 @@ Additionally, all invoices are automatically emailed to your billing email addre
 
 6. Your updated payment method will be charged the next time your subscription renews.
 
-## How can I change or remove the card on my Pro or Max subscription?
+## How can I change or remove the card on my Pro, Max, or Ultra subscription?
 
-To change the card on your Pro or Max subscription:
+To change the card on your Pro, Max, or Ultra subscription:
 
 1. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)**.
 
@@ -50,13 +50,13 @@ There's no separate option to remove a card, and updating to a new card replaces
 
 If you want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1793380500&amp;signature=8a1093b55fce2b5119a82e33058b812861ec407d3ea3d972fbb92cfc464a9965&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8W6oYzPJQoNvNFTb5cd3iMblYOQ47n1yRuGN%0AOyCty10R6lzLMQZTAtI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1793430000&amp;signature=bb02f0c6e1e7e2e13d427531b053004c5f293604168db0facb2e61abfc3f4af1&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8W6vaDPMQoNvNFTb5cdCm7Yfo6OzJyFEmMbA%0AFY9eZQrfuy64oeHPh5A%3D%0A)
 
 ## How can I edit a paid invoice?
 
 Once an invoice is paid, there isn't a way to edit the information on the finalized invoice. Additionally, our internal teams cannot reissue paid invoices or modify information on previous invoices.
 
-## Can I change the date I'm charged for my Pro or Max subscription?
+## Can I change the date I'm charged for my Pro, Max, or Ultra subscription?
 
 No, there isn't a direct way to change your subscription billing date. However, you can unsubscribe from your current plan, then resubscribe on your preferred billing date to establish your new monthly billing cycle on a different date.
 
@@ -66,7 +66,7 @@ For subscriptions purchased on the web, we only accept credit or debit cards. If
 
 ## I have a paid plan, but my account is showing as free; how can I access my paid account?
 
-If you've paid for a Pro or Max plan but are not seeing this reflected in your account, there are two things you should check:
+If you've paid for a Pro, Max, or Ultra plan but are not seeing this reflected in your account, there are two things you should check:
 
 1. You've logged in with a different email. We recommend trying to sign in with any alternative emails you may have used to create your paid account.
 
@@ -74,4 +74,4 @@ If you've paid for a Pro or Max plan but are not seeing this reflected in your a
 
 ## Where can I see my monthly API credits?
 
-In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.

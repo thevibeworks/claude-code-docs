@@ -96,7 +96,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
   "mime_type": "text/plain",
   "size_bytes": 0,
   "user": {
-    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
     "email_address": "jane.doe@example.com"
   }
 }

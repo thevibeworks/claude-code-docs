@@ -38,7 +38,7 @@ When Claude Desktop is deployed on third-party inference, Claude can read your o
 
 Anthropic's connector service receives the desktop's delegated access token on each request and exchanges it on-behalf-of the user for a short-lived Graph token. Neither token is persisted server-side beyond the request, and Anthropic never holds your tenant's client secrets or the user's refresh token (the refresh token stays encrypted on the user's device).
 
-Setup takes about fifteen minutes and requires a Global Administrator or Cloud Application Administrator in your Entra tenant.
+Setup requires a Global Administrator or Cloud Application Administrator in your Entra tenant.
 
 The hosted M365 server has not been evaluated for HIPAA compliance. If your organization follows HIPAA compliance, please use the [local connector](#local-connector) instead.
 
@@ -55,8 +55,6 @@ Three applications participate in the sign-in chain. Understanding which one eac
 Claude Desktop signs in through your desktop client app, receives a token scoped to the Anthropic connector app, and sends that token to Anthropic's connector service. The connector service exchanges it for a Graph token using the on-behalf-of flow and makes Graph calls as the signed-in user.
 
 ### Set up the remote connector
-
-The four steps below cover tenant consent, app registration, allowlisting, and desktop configuration.
 
 **1. Consent the Anthropic connector app into your tenant**
 
@@ -248,7 +246,13 @@ The errors below are the ones most commonly seen during setup. Each maps to a sp
 
 Claude Desktop includes a built-in copy of the Microsoft 365 server. As an alternative to the remote connector, you can configure the app to run that server as a local process on each user's machine: the user signs in to Microsoft Entra on the device, and the server calls Microsoft Graph directly from the device. No Microsoft 365 data or tokens pass through Anthropic's infrastructure.
 
-Choose the local connector when your data-residency requirements do not allow Microsoft 365 content to transit infrastructure outside your control, when your tenant enforces device-based Conditional Access policies (such as *Require compliant device*) that the remote connector's server-side token exchange cannot satisfy, or when you want to avoid the allowlisting step. The [comparison table](#choose-a-connector) above summarizes the differences.
+Choose the local connector in any of these cases:
+
+* Your data-residency requirements do not allow Microsoft 365 content to transit infrastructure outside your control.
+* Your tenant enforces device-based Conditional Access policies (such as *Require compliant device*) that the remote connector's server-side token exchange cannot satisfy.
+* You want to avoid the allowlisting step.
+
+See the [comparison table](#choose-a-connector).
 
 ### Set up the local connector
 
@@ -289,7 +293,7 @@ If you manage configuration through JSON or a plist directly, add an entry to [`
 | Field | Required | Description |
 | - | - | - |
 | `name` | Yes | Unique display name, shown to users in connector settings. |
-| `server` | Yes | Must be `microsoft365`. Built-in entries use this field instead of `url`, `transport`, or `command`; an entry that mixes `server` with those fields is rejected. |
+| `server` | Yes | Must be `microsoft365`. An entry that mixes `server` with `url`, `transport`, or `command` is rejected. |
 | `clientId` | Yes | The Application (client) ID of the local-mode app from step 1. |
 | `tenantId` | Yes | Your Directory (tenant) ID. |
 | `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for GCC High and DoD. |
@@ -365,8 +369,6 @@ The connector provides these read and search tools:
 | `teams_list_teams`, `teams_list_channels` | List the user's teams and a team's channels (need `Team.ReadBasic.All` and `Channel.ReadBasic.All`) |
 | `teams_list_channel_messages` | List a channel's messages, or the replies in one conversation (needs `ChannelMessage.Read.All`) |
 
-Granting write scopes enables write tools; see [Grant write scopes](#grant-write-scopes).
-
 ### Grant write scopes
 
 With only read scopes granted, the connector is read-only. To let Claude take actions in Microsoft 365 (sending mail, managing drafts, labels, and calendar events, working with files in OneDrive and SharePoint, and sending Teams chat and channel messages), grant write scopes: add them to the entry's `scope` field and consent them on the app registration from step 1, the same as any other scope. Each write tool appears only when its scope is in the entry's list, so granting a subset of the write scopes exposes a matching subset of the tools, and removing the write scopes from the list returns the connector to read-only. Write tools require Claude Desktop version 1.19367.0 or later, and the Teams write tools require version 1.24012.0 or later.
@@ -396,7 +398,7 @@ The [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/c
 
 Browser sign-in works on tenants without device-based Conditional Access policies. It satisfies device policies only when the browser itself carries the device identity: on Windows, a browser signed in with the work account on an Entra-joined device (such as Microsoft Edge) provides this; on macOS, deploy Microsoft's Enterprise SSO browser integration, or use brokered sign-in instead.
 
-> **Requirements for brokered sign-in on Windows**
+> [accordion] Requirements for brokered sign-in on Windows
 >
 > Brokered sign-in on Windows requires Claude Desktop version 1.13576.0 or later.
 >
@@ -414,7 +416,7 @@ Browser sign-in works on tenants without device-based Conditional Access policie
 >
 > To have **Connect** sign in with the work account already signed in to Windows, without the account picker, set [`microsoftAuthDefaultAccount`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) to `enabled`. See the key's reference entry for the requirements and the cases where users still get the picker.
 
-> **Requirements for brokered sign-in on macOS**
+> [accordion] Requirements for brokered sign-in on macOS
 >
 > Brokered sign-in on macOS requires Claude Desktop version 1.19367.0 or later.
 >

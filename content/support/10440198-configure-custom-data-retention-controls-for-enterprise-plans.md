@@ -1,6 +1,6 @@
 # Configure custom data retention controls for Enterprise plans
 
-*This article is about our commercial products, specifically Claude Enterprise. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
+*This article is about our commercial products, specifically Claude Enterprise. For our consumer products such as Claude Free, Pro, Max, Ultra, and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
 
 Custom data retention controls allow organizations to manage how long Claude stores conversation, project, and artifact data. This article explains how to set up and manage data retention periods for your organization.
 

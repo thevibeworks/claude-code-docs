@@ -92,21 +92,21 @@ When working with remote MCP servers, consider these recommendations to ensure a
 
 Now that you've connected Claude to a remote MCP server, you can explore its capabilities in your conversations. Try using the connected tools to automate tasks, access external data, or integrate with your existing workflows.
 
-> **[Build your own remote server](https://modelcontextprotocol.io/docs/2026-07-28/develop/build-server.md)**
+> [card] [Build your own remote server](https://modelcontextprotocol.io/docs/2026-07-28/develop/build-server.md)
 >
 > Create custom remote MCP servers to integrate with proprietary tools and
 > services
 
-> **[Explore available servers](https://github.com/modelcontextprotocol/servers)**
+> [card] [Explore available servers](https://github.com/modelcontextprotocol/servers)
 >
 > Browse our collection of official and community-created MCP servers
 
-> **[Connect local servers](https://modelcontextprotocol.io/docs/2026-07-28/develop/connect-local-servers.md)**
+> [card] [Connect local servers](https://modelcontextprotocol.io/docs/2026-07-28/develop/connect-local-servers.md)
 >
 > Learn how to connect Claude Desktop to local MCP servers for direct system
 > access
 
-> **[Understand the architecture](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture.md)**
+> [card] [Understand the architecture](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture.md)
 >
 > Dive deeper into how MCP works and its architecture
 

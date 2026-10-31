@@ -166,6 +166,8 @@ archived tunnels are excluded unless `include_archived` is set.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `data: array of BetaOrganizationTunnel`
@@ -378,6 +380,8 @@ Retrieve a single tunnel in the caller's organization by ID.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `BetaOrganizationTunnel object`
@@ -585,6 +589,8 @@ tunnel returns the existing record unchanged.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 
@@ -795,6 +801,8 @@ access logs.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `BetaOrganizationTunnelToken object`
@@ -975,6 +983,8 @@ restarted after rotation must use the new value. An optional
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Body parameters
 
@@ -1231,6 +1241,8 @@ holds at most two non-archived certificates.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Body parameters
 
 - `ca_certificate_pem: string`
@@ -1469,6 +1481,8 @@ Archived certificates are excluded unless `include_archived` is set.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `data: array of BetaOrganizationTunnelCertificate`
@@ -1685,6 +1699,8 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 #### Returns
 
 - `BetaOrganizationTunnelCertificate object`
@@ -1895,6 +1911,8 @@ certificate is added.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 #### Returns
 

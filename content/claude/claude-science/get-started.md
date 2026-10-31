@@ -6,69 +6,69 @@
 
 > Install Claude Science on macOS, Windows, or Linux, sign in with your Claude account, and run your first analysis.
 
-Install Claude Science on your computer, sign in with your Claude account, and run your first analysis. You need a Claude Pro, Max, Team, or Enterprise plan. The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists) has Claude Science on by default. On other Team and Enterprise plans, an Owner must [turn Claude Science on](https://claude.com/docs/claude-science/enable-claude-science.md) first. For what each plan includes and how usage works, see [Plans and usage](https://claude.com/docs/claude-science/overview.md#plans-and-usage).
+Install Claude Science on your computer, sign in with your Claude account, and run your first analysis. You need a Claude Pro, Max, Ultra, Team, or Enterprise plan. The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists) has Claude Science on by default. On other Team and Enterprise plans, an Owner must [turn Claude Science on](https://claude.com/docs/claude-science/enable-claude-science.md) first. For what each plan includes and how usage works, see [Plans and usage](https://claude.com/docs/claude-science/overview.md#plans-and-usage).
 
 ## Install
 
-**macOS**
+> [tab] macOS
+>
+> Download the installer from [claude.com/product/claude-science](https://claude.com/product/claude-science) and double-click to install. On first launch, the app sets up its runtime and starter Python and R environments, which takes a few minutes, then opens a new tab in your default browser. If no browser tab appears, click **Claude Science** in the Dock.
+>
+> **Updates.** Installing an update from inside Claude Science can switch it from a browser tab to its own window. See [Claude Science in its own window on macOS](https://claude.com/docs/claude-science/mac-app-window.md).
+>
+> * **If it opens in a browser tab**: Claude Science checks for updates in the background and shows **Update available** when one is ready. Choose **Restart to update** to install it.
+> * **If it opens in its own window**: Claude Science downloads updates by itself and installs them when you quit. To check for an update right away, choose **Claude Science > Check for App Updates…** in the menu bar.
 
-Download the installer from [claude.com/product/claude-science](https://claude.com/product/claude-science) and double-click to install. On first launch, the app sets up its runtime and starter Python and R environments, which takes a few minutes, then opens a new tab in your default browser. If no browser tab appears, click **Claude Science** in the Dock.
+> [tab] Windows
+>
+> Download the installer from [claude.com/product/claude-science](https://claude.com/product/claude-science) and open it. It installs Claude Science for your user account, adds **Claude Science** to the Start menu and the desktop, and opens the app in its own window. The installer is signed by Anthropic, PBC. On first launch, Claude Science sets up the sandbox and downloads its app window engine (about 150 MB) from `downloads.claude.ai` before the window appears, so the first start takes longer than later ones, and a notice shows progress. The starter Python and R environments keep setting up in the background for several minutes after the window opens.
+>
+> **One-time Windows permission.** If Claude Science asks for one-time permission from Windows so that cells can run git and Command Prompt scripts and PowerShell can change folders, **Yes** lets Windows ask for approval (an administrator's password if you aren't one) and **No** leaves those features off. Python and R cells work either way, and the **Ask Windows now** button under **Settings** > **Permissions** grants the permission later.
+>
+> **Notification-area icon.** Closing the window leaves Claude Science running, with an icon in the notification area of the taskbar. Click the icon to reopen the window, or choose **Quit Claude Science** from the icon's menu to stop the app.
+>
+> **Updates.** Claude Science checks for updates in the background and shows **Update available** when one is ready; choose **Restart to update** to install it. Administrators who distribute the app themselves can turn the background check off with `auto_update = false` under `[update]` in `config.toml` (see [Manage Claude Science on devices](https://claude.com/docs/claude-science/manage-on-devices.md#deploy-configuration-with-device-management)). To update Claude Science yourself instead, open a newer installer, which upgrades the installed copy in place and keeps your data.
+>
+> **Uninstall.** To remove the app, follow the Windows steps in [Uninstall Claude Science](#uninstall-claude-science).
+>
+> **Corporate networks.** Claude Science follows the proxy configured in Windows proxy settings and trusts corporate root certificates installed for the whole computer, so most managed PCs need no Claude Science configuration. See [Use Claude Science on a corporate network](https://claude.com/docs/claude-science/corporate-networks.md).
+>
+> **Differences on Windows:**
+>
+> * Claude runs shell commands with PowerShell. Command Prompt scripts, git inside cells, and folder changes in PowerShell need the one-time Windows permission.
+> * Only folders on local NTFS or ReFS drives can be granted, not network shares, mapped network drives, FAT or exFAT drives (many USB sticks and memory cards), or a whole drive such as `D:\`. Copy such files to a local folder or attach them in the chat.
+> * [Custom connectors](https://claude.com/docs/claude-science/custom-connectors.md) that run a local command start with `npx`, `node`, `python`, or the full path of a program. Connectors launched through `npm` or a `.cmd`, `.bat`, or `.ps1` file aren't supported.
+> * The **Model endpoints** section of **Settings** > **Compute** (NVIDIA BioNeMo NIM) isn't available.
+>
+> **Linux version under WSL.** To use Claude Science from a Linux environment on your Windows computer, run the Linux command-line version under Windows Subsystem for Linux (WSL 2, not WSL 1) with Ubuntu 24.04 or later. The Windows app itself doesn't need WSL. Inside the Ubuntu terminal, follow the install steps in the Linux tab, then start Claude Science with `claude-science serve --port 8765 --no-browser` and open the printed link, which starts with `http://127.0.0.1:8765`, in a Windows browser. Projects you create there stay in WSL, and the Windows app keeps its own.
+>
+> If Claude Science under WSL shows one of these errors or problems, use the matching fix:
+>
+> * `daemon already running`: Claude Science is already running. Run `claude-science url` to print a fresh link, and open it in a Windows browser.
+> * `port 8765 is already in use`: another program, or another copy of Claude Science, has that port. Start with a different one, for example `--port 8080`.
+> * The link stops working: check that Claude Science is still running with `claude-science status`. If it's still running, run `claude-science url` for a fresh link and open it in a Windows browser. Claude Science stops when WSL shuts down, for example after `wsl --shutdown`. Start it again by running `claude-science serve --port 8765 --no-browser` in the Ubuntu terminal.
+> * An SSH host can't be added: under WSL, Claude Science reads the SSH settings in Ubuntu's `~/.ssh`, not the ones in Windows. Copy the host's entry from `C:\Users\<you>\.ssh\config`, and its key file, into Ubuntu's `~/.ssh` folder, then run `chmod 600` on them.
+> * `The database is on /mnt/*`: Claude Science's data folder is on a Windows drive, which it can't use under WSL. Move the folder into your Ubuntu home folder, such as the default `~/.claude-science`, and if you set `data_dir` or `--data-dir`, point it there. If you use a folder other than the default, choose a new, empty one, because Claude Science can delete files in that folder that it didn't create.
 
-**Updates.** Installing an update from inside Claude Science can switch it from a browser tab to its own window. See [Claude Science in its own window on macOS](https://claude.com/docs/claude-science/mac-app-window.md).
-
-* **If it opens in a browser tab**: Claude Science checks for updates in the background and shows **Update available** when one is ready. Choose **Restart to update** to install it.
-* **If it opens in its own window**: Claude Science downloads updates by itself and installs them when you quit. To check for an update right away, choose **Claude Science > Check for App Updates…** in the menu bar.
-
-**Windows**
-
-Download the installer from [claude.com/product/claude-science](https://claude.com/product/claude-science) and open it. It installs Claude Science for your user account, adds **Claude Science** to the Start menu and the desktop, and opens the app in its own window. The installer is signed by Anthropic, PBC. On first launch, Claude Science sets up the sandbox and downloads its app window engine (about 150 MB) from `downloads.claude.ai` before the window appears, so the first start takes longer than later ones, and a notice shows progress. The starter Python and R environments keep setting up in the background for several minutes after the window opens.
-
-**One-time Windows permission.** If Claude Science asks for one-time permission from Windows so that cells can run git and Command Prompt scripts and PowerShell can change folders, **Yes** lets Windows ask for approval (an administrator's password if you aren't one) and **No** leaves those features off. Python and R cells work either way, and the **Ask Windows now** button under **Settings** > **Permissions** grants the permission later.
-
-**Notification-area icon.** Closing the window leaves Claude Science running, with an icon in the notification area of the taskbar. Click the icon to reopen the window, or choose **Quit Claude Science** from the icon's menu to stop the app.
-
-**Updates.** Claude Science checks for updates in the background and shows **Update available** when one is ready; choose **Restart to update** to install it. Administrators who distribute the app themselves can turn the background check off with `auto_update = false` under `[update]` in `config.toml` (see [Manage Claude Science on devices](https://claude.com/docs/claude-science/manage-on-devices.md#deploy-configuration-with-device-management)). To update Claude Science yourself instead, open a newer installer, which upgrades the installed copy in place and keeps your data.
-
-**Uninstall.** To remove the app, follow the Windows steps in [Uninstall Claude Science](#uninstall-claude-science).
-
-**Corporate networks.** Claude Science follows the proxy configured in Windows proxy settings and trusts corporate root certificates installed for the whole computer, so most managed PCs need no Claude Science configuration. See [Use Claude Science on a corporate network](https://claude.com/docs/claude-science/corporate-networks.md).
-
-**Differences on Windows:**
-
-* Claude runs shell commands with PowerShell. Command Prompt scripts, git inside cells, and folder changes in PowerShell need the one-time Windows permission.
-* Only folders on local NTFS or ReFS drives can be granted, not network shares, mapped network drives, FAT or exFAT drives (many USB sticks and memory cards), or a whole drive such as `D:\`. Copy such files to a local folder or attach them in the chat.
-* [Custom connectors](https://claude.com/docs/claude-science/custom-connectors.md) that run a local command start with `npx`, `node`, `python`, or the full path of a program. Connectors launched through `npm` or a `.cmd`, `.bat`, or `.ps1` file aren't supported.
-* The **Model endpoints** section of **Settings** > **Compute** (NVIDIA BioNeMo NIM) isn't available.
-
-**Linux version under WSL.** To use Claude Science from a Linux environment on your Windows computer, run the Linux command-line version under Windows Subsystem for Linux (WSL 2, not WSL 1) with Ubuntu 24.04 or later. The Windows app itself doesn't need WSL. Inside the Ubuntu terminal, follow the install steps in the Linux tab, then start Claude Science with `claude-science serve --port 8765 --no-browser` and open the printed link, which starts with `http://127.0.0.1:8765`, in a Windows browser. Projects you create there stay in WSL, and the Windows app keeps its own.
-
-If Claude Science under WSL shows one of these errors or problems, use the matching fix:
-
-* `daemon already running`: Claude Science is already running. Run `claude-science url` to print a fresh link, and open it in a Windows browser.
-* `port 8765 is already in use`: another program, or another copy of Claude Science, has that port. Start with a different one, for example `--port 8080`.
-* The link stops working: check that Claude Science is still running with `claude-science status`. If it's still running, run `claude-science url` for a fresh link and open it in a Windows browser. Claude Science stops when WSL shuts down, for example after `wsl --shutdown`. Start it again by running `claude-science serve --port 8765 --no-browser` in the Ubuntu terminal.
-* An SSH host can't be added: under WSL, Claude Science reads the SSH settings in Ubuntu's `~/.ssh`, not the ones in Windows. Copy the host's entry from `C:\Users\<you>\.ssh\config`, and its key file, into Ubuntu's `~/.ssh` folder, then run `chmod 600` on them.
-* `The database is on /mnt/*`: Claude Science's data folder is on a Windows drive, which it can't use under WSL. Move the folder into your Ubuntu home folder, such as the default `~/.claude-science`, and if you set `data_dir` or `--data-dir`, point it there. If you use a folder other than the default, choose a new, empty one, because Claude Science can delete files in that folder that it didn't create.
-
-**Linux**
-
-Install the sandbox dependencies, then run the installer. The sandbox needs bubblewrap 0.8.0 or later and socat, and installing them for the whole system takes administrator (root or `sudo`) access. Claude Science runs them from system folders such as `/usr/bin` and `/usr/local/bin` and doesn't search your PATH. If you don't have administrator access, ask your system administrator to install them, or [approve a copy of your own](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#approve-your-own-copy-of-bubblewrap-or-socat), such as one from conda.
-
-* Ubuntu or Debian: `sudo apt-get update && sudo apt-get install -y curl bubblewrap socat`
-* Fedora or RHEL: `sudo dnf install -y curl bubblewrap socat`
-* Arch: `sudo pacman -S curl bubblewrap socat`
-
-Ubuntu 24.04's repositories carry a new enough bubblewrap and Ubuntu 22.04's don't; on any distribution, confirm with `/usr/bin/bwrap --version` that the installed version is 0.8.0 or later before you start Claude Science.
-
-```bash theme={null}
-curl -fsSL https://claude.ai/install-claude-science.sh | bash
-```
-
-```bash theme={null}
-claude-science serve
-```
-
-First launch prints a local URL right away, then continues setting up its starter Python and R environments. To run Claude Science on a remote server and use it from your computer, see [Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md).
+> [tab] Linux
+>
+> Install the sandbox dependencies, then run the installer. The sandbox needs bubblewrap 0.8.0 or later and socat, and installing them for the whole system takes administrator (root or `sudo`) access. Claude Science runs them from system folders such as `/usr/bin` and `/usr/local/bin` and doesn't search your PATH. If you don't have administrator access, ask your system administrator to install them, or [approve a copy of your own](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#approve-your-own-copy-of-bubblewrap-or-socat), such as one from conda.
+>
+> * Ubuntu or Debian: `sudo apt-get update && sudo apt-get install -y curl bubblewrap socat`
+> * Fedora or RHEL: `sudo dnf install -y curl bubblewrap socat`
+> * Arch: `sudo pacman -S curl bubblewrap socat`
+>
+> Ubuntu 24.04's repositories carry a new enough bubblewrap and Ubuntu 22.04's don't; on any distribution, confirm with `/usr/bin/bwrap --version` that the installed version is 0.8.0 or later before you start Claude Science.
+>
+> ```bash theme={null}
+> curl -fsSL https://claude.ai/install-claude-science.sh | bash
+> ```
+>
+> ```bash theme={null}
+> claude-science serve
+> ```
+>
+> First launch prints a local URL right away, then continues setting up its starter Python and R environments. To run Claude Science on a remote server and use it from your computer, see [Run on a remote Linux server](https://claude.com/docs/claude-science/run-on-remote-linux-server.md).
 
 To update Claude Science later, or when it asks you to update, see [Update Claude Science](https://claude.com/docs/claude-science/update-claude-science.md).
 
@@ -115,55 +115,55 @@ Uninstalling removes the application and keeps your data folder. Your projects, 
 >
 > Files in the folders you granted Claude access to aren't affected unless they're inside the folder that **Data location** shows.
 
-**macOS**
+> [tab] macOS
+>
+> **1. Quit Claude Science**
+>
+> In the Dock, Control-click the **Claude Science** icon and choose **Quit**. If you started Claude Science from Terminal with `claude-science serve`, also run `claude-science stop`.
+>
+> **2. Move the application to the Trash**
+>
+> In Finder, open the **Applications** folder and move **Claude Science** to the Trash. If **Claude Science** isn't there, look in the **Applications** folder inside your home folder.
+>
+> **3. Remove the Terminal command**
+>
+> The app also adds a `claude-science` command for Terminal. Remove it with `rm ~/.local/bin/claude-science`.
+>
+> To remove your data as well, delete the `~/.claude-science` folder. If Claude Science opened in its own window, also delete `~/Library/Application Support/Claude Science`, which holds that window's own settings and stored data.
 
-**1. Quit Claude Science**
+> [tab] Windows
+>
+> **1. Quit Claude Science**
+>
+> Right-click the Claude Science icon in the notification area of the taskbar and choose **Quit Claude Science**. The uninstaller doesn't run while the app is running.
+>
+> **2. Uninstall the app**
+>
+> In Windows **Settings**, go to **Apps > Installed apps** and uninstall **Claude Science**, or run `claude-science uninstall` in a terminal.
+>
+> To remove the app and your data together, use `claude-science uninstall --purge` instead. It deletes the whole folder your data location points to, including anything you stored there yourself, so move those files out first.
+>
+> When your data location isn't `%USERPROFILE%\.claude-science`, `--purge` leaves that folder in place. It still holds your environments and your sign-in, and it can also hold projects from before that location was set. To remove those too, delete `%USERPROFILE%\.claude-science` yourself.
 
-In the Dock, Control-click the **Claude Science** icon and choose **Quit**. If you started Claude Science from Terminal with `claude-science serve`, also run `claude-science stop`.
-
-**2. Move the application to the Trash**
-
-In Finder, open the **Applications** folder and move **Claude Science** to the Trash. If **Claude Science** isn't there, look in the **Applications** folder inside your home folder.
-
-**3. Remove the Terminal command**
-
-The app also adds a `claude-science` command for Terminal. Remove it with `rm ~/.local/bin/claude-science`.
-
-To remove your data as well, delete the `~/.claude-science` folder. If Claude Science opened in its own window, also delete `~/Library/Application Support/Claude Science`, which holds that window's own settings and stored data.
-
-**Windows**
-
-**1. Quit Claude Science**
-
-Right-click the Claude Science icon in the notification area of the taskbar and choose **Quit Claude Science**. The uninstaller doesn't run while the app is running.
-
-**2. Uninstall the app**
-
-In Windows **Settings**, go to **Apps > Installed apps** and uninstall **Claude Science**, or run `claude-science uninstall` in a terminal.
-
-To remove the app and your data together, use `claude-science uninstall --purge` instead. It deletes the whole folder your data location points to, including anything you stored there yourself, so move those files out first.
-
-When your data location isn't `%USERPROFILE%\.claude-science`, `--purge` leaves that folder in place. It still holds your environments and your sign-in, and it can also hold projects from before that location was set. To remove those too, delete `%USERPROFILE%\.claude-science` yourself.
-
-**Linux**
-
-For the Linux version under Windows Subsystem for Linux (WSL), run these commands in the Ubuntu terminal.
-
-**1. Stop Claude Science**
-
-```bash theme={null}
-claude-science stop
-```
-
-**2. Delete the command**
-
-```bash theme={null}
-rm ~/.local/bin/claude-science
-```
-
-If you installed it somewhere else, `command -v claude-science` shows where.
-
-To remove your data as well, delete the `~/.claude-science` folder.
+> [tab] Linux
+>
+> For the Linux version under Windows Subsystem for Linux (WSL), run these commands in the Ubuntu terminal.
+>
+> **1. Stop Claude Science**
+>
+> ```bash theme={null}
+> claude-science stop
+> ```
+>
+> **2. Delete the command**
+>
+> ```bash theme={null}
+> rm ~/.local/bin/claude-science
+> ```
+>
+> If you installed it somewhere else, `command -v claude-science` shows where.
+>
+> To remove your data as well, delete the `~/.claude-science` folder.
 
 To reinstall, follow [Install](#install) again. Installing doesn't replace an existing data folder.
 

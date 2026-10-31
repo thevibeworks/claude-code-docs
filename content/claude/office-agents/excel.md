@@ -6,6 +6,13 @@
 
 > An Excel add-in that integrates Claude into your spreadsheet workflow, for Pro, Max, Team, and Enterprise plans.
 
+> [!WARNING]
+>
+> After the September and October 2026 Microsoft 365 updates on Windows, some
+> users are missing their chat history and uploaded skills in the Claude add-in.
+> Anthropic is working with Microsoft to solve this issue. In the meantime, see
+> [what you and your IT team can do](https://claude.com/docs/office-agents/data-storage.md#chat-history-and-skills-missing-after-a-microsoft-365-update-on-windows).
+
 Claude for Excel is an add-in that brings Claude into Excel. Ask questions
 about open workbooks, adjust assumptions while preserving formula
 relationships, debug errors, and build or populate models, all without

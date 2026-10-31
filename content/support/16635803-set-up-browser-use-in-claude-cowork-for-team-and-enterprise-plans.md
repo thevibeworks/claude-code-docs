@@ -6,7 +6,7 @@ Claude can use the web in Claude Cowork in two ways: a browser built into the Cl
 
 Browser controls for Cowork are available on Team and Enterprise plans. The built-in browser works in the Claude Desktop app on macOS, Windows, and Linux (beta). When the desktop app is online, it's also available in Cowork on web or mobile.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ## Two ways for Claude to use the web
 

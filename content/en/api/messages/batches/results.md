@@ -620,7 +620,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `EncryptedCodeExecutionResultBlock object`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+                The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form.
+
+                The API returns this block in place of `code_execution_result` when the code called the web search tool.
+
+                See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=http) to learn more about programmatic tool calling.
 
                 - `type: "encrypted_code_execution_result"`
 

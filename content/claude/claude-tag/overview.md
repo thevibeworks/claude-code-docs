@@ -35,7 +35,7 @@ In progress: Opening a pull request with the fix…
 
 ## Plans that include Claude Tag
 
-Claude Tag is available on Team and Enterprise plans, on Anthropic's first-party service. It isn't available on individual plans (Free, Pro, or Max), or for third-party deployments. To use it, your organization pairs its Slack workspace with its Claude organization; see [the setup overview](https://claude.com/docs/claude-tag/admins/setup-overview) for the full prerequisites.
+Claude Tag is available on Team and Enterprise plans, on Anthropic's first-party service. It isn't available on individual plans (Free, Pro, Max, or Ultra), or for third-party deployments. To use it, your organization pairs its Slack workspace with its Claude organization; see [the setup overview](https://claude.com/docs/claude-tag/admins/setup-overview) for the full prerequisites.
 
 If you're choosing between Claude products for Slack-shaped work, [how Claude Tag differs from Cowork and Claude Code](https://claude.com/docs/claude-tag/concepts/how-it-works.md#how-claude-tag-differs-from-cowork-and-claude-code) compares them directly: team work in shared channels is Claude Tag; personal work on your own files is Cowork or Claude Code.
 
@@ -150,18 +150,18 @@ The security model, what admins can and can't restrict, audit trails, and networ
 
 ## Where to start with Claude Tag
 
-> **[Set up Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview)**
+> [card] [Set up Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview)
 >
 > Admins: pair your Slack workspace and launch
 
-> **[Hand Claude Tag your first task](https://claude.com/docs/claude-tag/users/getting-started.md)**
+> [card] [Hand Claude Tag your first task](https://claude.com/docs/claude-tag/users/getting-started.md)
 >
 > It's already in your channel: send your first message
 
-> **[How Claude Tag works](https://claude.com/docs/claude-tag/concepts/how-it-works.md)**
+> [card] [How Claude Tag works](https://claude.com/docs/claude-tag/concepts/how-it-works.md)
 >
 > The session model, what it can read, and how memory follows places
 
-> **[Use case library](https://claude.com/docs/claude-tag/users/use-cases.md)**
+> [card] [Use case library](https://claude.com/docs/claude-tag/users/use-cases.md)
 >
 > Prompts to paste, by team and connection

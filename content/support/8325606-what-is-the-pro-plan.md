@@ -36,7 +36,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ## How can I get a free or discounted Pro plan?
 
-We don’t offer standard discounted pricing for individual plans (Pro and Max). With that said, anyone in a supported location can access the free version of Claude by navigating to **[claude.ai](https://claude.ai/)** and signing up using an email address.
+We don’t offer standard discounted pricing for individual plans (Pro, Max, and Ultra), but anyone in a supported location can access the free version of Claude by navigating to **[claude.ai](https://claude.ai/)** and signing up using an email address.
 
 We occasionally run limited-time promotions, but we don't have any standing discounts available upon request. These promotional offers are typically announced through our official channels when available. If you're interested in potential future promotions, we recommend following our official social media accounts or signing up for our newsletter to be notified of any special offers. Our Support team cannot issue one-off discounts or coupons.
 
@@ -46,11 +46,11 @@ Eligible nonprofit organizations can get discounted pricing on Team and Enterpri
 
 ## Does the Pro plan have any usage limits?
 
-Yes. The Pro plan offers more usage per session than the Free plan. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use. Your session-based usage limit will reset every five hours.
+Yes. The Pro plan offers more usage per session than the Free plan. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use.
 
-Pro plans also have a weekly usage limit that applies across all models. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
+Pro plans have a five-hour limit and a weekly usage limit that applies across all models. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 
-In addition, to manage capacity and ensure fair access to all users, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion.
+Additional usage limits may apply to manage capacity and ensure fair access to all users. For example, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion. We don't guarantee uninterrupted service.
 
 For more information about usage and length limits, refer to **[Understanding usage and length limits](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits)**. For guidance on using your Pro capacity efficiently, we also have **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
@@ -58,6 +58,6 @@ For more information about usage and length limits, refer to **[Understanding us
 
 ### How do I increase my Pro plan usage limits?
 
-Our Max plans offer more usage for individuals than Pro plans. For additional information, see **[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)**
+Our Max and Ultra plans offer more usage for individuals than Pro plans. For additional information, see **[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)** and **[What is the Ultra plan?](https://support.claude.com/en/articles/17728952)**
 
 Pro subscribers can also enable usage credits to continue working with Claude beyond the plan’s included usage limits. For more information and instructions for enabling this feature, see **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-)**.

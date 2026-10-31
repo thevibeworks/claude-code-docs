@@ -26,7 +26,7 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
+    Claude API: stable
     Claude Platform on AWS: beta
     Claude Models on Google Cloud (Anthropic managed): beta
 ---

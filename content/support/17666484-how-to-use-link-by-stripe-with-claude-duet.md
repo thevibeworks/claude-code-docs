@@ -2,7 +2,7 @@
 
 Connect Link, Stripe's digital wallet, to Claude Duet so it can pay for purchases you approve.
 
-Link is available in Claude Duet, a research preview for Pro and Max plans in the US with a US payment method. It isn't available in Claude, Cowork, or Claude Code for now.
+Link is available in Claude Duet, a research preview for Pro, Max, and Ultra plans in the US with a US payment method. It isn't available in Claude, Cowork, or Claude Code for now.
 
 Link is separate from the Stripe connector, which lets Claude work in your Stripe account. You can use either one without the other.
 
@@ -38,7 +38,7 @@ Claude Duet can see the card type, last four digits of your card or bank account
 
 ## Current limitations
 
-- Link is available only in Claude Duet, on Pro and Max plans in the US.
+- Link is available only in Claude Duet, on Pro, Max, and Ultra plans in the US.
 
 - A US payment method is required.
 

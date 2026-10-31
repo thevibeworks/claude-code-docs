@@ -24,6 +24,7 @@ Check these on Windows devices before rollout:
 
 * **Log on as a service**: Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace).
 * **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](https://claude.com/docs/third-party/claude-desktop/extensions.md#hooks-on-windows-devices-without-git-for-windows).
+* **Virtual desktops**: on virtual desktop infrastructure, Windows itself runs in a virtual machine, so Cowork's virtual machine starts only where the hosting platform exposes nested virtualization to that virtual machine. Run the [readiness check](#check-device-readiness) on one desktop in each pool.
 
 With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a message sent from the home screen starts a Cowork session on a device that can run Cowork. On a device that can't run Cowork's virtual machine, the message starts a Chat conversation.
 
@@ -107,7 +108,7 @@ If the app shows the standard claude.ai sign-in screen instead of Cowork, the co
 * `inferenceProvider` is missing or its name is misspelled, or its value in the local configuration file or in Windows policy under `HKCU` isn't one the app recognizes
 * The configuration was applied while the app was running (fully quit and relaunch)
 * The configuration was written to the local config file but you're checking the managed location (or vice versa)
-* On Windows (v1.19367.0 and later), the configuration is in `HKCU\SOFTWARE\Policies\Claude` but machine policy is also present: any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude` causes the app to ignore user policy entirely. In the diagnostic report (**Help → Troubleshooting → Generate Diagnostic Report**, then **Export to file**), `managed-config.txt` shows each key's configured or default value and lists under `Parse errors` any machine-policy values it could not use. A `REG_EXPAND_SZ` value shows as present in `reg query` output while the app reports the managed configuration as invalid or absent, because the app counts the value as machine policy but cannot read its contents
+* On Windows (v1.19367.0 and later), the configuration is in `HKCU\SOFTWARE\Policies\Claude` but machine policy is also present: any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude` causes the app to ignore user policy entirely. A `REG_EXPAND_SZ` value shows as present in `reg query` output while the app reports the managed configuration as invalid or absent, because the app counts the value as machine policy but cannot read its contents
 
 If the app shows a configuration error instead, it read the configuration but can't use it. For example, a required key for the chosen provider is missing or invalid, or a macOS configuration profile, Windows policy under `HKLM`, or the root-owned policy file on Linux sets [`inferenceProvider`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceprovider) to a value the app doesn't recognize. Check **Help → Troubleshooting** or the application log at `~/Library/Logs/Claude-3p/main.log` (macOS) / `%LOCALAPPDATA%\Claude-3p\Logs\main.log` (Windows).
 
@@ -131,7 +132,7 @@ Once the device can download from `downloads.claude.ai`, have the user restart C
 
 ### Windows security policy blocks the Cowork workspace
 
-On Windows, the app shows **A Windows security policy is blocking Claude's workspace** when a user-rights policy stops the virtual machine that Cowork runs in from starting. Cowork tasks don't start on that device, and [advanced file analysis](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis) in Chat, which uses the same virtual machine, fails too. The banner's **Copy details** button copies a description of the error that includes the code `0x80070569`. Standard (non-3P) installs show this banner too.
+On Windows, the app shows **A Windows security policy is blocking Claude's workspace** when a user-rights policy stops Cowork's virtual machine from starting. On that device, Cowork tasks start, but the shell commands that Claude runs in them fail. [Advanced file analysis](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis) in Chat, which uses the same virtual machine, fails too. The banner's **Copy details** button copies a description of the error that includes the code `0x80070569`. Standard (non-3P) installs show this banner too.
 
 The virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group (SID `S-1-5-83-0`), and that group needs the **Log on as a service** user right. Microsoft's [Starting or live migrating Hyper-V VMs fails](https://learn.microsoft.com/en-us/troubleshoot/windows-server/virtualization/starting-or-live-migrating-hyper-v-vms-fails) describes the same error for Hyper-V virtual machines when the group is missing that right. A Group Policy that defines **Log on as a service** replaces the list of accounts on each device instead of adding to it. When the policy's list leaves this group out, or a policy lists the group under **Deny log on as a service**, the virtual machine can't start.
 
@@ -151,7 +152,7 @@ To apply a Group Policy change on a device, run `gpupdate /force` in a Command P
 
 ## Endpoint security software
 
-Claude Desktop runs Chat conversations, Cowork tasks, and Code sessions through an agent helper, a signed binary that it keeps under its user-data directory (with the standard installer) and launches when a user works in Chat, Cowork, or Code. If your organization runs binary-authorization or EDR software (such as [Santa](https://santa.dev), CrowdStrike Falcon, or Microsoft Defender ASR) with path-based deny rules, the agent helper may be blocked from launching. The symptom is that Claude Desktop opens normally and reads the managed configuration, but Chat conversations, Cowork tasks, and Code sessions fail to start.
+Claude Desktop runs Chat conversations, Cowork tasks, and Code sessions through an agent helper, a signed binary that it keeps under its user-data directory (or, with the Windows [offline installer](#offline-installation), inside the installed app package) and launches when a user works in Chat, Cowork, or Code. If your organization runs binary-authorization or EDR software (such as [Santa](https://santa.dev), CrowdStrike Falcon, or Microsoft Defender ASR) with path-based deny rules, the agent helper may be blocked from launching. The symptom is that Claude Desktop opens normally and reads the managed configuration, but Chat conversations, Cowork tasks, and Code sessions fail to start.
 
 **Allowlist the helper by signing identity rather than path** so the rule survives version updates. The helper's path includes a `<build-id>` folder, a 12-character name that differs from one build of the helper to the next.
 
@@ -174,7 +175,7 @@ For Santa, a `TEAMID` allow rule for `Q6L2SF6YDW` covers the helper across versi
 %LOCALAPPDATA%\Claude-3p\claude-code\<version>\<build-id>\claude.exe
 ```
 
-The helper is Authenticode-signed with publisher `Anthropic, PBC`. Standard installs use `%APPDATA%\Claude\` with the same subpath.
+The helper is Authenticode-signed with publisher `Anthropic, PBC`.
 
 For Defender ASR, a Microsoft Defender for Endpoint [certificate indicator](https://learn.microsoft.com/en-us/defender-endpoint/indicator-certificates) matches one certificate, not the publisher name. If you use certificate indicators, you need one for each of the following certificates and another whenever Anthropic renews its signing certificate:
 
@@ -266,4 +267,4 @@ Set the restart keys in the same place as `disableAutoUpdates`, such as the same
 
 > [!NOTE]
 >
-> Add the restart keys after your devices have a version that supports them. An earlier version can show people a configuration warning at every launch, or reject the managed configuration that holds the keys and ignore the device's own configuration too. For what each platform does with a key it doesn't know, see [`installedUpdateEnforcementEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#installedupdateenforcementenabled).
+> Add the restart keys after your devices have a version that supports them. An earlier version can show people a configuration warning at every launch, or reject the managed configuration that holds the keys and ignore the device's own configuration too.

@@ -3,7 +3,7 @@ title: Fine-grained tool streaming
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming
 description: Stream tool inputs without server-side JSON buffering for latency-sensitive applications.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
@@ -26,12 +26,12 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Amazon Bedrock: ga
-    Amazon Bedrock (InvokeModel): ga
-    Claude Models on Google Cloud (Google managed): ga
-    Microsoft Foundry: ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (InvokeModel): stable
+    Claude Models on Google Cloud (Google managed): stable
+    Microsoft Foundry: stable
 ---
 
 Fine-grained tool streaming delivers a tool’s input to your client as Claude generates it, without server-side buffering or JSON validation. Skipping the buffering step reduces the time to the first fragment of a large parameter, such as a document or a block of code, and the fragments arrive through the same [Streaming messages](https://platform.claude.com/docs/en/build-with-claude/streaming) events as standard tool use.

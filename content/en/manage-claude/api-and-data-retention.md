@@ -33,7 +33,7 @@ Under a ZDR arrangement, Anthropic does not store customer prompts or responses 
 
 * **Claude Console:** Any usage in the Claude Console, including playground.
 * **Claude Managed Agents:** Claude Managed Agents is a stateful resource; session transcripts persist until you delete them.
-* **Claude consumer products:** Claude Free, Pro, and Max plans, including when customers on those plans use Claude's web, desktop, or mobile apps or Claude Code.
+* **Claude consumer products:** Claude Free, Pro, Max, and Ultra plans, including when customers on those plans use Claude's web, desktop, or mobile apps or Claude Code.
 * **Claude Teams and Claude Enterprise product interfaces:** These interfaces are not ZDR-eligible. The one exception is Claude Code on Claude Enterprise, which has its own ZDR offering, separate from the ZDR arrangement described on this page. That offering is available only to qualified accounts on Claude Enterprise and requires separate enablement by Anthropic. See the [Claude Code ZDR documentation](https://code.claude.com/docs/en/zero-data-retention), which applies to Claude Enterprise organizations only.
 * **Claude for Excel:** Not currently ZDR-eligible.
 * **Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5:** These models require 30-day data retention and are not available under ZDR unless expressly authorized by Anthropic. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
@@ -60,7 +60,7 @@ The Claude API supports HIPAA-ready integrations for organizations that handle p
 
 ### What HIPAA readiness does not cover
 
-* **Claude consumer products:** Claude Free, Pro, and Max plans.
+* **Claude consumer products:** Claude Free, Pro, Max, and Ultra plans.
 * **Claude Console:** Usage through the Claude Console interface (enabling HIPAA readiness from Console settings is supported; processing PHI through the Console is not covered).
 * **Partner-operated platforms:** Amazon Bedrock and Google Cloud’s Agent Platform. Refer to those platforms’ compliance documentation.
 * **Claude Platform on AWS:** HIPAA readiness is not available on Claude Platform on AWS.

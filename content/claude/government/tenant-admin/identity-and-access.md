@@ -83,7 +83,7 @@ Both the OIDC and SAML sections include an **Attribute mapping** panel that's co
 
 Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Directory sync is optional, and without it accounts are created at first sign-in. With it, your identity provider pushes users and groups, provisioning rules place them in organizations, and each organization maps groups to seat tiers and roles.
 >
@@ -137,7 +137,7 @@ Once your identity provider has pushed groups over SCIM, they appear here with t
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Routing rules decide which organization each person lands in. Organizations hold users, seats, and settings, and their seats come from a billing account.
 >

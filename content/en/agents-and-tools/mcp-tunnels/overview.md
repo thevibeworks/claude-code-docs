@@ -47,7 +47,7 @@ The [tunnel stack](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunn
 * **[cloudflared](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components):** Cloudflare’s open-source tunnel connector. It initiates outbound-only connections to the [tunnel edge](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) and carries encrypted traffic from Anthropic to your proxy.
 * **[Proxy](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components):** Anthropic’s routing component. It terminates [inner TLS](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components), validates that upstream IPs fall within an allowed range, and routes each request to the correct [upstream MCP server](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) based on hostname.
 
-Each MCP server you expose gets a hostname under your tunnel domain (for example, `docs.<your-tunnel-domain>`). You attach these hostnames to a Managed Agent session in the Claude Console, or pass them to the Messages API through the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector).
+Each MCP server you expose gets a hostname under your tunnel domain (for example, `docs.<your-tunnel-domain>`). You attach these hostnames to an agent in the Claude Console, or pass them to the Messages API through the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector).
 
 ## Prerequisites
 
@@ -158,8 +158,10 @@ In both cases, the tunnel carries encrypted traffic to your MCP server but does 
 ### Managed Agents (Console)
 
 1. On the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) in the Claude Console, create a session and select **Create new agent** so you can edit the MCP server list.
-2. Click **+ MCP Server** and open the dropdown menu. Tunnels in the session’s workspace that have at least one active certificate appear at the top of the list, above the public connector catalog.
+2. Under **MCP servers**, click **MCP server** and open the dropdown menu. Tunnels in the session’s workspace that have at least one active certificate appear at the top of the list, above the public connector catalog.
 3. Select the tunnel and supply the **Subdomain** that your proxy routes to a specific MCP server, and the **Path** the upstream MCP server expects. The **Resolves to** line shows the exact URL.
+
+For the full procedure, see [Use the tunnel in an agent](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#use-the-tunnel-in-an-agent).
 
 ### Messages API
 

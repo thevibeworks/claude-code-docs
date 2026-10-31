@@ -6,7 +6,7 @@ This article shows you how to permanently delete your account on the web and in 
 
 ## Before you delete a paid account
 
-If you're on a Pro or Max plan:
+If you're on a Pro, Max, or Ultra plan:
 
 1. Cancel your subscription from your **[Billing settings](https://claude.ai/settings/billing)**.
 
@@ -14,7 +14,7 @@ If you're on a Pro or Max plan:
 
 3. Once the subscription lapses, delete your account using the steps below.
 
-For detailed cancellation instructions, including for Claude for iOS and Android, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+For detailed cancellation instructions, including for Claude for iOS and Android, see **[Cancel your Pro, Max, or Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 
 ## Delete your account on the web
 

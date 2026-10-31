@@ -8,7 +8,7 @@
 
 The Enterprise-Managed Authorization extension (`io.modelcontextprotocol/enterprise-managed-authorization`) enables organizations to control MCP server access centrally through their existing identity provider (IdP). Instead of each employee authorizing each MCP server individually, the organization's IT or security team manages access policies in one place.
 
-> **[Specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization/2026-07-28/enterprise-managed-authorization.mdx)**
+> [card] [Specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization/2026-07-28/enterprise-managed-authorization.mdx)
 >
 > Full technical specification for the Enterprise-Managed Authorization
 > extension.
@@ -184,18 +184,18 @@ is a community list that also covers requesting applications. For MCP client sup
 
 ## Related resources
 
-> **[ext-auth repository](https://github.com/modelcontextprotocol/ext-auth)**
+> [card] [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth)
 >
 > Source code and reference implementations
 
-> **[Full specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization/2026-07-28/enterprise-managed-authorization.mdx)**
+> [card] [Full specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization/2026-07-28/enterprise-managed-authorization.mdx)
 >
 > Technical specification with normative requirements
 
-> **[SEP-990](https://modelcontextprotocol.io/seps/990-enable-enterprise-idp-policy-controls-during-mcp-o.md)**
+> [card] [SEP-990](https://modelcontextprotocol.io/seps/990-enable-enterprise-idp-policy-controls-during-mcp-o.md)
 >
 > Original proposal: Enable Enterprise IdP Policy Controls
 
-> **[MCP Authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md)**
+> [card] [MCP Authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md)
 >
 > Core MCP authorization specification

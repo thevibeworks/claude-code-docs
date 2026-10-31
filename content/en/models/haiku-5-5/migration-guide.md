@@ -48,13 +48,14 @@ If your organization has a [Priority Tier](https://platform.claude.com/docs/en/a
 
 Replace the Claude Haiku 4.5 model ID with the Claude Haiku 5.5 ID for your platform.
 
-| Platform                                       | Claude Haiku 4.5                                  | Claude Haiku 5.5             |
-| ---------------------------------------------- | ------------------------------------------------- | ---------------------------- |
-| Claude API                                     | `claude-haiku-4-5-20251001` or `claude-haiku-4-5` | `claude-haiku-5-5`           |
-| Amazon Bedrock                                 | `anthropic.claude-haiku-4-5`                      | `anthropic.claude-haiku-5-5` |
-| Claude Platform on AWS                         | `claude-haiku-4-5`                                | `claude-haiku-5-5`           |
-| Claude Models on Google Cloud (Google managed) | `claude-haiku-4-5@20251001`                       | `claude-haiku-5-5`           |
-| Microsoft Foundry                              | `claude-haiku-4-5`                                | `claude-haiku-5-5`           |
+| Platform                                          | Claude Haiku 4.5                                  | Claude Haiku 5.5             |
+| ------------------------------------------------- | ------------------------------------------------- | ---------------------------- |
+| Claude API                                        | `claude-haiku-4-5-20251001` or `claude-haiku-4-5` | `claude-haiku-5-5`           |
+| Amazon Bedrock                                    | `anthropic.claude-haiku-4-5`                      | `anthropic.claude-haiku-5-5` |
+| Claude Platform on AWS                            | `claude-haiku-4-5`                                | `claude-haiku-5-5`           |
+| Claude Models on Google Cloud (Anthropic managed) | `claude-haiku-4-5-20251001`                       | `claude-haiku-5-5`           |
+| Claude Models on Google Cloud (Google managed)    | `claude-haiku-4-5@20251001`                       | `claude-haiku-5-5`           |
+| Microsoft Foundry                                 | `claude-haiku-4-5`                                | `claude-haiku-5-5`           |
 
 `claude-haiku-5-5` is a fixed model ID with no date suffix and no separate alias.
 

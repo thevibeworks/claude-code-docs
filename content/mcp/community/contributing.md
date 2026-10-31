@@ -431,25 +431,25 @@ prevents regressions.
 
 ### SDK Repositories
 
-> **[TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)**
+> [card] [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 
-> **[Python SDK](https://github.com/modelcontextprotocol/python-sdk)**
+> [card] [Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 
-> **[Go SDK](https://github.com/modelcontextprotocol/go-sdk)**
+> [card] [Go SDK](https://github.com/modelcontextprotocol/go-sdk)
 
-> **[Kotlin SDK](https://github.com/modelcontextprotocol/kotlin-sdk)**
+> [card] [Kotlin SDK](https://github.com/modelcontextprotocol/kotlin-sdk)
 
-> **[Java SDK](https://github.com/modelcontextprotocol/java-sdk)**
+> [card] [Java SDK](https://github.com/modelcontextprotocol/java-sdk)
 
-> **[C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)**
+> [card] [C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)
 
-> **[Swift SDK](https://github.com/modelcontextprotocol/swift-sdk)**
+> [card] [Swift SDK](https://github.com/modelcontextprotocol/swift-sdk)
 
-> **[Rust SDK](https://github.com/modelcontextprotocol/rust-sdk)**
+> [card] [Rust SDK](https://github.com/modelcontextprotocol/rust-sdk)
 
-> **[Ruby SDK](https://github.com/modelcontextprotocol/ruby-sdk)**
+> [card] [Ruby SDK](https://github.com/modelcontextprotocol/ruby-sdk)
 
-> **[PHP SDK](https://github.com/modelcontextprotocol/php-sdk)**
+> [card] [PHP SDK](https://github.com/modelcontextprotocol/php-sdk)
 
 ## Getting Help
 

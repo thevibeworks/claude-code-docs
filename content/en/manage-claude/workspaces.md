@@ -1031,7 +1031,7 @@ You can set workspace limits lower than (but not higher than) your organizationâ
   - Organization-wide limits always apply, even if workspace limits add up to more.
 </Note>
 
-For detailed information on rate limits and how they work, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits). You can also read your current organization and workspace rate limits programmatically with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).
+For detailed information on rate limits and how they work, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits). You can also read your current organization and workspace rate limits and set workspace rate limits programmatically with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api), which stores a value above the organizationâ€™s limit but still enforces the lower of the two.
 
 ## Usage and cost tracking
 

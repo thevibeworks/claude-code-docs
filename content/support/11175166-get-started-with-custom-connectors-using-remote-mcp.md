@@ -1,6 +1,6 @@
 # Get started with custom connectors using remote MCP
 
-Custom connectors using remote MCP are available on Claude, Cowork, and Claude Desktop for users on Free, Pro, Max, Team, and Enterprise plans. Free users are limited to one custom connector.
+Custom connectors using remote MCP are available on Claude, Cowork, and Claude Desktop for users on Free, Pro, Max, Ultra, Team, and Enterprise plans. Free users are limited to one custom connector.
 
 ## What are custom connectors?
 

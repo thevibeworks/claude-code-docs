@@ -82,10 +82,10 @@ For repository conventions that should hold across every session that touches th
 
 ## Related resources
 
-> **[Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md)**
+> [card] [Watch monitors and alerts](https://claude.com/docs/claude-tag/users/use-cases/watch-monitors.md)
 >
 > Catching the problem before the bug report
 
-> **[Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)**
+> [card] [Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)
 >
 > Definitions of done for code tasks

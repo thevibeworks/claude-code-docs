@@ -137,6 +137,8 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `BetaTelemetryDestinationTestResponse object`

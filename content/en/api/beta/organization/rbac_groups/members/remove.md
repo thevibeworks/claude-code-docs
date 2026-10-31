@@ -60,6 +60,6 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID/membe
 {
   "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
   "type": "rbac_group_member_deleted",
-  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
 }
 ```

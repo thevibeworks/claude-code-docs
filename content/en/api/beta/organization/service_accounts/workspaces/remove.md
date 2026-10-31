@@ -151,6 +151,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `type: "service_account_workspace_member_deleted"`

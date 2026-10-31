@@ -14,7 +14,7 @@ Auto mode lets Claude Science run code and call connectors without stopping to a
 
 ## Turn auto mode on or off
 
-Where available, auto mode is enabled by default for Pro, Max, and Team plans and off by default for Enterprise plans. Once an Enterprise admin enables auto mode, it will automatically become the default for all employees in the org.
+Where available, auto mode is enabled by default for Pro, Max, Ultra, and Team plans and off by default for Enterprise plans. Once an Enterprise admin enables auto mode, it will automatically become the default for all employees in the org.
 
 * **You can adjust the default for new sessions** by going to **Settings > Permissions** and toggling **Auto mode on for new sessions** to your preferred setting.
 * **You can adjust the default for the current session**, by opening the session settings menu in the message box and toggling **Auto mode** to your preferred setting.

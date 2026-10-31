@@ -3,7 +3,7 @@ title: Text editor tool
 url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool
 description: Give Claude the Anthropic-defined text editor tool to view, create, and edit files, and handle its view, str_replace, create, and insert commands.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Client-side tool run in your environment.
@@ -26,12 +26,12 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Amazon Bedrock: ga
-    Amazon Bedrock (InvokeModel): ga
-    Claude Models on Google Cloud (Google managed): ga
-    Microsoft Foundry: ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (InvokeModel): stable
+    Claude Models on Google Cloud (Google managed): stable
+    Microsoft Foundry: stable
 ---
 
 Claude can use an Anthropic-schema text editor tool to view and modify text files, helping you debug, fix, and improve your code or other text documents. This allows Claude to directly interact with your files, providing hands-on assistance rather than just suggesting changes.

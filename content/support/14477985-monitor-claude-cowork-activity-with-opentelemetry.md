@@ -6,7 +6,7 @@ This article explains how to use OpenTelemetry (OTel) to monitor Claude Cowork a
 
 OpenTelemetry monitoring for Claude Cowork is available on Team and Enterprise plans. It covers Cowork sessions that run in the cloud (on desktop, web, and mobile) as well as local desktop sessions. Monitoring sessions in the cloud requires Claude Desktop version 1.22209.3 or later, and monitoring local desktop sessions requires Claude Desktop version 1.1.4173 or later.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 

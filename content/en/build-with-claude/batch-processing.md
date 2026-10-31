@@ -3,7 +3,7 @@ title: Batch processing
 url: https://platform.claude.com/docs/en/build-with-claude/batch-processing
 description: Process large volumes of Messages requests asynchronously with the Message Batches API, cutting costs by 50 percent and increasing throughput.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: not-eligible
     note: 29-day retention; async storage required.
@@ -26,9 +26,9 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Claude Models on Google Cloud (Anthropic managed): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Claude Models on Google Cloud (Anthropic managed): stable
 ---
 
 Batch processing is a powerful approach for handling large volumes of requests efficiently. Instead of processing requests one at a time with immediate responses, batch processing allows you to submit multiple requests together for asynchronous processing. This pattern is particularly useful when:

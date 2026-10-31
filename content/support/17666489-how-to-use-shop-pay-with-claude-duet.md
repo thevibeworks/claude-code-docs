@@ -2,7 +2,7 @@
 
 Connect Shop Pay, Shopify's wallet, to Claude Duet so it can pay for purchases you approve.
 
-Shop Pay is available in Claude Duet, a research preview for Pro and Max plans in the US. It isn't available in Claude, Cowork, or Claude Code for now.
+Shop Pay is available in Claude Duet, a research preview for Pro, Max, and Ultra plans in the US. It isn't available in Claude, Cowork, or Claude Code for now.
 
 Shop Pay is separate from the Shopify connector, which lets Claude work in your Shopify store. You can use either one without the other.
 
@@ -38,7 +38,7 @@ Claude Duet can see the card type, last four digits of your card or bank account
 
 ## Current limitations
 
-- Shop Pay is available only in Claude Duet, on Pro and Max plans in the US.
+- Shop Pay is available only in Claude Duet, on Pro, Max, and Ultra plans in the US.
 
 - Some sites can block Claude Duet from paying. If that happens, you may need to finish the purchase yourself.
 

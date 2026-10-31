@@ -187,33 +187,33 @@ If you bind-mount a host directory instead of a named volume, it keeps its host 
 
 Hand the key to the container **as a file** with `MCP_INSPECTOR_SECRET_KEY_FILE`, not as an environment variable. A key passed with `-e MCP_INSPECTOR_SECRET_KEY=…` is readable by anyone who can run `docker inspect` or `docker exec`.
 
-**docker run**
+> [tab] docker run
+>
+> ```bash theme={null}
+> docker run --rm -p 127.0.0.1:6274:6274 \
+>   -v mcp-inspector-data:/home/node/.mcp-inspector \
+>   -v "$HOME/.config/mcp-inspector/secret-key:/run/secrets/mcp_inspector_secret_key:ro" \
+>   -e MCP_INSPECTOR_SECRET_KEY_FILE=/run/secrets/mcp_inspector_secret_key \
+>   ghcr.io/modelcontextprotocol/inspector
+> ```
 
-```bash theme={null}
-docker run --rm -p 127.0.0.1:6274:6274 \
-  -v mcp-inspector-data:/home/node/.mcp-inspector \
-  -v "$HOME/.config/mcp-inspector/secret-key:/run/secrets/mcp_inspector_secret_key:ro" \
-  -e MCP_INSPECTOR_SECRET_KEY_FILE=/run/secrets/mcp_inspector_secret_key \
-  ghcr.io/modelcontextprotocol/inspector
-```
-
-**Compose secrets**
-
-```yaml theme={null}
-services:
-  inspector:
-    image: ghcr.io/modelcontextprotocol/inspector
-    ports: ["127.0.0.1:6274:6274"]
-    volumes: ["mcp-inspector-data:/home/node/.mcp-inspector"]
-    environment:
-      MCP_INSPECTOR_SECRET_KEY_FILE: /run/secrets/mcp_inspector_secret_key
-    secrets: [mcp_inspector_secret_key]
-secrets:
-  mcp_inspector_secret_key:
-    file: ${HOME}/.config/mcp-inspector/secret-key
-volumes:
-  mcp-inspector-data:
-```
+> [tab] Compose secrets
+>
+> ```yaml theme={null}
+> services:
+>   inspector:
+>     image: ghcr.io/modelcontextprotocol/inspector
+>     ports: ["127.0.0.1:6274:6274"]
+>     volumes: ["mcp-inspector-data:/home/node/.mcp-inspector"]
+>     environment:
+>       MCP_INSPECTOR_SECRET_KEY_FILE: /run/secrets/mcp_inspector_secret_key
+>     secrets: [mcp_inspector_secret_key]
+> secrets:
+>   mcp_inspector_secret_key:
+>     file: ${HOME}/.config/mcp-inspector/secret-key
+> volumes:
+>   mcp-inspector-data:
+> ```
 
 Without Swarm, Compose secrets are bind mounts that keep the host file's owner and mode, so the `0600` key file must be owned by uid `1000`. On a Linux host where your uid is different, run `sudo chown 1000 ~/.config/mcp-inspector/secret-key` rather than loosening its mode. Supply the **same** key on every run.
 

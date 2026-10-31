@@ -6,7 +6,7 @@
 
 > Build, test, and export a Claude Desktop on 3P configuration from inside the app, with validation and per-provider guidance
 
-The in-app configuration window is the recommended way to configure Claude Desktop for third-party inference. It validates values as you enter them, shows exactly which fields your inference provider requires, tests the connection against your endpoint, and computes the network egress allowlist for your settings, so you don't have to hand-edit JSON, plists, or registry keys.
+The in-app configuration window is the recommended way to configure Claude Desktop for third-party inference. It validates values as you enter them, shows exactly which fields your inference provider requires, tests the connection against your endpoint, and computes the network egress allowlist for your settings.
 
 ## Open the configuration window
 
@@ -35,7 +35,7 @@ Use the **Export** menu to generate deployment artifacts for a fleet:
 | ADMX template (`.zip`) | Intune or Group Policy; a schema-only template, you enter values in the management console |
 | Profile Manifest (`.plist`) | Jamf, ProfileCreator, or similar macOS tools; a schema-only template, you enter values in your tool |
 | JSON config | The response body for a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), or a configuration file for a device without MDM |
-| Egress allowlist | Your firewall or network team |
+| Firewall allowlist (`.txt`) | Your firewall or network team |
 
 See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) or [Deploy with a bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) to distribute what you exported.
 

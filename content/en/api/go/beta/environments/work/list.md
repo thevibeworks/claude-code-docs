@@ -141,6 +141,8 @@ List work items in an environment.
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
 
+    - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `type BetaSelfHostedWork`

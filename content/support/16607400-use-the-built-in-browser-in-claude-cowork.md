@@ -4,9 +4,9 @@ Claude Cowork has a browser built into the Claude Desktop app. This article expl
 
 ## Availability
 
-The built-in browser is available in Cowork in Claude Desktop for macOS, Windows, and Linux (beta) on Pro and Max plans, and on Team and Enterprise plans unless an owner has turned it off. When the desktop app is online, it's also available in Cowork on web or mobile.
+The built-in browser is available in Cowork in Claude Desktop for macOS, Windows, and Linux (beta) on Pro, Max, and Ultra plans, and on Team and Enterprise plans unless an owner has turned it off. When the desktop app is online, it's also available in Cowork on web or mobile.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ## How the built-in browser works
 

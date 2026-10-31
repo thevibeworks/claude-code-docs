@@ -14,7 +14,7 @@ The organization admin portal is where you manage the people, seats, and setting
 
 Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > In an organization, a member's role decides what they can manage, and their seat tier decides which models they can use and how much. Readiness shows what still blocks your members.
 >

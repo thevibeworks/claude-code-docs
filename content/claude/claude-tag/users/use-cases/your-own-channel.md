@@ -112,10 +112,10 @@ The reply is one list of everything that happened here while you were away, orde
 
 ## Related resources
 
-> **[Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)**
+> [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >
 > List, edit, or disable the standing work this page sets up
 
-> **[Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)**
+> [card] [Good habits](https://claude.com/docs/claude-tag/users/good-habits.md)
 >
 > Pick the right surface and write tasks that close

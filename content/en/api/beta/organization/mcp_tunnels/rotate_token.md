@@ -145,6 +145,8 @@ restarted after rotation must use the new value. An optional
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Body parameters
 
 - `reason: optional string or null`

@@ -143,6 +143,8 @@ Long poll for work items in the queue.
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
+    - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
   - `Optional<String> anthropicWorkerId` (header parameter)
 
     Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

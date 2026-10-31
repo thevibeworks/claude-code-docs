@@ -4,15 +4,15 @@ Claude Cowork is available on desktop, web, mobile, and in the Claude in Chrome 
 
 ## Availability
 
-Claude Cowork is available on paid plans (Pro, Max, Team, and Enterprise):
+Claude Cowork is available on paid plans (Pro, Max, Ultra, Team, and Enterprise):
 
 - **Claude Desktop for macOS, Windows, and Linux (beta):** All paid plans. Download or update at **claude.com/download**.
 
-- **Web and Claude Mobile:** Pro, Max, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
+- **Web and Claude Mobile:** Pro, Max, Ultra, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
 
 - **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -46,17 +46,17 @@ When using Cowork in the cloud, Claude's work runs on Anthropic's servers instea
 
 - The same sessions and files are available on desktop, web, and mobile.
 
-- On Pro and Max plans, new sessions run in the cloud on every surface. Tasks you started on your computer before October 6 stay there so you can finish them.
+- On Pro, Max, and Ultra plans, new sessions run in the cloud on every surface. Tasks you started on your computer before October 6 stay there so you can finish them.
 
-There’s no setting to choose where a task runs on Pro and Max plans.
+There’s no setting to choose where a task runs on Pro, Max, and Ultra plans.
 
 For details on how cloud and local sessions are isolated and what each can access, see **[Claude Cowork architecture overview](https://support.claude.com/en/articles/14479288)**. For safety guidance, see **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135)**.
 
 ---
 
-## What changed for Pro and Max plans on October 6
+## What changed for Pro, Max, and Ultra plans on October 6
 
-On October 6, 2026, new Cowork tasks on Pro and Max plans run in the cloud. The **Only on your computer** option in **[Settings > General](https://claude.ai/settings/general)** was removed. If you were still set to run Cowork only on your computer, you’re moved to the cloud the next time you open the desktop app, and you’ll see a notice. There’s nothing to set up, and you can’t switch back.
+On October 6, 2026, new Cowork tasks on Pro, Max, and Ultra plans run in the cloud. The **Only on your computer** option in **[Settings > General](https://claude.ai/settings/general)** was removed. If you were still set to run Cowork only on your computer, you’re moved to the cloud the next time you open the desktop app, and you’ll see a notice. There’s nothing to set up, and you can’t switch back.
 
 Tasks you already started on your computer stay there, and you can keep working on them until they're done. Each one shows a banner saying it runs only on this computer.
 
@@ -111,7 +111,7 @@ A few notes on the table:
 
 - Scheduled tasks run in the cloud, so they no longer need your computer to be awake. For more information, see **[Schedule recurring tasks in Claude Cowork](https://support.claude.com/en/articles/13854387)**.
 
-- Computer use is in beta for Pro and Max plans. For more information, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
+- Computer use is in beta for Pro, Max, and Ultra plans. For more information, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
 
 ## What requires the desktop app
 

@@ -2,7 +2,7 @@
 
 This guide explains how to get support for your Claude or Console account. Different support options are available depending on your plan. Support is provided in writing through the support messenger and email. We don't offer phone support.
 
-## Pro and Max plans, Team and Enterprise plan owners, and Console Admins
+## Pro, Max, and Ultra plans, Team and Enterprise plan owners, and Console Admins
 
 You have full access to:
 

@@ -24,7 +24,7 @@ If a detail looks wrong (for example, the tenant name is misspelled), contact An
 
 Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Before your members can sign in, your tenant needs a verified email domain and a connection to your identity provider.
 >

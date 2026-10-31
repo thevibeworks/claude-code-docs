@@ -244,7 +244,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits/effective \
         "email_address": "email_address",
         "name": "name",
         "type": "user_actor",
-        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
       },
       "amount": "50000",
       "currency": "USD",
@@ -252,11 +252,11 @@ curl https://api.anthropic.com/v1/organizations/spend_limits/effective \
       "period_to_date_spend": "12050.5",
       "scope": {
         "type": "user",
-        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
       },
       "source": {
         "type": "user",
-        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
       },
       "spend_limit_id": "spend_limit_id"
     }

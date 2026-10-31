@@ -40,10 +40,10 @@ Visit the SDK page for your chosen language to find installation instructions, d
 
 Ready to start building with MCP? Choose your path:
 
-> **[Build a Server](https://modelcontextprotocol.io/docs/2025-03-26/develop/build-server.md)**
+> [card] [Build a Server](https://modelcontextprotocol.io/docs/2025-03-26/develop/build-server.md)
 >
 > Learn how to create your first MCP server
 
-> **[Build a Client](https://modelcontextprotocol.io/docs/2025-03-26/develop/build-client.md)**
+> [card] [Build a Client](https://modelcontextprotocol.io/docs/2025-03-26/develop/build-client.md)
 >
 > Create applications that connect to MCP servers

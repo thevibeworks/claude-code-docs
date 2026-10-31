@@ -423,19 +423,19 @@ For a fleet:
 
 ## Next Steps
 
-> **[Security Best Practices](https://modelcontextprotocol.io/docs/draft/tutorials/security/security_best_practices.md)**
+> [card] [Security Best Practices](https://modelcontextprotocol.io/docs/draft/tutorials/security/security_best_practices.md)
 >
 > The protocol threat model: confused deputy, token passthrough, and session
 > hijacking
 
-> **[Authorization](https://modelcontextprotocol.io/docs/draft/tutorials/security/authorization.md)**
+> [card] [Authorization](https://modelcontextprotocol.io/docs/draft/tutorials/security/authorization.md)
 >
 > How OAuth-based authorization works for remote MCP servers
 
-> **[SEP-1024](https://modelcontextprotocol.io/seps/1024-mcp-client-security-requirements-for-local-server-.md)**
+> [card] [SEP-1024](https://modelcontextprotocol.io/seps/1024-mcp-client-security-requirements-for-local-server-.md)
 >
 > Client security requirements for local server installation consent
 
-> **[Connect to local servers](https://modelcontextprotocol.io/docs/draft/develop/connect-local-servers.md)**
+> [card] [Connect to local servers](https://modelcontextprotocol.io/docs/draft/develop/connect-local-servers.md)
 >
 > Set up local servers in your client — the workflow this guide secures

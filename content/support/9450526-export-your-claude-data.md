@@ -1,6 +1,6 @@
 # Export your Claude data
 
-Data exports are available to individual Claude users on Free, Pro, and Max plans. Data exports include conversation data and the user data for your account.
+Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include conversation data and the user data for your account.
 
 If you’re on a Team or Enterprise plan, you can export your own data once an organization Owner or Primary Owner turn this on. Primary Owners export the whole organization’s data instead.
 

@@ -50,11 +50,11 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
 ### Returns
 
-- `data: array of ComplianceProjectFileReference or ComplianceProjectDocReference`
+- `data: array of ProjectFile or ProjectDoc`
 
   List of attachments sorted chronologically by created_at, tie break by id
 
-  - `ComplianceProjectFileReference object`
+  - `ProjectFile object`
 
     File attachment reference for compliance responses.
 
@@ -90,7 +90,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
-  - `ComplianceProjectDocReference object`
+  - `ProjectDoc object`
 
     Project document attachment reference for compliance responses.
 
@@ -166,9 +166,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
 ### Attachment List Response
 
-- `AttachmentListResponse = ComplianceProjectFileReference or ComplianceProjectDocReference`
+- `AttachmentListResponse = ProjectFile or ProjectDoc`
 
-  - `ComplianceProjectFileReference object`
+  - `ProjectFile object`
 
     File attachment reference for compliance responses.
 
@@ -204,7 +204,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
-  - `ComplianceProjectDocReference object`
+  - `ProjectDoc object`
 
     Project document attachment reference for compliance responses.
 

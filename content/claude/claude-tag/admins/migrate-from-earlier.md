@@ -48,7 +48,7 @@ On Enterprise Grid, an earlier install can lose its connection and stop respondi
 
 > [!WARNING]
 >
-> Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy** in admin settings, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro and Max users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](https://claude.com/docs/claude-tag/admins/troubleshooting.md#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.
+> Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy** in admin settings, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro, Max, and Ultra users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](https://claude.com/docs/claude-tag/admins/troubleshooting.md#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.
 
 ## What stays the same
 

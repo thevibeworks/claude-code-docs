@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-You'll need [Node.js](https://nodejs.org/en/download) 18 or higher. Familiarity
+You'll need [Node.js](https://nodejs.org/en/download) 20 or higher. Familiarity
 with [MCP tools](https://modelcontextprotocol.io/specification/latest/server/tools.md) and
 [resources](https://modelcontextprotocol.io/specification/latest/server/resources.md) is recommended since MCP
 Apps combine both primitives. Experience with the
@@ -164,55 +164,55 @@ The `ext-apps` package provides helpers for both the server side (registering to
 
 **3. Configure the project**
 
-**package.json**
+> [tab] package.json
+>
+> The `"type": "module"` setting enables ES module syntax. The `build` script uses the `INPUT` environment variable to tell Vite which HTML file to bundle. The `serve` script runs your server using `tsx` for TypeScript execution.
+>
+> ```json theme={null}
+> {
+>   "type": "module",
+>   "scripts": {
+>     "build": "INPUT=mcp-app.html vite build",
+>     "serve": "npx tsx server.ts"
+>   }
+> }
+> ```
 
-The `"type": "module"` setting enables ES module syntax. The `build` script uses the `INPUT` environment variable to tell Vite which HTML file to bundle. The `serve` script runs your server using `tsx` for TypeScript execution.
+> [tab] tsconfig.json
+>
+> The TypeScript configuration targets modern JavaScript (`ES2022`) and uses ESNext modules with bundler resolution, which works well with Vite. The `include` array covers both the server code in the root and UI code in `src/`.
+>
+> ```json theme={null}
+> {
+>   "compilerOptions": {
+>     "target": "ES2022",
+>     "module": "ESNext",
+>     "moduleResolution": "bundler",
+>     "strict": true,
+>     "esModuleInterop": true,
+>     "skipLibCheck": true,
+>     "outDir": "dist"
+>   },
+>   "include": ["*.ts", "src/**/*.ts"]
+> }
+> ```
 
-```json theme={null}
-{
-  "type": "module",
-  "scripts": {
-    "build": "INPUT=mcp-app.html vite build",
-    "serve": "npx tsx server.ts"
-  }
-}
-```
-
-**tsconfig.json**
-
-The TypeScript configuration targets modern JavaScript (`ES2022`) and uses ESNext modules with bundler resolution, which works well with Vite. The `include` array covers both the server code in the root and UI code in `src/`.
-
-```json theme={null}
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "dist"
-  },
-  "include": ["*.ts", "src/**/*.ts"]
-}
-```
-
-**vite.config.ts**
-
-```typescript theme={null}
-import { defineConfig } from "vite";
-import { viteSingleFile } from "vite-plugin-singlefile";
-
-export default defineConfig({
-  plugins: [viteSingleFile()],
-  build: {
-    outDir: "dist",
-    rollupOptions: {
-      input: process.env.INPUT,
-    },
-  },
-});
-```
+> [tab] vite.config.ts
+>
+> ```typescript theme={null}
+> import { defineConfig } from "vite";
+> import { viteSingleFile } from "vite-plugin-singlefile";
+>
+> export default defineConfig({
+>   plugins: [viteSingleFile()],
+>   build: {
+>     outDir: "dist",
+>     rollupOptions: {
+>       input: process.env.INPUT,
+>     },
+>   },
+> });
+> ```
 
 **4. Build the project**
 
@@ -476,15 +476,15 @@ Testing the QR code MCP App with the basic host
 
 ## Learn more
 
-> **[API Documentation](https://apps.extensions.modelcontextprotocol.io/api/)**
+> [card] [API Documentation](https://apps.extensions.modelcontextprotocol.io/api/)
 >
 > Full SDK reference and API details
 
-> **[GitHub Repository](https://github.com/modelcontextprotocol/ext-apps)**
+> [card] [GitHub Repository](https://github.com/modelcontextprotocol/ext-apps)
 >
 > Source code, examples, and issue tracker
 
-> **[Specification](https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/draft/apps.mdx)**
+> [card] [Specification](https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/draft/apps.mdx)
 >
 > Technical specification for implementers
 

@@ -109,7 +109,7 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORG_UUID/users \
 {
   "data": [
     {
-      "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
       "created_at": "2025-03-12T18:22:41.123456Z",
       "email": "jane.doe@example.com",
       "full_name": "Jane Doe",

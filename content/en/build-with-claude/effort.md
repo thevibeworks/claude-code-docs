@@ -3,7 +3,7 @@ title: Effort
 url: https://platform.claude.com/docs/en/build-with-claude/effort
 description: Control how many tokens Claude uses when responding with the effort parameter, trading off between response thoroughness and token efficiency.
 featureMetadata:
-  status: ga
+  status: stable
   zdr:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
@@ -24,12 +24,12 @@ featureMetadata:
     - claude-sonnet-4-6
     - claude-opus-4-5-20251101
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Amazon Bedrock: ga
-    Amazon Bedrock (InvokeModel): ga
-    Claude Models on Google Cloud (Google managed): ga
-    Microsoft Foundry: ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (InvokeModel): stable
+    Claude Models on Google Cloud (Google managed): stable
+    Microsoft Foundry: stable
 ---
 
 **API support**: Usage differs by product.

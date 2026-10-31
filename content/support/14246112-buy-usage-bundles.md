@@ -2,7 +2,7 @@
 
 You can pre-purchase usage credits in bundles and save up to 30% compared to standard usage credit rates. Larger bundles come with bigger discounts, and your balance works across Claude, Claude Code, Claude Cowork, and third-party products.
 
-Usage bundles are available on Pro, Max, and Team plans.
+Usage bundles are available on Pro, Max, Ultra, and Team plans
 
 ---
 
@@ -20,7 +20,7 @@ The discount you receive depends on the bundle size you purchase. Bigger bundles
 | $250       | 20%          | $200        |
 | $1000      | 30%          | $700        |
 
-Individual Pro and Max plan subscribers can purchase up to $2000 worth of discounted bundles per month. Any usage beyond this limit is billed at standard rates.
+Individual Pro, Max, and Ultra plan subscribers can purchase up to $2000 worth of discounted bundles per month. Any usage beyond this limit is billed at standard rates.
 
 On Team plans, Owners and Primary Owners can purchase up to $3000 worth of discounted bundles per month. Any usage beyond this limit is billed at standard rates.
 
@@ -32,7 +32,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 You'll need usage credits enabled before you can purchase bundles. If you haven't set up usage credits yet, see the relevant guide for your plan:
 
-- **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-extra-usage-for-paid-claude-plans)** (Pro and Max)
+- **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-extra-usage-for-paid-claude-plans)** (Pro, Max, and Ultra)
 
 - **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970-manage-extra-usage-for-team-and-seat-based-enterprise-plans)** (Team)
 
@@ -58,7 +58,7 @@ You can still use usage credits beyond the cap, but any additional usage is bill
 
 ### Can I buy multiple bundles in the same month?
 
-Yes. You can purchase as many bundles as you'd like up to your monthly limit ($2000 in value for Pro and Max plans, $3000 in value for Team plans).
+Yes. You can purchase as many bundles as you'd like up to your monthly limit ($2000 in value for Pro, Max, and Ultra plans, $3000 in value for Team plans).
 
 ### Do usage bundles replace my plan's included usage?
 

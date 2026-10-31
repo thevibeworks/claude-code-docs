@@ -146,6 +146,8 @@ holds at most two non-archived certificates.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Body parameters
 
 - `ca_certificate_pem: string`

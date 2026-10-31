@@ -160,7 +160,7 @@ Review each request carefully before approving. You can always deny a request if
 
 If you encounter issues setting up or using the Filesystem Server, these solutions address common problems:
 
-> **Server not showing up in Claude / hammer icon missing**
+> [accordion] Server not showing up in Claude / hammer icon missing
 >
 > 1. Restart Claude Desktop completely
 > 2. Check your `claude_desktop_config.json` file syntax
@@ -176,7 +176,7 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 > npx -y @modelcontextprotocol/server-filesystem C:\Users\username\Desktop C:\Users\username\Downloads
 > ```
 
-> **Getting logs from Claude Desktop**
+> [accordion] Getting logs from Claude Desktop
 >
 > Claude.app logging related to MCP is written to log files in:
 >
@@ -198,7 +198,7 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 > type "%APPDATA%\Claude\logs\mcp*.log"
 > ```
 
-> **Tool calls failing silently**
+> [accordion] Tool calls failing silently
 >
 > If Claude attempts to use the tools but they fail:
 >
@@ -206,11 +206,11 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 > 2. Verify your server builds and runs without errors
 > 3. Try restarting Claude Desktop
 
-> **None of this is working. What do I do?**
+> [accordion] None of this is working. What do I do?
 >
 > Please refer to our [debugging guide](https://modelcontextprotocol.io/docs/2025-06-18/tools/debugging.md) for better debugging tools and more detailed guidance.
 
-> **ENOENT error and `$\{APPDATA\}` in paths on Windows**
+> [accordion] ENOENT error and `$\{APPDATA\}` in paths on Windows
 >
 > If your configured server fails to load, and you see within its logs an error referring to `${APPDATA}` within a path, you may need to add the expanded value of `%APPDATA%` to your `env` key in `claude_desktop_config.json`:
 >
@@ -243,21 +243,21 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 
 Now that you've successfully connected Claude Desktop to a local MCP server, explore these options to expand your setup:
 
-> **[Explore other servers](https://github.com/modelcontextprotocol/servers)**
+> [card] [Explore other servers](https://github.com/modelcontextprotocol/servers)
 >
 > Browse our collection of official and community-created MCP servers for
 > additional capabilities
 
-> **[Build your own server](https://modelcontextprotocol.io/docs/2025-06-18/develop/build-server.md)**
+> [card] [Build your own server](https://modelcontextprotocol.io/docs/2025-06-18/develop/build-server.md)
 >
 > Create custom MCP servers tailored to your specific workflows and
 > integrations
 
-> **[Connect to remote servers](https://modelcontextprotocol.io/docs/2025-06-18/develop/connect-remote-servers.md)**
+> [card] [Connect to remote servers](https://modelcontextprotocol.io/docs/2025-06-18/develop/connect-remote-servers.md)
 >
 > Learn how to connect Claude to remote MCP servers for cloud-based tools and
 > services
 
-> **[Understand the protocol](https://modelcontextprotocol.io/docs/2025-06-18/learn/architecture.md)**
+> [card] [Understand the protocol](https://modelcontextprotocol.io/docs/2025-06-18/learn/architecture.md)
 >
 > Dive deeper into how MCP works and its architecture

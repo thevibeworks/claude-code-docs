@@ -143,6 +143,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Body parameters
 
 - `issuer_url: string`

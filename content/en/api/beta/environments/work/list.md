@@ -149,6 +149,8 @@ List work items in an environment.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Returns
 
 - `BetaSelfHostedWorkListResponse object`

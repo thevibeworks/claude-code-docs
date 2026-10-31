@@ -1725,7 +1725,7 @@ Monitor developer productivity and Claude Code adoption with the [Claude Code An
 
 ## Rate limits
 
-Read the rate limits configured for your organization and its workspaces with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).
+Read the rate limits configured for your organization and its workspaces, and set workspace rate limits, with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).
 
 ## Compliance API
 

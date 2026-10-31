@@ -6,7 +6,7 @@
 
 > Extend Claude Desktop on 3P with connectors, plugin marketplaces, organization plugins, skills, and hooks for administrators and end users
 
-Claude Desktop on third-party (3P) supports the same extensibility model as standard Claude Desktop ([MCP connectors](https://claude.com/docs/connectors/getting-started.md), [skills](https://claude.com/docs/skills/overview.md), and [plugins](https://claude.com/docs/plugins/overview.md)), with the key difference that administrators provision them through managed configuration and the filesystem.
+Claude Desktop on third-party (3P) supports [MCP connectors](https://claude.com/docs/connectors/getting-started.md), [skills](https://claude.com/docs/skills/overview.md), and [plugins](https://claude.com/docs/plugins/overview.md), as standard Claude Desktop does. The key difference is that administrators provision them through managed configuration and the filesystem.
 
 There are three layers, in order of precedence:
 
@@ -77,21 +77,21 @@ An `http` or `sse` entry with no `oauth`, no `headersHelper`, and no `Authorizat
 
 Claude Desktop starts sign-in only when the MCP server answers an unauthenticated request with HTTP `401`. A redirect to a web sign-in page does not start sign-in, so a gateway in front of the server must answer an unauthenticated MCP request with `401` rather than `302`.
 
-At launch, Claude Desktop connects to every managed server without user interaction. A server with a stored token connects silently, and Claude Desktop refreshes the token first when it is near expiry. A server with no usable token appears under **Customize → Connectors** with a **Connect** button, and no browser window opens until the user selects it.
+At launch, Claude Desktop connects to every managed server without user interaction. A server with a stored token connects silently, and Claude Desktop refreshes the token first when it is near expiry. A server with no usable token appears under **Customize → Connectors** with a button that starts sign-in, and no browser window opens until the user selects it.
 
-When the user selects **Connect**, Claude Desktop:
+When the user selects **Connect** or **Reconnect**, Claude Desktop:
 
 1. Starts a temporary HTTP listener on `127.0.0.1:53280` (or the host and port set in `oauth.callbackHost` and `oauth.callbackPort`). If another process holds the port, sign-in fails with a port-in-use error.
 2. Reads the `401` response. The `resource_metadata` URL in its `WWW-Authenticate: Bearer` header, or else the server's `/.well-known/oauth-protected-resource` URL, leads to the protected-resource metadata. Its `resource` must be the server URL or a parent path on the same origin, and Claude Desktop uses the first authorization server it lists, or looks for authorization-server metadata on the MCP server's own origin when the server publishes no protected-resource metadata. Claude Desktop then fetches the authorization server's metadata from `/.well-known/oauth-authorization-server` or `/.well-known/openid-configuration`, and the `issuer` in the metadata must match the authorization server URL, or sign-in stops.
 3. Uses the client from `oauth.clientId`, or registers one at the authorization server's registration endpoint and stores it for later sign-ins.
-4. Opens the authorization URL in the system browser with a PKCE (`S256`) challenge and a `state` value. The authorization endpoint must use `https`.
+4. Opens the authorization URL in the system browser with a PKCE (`S256`) challenge and a `state` value. The authorization endpoint must use `https`. When the server publishes protected-resource metadata, Claude Desktop sends the metadata's `resource` value as the OAuth `resource` parameter on this request. With [`oauth.omitResource`](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in#omit-the-resource-parameter) set to `true`, Claude Desktop sends no `resource` parameter for that server.
 5. Waits up to 120 seconds for the browser to return to the redirect URI, exchanges the code at the token endpoint, and connects to the server with the resulting access token. The listener closes when sign-in completes or fails.
 
 To name the authorization server yourself instead of discovering it, set `oauth.clientId` together with one of `oauth.tenantId` plus `oauth.scope` (Microsoft Entra ID), a single `oauth.authorizationServer` entry (the issuer URL exactly as that server's metadata states it), or `oauth.authorizationUrl` and `oauth.tokenUrl` for a provider that serves no discovery document. With several `oauth.authorizationServer` entries, discovery runs as in step 2 and the discovered authorization server must match one of them.
 
-Tokens are stored on the device, encrypted with the operating system's secure storage (see [Credentials](https://claude.com/docs/third-party/claude-desktop/data-storage.md#credentials)), and refreshed in the background before they expire. When the authorization request carries a scope and the authorization server's metadata lists `offline_access`, Claude Desktop adds `offline_access` so that a refresh token is issued; see `oauth.scope` and `oauth.appendOfflineAccess` in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#managedmcpservers) to change the requested scopes. If the authorization server rejects a refresh, or issued no refresh token and the access token expires, the server returns to the **Connect** state and the user signs in again. A stored sign-in belongs to the server's `url`, so after you change the `url`, each user signs in again.
+Tokens are stored on the device, encrypted with the operating system's secure storage (see [Credentials](https://claude.com/docs/third-party/claude-desktop/data-storage.md#credentials)), and refreshed in the background before they expire. When the authorization request carries a scope and the authorization server's metadata lists `offline_access`, Claude Desktop adds `offline_access` so that a refresh token is issued; see `oauth.scope` and `oauth.appendOfflineAccess` in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#managedmcpservers) to change the requested scopes. If the authorization server rejects the refresh token or the client, for example with `invalid_grant` or `invalid_client`, the MCP server's row under **Customize → Connectors** shows a **Reconnect** button. The row also shows **Reconnect** when a sign-in through the system browser returned no refresh token and the access token expires. The user selects **Reconnect** to sign in again. For a refresh that the authorization server refuses with another error while the server is connected, see [Troubleshoot sign-in](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#troubleshoot-sign-in). A stored sign-in belongs to the server's `url`, so after you change the `url`, each user signs in again.
 
-If sign-in fails (the callback does not arrive within 120 seconds, the authorization server rejects the registration or the redirect URI, or the identity provider completes sign-in from a host other than the authorization endpoint's), the user sees a connection error, the server keeps its **Connect** button, and `main.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) records the reason. For an identity provider that completes sign-in from a different host than its authorization endpoint, list that host in `oauth.additionalRedirectReferrerHosts`. The log names the rejected host.
+If sign-in fails (the callback does not arrive within 120 seconds, the authorization server rejects the registration or the redirect URI, or the identity provider completes sign-in from a host other than the authorization endpoint's), the user sees a connection error, the server keeps its **Connect** or **Reconnect** button, and `main.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) records the reason. For an identity provider that completes sign-in from a different host than its authorization endpoint, list that host in `oauth.additionalRedirectReferrerHosts`. The log names the rejected host.
 
 For a server whose OAuth sign-in goes to Microsoft Entra ID, you can run that sign-in through the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md) instead of the system browser by setting `authFlow` to `broker` inside the entry's `oauth` object, alongside `tenantId`, `clientId`, and `scope`. On a device where the broker is unavailable, sign-in for that server falls back to the system browser, so keep the loopback redirect URI registered as well if any devices lack the broker.
 
@@ -132,11 +132,11 @@ The [Claude connector directory](https://claude.com/connectors) is the canonical
 
 Google Workspace and Microsoft 365 each have a dedicated setup path:
 
-> **[Google Workspace](https://developers.google.com/workspace/guides/configure-mcp-servers)**
+> [card] [Google Workspace](https://developers.google.com/workspace/guides/configure-mcp-servers)
 >
 > Gmail, Calendar, Drive, Docs, and more via Google's own Workspace MCP servers. See [Google's setup guide](https://developers.google.com/workspace/guides/configure-mcp-servers) to get started.
 
-> **[Microsoft 365](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md)**
+> [card] [Microsoft 365](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md)
 >
 > Outlook, OneDrive, SharePoint, and Teams. Requires registering an app in your Entra tenant. The remote connector also needs an Anthropic allowlist step.
 
@@ -144,7 +144,7 @@ Google Workspace and Microsoft 365 each have a dedicated setup path:
 
 A **plugin marketplace** is a catalog file (`marketplace.json`) that lists one or more Claude plugins. You host it either as a git repository or as a plain file over HTTPS. Claude Desktop fetches it on each device, lists its plugins under **Customize → Plugins → Discover → Organization** in both **Cowork** and [**Code**](https://claude.com/docs/third-party/claude-desktop/code.md), and keeps them in sync with the revision you pin. You control which plugins are available, which install automatically, and which are required.
 
-This is the recommended way to distribute organization plugins. For a git-hosted marketplace, Claude Desktop clones with the git already installed on each device, so include git in your device baseline (Git for Windows on Windows; the Xcode Command Line Tools provide it on macOS); devices without git can use a [marketplace hosted over HTTPS](#host-the-marketplace-over-https-instead-of-git) instead. Use the [system-wide directory](#organization-plugins-admin) path when end-user devices cannot reach a git server or an HTTPS file host.
+This is the recommended way to distribute organization plugins. Claude Desktop clones a git-hosted marketplace with the git already installed on each device, so include git in your device baseline: Git for Windows on Windows, and the Xcode Command Line Tools on macOS. Devices without git can use a [marketplace hosted over HTTPS](#host-the-marketplace-over-https-instead-of-git) instead. Use the [system-wide directory](#organization-plugins-admin) path when end-user devices cannot reach a git server or an HTTPS file host.
 
 ### Create the marketplace repository
 
@@ -166,7 +166,7 @@ A marketplace repository contains a `.claude-plugin/marketplace.json` file at it
 
 Put plugin content directly in the marketplace repository with a relative `source` path. When Claude Desktop syncs the marketplace, it doesn't fetch or auto-install a plugin whose `source` points at a different repository, and that plugin doesn't appear in the [**Organization** tab](#plugin-marketplaces-admin). Git submodules aren't fetched either, so a plugin folder added as a submodule is empty on users' devices.
 
-The marketplace `name` must match `^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$` and must not be one of the reserved values `unknown`, `org`, or `org-provisioned`.
+The marketplace `name` must match `^[A-Za-z0-9]([A-Za-z0-9._-]{0,126}[A-Za-z0-9_-])?$` and must not be one of the reserved values `unknown`, `org`, or `org-provisioned`.
 
 ### Host the marketplace over HTTPS instead of git
 
@@ -354,7 +354,7 @@ org-plugins/
 | File | Purpose |
 | - | - |
 | `.claude-plugin/plugin.json` | Plugin manifest (name, description, version). Required unless a top-level `SKILL.md` serves as the manifest; see the note below this table. A directory with neither is ignored. |
-| `version.json` | `{"version": "1.2.3"}`. When this string changes, Claude Desktop re-syncs the plugin on next launch. Any string change triggers re-sync (there's no semver ordering, so a downgrade is just another version string). If absent, the directory's modification time is used instead. |
+| `version.json` | `{"version": "1.2.3"}`. When this string changes, Claude Desktop re-syncs the plugin on next launch. There's no semver ordering, so a downgrade also triggers a re-sync. If absent, the directory's modification time is used instead. |
 | `.mcp.json` | MCP servers bundled with this plugin. A JSON object keyed by server name: `{"mcpServers": {"<name>": {"type": "http", "url": "...", "oauth": true}}}`. A remote entry uses `type` (`http` or `sse`), not `transport`, and supports `url`, `headers`, and `oauth` only. `toolPolicy`, `headersHelper`, and `headersHelperTtlSec` are not read from this file. A local entry gives a `command` with optional `args` and `env` (`type` is `"stdio"` or omitted). Give `command` as a program name on `PATH` or an absolute path, using `${CLAUDE_PLUGIN_ROOT}` for the plugin's directory under `org-plugins/`. Claude Desktop starts these local servers itself, including when [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) is `false`. Local entries require Claude Desktop 1.49585.0 or later. A local entry that references `${user_config.<key>}` is skipped, because per-user plugin settings are not available to organization plugins. The diagnostic report's **MCP servers** section lists each server, with the reason for any it skipped. |
 | `agents/` | Sub-agent definitions. |
 | `commands/` | Slash-command definitions. |
@@ -466,6 +466,10 @@ End users cannot add remote MCP servers from the app's settings or install deskt
 
 User-added extensions are stored in the user's [local data directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md) and apply only to that device.
 
+> [!NOTE]
+>
+> If a user adds a marketplace themselves and the **Add marketplace** dialog shows "This marketplace could not be accessed. Private repositories are only supported using the GitHub owner/repo format.", the marketplace's host refused access. To give users the plugins of a private marketplace, add it to [`allowedPluginMarketplaces`](#configure-the-marketplace) with a [marketplace credential](#marketplace-credentials).
+
 Claude Desktop keeps its own record of the skills each user creates or uploads, and it removes a skill folder that the record doesn't list. To deliver skills to users, use [organization plugins](#organization-plugins-admin) or a [plugin marketplace](#plugin-marketplaces-admin).
 
 ## Controlling user extensions
@@ -475,8 +479,8 @@ Admins can restrict or disable each user-extension surface independently via man
 | Key | Default | Effect when `false` |
 | - | - | - |
 | `isLocalDevMcpEnabled` | `true` | Users cannot add their own local MCP servers from **Settings → Developer**. Unless [Claude Code's own managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) take precedence over the app's restrictions, local MCP servers bundled in marketplace plugins or in plugins users add themselves don't start. |
-| `isDesktopExtensionEnabled` | `false` | Desktop extensions (`.mcpb`) bundled in plugins are not loaded. Set to `true` to allow them. |
-| `isDesktopExtensionSignatureRequired` | `false` | (When `true`) Unsigned `.mcpb` extensions are rejected. |
+| `isDesktopExtensionEnabled` | `false` | Installed desktop extensions (`.mcpb`) don't load. An MCP server that a plugin bundles as a `.mcpb` file can still start. To keep such a server from starting, see [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) and [`allowedPluginMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedpluginmcpservers). |
+| `isDesktopExtensionSignatureRequired` | `false` | (When `true`) Claude Desktop refuses to install an unsigned desktop extension (`.mcpb`). It doesn't check whether a `.mcpb` file that a plugin bundles is signed. |
 | `skillCreationEnabled` | `true` | Users cannot create or upload skills in the app. Claude does not offer to create or update skills in conversations. |
 | `userPluginMarketplacesEnabled` | `true` | Users cannot add plugin marketplaces of their own, and the add-marketplace options are hidden. Marketplaces your organization did not [provision](#plugin-marketplaces-admin) are hidden too, and the app neither installs nor loads their plugins. The organization plugins directory, plugins users uploaded, and marketplaces you provision with `allowedPluginMarketplaces` are unaffected. |
 | `userPluginUploadsEnabled` | `true` | Users cannot upload plugin files or create plugins with Claude; every in-app option for adding a plugin of their own is hidden. Plugins from your marketplaces and the organization plugins directory are unaffected. |
@@ -548,18 +552,18 @@ A pass means that the scan found no sign that the skill is malicious. It isn't a
 
 ## Related topics
 
-> **[Code](https://claude.com/docs/third-party/claude-desktop/code.md)**
+> [card] [Code](https://claude.com/docs/third-party/claude-desktop/code.md)
 >
 > How extensions and managed settings reach the embedded Claude Code engine.
 
-> **[MCP in Claude Code](https://code.claude.com/docs/en/mcp)**
+> [card] [MCP in Claude Code](https://code.claude.com/docs/en/mcp)
 >
 > Configure MCP servers for the standalone Claude Code CLI.
 
-> **[Claude Code plugins](https://code.claude.com/docs/en/plugins)**
+> [card] [Claude Code plugins](https://code.claude.com/docs/en/plugins)
 >
 > Plugin structure, marketplaces, and management for Claude Code.
 
-> **[Managed MCP in Claude Code](https://code.claude.com/docs/en/managed-mcp)**
+> [card] [Managed MCP in Claude Code](https://code.claude.com/docs/en/managed-mcp)
 >
 > Restrict which MCP servers Claude Code users can add.

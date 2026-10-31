@@ -4,7 +4,7 @@ Claude in Chrome is a browser extension that allows Claude to read, click, and n
 
 ## Availability
 
-Claude in Chrome is available on paid plans (Pro, Max, Team, and Enterprise), in the Chrome side panel, Claude Cowork, and Claude Code. The side panel runs as a Claude Cowork session. On Enterprise plans, this requires an owner to enable Claude in Chrome and Cowork in the cloud; until then, the side panel uses the classic experience.
+Claude in Chrome is available on paid plans (Pro, Max, Ultra, Team, and Enterprise), in the Chrome side panel, Claude Cowork, and Claude Code. The side panel runs as a Claude Cowork session. On Enterprise plans, this requires an owner to enable Claude in Chrome and Cowork in the cloud; until then, the side panel uses the classic experience.
 
 **Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is enhanced with our safety classifiers but is still risky. Please review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
 
@@ -40,7 +40,7 @@ Follow these steps to connect Claude in Chrome in your desktop app:
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1793380500&amp;signature=7f70a3b6c7af70c6899079fa440674802186388a5d36a076f0da9d9195ad3758&amp;req=diYnEsB9noleWPMW1HO4zUOPbf%2FFnuKInt%2F2nPMwUPiQ26kzabnGiaGibNO9%0A%2FudGxWI5zVcEwC1K4Qg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1793534400&amp;signature=219015208e4eb4953b36fa6801a08e0a36e2d10db385cd77e1b788642a550019&amp;req=diYnEsB9noleWPMW3nq%2BgYRoBvFL9ePHNNFouCD7O2iW3k083bJTvn1xc7xR%0AhE8EeyYiqph%2F%2Flqh2ALMJkjE0xg%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
@@ -48,7 +48,7 @@ Completing these steps will add Claude in Chrome to the “Connectors” drop-do
 
 Open the Claude side panel to work with Claude right next to the page you're on. Claude sees what's on the page and can act on it, reading, clicking, typing, navigating, and filling forms, so you can get help without leaving your browser window.
 
-On Max and Team plans, on Pro plans as the rollout reaches you, and on Enterprise plans where your admin has enabled it, the side panel runs as a Claude Cowork session, which means:
+On Max, Ultra, and Team plans, on Pro plans as the rollout reaches you, and on Enterprise plans where your admin has enabled it, the side panel runs as a Claude Cowork session, which means:
 
 - **Your conversations are saved.** Every side panel session appears in your history like any other Cowork session.
 

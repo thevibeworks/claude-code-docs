@@ -287,7 +287,7 @@ File not found: 0d3b8f72-6c1e-4a59-b2de-7f4c9a1e5b60
 
 **Cause:** The file ID does not exist in an organization your key can read, or the file has been deleted. Deleting a chat in claude.ai also deletes the files attached to it, although the chat itself remains listed. The message identifies the file by its underlying UUID rather than by the `claude_file_...` ID sent in the request. The metadata, content, and delete endpoints return this body; it applies to both chat-attached files (`claude_file_...`) and project files.
 
-**Fix:** Reconcile against recent `claude_file_uploaded` or `claude_file_deleted` activities. Files deleted along with a chat have no `claude_file_deleted` activity, so check for the chat’s `claude_chat_deleted` activity as well. If the file was deleted, the binary is gone; the activity records remain in the feed for the 6-year retention window.
+**Fix:** Reconcile against recent `claude_file_uploaded` or `claude_file_deleted` activities. Files deleted along with a chat have no `claude_file_deleted` activity, so check for the chat’s `claude_chat_deleted` activity as well. When your organization’s retention policy deletes a chat, the Activity Feed records no `claude_chat_deleted` activity. If the file was deleted, the binary is gone; the activity records remain in the feed for the 6-year retention window.
 
 ### Generated file or artifact not found
 
@@ -307,7 +307,7 @@ Artifact version not found: 'claude_artifact_version_01KmNpQrSt3UvWxYz5AbCdEfG'
 
 **Cause:** The ID in the path does not match a tool-generated file or artifact version readable through the Compliance API. The generated-file metadata endpoint returns the first body, the content endpoint returns the second, and both artifact endpoints return the third. Generated files and artifacts are deleted with the chat they were created in, including when a user deletes the chat in claude.ai.
 
-**Fix:** Use [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) to look up the chat the ID came from. If the chat’s `deleted_at` is populated, or a `claude_chat_deleted` activity names the chat, the content is gone; remove the ID from your queue. Otherwise, confirm the ID against the `generated_files` and `artifacts` arrays on the chat’s messages.
+**Fix:** Use [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) to look up the chat the ID came from. If the chat’s `deleted_at` is populated, or a `claude_chat_deleted` activity names the chat, the content is gone; remove the ID from your queue. Otherwise, confirm the ID against the `generated_files` and `artifacts` arrays on the chat’s messages. When your organization’s retention policy deletes a chat, the Activity Feed records no `claude_chat_deleted` activity.
 
 ### Project not found
 
@@ -323,7 +323,7 @@ No project found with provided id, or it has already been deleted.
 
 **Cause:** The project ID does not exist or has been deleted. The project detail, attachments, and collaborators endpoints return the first body; `DELETE /v1/compliance/apps/projects/{project_id}` returns the second.
 
-**Fix:** Reconcile against recent `claude_project_created` or `claude_project_deleted` activities. The Activity Feed continues to expose the project’s lifecycle events even after the project itself is gone.
+**Fix:** Reconcile against recent `claude_project_created` or `claude_project_deleted` activities. The Activity Feed continues to expose the project’s lifecycle events even after the project itself is gone. When your organization’s retention policy deletes a project, the Activity Feed records no `claude_project_deleted` activity.
 
 ### Project document not found
 

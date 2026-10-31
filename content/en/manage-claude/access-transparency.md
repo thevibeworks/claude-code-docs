@@ -35,7 +35,7 @@ Anthropic personnel access customer content only under defined conditions. Acces
 * **Automated processing:** Model serving, safety classifiers, and abuse-detection pipelines process your content as part of normal operation and do not generate `anthropic_access` events. Preservation initiated by automated processing does generate a `cmek_preserve` event (see [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation)).
 * **Your own organization’s activity:** Your API calls, admin actions, and Compliance API reads are covered by standard [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) event types.
 * **Claude for Enterprise and Claude Apps:** claude.ai Enterprise seats, Claude for Work, Cowork, and Claude in Chrome are not covered.
-* **Claude consumer products:** Claude Free, Pro, or Max plans.
+* **Claude consumer products:** Claude Free, Pro, Max, or Ultra plans.
 * **Partner-operated platforms:** Amazon Bedrock and Claude Models on Google Cloud (Google managed). Refer to those platforms’ transparency controls.
 * **Anything ZDR does not cover:** Products that are not covered by ZDR (for example, the Files API, Anthropic-hosted stateful applications, and the Batch API) are not covered by Access Transparency. See [Zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) for additional details.
 
@@ -176,7 +176,7 @@ The following table lists which surfaces are covered by Access Transparency. Cov
 | Claude API (`api.anthropic.com`) (Batch, Files)                | No      | The Claude API Batch and Files APIs are not covered, just like they are not covered by ZDR                 |
 | Claude for Enterprise (claude.ai seats)                        | No      | Not covered                                                                                                |
 | Claude for Work                                                | No      | Not covered                                                                                                |
-| Claude Free, Pro, Max                                          | No      | Consumer plans are not eligible                                                                            |
+| Claude Free, Pro, Max, Ultra                                   | No      | Consumer plans are not eligible                                                                            |
 | Playground (Claude Console)                                    | No      | Not covered                                                                                                |
 | Microsoft Foundry                                              | No      | Not available                                                                                              |
 | Amazon Bedrock, Claude Models on Google Cloud (Google managed) | No      | Partner-operated platforms; refer to those platforms’ transparency controls                                |

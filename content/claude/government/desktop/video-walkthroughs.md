@@ -22,7 +22,7 @@ Signing in to Claude Desktop with your work account and a pairing code, and wher
 
 Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Claude Desktop is installed and connected for you by your agency. You sign in with your work account. No separate Claude account is needed.
 >
@@ -52,7 +52,7 @@ Copying your conversations and projects from Claude for Government Web into Clau
 
 Video: Bringing your chats and projects over from Claude for Government Web (2 min 12 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
 >
@@ -82,7 +82,7 @@ What Chat, Cowork, and Code are each for, when Claude asks for your approval, an
 
 Video: Chat, Cowork, and Code: which one to use (2 min 26 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Claude Desktop gives you three ways to work: Chat, Cowork, and Code. On Home, you pick Chat or Cowork in the message box. Code sits beside Home.
 >
@@ -116,7 +116,7 @@ Connecting Microsoft 365, installing plugins your organization offers, and addin
 
 Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Open Customize in the sidebar for your skills, connectors, and plugins. A connector lets Claude reach another service. The ones you can use come from your organization: here, Microsoft 365 and Web Search.
 >
@@ -144,7 +144,7 @@ The **Account**, **Usage**, and **Sessions** pages, signing in again after an id
 
 Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Your account pages are in the web portal. In a browser, open your agency's Claude for Government address and sign in. Account shows your email, organization, role, and seat tier, all read-only.
 >

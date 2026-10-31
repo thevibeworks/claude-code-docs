@@ -16,7 +16,7 @@ The import copies your conversations, their attached files, and the projects you
 
 Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Claude Desktop is installed and connected for you by your agency. You sign in with your work account. No separate Claude account is needed.
 >
@@ -49,7 +49,7 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 
 Video: Bringing your chats and projects over from Claude for Government Web (2 min 12 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
 >

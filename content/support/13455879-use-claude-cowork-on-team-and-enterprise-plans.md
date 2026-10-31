@@ -4,15 +4,15 @@ This article explains important limitations and considerations for Team and Ente
 
 ## Availability
 
-Claude Cowork is available on paid plans (Pro, Max, Team, and Enterprise):
+Claude Cowork is available on paid plans (Pro, Max, Ultra, Team, and Enterprise):
 
 - **Claude Desktop for macOS, Windows, and Linux (beta):** All paid plans. Download or update at **claude.com/download**.
 
-- **Web and Claude Mobile:** Pro, Max, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
+- **Web and Claude Mobile:** Pro, Max, Ultra, and Team plans (in beta on Team), and Enterprise plans when an owner enables it.
 
 - **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173)**.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 
@@ -68,7 +68,7 @@ Two organization settings in **[Organization settings > Capabilities](https://cl
 
 - **Allow "Automatically approve" mode** controls whether members can use the mode. This setting is on by default, so the mode is available to your members unless you turn it off. When it's off, "Automatically approve" doesn't appear in your members' mode selector.
 
-- **Start new tasks in "Automatically approve" mode** controls whether new Cowork tasks start in that mode. It’s on by default on Pro, Max, and Team plans, and off by default on Enterprise plans. Turn it off to keep "Manually approve" as the default.
+- **Start new tasks in "Automatically approve" mode** controls whether new Cowork tasks start in that mode. It’s on by default on Pro, Max, Ultra, and Team plans, and off by default on Enterprise plans. Turn it off to keep "Manually approve" as the default.
 
 Members can switch modes within any session.
 

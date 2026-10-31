@@ -16,4 +16,4 @@ We currently support Android 8.0 Oreo and above.
 
 To uninstall the Claude app from your Android device, hold down on the app from your screen until you see the menu options. Click on "App Info." From the next series of options, select "Uninstall."
 
-Note that if you have an active paid subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: **[Cancel your Pro or Max subscription on Claude for Android](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_916bc20742)**.
+Note that if you have an active paid subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: **[Cancel your Pro, Max, or Ultra subscription on Claude for Android](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_916bc20742)**.

@@ -17,7 +17,7 @@ Claude Science is in beta.
 | Team | Off; turn on in **Organization settings** |
 | Claude Team plan for scientists | On; turn off in **Organization settings** |
 | Enterprise | Off; turn on in **Organization settings** |
-| Pro and Max | On; no admin action needed |
+| Pro, Max, and Ultra | On; no admin action needed |
 | Free | Not available |
 
 On the Claude Team plan for scientists, members can [download Claude Science](https://claude.com/product/claude-science) and sign in with their claude.ai account without any admin action. An Owner or Primary Owner can [turn Claude Science off](#turn-off-claude-science) or change the other [organization settings](https://claude.com/docs/claude-science/admin-controls.md#organization-settings) at any time in [**Organization settings > Claude Science**](https://claude.ai/admin-settings/claude-science). The **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv** connectors aren't added to your organization automatically (see [Set up connectors](#set-up-connectors)).
@@ -70,7 +70,7 @@ Once Claude Science is enabled and a member's role includes the entitlement, the
 
 If the **Enable for your organization** toggle is off, members are stopped at sign-in with a message such as "Your organization hasn't turned on Claude Science yet. Ask your admins for access." They can select **Request access** to send that request to the organization's admins, then sign in again once Claude Science is on. On Enterprise plans, members whose custom role doesn't include the capability are stopped the same way, with a message that Claude Science isn't available for their account yet, and can also request access. These requests appear under **Requests** in **Organization settings** > **Notifications**. Turning Claude Science on resolves them, and for a member whose custom role lacks the capability, you give the role access on the **Roles** page.
 
-Members who belong to more than one organization on claude.ai, such as a personal account alongside yours, need to choose your organization when claude.ai asks which one to connect. Before they select **Authorize**, they can also select **Switch organization** on the authorization screen to change that choice. A member who connects a Free personal account instead sees "Claude Science requires a Pro or Max subscription." and can select **Switch account** to sign in again and choose your organization.
+Members who belong to more than one organization on claude.ai, such as a personal account alongside yours, need to choose your organization when claude.ai asks which one to connect. Before they select **Authorize**, they can also select **Switch organization** on the authorization screen to change that choice. A member who connects a Free personal account instead sees "Claude Science requires a Pro, Max, or Ultra subscription." and can select **Switch account** to sign in again and choose your organization.
 
 ## HIPAA organizations
 

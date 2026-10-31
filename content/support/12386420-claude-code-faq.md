@@ -32,7 +32,7 @@ No current Visual Studio 2022 integration exists. Claude Code currently supports
 
 While there isn't a turnkey PR reviewer solution yet, you can use the **[Claude Code GitHub Actions integration](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)** for automated reviews. For now, you can use the security review action as a template and customize it for general PR reviews. This is also a good use case for the **[Claude Code SDK](https://docs.claude.com/en/docs/claude-code/sdk/sdk-overview)**.
 
-## I’m getting an error message that “Claude Max or Pro is required to connect to Claude Code” but I should have access through my organization’s Team or Enterprise plan. How can I troubleshoot?
+## I’m getting an error message that Claude Max, Ultra, or Pro is required to connect to Claude Code but I should have access through my organization’s Team or Enterprise plan. How can I troubleshoot?
 
 This indicates that you selected the wrong login method from the Claude Code setup screen. Try running /login again and selecting the account associated with your primary work email address. If you’re still unable to connect, see **[Having trouble using your Team or Enterprise account to access Claude Code?](https://support.claude.com/en/articles/11845131-using-claude-code-with-your-team-or-enterprise-plan#h_540f9e65d8)**
 

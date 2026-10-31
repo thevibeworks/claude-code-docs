@@ -3,7 +3,7 @@ title: Vision
 url: https://platform.claude.com/docs/en/build-with-claude/vision
 description: Claude's vision capabilities allow it to process and analyze images, opening up exciting possibilities for multimodal interaction.
 featureMetadata:
-  status: ga
+  status: stable
   supportedModels:
     - claude-fable-5-1
     - claude-mythos-5-1
@@ -23,19 +23,19 @@ featureMetadata:
     - claude-opus-4-5-20251101
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
-    Claude API: ga
-    Claude Platform on AWS: ga
-    Claude Models on Google Cloud (Anthropic managed): ga
+    Claude API: stable
+    Claude Platform on AWS: stable
+    Claude Models on Google Cloud (Anthropic managed): stable
     Amazon Bedrock:
-      availability: ga
+      availability: stable
       note: Only base64 image sources; per-image limit 5 MB (base64-encoded) and a lower total request size.
     Amazon Bedrock (InvokeModel):
-      availability: ga
+      availability: stable
       note: Only base64 image sources; per-image limit 5 MB (base64-encoded) and a lower total request size.
     Claude Models on Google Cloud (Google managed):
-      availability: ga
+      availability: stable
       note: Only base64 image sources; per-image limit 5 MB (base64-encoded) and a lower total request size.
-    Microsoft Foundry: ga
+    Microsoft Foundry: stable
 ---
 
 This guide describes how to send images to Claude, the limits and costs that apply, and where to find guidance for [coordinate-based workflows](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates).

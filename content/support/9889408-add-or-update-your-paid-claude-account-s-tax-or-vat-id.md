@@ -2,7 +2,7 @@
 
 ## Add your tax or VAT ID during signup
 
-When you sign up for a Pro or Max subscription, you may have the option to enter your Tax or VAT ID depending on your location:
+When you sign up for a Pro, Max, or Ultra subscription, you may have the option to enter your Tax or VAT ID depending on your location:
 
 1. During the sign-up process, enter your address information.
 

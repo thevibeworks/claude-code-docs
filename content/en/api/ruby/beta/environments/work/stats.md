@@ -129,6 +129,8 @@ Get statistics about the work queue for an environment.
 
   - `:"analytics-usage-cost-2026-08-24"`
 
+  - `:"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -141,15 +143,13 @@ Get statistics about the work queue for an environment.
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `type: :work_queue_stats`
 
     The type of object
 
   - `depth: Integer`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `oldest_queued_at: String`
 

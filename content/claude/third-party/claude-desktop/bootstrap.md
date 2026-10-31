@@ -53,7 +53,7 @@ Run the endpoint across multiple replicas or regions behind a load balancer. Do 
 
 When two refetches in a row return the same changed values, a few settings apply to the running app without a restart, such as the banner, the display name, and the token limit, as do the two lifecycle keys described below. Every other setting, including inference credentials, the egress allowlist, MCP servers, and the model list, stays on the values the app launched with. For those, the app prompts the user to restart and applies the new response when it relaunches.
 
-Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a changed response that needs a restart, and a second check about 30 seconds later returns the same values, the user can keep working for [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) (24 hours by default, at most 336 hours, or `0` to require the restart at once; releases before 1.46388.1 default to 1 hour). After that window the app blocks further use until it restarts, and it relaunches on its own once it has been idle for two minutes (no Claude task running and no keyboard or pointer input).
+Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a change that needs a restart and a second check about 30 seconds later confirms it, the user can keep working for [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours), 24 hours by default (1 hour in releases before 1.46388.1). After that window the app blocks further use until it restarts, and it relaunches on its own after two minutes with no keyboard or pointer input and no Claude task running.
 
 Return `relaunchEnforcementHours` in the bootstrap response to change the window, and `configRecheckIntervalMinutes` to change how often running apps check for a new response. The app reads both keys from the newest response, so changing them does not itself require a restart. In the nested response format ([`bootstrap-config-v2`](#response-schema)) both keys sit under `lifecycle`, as `lifecycle.relaunchEnforcementHours` and `lifecycle.configRecheckIntervalMinutes`. Releases before 1.46388.1 read the window from `bootstrap.relaunchEnforcementHours` and do not read the `lifecycle` path, so move the value when your fleet updates (the flat-format key name is unchanged). On a device where `bootstrapUrl` came from an imported file rather than MDM, a device-management profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), such as the update keys, supplies these two keys as well, so set them in that profile or the defaults apply there.
 
@@ -263,7 +263,21 @@ On `GET <bootstrapUrl>` with a valid bearer, look up the user from the token cla
 
 ### Request headers (no per-user sign-in)
 
-Requires Claude Desktop 1.32885.1 or later. Set `bootstrapHeaders` to a JSON object of headers to send on every bootstrap fetch, or `bootstrapHeadersHelper` to the absolute path of an executable that prints such an object on stdout (run with no arguments; its output is cached for a few minutes and merged over the static headers, the helper winning on a conflict). When either key is set and `bootstrapOidc` is not, the app treats the headers as sufficient authentication and fetches the configuration without prompting the user to sign in. If your server answers `401` or `403`, the app discards the cached helper output so the next fetch (the next background check, or a relaunch) re-runs the helper. At launch the app also shows a sign-in prompt; that sign-in succeeds only if your server implements the [device-code grant](#bootstrap-server-as-authorization-server-device-code), so a headers-only server should return `401`/`403` only for a genuinely unusable credential. A `401`/`403` on a background check keeps the running configuration and retries at the next check without prompting. A signed-in user's bearer token replaces any `Authorization` header you configured. Both keys are read from device management or the local configuration file only, never from the bootstrap response, and header values are masked in the diagnostic report. [Origin pinning](#origin-pinning) applies in this mode exactly as in device-code mode. Use this instead of embedding `user:password@` in `bootstrapUrl`, which the app refuses.
+Requires Claude Desktop 1.32885.1 or later. Use this mode instead of embedding `user:password@` in `bootstrapUrl`, which the app refuses.
+
+Set one or both of these keys, described under [MDM configuration keys](#mdm-configuration-keys):
+
+* `bootstrapHeaders`: a JSON object of headers to send on every bootstrap fetch
+* `bootstrapHeadersHelper`: the absolute path of an executable that prints such an object on stdout
+
+When either key is set and `bootstrapOidc` is not, the app treats the headers as sufficient authentication and fetches the configuration without prompting the user to sign in.
+
+If your server answers `401` or `403`, the app discards the cached helper output so the next fetch (the next background check, or a relaunch) re-runs the helper.
+
+* **`401` or `403` at launch**: the app also shows a sign-in prompt. That sign-in succeeds only if your server implements the [device-code grant](#bootstrap-server-as-authorization-server-device-code), so a headers-only server should return `401`/`403` only for a genuinely unusable credential.
+* **`401` or `403` on a background check**: the app keeps the running configuration and retries at the next check without prompting.
+
+A signed-in user's bearer token replaces any `Authorization` header you configured. Both keys are read from device management or the local configuration file only, never from the bootstrap response, and header values are masked in the diagnostic report. [Origin pinning](#origin-pinning) applies in this mode exactly as in device-code mode.
 
 ## The HTTP contract
 
@@ -359,11 +373,11 @@ Consent gates only bootstrap-delivered values. The same keys delivered through d
 | `$schemaVersion` | `integer` | Wire-format marker: `2` for the nested format (bootstrap-config-v2, what the app's own JSON export writes), `1` for the flat format (bootstrap-config-v1). Optional: the client infers the format from the document shape; set it to state the format explicitly. |
 | `expiresAt` | `number` | Unix epoch (seconds or milliseconds) after which the client should re-fetch this document. Optional; when absent the client uses its default refresh interval. |
 
-> **\$schemaVersion details**
+> [accordion] \$schemaVersion details
 >
 > Omitted → the client infers the version from the document shape (any cluster key present → 2, otherwise 1).
 
-> **expiresAt details**
+> [accordion] expiresAt details
 >
 > Omitted → cache for 1 hour. A number ≥ 10¹² is read as Unix epoch **milliseconds**; below that, **seconds**.
 >
@@ -413,13 +427,13 @@ Since 1.10628.0
 
 **Bootstrap OIDC parameters.** Your organization’s OpenID Connect identity provider. The user’s token from a browser sign-in is sent as Bearer to the bootstrap server.
 
-> **More detail**
+> [accordion] More detail
 >
 > When unset, the bootstrap sign-in uses a device code on the bootstrap server's own origin.
 >
 > In an MDM profile, write this key as one JSON string. Separate values such as `bootstrapOidc.clientId` do not work: the app silently uses the device-code sign-in instead.
 
-> **Child attributes (8)**
+> [accordion] Child attributes (8)
 >
 > **clientId** `string` *required*
 >
@@ -455,7 +469,7 @@ Since 1.10628.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -471,7 +485,7 @@ Since 1.32885.1
 
 **Bootstrap request headers.** HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL.
 
-> **More detail**
+> [accordion] More detail
 >
 > If `bootstrapOidc` is unset, the app treats these headers as sufficient authentication and requires no per-user sign-in for the bootstrap fetch.
 >
@@ -491,7 +505,7 @@ Since 1.32885.1
 
 **Bootstrap headers helper script.** Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins.
 
-> **More detail**
+> [accordion] More detail
 >
 > Example output: `{"Authorization": "Bearer …"}`. The app runs the helper script with no arguments and reuses its output for a few minutes.
 >

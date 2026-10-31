@@ -4,7 +4,7 @@ This article explains how Team and Enterprise owners can manage Claude in Chrome
 
 ## Availability
 
-Claude in Chrome admin controls are available for Team and Enterprise plans. The side panel runs as a Claude Cowork session on Pro, Max, and Team plans. On Enterprise plans, it runs as a Cowork session once you've enabled it for your organization. See **[Enable the Cowork side panel](#h_bdb63199e1)** below. Where the Cowork side panel isn't enabled, users have the classic side panel, and your existing organization settings apply to it unchanged.
+Claude in Chrome admin controls are available for Team and Enterprise plans. The side panel runs as a Claude Cowork session on Pro, Max, Ultra, and Team plans. On Enterprise plans, it runs as a Cowork session once you've enabled it for your organization. See **[Enable the Cowork side panel](#h_bdb63199e1)** below. Where the Cowork side panel isn't enabled, users have the classic side panel, and your existing organization settings apply to it unchanged.
 
 ## Access Claude in Chrome settings
 

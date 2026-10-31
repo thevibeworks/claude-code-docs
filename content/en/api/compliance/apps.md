@@ -1228,6 +1228,10 @@ are sorted chronologically (time ascending) by created_at.
 
     format: date-time
 
+  - `href: string or null`
+
+    URL to view this project in claude.ai
+
   - `is_private: boolean`
 
     If false, the project is visible to all organization members; if true the project is accessible only to the creator and specified collaborators
@@ -1296,7 +1300,8 @@ curl https://api.anthropic.com/v1/compliance/apps/projects \
       "user": {
         "id": "user_xyz456",
         "email_address": "user@example.com"
-      }
+      },
+      "href": "https://claude.ai/project/abcdef01-2345-6789-abcd-ef0123456789"
     }
   ],
   "has_more": true,
@@ -1356,6 +1361,10 @@ Get detailed information for a specific project.
 
   Project description
 
+- `href: string or null`
+
+  URL to view this project in claude.ai
+
 - `instructions: string`
 
   Project's custom instructions / prompt
@@ -1414,6 +1423,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
   "created_at": "2025-03-12T18:22:41.123456Z",
   "deleted_at": "2019-12-27T18:11:19.117Z",
   "description": "Planning and research for the Q3 launch",
+  "href": "https://claude.ai/project/3c9d2e1f-7a6b-4c58-9d3e-2f1a7b6c5d48",
   "instructions": "Focus on concise, actionable answers.",
   "is_private": true,
   "name": "Q3 Product Launch",
@@ -1421,7 +1431,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
   "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
   "updated_at": "2025-03-14T09:05:17.456789Z",
   "user": {
-    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
     "email_address": "jane.doe@example.com"
   }
 }
@@ -1535,11 +1545,11 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
 #### Returns
 
-- `data: array of ComplianceProjectFileReference or ComplianceProjectDocReference`
+- `data: array of ProjectFile or ProjectDoc`
 
   List of attachments sorted chronologically by created_at, tie break by id
 
-  - `ComplianceProjectFileReference object`
+  - `ProjectFile object`
 
     File attachment reference for compliance responses.
 
@@ -1575,7 +1585,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
-  - `ComplianceProjectDocReference object`
+  - `ProjectDoc object`
 
     Project document attachment reference for compliance responses.
 
@@ -1690,11 +1700,11 @@ role.
 
 #### Returns
 
-- `data: array of ComplianceProjectUserCollaborator or ComplianceProjectGroupCollaborator or ComplianceProjectOrganizationCollaborator or ComplianceProjectOrganizationRoleCollaborator`
+- `data: array of User or Group or Organization or OrganizationRole`
 
   List of collaborators sorted chronologically by granted_at, tie break by the underlying role-assignment UUID
 
-  - `ComplianceProjectUserCollaborator object`
+  - `User object`
 
     An individual user granted a role on a project.
 
@@ -1726,7 +1736,7 @@ role.
 
       Identifier of the user granted access (tagged ID), or null if their account has since been deleted
 
-  - `ComplianceProjectGroupCollaborator object`
+  - `Group object`
 
     An RBAC group granted a role on a project.
 
@@ -1758,7 +1768,7 @@ role.
 
       - `"viewer"`
 
-  - `ComplianceProjectOrganizationCollaborator object`
+  - `Organization object`
 
     An entire organization granted a role on a project.
 
@@ -1790,7 +1800,7 @@ role.
 
       - `"viewer"`
 
-  - `ComplianceProjectOrganizationRoleCollaborator object`
+  - `OrganizationRole object`
 
     All holders of an organization-level role granted a role on a project.
 
@@ -1928,7 +1938,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
   "created_at": "2025-03-12T18:22:41.123456Z",
   "filename": "design-notes.txt",
   "user": {
-    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
     "email_address": "jane.doe@example.com"
   }
 }
@@ -2027,7 +2037,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
   "mime_type": "text/plain",
   "size_bytes": 0,
   "user": {
-    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
     "email_address": "jane.doe@example.com"
   }
 }
@@ -2802,7 +2812,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "type": "compliance_local_session",
     "updated_at": "2025-03-12T18:22:41.123456Z",
     "user": {
-      "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
       "email_address": "jane.doe@example.com"
     },
     "workspace_id": "wrkspc_01SvYKoWVRVHoEbwESNvzYdR"
@@ -3502,12 +3512,12 @@ curl https://api.anthropic.com/v1/compliance/apps/code/artifacts \
       "id": "cart_01Tu9VwXyZaBcDeFgHiJkLmN",
       "artifact_type": "code",
       "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
-      "owner_user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "owner_user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
       "published_version_id": "1741803761-9f3a",
       "read_mode": "org",
       "updated_at": "2025-03-14T09:05:17.456789Z",
       "user": {
-        "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+        "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
         "email_address": "jane.doe@example.com"
       },
       "versions": [

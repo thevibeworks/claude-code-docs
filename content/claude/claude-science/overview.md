@@ -30,7 +30,7 @@ Researchers in the life sciences also get specialized [Featured connectors](http
 
 ## Requirements
 
-* A Claude account on a Pro, Max, Team, or Enterprise plan. The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists) has Claude Science on by default. On other Team and Enterprise plans, an Owner must [enable Claude Science for the organization](https://claude.com/docs/claude-science/enable-claude-science.md) first.
+* A Claude account on a Pro, Max, Ultra, Team, or Enterprise plan. The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists) has Claude Science on by default. On other Team and Enterprise plans, an Owner must [enable Claude Science for the organization](https://claude.com/docs/claude-science/enable-claude-science.md) first.
 * A country or region where Anthropic offers claude.ai. See [Supported countries and regions](https://www.anthropic.com/supported-countries).
 * macOS 13 or later (Apple silicon or Intel), Windows 11 (x64), or Linux x64 on a glibc-based distribution.
 * About 5 GB of free disk space for the runtime and starter environments.
@@ -38,13 +38,13 @@ Researchers in the life sciences also get specialized [Featured connectors](http
 
 ## Plans and usage
 
-Claude Science is included in Pro, Max, Team, and Enterprise plans, with nothing separate to buy. Team and Enterprise Owners control whether Claude Science is available to their members through [an admin setting](https://claude.com/docs/claude-science/enable-claude-science.md). Claude Science isn't available on the Free plan. Scientists at academic and nonprofit research institutions can also get it through the discounted [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists).
+Claude Science is included in Pro, Max, Ultra, Team, and Enterprise plans, with nothing separate to buy. Team and Enterprise Owners control whether Claude Science is available to their members through [an admin setting](https://claude.com/docs/claude-science/enable-claude-science.md). Claude Science isn't available on the Free plan. Scientists at academic and nonprofit research institutions can also get it through the discounted [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists).
 
 Your Claude Science usage counts toward the same usage limits as the rest of your Claude plan, including Claude Code and Cowork. In Claude Science, **Settings > Usage** shows how much you've used and when each limit resets.
 
 You pay more than your plan's price only in these cases:
 
-* **Usage credits and extra usage.** On Pro and Max plans, you can turn on usage credits in your claude.ai settings to keep working past your limits. You can then turn off usage credits or change your monthly spend limit under **Settings > Usage** in Claude Science. Team plans call the same option extra usage, and your admin turns it on. In Claude Science it appears as **Usage credits**, but only Pro and Max plans can change it there. On Team and Enterprise plans, your admin sets spend limits. Some models need usage credits on some plans, and [Claude pricing](https://claude.com/pricing) lists which models each plan includes.
+* **Usage credits and extra usage.** On Pro, Max, and Ultra plans, you can turn on usage credits in your claude.ai settings to keep working past your limits. You can then turn off usage credits or change your monthly spend limit under **Settings > Usage** in Claude Science. Team plans call the same option extra usage, and your admin turns it on. In Claude Science it appears as **Usage credits**, but only Pro, Max, and Ultra plans can change it there. On Team and Enterprise plans, your admin sets spend limits. Some models need usage credits on some plans, and [Claude pricing](https://claude.com/pricing) lists which models each plan includes.
 * **Usage-based Enterprise plans.** Instead of fixed usage limits, your organization pays for usage on top of the seat price, within the spend limits your admin sets.
 * **Services you connect with your own account.** Services such as [Modal](https://claude.com/docs/claude-science/compute-providers.md) bill you directly. Anthropic doesn't bill for them.
 

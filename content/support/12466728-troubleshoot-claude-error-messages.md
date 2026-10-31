@@ -4,7 +4,7 @@ This article explains common error messages and warnings you may encounter when 
 
 ## Usage limit warnings and errors
 
-Your plan has a five-hour session limit and a weekly limit. Some plans have an additional weekly limit that applies specifically to Fable. Usage limit warnings appear when you’re approaching any of your plan's limits: *“Approaching session limit”* or "Approaching weekly limit." When the percentage is available, the warning shows how much of your limit you've used instead, for example "You've used X% of your weekly limit."
+Your plan has a weekly limit and, except on verified Ultra accounts, a five-hour session limit. Some plans have an additional weekly limit that applies specifically to Fable. Usage limit warnings appear when you’re approaching any of your plan's limits: *“Approaching session limit”* or "Approaching weekly limit." When the percentage is available, the warning shows how much of your limit you've used instead, for example "You've used X% of your weekly limit."
 
 If you reach a limit and don’t have usage credits enabled, you’ll see an error message letting you know when you can use Claude again: "5-hour limit reached - resets [time]" or "You've reached your weekly limit. It resets [day] at [time]."
 
@@ -12,7 +12,7 @@ Looking for ways to maximize your Claude usage? Refer to **[Usage limit best pra
 
 ### Usage credits
 
-If you’re on a paid Claude plan with usage credits enabled in Usage settings, reaching your five-hour session limit or any of your weekly limits doesn’t stop your work. Your requests switch to pay-as-you-go pricing on usage credits and keep working until you reach your monthly spend limit or your usage credit balance runs out with auto-reload off. Instead of the error above, you’ll see "5-hour limit resets [time] - continuing with usage credits" or "Now using credits. Your plan limit resets [day] at [time]".
+If you’re on a paid Claude plan with usage credits enabled in Usage settings, reaching any five-hour session limit or any of your weekly limits doesn’t stop your work. Your requests switch to pay-as-you-go pricing on usage credits and keep working until you reach your monthly spend limit or your usage credit balance runs out with auto-reload off. Instead of the error above, you’ll see "5-hour limit resets [time] - continuing with usage credits" or "Now using credits. Your plan limit resets [day] at [time]".
 
 **Note:** The warning that you’re approaching your limit may still be showing at the moment your usage switches to usage credits. It can look like you’ve been cut off, but your work continues, and the message changes to “Now using credits” once your next request goes through.
 
@@ -59,5 +59,3 @@ Capacity issues will not appear on our status page because they represent normal
 ## Service incidents and outages
 
 Service incidents are disruptions where Claude is unavailable or significantly degraded for all or most users. These represent actual technical problems with our systems. To check for confirmed incidents, visit status.claude.com, where you'll find real-time updates on scope, impact, and resolution progress for any active incidents.
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1753796247/e6a8c6ef8653b229c5758e881242/c2fc6fc0-d163-4119-93e0-394104d86bc9?expires=1793380500&amp;signature=59a5ba1ca6d9fe9a8c607921df1790a90c2c478236ced4a61716154b4002204f&amp;req=dSciFc53m4NbXvMW1HO4za4BX6wg2rLB7y68oYp%2BYg%2BQ3ZkWkYemOFpBwP%2Fe%0ARHOR0%2FNZ4hqFJCB7Mdc%3D%0A)

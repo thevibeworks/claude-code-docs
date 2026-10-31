@@ -66,7 +66,7 @@ Every organization is linked to exactly one billing account, and usage by that o
 
 Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Your tenant is your agency's deployment and holds its organizations. Each user belongs to one, run by Owners and Primary Owners. Tenant administrators manage the tenant.
 >

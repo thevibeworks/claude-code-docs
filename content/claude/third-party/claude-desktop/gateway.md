@@ -96,7 +96,7 @@ Open the [in-app configuration window](https://claude.com/docs/third-party/claud
 
 Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
-When a user next opens Claude Desktop, they see a **Sign in to your organization** button. Clicking it opens their browser to your Entra sign-in page; once they approve, they return to the app and can start working. The app keeps them signed in and refreshes the token in the background. If the session is revoked or expires under your tenant's policy, the app shows a **Sign in again** prompt; clicking it reopens the sign-in page in the browser.
+When a user next opens Claude Desktop, they see a **Sign in with your organization** button. Clicking it opens their browser to your Entra sign-in page; once they approve, they return to the app and can start working. The app keeps them signed in and refreshes the token in the background. If the session is revoked or expires under your tenant's policy, the app shows a **Sign in again** prompt; clicking it reopens the sign-in page in the browser.
 
 #### Using Okta instead
 
@@ -151,7 +151,7 @@ Silent token refresh requires a refresh token from your identity provider, which
 
 Per [OpenID Connect Core 1.0 §11](https://openid.net/specs/openid-connect-core-1_0.html#OfflineAccess), requesting `offline_access` signals that the client may use the refresh token while the user is not present, and the provider must obtain consent for it. Claude Desktop therefore does not add this scope to an administrator-supplied `scopes` value in the default mode, so that requesting offline access remains an explicit choice.
 
-**Authorization servers that reject `offline_access`.** Standard OIDC providers (Entra ID, Okta, Auth0) accept `offline_access` and require it to issue a refresh token, so the automatic append is what you want. If your authorization server instead rejects unrecognized scopes with an `invalid_scope` error — for example, servers that issue refresh tokens via a provider-specific scope rather than `offline_access` — set `appendOfflineAccess` to `false` and include your provider's own refresh-token scope in `scopes` directly.
+**Authorization servers that reject `offline_access`.** Standard OIDC providers (Entra ID, Okta, Auth0) accept `offline_access` and require it to issue a refresh token, so keep the automatic append. If your authorization server rejects `offline_access` with an `invalid_scope` error, set `appendOfflineAccess` to `false` and include your provider's own refresh-token scope in `scopes`.
 
 Refresh tokens govern whether users are re-prompted to sign in, not how long a sign-in may stay valid. To cap the sign-in lifetime under your identity provider's session policy, set [`inferenceSessionLifetimeSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencesessionlifetimesec); Claude Desktop shows a re-authenticate banner before the session expires.
 
@@ -224,7 +224,7 @@ One of: `browser`, `broker`
 >
 > * Use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
 > * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
@@ -249,7 +249,7 @@ Since 1.6889.0
 >
 > * Use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
 
-> **More detail**
+> [accordion] More detail
 >
 > Used with `inferenceCredentialKind` set to `interactive`. Leave it unset for a gateway that runs its own sign-in and serves `<baseUrl>/.well-known/oauth-authorization-server`.
 >
@@ -257,7 +257,7 @@ Since 1.6889.0
 >
 > Register the redirect URI given under `inferenceGatewayOidcAuthFlow`.
 
-> **Child attributes (11)**
+> [accordion] Child attributes (11)
 >
 > **clientId** `string` *required*
 >
@@ -281,7 +281,7 @@ Since 1.6889.0
 >
 > One of: `id_token` (default), `access_token`
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > An ID token's audience (`aud`) is `clientId`. An access token's audience must be your gateway or proxy.
 > >
@@ -291,7 +291,7 @@ Since 1.6889.0
 >
 > Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > In ID-token mode, `offline_access` is not added to scopes that you set. Include it yourself, or users sign in again each time the token expires.
 >
@@ -299,7 +299,7 @@ Since 1.6889.0
 >
 > In access-token mode, add offline\_access to scopes so the identity provider returns a refresh token for silent refresh.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Turn off only if your authorization server rejects `offline_access` as an unknown scope. Then add the server’s own refresh-token scope to `scopes`.
 >
@@ -307,7 +307,7 @@ Since 1.6889.0
 >
 > Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier. Leave unset for Entra ID.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
 > >
@@ -327,7 +327,7 @@ Since 1.6889.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -341,7 +341,7 @@ enumSince 2.7032.0
 
 One of: `browser`, `broker`
 
-> **More detail**
+> [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
 > * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies that require a compliant or managed device, or token protection.
@@ -360,7 +360,7 @@ Since 2.7032.0
 
 **Identity provider (OIDC).** Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy.
 
-> **More detail**
+> [accordion] More detail
 >
 > Used when `inferenceCredentialKind` is `external-idp`. Register the redirect URI given under `inferenceIdpAuthFlow` with your identity provider.
 >
@@ -368,7 +368,7 @@ Since 2.7032.0
 >
 > On Bedrock, set `inferenceBedrockBaseUrl` to a proxy that checks the token, because Amazon Bedrock itself does not accept it. Also list your models in `inferenceModels`.
 
-> **Child attributes (11)**
+> [accordion] Child attributes (11)
 >
 > **clientId** `string` *required*
 >
@@ -392,7 +392,7 @@ Since 2.7032.0
 >
 > One of: `id_token` (default), `access_token`
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > An ID token's audience (`aud`) is `clientId`. An access token's audience must be your gateway or proxy.
 > >
@@ -402,7 +402,7 @@ Since 2.7032.0
 >
 > Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > In ID-token mode, `offline_access` is not added to scopes that you set. Include it yourself, or users sign in again each time the token expires.
 >
@@ -410,7 +410,7 @@ Since 2.7032.0
 >
 > In access-token mode, add offline\_access to scopes so the identity provider returns a refresh token for silent refresh.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Turn off only if your authorization server rejects `offline_access` as an unknown scope. Then add the server’s own refresh-token scope to `scopes`.
 >
@@ -418,7 +418,7 @@ Since 2.7032.0
 >
 > Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier. Leave unset for Entra ID.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
 > >
@@ -438,7 +438,7 @@ Since 2.7032.0
 >
 > Space-separated hostnames also accepted as the referrer of the sign-in callback, besides the authorization URL’s host.
 >
-> > **More detail**
+> > [accordion] More detail
 > >
 > > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
 
@@ -450,7 +450,7 @@ integerRange: 300–1,800Since 1.44121.1
 
 **Stream idle timeout.** Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300.
 
-> **More detail**
+> [accordion] More detail
 >
 > With pings arriving (SSE `ping` events or `:` comment lines), sessions accept at least about five minutes of them, then wait this many seconds more. With no pings, a silent response still fails after about 5 minutes whatever this value, so make the gateway send them.
 >
@@ -470,7 +470,7 @@ From Claude Desktop 2.7032.0, `inferenceCredentialKind: "external-idp"` with [`i
 | - | - | - | - |
 | Credential kind | `inferenceCredentialKind` | Yes | `interactive` selects sign-in instead of an API key. |
 | Gateway SSO IdP (OIDC) | `inferenceGatewayOidc` | Yes | A **single JSON object** describing the identity provider (fields below). The resulting token is sent to the gateway as the bearer credential. |
-| Sign-in flow | `inferenceGatewayOidcAuthFlow` | No | `browser` (the default) runs the sign-in in the system browser. `broker` runs it through the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md) on Windows and macOS, which requires `issuer` to be a Microsoft Entra ID issuer (`https://login.microsoftonline.com/TENANT_ID/v2.0`) and needs no loopback redirect. |
+| Gateway sign-in flow | `inferenceGatewayOidcAuthFlow` | No | `browser` (the default) runs the sign-in in the system browser. `broker` runs it through the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md) on Windows and macOS, which requires `issuer` to be a Microsoft Entra ID issuer (`https://login.microsoftonline.com/TENANT_ID/v2.0`) and needs no loopback redirect. |
 
 The `inferenceGatewayOidc` value is one JSON object with these fields:
 
@@ -513,7 +513,7 @@ If your gateway serves Claude models under routing aliases, list each alias in `
 
 Your gateway can mark which Claude tier a model serves by returning an `anthropic_family_tier` field (a tier name such as `sonnet` or `opus`) on that model object in its `/v1/models` response, optionally with `is_family_default: true` when several models map to the same tier. The app uses the marked model when it needs that tier, for example to resolve a bare `sonnet` alias. The app also reads other optional fields on each model object. `display_name` sets the picker label when the app cannot derive one from the model ID. `description` adds a one-line description beneath the label (Claude Desktop 1.49585.0 or later). `supports_1m: true`, or a `max_input_tokens` value of 1,000,000 or more, marks a discovered model as supporting the 1M-token context window, as `supports1m` does on an `inferenceModels` entry.
 
-If your gateway does not implement `GET /v1/models`, give every `inferenceModels` entry the full model ID your gateway accepts; bare tier aliases such as `sonnet` rely on discovery to resolve. When every entry is a full model ID, the app skips the `/v1/models` call automatically. A list that contains a bare alias keeps discovery on, so for a gateway without the endpoint, replace the alias with the full model ID; a bare alias cannot be resolved without discovery. On earlier app versions that do not skip the call automatically, also set [`modelDiscoveryEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modeldiscoveryenabled) to `false` to avoid the discovery attempt. The cost of leaving discovery on without the endpoint depends on how the gateway fails: an error response makes the app fall back to the `inferenceModels` list immediately, while an endpoint that accepts the request and hangs delays the model list by up to 10 seconds at launch.
+If your gateway doesn't implement `GET /v1/models`, give every `inferenceModels` entry the full model ID your gateway accepts. When every entry is a full model ID, the app skips the `/v1/models` call automatically. A bare tier alias such as `sonnet` can't be resolved without discovery, so a list that contains one keeps discovery on. On earlier app versions that don't skip the call automatically, also set [`modelDiscoveryEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modeldiscoveryenabled) to `false`. If discovery stays on, a gateway that answers the call with an error makes the app fall back to the `inferenceModels` list immediately. A gateway that accepts the call and hangs delays the model list by up to 10 seconds at launch.
 
 A session assumes 200K tokens for a model ID it doesn't recognize as having a native 1M context window (see [Context window and compaction](#context-window-and-compaction)). If your deployment supports the 1M-token context window for that model, set `supports1m: true` on its entry:
 
@@ -521,9 +521,9 @@ A session assumes 200K tokens for a model ID it doesn't recognize as having a na
 [{"name": "bedrock/us.anthropic.claude-opus-4-6-v1", "supports1m": true}]
 ```
 
-The model picker then shows a second entry for the model, described as **1M context window**; the standard entry has no context-size label, and the default selection is unchanged. `supports1m` is an assertion about your gateway rather than something the app can verify: if the gateway does not accept 1M-token requests for that model, requests made from the 1M picker entry fail at inference time. Only set it on models you have confirmed against your deployment. The [Models section of the configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#models) documents the remaining entry fields, including display labels and tier mapping.
+The model picker then shows a second entry for the model, described as **1M context window**. The default selection is unchanged. If the gateway doesn't accept 1M-token requests for that model, requests made from the 1M picker entry fail at inference time. Only set `supports1m` on models you have confirmed against your deployment. The [Models section of the configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#models) documents the remaining entry fields, including display labels and tier mapping.
 
-To show a model as one entry, add `prefer1m: true` next to `supports1m` on its entry. New conversations with that model use the 1M context window. To do this for every entry that sets `supports1m`, or for every model your gateway marks as supporting 1M when discovery fills the picker, set [`modelPrefer1mContext`](https://claude.com/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`.
+To show a model as one entry, add `prefer1m: true` next to `supports1m` on its entry, or use [`modelPrefer1mContext`](https://claude.com/docs/third-party/claude-desktop/configuration#modelprefer1mcontext), as described under [Model list and default model](https://claude.com/docs/third-party/claude-desktop/models.md#model-list-and-default-model).
 
 ### Context window and compaction
 
@@ -626,6 +626,16 @@ A [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) is 
 > Google Workspace can be used as the identity provider, but in the default `id_token` mode Google does not issue a fresh ID token on background refresh, so users are prompted to sign in again roughly once an hour. Setting `bearerTokenType` to `access_token` avoids this. Entra ID and Okta are not affected in either mode.
 
 **Model picker is empty or missing models.** Check your gateway's `GET /v1/models` response and your `inferenceModels` list (see [Models](#models)). When `/v1/models` is unreachable or returns an error, the picker falls back to the `inferenceModels` list; if that list is empty, so is the picker.
+
+**Chat conversations and Cowork tasks fail with `SSL certificate verification failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE)`.** Claude Code, which runs these sessions, couldn't find the certificate authority (CA) that issued your gateway's certificate. A gateway that doesn't send its intermediate certificate and a private CA that the device doesn't trust can both produce this message. A passing connection test in the app doesn't rule out a missing intermediate certificate, because the app can fetch one itself and Claude Code can't.
+
+To see which certificates your gateway sends, run this command in a terminal on a machine that connects to the gateway directly. Use your gateway's host name in place of `llm-gateway.example.corp`:
+
+```bash theme={null}
+openssl s_client -connect llm-gateway.example.corp:443 -servername llm-gateway.example.corp -showcerts </dev/null
+```
+
+If the output doesn't include the intermediate certificate that issued the gateway's certificate, configure the gateway, or the load balancer in front of it, to send its full certificate chain. For a private CA, see [TLS-intercepting proxies](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#tls-intercepting-proxies).
 
 **The 1M context window entry does not appear in the picker.** `supports1m` takes effect only when the entry's `name` matches the model ID the picker uses. Setting it on a bare alias (for example `sonnet`) while discovery returns full model IDs produces no match. Set `supports1m` on an entry whose `name` is the exact ID your gateway's `/v1/models` endpoint returns. With `prefer1m` or `modelPrefer1mContext` set, a model whose `name` matches has one entry and no **1M context window** label.
 

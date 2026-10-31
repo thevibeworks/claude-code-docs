@@ -55,9 +55,17 @@ Separately from the application-data directory, Claude Desktop writes user-visib
 
 During Cowork sessions, Claude writes short Markdown files recording what it has learned about the user — working preferences, project context, and corrections — and reads them at the start of subsequent sessions. These files live under `local-agent-mode-sessions/.../memory/memory/` and never leave the device.
 
-Users can review and delete individual entries, or pause memory for new sessions and conversations (existing files are kept but not read or updated), under **Settings → Cowork → Memory**. The same page exposes a **Global instructions** editor for the `CLAUDE.md` file that is included in every session.
+Where sessions run on the device, users find the memory controls in these places:
 
-Each [project](https://claude.com/docs/cowork/guide/projects.md) also keeps its own memory under `local-agent-mode-sessions/.../spaces/<projectId>/memory/`. Cowork sessions inside a project read and update the project's memory rather than the files under `local-agent-mode-sessions/.../memory/memory/`. A Chat conversation inside a project can also read and update the project's memory, as described under [Chat conversations](#chat-conversations).
+* **Pause memory**: users go to **Settings > General** and turn off the **Use memory in sessions** toggle to pause memory for new sessions and conversations (existing files are kept but not read or updated)
+* **Review and delete notes**: where your configuration allows Cowork and the device can run it, users go to **Settings > General** and scroll to the **Memory** heading. Users can review and delete individual notes there.
+* **Edit global instructions**: where your configuration allows Cowork, users go to **Settings > Cowork** and click **Edit** next to **Global instructions** to change the `CLAUDE.md` file that is included in every session
+
+### Project memory
+
+Each [project](https://claude.com/docs/cowork/guide/projects.md) keeps its own memory under `local-agent-mode-sessions/.../spaces/<projectId>/memory/`. Cowork sessions inside a project read and update the project's memory rather than the files under `local-agent-mode-sessions/.../memory/memory/`. A Chat conversation inside a project can also read and update the project's memory, as described under [Chat conversations](#chat-conversations).
+
+To review a project's memory files, users go to **Projects**, open the project, and look under the **Memory** heading. Users click a file to read it, or right-click it and select **Copy path** to get its location on the device.
 
 ## Chat conversations
 
@@ -128,13 +136,17 @@ The app deletes whole sessions in the background. A chat or Cowork task is delet
 >
 > `sessionRetentionHold` is deprecated. Claude Desktop stops reading it at 12:00 PM Pacific Time on December 17, 2026. From then on, the app deletes the idle sessions of the users it covers, under the periods that are set for them. Deleted sessions can't be recovered.
 >
-> If you use `sessionRetentionHold`, change `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` for the same users before that date, or now if it has passed, as described under [Keep sessions for some users](#keep-sessions-for-some-users). Once their devices have the change, remove `sessionRetentionHold`.
+> If you use `sessionRetentionHold`:
+>
+> 1. Change `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` for the same users before that date, or now if it has passed, as described under [Keep sessions for some users](#keep-sessions-for-some-users).
+> 2. If the hold is in the catch-all policy (`match: {}`) of a Claude apps gateway, it also covers the users of every other policy that leaves `sessionRetentionHold` out. If it is in the organization-wide settings of the Enterprise Admin Console, it also covers the users of every per-group permission policy that leaves it out. In either case, set all three keys to `3650` where the hold is and in every policy that sets any of the three keys. You don't need to add a policy or change the order of your policies.
+> 3. Once the change has reached the devices of every user that the hold covers, remove `sessionRetentionHold`.
 
 To keep some users' idle sessions from being deleted, for example under a legal hold, change `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` for those users. Make the change in the source that their devices get their configuration from:
 
 * **[Bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or [MDM profile](https://claude.com/docs/third-party/claude-desktop/mdm.md)**: if those users' devices use a bootstrap server, make the change in the server's response, because the app then ignores these keys in the MDM profile. Set the three keys to `3650`, the longest period, or leave them out, which keeps sessions until the user deletes them.
-* **[Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: set the three keys to `3650` in a [per-group permission policy](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies) for those users' group. Rank that policy above their other policies. If the policy leaves a key out, those users keep the period that they had.
-* **[Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway)**: set the three keys to `3650` in the `desktop` block of a policy that matches only those users, and put that policy before every other policy that matches them. A user gets only the [first policy that matches them](https://code.claude.com/docs/en/claude-apps-gateway-config#managed), so copy in any other settings that they need. A policy that leaves a key out [takes the catch-all policy's value](https://code.claude.com/docs/en/claude-apps-gateway-config#claude-desktop-overlay).
+* **[Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: set the three keys to `3650` in a [per-group permission policy](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies) for those users' group. Rank that policy above their other policies. If the policy leaves a key out, those users keep the period that they had. To keep every user's sessions, set the three keys to `3650` in the organization-wide settings and in every per-group permission policy that sets any of them.
+* **[Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway)**: set all three keys to `3650` in the `desktop` block of a policy that matches only those users, and put that policy before every other policy that matches them. If this policy leaves one of the keys out, those users can [get a shorter period for it from a policy listed after it](https://code.claude.com/docs/en/claude-apps-gateway-config#claude-desktop-overlay), such as the catch-all policy. By default, the gateway applies only the [first policy that matches a user](https://code.claude.com/docs/en/claude-apps-gateway-config#managed), and takes any setting that policy leaves out from the catch-all policy. Copy into this policy any other settings that those users need. To keep every user's sessions, set all three keys to `3650` in the catch-all policy, keep it last, and set them to `3650` in every other policy that sets any of the three keys.
 
 A running app finds a change on a server at its next [configuration check](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect) (every 10 minutes by default), and a change to an MDM profile once the profile reaches the device. It then stops deleting under the old period, without a restart. Until then, it can still delete sessions under the old period.
 

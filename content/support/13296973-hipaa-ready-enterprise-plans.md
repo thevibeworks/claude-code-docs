@@ -50,7 +50,7 @@ Eligible Enterprise organizations can enable HIPAA directly from organization se
 
 ### Eligibility
 
-You can enable HIPAA from organization settings if your organization is on an Enterprise plan. Team plans and individual plans (Free, Pro, and Max) can't enable HIPAA.
+You can enable HIPAA from organization settings if your organization is on an Enterprise plan. Team plans and individual plans (Free, Pro, Max, and Ultra) can't enable HIPAA.
 
 Only the **Primary Owner** of the organization can accept the BAA and enable HIPAA. Other Owners or Admins can't complete this flow on the org's behalf. If you're an admin but not the Primary Owner of the Enterprise organization, ask your Primary Owner to sign in and complete enablement.
 

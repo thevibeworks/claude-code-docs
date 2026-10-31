@@ -351,14 +351,14 @@ When encountering issues:
 
 ## Next steps
 
-> **[MCP Inspector](https://modelcontextprotocol.io/docs/draft/tools/inspector.md)**
+> [card] [MCP Inspector](https://modelcontextprotocol.io/docs/draft/tools/inspector.md)
 >
 > Learn to use the MCP Inspector
 
-> **[Build an MCP server](https://modelcontextprotocol.io/docs/draft/develop/build-server.md)**
+> [card] [Build an MCP server](https://modelcontextprotocol.io/docs/draft/develop/build-server.md)
 >
 > Walk through building a server from scratch
 
-> **[Connect local servers](https://modelcontextprotocol.io/docs/draft/develop/connect-local-servers.md)**
+> [card] [Connect local servers](https://modelcontextprotocol.io/docs/draft/develop/connect-local-servers.md)
 >
 > Full claude\_desktop\_config.json reference and troubleshooting

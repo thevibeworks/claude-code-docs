@@ -1,6 +1,6 @@
 # Claim and migrate accounts on your domain
 
-Domain claiming lets Enterprise admins discover, claim, and migrate existing personal Claude accounts (Free, Pro, and Max) on a verified company domain into their Enterprise workspace. This gives your organization a clean path to consolidate accounts on day one of an Enterprise deployment, and allows people using Claude on personal accounts to keep their work. Domain claiming is available for Enterprise plans, whether purchased directly through Anthropic or through the AWS Marketplace, and works the same in both cases.
+Domain claiming lets Enterprise admins discover, claim, and migrate existing personal Claude accounts (Free, Pro, Max, and Ultra) on a verified company domain into their Enterprise workspace. This gives your organization a clean path to consolidate accounts on day one of an Enterprise deployment, and allows people using Claude on personal accounts to keep their work. Domain claiming is available for Enterprise plans, whether purchased directly through Anthropic or through the AWS Marketplace, and works the same in both cases.
 
 Domain claiming is supported on Claude Enterprise plans only.
 
@@ -28,7 +28,7 @@ These prerequisites exist to prevent people from being locked out of Claude duri
 
 ### Review accounts on your domain
 
-After verifying your domain, you can view all existing personal accounts (Free, Pro, and Max) on that domain that aren’t already in your organization. For each account, you’ll see the email address, plan type, account creation date, and last active date. You can also export this list as a CSV.
+After verifying your domain, you can view all existing personal accounts (Free, Pro, Max, and Ultra) on that domain that aren’t already in your organization. For each account, you’ll see the email address, plan type, account creation date, and last active date. You can also export this list as a CSV.
 
 Use this view to understand the scope of migration before initiating a claim. Check which accounts are in your identity provider (IdP) and which aren’t—people not in the IdP won’t be able to sign in after migration unless you add them.
 
@@ -64,7 +64,7 @@ During this window, each person on the domain can sign in and choose how to migr
 
 - Any remaining personal accounts that haven’t been migrated are deactivated.
 
-- Paid subscriptions (Pro and Max) are automatically canceled with a prorated refund. Any usage credits remaining on the account will also be refunded.
+- Paid subscriptions (Pro, Max, and Ultra) are automatically canceled with a prorated refund. Any usage credits remaining on the account will also be refunded.
 
 - Once all accounts are migrated or deactivated, no personal accounts exist on your domain.
 
@@ -90,11 +90,11 @@ To migrate accounts on a domain you verified later:
 
 - Migrating data into organizations with HIPAA readiness or customer-managed encryption keys (CMEK) turned on. You can still claim your domain, and people on it are notified as usual, but they can only join fresh. Nothing from their personal accounts moves over. Learn more about **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973)** and **[customer-managed encryption keys](https://support.claude.com/en/articles/15505325)**.
 
-- Claiming Team plan accounts. Only individual accounts (Free, Pro, Max) can be claimed.
+- Claiming Team plan accounts. Only individual accounts (Free, Pro, Max, Ultra) can be claimed.
 
 - Setting a custom migration deadline. The window is always 30 days.
 
-- Canceling App Store subscriptions. People who purchased Pro or Max through the Apple App Store need to cancel their subscription themselves through their Apple ID settings. For details, see **[Respond to an Enterprise domain claim on your Claude account](https://support.claude.com/en/articles/14625626)**.
+- Canceling App Store subscriptions. People who purchased Pro, Max, or Ultra through the Apple App Store need to cancel their subscription themselves through their Apple ID settings. For details, see **[Respond to an Enterprise domain claim on your Claude account](https://support.claude.com/en/articles/14625626)**.
 
 ## SSO and provisioning sequencing
 

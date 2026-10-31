@@ -87,14 +87,14 @@ distribute.
 Once your agent scaffolds the server, iterate on tool descriptions and error
 handling, then test and ship:
 
-> **[MCP Inspector](https://modelcontextprotocol.io/docs/2025-03-26/tools/inspector.md)**
+> [card] [MCP Inspector](https://modelcontextprotocol.io/docs/2025-03-26/tools/inspector.md)
 >
 > Test your server's tools, resources, and prompts interactively
 
-> **[Connect to a client](https://modelcontextprotocol.io/docs/2025-03-26/develop/connect-local-servers.md)**
+> [card] [Connect to a client](https://modelcontextprotocol.io/docs/2025-03-26/develop/connect-local-servers.md)
 >
 > Wire your server into an MCP client via local or remote configuration
 
-> **[Publish to the Registry](https://modelcontextprotocol.io/registry/quickstart.md)**
+> [card] [Publish to the Registry](https://modelcontextprotocol.io/registry/quickstart.md)
 >
 > Make your server discoverable in the MCP Registry

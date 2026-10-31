@@ -10,7 +10,7 @@ Specification Enhancement Proposals (SEPs) are the primary mechanism for proposi
 
 Each SEP is reachable by number at `/seps/<number>` (for example, [/seps/1850](https://modelcontextprotocol.io/seps/1850.md)).
 
-> **[Submit a SEP](https://modelcontextprotocol.io/community/sep-guidelines.md)**
+> [card] [Submit a SEP](https://modelcontextprotocol.io/community/sep-guidelines.md)
 >
 > Learn how to submit your own Specification Enhancement Proposal
 

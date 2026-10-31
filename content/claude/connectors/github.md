@@ -18,63 +18,63 @@ By the end of this page you have added repository content to a chat or a project
 
 You can add repository content to a single conversation, or to a [project](https://support.claude.com/en/articles/9517075-what-are-projects), a workspace in Claude where a set of chats share the same background documents. Choose the tab below for where you want the content available.
 
-**In a chat**
+> [tab] In a chat
+>
+> In a chat, the **Add from GitHub** option appears only after your GitHub account is connected to Claude. To connect your GitHub account, follow these steps:
+>
+> 1. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors).
+> 2. Select **GitHub Integration**.
+> 3. Select **Connect**.
+>
+> After your GitHub account is connected, add a repository to a chat:
+>
+> **1. Open the add menu**
+>
+> In the conversation, select **+** at the lower left of the message box.
+>
+> **2. Choose GitHub**
+>
+> Select **Add from GitHub**.
+>
+> **3. Pick a repository**
+>
+> Search the repositories you have access to, or paste a repository URL.
+>
+> **4. Add the repository**
+>
+> Select **Add repository**. Claude adds the repository's URL to your message.
+>
+> **5. Send your message**
+>
+> Send your question.
 
-In a chat, the **Add from GitHub** option appears only after your GitHub account is connected to Claude. To connect your GitHub account, follow these steps:
-
-1. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors).
-2. Select **GitHub Integration**.
-3. Select **Connect**.
-
-After your GitHub account is connected, add a repository to a chat:
-
-**1. Open the add menu**
-
-In the conversation, select **+** at the lower left of the message box.
-
-**2. Choose GitHub**
-
-Select **Add from GitHub**.
-
-**3. Pick a repository**
-
-Search the repositories you have access to, or paste a repository URL.
-
-**4. Add the repository**
-
-Select **Add repository**. Claude adds the repository's URL to your message.
-
-**5. Send your message**
-
-Send your question.
-
-**In a project**
-
-You can add repository content only to a private project, one you haven't shared with other people. In a shared project, the **GitHub** option is dimmed and shows **Only accessible from private projects**.
-
-If your GitHub account isn't connected to Claude yet, selecting **GitHub** sends you to GitHub to sign in before you continue.
-
-**1. Open project knowledge**
-
-Open the project and, in its project knowledge section, select **+**.
-
-**2. Choose GitHub**
-
-Select **GitHub**.
-
-**3. Pick a repository**
-
-Search the repositories you have access to, or paste a repository URL.
-
-**4. Select files and folders**
-
-Use the file browser to select the files and folders you want Claude to read.
-
-**5. Add the files**
-
-Select **Add files**.
-
-The selected content is added to the project's knowledge.
+> [tab] In a project
+>
+> You can add repository content only to a private project, one you haven't shared with other people. In a shared project, the **GitHub** option is dimmed and shows **Only accessible from private projects**.
+>
+> If your GitHub account isn't connected to Claude yet, selecting **GitHub** sends you to GitHub to sign in before you continue.
+>
+> **1. Open project knowledge**
+>
+> Open the project and, in its project knowledge section, select **+**.
+>
+> **2. Choose GitHub**
+>
+> Select **GitHub**.
+>
+> **3. Pick a repository**
+>
+> Search the repositories you have access to, or paste a repository URL.
+>
+> **4. Select files and folders**
+>
+> Use the file browser to select the files and folders you want Claude to read.
+>
+> **5. Add the files**
+>
+> Select **Add files**.
+>
+> The selected content is added to the project's knowledge.
 
 ## Grant Claude access to a private repository
 

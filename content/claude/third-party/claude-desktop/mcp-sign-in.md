@@ -36,20 +36,46 @@ For every other identity provider the secret stays on the device. Install a scri
 
 ## OAuth fields
 
-These fields appear when **OAuth** is set to **Bring your own client**. The [`managedMcpServers` reference](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists every `oauth` key and its minimum Claude Desktop version.
+These fields appear when **OAuth** is set to **Bring your own client**. The [`managedMcpServers` reference](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists every `oauth` key.
 
 | Field | When to set | What to enter |
 | - | - | - |
 | **Client ID** | You registered a client at the identity provider | The client ID from that registration |
 | **Client secret** | The identity provider requires the secret and the client is a Google Desktop-app client | The secret, beginning `GOCSPX-` |
 | **Client secret helper script** | The identity provider requires the secret (any identity provider) | The absolute path of the script on the device. Set this or **Client secret**, not both; in a configuration file that sets both, the script wins |
-| **Authorization server** | Required with a secret or secret helper script. Optional otherwise, to pin sign-in to a known issuer | A JSON array holding the authorization server's `issuer` value exactly as its metadata states it, for example `["https://accounts.google.com"]` (no trailing slash) or `["https://api.box.com"]` |
+| **Authorization server** | Required with a secret or secret helper script. Also required, as a single entry, with **Omit resource parameter** unless you set **Tenant ID** or **Authorization URL** and **Token URL**. Optional otherwise, to pin sign-in to a known issuer | A JSON array holding the authorization server's `issuer` value exactly as its metadata states it, for example `["https://accounts.google.com"]` (no trailing slash) or `["https://api.box.com"]` |
 | **Authorization URL** and **Token URL** | The identity provider publishes no discovery document | Both HTTPS endpoints, always as a pair. Hidden when **Tenant ID** or **Authorization server** is set |
-| **Tenant ID** | The client is a single-tenant Microsoft Entra app | Your Directory (tenant) ID. Requires **Scope** |
-| **Scope** | Required with **Tenant ID**. Optional otherwise | Space-separated scopes for the authorize request. Leave empty to request the scopes the server advertises |
+| **Tenant ID** | The client is a single-tenant Microsoft Entra app. For a GCC High or DoD tenant, leave **Tenant ID** empty and enter the tenant's issuer, `["https://login.microsoftonline.us/<tenant-id>/v2.0"]`, in **Authorization server** | Your Directory (tenant) ID. Requires **Scope** |
+| **Scope** | Required with **Tenant ID** or **Omit resource parameter**. Optional otherwise | Space-separated scopes for the authorize request. Leave empty to request the scopes the server advertises |
+| **Omit resource parameter** | Sign-in fails because the identity provider rejects the OAuth `resource` parameter, for example with Microsoft Entra error `AADSTS9010010` | Turn on the **Omit resource parameter** switch, and fill in the fields it requires as described under [Omit the resource parameter](#omit-the-resource-parameter) |
 | **Sign-in flow** | Shown after you enter **Tenant ID**. Set it when your devices have the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md) | **OS identity broker (WAM / Company Portal)**. The default is **System browser** |
 | **Callback host** and **Callback port** | The redirect URI you registered uses `localhost` or a port other than `53280` | The host and port from that registration. Microsoft Entra ID accepts any loopback port, so leave both empty for Entra |
 | **Additional redirect referrer hosts** | The identity provider completes sign-in from a host other than the one in its authorization URL, and `main.log` names a rejected referrer host | That hostname. Separate several with spaces |
+
+### Omit the resource parameter
+
+Turn on the **Omit resource parameter** switch only if the identity provider rejects the OAuth [`resource` parameter](https://claude.com/docs/third-party/claude-desktop/extensions#how-oauth-sign-in-works) that Claude Desktop sends at sign-in, for example with Microsoft Entra error `AADSTS9010010`. Claude Desktop then sends no `resource` parameter for that server. Set **OAuth** to **Bring your own client** to see the switch. In an MDM or bootstrap configuration, set `oauth.omitResource` to `true`.
+
+With Microsoft Entra ID, you can also fix `AADSTS9010010` by adding the URL that Claude Desktop sends to the API's Application ID URIs, unless that URL ends in a slash. Microsoft Entra ID doesn't accept such a URI. Claude Desktop sends the `resource` field of the server's [protected-resource metadata](https://claude.com/docs/third-party/claude-desktop/extensions.md#how-oauth-sign-in-works), and adds a trailing slash if the field is only an origin. Compare the two fixes:
+
+* **Register the URL**: follow [Microsoft Entra ID rejects the resource value](https://claude.com/docs/connectors/building/troubleshooting.md#microsoft-entra-id-rejects-the-resource-value). You need permission to edit the API's app registration. For a URL on a domain that your tenant hasn't verified, such as a vendor's hostname, the steps move every app that uses the API to v2.0 tokens, unless you use an alternative listed there. Microsoft Entra ID still refuses a token if a requested API scope belongs to a different app registration.
+* **Turn on the switch**: nothing changes in Microsoft Entra ID. The token is for the API that the **Scope** field names.
+
+With the switch on, the entry also needs all of the following:
+
+* **Client ID**
+* **Scope** with at least one scope besides `openid`, `profile`, `email`, `address`, `phone`, and `offline_access`
+* **Tenant ID**, a single **Authorization server** entry, or **Authorization URL** and **Token URL** with **Authorization server** empty
+
+If the entry doesn't meet all of them, Claude Desktop doesn't load it. The server then doesn't appear in Claude Desktop, and `main.log` records `managedMcpServers entry "<name>" dropped` with the reason.
+
+> [!WARNING]
+>
+> With the switch on, Claude Desktop names the API that the token is for only through **Scope**, and doesn't check that the scope belongs to this server. Enter a scope of this server's API. If you enter a scope of another API, an identity provider such as Microsoft Entra ID can issue a token for that API, and Claude Desktop sends that token to this server.
+
+For Microsoft Entra ID, write the scope in full. That is the Application ID URI shown under **Expose an API** on the app registration that represents the server's API, a slash, and the scope name, for example `api://<api-app-id>/<scope-name> offline_access`. Microsoft Entra ID treats a scope with no such prefix as a [Microsoft Graph scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc), so the server could receive a token for Microsoft Graph.
+
+To check that a device applies the setting, go to **Customize → Connectors** in Claude Desktop on a device where the server isn't connected yet, and click **Connect** for the server. When sign-in opens in the system browser, the `opening authorize URL` line of `main.log`, in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives), records `resourceParameter: 'not sent: oauth.omitResource is true for this server'`. If the line records another value or has no `resourceParameter`, the device isn't applying the setting. Restart Claude Desktop so that it picks up the [configuration update](https://claude.com/docs/third-party/claude-desktop/admin-console.md#configuration-updates), and check its version against the release that the [configuration changelog](https://claude.com/docs/third-party/claude-desktop/configuration-changelog.md) lists for `omitResource`.
 
 ## Settings for common servers
 
@@ -70,6 +96,8 @@ These messages appear in Claude Desktop, or in `main.log` in the [logs directory
 | "Couldn't connect to \{server} because it doesn't support automatic client registration" (Claude Desktop 2.110.0 or later), or `main.log` records that the authorization server does not support dynamic client registration | **OAuth** is **Auto-register** but the identity provider requires a client that you register | Register a public client with redirect URI `http://127.0.0.1:53280/callback`, set **OAuth** to **Bring your own client**, and fill in **Client ID** |
 | The browser step succeeds, then the connection fails and `main.log` records the token endpoint's error, for example `client_secret is missing` | The entry has a **Client ID** but the identity provider also requires the secret | Add the secret and **Authorization server** as described under [Where the client secret goes](#where-the-client-secret-goes) |
 | `main.log` names a rejected referrer host during sign-in | The identity provider completes sign-in from a host other than the one in its authorization URL | Add that hostname to **Additional redirect referrer hosts** |
+| The browser or `main.log` shows Microsoft Entra error `AADSTS9010010` | Claude Desktop sends the URL that the MCP server publishes about itself as the OAuth `resource` parameter, and Microsoft Entra ID rejects a `resource` that isn't an Application ID URI of the API whose scopes are requested | Register that URL as an Application ID URI in Microsoft Entra ID, or turn on the **Omit resource parameter** switch, as described under [Omit the resource parameter](#omit-the-resource-parameter) |
+| The server shows as connected but its tool calls fail, and `main.log` records `mid-session refresh did not rotate` with an OAuth error code such as `invalid_request` as its `reason` | The identity provider refused a token refresh with an error that Claude Desktop treats as temporary, so Claude Desktop keeps retrying and doesn't ask the user to sign in again | Look up the refused request in the identity provider's sign-in log and correct what it reports |
 
 ## Related connector guides
 

@@ -2,7 +2,7 @@
 
 This article explains the risks of using Claude in Chrome and provides best practices for protecting yourself and your data.
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome browser. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
+Claude in Chrome is available for all paid plans (Pro, Max, Team, Ultra, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome browser. On Max, Ultra, and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
 
 Claude in Chrome allows Claude to interact directly with websites on your behalf, which is guarded by our safety classifiers but still carries inherent risks. Understanding these risks helps you use the extension safely.
 

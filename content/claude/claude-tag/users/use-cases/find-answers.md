@@ -64,10 +64,10 @@ Answers come from this channel's history and [memory](https://claude.com/docs/cl
 
 ## Related resources
 
-> **[Catch up](https://claude.com/docs/claude-tag/users/use-cases/catch-up.md)**
+> [card] [Catch up](https://claude.com/docs/claude-tag/users/use-cases/catch-up.md)
 >
 > The same mechanism pointed at "what did I miss"
 
-> **[What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md)**
+> [card] [What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md)
 >
 > How channel knowledge accumulates

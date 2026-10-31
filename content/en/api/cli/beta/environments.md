@@ -2079,7 +2079,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `last_heartbeat: string`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `lease_extended: boolean`
 
@@ -2587,15 +2587,13 @@ Get statistics about the work queue for an environment.
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `type: "work_queue_stats"`
 
     The type of object
 
   - `depth: number`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `oldest_queued_at: string`
 

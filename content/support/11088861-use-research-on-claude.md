@@ -2,7 +2,7 @@
 
 With research, Claude investigates your question in depth. It runs multiple searches that build on each other and decides what to look into next based on what it finds. It explores different angles of your question and works through open questions systematically.
 
-Research is available for users with paid Claude plans (Pro, Max, Team, or Enterprise) using Claude on the web, Claude Desktop, or Claude Mobile.
+Research is available for users with paid Claude plans (Pro, Max, Ultra, Team, or Enterprise) using Claude on the web, Claude Desktop, or Claude Mobile.
 
 ## Enable or disable research
 

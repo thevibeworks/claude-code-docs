@@ -12,7 +12,7 @@ Claude Science runs on a remote Linux server (a cloud VM or a lab machine) the s
 >
 > This page covers running all of Claude Science on a remote machine. To keep Claude Science on your own computer and have it run jobs on a machine you reach over SSH, see [Remote compute clusters](https://claude.com/docs/claude-science/remote-compute-clusters.md).
 
-The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 10 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Team, or Enterprise plan; see [Requirements](https://claude.com/docs/claude-science/overview.md#requirements).
+The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 10 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Ultra, Team, or Enterprise plan; see [Requirements](https://claude.com/docs/claude-science/overview.md#requirements).
 
 ## Install dependencies
 

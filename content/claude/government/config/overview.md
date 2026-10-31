@@ -14,7 +14,7 @@ The **Config** page in the admin portal is where you set product behavior such a
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> **Transcript**
+> [accordion] Transcript
 >
 > Config sets product behavior for the people you manage. The tenant and each organization share the same page, and each level starts from the one above it.
 >

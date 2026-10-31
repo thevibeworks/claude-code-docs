@@ -135,6 +135,8 @@ Retrieve detailed information about a specific work item.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -406,6 +408,8 @@ Long poll for work items in the queue.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `anthropic_worker_id: Optional[str]` (header parameter)
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
@@ -663,6 +667,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 ### Returns
 
@@ -927,6 +933,8 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`
@@ -941,7 +949,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `last_heartbeat: str`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `lease_extended: bool`
 
@@ -1130,6 +1138,8 @@ Stop a work item, initiating graceful or forced shutdown.
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 - `workspace_id: Optional[str]` (header parameter)
 
@@ -1400,6 +1410,8 @@ List work items in an environment.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ### Returns
 
 - `class BetaSelfHostedWork`
@@ -1664,6 +1676,8 @@ Update work item metadata with merge semantics.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1922,6 +1936,8 @@ Get statistics about the work queue for an environment.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1934,8 +1950,6 @@ Get statistics about the work queue for an environment.
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `type: Literal["work_queue_stats"]`
 
     The type of object
@@ -1944,7 +1958,7 @@ Get statistics about the work queue for an environment.
 
   - `depth: int`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `oldest_queued_at: Optional[str]`
 
@@ -2087,7 +2101,7 @@ print(beta_self_hosted_work_queue_stats.depth)
 
   - `last_heartbeat: str`
 
-    RFC 3339 timestamp of the actual heartbeat from DB
+    RFC 3339 timestamp of the most recent heartbeat recorded for this work item, or an empty string if none has been recorded
 
   - `lease_extended: bool`
 
@@ -2203,8 +2217,6 @@ print(beta_self_hosted_work_queue_stats.depth)
 
   Statistics about the work queue for an environment.
 
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
   - `type: Literal["work_queue_stats"]`
 
     The type of object
@@ -2213,7 +2225,7 @@ print(beta_self_hosted_work_queue_stats.depth)
 
   - `depth: int`
 
-    Number of work items waiting to be picked up (lag from consumer group)
+    Number of work items waiting to be picked up
 
   - `oldest_queued_at: Optional[str]`
 

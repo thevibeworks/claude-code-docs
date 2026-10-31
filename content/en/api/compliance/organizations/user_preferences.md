@@ -9,6 +9,8 @@ url: https://platform.claude.com/docs/en/api/compliance/organizations/user_prefe
 
 **GET** `/v1/compliance/organizations/{org_uuid}/user_preferences`
 
+This endpoint is in beta.
+
 List the personal preferences of an organization's current members.
 
 Returns each member's "Instructions for Claude" and Cowork "Global
@@ -110,7 +112,7 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORG_UUID/user_prefer
       "conversation_preferences": "Always answer in British English.",
       "cowork_global_instructions": "Prefer short status updates.",
       "user": {
-        "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+        "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
         "email_address": "jane.doe@example.com"
       }
     }

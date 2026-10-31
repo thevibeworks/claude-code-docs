@@ -23,11 +23,11 @@ If you leave after pairing a workspace, click **Resume setup** to continue from 
 
 When you've launched, [give Claude access to your tools](#give-claude-access-to-your-tools) and [verify your setup](#verify-your-setup).
 
-> **Before you start: check that you have what setup needs**
+> [accordion] Before you start: check that you have what setup needs
 >
 > | Prerequisite | Why you need it | If you don't have it |
 > | :- | :- | :- |
-> | A **Team or Enterprise plan** on claude.ai | Claude Tag is available on Team and Enterprise plans, on Anthropic's first-party service. It isn't available on individual plans (Free, Pro, or Max), or for third-party deployments. | Start a Team or Enterprise plan at [claude.com/pricing](https://claude.com/pricing) |
+> | A **Team or Enterprise plan** on claude.ai | Claude Tag is available on Team and Enterprise plans, on Anthropic's first-party service. It isn't available on individual plans (Free, Pro, Max, or Ultra), or for third-party deployments. | Start a Team or Enterprise plan at [claude.com/pricing](https://claude.com/pricing) |
 > | A Claude organization **without Zero Data Retention (ZDR), customer-managed encryption (CMEK), or the HIPAA configuration for Claude Code (local mode) and Cowork (local mode)** | Claude Tag stores channel memory and session transcripts, which ZDR doesn't permit. A CMEK policy and the HIPAA configuration don't allow Claude Tag either. | Claude Tag isn't available to organizations with any of these. See [Healthcare organizations](https://claude.com/docs/claude-tag/admins/healthcare.md#plan-and-organization-requirements) |
 > | **Routines** enabled for your Claude organization | Until it is, Claude answers every mention and DM with a reply that it's unavailable and does no work. | An admin turns on [**Admin settings > Capabilities > Remote sessions > Routines**](https://claude.ai/admin-settings/capabilities) |
 > | **Owner** role in the Claude organization you're setting up | Setup pairs a workspace and turns Claude Tag on, and only an Owner can do either. Roles are per organization, so being an Owner elsewhere doesn't carry over. | Ask an Owner to run setup, or have one promote you at [`claude.ai/admin-settings/members`](https://claude.ai/admin-settings/members) |
@@ -85,7 +85,7 @@ Pairing covers the whole workspace. Claude doesn't answer mentions in Slack unti
 
 After launch, people can tag Claude in any channel it has joined. To keep Claude to certain channels, see [Limit Claude Tag to specific channels](https://claude.com/docs/claude-tag/admins/restrict-access.md#limit-claude-tag-to-specific-channels).
 
-> **If you're not the Slack workspace admin**
+> [accordion] If you're not the Slack workspace admin
 >
 > Only a Slack workspace admin can run `@Claude connect`, and in most workspaces only an admin can install the app. If that's not you, send the Slack admin the message below and have them return the pairing code:
 >
@@ -93,7 +93,7 @@ After launch, people can tag Claude in any channel it has joined. To keep Claude
 > Please install the Claude app (https://claude.com/claude-for-slack) in [workspace]. When that's done, let me know a time that works for the next part: in any channel, run /invite @Claude, then post "@Claude connect" with no other text and send me the code it returns. Pick a channel that belongs to just [workspace]. The code expires 15 minutes after Claude posts it, so I'll redeem it right away. What it can access: https://claude.com/docs/claude-tag/admins/for-slack-admins
 > ```
 
-> **If your Slack is on Enterprise Grid**
+> [accordion] If your Slack is on Enterprise Grid
 >
 > When a Slack Org Owner or Org Admin sends `@Claude connect`, the reply includes two codes. One begins `workspace_` and pairs only the workspace the admin sent the command in, and one begins `enterprise_` and pairs the whole Grid. Paste the `enterprise_` code. See [Pair an Enterprise Grid](https://claude.com/docs/claude-tag/admins/workspaces.md#pair-an-enterprise-grid).
 

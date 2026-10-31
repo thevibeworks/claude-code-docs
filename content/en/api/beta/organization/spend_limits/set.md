@@ -139,6 +139,8 @@ Anthropic account team.
 
   - `"analytics-usage-cost-2026-08-24"`
 
+  - `"experimental-claude-tag-2026-10-21"`
+
 ## Body parameters
 
 - `amount: string or null`
@@ -328,7 +330,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits \
           "amount": "50000",
           "scope": {
             "type": "user",
-            "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+            "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
           },
           "period": "monthly"
         }'
@@ -346,7 +348,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits \
   "period": "daily",
   "scope": {
     "type": "user",
-    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu"
   },
   "type": "spend_limit",
   "updated_at": "2019-12-27T18:11:19.117Z"
