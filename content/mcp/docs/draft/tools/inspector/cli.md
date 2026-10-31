@@ -138,6 +138,8 @@ Every non-zero exit maps to a stable failure class, so a caller can branch on *w
 | `7` | `--verify` found a skill that violates SEP-2640 (conformance, digest, or size mismatch). |
 | `8` | `--verify` couldn't check every skill within its read bounds. |
 | `9` | `--verify --require-digests` found a skill that advertises no digests. |
+| `10` | A `--load` run breached a `--load-max-error-rate` or `--load-max-p99` threshold. The summary is printed first, and the envelope `code` names the threshold: `load_error_rate_exceeded` or `load_p99_exceeded`. |
+| `11` | The server answered HTTP 429 (envelope `code` `rate_limited`). The envelope also carries `method`, plus `retryAfter` (the `Retry-After` header as sent) and `retryAfterMs` when the server sent one that parses. |
 
 On any non-zero exit the CLI also writes a **single JSON line to stderr**:
 
@@ -152,7 +154,7 @@ On any non-zero exit the CLI also writes a **single JSON line to stderr**:
 }
 ```
 
-The envelope carries `code` and `message` always, plus `cause` (the underlying error, such as a DNS failure), `status` (the HTTP status) and `url` when known. Query-string secrets in a URL are redacted. `code` is a stable name for the failure: `auth_required`, `unreachable`, `tool_not_found`, `tool_is_error`, `no_app`, `schema_unportable`, `store_unavailable`, `oauth_state_unrecognized`, or the catch-all `error`, among others.
+The envelope carries `code` and `message` always, plus `cause` (the underlying error, such as a DNS failure), `status` (the HTTP status) and `url` when known. Query-string secrets in a URL are redacted. `code` is a stable name for the failure: `auth_required`, `unreachable`, `tool_not_found`, `tool_is_error`, `no_app`, `schema_unportable`, `store_unavailable`, `oauth_state_unrecognized`, `rate_limited`, or the catch-all `error`, among others.
 
 Because it's one line, a caller can parse it with `2>&1 | tail -1 | jq .error`.
 
@@ -184,15 +186,17 @@ mcp-inspector --cli --config ./ci-servers.json --server my-server \
 
 ### CI gates
 
-Three flags turn a check into a non-zero exit, each with its own code so a job can tell the failures apart:
+These flags turn a check into a non-zero exit, each with its own code so a job can tell the failures apart:
 
 * `--strict` (with `tools/list`): reports tool-schema portability problems in full on stderr (path, issue, suggested fix) and exits `6` if any is error-severity. Without it, `tools/list` prints only a one-line count. Under `--format json` the findings are folded into the output as `schemaFindings`.
 * `--verify` (with `skills/list` or `skills/get`): runs the SEP-2640 conformance and digest checks, writes one JSON report per skill on stdout, and exits `7` on a violation or `8` when the read bounds stopped it before every skill was checked. `--skill-catalog-max-skills` and `--skill-catalog-max-bytes` set those bounds.
 * `--require-digests` (with `--verify`): exits `9` for a skill that advertises no digests, instead of reporting it as unverifiable and exiting `0`.
+* `--load-max-error-rate <fraction>` and `--load-max-p99 <ms>` (with `--load`): turn a load run into a gate. The run prints its summary, then exits `10` when the share of failed calls is above the fraction (`0` to `1`, so `0` fails on any failed call), when the p99 latency is above the given milliseconds, or when no call completed. `--load` (with `tools/call --tool-name`) calls the tool repeatedly and concurrently and prints a latency and error-rate summary instead of a result, bounded by `--load-duration <sec>` (default `10` when `--load-requests` is not set) and `--load-requests <n>`, with in-flight calls still finishing. `--load-concurrency <n>` (default `10`) caps the calls in flight, `--load-connections <n>` (default `1`, at most `--load-concurrency`, HTTP and SSE servers only) spreads them over independent sessions opened before timing starts, and `--load-rate <n>` (default unlimited) caps the calls started per second.
 
 ```bash theme={null}
 mcp-inspector --cli <server> --method tools/list --strict > /dev/null
 mcp-inspector --cli <server> --method skills/list --verify --require-digests
+mcp-inspector --cli <server> --method tools/call --tool-name get_weather --load --load-requests 200 --load-max-p99 500
 ```
 
 ### Branch on the failure class

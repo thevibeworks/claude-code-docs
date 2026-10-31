@@ -246,7 +246,7 @@ The Inspector refuses to bind the **wildcard** all-interfaces addresses (`0.0.0.
 | Goal | What to do |
 | - | - |
 | **Reach it from another machine on the LAN** | `HOST=192.168.1.50`. The default origin allow-list follows the bind host, so `http://192.168.1.50:6274` is accepted with no further config. |
-| **Behind TLS or a reverse proxy** | The browser's `Origin` becomes the public origin, which won't match the bind host. Set `ALLOWED_ORIGINS=https://inspector.example.com`, and for MCP Apps set `MCP_SANDBOX_FULL_ADDRESS` (see below). |
+| **Behind TLS or a reverse proxy** | The browser's `Origin` becomes the public origin, which won't match the bind host. Set `ALLOWED_ORIGINS=https://inspector.example.com`, and for MCP Apps set `MCP_SANDBOX_FULL_ADDRESS` (see below). If the proxy rewrites `Host` to a name that is not in `ALLOWED_ORIGINS`, also set `MCP_INSPECTOR_ALLOWED_HOSTS=inspector.example.com` (or `.example.com` for a domain and its subdomains), or the backend answers `403`. Without a proxy, `INSPECTOR_TLS_KEY_PATH` and `INSPECTOR_TLS_CERT_PATH` serve the UI itself over `https`. |
 | **Wildcard bind (containers)** | Set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Loopback access still works out of the box; reaching it at a non-loopback address needs `ALLOWED_ORIGINS`. |
 
 > [!WARNING]
@@ -273,7 +273,7 @@ When an exploration spans many calls (a multi-step flow over one session, a log 
 
 ```bash theme={null}
 mcpdo connect my-server
-mcpdo @my-server tools/call --task start_job size:=large   # task-augmented; blocks until the task finishes
+mcpdo @my-server tools/call --task start_job size:=large   # task-augmented on a legacy connection, blocks until the task finishes
 mcpdo @my-server tools/call get_job_report
 mcpdo @my-server logging/tail          # long-lived; Ctrl-C to stop
 mcpdo disconnect my-server

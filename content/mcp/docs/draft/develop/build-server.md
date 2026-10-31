@@ -779,6 +779,10 @@ This tutorial will primarily focus on tools.
 >
 > > [!NOTE]
 > >
+> > This server uses MCP protocol version 2025-11-25, as supported by the latest stable release of the Java SDK. Clients that also support that version can connect to it, but clients that support only 2026-07-28 cannot. See [backward compatibility](https://modelcontextprotocol.io/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions).
+>
+> > [!NOTE]
+> >
 > > This is a quickstart demo based on Spring AI MCP auto-configuration and boot starters.
 > > To learn how to create sync and async MCP Servers, manually, consult the [Java SDK Server](https://java.sdk.modelcontextprotocol.io/) documentation.
 >
@@ -804,7 +808,7 @@ This tutorial will primarily focus on tools.
 > ### System requirements
 >
 > * Java 17 or higher installed.
-> * [Spring Boot 3.3.x](https://docs.spring.io/spring-boot/installing.html) or higher
+> * [Spring Boot 4.1.x](https://docs.spring.io/spring-boot/installing.html) or higher
 >
 > ### Set up your environment
 >
@@ -1016,7 +1020,7 @@ This tutorial will primarily focus on tools.
 >   .args("-jar", "/ABSOLUTE/PATH/TO/PARENT/FOLDER/mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar")
 >   .build();
 >
-> var stdioTransport = new StdioClientTransport(stdioParams);
+> var stdioTransport = new StdioClientTransport(stdioParams, McpJsonDefaults.getMapper());
 >
 > var mcpClient = McpClient.sync(stdioTransport).build();
 >
@@ -1063,6 +1067,10 @@ This tutorial will primarily focus on tools.
 > It showcases how to define and register MCP Tools, Resources, and Prompts, using the Spring Boot's auto-configuration capabilities.
 
 > [tab] Kotlin
+>
+> > [!NOTE]
+> >
+> > This server uses MCP protocol version 2025-11-25, as supported by the latest stable release of the Kotlin SDK. Clients that also support that version can connect to it, but clients that support only 2026-07-28 cannot. See [backward compatibility](https://modelcontextprotocol.io/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions).
 >
 > Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/weather-stdio-server)
 >
@@ -1127,7 +1135,7 @@ This tutorial will primarily focus on tools.
 >
 > ```kotlin build.gradle.kts theme={null}
 > // Check latest versions at https://github.com/modelcontextprotocol/kotlin-sdk/releases
-> val mcpVersion = "0.9.0"
+> val mcpVersion = "0.16.0"
 > val ktorVersion = "3.2.3"
 > val slf4jVersion = "2.0.17"
 >
@@ -1136,6 +1144,10 @@ This tutorial will primarily focus on tools.
 >     kotlin("plugin.serialization") version "2.3.20"
 >     id("com.gradleup.shadow") version "8.3.9"
 >     application
+> }
+>
+> repositories {
+>     mavenCentral()
 > }
 >
 > application {
@@ -1358,7 +1370,7 @@ This tutorial will primarily focus on tools.
 >
 > ```bash theme={null}
 > ./gradlew build
-> java -jar build/libs/weather-0.1.0-all.jar
+> java -jar build/libs/weather-all.jar
 > ```
 >
 > Let's now test your server from an existing MCP host, Claude for Desktop.
@@ -1398,7 +1410,7 @@ This tutorial will primarily focus on tools.
 >       "command": "java",
 >       "args": [
 >         "-jar",
->         "/ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/libs/weather-0.1.0-all.jar"
+>         "/ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/libs/weather-all.jar"
 >       ]
 >     }
 >   }
@@ -1412,7 +1424,7 @@ This tutorial will primarily focus on tools.
 >       "command": "java",
 >       "args": [
 >         "-jar",
->         "C:\\PATH\\TO\\PARENT\\FOLDER\\weather\\build\\libs\\weather-0.1.0-all.jar"
+>         "C:\\PATH\\TO\\PARENT\\FOLDER\\weather\\build\\libs\\weather-all.jar"
 >       ]
 >     }
 >   }
@@ -1422,7 +1434,7 @@ This tutorial will primarily focus on tools.
 > This tells Claude for Desktop:
 >
 > 1. There's an MCP server named "weather"
-> 2. Launch it by running `java -jar /ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/libs/weather-0.1.0-all.jar`
+> 2. Launch it by running `java -jar /ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/libs/weather-all.jar`
 >
 > Save the file, and restart **Claude for Desktop**.
 

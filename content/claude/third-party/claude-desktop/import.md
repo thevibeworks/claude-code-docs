@@ -33,11 +33,17 @@ Use the [import wizard](#open-the-import-wizard) for your claude.ai conversation
 * Your administrator has turned import on by setting [`claudeAiImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) with `enabled` set to `true` in the managed configuration. The import wizard is off by default; until then, **Settings → Import & export** has no **Import…** button and reports that import isn't enabled for this deployment. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) doesn't depend on this setting.
 * If your administrator lists the claude.ai organizations you may import from, with `allowedOrganizationUuids` under [`claudeAiImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport), you can import only by signing in to claude.ai, and only from a listed organization. A sign-in to any other organization or to a personal account is refused, and the wizard's options to import from a file or from earlier sessions on this computer are turned off. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) isn't affected by this list.
 * Claude Desktop is installed and running in third-party mode. See [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md).
-* To bring history over from a claude.ai Team or Enterprise workspace, an owner of that workspace has enabled member data export (next section). Personal claude.ai accounts can always export.
+* To bring history over from a claude.ai Team or Enterprise workspace, an owner of that workspace has [enabled member data export](#enable-member-data-export-admins), which isn't possible in a HIPAA-ready organization. Personal claude.ai accounts can always export.
 
 ## Enable member data export (admins)
 
-On Team and Enterprise workspaces, member data export is off by default. A workspace owner enables it on claude.ai under **Settings → Organization → Data and privacy → Allow members to export their own data**.
+On Team and Enterprise workspaces, member data export is off by default.
+
+> [!NOTE]
+>
+> In a [HIPAA-ready organization](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans), member data export can't be turned on. Both ways to import claude.ai chats and projects in [step 1 of the import wizard](#step-1-claude-ai-chats-and-projects) need member data export, so neither works for members of that organization. If [`allowedOrganizationUuids`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) isn't set, they can still import Cowork and Claude Code sessions already on their computer in [step 2](#step-2-local-cowork-and-code-sessions).
+
+To enable member data export, a workspace owner goes to [**Organization settings > Data and privacy**](https://claude.ai/admin-settings/data-privacy-controls) on claude.ai and turns on the **Allow members to export their own data** toggle.
 
 ![claude.ai organization settings, Data and privacy page, with the Allow members to export their own data toggle turned on and a confirmation toast reading Member data export enabled.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-admin-toggle.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=f1f4696a2124cd36ee9a7366cb1c4772)
 
