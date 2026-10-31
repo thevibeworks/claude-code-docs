@@ -221,9 +221,14 @@ Log files are written to:
 
 * macOS: `~/Library/Logs/Claude`
 * Windows: `%APPDATA%\Claude\logs`
+* Linux: `~/.config/Claude/logs`
 
 ```bash macOS theme={null}
 tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+```
+
+```bash Linux theme={null}
+tail -n 20 -F ~/.config/Claude/logs/mcp*.log
 ```
 
 ```powershell Windows theme={null}

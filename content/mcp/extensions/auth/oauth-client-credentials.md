@@ -176,9 +176,9 @@ The official MCP SDKs provide built-in support for client credentials authentica
 
 **2. Create a provider and connect**
 
-Choose the credential format that matches your setup:
-
 Each sample pins the issuer of the authorization server that provisioned the credentials, so the client refuses to send them to any other authorization server the MCP server might advertise.
+
+Choose the credential format that matches your setup:
 
 #### Using a client secret
 

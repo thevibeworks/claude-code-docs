@@ -121,9 +121,9 @@ Tasks change the most between protocol eras, including *how the Inspector UI tab
 >
 > Tasks are an **extension** (`io.modelcontextprotocol/tasks`, [SEP-2663](https://modelcontextprotocol.io/seps/2663-tasks-extension.md)), so the tab is gated on the server *advertising that extension* rather than on `capabilities.tasks`.
 >
-> Run a tool as a task and `tools/call` returns a `CreateTaskResult` (`resultType: "task"`, visible in the Protocol and Network tabs). The Inspector polls **`tasks/get`** only; there is no `tasks/list`, so **Refresh** re-polls the handles the client already knows about. A completed task **inlines its result**, with no blocking `tasks/result` call.
+> There is no **Run as task** control on a modern connection. Task creation is server-directed, so the server decides per request whether `tools/call` returns a `CreateTaskResult` (`resultType: "task"`, visible in the Protocol and Network tabs). The Inspector polls **`tasks/get`** only; there is no `tasks/list`, so **Refresh** re-polls the handles the client already knows about. A completed task **inlines its result**, with no blocking `tasks/result` call.
 >
-> A task that needs more information moves to `input_required` and surfaces an embedded [elicitation](https://modelcontextprotocol.io/specification/draft/client/elicitation.md) in the pending-request modal (the dialog the web client opens whenever a request is waiting on you). Answering it sends **`tasks/update`** carrying the `inputResponses`, and the next poll completes.
+> A task that needs more information moves to `input_required` and surfaces an embedded [elicitation](https://modelcontextprotocol.io/specification/2026-07-28/client/elicitation.md) in the pending-request modal (the dialog the web client opens whenever a request is waiting on you). Answering it sends **`tasks/update`** carrying the `inputResponses`, and the next poll completes.
 >
 > Reproduce with `test-servers/configs/tasks-modern-http.json` (tools `modern_task` and `modern_input_task`).
 
@@ -139,7 +139,7 @@ Modern: the client polls tasks/get on handles it already holds, and the complete
 
 ## Multi-round tool results (MRTR)
 
-On the modern era a tool can return `input_required` instead of a final result, embedding an [elicitation](https://modelcontextprotocol.io/specification/draft/client/elicitation.md), a [sampling](https://modelcontextprotocol.io/specification/draft/client/sampling.md) request, or a [`roots/list`](https://modelcontextprotocol.io/specification/draft/client/roots) request. The client answers that embedded request and retries the `tools/call` under a fresh JSON-RPC id until the call reaches `complete`.
+On the modern era a tool can return `input_required` instead of a final result, embedding an [elicitation](https://modelcontextprotocol.io/specification/2026-07-28/client/elicitation.md), a [sampling](https://modelcontextprotocol.io/specification/2026-07-28/client/sampling.md) request, or a [`roots/list`](https://modelcontextprotocol.io/specification/2026-07-28/client/roots) request. The client answers that embedded request and retries the `tools/call` under a fresh JSON-RPC id until the call reaches `complete`.
 
 The Inspector drives MRTR **manually**, so each round pauses at the **pending-request modal**, tagged `input_required`, for you to answer. The Protocol view groups the whole exchange as one MRTR conversation rather than as unrelated calls.
 
