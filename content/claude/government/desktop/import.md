@@ -45,21 +45,21 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 
 ## Run the import
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-02-bringing-your-chats-and-projects-over-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=17d612064ed90a2edf86e70bcf4bf72e" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/E-5jO-7jUk7PUSA3/images/government/videos/user-02-bringing-your-chats-and-projects-over-v3.mp4?fit=max&auto=format&n=E-5jO-7jUk7PUSA3&q=85&s=ad5cab0c028626b511eac61a29653fbf" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
 
-Video: Bringing your chats and projects over from Claude for Government Web (2 min 12 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 11 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
-> If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
+> If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, make sure Claude Desktop is up to date. You need an account on the web app, and it must use the same work email as your account in Claude Desktop.
 >
 > In Claude Desktop, open Settings from the account menu at the bottom of the sidebar, then Import and export, and select Import. Run it when you are ready.
 >
-> Select Sign in to Claude for Government Web, then Sign in. Claude shows a one-time code and opens the web app in your browser.
+> Select Sign in to Claude for Government Web, then Sign in. Claude shows a one-time code and opens a tab in your browser.
 >
-> In the browser tab that opens, sign in if you are asked, enter the code from Claude, and approve the connection. Then go back to Claude.
+> In that tab, enter the code from Claude and approve the request. If you are asked to sign in, use your work account. Then go back to Claude.
 >
-> Check that the email shown is yours, then select Fetch export. The web app gathers your chats and projects, and Claude downloads them.
+> Check that the email shown is yours, then select Fetch export, and wait while Claude downloads your chats and projects.
 >
 > Select Continue, review what will be added, then select Import. When it finishes, the dialog reports what came over. Select Done.
 >

@@ -32,14 +32,24 @@ You can change how much Claude replies on its own. You can [quiet a single threa
 
 ## What Claude does with a channel message
 
-Claude reads every top-level message in a channel it belongs to, and the replies in the channel's threads, whether or not anyone tagged it. For each message, it decides what to do from the channel's recent messages, the channel's [memory](https://claude.com/docs/claude-tag/users/memory.md), and any instructions your admin has set or a channel member has asked it to remember, and does one of four things.
+Claude reads every top-level message in a channel it belongs to, and the replies in the channel's threads, whether or not anyone tagged it. For each message, it decides what to do from the channel's recent messages, the channel's [memory](https://claude.com/docs/claude-tag/users/memory.md), and any instructions your admin has set or a channel member has asked it to remember, and does one of five things.
 
-* **Nothing.** This is the usual outcome. In a channel where nobody has told Claude which kinds of messages to answer, Claude leaves untagged messages alone. The one exception is a message in which someone states a concrete need Claude can meet; Claude may then reply once, in a thread, offering to do it.
+* **Nothing.** This is the usual outcome, especially in a channel where nobody has told Claude which kinds of messages to answer.
+* **An offer to help.** When a thread leaves a concrete next step Claude could take for someone, Claude may offer in that thread to take it. The offer is either a one-line reply everyone can see or a [private suggestion](#private-suggestions-from-claude) only that person can see.
 * **A short reply in a thread under the message.** Claude replies on its own only when it already has the answer, from the channel's history or its memory, and the answer fits in one message. Replies of this kind carry the plain name **Claude**; see [The name on a reply](#the-name-on-a-reply).
 * **A working session in the message's thread.** When a message needs investigation, tools, or a longer exchange, Claude starts a working session there and posts the work in that thread. For an untagged message, Claude does this only when someone in the channel has told it to pick up that kind of work, as described below the list.
 * **A hand-off to work already in progress.** When a message adds to something Claude is already working on in another thread, for example a new detail about a bug it's investigating, Claude passes the message to that working session instead of replying. Claude posts nothing in the channel when it does this; anything the new information changes, it reports in the thread where the work is happening.
 
 To have Claude answer more kinds of untagged messages in a channel, tell it which kinds, in the channel, and ask it to remember. For example, `@Claude remember for this channel: answer questions about the deploy process without waiting to be tagged` saves the instruction to channel memory, and Claude applies it to everyone's messages there. Claude also records in channel memory whether people in the channel act on its unprompted replies or ignore them, and replies less in a channel that ignores them. [What Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md) covers how to see and change what it saved.
+
+### Private suggestions from Claude
+
+A private suggestion is a card Claude posts in a thread that only one person in the channel can see. It's labeled "From Claude, only you can see this" and states what Claude offers to do for you, with two buttons.
+
+* **Yes, do it**: Claude takes the suggestion as your request and starts on it in the thread. The card disappears, and a message everyone in the thread can see says you accepted the suggestion and quotes it.
+* **No thanks**: the card disappears, and Claude posts nothing.
+
+A suggestion expires after a day. To have Claude do the work after that, @-mention Claude in the thread. To stop suggestions for yourself or for a whole channel, see [Stop private suggestions](#stop-private-suggestions).
 
 ## Turn automatic replies on or off
 
@@ -111,6 +121,13 @@ Turn the channel's [**Respond automatically**](#turn-automatic-replies-on-or-off
 Claude confirms the change, which is channel-wide, not just for you. You can make the same change with the toggle on the channel's Configure page, and an Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) can change it in [Claude Tag admin settings](https://claude.ai/admin-settings/claude-tag). If Claude declines because an Owner or a Claude Tag admin has locked the channel's settings, ask one of them to make the change in Claude Tag admin settings, as [Turn automatic replies on or off](#turn-automatic-replies-on-or-off) describes.
 
 Threads Claude already joined keep forwarding replies, so quiet those individually with the in-thread line above. The [`!mute` command](https://claude.com/docs/claude-tag/users/commands#mute-or-unmute-a-thread) quiets one thread at a time and does nothing at a channel's top level.
+
+### Stop private suggestions
+
+You can stop [private suggestions](#private-suggestions-from-claude) for yourself or for everyone in a channel.
+
+* **For yourself**: open the **⋯** menu on a suggestion and select **Mute for a week**. The channel's [Configure page](https://claude.com/docs/claude-tag/users/good-habits.md#configure-claude-for-a-channel) opens and mutes suggestions for you for 7 days, in every channel of your organization. Other people still get theirs. To end the mute early, select **Unmute** in the "Suggestions muted for you" bar on any channel's Configure page. A suggestion in a channel without a Configure page has no **⋯** menu, but a mute you set from another channel's suggestion covers it.
+* **For the whole channel**: set the channel to reply only when someone @-mentions Claude, as [Turn automatic replies on or off](#turn-automatic-replies-on-or-off) describes. Claude then sends no suggestions in that channel.
 
 ### Remove Claude Tag from the channel
 
