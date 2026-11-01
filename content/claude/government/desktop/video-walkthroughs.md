@@ -48,21 +48,21 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 
 Copying your conversations and projects from Claude for Government Web into Claude Desktop. Read more: [Run the import](https://claude.com/docs/government/desktop/import.md#run-the-import).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-02-bringing-your-chats-and-projects-over-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=17d612064ed90a2edf86e70bcf4bf72e" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/E-5jO-7jUk7PUSA3/images/government/videos/user-02-bringing-your-chats-and-projects-over-v3.mp4?fit=max&auto=format&n=E-5jO-7jUk7PUSA3&q=85&s=ad5cab0c028626b511eac61a29653fbf" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
 
-Video: Bringing your chats and projects over from Claude for Government Web (2 min 12 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 11 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
-> If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, sign in to the web app in your browser with the same work email you use in Claude Desktop.
+> If you used Claude for Government Web, you can copy your chats and projects into Claude Desktop. First, make sure Claude Desktop is up to date. You need an account on the web app, and it must use the same work email as your account in Claude Desktop.
 >
 > In Claude Desktop, open Settings from the account menu at the bottom of the sidebar, then Import and export, and select Import. Run it when you are ready.
 >
-> Select Sign in to Claude for Government Web, then Sign in. Claude shows a one-time code and opens the web app in your browser.
+> Select Sign in to Claude for Government Web, then Sign in. Claude shows a one-time code and opens a tab in your browser.
 >
-> In the browser tab that opens, sign in if you are asked, enter the code from Claude, and approve the connection. Then go back to Claude.
+> In that tab, enter the code from Claude and approve the request. If you are asked to sign in, use your work account. Then go back to Claude.
 >
-> Check that the email shown is yours, then select Fetch export. The web app gathers your chats and projects, and Claude downloads them.
+> Check that the email shown is yours, then select Fetch export, and wait while Claude downloads your chats and projects.
 >
 > Select Continue, review what will be added, then select Import. When it finishes, the dialog reports what came over. Select Done.
 >
@@ -73,40 +73,6 @@ Video: Bringing your chats and projects over from Claude for Government Web (2 m
 > A project that had instructions shows a notice. Claude won't follow imported instructions until you accept them: select Review instructions, check them, and save, or choose Use as is.
 >
 > The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
-
-### Chat, Cowork, and Code
-
-What Chat, Cowork, and Code are each for, when Claude asks for your approval, and how projects work.
-
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-03-chat-cowork-and-code-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=da546543ca5b688980a79a33e1a41e22" aria-label="Video walkthrough: Chat, Cowork, and Code: which one to use" />
-
-Video: Chat, Cowork, and Code: which one to use (2 min 26 s). Narrated with an AI-generated voice, with on-screen captions.
-
-> [accordion] Transcript
->
-> Claude Desktop gives you three ways to work: Chat, Cowork, and Code. On Home, you pick Chat or Cowork in the message box. Code sits beside Home.
->
-> Chat is for quick questions and drafting. For current information, Claude can search the web, if your organization has turned that on.
->
-> By default, Claude asks before every search. It shows you the search it wants to run. Allow once runs it, and Deny skips it.
->
-> Then Claude searches and answers.
->
-> Chat also reads files you attach. Add a document with the plus button and ask for a summary.
->
-> For work that should end up in your files, switch to Cowork and choose a folder. Claude asks whether it may change files there. Select Allow.
->
-> Describe the outcome: here, a one-page summary saved in the same folder. Claude plans the steps and works through them on its own. If it needs another folder, it asks first.
->
-> When it finishes, the summary is a real file in your folder.
->
-> Code is Claude Code, built into the app, for software development. It works directly in the folder you open.
->
-> Projects keep ongoing work in one place. Under Projects, select New project, then Use an existing folder. Choose the folder, name the project, and create it.
->
-> A project holds your folder and instructions, and you start chats or Cowork tasks in it. Projects live on your computer, not in the cloud. They are personal to you and, unlike on Claude for Government Web, cannot be shared with colleagues.
->
-> Chat for questions and documents. Cowork for tasks in your folders. Code for software development. Your organization decides which of the three you have, so a colleague may see a different set. If one is missing for you, ask your organization's owner.
 
 ### Connectors, plugins, and skills from your agency
 
