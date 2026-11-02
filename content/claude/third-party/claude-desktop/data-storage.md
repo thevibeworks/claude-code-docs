@@ -47,7 +47,7 @@ Within the application-data directory:
 
 Files in this directory are written with owner-only permissions so other OS accounts on the same machine cannot read them. The app encrypts stored sign-in tokens, API keys saved from the in-app configuration window, and similar secrets with the operating system's secure storage (see [Credentials](#credentials)). It doesn't encrypt conversations, settings, or the rest of the locally applied configuration. Protection at rest for those files depends on the device's full-disk encryption, such as FileVault or BitLocker.
 
-The logs directory contains `main.log` (application and configuration-validation events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
+The logs directory contains `main.log` (application and configuration-validation events), `ssh.log` (SSH connection events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
 Separately from the application-data directory, Claude Desktop writes user-visible outputs (Artifacts and scheduled-task results) to `~/Claude/` in your home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for you to browse directly and is not removed when you delete the application-data directory. To back up a user's data, copy every location listed under [Copy the data to the new device](#copy-the-data-to-the-new-device).
 
