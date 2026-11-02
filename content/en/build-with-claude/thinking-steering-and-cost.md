@@ -96,7 +96,7 @@ You can also steer thinking on a per-message basis from the user turn, independe
 
 Per-message steering is useful when only some requests in a conversation warrant extended reasoning. An agent harness, for example, can append the encouraging phrase on planning steps and the discouraging phrase on routine confirmations, without touching the system prompt or changing any request parameters between turns.
 
-On Claude Haiku 5.5, the discouraging phrase doesn’t reliably reduce thinking. On the Claude API and Claude Models on Google Cloud (Google managed), run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
+On Claude Haiku 5.5, the discouraging phrase doesn’t reliably reduce thinking. Where your platform supports it, run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
 
 ### Verify steering on your workload
 

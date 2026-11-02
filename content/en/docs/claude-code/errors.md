@@ -59,6 +59,7 @@ Match the message you see to a section below.
 | `Could not resolve authentication method` | [Authentication](#could-not-resolve-authentication-method) |
 | `Invalid API key` | [Authentication](#invalid-api-key) |
 | `Your apiKeyHelper script is failing` | [Authentication](#your-apikeyhelper-script-is-failing) |
+| `Claude Code didn't send your claude.ai login, because the API key helper your administrator set isn't in effect` | [Authentication](#claude-code-didnt-send-your-claude-ai-login) |
 | `Invalid auth token · Fix external auth token` | [Authentication](#invalid-request-header-value) |
 | `Invalid ANTHROPIC_CUSTOM_HEADERS · Fix the environment variable` | [Authentication](#invalid-request-header-value) |
 | `Invalid request header from the environment · Fix the environment variable` | [Authentication](#invalid-request-header-value) |
@@ -326,6 +327,9 @@ Match the message you see to a section below.
 | `MCP server "<name>" tool "<tool>" timed out after <N>s. The server asked the user a question, and no answer came before the time limit.` | [Tool errors](#mcp-tool-call-timed-out-with-the-servers-question-unanswered) |
 | `would be spawned with zero tools — refusing` | [Tool errors](#agent-would-be-spawned-with-zero-tools) |
 | `File is covered by a Read deny rule in your permission settings` | [Tool errors](#file-is-covered-by-a-read-deny-rule) |
+| `<path> is outside <dirs>; the permissions.blockWritesOutsideWorkingDirectories setting blocks writes outside the working directories` | [Tool errors](#setting-blocks-writes-outside-the-working-directories) |
+| `<path>: Writes outside the working directories are blocked (permissions.blockWritesOutsideWorkingDirectories)` | [Tool errors](#setting-blocks-writes-outside-the-working-directories) |
+| `Writes to Claude Code settings files are blocked while permissions.blockWritesOutsideWorkingDirectories is on` | [Tool errors](#writes-to-claude-code-settings-files-are-blocked) |
 | `cannot contain null bytes (\0)` | [Tool errors](#path-cannot-contain-null-bytes) |
 | `Path contains null bytes` | [Tool errors](#path-cannot-contain-null-bytes) |
 | `command contains the invisible character U+FEFF (byte order mark) or U+180E (Mongolian vowel separator), and was not run` | [Tool errors](#command-contains-an-invisible-character) |
@@ -672,7 +676,7 @@ When the classifier model is unavailable:
 <model> is temporarily unavailable, so auto mode cannot determine the safety of <tool> right now. Wait a moment and then try this action again.
 ```
 
-In an interactive session, a dim `Not run · auto mode's check had no usable answer` row appears under the tool call instead of this message. Press `Ctrl+O` to read the message in the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer). The `gave no verdict` denials under [The server returned no safety verdict](#the-server-returned-no-safety-verdict) show the same row. Before v2.1.296, the message appeared under the call as a red error.
+In an interactive session, a dim `Not run · auto mode's check had no usable answer` row appears under the tool call instead of this message. The row can also replace a message saying [the server gave no verdict](#the-server-returned-no-safety-verdict) or, outside a remote session, one starting `Auto mode could not evaluate`. Press `Ctrl+O` to read its message in the [transcript viewer](https://code.claude.com/docs/en/interactive-mode.md#transcript-viewer). Before v2.1.296, the message appeared as a red error.
 
 When Claude Code can determine the failure category, it names the category in parentheses after `temporarily unavailable`, for example `<model> is temporarily unavailable (rate-limited), so auto mode cannot determine the safety of <tool> right now`. The categories are `(rate-limited)`, `(overloaded)`, `(server error)`, `(timed out)`, and `(connection failed)`. If `(timed out)` or `(connection failed)` repeats, check your connection; see [Unable to connect to API](#unable-to-connect-to-api). Before v2.1.229, the message never named a category and read `Wait briefly and then try this action again`.
 
@@ -1073,6 +1077,19 @@ Running `/login` doesn't help here: the helper's output [takes precedence](https
 * Fix the command so it prints only the key to stdout, as a single token of printable ASCII up to 16,384 characters, and exits with code 0. See [rotate credentials with apiKeyHelper](https://code.claude.com/docs/en/llm-gateway-connect.md#rotate-credentials-with-apikeyhelper) for a working setup.
 * Run `/status` to see the failure and confirm `apiKeyHelper` is the active credential source. The `apiKeyHelper` row shows `Failing` with the last failure's detail, such as the exit code and the command's error output, and disappears after the next successful run. Before v2.1.274, `/status` showed only the credential source, not the failure.
 * Each time the command fails, its exit code and error output also appear in an `Authentication` panel in the terminal. Before v2.1.212, the panel was titled `Cloud authentication`.
+
+### Claude Code didn't send your claude.ai login
+
+Send this full message to your administrator. It lists the changes they can make. The message means Claude Code refused your prompt. While you use your claude.ai login, Claude Code keeps refusing prompts, after a restart too:
+
+```text theme={null}
+Claude Code didn't send your claude.ai login, because the API key helper your administrator set isn't in effect. Your organization's managed settings may be overriding it. Ask your administrator to keep the key helper and its API address in effect, to name Anthropic's API address in those managed settings, or to remove the key helper. Run /status to see your setting sources.
+```
+
+**What to do:**
+
+* To tell your administrator which managed sources your machine has, run `/status` at the Claude Code prompt and copy the [`Setting sources` line](https://code.claude.com/docs/en/managed-settings#read-the-source-in-/status). If a `Skipped sources` line appears, copy it too
+* If you administer the settings, see [why the machine's key helper isn't in effect](https://code.claude.com/docs/en/server-managed-settings.md#machine-apikeyhelper-not-in-effect)
 
 ### Invalid request header value
 
@@ -4562,6 +4579,46 @@ When Claude Code refuses the Write tool, the message ends `and cannot be written
 
 * If Claude should be able to change the file, remove or narrow the `Read` deny rule in `/permissions` or in [settings](https://code.claude.com/docs/en/settings-reference.md#permission-settings)
 * If the file must stay untouched, keep the rule and add an `Edit` deny rule for the same path to block the NotebookEdit tool too
+
+### Setting blocks writes outside the working directories
+
+When Claude tries to write a file and the tool call fails with this message, the path is outside the session's [working directories](https://code.claude.com/docs/en/permissions.md#working-directories) and [`permissions.blockWritesOutsideWorkingDirectories`](https://code.claude.com/docs/en/settings-reference#permissions-blockwritesoutsideworkingdirectories) is on:
+
+```text wrap theme={null}
+<path> is outside <dirs>; the permissions.blockWritesOutsideWorkingDirectories setting blocks writes outside the working directories. Ask the user to add the directory with /add-dir, or to remove that setting.
+```
+
+Claude Code refuses that write in every permission mode. The refusal can also read:
+
+```text wrap theme={null}
+<path>: Writes outside the working directories are blocked (permissions.blockWritesOutsideWorkingDirectories). Add the directory with /add-dir, or remove that setting.
+```
+
+**What to do:**
+
+* If Claude shouldn't write there, do nothing
+* To let Claude write to an existing directory that contains the path, run `/add-dir <directory>` at the Claude Code prompt, or pass `--add-dir <directory>` when you start Claude Code
+* If the path is a Claude Code settings file, such as `~/.claude/settings.json`, edit it yourself. Adding its directory with `/add-dir` doesn't help, because Claude Code then refuses the write [as a settings file](#writes-to-claude-code-settings-files-are-blocked).
+* To keep a directory writable in every session, list it under [`permissions.additionalDirectories`](https://code.claude.com/docs/en/settings-reference#permissions-additionaldirectories) in your user or managed settings
+* To turn `permissions.blockWritesOutsideWorkingDirectories` off, remove it from every settings file that sets it, then restart Claude Code
+* If none of your settings files has `permissions.blockWritesOutsideWorkingDirectories`, it can come from `--settings` or from a host application. Claude Code also refuses these writes while it can't read `permissions` in your [managed settings](https://code.claude.com/docs/en/managed-settings.md#keys-that-fail-closed). Ask whoever launches or manages the session.
+
+### Writes to Claude Code settings files are blocked
+
+When Claude tries to write a file and the tool call fails with this message, Claude Code treats the file as one of its settings files and [`permissions.blockWritesOutsideWorkingDirectories`](https://code.claude.com/docs/en/settings-reference#permissions-blockwritesoutsideworkingdirectories) is on:
+
+```text wrap theme={null}
+<path>: Writes to Claude Code settings files are blocked while permissions.blockWritesOutsideWorkingDirectories is on, because a settings file can lift that block. While a managed settings folder cannot be resolved, any .json file counts as one.
+```
+
+**What to do:**
+
+* To change a setting, edit the settings file yourself
+* To let Claude edit settings files again, remove `permissions.blockWritesOutsideWorkingDirectories` from every settings file that sets it, then restart Claude Code
+* If the file isn't one of your settings files, find it among the other files Claude Code treats as settings files:
+  * **A file you passed to `--agents` or `--mcp-config`**: edit it yourself
+  * **The stored copy of [server-managed settings](https://code.claude.com/docs/en/server-managed-settings.md#security-considerations) and the files kept with it**: ask an [Owner](https://code.claude.com/docs/en/server-managed-settings.md#access-control) to change the setting in server-managed settings.
+  * **Any `.json` file, while Claude Code can't work out where the [`managed-settings.d/`](https://code.claude.com/docs/en/managed-settings#split-a-file-based-policy-across-teams) folder leads**: ask your administrator to check that folder
 
 ### Path cannot contain null bytes
 

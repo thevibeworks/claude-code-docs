@@ -18,6 +18,8 @@ Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -
 
 The feature takes effect after the machine restarts. The `-NoRestart` flag suppresses the automatic restart for silent deployment, so schedule one through your management tool.
 
+**Note:** You can run your endpoint detection and response (EDR) sensor in Cowork in beta. Learn more about **[running your EDR sensor in Claude Cowork](https://support.claude.com/en/articles/17828685-run-your-endpoint-detection-and-response-edr-sensor-in-claude-cowork)**.
+
 ## Download
 
 - **[Claude MSIX (x64)](https://claude.ai/api/desktop/win32/x64/msix/latest/redirect)**
