@@ -187,6 +187,8 @@ Refusal responses (`stop_reason: "refusal"`) also include a `stop_details` objec
 
 The Messages API is stateless, which means that you always send the full conversational history to the API. You can use this pattern to build up a conversation over time. Earlier conversational turns don’t necessarily need to actually originate from Claude. You can use synthetic `assistant` messages.
 
+With [message threads](https://platform.claude.com/docs/en/build-with-claude/message-threads), in beta, the API can keep the conversation, so that each later request sends only the new messages. A thread expires 5 minutes after its last request and is deleted no more than 1 hour after its last use.
+
 <CodeGroup>
   ```bash cURL
   #!/bin/sh

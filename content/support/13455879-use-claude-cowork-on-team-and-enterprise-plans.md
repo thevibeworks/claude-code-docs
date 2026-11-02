@@ -150,6 +150,10 @@ Team and Enterprise owners can stream Cowork events to your SIEM and observabili
 
 For setup, supported events, and security considerations, see **[Monitor Cowork activity with OpenTelemetry](https://support.claude.com/en/articles/14477985-monitor-cowork-activity-with-opentelemetry)**. You can also refer to **[Monitoring](https://claude.com/docs/cowork/monitoring)** in our Claude Docs.
 
+**Endpoint detection and response (EDR)**
+
+For local sessions, admins can run their organization's EDR sensor inside the VM on the user's computer, so activity in the VM reports to the console your security team already uses. This is in beta on macOS and Windows, and it doesn't cover sessions in the cloud. Learn more about **[running your EDR sensor in Claude Cowork](https://support.claude.com/en/articles/17828685-run-your-endpoint-detection-and-response-edr-sensor-in-claude-cowork)**.
+
 ### Prompt injection risks
 
 Cowork has unique risks due to its agentic nature and internet access. We've implemented safety measures including model training and content classifiers, but the risk of prompt injection attacks is non-zero.

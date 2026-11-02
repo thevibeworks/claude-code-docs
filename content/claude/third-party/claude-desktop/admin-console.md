@@ -35,7 +35,7 @@ Anthropic stores your organization's user accounts and the configuration you sav
 | Data | Does Anthropic store it? |
 | - | - |
 | Prompts, model responses, and tool inputs and outputs | **No.** They go to your inference provider, and tool calls go to the connectors you configure. Data handling at the provider depends on the provider, as described under [Data handling by provider](https://claude.com/docs/third-party/claude-desktop/overview.md#data-handling-by-provider). |
-| Conversation history, projects, memory, and uploaded files | **No.** They stay on the device. |
+| Conversation history, projects, memory, and uploaded files | **No.** They stay on the device. To take them to another device, see [Move a user to a new device](https://claude.com/docs/third-party/claude-desktop/data-storage.md#move-a-user-to-a-new-device). |
 | Provider credentials, API keys, bearer tokens, and MCP secrets | **No**, except the client secret of a Google Desktop-app OAuth client, which Google doesn't treat as confidential. You can enter one for [Google sign-in to your provider](#choose-how-users-authenticate-to-your-provider) or for a [managed MCP server that signs in with Google](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes). Everything else stays on the device, and the console refuses to save it. |
 | Plugin and skill content | **No.** It stays in your own repositories or on devices. The console stores marketplace locations and installation settings, not content. |
 | OpenTelemetry export, if you configure a collector | **No.** It goes to your collector only. |
@@ -312,6 +312,38 @@ To remove **Not now**, turn on **Require this organization in Claude Desktop** u
 
 On a device whose managed profile sets an inference provider or bootstrap keys, no prompt appears while the app is open on the profile's configuration. If the profile is complete, this setting doesn't remove the profile from the prompt, as described under [Devices with a managed profile](#devices-with-a-managed-profile).
 
+### Block other accounts in Claude Desktop
+
+To keep personal accounts and other organizations' accounts out of Claude Desktop without device management, turn on the **Block other accounts after a member signs in** switch. After a user uses Claude Desktop signed in to your organization, the app blocks other accounts for that computer login from its next start. The block also applies on personal devices. A blocked person sees a page that reads "This account is not approved by your enterprise admin" and can only log out.
+
+> [!WARNING]
+>
+> The person at the device can [remove the block](#unblock-other-accounts-in-claude-desktop), so the switch doesn't enforce sign-in. To enforce sign-in to your organization, deploy [`forceLoginOrgUUID`](#keep-a-device-on-its-managed-profile) through device management. On a device that has the key, the key's value applies instead of the switch and the **Allowed organizations** list.
+
+Check what the block covers:
+
+* **Accounts that stay allowed**: accounts in your organization and in the organizations on your **Allowed organizations** list. An account in your organization can also be in another organization that has this switch on. Where that account uses Claude Desktop, that organization and the organizations on its list stay allowed too.
+* **Outside the block**: sign-ins outside Claude Desktop, such as claude.ai in a browser and the mobile apps, and other computer logins on the same device. A person can also set up their own inference provider in the app, or use the [Claude API account sign-in](https://claude.com/docs/third-party/claude-desktop/claude-api.md#which-devices-offer-the-claude-api-account-sign-in).
+
+To turn on the block:
+
+1. Check that devices run Claude Desktop 4.29.0 or later. Devices on the [`staggered` release channel](https://claude.com/docs/third-party/claude-desktop/installation#updates) get releases later. Releases 3.6556.1 and 3.6556.2 apply the block but ignore the list, so they also block the organizations on it. Earlier releases ignore the switch.
+2. In the admin console, go to **Desktop sign-in** on the **Connection** page. Turn on the [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization) switch. Without that switch, the block's switch is unavailable.
+3. If people at your company use other Claude organizations, save the list before you turn on the block. Otherwise, a device can block those organizations until it gets the list and restarts. Click **Edit list** in the **Allowed organizations** row. Add each organization's ID on its own line, below your own organization's ID. Click **Copy list**. Then click **Save**.
+4. Turn on the **Block other accounts after a member signs in** switch. Then click **Block other accounts**.
+5. Set up the block in each Claude Enterprise organization on the list too. Without this step, on devices where only that organization's users use Claude Desktop, the block ends about 30 days after your users last used Claude Desktop there.
+   * **With a Connection page**: follow the same steps and paste the same list.
+   * **Without a Connection page**: go to **Organization settings > Organization and access**. Under **Security**, click **Edit list** in the **Allowed organizations** row, paste the same list, and click **Save**. Then turn on the switch above that row and confirm.
+
+#### Unblock other accounts in Claude Desktop
+
+Remove the [block](#block-other-accounts-in-claude-desktop) from every device or from one:
+
+* **Every device**: turn off the **Block other accounts after a member signs in** switch under **Desktop sign-in** on the **Connection** page of the admin console. Each device gets the change when a user next uses Claude Desktop there signed in to your organization. The device removes the block at the start after that, so the change can take two restarts. A removed user's device can't get the change, so remove users after their devices get it.
+* **One device**: ask the person at the device to sign out of your organization, quit Claude Desktop, and delete the `saved-org-lock.json` file from the [application data directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives). The block returns if a user signs in to your organization there while the switch is on.
+
+The block also ends by itself at the first app start about 30 days after a user last used Claude Desktop on the device signed in to your organization.
+
 ### Configuration updates
 
 From Claude Desktop 1.46388.1, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. Some settings, such as the token limit and the banner, apply to the running app without a relaunch. For any other change, a card in the sidebar counts down to a required restart, and the user has 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
@@ -453,6 +485,8 @@ For the macOS and Windows locations where the app reads a managed profile's keys
 A user returns a device to standard Claude Desktop by choosing **Sign out** from the account menu. The app relaunches signed out. On a device whose managed profile sets an inference provider or bootstrap keys, the sign-in screen also offers **Or sign in with your organization** (or with the provider's name), which restarts the app on the profile's configuration.
 
 When you remove a user from the organization, Anthropic revokes their Claude Desktop sign-in to that organization. A running app isn't interrupted. At its next launch the app can no longer download the organization's configuration. It shows either your organization's sign-in screen, where **Return to Claude.ai sign-in** returns the device to standard Claude Desktop, or a **Restart required** prompt whose **Restart** button does the same.
+
+A removed user's device that [blocks other accounts](#block-other-accounts-in-claude-desktop) keeps the block. The block ends about 30 days after the user's last use, or when the person at the device [removes it](#unblock-other-accounts-in-claude-desktop).
 
 > [!NOTE]
 >

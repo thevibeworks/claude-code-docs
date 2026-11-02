@@ -104,15 +104,15 @@ Starring a project allows for quick access from your projects and chats list, vi
 
 You can move a standalone chat into a project by clicking on the dropdown arrow next to the chat name, then “Add to project”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1793604600&amp;signature=93d60133ea81c777da350f0233aa60a1ed85be8776f972d822c59fe992414015&amp;req=dScvEsh3nYNbUfMW1HO4zQABaGJqSqQTBSXNVFXQ%2FVHsPEcYEKuuweanFdtV%0A36VNsygGo%2FMbIdZVbdo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1793653200&amp;signature=992dd7a4fb6253003bc694ba6940538b7128b10a0a01b1cea8d4617802e92128&amp;req=dScvEsh3nYNbUfMW1HO4zQABaGJqT6MXBSXNVFXQ%2FVEjv0EXEN5fI7kbh5nV%0A2x6MMlRq8GyxNNC8dAI%3D%0A)
 
 Browse or search for the correct project in the **Move chat** modal that appears, then click on it to move the chat.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1793604600&amp;signature=f0614bee2b88c991e6c78b8dbd3265c12ba7ad0bc2d288ebd7a924fcb05e13c9&amp;req=dScvEsh3nYhaWPMW1HO4zSMECyO2yw0HgYbpTjViBxBDJOddBvTJ2bqSSY0q%0AySb3EiyqphWnVChdQ94%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1793653200&amp;signature=8897e562c6ab8968005a5b1c6864b55d2677faa7051eb7dfc42098ccbd7e62b2&amp;req=dScvEsh3nYhaWPMW1HO4zSMECyO2zgoDgYbpTjViBxC68uqsg4xCialaV7Tn%0Aq8AeppV%2F%2Fhz1%2BOuqAHA%3D%0A)
 
 You can also remove chats from projects, or move them between projects, using the same dropdown menu within the chat:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1793604600&amp;signature=41c3231518c4d9f8e1b6d6d43e3ccbf9e352a390ee035832d03259222b7df51b&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DufQqDkEMS2r1%2FGRlqOSVDQWBoQiqKsfpbvhV%0AFOESOFqfqYVJg8cIVGs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1793653200&amp;signature=330162ff14725d43db316f82c7546965268b5d05fe5471bf531249189e3475f0&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DufQqC0YIS2r1%2FGRlqORcwzEpxNGaTJfL7wG8%0AyJg4K6NVYvmaQElLPA8%3D%0A)
 
 ---
 

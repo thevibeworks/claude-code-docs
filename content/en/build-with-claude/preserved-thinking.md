@@ -1253,7 +1253,7 @@ The `role: "system"` messages that carry these blocks join the prefix for later 
 
 ### Change effort with a per-message `output_config`
 
-Changing top-level `output_config.effort` between requests doesn’t invalidate thinking, because effort isn’t part of the prefix. Changing top-level effort does restart the prompt cache. Where the model and platform support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta), use it instead: append a `role: "system"` message with empty `content` and the new level. It needs the beta header `mid-conversation-output-config-2026-07-01`. On Claude Haiku 5.5, per-message effort is available on the Claude API and Claude Models on Google Cloud (Google managed) and needs adaptive thinking.
+Changing top-level `output_config.effort` between requests doesn’t invalidate thinking, because effort isn’t part of the prefix. Changing top-level effort does restart the prompt cache. Where the model and platform support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta), use it instead: append a `role: "system"` message with empty `content` and the new level. It needs the beta header `mid-conversation-output-config-2026-07-01`. On Claude Haiku 5.5, per-message effort needs adaptive thinking.
 
 ```json
 { "role": "system", "content": [], "output_config": { "effort": "low" } }

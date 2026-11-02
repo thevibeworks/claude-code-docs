@@ -100,4 +100,6 @@ If you're a Team or Enterprise plan admin, you can **[use OpenTelemetry (OTel) t
 
 ### Can endpoint detection (EDR) tools inspect activity inside the VM?
 
-No. The VM is isolated from host-based security tools by design, and sessions in the cloud run entirely outside your endpoints, so EDR tools can't observe them either. If your compliance posture depends on endpoint visibility, account for this before rolling out Cowork.
+For local sessions, yes, if you set it up. The VM is isolated from host-based security tools by design, so an EDR sensor on the host can't see inside it. Admins can run a sensor from an approved vendor inside the VM instead. This is in beta on macOS and Windows. Learn more about **[running your EDR sensor in Claude Cowork](https://support.claude.com/en/articles/17828685-run-your-endpoint-detection-and-response-edr-sensor-in-claude-cowork)**.
+
+Sessions in the cloud run entirely outside your endpoints, so EDR tools can't observe them. If your compliance posture depends on endpoint visibility, account for this before rolling out Cowork.

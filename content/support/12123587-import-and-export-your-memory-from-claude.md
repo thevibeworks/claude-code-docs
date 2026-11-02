@@ -42,7 +42,7 @@ Claude's memory is designed to focus on work-related topics to enhance its effec
 
 ## Export memory from Claude
 
-To view your memory exactly how Claude sees it, go to **Settings > Your Claude** and select "Manage" next to **Your memory**. Alternatively, you can access memory directly in a chat with Claude by asking it, "Write out your memories of me verbatim, exactly as they appear in your memory." You can save this exported memory as a backup or bring it to another AI service by copying and pasting it into a local file on your computer.
+To view your memory exactly how Claude sees it, go to **Settings > Your Claude** and select "Manage" next to Your memory (or go to Settings > Memory in the older Settings layout). Alternatively, you can access memory directly in a chat with Claude by asking it, "Write out your memories of me verbatim, exactly as they appear in your memory." You can save this exported memory as a backup or bring it to another AI service by copying and pasting it into a local file on your computer.
 
 ---
 

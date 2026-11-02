@@ -1659,7 +1659,7 @@ Add a message with `"role": "system"` to the `messages` array. Use a plain strin
 
 You can still set the top-level `system` field for instructions that should apply to the entire conversation. Reserve mid-conversation system messages for instructions that only become relevant later, or that you want to add without invalidating the cached prefix.
 
-A `role: "system"` message can also carry `output_config.effort` to change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level partway through a conversation. This is in beta on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5 on the Claude API and Claude Models on Google Cloud (Google managed), and requires the `mid-conversation-output-config-2026-07-01` beta header. On Amazon Bedrock, it’s in beta on Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5.5, with the same beta value. Claude Opus 5 doesn’t support it on Amazon Bedrock. See [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta).
+A `role: "system"` message can also carry `output_config.effort` to change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level partway through a conversation, in beta. See [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta).
 
 <CodeGroup>
   ```bash cURL

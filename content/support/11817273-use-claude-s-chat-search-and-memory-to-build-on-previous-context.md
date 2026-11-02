@@ -78,9 +78,9 @@ To run a single chat or Cowork task without memory, open a new chat, click the �
 
 **Note:** Members of Team and Enterprise plans can turn memory on or off for themselves unless it's turned off for their organization. On Enterprise plans, members whose role is set to Custom also need memory in one of their custom roles. For more information, see **[Controls for Team and Enterprise plan owners](#h_0feedd3ca9)**.
 
-You can toggle Claude's memory on by navigating to **Settings > Your Claude** and turning on **Memory from chats** (or **Settings > Memory** and **Generate memory from chats** in the older Settings layout):
+You can toggle Claude's memory on by navigating to Settings > Your Claude (or Settings > Memory in the older Settings layout) and turning on Generate memory from chats:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1793604600&amp;signature=88ac5c75cc3a819ebede3dca69d5e3995bc503207dee04d6f1f8a009a321e0aa&amp;req=diUkFc12n4VbWPMW1HO4zRlYr5hr4lQqNshWSMEMw9cWPyX7S7i2ZJtDbKad%0A8Lr4NwWITBxxrv%2F4l0k%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1793793600&amp;signature=effdd3a8933ebbd9e06875f4ccd29557f113fe8f74598ddcbec2bc52aa2ad0b7&amp;req=diUkFc12n4VbWPMW3nq%2BgUSsLm4lakmfFDlz1G74VAHK2HdrF2vEH7QJT8iz%0Ao22%2BA2T3vofY2XK8kt%2BTQchCGcY%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle and you'll see two options:
 
@@ -246,7 +246,7 @@ The new memory experience isn’t available to organizations with HIPAA or publi
 
 ## Information for legacy memory users
 
-**Important:** We've introduced an improved experience for memory from chats. If you see **Settings > Memory**, or a **Memory from chats** setting in **Settings > Your Claude** in the updated Settings layout, you're using the new memory experience and the sections above apply to you. The sections below only apply to people who have the legacy memory experience and see **Memory** in **Settings > Capabilities**, or a **Generate memory from chat history** setting in the updated Settings layout.
+**Important:** We've introduced an improved experience for memory from chats. If you see **Settings > Memory**, or a Generate memory from chats setting in **Settings > Your Claude** in the updated Settings layout, you're using the new memory experience and the sections above apply to you. The sections below only apply to people who have the legacy memory experience and see **Memory** in **Settings > Capabilities**, or a Generate memory from chats setting in the updated Settings layout.
 
 ### Search past chats with Claude
 
@@ -278,7 +278,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout) and find the **Memory** section. Switch the toggle next to “Search and reference chats” off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1793604600&amp;signature=e31e68cb69f3f62609b7fca1ec4c301ee7419c1a582c11880845022aa9c3df19&amp;req=dScmH859nYlXUPMW1HO4zRzXHlw2IzXEJG68qZhl781bmc0VbwW74Vp4M5rv%0A7OLCkjCWPXCWa2NmHbk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1793793600&amp;signature=ab53f37efa96410d39379387d60fcfa51a39e80c229b8df3a11310b49022822d&amp;req=dScmH859nYlXUPMW3nq%2BgZWAenTxyHi1RBaiEHajSETZCQA08GNTN3NlVEzi%0AK7R%2FuRaXdCzrMrJvvIOXAM89cr8%3D%0A)
 
 ### Can I exclude a specific past chat from searches?
 
@@ -286,7 +286,7 @@ Incognito chats are available to all Claude users (Free, Pro, Max, Ultra, Team, 
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1793604600&amp;signature=6cff1568176bc350001b12c25ac9da85211d7759091b406bcda020fbc2929c0c&amp;req=dScmH859nYlWWvMW1HO4za54saBqPIK9XDpzhlKsgjPZummQx%2FEhjgptMtk0%0AAf4v%2Bfoq4hnGi0gJb4g%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1793793600&amp;signature=f9678bbf8da15056d301338ff4f21d26546413963d13154b4c39db3a0463a9f7&amp;req=dScmH859nYlWWvMW3nq%2Bgf44pcp8qer7N2t1mzkyUm1zdmCMbvfReAxlPR%2Fr%0A96pn6g47J4qXlncQ0wfb0H%2FLDhg%3D%0A)
 
 Clicking the ghost icon will open an incognito chat, creating a temporary conversation that isn’t saved to your chat history. Claude won’t pull information from incognito chats when searching previous conversations.
 
@@ -318,7 +318,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude's memory on by navigating to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1793604600&amp;signature=aa1cdd1341fe75a3360f5ff46e12ddd7045f4a7c41a8dfc7a2b928aa3cdde607&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McLgd%2BBDBq9N9dRTKYcwH9U3GRZiopDfYCKi%0AhKdQWbv%2FAwejzjbTSAo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1793793600&amp;signature=0216fdc2259fabc4037713de6c7824c1ce746a631b93bf4d02372b0a805bdd33&amp;req=dScmH859nYlWW%2FMW3nq%2BgRexfslT13UxVWnBdWCMNKNvXwwv2PGvJxYg8yCC%0AXBdtTbG5EDWwhUb5efK6N2SYnJE%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle to see two options:
 

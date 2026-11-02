@@ -90,7 +90,7 @@ People bring all kinds of things to Claude, and some conversations touch on diff
 
 Your recap is available by default for eligible accounts where memory is on.
 
-You can disable it by turning **Generate memory from chat history** off in **Settings > Your Claude**. There is no dedicated toggle for the recap, so if the memory setting is on, the recap will also be enabled. Even with memory enabled, your recap is only generated when you open it (**Settings > Wellbeing**, then "View" under **Reflect**, or the **Settings > Reflect** page in the older Settings layout); if you don't open it, Claude won't create a recap for you.
+You can disable it by turning **Generate memory from chat history** off in **Settings > Your Claude** (or Settings > Memory in the older Settings layout). There is no dedicated toggle for the recap, so if the memory setting is on, the recap will also be enabled. Even with memory enabled, your recap is only generated when you open it (**Settings > Wellbeing**, then "View" under **Reflect**, or the **Settings > Reflect** page in the older Settings layout); if you don't open it, Claude won't create a recap for you.
 
 Turning the recap off doesn't affect your chat history or any break reminders or quiet hours you've already set in **Settings > Wellbeing** (or **Settings > Time and focus** in the older Settings layout).
 
@@ -104,7 +104,7 @@ Viewing your recap doesn’t count toward your usage limits. If you start a conv
 
 ### Why don’t I see Reflect in Settings?
 
-Check that memory is toggled on under **Settings > Your Claude**, that you're on a Free, Pro, Max, or Ultra plan, and that you're using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
+Check that memory is toggled on under **Settings > Your Claude** (or Settings > Memory in the older Settings layout), that you're on a Free, Pro, Max, or Ultra plan, and that you're using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
 ​
 In the updated Settings layout, your recap is under **Settings > Wellbeing**.
 
