@@ -470,7 +470,7 @@ Work down the groups and stop after the one that names your model. On Claude Hai
 * To keep running without up-front thinking, send the [lowest thinking setting](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#turn-off-up-front-thinking) at `high` effort or below.
 * Replace [forced tool use](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#forced-tool-use) with `auto` and strict tools.
 * Keep conversations [append-only](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#thinking-blocks).
-* On the Claude API and Claude Models on Google Cloud (Google managed), move computer use to the [toolset](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset), without the `fine-grained-tool-streaming-2025-05-14` beta header.
+* Move computer use to the [toolset](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset), without the `fine-grained-tool-streaming-2025-05-14` beta header. On Amazon Bedrock, `computer_20251124` also works.
 * [Pair the advisor tool](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#advisor-tool) with a supported advisor, and expect encrypted advice.
 * Read [text between tool calls](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#text-between-tool-calls) from `thinking` blocks.
 * [Handle refusals](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#safety-classifiers-and-fallback), and configure fallback.
@@ -488,7 +488,6 @@ Work down the groups and stop after the one that names your model. On Claude Hai
 
 * Replace [assistant prefills](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-sonnet-45).
 * Parse tool call input with a standard JSON parser.
-* On Amazon Bedrock, move computer use from `computer_20250124` to [`computer_20251124`](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset).
 * Set `output_config.effort` explicitly.
 * Remove any context-window beta header.
 * Remove `interleaved-thinking-2025-05-14`, and replace `fine-grained-tool-streaming-2025-05-14` with `eager_input_streaming`.
@@ -843,18 +842,13 @@ Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, C
 
 Each Claude Sonnet 5.5 thinking block is also signed over the conversation before it. Keep conversations append-only, and change instructions or tools with [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages). A request that replays a block after an edit to earlier history and leaves `thinking.block_binding.prefix_mismatch_behavior` unset gets a 400 error on accounts created on or after August 31, 2026, 00:00 UTC. This applies on the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed). Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them or in an account linked to it. See [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
-### Computer use needs the toolset on the Claude API and Claude Models on Google Cloud (Google managed)
+### Some computer use tool versions are not supported
 
-On the Claude API and Claude Models on Google Cloud (Google managed), Claude Sonnet 5.5 supports computer use only through the `computer_toolset_20260801` toolset. There, `computer_20251124` returns a 400 error. Claude Sonnet 5.5 doesn’t accept `computer_20250124` on any platform. Find the version you send today:
+Claude Sonnet 5.5 supports computer use through the `computer_toolset_20260801` toolset. On Amazon Bedrock, Claude Sonnet 5.5 also accepts the `computer_20251124` tool with the `computer-use-2025-11-24` beta header. Claude Sonnet 5.5 returns a 400 error for any computer use tool version it doesn’t accept, such as `computer_20251124` on the Claude API. It doesn’t accept `computer_20250124` on any platform.
 
-| Version you send today | Starting models that send it                         | Send on the Claude API and Claude Models on Google Cloud (Google managed) | Send on Amazon Bedrock |
-| ---------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------- |
-| `computer_20251124`    | Claude Sonnet 5, Claude Sonnet 4.6                   | `computer_toolset_20260801`                                               | `computer_20251124`    |
-| `computer_20250124`    | Claude Sonnet 4.5, Claude Haiku 4.5, Claude Sonnet 4 | `computer_toolset_20260801`                                               | `computer_20251124`    |
+Integrations that use the toolset need no change. To move to the toolset, replace `computer_20251124` or `computer_20250124` with `computer_toolset_20260801`, and drop that version’s beta header. [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124) lists the request and agent-loop changes.
 
 If you send the `fine-grained-tool-streaming-2025-05-14` beta header, remove it when you move to the toolset. Alongside a toolset entry, it returns a 400 error. Set `eager_input_streaming: true` on each tool that needs it instead.
-
-Code that already sends the toolset needs no change. [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124) lists the request and agent-loop changes. For other platforms, see [API support](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#availability-feature-support).
 
 ### The advisor tool accepts fewer advisors
 
@@ -1216,7 +1210,7 @@ Replace each prefill according to what it was for:
 
 **Tool input escaping.** Escaping in tool call arguments can differ. Parse `input` with a standard JSON parser.
 
-**Computer use.** Claude Sonnet 5.5 doesn’t accept `computer_20250124`. See the [computer use table](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset).
+**Computer use.** Claude Sonnet 5.5 doesn’t accept `computer_20250124`. See [Some computer use tool versions are not supported](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset).
 
 **Effort.** Claude Sonnet 4.5 has no effort parameter. Set an effort level explicitly, as [Recommended changes](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#recommended-changes) describes.
 

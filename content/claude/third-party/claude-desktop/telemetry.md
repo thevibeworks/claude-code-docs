@@ -32,7 +32,7 @@ On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and 
 
 ### Non-essential telemetry
 
-Product-usage analytics: feature adoption, session counts, UI interactions. Used to understand how Claude Desktop is used in aggregate. Contains no prompt or response content. Also gates the **Send to Anthropic** button in **Help → Troubleshooting → Generate Diagnostic Report**; with this disabled, diagnostic bundles can only be saved locally.
+Product-usage analytics: feature adoption, session counts, UI interactions. Used to understand how Claude Desktop is used in aggregate. Contains no prompt or response content.
 
 | Setting | Default | Effect when `true` |
 | - | - | - |
@@ -302,7 +302,7 @@ Each connection in the following table has a managed-configuration key that turn
 | Connection | What it carries | Key that turns it off |
 | - | - | - |
 | Crash, error, and performance reporting | Diagnostic metadata, never prompt or response content. See [Essential telemetry](#essential-telemetry). | [`disableEssentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) set to `true` |
-| Product analytics and diagnostic-report uploads | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. See [Non-essential telemetry](#non-essential-telemetry). | [`disableNonessentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true` |
+| Product analytics | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. See [Non-essential telemetry](#non-essential-telemetry). | [`disableNonessentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true` |
 | Connector favicons, artifact previews, and MCP App widgets | Icon fetches, and the sandboxed iframe pages that render previews and widgets. Some of these requests go to third-party hosts rather than to Anthropic, such as the icon fetches to `www.google.com` and `*.gstatic.com`. See [Non-essential services](#non-essential-services) and, for each host, [Required egress paths](#required-egress-paths). | [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) set to `true` |
 | Auto-updates | Requests to Anthropic's update feed, and downloads of new builds. On Linux, `apt` downloads new versions from `downloads.claude.ai`. See [Auto-updates](#auto-updates). | [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) set to `true`. On Linux, also keep Anthropic's apt repository off the device, as described under [Auto-updates](#auto-updates). |
 | Model catalog | The signed model catalog that labels the model picker, fetched from `downloads.claude.ai` at launch and then every 5 to 15 minutes, including on devices installed with the offline installer. A blocked catalog request affects nothing else. | [`modelCatalogEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogenabled) set to `false`, or [`modelCatalogUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogurl) set to a mirror inside your network |

@@ -132,6 +132,22 @@ The page cursor has expired. Restart the walk without a page parameter; results 
 
 For the first body, resend the unmodified `next_page` value from the previous response to the endpoint and session that issued it. For an expired cursor, restart without a `page` parameter; the new walk reflects the retention boundary in effect when it starts, so messages that aged out of the retention period in the meantime are no longer returned (see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript)).
 
+### Invalid file ID
+
+**Type:** `invalid_request_error`
+
+```text wrap
+Invalid claude_gen_file_id format: 'claude_file_01Qm7RzKdTgWnYbVx3HcLpE5'
+```
+
+```text wrap
+Invalid claude_file_id format: 'claude_gen_file_01TbR8wAcCeFhJkLnPqStUvX'
+```
+
+**Cause:** The ID in the path is not in the form the endpoint accepts. The generated-file endpoints (`/v1/compliance/apps/chats/generated-files/*`) accept only `claude_gen_file_...` IDs and return the first body for any other value. The file endpoints (`/v1/compliance/apps/chats/files/*`) accept only `claude_file_...` IDs and return the second body. The `generated_files` array on a chat message can hold both kinds of ID.
+
+**Fix:** Choose the endpoint by the ID’s prefix, not by the array the ID came from; see [Retrieve files and artifacts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-files-and-artifacts). If the prefix already matches the endpoint, the ID was truncated or altered; copy it again from the response that returned it.
+
 ### Transcript page too large
 
 **Type:** `invalid_request_error`

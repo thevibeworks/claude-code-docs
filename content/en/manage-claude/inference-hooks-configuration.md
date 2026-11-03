@@ -123,7 +123,7 @@ While **Only selected roles** is set:
 * If no member set to **Custom roles** is assigned a selected role, no member is inspected.
 * Requests with no member behind them are not inspected, such as requests made with API keys, and Claude Tag conversations in Slack.
 
-The switch and changes to the inspected roles are recorded in your organization’s [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
+Changes to **Inspect** and to the inspected roles are recorded in your organization’s [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
 
 ## Custom blocked prompt message
 
