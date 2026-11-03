@@ -62,7 +62,13 @@ First, create an agent that declares the GitHub MCP server. The agent definition
         }
       ],
       "tools": [
-        {"type": "agent_toolset_20260401"},
+        {
+          "type": "agent_toolset_20260401",
+          "configs": [
+            {"name": "web_search", "enabled": false},
+            {"name": "web_fetch", "enabled": false}
+          ]
+        },
         {
           "type": "mcp_toolset",
           "mcp_server_name": "github"
@@ -87,6 +93,11 @@ First, create an agent that declares the GitHub MCP server. The agent definition
           url: https://api.githubcopilot.com/mcp/
       tools:
         - type: agent_toolset_20260401
+          configs:
+            - name: web_search
+              enabled: false
+            - name: web_fetch
+              enabled: false
         - type: mcp_toolset
           mcp_server_name: github
       ---
@@ -109,7 +120,13 @@ First, create an agent that declares the GitHub MCP server. The agent definition
           },
       ],
       tools=[
-          {"type": "agent_toolset_20260401"},
+          {
+              "type": "agent_toolset_20260401",
+              "configs": [
+                  {"name": "web_search", "enabled": False},
+                  {"name": "web_fetch", "enabled": False},
+              ],
+          },
           {
               "type": "mcp_toolset",
               "mcp_server_name": "github",
@@ -131,7 +148,13 @@ First, create an agent that declares the GitHub MCP server. The agent definition
       }
     ],
     tools: [
-      { type: "agent_toolset_20260401" },
+      {
+        type: "agent_toolset_20260401",
+        configs: [
+          { name: "web_search", enabled: false },
+          { name: "web_fetch", enabled: false }
+        ]
+      },
       {
         type: "mcp_toolset",
         mcp_server_name: "github"
@@ -152,7 +175,14 @@ First, create an agent that declares the GitHub MCP server. The agent definition
       ],
       Tools =
       [
-          new BetaManagedAgentsAgentToolset20260401Params(),
+          new BetaManagedAgentsAgentToolset20260401Params
+          {
+              Configs =
+              [
+                  new BetaManagedAgentsWebSearchToolConfigParams { Enabled = false },
+                  new BetaManagedAgentsWebFetchToolConfigParams { Enabled = false },
+              ],
+          },
           new BetaManagedAgentsMcpToolsetParams { McpServerName = "github" },
       ],
   });
@@ -173,7 +203,16 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   	},
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{
   		{
-  			OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{},
+  			OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
+  				Configs: []anthropic.BetaManagedAgentsAgentToolConfigParamsUnion{
+  					{OfWebSearch: &anthropic.BetaManagedAgentsWebSearchToolConfigParams{
+  						Enabled: anthropic.Bool(false),
+  					}},
+  					{OfWebFetch: &anthropic.BetaManagedAgentsWebFetchToolConfigParams{
+  						Enabled: anthropic.Bool(false),
+  					}},
+  				},
+  			},
   		},
   		{
   			OfMCPToolset: &anthropic.BetaManagedAgentsMCPToolsetParams{
@@ -196,7 +235,14 @@ First, create an agent that declares the GitHub MCP server. The agent definition
           .name("github")
           .url("https://api.githubcopilot.com/mcp/")
           .build())
-      .addTool(BetaManagedAgentsAgentToolset20260401Params.builder().build())
+      .addTool(BetaManagedAgentsAgentToolset20260401Params.builder()
+          .addConfig(BetaManagedAgentsWebSearchToolConfigParams.builder()
+              .enabled(false)
+              .build())
+          .addConfig(BetaManagedAgentsWebFetchToolConfigParams.builder()
+              .enabled(false)
+              .build())
+          .build())
       .addTool(BetaManagedAgentsMcpToolsetParams.builder()
           .mcpServerName("github")
           .build())
@@ -204,9 +250,14 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   ```
 
   ```php PHP
+  use Anthropic\Beta\Agents\BetaManagedAgentsAgentToolset20260401Params;
+  use Anthropic\Beta\Agents\BetaManagedAgentsModel;
+  use Anthropic\Beta\Agents\BetaManagedAgentsWebFetchToolConfigParams;
+  use Anthropic\Beta\Agents\BetaManagedAgentsWebSearchToolConfigParams;
+
   $agent = $client->beta->agents->create(
       name: 'Code Reviewer',
-      model: 'claude-opus-5-5',
+      model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
       system: 'You are a code review assistant with access to GitHub.',
       mcpServers: [
           [
@@ -216,7 +267,12 @@ First, create an agent that declares the GitHub MCP server. The agent definition
           ],
       ],
       tools: [
-          ['type' => 'agent_toolset_20260401'],
+          BetaManagedAgentsAgentToolset20260401Params::with(
+              configs: [
+                  BetaManagedAgentsWebSearchToolConfigParams::with(enabled: false),
+                  BetaManagedAgentsWebFetchToolConfigParams::with(enabled: false),
+              ],
+          ),
           [
               'type' => 'mcp_toolset',
               'mcpServerName' => 'github',
@@ -228,7 +284,7 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   ```ruby Ruby
   agent = client.beta.agents.create(
     name: "Code Reviewer",
-    model: "claude-opus-5-5",
+    model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
     system_: "You are a code review assistant with access to GitHub.",
     mcp_servers: [
       {
@@ -238,7 +294,13 @@ First, create an agent that declares the GitHub MCP server. The agent definition
       }
     ],
     tools: [
-      {type: "agent_toolset_20260401"},
+      {
+        type: "agent_toolset_20260401",
+        configs: [
+          {name: "web_search", enabled: false},
+          {name: "web_fetch", enabled: false}
+        ]
+      },
       {
         type: "mcp_toolset",
         mcp_server_name: "github"

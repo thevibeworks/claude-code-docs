@@ -868,6 +868,8 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
 
 Before you change an existing agent’s `multiagent.type`, see [how to move an agent to this type](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#move-from-the-coordinator-type).
 
+This example also disables web search and web fetch, because reviewing contracts doesn’t use the web:
+
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
   curl -fsS https://api.anthropic.com/v1/agents \
@@ -879,7 +881,15 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
       "name": "Contract Reviewer",
       "model": "claude-opus-5-5",
       "system": "You review contracts. When you are asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
-      "tools": [{"type": "agent_toolset_20260401"}],
+      "tools": [
+        {
+          "type": "agent_toolset_20260401",
+          "configs": [
+            {"name": "web_search", "enabled": false},
+            {"name": "web_fetch", "enabled": false}
+          ]
+        }
+      ],
       "multiagent": {"type": "multiagent_20261001", "workflows": {"type": "enabled"}}
     }'
   ```
@@ -896,6 +906,11 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
       model: claude-opus-5-5
       tools:
         - type: agent_toolset_20260401
+          configs:
+            - name: web_search
+              enabled: false
+            - name: web_fetch
+              enabled: false
       multiagent:
         type: multiagent_20261001
         workflows:
@@ -912,7 +927,15 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
       name="Contract Reviewer",
       model="claude-opus-5-5",
       system="You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
-      tools=[{"type": "agent_toolset_20260401"}],
+      tools=[
+          {
+              "type": "agent_toolset_20260401",
+              "configs": [
+                  {"name": "web_search", "enabled": False},
+                  {"name": "web_fetch", "enabled": False},
+              ],
+          },
+      ],
       multiagent={"type": "multiagent_20261001", "workflows": {"type": "enabled"}},
   )
   ```
@@ -923,7 +946,15 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
     model: "claude-opus-5-5",
     system:
       "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
-    tools: [{ type: "agent_toolset_20260401" }],
+    tools: [
+      {
+        type: "agent_toolset_20260401",
+        configs: [
+          { name: "web_search", enabled: false },
+          { name: "web_fetch", enabled: false }
+        ]
+      }
+    ],
     multiagent: { type: "multiagent_20261001", workflows: { type: "enabled" } }
   });
   ```
@@ -934,7 +965,17 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
       Name = "Contract Reviewer",
       Model = BetaManagedAgentsModel.ClaudeOpus5_5,
       System = "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
-      Tools = [new BetaManagedAgentsAgentToolset20260401Params()],
+      Tools =
+      [
+          new BetaManagedAgentsAgentToolset20260401Params
+          {
+              Configs =
+              [
+                  new BetaManagedAgentsWebSearchToolConfigParams { Enabled = false },
+                  new BetaManagedAgentsWebFetchToolConfigParams { Enabled = false },
+              ],
+          },
+      ],
       Multiagent = new BetaManagedAgentsMultiagent20261001Params
       {
           Workflows = new BetaManagedAgentsMultiagentWorkflowsEnabledParams(),
@@ -948,7 +989,16 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
   	Model:  anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5},
   	System: anthropic.String("You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run."),
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
-  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{},
+  		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
+  			Configs: []anthropic.BetaManagedAgentsAgentToolConfigParamsUnion{
+  				{OfWebSearch: &anthropic.BetaManagedAgentsWebSearchToolConfigParams{
+  					Enabled: anthropic.Bool(false),
+  				}},
+  				{OfWebFetch: &anthropic.BetaManagedAgentsWebFetchToolConfigParams{
+  					Enabled: anthropic.Bool(false),
+  				}},
+  			},
+  		},
   	}},
   	Multiagent: anthropic.BetaManagedAgentsMultiagentParamsUnion{
   		OfMultiagent20261001: &anthropic.BetaManagedAgentsMultiagent20261001Params{
@@ -969,7 +1019,14 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
           .name("Contract Reviewer")
           .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
           .system("You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.")
-          .addTool(BetaManagedAgentsAgentToolset20260401Params.builder().build())
+          .addTool(BetaManagedAgentsAgentToolset20260401Params.builder()
+              .addConfig(BetaManagedAgentsWebSearchToolConfigParams.builder()
+                  .enabled(false)
+                  .build())
+              .addConfig(BetaManagedAgentsWebFetchToolConfigParams.builder()
+                  .enabled(false)
+                  .build())
+              .build())
           .multiagent(BetaManagedAgentsMultiagent20261001Params.builder()
               .workflows(BetaManagedAgentsMultiagentWorkflowsEnabledParams.builder().build())
               .build())
@@ -978,12 +1035,22 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
   ```
 
   ```php PHP
+  use Anthropic\Beta\Agents\BetaManagedAgentsAgentToolset20260401Params;
+  use Anthropic\Beta\Agents\BetaManagedAgentsModel;
+  use Anthropic\Beta\Agents\BetaManagedAgentsWebFetchToolConfigParams;
+  use Anthropic\Beta\Agents\BetaManagedAgentsWebSearchToolConfigParams;
+
   $agent = $client->beta->agents->create(
       name: 'Contract Reviewer',
       model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
       system: "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
       tools: [
-          ['type' => 'agent_toolset_20260401'],
+          BetaManagedAgentsAgentToolset20260401Params::with(
+              configs: [
+                  BetaManagedAgentsWebSearchToolConfigParams::with(enabled: false),
+                  BetaManagedAgentsWebFetchToolConfigParams::with(enabled: false),
+              ],
+          ),
       ],
       multiagent: ['type' => 'multiagent_20261001', 'workflows' => ['type' => 'enabled']],
   );
@@ -995,7 +1062,13 @@ Before you change an existing agent’s `multiagent.type`, see [how to move an a
     model: Anthropic::Beta::BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
     system_: "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
     tools: [
-      {type: "agent_toolset_20260401"}
+      {
+        type: "agent_toolset_20260401",
+        configs: [
+          {name: "web_search", enabled: false},
+          {name: "web_fetch", enabled: false}
+        ]
+      }
     ],
     multiagent: {type: "multiagent_20261001", workflows: {type: "enabled"}}
   )

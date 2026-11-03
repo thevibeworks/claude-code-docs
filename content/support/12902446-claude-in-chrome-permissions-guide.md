@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1793691900&amp;signature=a18455b9e2f51ae8a88b0af5b028a1819cb0f4da337c7325237ec1b39cf830be&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMFL9YO%2BgN0ADj5oqFCr2WetVhZzn1gvEJU4%0AZn6es9tF5ZXqjKlLDBc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1793731500&amp;signature=795466a01d5683a6acb042434c4343cc9ce121d9b613705d4b879b814a56ff55&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMFK%2F4OygN0ADj5oqFA6StFkWoBIaXPlNLE7%0ASgOdBTGJKXyJYTbrLOQ%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1793691900&amp;signature=c668c400b2b1bc04ba0ba13fd1aed2d6c561d46dfdd3308fd2f51eba7862f6e8&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2V2gS3l7A4lHPBihAUgAjQhaQUpTN52zEAk%0AGAkV55K%2F9K%2F5YHVSPDQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1793731500&amp;signature=a83a3223e5b7c35220273092528c8c1afb6991f98f157202c9318a0d5fb1cca6&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2V3iy3p7A4lHPBihAWXCT21WOsen9G79a%2Bz%0AyvH8gPJkWHgd3cp47ug%3D%0A)
 
 ### Permission options
 

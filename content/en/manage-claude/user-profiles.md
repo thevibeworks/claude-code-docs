@@ -10,7 +10,7 @@ If you operate a platform or gateway, or resell API access, the requests you sen
 
 You register each end customer once with `POST /v1/user_profiles` and store the `uprof_` ID it returns. Then you send that ID in the `anthropic-user-profile-id` header on every request you make on that end customer’s behalf.
 
-Profiles aren’t billable and don’t affect pricing.
+On their own, profiles don’t change billing or pricing.
 
 ## Decide who gets a profile
 

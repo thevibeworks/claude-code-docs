@@ -66,7 +66,7 @@ Customer must meet and maintain the following security requirements for each Cyb
 
 3. **Organization Accounts.** Approved Users must sign in with accounts on Customer's domain. Personal and webmail accounts are not permitted.
 
-4. **Approved Users.** The Granted Workspace is limited to twenty-five (25) Approved Users who personally perform or directly supervise the work for which the grant was approved. Workload identities do not count toward that number. Customer may request additional Approved Users seats in writing (email sufficing). Only named administrators may add members, change roles, or create workload identities or credentials on the Granted Workspace.
+4. **Approved Users.** The Granted Workspace is limited to seventy-five (75) Approved Users who personally perform or directly supervise the work for which the grant was approved. Workload identities do not count toward that number. Customer may request additional Approved Users seats in writing (email sufficing). Only named administrators may add members, change roles, or create workload identities or credentials on the Granted Workspace.
 
 5. **Gateways.** If Customer operates a gateway or proxy in front of the model, it must admit only Approved Users or their workload identities, use a short-lived credential of its own, and keep its logs and transcripts restricted to Approved Users and Customer's security, IT-administration, or trust-and-safety teams.
 
