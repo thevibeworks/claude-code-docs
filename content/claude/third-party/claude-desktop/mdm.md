@@ -133,7 +133,7 @@ Push the exported configuration through your MDM. The app reads from these locat
 
 When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
-A user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. To prevent that, set [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
+A user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. To prevent that, set [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile). To allow the move only to your organization, set [`forceLoginOrgUUID`](https://claude.com/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile) instead.
 
 ### Update keys and managed precedence
 

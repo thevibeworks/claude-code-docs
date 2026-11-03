@@ -1483,6 +1483,10 @@
       "since": "2026-09-01",
       "reason": "moved -> https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan"
     },
+    "https://support.claude.com/en/articles/15537633-authorize-mcp-connectors-for-your-entire-organization": {
+      "since": "2026-11-03",
+      "reason": "moved -> https://support.claude.com/en/articles/15537633-auto-connect-your-organization-s-apps-to-claude"
+    },
     "https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5": {
       "since": "2026-09-22",
       "reason": "moved -> https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5-or-opus-5-5"

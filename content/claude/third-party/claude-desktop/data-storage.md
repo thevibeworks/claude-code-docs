@@ -148,7 +148,13 @@ By default, chats, Cowork tasks, and Code sessions stay on the device until the 
 
 With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a conversation started from the home screen on a device that can run Cowork is a Cowork session. `coworkSessionRetentionDays` covers it along with users' other Cowork tasks, and `chatSessionRetentionDays` still covers Chat conversations. While `coworkSessionRetentionDays` is unset, neither key deletes a home-screen conversation that is a Cowork session, even if `chatSessionRetentionDays` is set. If you use `chatSessionRetentionDays`, keep it and set `coworkSessionRetentionDays` as well.
 
-The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host aren't affected. A session that is running or open on screen is skipped until a later pass. On a device that gets its configuration from a server, the app stops deleting idle sessions shortly after it loses contact with that server.
+The app deletes whole sessions in the background:
+
+* **Chats**: the app deletes a chat, its copies of attached files, its outputs, and the live artifacts (interactive pages) that Claude created in the chat. The live artifacts of chats deleted before Claude Desktop 4.16336.0 stay on the device.
+* **Cowork tasks**: the app deletes a task, its copies of attached files, and its outputs. The task's live artifacts stay. A home-screen conversation that is a Cowork session is deleted the same way, and its live artifacts stay.
+* **Code sessions**: the app deletes a session and its conversation. It also removes the session's [Git worktree](https://code.claude.com/docs/en/worktrees), except in some cases, such as when the worktree has uncommitted changes or the session is pinned. Other files in the session's working folder stay, and Code sessions on an SSH host or in WSL aren't affected.
+
+Projects and memory stay. A session that is running or open on screen is skipped until a later pass. On a device that gets its configuration from a server, the app stops deleting idle sessions shortly after it loses contact with that server.
 
 ### Keep sessions for some users
 
@@ -181,7 +187,7 @@ The **Storage** window shows how much disk space Claude uses on the device. To o
 
 In the window, users can clean up their own inactive sessions on the device, except pinned ones:
 
-* **Chats and Cowork tasks**: the app deletes them, including runs of scheduled tasks. It also deletes their outputs and their copies of attached files in the [application-data directory](#where-data-lives). Files outside that directory stay, such as files in `~/Claude/` or in folders that the user connected.
+* **Chats and Cowork tasks**: the app deletes them, including runs of scheduled tasks. It also deletes their outputs and their copies of attached files in the [application-data directory](#where-data-lives). For a chat, the app also deletes the live artifacts (interactive pages) that Claude created in the chat. Other files stay, such as the live artifacts of a Cowork task or of a [home-screen conversation that is a Cowork session](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), the rest of `~/Claude/`, and files in folders that the user connected. The live artifacts of chats deleted before Claude Desktop 4.16336.0 stay too.
 * **Code sessions**: the app removes their [Git worktrees](https://code.claude.com/docs/en/worktrees) and, if the user chooses, deletes the sessions with their conversations
 
 Users can't undo these deletions.

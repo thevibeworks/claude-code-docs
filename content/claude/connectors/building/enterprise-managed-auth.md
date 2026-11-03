@@ -185,15 +185,32 @@ When a user is removed from the customer's Claude organization, Claude stops sig
 
 ## Test your implementation
 
-Test end to end from a Claude organization on a Team or Enterprise plan.
+Test end to end from a Claude organization on a Team or Enterprise plan, signed in as an Owner or Primary Owner. You can use your company's own organization or [a Team organization that you create for testing](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan). While you develop, [Okta's cross-app access playground](#test-with-the-cross-app-access-playground) exercises your authorization server and MCP server without a Claude organization.
+
+### Choose a test organization
+
+Pick the organization by the kind of assertion you're testing:
+
+* **Claude-issued**: use a Team or Enterprise organization that doesn't use Okta for single sign-on (SSO), because **Claude-issued** isn't available in an organization that signs in to Claude through Okta. The organization doesn't need SSO, a verified domain, or an identity provider, so a Team organization that you create for testing qualifies as it is. If you can't choose **Claude-issued** in your company's organization, create a Team organization for testing. In either organization, go straight to [Add your connector and run the connection test](#add-your-connector-and-run-the-connection-test).
+* **Identity provider-issued**: use an organization that signs in to Claude through Okta. If your company's organization does, test there. Otherwise, you need an Okta org, such as an integrator org from Okta's [Integrator Free Plan](https://developer.okta.com/signup/), and a Team organization that you create. Follow [Set up single sign-on](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso) to verify a domain for the Team organization and connect SSO, choosing Okta as the provider. In the Okta org, give yourself and each test user an address on that domain. In either Claude organization, register Claude and your connector in the Okta org as [Add your connector and run the connection test](#add-your-connector-and-run-the-connection-test) describes, and sign in to Claude through SSO before you run the connection test.
+
+A Claude-issued test runs metadata discovery, then presents your token endpoint with a real assertion that Claude issued and signed. It doesn't involve an identity provider. To test both kinds of assertion, use two organizations.
+
+### Add your connector and run the connection test
 
 **1. Add your MCP server as a custom connector**
 
 Add your MCP server as a custom connector for the test organization, as [Add the connector for the organization](https://claude.com/docs/connectors/custom/add-unlisted.md#add-the-connector-for-the-organization) describes.
 
+If your MCP server is already in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), add it as a custom connector at your listing's URL rather than from the directory. A connector added from the directory shows **Managed authorization** only after your listing is marked as supporting Enterprise Managed Auth. A custom connector shows it either way. The custom connector opens on your listing's page, where the **Authentication** section is on the **Configuration** tab.
+
+An organization can have one connector at a URL, so if yours already has your connector from the directory, test in a Team organization that you create for testing.
+
 **2. Open the managed authorization setup**
 
 Open the connector you added. In its **Authentication** section, which is separate from the **Authentication** setting you chose while adding the connector, click **Set up** on the **Managed authorization** row. Under **Identity source**, choose **IdP-managed** or **Claude-issued**.
+
+For **IdP-managed**, follow the first step under **Setup guide** to register Claude and your connector in your Okta org. For the steps in the Okta Admin Console, see Okta's [Cross App Access guide for AI agents](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/).
 
 **3. Register the issuer in your test workspace**
 
@@ -203,10 +220,7 @@ Register the issuer URL as the trusted issuer of a test workspace in your produc
 
 Click **Run test** under **Connection status**. The test shows which step failed, what Claude sent and what came back, and, for a Claude-issued assertion that was signed, its decoded claims.
 
-For each kind of assertion, the test organization also needs the following:
-
-* **Identity provider-issued**: an identity provider tenant configured to issue assertions for your authorization server's audience. If your identity provider is Okta, refer to Okta's [Cross App Access participation guide](https://support.okta.com/help/s/article/claude-enterprise-managed-auth-with-okta-cross-app-access-xaa-beta-participation-guide?language=en_US) and configure your organization so you can test your MCP server's Cross App Access (XAA) implementation.
-* **Claude-issued**: no identity provider. The organization needs **Claude-issued** available under **Identity source**. If your organization doesn't offer Claude-issued, email `mcp-review@anthropic.com`.
+### Cases to check before launch
 
 Check each of these cases before you launch:
 
