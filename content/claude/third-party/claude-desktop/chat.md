@@ -109,4 +109,4 @@ While `desktopHome` is unset and Unified Claude is off, at least one surface mus
 
 ## Where Chat data lives
 
-Chat conversations are stored on the local device, in the same per-session layout as Cowork sessions: conversation history, attachment copies, scratch outputs, and a tamper-evident audit log, all under the application-data directory. Nothing is synced to a server, and there is no server-side index of past conversations. See [Chat conversations](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations) on the data-storage page for the breakdown.
+Chat conversations are stored on the local device, in the same per-session layout as Cowork sessions: conversation history, attachment copies, scratch outputs, and an [audit log](https://claude.com/docs/third-party/claude-desktop/data-storage.md#session-audit-log), all under the application-data directory. Nothing is synced to a server, and there is no server-side index of past conversations. See [Chat conversations](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations) on the data-storage page for the breakdown.

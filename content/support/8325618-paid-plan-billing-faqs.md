@@ -22,7 +22,7 @@ Additionally, all invoices are automatically emailed to your billing email addre
 
 2. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-3. Click the "Update" button next to your payment method.
+3. Click the "Update" button next to your default payment method.
 
 4. Enter your new billing details in the payment update form.
 
@@ -36,21 +36,25 @@ To change the card on your Pro, Max, or Ultra subscription:
 
 1. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-2. Click the “Update” button next to your payment method.
+2. Click the “Update” button next to your default payment method.
 
 3. Enter your new card details.
 
 4. Click “Update” to save your changes.
 
-The new card becomes your default payment method, and all future subscription renewals are charged to it. Your previous card is no longer billed.
+The new card becomes your default payment method and is charged for future renewals. Your previous card stays saved and usually still appears in your list of payment methods in **Settings > Billing** until you remove it. Depending on your account, a saved card may be charged if your default card is declined, so remove any card you don't want used.
 
-There's no separate option to remove a card, and updating to a new card replaces the old one for billing purposes. The billing page only shows your current default card. Previously used cards are no longer charged, but they may remain stored with our payment processor. If you need a previous card fully removed from your account, please contact **[our support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+You can also click "Add payment method" there to save another card, or open the three-dot menu (More actions) next to a saved card and choose "Set as default" to make it your default.
+
+To remove a saved card, open the three-dot menu (More actions) next to it, then choose "Remove". Your default payment method can't be removed, so you need to make another card the default first. You also can't remove a card while your subscription or an unpaid invoice is still using it.
+
+A removed card isn't used for future renewals or auto-reload unless you add it back. Some cards you used in the past may not appear in the list but can remain stored with our payment processor. If you need one of those removed, or need to remove your only card, please contact **[our support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
 
 ## How can I use a different name on my invoices?
 
 If you want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1793653200&amp;signature=61a9f0308b708935ebae3ab1e19321040438a2364b365eee6348a8e998a8fb6a&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8W6tbjDOQoNvNFTb5cf8KXGgbkUybnaCI0DC%0A5ATtx3ApOMYHNaRIOGI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1793793600&amp;signature=3c2f06116130f5f785da259b976721a2514772d5d69b193f44ef7fdd4309957e&amp;req=dSklFMh6nIZXXPMW3nq%2BgWIvYv5NddvgbZWMNUDbBxNrPaxDc1fCzcCB%2BuI4%0A3PDoI8woeabtYEET%2FT8Jk6qxHdo%3D%0A)
 
 ## How can I edit a paid invoice?
 

@@ -146,6 +146,13 @@ The messages endpoint returns the chat’s metadata plus a `chat_messages` array
           "mime_type": "text/csv",
           "size_bytes": 2048,
           "md5": "89968669461d95416549937168269d6b"
+        },
+        {
+          "id": "claude_file_01Qm7RzKdTgWnYbVx3HcLpE5",
+          "filename": "requirements_tracker.xlsx",
+          "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size_bytes": 18432,
+          "md5": "5ccf4e7dd3bdfa729883d6764631ac60"
         }
       ],
       "artifacts": [
@@ -164,13 +171,13 @@ The messages endpoint returns the chat’s metadata plus a `chat_messages` array
 }
 ```
 
-`files`, `generated_files`, and `artifacts` can each be `null` on a given message. `files` are the files and text attachments (for example, PDFs, images, spreadsheets, documents, and pasted text) the user attached to the message, as claude.ai stored them. `generated_files` are binary files the assistant created during the conversation through tool use (for example, PDFs, spreadsheets, or slide decks). `artifacts` are versioned documents (for example, code or markdown) the assistant generated or updated in its response; an artifact can be revised across multiple assistant turns in the same chat, and each revision appears as a new `version_id` under the same artifact `id`. Pass each entry’s `id` (or `version_id` for artifacts) to the matching content endpoint in [Retrieve files and artifacts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-files-and-artifacts) to download it.
+`files`, `generated_files`, and `artifacts` can each be `null` on a given message. `files` are the files and text attachments (for example, PDFs, images, spreadsheets, documents, and pasted text) the user attached to the message, as claude.ai stored them. `generated_files` are binary files the assistant created during the conversation through tool use (for example, PDFs, spreadsheets, or slide decks). `artifacts` are versioned documents (for example, code or markdown) the assistant generated or updated in its response; an artifact can be revised across multiple assistant turns in the same chat, and each revision appears as a new `version_id` under the same artifact `id`. Pass each entry’s `id` (or `version_id` for artifacts) to the matching content endpoint in [Retrieve files and artifacts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-files-and-artifacts) to download it. An `id` in `generated_files` starts with either `claude_gen_file_` or `claude_file_`. Choose the endpoint by the prefix, not by the array the entry came from.
 
 ## Retrieve files and artifacts
 
-Files and artifacts are downloaded by ID. Except for Claude Docs documents (see the end of this section), they aren’t listed independently. The IDs come from the chat messages endpoint in [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) (the `files`, `generated_files`, and `artifacts` arrays on each message) or, for project-level uploads, from the [project attachments endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-projects-and-attachments).
+Files and artifacts are downloaded by ID. They aren’t listed independently, except for the artifacts returned by [List code artifacts](https://platform.claude.com/docs/en/api/compliance/apps/code/artifacts/list), such as Claude Docs documents (see the end of this section). All other IDs come from the chat messages endpoint in [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) (the `files`, `generated_files`, and `artifacts` arrays on each message) or, for project-level uploads, from the [project attachments endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-projects-and-attachments).
 
-Pick the endpoint that matches your ID type and the data you need. The same file content endpoint serves both chat files and project files.
+Pick the endpoint that matches your ID’s prefix and the data you need. The same file content endpoint serves chat files, project files, and the `generated_files` entries whose IDs start with `claude_file_`. The file endpoints and the generated-file endpoints each reject the other’s IDs with a 400 error; see [Invalid file ID](https://platform.claude.com/docs/en/manage-claude/compliance-errors#invalid-file-id).
 
 | You have                       | You want                                | Use this endpoint                                                                                                          |
 | ------------------------------ | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -187,7 +194,7 @@ The file content endpoint streams the content that claude.ai stored for the file
 
 The response carries these headers:
 
-* `Content-Disposition: attachment; filename*=utf-8''<percent-encoded filename>` carries the original upload file name in RFC 5987 extended form. The extended form is used for every file name, not only non-ASCII ones.
+* `Content-Disposition: attachment; filename*=utf-8''<percent-encoded filename>` carries the file name in RFC 5987 extended form. The extended form is used for every file name, not only non-ASCII ones.
 * `Content-Type` carries the MIME type recorded for the stored content, which for a document stored as extracted text can still name the original document format.
 * `Content-MD5` carries the MD5 digest of the served bytes, base64-encoded as specified in RFC 1864.
 * `Transfer-Encoding: chunked` is always set.
@@ -200,7 +207,7 @@ curl --fail-with-body -sS \
   --output "dashboard_mockup_v1.pdf"
 ```
 
-In curl, the `--remote-header-name` (`-J`) option, which normally saves a download under the `Content-Disposition` file name, does not read the `filename*` form, so name the saved file yourself with `--output`. In a script, take the name from the file’s `filename` field in the chat messages or [Get file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve) response, or decode `filename*`. Either way, it is the name the user gave the upload, so treat it as untrusted before using it as an output path:
+In curl, the `--remote-header-name` (`-J`) option, which normally saves a download under the `Content-Disposition` file name, does not read the `filename*` form, so name the saved file yourself with `--output`. In a script, take the name from the file’s `filename` field in the chat messages or [Get file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve) response, or decode `filename*`. Either way, treat it as untrusted before using it as an output path:
 
 * Keep only the base name.
 * Allow only characters that are safe on your filesystem.

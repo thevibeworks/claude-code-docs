@@ -151,7 +151,9 @@ In Claude for Government, Anthropic-bound error and usage telemetry is always di
 
 > [accordion] What is logged for connector actions and outbound requests?
 >
-> Chat and Cowork sessions write a local audit log to the user's disk recording tool invocations, permission decisions, and file operations; that log never leaves the device. The desktop can also export OpenTelemetry events to a collector you specify: tool name, connector, outcome, duration, and approval status are sent. Prompt text, Claude's responses, and tool inputs and results are included only for the categories you select in the **Telemetry content capture** setting on the [Config](https://claude.com/docs/government/config/settings.md#telemetry-content-capture) page. See [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md) for what the export can include. Server-side, the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) records identity and configuration events but never tool calls or conversation content.
+> Chat and Cowork sessions write a [local audit log](https://claude.com/docs/third-party/claude-desktop/data-storage.md#session-audit-log) to the user's disk recording prompt text, Claude's responses, tool inputs and results, and permission decisions. The app doesn't send that log off the device.
+>
+> The desktop can also export OpenTelemetry events to a collector you specify: tool name, connector, outcome, duration, and approval status are sent. The export includes prompt text, Claude's responses, and tool inputs and results only for the categories you select in the **Telemetry content capture** setting on the [Config](https://claude.com/docs/government/config/settings.md#telemetry-content-capture) page. See [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md) for what the export can include. Server-side, the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) records identity and configuration events but never tool calls or conversation content.
 
 ### Data storage and retention
 

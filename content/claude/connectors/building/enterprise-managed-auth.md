@@ -4,13 +4,13 @@
 
 # Enterprise Managed Auth for connectors
 
-> Accept identity assertions from enterprise SSO so users connect to your MCP server without a separate OAuth consent step.
+> Accept identity assertions from a customer's identity provider or Claude so users connect to your MCP server without an OAuth consent step.
 
 > [!NOTE]
 >
 > Enterprise Managed Auth is available on Claude Team and Enterprise plans. After your authorization server supports it, email `mcp-review@anthropic.com` to have [your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md) marked as supporting Enterprise Managed Auth.
 
-Enterprise Managed Auth (EMA) lets a user connect to your MCP server silently, using the single sign-on session they already have with their organization. Instead of showing each user an OAuth consent screen, Claude presents your authorization server with an identity assertion: a signed JSON Web Token (JWT), issued by the customer's identity provider, that vouches for the user's identity.
+Enterprise Managed Auth (EMA) lets organizations connect their users to your MCP server without sending each user through an OAuth consent screen. Claude presents your authorization server with an identity assertion instead: a signed JSON Web Token (JWT) that vouches for the user's identity. Either the customer's identity provider or Claude signs the assertion, depending on [how the customer set up Enterprise Managed Auth](#who-issues-the-identity-assertion).
 
 Your authorization server validates the assertion and returns an access token in a single back-channel request. There is no browser redirect and no per-connector consent page. From the user's point of view, the connector is available as soon as their administrator enables it.
 
@@ -20,11 +20,18 @@ This page is for connector developers who need their authorization server to acc
 
 When a user whose organization has Enterprise Managed Auth configured invokes your connector, Claude obtains a signed identity assertion for that user and exchanges it directly at your token endpoint for an access token. The user never sees a browser redirect or a consent screen, and your MCP server receives the same kind of bearer token it would after the interactive OAuth flow. The diagram shows the exchange between Claude, your authorization server, and your MCP server.
 
-![Sequence diagram with three participants: Claude, your authorization server, and your MCP server. The user is already signed in to Claude through their organization's single sign-on. 1, Claude sends POST /token to your authorization server with the jwt-bearer grant and the signed JWT assertion. 2, your authorization server fetches the issuer's JWKS and verifies the signature. 3, it validates iss, aud, exp, sub, and client\_id. 4, it returns an access\_token to Claude. 5, Claude sends the tool call to your MCP server with the Bearer access\_token. 6, your MCP server returns the tool result to Claude. Requests are solid arrows and responses are dashed arrows.](https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/connectors/enterprise-managed-auth-exchange.svg?fit=max\&auto=format\&n=-njlLvrWxFCRdJVz\&q=85\&s=2bdd0b680bda337b37632516b8dc5e84)
+![Sequence diagram with three participants: Claude, your authorization server, and your MCP server. The user is already signed in to Claude. 1, Claude sends POST /token to your authorization server with the jwt-bearer grant and the signed JWT assertion. 2, your authorization server checks that iss is the issuer registered for the workspace, fetches that issuer's keys, and verifies the signature. 3, it validates typ, aud, client\_id, exp, and jti. 4, it returns an access\_token to Claude. 5, Claude sends the tool call to your MCP server with the Bearer access\_token. 6, your MCP server returns the tool result to Claude. Requests are solid arrows and responses are dashed arrows.](https://mintcdn.com/claude-ai/sb_HHLiaouvnOmRA/images/connectors/enterprise-managed-auth-exchange.svg?fit=max\&auto=format\&n=sb_HHLiaouvnOmRA\&q=85\&s=14077dd8e8d93a01f20bd21b1c031029)
 
-Two parties are involved in this exchange: the customer's identity provider signs the assertion, and your authorization server verifies it and issues the access token. Both roles are often served by commercial identity platforms, so the distinction here is about which tenant plays which role rather than about product type. The identity provider publishes its signing keys as a JSON Web Key Set, and your authorization server fetches that key set to verify each assertion.
+The Enterprise Managed Auth flow is defined by the [MCP enterprise managed authorization extension](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization) and is built on the standard [JWT bearer authorization grant (RFC 7523)](https://datatracker.ietf.org/doc/html/rfc7523). The assertion profile follows the [Identity Assertion JWT Authorization Grant (ID-JAG)](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/).
 
-The Enterprise Managed Auth flow is defined by the [MCP enterprise managed authorization extension](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization) and is built on the standard [JWT bearer authorization grant (RFC 7523)](https://datatracker.ietf.org/doc/html/rfc7523). The assertion profile follows the [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/).
+### Who issues the identity assertion
+
+Each customer workspace in your product trusts one issuer of identity assertions. The issuer for a customer is one of the following:
+
+* **Identity provider-issued**: the customer's identity provider issues and signs the assertion for a user who signed in to Claude through the organization's single sign-on (SSO). The trusted issuer is the identity provider's issuer URL. The customer needs an identity provider that can issue identity assertions.
+* **Claude-issued**: Claude issues and signs the assertion under an issuer URL that belongs to the customer's Claude organization. The URL has the form `https://identity.anthropic.com/issuers/<issuer-id>`. The trusted issuer is that Claude issuer URL. Claude-issued assertions are in beta.
+
+Where Claude's managed authorization setup offers both, the administrator sees them under **Identity source** as **IdP-managed** and **Claude-issued**. The token format and the exchange at your token endpoint are the same in both cases. The issuer publishes its signing keys as a JSON Web Key Set, and your authorization server fetches that key set to verify each assertion.
 
 ### Enterprise Managed Auth with lazy authentication
 
@@ -43,13 +50,13 @@ Before adding Enterprise Managed Auth, make sure the following are already in pl
 
 > [!WARNING]
 >
-> Dynamic Client Registration (DCR) isn't supported with Enterprise Managed Auth. The identity provider stamps a fixed `client_id` into every assertion it issues, so your authorization server must already recognize that client before the first assertion arrives. A client created on the fly through DCR can't satisfy this requirement because its identifier never matches the value in the assertion.
+> Dynamic Client Registration (DCR) isn't supported with Enterprise Managed Auth. Register Claude through [Anthropic-held client credentials](https://claude.com/docs/connectors/building/authentication.md#anthropic-held-client-credentials) or a [Client ID Metadata Document](https://claude.com/docs/connectors/building/authentication.md#dcr-and-cimd-details) before the first assertion arrives. When the customer's identity provider issues the assertions, it stamps a fixed `client_id` into every one, so your authorization server must already recognize that client. A client created on the fly through DCR can't satisfy this requirement because its identifier never matches the value in the assertion.
 
 ## Authorization server requirements
 
-Your authorization server must support the JWT bearer authorization grant ([RFC 7523](https://datatracker.ietf.org/doc/html/rfc7523)), which lets an authorization server exchange a signed JWT for an access token, and must trust each customer's identity provider as an issuer. This section is for the authorization server operator.
+Your authorization server must support the JWT bearer authorization grant ([RFC 7523](https://datatracker.ietf.org/doc/html/rfc7523)), which lets an authorization server exchange a signed JWT for an access token, and must trust one issuer of identity assertions for each customer. This section is for the authorization server operator.
 
-If your MCP server relies on a hosted identity platform, there is typically no code to write. Confirm that the platform supports the JWT bearer authorization grant and enable it for your tenant. Support varies by product, and some commercial authorization servers and identity platforms don't support it yet, so confirm that yours does and that the customer's identity provider can be registered as a trusted issuer. If you run your own authorization server, the steps in this section describe what it needs to support.
+If your MCP server relies on a hosted identity platform, you may not need to write code. Confirm that the platform supports the JWT bearer authorization grant, that it runs every check in [Validate the identity assertion](#validate-the-identity-assertion), and that it can register an issuer URL that isn't the customer's identity provider as a trusted issuer. Support varies by product, and some commercial authorization servers and identity platforms don't support the grant yet. If you run your own authorization server, the steps in this section describe what it needs to support.
 
 **1. Ensure the JWT bearer grant is supported**
 
@@ -69,15 +76,28 @@ Your authorization server must accept `urn:ietf:params:oauth:grant-type:jwt-bear
 
 Claude reads this metadata to discover whether your server supports Enterprise Managed Auth. The grant type must be listed here for Claude to offer the feature to the customer, even if your token endpoint would already accept it silently.
 
+Claude sends assertions when your metadata also meets these conditions:
+
+* The `issuer` matches the URL Claude fetched the metadata from, as [RFC 8414 section 3.3](https://datatracker.ietf.org/doc/html/rfc8414#section-3.3) requires
+* The `token_endpoint` is on the same registrable domain as the `issuer`. Different hosts under that domain work, such as `https://api.example.com/token` for the issuer `https://www.example.com`
+* For Claude-issued assertions, the `issuer` is a plain `https` URL on a public domain name, with no user name, query, fragment, percent-escapes, or characters such as commas and semicolons
+
+Keep the `issuer` value exactly as published, trailing slash included. A Claude-issued setup records the value, and a changed value stops sign-ins for that customer.
+
 **2. Register the trusted issuer**
 
-For each customer, your authorization server needs to trust that customer's identity provider as a JWT issuer. Your authorization server fetches the identity provider's JSON Web Key Set and uses it to verify the signature on every incoming assertion.
+For each customer workspace, your authorization server trusts one issuer of identity assertions. The customer's administrator gives you the issuer URL, which is one of the following:
 
-Your authorization server is responsible for maintaining an explicit allowlist of trusted issuer URLs per tenant rather than accepting any well-formed JWT. It must reject an assertion whose `iss` isn't on the tenant's allowlist with `invalid_grant`, even if the signature is valid.
+* **Identity provider-issued**: the issuer URL of the customer's identity provider
+* **Claude-issued**: a Claude issuer URL of the form `https://identity.anthropic.com/issuers/<issuer-id>`, where `<issuer-id>` differs for each customer's Claude organization
+
+Keep an explicit trusted issuer for each workspace rather than accepting any well-formed JWT. Allow that issuer to be a Claude issuer URL, not only a URL on an identity provider's domain. The first check in [Validate the identity assertion](#validate-the-identity-assertion) rejects an assertion whose `iss` isn't an exact match for the workspace's registered issuer, before any key is fetched.
+
+Bind each issuer to one workspace, and resolve each assertion to exactly one workspace. If the same issuer URL is registered for more than one workspace, don't guess between them. Find the one workspace an assertion is for as [Validate the identity assertion](#validate-the-identity-assertion) describes.
 
 > [!WARNING]
 >
-> Never accept an identity assertion without full validation. Your authorization server must verify the signature, issuer, audience, expiry, and subject on every request. Use the JWT validation built into your authorization server product. If you need to inspect assertions in your own code, use the validation library or token introspection endpoint provided by your authorization server vendor rather than writing custom verification logic.
+> Never accept an identity assertion without full validation. Your authorization server must run every check in [Validate the identity assertion](#validate-the-identity-assertion) on every request. Use the JWT validation built into your authorization server product. If you need to inspect assertions in your own code, use the validation library or token introspection endpoint provided by your authorization server vendor rather than writing your own signature verification.
 
 **3. Understand the token request**
 
@@ -91,31 +111,112 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 &assertion=eyJhbGciOi...
 &client_id=your-registered-client-id
-&scope=openid profile
+&scope=read%20write
 &resource=https://mcp.example.com
 ```
 
-The `assertion` parameter carries the signed JWT. The `client_id` is the value Claude is registered under at your authorization server. Claude also includes the `resource` parameter ([Resource Indicators, RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)) set to your MCP server URL whenever the customer's identity provider supports forwarding it. Some identity provider configurations cannot pass a resource indicator through, so your authorization server should accept the request whether or not `resource` is present and use it for audience binding when it is.
+Client authentication is left out of this example. The `assertion` parameter carries the signed JWT. The `client_id` is the value Claude is registered under at your authorization server, which for a Client ID Metadata Document is the document's URL. If that client has a secret or key, require it on this request. Answer at the `token_endpoint` URL itself, because Claude doesn't follow redirects on this request.
 
-Your authorization server validates the assertion according to the [JWT bearer token processing rules (RFC 7523 section 3)](https://datatracker.ietf.org/doc/html/rfc7523#section-3) and returns a standard OAuth token response. Claude then presents the returned access token as a `Bearer` credential on calls to your MCP server, exactly as it does after the interactive flow.
+Claude includes the `resource` parameter ([Resource Indicators, RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)) as follows:
 
-> [!NOTE]
+* **Identity provider-issued**: whenever the customer's identity provider supports forwarding it. Some identity provider configurations can't pass a resource indicator through
+* **Claude-issued**: always, set to the `resource` in your Protected Resource Metadata when that is your MCP server's URL or a parent of it, and otherwise to your MCP server's URL
+
+Accept the request whether or not `resource` is present, and use it for audience binding when it is.
+
+Your authorization server [validates the assertion](#validate-the-identity-assertion) and returns a standard OAuth token response with an access token. Include `expires_in` so Claude knows when to get a new token. Claude doesn't use a refresh token from this grant, so don't issue one. Claude then presents the returned access token as a `Bearer` credential on calls to your MCP server, exactly as it does after the interactive flow.
+
+### Validate the identity assertion
+
+Run these checks, in this order, on every token request, whichever kind of issuer signed the assertion. When a check fails, reject the request with `invalid_grant`, as the [JWT bearer token processing rules (RFC 7523 section 3)](https://datatracker.ietf.org/doc/html/rfc7523#section-3) require.
+
+Before the first check, find the one workspace the assertion is for. If you identify workspaces by your own tenant ID and the assertion carries `aud_tenant`, take the workspace that `aud_tenant` names. A Claude-issued assertion carries the claim when the customer's administrator entered your tenant ID in Claude's managed authorization setup for your connector, and Claude doesn't check the value. Otherwise, take the workspace that registered `iss`, and reject the assertion if no workspace or more than one did.
+
+1. **Issuer**: `iss` equals, as an exact string, the trusted issuer registered for that workspace. A prefix or host match admits other customers' users. Check this before you fetch any keys.
+2. **Keys**: fetch `<iss>/.well-known/openid-configuration`, confirm that the document's `issuer` equals `iss`, and fetch the key set from the document's `jwks_uri`. Use only keys from that key set, and ignore any key or key URL carried in the assertion's header. Don't pin a single key. Cache keys for as long as the response headers allow, and fetch them again when an assertion names a `kid` you haven't seen.
+3. **Signature**: the signature verifies against a key from that key set. Accept ES256 and RS256, and reject every other `alg`, including `none` and HMAC algorithms such as HS256. Claude-issued assertions use ES256.
+4. **Type**: the `typ` header is `oauth-id-jag+jwt`. Check `typ` yourself if your JWT library doesn't check it.
+5. **Audience**: `aud` is your authorization server's own `issuer` value, exactly as your metadata publishes it. The claim can arrive as a string or as a JSON array with one element, so use your library's audience option rather than comparing the raw claim text.
+6. **Client**: the `client_id` claim equals the `client_id` of this request.
+7. **Subject**: a `sub` claim is present. [Claude-issued assertions](#claude-issued-assertions) identify the user by `email`, not by `sub`.
+8. **Time**: `exp` hasn't passed, `iat` isn't in the future, and `nbf`, when present, has passed. Allow at most 60 seconds of clock skew.
+9. **Replay**: a `jti` claim is present. Accept each `jti` from an issuer once, and remember it at least until the assertion's `exp` plus your clock-skew allowance. Treat `jti` as an opaque string. If you can't check whether a `jti` was already used, reject the request.
+
+Issue the access token for that workspace only, even when the same user belongs to other workspaces in your product.
+
+### Claude-issued assertions
+
+Claude signs a Claude-issued assertion under the issuer URL of the customer's Claude organization, and the checks in [Validate the identity assertion](#validate-the-identity-assertion) apply to it unchanged. This example shows the decoded payload of one:
+
+```json theme={null}
+{
+  "iss": "https://identity.anthropic.com/issuers/<issuer-id>",
+  "sub": "abcdefghijklmnopqrstuvwxyz",
+  "email": "alex@example.com",
+  "aud": ["https://auth.example.com"],
+  "client_id": "your-registered-client-id",
+  "scope": "read write",
+  "aud_tenant": "your-tenant-id",
+  "iat": 1790000000,
+  "nbf": 1789999985,
+  "exp": 1790000060,
+  "jti": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+}
+```
+
+* **What the assertion says**: the user is a current member of the customer's Claude organization, and `email` is the address of their Claude account, in lowercase. The assertion doesn't say that the user signed in through the customer's identity provider or used multi-factor authentication, and it carries no `sub_id` claim and no groups.
+* **Signing keys**: every Claude issuer signs with the same keys, so a valid signature doesn't tell you which Claude organization an assertion is for. Only `iss` does.
+* **Discovery document**: a Claude issuer serves its discovery document at `<iss>/.well-known/openid-configuration`. The document holds `issuer` and `jwks_uri` and has no `authorization_endpoint` or `token_endpoint`, so read those two members yourself rather than passing the document to a validator that expects a full OpenID Connect provider configuration.
+* **Lifetime**: each assertion expires within a minute. Claude signs a new assertion, with a new `jti`, for each sign-in and each renewal.
+* **User lookup**: find the user by `email` among the members of the workspace the assertion resolved to. Compare the whole address, ignore letter case, and keep dots and plus tags as they are. The `sub` claim is an opaque value that differs under each issuer, so don't look users up by it. Storing it is optional. If no member of the workspace has the address, reject the request, or create the user only when the address is on an email domain the workspace has verified with your service.
+
+> [!WARNING]
 >
-> Your authorization server sets the access token lifetime, and the customer's identity provider sets the assertion lifetime. Anthropic doesn't control either value.
+> Sign a user in from a Claude-issued assertion only when your service has verified that user's email address, or when the address is on an email domain the workspace has verified. A Claude issuer URL isn't a secret, so someone can register another customer's issuer URL in a workspace they control.
 
 ### Access token lifetime
 
-Issue access tokens with whatever lifetime your security policy calls for. A short lifetime, such as one hour, doesn't force users to repeat single sign-on each time a token expires.
+Issue access tokens with whatever lifetime your security policy calls for. A short lifetime, such as one hour, doesn't make users sign in again each time a token expires. Claude gets a new identity assertion without any user interaction and exchanges it at your token endpoint for a new access token. Claude gets each new assertion as follows:
 
-When a user signs in to Claude through their organization's SSO, Claude obtains a long-lived refresh token from the identity provider. Claude uses that refresh token to request a fresh identity assertion from the identity provider whenever it needs one, without any user interaction. Claude then exchanges the new assertion at your token endpoint for a new access token. From the user's point of view, the connection stays active for as long as the identity provider's refresh token remains valid.
+* **Identity provider-issued**: when a user signs in to Claude through their organization's SSO, Claude obtains a long-lived refresh token from the identity provider and uses it to request each new assertion. The connection stays active for as long as that refresh token remains valid
+* **Claude-issued**: Claude signs each new assertion itself, for as long as the user remains a member of the customer's Claude organization
 
-The customer's identity provider issues the refresh token. Treat it as long-lived.
+When a user is removed from the customer's Claude organization, Claude stops signing Claude-issued assertions for them. Access tokens you already issued stay valid, so your access token lifetime bounds how long a removed user keeps access.
 
 ## Test your implementation
 
-End-to-end testing requires a Claude organization with Enterprise Managed Auth enabled and an identity provider tenant configured to issue assertions for your authorization server's audience.
+Test end to end from a Claude organization on a Team or Enterprise plan.
 
-If your identity provider is Okta, refer to Okta's [Cross App Access participation guide](https://support.okta.com/help/s/article/claude-enterprise-managed-auth-with-okta-cross-app-access-xaa-beta-participation-guide?language=en_US) and configure your organization so you can test your MCP server's Cross App Access (XAA) implementation.
+**1. Add your MCP server as a custom connector**
+
+Add your MCP server as a custom connector for the test organization, as [Add the connector for the organization](https://claude.com/docs/connectors/custom/add-unlisted.md#add-the-connector-for-the-organization) describes.
+
+**2. Open the managed authorization setup**
+
+Open the connector you added. In its **Authentication** section, which is separate from the **Authentication** setting you chose while adding the connector, click **Set up** on the **Managed authorization** row. Under **Identity source**, choose **IdP-managed** or **Claude-issued**.
+
+**3. Register the issuer in your test workspace**
+
+Register the issuer URL as the trusted issuer of a test workspace in your product. For **Claude-issued**, copy the **Issuer URL** that the setup shows into your test workspace, and if you identify workspaces by your own tenant ID, enter the test workspace's ID in **Tenant ID (optional)**.
+
+**4. Run the connection test**
+
+Click **Run test** under **Connection status**. The test shows which step failed, what Claude sent and what came back, and, for a Claude-issued assertion that was signed, its decoded claims.
+
+For each kind of assertion, the test organization also needs the following:
+
+* **Identity provider-issued**: an identity provider tenant configured to issue assertions for your authorization server's audience. If your identity provider is Okta, refer to Okta's [Cross App Access participation guide](https://support.okta.com/help/s/article/claude-enterprise-managed-auth-with-okta-cross-app-access-xaa-beta-participation-guide?language=en_US) and configure your organization so you can test your MCP server's Cross App Access (XAA) implementation.
+* **Claude-issued**: no identity provider. The organization needs **Claude-issued** available under **Identity source**. If your organization doesn't offer Claude-issued, email `mcp-review@anthropic.com`.
+
+Check each of these cases before you launch:
+
+* An assertion from the workspace's registered issuer signs the right user in
+* An assertion that carries another customer's issuer URL is refused
+* An assertion whose `iss` is registered for more than one workspace is refused, unless you identify workspaces by your own tenant ID and the assertion's `aud_tenant` names one of those workspaces
+* The same assertion presented a second time is refused
+* An assertion whose `aud` isn't your authorization server's issuer is refused
+* For a Claude-issued assertion, the user is found by verified email within the workspace the assertion resolved to, not by `sub`
+* A Claude-issued assertion for an address your service hasn't verified, on a domain the workspace hasn't verified, is refused
 
 ### Test with the cross-app access playground
 
@@ -133,15 +234,30 @@ A customer's administrator turns on Enterprise Managed Auth for their organizati
 
 ### Admin settings in your product
 
-In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their organization and a field for their identity provider's issuer URL. When the administrator saves, add that URL to the organization's allowlist of trusted issuers, as described in [Authorization server requirements](#authorization-server-requirements).
+In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's managed authorization setup for your connector. When the administrator saves, register the URL as the workspace's trusted issuer, as described in [Authorization server requirements](#authorization-server-requirements).
+
+If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID (optional)** field in Claude's managed authorization setup for your connector, and it then arrives in each Claude-issued assertion as `aud_tenant`.
 
 ### Provide setup documentation
 
-You can publish documentation that walks an enterprise administrator through enabling Enterprise Managed Auth for your product and add its URL to [your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md). Claude shows the link in the Claude admin console when an administrator sets up Enterprise Managed Auth for your connector.
+Publish documentation that walks an enterprise administrator through enabling Enterprise Managed Auth for your product, including how to enter a Claude issuer URL as the trusted issuer, and add its URL to [your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md). Claude shows the link in the Claude admin console when an administrator sets up Enterprise Managed Auth for your connector.
 
 ### Okta Integration Network apps
 
 If your product has an app in the Okta Integration Network, work with Okta to enable Cross App Access (XAA) for that app. Until that app supports Cross App Access, customers who use Okta need to create a custom app in Okta for your product before they can set up Enterprise Managed Auth.
+
+## Launch checklist
+
+Confirm each of the following before you ask Anthropic to mark your directory listing as supporting Enterprise Managed Auth:
+
+* Sign-in works end to end for each kind of assertion your server accepts
+* Every case in [Test your implementation](#test-your-implementation) passes, including the refused ones
+* Your admin settings let a customer's administrator set the trusted issuer for their workspace
+* Your setup documentation for administrators is published, and its URL is on [your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md)
+
+Then email `mcp-review@anthropic.com` with your listing's name and the kinds of assertion your server accepts. If your connector isn't listed yet, [submit it](https://claude.com/docs/connectors/building/submission.md) before you email. Anthropic reviews the request and sets which kinds the listing is marked as supporting.
+
+Until the listing is marked, Claude doesn't offer managed authorization for it to customers' administrators. An administrator can choose **Claude-issued** for your listing only after it is marked for Claude-issued assertions.
 
 ## Related resources
 
