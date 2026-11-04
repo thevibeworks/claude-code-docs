@@ -29,7 +29,7 @@ description: Make your first API call to Claude and build a simple web search as
         curl https://api.anthropic.com/v1/messages \
           -H "content-type: application/json" \
           -H "x-api-key: $ANTHROPIC_API_KEY" \
-          -H "anthropic-version: 2023-06-01" \
+          -H "anthropic-version: 2026-10-21" \
           -d '{
             "model": "claude-opus-5-5",
             "max_tokens": 1000,

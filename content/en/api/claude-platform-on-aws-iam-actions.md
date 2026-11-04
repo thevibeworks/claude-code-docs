@@ -81,7 +81,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 </Note>
 
 <Note>
-  Creating or deleting an individual skill version maps to `UpdateSkill`, not `CreateSkill` or `DeleteSkill`. A policy that denies `aws-external-anthropic:Delete*` still allows version deletion, and a policy that denies `aws-external-anthropic:Create*` still allows version creation. Deny `UpdateSkill` and `CreateSkill` as well if you need to prevent any skill mutation.
+  Creating or deleting an individual skill version maps to `UpdateSkill`, not `CreateSkill` or `DeleteSkill`. A policy that denies `aws-external-anthropic:Delete*` still allows version deletion, and a policy that denies `aws-external-anthropic:Create*` still allows version creation. To block every write route under `/v1/skills`, deny `CreateSkill`, `UpdateSkill`, and `DeleteSkill`.
 </Note>
 
 ### Agents
@@ -95,26 +95,26 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 | `ArchiveAgent` | `POST /v1/agents/{id}/archive`                            |
 
 <Note>
-  Agents support only archive, not hard delete. A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveAgent`. Deny `ArchiveAgent`, `UpdateAgent`, and `CreateAgent` if you need to prevent any agent mutation.
+  Agents support only archive, not hard delete. A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveAgent`. To block every write route under `/v1/agents`, deny `CreateAgent`, `UpdateAgent`, and `ArchiveAgent`.
 </Note>
 
 ### Sessions
 
-| Action           | Routes authorized                                                                                                                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CreateSession`  | `POST /v1/sessions`                                                                                                                                                                               |
-| `GetSession`     | `GET /v1/sessions/{id}`<br />`GET /v1/sessions/{id}/events`<br />`GET /v1/sessions/{id}/events/stream`<br />`GET /v1/sessions/{id}/resources`<br />`GET /v1/sessions/{id}/resources/{id}`         |
-| `ListSessions`   | `GET /v1/sessions`                                                                                                                                                                                |
-| `UpdateSession`  | `POST /v1/sessions/{id}`<br />`POST /v1/sessions/{id}/events`<br />`POST /v1/sessions/{id}/resources`<br />`POST /v1/sessions/{id}/resources/{id}`<br />`DELETE /v1/sessions/{id}/resources/{id}` |
-| `ArchiveSession` | `POST /v1/sessions/{id}/archive`                                                                                                                                                                  |
-| `DeleteSession`  | `DELETE /v1/sessions/{id}`                                                                                                                                                                        |
+| Action           | Routes authorized                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CreateSession`  | `POST /v1/sessions`                                                                                                                                                                                                                                                                                                                                                        |
+| `GetSession`     | `GET /v1/sessions/{id}`<br />`GET /v1/sessions/{id}/events`<br />`GET /v1/sessions/{id}/events/stream`<br />`GET /v1/sessions/{id}/resources`<br />`GET /v1/sessions/{id}/resources/{id}`<br />`GET /v1/sessions/{id}/threads`<br />`GET /v1/sessions/{id}/threads/{id}`<br />`GET /v1/sessions/{id}/threads/{id}/events`<br />`GET /v1/sessions/{id}/threads/{id}/stream` |
+| `ListSessions`   | `GET /v1/sessions`                                                                                                                                                                                                                                                                                                                                                         |
+| `UpdateSession`  | `POST /v1/sessions/{id}`<br />`POST /v1/sessions/{id}/events`<br />`POST /v1/sessions/{id}/resources`<br />`POST /v1/sessions/{id}/resources/{id}`<br />`DELETE /v1/sessions/{id}/resources/{id}`<br />`POST /v1/sessions/{id}/threads/{id}/archive`                                                                                                                       |
+| `ArchiveSession` | `POST /v1/sessions/{id}/archive`                                                                                                                                                                                                                                                                                                                                           |
+| `DeleteSession`  | `DELETE /v1/sessions/{id}`                                                                                                                                                                                                                                                                                                                                                 |
 
 <Note>
-  `GetSession` authorizes reading session metadata, the full event stream (conversation history), and session resources. The `AnthropicReadOnlyAccess`, `AnthropicInferenceAccess`, and `AnthropicLimitedAccess` policies’ `Get*` wildcards include this action.
+  `GetSession` authorizes reading session metadata, the event stream (conversation history), session resources, and [session threads](https://platform.claude.com/docs/en/managed-agents/session-threads), including each thread’s events. The `AnthropicReadOnlyAccess`, `AnthropicInferenceAccess`, and `AnthropicLimitedAccess` policies’ `Get*` wildcards include this action, and the `AnthropicSelfHostedEnvironmentAccess` policy grants it explicitly.
 </Note>
 
 <Note>
-  Creating, updating, or deleting an individual session sub-resource (events or session resources) maps to `UpdateSession`, not `CreateSession` or `DeleteSession`. A policy that denies `aws-external-anthropic:Delete*` still allows sub-resource deletion, and a policy that denies `aws-external-anthropic:Create*` still allows sub-resource creation. Deny `UpdateSession`, `CreateSession`, and `ArchiveSession` as well if you need to prevent any session mutation.
+  Every route that writes to an existing session’s events, resources, or threads maps to `UpdateSession`, not `CreateSession`, `DeleteSession`, or `ArchiveSession`. A policy that denies `aws-external-anthropic:Create*`, `Delete*`, or `Archive*` still allows sending events, adding or deleting session resources, and archiving session threads. To block every write route under `/v1/sessions`, deny `CreateSession`, `UpdateSession`, `ArchiveSession`, and `DeleteSession`. A principal with `ProcessEnvironmentWork` can still [stop a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#stop-a-session-gracefully) that runs in a self-hosted environment.
 </Note>
 
 ### Environments
@@ -130,7 +130,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 | `ProcessEnvironmentWork` | `GET /v1/environments/{id}/work/poll`<br />`POST /v1/environments/{id}/work/{work_id}`<br />`POST /v1/environments/{id}/work/{work_id}/ack`<br />`POST /v1/environments/{id}/work/{work_id}/heartbeat`<br />`POST /v1/environments/{id}/work/{work_id}/stop` |
 
 <Note>
-  A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveEnvironment`. `ProcessEnvironmentWork` is not matched by `Create*`, `Update*`, `Delete*`, or `Archive*` wildcards. Deny `ArchiveEnvironment`, `UpdateEnvironment`, `CreateEnvironment`, and `ProcessEnvironmentWork` as well if you need to prevent any environment mutation.
+  A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveEnvironment`. `ProcessEnvironmentWork` is not matched by `Create*`, `Update*`, `Delete*`, or `Archive*` wildcards. To block every write route under `/v1/environments`, deny `CreateEnvironment`, `UpdateEnvironment`, `ArchiveEnvironment`, `DeleteEnvironment`, and `ProcessEnvironmentWork`.
 </Note>
 
 <Note>
@@ -149,7 +149,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 | `DeleteVault`  | `DELETE /v1/vaults/{id}`                                                                                                                                                                                        |
 
 <Note>
-  Creating, updating, archiving, or deleting an individual vault credential maps to `UpdateVault`. Reading a credential maps to `GetVault`. Vault credential secrets are not exposed: secret fields are write-only and are never returned by `GetVault` (see [Authenticate with vaults](https://platform.claude.com/docs/en/managed-agents/vaults)). A policy that denies `aws-external-anthropic:Delete*` still allows credential deletion, and a policy that denies `aws-external-anthropic:Create*` still allows credential creation. Deny `UpdateVault`, `CreateVault`, and `ArchiveVault` as well if you need to prevent any vault mutation.
+  Creating, updating, archiving, or deleting an individual vault credential maps to `UpdateVault`. Reading a credential maps to `GetVault`. Vault credential secrets are not exposed: secret fields are write-only and are never returned by `GetVault` (see [Authenticate with vaults](https://platform.claude.com/docs/en/managed-agents/vaults)). A policy that denies `aws-external-anthropic:Create*`, `Delete*`, or `Archive*` still allows creating, deleting, and archiving credentials. To block every write route under `/v1/vaults`, deny `CreateVault`, `UpdateVault`, `ArchiveVault`, and `DeleteVault`.
 </Note>
 
 ### Memory stores
@@ -168,7 +168,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 </Note>
 
 <Note>
-  Creating, updating, or deleting an individual memory and redacting a memory version both map to `UpdateMemoryStore`, not `CreateMemoryStore` or `DeleteMemoryStore`. A policy that denies `aws-external-anthropic:Delete*` still allows individual-memory deletion and memory-version redaction, and a policy that denies `aws-external-anthropic:Create*` still allows individual-memory creation. Deny `UpdateMemoryStore`, `CreateMemoryStore`, and `ArchiveMemoryStore` as well if you need to prevent any memory-store mutation.
+  Creating, updating, or deleting an individual memory and redacting a memory version both map to `UpdateMemoryStore`, not `CreateMemoryStore` or `DeleteMemoryStore`. A policy that denies `aws-external-anthropic:Delete*` still allows individual-memory deletion and memory-version redaction, and a policy that denies `aws-external-anthropic:Create*` still allows individual-memory creation. To block every write route under `/v1/memory_stores`, deny `CreateMemoryStore`, `UpdateMemoryStore`, `ArchiveMemoryStore`, and `DeleteMemoryStore`. A principal with `CreateSession` can still [attach a store to a session](https://platform.claude.com/docs/en/managed-agents/memory#attach-a-memory-store-to-a-session) with `read_write` access, the default. That session’s agent can then write to the store.
 </Note>
 
 ### Webhooks
@@ -187,7 +187,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 </Note>
 
 <Note>
-  `RotateWebhookSecret` is not matched by `aws-external-anthropic:Create*`, `Update*`, or `Delete*` wildcards. A policy that denies those patterns still allows secret rotation. Deny `RotateWebhookSecret`, `UpdateWebhook`, `CreateWebhook`, and `DeleteWebhook` if you need to prevent any webhook mutation.
+  `RotateWebhookSecret` is not matched by `aws-external-anthropic:Create*`, `Update*`, or `Delete*` wildcards. A policy that denies those patterns still allows secret rotation. To block every write route under `/v1/webhooks`, deny `CreateWebhook`, `UpdateWebhook`, `DeleteWebhook`, and `RotateWebhookSecret`.
 </Note>
 
 ### User profiles
@@ -220,7 +220,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 | `ArchiveWorkspace` | `POST /v1/organizations/workspaces/{id}/archive` |
 
 <Note>
-  Workspaces support only archive, not hard delete. A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveWorkspace`. Deny `ArchiveWorkspace`, `UpdateWorkspace`, and `CreateWorkspace` if you need to prevent any workspace mutation.
+  Workspaces support only archive, not hard delete. A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveWorkspace`. To block every write route under `/v1/organizations/workspaces`, deny `CreateWorkspace`, `UpdateWorkspace`, and `ArchiveWorkspace`.
 </Note>
 
 ### Encryption keys
@@ -234,7 +234,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 | `DisableKey`  | `DELETE /v1/organizations/external_keys/{id}` |
 
 <Note>
-  These actions manage your organization’s [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws) registrations, the record of which AWS KMS key ARNs are registered. They do not create, change, or disable the keys in AWS KMS. `DisableKey` removes a registration and is rejected while any workspace still uses the key. `RegisterKey` and `DisableKey` are not matched by `Create*`, `Update*`, or `Delete*` wildcards; deny `RegisterKey`, `UpdateKey`, and `DisableKey` if you need to prevent any change to key registrations. In these routes, `{id}` is the URL-encoded KMS key ARN. Attaching a registered key to a workspace is a workspace operation, authorized by `CreateWorkspace` or `UpdateWorkspace`; the principal that attaches a key also needs `kms:DescribeKey`, `kms:Encrypt`, and `kms:Decrypt` on that key (see the [prerequisites](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#prerequisites)). External key actions are account-scoped: specifying a workspace ARN on them has no effect; use `Resource: "*"`.
+  These actions manage your organization’s [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws) registrations, the record of which AWS KMS key ARNs are registered. They do not create, change, or disable the keys in AWS KMS. `DisableKey` removes a registration and is rejected while any workspace still uses the key. `RegisterKey` and `DisableKey` are not matched by `Create*`, `Update*`, or `Delete*` wildcards. To block every write route under `/v1/organizations/external_keys`, deny `RegisterKey`, `UpdateKey`, and `DisableKey`. In these routes, `{id}` is the URL-encoded KMS key ARN. Attaching a registered key to a workspace is a workspace operation, authorized by `CreateWorkspace` or `UpdateWorkspace`; the principal that attaches a key also needs `kms:DescribeKey`, `kms:Encrypt`, and `kms:Decrypt` on that key (see the [prerequisites](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#prerequisites)). External key actions are account-scoped: specifying a workspace ARN on them has no effect; use `Resource: "*"`.
 </Note>
 
 ### Compliance
@@ -270,7 +270,7 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 </Note>
 
 <Note>
-  `AddTelemetryDestinationWorkspace` and `RemoveTelemetryDestinationWorkspace` apply to the workspace in the route, and only on a destination whose **Workspaces** option is **Selected**. To change an **All except** list, use `UpdateAccountTelemetryDestination`. A policy that denies `aws-external-anthropic:Create*`, `Update*`, or `Delete*` still allows adding and removing workspaces. To block every change to destinations, also deny `AddTelemetryDestinationWorkspace` and `RemoveTelemetryDestinationWorkspace`.
+  `AddTelemetryDestinationWorkspace` and `RemoveTelemetryDestinationWorkspace` apply to the workspace in the route, and only on a destination whose **Workspaces** option is **Selected**. To change an **All except** list, use `UpdateAccountTelemetryDestination`. A policy that denies `aws-external-anthropic:Create*`, `Update*`, or `Delete*` still allows adding and removing workspaces. To block every write route under `/v1/organizations/telemetry_destinations`, deny `CreateAccountTelemetryDestination`, `UpdateAccountTelemetryDestination`, `DeleteAccountTelemetryDestination`, `TestAccountTelemetryDestination`, `AddTelemetryDestinationWorkspace`, and `RemoveTelemetryDestinationWorkspace`.
 </Note>
 
 ### Usage and cost
@@ -376,6 +376,11 @@ The following tables list every route on Claude Platform on AWS and the IAM acti
 | `POST`   | `/v1/sessions/{id}/resources`                                             | `UpdateSession`                             | Data                  |
 | `POST`   | `/v1/sessions/{id}/resources/{id}`                                        | `UpdateSession`                             | Data                  |
 | `DELETE` | `/v1/sessions/{id}/resources/{id}`                                        | `UpdateSession`                             | Data                  |
+| `GET`    | `/v1/sessions/{id}/threads`                                               | `GetSession`                                | Data                  |
+| `GET`    | `/v1/sessions/{id}/threads/{id}`                                          | `GetSession`                                | Data                  |
+| `GET`    | `/v1/sessions/{id}/threads/{id}/events`                                   | `GetSession`                                | Data                  |
+| `GET`    | `/v1/sessions/{id}/threads/{id}/stream`                                   | `GetSession`                                | Data                  |
+| `POST`   | `/v1/sessions/{id}/threads/{id}/archive`                                  | `UpdateSession`                             | Data                  |
 | `POST`   | `/v1/environments`                                                        | `CreateEnvironment`                         | Data                  |
 | `GET`    | `/v1/environments`                                                        | `ListEnvironments`                          | Data                  |
 | `GET`    | `/v1/environments/{id}`                                                   | `GetEnvironment`                            | Data                  |

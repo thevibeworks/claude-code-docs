@@ -39,7 +39,7 @@ Create a Credential
 
       minLength: 1, maxLength: 2047
 
-    - `expires_at: Time`
+    - `expires_at: optional Time`
 
       When `access_token` expires, in RFC 3339.
 
@@ -47,7 +47,7 @@ Create a Credential
 
       format: date-time
 
-    - `refresh: BetaManagedAgentsMCPOAuthRefreshParams`
+    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams`
 
       Refresh token configuration, if the credential supports token refresh.
 
@@ -101,13 +101,13 @@ Create a Credential
 
             minLength: 1, maxLength: 512
 
-      - `resource: String`
+      - `resource: optional String`
 
         OAuth resource indicator.
 
         minLength: 1, maxLength: 2047
 
-      - `scope: String`
+      - `scope: optional String`
 
         OAuth scope for the refresh request.
 
@@ -171,29 +171,29 @@ Create a Credential
 
       minLength: 1, maxLength: 4096
 
-    - `injection_location: BetaManagedAgentsInjectionLocationParams`
+    - `injection_location: optional BetaManagedAgentsInjectionLocationParams`
 
       Where in the outbound request the secret value may be substituted.
 
-      - `body: bool`
+      - `body: optional bool`
 
         Substitute when the placeholder appears in the request body.
 
-      - `header: bool`
+      - `header: optional bool`
 
         Substitute when the placeholder appears in a request header value.
 
-- `display_name: String`
+- `display_name: optional String`
 
   Human-readable name for the credential. Up to 255 characters.
 
   maxLength: 255
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -309,7 +309,7 @@ Create a Credential
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -347,13 +347,13 @@ Create a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: Time`
+      - `expires_at: optional Time`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -385,11 +385,11 @@ Create a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: String`
+        - `resource: optional String`
 
           OAuth resource indicator.
 
-        - `scope: String`
+        - `scope: optional String`
 
           OAuth scope for the refresh request.
 
@@ -467,7 +467,7 @@ Create a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: String`
+  - `display_name: optional String`
 
     Human-readable name for the credential.
 

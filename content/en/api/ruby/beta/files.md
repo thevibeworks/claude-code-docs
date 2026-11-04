@@ -21,13 +21,13 @@ Upload File
 
   format: binary
 
-- `expires_in_seconds: Integer`
+- `expires_in_seconds: optional Integer`
 
   Seconds from upload until the file expires and its bytes become permanently unavailable. Must be between 3600 (one hour) and 7776000 (ninety days).
 
   minimum: 3600, maximum: 7776000
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -143,7 +143,7 @@ Upload File
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -189,17 +189,17 @@ Upload File
 
     minimum: 0
 
-  - `downloadable: bool`
+  - `downloadable: optional bool`
 
     Whether the file can be downloaded.
 
-  - `expires_at: Time`
+  - `expires_at: optional Time`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: BetaFileScope`
+  - `scope: optional BetaFileScope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -252,11 +252,11 @@ List Files
 
 ### Parameters
 
-- `ids: Array[String]` (query parameter)
+- `ids: optional Array[String]` (query parameter)
 
   Restrict the result set to Files whose `id` is in this list. At most 100 entries (after de-duplication). Mutually exclusive with `page` and `limit`. When supplied, the response is always a single page (`next_page` is null). IDs that do not resolve to a visible File — including deleted Files — are silently omitted.
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Number of items to return per page.
 
@@ -264,15 +264,15 @@ List Files
 
   minimum: 1, maximum: 1000
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
-- `scope_id: String` (query parameter)
+- `scope_id: optional String` (query parameter)
 
   Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -388,7 +388,7 @@ List Files
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -434,17 +434,17 @@ List Files
 
     minimum: 0
 
-  - `downloadable: bool`
+  - `downloadable: optional bool`
 
     Whether the file can be downloaded.
 
-  - `expires_at: Time`
+  - `expires_at: optional Time`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: BetaFileScope`
+  - `scope: optional BetaFileScope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -506,7 +506,7 @@ Download File
 
   ID of the File.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -622,7 +622,7 @@ Download File
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -658,7 +658,7 @@ Get File Metadata
 
   ID of the File.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -774,7 +774,7 @@ Get File Metadata
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -820,17 +820,17 @@ Get File Metadata
 
     minimum: 0
 
-  - `downloadable: bool`
+  - `downloadable: optional bool`
 
     Whether the file can be downloaded.
 
-  - `expires_at: Time`
+  - `expires_at: optional Time`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: BetaFileScope`
+  - `scope: optional BetaFileScope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -887,7 +887,7 @@ Delete File
 
   ID of the File.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -1003,7 +1003,7 @@ Delete File
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1013,7 +1013,7 @@ Delete File
 
 - `class BetaDeletedFile`
 
-  - `type: :file_deleted`
+  - `type: optional :file_deleted`
 
     Deleted object type.
 
@@ -1050,7 +1050,7 @@ puts(beta_deleted_file)
 
 - `class BetaDeletedFile`
 
-  - `type: :file_deleted`
+  - `type: optional :file_deleted`
 
     Deleted object type.
 
@@ -1100,17 +1100,17 @@ puts(beta_deleted_file)
 
     minimum: 0
 
-  - `downloadable: bool`
+  - `downloadable: optional bool`
 
     Whether the file can be downloaded.
 
-  - `expires_at: Time`
+  - `expires_at: optional Time`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: BetaFileScope`
+  - `scope: optional BetaFileScope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 

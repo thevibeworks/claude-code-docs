@@ -27,7 +27,7 @@ Update a Memory Store
 
     maxLength: 1024
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     Changes to apply to the memory store's metadata. Keys you leave out keep their values.
 
@@ -193,7 +193,7 @@ Update a Memory Store
 
     Free-text description of what the store contains, up to 1,024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Key-value pairs for your own use, such as the end user that the store belongs to.
 

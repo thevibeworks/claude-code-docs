@@ -135,14 +135,15 @@ A webhook endpoint consists of:
 
 ## Verify the signature
 
-Every delivery carries the `webhook-id`, `webhook-timestamp`, and `webhook-signature` headers. Use the SDK’s `unwrap()` (csharp, go: `Unwrap()`) helper to verify the signature and parse the event in one step. It throws if the signature is invalid or the payload is more than 5 minutes old.
+Every delivery carries the `webhook-id`, `webhook-timestamp`, and `webhook-signature` headers. In every SDK except C#, use the `unwrap()` (csharp, go: `Unwrap()`) helper to verify the signature and parse the event in one step. It throws if the signature is invalid or the payload is more than 5 minutes old.
 
 Set `ANTHROPIC_WEBHOOK_SIGNING_KEY` to the `whsec_`-prefixed secret shown at endpoint creation.
 
-<CodeGroup exclude="shell:cURL, shell:CLI">
+<CodeGroup exclude="shell:cURL, shell:CLI, csharp">
   ```python Python
   from flask import Flask, request
   import anthropic
+  import standardwebhooks  # pip install "anthropic[webhooks]"
 
   client = anthropic.Anthropic()  # reads ANTHROPIC_WEBHOOK_SIGNING_KEY from env
   app = Flask(__name__)
@@ -156,7 +157,7 @@ Set `ANTHROPIC_WEBHOOK_SIGNING_KEY` to the `whsec_`-prefixed secret shown at end
               request.get_data(as_text=True),
               headers=dict(request.headers),
           )
-      except Exception:
+      except standardwebhooks.WebhookVerificationError:
           return "invalid signature", 400
 
       if event.data.type == "session.status_idled":
@@ -196,38 +197,9 @@ Set `ANTHROPIC_WEBHOOK_SIGNING_KEY` to the `whsec_`-prefixed secret shown at end
   });
   ```
 
-  ```csharp C#
-  using Anthropic;
-
-  var client = new AnthropicClient(); // reads ANTHROPIC_WEBHOOK_SIGNING_KEY from env
-  var app = WebApplication.Create(args);
-
-  app.MapPost("/webhook", async (HttpRequest request) =>
-  {
-      using var reader = new StreamReader(request.Body);
-      var body = await reader.ReadToEndAsync();
-      var headers = request.Headers.ToDictionary(header => header.Key, header => header.Value.ToString());
-
-      UnwrapWebhookEvent webhookEvent;
-      try
-      {
-          // Unwrap() throws if the signature is invalid or the payload is stale
-          webhookEvent = client.Beta.Webhooks.Unwrap(body, headers);
-      }
-      catch
-      {
-          return Results.BadRequest("invalid signature");
-      }
-
-      if (webhookEvent.Data.TryPickSessionStatusIdled(out var idled))
-      {
-          Console.WriteLine($"session idled: {idled.ID}");
-      }
-      // handle other event types
-
-      return Results.Ok();
-  });
-  ```
+  <CodeGroupItem language="C#">
+    The C# SDK does not have `Unwrap()`. Verify the signature with a [Standard Webhooks](https://www.standardwebhooks.com/) library, then deserialize the body into `UnwrapWebhookEvent`.
+  </CodeGroupItem>
 
   ```go Go
   package main

@@ -43,7 +43,7 @@ Create User Profile
 
     format: date-time
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
@@ -195,7 +195,7 @@ Create User Profile
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
@@ -203,7 +203,7 @@ Create User Profile
 
     Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
 
-  - `TrustGrants map[string, BetaUserProfileTrustGrant]`
+  - `TrustGrants map[string]BetaUserProfileTrustGrant`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 

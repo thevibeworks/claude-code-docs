@@ -39,7 +39,7 @@ Both offerings let you use Claude through AWS, but they differ in architecture, 
 
 If you need AWS-operated Claude, see [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). Claude Platform on AWS uses a separate capacity pool from both the first-party Claude API and Amazon Bedrock. You can run workloads on more than one platform and fail over between them.
 
-[AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) is supported for connecting your VPC to the Claude Platform on AWS endpoint.
+[AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) is supported for connecting your VPC to the Claude Platform on AWS endpoint (see [Connect through AWS PrivateLink](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#connect-through-aws-privatelink)).
 
 **When to choose Bedrock:** Organizations in regulated industries that require FedRAMP High, IL4, IL5, or HIPAA-ready compliance, or that need AWS to be the sole data processor, should use [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). Bedrock runs entirely on AWS-controlled infrastructure with AWS as the operating party.
 
@@ -130,6 +130,7 @@ For Claude Enterprise (claude.ai) organizations, which behave differently, see t
 * **“Not found” message during sign-in:** This message might appear briefly during redirect. You can dismiss it.
 * **Usage page shows no data after your first API call:** Usage data can take a few minutes to appear in the Claude Console.
 * **“Outbound web identity federation is disabled” on your first API call:** Enable federation once per account. See [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation).
+* **403 `permission_error` that names `sts:GetWebIdentityToken` or `sts:TagGetWebIdentityToken`:** Grant both actions to the IAM principal that the error message names. See [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies).
 
 ## Before making API calls
 
@@ -139,7 +140,8 @@ Ensure you have:
 2. The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) installed and configured
 3. **Outbound web identity federation enabled** on your AWS account, a one-time setup step (see [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation))
 4. Your workspace ID (see [Obtain your workspace ID](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#obtain-your-workspace-id))
-5. IAM permission to call the API: the `aws-external-anthropic:CreateInference` action on your workspace, plus `aws-external-anthropic:CallWithBearerToken` if you authenticate with an API key (see [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies))
+5. IAM permission to call the API: the `aws-external-anthropic:CreateInference` action on your workspace, plus the `sts:GetWebIdentityToken` and `sts:TagGetWebIdentityToken` actions (see [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies))
+6. IAM permission for the `aws-external-anthropic:CallWithBearerToken` action if you authenticate with an API key (see [API key authentication](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication))
 
 ### Enable outbound web identity federation
 
@@ -197,7 +199,7 @@ aws sts get-caller-identity
 
 For simpler integration paths (local development and scripts), you can authenticate with an API key instead of SigV4. Set the `ANTHROPIC_AWS_API_KEY` environment variable or pass `api_key` (typescript, php: `apiKey`; go: `APIKey`; java: `.apiKey()`; csharp: `AwsClientOptions.ApiKey`) when you create the client.
 
-Generate API keys in the **AWS Console** under **Claude Platform on AWS → API keys**. Click **Generate a key**, then copy the key value. Grant the `aws-external-anthropic:CallWithBearerToken` IAM action to the principals that should be allowed to use API key authentication.
+Generate API keys in the **AWS Console** under **Claude Platform on AWS → API keys**. Click **Generate a key**, then copy the key value. Principals that use API keys need the same IAM permissions as principals that sign requests with SigV4, including two STS actions (see [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies)). Also grant the `aws-external-anthropic:CallWithBearerToken` IAM action to the principals that should be allowed to use API key authentication.
 
 <Note>
   API keys for Claude Platform on AWS are managed in the AWS Console, not the Claude Console. Keys created in the standard Claude Console at [platform.claude.com](https://platform.claude.com/) (for first-party API access) don’t work with the Claude Platform on AWS endpoint.
@@ -257,7 +259,7 @@ Pass the generated token to the SDK the same way you’d pass an AWS Console-gen
 
 If you can generate the token locally, your process already has SigV4 credentials, and SigV4 authentication is usually the simpler choice. Use short-term keys when the process making API calls is separate from the process that holds AWS credentials.
 
-The SDK does not refresh short-term keys automatically. When a token expires, generate a new one and construct a new client. The principal that uses the token still needs the `aws-external-anthropic:CallWithBearerToken` IAM action.
+The SDK does not refresh short-term keys automatically. When a token expires, generate a new one and construct a new client. The principal whose AWS credentials you use to generate the token needs the permissions described in [API key authentication](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication).
 
 ### Credential precedence
 
@@ -389,7 +391,7 @@ Before running these examples, complete the steps in [Before making API calls](h
     -u "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" \
     -H "x-amz-security-token: $AWS_SESSION_TOKEN" \
     -H "content-type: application/json" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-workspace-id: $ANTHROPIC_AWS_WORKSPACE_ID" \
     -d '{
       "model": "claude-sonnet-5-5",
@@ -443,6 +445,7 @@ Before running these examples, complete the steps in [Before making API calls](h
   ```csharp C#
   using Anthropic;
   using Anthropic.Aws;
+  using Anthropic.Models.Messages;
 
   var client = new AnthropicAwsClient();
 
@@ -542,6 +545,24 @@ The `--aws-sigv4` value follows the format `aws:amz:<region>:<service>`. The Sig
 
 Context-window sizes on Claude Platform on AWS are identical to the first-party Claude API. See [Context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows) for per-model limits.
 
+### Connect through AWS PrivateLink
+
+To connect your VPC to the Claude Platform on AWS endpoint through AWS PrivateLink, create an interface VPC endpoint in your workspace’s AWS region. For the procedure, see [Access an AWS service using an interface VPC endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) in the AWS documentation.
+
+The endpoint service name follows this format:
+
+```text wrap
+com.amazonaws.{region}.aws-external-anthropic
+```
+
+For example:
+
+```text wrap
+com.amazonaws.us-east-2.aws-external-anthropic
+```
+
+The endpoint service name is a different string from the hostname in the base URL, `aws-external-anthropic.{region}.api.aws`. That hostname is the service’s private DNS name. With private DNS enabled on the interface endpoint, it resolves to that endpoint inside your VPC. The SDK client and cURL requests keep the same base URL.
+
 ## Feature support
 
 Claude Platform on AWS uses Claude API endpoints directly, which means you get full feature parity with the first-party Claude API (except where noted in the [feature limitations](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#features-not-supported)):
@@ -576,14 +597,13 @@ Sessions and self-hosted workers on Claude Platform on AWS differ from first-par
 The following capabilities are not currently available on Claude Platform on AWS:
 
 * **HIPAA readiness:** Anthropic’s HIPAA-ready program is not available. See [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-
-- **Admin API:** Workspace endpoints (create, get, list, update, and archive on `/v1/organizations/workspaces`), external key endpoints (register, get, list, update, and delete on `/v1/organizations/external_keys`, for [CMEK](https://platform.claude.com/docs/en/manage-claude/cmek); keys are validated when attached to a workspace rather than through a validate endpoint), the [telemetry destination endpoints](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#telemetry-destinations), and the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) endpoints are available. Other Admin API endpoints (organization members, workspace members, invites, API keys, the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api), and rate limit reports) are not available. AWS IAM manages organization membership.
-- **Workspace member management:** Adding or removing users from individual workspaces is not available. AWS IAM policies on workspace ARNs control access.
-- **Claude Code workspace and Analytics API:** The Claude Code workspace with automatic rate limits is not available. Claude Code usage appears in the general usage view rather than a dedicated screen.
-- **OAuth authentication:** Not supported. Use SigV4 or API key authentication.
-- **Fast mode:** Not available on Claude Platform on AWS.
-- **OpenAI-compatible API endpoints:** Not available on Claude Platform on AWS.
-- **MCP tunnels:** Only MCP servers exposed over the public internet are supported.
+* **Admin API:** Workspace endpoints (create, get, list, update, and archive on `/v1/organizations/workspaces`), external key endpoints (register, get, list, update, and delete on `/v1/organizations/external_keys`, for [CMEK](https://platform.claude.com/docs/en/manage-claude/cmek); keys are validated when attached to a workspace rather than through a validate endpoint), the [telemetry destination endpoints](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#telemetry-destinations), and the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) endpoints are available. Other Admin API endpoints (organization members, workspace members, invites, API keys, the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api), and rate limit reports) are not available. AWS IAM manages organization membership.
+* **Workspace member management:** Adding or removing users from individual workspaces is not available. AWS IAM policies on workspace ARNs control access.
+* **Claude Code workspace and Claude Code Analytics API:** The Claude Code workspace with automatic rate limits is not available. Claude Code usage appears in the general usage view rather than a dedicated screen.
+* **OAuth authentication:** Not supported. Use SigV4 or API key authentication.
+* **Fast mode:** Not available on Claude Platform on AWS.
+* **OpenAI-compatible API endpoints:** Not available on Claude Platform on AWS.
+* **MCP tunnels:** Only MCP servers exposed over the public internet are supported.
 
 ## Data residency
 
@@ -611,7 +631,7 @@ Set the inference geography for each request with the `inference_geo` parameter:
     -u "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" \
     -H "x-amz-security-token: $AWS_SESSION_TOKEN" \
     -H "content-type: application/json" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-workspace-id: $ANTHROPIC_AWS_WORKSPACE_ID" \
     -d '{
       "model": "claude-sonnet-5-5",
@@ -666,6 +686,7 @@ Set the inference geography for each request with the `inference_geo` parameter:
   ```csharp C#
   using Anthropic;
   using Anthropic.Aws;
+  using Anthropic.Models.Messages;
 
   var client = new AnthropicAwsClient();
 
@@ -887,7 +908,7 @@ Each response includes two request IDs in the response headers:
     -u "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" \
     -H "x-amz-security-token: $AWS_SESSION_TOKEN" \
     -H "content-type: application/json" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-workspace-id: $ANTHROPIC_AWS_WORKSPACE_ID" \
     -d '{
       "model": "claude-sonnet-5-5",
@@ -953,19 +974,20 @@ Each response includes two request IDs in the response headers:
   ```csharp C#
   using Anthropic;
   using Anthropic.Aws;
+  using Anthropic.Models.Messages;
 
   var client = new AnthropicAwsClient();
 
-  var response = await client.WithRawResponse.Messages.Create(new()
+  using var response = await client.WithRawResponse.Messages.Create(new()
   {
       Model = Model.ClaudeSonnet5_5,
       MaxTokens = 1024,
       Messages = [new UserMessageParam { Content = "Hello!" }]
   });
 
-  Console.WriteLine(response.Headers.GetValues("x-amzn-requestid").First()); // AWS request ID
-  Console.WriteLine(response.Headers.GetValues("request-id").First()); // Anthropic request ID
-  Console.WriteLine(response.Value.Content);
+  Console.WriteLine(response.GetHeaderValues("x-amzn-requestid").First()); // AWS request ID
+  Console.WriteLine(response.RequestID); // Anthropic request ID
+  Console.WriteLine(await response.Deserialize());
   ```
 
   ```go Go
@@ -1028,15 +1050,15 @@ Each response includes two request IDs in the response headers:
 
   $client = new Client();
 
-  $response = $client->messages->raw->create(
-      model: 'claude-sonnet-5-5',
-      maxTokens: 1024,
-      messages: [['role' => 'user', 'content' => 'Hello!']],
-  );
+  $response = $client->messages->raw->create([
+      'model' => 'claude-sonnet-5-5',
+      'maxTokens' => 1024,
+      'messages' => [['role' => 'user', 'content' => 'Hello!']],
+  ]);
 
   echo $response->getHeaderLine('x-amzn-requestid') . "\n"; // AWS request ID
   echo $response->getHeaderLine('request-id') . "\n"; // Anthropic request ID
-  echo $response->parse()->content;
+  echo $response->parse();
   ```
 
   ```ruby Ruby
@@ -1135,6 +1157,10 @@ Claude Platform on AWS integrates with AWS IAM for access control. You grant or 
 
 The SigV4 service name and IAM action namespace is `aws-external-anthropic`. Actions follow the pattern `aws-external-anthropic:<Action>` (for example, `aws-external-anthropic:CreateInference`).
 
+Every principal that calls the API, with SigV4 or an API key, also needs permission for two AWS STS actions: `sts:GetWebIdentityToken` and `sts:TagGetWebIdentityToken`. The Claude Platform on AWS gateway calls STS as that principal to get a JWT it forwards to Anthropic (see [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation)). If either permission is missing, requests fail with a 403 `permission_error` whose message names the denied action, even when the `aws-external-anthropic` actions are granted.
+
+If the principal has the `AnthropicFullAccess`, `AnthropicLimitedAccess`, or `AnthropicReadOnlyAccess` AWS managed policy, or administrator access, it already has both actions. A custom policy must grant them, as the following example does. The example allows `sts:GetWebIdentityToken` only when the gateway makes the call and names one of Anthropic’s two audiences, as those managed policies do.
+
 ### Example: deny batch inference
 
 The following policy allows real-time inference while blocking batch processing:
@@ -1156,8 +1182,24 @@ The following policy allows real-time inference while blocking batch processing:
     },
     {
       "Effect": "Allow",
-      "Action": "aws-external-anthropic:ListWorkspaces",
+      "Action": ["aws-external-anthropic:ListWorkspaces", "sts:TagGetWebIdentityToken"],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "sts:GetWebIdentityToken",
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringEquals": {
+          "sts:IdentityTokenAudience": [
+            "https://api.anthropic.com",
+            "https://platform.claude.com"
+          ]
+        },
+        "StringEquals": {
+          "aws:CalledViaLast": "aws-external-anthropic.amazonaws.com"
+        }
+      }
     },
     {
       "Effect": "Deny",
@@ -1177,7 +1219,7 @@ The `GetBatchInference` action authorizes both the batch metadata route and the 
 <Note>
   `ListWorkspaces` is account-scoped, so it appears in a separate Allow statement with `"Resource": "*"`. Specifying a workspace ARN on an account-scoped action has no effect (see [Provisioning automation](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#provisioning-automation)).
 
-  This policy assumes AWS SigV4 authentication. If the principal authenticates with an API key, also add `aws-external-anthropic:CallWithBearerToken` to the `"Resource": "*"` Allow statement. `CallWithBearerToken` is a route-less authentication-layer action that does not bind to a workspace ARN. See [Per-customer workspace isolation](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#per-customer-workspace-isolation) for the two-statement pattern.
+  This policy assumes AWS SigV4 authentication. If the principal authenticates with an API key, also add `aws-external-anthropic:CallWithBearerToken` to the `"Resource": "*"` Allow statement that holds `ListWorkspaces`. `CallWithBearerToken` is a route-less authentication-layer action that does not bind to a workspace ARN. See [Per-customer workspace isolation](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#per-customer-workspace-isolation) for a policy that grants it.
 </Note>
 
 ### Managed policies

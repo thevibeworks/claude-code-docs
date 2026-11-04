@@ -15,21 +15,21 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ## Parameters
 
-- `include_archived: bool` (query parameter)
+- `include_archived: optional bool` (query parameter)
 
   Whether to include archived tunnels in the results. Defaults to false.
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque pagination cursor from a previous `list_tunnels` response.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
@@ -145,7 +145,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

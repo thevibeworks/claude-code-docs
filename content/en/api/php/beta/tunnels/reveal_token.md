@@ -19,11 +19,11 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   ID of the tunnel (`tnl_...`).
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

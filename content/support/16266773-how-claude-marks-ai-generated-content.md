@@ -12,7 +12,7 @@ What our marking commitments mean for Claude:
 
 - **Existing models are in progress.** The law includes a transition period for AI systems launched before August 2, 2026, and we’re working to add marking support for earlier Claude models. See **[Which Claude models support watermarking](#h_569d936489)** below.
 
-- **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
+- **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations consistent with our commitments under the EU Code of Practice (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It’s also available to enterprises that need to check marks on their own Claude outputs to meet their obligations under the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 More details about our marking plans are below.
 
@@ -26,7 +26,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 
 - **Models.** Claude models launched on or after August 2, 2026 support marking at launch, and we’re working to add marking support to other Claude models released before that date. See **[Which Claude models support watermarking](#h_569d936489)** below for the current list.
 
-- **Products.** Claude markings cover output from supported models everywhere you use Claude, including Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag. Embedded watermarks will apply to all generated text. Content Credentials (C2PA) will apply where Claude supports processing files.
+- **Products.** Claude markings cover output from supported models everywhere you use Claude, including Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag. Embedded watermarks will apply to all generated text by supported models. Content Credentials (C2PA) will apply where Claude supports processing files.
 
 - **Cloud partners.** When supported Claude models are accessed through AWS, Google Cloud, or Microsoft Foundry they will carry watermarks. Content Credentials (C2PA) are added when Claude creates a file, so it applies only where a platform offers Claude's file generation features: in the Claude apps and the Claude Platform (API), including Claude Platform on AWS and Claude in Microsoft Foundry.
 
@@ -39,19 +39,23 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Fable 5.1  | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Fable 5    | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5.1 | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Mythos 5   |                                                             |                                                                                    | ✅                                       |
+| Claude Mythos 5   | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Opus 5.5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 5     | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 4.8   | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |
+| Claude Opus 4.7   | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Opus 4.6   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.5   |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Sonnet 5   | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
+| Claude Sonnet 4.6 | ✅†                                                          | ✅\*†                                                                               | ✅                                       |
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
 | Claude Haiku 5.5  | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
+
+* *Rollout on Amazon Bedrock will complete by November 10.*
+
+† *For Sonnet 4.6, outputs may not reliably carry the text watermark when `temperature`, `top_p`, or `top_k` is set to a non-default value.*
 
 Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
 
@@ -98,6 +102,8 @@ Machine-readable marks provide important signals about content, but it’s worth
   - A file’s metadata was stripped through format conversion, re-saving, screenshots, or other means;
 
   - It was produced through a platform, feature, or file type where a particular marking type wasn’t supported.
+
+  - It was generated by Claude Opus 4.6 or Claude Sonnet 4.6 with a non-default `temperature`, `top_p`, or `top_k`.
 
 ## If you build with Claude
 

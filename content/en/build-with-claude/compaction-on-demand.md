@@ -50,7 +50,7 @@ Send the conversation as it stands with `"compaction": {"type": "summarize"}`. T
   # max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-09-04" \
     -H "content-type: application/json" \
     -d '{

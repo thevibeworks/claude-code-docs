@@ -33,7 +33,7 @@ Create a Memory
 
   minLength: 2, maxLength: 1024
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -47,7 +47,7 @@ Create a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -163,7 +163,7 @@ Create a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -227,7 +227,7 @@ Create a Memory
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -276,7 +276,7 @@ List Memories
 
   The ID of the memory store to list memories from (`memstore_...`).
 
-- `depth: Integer` (query parameter)
+- `depth: optional Integer` (query parameter)
 
   How far below `path_prefix` to list. Defaults to `0`, which lists every memory below the prefix.
 
@@ -284,7 +284,7 @@ List Memories
 
   format: int32
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   The maximum number of items to return per page, from 1 to 100. Defaults to 20.
 
@@ -292,17 +292,17 @@ List Memories
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `path_prefix: String` (query parameter)
+- `path_prefix: optional String` (query parameter)
 
   Return only memories whose path starts with this prefix, such as `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
   Omit it to list the whole store. The prefix must end with `/` and matches whole segments, so `/notes/` matches `/notes/todo.md` but not `/notes-archive/todo.md`.
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether each memory in the response includes `content`. Defaults to `basic`, which sets it to `null`.
 
@@ -316,7 +316,7 @@ List Memories
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -432,7 +432,7 @@ List Memories
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -500,7 +500,7 @@ List Memories
 
       format: date-time
 
-    - `content: String`
+    - `content: optional String`
 
       The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -570,7 +570,7 @@ Retrieve a Memory
 
   The ID of the memory to retrieve (`mem_...`).
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -584,7 +584,7 @@ Retrieve a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -700,7 +700,7 @@ Retrieve a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -764,7 +764,7 @@ Retrieve a Memory
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -817,7 +817,7 @@ Update a Memory
 
   The ID of the memory to update (`mem_...`).
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -831,11 +831,11 @@ Update a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `content: String`
+- `content: optional String`
 
   New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
-- `path: String`
+- `path: optional String`
 
   The new path of the memory, which renames it. Omit it to keep the current path.
 
@@ -843,7 +843,7 @@ Update a Memory
 
   minLength: 2, maxLength: 1024
 
-- `precondition: BetaManagedAgentsPrecondition`
+- `precondition: optional BetaManagedAgentsPrecondition`
 
   The condition that the memory must meet for the update to apply. Omit it to update unconditionally.
 
@@ -851,11 +851,11 @@ Update a Memory
 
   - `type: :content_sha256`
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -971,7 +971,7 @@ Update a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1035,7 +1035,7 @@ Update a Memory
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -1088,13 +1088,13 @@ Delete a Memory
 
   The ID of the memory to delete (`mem_...`).
 
-- `expected_content_sha256: String` (query parameter)
+- `expected_content_sha256: optional String` (query parameter)
 
   Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
   If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -1210,7 +1210,7 @@ Delete a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1261,7 +1261,7 @@ puts(beta_managed_agents_deleted_memory)
 
   - `type: :conflict_error`
 
-  - `message: String`
+  - `message: optional String`
 
 ### Beta Managed Agents Content Sha256 Precondition
 
@@ -1273,7 +1273,7 @@ puts(beta_managed_agents_deleted_memory)
 
   - `type: :content_sha256`
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
 
@@ -1361,7 +1361,7 @@ puts(beta_managed_agents_deleted_memory)
 
     - `type: :memory_precondition_failed_error`
 
-    - `message: String`
+    - `message: optional String`
 
       A human-readable explanation of why the precondition failed.
 
@@ -1373,17 +1373,17 @@ puts(beta_managed_agents_deleted_memory)
 
     - `type: :memory_path_conflict_error`
 
-    - `conflicting_memory_id: String`
+    - `conflicting_memory_id: optional String`
 
       The ID of the memory that blocked the write (`mem_...`), or an empty string if that memory can't be identified.
 
       Retry the request when it is empty.
 
-    - `conflicting_path: String`
+    - `conflicting_path: optional String`
 
       The path that blocked the write: the requested path, or the path of a memory that is an ancestor or descendant of it.
 
-    - `message: String`
+    - `message: optional String`
 
       A human-readable explanation of the conflict. To handle the error in code, use `conflicting_path` and `conflicting_memory_id` instead.
 
@@ -1391,7 +1391,7 @@ puts(beta_managed_agents_deleted_memory)
 
     - `type: :conflict_error`
 
-    - `message: String`
+    - `message: optional String`
 
 ### Beta Managed Agents Memory
 
@@ -1451,7 +1451,7 @@ puts(beta_managed_agents_deleted_memory)
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -1519,7 +1519,7 @@ puts(beta_managed_agents_deleted_memory)
 
       format: date-time
 
-    - `content: String`
+    - `content: optional String`
 
       The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -1547,17 +1547,17 @@ puts(beta_managed_agents_deleted_memory)
 
   - `type: :memory_path_conflict_error`
 
-  - `conflicting_memory_id: String`
+  - `conflicting_memory_id: optional String`
 
     The ID of the memory that blocked the write (`mem_...`), or an empty string if that memory can't be identified.
 
     Retry the request when it is empty.
 
-  - `conflicting_path: String`
+  - `conflicting_path: optional String`
 
     The path that blocked the write: the requested path, or the path of a memory that is an ancestor or descendant of it.
 
-  - `message: String`
+  - `message: optional String`
 
     A human-readable explanation of the conflict. To handle the error in code, use `conflicting_path` and `conflicting_memory_id` instead.
 
@@ -1573,7 +1573,7 @@ puts(beta_managed_agents_deleted_memory)
 
   - `type: :memory_precondition_failed_error`
 
-  - `message: String`
+  - `message: optional String`
 
     A human-readable explanation of why the precondition failed.
 
@@ -1615,6 +1615,6 @@ puts(beta_managed_agents_deleted_memory)
 
   - `type: :content_sha256`
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.

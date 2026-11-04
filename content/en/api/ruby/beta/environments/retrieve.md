@@ -15,7 +15,7 @@ Retrieve a specific environment by ID.
 
 - `environment_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -131,7 +131,7 @@ Retrieve a specific environment by ID.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -203,7 +203,7 @@ Retrieve a specific environment by ID.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -259,7 +259,7 @@ Retrieve a specific environment by ID.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 

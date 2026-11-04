@@ -19,19 +19,19 @@ Update a Memory Store
 
   The request fails with HTTP status 400 if the store is archived.
 
-- `description: String`
+- `description: optional String`
 
   New description for the store, up to 1,024 characters. Pass an empty string to clear it.
 
   maxLength: 1024
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   Changes to apply to the memory store's metadata. Keys you leave out keep their values.
 
   Set a key to a string to add or replace it, or to `null` to remove it. After the change, the metadata can hold at most 16 key-value pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `name: String`
+- `name: optional String`
 
   The new name of the memory store, 1 to 255 characters long, without control characters.
 
@@ -39,7 +39,7 @@ Update a Memory Store
 
   minLength: 1, maxLength: 255
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -155,7 +155,7 @@ Update a Memory Store
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

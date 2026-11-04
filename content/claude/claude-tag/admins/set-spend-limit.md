@@ -33,7 +33,7 @@ Slack users can work with Claude in channels [without holding a Claude seat](htt
 
 ## Set the spend limit
 
-Not every organization sees this page. A trial organization that hasn't enabled usage billing, a single-seat Team plan, an organization with a hybrid desktop deployment, or an admin whose role can't view billing is redirected to personal usage settings instead. If your organization bills through a reseller, the page is not available and these steps don't apply; your organization's usage is funded through the reseller instead.
+Not every organization sees this page. A trial organization that hasn't enabled usage billing, a single-seat Team plan, or an admin whose role can't view billing is redirected to personal usage settings instead. An organization with a hybrid desktop deployment is redirected to personal settings. If your organization bills through a reseller, the page is not available and these steps don't apply; your organization's usage is funded through the reseller instead.
 
 **1. Open the usage page**
 

@@ -15,47 +15,47 @@ List Deployment Runs
 
 ### Parameters
 
-- `createdAtGt?:optional \Datetime` (query parameter)
+- `createdAtGt?: optional \Datetime` (query parameter)
 
   Return runs created strictly after this time (exclusive).
 
-- `createdAtGte?:optional \Datetime` (query parameter)
+- `createdAtGte?: optional \Datetime` (query parameter)
 
   Return runs created at or after this time (inclusive).
 
-- `createdAtLt?:optional \Datetime` (query parameter)
+- `createdAtLt?: optional \Datetime` (query parameter)
 
   Return runs created strictly before this time (exclusive).
 
-- `createdAtLte?:optional \Datetime` (query parameter)
+- `createdAtLte?: optional \Datetime` (query parameter)
 
   Return runs created at or before this time (inclusive).
 
-- `deploymentID?:optional string` (query parameter)
+- `deploymentID?: optional string` (query parameter)
 
   Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
 
-- `hasError?:optional bool` (query parameter)
+- `hasError?: optional bool` (query parameter)
 
   Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
-- `limit?:optional int` (query parameter)
+- `limit?: optional int` (query parameter)
 
   Maximum results per page. Default 20, maximum 1000.
 
-- `page?:optional string` (query parameter)
+- `page?: optional string` (query parameter)
 
   Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
-- `triggerType?:optional BetaManagedAgentsTriggerType` (query parameter)
+- `triggerType?: optional BetaManagedAgentsTriggerType` (query parameter)
 
   Filter runs by what triggered them. Omit to return all runs.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -169,11 +169,11 @@ Get Deployment Run
 
   Unique identifier of the deployment run.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

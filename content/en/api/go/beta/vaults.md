@@ -23,7 +23,7 @@ Create a Vault
 
     minLength: 1, maxLength: 255
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     Arbitrary key-value metadata to attach to the vault. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
@@ -175,7 +175,7 @@ Create a Vault
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 
@@ -402,7 +402,7 @@ List Vaults
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 
@@ -622,7 +622,7 @@ Retrieve a Vault
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 
@@ -699,7 +699,7 @@ Update a Vault
 
     minLength: 1, maxLength: 255
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -851,7 +851,7 @@ Update a Vault
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 
@@ -1256,7 +1256,7 @@ Archive a Vault
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 
@@ -1353,7 +1353,7 @@ func main() {
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 
@@ -1553,7 +1553,7 @@ Create a Credential
 
     maxLength: 255
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
@@ -1815,7 +1815,7 @@ Create a Credential
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the credential.
 
@@ -2178,7 +2178,7 @@ List Credentials
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the credential.
 
@@ -2529,7 +2529,7 @@ Retrieve a Credential
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the credential.
 
@@ -2755,7 +2755,7 @@ Update a Credential
 
     minLength: 1, maxLength: 255
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -3017,7 +3017,7 @@ Update a Credential
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the credential.
 
@@ -3557,7 +3557,7 @@ Archive a Credential
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the credential.
 

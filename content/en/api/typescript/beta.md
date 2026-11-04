@@ -33572,7 +33572,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaEnvironment = await client.beta.environments.update("env_011CZkZ9X2dpNyB7HsEFoRfW");
+const betaEnvironment = await client.beta.environments.update(
+  "env_011CZkZ9X2dpNyB7HsEFoRfW",
+  {}
+);
 
 console.log(betaEnvironment.id);
 ```
@@ -43695,7 +43698,8 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsSession = await client.beta.sessions.update(
-  "sesn_011CZkZAtmR3yMPDzynEDxu7"
+  "sesn_011CZkZAtmR3yMPDzynEDxu7",
+  {}
 );
 
 console.log(betaManagedAgentsSession.id);
@@ -67487,7 +67491,8 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsDeployment = await client.beta.deployments.update(
-  "depl_011CZkZcDH3vPqd7xnEfwTai"
+  "depl_011CZkZcDH3vPqd7xnEfwTai",
+  {}
 );
 
 console.log(betaManagedAgentsDeployment.id);
@@ -71889,7 +71894,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsVault = await client.beta.vaults.update("vlt_011CZkZDLs7fYzm1hXNPeRjv");
+const betaManagedAgentsVault = await client.beta.vaults.update(
+  "vlt_011CZkZDLs7fYzm1hXNPeRjv",
+  {}
+);
 
 console.log(betaManagedAgentsVault.id);
 ```
@@ -75702,7 +75710,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsMemoryStore = await client.beta.memoryStores.update("memory_store_id");
+const betaManagedAgentsMemoryStore = await client.beta.memoryStores.update(
+  "memory_store_id",
+  {}
+);
 
 console.log(betaManagedAgentsMemoryStore.id);
 ```
@@ -81858,7 +81869,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaUserProfile = await client.beta.userProfiles.create();
+const betaUserProfile = await client.beta.userProfiles.create({});
 
 console.log(betaUserProfile.id);
 ```
@@ -82917,7 +82928,8 @@ const client = new Anthropic({
 });
 
 const betaUserProfile = await client.beta.userProfiles.update(
-  "uprof_011CZkZCu8hGbp5mYRQgUmz9"
+  "uprof_011CZkZCu8hGbp5mYRQgUmz9",
+  {}
 );
 
 console.log(betaUserProfile.id);
@@ -85977,7 +85989,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaTunnel = await client.beta.tunnels.create();
+const betaTunnel = await client.beta.tunnels.create({});
 
 console.log(betaTunnel.id);
 ```
@@ -86959,7 +86971,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaTunnelToken = await client.beta.tunnels.rotateToken("tunnel_id");
+const betaTunnelToken = await client.beta.tunnels.rotateToken("tunnel_id", {});
 
 console.log(betaTunnelToken.id);
 ```
@@ -88445,7 +88457,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaAPIKey = await client.beta.organization.apiKeys.update("api_key_id");
+const betaAPIKey = await client.beta.organization.apiKeys.update("api_key_id", {});
 
 console.log(betaAPIKey.id);
 ```
@@ -89242,7 +89254,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaExternalKey = await client.beta.organization.externalKeys.update("external_key_id");
+const betaExternalKey = await client.beta.organization.externalKeys.update(
+  "external_key_id",
+  {}
+);
 
 console.log(betaExternalKey.id);
 ```
@@ -90813,7 +90828,8 @@ const client = new Anthropic({
 });
 
 const betaFederationIssuer = await client.beta.organization.federation.issuers.update(
-  "federation_issuer_id"
+  "federation_issuer_id",
+  {}
 );
 
 console.log(betaFederationIssuer.id);
@@ -92634,7 +92650,8 @@ const client = new Anthropic({
 });
 
 const betaFederationRule = await client.beta.organization.federation.rules.update(
-  "federation_rule_id"
+  "federation_rule_id",
+  {}
 );
 
 console.log(betaFederationRule.id);
@@ -95084,7 +95101,8 @@ const client = new Anthropic({
 });
 
 const betaServiceAccount = await client.beta.organization.serviceAccounts.update(
-  "service_account_id"
+  "service_account_id",
+  {}
 );
 
 console.log(betaServiceAccount.id);
@@ -97228,7 +97246,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaWorkspace = await client.beta.organization.workspaces.update("workspace_id");
+const betaWorkspace = await client.beta.organization.workspaces.update("workspace_id", {});
 
 console.log(betaWorkspace.id);
 ```
@@ -107333,7 +107351,8 @@ const client = new Anthropic({
 
 const betaSpendLimitIncreaseRequest =
   await client.beta.organization.spendLimits.increaseRequests.deny(
-    "spend_limit_increase_request_id"
+    "spend_limit_increase_request_id",
+    {}
   );
 
 console.log(betaSpendLimitIncreaseRequest.id);
@@ -107760,7 +107779,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaRBACGroup = await client.beta.organization.rbacGroups.update("rbac_group_id");
+const betaRBACGroup = await client.beta.organization.rbacGroups.update("rbac_group_id", {});
 
 console.log(betaRBACGroup.id);
 ```
@@ -115693,7 +115712,8 @@ const client = new Anthropic({
 });
 
 const betaTelemetryDestination = await client.beta.organization.telemetryDestinations.update(
-  "destination_id"
+  "destination_id",
+  {}
 );
 
 console.log(betaTelemetryDestination.id);
@@ -117634,7 +117654,8 @@ const client = new Anthropic({
 });
 
 const betaOrganizationWebhookEndpoint = await client.beta.organization.webhooks.update(
-  "webhook_endpoint_id"
+  "webhook_endpoint_id",
+  {}
 );
 
 console.log(betaOrganizationWebhookEndpoint.id);

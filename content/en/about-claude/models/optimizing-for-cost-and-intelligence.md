@@ -49,11 +49,13 @@ Prompt caching, token hygiene, batch processing, and a prompt audit against your
 
 #### Why caching comes first
 
-Turn on [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) before any other lever, because every turn of an agentic task resends the entire growing conversation: system prompt, tool definitions, and every prior turn.
+Turn on [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) before any other lever, because by default every turn of an agentic task resends the entire growing conversation: system prompt, tool definitions, and every prior turn.
 
 * A 40-turn task sends its first turn 40 times, so task cost grows with roughly the square of turn count.
 * Caching does not stop the resending, but each resend costs about a tenth as much (a twentieth on Claude Opus 5.5 and Claude Sonnet 5.5, a fortieth on Claude Fable 5.1 and Claude Mythos 5.1) and processes faster.
 * The prefix is billed at the [cache-read rate](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing) instead of the input price, and each turn pays the 1.25x cache-write rate only for what is new.
+
+[Message threads](https://platform.claude.com/docs/en/build-with-claude/message-threads), in beta, stop the resending while a thread lasts, until 5 minutes after its last request. They lower time to first token, not cost: the model still reads the whole conversation, so keep `cache_control` on every request. Threads don’t support compaction or most context editing.
 
 **What good looks like.**
 
@@ -168,7 +170,7 @@ A `max_tokens: 0` request is rejected in the following cases:
   jq '.max_tokens = 0 | del(.stream)' last_request.json | \
     curl https://api.anthropic.com/v1/messages \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
+      -H "anthropic-version: 2026-10-21" \
       -H "content-type: application/json" \
       --data-binary @-
   ```
@@ -312,7 +314,7 @@ def prune_task_boundary(messages, tool_name_by_id, threshold=2000):
 Route every request no one is waiting on through the [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing), and keep the interactive path for the rest. The Batch API takes 50% off every token of a request, including cached ones, in exchange for results arriving any time within 24 hours.
 
 * Batching is the second-largest free lever after caching for unattended agent work: evaluation runs, backfills, and scheduled jobs such as a recurring run of the issue-triage agent from the [token-trimming measurement](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#trim-input-and-context-tokens).
-* Batching combines with most of this page, but not with [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) or Claude Managed Agents sessions (see [Claude Managed Agents pricing](https://platform.claude.com/docs/en/about-claude/pricing#claude-managed-agents-pricing)).
+* Batching combines with most of this page, but not with [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode), message threads, or Claude Managed Agents sessions (see [Claude Managed Agents pricing](https://platform.claude.com/docs/en/about-claude/pricing#claude-managed-agents-pricing)).
 
 ### Audit prompts against the current model
 

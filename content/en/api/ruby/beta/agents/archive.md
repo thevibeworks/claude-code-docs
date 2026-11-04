@@ -17,7 +17,7 @@ Archive Agent
 
   Unique identifier of the agent to archive.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -133,7 +133,7 @@ Archive Agent
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -273,7 +273,7 @@ Archive Agent
 
       - `String = String`
 
-    - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+    - `effort: optional BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 
       How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
@@ -307,11 +307,11 @@ Archive Agent
 
         - `type: :max`
 
-    - `inference_geo: String`
+    - `inference_geo: optional String`
 
       Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
-    - `speed: :standard | :fast`
+    - `speed: optional :standard | :fast`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -755,11 +755,11 @@ Archive Agent
 
                 This source contributes no URLs that may be fetched.
 
-          - `allowed_domains: Array[String]`
+          - `allowed_domains: optional Array[String]`
 
-          - `blocked_domains: Array[String]`
+          - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: Integer`
+          - `max_content_tokens: optional Integer`
 
             format: int32
 
@@ -789,11 +789,11 @@ Archive Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `allowed_domains: Array[String]`
+          - `allowed_domains: optional Array[String]`
 
-          - `blocked_domains: Array[String]`
+          - `blocked_domains: optional Array[String]`
 
-          - `user_location: BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation`
 
             Approximate user location for search result localization.
 
@@ -801,23 +801,23 @@ Archive Agent
 
               Location precision. Only "approximate" is supported.
 
-            - `city: String`
+            - `city: optional String`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: String`
+            - `country: optional String`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
-            - `region: String`
+            - `region: optional String`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: String`
+            - `timezone: optional String`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -909,9 +909,9 @@ Archive Agent
 
         - `type: :object`
 
-        - `properties: Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped]`
 
-        - `required: Array[String]`
+        - `required: optional Array[String]`
 
       - `name: String`
 

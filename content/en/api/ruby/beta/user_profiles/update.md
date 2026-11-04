@@ -17,7 +17,7 @@ Update User Profile
 
   The ID of the user profile to update (`uprof_...`).
 
-- `access_type: :application | :passthrough`
+- `access_type: optional :application | :passthrough`
 
   If present, replaces the stored access type. Omit to leave unchanged.
 
@@ -29,17 +29,17 @@ Update User Profile
 
     The user profile represents a company that the platform resells Claude access to.
 
-- `external_id: String`
+- `external_id: optional String`
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Legacy field, accepted only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, send `external_user_details.reference_id`.
 
   minLength: 1, maxLength: 255
 
-- `external_user_details: BetaUserProfileExternalUserDetailsParams`
+- `external_user_details: optional BetaUserProfileExternalUserDetailsParams`
 
   Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Not accepted under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers.
 
-  - `account_status: :active | :suspended | :blocked`
+  - `account_status: optional :active | :suspended | :blocked`
 
     The status of the entity's account on the platform: `active`, `suspended` or `blocked`.
 
@@ -55,17 +55,17 @@ Update User Profile
 
       The platform has barred the account of the entity that the user profile represents.
 
-  - `country: String`
+  - `country: optional String`
 
     The country of the entity (not of the platform), as the platform determines it: an ISO 3166-1 alpha-2 code in upper case, for example `US`. Only the form, two uppercase ASCII letters, is checked.
 
-  - `email_hash: String`
+  - `email_hash: optional String`
 
     A hash of the entity's email address, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
 
     minLength: 1, maxLength: 255
 
-  - `entity_type: :individual | :business | :non_profit | :government`
+  - `entity_type: optional :individual | :business | :non_profit | :government`
 
     What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`.
 
@@ -77,41 +77,41 @@ Update User Profile
 
     - `:government`
 
-  - `name_hash: String`
+  - `name_hash: optional String`
 
     A hash of the entity's name, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
 
     minLength: 1, maxLength: 255
 
-  - `onboarded_at: Time`
+  - `onboarded_at: optional Time`
 
     When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future.
 
     format: date-time
 
-  - `reference_id: String`
+  - `reference_id: optional String`
 
     The platform's own reference for the entity, for example the key of the end-user's row in the platform's database. Not interpreted by Anthropic and not enforced unique. 1 to 255 characters.
 
     minLength: 1, maxLength: 255
 
-- `external_user_onboarded_at: Time`
+- `external_user_onboarded_at: optional Time`
 
   If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Legacy field, accepted only under the `user-profiles-2026-08-18` beta header; without a legacy header, send `external_user_details.onboarded_at`.
 
   format: date-time
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
 
-- `name: String`
+- `name: optional String`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
   minLength: 1, maxLength: 255
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -227,7 +227,7 @@ Update User Profile
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -283,7 +283,7 @@ Update User Profile
 
     format: date-time
 
-  - `access_type: :application | :passthrough`
+  - `access_type: optional :application | :passthrough`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
@@ -295,11 +295,11 @@ Update User Profile
 
       The user profile represents a company that the platform resells Claude access to.
 
-  - `external_id: String`
+  - `external_id: optional String`
 
     Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
-  - `external_user_details: BetaUserProfileExternalUserDetails`
+  - `external_user_details: optional BetaUserProfileExternalUserDetails`
 
     Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
@@ -353,7 +353,7 @@ Update User Profile
 
       The platform's own reference for the entity. `null` until the platform supplies one.
 
-  - `external_user_onboarded_at: Time`
+  - `external_user_onboarded_at: optional Time`
 
     When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 

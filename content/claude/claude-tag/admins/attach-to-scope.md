@@ -41,7 +41,9 @@ A bundle applies nowhere until you add places to it. A place is **Slack**, a wor
 * **From the bundle's page**: on the **Bundles** tab, open the bundle. Under **Where it applies**, turn on the switch for **Slack** or for a workspace, or select **Add place**, pick a channel under **Where**, and select **Add**. Then select **Save changes**.
 * **From a workspace's or channel's page**: on the **Channels** tab, open the page, select **Add** under **Claude's access**, choose **Bundle**, and pick the bundle.
 
-To stop a bundle applying somewhere, open the bundle's page and turn off that place's switch under **Where it applies**. For a workspace or channel, you can instead choose **Remove from bundle** from its row menu. Then select **Save changes**. A workspace's or channel's page lists the bundles that reach it, and each links to the bundle's page, but the page itself doesn't remove them.
+To stop a bundle applying somewhere, open the bundle's page and turn off that place's switch under **Where it applies**. For a workspace or channel, you can instead choose **Remove from bundle** from its row menu. Then select **Save changes**.
+
+You can also remove a bundle on a workspace's or channel's own page when the bundle was added to that place directly, from either page. Under **Claude's access**, open the bundle's row menu and select **Remove from** followed by the place's name. The bundle comes off at once.
 
 The change takes full effect in new threads only. A thread already running keeps the skills, plugins, and custom instructions it started with. A connector added after a thread started still works there if you ask Claude to use the service by name. Test with a new top-level thread after changing where a bundle applies. See [What survives between replies](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies).
 
@@ -195,9 +197,9 @@ By default, anyone in a channel who is also a member of your Claude organization
 | :- | :- |
 | **Inherit** | Follow the parent scope's setting |
 | **Allow** | Members can edit channel instructions from the Configure link |
-| **Block** | Members can't change channel instructions, the channel's default model, or its [**Respond automatically**](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting |
+| **Block** | Members can't change channel instructions, the channel's default model, or its [**How Claude participates**](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting |
 
-A chain of scopes that all inherit resolves to **Allow**. Set **Block** on a workspace's page or on the **Slack** page to lock channel instructions across every channel beneath it. A [channel manager](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) can still edit instructions, change the default model, and switch the **Respond automatically** toggle from the Configure page in a channel assigned to them when **Block** is set.
+A chain of scopes that all inherit resolves to **Allow**. Set **Block** on a workspace's page or on the **Slack** page to lock channel instructions across every channel beneath it. A [channel manager](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) can still edit instructions, change the default model, and change **How Claude participates** from the Configure page in a channel assigned to them when **Block** is set.
 
 ## Verify the bundle is live
 

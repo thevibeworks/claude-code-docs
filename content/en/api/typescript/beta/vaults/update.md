@@ -198,7 +198,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsVault = await client.beta.vaults.update("vlt_011CZkZDLs7fYzm1hXNPeRjv");
+const betaManagedAgentsVault = await client.beta.vaults.update(
+  "vlt_011CZkZDLs7fYzm1hXNPeRjv",
+  {}
+);
 
 console.log(betaManagedAgentsVault.id);
 ```

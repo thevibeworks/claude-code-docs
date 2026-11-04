@@ -42,7 +42,7 @@ Anyone in the channel can save, read, and correct memory by talking to Claude di
 
 ### Make an instruction stick
 
-Memory is a curated note, not a transcript. To make something permanent, say so explicitly:
+Claude decides what to save, so it may not keep something you said in passing. To make something permanent, say so explicitly:
 
 ```text wrap theme={null}
 @Claude remember for this channel: changes go to acme/data-pipeline, never acme/website, and run the lint check before opening any pull request.

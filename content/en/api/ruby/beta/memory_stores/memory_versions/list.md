@@ -17,23 +17,23 @@ List Memory Versions
 
   The ID of the memory store whose version history to list (`memstore_...`).
 
-- `api_key_id: String` (query parameter)
+- `api_key_id: optional String` (query parameter)
 
   Return only versions written with the API key that has this ID.
 
-- `created_at_gte: Time` (query parameter)
+- `created_at_gte: optional Time` (query parameter)
 
   Return versions created at or after this time (inclusive).
 
   format: date-time
 
-- `created_at_lte: Time` (query parameter)
+- `created_at_lte: optional Time` (query parameter)
 
   Return versions created at or before this time (inclusive).
 
   format: date-time
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   The maximum number of versions to return per page, from 1 to 100. Defaults to 20.
 
@@ -41,13 +41,13 @@ List Memory Versions
 
   format: int32
 
-- `memory_id: String` (query parameter)
+- `memory_id: optional String` (query parameter)
 
   Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. While that memory's versions are retained, the results include the version whose `operation` is `deleted`.
 
-- `operation: BetaManagedAgentsMemoryVersionOperation` (query parameter)
+- `operation: optional BetaManagedAgentsMemoryVersionOperation` (query parameter)
 
   Return only versions that record this kind of change.
 
@@ -63,19 +63,19 @@ List Memory Versions
 
     The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `service_account_id: String` (query parameter)
+- `service_account_id: optional String` (query parameter)
 
   Return only versions written by the service account with this ID (`svac_...`).
 
-- `session_id: String` (query parameter)
+- `session_id: optional String` (query parameter)
 
   Return only versions written by the session with this ID.
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -89,7 +89,7 @@ List Memory Versions
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -205,7 +205,7 @@ List Memory Versions
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -261,21 +261,21 @@ List Memory Versions
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: Integer`
+  - `content_size_bytes: optional Integer`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
     format: int32
 
-  - `created_by: BetaManagedAgentsActor`
+  - `created_by: optional BetaManagedAgentsActor`
 
     Who made this change to the memory, or `null` if the author wasn't recorded.
 
@@ -331,11 +331,11 @@ List Memory Versions
 
         minLength: 1
 
-  - `path: String`
+  - `path: optional String`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: Time`
+  - `redacted_at: optional Time`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -345,7 +345,7 @@ List Memory Versions
 
     format: date-time
 
-  - `redacted_by: BetaManagedAgentsActor`
+  - `redacted_by: optional BetaManagedAgentsActor`
 
     Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 

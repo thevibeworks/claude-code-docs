@@ -94,7 +94,7 @@ The **Claude Tag version** setting is on the page's **Advanced** tab and is unav
 | Label | Effect |
 | :- | :- |
 | **New** | Claude Tag. Bundles, skills, and custom instructions apply |
-| **Legacy** | The earlier per-user Claude in Slack. In channels it replies only with a retirement notice, and you can't switch a scope to it; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) |
+| **Legacy (disabled)** | The earlier per-user Claude in Slack. In channels it replies only with a retirement notice. The option is listed only on a scope that's still set to it on its own page; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) |
 | **Inherit** | Use the parent's value. Not shown on the **Slack** page |
 
 Turning off **Respond in all channels** doesn't stop Claude in a workspace or channel whose own enable switch is on. On the Enterprise plan, launching setup for a single workspace turns on that workspace's enable switch, so Claude keeps responding in that workspace. The switch is at the top of the **General** tab on the **Slack** page, which sets the default for every workspace and channel. Direct messages from members who have connected a Claude account are unaffected.
@@ -121,7 +121,7 @@ On the [Team plan](https://claude.com/pricing), one switch turns Claude on or of
 
 On the Enterprise plan, and in a Team organization whose Slack configuration can't be expressed as one on-or-off choice, the **Slack** page shows **Respond in all channels** instead, and each workspace and channel page has its own enable switch and **Claude Tag version** setting. A Team organization gets those controls when any of these is true:
 
-* The **Slack** page, a workspace, or a channel is set to **Legacy**
+* The **Slack** page, a workspace, or a channel is set to **Legacy (disabled)**
 * A workspace or channel is set to **New** on its own page
 * A channel is switched off on its own page
 * A bundle or connector is added directly to a channel

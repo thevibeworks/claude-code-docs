@@ -23,7 +23,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   ID of the certificate to archive (`tcrt_...`).
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
@@ -139,7 +139,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

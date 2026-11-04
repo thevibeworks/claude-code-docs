@@ -368,7 +368,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaUserProfile = await client.beta.userProfiles.create();
+const betaUserProfile = await client.beta.userProfiles.create({});
 
 console.log(betaUserProfile.id);
 ```
@@ -1427,7 +1427,8 @@ const client = new Anthropic({
 });
 
 const betaUserProfile = await client.beta.userProfiles.update(
-  "uprof_011CZkZCu8hGbp5mYRQgUmz9"
+  "uprof_011CZkZCu8hGbp5mYRQgUmz9",
+  {}
 );
 
 console.log(betaUserProfile.id);

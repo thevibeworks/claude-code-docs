@@ -17,55 +17,55 @@ Update Agent
 
   Unique identifier of the agent to update.
 
-- `description?:optional string`
+- `description?: optional string`
 
   Description. Omit to preserve; send empty string or null to clear.
 
-- `executionIdentity?:optional BetaManagedAgentsExecutionIdentityParams`
+- `executionIdentity?: optional BetaManagedAgentsExecutionIdentityParams`
 
   Execution principal for runs of this agent. Full replacement. Omit to preserve; send null or `{"type": "service_account"}` to restore the default.
 
-- `mcpServers?:optional list<BetaManagedAgentsURLMCPServerParams>`
+- `mcpServers?: optional list<BetaManagedAgentsURLMCPServerParams>`
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=php).
 
-- `metadata?:optional array<string,string>`
+- `metadata?: optional array<string,string>`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
-- `model?:optional Model`
+- `model?: optional Model`
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=php#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
-- `multiagent?:optional BetaManagedAgentsMultiagentParams`
+- `multiagent?: optional BetaManagedAgentsMultiagentParams`
 
   Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
-- `name?:optional string`
+- `name?: optional string`
 
   Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
-- `skills?:optional list<BetaManagedAgentsSkillParams>`
+- `skills?: optional list<BetaManagedAgentsSkillParams>`
 
   Skills. Full replacement. Omit to preserve; send empty array or null to clear.
 
-- `system?:optional string`
+- `system?: optional string`
 
   System prompt. Omit to preserve; send empty string or null to clear.
 
-- `tools?:optional list<Tool>`
+- `tools?: optional list<Tool>`
 
   Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
-- `version?:optional int`
+- `version?: optional int`
 
   The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

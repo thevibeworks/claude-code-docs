@@ -197,7 +197,7 @@ The Claude SDK can read the JWT-SVID from the file that spiffe-helper maintains 
 
       curl https://api.anthropic.com/v1/messages \
         -H "authorization: Bearer $ACCESS_TOKEN" \
-        -H "anthropic-version: 2023-06-01" \
+        -H "anthropic-version: 2026-10-21" \
         -H "content-type: application/json" \
         -d '{
           "model": "claude-opus-5-5",

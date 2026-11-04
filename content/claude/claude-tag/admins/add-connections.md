@@ -138,7 +138,7 @@ When someone else holds a service's secret, send them a setup link instead of co
 
 > [!NOTE]
 >
-> Setup links work for the Bearer and Basic credential types. For other types the button is unavailable.
+> Setup links work for the Bearer and Basic credential types and can't carry path prefixes. For other types, or when the credential has path prefixes, the button is unavailable. To limit a credential a teammate submits through a setup link to specific paths, [restrict it by path](#restrict-by-path-or-method) after you approve it.
 
 After the teammate submits the credential, it waits for your approval. Go to [**Notifications**](https://claude.ai/admin-settings/notifications) in admin settings, open the **Requests** tab, and click **Review** on the **Approval needed** row. Then click **Approve** or **Reject**. The credential becomes active only after you approve it.
 
@@ -235,6 +235,11 @@ Use the bundle's **Instructions** section for guidance that should travel with i
 ### Why create more than one bundle
 
 Multiple bundles let you grant access by capability and compose it per channel. For example, with separate `data-readonly`, `github-write`, and `monitoring` bundles, `#platform-eng` gets all three, `#gtm-analytics` gets only `data-readonly`, and `#incidents` gets `monitoring` plus `github-write`. Each credential is defined once, so rotating a Datadog key means editing one bundle without touching the others.
+
+A connector you add under a bundle's **What's in it** gets a new credential that belongs to that bundle. You can't pick a credential you already added on the **Connectors** tab or in another bundle. To use one credential in several places, set it up in one of these ways:
+
+* **In a bundle of its own**: add the connector to a bundle that holds nothing else, then add each place that needs the service under that bundle's **Where it applies**.
+* **On the Connectors tab**: [add the connector](#add-a-connector) there. A service's first credential is on in every workspace and channel as soon as you save it, so [choose its places under **Assign access**](#restrict-a-connector-to-some-channels) on the connector's page right after you save.
 
 ## Connect a service that isn't in the list
 

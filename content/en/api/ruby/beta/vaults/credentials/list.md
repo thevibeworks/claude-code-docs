@@ -17,21 +17,21 @@ List Credentials
 
   Identifier of the vault to list credentials for.
 
-- `include_archived: bool` (query parameter)
+- `include_archived: optional bool` (query parameter)
 
   Whether to include archived credentials in the results. Defaults to `false`.
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum number of credentials to return per page. Defaults to 20, maximum 100.
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   The `next_page` value from a previous [List Credentials](https://platform.claude.com/docs/en/api/beta/vaults/credentials/list?sdk_languages=ruby) response, to get the next page. Leave it out to get the first page.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -147,7 +147,7 @@ List Credentials
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -185,13 +185,13 @@ List Credentials
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: Time`
+      - `expires_at: optional Time`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -223,11 +223,11 @@ List Credentials
 
             - `type: :client_secret_post`
 
-        - `resource: String`
+        - `resource: optional String`
 
           OAuth resource indicator.
 
-        - `scope: String`
+        - `scope: optional String`
 
           OAuth scope for the refresh request.
 
@@ -305,7 +305,7 @@ List Credentials
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: String`
+  - `display_name: optional String`
 
     Human-readable name for the credential.
 

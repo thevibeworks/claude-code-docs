@@ -105,17 +105,17 @@ Anthropic offers several ways to work with Claude on real tasks; they reach the 
 | | Claude Tag | Cowork | Claude Code |
 | :- | :- | :- | :- |
 | Where | Slack channels | claude.ai chat | Your terminal or IDE |
-| Whose access | The team's: service-account credentials an admin sets per channel | Yours: your personal OAuth connectors | Yours: your local credentials and filesystem |
+| Whose access | The team's: service-account credentials an admin sets per channel, plus your [personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md) for your own tasks, with your approval | Yours: your personal OAuth connectors | Yours: your local credentials and filesystem |
 | Who sees the work | Everyone in the channel | Just you | Just you |
 | Best for | Shared work the team should see and steer | Personal research and drafting | Hands-on coding in your own checkout |
 
-The short version: **team work → Claude Tag; personal work → Cowork or Claude Code.** Claude Tag's connections authenticate the agent itself with service accounts, not any person. Personal connectors apply in a one-to-one Claude Tag DM, which runs on your own claude.ai account, the same way Cowork does.
+Claude Tag connectors authenticate the agent itself with service accounts, not any person. Personal connectors apply in a one-to-one Claude Tag DM, which runs on your own claude.ai account. Claude can also [use them in a channel](https://claude.com/docs/claude-tag/concepts/personal-connectors.md) for your own tasks, after you allow it.
 
 ## Key concepts
 
 Three ideas recur across this page and the rest of these docs.
 
-* **Agent identity**: in channels, Claude acts under its own service accounts that an admin provisions, not as the person who asked. What it can reach is set per channel, so everyone in a channel works with the same access. See [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md).
+* **Agent identity**: in channels, Claude acts under its own service accounts that an admin provisions, not as the person who asked. What it can reach is set per channel, so everyone in a channel works with the same access. Claude can also [use your personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md) there for your own tasks, after you allow it. See [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md).
 * **Scheduling and long-running work**: a task can run on a schedule, follow a pull request and act when it changes, or keep going across many turns in one thread. The same channel access applies whether a person or a schedule started it. See [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md).
 * **Memory**: Claude keeps notes for each channel, and the workspace notes it saves from public channels are read in every channel in the workspace. See [What Claude remembers](https://claude.com/docs/claude-tag/users/memory.md).
 
@@ -238,7 +238,7 @@ A running thread isn't told about configuration changes an admin makes after it 
 
 The channel's own session, the one that handles top-level messages outside any thread, lives longer than a thread's. Claude replaces it with a fresh one after about an hour with no activity in the channel or its threads, or when the channel's configuration has changed since the session started. Claude also replaces a session once it's about a day old, but waits until the channel and the threads it's working in have gone quiet. Channel memory and the channel's history are unaffected, so the only visible effect is that Claude no longer carries what the previous session had been working on.
 
-Claude also stops reading a channel's top-level messages once about 100 of them have arrived since it last posted or replied there. An `@Claude` mention in the channel starts it reading again; see [When Claude stops reading a channel](https://claude.com/docs/claude-tag/users/when-claude-responds.md#when-claude-stops-reading-a-channel). These thresholds are defaults and can change, so treat the numbers as approximate.
+Under **Respond automatically**, unless the channel is [attached to on-call](https://claude.com/docs/claude-tag/admins/setup-oncall.md), Claude also stops reading a channel's top-level messages and messages in threads it isn't part of once about 100 messages have arrived since it last posted or replied there. An `@Claude` mention in the channel starts it reading again; see [When Claude stops reading a channel](https://claude.com/docs/claude-tag/users/when-claude-responds.md#when-claude-stops-reading-a-channel). These thresholds are defaults and can change, so treat the numbers as approximate.
 
 ### Channel and workspace memory
 
@@ -258,12 +258,12 @@ One-to-one DMs are outside this picture; they run on your own account, as covere
 
 ## What admins can see of your conversations with Claude
 
-Admins have no page or export that shows the individual messages people send Claude.
+No page in Slack or in your organization's Claude Tag admin settings shows admins the individual messages people send Claude.
 
 * **Analytics:** the [analytics page](https://claude.ai/analytics/claude-tag) reports spend by channel and by kind of work
 * **Activity page:** the [**Activity** page](https://claude.com/docs/claude-tag/admins/audit.md) in Claude Tag admin settings, available to Owners, lists scheduled work, memory files, and network events
 * **Slack threads:** everyone in a channel can read the threads where Claude works, admins included
-* **Session transcripts:** Anthropic keeps a [transcript of each session](https://claude.com/docs/claude-tag/concepts/data-lifecycle.md#what-anthropic-stores)
+* **Session transcripts:** Anthropic keeps a [transcript of each session](https://claude.com/docs/claude-tag/concepts/data-lifecycle.md#what-anthropic-stores). On the Enterprise plan with the [Compliance API](https://platform.claude.com/docs/en/api/compliance) enabled, your organization can read session transcripts through that API. See [Delete data or request deletion](https://claude.com/docs/claude-tag/concepts/data-lifecycle.md#delete-data-or-request-deletion) for what the Compliance API can and can't do with Claude Tag sessions.
 
 ## Related resources
 

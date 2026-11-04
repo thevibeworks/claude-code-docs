@@ -249,7 +249,7 @@ Before running these examples, complete the steps in [Before making API calls](h
   curl "https://claude.googleapis.com/v1/projects/$ANTHROPIC_GOOGLE_CLOUD_PROJECT/locations/global/workspaces/$ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID/invoke/v1/messages" \
     -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
     -H "content-type: application/json" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -d '{
       "model": "claude-opus-5-5",
       "max_tokens": 1024,
@@ -500,35 +500,51 @@ Like the SDK client, the CLI doesn’t send requests for Claude Models on Google
 
 This section lists features that work on Claude Models on Google Cloud (Anthropic managed) and features that aren’t supported there. It doesn’t list every Claude API feature, and it doesn’t say whether an unlisted feature works.
 
-The following features work on Claude Models on Google Cloud (Anthropic managed) as they do on the Claude API:
+The Models API and the following features are available on Claude Models on Google Cloud (Anthropic managed):
 
-* **Fast mode:** [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) for Claude Opus 5.5.
+* [Advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) (Beta)
+* [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+  * [Custom Skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide#managing-custom-skills)
+  * [Pre-built Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#pre-built-agent-skills)
+* [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+* [Classifier refusals](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)
+  * [Client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) (Beta)
+  * [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (Beta)
+* [Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool)
+* [Custom tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools)
+* [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency)
+* [Effort](https://platform.claude.com/docs/en/build-with-claude/effort)
+  * [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (Beta)
+* [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode)
+* [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
+* [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) (Beta)
+  * [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) (Beta)
+* [Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool)
+  * [Memory tool helpers](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#implement-the-memory-handler) (Beta)
+* [Message streaming](https://platform.claude.com/docs/en/build-with-claude/streaming)
+* [Message threads](https://platform.claude.com/docs/en/build-with-claude/message-threads) (Beta)
+* [Mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages)
+  * [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) (Beta)
+  * [Turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (Beta)
+* [OpenTelemetry](https://platform.claude.com/docs/en/manage-claude/opentelemetry) (Beta)
+* [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support)
+* [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
+  * [1-hour duration](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration)
+  * [5-minute duration (default)](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#how-prompt-caching-works)
+  * [Automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching)
+* [SDK middleware](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware)
+* [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+  * [Typed structured output helpers](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#usage)
+* [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)
+  * [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost)
+  * [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking)
+* [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)
+* [Tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) (Beta)
+* [Vision (images)](https://platform.claude.com/docs/en/build-with-claude/vision)
+* [Web fetch tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool)
+* [Web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)
 
-* **Beta features:** If a beta is limited to selected organizations on the Claude API, the Anthropic organization that setup creates needs the same access.
-
-* **Tools:** [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), including:
-
-  * Web search
-  * Web fetch
-  * Code execution
-  * The memory tool
-  * The advisor tool
-  * The MCP connector
-
-* **Skills and files:** [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) and the [Files API](https://platform.claude.com/docs/en/build-with-claude/files).
-
-* **Model capabilities:**
-
-  * [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
-  * [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)
-  * [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking)
-  * [Effort](https://platform.claude.com/docs/en/build-with-claude/effort)
-  * [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)
-  * [Streaming](https://platform.claude.com/docs/en/build-with-claude/streaming)
-  * [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-  * [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)
-
-* **Batches and models:** The [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) and the Models API.
+If a beta feature is limited to selected organizations on the Claude API, the Anthropic organization that setup creates needs the same access.
 
 To turn the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) on or off for the Anthropic organization that setup creates, [open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console), go to **Settings > Compliance**, and use the **Compliance API** toggle.
 
@@ -536,15 +552,24 @@ Customer-managed encryption keys (CMEK) are available with Google Cloud KMS keys
 
 ### Claude Managed Agents
 
-[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) is available through Claude Models on Google Cloud (Anthropic managed), including the following:
+[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) is available through Claude Models on Google Cloud (Anthropic managed), including [sessions](https://platform.claude.com/docs/en/managed-agents/sessions) and the following features:
 
-* [Agents](https://platform.claude.com/docs/en/managed-agents/agent-setup)
-* [Environments](https://platform.claude.com/docs/en/managed-agents/environments)
-* [Sessions](https://platform.claude.com/docs/en/managed-agents/sessions)
-* [Credential vaults](https://platform.claude.com/docs/en/managed-agents/vaults)
-* [Memory stores](https://platform.claude.com/docs/en/managed-agents/memory)
-* [Scheduled deployments](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments)
-* [Self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes)
+* [Agent configurations](https://platform.claude.com/docs/en/managed-agents/agent-setup) (Beta)
+* [Cloud sandboxes](https://platform.claude.com/docs/en/managed-agents/environments) (Beta)
+* [Event deltas](https://platform.claude.com/docs/en/managed-agents/event-deltas) (Beta)
+* [GitHub access](https://platform.claude.com/docs/en/managed-agents/github) (Beta)
+* [Memory stores](https://platform.claude.com/docs/en/managed-agents/memory) (Beta)
+* [Multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) (Beta)
+  * [Dynamic workflows](https://platform.claude.com/docs/en/managed-agents/workflow-runs) (Beta)
+  * [Session threads](https://platform.claude.com/docs/en/managed-agents/session-threads) (Beta)
+* [Outcomes](https://platform.claude.com/docs/en/managed-agents/define-outcomes) (Beta)
+* [Permission policies](https://platform.claude.com/docs/en/managed-agents/permission-policies) (Beta)
+* [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking)
+* [Scheduled deployments](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments) (Beta)
+* [Self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) (Beta)
+* [Session budgets](https://platform.claude.com/docs/en/managed-agents/budgets) (Beta)
+* [Vaults](https://platform.claude.com/docs/en/managed-agents/vaults) (Beta)
+* [Web domain restrictions](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions) (Beta)
 
 Access is checked when a session or a deployment is created, not while it runs:
 
@@ -641,7 +666,7 @@ To move to Claude Models on Google Cloud (Anthropic managed), complete the follo
         -H "Authorization: Bearer $(gcloud auth print-access-token)" \
         -H "Content-Type: application/json" \
         -d '{
-          "anthropic_version": "vertex-2023-10-16",
+          "anthropic_version": "2026-10-21",
           "messages": [{"role": "user", "content": "Hey Claude!"}],
           "max_tokens": 100
         }'
@@ -740,7 +765,7 @@ To move to Claude Models on Google Cloud (Anthropic managed), complete the follo
       curl "https://claude.googleapis.com/v1/projects/$ANTHROPIC_GOOGLE_CLOUD_PROJECT/locations/global/workspaces/$ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID/invoke/v1/messages" \
         -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
         -H "content-type: application/json" \
-        -H "anthropic-version: 2023-06-01" \
+        -H "anthropic-version: 2026-10-21" \
         -d '{
           "model": "claude-opus-5-5",
           "max_tokens": 1024,

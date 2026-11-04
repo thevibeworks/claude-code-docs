@@ -21,43 +21,43 @@ Create Agent
 
   Human-readable name for the agent.
 
-- `description?:optional string`
+- `description?: optional string`
 
   Description of what the agent does.
 
-- `executionIdentity?:optional BetaManagedAgentsExecutionIdentityParams`
+- `executionIdentity?: optional BetaManagedAgentsExecutionIdentityParams`
 
   Execution principal for runs of this agent. Omitting it, sending null, or sending `{"type": "service_account"}` stores the default.
 
-- `mcpServers?:optional list<BetaManagedAgentsURLMCPServerParams>`
+- `mcpServers?: optional list<BetaManagedAgentsURLMCPServerParams>`
 
   MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=php).
 
-- `metadata?:optional array<string,string>`
+- `metadata?: optional array<string,string>`
 
   Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-- `multiagent?:optional BetaManagedAgentsMultiagentParams`
+- `multiagent?: optional BetaManagedAgentsMultiagentParams`
 
   Multiagent orchestration configuration.
 
-- `skills?:optional list<BetaManagedAgentsSkillParams>`
+- `skills?: optional list<BetaManagedAgentsSkillParams>`
 
   Skills available to the agent.
 
-- `system?:optional string`
+- `system?: optional string`
 
   System prompt for the agent.
 
-- `tools?:optional list<Tool>`
+- `tools?: optional list<Tool>`
 
   Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

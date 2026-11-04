@@ -82,7 +82,7 @@ A report arrives in the feedback channel, and nobody knows yet whether it's a bu
 @Claude a user reports that exports drop rows with empty dates. In acme/data-pipeline, is that a bug or intended behavior? If it's a bug, open a draft PR with a fix; if it's intended, explain here what the code does.
 ```
 
-For the full arc from a bug report to green CI, including a standing watch that triages a bug channel, see [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md). Because the prompt asks for either a fix or an explanation, the thread gets an answer even when the behavior turns out to be intended.
+Because the prompt asks for either a fix or an explanation, the thread gets an answer even when the behavior turns out to be intended. For more prompts that start from a bug report, see [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md).
 
 ### Hand off a change and follow its pull request in one message
 
@@ -122,7 +122,7 @@ Each session runs in an isolated sandbox with a standard set of preinstalled too
 
 > [card] [Fix bugs](https://claude.com/docs/claude-tag/users/use-cases/fix-bugs.md)
 >
-> The full arc from a bug report to a draft pull request and green CI
+> Prompts to fix a reported bug, watch a bug channel, and more
 
 > [card] [Set up routines](https://claude.com/docs/claude-tag/users/proactivity.md)
 >

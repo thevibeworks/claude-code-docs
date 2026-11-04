@@ -105,7 +105,7 @@ Deleting a conversation's session state file and working directory removes all o
 Inference credentials are handled according to how they're delivered:
 
 * **Managed configuration** (for example, `inferenceGatewayApiKey`, `inferenceBedrockBearerToken`): read from the OS preference store or registry at launch and held in memory. The app also writes resolved credentials to a small set of transient, owner-only files for its own session processes, described below.
-* **API keys saved in the in-app configuration window**: stored in the `configLibrary/` files, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows, GNOME Keyring or KWallet on Linux). Requires Claude Desktop 4.4212.0 or later, which also encrypts a key that an earlier version saved, the next time the app launches. See [Unreadable saved API keys](#unreadable-saved-api-keys).
+* **API keys saved in the in-app configuration window**: stored in the `configLibrary/` files, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows, GNOME Keyring or KWallet on Linux). Requires Claude Desktop 4.4212.0 or later, which also encrypts a key that an earlier version saved, at the next launch where secure storage is available. See [Unreadable saved API keys](#unreadable-saved-api-keys).
 * **OAuth tokens** (in-app Google sign-in, MCP servers with `oauth: true`): stored in the application-data directory, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows).
 * **Credential-helper output**: held in memory for `inferenceCredentialHelperTtlSec` seconds, then discarded and re-fetched.
 
@@ -125,7 +125,7 @@ Aside from these files, credentials delivered through managed configuration are 
 
 An encrypted API key can be decrypted only through the secure storage of the OS user account that saved it, so a copy of the `configLibrary/` files alone can't be decrypted elsewhere. Where that account's secure storage moves with the user, for example in a Windows roaming profile that carries the user's DPAPI keys, the key also decrypts on the other device.
 
-When Claude Desktop can't decrypt the key that its connection uses, it shows the banner **Claude can’t read your saved key** and doesn't start sessions. The saved file stays as it is.
+When Claude Desktop can't decrypt the key that its connection uses, it shows the banner **Claude can’t read your saved key** and doesn't start sessions. Connectors set in the same saved configuration aren't listed or started until the app can decrypt the key. The saved file stays as it is.
 
 Have the user enter the key again in the in-app configuration window, then restart the app, after any of these:
 
@@ -138,9 +138,11 @@ Have the user enter the key again in the in-app configuration window, then resta
 These cases call for something else:
 
 * **Windows profiles that don't keep the user's DPAPI keys between sign-ins**: the user has to enter the key at each sign-in, so deliver the key through managed configuration instead
-* **Secure storage that isn't available as the app launches**: a restart alone is enough. For example, this happens on Linux when the app starts at login before the keyring does, and on macOS when the user dismisses the keychain prompt.
+* **Secure storage that isn't available as the app launches**: have the user restart the app once secure storage is available. They don't need to enter the key again. For example, on Linux the app can start at login before the keyring does.
+* **A macOS keychain that the app can't access as it launches**: this happens, for example, when the user dismisses the keychain prompt. Have the user restart the app, and enter their password or click **Allow** if macOS asks. If the banner stays, have the user enter the key again.
+* **A key entered again while secure storage isn't available**: the app saves the key unencrypted and uses it after a restart. At the next launch where secure storage is available, the app encrypts the key, so a later launch without secure storage shows the banner again.
 * **Devices with no secure storage that the app can use**, such as Linux without GNOME Keyring or KWallet: the key stays unencrypted, and the configuration window shows **This key is saved unencrypted on this computer.** under the key
-* **Tools that read or write the `configLibrary/` files**: a tool that reads the key gets the encrypted value. A tool that writes an unencrypted key still works, and the app encrypts that key the next time it launches.
+* **Tools that read or write the `configLibrary/` files**: a tool that reads the key gets the encrypted value. A tool that writes an unencrypted key still works, and the app encrypts that key at the next launch where secure storage is available.
 
 ## Automatic deletion of idle sessions
 
@@ -188,7 +190,7 @@ The **Storage** window shows how much disk space Claude uses on the device. To o
 In the window, users can clean up their own inactive sessions on the device, except pinned ones:
 
 * **Chats and Cowork tasks**: the app deletes them, including runs of scheduled tasks. It also deletes their outputs and their copies of attached files in the [application-data directory](#where-data-lives). For a chat, the app also deletes the live artifacts (interactive pages) that Claude created in the chat. Other files stay, such as the live artifacts of a Cowork task or of a [home-screen conversation that is a Cowork session](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), the rest of `~/Claude/`, and files in folders that the user connected. The live artifacts of chats deleted before Claude Desktop 4.16336.0 stay too.
-* **Code sessions**: the app removes their [Git worktrees](https://code.claude.com/docs/en/worktrees) and, if the user chooses, deletes the sessions with their conversations
+* **Code sessions**: the app removes their [Git worktrees](https://code.claude.com/docs/en/worktrees) that have no uncommitted changes, except those it can't safely remove, such as a worktree that another session uses. It removes worktrees with uncommitted changes only if the user selects the **Also remove** checkbox, and then those changes are lost. If the user chooses, the app also deletes the sessions with their conversations, but not a session whose worktree stays.
 
 Users can't undo these deletions.
 

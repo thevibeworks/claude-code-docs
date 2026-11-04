@@ -73,7 +73,7 @@ Enable compaction by adding the `compact_20260112` strategy to `context_manageme
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -301,7 +301,7 @@ Configure when compaction triggers using the `trigger` parameter:
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -522,7 +522,7 @@ You can provide custom instructions through the `instructions` parameter. Custom
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -748,7 +748,7 @@ When enabled, the API returns a message with the `compaction` stop reason after 
   # for the full pause-and-continue flow. Single paused request:
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -1073,6 +1073,8 @@ When enabled, the API returns a message with the `compaction` stop reason after 
   puts response
   ```
 </CodeGroup>
+
+The API pauses even if no summary is generated. The `compaction` block’s `content` is then `null`, so keep the original messages when you continue. If safeguards block the summary, `content` is also `null` and the stop reason is `refusal` instead of `compaction`. [`stop_details`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#refusal) gives the policy category, if there is one. Continue the same way in both cases: look for the `compaction` block instead of testing `stop_reason`, as the [example that preserves recent messages](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#examples) does.
 
 #### Enforcing a total token budget
 
@@ -1656,6 +1658,8 @@ When the API receives a `compaction` block, all content blocks before it are ign
 * Keep the original messages in your list and let the API handle removing the compacted content
 * Manually drop the compacted messages and only include the compaction block onward
 
+If no summary is generated, the block’s `content` is `null` and the API ignores the block. Nothing is compacted, so keep the original messages.
+
 On Claude 5.1 and later models, thinking blocks from before a `compaction` block aren’t carried forward, so the summary is all the model has of that earlier work. If you write your own `instructions`, tell the model what the summary must retain; see [Tell the model what to preserve in compaction summaries](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#tell-the-model-what-to-preserve-in-compaction-summaries).
 
 ### Streaming
@@ -1666,7 +1670,7 @@ The compaction block streams differently from text blocks. You receive a `conten
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -2030,7 +2034,7 @@ To maximize cache hit rates, add a `cache_control` breakpoint at the end of your
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -2305,7 +2309,7 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
   ```bash cURL
   curl https://api.anthropic.com/v1/messages/count_tokens \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: compact-2026-01-12" \
     -H "content-type: application/json" \
     -d '{
@@ -2517,9 +2521,9 @@ Here’s a complete example of a long-running conversation with compaction:
 
 
   # Run a long conversation
-  print(chat("Help me build a Python web scraper"))
-  print(chat("Add support for JavaScript-rendered pages"))
-  print(chat("Now add rate limiting and error handling"))
+  print(chat("Briefly, help me build a Python web scraper"))
+  print(chat("Briefly, add support for JavaScript-rendered pages"))
+  print(chat("Briefly, add rate limiting and error handling"))
   # Continue calling chat() for as long as the conversation needs
   ```
 
@@ -2555,9 +2559,9 @@ Here’s a complete example of a long-running conversation with compaction:
   }
 
   // Run a long conversation
-  console.log(await chat("Help me build a Python web scraper"));
-  console.log(await chat("Add support for JavaScript-rendered pages"));
-  console.log(await chat("Now add rate limiting and error handling"));
+  console.log(await chat("Briefly, help me build a Python web scraper"));
+  console.log(await chat("Briefly, add support for JavaScript-rendered pages"));
+  console.log(await chat("Briefly, add rate limiting and error handling"));
   // Continue calling chat() for as long as the conversation needs
   ```
 
@@ -2565,9 +2569,9 @@ Here’s a complete example of a long-running conversation with compaction:
   AnthropicClient client = new();
   List<BetaMessageParam> messages = new();
 
-  Console.WriteLine(await Chat(client, messages, "Help me build a Python web scraper"));
-  Console.WriteLine(await Chat(client, messages, "Add support for JavaScript-rendered pages"));
-  Console.WriteLine(await Chat(client, messages, "Now add rate limiting and error handling"));
+  Console.WriteLine(await Chat(client, messages, "Briefly, help me build a Python web scraper"));
+  Console.WriteLine(await Chat(client, messages, "Briefly, add support for JavaScript-rendered pages"));
+  Console.WriteLine(await Chat(client, messages, "Briefly, add rate limiting and error handling"));
 
   static async Task<string> Chat(AnthropicClient client, List<BetaMessageParam> messages, string userMessage)
   {
@@ -2650,9 +2654,9 @@ Here’s a complete example of a long-running conversation with compaction:
   }
 
   func main() {
-  	fmt.Println(chat("Help me build a Python web scraper"))
-  	fmt.Println(chat("Add support for JavaScript-rendered pages"))
-  	fmt.Println(chat("Now add rate limiting and error handling"))
+  	fmt.Println(chat("Briefly, help me build a Python web scraper"))
+  	fmt.Println(chat("Briefly, add support for JavaScript-rendered pages"))
+  	fmt.Println(chat("Briefly, add rate limiting and error handling"))
   }
   ```
 
@@ -2665,9 +2669,9 @@ Here’s a complete example of a long-running conversation with compaction:
       private static final List<BetaMessageParam> messages = new ArrayList<>();
 
       public static void main(String[] args) {
-          System.out.println(chat("Help me build a Python web scraper"));
-          System.out.println(chat("Add support for JavaScript-rendered pages"));
-          System.out.println(chat("Now add rate limiting and error handling"));
+          System.out.println(chat("Briefly, help me build a Python web scraper"));
+          System.out.println(chat("Briefly, add support for JavaScript-rendered pages"));
+          System.out.println(chat("Briefly, add rate limiting and error handling"));
       }
 
       private static String chat(String userMessage) {
@@ -2733,9 +2737,9 @@ Here’s a complete example of a long-running conversation with compaction:
       return '';
   }
 
-  echo chat($client, $messages, 'Help me build a Python web scraper') . "\n";
-  echo chat($client, $messages, 'Add support for JavaScript-rendered pages') . "\n";
-  echo chat($client, $messages, 'Now add rate limiting and error handling') . "\n";
+  echo chat($client, $messages, 'Briefly, help me build a Python web scraper') . "\n";
+  echo chat($client, $messages, 'Briefly, add support for JavaScript-rendered pages') . "\n";
+  echo chat($client, $messages, 'Briefly, add rate limiting and error handling') . "\n";
   ```
 
   ```ruby Ruby
@@ -2765,9 +2769,9 @@ Here’s a complete example of a long-running conversation with compaction:
     response.content.find { |block| block.type == :text }&.text || ""
   end
 
-  puts chat(client, messages, "Help me build a Python web scraper")
-  puts chat(client, messages, "Add support for JavaScript-rendered pages")
-  puts chat(client, messages, "Now add rate limiting and error handling")
+  puts chat(client, messages, "Briefly, help me build a Python web scraper")
+  puts chat(client, messages, "Briefly, add support for JavaScript-rendered pages")
+  puts chat(client, messages, "Briefly, add rate limiting and error handling")
   ```
 </CodeGroup>
 
@@ -2811,11 +2815,14 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
           },
       )
 
-      # Check if compaction occurred and paused
-      if response.stop_reason == "compaction":
-          # Get the compaction block from the response
-          compaction_block = response.content[0]
+      # Look for the compaction block, not the stop reason:
+      # stop_reason is "refusal", not "compaction", if the summary was blocked
+      compaction_block = next(
+          (block for block in response.content if block.type == "compaction"), None
+      )
 
+      # Replace the history only if a summary was generated
+      if compaction_block is not None and compaction_block.content is not None:
           # Preserve the prior exchange + current user message (3 messages)
           # by including them after the compaction block, without thinking
           # blocks; an assistant turn left with no content is dropped
@@ -2840,18 +2847,19 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
               {"role": "assistant", "content": new_assistant_content}
           ] + preserved_messages
 
-          # Continue the request with the compacted context + preserved messages
+          # Update the message list to reflect the compaction
+          messages.clear()
+          messages.extend(messages_after_compaction)
+
+      if compaction_block is not None:
+          # Continue the request, with the full history if there is no summary
           response = client.beta.messages.create(
               betas=["compact-2026-01-12"],
               model="claude-opus-5-5",
               max_tokens=4096,
-              messages=messages_after_compaction,
+              messages=messages,
               context_management={"edits": [{"type": "compact_20260112"}]},
           )
-
-          # Update the message list to reflect the compaction
-          messages.clear()
-          messages.extend(messages_after_compaction)
 
       # Append the final response
       messages.append({"role": "assistant", "content": response.content})
@@ -2861,9 +2869,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
 
 
   # Run a long conversation
-  print(chat("Help me build a Python web scraper"))
-  print(chat("Add support for JavaScript-rendered pages"))
-  print(chat("Now add rate limiting and error handling"))
+  print(chat("Briefly, help me build a Python web scraper"))
+  print(chat("Briefly, add support for JavaScript-rendered pages"))
+  print(chat("Briefly, add rate limiting and error handling"))
   # Continue calling chat() for as long as the conversation needs
   ```
 
@@ -2891,11 +2899,12 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
       }
     });
 
-    // Check if compaction occurred and paused
-    if (response.stop_reason === "compaction") {
-      // Get the compaction block from the response
-      const compactionBlock = response.content[0];
+    // Look for the compaction block, not the stop reason:
+    // stop_reason is "refusal", not "compaction", if the summary was blocked
+    const compactionBlock = response.content.find((block) => block.type === "compaction");
 
+    // Replace the history only if a summary was generated
+    if (compactionBlock && compactionBlock.content !== null) {
       // Preserve the prior exchange + current user message (3 messages)
       // by including them after the compaction block, without thinking
       // blocks; an assistant turn left with no content is dropped
@@ -2919,19 +2928,21 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
         ...preservedMessages
       ];
 
-      // Continue the request with the compacted context + preserved messages
+      // Update the message list to reflect the compaction
+      messages = messagesAfterCompaction;
+    }
+
+    if (compactionBlock) {
+      // Continue the request, with the full history if there is no summary
       response = await client.beta.messages.create({
         betas: ["compact-2026-01-12"],
         model: "claude-opus-5-5",
         max_tokens: 4096,
-        messages: messagesAfterCompaction,
+        messages,
         context_management: {
           edits: [{ type: "compact_20260112" }]
         }
       });
-
-      // Update the message list to reflect the compaction
-      messages = messagesAfterCompaction;
     }
 
     // Append the final response
@@ -2943,9 +2954,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   }
 
   // Run a long conversation
-  console.log(await chat("Help me build a Python web scraper"));
-  console.log(await chat("Add support for JavaScript-rendered pages"));
-  console.log(await chat("Now add rate limiting and error handling"));
+  console.log(await chat("Briefly, help me build a Python web scraper"));
+  console.log(await chat("Briefly, add support for JavaScript-rendered pages"));
+  console.log(await chat("Briefly, add rate limiting and error handling"));
   // Continue calling chat() for as long as the conversation needs
   ```
 
@@ -2953,9 +2964,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   AnthropicClient client = new();
   List<BetaMessageParam> messages = new();
 
-  Console.WriteLine(await Chat("Help me build a Python web scraper"));
-  Console.WriteLine(await Chat("Add support for JavaScript-rendered pages"));
-  Console.WriteLine(await Chat("Now add rate limiting and error handling"));
+  Console.WriteLine(await Chat("Briefly, help me build a Python web scraper"));
+  Console.WriteLine(await Chat("Briefly, add support for JavaScript-rendered pages"));
+  Console.WriteLine(await Chat("Briefly, add rate limiting and error handling"));
 
   async Task<string> Chat(string userMessage)
   {
@@ -2977,11 +2988,13 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
           }
       });
 
-      if (response.StopReason == BetaStopReason.Compaction)
-      {
-          if (!response.Content[0].TryPickCompaction(out _))
-              throw new InvalidOperationException("Expected compaction block");
+      // Look for the compaction block, not the stop reason:
+      // StopReason is Refusal, not Compaction, if the summary was blocked
+      var compactionBlock = response.Content.FirstOrDefault(block => block.Value is BetaCompactionBlock);
 
+      // Replace the history only if a summary was generated
+      if (compactionBlock?.Value is BetaCompactionBlock { Content: not null })
+      {
           // Preserve the prior exchange + current user message (3 messages),
           // without thinking blocks; an assistant turn left empty is dropped
           var preserved = new List<BetaMessageParam>();
@@ -3007,24 +3020,28 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
           {
               new BetaAssistantMessageParam
               {
-                  Content = new List<BetaContentBlockParam> { new BetaContentBlockParam(response.Content[0].Json) }
+                  Content = new List<BetaContentBlockParam> { new BetaContentBlockParam(compactionBlock.Json) }
               }
           };
           messagesAfterCompaction.AddRange(preserved);
 
+          messages = messagesAfterCompaction;
+      }
+
+      if (compactionBlock is not null)
+      {
+          // Continue the request, with the full history if there is no summary
           response = await client.Beta.Messages.Create(new()
           {
               Betas = ["compact-2026-01-12"],
               Model = Model.ClaudeOpus5_5,
               MaxTokens = 4096,
-              Messages = messagesAfterCompaction,
+              Messages = messages,
               ContextManagement = new BetaContextManagementConfig
               {
                   Edits = [new BetaCompact20260112Edit()]
               }
           });
-
-          messages = messagesAfterCompaction;
       }
 
       messages.Add(new BetaAssistantMessageParam
@@ -3047,6 +3064,7 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   	"context"
   	"fmt"
   	"log"
+  	"slices"
 
   	"github.com/anthropics/anthropic-sdk-go/v2"
   )
@@ -3079,8 +3097,15 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   		log.Fatal(err)
   	}
 
-  	if response.StopReason == "compaction" {
-  		compactionParam := response.Content[0].ToParam()
+  	// Look for the compaction block, not the stop reason:
+  	// StopReason is "refusal", not "compaction", if the summary was blocked
+  	compactionIndex := slices.IndexFunc(response.Content, func(block anthropic.BetaContentBlockUnion) bool {
+  		return block.Type == "compaction"
+  	})
+
+  	// Replace the history only if a summary was generated (content is not null)
+  	if compactionIndex >= 0 && response.Content[compactionIndex].JSON.Content.Valid() {
+  		compactionParam := response.Content[compactionIndex].ToParam()
 
   		// Preserve the prior exchange + current user message (3 messages),
   		// without thinking blocks; an assistant turn left empty is dropped
@@ -3107,10 +3132,15 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   		}
   		messagesAfterCompaction = append(messagesAfterCompaction, preserved...)
 
+  		messages = messagesAfterCompaction
+  	}
+
+  	if compactionIndex >= 0 {
+  		// Continue the request, with the full history if there is no summary
   		response, err = client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
   			Model:     anthropic.ModelClaudeOpus5_5,
   			MaxTokens: 4096,
-  			Messages:  messagesAfterCompaction,
+  			Messages:  messages,
   			ContextManagement: anthropic.BetaContextManagementConfigParam{
   				Edits: []anthropic.BetaContextManagementConfigEditUnionParam{
   					{OfCompact20260112: &anthropic.BetaCompact20260112EditParam{}},
@@ -3121,8 +3151,6 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   		if err != nil {
   			log.Fatal(err)
   		}
-
-  		messages = messagesAfterCompaction
   	}
 
   	messages = append(messages, response.ToParam())
@@ -3136,9 +3164,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   }
 
   func main() {
-  	fmt.Println(chat("Help me build a Python web scraper"))
-  	fmt.Println(chat("Add support for JavaScript-rendered pages"))
-  	fmt.Println(chat("Now add rate limiting and error handling"))
+  	fmt.Println(chat("Briefly, help me build a Python web scraper"))
+  	fmt.Println(chat("Briefly, add support for JavaScript-rendered pages"))
+  	fmt.Println(chat("Briefly, add rate limiting and error handling"))
   }
   ```
 
@@ -3146,7 +3174,6 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
   import com.anthropic.models.beta.messages.BetaContextManagementConfig;
   import com.anthropic.models.beta.messages.BetaCompact20260112Edit;
   import com.anthropic.models.beta.messages.BetaInputTokensTrigger;
-  import com.anthropic.models.beta.messages.BetaStopReason;
   // ...
       private static final AnthropicClient client = AnthropicOkHttpClient.fromEnv();
       private static final List<BetaMessageParam> messages = new ArrayList<>();
@@ -3171,9 +3198,14 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
 
           BetaMessage response = client.beta().messages().create(params);
 
-          // Check if compaction occurred and paused
-          if (response.stopReason().isPresent()
-                  && response.stopReason().get().equals(BetaStopReason.COMPACTION)) {
+          // Look for the compaction block, not the stop reason:
+          // stopReason() is REFUSAL, not COMPACTION, if the summary was blocked
+          var compactionBlock = response.content().stream()
+              .flatMap(block -> block.compaction().stream())
+              .findFirst();
+
+          // Replace the history only if a summary was generated
+          if (compactionBlock.flatMap(block -> block.content()).isPresent()) {
               // Preserve the prior exchange + current user message (3 messages),
               // without thinking blocks; an assistant turn left empty is dropped
               List<BetaMessageParam> preservedMessages = new ArrayList<>();
@@ -3195,22 +3227,24 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
               messagesAfterCompaction.add(response.toParam());
               messagesAfterCompaction.addAll(preservedMessages);
 
-              // Continue the request with the compacted context + preserved messages
+              // Update the message list to reflect the compaction
+              messages.clear();
+              messages.addAll(messagesAfterCompaction);
+          }
+
+          if (compactionBlock.isPresent()) {
+              // Continue the request, with the full history if there is no summary
               MessageCreateParams continueParams = MessageCreateParams.builder()
                   .addBeta("compact-2026-01-12")
                   .model(Model.CLAUDE_OPUS_5_5)
                   .maxTokens(4096L)
-                  .messages(messagesAfterCompaction)
+                  .messages(messages)
                   .contextManagement(BetaContextManagementConfig.builder()
                       .addEdit(BetaCompact20260112Edit.builder().build())
                       .build())
                   .build();
 
               response = client.beta().messages().create(continueParams);
-
-              // Update the message list to reflect the compaction
-              messages.clear();
-              messages.addAll(messagesAfterCompaction);
           }
 
           // Append the final response
@@ -3224,9 +3258,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
       }
 
       public static void main(String[] args) {
-          System.out.println(chat("Help me build a Python web scraper"));
-          System.out.println(chat("Add support for JavaScript-rendered pages"));
-          System.out.println(chat("Now add rate limiting and error handling"));
+          System.out.println(chat("Briefly, help me build a Python web scraper"));
+          System.out.println(chat("Briefly, add support for JavaScript-rendered pages"));
+          System.out.println(chat("Briefly, add rate limiting and error handling"));
       }
   ```
 
@@ -3254,9 +3288,18 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
           ]
       );
 
-      if ($response->stopReason === 'compaction') {
-          $compactionBlock = $response->content[0];
+      // Look for the compaction block, not the stop reason:
+      // stopReason is 'refusal', not 'compaction', if the summary was blocked
+      $compactionBlock = null;
+      foreach ($response->content as $block) {
+          if ($block instanceof \Anthropic\Beta\Messages\BetaCompactionBlock) {
+              $compactionBlock = $block;
+              break;
+          }
+      }
 
+      // Replace the history only if a summary was generated
+      if ($compactionBlock?->content !== null) {
           // Preserve the prior exchange + current user message (3 messages),
           // without thinking blocks; an assistant turn left empty is dropped
           $preserved = array_values(array_filter(array_map(
@@ -3274,17 +3317,20 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
               $preserved
           );
 
+          $messages = $messagesAfterCompaction;
+      }
+
+      if ($compactionBlock !== null) {
+          // Continue the request, with the full history if there is no summary
           $response = $client->beta->messages->create(
               maxTokens: 4096,
-              messages: $messagesAfterCompaction,
+              messages: $messages,
               model: 'claude-opus-5-5',
               betas: ['compact-2026-01-12'],
               contextManagement: [
                   'edits' => [['type' => 'compact_20260112']]
               ]
           );
-
-          $messages = $messagesAfterCompaction;
       }
 
       $messages[] = ['role' => 'assistant', 'content' => $response->content];
@@ -3297,9 +3343,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
       return '';
   }
 
-  echo chat($client, $messages, 'Help me build a Python web scraper') . "\n";
-  echo chat($client, $messages, 'Add support for JavaScript-rendered pages') . "\n";
-  echo chat($client, $messages, 'Now add rate limiting and error handling') . "\n";
+  echo chat($client, $messages, 'Briefly, help me build a Python web scraper') . "\n";
+  echo chat($client, $messages, 'Briefly, add support for JavaScript-rendered pages') . "\n";
+  echo chat($client, $messages, 'Briefly, add rate limiting and error handling') . "\n";
   ```
 
   ```ruby Ruby
@@ -3325,9 +3371,12 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
       }
     )
 
-    if response.stop_reason == :compaction
-      compaction_block = response.content[0]
+    # Look for the compaction block, not the stop reason:
+    # stop_reason is :refusal, not :compaction, if the summary was blocked
+    compaction_block = response.content.find { |block| block.type == :compaction }
 
+    # Replace the history only if a summary was generated
+    if compaction_block&.content
       # Preserve the prior exchange + current user message (3 messages),
       # without thinking blocks; an assistant turn left empty is dropped
       preserved = messages.last(3).map do |message|
@@ -3340,18 +3389,21 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
         { role: "assistant", content: [compaction_block] }
       ] + preserved
 
+      messages.clear
+      messages.concat(messages_after_compaction)
+    end
+
+    if compaction_block
+      # Continue the request, with the full history if there is no summary
       response = client.beta.messages.create(
         betas: ["compact-2026-01-12"],
         model: Anthropic::Model::CLAUDE_OPUS_5_5,
         max_tokens: 4096,
-        messages: messages_after_compaction,
+        messages: messages,
         context_management: {
           edits: [{ type: "compact_20260112" }]
         }
       )
-
-      messages.clear
-      messages.concat(messages_after_compaction)
     end
 
     messages << { role: "assistant", content: response.content }
@@ -3359,9 +3411,9 @@ Here’s an example that uses `pause_after_compaction` to preserve the prior exc
     response.content.find { |block| block.type == :text }&.text || ""
   end
 
-  puts chat(client, messages, "Help me build a Python web scraper")
-  puts chat(client, messages, "Add support for JavaScript-rendered pages")
-  puts chat(client, messages, "Now add rate limiting and error handling")
+  puts chat(client, messages, "Briefly, help me build a Python web scraper")
+  puts chat(client, messages, "Briefly, add support for JavaScript-rendered pages")
+  puts chat(client, messages, "Briefly, add rate limiting and error handling")
   ```
 </CodeGroup>
 

@@ -44,7 +44,7 @@ Set `created_at.lt` at least 1 minute in the past so that every activity in the 
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/activities" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  -H "anthropic-version: 2023-06-01" \
+  -H "anthropic-version: 2026-10-21" \
   --data-urlencode "created_at.gte=2026-04-20T07:00:00Z" \
   --data-urlencode "created_at.lt=2026-04-20T08:00:00Z" \
   --data-urlencode "limit=5000"
@@ -65,7 +65,7 @@ Even with clean tiling, an activity that indexes after its window has closed nev
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/activities" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  -H "anthropic-version: 2023-06-01" \
+  -H "anthropic-version: 2026-10-21" \
   --data-urlencode "limit=5000" \
   --data-urlencode "before_id=activity_01DeFgHjKmNpQrStUvWxYzAb"
 ```

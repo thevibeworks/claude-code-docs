@@ -8,6 +8,42 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v4.16336.0**
+
+2026-11-03
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`inferenceGatewayAutoModeServerChecks`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayautomodeserverchecks) | `boolean` | Server-side Auto mode checks |
+| [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentmode) | `enum` | Deployment mode |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "inference": {
+    "autoModeServerChecks": "<boolean>"
+  },
+  "authentication": {
+    "deploymentMode": "<any|3p|1p>"
+  }
+}
+```
+
+`deploymentMode` is read from device management or a local configuration file only. A value served by a bootstrap server is ignored. Setup in this version offers only `deploymentMode`, so a profile made there with `3p` still offers Claude.ai sign-in on earlier versions, which read only `disableDeploymentModeChooser`. Until all devices are updated, also set that key to `true` in the profile.
+
+**Changed:**
+
+* **Breaking:** `desktopHome`: at launches after 12:00 PM PT on November 10, 2026, an unset key reads as `standard` even where `chatSessionRetentionDays` is set. New conversations that are Cowork tasks are deleted by `coworkSessionRetentionDays`, not by `chatSessionRetentionDays`, so set both. Administrators see a configuration warning where the two differ.
+* `sessionStatusLine`: a new member, `platformOverrides`, sets a different program for `win32`, `darwin` or `linux`. Devices on a system you leave out run the setting's own program. An older version rejects the whole setting when `platformOverrides` is present and shows no status line, so add it only after all devices are updated.
+* `coworkEgressAllowedHosts`: unset no longer keeps the Code tab's shell commands off the network on a device whose only configuration is a local file, even one copied by a script, unless `blockReadsOutsideWorkingDirectories` is on. An empty list still allows no host, for shell commands where Claude Code's sandbox runs. Cowork and Chat are unchanged.
+* A setting past its deprecation date, such as `organizationPluginsUrl`, is now ignored, not a configuration error. A device profile that holds only such settings now has no effect, where it locked local settings and set aside a served configuration. If the Enterprise Admin Console delivers the device's configuration, it applies again, and its retention periods then delete idle sessions for good.
+
+**Deprecated:**
+
+* `coworkTabEnabled`, `chatTabEnabled` and `chatAdvancedFileAnalysisEnabled`: use `desktopHome`. This release and later ignore them from 12:00 PM PT on December 17, 2026, and earlier releases go on reading them. Users see an in-app warning from November 17, 2026 while one is still set. They are no longer in the policy templates.
+* `sessionRetentionHold`: this release and later ignore it from 12:00 PM PT on December 17, 2026, and retention periods then permanently delete the idle sessions it kept. To keep those sessions, first set all three retention periods to 3650 days in the configuration that sets them (with a configuration server or the Enterprise Admin Console, set them there, not in the device profile), wait until devices have the new periods, then remove the key. Users see no warning in the app. The key is no longer in the configuration reference or the policy templates, so a device profile rebuilt from the new templates drops it: set the periods first.
+
 **v4.4212.0**
 
 2026-10-29
@@ -510,7 +546,7 @@ No configuration changes in this release.
 | [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) | `integer` | Chat retention period |
 | [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) | `integer` | Cowork retention period |
 | [`codeSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#codesessionretentiondays) | `integer` | Code retention period |
-| [`sessionRetentionHold`](https://claude.com/docs/third-party/claude-desktop/configuration#sessionretentionhold) | `boolean` | Suspend session deletion |
+| `sessionRetentionHold` | `boolean` | Suspend session deletion |
 | [`coworkVmIpv6Enabled`](https://claude.com/docs/third-party/claude-desktop/configuration#coworkvmipv6enabled) | `boolean` | Enable IPv6 in the workspace VM |
 
 **JSON (e.g. for non-MDM users or Bootstrap):**

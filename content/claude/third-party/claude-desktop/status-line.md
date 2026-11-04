@@ -60,15 +60,30 @@ Add the key to the same [configuration source](https://claude.com/docs/third-par
 * **macOS profile or Windows registry**: write the value as a [JSON string](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types-in-a-profile-or-registry-policy)
 * **Bootstrap server**: the key applies after the user approves it in a dialog, unless the device [trusts the server's values without prompting](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent)
 
+If one configuration serves several operating systems, such as a bootstrap server's response, add `platformOverrides` with a `command` under `win32` (Windows), `darwin` (macOS), or `linux`. In a macOS profile, a Windows registry policy, or the [Linux configuration file](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file), set only `command`. Versions before 4.16336.0 reject the whole key and show no status line, so add `platformOverrides` only after every device has updated. The top-level `command` is required and runs on any system you don't list:
+
+```json theme={null}
+{
+  "sessionStatusLine": {
+    "command": "/opt/example/bin/status-line",
+    "platformOverrides": {
+      "win32": { "command": "C:\\Program Files\\Example\\status-line.ps1" }
+    }
+  }
+}
+```
+
 **3. Restart Claude Desktop and check the line**
 
 Quit and reopen Claude Desktop, then open an existing session, or start a new one and send a message. The line appears above the message box.
+
+On Claude Desktop 4.16336.0 or later, if [`inferenceModelPricingEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled) is also on, the status line replaces the "Session cost (estimate)" line.
 
 ## Write the status line program
 
 Claude Desktop starts the status line program with no arguments and no window, as the user who runs Claude Desktop.
 
-* **File type**: on macOS and Linux, an executable file, such as a compiled program or a script that starts with `#!`. On Windows, an `.exe` file or a `.ps1`, `.cmd`, or `.bat` script. A `.ps1` script runs in Windows PowerShell, not PowerShell 7.
+* **File type**: on macOS and Linux, an executable file, such as a compiled program or a script that starts with `#!`. On Windows, an `.exe` file or a `.ps1`, `.cmd`, or `.bat` script.
 
 * **Input**: one line of JSON on standard input, with the session ID and the model. A field with no value is left out, so handle a missing `model`.
 
@@ -76,19 +91,26 @@ Claude Desktop starts the status line program with no arguments and no window, a
   {"session_id":"local_1f0c2a9e-7b3d-4c58-9a16-5e2d8b40c7f3","model":{"id":"claude-sonnet-4-5","display_name":"Claude Sonnet 4.5"}}
   ```
 
-* **Output**: the first non-empty line of standard output, up to 200 characters. Markup and links show as plain text. A line wider than the message box ends in "…" and shows in full on hover.
+* **Output**: the first non-empty line of standard output, read as UTF-8, up to 200 characters. Markup and links show as plain text. A line wider than the message box ends in "…" and shows in full on hover.
 
-* **Colors**: text is gray by default. ANSI codes `31` to `36` and `91` to `96` show red, green, yellow, blue, magenta, and cyan, in shades that fit the light or dark theme, and `0` or `39` returns to gray. Other colors show gray, and codes such as bold have no effect.
+* **Colors**: text is gray by default. ANSI codes `31` to `36` and `91` to `96` show red, green, yellow, blue, magenta, and cyan, and `0` or `39` returns to gray. Other colors show gray, and codes such as bold have no effect.
 
 * **Paths**: the working directory is `/` (`System32` on Windows). `PATH` is `/usr/bin:/bin:/usr/sbin:/sbin`, or the System32, Windows, and Windows PowerShell folders on Windows, so call other tools by their full path.
 
-* **Environment**: the app's variables, minus `ANTHROPIC_*`, `CLAUDE_*`, `ELECTRON_*`, and variables that make an interpreter load code, such as `PYTHONPATH`.
+* **Environment**: the app's variables, minus `ANTHROPIC_*`, `CLAUDE_*`, `ELECTRON_*`, `GIT_*`, and variables that change which code a program loads, such as `PYTHONPATH` or `LD_LIBRARY_PATH`.
 
-* **Time limit**: 10 seconds, after which Claude Desktop stops the program and anything it started. On Windows, the time PowerShell takes to start counts toward the limit.
+* **Time limit**: 10 seconds, after which Claude Desktop stops the program and anything it started.
+
+### Status line scripts on Windows
+
+A `.ps1` script runs in Windows PowerShell, not PowerShell 7.
+
+* **Execution policy**: if Group Policy allows only signed scripts, sign the `.ps1` script with a certificate that each device trusts, and add it to each device's Trusted Publishers store. If Group Policy turns scripts off, use a `.cmd` or `.exe` file.
+* **Encoding**: a script must print UTF-8, or characters outside ASCII can show as "�" or "?". In a `.ps1` script, set UTF-8 output in the first statement, as the [Windows sample](#sample-status-line-programs) does, and save the file as UTF-8 with BOM. In a `.cmd` or `.bat` script, put `chcp 65001 >nul` right after `@echo off`, and save the file as UTF-8 without BOM.
 
 ### Sample status line programs
 
-Both samples print a budget line, `■■■■■■■■□□ 82% of $500 used this month`. The macOS and Linux sample reads its numbers from a file that your own scheduled job keeps up to date. The Windows sample prints fixed numbers and shows how a PowerShell script prints UTF-8, reads the input, and writes the escape character.
+Both samples print a budget line, `■■■■■■■■□□ 82% of $500 used this month`.
 
 > [tab] macOS and Linux
 >
@@ -151,13 +173,38 @@ Claude Desktop runs the status line program at these moments:
 
 There's no timer, so new data shows the next time one of these happens.
 
-If the program fails, prints nothing, or takes longer than 10 seconds, the line disappears and the user sees no error. The next successful run brings the line back.
+If the program exits with a code other than 0, prints nothing, or takes longer than 10 seconds, the line disappears and the user sees no error. The next successful run brings the line back.
 
 ## Troubleshoot a missing status line
 
-Search `main.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) on the user's device for `sessionStatusLine`. One entry can stand for many failures of the same kind, and the entries don't include the program's output.
+Search `main.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) on the user's device for `sessionStatusLine`. Claude Desktop doesn't log every failure of the same kind, so restart it after each fix. The entries don't include the program's output.
 
+* **`Failed to parse managed config`** or **`was not applied`**: Claude Desktop rejected the whole key. A `Failed to parse` entry says what is wrong. A version before 4.16336.0 logs `sessionStatusLine.platformOverrides ignored`, so update that device.
 * **`was not run`**: fix the cause the entry gives, such as a folder that users can write to or a Windows path outside `Program Files`
-* **`ended with exit code 127`**: a command that the script runs wasn't found, so call each tool by its full path
-* **`was stopped after 10 seconds`**: the program hit the [time limit](#write-the-status-line-program). On Windows, a `.ps1` script can be slow to start in the first minutes after Claude Desktop first launches. If the line appears after a later turn ends or the app regains focus, nothing needs fixing.
+* **`ended with exit code`**: any code other than 0 hides the line, even if the program printed one
+  * **macOS and Linux**: code 127 means that a command the script runs wasn't found, so call each tool by its full path
+  * **Windows**: a `.ps1` script that an [execution policy](#status-line-scripts-on-windows) blocks ends with code 1
+* **`was stopped after 10 seconds`**: the program hit the [time limit](#write-the-status-line-program). On Windows, a `.ps1` script can be slow to start for a few minutes after a user first opens Claude Desktop, and a `.cmd` or `.exe` file starts faster. If the line appears after a later turn ends or the app regains focus, nothing needs fixing.
 * **No entry**: the program printed nothing, which isn't logged, or the key hasn't reached the app. Restart Claude Desktop and check [which configuration source applies](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device).
+
+To see the program's own error messages, run it in a new terminal window with Claude Desktop's working directory and `PATH`:
+
+> [tab] macOS and Linux
+>
+> ```bash theme={null}
+> cd /
+> echo '{"session_id":"test"}' | env -i HOME="$HOME" PATH=/usr/bin:/bin:/usr/sbin:/sbin /opt/example/bin/status-line
+> echo "exit code: $?"
+> ```
+
+> [tab] Windows
+>
+> Paste these lines into PowerShell. They start a `.ps1` script with Claude Desktop's options and module path:
+>
+> ```powershell theme={null}
+> Set-Location "$env:SystemRoot\System32"
+> $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot;$env:SystemRoot\System32\WindowsPowerShell\v1.0"
+> $env:PSModulePath = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules;$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules"
+> '{"session_id":"test"}' | powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "C:\Program Files\Example\status-line.ps1"
+> "exit code: $LASTEXITCODE"
+> ```

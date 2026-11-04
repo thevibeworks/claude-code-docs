@@ -19,7 +19,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 - `workID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 

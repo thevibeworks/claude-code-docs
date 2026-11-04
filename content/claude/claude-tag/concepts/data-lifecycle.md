@@ -93,7 +93,9 @@ The controls that delete Claude Tag data, from largest to smallest:
 * **Delete memory files**: open the workspace's page from the **Channels** tab (or a channel's page, when that channel has memory of its own), choose **View memory files** from its **⋯** menu if the menu lists it, pick a file, then select **Delete**. Deleting requires the Owner role. You can also tell Claude in the channel to forget an entry. See [Check and correct what Claude Tag remembers](https://claude.com/docs/claude-tag/users/memory.md#check-and-correct-what-claude-tag-remembers)
 * **Delete a routine**: an Owner deletes a channel's routine from the **Scheduled work** tab. You can also ask Claude to delete a routine in the channel or direct message where it was set up. See [Audit Claude Tag activity](https://claude.com/docs/claude-tag/admins/audit.md)
 
-There is no control in Slack or in your Claude admin settings that deletes a single thread's transcript on its own. During the beta, Claude Tag session transcripts and memory aren't included in your organization's data exports, and the Compliance API doesn't list or delete Claude Tag sessions. For a deletion request these controls don't cover, contact your account team or [privacy@anthropic.com](mailto:privacy@anthropic.com).
+There is no control in Slack or in your Claude admin settings that deletes a single thread's transcript on its own. For a deletion request these controls don't cover, contact your account team or [privacy@anthropic.com](mailto:privacy@anthropic.com).
+
+During the beta, Claude Tag session transcripts and memory aren't included in your organization's data exports. If your organization is on the Enterprise plan and has the [Compliance API](https://platform.claude.com/docs/en/api/compliance) enabled, you can list Claude Tag sessions and read their transcripts through the API. The Compliance API can't delete Claude Tag sessions or their transcripts.
 
 ## Audit records for deletions
 

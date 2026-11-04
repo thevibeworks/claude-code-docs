@@ -15,17 +15,17 @@ List Session Threads
 
 - `session_id: String` (path parameter)
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum results per page. Defaults to 1000.
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
-- `statuses: Array[BetaManagedAgentsSessionThreadStatus]` (query parameter)
+- `statuses: optional Array[BetaManagedAgentsSessionThreadStatus]` (query parameter)
 
   Return only threads that have one of these statuses.
 
@@ -39,7 +39,7 @@ List Session Threads
 
   - `:terminated`
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -155,7 +155,7 @@ List Session Threads
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -295,7 +295,7 @@ List Session Threads
 
           - `String = String`
 
-        - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+        - `effort: optional BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 
           How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
@@ -329,11 +329,11 @@ List Session Threads
 
             - `type: :max`
 
-        - `inference_geo: String`
+        - `inference_geo: optional String`
 
           Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
-        - `speed: :standard | :fast`
+        - `speed: optional :standard | :fast`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -639,11 +639,11 @@ List Session Threads
 
                     This source contributes no URLs that may be fetched.
 
-              - `allowed_domains: Array[String]`
+              - `allowed_domains: optional Array[String]`
 
-              - `blocked_domains: Array[String]`
+              - `blocked_domains: optional Array[String]`
 
-              - `max_content_tokens: Integer`
+              - `max_content_tokens: optional Integer`
 
                 format: int32
 
@@ -673,11 +673,11 @@ List Session Threads
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `allowed_domains: Array[String]`
+              - `allowed_domains: optional Array[String]`
 
-              - `blocked_domains: Array[String]`
+              - `blocked_domains: optional Array[String]`
 
-              - `user_location: BetaManagedAgentsUserLocation`
+              - `user_location: optional BetaManagedAgentsUserLocation`
 
                 Approximate user location for search result localization.
 
@@ -685,23 +685,23 @@ List Session Threads
 
                   Location precision. Only "approximate" is supported.
 
-                - `city: String`
+                - `city: optional String`
 
                   City name.
 
                   minLength: 1, maxLength: 255
 
-                - `country: String`
+                - `country: optional String`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
-                - `region: String`
+                - `region: optional String`
 
                   Region or state name.
 
                   minLength: 1, maxLength: 255
 
-                - `timezone: String`
+                - `timezone: optional String`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -793,9 +793,9 @@ List Session Threads
 
             - `type: :object`
 
-            - `properties: Hash[Symbol, untyped]`
+            - `properties: optional Hash[Symbol, untyped]`
 
-            - `required: Array[String]`
+            - `required: optional Array[String]`
 
           - `name: String`
 
@@ -887,19 +887,19 @@ List Session Threads
 
     Timing statistics for this thread. Null until the thread's first status transition.
 
-    - `active_seconds: Float`
+    - `active_seconds: optional Float`
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
       format: double
 
-    - `duration_seconds: Float`
+    - `duration_seconds: optional Float`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
       format: double
 
-    - `startup_seconds: Float`
+    - `startup_seconds: optional Float`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
 
@@ -927,41 +927,41 @@ List Session Threads
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
-    - `active_seconds: Float`
+    - `active_seconds: optional Float`
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
       format: double
 
-    - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+    - `cache_creation: optional BetaManagedAgentsCacheCreationUsage`
 
       Tokens used to create prompt cache entries, broken down by cache TTL.
 
-      - `ephemeral_1h_input_tokens: Integer`
+      - `ephemeral_1h_input_tokens: optional Integer`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
         format: int32
 
-      - `ephemeral_5m_input_tokens: Integer`
+      - `ephemeral_5m_input_tokens: optional Integer`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
         format: int32
 
-    - `cache_read_input_tokens: Integer`
+    - `cache_read_input_tokens: optional Integer`
 
       Total tokens read from prompt cache.
 
       format: int32
 
-    - `input_tokens: Integer`
+    - `input_tokens: optional Integer`
 
       Total input tokens consumed across all turns.
 
       format: int32
 
-    - `list_cost: BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount`
 
       Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -973,23 +973,23 @@ List Session Threads
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-    - `output_tokens: Integer`
+    - `output_tokens: optional Integer`
 
       Total output tokens generated across all turns.
 
       format: int32
 
-    - `server_tool_use: BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
 
       Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
-      - `web_fetch_requests: Integer`
+      - `web_fetch_requests: optional Integer`
 
         Number of server-executed web fetch requests.
 
         format: int32
 
-      - `web_search_requests: Integer`
+      - `web_search_requests: optional Integer`
 
         Number of server-executed web search requests.
 

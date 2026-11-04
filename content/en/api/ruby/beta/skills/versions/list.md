@@ -19,7 +19,7 @@ List Skill Versions
 
   The format and length of IDs may change over time.
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Number of results to return per page.
 
@@ -27,11 +27,11 @@ List Skill Versions
 
   minimum: 1, maximum: 1000
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Optionally set to the `next_page` token from the previous response.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -147,7 +147,7 @@ List Skill Versions
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -21,7 +21,7 @@ Archive a Credential
 
   Unique identifier of the credential to archive.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -137,7 +137,7 @@ Archive a Credential
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -175,13 +175,13 @@ Archive a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: Time`
+      - `expires_at: optional Time`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -213,11 +213,11 @@ Archive a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: String`
+        - `resource: optional String`
 
           OAuth resource indicator.
 
-        - `scope: String`
+        - `scope: optional String`
 
           OAuth scope for the refresh request.
 
@@ -295,7 +295,7 @@ Archive a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: String`
+  - `display_name: optional String`
 
     Human-readable name for the credential.
 

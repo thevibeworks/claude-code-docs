@@ -25,7 +25,7 @@ Before the server can take over, each device needs the bootstrap keys that point
 
 Either way, the bootstrap server supplies everything else after the user signs in. See [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md) for the surrounding workflow.
 
-On a device whose MDM profile carries the bootstrap keys, a user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. The app then stops contacting your server. To prevent that, set [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true` in the profile itself, not only in your server's response, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
+On a device whose MDM profile carries the bootstrap keys, a user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. The app then stops contacting your server. To prevent that, restrict the device to Claude Desktop on 3P in the profile itself, as described under [Restrict a device to one deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode).
 
 ## How it works
 
@@ -339,11 +339,13 @@ The response can supply any key in that schema, including inference credentials,
 >
 > Organization plugins and skills can be delivered over the network by returning `allowedPluginMarketplaces` in the bootstrap response (see [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin)), or through the filesystem `org-plugins/` directory described in [Connectors and extensions](https://claude.com/docs/third-party/claude-desktop/extensions.md).
 
-A small set of keys are **structurally excluded** and ignored if returned:
+A small set of keys, labeled **MDM only** in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md), are **structurally excluded** and ignored if returned:
 
 * `bootstrapUrl`, `bootstrapOidc`, `bootstrapHeaders`, `bootstrapHeadersHelper`, `bootstrapEnabled`, and `trustBootstrapDelivery`: the trust anchor cannot redirect itself, authenticate itself, or grant trust in itself.
-* `egressProxyUrl` and `egressProxyPacUrl`: the app may need the [network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration) to reach your endpoint in the first place, so these keys are read from device management or the local configuration file only. These two and the six keys above are the keys labeled **MDM only** in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md).
-* Loopback hosts (`127.0.0.1`, `localhost`, `[::1]`) in any URL-valued key, regardless of scheme.
+* `egressProxyUrl` and `egressProxyPacUrl`: the app may need the [network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration) to reach your endpoint in the first place, so these keys are read from device management or the local configuration file only.
+* [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode): the app reads it from the device only.
+
+The app also ignores loopback hosts (`127.0.0.1`, `localhost`, `[::1]`) in any URL-valued key of a response, regardless of scheme.
 
 `managedMcpServers` entries are not restricted by transport in version 1.19367.0 and later: remote (`http`/`sse`) servers, local `stdio` commands, and the built-in `microsoft365` and `websearch` connectors can all be delivered in the bootstrap response. Earlier versions accept only remote entries and drop the rest. Because a `stdio` entry names a command that runs on the device, a bootstrap response can start local processes — part of why the warning at the top of this page says to treat this endpoint as fully trusted. Entries whose server URL or OAuth authorization-server URL is loopback or non-HTTPS are still dropped, and the desktop log (see [Troubleshooting](#troubleshooting)) records which keys were dropped and why.
 

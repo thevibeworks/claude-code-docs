@@ -176,7 +176,7 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
 
@@ -237,7 +237,7 @@ One of: `browser`, `broker`
 
 object
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.6889.0
 
@@ -354,7 +354,7 @@ One of: `browser`, `broker`
 
 object
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 2.7032.0
 
@@ -458,6 +458,24 @@ integerRange: 300–1,800Since 1.44121.1
 
 ***
 
+#### `inferenceGatewayAutoModeServerChecks`
+
+booleanSince 4.16336.0
+
+**Server-side Auto mode checks.** Temporary setting: sends session details, such as folder paths and a user name, so your gateway’s provider checks risky Auto mode actions.
+
+> [accordion] More detail
+>
+> Off unless you set it to `true`. While off, Auto mode's built-in safety check reviews risky actions.
+>
+> This setting is temporary. It goes away when Claude Code drops that built-in check. After that, only turning off **Allow Auto mode** avoids the provider's check.
+>
+> When on, each Auto mode request carries one more `anthropic-beta` value and a `safeguards` field. The field describes the session, including Claude Code's `autoMode` settings, permission rules, folder paths, a user name and Git state. Your gateway must forward both unchanged, and return `safeguard_results` and tool-use IDs unchanged. If it returns an error such as 401 or 500, every Auto mode turn fails. Turn this off and have users restart the app.
+>
+> Claude Code's gateway mode ignores this and sends these details by default.
+
+***
+
 To send additional HTTP headers on every inference request (tenant routing, org IDs, and similar), set [`inferenceCustomHeaders`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecustomheaders). It applies to all providers, not just gateways.
 
 ### Single sign-on configuration keys
@@ -549,13 +567,111 @@ On a response that delivers only keep-alive pings, a session accepts about five 
 
 [MCP tool search](https://code.claude.com/docs/en/mcp#scale-with-mcp-tool-search) loads MCP tool schemas on demand instead of inlining every schema into the context window. It reduces context pressure when many MCP tools are configured (sessions that otherwise compact every turn or two).
 
-On gateway deployments, Claude Desktop turns tool search off by default, along with Claude Code's other experimental beta features, because strict gateways reject the experimental `anthropic-beta` request headers and request fields those features add. The same applies to Microsoft Foundry deployments and to any provider configured with a custom base URL. Setting the `ENABLE_TOOL_SEARCH` environment variable to `true` does not lift this suppression. To turn tool search on for these deployments, set the [`toolSearchEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#toolsearchenabled) configuration key. Requires app version 1.21459.0 or later.
+On gateway deployments, Claude Desktop turns off tool search and Claude Code's other experimental beta features by default, because strict gateways reject the experimental `anthropic-beta` request headers and request fields those features add. The same applies to Microsoft Foundry deployments and to any provider configured with a custom base URL. Setting the `ENABLE_TOOL_SEARCH` environment variable to `true` does not lift this suppression. To turn tool search on for these deployments, set the [`toolSearchEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#toolsearchenabled) configuration key. Requires app version 1.21459.0 or later.
 
 On Claude API, Google Cloud's Agent Platform, Amazon Bedrock, and Amazon Bedrock Mantle deployments with no custom base URL, tool search is on by default from Claude Desktop 1.49585.0 and `toolSearchEnabled` is not needed. These versions leave Claude Code's experimental beta features on for those providers, as terminal Claude Code does (on Google Cloud's Agent Platform, tool search applies to Claude 4.5 and newer models). To turn tool search off on these deployments, set `ENABLE_TOOL_SEARCH` to `false` in the `env` block of OS-level [Claude Code managed settings](https://code.claude.com/docs/en/settings#settings-files), with [`parentSettingsBehavior`](https://claude.com/docs/third-party/claude-desktop/code) set to `merge`. On earlier app versions these providers also have tool search off by default, and `toolSearchEnabled` turns it on.
 
 > [!WARNING]
 >
-> Setting `toolSearchEnabled` causes sessions to send experimental request headers and fields to your gateway or provider. On gateway deployments running Claude Desktop 1.40609.0 or later this is only the tool-search request shape (the `tool-search-tool-2025-10-19` value in the `anthropic-beta` header, deferred tool loading, and `tool_reference` content blocks), and every other experimental Claude Code beta stays off. On earlier versions, on Microsoft Foundry, and on providers behind a custom base URL, the key instead lifts the experimental-beta suppression for these sessions, so requests also carry Claude Code's other experimental beta headers and fields for that provider. Enable it only if your gateway forwards and accepts what it will receive; when it does not, requests fail with HTTP 400. LiteLLM in passthrough mode and Cloudflare AI Gateway both forward `anthropic-beta` headers and `tool_reference` content blocks.
+> Setting `toolSearchEnabled` causes sessions to send experimental request headers and fields to your gateway or provider. On gateway deployments running Claude Desktop 1.40609.0 or later the key adds only the tool-search request shape (the `tool-search-tool-2025-10-19` value in the `anthropic-beta` header, deferred tool loading, and `tool_reference` content blocks). On earlier versions, on Microsoft Foundry, and on providers behind a custom base URL, the key instead lifts the experimental-beta suppression for these sessions, so requests also carry Claude Code's other experimental beta headers and fields for that provider. Enable it only if your gateway forwards and accepts what it will receive; when it does not, requests fail with HTTP 400. LiteLLM in passthrough mode and Cloudflare AI Gateway both forward `anthropic-beta` headers and `tool_reference` content blocks.
+
+### Auto mode checks
+
+In [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), which Cowork shows as **Automatically approve**, a safety classifier reviews Claude's actions and blocks the ones it judges risky. On a gateway deployment, these can do the review:
+
+* **Claude Code's built-in safety check (the default)**: it sends its own requests through your gateway, and you pay for them like the rest of your usage.
+* **The model provider behind your gateway**: the session asks for the review in its normal request, and the provider returns its verdict with the response. The session sends no separate request for an action that gets a verdict.
+
+> [!NOTE]
+>
+> If a card or notice titled **Auto mode switched to its built-in safety check for this session** sent you here, you can keep working. Share this section with whoever manages Claude Desktop or the gateway for you.
+
+To have the provider do the review, set [`inferenceGatewayAutoModeServerChecks`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayautomodeserverchecks) to `true`. In the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window), it's the **Server-side Auto mode checks** toggle under **Connection**. Quit and reopen Claude Desktop after you change the setting, as after [any configuration change](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect). Before you deploy the setting, [test it on one device](#test-auto-mode-checks-on-one-device).
+
+Sessions that a [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) runs in Claude Code's gateway mode ask for the review by default, and the setting doesn't change them.
+
+#### Gateway requirements for Auto mode checks
+
+With the setting on, your gateway needs to pass these parts of each Auto mode request and response through unchanged.
+
+| What to pass through | Where it appears |
+| - | - |
+| The `dangerous-tool-use-2026-09-03` value | The `anthropic-beta` request header |
+| The `safeguards` field | The top level of the request body |
+| The `safeguard_results` field | The `delta` object of the `message_delta` streaming event |
+| The `id` of each `tool_use` content block | The `content_block_start` streaming events |
+
+The provider behind your gateway also needs to run the review for the model that a session uses. The [test](#test-auto-mode-checks-on-one-device) shows whether it does for the model you test with.
+
+> [!WARNING]
+>
+> The `safeguards` field describes the session so that the provider can judge each action. A gateway that logs request bodies logs this field too. The field includes details such as the following:
+>
+> * [`autoMode` settings](https://claude.com/docs/third-party/claude-desktop/code#tune-the-auto-mode-classifier), including any that your organization or, in Code sessions, the user added
+> * Permission rules and folder paths, including the user's home folder
+> * A user name, such as the login name on the device or the part of the user's Git email address before the `@`
+> * Git state such as the branch, the remotes, and the number of changed files
+
+#### What users see when no Auto mode verdict arrives
+
+In sessions where the setting turns the review on, users see one of the following when your gateway or provider doesn't meet the requirements.
+
+* **A card or notice, and work continues**: no result comes back, the provider answers that it doesn't run the review or has it turned off, or the request gets a `400`, `403`, or `422` and succeeds when the session sends it again without the review. The session switches to the built-in safety check. Code shows a card titled **Auto mode switched to its built-in safety check for this session**, and Cowork shows the same words as a notice. In Code, the turn continues once the user selects **Continue**. If nobody answers the card within five minutes, the turn ends, and the action that waited reads `Stopped` and doesn't run.
+* **Nothing, and work continues**: the `tool_use` IDs are rewritten, or the provider answers that it couldn't run the review. The built-in safety check reviews actions.
+* **Actions don't run**: the `safeguard_results` field arrives in a form the session can't read. Actions that need a review read `Blocked` in Code and, after the turn, `Failed` in Cowork. The turn can stop with a card titled `Auto mode’s safety check was unavailable` in Code, and with a notice that begins `Auto mode is unavailable` in Cowork. [Turn the setting off](#turn-off-server-side-auto-mode-checks).
+* **Every Auto mode turn fails**: the request gets another error, such as `401` or `500`. See [Troubleshoot](#troubleshoot).
+
+After a user selects **Continue**, the card stays hidden for that user on that device for 24 hours, so rely on the diagnostic report when you test again.
+
+#### Test Auto mode checks on one device
+
+The admin console can't limit the setting to a group, so use a device that isn't signed in to your console organization.
+
+**1. Turn the setting on**
+
+Set the key in the device's managed profile, or in the [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)'s response for its user, then quit and reopen Claude Desktop. On a device with no managed profile, turn the toggle on in the in-app configuration window, then click **Apply Changes** and **Save & Restart**.
+
+**2. Run one task in Auto mode**
+
+Note the time in UTC. Start a Code session on the device itself, not on an SSH host, and select **Auto mode**. Ask Claude for an action that Auto mode reviews, such as creating a file outside the project folder or fetching a web page. If the card appears, select **Continue**, because the session may write its result only after you answer.
+
+**3. Read the result in the diagnostic report**
+
+Right after the task, go to **Help > Troubleshooting > Generate Diagnostic Report** and select **Export to file**. In the exported report, open `cli-diagnostics-log.txt` and find the lines whose `event` is `cli_api_auto_mode_server_check`. Every session on the device writes to this log, so read only the lines whose `timestamp` is later than the time you noted. Look up the `state` and `reason` in each line's `data` under [Auto mode check results in the diagnostic report](#auto-mode-check-results-in-the-diagnostic-report).
+
+#### Auto mode check results in the diagnostic report
+
+A `requested` line means that the session asked for the review. The lines after it are the result. A session writes each kind of line only once, so start a new session for each test.
+
+| Line in the report | What it means | What to do |
+| - | - | - |
+| `verdict` | Your gateway passes the review through. | Repeat the test with each model that your users can select. If a `no_verdict` line also appears, follow its row first. |
+| `no_verdict`, `server_no_result` | No result came back. Part of the review was dropped on the way, or the provider returned none. | Compare what the gateway sent upstream and returned to the client with [the requirements](#gateway-requirements-for-auto-mode-checks). If it passed everything through, follow the `server_unsupported` row. |
+| `no_verdict`, `server_unsupported` | The provider doesn't run the review for this model or key. | Use a provider and model that run the review, or [turn the setting off](#turn-off-server-side-auto-mode-checks). |
+| `no_verdict`, `other_tool_use_ids` | Verdicts came back under IDs that none of the response's actions has. | Return the provider's `tool_use` IDs unchanged. |
+| `no_verdict`, `server_unrecognized_result` | The session can't read the `safeguard_results` field. | [Turn the setting off](#turn-off-server-side-auto-mode-checks), because actions that need a review don't run. Then compare what your gateway returned to the client with [the requirements](#gateway-requirements-for-auto-mode-checks). |
+| `not_requested`, `beta_rejected` | Your gateway, or the provider behind it, answered `400`, `403`, or `422` to an earlier request that asked for the review, so the session stopped asking. | Check your gateway's logs for which of the two refused the request. For your gateway, accept the header value and the field. For the provider, follow the `server_unsupported` row. |
+| `not_requested`, `betas_disabled`, `switch` is `off` | The setting is off or not set for this device. | Turn the setting on, then quit and reopen Claude Desktop. |
+| `not_requested`, `betas_disabled`, `switch` is `on` | The device's own Claude Code managed settings or a compliance policy turn experimental betas off, which takes priority. | If a `requested` line follows, ignore this line. If none follows, check whether the device's [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) set `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS`. |
+| Only `requested`, and Claude's actions read `Blocked`, or `Failed` with an error that names auto mode | The session couldn't read the verdicts, or the response ended before they arrived. | If the log also holds `cli_stream_failed` lines, see the streaming requirement in [Context window and compaction](#context-window-and-compaction). Otherwise, follow the `server_unrecognized_result` row. |
+| Only `requested`, and the turn failed with an error that doesn't name Auto mode | The request that asked for the review got an error. | See [Troubleshoot](#troubleshoot). |
+| Only `requested`, and the turn finished | No action in the turn got a verdict. | Start a new session, and ask for an action that Auto mode reviews. |
+| No `cli_api_auto_mode_server_check` line | The session recorded nothing about the review. | Check that the session ran in **Auto mode**, then update Claude Desktop. |
+
+For any other line, or if these steps don't help, share the report with your Anthropic representative.
+
+#### Turn off server-side Auto mode checks
+
+Set [`inferenceGatewayAutoModeServerChecks`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayautomodeserverchecks) to `false` to have Claude Code's built-in safety check review Auto mode's actions, except in sessions that a [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) runs in Claude Code's gateway mode. A key that isn't set follows the default, so set it to `false` rather than leaving it out.
+
+Set the key in whichever of these holds the device's gateway settings:
+
+* **A managed profile that doesn't set `bootstrapUrl`**: add the key to the profile that already holds your gateway settings. If you deploy the key in a profile without them, [the managed configuration takes effect](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device) and Claude Desktop ignores gateway settings made in the in-app configuration window.
+* **A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) that you host**: return the key in the response.
+* **The [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#apply-locally-or-export-for-a-fleet)**: turn off the **Server-side Auto mode checks** toggle under **Connection**. The window stores the toggle only after you change it, so if the toggle already shows off, turn it on and then off. Then use the **Export** menu for a profile to deploy, or click **Apply Changes** on a device that takes its settings from the window.
+* **The [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#configure-claude-desktop)**: open **Organization settings** and go to the **Connection** page under **Desktop 3P**. If the **Server-side Auto mode checks** switch is off and its row shows **Reset to default**, the console already stores the setting as off. Otherwise, turn off the switch, or turn it on and then off if it already shows off. Then click **Save changes**.
+
+The change takes effect once each user [relaunches Claude Desktop](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect). To confirm it on a device, go to **Help > Troubleshooting > Generate Diagnostic Report** after the relaunch and select **Export to file**. In the exported report, `managed-config.txt` lists `inferenceGatewayAutoModeServerChecks = false`.
 
 ## Block requests at a spend limit
 
@@ -624,6 +740,15 @@ A [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) is 
 > [!NOTE]
 >
 > Google Workspace can be used as the identity provider, but in the default `id_token` mode Google does not issue a fresh ID token on background refresh, so users are prompted to sign in again roughly once an hour. Setting `bearerTokenType` to `access_token` avoids this. Entra ID and Okta are not affected in either mode.
+
+**`Auto mode’s safety check was unavailable` or `Auto mode is unavailable`, after actions that read `Blocked` or `Failed`.** With **Server-side Auto mode checks** on, the session can't read the verdicts. Follow the `server_unrecognized_result` row under [Auto mode check results in the diagnostic report](#auto-mode-check-results-in-the-diagnostic-report). If Code shows `Connection problem` cards instead, or Cowork shows `API Error: Connection lost mid-response` first, the responses end before the verdicts arrive. See the streaming requirement in [Context window and compaction](#context-window-and-compaction).
+
+**Every Auto mode turn fails after you turn on Server-side Auto mode checks.** Your gateway rejects requests that ask for the [Auto mode review](#auto-mode-checks), with an error such as `401`, `404`, or `500`. After a `500`, or a `401` where users sign in through an identity provider, the session first retries for several minutes. Code then shows `Server error` or `Authentication failed`. Code shows `Credentials rejected` right away after a `401` with a static API key, and `Model isn’t available` after a `404`. None of these messages names Auto mode or the setting.
+
+Until the gateway meets [the requirements](#gateway-requirements-for-auto-mode-checks), either of these stops the failures:
+
+* Set `inferenceGatewayAutoModeServerChecks` to `false`, as described in [Turn off server-side Auto mode checks](#turn-off-server-side-auto-mode-checks). The change takes effect once each user [relaunches Claude Desktop](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect).
+* Have users start new sessions in **Manual** mode, which Cowork shows as **Manually approve**. If turns fail in those sessions too, the review isn't the cause.
 
 **Model picker is empty or missing models.** Check your gateway's `GET /v1/models` response and your `inferenceModels` list (see [Models](#models)). When `/v1/models` is unreachable or returns an error, the picker falls back to the `inferenceModels` list; if that list is empty, so is the picker.
 

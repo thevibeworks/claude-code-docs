@@ -33,7 +33,7 @@ Here’s how to handle the `pause_turn` stop reason:
   # the turn by re-sending the request with the assistant content appended to messages.
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -392,7 +392,8 @@ When handling `pause_turn`:
 
 * **Continue the conversation:** Pass the paused response back as-is in a subsequent request to let Claude continue its turn.
 * **Preserve tool state:** Include the same tools in the continuation request. A paused turn can end with a `server_tool_use` block whose tool has not run yet, and the API returns a validation error if that tool is missing from the continuation.
-* **Repeat as needed:** A continued turn can pause again. Check `stop_reason` on each response and continue until you get a different stop reason, capping the number of continuations as you would any retry loop.
+* **Keep the container:** If the response includes a `container`, as it does with the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool), send its ID back in the continuation request. Without it, the request runs in a new container, and files from earlier in the turn are lost.
+* **Repeat as needed:** A continued turn can pause again. Check `stop_reason` on each response and continue until you get a different stop reason, capping the number of continuations as you would any retry loop. Keep every paused response in `messages`, in order. A continuation holds only new content, so a request that leaves out an earlier paused response loses that work and can return a 400 error.
 
 For the other `stop_reason` values and general handling patterns, see [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).
 
@@ -507,7 +508,7 @@ The following example enables web fetch together with a user-defined `run_comman
   # and the same tools array (see the SDK tabs).
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",

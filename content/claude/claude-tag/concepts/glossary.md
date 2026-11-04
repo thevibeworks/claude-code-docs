@@ -55,7 +55,7 @@ A channel session uses the Claude Tag connectors that apply to its channel. Clau
 
 ## Environment
 
-The sandboxed compute configuration a session runs in, including its network access setting. Environments used here must be scoped to the organization, not to an individual account, because channel sessions run with no user account attached.
+The sandboxed compute configuration a session runs in, including its network access setting. Environments you set for channels must be scoped to the organization, not to an individual account.
 
 ## Personal connector
 

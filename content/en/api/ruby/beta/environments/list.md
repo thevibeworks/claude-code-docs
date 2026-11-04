@@ -13,21 +13,21 @@ List environments with pagination support.
 
 ## Parameters
 
-- `include_archived: bool` (query parameter)
+- `include_archived: optional bool` (query parameter)
 
   Include archived environments in the response
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum number of environments to return
 
   minimum: 1, maximum: 1000
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -143,7 +143,7 @@ List environments with pagination support.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -215,7 +215,7 @@ List environments with pagination support.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -271,7 +271,7 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 

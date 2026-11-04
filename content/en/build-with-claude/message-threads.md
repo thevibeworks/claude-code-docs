@@ -268,7 +268,7 @@ This example creates a thread on the first turn and continues it on the second. 
   # Turn 1: send the full conversation and create a thread
   curl -sS --fail-with-body https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: message-threads-2026-08-12" \
     -H "content-type: application/json" \
     -d '{
@@ -284,7 +284,7 @@ This example creates a thread on the first turn and continues it on the second. 
   # Leave out system and tools: the thread keeps them.
   curl -sS --fail-with-body https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: message-threads-2026-08-12" \
     -H "content-type: application/json" \
     -d '{

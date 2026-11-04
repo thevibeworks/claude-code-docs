@@ -38,6 +38,7 @@ If your organization's row reads **Not linked**, select the **Link** button next
 
 An organization can also be missing from the table because single sign-on (SSO) on GitHub hides it. A note under the table counts the organizations hidden that way. To make them appear, authorize the Claude app for those organizations on GitHub.
 
+* An **Enable GitHub integration** button under the table means the GitHub connector is off for your Claude organization, so no accounts to link are listed; click it to turn the connector on
 * A disabled **Link** button means you can't link that account yet; the button's tooltip names the reason, such as not being an owner of that GitHub organization
 * A **Needs permissions** status means the installation has a pending request; **Review permissions** takes you to github.com to approve it
 * An **Authorize SSO** button in place of **Link** means your GitHub token isn't authorized for that organization's SSO; the button opens github.com to authorize it, and you link after returning

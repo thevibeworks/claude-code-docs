@@ -253,7 +253,7 @@ The rules don't bind the SSH user, or other programs that run under that account
 
 ### Sandbox status on the remote host
 
-Claude Desktop asks Claude Code on the host whether the [sandbox](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy) from your Claude Desktop policy is turned on and running there. If `coworkEgressAllowedHosts` contains `*` and `allowedWorkspaceFolders` is unset, your policy has no sandbox, and Claude Desktop doesn't ask. Requires Claude Desktop 2.26454.0 or later.
+Claude Desktop asks Claude Code on the host whether the [sandbox](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy) from your Claude Desktop policy is turned on and running there. Requires Claude Desktop 2.26454.0 or later. If `coworkEgressAllowedHosts` contains `*` and `allowedWorkspaceFolders` is unset, your policy has no sandbox. For what Claude Desktop checks then, see [Sandbox from the host's managed settings](#sandbox-from-the-host%E2%80%99s-managed-settings). For a key that isn't set, see [Unset allowlist in Code sessions](https://claude.com/docs/third-party/claude-desktop/web-tools.md#unset-allowlist-in-code-sessions).
 
 The answer is Claude Code's own report, and Claude Desktop compares only part of it with your policy:
 
@@ -281,7 +281,7 @@ To check one session, have the user open it, wait until Claude has finished repl
 * **On · not fully applied**: `overridden`, and Claude Code reports a sandbox that Claude Desktop can't match to your policy
 * **Couldn't check**: `unknown`
 
-If the card has no **Sandbox** row, have the user send a message, and enter `/status` again after Claude's reply.
+If your policy includes the sandbox and the card has no **Sandbox** row, have the user send a message, and enter `/status` again after Claude's reply.
 
 With [`otlpEndpoint`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint) set, your collector receives a `desktop_ssh_sandbox_check_failed` event under the `service.name` value `claude-desktop`, unless [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `off`. A session can send the event more than once, for example when the reason changes or after Claude Desktop restarts, so count distinct `session_id` values rather than events. The event carries these attributes:
 
@@ -291,6 +291,20 @@ With [`otlpEndpoint`](https://claude.com/docs/third-party/claude-desktop/configu
 * **`backend_kind`**: `ssh`
 
 The event doesn't name the host. To find the host, ask the user that the [user attribution](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution) attributes identify.
+
+### Sandbox from the host's managed settings
+
+Where your policy has no sandbox, Claude Desktop 4.16336.0 or later asks Claude Code whether managed settings on the host turn a sandbox on, and reports one that isn't running.
+
+Expect fewer reports than for a sandbox from your policy:
+
+* **The session**: it continues, and shell commands run outside the sandbox. To keep Claude Code from starting instead, set [`sandbox.failIfUnavailable`](https://code.claude.com/docs/en/sandboxing#enforce-sandboxing-with-managed-settings) to `true` in the same managed settings.
+* **Reasons**: only `cannot_start` and `unsupported`, with the same messages, `/status` value, and event as under [Sandbox status on the remote host](#sandbox-status-on-the-remote-host). The table's rows for those two apply here too. Claude Desktop never reports `overridden` or `unknown` here.
+* **A host that has the packages**: it can still report `cannot_start`, for example Ubuntu 24.04 or later without an AppArmor profile for bubblewrap. [Set up Linux and WSL2](https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2) covers the profile too.
+* **`/status`**: the **Sandbox** row appears only after Claude Desktop has reported that sandbox as not running. After `cannot_start`, the row can stay for the rest of that session, so check a fix in a new session.
+* **No report**: don't take it as proof that the sandbox runs. To confirm, have the user ask Claude to run the two commands under [Confirm commands run inside the sandbox](https://code.claude.com/docs/en/sandboxing#confirm-commands-run-inside-the-sandbox).
+* **The event**: it doesn't say which sandbox it is about. From a device whose policy has no sandbox, it is about the host's.
+* **A device where the local configuration file governs**: Claude Desktop doesn't ask there. The file governs where neither device management, the Enterprise Admin Console, nor a bootstrap server delivers the configuration. It still governs beside a device management profile that sets only app-behavior keys, such as `disableAutoUpdates`.
 
 ### Policy status on the remote host
 
@@ -348,10 +362,19 @@ The device needs the OpenSSH client (`ssh` and `ssh-keygen`). Claude Desktop run
 To pin a specific OpenSSH installation instead, set [`sshClientPath`](https://claude.com/docs/third-party/claude-desktop/configuration#sshclientpath) (beta, Claude Desktop 1.46388.1 or later) to the program's absolute path:
 
 * **Companion tools**: Claude Desktop takes `ssh-keygen` and `ssh-add` from the same directory when they exist there. Otherwise it takes `ssh-keygen` from the user's `PATH`, and `ssh-add` from the operating system's own OpenSSH or else the `PATH`.
-* **macOS and Linux devices**: the program can be a wrapper script that runs an OpenSSH client.
+* **macOS and Linux devices**: the program can be a wrapper script that runs an OpenSSH client. For what Claude Desktop 4.16336.0 or later needs of a wrapper, see the paragraph on wrapper scripts below this list.
 * **Windows devices**: the program must be an `.exe` file, not a `.cmd`, `.bat`, or `.ps1` script. Stricter rules apply to its version and folder. See **Client version** under [Prepare Windows devices for the OpenSSH client](#prepare-windows-devices-for-the-openssh-client), and [Use the OpenSSH client of Git for Windows](#use-the-openssh-client-of-git-for-windows). For a value that starts with `%LOCALAPPDATA%\`, see [Use an OpenSSH client installed per user](#use-an-openssh-client-installed-per-user).
 * **A program that can't be used**: if the pinned program is missing, or on macOS and Linux can't be run, SSH connections fail with an error that shows the configured path. Where the OpenSSH client makes the connection, they also fail if the program is older than OpenSSH 7.6. Claude Desktop never runs another `ssh` program in its place. On Windows, if the program exists but can't be started, Claude Desktop's built-in client can still make the connection.
 * **Every source of settings**: a bootstrap server or the Enterprise Admin Console that leaves `sshClientPath` out cancels the value that device management sets. A bootstrap server does so once its response has loaded at a launch, and the console as soon as the app starts. Claude Desktop then chooses the `ssh` program as if you had pinned nothing. Set the key everywhere you manage settings. From a bootstrap server, return each platform's path only to devices of that platform.
+
+With Claude Desktop 4.16336.0 or later, on macOS and Linux `ssh` shows its prompts through `claude-ssh-askpass`, a helper that ships with the app. If you allow programs by list, allow Claude Desktop and `ssh` to start it:
+
+* **macOS**: allow `Claude.app/Contents/Helpers/claude-ssh-askpass`, which is signed with the app.
+* **Linux**: allow `claude-ssh-askpass` in the `resources` folder of the app's installation.
+
+Claude Desktop runs the helper as a test before a connection that can prompt, and `ssh` runs it for each prompt. Without the helper, the app also can't ask the user to trust a host key that isn't on record, and `ssh` refuses that host.
+
+A wrapper script that stands in for `ssh`, whether `sshClientPath` names it or it comes first on the `PATH`, must leave `ssh`'s standard error untouched. If it sends that stream through a pipe, a file, or a terminal of its own, sign-ins that need a prompt fail. See [Claude's SSH sign-in helper isn't working on this computer](#claude%E2%80%99s-ssh-sign-in-helper-isn%E2%80%99t-working-on-this-computer).
 
 Claude Desktop makes the SSH connection by running the device's OpenSSH client, so your own OpenSSH build's Kerberos (GSSAPI), certificate, and `ssh_config` support handles authentication. The program is the one `sshClientPath` names, or else, on macOS and Linux, the first `ssh` on the user's `PATH`, and it must be OpenSSH 7.6 or later. On Windows, the device's OpenSSH client is the default in Claude Desktop 4.5284.0 or later, and only for hosts that are new to the device. See [Prepare Windows devices for the OpenSSH client](#prepare-windows-devices-for-the-openssh-client).
 
@@ -630,7 +653,23 @@ The program that `sshClientPath` names is missing, can't be run, is too old, or 
 
 ### This computer won't start Claude's SSH sign-in helper
 
-On a Windows device where the device's OpenSSH client makes the connection, Windows refused to start one of the helper programs through which Claude Desktop shows `ssh`'s prompts. Without them the app can't ask for a password or a one-time code, so the user can't sign in to a host that needs one. In Claude Desktop 4.5284.0 or later, with `sshTransport` unset or `auto`, the [built-in client connects instead](#prepare-windows-devices-for-the-openssh-client) where the app itself can't start the helper, and this card doesn't appear. Select **View details** on the card for the blocked program's path and, where Windows gave one, the error code. Allow the helper programs as described under [Prepare Windows devices for the OpenSSH client](#prepare-windows-devices-for-the-openssh-client), then have the user try again. Requires Claude Desktop 2.37337.0 or later.
+Where the device's OpenSSH client makes the connection, the operating system refused to start one of the helper programs that show `ssh`'s prompts. Without them the app can't ask for a password, a one-time code, or a key passphrase, so a sign-in that needs one fails. Select **View details** on the card for the blocked program's path and, where the operating system gave one, the error code. Allow the program:
+
+* **Windows devices**, with Claude Desktop 2.37337.0 or later: allow the helper programs as described under [Prepare Windows devices for the OpenSSH client](#prepare-windows-devices-for-the-openssh-client), then have the user try again. With Claude Desktop 4.5284.0 or later and `sshTransport` unset or `auto`, the [built-in client connects instead](#prepare-windows-devices-for-the-openssh-client) where the app itself can't start the helper. The host then stays on that client.
+* **macOS and Linux devices**, with Claude Desktop 4.16336.0 or later: allow `claude-ssh-askpass` in the folder that **View details** names, then have the user try again. On these devices the built-in client never connects instead. With `spawn EACCES` on a Linux device, check too that the folder isn't mounted `noexec`.
+
+While the fault lasts, Claude Desktop can't reconnect by itself with a saved password. It shows the card only while a user waits for the connection, for example after they start a session or send a message. On a Windows device, the card appears only for a host that accepts a password or a one-time code.
+
+### Claude's SSH sign-in helper isn't working on this computer
+
+On a macOS or Linux device, `claude-ssh-askpass` is missing or doesn't work, though the operating system didn't refuse to start it. Without it the app can't ask for a password, a one-time code, or a key passphrase, so a sign-in that needs one fails. Select **View details** and match the line that starts with `What failed:`:
+
+* **`it is missing`**: reinstall Claude Desktop, then have the user try again.
+* **`its test run failed`, `its test run timed out`, `its test run sent no answer`, or `its test run could not be started`**: have the user try again. If the card comes back, have them quit and reopen Claude Desktop, which an update installed under the running app can call for. If it still comes back, reinstall the app.
+* **`ssh seems unable to start it, though Claude can`**: allow `ssh` to start the helper in your application control policy. Have the user wait until then, because each try can send the host empty passwords, which can count toward an account lockout.
+* **`it cannot reach Claude because ssh's stderr is redirected, for example by a wrapper script`**: look for a wrapper around `ssh`. Change the program that `sshClientPath` names, or the `ssh` first on the user's `PATH`, so that it leaves standard error untouched.
+
+While the fault lasts, Claude Desktop can't reconnect by itself with a saved password. It shows the card only while a user waits for the connection, for example after they start a session or send a message. Requires Claude Desktop 4.16336.0 or later.
 
 ### This computer's ssh refuses a backslash or dollar sign in user names
 

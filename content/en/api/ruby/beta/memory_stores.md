@@ -25,19 +25,19 @@ Create a Memory Store
 
   minLength: 1, maxLength: 255
 
-- `description: String`
+- `description: optional String`
 
   Free-text description of what the store contains, up to 1,024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
 
   maxLength: 1024
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   Key-value pairs for your own use, such as the end user that the store belongs to. The agent doesn't see them.
 
   A store has at most 16 pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -153,7 +153,7 @@ Create a Memory Store
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -248,33 +248,33 @@ List Memory Stores
 
 ### Parameters
 
-- `created_at_gte: Time` (query parameter)
+- `created_at_gte: optional Time` (query parameter)
 
   Return only memory stores created at or after this time (inclusive).
 
   format: date-time
 
-- `created_at_lte: Time` (query parameter)
+- `created_at_lte: optional Time` (query parameter)
 
   Return only memory stores created at or before this time (inclusive).
 
   format: date-time
 
-- `include_archived: bool` (query parameter)
+- `include_archived: optional bool` (query parameter)
 
   When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -390,7 +390,7 @@ List Memory Stores
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -492,7 +492,7 @@ Retrieve a Memory Store
 
   The ID of the memory store to retrieve (`memstore_...`).
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -608,7 +608,7 @@ Retrieve a Memory Store
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -709,19 +709,19 @@ Update a Memory Store
 
   The request fails with HTTP status 400 if the store is archived.
 
-- `description: String`
+- `description: optional String`
 
   New description for the store, up to 1,024 characters. Pass an empty string to clear it.
 
   maxLength: 1024
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   Changes to apply to the memory store's metadata. Keys you leave out keep their values.
 
   Set a key to a string to add or replace it, or to `null` to remove it. After the change, the metadata can hold at most 16 key-value pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `name: String`
+- `name: optional String`
 
   The new name of the memory store, 1 to 255 characters long, without control characters.
 
@@ -729,7 +729,7 @@ Update a Memory Store
 
   minLength: 1, maxLength: 255
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -845,7 +845,7 @@ Update a Memory Store
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -946,7 +946,7 @@ Delete a Memory Store
 
   Deleting a store also deletes all its memories and memory versions. It can't be undone.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -1062,7 +1062,7 @@ Delete a Memory Store
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1117,7 +1117,7 @@ Archive a Memory Store
 
   Archiving can't be undone. Archiving a store that is already archived returns it unchanged.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -1233,7 +1233,7 @@ Archive a Memory Store
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1412,7 +1412,7 @@ Create a Memory
 
   minLength: 2, maxLength: 1024
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -1426,7 +1426,7 @@ Create a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -1542,7 +1542,7 @@ Create a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1606,7 +1606,7 @@ Create a Memory
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -1655,7 +1655,7 @@ List Memories
 
   The ID of the memory store to list memories from (`memstore_...`).
 
-- `depth: Integer` (query parameter)
+- `depth: optional Integer` (query parameter)
 
   How far below `path_prefix` to list. Defaults to `0`, which lists every memory below the prefix.
 
@@ -1663,7 +1663,7 @@ List Memories
 
   format: int32
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   The maximum number of items to return per page, from 1 to 100. Defaults to 20.
 
@@ -1671,17 +1671,17 @@ List Memories
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `path_prefix: String` (query parameter)
+- `path_prefix: optional String` (query parameter)
 
   Return only memories whose path starts with this prefix, such as `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
   Omit it to list the whole store. The prefix must end with `/` and matches whole segments, so `/notes/` matches `/notes/todo.md` but not `/notes-archive/todo.md`.
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether each memory in the response includes `content`. Defaults to `basic`, which sets it to `null`.
 
@@ -1695,7 +1695,7 @@ List Memories
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -1811,7 +1811,7 @@ List Memories
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1879,7 +1879,7 @@ List Memories
 
       format: date-time
 
-    - `content: String`
+    - `content: optional String`
 
       The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -1949,7 +1949,7 @@ Retrieve a Memory
 
   The ID of the memory to retrieve (`mem_...`).
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -1963,7 +1963,7 @@ Retrieve a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -2079,7 +2079,7 @@ Retrieve a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2143,7 +2143,7 @@ Retrieve a Memory
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -2196,7 +2196,7 @@ Update a Memory
 
   The ID of the memory to update (`mem_...`).
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -2210,11 +2210,11 @@ Update a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `content: String`
+- `content: optional String`
 
   New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
-- `path: String`
+- `path: optional String`
 
   The new path of the memory, which renames it. Omit it to keep the current path.
 
@@ -2222,7 +2222,7 @@ Update a Memory
 
   minLength: 2, maxLength: 1024
 
-- `precondition: BetaManagedAgentsPrecondition`
+- `precondition: optional BetaManagedAgentsPrecondition`
 
   The condition that the memory must meet for the update to apply. Omit it to update unconditionally.
 
@@ -2230,11 +2230,11 @@ Update a Memory
 
   - `type: :content_sha256`
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -2350,7 +2350,7 @@ Update a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2414,7 +2414,7 @@ Update a Memory
 
     format: date-time
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -2467,13 +2467,13 @@ Delete a Memory
 
   The ID of the memory to delete (`mem_...`).
 
-- `expected_content_sha256: String` (query parameter)
+- `expected_content_sha256: optional String` (query parameter)
 
   Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
   If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -2589,7 +2589,7 @@ Delete a Memory
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2648,23 +2648,23 @@ List Memory Versions
 
   The ID of the memory store whose version history to list (`memstore_...`).
 
-- `api_key_id: String` (query parameter)
+- `api_key_id: optional String` (query parameter)
 
   Return only versions written with the API key that has this ID.
 
-- `created_at_gte: Time` (query parameter)
+- `created_at_gte: optional Time` (query parameter)
 
   Return versions created at or after this time (inclusive).
 
   format: date-time
 
-- `created_at_lte: Time` (query parameter)
+- `created_at_lte: optional Time` (query parameter)
 
   Return versions created at or before this time (inclusive).
 
   format: date-time
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   The maximum number of versions to return per page, from 1 to 100. Defaults to 20.
 
@@ -2672,13 +2672,13 @@ List Memory Versions
 
   format: int32
 
-- `memory_id: String` (query parameter)
+- `memory_id: optional String` (query parameter)
 
   Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. While that memory's versions are retained, the results include the version whose `operation` is `deleted`.
 
-- `operation: BetaManagedAgentsMemoryVersionOperation` (query parameter)
+- `operation: optional BetaManagedAgentsMemoryVersionOperation` (query parameter)
 
   Return only versions that record this kind of change.
 
@@ -2694,19 +2694,19 @@ List Memory Versions
 
     The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `service_account_id: String` (query parameter)
+- `service_account_id: optional String` (query parameter)
 
   Return only versions written by the service account with this ID (`svac_...`).
 
-- `session_id: String` (query parameter)
+- `session_id: optional String` (query parameter)
 
   Return only versions written by the session with this ID.
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -2720,7 +2720,7 @@ List Memory Versions
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -2836,7 +2836,7 @@ List Memory Versions
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2892,21 +2892,21 @@ List Memory Versions
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: Integer`
+  - `content_size_bytes: optional Integer`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
     format: int32
 
-  - `created_by: BetaManagedAgentsActor`
+  - `created_by: optional BetaManagedAgentsActor`
 
     Who made this change to the memory, or `null` if the author wasn't recorded.
 
@@ -2962,11 +2962,11 @@ List Memory Versions
 
         minLength: 1
 
-  - `path: String`
+  - `path: optional String`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: Time`
+  - `redacted_at: optional Time`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -2976,7 +2976,7 @@ List Memory Versions
 
     format: date-time
 
-  - `redacted_by: BetaManagedAgentsActor`
+  - `redacted_by: optional BetaManagedAgentsActor`
 
     Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 
@@ -3041,7 +3041,7 @@ Retrieve a Memory Version
 
   The ID of the memory version to retrieve (`memver_...`).
 
-- `view: BetaManagedAgentsMemoryView` (query parameter)
+- `view: optional BetaManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
@@ -3055,7 +3055,7 @@ Retrieve a Memory Version
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -3171,7 +3171,7 @@ Retrieve a Memory Version
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3227,21 +3227,21 @@ Retrieve a Memory Version
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: Integer`
+  - `content_size_bytes: optional Integer`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
     format: int32
 
-  - `created_by: BetaManagedAgentsActor`
+  - `created_by: optional BetaManagedAgentsActor`
 
     Who made this change to the memory, or `null` if the author wasn't recorded.
 
@@ -3297,11 +3297,11 @@ Retrieve a Memory Version
 
         minLength: 1
 
-  - `path: String`
+  - `path: optional String`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: Time`
+  - `redacted_at: optional Time`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -3311,7 +3311,7 @@ Retrieve a Memory Version
 
     format: date-time
 
-  - `redacted_by: BetaManagedAgentsActor`
+  - `redacted_by: optional BetaManagedAgentsActor`
 
     Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 
@@ -3374,7 +3374,7 @@ Redact a Memory Version
 
   The ID of the memory version to redact (`memver_...`).
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
@@ -3490,7 +3490,7 @@ Redact a Memory Version
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3546,21 +3546,21 @@ Redact a Memory Version
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: String`
+  - `content: optional String`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: String`
+  - `content_sha256: optional String`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: Integer`
+  - `content_size_bytes: optional Integer`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
     format: int32
 
-  - `created_by: BetaManagedAgentsActor`
+  - `created_by: optional BetaManagedAgentsActor`
 
     Who made this change to the memory, or `null` if the author wasn't recorded.
 
@@ -3616,11 +3616,11 @@ Redact a Memory Version
 
         minLength: 1
 
-  - `path: String`
+  - `path: optional String`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: Time`
+  - `redacted_at: optional Time`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -3630,7 +3630,7 @@ Redact a Memory Version
 
     format: date-time
 
-  - `redacted_by: BetaManagedAgentsActor`
+  - `redacted_by: optional BetaManagedAgentsActor`
 
     Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 

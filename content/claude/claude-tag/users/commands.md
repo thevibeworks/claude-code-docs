@@ -81,7 +81,7 @@ There's no channel-level mute. If you run `!mute` at a channel's top level, Clau
 :mute: Muting works per thread — reply `@Claude !mute` (or `!unmute`) inside the thread you mean.
 ```
 
-To quiet unprompted replies across a whole channel, turn the channel's [**Respond automatically** setting](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) off.
+To quiet unprompted replies across a whole channel, set its [**How Claude participates**](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting to **Only when @-mentioned**.
 
 Unmute the same way:
 

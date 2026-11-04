@@ -25,6 +25,116 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
 - `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1054,19 +1164,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1101,19 +1198,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1145,19 +1229,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1197,19 +1268,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1244,19 +1302,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1277,19 +1322,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional object`
 
@@ -1703,19 +1735,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1755,19 +1774,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1815,19 +1821,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1867,19 +1860,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1927,19 +1907,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -1976,19 +1943,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional object`
 
@@ -2222,19 +2176,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -2269,19 +2210,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -2315,19 +2243,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2376,19 +2291,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2465,19 +2367,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -2623,19 +2512,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -2653,32 +2529,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `user_location: optional object`
 
                           Parameters for the user's location. Used to provide more relevant search results.
-
-                          - `type: "approximate"`
-
-                          - `city: optional string`
-
-                            The city of the user.
-
-                            minLength: 1, maxLength: 255
-
-                          - `country: optional string`
-
-                            The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
-
-                            minLength: 2, maxLength: 2
-
-                          - `region: optional string`
-
-                            The region of the user.
-
-                            minLength: 1, maxLength: 255
-
-                          - `timezone: optional string`
-
-                            The [IANA timezone](https://nodatime.org/TimeZones) of the user.
-
-                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20260209: object`
 
@@ -2712,24 +2562,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `citations: optional object`
 
                           Citations configuration for fetched documents. Citations are disabled by default.
-
-                          - `enabled: optional boolean`
 
                         - `defer_loading: optional boolean`
 
@@ -2754,18 +2589,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `url_sources: optional object`
 
                           Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
-
-                          - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
-
-                            Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
-
-                          - `server_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
-
-                            Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
-
-                          - `user_input: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone`
-
-                            Whether URLs in user messages are fetchable: "all" or "none".
 
                       - `beta_web_fetch_tool_20260309: object`
 
@@ -2801,24 +2624,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `citations: optional object`
 
                           Citations configuration for fetched documents. Citations are disabled by default.
-
-                          - `enabled: optional boolean`
 
                         - `defer_loading: optional boolean`
 
@@ -2843,18 +2651,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `url_sources: optional object`
 
                           Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
-
-                          - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
-
-                            Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
-
-                          - `server_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
-
-                            Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
-
-                          - `user_input: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone`
-
-                            Whether URLs in user messages are fetchable: "all" or "none".
 
                         - `use_cache: optional boolean`
 
@@ -2892,19 +2688,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -2930,32 +2713,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `user_location: optional object`
 
                           Parameters for the user's location. Used to provide more relevant search results.
-
-                          - `type: "approximate"`
-
-                          - `city: optional string`
-
-                            The city of the user.
-
-                            minLength: 1, maxLength: 255
-
-                          - `country: optional string`
-
-                            The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
-
-                            minLength: 2, maxLength: 2
-
-                          - `region: optional string`
-
-                            The region of the user.
-
-                            minLength: 1, maxLength: 255
-
-                          - `timezone: optional string`
-
-                            The [IANA timezone](https://nodatime.org/TimeZones) of the user.
-
-                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20260318: object`
 
@@ -2989,24 +2746,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `citations: optional object`
 
                           Citations configuration for fetched documents. Citations are disabled by default.
-
-                          - `enabled: optional boolean`
 
                         - `defer_loading: optional boolean`
 
@@ -3039,18 +2781,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `url_sources: optional object`
 
                           Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
-
-                          - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
-
-                            Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
-
-                          - `server_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
-
-                            Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
-
-                          - `user_input: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone`
-
-                            Whether URLs in user messages are fetchable: "all" or "none".
 
                         - `use_cache: optional boolean`
 
@@ -3168,35 +2898,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `caching: optional object`
 
                           Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3246,19 +2950,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -3295,19 +2986,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Create a cache control breakpoint at this content block.
 
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
-
                         - `defer_loading: optional boolean`
 
                           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
@@ -3334,19 +3012,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         - `cache_control: optional object`
 
                           Create a cache control breakpoint at this content block.
-
-                          - `type: "ephemeral"`
-
-                          - `ttl: optional "5m" or "1h"`
-
-                            The time-to-live for the cache control breakpoint.
-
-                            This may be one the following values:
-
-                            - `5m`: 5 minutes
-                            - `1h`: 1 hour
-
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional map[BetaMCPToolConfig]`
 
@@ -3439,97 +3104,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `"claude-haiku-5-5"`
-
-                  Fastest model for high-volume, real-time tasks
-
-                - `"claude-sonnet-5-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5-1"`
-
-                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-                - `"claude-opus-5-5"`
-
-                  Powerful intelligence for coding, knowledge work, and long-running agents
-
-                - `"claude-mythos-5-1"`
-
-                  Our most capable model for cybersecurity and biology research, available through trusted access programs
-
-                - `"claude-sonnet-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                - `"claude-haiku-4-5-20251001"`
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-sonnet-4-5"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
-
             - `to: object`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-              - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
             - `trigger: object`
 
@@ -3707,88 +3284,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `"claude-haiku-5-5"`
-
-            Fastest model for high-volume, real-time tasks
-
-          - `"claude-sonnet-5-5"`
-
-            Efficient model for coding and agents
-
-          - `"claude-fable-5-1"`
-
-            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-          - `"claude-opus-5-5"`
-
-            Powerful intelligence for coding, knowledge work, and long-running agents
-
-          - `"claude-mythos-5-1"`
-
-            Our most capable model for cybersecurity and biology research, available through trusted access programs
-
-          - `"claude-sonnet-5"`
-
-            Efficient model for coding and agents
-
-          - `"claude-fable-5"`
-
-            Next generation of intelligence for the hardest knowledge work and coding problems
-
-          - `"claude-mythos-5"`
-
-            Most capable model for cybersecurity and biology research
-
-          - `"claude-opus-5"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-8"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-7"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-6"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-sonnet-4-6"`
-
-            Best combination of speed and intelligence
-
-          - `"claude-haiku-4-5"`
-
-          - `"claude-haiku-4-5-20251001"`
-
-          - `"claude-opus-4-5"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-5-20251101"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-mythos-preview"`
-
-            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            New class of intelligence, strongest in coding and cybersecurity
-
-          - `"claude-sonnet-4-5"`
-
-            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            High-performance model for agents and coding
-
-          - `"claude-sonnet-4-5-20250929"`
-
-            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            High-performance model for agents and coding
 
         - `role: "assistant"`
 
@@ -4068,18 +3563,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Breakdown of cached tokens by TTL
 
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                  minimum: 0
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-                  minimum: 0
-
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
@@ -4104,88 +3587,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `"claude-haiku-5-5"`
-
-                  Fastest model for high-volume, real-time tasks
-
-                - `"claude-sonnet-5-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5-1"`
-
-                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-                - `"claude-opus-5-5"`
-
-                  Powerful intelligence for coding, knowledge work, and long-running agents
-
-                - `"claude-mythos-5-1"`
-
-                  Our most capable model for cybersecurity and biology research, available through trusted access programs
-
-                - `"claude-sonnet-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                - `"claude-haiku-4-5-20251001"`
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-sonnet-4-5"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
-
               - `output_tokens: number`
 
                 The number of output tokens which were used.
@@ -4203,18 +3604,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `cache_creation: object`
 
                 Breakdown of cached tokens by TTL
-
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                  minimum: 0
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-                  minimum: 0
 
               - `cache_creation_input_tokens: number`
 
@@ -4252,18 +3641,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Breakdown of cached tokens by TTL
 
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                  minimum: 0
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-                  minimum: 0
-
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
@@ -4287,88 +3664,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `"claude-haiku-5-5"`
-
-                  Fastest model for high-volume, real-time tasks
-
-                - `"claude-sonnet-5-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5-1"`
-
-                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-                - `"claude-opus-5-5"`
-
-                  Powerful intelligence for coding, knowledge work, and long-running agents
-
-                - `"claude-mythos-5-1"`
-
-                  Our most capable model for cybersecurity and biology research, available through trusted access programs
-
-                - `"claude-sonnet-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                - `"claude-haiku-4-5-20251001"`
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-sonnet-4-5"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
 
               - `output_tokens: number`
 
@@ -4395,18 +3690,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Breakdown of cached tokens by TTL
 
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                  minimum: 0
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-                  minimum: 0
-
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
@@ -4430,88 +3713,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `"claude-haiku-5-5"`
-
-                  Fastest model for high-volume, real-time tasks
-
-                - `"claude-sonnet-5-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5-1"`
-
-                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-                - `"claude-opus-5-5"`
-
-                  Powerful intelligence for coding, knowledge work, and long-running agents
-
-                - `"claude-mythos-5-1"`
-
-                  Our most capable model for cybersecurity and biology research, available through trusted access programs
-
-                - `"claude-sonnet-5"`
-
-                  Efficient model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                - `"claude-haiku-4-5-20251001"`
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-sonnet-4-5"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-                  High-performance model for agents and coding
 
               - `output_tokens: number`
 

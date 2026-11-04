@@ -133,7 +133,22 @@ Push the exported configuration through your MDM. The app reads from these locat
 
 When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
-A user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. To prevent that, set [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile). To allow the move only to your organization, set [`forceLoginOrgUUID`](https://claude.com/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile) instead.
+### Restrict a device to one deployment mode
+
+Claude Desktop on 3P runs on the inference provider or bootstrap server in your configuration. In standard Claude Desktop, users sign in to claude.ai. To stop users from switching a device between the two, set [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentmode) in the managed source:
+
+* **`3p`**: the app uses the connection that the managed source sets, such as an inference provider or bootstrap keys. The sign-in screen doesn't offer **Or sign in with Claude.ai**. With nothing to connect to in the same managed source, the app opens standard Claude Desktop, so set a connection there to keep users from signing in to claude.ai.
+* **`1p`**: the app always runs as standard Claude Desktop and ignores inference provider and bootstrap keys.
+* **`any`**: the same as leaving the key unset.
+
+With `3p` or `1p`, a user can't [move the device to an Enterprise Admin Console organization](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile), and the app doesn't offer or accept the [Claude API account sign-in](https://claude.com/docs/third-party/claude-desktop/claude-api.md#which-devices-offer-the-claude-api-account-sign-in). To allow the move only to your organization, set [`forceLoginOrgUUID`](https://claude.com/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile) instead. The app ignores `deploymentMode` in a bootstrap response. It treats a misspelled value as `3p`.
+
+`deploymentMode` requires Claude Desktop 4.16336.0 or later. Earlier versions read [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser), and later ones still read it, so an existing profile works as before. On a device without a bootstrap server, `disableDeploymentModeChooser` set to `true` in a managed source does what `3p` does, unless `deploymentMode` is `1p`. On a device with a bootstrap server, the response replaces the profile's `disableDeploymentModeChooser`, so set `deploymentMode` to `3p` in the profile to restrict that device.
+
+While a fleet updates to 4.16336.0, plan for these cases:
+
+* **A profile that gains `3p`, or gains `1p` and sets nothing to connect to**: also set `disableDeploymentModeChooser` to `true` until every device has updated. On a device with a bootstrap server, set it in the response too. If a profile that you export from the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) doesn't set `disableDeploymentModeChooser` to `true`, add the key to the exported file.
+* **[The Linux file](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file)**: versions before 4.16336.0 treat a key that they don't recognize as an error in `managed-settings.json`, so add `deploymentMode` to a device's file after that device updates.
 
 ### Update keys and managed precedence
 

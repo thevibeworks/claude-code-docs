@@ -21,7 +21,7 @@ Existing Claude Haiku 4.5 prompts should perform well without changes. Start wit
 <Note>
   For the breaking API changes when migrating from Claude Haiku 4.5, see the [migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide).
 
-  Several sections on this page suggest text to add to your system prompt. Add it to new conversations only. A request that sends thinking blocks back after `system` changed can return a 400 error, so a stored conversation resumed with the new system prompt can fail. To change instructions partway through a conversation, [put them in the newest turn](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#changing-context). On the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed), you can instead [append a system message to the conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions).
+  Several sections on this page suggest text to add to your system prompt. Add it to new conversations only. A request that sends thinking blocks back after `system` changed can return a 400 error, so a stored conversation resumed with the new system prompt can fail. To change instructions partway through a conversation, [put them in the newest turn](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#changing-context). On the Claude API, Amazon Bedrock, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Claude Models on Google Cloud (Google managed), you can instead [append a system message to the conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions).
 </Note>
 
 ## Use effort to control thinking

@@ -28,11 +28,11 @@ If your organization already allows Marketplace apps, this takes about two minut
 
 2. Open a Google Docs, Sheets, or Slides file and go to Extensions > Claude > “Open Claude":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707281468/abc0497defca04936c9a4b97d147/8b17d05f-3fb1-4e49-8d1f-65364ac3f496?expires=1793730600&amp;signature=4560207901d56f5aefc83b188bf9b82c6f31e379e48e6895f48abf68c9cdc0f7&amp;req=dicnEct2nIVZUfMW1HO4zRwmJT9rV%2BRJaAKM49NdBLPe5KptLJp7dnH1KgWH%0AK6z%2F%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707281468/abc0497defca04936c9a4b97d147/8b17d05f-3fb1-4e49-8d1f-65364ac3f496?expires=1793777400&amp;signature=e2da81c7e9a12e714ef7fd3fe7d787874252bc572ec4fb3bc3e06cc3784344c2&amp;req=dicnEct2nIVZUfMW1HO4zRwmJT9rU%2BNLaAKM49NdBLPmcaxEKiVAEIfHxM7I%0AGZE%2B%0A)
 
 3. The first time, Google asks you to allow two permissions. Review them and click "Allow":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707282342/f583a396098ff16e3cbd156d4a2a/112c6459-79c6-4fbb-9bc0-748fda6f592f?expires=1793730600&amp;signature=ee397e89b32906c39bb5b75626a8fab343cfc354cd331d7759ca3b5e66a7164f&amp;req=dicnEct2n4JbW%2FMW1HO4zeKY3p8Bgw72eBfHlrCfDWfcgOWqpru4f6yZIkxy%0AQooJ%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2707282342/f583a396098ff16e3cbd156d4a2a/112c6459-79c6-4fbb-9bc0-748fda6f592f?expires=1793777400&amp;signature=be140633cf3bf4fb37ca5fe16a9b7d5d14d0ce38c9473eca7cbfbd68a6b0d37c&amp;req=dicnEct2n4JbW%2FMW1HO4zeKY3p8Bhwn0eBfHlrCfDWe5Y4iJyjYwHgokEyzB%0AnMt3%0A)
 
 4. Sign in with your Claude account in the sidebar, and optionally enable your connectors.
 

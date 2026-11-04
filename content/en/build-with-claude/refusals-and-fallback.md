@@ -37,7 +37,7 @@ The simplest setup, in beta on the Claude API and on [Claude Models on Google Cl
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: server-side-fallback-2026-07-01" \
     -H "content-type: application/json" \
     -d '{
@@ -261,7 +261,7 @@ Default routing never draws the up-front [oversized-image rejection](https://pla
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: server-side-fallback-2026-07-01" \
     -H "content-type: application/json" \
     -d '{
@@ -508,7 +508,7 @@ The highlighted lines are the only difference from the default-routing request.
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: server-side-fallback-2026-07-01" \
     -H "content-type: application/json" \
     -d '{

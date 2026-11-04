@@ -62,7 +62,7 @@ Some model IDs, such as a gateway routing alias, don't name a specific Claude mo
 
 With this entry, the picker shows `acme-claude-sonnet` with the controls of Claude Sonnet 5: its effort levels in Chat, Cowork, and Code, and its **Thinking** switch in Chat and Cowork. The model starts at Claude Sonnet 5's recommended level, and `defaultModelEffort` and `maxEffort` still apply. Claude Desktop still sends `name` to your provider. Through an LLM gateway, sessions also assume Claude Sonnet 5's [context window](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction).
 
-If the ID contains a Claude model version, write the version with hyphens and set `behavesAs` to that same model. Whatever `behavesAs` says, sessions treat `acme-claude-sonnet-4.6` as Claude Sonnet 4 and send no effort level, but treat `acme-claude-sonnet-4-6` as Claude Sonnet 4.6. If the ID routes to a different model, use an ID without a version.
+If the ID contains a Claude model version, set `behavesAs` to that same model. If the ID routes to a different model, use an ID without a version. Whatever `behavesAs` says, sessions treat both `acme-claude-sonnet-4-6` and `acme-claude-sonnet-4.6` as Claude Sonnet 4.6. Before Claude Desktop 4.16336.0, sessions treat `acme-claude-sonnet-4.6` as Claude Sonnet 4 and send no effort level. Until every device runs Claude Desktop 4.16336.0 or later, write the model version with hyphens, such as `acme-claude-sonnet-4-6`.
 
 To check a value, go to **Help > Troubleshooting > Generate Diagnostic Report**, click **Export to file**, and open the saved `.zip` file:
 
