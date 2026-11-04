@@ -258,7 +258,7 @@ If you still need to debug from the JWT itself, work through these checks in ord
   <Step title="Decode the JWT">
     Decode the assertion you sent so you can compare each claim against your issuer and rule configuration:
 
-    ```bash cURL
+    ```bash
     jq -rR 'split(".")[1] | gsub("-";"+") | gsub("_";"/") | @base64d | fromjson' <<< "$JWT"
     ```
   </Step>

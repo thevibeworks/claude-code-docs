@@ -4,25 +4,118 @@ url: https://platform.claude.com/docs/en/get-started
 description: Make your first API call to Claude and build a simple web search assistant.
 ---
 
-## Prerequisites
+## Before you begin
 
-* A [Claude Console account](https://platform.claude.com/)
-* An [API key](https://platform.claude.com/docs/en/get-api-key)
+<Steps continues>
+  <Step title="Create a Claude Console account">
+    [Sign up](https://platform.claude.com/) for a Claude Console account, or sign in to the one you have.
+  </Step>
+
+  <Step title="Choose how to authenticate">
+    Signing in with the CLI is recommended for local development.
+
+    Follow the steps for one of the following options.
+  </Step>
+</Steps>
+
+**CLI**
+
+<Steps continued>
+  <Step title="Install the CLI" stepNumber={3}>
+    <Tabs noDeepLinks>
+      <Tab title="Homebrew (macOS)">
+        ```bash
+        brew install anthropics/tap/ant
+        ```
+      </Tab>
+
+      <Tab title="curl (Linux/WSL)">
+        For Linux environments, download the release binary directly.
+
+        ```bash
+        VERSION=2.5.0
+        OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+        case $(uname -m) in
+          x86_64) ARCH=amd64 ;;
+          aarch64) ARCH=arm64 ;;
+        esac
+        curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_${OS}_${ARCH}.tar.gz" \
+          | sudo tar -xz -C /usr/local/bin ant
+        ```
+
+        You can find all releases on the [GitHub releases page](https://github.com/anthropics/anthropic-cli/releases).
+      </Tab>
+
+      <Tab title="go install">
+        You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
+
+        ```bash
+        go install github.com/anthropics/anthropic-cli/v2/cmd/ant@latest
+        ```
+
+        The binary is placed in `$(go env GOPATH)/bin`. Add it to your `PATH` if it isn’t already:
+
+        ```bash
+        export PATH="$PATH:$(go env GOPATH)/bin"
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Sign in" stepNumber={4}>
+    ```bash
+    ant auth login
+    ```
+
+    Once login is completed, the SDKs and CLI will pick up your credentials automatically.
+  </Step>
+</Steps>
+
+**API key**
+
+<Steps continued>
+  <Step title="Create an API key" stepNumber={3}>
+    Create an [API key](https://platform.claude.com/settings/keys) in the Claude Console.
+  </Step>
+
+  <Step title="Set the environment variable" stepNumber={4}>
+    The SDKs and CLI read your key from `ANTHROPIC_API_KEY`:
+
+    ```bash
+    export ANTHROPIC_API_KEY="your-api-key-here"
+    ```
+  </Step>
+</Steps>
 
 ## Call the API
 
 <Tabs>
   <Tab title="cURL">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The cURL command in the following step reads it from `$ANTHROPIC_API_KEY`.
+      <Step title="Make your first API call" stepNumber={5}>
+        **CLI**
 
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
+        Send a `POST` request to the Messages API, with [the access token from your CLI sign-in](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting#authenticate-curl-requests-with-cli-credentials) as a bearer token:
+
+        ```bash cURL
+        curl https://api.anthropic.com/v1/messages \
+          -H "content-type: application/json" \
+          -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+          -H "anthropic-version: 2026-10-21" \
+          -d '{
+            "model": "claude-opus-5-5",
+            "max_tokens": 1000,
+            "messages": [
+              {
+                "role": "user",
+                "content": "What should I search for to find the latest developments in renewable energy?"
+              }
+            ]
+          }'
         ```
-      </Step>
 
-      <Step title="Make your first API call">
+        **API key**
+
         Send a `POST` request to the Messages API:
 
         ```bash cURL
@@ -71,33 +164,50 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="CLI">
     <Steps>
-      <Step title="Install the CLI">
-        Install the Anthropic CLI with Homebrew:
+      <Step title="Make your first API call" stepNumber={5}>
+        **API key**
 
-        ```bash
-        brew install anthropics/tap/ant
-        ```
+        If you chose API key earlier, install the CLI first:
 
-        For other installation methods, see [Installation](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart#installation) in the CLI quickstart.
-      </Step>
+        <Tabs noDeepLinks>
+          <Tab title="Homebrew (macOS)">
+            ```bash
+            brew install anthropics/tap/ant
+            ```
+          </Tab>
 
-      <Step title="Authenticate">
-        Log in with your Anthropic account:
+          <Tab title="curl (Linux/WSL)">
+            For Linux environments, download the release binary directly.
 
-        ```bash
-        ant auth login
-        ```
+            ```bash
+            VERSION=2.5.0
+            OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+            case $(uname -m) in
+              x86_64) ARCH=amd64 ;;
+              aarch64) ARCH=arm64 ;;
+            esac
+            curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_${OS}_${ARCH}.tar.gz" \
+              | sudo tar -xz -C /usr/local/bin ant
+            ```
 
-        This opens a browser-based OAuth flow. After authorizing, confirm your credential with:
+            You can find all releases on the [GitHub releases page](https://github.com/anthropics/anthropic-cli/releases).
+          </Tab>
 
-        ```bash
-        ant auth status
-        ```
+          <Tab title="go install">
+            You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
 
-        On a remote host without a browser, pass `--no-browser` to get a URL you can open on another device, then paste the returned code back into the terminal. For non-interactive environments such as CI, see [CLI authentication options](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication).
-      </Step>
+            ```bash
+            go install github.com/anthropics/anthropic-cli/v2/cmd/ant@latest
+            ```
 
-      <Step title="Make your first API call">
+            The binary is placed in `$(go env GOPATH)/bin`. Add it to your `PATH` if it isn’t already:
+
+            ```bash
+            export PATH="$PATH:$(go env GOPATH)/bin"
+            ```
+          </Tab>
+        </Tabs>
+
         Run `ant messages create` from your terminal:
 
         ```bash CLI
@@ -136,15 +246,7 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="Python">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Create a project and install the SDK">
+      <Step title="Create a project and install the SDK" stepNumber={5}>
         ```bash
         mkdir claude-quickstart && cd claude-quickstart
         python3 -m venv .venv && source .venv/bin/activate
@@ -152,7 +254,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Create a file called `quickstart.py`:
 
         ```python Python
@@ -177,7 +279,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         ```bash
         python quickstart.py
         ```
@@ -195,15 +297,7 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="TypeScript">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Create a project and install the SDK">
+      <Step title="Create a project and install the SDK" stepNumber={5}>
         ```bash
         mkdir claude-quickstart && cd claude-quickstart
         npm init -y
@@ -212,7 +306,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Create a file called `quickstart.ts`:
 
         ```typescript TypeScript
@@ -239,7 +333,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         ```bash
         npx tsx quickstart.ts
         ```
@@ -257,15 +351,7 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="C#">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Create a project and install the SDK">
+      <Step title="Create a project and install the SDK" stepNumber={5}>
         Create a new console project and add the Anthropic package:
 
         ```bash
@@ -275,7 +361,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Replace the contents of `Program.cs`:
 
         ```csharp C#
@@ -307,7 +393,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         ```bash
         dotnet run
         ```
@@ -325,15 +411,7 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="Go">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Create a project and install the SDK">
+      <Step title="Create a project and install the SDK" stepNumber={5}>
         Create a new module and add the Anthropic SDK:
 
         ```bash
@@ -343,7 +421,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Create a file called `main.go`:
 
         ```go Go
@@ -380,7 +458,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         ```bash
         go run .
         ```
@@ -398,15 +476,7 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="Java">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Set up your project">
+      <Step title="Set up your project" stepNumber={5}>
         You need a JDK (25 or later) and either [Gradle](https://gradle.org/install/) or [Maven](https://maven.apache.org/install.html) on your `PATH`. Create a directory for your project with a Java source directory inside it:
 
         ```bash
@@ -470,7 +540,7 @@ description: Make your first API call to Claude and build a simple web search as
         </Tabs>
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Save this as `QuickStart.java` in your project’s Java source directory (usually `src/main/java/`):
 
         ```java Java
@@ -498,7 +568,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         <Tabs>
           <Tab title="Gradle">
             ```bash
@@ -526,22 +596,14 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="PHP">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Create a project and install the SDK">
+      <Step title="Create a project and install the SDK" stepNumber={5}>
         ```bash
         mkdir claude-quickstart && cd claude-quickstart
         composer require "anthropic-ai/sdk" "guzzlehttp/guzzle:^7"
         ```
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Create a file called `quickstart.php`:
 
         ```php PHP
@@ -573,7 +635,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         ```bash
         php quickstart.php
         ```
@@ -591,15 +653,7 @@ description: Make your first API call to Claude and build a simple web search as
 
   <Tab title="Ruby">
     <Steps>
-      <Step title="Set your API key">
-        Export your API key as an environment variable. The SDK reads `ANTHROPIC_API_KEY` automatically.
-
-        ```bash
-        export ANTHROPIC_API_KEY="your-api-key-here"
-        ```
-      </Step>
-
-      <Step title="Create a project and install the SDK">
+      <Step title="Create a project and install the SDK" stepNumber={5}>
         ```bash
         mkdir claude-quickstart && cd claude-quickstart
         bundle init
@@ -607,7 +661,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Create your code">
+      <Step title="Create your code" stepNumber={6}>
         Create a file called `quickstart.rb`:
 
         ```ruby Ruby
@@ -632,7 +686,7 @@ description: Make your first API call to Claude and build a simple web search as
         ```
       </Step>
 
-      <Step title="Run your code">
+      <Step title="Run your code" stepNumber={7}>
         ```bash
         bundle exec ruby quickstart.rb
         ```

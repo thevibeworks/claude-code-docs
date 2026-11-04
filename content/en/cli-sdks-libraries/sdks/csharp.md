@@ -118,7 +118,10 @@ These streaming methods return [`IAsyncEnumerable`](https://learn.microsoft.com/
 
 ```csharp
 using System;
+using Anthropic;
 using Anthropic.Models.Messages;
+
+AnthropicClient client = new();
 
 MessageCreateParams parameters = new()
 {

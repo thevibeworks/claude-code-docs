@@ -494,7 +494,7 @@ This path additionally requires an EKS cluster with an [IAM OIDC provider enable
   <Step title="Find your cluster’s OIDC issuer URL">
     Each EKS cluster has a unique OIDC issuer. Retrieve it with the AWS CLI:
 
-    ```bash CLI
+    ```bash
     aws eks describe-cluster \
       --name <cluster-name> \
       --query "cluster.identity.oidc.issuer" \

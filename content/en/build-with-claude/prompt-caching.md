@@ -890,14 +890,14 @@ The 1-hour cache is best used in the following scenarios:
 
 You can use both 1-hour and 5-minute cache controls in the same request, but with an important constraint: Cache entries with longer TTL must appear before shorter TTLs (that is, a 1-hour cache entry must appear before any 5-minute cache entries).
 
-When mixing TTLs, the API determines three billing locations in your prompt:
+When mixing TTLs, the Claude API determines three billing locations in your prompt:
 
-1. Position `A`: The token count at the highest cache hit (or 0 if no hits).
-2. Position `B`: The token count at the highest 1-hour `cache_control` block after `A` (or equals `A` if none exist).
+1. Position `A`: The token count at the last cache hit in your prompt (or 0 if no hits). A hit on an entry cached with a 5-minute TTL doesn’t count if a 1-hour `cache_control` block after it is a cache miss.
+2. Position `B`: The token count at the last 1-hour `cache_control` block after `A` (or equals `A` if none exist).
 3. Position `C`: The token count at the last `cache_control` block.
 
 <Note>
-  If `B` or `C` is larger than `A`, it is necessarily a cache miss, because `A` is the highest cache hit.
+  If `B` or `C` is larger than `A`, it is necessarily a cache miss.
 </Note>
 
 You are charged for:

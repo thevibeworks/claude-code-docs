@@ -169,28 +169,34 @@ Install the package that provides the client:
 
   <Tab title="Go">
     ```bash
-    go get github.com/anthropics/anthropic-sdk-go/v2
+    go get github.com/anthropics/anthropic-sdk-go/v2/googlecloud
     ```
   </Tab>
 
   <Tab title="Java">
-    ```kotlin Gradle
-    implementation("com.anthropic:anthropic-java:3.4.0")
-    implementation("com.anthropic:anthropic-java-google-cloud:3.4.0")
-    ```
+    <Tabs>
+      <Tab title="Gradle">
+        ```kotlin
+        implementation("com.anthropic:anthropic-java:3.4.0")
+        implementation("com.anthropic:anthropic-java-google-cloud:3.4.0")
+        ```
+      </Tab>
 
-    ```xml Maven
-    <dependency>
-      <groupId>com.anthropic</groupId>
-      <artifactId>anthropic-java</artifactId>
-      <version>3.4.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.anthropic</groupId>
-      <artifactId>anthropic-java-google-cloud</artifactId>
-      <version>3.4.0</version>
-    </dependency>
-    ```
+      <Tab title="Maven">
+        ```xml
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java-google-cloud</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
 
   <Tab title="PHP">

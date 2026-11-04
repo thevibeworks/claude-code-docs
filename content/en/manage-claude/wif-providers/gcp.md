@@ -23,7 +23,7 @@ Google issues identity tokens automatically to any workload with an attached ser
   <Tab title="Cloud Run, Cloud Functions, App Engine, GCE">
     Attach a dedicated service account to your service or instance:
 
-    ```bash CLI
+    ```bash
     gcloud run deploy my-service \
       --service-account inference-worker@my-project.iam.gserviceaccount.com
     ```
@@ -37,7 +37,7 @@ Google issues identity tokens automatically to any workload with an attached ser
 
     Or, with the gcloud CLI:
 
-    ```bash CLI
+    ```bash
     gcloud auth print-identity-token \
       --audiences="https://api.anthropic.com" \
       --include-email
