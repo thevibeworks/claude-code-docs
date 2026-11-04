@@ -54,12 +54,12 @@ The credentialed request reaches your system, like the warehouse, and the result
 
 ### Agent Proxy
 
-For each outbound request from the sandbox, other than a GitHub API request or a git operation, Agent Proxy checks the destination against three allow layers. A request goes through if any one of them allows it; a host that none of them allows is blocked.
+For each outbound request from the sandbox, other than a GitHub API request or a git operation, Agent Proxy checks the destination against three allow layers. A request goes through if any one of them allows it, and a host that none of them allows is blocked. When a domain entry that applies to the channel names the host, the environment's network access setting alone doesn't let through an HTTP method that entry doesn't allow.
 
 | When the destination | Result |
 | :- | :- |
 | Matches a credential's rule, its [allowed websites](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites) | The proxy attaches that credential and forwards the request. The credential stays at the proxy; the model and sandbox are not given it. |
-| Is an [allowed domain](https://claude.com/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential) that applies to the channel, but matches no credential | The proxy forwards the request without a credential. |
+| Is an [allowed domain](https://claude.com/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential) that applies to the channel, requested with an HTTP method its domain entry allows, but matches no credential | The proxy forwards the request without a credential. |
 | Is allowed by the network access setting of the [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment) the [scope](https://claude.com/docs/claude-tag/concepts/glossary.md#scope)'s sessions run on | The proxy forwards the request without a credential. |
 | Matches none of these | The proxy blocks the request. |
 

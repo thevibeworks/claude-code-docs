@@ -75,7 +75,7 @@ In the SDK, these endpoints are `client.organization.service_accounts` (typescri
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/service_accounts" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -167,7 +167,7 @@ Create a service account:
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/service_accounts" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "name": "inference-worker",
@@ -285,7 +285,7 @@ List service accounts:
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/service_accounts?limit=20" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -382,7 +382,7 @@ Archive a service account:
   ```bash cURL
   curl --fail-with-body -sS -X POST "https://api.anthropic.com/v1/organizations/service_accounts/svac_01ABCDEFabcdef0123456789XY/archive" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -502,7 +502,7 @@ Register an issuer. This example registers GitHub Actions with JWKS discovery:
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/federation_issuers" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "name": "github-actions",
@@ -637,7 +637,7 @@ List issuers:
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/federation_issuers?limit=20" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -732,7 +732,7 @@ Archive an issuer:
   ```bash cURL
   curl --fail-with-body -sS -X POST "https://api.anthropic.com/v1/organizations/federation_issuers/fdis_01ABCDEFabcdef0123456789XY/archive" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -834,7 +834,7 @@ Create a rule. This example lets GitHub Actions deploys from the main branch act
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/federation_rules" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "name": "gha-deploy",
@@ -1047,7 +1047,7 @@ List rules, optionally filtered by issuer:
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/federation_rules?issuer_id=fdis_01ABCDEFabcdef0123456789XY" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -1154,7 +1154,7 @@ Archive a rule:
   ```bash cURL
   curl --fail-with-body -sS -X POST "https://api.anthropic.com/v1/organizations/federation_rules/fdrl_01ABCDEFabcdef0123456789XY/archive" \
     -H "authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI

@@ -103,11 +103,12 @@ Use the **OAuth 2.0 JWT bearer** credential type for APIs that exchange a JWT si
 
 The **Private key (PEM)** field takes a PEM-encoded RSA private key without a passphrase, the format that begins with `-----BEGIN PRIVATE KEY-----` or `-----BEGIN RSA PRIVATE KEY-----`. Identity providers such as Okta export the key as a JWK (a JSON object) by default; convert a JWK to PEM before pasting it. The form doesn't check the key's format, so a key in the wrong format fails only when you save.
 
-#### When saving fails with "Failed to create egress credential"
+### When saving fails with "Failed to create egress credential"
 
-Saving the form can return the error "Failed to create egress credential. Check your inputs and try again." The most likely cause is a private key that isn't PEM-encoded, for example a JWK pasted as-is into the **Private key (PEM)** field. Convert the key to PEM and save again.
+Saving the custom connector form can fail with the error "Failed to create egress credential. Check your inputs and try again." The message doesn't name the cause. Start by checking these values, then save again:
 
-Saving also fails when a PEM-encoded key isn't an RSA key or has a passphrase. Once the key is in the right format, re-check each field against the values from your service.
+* **Allowed websites**: check each host you entered against the host rules in [Set allowed websites](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites).
+* **The OAuth 2.0 JWT bearer private key**: the **Private key (PEM)** field for that credential type takes a PEM-encoded RSA private key without a passphrase. A JWK (a JSON object) pasted as-is, a PEM-encoded key that isn't RSA, and a key with a passphrase all fail when you save.
 
 ## Add a custom MCP server
 

@@ -52,7 +52,7 @@ The monitoring calls on this page run from your monitoring or operations tooling
   curl -sS "https://api.anthropic.com/v1/environments/$ANTHROPIC_ENVIRONMENT_ID/work/stats" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    -H "anthropic-version: 2023-06-01"
+    -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
@@ -185,7 +185,7 @@ Because these calls run from your operations tooling rather than the worker host
   curl -sS "https://api.anthropic.com/v1/environments/$ANTHROPIC_ENVIRONMENT_ID/work/$ANTHROPIC_WORK_ID/stop" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{}'
   ```

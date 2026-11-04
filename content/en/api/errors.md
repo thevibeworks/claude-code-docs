@@ -12,6 +12,8 @@ The API follows a predictable HTTP error code format:
 
 * 401 - `authentication_error`: There’s an issue with your [API key](https://platform.claude.com/docs/en/get-api-key) (for example, it’s malformed, revoked, or expired; see [Key expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration)). On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
 
+  A 401 whose message begins `CORS requests are not allowed for this Organization` is not a problem with your API key. The request included an `Origin` header, which browsers add, and your organization cannot call the Claude API directly from a browser. The message continues `because of custom retention settings` or `because of its settings`. The first appears only for data retention arrangements such as zero data retention (ZDR); the second is the general case, which includes the Compliance API. No change to the browser request fixes it, so send the request from your own back end; see [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
+
 * 402 - `billing_error`: There’s an issue with your billing or payment information. Check your payment details in the [Claude Console](https://platform.claude.com), or in AWS Marketplace if you’re using Claude Platform on AWS.
 
 * 403 - `permission_error`: Your API key does not have permission to use the specified resource. Check your organization’s access and workspace settings in the [Claude Console](https://platform.claude.com).
@@ -24,9 +26,9 @@ The API follows a predictable HTTP error code format:
 
 * 429 - `rate_limit_error`: Your organization has hit a [rate limit](https://platform.claude.com/docs/en/api/rate-limits), reached its usage tier’s monthly spend cap, or reached a spend limit on the Claude Code workspace. A tier spend-cap 429 has no `retry-after` header and keeps failing until access resumes; see [Reaching your spend cap](https://platform.claude.com/docs/en/api/rate-limits#reaching-your-spend-cap) for how to recognize it.
 
-* 500 - `api_error`: An unexpected error has occurred internal to Anthropic’s systems. Retry the request with exponential backoff; if the error persists, contact support with the [request ID](https://platform.claude.com/docs/en/api/errors#request-id).
+* 500 - `api_error`: An unexpected error has occurred internal to Anthropic’s systems. Retry the request with exponential backoff; if the error persists, contact support with the [request ID](https://platform.claude.com/docs/en/api/errors#request-id). If the error type is `timeout_error` instead, see the 504 entry.
 
-* 504 - `timeout_error`: The request timed out while processing. Consider using the [streaming Messages API](https://platform.claude.com/docs/en/build-with-claude/streaming) for long-running requests. See [Long requests](https://platform.claude.com/docs/en/api/errors#long-requests) for more options.
+* 504 - `timeout_error`: The request timed out while processing. The API also returns `timeout_error` with other status codes, such as a 500 when a request reaches the server’s time limit before the response starts. For long-running Messages API requests, use the [streaming Messages API](https://platform.claude.com/docs/en/build-with-claude/streaming). See [Long requests](https://platform.claude.com/docs/en/api/errors#long-requests) for more options.
 
 * 529 - `overloaded_error`: The API is temporarily overloaded.
 
@@ -89,7 +91,7 @@ The Python and TypeScript SDKs expose the request ID as a `_request_id` property
   # -i prints the response headers, including request-id, before the body
   curl -sS -i https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-sonnet-5",

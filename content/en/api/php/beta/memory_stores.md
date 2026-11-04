@@ -23,21 +23,21 @@ Create a Memory Store
 
   See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=php#how-the-agent-accesses-memory) to learn more about how agents access memory stores.
 
-- `description?:optional string`
+- `description?: optional string`
 
   Free-text description of what the store contains, up to 1,024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
 
-- `metadata?:optional array<string,string>`
+- `metadata?: optional array<string,string>`
 
   Key-value pairs for your own use, such as the end user that the store belongs to. The agent doesn't see them.
 
   A store has at most 16 pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -135,31 +135,31 @@ List Memory Stores
 
 ### Parameters
 
-- `createdAtGte?:optional \Datetime` (query parameter)
+- `createdAtGte?: optional \Datetime` (query parameter)
 
   Return only memory stores created at or after this time (inclusive).
 
-- `createdAtLte?:optional \Datetime` (query parameter)
+- `createdAtLte?: optional \Datetime` (query parameter)
 
   Return only memory stores created at or before this time (inclusive).
 
-- `includeArchived?:optional bool` (query parameter)
+- `includeArchived?: optional bool` (query parameter)
 
   When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
 
-- `limit?:optional int` (query parameter)
+- `limit?: optional int` (query parameter)
 
   Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
-- `page?:optional string` (query parameter)
+- `page?: optional string` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -266,11 +266,11 @@ Retrieve a Memory Store
 
   The ID of the memory store to retrieve (`memstore_...`).
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -372,27 +372,27 @@ Update a Memory Store
 
   The request fails with HTTP status 400 if the store is archived.
 
-- `description?:optional string`
+- `description?: optional string`
 
   New description for the store, up to 1,024 characters. Pass an empty string to clear it.
 
-- `metadata?:optional array<string,string>`
+- `metadata?: optional array<string,string>`
 
   Changes to apply to the memory store's metadata. Keys you leave out keep their values.
 
   Set a key to a string to add or replace it, or to `null` to remove it. After the change, the metadata can hold at most 16 key-value pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `name?:optional string`
+- `name?: optional string`
 
   The new name of the memory store, 1 to 255 characters long, without control characters.
 
   Sessions created after the change use the new name for the store's directory under `/mnt/memory/`.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -497,11 +497,11 @@ Delete a Memory Store
 
   Deleting a store also deletes all its memories and memory versions. It can't be undone.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -563,11 +563,11 @@ Archive a Memory Store
 
   Archiving can't be undone. Archiving a store that is already archived returns it unchanged.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -735,17 +735,17 @@ Create a Memory
 
   A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long.
 
-- `view?:optional ManagedAgentsMemoryView` (query parameter)
+- `view?: optional ManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
   With `full`, list operations return at most 20 items per page.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -859,39 +859,39 @@ List Memories
 
   The ID of the memory store to list memories from (`memstore_...`).
 
-- `depth?:optional int` (query parameter)
+- `depth?: optional int` (query parameter)
 
   How far below `path_prefix` to list. Defaults to `0`, which lists every memory below the prefix.
 
   Pass `1` to list only the direct children. Deeper memories are then grouped into `memory_prefix` items.
 
-- `limit?:optional int` (query parameter)
+- `limit?: optional int` (query parameter)
 
   The maximum number of items to return per page, from 1 to 100. Defaults to 20.
 
   With `view=full`, a page holds at most 20 items. `memory` and `memory_prefix` items both count toward the limit.
 
-- `page?:optional string` (query parameter)
+- `page?: optional string` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `pathPrefix?:optional string` (query parameter)
+- `pathPrefix?: optional string` (query parameter)
 
   Return only memories whose path starts with this prefix, such as `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
   Omit it to list the whole store. The prefix must end with `/` and matches whole segments, so `/notes/` matches `/notes/todo.md` but not `/notes-archive/todo.md`.
 
-- `view?:optional ManagedAgentsMemoryView` (query parameter)
+- `view?: optional ManagedAgentsMemoryView` (query parameter)
 
   Whether each memory in the response includes `content`. Defaults to `basic`, which sets it to `null`.
 
   With `full`, a page holds at most 20 items.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1026,17 +1026,17 @@ Retrieve a Memory
 
   The ID of the memory to retrieve (`mem_...`).
 
-- `view?:optional ManagedAgentsMemoryView` (query parameter)
+- `view?: optional ManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
   With `full`, list operations return at most 20 items per page.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1153,33 +1153,33 @@ Update a Memory
 
   The ID of the memory to update (`mem_...`).
 
-- `view?:optional ManagedAgentsMemoryView` (query parameter)
+- `view?: optional ManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
   With `full`, list operations return at most 20 items per page.
 
-- `content?:optional string`
+- `content?: optional string`
 
   New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
-- `path?:optional string`
+- `path?: optional string`
 
   The new path of the memory, which renames it. Omit it to keep the current path.
 
   The memory keeps its `id`. A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long. Paths are case-sensitive.
 
-- `precondition?:optional ManagedAgentsPrecondition`
+- `precondition?: optional ManagedAgentsPrecondition`
 
   The condition that the memory must meet for the update to apply. Omit it to update unconditionally.
 
   If the condition fails, the request fails with HTTP status 409.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1301,17 +1301,17 @@ Delete a Memory
 
   The ID of the memory to delete (`mem_...`).
 
-- `expectedContentSha256?:optional string` (query parameter)
+- `expectedContentSha256?: optional string` (query parameter)
 
   Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
   If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1375,57 +1375,57 @@ List Memory Versions
 
   The ID of the memory store whose version history to list (`memstore_...`).
 
-- `apiKeyID?:optional string` (query parameter)
+- `apiKeyID?: optional string` (query parameter)
 
   Return only versions written with the API key that has this ID.
 
-- `createdAtGte?:optional \Datetime` (query parameter)
+- `createdAtGte?: optional \Datetime` (query parameter)
 
   Return versions created at or after this time (inclusive).
 
-- `createdAtLte?:optional \Datetime` (query parameter)
+- `createdAtLte?: optional \Datetime` (query parameter)
 
   Return versions created at or before this time (inclusive).
 
-- `limit?:optional int` (query parameter)
+- `limit?: optional int` (query parameter)
 
   The maximum number of versions to return per page, from 1 to 100. Defaults to 20.
 
   With `view=full`, a page holds at most 20 versions.
 
-- `memoryID?:optional string` (query parameter)
+- `memoryID?: optional string` (query parameter)
 
   Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. While that memory's versions are retained, the results include the version whose `operation` is `deleted`.
 
-- `operation?:optional ManagedAgentsMemoryVersionOperation` (query parameter)
+- `operation?: optional ManagedAgentsMemoryVersionOperation` (query parameter)
 
   Return only versions that record this kind of change.
 
-- `page?:optional string` (query parameter)
+- `page?: optional string` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `serviceAccountID?:optional string` (query parameter)
+- `serviceAccountID?: optional string` (query parameter)
 
   Return only versions written by the service account with this ID (`svac_...`).
 
-- `sessionID?:optional string` (query parameter)
+- `sessionID?: optional string` (query parameter)
 
   Return only versions written by the session with this ID.
 
-- `view?:optional ManagedAgentsMemoryView` (query parameter)
+- `view?: optional ManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
   With `full`, list operations return at most 20 items per page.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1577,17 +1577,17 @@ Retrieve a Memory Version
 
   The ID of the memory version to retrieve (`memver_...`).
 
-- `view?:optional ManagedAgentsMemoryView` (query parameter)
+- `view?: optional ManagedAgentsMemoryView` (query parameter)
 
   Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
 
   With `full`, list operations return at most 20 items per page.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1729,11 +1729,11 @@ Redact a Memory Version
 
   The ID of the memory version to redact (`memver_...`).
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

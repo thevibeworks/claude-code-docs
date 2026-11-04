@@ -174,7 +174,7 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaTunnelToken = await client.beta.tunnels.rotateToken("tunnel_id");
+const betaTunnelToken = await client.beta.tunnels.rotateToken("tunnel_id", {});
 
 console.log(betaTunnelToken.id);
 ```

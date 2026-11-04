@@ -371,7 +371,8 @@ const client = new Anthropic({
 });
 
 const betaUserProfile = await client.beta.userProfiles.update(
-  "uprof_011CZkZCu8hGbp5mYRQgUmz9"
+  "uprof_011CZkZCu8hGbp5mYRQgUmz9",
+  {}
 );
 
 console.log(betaUserProfile.id);

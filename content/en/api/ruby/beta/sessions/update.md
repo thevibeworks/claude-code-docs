@@ -15,11 +15,11 @@ Update Session
 
 - `session_id: String` (path parameter)
 
-- `agent: BetaManagedAgentsSessionAgentUpdate`
+- `agent: optional BetaManagedAgentsSessionAgentUpdate`
 
   Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
 
-  - `mcp_servers: Array[BetaManagedAgentsURLMCPServerParams]`
+  - `mcp_servers: optional Array[BetaManagedAgentsURLMCPServerParams]`
 
     Replacement MCP server list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
 
@@ -37,7 +37,7 @@ Update Session
 
       maxLength: 2048
 
-  - `tools: Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams]`
+  - `tools: optional Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams]`
 
     Replacement tool list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
 
@@ -47,7 +47,7 @@ Update Session
 
       - `type: :agent_toolset_20260401`
 
-      - `configs: Array[BetaManagedAgentsAgentToolConfigParams]`
+      - `configs: optional Array[BetaManagedAgentsAgentToolConfigParams]`
 
         Per-tool configuration overrides.
 
@@ -55,17 +55,17 @@ Update Session
 
           Configuration override for the bash tool.
 
-          - `type: :bash`
+          - `type: optional :bash`
 
           - `name: :bash`
 
             Must be "bash".
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -91,17 +91,17 @@ Update Session
 
           Configuration override for the edit tool.
 
-          - `type: :edit`
+          - `type: optional :edit`
 
           - `name: :edit`
 
             Must be "edit".
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -121,17 +121,17 @@ Update Session
 
           Configuration override for the read tool.
 
-          - `type: :read`
+          - `type: optional :read`
 
           - `name: :read`
 
             Must be "read".
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -151,17 +151,17 @@ Update Session
 
           Configuration override for the write tool.
 
-          - `type: :write`
+          - `type: optional :write`
 
           - `name: :write`
 
             Must be "write".
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -181,17 +181,17 @@ Update Session
 
           Configuration override for the glob tool.
 
-          - `type: :glob`
+          - `type: optional :glob`
 
           - `name: :glob`
 
             Must be "glob".
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -211,17 +211,17 @@ Update Session
 
           Configuration override for the grep tool.
 
-          - `type: :grep`
+          - `type: optional :grep`
 
           - `name: :grep`
 
             Must be "grep".
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -241,31 +241,31 @@ Update Session
 
           Configuration override for the web_fetch tool.
 
-          - `type: :web_fetch`
+          - `type: optional :web_fetch`
 
           - `name: :web_fetch`
 
             Must be "web_fetch".
 
-          - `allowed_domains: Array[String]`
+          - `allowed_domains: optional Array[String]`
 
             Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
 
-          - `blocked_domains: Array[String]`
+          - `blocked_domains: optional Array[String]`
 
             Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `max_content_tokens: Integer`
+          - `max_content_tokens: optional Integer`
 
             Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
             format: int32
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -281,11 +281,11 @@ Update Session
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSourcesParams`
+          - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
 
             Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+            - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -353,11 +353,11 @@ Update Session
 
                       minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+            - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInputParams`
+            - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -381,25 +381,25 @@ Update Session
 
           Configuration override for the web_search tool.
 
-          - `type: :web_search`
+          - `type: optional :web_search`
 
           - `name: :web_search`
 
             Must be "web_search".
 
-          - `allowed_domains: Array[String]`
+          - `allowed_domains: optional Array[String]`
 
             Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
 
-          - `blocked_domains: Array[String]`
+          - `blocked_domains: optional Array[String]`
 
             Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-          - `enabled: bool`
+          - `enabled: optional bool`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -415,7 +415,7 @@ Update Session
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `user_location: BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation`
 
             Approximate user location for search result localization.
 
@@ -423,37 +423,37 @@ Update Session
 
               Location precision. Only "approximate" is supported.
 
-            - `city: String`
+            - `city: optional String`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: String`
+            - `country: optional String`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
-            - `region: String`
+            - `region: optional String`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: String`
+            - `timezone: optional String`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
               minLength: 1, maxLength: 255
 
-      - `default_config: BetaManagedAgentsAgentToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
 
         Default configuration applied to all tools in this set.
 
-        - `enabled: bool`
+        - `enabled: optional bool`
 
           Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -481,7 +481,7 @@ Update Session
 
         minLength: 1, maxLength: 255
 
-      - `configs: Array[BetaManagedAgentsMCPToolConfigParams]`
+      - `configs: optional Array[BetaManagedAgentsMCPToolConfigParams]`
 
         Per-tool configuration overrides.
 
@@ -491,11 +491,11 @@ Update Session
 
           minLength: 1, maxLength: 128
 
-        - `enabled: bool`
+        - `enabled: optional bool`
 
           Whether this tool is enabled. Overrides the `default_config` setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -511,15 +511,15 @@ Update Session
 
             The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-      - `default_config: BetaManagedAgentsMCPToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
 
         Default configuration for all tools from this server.
 
-        - `enabled: bool`
+        - `enabled: optional bool`
 
           Whether tools are enabled by default. Defaults to true if not specified.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Default permission policy for tools from this server.
 
@@ -553,9 +553,9 @@ Update Session
 
         - `type: :object`
 
-        - `properties: Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped]`
 
-        - `required: Array[String]`
+        - `required: optional Array[String]`
 
       - `name: String`
 
@@ -563,7 +563,7 @@ Update Session
 
         minLength: 1, maxLength: 128
 
-- `budget: BetaManagedAgentsBudgetLimit`
+- `budget: optional BetaManagedAgentsBudgetLimit`
 
   Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
 
@@ -581,21 +581,21 @@ Update Session
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
 
-- `title: String`
+- `title: optional String`
 
   Human-readable session title.
 
   minLength: 1, maxLength: 500
 
-- `vault_ids: Array[String]`
+- `vault_ids: optional Array[String]`
 
   Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -711,7 +711,7 @@ Update Session
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -845,7 +845,7 @@ Update Session
 
         - `String = String`
 
-      - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+      - `effort: optional BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 
         How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
@@ -879,11 +879,11 @@ Update Session
 
           - `type: :max`
 
-      - `inference_geo: String`
+      - `inference_geo: optional String`
 
         Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
-      - `speed: :standard | :fast`
+      - `speed: optional :standard | :fast`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -1229,11 +1229,11 @@ Update Session
 
                           This source contributes no URLs that may be fetched.
 
-                    - `allowed_domains: Array[String]`
+                    - `allowed_domains: optional Array[String]`
 
-                    - `blocked_domains: Array[String]`
+                    - `blocked_domains: optional Array[String]`
 
-                    - `max_content_tokens: Integer`
+                    - `max_content_tokens: optional Integer`
 
                       format: int32
 
@@ -1263,11 +1263,11 @@ Update Session
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                    - `allowed_domains: Array[String]`
+                    - `allowed_domains: optional Array[String]`
 
-                    - `blocked_domains: Array[String]`
+                    - `blocked_domains: optional Array[String]`
 
-                    - `user_location: BetaManagedAgentsUserLocation`
+                    - `user_location: optional BetaManagedAgentsUserLocation`
 
                       Approximate user location for search result localization.
 
@@ -1275,23 +1275,23 @@ Update Session
 
                         Location precision. Only "approximate" is supported.
 
-                      - `city: String`
+                      - `city: optional String`
 
                         City name.
 
                         minLength: 1, maxLength: 255
 
-                      - `country: String`
+                      - `country: optional String`
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
-                      - `region: String`
+                      - `region: optional String`
 
                         Region or state name.
 
                         minLength: 1, maxLength: 255
 
-                      - `timezone: String`
+                      - `timezone: optional String`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -1383,9 +1383,9 @@ Update Session
 
                   - `type: :object`
 
-                  - `properties: Hash[Symbol, untyped]`
+                  - `properties: optional Hash[Symbol, untyped]`
 
-                  - `required: Array[String]`
+                  - `required: optional Array[String]`
 
                 - `name: String`
 
@@ -1665,7 +1665,7 @@ Update Session
 
       - `url: String`
 
-      - `checkout: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
 
         - `class BetaManagedAgentsBranchCheckout`
 
@@ -1719,7 +1719,7 @@ Update Session
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
-      - `access: :read_write | :read_only`
+      - `access: optional :read_write | :read_only`
 
         Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1727,21 +1727,21 @@ Update Session
 
         - `:read_only`
 
-      - `description: String`
+      - `description: optional String`
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: String`
+      - `instructions: optional String`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
         maxLength: 4096
 
-      - `mount_path: String`
+      - `mount_path: optional String`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: String`
+      - `name: optional String`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1749,13 +1749,13 @@ Update Session
 
     Timing statistics for the session.
 
-    - `active_seconds: Float`
+    - `active_seconds: optional Float`
 
       Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 
-    - `duration_seconds: Float`
+    - `duration_seconds: optional Float`
 
       Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
 
@@ -1791,61 +1791,61 @@ Update Session
 
     Cumulative token usage for the session.
 
-    - `active_seconds: Float`
+    - `active_seconds: optional Float`
 
       Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
 
       format: double
 
-    - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+    - `cache_creation: optional BetaManagedAgentsCacheCreationUsage`
 
       Tokens used to create prompt cache entries, broken down by cache TTL.
 
-      - `ephemeral_1h_input_tokens: Integer`
+      - `ephemeral_1h_input_tokens: optional Integer`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
         format: int32
 
-      - `ephemeral_5m_input_tokens: Integer`
+      - `ephemeral_5m_input_tokens: optional Integer`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
         format: int32
 
-    - `cache_read_input_tokens: Integer`
+    - `cache_read_input_tokens: optional Integer`
 
       Total tokens read from prompt cache.
 
       format: int32
 
-    - `input_tokens: Integer`
+    - `input_tokens: optional Integer`
 
       Total input tokens consumed across all turns.
 
       format: int32
 
-    - `list_cost: BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount`
 
       Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
-    - `output_tokens: Integer`
+    - `output_tokens: optional Integer`
 
       Total output tokens generated across all turns.
 
       format: int32
 
-    - `server_tool_use: BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
 
       Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
-      - `web_fetch_requests: Integer`
+      - `web_fetch_requests: optional Integer`
 
         Number of server-executed web fetch requests.
 
         format: int32
 
-      - `web_search_requests: Integer`
+      - `web_search_requests: optional Integer`
 
         Number of server-executed web search requests.
 
@@ -1855,7 +1855,7 @@ Update Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: String`
+  - `deployment_id: optional String`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 

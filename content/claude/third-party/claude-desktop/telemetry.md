@@ -261,7 +261,7 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 | Host | Purpose |
 | - | - |
 | `claude.ai` | Analytics events |
-| `api.anthropic.com` | Claude Code usage telemetry |
+| `api.anthropic.com` | Claude Code usage telemetry and, on Gateway and Claude API only, Anthropic’s list of MCP servers, which Claude Code reads when it starts |
 
 ### Non-essential services (`disableNonessentialServices: false`)
 

@@ -15,7 +15,7 @@ Update an existing environment's configuration.
 
 - `environment_id: String` (path parameter)
 
-- `config: BetaCloudConfigParams | BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams | BetaSelfHostedConfigParams`
 
   Updated environment configuration
 
@@ -30,7 +30,7 @@ Update an existing environment's configuration.
 
       Environment type
 
-    - `networking: BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -53,47 +53,47 @@ Update an existing environment's configuration.
 
           Network policy type
 
-        - `allow_mcp_servers: bool`
+        - `allow_mcp_servers: optional bool`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: bool`
+        - `allow_package_managers: optional bool`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-        - `allowed_hosts: Array[String]`
+        - `allowed_hosts: optional Array[String]`
 
           Specifies domains the container can reach.
 
-    - `packages: BetaPackagesParams`
+    - `packages: optional BetaPackagesParams`
 
       Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
-      - `type: :packages`
+      - `type: optional :packages`
 
         Package configuration type
 
-      - `apt: Array[String]`
+      - `apt: optional Array[String]`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: Array[String]`
+      - `cargo: optional Array[String]`
 
         Rust packages to install
 
-      - `gem_: Array[String]`
+      - `gem_: optional Array[String]`
 
         Ruby packages to install
 
-      - `go: Array[String]`
+      - `go: optional Array[String]`
 
         Go packages to install
 
-      - `npm: Array[String]`
+      - `npm: optional Array[String]`
 
         Node.js packages to install
 
-      - `pip: Array[String]`
+      - `pip: optional Array[String]`
 
         Python packages to install
 
@@ -105,23 +105,23 @@ Update an existing environment's configuration.
 
       Environment type
 
-- `description: String`
+- `description: optional String`
 
   Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
   maxLength: 1024
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-- `name: String`
+- `name: optional String`
 
   Updated name for the environment
 
   minLength: 1, maxLength: 256
 
-- `scope: :organization | :account`
+- `scope: optional :organization | :account`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -129,7 +129,7 @@ Update an existing environment's configuration.
 
   - `:account`
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -245,7 +245,7 @@ Update an existing environment's configuration.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -317,7 +317,7 @@ Update an existing environment's configuration.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -373,7 +373,7 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 

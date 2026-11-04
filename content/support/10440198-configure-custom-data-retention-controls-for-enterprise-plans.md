@@ -10,11 +10,13 @@ This feature is available to Enterprise plan customers. To set custom retention 
 
 Data retention is based on the last observed activity:
 
-- **For chats:** The period is measured from the most recent activity in the conversation or in any cloud session Claude started from it.
+- **For chats:** The period is measured from the most recent activity in the conversation or in any cloud session Claude started from it. Opening a chat counts as an activity.
 
 - **For projects:** Retention period starts from the time of the most recent action that resets it.
 
   - These actions reset the retention period:
+
+    - Opening the project or a chat in it
 
     - Sending a message in an existing chat in the project
 
@@ -24,15 +26,13 @@ Data retention is based on the last observed activity:
 
     - Starting a Claude Cowork session in the cloud from the project, or moving a cloud session into the project (this resets the period once, when the session starts or is moved)
 
+    - Starting a *local* Cowork session in the project, opening it, or sending it a message, in Claude Desktop
+
     - Connecting or disconnecting a local folder for Cowork
 
     - Editing the project's knowledge files from a Cowork session
 
   - These actions don't reset the retention period:
-
-    - Viewing a project or opening a chat in it
-
-    - Starting a *local* Cowork session
 
     - Other work in a Cowork session, whether it runs in the cloud or on your computer
 
@@ -82,7 +82,7 @@ To set custom retention periods:
 
 ## Example retention calculation
 
-If a conversation’s last message is at 3PM UTC on March 1 with a 30-day retention period, the conversation is deleted after March 31.
+If a conversation’s last message is at 3PM UTC on March 1, nobody opens it after that, and the retention period is 30 days, the conversation is deleted after March 31.
 
 ## Monitor retention-related activities
 

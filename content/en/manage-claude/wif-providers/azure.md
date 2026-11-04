@@ -187,7 +187,7 @@ The samples fetch the managed identity token from the platform’s token endpoin
   # 3. Call the Claude API with the bearer token.
   curl https://api.anthropic.com/v1/messages \
     -H "authorization: Bearer $ACCESS_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -594,7 +594,7 @@ The samples fetch the managed identity token from the platform’s token endpoin
     JSON.parse(response).fetch("access_token")
   end
 
-  credentials = Anthropic::WorkloadIdentityCredentials.new(
+  credentials = Anthropic::Credentials::WorkloadIdentity.new(
     identity_token_provider: -> { fetch_entra_token },
     federation_rule_id: ENV.fetch("ANTHROPIC_FEDERATION_RULE_ID"),
     organization_id: ENV.fetch("ANTHROPIC_ORGANIZATION_ID"),
@@ -827,7 +827,7 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
   # 3. Call the Claude API.
   curl -sS https://api.anthropic.com/v1/messages \
     -H "authorization: Bearer $ACCESS_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -1221,7 +1221,7 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
   end
 
   client = Anthropic::Client.new(
-    credentials: Anthropic::WorkloadIdentityCredentials.new(
+    credentials: Anthropic::Credentials::WorkloadIdentity.new(
       identity_token_provider: -> { fetch_entra_token_via_federation },
       federation_rule_id: ENV.fetch("ANTHROPIC_FEDERATION_RULE_ID"),
       organization_id: ENV.fetch("ANTHROPIC_ORGANIZATION_ID"),

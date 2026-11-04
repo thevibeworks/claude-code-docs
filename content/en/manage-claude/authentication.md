@@ -42,7 +42,7 @@ Workspace API keys still work but should be considered legacy; identity-backed k
 ```http
 POST /v1/messages
 Authorization: Bearer YOUR_API_KEY
-anthropic-version: 2023-06-01
+anthropic-version: 2026-10-21
 content-type: application/json
 ```
 
@@ -54,7 +54,7 @@ Store API keys in a secrets manager, rotate them periodically, and disable or de
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -137,7 +137,7 @@ You can find a workspace’s ID in the **ID** column on the [Workspaces](https:/
   # Omit the anthropic-workspace-id header for a key scoped to one workspace.
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-workspace-id: wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ" \
     -H "content-type: application/json" \
     -d '{
@@ -351,6 +351,16 @@ To replace a workspace key with a personal or service account key:
 3. **Create the new key.** Create it specifically for the integration’s workspace unless the integration needs multiple workspaces.
 4. **Deploy the new key.** Replace the old key wherever the integration reads it, typically the `ANTHROPIC_API_KEY` environment variable or a secrets manager entry. For a key that isn’t scoped to a workspace, also send the `anthropic-workspace-id` header as shown in [Select a workspace](https://platform.claude.com/docs/en/manage-claude/authentication#select-a-workspace).
 5. **Delete the old key.** Confirm that requests succeed, then delete the workspace key on the [API keys page](https://platform.claude.com/settings/keys) in the Claude Console.
+
+### Browser-based applications
+
+Call the Claude API from your own back end, not from code that runs in your users’ browsers. Anyone who uses a webpage can read an API key in that page’s code. Typically, your web front end calls your back end, which holds the key and calls the Claude API.
+
+A request sent directly from a browser is a cross-origin (CORS) request. The API accepts these requests only when they include the `anthropic-dangerous-direct-browser-access: true` header, which the TypeScript SDK sends when you set `dangerouslyAllowBrowser` to `true`. For the cases where exposing a key this way is acceptable, see [Browser usage](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#runtime-support) in the TypeScript SDK guide.
+
+Organizations that have [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) or the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) enabled cannot call the API directly from a browser, even with that header. Other organization settings can have the same effect, and no setting allows browser requests for these organizations. The API returns a 401 `authentication_error` whose message begins `CORS requests are not allowed for this Organization`, even though the API key is valid. A Claude Console organization linked to a Claude Enterprise parent organization inherits the Compliance API setting from the parent. The restriction can therefore apply even when your Claude Console settings show no Compliance API section.
+
+The restriction applies only to requests that include an `Origin` header, which browsers add and server-side HTTP clients normally do not. Requests from your own back end are not affected. If your back end forwards requests that start in a browser, have it create a new request to the Claude API. Don’t pass the browser’s request through. That request still includes the browser’s `Origin` header, and the API rejects it the same way.
 
 ## Workload Identity Federation
 

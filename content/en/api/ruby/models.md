@@ -17,15 +17,15 @@ The Models API response can be used to determine which models are available for 
 
 ### Parameters
 
-- `after_id: String` (query parameter)
+- `after_id: optional String` (query parameter)
 
   ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-- `before_id: String` (query parameter)
+- `before_id: optional String` (query parameter)
 
   ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-- `lifecycle: Array[:active | :deprecated | :retired]` (query parameter)
+- `lifecycle: optional Array[:active | :deprecated | :retired]` (query parameter)
 
   Filter the list to models in any of the given lifecycle stages (`active`, `deprecated`, or `retired`). Up to 3 values. When omitted, the list contains the `active` and `deprecated` models; `retired` models appear only when `retired` is requested explicitly.
 
@@ -37,7 +37,7 @@ The Models API response can be used to determine which models are available for 
 
   - `:retired`
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Number of items to return per page.
 
@@ -45,7 +45,7 @@ The Models API response can be used to determine which models are available for 
 
   minimum: 1, maximum: 1000
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -375,7 +375,7 @@ The Models API response can be used to determine information about a specific mo
 
   Model identifier or alias.
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

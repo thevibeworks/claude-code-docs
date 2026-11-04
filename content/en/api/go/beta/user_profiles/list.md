@@ -193,7 +193,7 @@ List User Profiles
 
     format: date-time
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
@@ -201,7 +201,7 @@ List User Profiles
 
     Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
 
-  - `TrustGrants map[string, BetaUserProfileTrustGrant]`
+  - `TrustGrants map[string]BetaUserProfileTrustGrant`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 

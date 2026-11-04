@@ -21,7 +21,7 @@ Create a new environment with the specified configuration.
 
   minLength: 1, maxLength: 256
 
-- `config: BetaCloudConfigParams | BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams | BetaSelfHostedConfigParams`
 
   Environment configuration
 
@@ -36,7 +36,7 @@ Create a new environment with the specified configuration.
 
       Environment type
 
-    - `networking: BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -59,47 +59,47 @@ Create a new environment with the specified configuration.
 
           Network policy type
 
-        - `allow_mcp_servers: bool`
+        - `allow_mcp_servers: optional bool`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: bool`
+        - `allow_package_managers: optional bool`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-        - `allowed_hosts: Array[String]`
+        - `allowed_hosts: optional Array[String]`
 
           Specifies domains the container can reach.
 
-    - `packages: BetaPackagesParams`
+    - `packages: optional BetaPackagesParams`
 
       Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
-      - `type: :packages`
+      - `type: optional :packages`
 
         Package configuration type
 
-      - `apt: Array[String]`
+      - `apt: optional Array[String]`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: Array[String]`
+      - `cargo: optional Array[String]`
 
         Rust packages to install
 
-      - `gem_: Array[String]`
+      - `gem_: optional Array[String]`
 
         Ruby packages to install
 
-      - `go: Array[String]`
+      - `go: optional Array[String]`
 
         Go packages to install
 
-      - `npm: Array[String]`
+      - `npm: optional Array[String]`
 
         Node.js packages to install
 
-      - `pip: Array[String]`
+      - `pip: optional Array[String]`
 
         Python packages to install
 
@@ -111,17 +111,17 @@ Create a new environment with the specified configuration.
 
       Environment type
 
-- `description: String`
+- `description: optional String`
 
   Optional description of the environment
 
   maxLength: 1024
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   User-provided metadata key-value pairs
 
-- `scope: :organization | :account`
+- `scope: optional :organization | :account`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
@@ -129,7 +129,7 @@ Create a new environment with the specified configuration.
 
   - `:account`
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -245,7 +245,7 @@ Create a new environment with the specified configuration.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -317,7 +317,7 @@ Create a new environment with the specified configuration.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -373,7 +373,7 @@ Create a new environment with the specified configuration.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -452,21 +452,21 @@ List environments with pagination support.
 
 ### Parameters
 
-- `include_archived: bool` (query parameter)
+- `include_archived: optional bool` (query parameter)
 
   Include archived environments in the response
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum number of environments to return
 
   minimum: 1, maximum: 1000
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -582,7 +582,7 @@ List environments with pagination support.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -654,7 +654,7 @@ List environments with pagination support.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -710,7 +710,7 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -796,7 +796,7 @@ Retrieve a specific environment by ID.
 
 - `environment_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -912,7 +912,7 @@ Retrieve a specific environment by ID.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -984,7 +984,7 @@ Retrieve a specific environment by ID.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -1040,7 +1040,7 @@ Retrieve a specific environment by ID.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -1121,7 +1121,7 @@ Update an existing environment's configuration.
 
 - `environment_id: String` (path parameter)
 
-- `config: BetaCloudConfigParams | BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams | BetaSelfHostedConfigParams`
 
   Updated environment configuration
 
@@ -1136,7 +1136,7 @@ Update an existing environment's configuration.
 
       Environment type
 
-    - `networking: BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -1159,47 +1159,47 @@ Update an existing environment's configuration.
 
           Network policy type
 
-        - `allow_mcp_servers: bool`
+        - `allow_mcp_servers: optional bool`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: bool`
+        - `allow_package_managers: optional bool`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-        - `allowed_hosts: Array[String]`
+        - `allowed_hosts: optional Array[String]`
 
           Specifies domains the container can reach.
 
-    - `packages: BetaPackagesParams`
+    - `packages: optional BetaPackagesParams`
 
       Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
-      - `type: :packages`
+      - `type: optional :packages`
 
         Package configuration type
 
-      - `apt: Array[String]`
+      - `apt: optional Array[String]`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: Array[String]`
+      - `cargo: optional Array[String]`
 
         Rust packages to install
 
-      - `gem_: Array[String]`
+      - `gem_: optional Array[String]`
 
         Ruby packages to install
 
-      - `go: Array[String]`
+      - `go: optional Array[String]`
 
         Go packages to install
 
-      - `npm: Array[String]`
+      - `npm: optional Array[String]`
 
         Node.js packages to install
 
-      - `pip: Array[String]`
+      - `pip: optional Array[String]`
 
         Python packages to install
 
@@ -1211,23 +1211,23 @@ Update an existing environment's configuration.
 
       Environment type
 
-- `description: String`
+- `description: optional String`
 
   Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
   maxLength: 1024
 
-- `metadata: Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String]`
 
   User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-- `name: String`
+- `name: optional String`
 
   Updated name for the environment
 
   minLength: 1, maxLength: 256
 
-- `scope: :organization | :account`
+- `scope: optional :organization | :account`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -1235,7 +1235,7 @@ Update an existing environment's configuration.
 
   - `:account`
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -1351,7 +1351,7 @@ Update an existing environment's configuration.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1423,7 +1423,7 @@ Update an existing environment's configuration.
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -1479,7 +1479,7 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -1560,7 +1560,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 - `environment_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -1676,7 +1676,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1729,7 +1729,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 - `environment_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -1845,7 +1845,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1917,7 +1917,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -1973,7 +1973,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -2090,7 +2090,7 @@ puts(beta_environment)
 
     Package manager configuration.
 
-    - `type: :packages`
+    - `type: optional :packages`
 
       Package configuration type
 
@@ -2131,7 +2131,7 @@ puts(beta_environment)
 
     Environment type
 
-  - `networking: BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
+  - `networking: optional BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
 
     Network configuration policy. Omit on update to preserve the existing value.
 
@@ -2154,47 +2154,47 @@ puts(beta_environment)
 
         Network policy type
 
-      - `allow_mcp_servers: bool`
+      - `allow_mcp_servers: optional bool`
 
         Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-      - `allow_package_managers: bool`
+      - `allow_package_managers: optional bool`
 
         Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-      - `allowed_hosts: Array[String]`
+      - `allowed_hosts: optional Array[String]`
 
         Specifies domains the container can reach.
 
-  - `packages: BetaPackagesParams`
+  - `packages: optional BetaPackagesParams`
 
     Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
-    - `type: :packages`
+    - `type: optional :packages`
 
       Package configuration type
 
-    - `apt: Array[String]`
+    - `apt: optional Array[String]`
 
       Ubuntu/Debian packages to install
 
-    - `cargo: Array[String]`
+    - `cargo: optional Array[String]`
 
       Rust packages to install
 
-    - `gem_: Array[String]`
+    - `gem_: optional Array[String]`
 
       Ruby packages to install
 
-    - `go: Array[String]`
+    - `go: optional Array[String]`
 
       Go packages to install
 
-    - `npm: Array[String]`
+    - `npm: optional Array[String]`
 
       Node.js packages to install
 
-    - `pip: Array[String]`
+    - `pip: optional Array[String]`
 
       Python packages to install
 
@@ -2264,7 +2264,7 @@ puts(beta_environment)
 
         Package manager configuration.
 
-        - `type: :packages`
+        - `type: optional :packages`
 
           Package configuration type
 
@@ -2320,7 +2320,7 @@ puts(beta_environment)
 
     RFC 3339 timestamp when environment was last updated
 
-  - `scope: :organization | :account`
+  - `scope: optional :organization | :account`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -2377,15 +2377,15 @@ puts(beta_environment)
 
     Network policy type
 
-  - `allow_mcp_servers: bool`
+  - `allow_mcp_servers: optional bool`
 
     Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-  - `allow_package_managers: bool`
+  - `allow_package_managers: optional bool`
 
     Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-  - `allowed_hosts: Array[String]`
+  - `allowed_hosts: optional Array[String]`
 
     Specifies domains the container can reach.
 
@@ -2395,7 +2395,7 @@ puts(beta_environment)
 
   Packages (and their versions) available in this environment.
 
-  - `type: :packages`
+  - `type: optional :packages`
 
     Package configuration type
 
@@ -2433,31 +2433,31 @@ puts(beta_environment)
 
   Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
-  - `type: :packages`
+  - `type: optional :packages`
 
     Package configuration type
 
-  - `apt: Array[String]`
+  - `apt: optional Array[String]`
 
     Ubuntu/Debian packages to install
 
-  - `cargo: Array[String]`
+  - `cargo: optional Array[String]`
 
     Rust packages to install
 
-  - `gem_: Array[String]`
+  - `gem_: optional Array[String]`
 
     Ruby packages to install
 
-  - `go: Array[String]`
+  - `go: optional Array[String]`
 
     Go packages to install
 
-  - `npm: Array[String]`
+  - `npm: optional Array[String]`
 
     Node.js packages to install
 
-  - `pip: Array[String]`
+  - `pip: optional Array[String]`
 
     Python packages to install
 
@@ -2509,7 +2509,7 @@ Retrieve detailed information about a specific work item.
 
 - `work_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -2625,7 +2625,7 @@ Retrieve detailed information about a specific work item.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2762,19 +2762,19 @@ Long poll for work items in the queue.
 
 - `environment_id: String` (path parameter)
 
-- `block_ms: Integer` (query parameter)
+- `block_ms: optional Integer` (query parameter)
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
   minimum: 1
 
-- `reclaim_older_than_ms: Integer` (query parameter)
+- `reclaim_older_than_ms: optional Integer` (query parameter)
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
   minimum: 1
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -2890,7 +2890,7 @@ Long poll for work items in the queue.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `anthropic_worker_id: String` (header parameter)
+- `anthropic_worker_id: optional String` (header parameter)
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
@@ -3027,7 +3027,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 - `work_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -3276,15 +3276,15 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `work_id: String` (path parameter)
 
-- `desired_ttl_seconds: Integer` (query parameter)
+- `desired_ttl_seconds: optional Integer` (query parameter)
 
   Desired TTL in seconds
 
-- `expected_last_heartbeat: String` (query parameter)
+- `expected_last_heartbeat: optional String` (query parameter)
 
   Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -3476,11 +3476,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
 - `work_id: String` (path parameter)
 
-- `force: bool`
+- `force: optional bool`
 
   If true, immediately stop work without graceful shutdown
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -3596,7 +3596,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3733,17 +3733,17 @@ List work items in an environment.
 
 - `environment_id: String` (path parameter)
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum number of work items to return
 
   minimum: 1, maximum: 1000
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque cursor from previous response for pagination
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -4001,7 +4001,7 @@ Update work item metadata with merge semantics.
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -4117,7 +4117,7 @@ Update work item metadata with merge semantics.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4256,7 +4256,7 @@ Get statistics about the work queue for an environment.
 
 - `environment_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -4372,7 +4372,7 @@ Get statistics about the work queue for an environment.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

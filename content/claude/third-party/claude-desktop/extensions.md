@@ -502,6 +502,8 @@ Skill scanning checks the [skills](https://claude.com/docs/skills/overview.md) t
 
 Claude Desktop doesn't scan plugins, or the skills inside them. To stop users from adding their own plugins, see [Controlling user extensions](#controlling-user-extensions).
 
+When a skill passes a scan or gets a caution, Claude Desktop changes some characters in the skill's files, and a skill that depends on those characters can stop working. Before you turn on scanning, see [Changes to skill files after a scan](#changes-to-skill-files-after-a-scan).
+
 ### Turn on skill scanning
 
 In the Enterprise Admin Console:
@@ -540,6 +542,37 @@ Neither a user nor an administrator can approve a blocked skill. Turning scannin
 
 The Enterprise Admin Console doesn't show scan results. To collect them, set [`otlpEndpoint`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint). Claude Desktop then sends scan records to your own [OpenTelemetry collector](https://claude.com/docs/third-party/claude-desktop/telemetry.md#sending-telemetry-to-your-own-collector) as log records whose body is `custom3p_skill_scan_completed`. It sends no scan records while [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `off`. A scan record identifies the user and includes the skill's name, the result, and the model's summary of the skill when there is one. The summary can quote the skill, and Claude Desktop sends it even when [content capture](https://claude.com/docs/third-party/claude-desktop/telemetry.md#content-capture) is off. To keep the summary out of your backend, drop the `scan_summary` attribute in the collector.
 
+### Changes to skill files after a scan
+
+When a skill gets a **Pass** or **Caution** result, Claude Desktop changes some characters in the skill's text files. The app doesn't tell the user or the administrator about the changes, and it doesn't keep a copy of the original files. Turning on scanning doesn't change the skills that users already saved. Claude Desktop scans such a skill the next time the user saves it, and its files can change then.
+
+The model that runs a scan doesn't see some characters, but a program that runs the file acts on every character. Claude Desktop removes or replaces these characters before it sends the text to the model, and then saves the same text. For the limits of these changes, see [What skill scanning doesn't cover](#what-skill-scanning-doesn%E2%80%99t-cover).
+
+Claude Desktop makes these changes, and a few similar ones, to a text file:
+
+| In the user's file | In the saved file |
+| - | - |
+| Windows line endings | Unix line endings, including in `.bat` and `.cmd` files |
+| A carriage return on its own | Removed, which joins the lines |
+| Single and double curly quotes | Similar-looking characters (U+02BB, U+02BC, U+201F, and U+02EE) that shells, Python, JavaScript, JSON, and YAML don't treat as quotation marks |
+| Other kinds of space, such as a no-break space or a thin space | Plain spaces |
+| A raw escape character, most other control characters, and icon-font characters (U+E000 to U+F8FF) | Removed |
+| Invisible characters, such as a zero-width space, a soft hyphen, or a byte-order mark | Removed, unless the character before or after is non-ASCII, as in emoji and in scripts such as Persian and Hindi |
+
+In PowerShell files, such as `.ps1` files, curly quotes become straight quotes and a carriage return on its own becomes a line feed. A PowerShell file that contains non-ASCII characters can also gain a byte-order mark and a line break at its start.
+
+Claude Desktop doesn't change file names. It also leaves PNG and JPEG images, PDFs, and dependency lock files such as `package-lock.json` as they are.
+
+A skill that depends on the original characters can stop working after the scan, as in these examples:
+
+* **Windows batch files**: `cmd.exe` can fail to find a `goto` or `call` label in a file that has Unix line endings.
+* **Signed or hashed files**: a changed PowerShell script doesn't match its signature, and a changed file doesn't match a stored hash.
+* **Mentions of the skill's own files**: if a file name contains a changed character, as in `What’s New.md`, a mention of the file in `SKILL.md` changes but the name doesn't, so the two don't match.
+
+You can't exempt a skill from these changes, and turning scanning off doesn't restore the original files. While scanning is off, a user can upload their own copy of the skill again, and Claude Desktop saves it unchanged.
+
+To give users a skill that depends on these characters, deliver it as an organization plugin, through a [plugin marketplace](#plugin-marketplaces-admin) or the [system-wide directory](#organization-plugins-admin). Claude Desktop doesn't scan plugins or change their files, so review the skill's files yourself first.
+
 ### What skill scanning doesn't cover
 
 Besides plugins, the app doesn't scan these:
@@ -548,6 +581,8 @@ Besides plugins, the app doesn't scan these:
 * Changes that someone makes directly to a skill's files on disk.
 * Files inside a skill that the scan skips because of their file names, for example PNG and JPEG images, PDFs, and dependency lock files such as `package-lock.json`. The scan doesn't look at what is in these files, so it doesn't read a script that is saved as `logo.png`.
 * Skills that aren't saved in the app at all, for example [Claude Code skills](https://code.claude.com/docs/en/skills) in `.claude/skills` folders on the device. A [Code session](https://claude.com/docs/third-party/claude-desktop/code.md) in Claude Desktop loads those skills too.
+
+After [these changes to a skill's files](#changes-to-skill-files-after-a-scan), a program can still read a file differently from the model. For example, Windows PowerShell 5.1 and `cmd.exe` can interpret non-ASCII characters according to the device's code page.
 
 A pass means that the scan found no sign that the skill is malicious. It isn't a guarantee that the skill is safe.
 

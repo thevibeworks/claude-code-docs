@@ -66,7 +66,7 @@ model = "claude-mythos-5-1"  # After
      curl -sS https://api.anthropic.com/v1/messages \
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
-       -H "anthropic-version: 2023-06-01" \
+       -H "anthropic-version: 2026-10-21" \
        -d '{
          "model": "claude-fable-5",
          "max_tokens": 16000,
@@ -304,7 +304,7 @@ model = "claude-mythos-5-1"  # After
      curl -sS https://api.anthropic.com/v1/messages \
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
-       -H "anthropic-version: 2023-06-01" \
+       -H "anthropic-version: 2026-10-21" \
        -d '{
          "model": "claude-fable-5-1",
          "max_tokens": 16000,
@@ -574,7 +574,7 @@ model = "claude-mythos-5-1"  # After
      curl -sS https://api.anthropic.com/v1/messages \
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
-       -H "anthropic-version: 2023-06-01" \
+       -H "anthropic-version: 2026-10-21" \
        -d '{
          "model": "claude-fable-5-1",
          "max_tokens": 16000,
@@ -939,7 +939,7 @@ model = "claude-mythos-5-1"  # After
      ```bash cURL
      curl https://api.anthropic.com/v1/messages \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
-       -H "anthropic-version: 2023-06-01" \
+       -H "anthropic-version: 2026-10-21" \
        -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
        -H "content-type: application/json" \
        -d '{
@@ -1234,7 +1234,7 @@ These changes aren’t required, but each one lowers cost or latency or removes 
      # Effort-only system message: the new level takes effect from the next user turn.
      curl https://api.anthropic.com/v1/messages \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
-       -H "anthropic-version: 2023-06-01" \
+       -H "anthropic-version: 2026-10-21" \
        -H "anthropic-beta: mid-conversation-output-config-2026-07-01" \
        -H "content-type: application/json" \
        -d '{
@@ -1497,7 +1497,7 @@ These changes aren’t required, but each one lowers cost or latency or removes 
 
    Placed between an `assistant` turn and the next `user` turn, as here, the message takes effect from that `user` turn. Placed directly after a `user` turn with new input, it sets the level for Claude’s reply to that turn. A `user` turn that holds only tool results doesn’t count as new input: the change waits for the next `user` turn with new input. The level then holds until another `role: "system"` message changes it. Only the named levels are accepted (`low`, `medium`, `high`, `xhigh`, `max`), and the `mid-conversation-output-config-2026-07-01` beta header is required. See [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta).
 
-2. **Change instructions and tools with mid-conversation system messages:** To change instructions or tools partway through a session, append a [`role: "system"` message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages), with `tool_addition` and `tool_removal` blocks for tool changes (beta header `inline-tools-2026-09-15` on the Claude API). A `tool_addition` block can name a tool declared in `tools` at session start or [carry the tool’s full definition](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta), so a tool that is unknown at session start doesn’t need to be in `tools`. This preserves prompt cache hits on earlier turns and keeps the conversation history append-only. The older `mid-conversation-tool-changes-2026-07-01` header still works for changes that name a tool by reference, on the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed). The same message replaces forced `tool_choice` when a specific tool must run on the current turn (see [Breaking changes](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-breaking-changes)). For a reminder that applies to one turn only, send it as a separate text-only `role: "system"` message with `clear_at: "next_user_message"` ([turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages), beta header `mid-conversation-system-clear-at-2026-08-21`) and leave it in the history: it stops rendering after the next user message and costs no tokens once cleared. A message that carries `tool_addition` or `tool_removal` blocks can’t be turn-scoped.
+2. **Change instructions and tools with mid-conversation system messages:** To change instructions or tools partway through a session, append a [`role: "system"` message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages), with `tool_addition` and `tool_removal` blocks for tool changes. On the Claude API, Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed), send the beta header `inline-tools-2026-09-15` for tool changes. A `tool_addition` block can name a tool declared in `tools` at session start or [carry the tool’s full definition](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta), so a tool that is unknown at session start doesn’t need to be in `tools`. This preserves prompt cache hits on earlier turns and keeps the conversation history append-only. The `mid-conversation-tool-changes-2026-07-01` header works for changes that name a tool by reference, on the Claude API, Amazon Bedrock, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Claude Models on Google Cloud (Google managed). The same message replaces forced `tool_choice` when a specific tool must run on the current turn (see [Breaking changes](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-breaking-changes)). For a reminder that applies to one turn only, send it as a separate text-only `role: "system"` message with `clear_at: "next_user_message"` ([turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages), beta header `mid-conversation-system-clear-at-2026-08-21`) and leave it in the history: it stops rendering after the next user message and costs no tokens once cleared. A message that carries `tool_addition` or `tool_removal` blocks can’t be turn-scoped.
 
 3. **Use `fallbacks: "default"` for refusals:** Keep handling `stop_reason: "refusal"` and reading `stop_details.category` before response content. To re-run refused requests on another model automatically, set `fallbacks: "default"` (beta, `server-side-fallback-2026-07-01` header). `"default"` retries a declined request on the model Anthropic recommends for that category. The permitted fallback targets for Claude Fable 5.1 are Claude Opus 4.8 (`claude-opus-4-8`) and Claude Opus 5 (`claude-opus-5`). An explicit `fallbacks` list may name either. The fallback model doesn’t receive Claude Fable 5.1’s thinking blocks. The `fallbacks` parameter isn’t available on Amazon Bedrock, Claude Models on Google Cloud (Google managed), or Microsoft Foundry. On those platforms, use [client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) instead. If you build the retry yourself, [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) applies on the same terms as Claude Fable 5. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
 

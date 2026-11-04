@@ -24,6 +24,8 @@ Describe the schedule you want and the work Claude should do in one message:
 
 Name the output format in the job so recurring posts stay scannable.
 
+You can schedule a job to run at most once an hour, and Claude declines a schedule that runs more often.
+
 ### Watch channels
 
 Ask Claude to watch named channels and post here when something matches a topic:
@@ -98,9 +100,9 @@ Pair it with a weekly rollup so untagged posts are still swept; [Triage requests
 
 ## Where a routine posts its results
 
-A routine you set up from inside a thread usually reports back in that thread each time it runs, for as long as the thread's [session](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies) lasts. To keep the results in the thread, ask Claude to report back there when you set the routine up. If you send [`@Claude !restart`](https://claude.com/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in the thread, the routine moves to the thread's new session and keeps reporting there.
+A routine you set up from inside a thread usually reports back in that thread each time it runs. To keep the results in the thread, ask Claude to report back there when you set the routine up.
 
-If the thread's session [gets stuck](https://claude.com/docs/claude-tag/users/troubleshooting.md#claude-reacted-or-started-thinking-then-never-replied), the routine doesn't move to the session that replaces it, and its later runs usually post at the channel's top level instead. To bring the results back into a thread, disable the routine and set it up again from that thread.
+If a routine's results start posting at the channel's top level instead, disable the routine and set it up again from the thread where you want them.
 
 For a routine you set up at the channel's top level, Claude usually announces each run in a short top-level message and does the work in the thread under it. To follow up on any routine post, mention `@Claude` in a reply under it.
 

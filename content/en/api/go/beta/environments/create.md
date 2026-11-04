@@ -119,7 +119,7 @@ Create a new environment with the specified configuration.
 
     maxLength: 1024
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     User-provided metadata key-value pairs
 
@@ -365,7 +365,7 @@ Create a new environment with the specified configuration.
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 

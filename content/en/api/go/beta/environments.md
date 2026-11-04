@@ -121,7 +121,7 @@ Create a new environment with the specified configuration.
 
     maxLength: 1024
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     User-provided metadata key-value pairs
 
@@ -367,7 +367,7 @@ Create a new environment with the specified configuration.
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 
@@ -723,7 +723,7 @@ List environments with pagination support.
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 
@@ -1070,7 +1070,7 @@ Retrieve a specific environment by ID.
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 
@@ -1280,7 +1280,7 @@ Update an existing environment's configuration.
 
     maxLength: 1024
 
-  - `Metadata map[string, string] Optional`
+  - `Metadata map[string]string Optional`
 
     User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
@@ -1532,7 +1532,7 @@ Update an existing environment's configuration.
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 
@@ -2066,7 +2066,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 
@@ -2438,7 +2438,7 @@ func main() {
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 
@@ -2815,7 +2815,7 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp of the most recent heartbeat
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs associated with this work item
 
@@ -3099,7 +3099,7 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp of the most recent heartbeat
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs associated with this work item
 
@@ -3367,7 +3367,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     RFC 3339 timestamp of the most recent heartbeat
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs associated with this work item
 
@@ -3868,7 +3868,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp of the most recent heartbeat
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs associated with this work item
 
@@ -4147,7 +4147,7 @@ List work items in an environment.
 
     RFC 3339 timestamp of the most recent heartbeat
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs associated with this work item
 
@@ -4430,7 +4430,7 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp of the most recent heartbeat
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs associated with this work item
 

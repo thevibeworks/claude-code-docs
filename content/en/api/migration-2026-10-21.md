@@ -6,6 +6,12 @@ description: "Upgrade a Claude API integration from API version 2023-06-01 to 20
 
 This guide lists the code changes for moving from API version `2023-06-01` to `2026-10-21`. The [upgrade steps](https://platform.claude.com/docs/en/api/migration-2026-10-21#migration-checklist) say what to do, in order.
 
+The easiest way to upgrade your code
+
+```text
+/claude-api api-version
+```
+
 ## Upgrade steps
 
 <Steps>
@@ -57,6 +63,8 @@ This guide lists the code changes for moving from API version `2023-06-01` to `2
 
       <Tab title="C#">
         Upgrade the `Anthropic` package to version 13.0.0.
+
+        Version 1.0.0 of `Anthropic.Bedrock`, `Anthropic.Vertex`, `Anthropic.Foundry`, `Anthropic.Aws`, `Anthropic.GoogleCloud`, and `Anthropic.Mcp` needs version 13.0.0 of `Anthropic`. If you use one of them, move it to 1.0.0 in the same upgrade. An earlier version still installs next to 13.0.0, but it can fail when it runs.
       </Tab>
 
       <Tab title="Go">
@@ -65,6 +73,8 @@ This guide lists the code changes for moving from API version `2023-06-01` to `2
 
       <Tab title="Java">
         Upgrade the `com.anthropic:anthropic-java` artifact to version 3.0.0.
+
+        Version 3.0.0 of `anthropic-java-bedrock`, `anthropic-java-vertex`, `anthropic-java-aws`, `anthropic-java-foundry`, `anthropic-java-google-cloud`, and `anthropic-java-mcp` goes with `anthropic-java` 3.0.0. If you use one of them, move it to 3.0.0 in the same upgrade.
       </Tab>
 
       <Tab title="PHP">
@@ -130,13 +140,13 @@ In `2026-10-21`, responses from the Admin API and the [Claude Enterprise Analyti
 
 Admin API:
 
-| Endpoints                                                                                                                                                                                                                                                        | Old name       | New name                                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| [RBAC groups](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/list): create, list, retrieve, and update                                                                                                                                    | `roles`        | `role_ids`                                                                                                                                      |
-| [RBAC group members](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list): list and add, and the response to [removing a member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/remove)            | `group_id`     | `rbac_group_id`                                                                                                                                 |
-| [RBAC roles](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list): list and retrieve                                                                                                                                                       | `name`         | `display_name`                                                                                                                                  |
-| [Organization](https://platform.claude.com/docs/en/api/organization/rate_limits/list) and [workspace](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list) rate limits: list, and the response to setting a workspace’s rate limits | `group_type`   | `group.type`                                                                                                                                    |
-| [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list): list, retrieve, and update                                                                                                                                                       | `workspace_id` | `scope` (different values; see [`workspace_id` on API keys](https://platform.claude.com/docs/en/api/migration-2026-10-21#api-key-workspace-id)) |
+| Endpoints                                                                                                                                                                                                                                                                                                                                              | Old name       | New name                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| [RBAC groups](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/list): create, list, retrieve, and update                                                                                                                                                                                                                          | `roles`        | `role_ids`                                                                                                                                      |
+| [RBAC group members](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list): list and add, and the response to [removing a member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/remove)                                                                                                  | `group_id`     | `rbac_group_id`                                                                                                                                 |
+| [RBAC roles](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list): list and retrieve                                                                                                                                                                                                                                             | `name`         | `display_name`                                                                                                                                  |
+| [Organization](https://platform.claude.com/docs/en/api/organization/rate_limits/list) and [workspace](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list) rate limits: list, and the response to [setting a workspace’s rate limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) | `group_type`   | `group.type`                                                                                                                                    |
+| [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list): list, retrieve, and update                                                                                                                                                                                                                                             | `workspace_id` | `scope` (different values; see [`workspace_id` on API keys](https://platform.claude.com/docs/en/api/migration-2026-10-21#api-key-workspace-id)) |
 
 Claude Enterprise Analytics API:
 
@@ -1172,7 +1182,7 @@ An API key and an authentication token now share a header, so an SDK client hold
   <Tab title="Ruby">
     The credential arguments of `Anthropic::Client.new` are `api_key:`, `auth_token:`, `credentials:`, and `config:`. A `nil` argument counts as not passed. The platform clients keep their own rules.
 
-    * **Two or more passed:** `Anthropic::Client.new` raises `ArgumentError`. Earlier versions raised only for `credentials:` with `config:`, and otherwise sent the key if there was one, then the token.
+    * **Two or more passed:** `Anthropic::Client.new` raises `ArgumentError`. Earlier versions raised only for `credentials:` with `config:`, and otherwise sent the key if there was one, or the token if not.
     * **One passed:** The client uses it, and does not fall back to a credential from the environment or from a profile on disk.
     * **None passed:** The client uses the first of these it finds: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_PROFILE`, the workload identity federation variables, the active profile on disk. The order has not changed, but with both `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` set, `client.auth_token` is now `nil`. An empty `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` now counts as unset, where earlier versions let an empty `ANTHROPIC_API_KEY` hide the token and everything after it.
 

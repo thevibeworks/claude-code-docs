@@ -7566,7 +7566,8 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsSession = await client.beta.sessions.update(
-  "sesn_011CZkZAtmR3yMPDzynEDxu7"
+  "sesn_011CZkZAtmR3yMPDzynEDxu7",
+  {}
 );
 
 console.log(betaManagedAgentsSession.id);

@@ -15,7 +15,7 @@ Archive Session
 
 - `session_id: String` (path parameter)
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -131,7 +131,7 @@ Archive Session
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -265,7 +265,7 @@ Archive Session
 
         - `String = String`
 
-      - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+      - `effort: optional BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 
         How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
@@ -299,11 +299,11 @@ Archive Session
 
           - `type: :max`
 
-      - `inference_geo: String`
+      - `inference_geo: optional String`
 
         Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
-      - `speed: :standard | :fast`
+      - `speed: optional :standard | :fast`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -649,11 +649,11 @@ Archive Session
 
                           This source contributes no URLs that may be fetched.
 
-                    - `allowed_domains: Array[String]`
+                    - `allowed_domains: optional Array[String]`
 
-                    - `blocked_domains: Array[String]`
+                    - `blocked_domains: optional Array[String]`
 
-                    - `max_content_tokens: Integer`
+                    - `max_content_tokens: optional Integer`
 
                       format: int32
 
@@ -683,11 +683,11 @@ Archive Session
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                    - `allowed_domains: Array[String]`
+                    - `allowed_domains: optional Array[String]`
 
-                    - `blocked_domains: Array[String]`
+                    - `blocked_domains: optional Array[String]`
 
-                    - `user_location: BetaManagedAgentsUserLocation`
+                    - `user_location: optional BetaManagedAgentsUserLocation`
 
                       Approximate user location for search result localization.
 
@@ -695,23 +695,23 @@ Archive Session
 
                         Location precision. Only "approximate" is supported.
 
-                      - `city: String`
+                      - `city: optional String`
 
                         City name.
 
                         minLength: 1, maxLength: 255
 
-                      - `country: String`
+                      - `country: optional String`
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
-                      - `region: String`
+                      - `region: optional String`
 
                         Region or state name.
 
                         minLength: 1, maxLength: 255
 
-                      - `timezone: String`
+                      - `timezone: optional String`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -803,9 +803,9 @@ Archive Session
 
                   - `type: :object`
 
-                  - `properties: Hash[Symbol, untyped]`
+                  - `properties: optional Hash[Symbol, untyped]`
 
-                  - `required: Array[String]`
+                  - `required: optional Array[String]`
 
                 - `name: String`
 
@@ -1085,7 +1085,7 @@ Archive Session
 
       - `url: String`
 
-      - `checkout: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
 
         - `class BetaManagedAgentsBranchCheckout`
 
@@ -1139,7 +1139,7 @@ Archive Session
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
-      - `access: :read_write | :read_only`
+      - `access: optional :read_write | :read_only`
 
         Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1147,21 +1147,21 @@ Archive Session
 
         - `:read_only`
 
-      - `description: String`
+      - `description: optional String`
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: String`
+      - `instructions: optional String`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
         maxLength: 4096
 
-      - `mount_path: String`
+      - `mount_path: optional String`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: String`
+      - `name: optional String`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1169,13 +1169,13 @@ Archive Session
 
     Timing statistics for the session.
 
-    - `active_seconds: Float`
+    - `active_seconds: optional Float`
 
       Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 
-    - `duration_seconds: Float`
+    - `duration_seconds: optional Float`
 
       Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
 
@@ -1211,61 +1211,61 @@ Archive Session
 
     Cumulative token usage for the session.
 
-    - `active_seconds: Float`
+    - `active_seconds: optional Float`
 
       Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
 
       format: double
 
-    - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+    - `cache_creation: optional BetaManagedAgentsCacheCreationUsage`
 
       Tokens used to create prompt cache entries, broken down by cache TTL.
 
-      - `ephemeral_1h_input_tokens: Integer`
+      - `ephemeral_1h_input_tokens: optional Integer`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
         format: int32
 
-      - `ephemeral_5m_input_tokens: Integer`
+      - `ephemeral_5m_input_tokens: optional Integer`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
         format: int32
 
-    - `cache_read_input_tokens: Integer`
+    - `cache_read_input_tokens: optional Integer`
 
       Total tokens read from prompt cache.
 
       format: int32
 
-    - `input_tokens: Integer`
+    - `input_tokens: optional Integer`
 
       Total input tokens consumed across all turns.
 
       format: int32
 
-    - `list_cost: BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount`
 
       Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
-    - `output_tokens: Integer`
+    - `output_tokens: optional Integer`
 
       Total output tokens generated across all turns.
 
       format: int32
 
-    - `server_tool_use: BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
 
       Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
-      - `web_fetch_requests: Integer`
+      - `web_fetch_requests: optional Integer`
 
         Number of server-executed web fetch requests.
 
         format: int32
 
-      - `web_search_requests: Integer`
+      - `web_search_requests: optional Integer`
 
         Number of server-executed web search requests.
 
@@ -1275,7 +1275,7 @@ Archive Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: String`
+  - `deployment_id: optional String`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 

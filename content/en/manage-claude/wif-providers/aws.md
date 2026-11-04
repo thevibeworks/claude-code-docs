@@ -126,7 +126,7 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
 
   curl https://api.anthropic.com/v1/messages \
     -H "authorization: Bearer $ACCESS_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -289,7 +289,7 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
   getStsToken := option.IdentityTokenFunc(func(ctx context.Context) (string, error) {
   	out, err := stsClient.GetWebIdentityToken(ctx, &sts.GetWebIdentityTokenInput{
   		Audience:         []string{"https://api.anthropic.com"},
-  		SigningAlgorithm: "RS256",
+  		SigningAlgorithm: aws.String("RS256"),
   		DurationSeconds:  aws.Int32(900),
   	})
   	if err != nil {
@@ -430,7 +430,7 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
 
   sts = Aws::STS::Client.new(region: "us-east-1")
   client = Anthropic::Client.new(
-    credentials: Anthropic::WorkloadIdentityCredentials.new(
+    credentials: Anthropic::Credentials::WorkloadIdentity.new(
       identity_token_provider: -> {
         sts.get_web_identity_token(
           audience: ["https://api.anthropic.com"],
@@ -634,7 +634,7 @@ Inside the pod, the projected token is at `/var/run/secrets/anthropic.com/token`
 
   curl https://api.anthropic.com/v1/messages \
     -H "authorization: Bearer $ACCESS_TOKEN" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",

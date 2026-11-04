@@ -251,7 +251,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     User-provided description for the environment; null when unset
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     User-provided metadata key-value pairs
 

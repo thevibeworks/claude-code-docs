@@ -21,6 +21,168 @@ Create a Credential
 
   Authentication configuration for the credential.
 
+  - `beta_managed_agents_mcp_oauth_create_params: object`
+
+    Parameters for creating an MCP OAuth credential.
+
+    - `type: "mcp_oauth"`
+
+    - `access_token: string`
+
+      The OAuth access token to send to the MCP server.
+
+      minLength: 1, maxLength: 8192
+
+    - `mcp_server_url: string`
+
+      URL of the MCP server this credential authenticates against.
+
+      minLength: 1, maxLength: 2047
+
+    - `expires_at: optional string`
+
+      When `access_token` expires, in RFC 3339.
+
+      Must be in the future.
+
+      format: date-time
+
+    - `refresh: optional object`
+
+      Refresh token configuration, if the credential supports token refresh.
+
+      - `client_id: string`
+
+        The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created.
+
+        minLength: 1, maxLength: 1024
+
+      - `refresh_token: string`
+
+        The OAuth refresh token that the API uses to get a new access token when the current one expires.
+
+        minLength: 1, maxLength: 8192
+
+      - `token_endpoint: string`
+
+        Token endpoint URL used to refresh the access token.
+
+        minLength: 1, maxLength: 2047
+
+      - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneParam or BetaManagedAgentsTokenEndpointAuthBasicParam or BetaManagedAgentsTokenEndpointAuthPostParam`
+
+        - `beta_managed_agents_token_endpoint_auth_none_param: object`
+
+          Token endpoint requires no client authentication.
+
+          - `type: "none"`
+
+        - `beta_managed_agents_token_endpoint_auth_basic_param: object`
+
+          Token endpoint uses HTTP Basic authentication with client credentials.
+
+          - `type: "client_secret_basic"`
+
+          - `client_secret: string`
+
+            The OAuth client secret, sent to `token_endpoint` with HTTP Basic authentication.
+
+            minLength: 1, maxLength: 512
+
+        - `beta_managed_agents_token_endpoint_auth_post_param: object`
+
+          Token endpoint uses POST body authentication with client credentials.
+
+          - `type: "client_secret_post"`
+
+          - `client_secret: string`
+
+            The OAuth client secret, sent to `token_endpoint` in the POST body.
+
+            minLength: 1, maxLength: 512
+
+      - `resource: optional string`
+
+        OAuth resource indicator.
+
+        minLength: 1, maxLength: 2047
+
+      - `scope: optional string`
+
+        OAuth scope for the refresh request.
+
+        minLength: 1, maxLength: 8192
+
+  - `beta_managed_agents_static_bearer_create_params: object`
+
+    Parameters for creating a static bearer token credential.
+
+    - `type: "static_bearer"`
+
+    - `token: string`
+
+      The static bearer token to send to the MCP server, such as an API key or personal access token.
+
+      minLength: 1, maxLength: 8192
+
+    - `mcp_server_url: string`
+
+      URL of the MCP server this credential authenticates against.
+
+      minLength: 1, maxLength: 2047
+
+  - `beta_managed_agents_environment_variable_create_params: object`
+
+    Parameters for creating an environment variable credential.
+
+    - `type: "environment_variable"`
+
+    - `networking: BetaManagedAgentsUnrestrictedCredentialNetworkingParams or BetaManagedAgentsLimitedCredentialNetworkingParams`
+
+      Outbound hosts the secret value is substituted on.
+
+      - `beta_managed_agents_unrestricted_credential_networking_params: object`
+
+        Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
+
+        - `type: "unrestricted"`
+
+      - `beta_managed_agents_limited_credential_networking_params: object`
+
+        Substitute the secret only on requests to the listed hosts.
+
+        - `type: "limited"`
+
+        - `allowed_hosts: array of string`
+
+          The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+          Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
+
+    - `secret_name: string`
+
+      Name of the environment variable. Immutable after create.
+
+      minLength: 1, maxLength: 255
+
+    - `secret_value: string`
+
+      The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
+
+      minLength: 1, maxLength: 4096
+
+    - `injection_location: optional object`
+
+      Where in the outbound request the secret value may be substituted.
+
+      - `body: optional boolean`
+
+        Substitute when the placeholder appears in the request body.
+
+      - `header: optional boolean`
+
+        Substitute when the placeholder appears in a request header value.
+
 - `--display-name: optional string`
 
   Human-readable name for the credential. Up to 255 characters.
@@ -34,6 +196,116 @@ Create a Credential
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
 
 - `--workspace-id: optional string` (header parameter)
 

@@ -19,11 +19,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
 - `work_id: String` (path parameter)
 
-- `force: bool`
+- `force: optional bool`
 
   If true, immediately stop work without graceful shutdown
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -139,7 +139,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

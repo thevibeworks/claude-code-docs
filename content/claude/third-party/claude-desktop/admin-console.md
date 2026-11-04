@@ -335,7 +335,7 @@ To keep personal accounts and other organizations' accounts out of Claude Deskto
 
 > [!WARNING]
 >
-> The person at the device can [remove the block](#unblock-other-accounts-in-claude-desktop), so the switch doesn't enforce sign-in. To enforce sign-in to your organization, deploy [`forceLoginOrgUUID`](#keep-a-device-on-its-managed-profile) through device management. On a device that has the key, the key's value applies instead of the switch and the **Allowed organizations** list.
+> The person at the device can [remove the block](#unblock-other-accounts-in-claude-desktop), so the switch doesn't enforce sign-in. To enforce sign-in to your organization, deploy [`forceLoginOrgUUID`](#keep-a-device-on-its-managed-profile) through device management. On a device that has the key, the key's value applies instead of the switch and the **Allowed organizations** list. On a device whose managed profile [restricts the deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode), the switch and the list don't apply, so set `forceLoginOrgUUID` in that profile.
 
 Check what the block covers:
 
@@ -467,7 +467,7 @@ While a device whose profile sets any other key is on the admin console's config
 
 * The [network proxy keys](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
 * [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) set to `false`, for local (stdio) servers in the console's managed MCP servers only. The app starts such a server only if the profile's own [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) lists a local (stdio) server of the same name, and it uses the profile's command, arguments, and environment. The profile's value doesn't block local MCP servers that users add. To keep blocking them, turn off **Allow local MCP servers** on the console's **Connectors** page.
-* `disableDeploymentModeChooser` and `forceLoginOrgUUID`, as described under [Keep a device on its managed profile](#keep-a-device-on-its-managed-profile).
+* The keys described under [Keep a device on its managed profile](#keep-a-device-on-its-managed-profile).
 
 Other settings come from the console, including the inference provider, restrictions, telemetry, and the update, relaunch window, and re-check keys. The profile's values, and its bootstrap server's, don't apply even where the console leaves a setting unset. Before the app downloads the console's configuration at a launch, it applies [what it kept of the last download](#configuration-kept-on-devices), not the profile's values. That copy doesn't hold [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates), so until a download succeeds, neither the console's nor the profile's value blocks updates.
 
@@ -477,7 +477,7 @@ The app doesn't fall back to the profile's provider or server when it can't reac
 
 On Claude Desktop 2.37337.0 or later, a user who belongs to any organization that uses the admin console can move a device to that organization's configuration by signing in. The organization doesn't have to be yours. To prevent the move, or to allow it only for your organization, set one of these keys in the device's [managed profile](#devices-with-a-managed-profile):
 
-* **Prevent the move:** set [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`. The app ignores the admin console, and the sign-in screen doesn't offer **Or sign in with Claude.ai**. A device that already moved returns to the profile at its next launch. Set the key in the profile itself, not only in your bootstrap server's response.
+* **Prevent the move:** set `deploymentMode` to `3p` in a profile that says what the app connects to, or to `1p` in a profile that leaves the device on standard Claude Desktop. The app ignores the admin console, and a device that already moved leaves the console's configuration at its next launch. Devices on versions before 4.16336.0 also need `disableDeploymentModeChooser`, as described under [Restrict a device to one deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode).
 * **Allow only your organization:** set [`forceLoginOrgUUID`](https://claude.com/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to your Claude organization's ID. This ID isn't [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), which is a UUID you generate. Devices already on your organization's admin console configuration stay on it. The app ignores the admin console configuration of any other organization and limits standard Claude Desktop sign-in on the device to your organization.
 
 You can use `forceLoginOrgUUID` to help prevent shadow IT, which here means people using personal Claude accounts or other organizations' accounts in Claude Desktop on work computers. A user who signs in to standard Claude Desktop with an account that isn't in your organization sees a page that reads "This account is not approved by your enterprise admin" and can only log out.
@@ -495,7 +495,7 @@ For the macOS and Windows locations where the app reads a managed profile's keys
 
 > [!WARNING]
 >
-> On a device that uses the admin console, adding either key to a profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) changes which settings apply. See [Which settings apply on a device with a managed profile](#which-settings-apply-on-a-device-with-a-managed-profile). With `disableDeploymentModeChooser` set to `true`, the profile becomes the device's whole configuration, and the device stops using the admin console. To require members who also belong to another organization to switch to yours, leave such a profile as it is and turn on [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization).
+> On a device that uses the admin console, adding one of these keys to a profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) changes which settings apply. See [Which settings apply on a device with a managed profile](#which-settings-apply-on-a-device-with-a-managed-profile). With `deploymentMode` set to `3p` or `1p`, or `disableDeploymentModeChooser` set to `true`, the profile becomes the device's whole configuration, and the device stops using the admin console. To require members who also belong to another organization to switch to yours, leave such a profile as it is and turn on [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization).
 
 ## Remove users or return to MDM
 
@@ -513,7 +513,7 @@ To return a whole fleet to [MDM](https://claude.com/docs/third-party/claude-desk
 
 > [!WARNING]
 >
-> Keep `disableDeploymentModeChooser` (or, for standard Claude Desktop, `forceLoginOrgUUID`) in the profile. On Claude Desktop 2.37337.0 or later, without the key the device goes back to the admin console's configuration at its next launch, without asking the user. If the user's sign-in to your organization has expired or you removed the user, the app shows your organization's sign-in screen or a **Restart required** prompt instead.
+> Keep a key that [restricts the deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode) (or, for standard Claude Desktop, `forceLoginOrgUUID`) in the profile. On Claude Desktop 2.37337.0 or later, without the key the device goes back to the admin console's configuration at its next launch, without asking the user. If the user's sign-in to your organization has expired or you removed the user, the app shows your organization's sign-in screen or a **Restart required** prompt instead.
 >
 > A device that left the admin console's configuration on an earlier release goes back too, so add `disableDeploymentModeChooser` to the profile before devices update. A key that you add later takes effect at the device's next launch.
 

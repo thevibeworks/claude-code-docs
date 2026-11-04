@@ -50,7 +50,7 @@ Here’s an example where Claude programmatically queries a database multiple ti
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -528,7 +528,7 @@ Send the full conversation history plus your tool result. Three details matter o
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -810,31 +810,33 @@ Send the full conversation history plus your tool result. Three details matter o
           },
           new AssistantMessageParam
           {
-              Content = new ContentBlock[]
+              Content = new List<ContentBlockParam>
               {
-                  new TextBlock { Text = "I'll query the purchase history and analyze the results." },
-                  new ServerToolUseBlock
+                  new TextBlockParam { Text = "I'll query the purchase history and analyze the results." },
+                  new ServerToolUseBlockParam
                   {
-                      Id = "srvtoolu_abc123",
-                      Name = "code_execution",
-                      Input = new { code = "..." }
-                  },
-                  new ToolUseBlock
-                  {
-                      Id = "toolu_def456",
-                      Name = "query_database",
-                      Input = new { sql = "<sql>" },
-                      Caller = new ToolCaller
+                      ID = "srvtoolu_abc123",
+                      Name = ServerToolUseBlockParamName.CodeExecution,
+                      Input = new Dictionary<string, JsonElement>
                       {
-                          Type = "code_execution_20260120",
-                          ToolId = "srvtoolu_abc123"
+                          ["code"] = JsonSerializer.SerializeToElement("..."),
                       }
+                  },
+                  new ToolUseBlockParam
+                  {
+                      ID = "toolu_def456",
+                      Name = "query_database",
+                      Input = new Dictionary<string, JsonElement>
+                      {
+                          ["sql"] = JsonSerializer.SerializeToElement("<sql>"),
+                      },
+                      Caller = new ServerToolCaller20260120 { ToolID = "srvtoolu_abc123" }
                   }
               }
           },
           new UserMessageParam
           {
-              Content = new ContentBlockParam[]
+              Content = new List<ContentBlockParam>
               {
                   new ToolResultBlockParam
                   {

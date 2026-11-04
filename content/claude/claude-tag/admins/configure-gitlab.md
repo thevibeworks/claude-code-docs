@@ -12,7 +12,7 @@
 
 Connecting GitLab lets Claude read repository contents, manage issues, review and comment on merge requests, and check pipeline status from any channel where the GitLab connector applies, all through the GitLab API. Unlike GitHub, there is no Claude app to install in GitLab. Instead, you give Claude its own GitLab user and add that user's personal access token as a connector.
 
-The connector is API-only. The token authenticates GitLab API requests, not git, so Claude gets a 401 error when it tries to clone a private project or push to any project over HTTPS, even with the connector in place. To clone a repository into the session workspace, connect it through [GitHub](https://claude.com/docs/claude-tag/admins/configure-github.md) instead.
+The connector is API-only. The token authenticates GitLab API requests, not git, so over HTTPS, cloning a private project or pushing to any project fails, even with the connector in place. To clone a repository into the session workspace, connect it through [GitHub](https://claude.com/docs/claude-tag/admins/configure-github.md) instead.
 
 A dedicated service account keeps Claude's GitLab activity attributed to a single identity you control. You decide which groups and projects it can reach by granting that account membership the same way you would for a person, and you can revoke or rescope it at any time without touching anyone else's access.
 

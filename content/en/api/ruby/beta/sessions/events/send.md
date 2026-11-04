@@ -161,11 +161,11 @@ Send Events
 
               minLength: 1
 
-        - `context: String`
+        - `context: optional String`
 
           Additional context about the document for the model.
 
-        - `title: String`
+        - `title: optional String`
 
           The title of the document.
 
@@ -181,7 +181,7 @@ Send Events
 
     - `type: :"user.interrupt"`
 
-    - `session_thread_id: String`
+    - `session_thread_id: optional String`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -205,7 +205,7 @@ Send Events
 
       minLength: 1, maxLength: 128
 
-    - `deny_message: String`
+    - `deny_message: optional String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
@@ -223,7 +223,7 @@ Send Events
 
       minLength: 1, maxLength: 128
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
+    - `content: optional Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
       The result content returned by the tool.
 
@@ -277,7 +277,7 @@ Send Events
 
           minLength: 1
 
-    - `is_error: bool`
+    - `is_error: optional bool`
 
       Whether the tool execution resulted in an error.
 
@@ -317,7 +317,7 @@ Send Events
 
           maxLength: 262144
 
-    - `max_iterations: Integer`
+    - `max_iterations: optional Integer`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -335,7 +335,7 @@ Send Events
 
       minLength: 1, maxLength: 128
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
+    - `content: optional Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
       The result content returned by the tool.
 
@@ -355,7 +355,7 @@ Send Events
 
         A block containing a web search result.
 
-    - `is_error: bool`
+    - `is_error: optional bool`
 
       Whether the tool execution resulted in an error.
 
@@ -377,7 +377,7 @@ Send Events
 
         minLength: 1
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -493,7 +493,7 @@ Send Events
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -505,7 +505,7 @@ Send Events
 
   Events that were successfully sent to the session.
 
-  - `data: Array[BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 4 more]`
+  - `data: optional Array[BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 4 more]`
 
     Sent events
 
@@ -655,11 +655,11 @@ Send Events
 
                 minLength: 1
 
-          - `context: String`
+          - `context: optional String`
 
             Additional context about the document for the model.
 
-          - `title: String`
+          - `title: optional String`
 
             The title of the document.
 
@@ -669,7 +669,7 @@ Send Events
 
           - `type: :redacted`
 
-      - `processed_at: Time`
+      - `processed_at: optional Time`
 
         Timestamp when the agent finished processing this message.
 
@@ -685,13 +685,13 @@ Send Events
 
         Unique identifier for this event.
 
-      - `processed_at: Time`
+      - `processed_at: optional Time`
 
         Timestamp when the interrupt was processed.
 
         format: date-time
 
-      - `session_thread_id: String`
+      - `session_thread_id: optional String`
 
         If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -717,19 +717,19 @@ Send Events
 
         The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `deny_message: String`
+      - `deny_message: optional String`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
         maxLength: 10000
 
-      - `processed_at: Time`
+      - `processed_at: optional Time`
 
         Timestamp when the confirmation was processed.
 
         format: date-time
 
-      - `session_thread_id: String`
+      - `session_thread_id: optional String`
 
         Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
@@ -747,7 +747,7 @@ Send Events
 
         The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
+      - `content: optional Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
         The result content returned by the tool.
 
@@ -801,17 +801,17 @@ Send Events
 
             minLength: 1
 
-      - `is_error: bool`
+      - `is_error: optional bool`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: Time`
+      - `processed_at: optional Time`
 
         Timestamp when this result was processed.
 
         format: date-time
 
-      - `session_thread_id: String`
+      - `session_thread_id: optional String`
 
         Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -883,7 +883,7 @@ Send Events
 
         The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
+      - `content: optional Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
         The result content returned by the tool.
 
@@ -903,17 +903,17 @@ Send Events
 
           A block containing a web search result.
 
-      - `is_error: bool`
+      - `is_error: optional bool`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: Time`
+      - `processed_at: optional Time`
 
         Timestamp when this result was processed.
 
         format: date-time
 
-      - `session_thread_id: String`
+      - `session_thread_id: optional String`
 
         Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -939,7 +939,7 @@ Send Events
 
           minLength: 1
 
-      - `processed_at: Time`
+      - `processed_at: optional Time`
 
         Timestamp when this system message was processed.
 

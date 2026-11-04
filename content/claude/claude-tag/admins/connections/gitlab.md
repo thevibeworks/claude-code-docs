@@ -46,7 +46,7 @@ GitLab's own guide for creating tokens is at [docs.gitlab.com](https://docs.gitl
 | Self-managed | Your hostname under **Advanced > Allowed websites** | [GitHub Enterprise setup](https://claude.com/docs/claude-tag/admins/configure-github.md#github-enterprise) |
 | Handing back changes | Manages issues and comments on merge requests through the API | [Draft pull requests](https://claude.com/docs/claude-tag/users/use-cases/work-with-github.md) authored by the Claude GitHub App |
 
-The connector is API-only. The token authenticates GitLab API requests, not git, so Claude gets a 401 error when it tries to clone a private project or push to any project over HTTPS, even with the connector in place. To clone a repository into the session workspace, connect it through [GitHub](https://claude.com/docs/claude-tag/admins/configure-github.md) instead.
+The connector is API-only. The token authenticates GitLab API requests, not git, so over HTTPS, cloning a private project or pushing to any project fails, even with the connector in place. To clone a repository into the session workspace, connect it through [GitHub](https://claude.com/docs/claude-tag/admins/configure-github.md) instead.
 
 The token is auto-injected on every API request to your GitLab host. The model and the sandbox are not given the key; see [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 

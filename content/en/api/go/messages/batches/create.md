@@ -435,7 +435,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^[a-zA-Z0-9_-]+$
 
-                - `Input map[string, any]`
+                - `Input map[string]any`
 
                 - `Name string`
 
@@ -674,7 +674,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `Input map[string, any]`
+                - `Input map[string]any`
 
                 - `Name ServerToolUseBlockParamName`
 
@@ -1281,7 +1281,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type JSONSchema`
 
-          - `Schema map[string, any]`
+          - `Schema map[string]any`
 
             The JSON schema of the format
 
@@ -1515,7 +1515,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type Object`
 
-            - `Properties map[string, any] Optional`
+            - `Properties map[string]any Optional`
 
             - `Required []string Optional`
 
@@ -1555,7 +1555,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
-          - `InputExamples []map[string, any] Optional`
+          - `InputExamples []map[string]any Optional`
 
           - `Strict bool Optional`
 
@@ -1589,7 +1589,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any] Optional`
+          - `InputExamples []map[string]any Optional`
 
           - `Strict bool Optional`
 
@@ -2148,7 +2148,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any] Optional`
+          - `InputExamples []map[string]any Optional`
 
           - `Strict bool Optional`
 
@@ -2407,7 +2407,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any] Optional`
+          - `InputExamples []map[string]any Optional`
 
           - `Strict bool Optional`
 
@@ -2441,7 +2441,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any] Optional`
+          - `InputExamples []map[string]any Optional`
 
           - `Strict bool Optional`
 
@@ -2475,7 +2475,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any] Optional`
+          - `InputExamples []map[string]any Optional`
 
           - `MaxCharacters int64 Optional`
 
@@ -3221,13 +3221,13 @@ func main() {
 		option.WithAPIKey("my-anthropic-api-key"),
 	)
 	messageBatch, err := client.Messages.Batches.New(context.TODO(), anthropic.MessageBatchNewParams{
-		Requests: []anthropic.MessageBatchNewParamsRequest{anthropic.MessageBatchNewParamsRequest{
+		Requests: []anthropic.MessageBatchNewParamsRequest{{
 			CustomID: "my-custom-id-1",
 			Params: anthropic.MessageBatchNewParamsRequestParams{
 				MaxTokens: 1024,
-				Messages: []anthropic.MessageParam{anthropic.MessageParam{
+				Messages: []anthropic.MessageParam{{
 					OfUser: &anthropic.UserMessageParam{
-						Content: []anthropic.ContentBlockParamUnion{anthropic.ContentBlockParamUnion{
+						Content: []anthropic.ContentBlockParamUnion{{
 							OfText: &anthropic.TextBlockParam{
 								Text: "x",
 							},

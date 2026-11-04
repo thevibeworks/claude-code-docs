@@ -15,31 +15,31 @@ Update an existing environment's configuration.
 
 - `environmentID: string` (path parameter)
 
-- `config?:optional Config`
+- `config?: optional Config`
 
   Updated environment configuration
 
-- `description?:optional string`
+- `description?: optional string`
 
   Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
-- `metadata?:optional array<string,string>`
+- `metadata?: optional array<string,string>`
 
   User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-- `name?:optional string`
+- `name?: optional string`
 
   Updated name for the environment
 
-- `scope?:optional Scope`
+- `scope?: optional Scope`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

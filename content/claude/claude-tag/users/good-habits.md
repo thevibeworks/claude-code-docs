@@ -21,8 +21,8 @@ Claude is most useful when the work is somewhere the team can see, steer, and bu
 * **Work in public.** Assume everyone in the channel can read the thread, including its checklist and results. Anything your team writes down, like decisions, conventions, and postmortems, is context Claude can use. Knowledge that lives in DMs or was only said aloud is invisible to it. Put anything personal in a DM instead.
 * **Share control.** Replying in a thread someone else started is how work moves. Redirect the approach, add what the requester didn't know, or pick up the result and run with it.
 * **Grant broad access.** A channel with more connections (the tools an admin linked for this channel, like GitHub or Drive) produces more useful results, because Claude can join more sources together. The connections are scoped to the agent's identity, so granting them to a channel does not expose anyone's personal data.
-* **Give Claude the destination, not the route.** State the outcome you want and let Claude work out the steps; the [definition of done](#give-every-task-a-definition-of-done) below makes that concrete.
-* **Tolerate the mess.** A first draft posted in the thread is more useful than a polished one in a DM. The thread is the workspace, not the deliverable.
+* **Name the outcome.** Say what you want done and let Claude work out the steps. Give the task a [definition of done](#give-every-task-a-definition-of-done).
+* **Tolerate the mess.** A first draft posted in the thread is more useful than a polished one in a DM.
 
 ### Mentioning people who aren't in the channel
 
@@ -80,7 +80,7 @@ Two refinements make the table work in practice:
 * **The condition must be observable by Claude.** "Done when CI is green" requires access to CI. If the proof lives in a system the channel isn't connected to, change the condition to one you close yourself.
 * **Spell out everything the condition includes.** "Babysit this PR until it merges" can produce a merge the moment approvals arrive, before open review comments are addressed. If the full condition is approvals present, comments resolved, and your final go-ahead, write all three into the task.
 
-For tasks Claude closes itself, ask it to attach proof, such as the source link, the chart, the test output, or the diff. You read the proof, not the transcript.
+For tasks Claude closes itself, ask it to attach proof, such as the source link, the chart, the test output, or the diff. With that proof, you can confirm the work without going through every step Claude took.
 
 For long-running work, make getting the deliverable somewhere durable part of the definition. Post the file to the thread, push the branch, or open the draft pull request as it goes. See [what survives between replies](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-survives-between-replies).
 
@@ -193,7 +193,7 @@ A `CLAUDE.md` is guidance; a required status check is a gate. If a pull request 
 
 The **Configure** link in the footer of any Claude reply in a channel opens a page where you tailor how Claude behaves in that channel. You can also send [`@Claude !configure`](https://claude.com/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) in the channel, and Claude replies with a link to the same page. The page is on claude.ai, so you need to be signed in to your Claude organization to edit it, and an admin can [restrict editing](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#restrict-who-can-set-channel-instructions) so the page is read-only for members.
 
-The **Respond automatically** toggle on that page controls whether Claude replies in the channel without an @-mention. See [Turn automatic replies on or off](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) for what the setting does and the other places you can change it.
+**How Claude participates** on that page controls whether Claude replies in the channel without an @-mention. See [Turn automatic replies on or off](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) for what the setting does and the other places you can change it.
 
 Use the **Channel instructions** field on that page to write standing guidance Claude reads in every new session in the channel: the channel's purpose, its conventions, the tone replies should take, and anything Claude should do or avoid there. Channel instructions outrank channel memory and sit alongside any instructions an admin has set for the workspace or organization. Save the field and the change applies to new sessions started in the channel.
 

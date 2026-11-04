@@ -17,27 +17,27 @@ Create a new environment with the specified configuration.
 
   Human-readable name for the environment
 
-- `config?:optional Config`
+- `config?: optional Config`
 
   Environment configuration
 
-- `description?:optional string`
+- `description?: optional string`
 
   Optional description of the environment
 
-- `metadata?:optional array<string,string>`
+- `metadata?: optional array<string,string>`
 
   User-provided metadata key-value pairs
 
-- `scope?:optional Scope`
+- `scope?: optional Scope`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

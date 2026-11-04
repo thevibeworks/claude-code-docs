@@ -30,6 +30,7 @@
 | [`inferenceIdpAuthFlow`](#inferenceidpauthflow) | Identity provider sign-in flow | Connection | Admin Console |
 | [`inferenceIdpOidc`](#inferenceidpoidc) | Identity provider (OIDC) | Connection | Admin Console |
 | [`inferenceStreamIdleTimeoutSec`](#inferencestreamidletimeoutsec) | Stream idle timeout | Connection | Admin Console |
+| [`inferenceGatewayAutoModeServerChecks`](#inferencegatewayautomodeserverchecks) | Server-side Auto mode checks | Connection | Admin Console |
 | [`inferenceAnthropicApiKey`](#inferenceanthropicapikey) | Claude API key | Connection | |
 | [`inferenceBedrockRegion`](#inferencebedrockregion) | AWS region | Connection | Admin Console |
 | [`inferenceBedrockBaseUrl`](#inferencebedrockbaseurl) | Bedrock base URL | Connection | Admin Console |
@@ -102,6 +103,7 @@
 | [`organizationInstructions`](#organizationinstructions) | Organization instructions | Capabilities | Admin Console |
 | [`requireCoworkFullVmSandbox`](#requirecoworkfullvmsandbox) | Require full VM sandbox | Capabilities | |
 | [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | Disable Claude.ai sign-in | Capabilities | |
+| [`deploymentMode`](#deploymentmode) | Deployment mode | Capabilities | |
 | [`disableDeepLinkRegistration`](#disabledeeplinkregistration) | Disable claude:// deep-link handling | Capabilities | Admin Console |
 | [`builtinBrowserEnabled`](#builtinbrowserenabled) | Allow the built-in browser | Capabilities | Admin Console |
 | [`builtinBrowserDefaultDomainPolicy`](#builtinbrowserdefaultdomainpolicy) | Default site policy in the built-in browser | Capabilities | Admin Console |
@@ -145,7 +147,6 @@
 | [`chatSessionRetentionDays`](#chatsessionretentiondays) | Chat retention period | Limits | Admin Console |
 | [`coworkSessionRetentionDays`](#coworksessionretentiondays) | Cowork retention period | Limits | Admin Console |
 | [`codeSessionRetentionDays`](#codesessionretentiondays) | Code retention period | Limits | Admin Console |
-| [`sessionRetentionHold`](#sessionretentionhold) | Suspend session deletion | Limits | Admin Console |
 | [`inferenceMaxTokensPerWindow`](#inferencemaxtokensperwindow) | Max tokens per window | Limits | Admin Console |
 | [`inferenceTokenWindowHours`](#inferencetokenwindowhours) | Token cap window | Limits | Admin Console |
 | [`inferenceTokenWarningPercent`](#inferencetokenwarningpercent) | Token limit warning | Limits | Admin Console |
@@ -233,7 +234,7 @@ object: name → valueSince 1.8089.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -254,7 +255,7 @@ Since 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 2.2553.0
 
@@ -266,7 +267,7 @@ Since 2.2553.0
 
 string\[]
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 2.110.0
 
@@ -284,7 +285,7 @@ Since 2.110.0
 
 integerDefault: 3600
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Range: 1 or moreSince 1.2581.0
 
@@ -296,7 +297,7 @@ Range: 1 or moreSince 1.2581.0
 
 integerDefault: 60
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Range: 1–600Since 1.8089.0
 
@@ -308,7 +309,7 @@ Range: 1–600Since 1.8089.0
 
 booleanDefault: true
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.10628.0
 
@@ -388,7 +389,7 @@ booleanSince 1.52386.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
 
@@ -451,7 +452,7 @@ One of: `browser`, `broker`
 
 object
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.6889.0
 
@@ -570,7 +571,7 @@ One of: `browser`, `broker`
 
 object
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 2.7032.0
 
@@ -674,6 +675,26 @@ integerRange: 300–1,800Since 1.44121.1
 
 ***
 
+#### `inferenceGatewayAutoModeServerChecks`
+
+booleanSince 4.16336.0
+
+**Server-side Auto mode checks.** Temporary setting: sends session details, such as folder paths and a user name, so your gateway’s provider checks risky Auto mode actions.
+
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/gateway.md#auto-mode-checks)
+
+> [accordion] More detail
+>
+> Off unless you set it to `true`. While off, Auto mode's built-in safety check reviews risky actions.
+>
+> This setting is temporary. It goes away when Claude Code drops that built-in check. After that, only turning off **Allow Auto mode** avoids the provider's check.
+>
+> When on, each Auto mode request carries one more `anthropic-beta` value and a `safeguards` field. The field describes the session, including Claude Code's `autoMode` settings, permission rules, folder paths, a user name and Git state. Your gateway must forward both unchanged, and return `safeguard_results` and tool-use IDs unchanged. If it returns an error such as 401 or 500, every Auto mode turn fails. Turn this off and have users restart the app.
+>
+> Claude Code's gateway mode ignores this and sends these details by default.
+
+***
+
 ### Anthropic
 
 #### `inferenceAnthropicApiKey`
@@ -700,7 +721,7 @@ stringSince 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
 
@@ -734,7 +755,7 @@ stringSince 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.6259.0
 
@@ -746,7 +767,7 @@ Since 1.6259.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.6259.0
 
@@ -758,7 +779,7 @@ Since 1.6259.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.6259.0
 
@@ -770,7 +791,7 @@ Since 1.6259.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.6259.0
 
@@ -782,7 +803,7 @@ Since 1.6259.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -794,7 +815,7 @@ Since 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -806,7 +827,7 @@ Since 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.13576.0
 
@@ -820,7 +841,7 @@ Since 1.13576.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -840,7 +861,7 @@ stringSince 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
 
@@ -854,7 +875,7 @@ Since 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -890,7 +911,7 @@ stringSince 1.12603.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.10628.0
 
@@ -902,7 +923,7 @@ Since 1.10628.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.10628.0
 
@@ -931,7 +952,7 @@ One of: `browser`, `broker`
 
 object
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.10628.0
 
@@ -987,7 +1008,7 @@ Since 1.10628.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -1001,7 +1022,7 @@ Since 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.2581.0
 
@@ -1013,7 +1034,7 @@ Since 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Origin-pinned (A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console.)
 
@@ -1043,7 +1064,7 @@ stringSince 1.2581.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.9255.0
 
@@ -1055,7 +1076,7 @@ Since 1.9255.0
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.9255.0
 
@@ -1305,6 +1326,12 @@ booleanDefault: trueSince 1.9659.0
 
 **Allow Cowork.** Enable Cowork. Claude works on longer tasks like research, analysis, and documents.
 
+> [!WARNING]
+>
+> **Deprecated**
+>
+> * `coworkTabEnabled` (accepted until December 17, 2026); use desktopHome. If it is still present after that, releases that follow 4.4212 and its hot fixes will ignore it, and earlier releases go on reading it. On the releases that ignore it, a device profile that holds nothing but settings past their deprecation date will have no effect, as if it were not installed.
+
 ***
 
 ### Code surface
@@ -1346,7 +1373,7 @@ string
 
 Beta (The feature that the key configures is in beta.)
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.46388.1
 
@@ -1356,9 +1383,9 @@ Since 1.46388.1
 
 > [accordion] More detail
 >
-> The app never runs another `ssh` in its place. If the program is missing, too old or cannot run, SSH sessions fail. So deliver this key only to devices that have the program.
+> The app never runs another `ssh` in its place. If the program is missing, SSH sessions fail. So deliver this key only to devices that have it. Where a bootstrap server or the Admin Console delivers configuration, set this key there too: the MDM profile's value alone has no effect.
 >
-> It must be OpenSSH 7.6 or newer. On Windows it must be an `.exe`, and the SSH remote sessions page lists stricter rules for its version and folder. With `sshTransport` set to `system-openssh`, a Windows path may start with `%LOCALAPPDATA%\` for a copy in each user's profile. Device management must set it as a plain string: a server may only repeat it.
+> It must be OpenSSH 7.6 or newer, and on Windows an `.exe`. Windows normally needs Microsoft OpenSSH 9.4 or newer. Without it, the built-in library connects if `sshTransport` is unset or `auto`. Under `system-openssh`, a Windows path may start with `%LOCALAPPDATA%\`. Device management must set such a path as a plain string. Admin Console organizations cannot use one.
 >
 > Choose a path that users cannot write to. Anyone who can replace the program can see SSH passwords and get around this key and `sshHostAllowlist`.
 
@@ -1384,6 +1411,10 @@ One of: `auto`, `system-openssh`, `builtin`
 >
 > * The program must be OpenSSH 7.6 or newer, and on Windows normally Win32-OpenSSH 9.4 or newer.
 > * If `sshClientPath` is unset and Windows has no usable client, the app uses its built-in library instead.
+>
+> Unset or `auto` normally means OpenSSH. On Windows devices, a host already reached with the built-in library stays on it. For one engine on every host, set `system-openssh` or `builtin`.
+>
+> A bootstrap server or the Admin Console that leaves this key out still overrides device management's value. So set it everywhere you manage settings.
 
 ***
 
@@ -1394,6 +1425,12 @@ One of: `auto`, `system-openssh`, `builtin`
 booleanSince 1.13576.0
 
 **Allow Chat.** Enable Chat. Quick questions and drafting.
+
+> [!WARNING]
+>
+> **Deprecated**
+>
+> * `chatTabEnabled` (accepted until December 17, 2026); use desktopHome. If it is still present after that, releases that follow 4.4212 and its hot fixes will ignore it, and earlier releases go on reading it. On the releases that ignore it, a device profile that holds nothing but settings past their deprecation date will have no effect, as if it were not installed.
 
 ***
 
@@ -1407,9 +1444,9 @@ One of: `standard`, `off`
 
 > [accordion] More detail
 >
-> `standard` turns on Unified Claude. `off` turns Chat and Cowork off, which leaves only Code, or nothing where Code is off. `isClaudeCodeForDesktopEnabled` still decides Code.
+> `standard` turns on Unified Claude. `off` turns Chat and Cowork off, which leaves only Code, or nothing where Code is off. `isClaudeCodeForDesktopEnabled` still decides Code. Under `standard`, if you use `chatSessionRetentionDays`, set `coworkSessionRetentionDays` as well: it covers new conversations that are Cowork tasks.
 >
-> **Unset:** the three settings that this key replaces decide until November 10, 2026 (12:00 PM PT). Current versions of the app started after that read an unset key as `standard`, whatever those three say. Cowork is then on even where `coworkTabEnabled` is `false`. One exception: where `chatSessionRetentionDays` is set and `coworkSessionRetentionDays` is not set to the same number of days, the three settings go on deciding.
+> **Unset:** the three settings that this key replaces decide until November 10, 2026 (12:00 PM PT). Current versions of the app started after that read an unset key as `standard`, whatever those three say. Cowork is then on even where `coworkTabEnabled` is `false`.
 >
 > A non-empty value that the app does not recognize, such as `Standard`, is read as `off`.
 
@@ -1420,6 +1457,12 @@ One of: `standard`, `off`
 booleanSince 1.14271.0
 
 **Advanced file analysis.** Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint.
+
+> [!WARNING]
+>
+> **Deprecated**
+>
+> * `chatAdvancedFileAnalysisEnabled` (accepted until December 17, 2026); use desktopHome. If it is still present after that, releases that follow 4.4212 and its hot fixes will ignore it, and earlier releases go on reading it. On the releases that ignore it, a device profile that holds nothing but settings past their deprecation date will have no effect, as if it were not installed.
 
 > [accordion] More detail
 >
@@ -1437,7 +1480,7 @@ booleanSince 1.14271.0
 
 string\[]Since 1.2581.0
 
-**Allowed egress hosts.** Hosts that Claude’s tools can reach from Chat and Cowork, and partly from Code. Unset or empty: no web fetch in Chat and Cowork.
+**Allowed egress hosts.** Hosts reachable from Chat, Cowork and Code’s sandbox. Empty: none. Unset: none, except in Code when a local file is the only configuration.
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-fetch)
 
@@ -1445,11 +1488,11 @@ string\[]Since 1.2581.0
 >
 > Does not cover web search, model requests or MCP servers.
 >
-> * **Entries:** a hostname (`api.github.com`), a wildcard (`*.corp.com`, subdomains only) or `*` for all hosts.
-> * **Ports:** an entry other than `*` can end in `:port`. In Cowork, web fetch and shell commands enforce the port. Code allows any port. Update all devices first: on an older version one such entry blocks every host for Cowork's shell commands.
-> * **Plugins:** a plugin's command-line tools also reach the hosts that the plugin declares.
-> * **Built-in browser:** a list other than `*`, even an empty one, also limits where Claude can browse.
-> * **Code:** only shell commands are limited, and only where Claude Code's sandbox runs (see `allowedWorkspaceFolders`). Claude Code's own managed settings, where a session has any, take priority by default.
+> * **Entries:** a hostname, a wildcard (`*.corp.com`, subdomains only) or `*` for all.
+> * **Ports:** an entry other than `*` can end in `:port`, which only Code ignores. Update all devices first: older versions then block every host in Cowork's shell.
+> * **Plugins:** command-line tools also reach hosts their plugin declares.
+> * **Built-in browser:** a list other than `*`, even an empty one, limits Claude's browsing.
+> * **Code:** a list other than `*` locks Claude Code's sandbox on, for shell commands only, where it runs (see `allowedWorkspaceFolders`). So does an unset list, except where a local file is the only configuration and `blockReadsOutsideWorkingDirectories` is off. Claude Code's own managed settings, where a session has any, take priority by default.
 
 ***
 
@@ -1464,7 +1507,7 @@ object\[]Since 1.2581.0
 > Claude can read and write in every listed folder unless its `mode` is `ro`. An empty list allows none.
 >
 > * **Paths:** `~` and these variables expand per user: `%OneDrive%`, `%OneDriveCommercial%`, `%OneDriveConsumer%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%USERNAME%`, `%XDG_DOCUMENTS_DIR%`. An entry with any other variable, or an unset one, adds no folder.
-> * **Code shell commands:** this key turns on Claude Code's sandbox on macOS, and on Linux and WSL2 with bubblewrap and socat. There, most writes outside the list are refused, and most reads are not. Elsewhere, Windows included, only Claude's file tools follow the list. Claude Code's own managed settings, where a session has any, take priority by default.
+> * **Code shell commands:** this key turns on Claude Code's sandbox on macOS, and on Linux and WSL2 where bubblewrap and socat work. There, most writes outside the list are refused, and most reads are not. Elsewhere, Windows included, only Claude's file tools follow the list. Claude Code's own managed settings, where a session has any, take priority by default.
 >
 > Do not list a home folder: it holds SSH keys and shell start-up files.
 
@@ -1473,6 +1516,10 @@ object\[]Since 1.2581.0
 > **path** `string` *required*
 >
 > Absolute folder path. May start with \~ or one of the listed %VAR% tokens, expanded per user. Subfolders are included.
+>
+> > [accordion] More detail
+> >
+> > Desktop checks this list inside the distro for a WSL session that starts under it. `~` also means the distro user's home. The session needs both bubblewrap and socat there to start. Shell commands can read the Windows drives under `/mnt`. To hide them, apart from listed `/mnt` folders, set `blockReadsOutsideWorkingDirectories`. Users can re-open them. Claude Code's server-managed settings, managed settings in the distro or a Windows policy with `wslInheritsWindowsSettings` replace Desktop's session settings. A session can then run with no sandbox, with or without those programs. Shell commands can read the drives and write outside the list after a prompt, or with none in bypass mode. If the one in force sets `parentSettingsBehavior` to `merge`, those settings stay, but it can undo them.
 >
 > **isDefaultSelected** `boolean`
 >
@@ -1505,7 +1552,7 @@ booleanSince 1.46388.1
 > * **Shell commands:** where Claude Code's sandbox runs (see `allowedWorkspaceFolders`), most reads in the home folder and other user folders are refused. Elsewhere such reads ask for approval.
 > * **Users** can re-open folders, even their whole home folder, in their own Claude Code settings.
 >
-> The user's git configuration files stay readable, and they can hold credentials.
+> The user's git configuration files stay readable, and they can hold credentials. If the app cannot download its Claude Code, sessions may run on an older copy without this block.
 >
 > Claude Code's own managed settings, where a session has any, take priority by default.
 
@@ -1632,7 +1679,7 @@ booleanSince 4.4212.0
 
 > [accordion] More detail
 >
-> Turning this off only hides projects. Their tasks and chats stay in the list, ungrouped. Their data stays on the user's device, and they come back when you turn it on again.
+> Turning this off only hides projects. Their tasks and chats stay in the list, ungrouped. Their data stays where it is. Projects come back when you turn it on again.
 >
 > A task that is still open in a project keeps working with what it was started with. A scheduled task set up in a project keeps running in it. To stop it, turn off `scheduledTasksEnabled`, which stops all scheduled tasks.
 
@@ -1815,6 +1862,34 @@ booleanDefault: falseSince 1.3834.0
 
 ***
 
+#### `deploymentMode`
+
+enum
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+
+Since 4.16336.0
+
+**Deployment mode.** Whether Claude Desktop runs only on your third-party setup, only signed in to Claude.ai, or as each person chooses at sign-in.
+
+One of: `any`, `3p`, `1p`
+
+[Admin Console](#the-works-with-column): Not available.
+
+> [accordion] More detail
+>
+> Replaces `disableDeploymentModeChooser`, whose `true` means `3p`. `3p` or `1p` wins over that key. A bootstrap server's value is ignored. Earlier versions do not read this key.
+>
+> * `3p`: keeps the app on the connection this configuration names, with no Claude.ai sign-in. With no connection, Claude.ai sign-in opens. To block Claude.ai sign-in, name a connection.
+> * `1p`: always Claude.ai sign-in, even where a connection is named. No Claude API account sign-in and no setup of the user's own.
+> * `any`: the same as unset.
+>
+> In an MDM profile, `3p` or `1p` blocks a move to an Admin Console organization. It also makes that profile the device's whole configuration, even one of app-behavior keys only. In a user's own saved configuration, the user can change it.
+>
+> A misspelled value counts as `3p`.
+
+***
+
 #### `disableDeepLinkRegistration`
 
 booleanDefault: falseSince 1.6889.0
@@ -1990,7 +2065,7 @@ object\[]Since 1.2581.0
 >
 > **toolPolicy** `object: name → value`
 >
-> Lock the approval state for specific tools. Unlisted tools stay user-controlled.
+> Sets approval for listed tools, and users choose the rest, but “allow” doesn’t pre-approve tools in Code sessions on the device or over SSH.
 >
 > > [accordion] More detail
 > >
@@ -2050,7 +2125,7 @@ object\[]Since 1.2581.0
 > >
 > > **headersHelper** `string`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Script that prints the auth header as a JSON object to stdout. Runs before each request (cached for the TTL below).
 > >
@@ -2060,7 +2135,7 @@ object\[]Since 1.2581.0
 > >
 > > **headersHelperArgs** `string[]`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Arguments passed to the headers helper script, one per entry, in order. Leave unset to run it with none.
 > >
@@ -2215,7 +2290,7 @@ object\[]Since 1.2581.0
 > > > >
 > > > > **oauth.clientSecretHelper** `string`
 > > > >
-> > > > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > > > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > > > >
 > > > > Script that prints the client secret as a JSON object with a single clientSecret key. Takes priority over Client secret.
 > > > >
@@ -2329,7 +2404,7 @@ object\[]Since 1.2581.0
 > >
 > > **headersHelper** `string`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Absolute path to an executable that prints a JSON object of HTTP headers on stdout. Merged over static headers; the helper wins on conflict.
 > >
@@ -2339,7 +2414,7 @@ object\[]Since 1.2581.0
 > >
 > > **headersHelperArgs** `string[]`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Arguments passed to the headers helper script, one per entry, in order. Leave unset to run it with none.
 > >
@@ -2429,25 +2504,25 @@ object\[]Since 1.2581.0
 > >
 > > **command** `string` *required*
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Absolute path to the server executable, run on the user’s machine.
 > >
 > > **args** `string[]`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Arguments passed to the command, one per entry.
 > >
 > > **env** `object: name → value`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Environment variables set for the command.
 > >
 > > **envHelper** `string`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Script that prints environment variables as a JSON object to stdout. Runs when the local server starts (cached for the TTL below).
 > >
@@ -2460,7 +2535,7 @@ object\[]Since 1.2581.0
 > >
 > > **envHelperArgs** `string[]`
 > >
-> > Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
 > > Arguments passed to the environment helper script, one per entry, in order. Leave unset to run it with none.
 > >
@@ -2738,13 +2813,13 @@ stringSince 1.2581.0
 
 booleanDefault: falseSince 1.2581.0
 
-**Block essential telemetry.** Crash and performance reports to Anthropic.
+**Block essential telemetry.** Crash, error, and performance reports to Anthropic.
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/telemetry.md#essential-telemetry)
 
 > [accordion] More detail
 >
-> Reports include **crash stacks**, **startup failure reasons**, **version/OS metadata**, and **crash dumps** (each an unfiltered copy of part of the app's memory). They carry a random install ID and an organization ID, which the app picks if you set none (see `deploymentOrganizationUuid`).
+> Reports include **error messages and stack traces**, **the process that crashed**, **startup failure reasons**, **performance timings**, and **version/OS metadata**. Turning this on also stops Claude Code's error reports. Reports carry a random install ID and an organization ID, which the app picks if you set none (see `deploymentOrganizationUuid`).
 >
 > Reports can also include:
 >
@@ -2761,11 +2836,13 @@ booleanDefault: falseSince 1.2581.0
 
 booleanDefault: falseSince 1.2581.0
 
-**Block nonessential telemetry.** Product-usage analytics (no message content) and diagnostic-report uploads.
+**Block nonessential telemetry.** Product-usage analytics (no message content).
 
 [Guide for this setting](https://claude.com/docs/third-party/claude-desktop/telemetry.md#non-essential-telemetry)
 
 > [accordion] More detail
+>
+> The product-usage analytics come from the app and from Claude Code. Turning this on also stops Claude Code's error reports and its other nonessential requests to Anthropic.
 >
 > Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
 
@@ -2843,7 +2920,7 @@ One of: `none`, `inference-credential`
 
 string
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 1.30096.1
 
@@ -3114,9 +3191,12 @@ integerRange: 1–3,650Since 1.52386.0
 > * another account's sessions, until that account signs in
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
+> * a Cowork task's live artifacts
 > * Claude Code's prompt history, plans and shell snapshots, which keep its own retention
 >
 > A value that cannot be read as a whole number of days deletes nothing.
+>
+> To keep some people's idle sessions, set all three periods to 3650 days for them, in the configuration that sets their periods.
 
 ***
 
@@ -3136,9 +3216,12 @@ integerRange: 1–3,650Since 1.52386.0
 > * another account's sessions, until that account signs in
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
+> * a Cowork task's live artifacts
 > * Claude Code's prompt history, plans and shell snapshots, which keep its own retention
 >
 > A value that cannot be read as a whole number of days deletes nothing.
+>
+> To keep some people's idle sessions, set all three periods to 3650 days for them, in the configuration that sets their periods.
 
 ***
 
@@ -3158,26 +3241,12 @@ integerRange: 1–3,650Since 1.52386.0
 > * another account's sessions, until that account signs in
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
+> * a Cowork task's live artifacts
 > * Claude Code's prompt history, plans and shell snapshots, which keep its own retention
 >
 > A value that cannot be read as a whole number of days deletes nothing.
-
-***
-
-#### `sessionRetentionHold`
-
-booleanSince 1.52386.0
-
-**Suspend session deletion.** Suspend the chat, Cowork and Code retention periods (legal hold). Claude Code’s own transcript cleanup (cleanupPeriodDays) still runs.
-
-> [accordion] More detail
 >
-> Meant to be set per user or group.
->
-> * Deletion stops at the first configuration fetch that carries the hold, before any restart.
-> * A device that cannot reach its bootstrap server deletes nothing.
->
-> In MDM, do not deploy the hold in a profile of its own: the app would then ignore the device's local configuration.
+> To keep some people's idle sessions, set all three periods to 3650 days for them, in the configuration that sets their periods.
 
 ***
 
@@ -3299,7 +3368,7 @@ objectSince 1.7196.0
 
 object
 
-Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 
 Since 4.4212.0
 
@@ -3308,11 +3377,11 @@ Since 4.4212.0
 > [accordion] More detail
 >
 > * **Runs:** on the user's device, as the signed-in user, when a session opens, a turn ends, the app regains focus or the model changes.
-> * **Input:** one JSON line on standard input: `{"session_id": "…", "model": {"id": "…", "display_name": "…"}}`. Fields with no value are left out.
+> * **Input:** one JSON line on standard input: `{"session_id": "…", "model": {"id": "…", "display_name": "…"}}`. Fields with no value are left out. Do not build a file path from these values.
 > * **Output:** Claude shows the first non-empty line, up to 200 characters. ANSI codes 31 to 36 and 91 to 96 set the color.
 > * **Limits:** 10 seconds and 64 KiB of output. Past either, Claude stops the program.
 
-> [accordion] Child attributes (1)
+> [accordion] Child attributes (2)
 >
 > **command** `string` *required*
 >
@@ -3328,6 +3397,33 @@ Since 4.4212.0
 > > Otherwise it does not run, and the log says why.
 > >
 > > Claude does not check the interpreter on a `#!` line, so keep that out of users' reach too. An interpreter can also load code from the user's folders. Start Python isolated (for example `#!/usr/bin/python3 -I`) or use a compiled program.
+>
+> **platformOverrides** `object`
+>
+> Set a different program for Windows, macOS or Linux. Devices on a system you leave out run the setting’s own program.
+>
+> > [accordion] More detail
+> >
+> > Under `win32`, `darwin` or `linux`, give that operating system's `command`. Set the setting's own `command` too, even if all three systems have one.
+> >
+> > * A path under `win32` starts with a drive letter. A path under `darwin` or `linux` has no drive letter and no backslash.
+> > * A path in the wrong form, or an unknown name such as `windows`, turns the status line off on every operating system.
+> > * An older version rejects the whole setting if this is present, and shows no status line. Add it only after all devices are updated.
+> > * In the Admin Console, a group that sets only `command` keeps the organization's programs here, and devices on those systems run them, not the group's. To change one, also set that system's `command` in the group.
+>
+> > [accordion] Child attributes (3)
+> >
+> > **platformOverrides.win32** `object: name → value`
+> >
+> > On Windows, Claude runs this program in place of the program above.
+> >
+> > **platformOverrides.darwin** `object: name → value`
+> >
+> > On macOS, Claude runs this program in place of the program above.
+> >
+> > **platformOverrides.linux** `object: name → value`
+> >
+> > On Linux, Claude runs this program in place of the program above.
 
 ***
 
@@ -3377,7 +3473,7 @@ object\[]Since 1.17377.1
 >
 > **credentialHelper** `string`
 >
-> Consent required (A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+> Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 >
 > Executable that prints the access token to send.
 >
@@ -3684,7 +3780,7 @@ The labels under a key start with its type and, where one is recorded, its defau
 * **Admin Console only**: Only the Enterprise Admin Console can set the key. Claude Desktop ignores it in an MDM profile, in the local configuration file and in a bootstrap server's response. [Read more](https://claude.com/docs/third-party/claude-desktop/admin-console.md).
 * **Beta**: The feature that the key configures is in beta.
 * **Deprecated**: On third-party deployments Claude Desktop no longer reads the key and ignores any value set for it. Remove it from your configuration.
-* **Consent required**: A value that a bootstrap server or a self-hosted session host delivers applies only after the user approves it, unless machine-scoped device management set that server's address. For a bootstrap server, the trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent).
+* **Consent required**: A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent).
 * **Origin-pinned**: A URL that a bootstrap server delivers must share the origin of bootstrapUrl, or Claude Desktop drops it. The limit is lifted when bootstrapOidc is set, and it does not apply to a value set in an MDM profile, the local configuration file or the Enterprise Admin Console. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#origin-pinning).
 * **required**: The object or list entry that holds this field is not valid without it. Depending on the key, Claude Desktop then drops that entry alone, treats the key as unset, or applies a restrictive value in its place.
 

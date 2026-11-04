@@ -6,7 +6,7 @@ description: "Inventory and manage the plugins in your Claude Enterprise organiz
 
 The Plugins API lets you do the following:
 
-* Inventory every plugin in your Claude Enterprise organization
+* Inventory the plugins in your Claude Enterprise organization
 * Publish plugins and new versions from your own pipelines
 * Choose which version members are served
 * Control who can use each plugin
@@ -33,19 +33,19 @@ The API exposes 18 endpoints across five resources:
 
 | Resource                                                                                                                                                            | Endpoints                                                                                                                                                                                                                                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Plugins:** list every plugin in the organization, upload a new one, look one up, choose the version members are served (roll back or promote), delete one         | `GET /v1/organizations/plugins`<br />`POST /v1/organizations/plugins`<br />`GET /v1/organizations/plugins/{plugin_id}`<br />`POST /v1/organizations/plugins/{plugin_id}`<br />`DELETE /v1/organizations/plugins/{plugin_id}`                                                                                              |
+| **Plugins:** list the plugins in the organization, upload a new one, look one up, choose the version members are served (roll back or promote), delete one          | `GET /v1/organizations/plugins`<br />`POST /v1/organizations/plugins`<br />`GET /v1/organizations/plugins/{plugin_id}`<br />`POST /v1/organizations/plugins/{plugin_id}`<br />`DELETE /v1/organizations/plugins/{plugin_id}`                                                                                              |
 | **Plugin versions:** list a plugin’s version history, upload a new version, look one up, download a version’s files                                                 | `GET /v1/organizations/plugins/{plugin_id}/versions`<br />`POST /v1/organizations/plugins/{plugin_id}/versions`<br />`GET /v1/organizations/plugins/{plugin_id}/versions/{version}`<br />`GET /v1/organizations/plugins/{plugin_id}/versions/{version}/content`                                                           |
 | **Installation settings:** read who can use an organization-owned plugin, set it for the whole organization or for one group, remove either setting                 | `GET /v1/organizations/plugins/{plugin_id}/installation_settings`<br />`POST /v1/organizations/plugins/{plugin_id}/installation_settings/{target}`<br />`DELETE /v1/organizations/plugins/{plugin_id}/installation_settings/{target}`                                                                                     |
 | **Shares:** read who a member has shared their own plugin with (read-only)                                                                                          | `GET /v1/organizations/plugins/{plugin_id}/shares`                                                                                                                                                                                                                                                                        |
 | **Plugin marketplaces:** find a marketplace’s ID, look one up, set the default installation setting for its plugins, check marketplace content before connecting it | `GET /v1/organizations/plugin_marketplaces`<br />`GET /v1/organizations/plugin_marketplaces/{marketplace_id}`<br />`POST /v1/organizations/plugin_marketplaces/{marketplace_id}`<br />`POST /v1/organizations/plugin_marketplaces/validate_repository`<br />`POST /v1/organizations/plugin_marketplaces/validate_archive` |
 
-This release does not include standalone skills (skills a member writes in the skills editor or uploads as a single skill in claude.ai). They do not appear in the inventory and cannot be created here. Plugins that Anthropic publishes are not inventoried either; their usage is reported by the [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api). Marketplaces are created, connected to repositories, and deleted in claude.ai, not through this API.
+Plugins that Anthropic publishes are not inventoried; their usage is reported by the [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api). Marketplaces are created, connected to repositories, and deleted in claude.ai, not through this API.
 
 ## Prerequisites
 
 * Your organization must be on a Claude Enterprise plan.
 * Your primary owner creates an Admin API key with the `read:plugins` scope, the `write:plugins` scope, or both in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). See [Create a key for a Claude Enterprise organization](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization).
-* Every request carries three headers: `x-api-key`, `anthropic-version: 2023-06-01`, and `anthropic-beta: ce-plugins-2026-09-01`.
+* Every request carries three headers: `x-api-key`, `anthropic-version: 2026-10-21`, and `anthropic-beta: ce-plugins-2026-09-01`.
 
 In Python, TypeScript, C#, Go, Java, PHP, and Ruby, the SDK exposes these endpoints under `client.beta.organization` (csharp, go: `client.Beta.Organization`; java: `client.beta().organization()`; php: `$client->beta->organization`), and the [`ant` CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart) under `ant beta:organization`; they send the `anthropic-version` and `anthropic-beta` headers for you. The examples on this page read the Admin API key from the `ANTHROPIC_API_KEY` environment variable. Where an SDK or the CLI fetches more pages for you, `limit` sets the page size, not the total (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)).
 
@@ -59,7 +59,7 @@ List the plugins in your organization’s own marketplaces, newest first:
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins?owner_type=organization&limit=20" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -223,7 +223,7 @@ Each of these read scopes (`read:plugins`, `read:org_audit`, and `read:complianc
 
 ### Reading another organization under the same parent
 
-`read:plugins` and `write:plugins` keys read and write only the organization they were created in. If your company has several Claude organizations linked under one parent organization, the parent’s primary owner can create a `read:org_audit` or `read:compliance_org_data` key for all linked organizations (see [Create a key for a Claude Enterprise organization](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization)). That key can also read any linked organization that has access to this API. To read one, pass its ID in the `organization_id` query parameter on any `GET` endpoint on this page. The ID is the organization UUID shown in claude.ai’s settings (its `org_`-prefixed form is accepted too). Without the parameter, the key reads the organization it was created in. A `404` means the named organization is not under the key’s parent or the API is not available to it; a value that is not a UUID or `org_` ID returns `400`. Any other key that names an organization other than its own gets `404`. Writes do not accept `organization_id`.
+`read:plugins` and `write:plugins` keys read and write only the organization they were created in. Some companies have several Claude organizations linked under one parent organization. A `read:org_audit` or `read:compliance_org_data` [key created for all linked organizations](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) can also read any linked organization that has access to this API. To read one, pass its ID in the `organization_id` query parameter on any `GET` endpoint on this page. The ID is the organization UUID shown in claude.ai’s settings (its `org_`-prefixed form is accepted too). Without the parameter, the key reads the organization it was created in. A key with no organization of its own must always pass `organization_id`. A `404` means the named organization is not under the key’s parent or the API is not available to it; a value that is not a UUID or `org_` ID returns `400`. Any other key that names an organization other than its own gets `404`. Writes do not accept `organization_id`.
 
 ## Key concepts
 
@@ -324,13 +324,13 @@ In claude.ai, organization owners can allow a version whose scan failed. So can 
 
 `reach` summarizes, in one value, how far a version reaches on members’ machines and beyond:
 
-| Value        | Meaning                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `remote`     | Declares an MCP server or a CLI, whatever else it declares.                                                                                                                                                                                                                                                                                                                                       |
-| `privileged` | Declares no MCP server or CLI, but declares a hook, a monitor (a background command that keeps running during a session), an LSP (Language Server Protocol) server, or settings the plugin applies to the member’s app, or contains a skill, command, or any other Markdown file whose frontmatter pre-approves tools (`allowed-tools`). These run, or take effect, on the member’s own computer. |
-| `contained`  | Declares no MCP server, CLI, hook, monitor, LSP server, or app settings, and none of its Markdown files pre-approves tools (for example, a plugin that holds only skills, commands, and agents, none with `allowed-tools`).                                                                                                                                                                       |
+| Value        | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `remote`     | Declares an MCP server or a CLI, whatever else it declares.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `privileged` | Declares no MCP server or CLI, but declares a hook, a monitor (a background command that keeps running during a session), an LSP (Language Server Protocol) server, a workflow (a script that Claude Code can run; any file in a `workflows/` folder at the plugin’s root counts as one), or settings the plugin applies to the member’s app, or contains a skill, command, or any other Markdown file whose frontmatter pre-approves tools (`allowed-tools`). These run, or take effect, on the member’s own computer. |
+| `contained`  | Declares no MCP server, CLI, hook, monitor, LSP server, workflow, or app settings, and none of its Markdown files pre-approves tools (for example, a plugin that holds only skills, commands, and agents, none with `allowed-tools`).                                                                                                                                                                                                                                                                                   |
 
-`reach` counts everything the version declares, including monitors, LSP servers, and app settings, which `components` does not list, so a version with an empty `components` list can still be `privileged`. It is `null` for a version stored before components were recorded, and for a version whose reach could not be determined because the `SKILL.md` of one of its skills, or one of its command files, could not be read; treat `null` as unclassified.
+`reach` counts everything the version declares, including monitors, LSP servers, workflows, and app settings, which `components` does not list, so a version with an empty `components` list can still be `privileged`. It is `null` for a version stored before components were recorded, and for a version whose reach could not be determined because the `SKILL.md` of one of its skills, or one of its command files, could not be read; treat `null` as unclassified. The value is normally worked out when a version is stored, under the rules of that time. An older version can therefore be `contained` where the same files stored today would be `privileged`.
 
 ### Upload requirements
 
@@ -338,7 +338,7 @@ Uploads follow the same rules as plugin uploads in claude.ai, so the same archiv
 
 * The upload is either one `.zip` or `.plugin` archive, or a set of individual files. An archive may wrap everything in one top-level folder.
 * It must contain exactly one manifest, at `.claude-plugin/plugin.json`, which must declare a `name`. A bare `SKILL.md` without a manifest is rejected.
-* A top-level `SKILL.md` whose frontmatter declares plugin components is merged into the manifest; `plugin.json` wins wherever both set a value.
+* A top-level `SKILL.md` whose frontmatter declares plugin components is merged into the manifest; `plugin.json` wins wherever both set a value. A `description` that the manifest takes from that `SKILL.md` is cut to its first 500 characters.
 * `name` may contain lowercase letters (from any alphabet), digits, and hyphens, up to 64 characters. Uppercase letters, spaces, underscores, and other punctuation are rejected.
 * `displayName` is at most 64 characters and `description` at most 500.
 * Every `SKILL.md` needs valid YAML frontmatter with a `name` and `description`, neither containing XML tags such as `<example>`. Two skills, or two commands, cannot share a name.
@@ -347,7 +347,7 @@ Uploads follow the same rules as plugin uploads in claude.ai, so the same archiv
 * File paths must be relative, contain no `..`, and use only letters, digits, spaces, and `_ . - / ( ) ,`.
 * The request body and the uncompressed archive are each at most 200 MB; a request body over the limit returns `413` (`request_too_large`) rather than `400`. An upload has at most 5,000 files, a path depth of 12, paths of 472 characters, and file or folder names of 255 characters.
 * ZIP archives must use DEFLATE or STORE compression, and cannot be encrypted or contain symbolic links.
-* An upload that creates a plugin is refused once the marketplace holds 1,000 items. This total includes its plugins and any skills members keep in it. Anthropic can raise this limit and the 5,000-file limit.
+* An upload that creates a plugin returns `400` once the marketplace holds 1,000 plugins. Plugins that this API does not list also count, so the limit can be reached while [List plugins](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) shows fewer than 1,000 in that marketplace. Anthropic can raise the 5,000-file limit.
 
 ## Example workflows
 
@@ -363,7 +363,7 @@ Upload every tagged build from CI, and let the pipeline determine when a build i
 
 ### Roll a plugin out to a pilot group, then to everyone
 
-1. Look up the pilot group’s ID with `GET /v1/organizations/rbac_groups`. That call needs the `read:rbac_groups` scope, which requires a key created for all linked organizations (see [Groups in User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups)). The next steps need `write:plugins`, which acts only on the organization its key was created in, so in an enterprise with several linked organizations, create this key in the organization that holds the plugin and give it both scopes, or use a second key created there for those steps.
+1. Look up the pilot group’s ID with `GET /v1/organizations/rbac_groups`. That call needs the `read:rbac_groups` scope (see [Groups and roles in User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups-and-roles)). The next steps need `write:plugins`, which acts only on the organization its key was created in, so in an enterprise with several linked organizations, create one key in the organization that holds the plugin and give it both scopes, or use a second key created there for those steps.
 
 2. [Give the group its own setting](https://platform.claude.com/docs/en/manage-claude/plugins-api#set-an-installation-setting), for example `auto_install`, with `POST /v1/organizations/plugins/{plugin_id}/installation_settings/{target}`, where `{target}` is the group’s `rbac_group_` ID, while the organization-wide value stays `not_available`. Only the group’s members get the plugin.
 
@@ -374,7 +374,7 @@ Upload every tagged build from CI, and let the pipeline determine when a build i
      curl -X POST "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/installation_settings/organization" \
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
-       -H "anthropic-version: 2023-06-01" \
+       -H "anthropic-version: 2026-10-21" \
        -H "anthropic-beta: ce-plugins-2026-09-01" \
        -d '{"installation_preference": "required"}'
      ```
@@ -515,21 +515,26 @@ Run a nightly job that flags plugins that reach outside the member’s session o
 
 The plugin object describes a plugin in one of your organization’s marketplaces or in a member’s personal marketplace (the [Quick start](https://platform.claude.com/docs/en/manage-claude/plugins-api#quick-start) response shows a complete one). Its `display_name`, `description`, `manifest_version`, `content_scan`, `components`, and `reach` describe its **served** version, so one list call shows what members are being served.
 
-| Field                                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                     | Prefixed `plugin_`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `name`                                                                                   | From the manifest. Unique within its marketplace, not across the organization. Fixed for an organization-owned plugin; changes if a member renames their own plugin in claude.ai.                                                                                                                                                                                                                                                                                                                                                                                 |
-| `display_name`, `description`, `manifest_version`                                        | The served version’s manifest `displayName`, `description`, and `version`; each is `null` when the manifest declares none. `manifest_version` is normalized for display: one leading `v` or `V` is dropped, so a manifest `version` of `"v1.4.0"` is returned as `"1.4.0"`. It is also `null` for a value that does not look like a version number, such as `"latest"`, and for a plugin version created before claude.ai started recording this field in August 2026. An upload is never refused because of its `version`, and `manifest_version` is not unique. |
-| `served_version_id`, `latest_version_id`                                                 | Prefixed `pluginver_`: the version members are served, and the newest version. See [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version).                                                                                                                                                                                                                                                                                                                                              |
-| `served_version_pinned`                                                                  | `false` until the plugin is pinned (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)); `true` from then on.                                                                                                                                                                                                                                                                                                                                                                   |
-| `owner`                                                                                  | `{"type": "organization"}`, or `{"type": "user", "user_id": "user_..."}` for a member’s personal marketplace.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `marketplace_id`                                                                         | Prefixed `marketplace_`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `created_by`                                                                             | Who created the plugin: `{"type": "user_actor", "user_id": "user_...", "email_address": "..."}` for a person in claude.ai (`email_address` might be `null`), or `{"type": "api_actor", "api_key_id": "apikey_..."}` for an API key. Other actor types may appear. `null` when no creator is recorded, such as for plugins synchronized from Git.                                                                                                                                                                                                                  |
-| `organization_installation_preference`, `organization_installation_preference_inherited` | Organization-owned: the organization-wide value, and whether it comes from the marketplace’s default (see [Installation settings](https://platform.claude.com/docs/en/manage-claude/plugins-api#installation-settings)). Member-owned: both `null`.                                                                                                                                                                                                                                                                                                               |
-| `content_scan`                                                                           | The served version’s scan result, an object with `status`, `assessment`, and `reason` (described after this table). `null` when it was never scanned.                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `components`                                                                             | The served version’s components, each `{"type", "name", "description"}` with `type` one of `skill`, `mcp_server`, `command`, `agent`, `hook`, or `cli`, listed in that type order and then by name. For an MCP server, `name` is its key in the manifest; for a hook, the event it runs on; for a CLI, the executable’s name. `description` is always `null` for MCP servers, hooks, and CLIs. `null` when not recorded.                                                                                                                                          |
-| `reach`                                                                                  | `contained`, `privileged`, or `remote`. See [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach).                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `updated_at`                                                                             | Changes when the served version changes, when the plugin becomes pinned, and normally when a new version is stored. A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) changes it when it becomes the served version, not necessarily when it is stored. It does not change for installation settings, shares, or a change to `content_scan` alone.                                                                                                         |
+| Field                                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                     | Prefixed `plugin_`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `name`                                                                                   | From the manifest. Unique within its marketplace, not across the organization. Fixed for an organization-owned plugin; changes if a member renames their own plugin in claude.ai.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `display_name`, `description`, `manifest_version`                                        | The served version’s manifest `displayName`, `description`, and `version`; each is `null` when the manifest declares none. `description` might be a skill’s `description` rather than the manifest’s (described after this table). `manifest_version` is normalized for display: one leading `v` or `V` is dropped, so a manifest `version` of `"v1.4.0"` is returned as `"1.4.0"`. It is also `null` for a value that does not look like a version number, such as `"latest"`, and for a plugin version created before claude.ai started recording this field in August 2026. An upload is never refused because of its `version`, and `manifest_version` is not unique. |
+| `served_version_id`, `latest_version_id`                                                 | Prefixed `pluginver_`: the version members are served, and the newest version. See [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version).                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `served_version_pinned`                                                                  | `false` until the plugin is pinned (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)); `true` from then on.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `owner`                                                                                  | `{"type": "organization"}`, or `{"type": "user", "user_id": "user_..."}` for a member’s personal marketplace.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `marketplace_id`                                                                         | Prefixed `marketplace_`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `created_by`                                                                             | Who created the plugin: `{"type": "user_actor", "user_id": "user_...", "email_address": "..."}` for a person in claude.ai (`email_address` might be `null`), or `{"type": "api_actor", "api_key_id": "apikey_..."}` for an API key. Other actor types may appear. `null` when no creator is recorded, such as for plugins synchronized from Git.                                                                                                                                                                                                                                                                                                                          |
+| `organization_installation_preference`, `organization_installation_preference_inherited` | Organization-owned: the organization-wide value, and whether it comes from the marketplace’s default (see [Installation settings](https://platform.claude.com/docs/en/manage-claude/plugins-api#installation-settings)). Member-owned: both `null`.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `content_scan`                                                                           | The served version’s scan result, an object with `status`, `assessment`, and `reason` (described after this table). `null` when it was never scanned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `components`                                                                             | The served version’s components, each `{"type", "name", "description"}` with `type` one of `skill`, `mcp_server`, `command`, `agent`, `hook`, or `cli`, listed in that type order and then by name. For an MCP server, `name` is its key in the manifest; for a hook, the event it runs on; for a CLI, the executable’s name. `description` is always `null` for MCP servers, hooks, and CLIs. `null` when not recorded.                                                                                                                                                                                                                                                  |
+| `reach`                                                                                  | `contained`, `privileged`, or `remote`. See [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `updated_at`                                                                             | Changes when the served version changes, when the plugin becomes pinned, and normally when a new version is stored. A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) changes it when it becomes the served version, not necessarily when it is stored. It does not change for installation settings, shares, or a change to `content_scan` alone.                                                                                                                                                                                                                 |
+
+`description` is not always the manifest’s. A `description` that the manifest takes from a top-level `SKILL.md` is cut to its first 500 characters (see [Upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements)). If the manifest’s `description` is the first 500 characters of exactly one distinct skill `description` in `components`, the API returns that skill `description` instead. As a result:
+
+* A `description` that you read might be longer than 500 characters, the limit for an uploaded manifest. An upload whose `plugin.json` sets such a `description` returns `400`.
+* In the [files you download](https://platform.claude.com/docs/en/manage-claude/plugins-api#download-a-versions-files), `.claude-plugin/plugin.json` might have a different `description`, or none.
 
 The `content_scan` object:
 
@@ -558,17 +563,17 @@ The `content_scan` object:
   | `other`                           | Any other concern, including one newer than this list.                                                                        |
 </Accordion>
 
-A `plugin_id` that lacks the `plugin_` prefix returns `400`. A `plugin_id` that carries the prefix but does not resolve, belongs to another organization, or refers to a standalone skill returns `404`.
+A `plugin_id` that lacks the `plugin_` prefix returns `400`. A `plugin_id` that carries the prefix but is not in your organization’s inventory returns `404`.
 
 ### List plugins
 
-`GET /v1/organizations/plugins` lists every plugin in your organization, in the organization’s marketplaces and in members’ personal marketplaces, ordered by `created_at` descending. Filter by `owner_type` (`organization` or `user`), `owner_user_id` (an ID prefixed `user_`, which finds a member’s plugins, including after the member leaves the organization), `marketplace_id`, and `created_at[gte]`, `created_at[gt]`, `created_at[lte]`, `created_at[lt]` (RFC 3339 timestamps). Filters combine with AND. A `marketplace_id` or `owner_user_id` that matches nothing in your organization returns an empty page, not an error. The response has the shape shown in [Quick start](https://platform.claude.com/docs/en/manage-claude/plugins-api#quick-start). Requires the `read:plugins` scope.
+`GET /v1/organizations/plugins` lists the plugins in your organization, in the organization’s marketplaces and in members’ personal marketplaces, ordered by `created_at` descending. Filter by `owner_type` (`organization` or `user`), `owner_user_id` (an ID prefixed `user_`, which finds a member’s plugins, including after the member leaves the organization), `marketplace_id`, and `created_at[gte]`, `created_at[gt]`, `created_at[lte]`, `created_at[lt]` (RFC 3339 timestamps). Filters combine with AND. A `marketplace_id` or `owner_user_id` that matches nothing in your organization returns an empty page, not an error. The response has the shape shown in [Quick start](https://platform.claude.com/docs/en/manage-claude/plugins-api#quick-start). Requires the `read:plugins` scope.
 
 <CodeGroup>
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins?owner_type=organization&limit=20" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -679,7 +684,7 @@ A `plugin_id` that lacks the `plugin_` prefix returns `400`. A `plugin_id` that 
 
 ### Create a plugin
 
-`POST /v1/organizations/plugins` creates an organization-owned plugin and its first version in one call; the version becomes the served version. The body is `multipart/form-data`: `files[]` is either one `.zip` or `.plugin` archive, or one part for each file, where each part’s file name is the file’s path within the plugin (for example `.claude-plugin/plugin.json`). Optional fields are `marketplace_id` (an organization-owned `manual` marketplace, or by default your library marketplace, which is created on first use) and `release_notes` (up to 5,000 characters, shown in claude.ai’s version history and returned on the version). The plugin’s `name`, `display_name`, `description`, and `manifest_version` come from the uploaded manifest, and the upload must meet the [upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements). When content scanning is on, the response’s `content_scan.status` is `processing` and the verdict arrives asynchronously. Returns the plugin. Requires the `write:plugins` scope.
+`POST /v1/organizations/plugins` creates an organization-owned plugin and its first version in one call; the version becomes the served version. The body is `multipart/form-data`: `files[]` is either one `.zip` or `.plugin` archive, or one part for each file, where each part’s file name is the file’s path within the plugin (for example `.claude-plugin/plugin.json`). Optional fields are `marketplace_id` (an organization-owned `manual` marketplace, or by default your library marketplace, which is created on first use) and `release_notes` (up to 5,000 characters, shown in claude.ai’s version history and returned on the version). The plugin’s `name`, `display_name`, `description`, and `manifest_version` come from the uploaded files, and the upload must meet the [upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements). When content scanning is on, the response’s `content_scan.status` is `processing` and the verdict arrives asynchronously. Returns the plugin. Requires the `write:plugins` scope.
 
 Upload an archive:
 
@@ -687,7 +692,7 @@ Upload an archive:
   ```bash cURL
   curl -X POST "https://api.anthropic.com/v1/organizations/plugins" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -F "files[]=@dist/sales-toolkit.zip" \
     -F "release_notes=First release"
@@ -853,7 +858,7 @@ Upload individual files into a named marketplace. Attach each file under its pat
   ```bash cURL
   curl -X POST "https://api.anthropic.com/v1/organizations/plugins" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -F "files[]=@.claude-plugin/plugin.json;filename=.claude-plugin/plugin.json" \
     -F "files[]=@skills/account-research/SKILL.md;filename=skills/account-research/SKILL.md" \
@@ -1043,14 +1048,14 @@ Upload individual files into a named marketplace. Attach each file under its pat
 
 Besides a `400` for an upload that breaks the [upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements) (`413` for a request body over 200 MB) and the shared responses (a `403` when `marketplace_id` is a member’s personal marketplace; see [Error responses](https://platform.claude.com/docs/en/manage-claude/plugins-api#error-responses)), a create can fail with:
 
-| Status                     | Cause                                                                                                    | What to do                                                                                                                                                                                        |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 404                        | `marketplace_id` is not a marketplace of your organization.                                              | Take the ID from [List marketplaces](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-marketplaces).                                                                            |
-| 400                        | The marketplace is synchronized from Git, or already holds 1,000 plugins and skills.                     | Upload to a `manual` marketplace, or change the repository instead.                                                                                                                               |
-| 409 `plugin_name_taken`    | The name is taken in that marketplace.                                                                   | Upload a version to `details.plugin_id` only if it is the plugin you meant to update, because someone else might have made it. Otherwise, upload under another name (change the manifest `name`). |
-| 409 `skill_name_taken`     | The plugin is going into the library marketplace and one of its skills has an organization skill’s name. | Rename the skill, or remove the organization skill in claude.ai.                                                                                                                                  |
-| 409 (no `error_code`)      | Another upload with the same name to the same marketplace is still in progress.                          | Retry shortly.                                                                                                                                                                                    |
-| 503 `registration_pending` | The plugin was created but its registration did not complete.                                            | Do not resend; upload the same files as a version of `details.plugin_id` (see [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads)).                |
+| Status                     | Cause                                                                                                                                                                                    | What to do                                                                                                                                                                                                                               |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 404                        | `marketplace_id` is not a marketplace of your organization.                                                                                                                              | Take the ID from [List marketplaces](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-marketplaces).                                                                                                                   |
+| 400                        | The marketplace is synchronized from Git, or already holds 1,000 plugins (see [Upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements)). | Upload to another `manual` marketplace, or change the repository instead.                                                                                                                                                                |
+| 409 `plugin_name_taken`    | The name is taken in that marketplace.                                                                                                                                                   | Upload a version to `details.plugin_id` only if it is the plugin you meant to update, because someone else might have made it. Otherwise, or when `details.plugin_id` is absent, upload under another name (change the manifest `name`). |
+| 409 `skill_name_taken`     | The plugin is going into the library marketplace and one of its skills has an organization skill’s name.                                                                                 | Rename the skill, or remove the organization skill in claude.ai.                                                                                                                                                                         |
+| 409 (no `error_code`)      | Another upload with the same name to the same marketplace is in progress, or a plugin that this API does not list holds the name.                                                        | Retry with backoff. If the `409` persists for more than a few minutes, upload under another name (change the manifest `name`).                                                                                                           |
+| 503 `registration_pending` | The plugin was created but its registration did not complete.                                                                                                                            | Do not resend; upload the same files as a version of `details.plugin_id` (see [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads)).                                                       |
 
 ### Get a plugin
 
@@ -1060,7 +1065,7 @@ Besides a `400` for an upload that breaks the [upload requirements](https://plat
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -1155,7 +1160,7 @@ Besides a `400` for an upload that breaks the [upload requirements](https://plat
   curl -X POST "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL" \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -d '{"served_version_id": "pluginver_01Jd5sK2nQ8wE4rT6yU1iO3p"}'
   ```
@@ -1318,7 +1323,7 @@ Deletion cannot be undone, and there is no per-version delete. To withhold an or
   ```bash cURL
   curl -X DELETE "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -1418,7 +1423,7 @@ A `{version}` that lacks the `pluginver_` prefix returns `400` (except the liter
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/versions?limit=50" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -1539,7 +1544,7 @@ A `{version}` that lacks the `pluginver_` prefix returns `400` (except the liter
   ```bash cURL
   curl -X POST "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/versions" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -F "files[]=@dist/sales-toolkit.zip" \
     -F "release_notes=Adds the call-prep command."
@@ -1728,7 +1733,7 @@ Besides a `400` for an upload that breaks the [upload requirements](https://plat
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/versions/latest" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -1841,7 +1846,7 @@ Downloading a **member-owned** plugin’s archive records a `claude_plugin_archi
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/versions/pluginver_01Km7tL4pR9xF5sU2zV3jP6q/content" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -o plugin_01Hq3vX8kZcN2mB7pR4tY9wL_pluginver_01Km7tL4pR9xF5sU2zV3jP6q.zip
   ```
@@ -1987,7 +1992,7 @@ These endpoints apply to organization-owned plugins. They return `404` for a mem
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/installation_settings" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -2098,7 +2103,7 @@ Send a plugin’s installation-setting writes one at a time. If several writes f
   curl -X POST "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/installation_settings/rbac_group_01F3xQqQzXyWvUtSrQpOnMlK" \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -d '{"installation_preference": "available"}'
   ```
@@ -2244,7 +2249,7 @@ Send a plugin’s installation-setting writes one at a time. If several writes f
   ```bash cURL
   curl -X DELETE "https://api.anthropic.com/v1/organizations/plugins/plugin_01Hq3vX8kZcN2mB7pR4tY9wL/installation_settings/rbac_group_01F3xQqQzXyWvUtSrQpOnMlK" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -2365,7 +2370,7 @@ Shares exist only on member-owned plugins and are read-only in this API (see [Sh
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Mr2wP7sU3aJ8vX5cY6nS9t/shares" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -2514,7 +2519,7 @@ A `marketplace_id` that lacks the `marketplace_` prefix returns `400`. One that 
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugin_marketplaces?owner_type=organization" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -2632,7 +2637,7 @@ A `marketplace_id` that lacks the `marketplace_` prefix returns `400`. One that 
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugin_marketplaces/marketplace_01Lp8uM5qS1yG6tV3aW4kQ7r" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01"
   ```
 
@@ -2731,7 +2736,7 @@ A `marketplace_id` that lacks the `marketplace_` prefix returns `400`. One that 
   curl -X POST "https://api.anthropic.com/v1/organizations/plugin_marketplaces/marketplace_01Lp8uM5qS1yG6tV3aW4kQ7r" \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -d '{"default_installation_preference": "available"}'
   ```
@@ -2870,7 +2875,7 @@ Validate a public repository at a branch:
   curl -X POST "https://api.anthropic.com/v1/organizations/plugin_marketplaces/validate_repository" \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -d '{"repository_url": "https://github.com/example-org/claude-plugins", "ref": "release-candidate"}'
   ```
@@ -3026,7 +3031,7 @@ Validate a local copy of the marketplace directory instead, as a `.zip`; the res
   ```bash cURL
   curl -X POST "https://api.anthropic.com/v1/organizations/plugin_marketplaces/validate_archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: ce-plugins-2026-09-01" \
     -F "archive=@marketplace.zip"
   ```
@@ -3154,7 +3159,7 @@ Every string value on this page (component types, `reach`, scan fields, marketpl
 
 ## Rate limiting
 
-Read requests (every `GET` endpoint on this page) share a limit of **300 requests per minute** for each organization. Write requests (creating a plugin or version, changing the served version, deleting, setting or removing an installation setting, and updating a marketplace) share a limit of **60 requests per minute** for each organization. A marketplace validation (either endpoint) counts as a read, and validations are additionally limited to 10 a minute for each organization across both endpoints; both limits are checked before the request body is read. These limits are counted across all of your organization’s keys and are separate from your organization’s other Admin API limits. Requests over a limit return **429 Too Many Requests** with a `retry-after` header. Responses include `anthropic-ratelimit-requests-*` headers for the limit that applies (on marketplace validation, its 10-per-minute limit; on a `429`, whichever limit refused the request).
+Read requests (every `GET` endpoint on this page) share a limit of **300 requests per minute** for each organization. Write requests (creating a plugin or version, changing the served version, deleting, setting or removing an installation setting, and updating a marketplace) share a limit of **60 requests per minute** for each organization. A marketplace validation (either endpoint) counts as a read, and validations are additionally limited to 10 a minute for each organization across both endpoints; both limits are checked before the request body is read. These limits are counted across all of your organization’s keys and are separate from your organization’s other Admin API limits. A read that passes `organization_id` counts against the limit of the organization the key was created in, or of the parent organization if the key has no organization of its own. Requests over a limit return **429 Too Many Requests** with a `retry-after` header. Responses include `anthropic-ratelimit-requests-*` headers for the limit that applies (on marketplace validation, its 10-per-minute limit; on a `429`, whichever limit refused the request).
 
 An upload, a served-version change, or a validation can also return `429` with `retry-after` when the service briefly has no capacity for another one, and an upload returns `429` when your organization has exceeded its content-scan rate. Handle all of these the same way: wait for `retry-after`, then retry. Separately from these limits, send installation-setting writes for the same plugin one at a time: when several arrive at the same time, some can be answered with `503` and `x-should-retry: true`, and those are safe to send again after a second or two (see [Set an installation setting](https://platform.claude.com/docs/en/manage-claude/plugins-api#set-an-installation-setting)).
 
@@ -3197,15 +3202,15 @@ When one status has several causes that you would handle differently, the error 
 }
 ```
 
-| `error_code`                                    | Status | Meaning and what to do                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ----------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `plugin_name_taken`                             | 409    | A plugin with this name already exists in the marketplace. `details.plugin_id` is that plugin, and someone else might have made it. To see who, [get the plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#get-a-plugin) and read its `created_by`, which is `null` when no creator is recorded. Upload versions to it only if it is the plugin you meant to update. Otherwise, upload under another name. When `plugin_id` is absent, the name is held by a standalone skill: upload under another name, or delete the skill in claude.ai. |
-| `skill_name_taken`                              | 409    | The plugin is in the library marketplace and one of its skills has the same name as an organization skill (a skill an administrator uploaded for the whole organization in claude.ai). `details.skill_name` names it. Rename or remove one of them.                                                                                                                                                                                                                                                                                                             |
-| `registration_pending`                          | 503    | The files were stored, but the plugin’s skills could not yet be made available to members. See [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads).                                                                                                                                                                                                                                                                                                                                                              |
-| `scan_pending`                                  | 409    | The version’s `content_scan` reads `processing`. Retry once the scan finishes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `scan_failed`                                   | 400    | The version’s `content_scan` reads `fail`, `unknown`, or `errored`, so it cannot be served. Choose another version.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `cmek_key_disabled`, `cmek_key_network_blocked` | 400    | Your organization’s customer-managed encryption key is unavailable. See [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/plugins-api#customer-managed-encryption-keys).                                                                                                                                                                                                                                                                                                                                                     |
-| `unsupported_charset`                           | 400    | On an upload or `validate_archive`, the request’s `Content-Type` header names a charset other than UTF-8, ISO-8859-1, or US-ASCII. Send the request with no charset, or with one of these.                                                                                                                                                                                                                                                                                                                                                                      |
+| `error_code`                                    | Status | Meaning and what to do                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ----------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `plugin_name_taken`                             | 409    | The marketplace already holds this name. `details.plugin_id` is the plugin that holds it, and someone else might have made it. To see who, [get the plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#get-a-plugin) and read its `created_by`, which is `null` when no creator is recorded. Upload versions to it only if it is the plugin you meant to update. Otherwise, or when `plugin_id` is absent, upload under another name. |
+| `skill_name_taken`                              | 409    | The plugin is in the library marketplace and one of its skills has the same name as an organization skill (a skill an administrator uploaded for the whole organization in claude.ai). `details.skill_name` names it. Rename or remove one of them.                                                                                                                                                                                                      |
+| `registration_pending`                          | 503    | The files were stored, but the plugin’s skills could not yet be made available to members. See [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads).                                                                                                                                                                                                                                                       |
+| `scan_pending`                                  | 409    | The version’s `content_scan` reads `processing`. Retry once the scan finishes.                                                                                                                                                                                                                                                                                                                                                                           |
+| `scan_failed`                                   | 400    | The version’s `content_scan` reads `fail`, `unknown`, or `errored`, so it cannot be served. Choose another version.                                                                                                                                                                                                                                                                                                                                      |
+| `cmek_key_disabled`, `cmek_key_network_blocked` | 400    | Your organization’s customer-managed encryption key is unavailable. See [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/plugins-api#customer-managed-encryption-keys).                                                                                                                                                                                                                                              |
+| `unsupported_charset`                           | 400    | On an upload or `validate_archive`, the request’s `Content-Type` header names a charset other than UTF-8, ISO-8859-1, or US-ASCII. Send the request with no charset, or with one of these.                                                                                                                                                                                                                                                               |
 
 New codes may be added. Treat a code you do not recognize the way you treat its status.
 
@@ -3238,7 +3243,7 @@ Every write through this API is recorded on your organization’s [Compliance AP
 | `claude_plugin_archive_accessed`         | A member-owned plugin’s archive is downloaded.                                                                                                                                      |
 | `claude_plugin_security_scan_completed`  | A content scan completes.                                                                                                                                                           |
 
-The plugin, version, and marketplace IDs in these events are the same IDs this API returns. `plugin_installation_preference_updated` identifies the plugin by its `name` and `marketplace_id` rather than its `id`. In `claude_plugin_security_scan_completed`, `plugin_version` is not a version ID, and no field of a [plugin version](https://platform.claude.com/docs/en/manage-claude/plugins-api#plugin-versions) corresponds to it.
+The plugin, version, and marketplace IDs in these events are the same IDs this API returns. An event can also name a marketplace that this API does not list, such as a marketplace of plugins that Anthropic publishes. `plugin_installation_preference_updated` identifies the plugin by its `name` and `marketplace_id` rather than its `id`. In `claude_plugin_security_scan_completed`, `plugin_version` is not a version ID, and no field of a [plugin version](https://platform.claude.com/docs/en/manage-claude/plugins-api#plugin-versions) corresponds to it.
 
 Changing a marketplace’s default records one `marketplace_updated` event and no per-plugin events, even though it changes the value of every plugin that inherits the default. Reads are not recorded, except downloads of a member-owned plugin’s archive. A write that changes nothing records nothing.
 

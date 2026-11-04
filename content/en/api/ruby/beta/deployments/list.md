@@ -13,37 +13,37 @@ List Deployments
 
 ## Parameters
 
-- `agent_id: String` (query parameter)
+- `agent_id: optional String` (query parameter)
 
   Filter by agent ID.
 
-- `created_at_gte: Time` (query parameter)
+- `created_at_gte: optional Time` (query parameter)
 
   Return deployments created at or after this time (inclusive).
 
   format: date-time
 
-- `created_at_lte: Time` (query parameter)
+- `created_at_lte: optional Time` (query parameter)
 
   Return deployments created at or before this time (inclusive).
 
   format: date-time
 
-- `include_archived: bool` (query parameter)
+- `include_archived: optional bool` (query parameter)
 
   When true, includes archived deployments. Default: false (exclude archived).
 
-- `limit: Integer` (query parameter)
+- `limit: optional Integer` (query parameter)
 
   Maximum results per page. Default 20, maximum 100.
 
   format: int32
 
-- `page: String` (query parameter)
+- `page: optional String` (query parameter)
 
   Opaque pagination cursor.
 
-- `status: BetaManagedAgentsDeploymentStatus` (query parameter)
+- `status: optional BetaManagedAgentsDeploymentStatus` (query parameter)
 
   Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
@@ -55,7 +55,7 @@ List Deployments
 
     The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -171,7 +171,7 @@ List Deployments
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -367,11 +367,11 @@ List Deployments
 
                 minLength: 1
 
-          - `context: String`
+          - `context: optional String`
 
             Additional context about the document for the model.
 
-          - `title: String`
+          - `title: optional String`
 
             The title of the document.
 
@@ -415,7 +415,7 @@ List Deployments
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
 
-      - `max_iterations: Integer`
+      - `max_iterations: optional Integer`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -565,7 +565,7 @@ List Deployments
 
         Github URL of the repository
 
-      - `checkout: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -589,7 +589,7 @@ List Deployments
 
             minLength: 7, maxLength: 64
 
-      - `mount_path: String`
+      - `mount_path: optional String`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -603,7 +603,7 @@ List Deployments
 
         ID of a previously uploaded file.
 
-      - `mount_path: String`
+      - `mount_path: optional String`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -617,7 +617,7 @@ List Deployments
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
-      - `access: :read_write | :read_only`
+      - `access: optional :read_write | :read_only`
 
         Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -625,7 +625,7 @@ List Deployments
 
         - `:read_only`
 
-      - `instructions: String`
+      - `instructions: optional String`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
@@ -647,13 +647,13 @@ List Deployments
 
       minLength: 1
 
-    - `last_run_at: Time`
+    - `last_run_at: optional Time`
 
       Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this.
 
       format: date-time
 
-    - `upcoming_runs_at: Array[Time]`
+    - `upcoming_runs_at: optional Array[Time]`
 
       Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
 
@@ -679,7 +679,7 @@ List Deployments
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit`
 
     Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 

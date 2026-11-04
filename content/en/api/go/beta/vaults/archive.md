@@ -167,7 +167,7 @@ Archive a Vault
 
     Human-readable name for the vault.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string]string`
 
     Arbitrary key-value metadata attached to the vault.
 

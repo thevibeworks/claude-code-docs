@@ -84,7 +84,7 @@ Use the prompts below to set channel-wide behavior that applies to every thread,
 @Claude what do you remember about this channel?
 ```
 
-**Why it works**: memory is a curated note and Claude decides what's worth keeping, so you have to ask to know what stuck.
+**Why it works**: Claude decides what to save, so ask to see what it kept.
 
 ```text wrap theme={null}
 @Claude that's outdated — forget the entry about the old project name.

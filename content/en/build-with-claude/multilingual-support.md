@@ -33,36 +33,36 @@ featureMetadata:
 
 ## Overview
 
-Claude demonstrates robust multilingual capabilities, with particularly strong performance in zero-shot tasks across languages. The model maintains consistent relative performance across both widely spoken and lower-resource languages, making it a reliable choice for multilingual applications.
+Claude demonstrates robust multilingual capabilities, with particularly strong performance in zero-shot tasks across languages.
 
 Claude is capable in many languages beyond those benchmarked in the following table. Test with any languages relevant to your specific use cases.
 
 ## Performance data
 
-The following table shows zero-shot chain-of-thought evaluation scores for Claude models across languages, expressed as a percentage relative to English performance (100%):
+The following table shows zero-shot scores for Claude models on [Global-MMLU](https://arxiv.org/abs/2412.03304), which extends the [MMLU (Massive Multitask Language Understanding)](https://en.wikipedia.org/wiki/MMLU) test set to 42 languages. Each score is a percentage of the same model’s English score:
 
-| Language                          | Claude Sonnet 4.5 (deprecated)<sup>1</sup> | Claude Haiku 4.5<sup>1</sup> |
-| --------------------------------- | ------------------------------------------ | ---------------------------- |
-| English (baseline, fixed to 100%) | 100%                                       | 100%                         |
-| Spanish                           | 98.2%                                      | 96.4%                        |
-| Portuguese (Brazil)               | 97.8%                                      | 96.1%                        |
-| Italian                           | 97.9%                                      | 96.0%                        |
-| French                            | 97.5%                                      | 95.7%                        |
-| Indonesian                        | 97.3%                                      | 94.2%                        |
-| German                            | 97.0%                                      | 94.3%                        |
-| Arabic                            | 97.2%                                      | 92.5%                        |
-| Chinese (Simplified)              | 96.9%                                      | 94.2%                        |
-| Korean                            | 96.7%                                      | 93.3%                        |
-| Japanese                          | 96.8%                                      | 93.5%                        |
-| Hindi                             | 96.7%                                      | 92.4%                        |
-| Bengali                           | 95.4%                                      | 90.4%                        |
-| Swahili                           | 91.1%                                      | 78.3%                        |
-| Yoruba                            | 79.7%                                      | 52.7%                        |
+| Language             | Claude Fable 5.1 | Claude Opus 5.5 | Claude Sonnet 5.5 | Claude Haiku 5.5 |
+| -------------------- | ---------------- | --------------- | ----------------- | ---------------- |
+| English              | 100%             | 100%            | 100%              | 100%             |
+| Spanish              | 99.4%            | 99.3%           | 99.0%             | 98.1%            |
+| Portuguese (Brazil)  | 99.0%            | 99.2%           | 98.7%             | 98.1%            |
+| Italian              | 99.0%            | 99.2%           | 98.4%             | 97.7%            |
+| French               | 99.0%            | 99.3%           | 98.7%             | 97.7%            |
+| Indonesian           | 98.9%            | 99.1%           | 98.6%             | 97.1%            |
+| German               | 99.1%            | 99.1%           | 98.5%             | 97.4%            |
+| Arabic               | 98.7%            | 99.3%           | 98.3%             | 96.6%            |
+| Chinese (Simplified) | 98.8%            | 99.3%           | 98.5%             | 97.7%            |
+| Korean               | 98.8%            | 99.1%           | 98.3%             | 97.0%            |
+| Japanese             | 98.7%            | 99.2%           | 98.4%             | 97.4%            |
+| Hindi                | 98.9%            | 99.2%           | 98.5%             | 96.6%            |
+| Bengali              | 98.3%            | 98.6%           | 97.2%             | 95.4%            |
+| Swahili              | 97.7%            | 98.3%           | 96.9%             | 94.0%            |
+| Yoruba               | 95.1%            | 96.3%           | 93.6%             | 87.0%            |
 
-<sup>1</sup> With [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking).
+All scores use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) at the `max` [effort level](https://platform.claude.com/docs/en/build-with-claude/effort). Scores exclude questions that safety classifiers blocked or that went unanswered. For each score in the table, at most 1.7 percent of the questions are excluded.
 
 <Note>
-  These metrics are based on [MMLU (Massive Multitask Language Understanding)](https://en.wikipedia.org/wiki/MMLU) English test sets that were translated into 14 additional languages by professional human translators, as documented in [OpenAI’s simple-evals repository](https://github.com/openai/simple-evals/blob/main/multilingual_mmlu_benchmark_results.md). The use of human translators for this evaluation ensures high-quality translations, particularly important for languages with fewer digital resources.
+  Use the table to compare languages within a model, not to rank models. Differences of less than about 1 percentage point are within measurement noise.
 </Note>
 
 ***
@@ -76,7 +76,7 @@ Claude infers the response language from the conversation, but for production ap
   curl https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -d '{
       "model": "claude-opus-5-5",
       "max_tokens": 1024,
@@ -230,7 +230,7 @@ Also follow the general guidance in [Prompt engineering overview](https://platfo
   </Card>
 
   <Card title="Customer support agent" icon="headset" href="https://platform.claude.com/docs/en/about-claude/use-case-guides/customer-support-chat">
-    Build a localized support chatbot using a language-constrained system prompt.
+    Build a customer support chatbot. One chatbot can serve customers in many languages.
   </Card>
 
   <Card title="Models overview" icon="table" href="https://platform.claude.com/docs/en/models/overview">
@@ -238,7 +238,7 @@ Also follow the general guidance in [Prompt engineering overview](https://platfo
   </Card>
 
   <Card title="Define success criteria and build evaluations" icon="scales" href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">
-    Evaluate translation and localization quality before you ship.
+    Apply general evaluation methods to measure output quality in each language you support.
   </Card>
 </CardGroup>
 

@@ -398,7 +398,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaEnvironment = await client.beta.environments.update("env_011CZkZ9X2dpNyB7HsEFoRfW");
+const betaEnvironment = await client.beta.environments.update(
+  "env_011CZkZ9X2dpNyB7HsEFoRfW",
+  {}
+);
 
 console.log(betaEnvironment.id);
 ```

@@ -17,7 +17,7 @@ Get File Metadata
 
   ID of the File.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -133,7 +133,7 @@ Get File Metadata
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -179,17 +179,17 @@ Get File Metadata
 
     minimum: 0
 
-  - `downloadable: bool`
+  - `downloadable: optional bool`
 
     Whether the file can be downloaded.
 
-  - `expires_at: Time`
+  - `expires_at: optional Time`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: BetaFileScope`
+  - `scope: optional BetaFileScope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 

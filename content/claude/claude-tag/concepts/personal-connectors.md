@@ -31,7 +31,7 @@ Claude uses your connectors only while working on a request you made yourself.
 * **You ask in a [group DM](https://claude.com/docs/claude-tag/users/group-dms.md).** Claude uses your connectors after you allow it, and only your own requests use them.
 * **You ask in a one-to-one direct message (DM).** Your connectors apply on their own, because a DM runs on [your own claude.ai account](https://claude.com/docs/claude-tag/concepts/agent-identity.md#direct-message-channels).
 
-To add or remove connectors on your account, open the **Customize > Connectors** page on claude.ai; see [connectors on claude.ai](https://claude.com/docs/connectors/getting-started.md) for setup.
+To add or remove connectors on your account, open the **Customize > Connectors** page on claude.ai; see [connectors on claude.ai](https://claude.com/docs/connectors/getting-started.md) for setup. To find a connector for a service you use, see [Connectors directory](https://claude.com/docs/connectors/directory.md).
 
 ### Example calendar request in a channel
 

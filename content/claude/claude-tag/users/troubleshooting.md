@@ -34,8 +34,9 @@ Work through these in order. Each step says what success looks like and where to
 2. **Is Claude in this channel?** Type `/invite @Claude` in the channel's message box, not in a thread reply. Slack rejects `/invite` inside threads ("/invite is not supported in threads. Sorry!"). **Works**: Slack posts "Claude was added to #channel" (or "is already in this channel"). Mention it again. **Fails**: Slack says you can't add apps to this channel (a Slack Connect or guest-restricted channel); try an internal channel instead. If Slack says "You don't have permission to invite people to this channel", the channel or workspace limits who can add people. In Slack, open **Channel details** → **Agents & apps** (called **Integrations** in some Slack versions), select **Add**, and pick **Claude**. Or ask someone who can add people to the channel to add Claude.
 3. **Is Claude Tag turned on for this channel?** Mention it again now that it's invited. **Works**: it reacts and replies. **Fails**: Claude replies in one of these ways, and each needs your admin:
    * **A notice that starts "Claude isn't on in this channel yet"**: your admin hasn't finished setting up Claude Tag. Send them [Launch Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview#launch-claude-tag).
+   * **A notice that starts "Claude is off in channels shared across your Slack workspaces"**: Send them [Claude is disabled in this channel](https://claude.com/docs/claude-tag/admins/troubleshooting.md#claude-is-disabled-in-this-channel).
    * **A notice that says "Claude is disabled in this channel"**: Claude Tag is turned off for the channel, its workspace, or the organization. Send them [Claude is disabled in this channel](https://claude.com/docs/claude-tag/admins/troubleshooting.md#claude-is-disabled-in-this-channel).
-   * **A notice that the legacy Claude in Slack bot is retired**: the channel is still set to **Legacy**. Send them [The legacy Claude in Slack bot is retired](https://claude.com/docs/claude-tag/admins/troubleshooting.md#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026).
+   * **A notice that the legacy Claude in Slack bot is retired**: the channel still uses the **Legacy (disabled)** version. Send them [The legacy Claude in Slack bot is retired](https://claude.com/docs/claude-tag/admins/troubleshooting.md#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026).
 
 If `@Claude` still gets no reaction and no reply after all three, send the [admin entries for a silent workspace](https://claude.com/docs/claude-tag/admins/troubleshooting.md#nothing-responds) to an admin. For silence in one channel, send them to your Claude admin. For silence across a whole workspace or a whole Enterprise Grid, send them to whoever administers Slack for you, because the fix usually needs a Slack admin.
 
@@ -127,9 +128,9 @@ Find what you saw in this list:
 * **A reply only you can see.** If Claude's reply starts "This is a shared Slack Connect channel, and here I only act on requests from people in the host organization with a connected Claude account", the company that set up Claude in this channel has limited it to its own members.
 * **A notice about the thread's earlier session.** The notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here" means Claude was working in this thread before the channel was shared. Mention `@Claude` in a new thread.
 
-A channel shared across workspaces inside your Enterprise Grid is different. When every workspace in the channel belongs to your one Claude organization, Claude answers, but with only your organization's default access and settings, so a repository or an instruction set up for that channel doesn't apply. A notice in the thread points this out from time to time. When the workspaces are connected to different Claude organizations, you see "This channel is shared among several Claude workspaces, so Claude cannot respond here" instead of an answer.
+A channel shared across workspaces inside your Enterprise Grid is different. When every workspace in the channel belongs to your one Claude organization and an admin hasn't turned Claude off for these channels, Claude answers, but with only your organization's default access and settings, so a repository or an instruction set up for that channel doesn't apply. A notice in the thread points this out from time to time. If an admin has turned it off, you can see "Claude is off in channels shared across your Slack workspaces" instead of an answer. When the workspaces are connected to different Claude organizations, you see "This channel is shared among several Claude workspaces, so Claude cannot respond here" instead of an answer.
 
-Where guest access is restricted, you may first see "This channel is shared across multiple workspaces, and Claude can't verify whether it includes guests, so Claude can't respond here." If you ask Claude from another conversation to act in one of these channels, such as posting a message there, you see a reply that ends "Claude isn't available in channels shared across your Enterprise Grid".
+Where guest access is restricted, you may first see "This channel is shared across multiple workspaces, and Claude can't verify whether it includes guests, so Claude can't respond here."
 
 Each of these Enterprise Grid messages means the channel spans more than one workspace. The [admin entries on these messages](https://claude.com/docs/claude-tag/admins/troubleshooting.md#this-channel-is-shared-across-multiple-workspaces) explain what causes each one and what an admin can change.
 
@@ -217,17 +218,17 @@ Someone posts a top-level message in the channel without mentioning Claude, and 
 
 **What it means**
 
-The channel's [**Respond automatically**](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting is on. The setting is on by default.
+The channel's [**How Claude participates**](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) setting lets Claude reply without an @-mention. **Respond automatically** is the default.
 
 In a channel where someone has [told Claude which kinds of untagged messages to answer](https://claude.com/docs/claude-tag/users/when-claude-responds.md#what-claude-does-with-a-channel-message), it answers those kinds as well.
 
 **How to resolve**
 
-Turn the **Respond automatically** setting off in the channel where the replies are appearing.
+Set **How Claude participates** to **Only when @-mentioned** in the channel where the replies are appearing.
 
 Post `@Claude only respond in this channel when someone @-mentions you` at the channel's top level, not in a thread. Claude confirms the change, which applies to the whole channel rather than to you alone.
 
-If Claude doesn't confirm the change, turn the setting off on the channel's Configure page:
+If Claude doesn't confirm the change, use the channel's Configure page:
 
 1. Open the **Configure** link in the footer of any Claude reply in the channel.
 2. Turn off the **Respond automatically** toggle.
@@ -235,7 +236,7 @@ If Claude doesn't confirm the change, turn the setting off on the channel's Conf
 
 If the Configure page says an admin has locked the channel's settings, ask an admin to [turn automatic replies off](https://claude.com/docs/claude-tag/users/when-claude-responds.md#turn-automatic-replies-on-or-off) for the channel.
 
-The **Respond automatically** setting doesn't quiet a thread Claude has already posted in. To quiet one of those threads, reply in it with an instruction such as "only respond when I @-mention you".
+To quiet a thread Claude has already posted in, reply in it with an instruction such as "only respond when I @-mention you".
 
 ### I want to take back something I sent
 
@@ -461,7 +462,7 @@ Something you told Claude earlier doesn't stick in later threads.
 
 **What it means**
 
-Channel memory is a small, curated note, not a transcript, and Claude decides what's worth saving, so passing details usually aren't kept.
+Claude decides what's worth saving to channel memory, so it may not have kept something you said in passing.
 
 **How to resolve**
 

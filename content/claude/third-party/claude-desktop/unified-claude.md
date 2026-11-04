@@ -34,6 +34,8 @@ Unified Claude is opt-in until November 10, 2026. When a current version of Clau
 
 If you use [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays), set [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) as well, before November 10, 2026, or earlier if you turn on Unified Claude yourself. `coworkSessionRetentionDays` covers new conversations that are Cowork sessions, along with users' other Cowork tasks, as described under [Automatic deletion of idle sessions](https://claude.com/docs/third-party/claude-desktop/data-storage.md#automatic-deletion-of-idle-sessions).
 
+With Unified Claude on, a device that can run Cowork needs the VM workspace bundle that Cowork uses. A device that doesn't have the bundle downloads it (more than 1 GB) from `downloads.claude.ai` when the user starts their first new conversation. If a proxy or firewall limits downloads on your network, make the changes under [Cowork workspace or Claude CLI fails to download](https://claude.com/docs/third-party/claude-desktop/installation.md#cowork-workspace-or-claude-cli-fails-to-download) before November 10, 2026, or earlier if you turn on Unified Claude yourself.
+
 To turn on Unified Claude yourself, use the setting for your deployment:
 
 * **Enterprise Admin Console**: Go to Capabilities and toggle on "Opt into the new Chat and Cowork unified view."

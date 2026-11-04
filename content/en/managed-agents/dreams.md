@@ -49,7 +49,7 @@ The dream produces another **output memory store**, separate from the input. The
   ```bash cURL
   curl -s https://api.anthropic.com/v1/dreams \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: managed-agents-2026-04-01,dreaming-2026-04-21" \
     -H "content-type: application/json" \
     -d '{
@@ -214,7 +214,7 @@ Dreams run asynchronously and typically take minutes to a few hours, driven by t
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/dreams/$dream_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: managed-agents-2026-04-01,dreaming-2026-04-21"
   ```
 
@@ -309,7 +309,7 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
   # $output_store_id is the memory_store_id of the completed dream's memory_store output
   curl -s https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
     -d '{
@@ -464,7 +464,7 @@ Cancel moves a `pending` or `running` dream to `canceled` immediately. Canceling
   ```bash cURL
   curl -s -X POST "https://api.anthropic.com/v1/dreams/$dream_id/cancel" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: managed-agents-2026-04-01,dreaming-2026-04-21"
   ```
 
@@ -512,7 +512,7 @@ Archive sets `archived_at` (java, php: `archivedAt`; csharp, go: `ArchivedAt`) o
   ```bash cURL
   curl -s -X POST "https://api.anthropic.com/v1/dreams/$dream_id/archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: managed-agents-2026-04-01,dreaming-2026-04-21"
   ```
 
@@ -562,7 +562,7 @@ Returns all non-archived dreams in the workspace, newest first. Use `limit` (csh
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/dreams?limit=20" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "anthropic-beta: managed-agents-2026-04-01,dreaming-2026-04-21"
   ```
 

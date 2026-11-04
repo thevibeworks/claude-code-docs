@@ -38,7 +38,7 @@ If your organization has a [Priority Tier](https://platform.claude.com/docs/en/a
 ### Claude Haiku 3.5 or earlier
 
 1. Replace the Claude Haiku 3.5 or Claude Haiku 3 model ID with the Claude Haiku 5.5 ID for your platform. See [Migrating to Claude Haiku 5.5 from Claude Haiku 3.5 and earlier Haiku models](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#migrating-from-haiku-35).
-2. If you use the legacy `code_execution_20250522` tool, move to `code_execution_20250825` or later.
+2. If you use the `code_execution_20250522` tool, move to `code_execution_20250825` or later.
 3. If you use the text editor tool, move to `text_editor_20250728`.
 4. Handle the `refusal` and `model_context_window_exceeded` stop reasons.
 5. If your code matches tool call string parameters exactly, allow for trailing newlines.
@@ -149,7 +149,7 @@ Claude Haiku 3.5 is retired on the Claude API and Amazon Bedrock, and Claude Hai
 From either model, first apply every preceding section, then these changes:
 
 * **Model ID:** Replace `claude-3-5-haiku-20241022`, its alias `claude-3-5-haiku-latest`, or `claude-3-haiku-20240307` with `claude-haiku-5-5`. On Claude Models on Google Cloud (Google managed), replace `claude-3-5-haiku@20241022` with `claude-haiku-5-5`. On Amazon Bedrock, use the Claude Haiku 5.5 ID from [Use the Claude Haiku 5.5 model ID](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#use-the-claude-haiku-5-5-model-id).
-* **Code execution:** Claude Haiku 5.5 accepts `code_execution_20250825` and later versions. If you use the legacy Python-only `code_execution_20250522`, move to one of them. See [Upgrade to latest tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version).
+* **Code execution:** Claude Haiku 5.5 accepts `code_execution_20250825` and later versions. If you use the Python-only `code_execution_20250522`, move to one of them. See [Upgrade to latest tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version).
 * **Text editor:** If you use the text editor tool, move to `text_editor_20250728` (tool name `str_replace_based_edit_tool`), which has no `undo_edit` command. See [Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool).
 * **Stop reasons:** Handle `refusal` and `model_context_window_exceeded`. See [Handling stop reasons](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).
 * **Trailing newlines:** Claude 4.5 and later models keep trailing newlines in tool call string parameters. If your code matches those strings exactly, allow for them.

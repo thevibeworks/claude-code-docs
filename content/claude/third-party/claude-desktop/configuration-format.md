@@ -121,7 +121,7 @@ From the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-d
 
 ### What an MDM profile does alongside the Enterprise Admin Console
 
-* **`disableDeploymentModeChooser` set to `true`**: the device stays on the profile's configuration and ignores the console. A device that already moved returns to the profile at its next launch.
+* **A key that [restricts the deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode)**: the app ignores the console. A device that already moved leaves the console's configuration at its next launch.
 * **Only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)**: the profile's values apply instead of the console's for all of those keys. Any of those keys that the profile leaves out runs its default.
 * **Any other key**: the device uses the profile's configuration until its user moves the device to the console's configuration by signing in, which requires Claude Desktop 2.37337.0 or later. With `forceLoginOrgUUID` set to your organization's ID, the user can move the device only to your organization's configuration. After the move, the app still takes a few keys from the profile, for example the network proxy keys. Other settings come from the console, and the profile's values don't apply even where the console leaves a setting unset.
 

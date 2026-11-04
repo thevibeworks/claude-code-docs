@@ -13,63 +13,63 @@ List Sessions
 
 ## Parameters
 
-- `agentID?:optional string` (query parameter)
+- `agentID?: optional string` (query parameter)
 
   Filter sessions created with this agent ID.
 
-- `agentVersion?:optional int` (query parameter)
+- `agentVersion?: optional int` (query parameter)
 
   Filter by agent version. Only applies when `agent_id` is also set.
 
-- `createdAtGt?:optional \Datetime` (query parameter)
+- `createdAtGt?: optional \Datetime` (query parameter)
 
   Return sessions created after this time (exclusive).
 
-- `createdAtGte?:optional \Datetime` (query parameter)
+- `createdAtGte?: optional \Datetime` (query parameter)
 
   Return sessions created at or after this time (inclusive).
 
-- `createdAtLt?:optional \Datetime` (query parameter)
+- `createdAtLt?: optional \Datetime` (query parameter)
 
   Return sessions created before this time (exclusive).
 
-- `createdAtLte?:optional \Datetime` (query parameter)
+- `createdAtLte?: optional \Datetime` (query parameter)
 
   Return sessions created at or before this time (inclusive).
 
-- `deploymentID?:optional string` (query parameter)
+- `deploymentID?: optional string` (query parameter)
 
   Filter sessions created by this deployment ID.
 
-- `includeArchived?:optional bool` (query parameter)
+- `includeArchived?: optional bool` (query parameter)
 
   When true, includes archived sessions. Default: false (exclude archived).
 
-- `limit?:optional int` (query parameter)
+- `limit?: optional int` (query parameter)
 
   Maximum number of results to return.
 
-- `memoryStoreID?:optional string` (query parameter)
+- `memoryStoreID?: optional string` (query parameter)
 
   Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
-- `order?:optional Order` (query parameter)
+- `order?: optional Order` (query parameter)
 
   Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
-- `page?:optional string` (query parameter)
+- `page?: optional string` (query parameter)
 
   Opaque pagination cursor from a previous response.
 
-- `statuses?:optional list<Status>` (query parameter)
+- `statuses?: optional list<Status>` (query parameter)
 
   Filter by session status. Repeat the parameter to match any of multiple statuses.
 
-- `betas?:optional list<AnthropicBeta>` (header parameter)
+- `betas?: optional list<AnthropicBeta>` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
-- `workspaceID?:optional string` (header parameter)
+- `workspaceID?: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

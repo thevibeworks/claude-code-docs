@@ -63,7 +63,7 @@ Older tool versions aren’t guaranteed to stay compatible with newer models. Wh
 To check whether a model accepts the code execution tool before you send a request, read its `capabilities.server_tools.code_execution.supported` value from the Models API. Don’t use the top-level `capabilities.code_execution` value for this. It reports whether code running in this tool can call your request’s other tools, as in programmatic tool calling. [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api) describes both fields.
 
 <Note>
-  If you’re still using the legacy `code_execution_20250522` (Python only), see [Upgrade to latest tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version) to migrate from it.
+  If you’re using `code_execution_20250522` (Python only), see [Upgrade to latest tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version) to migrate from it.
 </Note>
 
 ## Quick start
@@ -74,7 +74,7 @@ Here’s an example that asks Claude to perform a calculation:
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -295,13 +295,13 @@ The Python environment can process various file types uploaded through the Files
   # First, upload a file
   curl --fail-with-body -sS https://api.anthropic.com/v1/files \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -F "file=@data.csv"
 
   # Then use the file with code execution: FILE_ID is the ID from the upload response
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -1091,6 +1091,8 @@ An expired container can’t be reused: requests that reference it return an err
 
 The response might include a `pause_turn` stop reason, which indicates that the API paused a long-running turn. You may provide the response back as-is in a subsequent request to let Claude continue its turn, or modify the content if you want to interrupt the conversation.
 
+Send the response’s container ID back with that request (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse)). Without it, the request runs in a new container, and files from earlier in the turn are lost.
+
 ## Containers
 
 The code execution tool runs in a secure, containerized environment designed specifically for code execution, with a higher focus on Python.
@@ -1144,7 +1146,7 @@ Containers expire 30 days after creation. After about 5 minutes of inactivity a 
   # First request: Create a file with a random number
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
@@ -1163,7 +1165,7 @@ Containers expire 30 days after creation. After about 5 minutes of inactivity a 
   # CONTAINER_ID is the container.id from the first response
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{
       "container": "'"$CONTAINER_ID"'",

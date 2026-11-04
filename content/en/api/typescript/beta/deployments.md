@@ -3739,7 +3739,8 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsDeployment = await client.beta.deployments.update(
-  "depl_011CZkZcDH3vPqd7xnEfwTai"
+  "depl_011CZkZcDH3vPqd7xnEfwTai",
+  {}
 );
 
 console.log(betaManagedAgentsDeployment.id);

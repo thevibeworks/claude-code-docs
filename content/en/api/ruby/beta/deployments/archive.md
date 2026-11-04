@@ -17,7 +17,7 @@ Archive Deployment
 
   Unique identifier of the deployment to archive.
 
-- `betas: Array[AnthropicBeta]` (header parameter)
+- `betas: optional Array[AnthropicBeta]` (header parameter)
 
   This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
@@ -133,7 +133,7 @@ Archive Deployment
 
   - `:"experimental-claude-tag-2026-10-21"`
 
-- `workspace_id: String` (header parameter)
+- `workspace_id: optional String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -329,11 +329,11 @@ Archive Deployment
 
                 minLength: 1
 
-          - `context: String`
+          - `context: optional String`
 
             Additional context about the document for the model.
 
-          - `title: String`
+          - `title: optional String`
 
             The title of the document.
 
@@ -377,7 +377,7 @@ Archive Deployment
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
 
-      - `max_iterations: Integer`
+      - `max_iterations: optional Integer`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -527,7 +527,7 @@ Archive Deployment
 
         Github URL of the repository
 
-      - `checkout: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -551,7 +551,7 @@ Archive Deployment
 
             minLength: 7, maxLength: 64
 
-      - `mount_path: String`
+      - `mount_path: optional String`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -565,7 +565,7 @@ Archive Deployment
 
         ID of a previously uploaded file.
 
-      - `mount_path: String`
+      - `mount_path: optional String`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -579,7 +579,7 @@ Archive Deployment
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
-      - `access: :read_write | :read_only`
+      - `access: optional :read_write | :read_only`
 
         Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -587,7 +587,7 @@ Archive Deployment
 
         - `:read_only`
 
-      - `instructions: String`
+      - `instructions: optional String`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
@@ -609,13 +609,13 @@ Archive Deployment
 
       minLength: 1
 
-    - `last_run_at: Time`
+    - `last_run_at: optional Time`
 
       Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this.
 
       format: date-time
 
-    - `upcoming_runs_at: Array[Time]`
+    - `upcoming_runs_at: optional Array[Time]`
 
       Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
 
@@ -641,7 +641,7 @@ Archive Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit`
 
     Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 

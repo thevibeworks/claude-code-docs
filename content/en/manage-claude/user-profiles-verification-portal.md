@@ -20,7 +20,7 @@ The call returns a `404` if creating enrollment links isn’t enabled for your o
   ```bash cURL
   curl https://api.anthropic.com/v1/user_profiles/uprof_011CZkZCu8hGbp5mYRQgUmz9/action_urls \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
     -d '{"action": {"type": "enroll_end_user"}}'
   ```
@@ -192,7 +192,7 @@ To see which programs apply to a profile, [retrieve the profile](https://platfor
 
 The end customer can see the linked profile under **Linked accounts** in the portal.
 
-If your inference runs on Claude in Amazon Bedrock or Claude Models on Google Cloud (Google managed), you have to link your own accounts too. Programs apply to requests from an AWS account or Google Cloud project only after you link it to the Anthropic organization that creates your profiles. See [Attribute requests on Amazon Bedrock and Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/manage-claude/user-profiles#attribute-requests-on-amazon-bedrock-and-google-cloud).
+If your inference runs on Claude Models on Google Cloud (Google managed) or Claude in Amazon Bedrock, you have to link your own accounts too. Programs apply to requests from an AWS account or Google Cloud project only after you link it to the Anthropic organization that creates your profiles. See [Attribute requests on Claude Models on Google Cloud (Google managed) and Amazon Bedrock](https://platform.claude.com/docs/en/manage-claude/user-profiles#attribute-requests-on-amazon-bedrock-and-google-cloud).
 
 ## Next steps
 
