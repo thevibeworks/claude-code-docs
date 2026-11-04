@@ -98,19 +98,23 @@ Install or upgrade to the latest version of the Claude SDK:
   <Tab title="Java">
     Add the Claude SDK to your dependencies, or update it to at least the following version if your build file already declares it:
 
-    <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
-      ```kotlin Gradle
-      implementation("com.anthropic:anthropic-java:3.4.0")
-      ```
+    <Tabs>
+      <Tab title="Gradle">
+        ```kotlin
+        implementation("com.anthropic:anthropic-java:3.4.0")
+        ```
+      </Tab>
 
-      ```xml Maven
-      <dependency>
-          <groupId>com.anthropic</groupId>
-          <artifactId>anthropic-java</artifactId>
-          <version>3.4.0</version>
-      </dependency>
-      ```
-    </CodeGroup>
+      <Tab title="Maven">
+        ```xml
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        ```
+      </Tab>
+    </Tabs>
 
     If your application doesn’t use the OpenTelemetry SDK yet, install it with a console exporter, which you use in the next step to print spans. Add `io.opentelemetry:opentelemetry-sdk` and `io.opentelemetry:opentelemetry-exporter-logging` to your build, both at the latest version on [Maven Central](https://central.sonatype.com/artifact/io.opentelemetry/opentelemetry-sdk).
   </Tab>

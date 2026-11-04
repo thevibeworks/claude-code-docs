@@ -209,7 +209,7 @@ function authorizationServerMetadata() {
 
 > [!NOTE]
 >
-> Claude selects CIMD only when the authorization-server metadata advertises both `client_id_metadata_document_supported: true` and `"none"` in `token_endpoint_auth_methods_supported`. The second is required because Claude's CIMD client authenticates as a public client with `token_endpoint_auth_method: "none"`, so the token endpoint must accept [PKCE](https://datatracker.ietf.org/doc/html/rfc7636)-only requests without a client secret. If either property is missing, Claude falls back to looking for a `registration_endpoint`.
+> Claude normally selects CIMD only when the authorization-server metadata advertises both `client_id_metadata_document_supported: true` and `"none"` in `token_endpoint_auth_methods_supported`, and otherwise looks for a `registration_endpoint`. The second property is required because Claude's CIMD client authenticates as a public client with `token_endpoint_auth_method: "none"` in that case, so the token endpoint must accept [PKCE](https://datatracker.ietf.org/doc/html/rfc7636)-only requests without a client secret. If the metadata lists `private_key_jwt`, Claude can present a second, confidential metadata document instead, as [DCR and CIMD details](https://claude.com/docs/connectors/building/authentication.md#dcr-and-cimd-details) describes.
 
 If you move to a real issuer, keep `client_id_metadata_document_supported: true` in that issuer's metadata if you want registration-free onboarding for Claude clients.
 

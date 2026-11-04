@@ -1930,6 +1930,8 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```python Python
+  client = anthropic.Anthropic()
+
   # Request with maximum tokens to get as much as possible
   response = client.beta.messages.create(
       model="claude-opus-5-5",
@@ -1946,6 +1948,8 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```typescript TypeScript
+  const client = new Anthropic();
+
   // Request with maximum tokens to get as much as possible
   const response = await client.beta.messages.create({
     model: "claude-opus-5-5",
@@ -1961,8 +1965,7 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```csharp C#
-  using Anthropic.Models.Beta.Messages;
-  using Model = Anthropic.Models.Messages.Model;
+  AnthropicClient client = new();
 
   // Request with maximum tokens to get as much as possible
   var response = await client.Beta.Messages.Create(new MessageCreateParams
@@ -1981,6 +1984,8 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```go Go
+  client := anthropic.NewClient()
+
   // Request with maximum tokens to get as much as possible
   response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5_5,
@@ -2001,9 +2006,7 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```java Java
-  import com.anthropic.models.beta.messages.BetaMessage;
-  import com.anthropic.models.beta.messages.BetaStopReason;
-  import com.anthropic.models.beta.messages.MessageCreateParams;
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
   // Request with maximum tokens to get as much as possible
   BetaMessage response = client.beta().messages().create(
@@ -2022,6 +2025,8 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```php PHP
+  $client = new Client();
+
   // Request with maximum tokens to get as much as possible
   $response = $client->beta->messages->create(
       maxTokens: 20000,
@@ -2037,6 +2042,8 @@ Claude stopped because it reached the model’s context window limit. This lets 
   ```
 
   ```ruby Ruby
+  client = Anthropic::Client.new
+
   # Request with maximum tokens to get as much as possible
   response = client.beta.messages.create(
     model: "claude-opus-5-5",

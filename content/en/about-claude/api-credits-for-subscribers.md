@@ -131,7 +131,7 @@ Credit balance too low · Add funds: https://platform.claude.com/settings/billin
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Cancel, downgrade to an ineligible plan, or refund | New credits stop when your plan ends. Credits you already have stay usable until they expire.                                                                                                        |
 | Upgrade from Max to Ultra                          | You receive prorated API credits right away, then $200 USD each billing cycle. If you subscribe through Google Play, the $200 USD credit arrives later, by your next renewal at the latest.          |
-| Upgrade from Max or Ultra to Team                  | The link to your Max or Ultra plan ends. A Team owner can claim the team's credits after the Team plan has been active for 7 days.                                                                   |
+| Upgrade from Max or Ultra to Team                  | The link to your Max or Ultra plan ends. A Team owner can claim the team’s credits after the Team plan has been active for 7 days.                                                                   |
 | Add or remove Team seats                           | Seats added to your plan count from the next billing month’s credit. Seats you remove stay on your plan until it renews, so the credit might be lower after that. The pool stays capped at $500 USD. |
 
 ## Use your credits efficiently

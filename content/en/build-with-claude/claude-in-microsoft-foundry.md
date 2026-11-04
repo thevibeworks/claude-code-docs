@@ -82,9 +82,6 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
         ```kotlin
         implementation("com.anthropic:anthropic-java:3.4.0")
         implementation("com.anthropic:anthropic-java-foundry:3.4.0")
-
-        // For Entra ID authentication, also add the Azure Identity library
-        implementation("com.azure:azure-identity:1.18.3")
         ```
       </Tab>
 
@@ -100,15 +97,11 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
             <artifactId>anthropic-java-foundry</artifactId>
             <version>3.4.0</version>
         </dependency>
-        <!-- For Entra ID authentication, also add the Azure Identity library -->
-        <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-identity</artifactId>
-            <version>1.18.3</version>
-        </dependency>
         ```
       </Tab>
     </Tabs>
+
+    For Entra ID authentication, also add the Azure Identity library (`com.azure:azure-identity`) to your build, at the latest version on [Maven Central](https://central.sonatype.com/artifact/com.azure/azure-identity).
   </Tab>
 
   <Tab title="PHP">

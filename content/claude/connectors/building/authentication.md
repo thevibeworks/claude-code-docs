@@ -18,7 +18,7 @@ If you already know MCP authorization, these are the places where Claude's OAuth
 
 * A `401` is required to start sign-in, and Claude ignores a `WWW-Authenticate` header on a `200` response, as [Serve discovery metadata](#serve-discovery-metadata) describes
 * Claude uses only the first entry in your metadata's `authorization_servers` list, as [Serve discovery metadata](#serve-discovery-metadata) describes
-* Claude uses a Client ID Metadata Document only when your authorization server metadata advertises both values in [DCR and CIMD details](#dcr-and-cimd-details), and otherwise falls back to DCR
+* Claude normally uses a Client ID Metadata Document only when your authorization server metadata advertises both values in [DCR and CIMD details](#dcr-and-cimd-details), and otherwise falls back to DCR
 * Claude Code's loopback redirect needs a port-agnostic match for `localhost` as well as `127.0.0.1`, as [Callback URLs](#callback-urls) describes
 * Claude gives your discovery, registration, and token endpoints 10 seconds to respond and refresh requests 30 seconds, as [Endpoint latency](#endpoint-latency) describes
 * A machine-to-machine `client_credentials` grant isn't supported, and [Anthropic-held client credentials](#anthropic-held-client-credentials) are the consent-gated alternative
@@ -89,10 +89,10 @@ For the OAuth types, Claude needs a client identity at your authorization server
 If your authorization server doesn't support DCR, meaning it exposes no `registration_endpoint`, you have these options:
 
 * Expose a `registration_endpoint`
-* Support CIMD instead. Claude selects CIMD only when your authorization server metadata advertises both `"client_id_metadata_document_supported": true` and `"none"` in `token_endpoint_auth_methods_supported`. The second is required because Claude's CIMD client authenticates as a public client at your token endpoint. If either is missing, Claude falls back to DCR. See [lazy authentication](https://claude.com/docs/connectors/building/lazy-authentication.md#identify-claude-with-a-client-id-metadata-document) for a worked CIMD example
+* Support CIMD instead. Claude normally selects CIMD only when your authorization server metadata advertises both `"client_id_metadata_document_supported": true` and `"none"` in `token_endpoint_auth_methods_supported`, and otherwise falls back to DCR. The second value is required because Claude's CIMD client authenticates as a public client at your token endpoint in that case. If your metadata lists `private_key_jwt`, Claude can instead present a second metadata document, whose URL ends in `/confidential_client`, and authenticate with a signed client assertion. On [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md) exchanges it can do this even when `"none"` isn't listed, and on other sign-ins only for some servers. See [lazy authentication](https://claude.com/docs/connectors/building/lazy-authentication.md#identify-claude-with-a-client-id-metadata-document) for a worked CIMD example
 * Switch to `oauth_anthropic_creds`, if your listing doesn't use a URL pattern
 
-If your server URL varies per customer and DCR isn't available, CIMD is the recommended path. Every customer's authorization server must advertise both CIMD values. Otherwise Claude falls back to DCR for that customer, which needs a `registration_endpoint`.
+If your server URL varies per customer and DCR isn't available, CIMD is the recommended path. Every customer's authorization server must advertise both CIMD values. Otherwise Claude normally falls back to DCR for that customer, which needs a `registration_endpoint`.
 
 For servers expecting high traffic from the directory, prefer CIMD or `oauth_anthropic_creds` over DCR. DCR causes Claude to register a new client on every fresh connection, which can result in very large numbers of registered clients on your authorization server. CIMD and Anthropic-held credentials avoid the registration call entirely.
 
@@ -138,6 +138,7 @@ These cases change which client is used, or whether you can save yours:
 * **Some connections, such as older ones**: these don't use the client you entered. They use the organization's or Anthropic's client if either exists, and otherwise your server's own [DCR or CIMD](#dcr-and-cimd-details) registration. If there's no such client and your server supports neither, sign-in fails for those connections
 * **A client Anthropic already holds**: if Anthropic holds a client for any of your listing's URLs, you can't save your client secret or request header values on a published listing. You can save them once Anthropic removes its client or checks your listing again. On a listing that isn't published yet, you can save them, but the listing can't go live until Anthropic checks it. In either case, email `directory@anthropic.com` with your listing's name and its exact server URLs, and don't put the secret in the email
 * **Custom connectors**: a custom connector that someone adds with your server's URL never uses the client secret you entered in the portal
+* **Enterprise Managed Auth sign-ins**: these don't use the client you entered in the developer portal. For how to register Claude for those sign-ins, see [Enterprise Managed Auth prerequisites](https://claude.com/docs/connectors/building/enterprise-managed-auth.md#prerequisites)
 
 For each request header on your listing, select the **Anthropic holds one shared value** checkbox in the developer portal to enter one value yourself that every organization uses. Leave it unchecked so each person who adds your connector enters their own value. You can't select the checkbox on a listing with a [URL pattern](#servers-with-per-customer-urls). Header values come only from you or from the people who add your connector, never from Anthropic.
 
@@ -229,7 +230,7 @@ Your token endpoint handles Claude's initial code exchange and every later refre
 Claude refreshes tokens reactively on a `401` response, and proactively up to five minutes before the stored expiry. To avoid refresh failures:
 
 * Return RFC 6749-compliant error codes when a refresh token is no longer valid: `invalid_grant`, not `invalid_request` or a custom code
-* Rotate refresh tokens for public-client connections. DCR and CIMD register Claude as a public client, and the [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#token-theft) adopts OAuth 2.1's requirement to rotate or sender-constrain refresh tokens for public clients. If you rotate, return the new refresh token in the same response that invalidates the old one
+* Rotate refresh tokens for public-client connections. DCR registers Claude as a public client, and CIMD normally does too. The [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#token-theft) adopts OAuth 2.1's requirement to rotate or sender-constrain refresh tokens for public clients. If you rotate, return the new refresh token in the same response that invalidates the old one
 
 Your `/token` endpoint must accept `Content-Type: application/x-www-form-urlencoded` per [RFC 6749 section 4.1.3](https://www.rfc-editor.org/rfc/rfc6749#section-4.1.3). Claude sends both the initial token exchange and refresh requests with this content type. Some web frameworks default to JSON-only body parsing, so if your endpoint returns `415 Unsupported Media Type`, register a form-urlencoded body parser. Dynamic client registration at `/register` uses `application/json` per [RFC 7591 section 3.1](https://www.rfc-editor.org/rfc/rfc7591#section-3.1), so don't assume the same parser works for both.
 

@@ -52,14 +52,94 @@ Let Claude Code set up your agent for you
 | **Session**     | A running agent instance within an environment, performing a specific task and generating outputs                             |
 | **Events**      | Messages exchanged between your application and the agent (user turns, tool results, status updates)                          |
 
-## Prerequisites
+## Before you begin
 
-* A [Claude Console account](https://platform.claude.com/)
-* An [API key](https://platform.claude.com/settings/keys) from the Console
+<Steps continues>
+  <Step title="Create a Claude Console account">
+    [Sign up](https://platform.claude.com/) for a Claude Console account, or sign in to the one you have.
+  </Step>
 
-## Install the CLI
+  <Step title="Choose how to authenticate">
+    Signing in with the CLI is recommended for local development.
 
-<Tabs>
+    Follow the steps for one of the following options.
+  </Step>
+</Steps>
+
+**CLI**
+
+<Steps continued>
+  <Step title="Install the CLI" stepNumber={3}>
+    <Tabs noDeepLinks>
+      <Tab title="Homebrew (macOS)">
+        ```bash
+        brew install anthropics/tap/ant
+        ```
+      </Tab>
+
+      <Tab title="curl (Linux/WSL)">
+        For Linux environments, download the release binary directly.
+
+        ```bash
+        VERSION=2.5.0
+        OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+        case $(uname -m) in
+          x86_64) ARCH=amd64 ;;
+          aarch64) ARCH=arm64 ;;
+        esac
+        curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_${OS}_${ARCH}.tar.gz" \
+          | sudo tar -xz -C /usr/local/bin ant
+        ```
+
+        You can find all releases on the [GitHub releases page](https://github.com/anthropics/anthropic-cli/releases).
+      </Tab>
+
+      <Tab title="go install">
+        You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
+
+        ```bash
+        go install github.com/anthropics/anthropic-cli/v2/cmd/ant@latest
+        ```
+
+        The binary is placed in `$(go env GOPATH)/bin`. Add it to your `PATH` if it isn’t already:
+
+        ```bash
+        export PATH="$PATH:$(go env GOPATH)/bin"
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Sign in" stepNumber={4}>
+    ```bash
+    ant auth login
+    ```
+
+    Once login is completed, the SDKs and CLI will pick up your credentials automatically.
+  </Step>
+</Steps>
+
+**API key**
+
+<Steps continued>
+  <Step title="Create an API key" stepNumber={3}>
+    Create an [API key](https://platform.claude.com/settings/keys) in the Claude Console.
+  </Step>
+
+  <Step title="Set the environment variable" stepNumber={4}>
+    The SDKs and CLI read your key from `ANTHROPIC_API_KEY`:
+
+    ```bash
+    export ANTHROPIC_API_KEY="your-api-key-here"
+    ```
+  </Step>
+</Steps>
+
+**API key**
+
+To run the CLI examples, install the CLI:
+
+<Tabs noDeepLinks>
   <Tab title="Homebrew (macOS)">
     ```bash
     brew install anthropics/tap/ant
@@ -83,7 +163,7 @@ Let Claude Code set up your agent for you
     You can find all releases on the [GitHub releases page](https://github.com/anthropics/anthropic-cli/releases).
   </Tab>
 
-  <Tab title="Go">
+  <Tab title="go install">
     You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
 
     ```bash
@@ -97,12 +177,6 @@ Let Claude Code set up your agent for you
     ```
   </Tab>
 </Tabs>
-
-Check the installation:
-
-```bash
-ant --version
-```
 
 ## Install the SDK
 
@@ -120,9 +194,23 @@ ant --version
   </Tab>
 
   <Tab title="Java">
-    ```groovy Gradle
-    implementation("com.anthropic:anthropic-java:3.4.0")
-    ```
+    <Tabs>
+      <Tab title="Gradle">
+        ```kotlin
+        implementation("com.anthropic:anthropic-java:3.4.0")
+        ```
+      </Tab>
+
+      <Tab title="Maven">
+        ```xml
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
 
   <Tab title="Go">
@@ -149,12 +237,6 @@ ant --version
     ```
   </Tab>
 </Tabs>
-
-Set your API key as an environment variable:
-
-```bash
-export ANTHROPIC_API_KEY="your-api-key-here"
-```
 
 ## Create your first session
 
