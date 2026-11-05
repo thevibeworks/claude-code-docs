@@ -33,7 +33,7 @@ featureMetadata:
 **API support**: Usage differs by product.
 
 * **Messages API**: The stream ends with `stop_reason` `"refusal"`, and `stop_details` (`category` and `explanation`) arrives on the `message_delta` event.
-* **Managed Agents**: A refused turn ends, and the session goes idle with `stop_reason.type` `"refusal"`.
+* **Managed Agents**: A refused turn ends, and the session goes idle. Treat a turn as refused if `stop_details.type` or `stop_reason.type` is `"refusal"`.
 
 Starting with Claude 4 models, streaming responses from Claude’s API return **`stop_reason`: `"refusal"`** when streaming classifiers intervene to handle potential policy violations. This safety feature helps maintain content compliance during real-time streaming.
 
@@ -388,7 +388,7 @@ Streaming refusals are available or in beta, depending on the API.
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 
 * Availability: Always on
-* Usage: A refused turn ends, and the session goes idle with `stop_reason.type` `"refusal"` and `stop_details` (`category` and `explanation`) on the `session.status_idle` event.
+* Usage: A refused turn ends, and the session goes idle. Treat a turn as refused if `stop_details.type` or `stop_reason.type` on the `session.status_idle` event is `"refusal"`. On a refused turn, `stop_reason.type` can be `"end_turn"`. `stop_details` is `null` on any other turn, and can be `null` on a refused turn too.
 
 | Status | Cloud platforms                                                                                                    |
 | ------ | ------------------------------------------------------------------------------------------------------------------ |

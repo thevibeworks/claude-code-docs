@@ -2455,6 +2455,20 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
+### Beta Managed Agents Compaction Limit Reached Error
+
+- `class ManagedAgentsCompactionLimitReachedError`
+
+  - `"compaction_limit_reached_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next.
+
 ### Beta Managed Agents Credential Host Unreachable Error
 
 - `class ManagedAgentsCredentialHostUnreachableError`
@@ -5286,6 +5300,20 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `string message`
 
     Short explanation written by the server. It never contains content from the run or its agents.
+
+### Beta Managed Agents Tool Use Limit Reached Error
+
+- `class ManagedAgentsToolUseLimitReachedError`
+
+  - `"tool_use_limit_reached_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next.
 
 ### Beta Managed Agents Unknown Error
 

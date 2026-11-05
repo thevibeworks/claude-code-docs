@@ -408,9 +408,8 @@ The following examples opt in to `agent.message` previews and reconcile them wit
               .build()
       );
 
-      Iterable<BetaManagedAgentsStreamSessionEvents> events = stream.stream()::iterator;
       deltas:
-      for (var event : events) {
+      for (var event : stream) {
           switch (event.type().value()) {
               case EVENT_START -> {
                   if (event.asEventStart().event().isAgentMessage()) {
@@ -781,9 +780,8 @@ A thread stream’s path ends in `/threads/{thread_id}/stream`. `/events/stream`
               .addEventDelta(BetaManagedAgentsDeltaType.AGENT_MESSAGE)
               .build()
   )) {
-      Iterable<BetaManagedAgentsStreamSessionThreadEvents> events = stream.stream()::iterator;
       threadDeltas:
-      for (var event : events) {
+      for (var event : stream) {
           switch (event.type().value()) {
               case EVENT_DELTA -> IO.print(event.asEventDelta().delta().content().text());
               case AGENT_MESSAGE -> {

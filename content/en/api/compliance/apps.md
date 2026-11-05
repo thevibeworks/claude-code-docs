@@ -847,7 +847,7 @@ download the bytes.
 
 - `claude_file_id: string`
 
-  The file ID (tagged ID, e.g., claude_file_abc123)
+  The file ID (tagged ID, e.g., claude_file_abc123). Also use this endpoint for any id in `chat_messages[].generated_files[].id` that starts with `claude_file_`.
 
 #### Headers
 
@@ -985,7 +985,7 @@ Downloads the binary content of a file referenced in chat messages.
 
 - `claude_file_id: string`
 
-  The file ID (tagged ID, e.g., claude_file_abc123)
+  The file ID (tagged ID, e.g., claude_file_abc123). Also use this endpoint for any id in `chat_messages[].generated_files[].id` that starts with `claude_file_`.
 
 #### Headers
 
@@ -1019,7 +1019,7 @@ Use the sibling `/content` endpoint to download the bytes.
 
 - `claude_gen_file_id: string`
 
-  The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
+  The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from `GET /v1/compliance/apps/chats/{claude_chat_id}/messages`. An id that does not start with `claude_gen_file_` returns a 400 error. `generated_files` can also list ids that start with `claude_file_`; request those from `GET /v1/compliance/apps/chats/files/{claude_file_id}` instead.
 
 #### Headers
 
@@ -1095,7 +1095,7 @@ Downloads the binary content of a file the assistant created via tool use.
 
 - `claude_gen_file_id: string`
 
-  The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
+  The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from `GET /v1/compliance/apps/chats/{claude_chat_id}/messages`. An id that does not start with `claude_gen_file_` returns a 400 error. `generated_files` can also list ids that start with `claude_file_`; request those from `GET /v1/compliance/apps/chats/files/{claude_file_id}/content` instead.
 
 #### Headers
 
@@ -2660,7 +2660,7 @@ response header.
 
   - `provenance: ContentUnavailable or ClientAsserted or SyntheticMarker or null`
 
-    Where this turn's content came from, discriminated on `type`. Null (the common case) means verified content: on an assistant message, content Claude produced during this session; on a user message, content the user sent. `content_unavailable`: the turn's content cannot be returned and `content` is empty; `reason` says why. `client_asserted`: assistant content the client supplied as conversation history; `content` shows what the model received but its authorship is not verified; never on user-role messages. `synthetic_marker`: a transcript marker the endpoint generated rather than content either party sent during the session. Both `client_asserted` and `synthetic_marker` can result from normal request or client processing, not only client modification. Callers should tolerate unrecognized `type` values.
+    Where this turn's content came from, discriminated on `type`. Null (the common case) means verified content: on an assistant message, content Claude produced during this session; on a user message, content the client sent in a user turn, not necessarily written by a person. `content_unavailable`: the turn's content cannot be returned and `content` is empty; `reason` says why. `client_asserted`: assistant content the client supplied as conversation history; `content` shows what the model received but its authorship is not verified; never on user-role messages. `synthetic_marker`: a transcript marker the endpoint generated rather than content either party sent during the session. Both `client_asserted` and `synthetic_marker` can result from normal request or client processing, not only client modification. Callers should tolerate unrecognized `type` values.
 
     - `ContentUnavailable object`
 
@@ -2706,7 +2706,7 @@ response header.
 
   - `role: "assistant" or "user"`
 
-    Message sender (`user` or `assistant`)
+    Message role (`user` or `assistant`)
 
     - `"assistant"`
 

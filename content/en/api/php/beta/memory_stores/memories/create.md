@@ -113,7 +113,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
   'memory_store_id',
   content: 'content',
-  path: 'xx',
+  path: '/P',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',

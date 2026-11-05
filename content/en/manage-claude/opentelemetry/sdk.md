@@ -101,7 +101,7 @@ Install or upgrade to the latest version of the Claude SDK:
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.4.0")
+        implementation("com.anthropic:anthropic-java:3.5.0")
         ```
       </Tab>
 
@@ -110,7 +110,7 @@ Install or upgrade to the latest version of the Claude SDK:
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.4.0</version>
+            <version>3.5.0</version>
         </dependency>
         ```
       </Tab>

@@ -1439,7 +1439,7 @@ Create a Memory
 
   A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long.
 
-  minLength: 2, maxLength: 1024
+  minLength: 2, maxLength: 1024, pattern: ^(/[^/ ]+)+$
 
 - `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
@@ -1655,7 +1655,7 @@ client = Anthropic(
 beta_managed_agents_memory = client.beta.memory_stores.memories.create(
     memory_store_id="memory_store_id",
     content="content",
-    path="xx",
+    path="/P",
 )
 print(beta_managed_agents_memory.id)
 ```
@@ -2268,7 +2268,7 @@ Update a Memory
 
   The memory keeps its `id`. A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long. Paths are case-sensitive.
 
-  minLength: 2, maxLength: 1024
+  minLength: 2, maxLength: 1024, pattern: ^(/[^/ ]+)+$
 
 - `precondition: Optional[BetaManagedAgentsPreconditionParam]`
 
@@ -2281,6 +2281,8 @@ Update a Memory
   - `content_sha256: Optional[str]`
 
     Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
+
+    pattern: ^[a-f0-9]{64}$
 
 - `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 

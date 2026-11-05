@@ -193,7 +193,7 @@ List Session Resources
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -226,6 +226,8 @@ List Session Resources
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 

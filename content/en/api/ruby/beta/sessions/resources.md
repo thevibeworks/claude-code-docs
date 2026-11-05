@@ -396,7 +396,7 @@ List Session Resources
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -429,6 +429,8 @@ List Session Resources
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `access: optional :read_write | :read_only`
 
@@ -682,7 +684,7 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -715,6 +717,8 @@ Get Session Resource
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `access: optional :read_write | :read_only`
 
@@ -964,7 +968,7 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -997,6 +1001,8 @@ Update Session Resource
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `access: optional :read_write | :read_only`
 
@@ -1307,7 +1313,7 @@ puts(beta_managed_agents_delete_session_resource)
 
         Full commit SHA to check out.
 
-        minLength: 7, maxLength: 64
+        minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
 ### Beta Managed Agents Memory Store Resource
 
@@ -1320,6 +1326,8 @@ puts(beta_managed_agents_delete_session_resource)
   - `memory_store_id: String`
 
     The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+    pattern: ^memstore_[a-zA-Z0-9_]+$
 
   - `access: optional :read_write | :read_only`
 
@@ -1393,7 +1401,7 @@ puts(beta_managed_agents_delete_session_resource)
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -1426,6 +1434,8 @@ puts(beta_managed_agents_delete_session_resource)
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `access: optional :read_write | :read_only`
 
@@ -1501,7 +1511,7 @@ puts(beta_managed_agents_delete_session_resource)
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -1534,6 +1544,8 @@ puts(beta_managed_agents_delete_session_resource)
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `access: optional :read_write | :read_only`
 
@@ -1609,7 +1621,7 @@ puts(beta_managed_agents_delete_session_resource)
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -1642,6 +1654,8 @@ puts(beta_managed_agents_delete_session_resource)
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `access: optional :read_write | :read_only`
 

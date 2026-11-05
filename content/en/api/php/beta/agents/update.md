@@ -137,7 +137,9 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->update(
   'agent_011CZkYpogX7uDKUyvBTophP',
   description: 'updated',
-  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
+  executionIdentity: [
+    'roleARN' => 'arn:aws:iam::228601553692:role/T', 'type' => 'aws_role'
+  ],
   mcpServers: [
     [
       'name' => 'example-mcp',

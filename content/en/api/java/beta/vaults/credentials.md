@@ -155,7 +155,7 @@ Create a Credential
 
         The OAuth access token to send to the MCP server.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `String mcpServerUrl`
 
@@ -247,7 +247,7 @@ Create a Credential
 
         The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `String mcpServerUrl`
 
@@ -287,13 +287,13 @@ Create a Credential
 
         Name of the environment variable. Immutable after create.
 
-        minLength: 1, maxLength: 255
+        minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
       - `String secretValue`
 
         The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `Optional<BetaManagedAgentsInjectionLocationParams> injectionLocation`
 
@@ -1372,7 +1372,7 @@ Update a Credential
 
         The new OAuth access token to replace the stored one.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `Optional<LocalDateTime> expiresAt`
 
@@ -1440,7 +1440,7 @@ Update a Credential
 
         The new static bearer token to replace the stored one.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `class BetaManagedAgentsEnvironmentVariableUpdateParams`
 
@@ -1486,7 +1486,7 @@ Update a Credential
 
         The new secret value to replace the stored one.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `Optional<String> displayName`
 
@@ -2914,13 +2914,13 @@ public final class Main {
 
     Name of the environment variable. Immutable after create.
 
-    minLength: 1, maxLength: 255
+    minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
   - `String secretValue`
 
     The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `Optional<BetaManagedAgentsInjectionLocationParams> injectionLocation`
 
@@ -2980,7 +2980,7 @@ public final class Main {
 
     The new secret value to replace the stored one.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Injection Location Params
 
@@ -3126,7 +3126,7 @@ public final class Main {
 
     The OAuth access token to send to the MCP server.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `String mcpServerUrl`
 
@@ -3378,7 +3378,7 @@ public final class Main {
 
     The new OAuth access token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `Optional<LocalDateTime> expiresAt`
 
@@ -3564,7 +3564,7 @@ public final class Main {
 
     The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `String mcpServerUrl`
 
@@ -3584,7 +3584,7 @@ public final class Main {
 
     The new static bearer token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Token Endpoint Auth Basic Param
 

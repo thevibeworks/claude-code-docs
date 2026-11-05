@@ -55,6 +55,8 @@ Contact your Anthropic representative to have an organization provisioned for yo
 
 If your company already has a Claude organization that has verified your email domain, usually a Claude Enterprise organization, name that organization's Primary Owner as the Primary Owner of the new one too. The new organization then appears as an additional organization alongside your existing one and uses the existing organization's single sign-on connection, SCIM directory, and verified domains. Your existing organization is not changed. If no existing organization has verified the email domain of the person you name, the new organization starts with its own sign-in settings.
 
+You can ask for more than one organization, for example a test organization alongside your production one. To share single sign-on and verified domains across them, [verify the Primary Owner's email domain](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso) in the first organization before you ask for the next, and name the same Primary Owner. Organizations with separate sign-in settings can't verify the same domain.
+
 ## Connect your identity provider
 
 Set up single sign-on before inviting users, as described in [Set up single sign-on](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso). Users then sign in to Claude Desktop through your identity provider, and you can provision them with SCIM. Single sign-on is recommended rather than required. Without it, invited users sign in with their work email address through the standard Claude sign-in, such as a sign-in link emailed to them.

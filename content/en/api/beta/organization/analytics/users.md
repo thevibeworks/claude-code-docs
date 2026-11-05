@@ -37,7 +37,7 @@ the `read:analytics` scope.
 
   maxItems: 100
 
-- `group_by: optional array of "rbac_group_id"`
+- `group_by: optional array of BetaAnalyticsUserGroupBy`
 
   Dimensions to break results out by (e.g. `group_by[]=rbac_group_id`). Supported on this endpoint: `rbac_group_id`. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -49,7 +49,7 @@ the `read:analytics` scope.
 
   minimum: 1, maximum: 1000
 
-- `order: optional "asc" or "desc"`
+- `order: optional BetaAnalyticsOrder`
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -223,6 +223,10 @@ the `read:analytics` scope.
 
       Number of distinct connectors used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
+    - `distinct_plugins_used_count: number or null`
+
+      Number of distinct plugins used in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
     - `distinct_session_count: number or null`
 
       Number of distinct Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
@@ -231,43 +235,39 @@ the `read:analytics` scope.
 
       Number of distinct skills used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
+    - `edit_tool_count: number or null`
+
+      Number of successful Edit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+    - `file_edit_count: number or null`
+
+      Number of successful file-edit tool calls (Edit, MultiEdit, Write, NotebookEdit) in Cowork sessions. Null, never 0, while the file-edit metrics are not enabled for this organization.
+
     - `message_count: number`
 
       Number of messages sent in Cowork sessions
+
+    - `multi_edit_tool_count: number or null`
+
+      Number of successful MultiEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+    - `notebook_edit_tool_count: number or null`
+
+      Number of successful NotebookEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+    - `plugins_used_count: number or null`
+
+      Total number of plugin invocations in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization.
+
+    - `sessions_with_file_edits_count: number or null`
+
+      Number of distinct Cowork sessions with at least one successful file-edit tool call. Null while the file-edit metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
     - `skills_used_count: number`
 
       Total number of skill invocations in Cowork sessions
 
-    - `distinct_plugins_used_count: optional number or null`
-
-      Number of distinct plugins used in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
-
-    - `edit_tool_count: optional number or null`
-
-      Number of successful Edit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
-
-    - `file_edit_count: optional number or null`
-
-      Number of successful file-edit tool calls (Edit, MultiEdit, Write, NotebookEdit) in Cowork sessions. Null, never 0, while the file-edit metrics are not enabled for this organization.
-
-    - `multi_edit_tool_count: optional number or null`
-
-      Number of successful MultiEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
-
-    - `notebook_edit_tool_count: optional number or null`
-
-      Number of successful NotebookEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
-
-    - `plugins_used_count: optional number or null`
-
-      Total number of plugin invocations in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization.
-
-    - `sessions_with_file_edits_count: optional number or null`
-
-      Number of distinct Cowork sessions with at least one successful file-edit tool call. Null while the file-edit metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
-
-    - `write_tool_count: optional number or null`
+    - `write_tool_count: number or null`
 
       Number of successful Write tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
 
@@ -290,6 +290,10 @@ the `read:analytics` scope.
     - `message_count: number`
 
       Number of messages sent in Claude Design sessions
+
+  - `distinct_user_count: number or null`
+
+    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
 
   - `office_metrics: BetaAnalyticsOfficeMetrics`
 
@@ -359,11 +363,29 @@ the `read:analytics` scope.
 
       Total number of skill invocations in Claude Science sessions
 
+  - `user: BetaAnalyticsUser or null`
+
+    The user this row describes. Null on rows aggregated across users.
+
+    - `type: "user"`
+
+      Object type. Always `user`.
+
+      default: user
+
+    - `id: string`
+
+      Tagged user identifier (e.g. `user_...`)
+
+    - `email_address: string`
+
+      Email address of the user
+
   - `web_search_count: number`
 
     Number of web searches performed
 
-  - `chat_cowork_unified_metrics: optional object or null`
+  - `chat_cowork_unified_metrics: optional BetaAnalyticsChatCoworkUnifiedMetrics or null`
 
     Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
@@ -493,10 +515,6 @@ the `read:analytics` scope.
 
         Same measure as `cowork_metrics.write_tool_count`, for activity recorded while members had Chat and Cowork unified turned on.
 
-  - `distinct_user_count: optional number or null`
-
-    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
-
   - `last_activity_date: optional string or null`
 
     Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
@@ -510,24 +528,6 @@ the `read:analytics` scope.
   - `rbac_group_name: optional string or null`
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-
-  - `user: optional BetaAnalyticsUser or null`
-
-    The user this row describes. Null on rows aggregated across users.
-
-    - `type: "user"`
-
-      Object type. Always `user`.
-
-      default: user
-
-    - `id: string`
-
-      Tagged user identifier (e.g. `user_...`)
-
-    - `email_address: string`
-
-      Email address of the user
 
 - `next_page: string or null`
 
@@ -597,17 +597,17 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
         "connectors_used_count": 0,
         "dispatch_turn_count": 0,
         "distinct_connectors_used_count": 0,
+        "distinct_plugins_used_count": 0,
         "distinct_session_count": 0,
         "distinct_skills_used_count": 0,
-        "message_count": 0,
-        "skills_used_count": 0,
-        "distinct_plugins_used_count": 0,
         "edit_tool_count": 0,
         "file_edit_count": 0,
+        "message_count": 0,
         "multi_edit_tool_count": 0,
         "notebook_edit_tool_count": 0,
         "plugins_used_count": 0,
         "sessions_with_file_edits_count": 0,
+        "skills_used_count": 0,
         "write_tool_count": 0
       },
       "design_metrics": {
@@ -616,6 +616,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
         "distinct_session_count": 0,
         "message_count": 0
       },
+      "distinct_user_count": 0,
       "office_metrics": {
         "excel": {
           "connectors_used_count": 0,
@@ -657,6 +658,11 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
         "remote_compute_job_count": 0,
         "skills_used_count": 0
       },
+      "user": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      },
       "web_search_count": 0,
       "chat_cowork_unified_metrics": {
         "chat": {
@@ -693,15 +699,9 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
           "write_tool_count": 0
         }
       },
-      "distinct_user_count": 0,
       "last_activity_date": "2019-12-27",
       "rbac_group_id": "rbac_group_id",
-      "rbac_group_name": "rbac_group_name",
-      "user": {
-        "id": "id",
-        "email_address": "email_address",
-        "type": "user"
-      }
+      "rbac_group_name": "rbac_group_name"
     }
   ],
   "next_page": "next_page"

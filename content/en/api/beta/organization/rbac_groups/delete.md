@@ -27,17 +27,19 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ## Returns
 
-- `type: "rbac_group_deleted"`
+- `BetaDeletedRBACGroup object`
 
-  Deleted object type.
+  - `type: "rbac_group_deleted"`
 
-  For RBAC Groups, this is always `"rbac_group_deleted"`.
+    Deleted object type.
 
-  default: rbac_group_deleted
+    For RBAC Groups, this is always `"rbac_group_deleted"`.
 
-- `id: string`
+    default: rbac_group_deleted
 
-  ID of the RBAC Group.
+  - `id: string`
+
+    ID of the RBAC Group.
 
 ## Example
 

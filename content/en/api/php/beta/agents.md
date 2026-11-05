@@ -132,7 +132,9 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
   model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
-  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
+  executionIdentity: [
+    'roleARN' => 'arn:aws:iam::228601553692:role/T', 'type' => 'aws_role'
+  ],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -830,7 +832,9 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->update(
   'agent_011CZkYpogX7uDKUyvBTophP',
   description: 'updated',
-  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
+  executionIdentity: [
+    'roleARN' => 'arn:aws:iam::228601553692:role/T', 'type' => 'aws_role'
+  ],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -2193,7 +2197,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?Speed speed`
 
-    Inference speed mode. Defaults to `standard`.
+    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
 ### Beta Managed Agents Multiagent Advisor
 

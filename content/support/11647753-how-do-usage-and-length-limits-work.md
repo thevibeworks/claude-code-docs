@@ -80,7 +80,7 @@ While you can't increase the fixed context window size for your plan, you can us
 
 - **Remove unused project files:** Regularly clean up files you're no longer actively using in your projects.
 
-- **Toggle extended thinking off:** Turn off this feature when you don't need Claude's enhanced reasoning for a particular task.
+- **Turn thinking off:** On models that offer a thinking toggle, turn it off when you don’t need Claude’s enhanced reasoning. On models where thinking is always on, such as Claude Opus 5.5 and Sonnet 5.5, choose a lower effort level instead.
 
 - **Lower the effort level:** Choose a lower effort level for routine tasks that don't need Claude's most thorough responses. Higher effort uses more tokens.
 

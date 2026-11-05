@@ -285,6 +285,8 @@ Create Deployment
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `currency: BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -343,7 +345,7 @@ Create Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `mount_path?: string | null`
 
@@ -378,6 +380,8 @@ Create Deployment
       - `memory_store_id: string`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `access?: "read_write" | "read_only" | null`
 
@@ -947,7 +951,7 @@ Create Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `mount_path?: string | null`
 
@@ -1052,6 +1056,8 @@ Create Deployment
       - `amount: string`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `currency: BetaCurrency`
 

@@ -990,7 +990,6 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
   import com.anthropic.models.beta.environments.EnvironmentCreateParams;
   import com.anthropic.models.beta.sessions.BetaManagedAgentsAgentParams;
   import com.anthropic.models.beta.sessions.SessionCreateParams;
-  import com.anthropic.models.beta.sessions.events.BetaManagedAgentsStreamSessionEvents;
   import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserCustomToolResultEventParams;
   import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserMessageEventParams;
   import com.anthropic.models.beta.sessions.events.EventSendParams;
@@ -1041,7 +1040,7 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
               .build());
 
       loop:
-      for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
+      for (var event : stream) {
           switch (event.type().value()) {
               case AGENT_MESSAGE -> {
                   for (var block : event.asAgentMessage().content()) {

@@ -281,11 +281,11 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
       - `account_id: string or null`
 
-        ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
+        ID of the user account that made the request. `null` if not grouping by account or if no user account made the request.
 
       - `api_key_id: string or null`
 
-        ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
+        ID of the API key used. `null` if not grouping by API key or if the request did not use an API key, as with usage in the Claude Console or from most Claude Managed Agents sessions.
 
       - `cache_creation: BetaCacheCreation`
 
@@ -344,7 +344,7 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
       - `service_account_id: string or null`
 
-        ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
+        ID of the service account that made the request. `null` if not grouping by service account or if no service account made the request. This can be the ID of an Anthropic-managed service account, such as one that runs Claude Managed Agents sessions, which the Service Accounts endpoints do not return.
 
       - `service_tier: BetaAnalyticsServiceTier or null`
 
@@ -891,11 +891,11 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
       - `account_id: string or null`
 
-        ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
+        ID of the user account that made the request. `null` if not grouping by account or if no user account made the request.
 
       - `api_key_id: string or null`
 
-        ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
+        ID of the API key used. `null` if not grouping by API key or if the request did not use an API key, as with usage in the Claude Console or from most Claude Managed Agents sessions.
 
       - `cache_creation: BetaCacheCreation`
 
@@ -954,7 +954,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
       - `service_account_id: string or null`
 
-        ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
+        ID of the service account that made the request. `null` if not grouping by service account or if no service account made the request. This can be the ID of an Anthropic-managed service account, such as one that runs Claude Managed Agents sessions, which the Service Accounts endpoints do not return.
 
       - `service_tier: BetaAnalyticsServiceTier or null`
 

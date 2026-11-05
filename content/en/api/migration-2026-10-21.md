@@ -864,7 +864,7 @@ Authorization: Bearer <key>
   <Tab title="Ruby">
     `Authorization` is the header `auth_token:` already uses.
 
-    This applies to the `api_key:` argument and the `ANTHROPIC_API_KEY` environment variable of `Anthropic::Client`, and to `api_key:` and `ANTHROPIC_AWS_API_KEY` of `Anthropic::AWSClient`. `Anthropic::BedrockMantleClient` already sent a bearer token.
+    This applies to the `api_key:` argument and the `ANTHROPIC_API_KEY` environment variable of `Anthropic::Client`, and to `api_key:` and `ANTHROPIC_AWS_API_KEY` of `Anthropic::AWSClient`. `Anthropic::FoundryClient` sends its key as `x-api-key`, and `Anthropic::BedrockMantleClient` already sent a bearer token.
 
     The SDK drops `Authorization` when it follows a redirect to another origin, which includes a redirect from `http` to `https` on the same host. The key is now dropped there too.
   </Tab>

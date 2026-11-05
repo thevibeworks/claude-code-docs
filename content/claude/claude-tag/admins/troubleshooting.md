@@ -739,7 +739,7 @@ Claude replies in the DM:
 
 **What it means**
 
-One-to-one DMs run on the user's own claude.ai account and need a qualifying seat, which this user doesn't have. A seat that includes Claude Code always qualifies; on the Enterprise plan, a **Standard** or **Usage-Based Chat** seat also qualifies when the user has Cowork. Mentioning `@Claude` in a channel doesn't depend on the sender's seat.
+One-to-one DMs run on the user's own claude.ai account and need a qualifying seat, which this user doesn't have. To qualify, the user needs either a seat that includes Claude Code or, on the Enterprise plan, Cowork access on a **Standard** seat or a usage-based **Chat** seat. Mentioning `@Claude` in a channel doesn't depend on the sender's seat.
 
 **How to resolve**
 

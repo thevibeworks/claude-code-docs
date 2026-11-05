@@ -343,7 +343,7 @@ Create Session
 
           - `Optional<Speed> speed`
 
-            Inference speed mode. Defaults to `standard`.
+            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
             - `STANDARD("standard")`
 
@@ -791,6 +791,8 @@ Create Session
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -919,7 +921,7 @@ Create Session
 
             Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-            minLength: 1, maxLength: 128
+            minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `Optional<Long> version`
 
@@ -1187,7 +1189,7 @@ Create Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -1222,6 +1224,8 @@ Create Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -1813,6 +1817,8 @@ Create Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -2121,6 +2127,8 @@ Create Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -2213,7 +2221,7 @@ Create Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -2246,6 +2254,8 @@ Create Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -3394,6 +3404,8 @@ List Sessions
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -3702,6 +3714,8 @@ List Sessions
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -3794,7 +3808,7 @@ List Sessions
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -3827,6 +3841,8 @@ List Sessions
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -4895,6 +4911,8 @@ Get Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -5203,6 +5221,8 @@ Get Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -5295,7 +5315,7 @@ Get Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -5328,6 +5348,8 @@ Get Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -6412,6 +6434,8 @@ Update Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -6720,6 +6744,8 @@ Update Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -6812,7 +6838,7 @@ Update Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -6845,6 +6871,8 @@ Update Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -8081,6 +8109,8 @@ Archive Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -8389,6 +8419,8 @@ Archive Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -8481,7 +8513,7 @@ Archive Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -8514,6 +8546,8 @@ Archive Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -9116,7 +9150,7 @@ public final class Main {
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. Defaults to `standard`.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -9564,6 +9598,8 @@ public final class Main {
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.
@@ -9692,7 +9728,7 @@ public final class Main {
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-        minLength: 1, maxLength: 128
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `Optional<Long> version`
 
@@ -9728,6 +9764,8 @@ public final class Main {
 
       Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+      pattern: ^(0|[1-9]\d*)$
+
     - `BetaCurrency currency`
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -9760,7 +9798,7 @@ public final class Main {
 
     Full commit SHA to check out.
 
-    minLength: 7, maxLength: 64
+    minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
 ### Beta Managed Agents Deleted Session
 
@@ -9898,7 +9936,7 @@ public final class Main {
 
         Full commit SHA to check out.
 
-        minLength: 7, maxLength: 64
+        minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `Optional<String> mountPath`
 
@@ -9917,6 +9955,8 @@ public final class Main {
   - `String memoryStoreId`
 
     The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+    pattern: ^memstore_[a-zA-Z0-9_]+$
 
   - `Optional<Access> access`
 
@@ -10898,6 +10938,8 @@ public final class Main {
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -11206,6 +11248,8 @@ public final class Main {
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -11298,7 +11342,7 @@ public final class Main {
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -11331,6 +11375,8 @@ public final class Main {
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -12029,6 +12075,8 @@ public final class Main {
                     - `Optional<String> country`
 
                       Two-letter ISO 3166-1 country code, uppercase.
+
+                      pattern: ^[A-Z]{2}$
 
                     - `Optional<String> region`
 
@@ -12738,6 +12786,8 @@ public final class Main {
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.
@@ -12866,7 +12916,7 @@ public final class Main {
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-        minLength: 1, maxLength: 128
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
 ### Beta Managed Agents Session Multiagent
 
@@ -13399,6 +13449,8 @@ public final class Main {
                   - `Optional<String> country`
 
                     Two-letter ISO 3166-1 country code, uppercase.
+
+                    pattern: ^[A-Z]{2}$
 
                   - `Optional<String> region`
 
@@ -14188,6 +14240,8 @@ public final class Main {
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -14850,6 +14904,8 @@ public final class Main {
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -15504,6 +15560,8 @@ public final class Main {
 
                 Two-letter ISO 3166-1 country code, uppercase.
 
+                pattern: ^[A-Z]{2}$
+
               - `Optional<String> region`
 
                 Region or state name.
@@ -16155,6 +16213,8 @@ public final class Main {
                 - `Optional<String> country`
 
                   Two-letter ISO 3166-1 country code, uppercase.
+
+                  pattern: ^[A-Z]{2}$
 
                 - `Optional<String> region`
 
@@ -16809,6 +16869,8 @@ public final class Main {
               - `Optional<String> country`
 
                 Two-letter ISO 3166-1 country code, uppercase.
+
+                pattern: ^[A-Z]{2}$
 
               - `Optional<String> region`
 
@@ -17487,6 +17549,8 @@ public final class Main {
                   - `Optional<String> country`
 
                     Two-letter ISO 3166-1 country code, uppercase.
+
+                    pattern: ^[A-Z]{2}$
 
                   - `Optional<String> region`
 
@@ -18246,6 +18310,8 @@ public final class Main {
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -18548,6 +18614,8 @@ public final class Main {
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -18607,6 +18675,8 @@ public final class Main {
     - `String amount`
 
       Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      pattern: ^(0|[1-9]\d*)$
 
     - `BetaCurrency currency`
 
@@ -18697,6 +18767,8 @@ public final class Main {
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -20252,6 +20324,58 @@ List Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -21542,6 +21666,8 @@ List Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -21843,6 +21969,8 @@ List Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -24360,6 +24488,58 @@ Stream Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -25650,6 +25830,8 @@ Stream Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -25951,6 +26133,8 @@ Stream Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -26813,7 +26997,7 @@ List Session Resources
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -26846,6 +27030,8 @@ List Session Resources
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 
@@ -27108,7 +27294,7 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -27141,6 +27327,8 @@ Get Session Resource
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 
@@ -27400,7 +27588,7 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -27433,6 +27621,8 @@ Update Session Resource
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 
@@ -28375,6 +28565,8 @@ List Session Threads
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -28648,6 +28840,8 @@ List Session Threads
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -29466,6 +29660,8 @@ Get Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -29739,6 +29935,8 @@ Get Session Thread
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -30556,6 +30754,8 @@ Archive Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -30829,6 +31029,8 @@ Archive Session Thread
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -32074,6 +32276,58 @@ List Session Thread Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -33364,6 +33618,8 @@ List Session Thread Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -33665,6 +33921,8 @@ List Session Thread Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -35199,6 +35457,58 @@ Stream Session Thread Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -36489,6 +36799,8 @@ Stream Session Thread Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -36790,6 +37102,8 @@ Stream Session Thread Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 

@@ -559,9 +559,8 @@ This sample follows a session from your message to the agent’s answer. It open
               .build()
       );
 
-      Iterable<BetaManagedAgentsStreamSessionEvents> events = stream.stream()::iterator;
       events:
-      for (var event : events) {
+      for (var event : stream) {
           switch (event.type().value()) {
               case WORKFLOW_RUN_CREATED -> {
                   var created = event.asWorkflowRunCreated();

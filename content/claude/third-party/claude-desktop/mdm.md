@@ -88,6 +88,8 @@ In your MDM, scope each exported profile to the corresponding device or user gro
 > [!NOTE]
 >
 > On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
+>
+> Before you deliver an exported `.reg` file through user policy, make sure the registry path in the file starts with `HKEY_CURRENT_USER`, not `HKEY_LOCAL_MACHINE`.
 
 ## 3. Allow required network egress
 

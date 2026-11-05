@@ -4,7 +4,7 @@
 
 # Enterprise Managed Auth for connectors
 
-> Accept identity assertions from a customer's identity provider or Claude so users connect to your MCP server without an OAuth consent step.
+> Support auto-connect in Claude by accepting identity assertions from a customer's identity provider or from Claude, so users skip the OAuth consent step.
 
 > [!NOTE]
 >
@@ -12,7 +12,9 @@
 
 Enterprise Managed Auth (EMA) lets organizations connect their users to your MCP server without sending each user through an OAuth consent screen. Claude presents your authorization server with an identity assertion instead: a signed JSON Web Token (JWT) issued by [the customer's identity provider or by Claude](#who-issues-the-identity-assertion). Your authorization server validates the assertion and returns an access token.
 
-As a connector developer, you [make your authorization server accept and validate the assertion](#authorization-server-requirements), [test your implementation](#test-your-implementation), and [give customer administrators the settings and documentation they need](#support-customer-administrators).
+Claude calls this feature auto-connect, for identity provider-issued and Claude-issued assertions alike. The connector directory labels listings marked as supporting it **Auto-connect**.
+
+To support auto-connect, you [make your authorization server accept and validate the assertion](#authorization-server-requirements), [test your implementation](#test-your-implementation), and [give customer administrators the settings and documentation they need](#support-customer-administrators).
 
 ## Understand how Enterprise Managed Auth works
 
@@ -230,7 +232,7 @@ Check each of these cases before you launch:
 
 ## Support customer administrators
 
-A customer's administrator turns on Enterprise Managed Auth for their organization.
+A customer's administrator turns on Enterprise Managed Auth for their organization. For a connector added from the directory, an Owner or Primary Owner clicks **Set up auto-connect** on its row in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors), which opens the managed authorization setup. Claude's guide for administrators is [Auto-connect your organization's apps to Claude](https://support.claude.com/en/articles/15537633-auto-connect-your-organization-s-apps-to-claude).
 
 ### Admin settings in your product
 

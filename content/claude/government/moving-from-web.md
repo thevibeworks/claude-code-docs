@@ -28,8 +28,8 @@ This page answers the questions that only come up during the move and links each
 
 ## Deployment and network
 
-* **Is this a separate government app?** No, it's the same Claude Desktop app used everywhere. One managed setting, which your IT team deploys, connects it to Claude for Government, and until a device has that setting, the app shows the regular claude.ai sign-in. See [The managed setting](https://claude.com/docs/government/deploy-desktop/configure.md#the-managed-setting) and [Order of deployment](https://claude.com/docs/government/deploy-desktop/configure.md#order-of-deployment).
-* **Which hosts must the firewall allow, and what if claude.ai is blocked?** See [Network egress, required domains, and proxies](https://claude.com/docs/government/security/security-and-data-handling.md#network-egress-required-domains-and-proxies) and [Network access](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#network-access) in the Windows fleet checklist.
+* **Is this a separate government app?** No, it's the same Claude Desktop app used everywhere. Managed settings that your IT team deploys connect it to Claude for Government, and until a device has them, the app shows the regular claude.ai sign-in. See [Deploy to your fleet](https://claude.com/docs/government/deploy-desktop/configure.md#deploy-to-your-fleet) and [Order of deployment](https://claude.com/docs/government/deploy-desktop/configure.md#order-of-deployment).
+* **Which hosts must the firewall allow, and what if claude.ai is blocked?** See [Network egress, required domains, and proxies](https://claude.com/docs/government/security/security-and-data-handling.md#network-egress-required-domains-and-proxies) and [Network access](https://claude.com/docs/government/deploy-desktop/configure.md#network-access).
 * **Can Chat be rolled out first and Cowork enabled later?** Yes. See [If some devices are not ready for Cowork](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#if-some-devices-are-not-ready-for-cowork).
 
 ## The Claude for Government Web import

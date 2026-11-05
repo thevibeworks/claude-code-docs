@@ -81,7 +81,7 @@ Let Claude Code set up your agent for you
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.5.0
+        VERSION=2.6.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;
@@ -150,7 +150,7 @@ To run the CLI examples, install the CLI:
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=2.5.0
+    VERSION=2.6.0
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;
@@ -197,7 +197,7 @@ To run the CLI examples, install the CLI:
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.4.0")
+        implementation("com.anthropic:anthropic-java:3.5.0")
         ```
       </Tab>
 
@@ -206,7 +206,7 @@ To run the CLI examples, install the CLI:
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.4.0</version>
+            <version>3.5.0</version>
         </dependency>
         ```
       </Tab>
@@ -245,6 +245,36 @@ To run the CLI examples, install the CLI:
     Create an agent that defines the model, system prompt, and available tools.
 
     <CodeGroup defaultLanguage="CLI">
+      **CLI sign-in**
+
+      <CodeGroupItem>
+        ```bash cURL
+        curl -sS --fail-with-body https://api.anthropic.com/v1/agents \
+          -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+          -H "anthropic-version: 2026-10-21" \
+          -H "anthropic-beta: managed-agents-2026-04-01" \
+          -H "content-type: application/json" \
+          -d '{
+            "name": "Coding Assistant",
+            "model": "claude-opus-5-5",
+            "system": "You are a helpful coding assistant. Write clean, well-documented code.",
+            "tools": [
+              {
+                "type": "agent_toolset_20260401",
+                "configs": [
+                  {"name": "web_search", "enabled": false},
+                  {"name": "web_fetch", "enabled": false}
+                ]
+              }
+            ]
+          }'
+        ```
+
+        Save the returned `agent.id`. You’ll reference it in every session you create.
+      </CodeGroupItem>
+
+      **API key**
+
       <CodeGroupItem>
         ```bash cURL
         curl -sS --fail-with-body https://api.anthropic.com/v1/agents \
@@ -441,7 +471,6 @@ To run the CLI examples, install the CLI:
         import com.anthropic.models.beta.environments.BetaLimitedNetworkParams;
         import com.anthropic.models.beta.environments.EnvironmentCreateParams;
         import com.anthropic.models.beta.sessions.SessionCreateParams;
-        import com.anthropic.models.beta.sessions.events.BetaManagedAgentsStreamSessionEvents;
         import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserMessageEventParams;
         import com.anthropic.models.beta.sessions.events.EventSendParams;
 
@@ -533,6 +562,29 @@ To run the CLI examples, install the CLI:
     An environment defines the sandbox where your agent runs. This one uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) with package managers allowed, so code running in the sandbox can reach public [package registries and code hosts](https://platform.claude.com/docs/en/managed-agents/environments#package-manager-hosts). With `limited` networking, the [`allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) list](https://platform.claude.com/docs/en/managed-agents/environments#networking) also applies to web search and web fetch, even though they run outside the sandbox. With no hosts listed, as in this environment, they return no pages or search results. If your own agent uses these tools, add the hosts it needs to that list.
 
     <CodeGroup defaultLanguage="CLI">
+      **CLI sign-in**
+
+      <CodeGroupItem>
+        ```bash cURL
+        curl -sS --fail-with-body https://api.anthropic.com/v1/environments \
+          -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+          -H "anthropic-version: 2026-10-21" \
+          -H "anthropic-beta: managed-agents-2026-04-01" \
+          -H "content-type: application/json" \
+          -d '{
+            "name": "quickstart-env",
+            "config": {
+              "type": "cloud",
+              "networking": {"type": "limited", "allow_package_managers": true}
+            }
+          }'
+        ```
+
+        Save the returned `environment.id` too.
+      </CodeGroupItem>
+
+      **API key**
+
       <CodeGroupItem>
         ```bash cURL
         curl -sS --fail-with-body https://api.anthropic.com/v1/environments \
@@ -709,6 +761,23 @@ To run the CLI examples, install the CLI:
     Create a session that references your agent and environment.
 
     <CodeGroup>
+      **CLI sign-in**
+
+      ```bash cURL
+      curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
+        -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+        -H "anthropic-version: 2026-10-21" \
+        -H "anthropic-beta: managed-agents-2026-04-01" \
+        -H "content-type: application/json" \
+        -d '{
+          "agent": "'"$AGENT_ID"'",
+          "environment_id": "'"$ENVIRONMENT_ID"'",
+          "title": "Quickstart session"
+        }'
+      ```
+
+      **API key**
+
       ```bash cURL
       curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -986,7 +1055,7 @@ To run the CLI examples, install the CLI:
 
           // Process streaming events
           loop:
-          for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
+          for (var event : stream) {
               switch (event.type().value()) {
                   case AGENT_MESSAGE -> event.asAgentMessage().content().forEach(block -> block.text().ifPresent(textBlock -> IO.print(textBlock.text())));
                   case AGENT_TOOL_USE -> IO.println("\n[Using tool: " + event.asAgentToolUse().name() + "]");

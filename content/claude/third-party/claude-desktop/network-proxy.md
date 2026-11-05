@@ -10,7 +10,7 @@ Claude Desktop on 3P works behind a corporate HTTP proxy without extra configura
 
 Three parts of the product make network connections, and they do not all resolve the proxy the same way:
 
-* **The app**: the Claude Desktop window itself, including sign-in, the connection test, Web Fetch in Chat and Cowork sessions, managed MCP servers the app connects to, and sync of the plugin marketplaces you configure.
+* **The app**: the Claude Desktop window itself, including sign-in, the connection test, Web Fetch in Chat and Cowork sessions, remote managed MCP servers, and sync of the plugin marketplaces you configure.
 * **The agent**: the Claude Code engine the app runs for every Chat, Cowork, and Code session. It sends inference requests and makes its own remote MCP connections, for example to [a server that a marketplace plugin or a user-added plugin bundles](https://claude.com/docs/third-party/claude-desktop/extensions.md#remote-mcp-servers-in-plugins). In Code sessions, it also makes its own web fetches and plugin installs.
 * **Cowork's sandboxed shell**: the isolated environment where commands the agent runs in a Cowork session (`curl`, `pip`, `npm`, and so on) execute.
 
@@ -82,9 +82,10 @@ The table summarizes which proxy source each kind of traffic follows. "App proxy
 | - | - |
 | App window, in-app sign-in, connection test, model list | App proxy |
 | Inference requests from Chat, Cowork, and Code sessions | The single proxy resolved for the inference endpoint (from the pinned key or the OS), or Claude Code managed settings if deployed |
-| Agent web fetch, remote MCP servers, and plugin installs in Code sessions | Same single proxy as inference |
+| Agent web fetch, plugin installs, and the agent's own remote MCP connections in Code sessions | Same single proxy as inference |
 | The agent's remote MCP connections in Chat and Cowork sessions, to servers that a marketplace plugin or a user-added plugin bundles | Same single proxy as inference |
-| Web Fetch and managed MCP servers in Chat and Cowork sessions | App proxy (the app makes these connections) |
+| Web Fetch in Chat and Cowork sessions, and remote managed MCP servers | App proxy (the app makes these connections) |
+| Local (`stdio`) servers in [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | The app gives the server no proxy variables. Set `HTTPS_PROXY` in the entry's `env`, or have its `envHelper` script print it. In the admin console, use the **Environment helper script** field. |
 | Sync of the plugin marketplaces you configure, and `aws` CLI calls the app makes for Bedrock sign-in | App proxy, resolved for the specific host |
 | Cowork sandbox download from `downloads.claude.ai` | App proxy |
 | Telemetry and crash reports to Anthropic, if enabled | App proxy |

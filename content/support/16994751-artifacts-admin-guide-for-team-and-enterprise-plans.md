@@ -6,7 +6,7 @@ This guide is for Owners and Primary Owners of Team and Enterprise plans, and ex
 
 To change organization settings, you need to be an Owner or Primary Owner, or in a custom role (Enterprise plans) with the appropriate admin permissions.
 
-1. Turn on “Cloud code execution and file creation” in Organization settings > Capabilities first.
+1. Turn on “Cloud code execution and file creation” in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** first.
 
 2. Navigate to **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
@@ -14,7 +14,7 @@ To change organization settings, you need to be an Owner or Primary Owner, or in
 
 This lets users create and publish artifacts to a shareable Anthropic-hosted page, and share artifacts within your organization.
 
-**Important:** Turning **Artifacts** off stops users from sharing artifacts with your organization. Links they already shared keep working.
+**Important:** Turning **Artifacts** off stops everyone from opening, editing, downloading, or sharing your organization's artifacts in Claude, including the users who made them. Links they already shared stop working until you turn **Artifacts** back on, including public links and links for people invited by email. Turning **Artifacts** off doesn't delete anything, but nobody can open an artifact to restart it. Legacy artifacts and live artifacts keep working, and so do links already shared to them or to chat or Cowork files. Links shared by republishing one of these as an artifact stop working too.
 
 ## Choose which templates users can start from
 
@@ -107,11 +107,17 @@ Owners can remove people here but can't change their access level.
 
 Some artifacts can't leave your organization even with these settings on:
 
-- Docs can't be shared outside your organization yet.
+- Artifacts that connect to other websites
 
-- Artifacts that use connected apps, or that ask Claude questions, can't use “Anyone with the link.”
+- Artifacts with an uploaded file that's still being checked or didn't pass the check
 
-People need a Claude account to open any artifact except a legacy artifact published from chat.
+Other artifacts, including docs and artifacts that use connected apps or ask Claude questions, can leave your organization when these settings allow it:
+
+- **By link:** When **External sharing** is on, or you've allowed it for that artifact, anyone with the link can open it. Most artifacts shared this way open without a Claude account or sign-in. Docs open only for people signed in to Claude, who can only view them. Legacy artifacts shared from a chat also need a Claude account, and some other artifacts show part or all of their content only after the visitor signs in. Connected apps and Claude features don't work for people who open the link from outside your organization or without signing in.
+
+- **By email invitation:** When **Email invitations outside your organization** is on, people you invite sign in to Claude with the invited address. This setting is on by default on Team plans and off by default on Enterprise plans. Some organizations can't invite people outside the organization, including those with HIPAA-ready configurations, CMEK, education or K-12 terms, zero data retention with redaction, or a hybrid deployment.
+
+To keep artifacts inside your organization, leave **External sharing** and **Email invitations outside your organization** off. An artifact you've allowed individually can still be shared by link.
 
 Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
 

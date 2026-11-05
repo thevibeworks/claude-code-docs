@@ -24,7 +24,7 @@ Shop Pay isn't listed in the connectors directory. You connect it in Claude Duet
 
 Claude Duet also suggests connecting Shop Pay when you ask for something that needs a payment.
 
-Claude Duet can see the card type, last four digits of your card or bank account, nickname and expiration date of your saved payment methods, plus your shipping addresses. Claude isn’t given your full credit card number (PAN) or bank account number.
+Claude Duet can see the last four digits and expiration date of your saved payment methods, as well as your billing address. It doesn’t have access to your full card or bank account numbers.
 
 ## How to pay with Shop Pay
 

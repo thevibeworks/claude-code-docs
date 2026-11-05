@@ -52,7 +52,9 @@ the member was blocked on. Anthropic emails the requester unless
 
 - `id: string`
 
-- `actor: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor`
+- `actor: BetaSpendLimitIncreaseRequestActor`
+
+  Who submitted the increase request.
 
   - `BetaSpendLimitUserActor object`
 
@@ -110,7 +112,9 @@ the member was blocked on. Anthropic emails the requester unless
 
   format: date-time
 
-- `resolved_by: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor or null`
+- `resolved_by: BetaSpendLimitIncreaseRequestResolvedBy or null`
+
+  Who approved or denied the increase request.
 
   - `BetaSpendLimitUserActor object`
 
@@ -122,7 +126,7 @@ the member was blocked on. Anthropic emails the requester unless
 
     A scoped Admin API key acting on behalf of the organization.
 
-- `spend_limit: BetaSpendLimit`
+- `spend_limit: BetaSpendLimit or null`
 
   A configured spend limit: a cap on metered spend for one scope and period.
 

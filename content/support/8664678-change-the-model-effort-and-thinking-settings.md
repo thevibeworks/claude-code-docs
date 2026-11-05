@@ -54,7 +54,9 @@ Thinking lets Claude spend more time breaking down problems, planning solutions,
 
 Thinking and effort are separate settings, and you can use any combination of the two. The effort level controls how thorough Claude is with every response. The thinking toggle controls whether Claude works through its reasoning in an expandable section before responding.
 
-Thinking cannot be turned off in Claude when using Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5, Claude Fable 5.1, or Claude Opus 5. On Opus 5.5 and Fable 5.1, thinking is always on at every effort level, including on the Claude API.
+Thinking cannot be turned off in Claude when using Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5, Claude Fable 5.1, or Claude Opus 5.
+
+On Opus 5.5 and Fable 5.1, thinking is always on at every effort level, including on the Claude API. On the Claude API, these models return an error for requests that set thinking to disabled or set a manual thinking budget (`budget_tokens`). Use adaptive thinking and set the effort level instead.
 
 For Haiku 5.5 and Opus 5 on the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error. If you run Sonnet 5.5 on the Claude API with thinking turned off, use the new `between_tools` setting to turn upfront thinking off. With `between_tools`, thinking only happens between tool calls, and total response time is the same or faster. Sonnet 5.5 returns an error for requests that set thinking to disabled, so make this change before you switch models.
 
@@ -67,6 +69,8 @@ For models with effort levels:
 2. Mouse over "Effort."
 
 3. Switch the "Thinking" (or “Extended”) toggle on or off.
+
+The thinking toggle doesn’t appear for models where thinking is always on. To make Claude think less on these models, choose a lower effort level.
 
 For other models:
 

@@ -303,6 +303,8 @@ url: https://platform.claude.com/docs/en/api/java/beta
 
     Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+    pattern: ^(0|[1-9]\d*)$
+
   - `BetaCurrency currency`
 
     Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -23029,7 +23031,7 @@ Create Agent
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. Defaults to `standard`.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -23519,6 +23521,8 @@ Create Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.
@@ -23647,7 +23651,7 @@ Create Agent
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-        minLength: 1, maxLength: 128
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
 #### Returns
 
@@ -24318,6 +24322,8 @@ Create Agent
             - `Optional<String> country`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `Optional<String> region`
 
@@ -25391,6 +25397,8 @@ List Agents
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.
@@ -26447,6 +26455,8 @@ Get Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.
@@ -27006,7 +27016,7 @@ Update Agent
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. Defaults to `standard`.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -27464,6 +27474,8 @@ Update Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.
@@ -27592,7 +27604,7 @@ Update Agent
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-        minLength: 1, maxLength: 128
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `Optional<Long> version`
 
@@ -28269,6 +28281,8 @@ Update Agent
             - `Optional<String> country`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `Optional<String> region`
 
@@ -29314,6 +29328,8 @@ Archive Agent
             - `Optional<String> country`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `Optional<String> region`
 
@@ -30371,6 +30387,8 @@ List Agent Versions
             - `Optional<String> country`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `Optional<String> region`
 
@@ -35085,7 +35103,7 @@ Create Session
 
           - `Optional<Speed> speed`
 
-            Inference speed mode. Defaults to `standard`.
+            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
             - `STANDARD("standard")`
 
@@ -35533,6 +35551,8 @@ Create Session
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -35661,7 +35681,7 @@ Create Session
 
             Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-            minLength: 1, maxLength: 128
+            minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `Optional<Long> version`
 
@@ -35929,7 +35949,7 @@ Create Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -35964,6 +35984,8 @@ Create Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -36555,6 +36577,8 @@ Create Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -36863,6 +36887,8 @@ Create Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -36955,7 +36981,7 @@ Create Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -36988,6 +37014,8 @@ Create Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -38136,6 +38164,8 @@ List Sessions
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -38444,6 +38474,8 @@ List Sessions
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -38536,7 +38568,7 @@ List Sessions
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -38569,6 +38601,8 @@ List Sessions
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -39637,6 +39671,8 @@ Get Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -39945,6 +39981,8 @@ Get Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -40037,7 +40075,7 @@ Get Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -40070,6 +40108,8 @@ Get Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -41154,6 +41194,8 @@ Update Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -41462,6 +41504,8 @@ Update Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -41554,7 +41598,7 @@ Update Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -41587,6 +41631,8 @@ Update Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -42823,6 +42869,8 @@ Archive Session
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
+                        pattern: ^[A-Z]{2}$
+
                       - `Optional<String> region`
 
                         Region or state name.
@@ -43131,6 +43179,8 @@ Archive Session
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -43223,7 +43273,7 @@ Archive Session
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
     - `class BetaManagedAgentsFileResource`
 
@@ -43256,6 +43306,8 @@ Archive Session
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -44832,6 +44884,58 @@ List Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -46122,6 +46226,8 @@ List Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -46423,6 +46529,8 @@ List Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -48940,6 +49048,58 @@ Stream Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -50230,6 +50390,8 @@ Stream Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -50531,6 +50693,8 @@ Stream Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -51393,7 +51557,7 @@ List Session Resources
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -51426,6 +51590,8 @@ List Session Resources
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 
@@ -51688,7 +51854,7 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -51721,6 +51887,8 @@ Get Session Resource
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 
@@ -51980,7 +52148,7 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-          minLength: 7, maxLength: 64
+          minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
   - `class BetaManagedAgentsFileResource`
 
@@ -52013,6 +52181,8 @@ Update Session Resource
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      pattern: ^memstore_[a-zA-Z0-9_]+$
 
     - `Optional<Access> access`
 
@@ -52955,6 +53125,8 @@ List Session Threads
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -53228,6 +53400,8 @@ List Session Threads
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -54046,6 +54220,8 @@ Get Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -54319,6 +54495,8 @@ Get Session Thread
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -55136,6 +55314,8 @@ Archive Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Optional<String> region`
 
                   Region or state name.
@@ -55409,6 +55589,8 @@ Archive Session Thread
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -56654,6 +56836,58 @@ List Session Thread Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -57944,6 +58178,8 @@ List Session Thread Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -58245,6 +58481,8 @@ List Session Thread Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -59779,6 +60017,58 @@ Stream Session Thread Events
 
           ID of the vault containing the affected credential.
 
+      - `class BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "tool_use_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `class BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `JsonValue type = "compaction_limit_reached_error"`
+
+        - `String message`
+
+          Human-readable error description.
+
+        - `RetryStatus retryStatus`
+
+          What the client should do next.
+
+          - `class BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `class BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `class BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `class BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -61069,6 +61359,8 @@ Stream Session Thread Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Optional<String> region`
 
                           Region or state name.
@@ -61370,6 +61662,8 @@ Stream Session Thread Events
         - `String amount`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `BetaCurrency currency`
 
@@ -62291,7 +62585,7 @@ Create Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -62326,6 +62620,8 @@ Create Deployment
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -62759,7 +63055,7 @@ Create Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -62864,6 +63160,8 @@ Create Deployment
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -63541,7 +63839,7 @@ List Deployments
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -63646,6 +63944,8 @@ List Deployments
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -64290,7 +64590,7 @@ Get Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -64395,6 +64695,8 @@ Get Deployment
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -64938,7 +65240,7 @@ Update Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -64973,6 +65275,8 @@ Update Deployment
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+        pattern: ^memstore_[a-zA-Z0-9_]+$
 
       - `Optional<Access> access`
 
@@ -65406,7 +65710,7 @@ Update Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -65511,6 +65815,8 @@ Update Deployment
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -66150,7 +66456,7 @@ Archive Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -66255,6 +66561,8 @@ Archive Deployment
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -67300,7 +67608,7 @@ Pause Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -67405,6 +67713,8 @@ Pause Deployment
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -68044,7 +68354,7 @@ Unpause Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `Optional<String> mountPath`
 
@@ -68149,6 +68459,8 @@ Unpause Deployment
       - `String amount`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `BetaCurrency currency`
 
@@ -70524,7 +70836,7 @@ Create a Credential
 
         The OAuth access token to send to the MCP server.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `String mcpServerUrl`
 
@@ -70616,7 +70928,7 @@ Create a Credential
 
         The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `String mcpServerUrl`
 
@@ -70656,13 +70968,13 @@ Create a Credential
 
         Name of the environment variable. Immutable after create.
 
-        minLength: 1, maxLength: 255
+        minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
       - `String secretValue`
 
         The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `Optional<BetaManagedAgentsInjectionLocationParams> injectionLocation`
 
@@ -71741,7 +72053,7 @@ Update a Credential
 
         The new OAuth access token to replace the stored one.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `Optional<LocalDateTime> expiresAt`
 
@@ -71809,7 +72121,7 @@ Update a Credential
 
         The new static bearer token to replace the stored one.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `class BetaManagedAgentsEnvironmentVariableUpdateParams`
 
@@ -71855,7 +72167,7 @@ Update a Credential
 
         The new secret value to replace the stored one.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `Optional<String> displayName`
 
@@ -74421,7 +74733,7 @@ Create a Memory
 
     A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long.
 
-    minLength: 2, maxLength: 1024
+    minLength: 2, maxLength: 1024, pattern: ^(/[^/ ]+)+$
 
 #### Returns
 
@@ -74506,7 +74818,7 @@ public final class Main {
         MemoryCreateParams params = MemoryCreateParams.builder()
             .memoryStoreId("memory_store_id")
             .content("content")
-            .path("xx")
+            .path("/P")
             .build();
         BetaManagedAgentsMemory betaManagedAgentsMemory = client.beta().memoryStores().memories().create(params);
     }
@@ -75229,7 +75541,7 @@ Update a Memory
 
     The memory keeps its `id`. A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long. Paths are case-sensitive.
 
-    minLength: 2, maxLength: 1024
+    minLength: 2, maxLength: 1024, pattern: ^(/[^/ ]+)+$
 
   - `Optional<BetaManagedAgentsPrecondition> precondition`
 
@@ -79654,6 +79966,1300 @@ public final class Main {
 }
 ```
 
+## Beta › Webhooks
+
+### Unwrap
+
+`UnwrapWebhookEvent beta().webhooks().unwrap(unwrapParams)`
+
+Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
+headers using your webhook signing key, then parses the payload into an event. Fails if the
+signature is missing or invalid.
+
+#### Parameters
+
+- `UnwrapWebhookParams unwrapParams`
+
+  - `String body`
+
+    The body of the incoming webhook request, exactly as received: the signature is computed over these bytes.
+
+  - `Headers headers`
+
+    The HTTP headers of the incoming webhook request. Verification reads `webhook-id`, `webhook-timestamp` and `webhook-signature`.
+
+  - `Optional<String> secret`
+
+    The webhook signing key. Defaults to the client's `webhookKey` option.
+
+#### Returns
+
+- `class UnwrapWebhookEvent`
+
+  - `JsonValue type = "event"`
+
+    Object type. Always `event` for webhook payloads.
+
+  - `String id`
+
+    Unique event identifier for idempotency.
+
+  - `LocalDateTime createdAt`
+
+    RFC 3339 timestamp when the event occurred.
+
+    format: date-time
+
+  - `BetaWebhookEventData data`
+
+    - `class BetaWebhookSessionCreatedEventData`
+
+      - `JsonValue type = "session.created"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionPendingEventData`
+
+      - `JsonValue type = "session.pending"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionRunningEventData`
+
+      - `JsonValue type = "session.running"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionIdledEventData`
+
+      - `JsonValue type = "session.idled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionRequiresActionEventData`
+
+      - `JsonValue type = "session.requires_action"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionArchivedEventData`
+
+      - `JsonValue type = "session.archived"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionDeletedEventData`
+
+      - `JsonValue type = "session.deleted"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusRescheduledEventData`
+
+      - `JsonValue type = "session.status_rescheduled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusRunStartedEventData`
+
+      - `JsonValue type = "session.status_run_started"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusIdledEventData`
+
+      - `JsonValue type = "session.status_idled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusTerminatedEventData`
+
+      - `JsonValue type = "session.status_terminated"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionThreadCreatedEventData`
+
+      - `JsonValue type = "session.thread_created"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String sessionThreadId`
+
+        ID of the session thread this event refers to.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionThreadIdledEventData`
+
+      - `JsonValue type = "session.thread_idled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String sessionThreadId`
+
+        ID of the session thread this event refers to.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionThreadTerminatedEventData`
+
+      - `JsonValue type = "session.thread_terminated"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String sessionThreadId`
+
+        ID of the session thread this event refers to.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionOutcomeEvaluationEndedEventData`
+
+      - `JsonValue type = "session.outcome_evaluation_ended"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCreatedEventData`
+
+      - `JsonValue type = "vault.created"`
+
+      - `String id`
+
+        ID of the vault that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultArchivedEventData`
+
+      - `JsonValue type = "vault.archived"`
+
+      - `String id`
+
+        ID of the vault that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultDeletedEventData`
+
+      - `JsonValue type = "vault.deleted"`
+
+      - `String id`
+
+        ID of the vault that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialCreatedEventData`
+
+      - `JsonValue type = "vault_credential.created"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialArchivedEventData`
+
+      - `JsonValue type = "vault_credential.archived"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialDeletedEventData`
+
+      - `JsonValue type = "vault_credential.deleted"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialRefreshFailedEventData`
+
+      - `JsonValue type = "vault_credential.refresh_failed"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionUpdatedEventData`
+
+      - `JsonValue type = "session.updated"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentCreatedEventData`
+
+      - `JsonValue type = "agent.created"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentArchivedEventData`
+
+      - `JsonValue type = "agent.archived"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentDeletedEventData`
+
+      - `JsonValue type = "agent.deleted"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentPausedEventData`
+
+      - `JsonValue type = "deployment.paused"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentRunFailedEventData`
+
+      - `JsonValue type = "deployment_run.failed"`
+
+      - `String id`
+
+        ID of the deployment run that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentCreatedEventData`
+
+      - `JsonValue type = "deployment.created"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentUpdatedEventData`
+
+      - `JsonValue type = "deployment.updated"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentUnpausedEventData`
+
+      - `JsonValue type = "deployment.unpaused"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentUpdatedEventData`
+
+      - `JsonValue type = "agent.updated"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentArchivedEventData`
+
+      - `JsonValue type = "deployment.archived"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentRunStartedEventData`
+
+      - `JsonValue type = "deployment_run.started"`
+
+      - `String id`
+
+        ID of the deployment run that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentDeletedEventData`
+
+      - `JsonValue type = "deployment.deleted"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentRunSucceededEventData`
+
+      - `JsonValue type = "deployment_run.succeeded"`
+
+      - `String id`
+
+        ID of the deployment run that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentCreatedEventData`
+
+      - `JsonValue type = "environment.created"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData`
+
+      - `JsonValue type = "environment.updated"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentArchivedEventData`
+
+      - `JsonValue type = "environment.archived"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentDeletedEventData`
+
+      - `JsonValue type = "environment.deleted"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData`
+
+      - `JsonValue type = "memory_store.created"`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData`
+
+      - `JsonValue type = "memory_store.archived"`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData`
+
+      - `JsonValue type = "memory_store.deleted"`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionBudgetReachedEventData`
+
+      - `JsonValue type = "session.budget_reached"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `JsonValue type = "user_profile.enforcement_action_opened"`
+
+      - `String id`
+
+        ID of the user profile the enforcement action is on.
+
+      - `String enforcementActionId`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `String organizationId`
+
+    - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `JsonValue type = "user_profile.enforcement_action_resolved"`
+
+      - `String id`
+
+        ID of the user profile the enforcement action is on.
+
+      - `String enforcementActionId`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `String organizationId`
+
+#### Example
+
+```java
+package com.anthropic.example;
+
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.core.UnwrapWebhookParams;
+import com.anthropic.models.beta.webhooks.UnwrapWebhookEvent;
+
+public final class Main {
+    private Main() {}
+
+    public static void main(String[] args) {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        // `body` is the raw body of the incoming webhook request and `headers` are its HTTP headers as a `Headers` (`Headers.builder().put(name, value).build()`).
+        UnwrapWebhookParams params = UnwrapWebhookParams.builder()
+            .body(body)
+            .headers(headers)
+            .build();
+        UnwrapWebhookEvent event = client.beta().webhooks().unwrap(params);
+    }
+}
+```
+
+### Parse Unverified
+
+`UnwrapWebhookEvent beta().webhooks().parseUnverified(body)`
+
+Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
+you have already verified the signature yourself.
+
+#### Parameters
+
+- `String body`
+
+  The raw JSON body of the incoming webhook request.
+
+#### Returns
+
+- `class UnwrapWebhookEvent`
+
+  - `JsonValue type = "event"`
+
+    Object type. Always `event` for webhook payloads.
+
+  - `String id`
+
+    Unique event identifier for idempotency.
+
+  - `LocalDateTime createdAt`
+
+    RFC 3339 timestamp when the event occurred.
+
+    format: date-time
+
+  - `BetaWebhookEventData data`
+
+    - `class BetaWebhookSessionCreatedEventData`
+
+      - `JsonValue type = "session.created"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionPendingEventData`
+
+      - `JsonValue type = "session.pending"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionRunningEventData`
+
+      - `JsonValue type = "session.running"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionIdledEventData`
+
+      - `JsonValue type = "session.idled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionRequiresActionEventData`
+
+      - `JsonValue type = "session.requires_action"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionArchivedEventData`
+
+      - `JsonValue type = "session.archived"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionDeletedEventData`
+
+      - `JsonValue type = "session.deleted"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusRescheduledEventData`
+
+      - `JsonValue type = "session.status_rescheduled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusRunStartedEventData`
+
+      - `JsonValue type = "session.status_run_started"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusIdledEventData`
+
+      - `JsonValue type = "session.status_idled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionStatusTerminatedEventData`
+
+      - `JsonValue type = "session.status_terminated"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionThreadCreatedEventData`
+
+      - `JsonValue type = "session.thread_created"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String sessionThreadId`
+
+        ID of the session thread this event refers to.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionThreadIdledEventData`
+
+      - `JsonValue type = "session.thread_idled"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String sessionThreadId`
+
+        ID of the session thread this event refers to.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionThreadTerminatedEventData`
+
+      - `JsonValue type = "session.thread_terminated"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String sessionThreadId`
+
+        ID of the session thread this event refers to.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionOutcomeEvaluationEndedEventData`
+
+      - `JsonValue type = "session.outcome_evaluation_ended"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCreatedEventData`
+
+      - `JsonValue type = "vault.created"`
+
+      - `String id`
+
+        ID of the vault that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultArchivedEventData`
+
+      - `JsonValue type = "vault.archived"`
+
+      - `String id`
+
+        ID of the vault that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultDeletedEventData`
+
+      - `JsonValue type = "vault.deleted"`
+
+      - `String id`
+
+        ID of the vault that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialCreatedEventData`
+
+      - `JsonValue type = "vault_credential.created"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialArchivedEventData`
+
+      - `JsonValue type = "vault_credential.archived"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialDeletedEventData`
+
+      - `JsonValue type = "vault_credential.deleted"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookVaultCredentialRefreshFailedEventData`
+
+      - `JsonValue type = "vault_credential.refresh_failed"`
+
+      - `String id`
+
+        ID of the vault credential that triggered the event.
+
+      - `String organizationId`
+
+      - `String vaultId`
+
+        ID of the vault that owns this credential.
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionUpdatedEventData`
+
+      - `JsonValue type = "session.updated"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentCreatedEventData`
+
+      - `JsonValue type = "agent.created"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentArchivedEventData`
+
+      - `JsonValue type = "agent.archived"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentDeletedEventData`
+
+      - `JsonValue type = "agent.deleted"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentPausedEventData`
+
+      - `JsonValue type = "deployment.paused"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentRunFailedEventData`
+
+      - `JsonValue type = "deployment_run.failed"`
+
+      - `String id`
+
+        ID of the deployment run that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentCreatedEventData`
+
+      - `JsonValue type = "deployment.created"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentUpdatedEventData`
+
+      - `JsonValue type = "deployment.updated"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentUnpausedEventData`
+
+      - `JsonValue type = "deployment.unpaused"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookAgentUpdatedEventData`
+
+      - `JsonValue type = "agent.updated"`
+
+      - `String id`
+
+        ID of the agent that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentArchivedEventData`
+
+      - `JsonValue type = "deployment.archived"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentRunStartedEventData`
+
+      - `JsonValue type = "deployment_run.started"`
+
+      - `String id`
+
+        ID of the deployment run that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentDeletedEventData`
+
+      - `JsonValue type = "deployment.deleted"`
+
+      - `String id`
+
+        ID of the deployment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookDeploymentRunSucceededEventData`
+
+      - `JsonValue type = "deployment_run.succeeded"`
+
+      - `String id`
+
+        ID of the deployment run that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentCreatedEventData`
+
+      - `JsonValue type = "environment.created"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData`
+
+      - `JsonValue type = "environment.updated"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentArchivedEventData`
+
+      - `JsonValue type = "environment.archived"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentDeletedEventData`
+
+      - `JsonValue type = "environment.deleted"`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData`
+
+      - `JsonValue type = "memory_store.created"`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData`
+
+      - `JsonValue type = "memory_store.archived"`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData`
+
+      - `JsonValue type = "memory_store.deleted"`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionBudgetReachedEventData`
+
+      - `JsonValue type = "session.budget_reached"`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `JsonValue type = "user_profile.enforcement_action_opened"`
+
+      - `String id`
+
+        ID of the user profile the enforcement action is on.
+
+      - `String enforcementActionId`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `String organizationId`
+
+    - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `JsonValue type = "user_profile.enforcement_action_resolved"`
+
+      - `String id`
+
+        ID of the user profile the enforcement action is on.
+
+      - `String enforcementActionId`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `String organizationId`
+
+#### Example
+
+```java
+package com.anthropic.example;
+
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.webhooks.UnwrapWebhookEvent;
+
+public final class Main {
+    private Main() {}
+
+    public static void main(String[] args) {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        // `body` is the raw body of the incoming webhook request.
+        UnwrapWebhookEvent event = client.beta().webhooks().parseUnverified(body);
+    }
+}
+```
+
 ## Beta › User Profiles
 
 ### Create User Profile
@@ -81750,15 +83356,13 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
         Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
 
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists all the limits on a dream.
-
   - `Model model`
 
     The model that runs a dream, given as a model ID or as an object with `id` and `speed`.
 
     In the object form, `speed` can only be `standard`.
 
-    The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists the supported models.
+    The [Availability section of the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#feature-availability) lists the supported models.
 
     - `String`
 
@@ -81772,7 +83376,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
         The ID can be 1 to 256 characters long.
 
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists the supported models.
+        The [Availability section of the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#feature-availability) lists the supported models.
 
         minLength: 1, maxLength: 256
 
@@ -81881,8 +83485,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
         The IDs of the sessions whose transcripts the dream reads (`sesn_...`).
 
         Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
-
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists all the limits on a dream.
 
   - `Optional<String> instructions`
 
@@ -82373,8 +83975,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
         Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
 
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists all the limits on a dream.
-
   - `Optional<String> instructions`
 
     The guidance given when the dream was created, or `null` if none was given.
@@ -82807,8 +84407,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
         Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
 
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists all the limits on a dream.
-
   - `Optional<String> instructions`
 
     The guidance given when the dream was created, or `null` if none was given.
@@ -83236,8 +84834,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
         Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
 
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists all the limits on a dream.
-
   - `Optional<String> instructions`
 
     The guidance given when the dream was created, or `null` if none was given.
@@ -83664,8 +85260,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
         The IDs of the sessions whose transcripts the dream reads (`sesn_...`).
 
         Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
-
-        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=java#limits) lists all the limits on a dream.
 
   - `Optional<String> instructions`
 
@@ -98232,7 +99826,7 @@ the `read:analytics` scope.
 
     maxItems: 100
 
-  - `Optional<List<GroupBy>> groupBy` (query parameter)
+  - `Optional<List<BetaAnalyticsUserGroupBy>> groupBy` (query parameter)
 
     Dimensions to break results out by (e.g. `group_by[]=rbac_group_id`). Supported on this endpoint: `rbac_group_id`. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -98246,13 +99840,9 @@ the `read:analytics` scope.
 
     minimum: 1, maximum: 1000
 
-  - `Optional<Order> order` (query parameter)
+  - `Optional<BetaAnalyticsOrder> order` (query parameter)
 
     Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
-
-    - `ASC("asc")`
-
-    - `DESC("desc")`
 
   - `Optional<String> orderBy` (query parameter)
 
@@ -98414,6 +100004,10 @@ the `read:analytics` scope.
 
       Number of distinct connectors used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
+    - `Optional<Long> distinctPluginsUsedCount`
+
+      Number of distinct plugins used in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
     - `Optional<Long> distinctSessionCount`
 
       Number of distinct Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
@@ -98422,18 +100016,6 @@ the `read:analytics` scope.
 
       Number of distinct skills used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-    - `long messageCount`
-
-      Number of messages sent in Cowork sessions
-
-    - `long skillsUsedCount`
-
-      Total number of skill invocations in Cowork sessions
-
-    - `Optional<Long> distinctPluginsUsedCount`
-
-      Number of distinct plugins used in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
-
     - `Optional<Long> editToolCount`
 
       Number of successful Edit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
@@ -98441,6 +100023,10 @@ the `read:analytics` scope.
     - `Optional<Long> fileEditCount`
 
       Number of successful file-edit tool calls (Edit, MultiEdit, Write, NotebookEdit) in Cowork sessions. Null, never 0, while the file-edit metrics are not enabled for this organization.
+
+    - `long messageCount`
+
+      Number of messages sent in Cowork sessions
 
     - `Optional<Long> multiEditToolCount`
 
@@ -98457,6 +100043,10 @@ the `read:analytics` scope.
     - `Optional<Long> sessionsWithFileEditsCount`
 
       Number of distinct Cowork sessions with at least one successful file-edit tool call. Null while the file-edit metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `long skillsUsedCount`
+
+      Total number of skill invocations in Cowork sessions
 
     - `Optional<Long> writeToolCount`
 
@@ -98481,6 +100071,10 @@ the `read:analytics` scope.
     - `long messageCount`
 
       Number of messages sent in Claude Design sessions
+
+  - `Optional<Long> distinctUserCount`
+
+    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
 
   - `BetaAnalyticsOfficeMetrics officeMetrics`
 
@@ -98550,11 +100144,27 @@ the `read:analytics` scope.
 
       Total number of skill invocations in Claude Science sessions
 
+  - `Optional<BetaAnalyticsUser> user`
+
+    The user this row describes. Null on rows aggregated across users.
+
+    - `JsonValue type = "user"`
+
+      Object type. Always `user`.
+
+    - `String id`
+
+      Tagged user identifier (e.g. `user_...`)
+
+    - `String emailAddress`
+
+      Email address of the user
+
   - `long webSearchCount`
 
     Number of web searches performed
 
-  - `Optional<ChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
+  - `Optional<BetaAnalyticsChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
 
     Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
@@ -98684,10 +100294,6 @@ the `read:analytics` scope.
 
         Same measure as `cowork_metrics.write_tool_count`, for activity recorded while members had Chat and Cowork unified turned on.
 
-  - `Optional<Long> distinctUserCount`
-
-    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
-
   - `Optional<LocalDate> lastActivityDate`
 
     Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
@@ -98701,22 +100307,6 @@ the `read:analytics` scope.
   - `Optional<String> rbacGroupName`
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-
-  - `Optional<BetaAnalyticsUser> user`
-
-    The user this row describes. Null on rows aggregated across users.
-
-    - `JsonValue type = "user"`
-
-      Object type. Always `user`.
-
-    - `String id`
-
-      Tagged user identifier (e.g. `user_...`)
-
-    - `String emailAddress`
-
-      Email address of the user
 
 #### Example
 
@@ -98795,17 +100385,17 @@ public final class Main {
         "connectors_used_count": 0,
         "dispatch_turn_count": 0,
         "distinct_connectors_used_count": 0,
+        "distinct_plugins_used_count": 0,
         "distinct_session_count": 0,
         "distinct_skills_used_count": 0,
-        "message_count": 0,
-        "skills_used_count": 0,
-        "distinct_plugins_used_count": 0,
         "edit_tool_count": 0,
         "file_edit_count": 0,
+        "message_count": 0,
         "multi_edit_tool_count": 0,
         "notebook_edit_tool_count": 0,
         "plugins_used_count": 0,
         "sessions_with_file_edits_count": 0,
+        "skills_used_count": 0,
         "write_tool_count": 0
       },
       "design_metrics": {
@@ -98814,6 +100404,7 @@ public final class Main {
         "distinct_session_count": 0,
         "message_count": 0
       },
+      "distinct_user_count": 0,
       "office_metrics": {
         "excel": {
           "connectors_used_count": 0,
@@ -98855,6 +100446,11 @@ public final class Main {
         "remote_compute_job_count": 0,
         "skills_used_count": 0
       },
+      "user": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      },
       "web_search_count": 0,
       "chat_cowork_unified_metrics": {
         "chat": {
@@ -98891,15 +100487,9 @@ public final class Main {
           "write_tool_count": 0
         }
       },
-      "distinct_user_count": 0,
       "last_activity_date": "2019-12-27",
       "rbac_group_id": "rbac_group_id",
-      "rbac_group_name": "rbac_group_name",
-      "user": {
-        "id": "id",
-        "email_address": "email_address",
-        "type": "user"
-      }
+      "rbac_group_name": "rbac_group_name"
     }
   ],
   "next_page": "next_page"
@@ -98944,7 +100534,7 @@ plan. Requires an API key with the `read:analytics` scope.
 
     maxItems: 100
 
-  - `Optional<List<GroupBy>> groupBy` (query parameter)
+  - `Optional<List<BetaAnalyticsProjectGroupBy>> groupBy` (query parameter)
 
     Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -98960,13 +100550,9 @@ plan. Requires an API key with the `read:analytics` scope.
 
     minimum: 1, maximum: 1000
 
-  - `Optional<Order> order` (query parameter)
+  - `Optional<BetaAnalyticsOrder> order` (query parameter)
 
     Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
-
-    - `ASC("asc")`
-
-    - `DESC("desc")`
 
   - `Optional<String> orderBy` (query parameter)
 
@@ -98987,22 +100573,6 @@ plan. Requires an API key with the `read:analytics` scope.
 - `class BetaAnalyticsProjectActivity`
 
   Per-project activity data for a given day.
-
-  - `long distinctUserCount`
-
-    Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
-
-  - `long messageCount`
-
-    Number of messages sent in the project on the requested day
-
-  - `String projectId`
-
-    Tagged project identifier (e.g. `claude_proj_...`)
-
-  - `String projectName`
-
-    Name of the project
 
   - `Optional<LocalDateTime> createdAt`
 
@@ -99030,9 +100600,21 @@ plan. Requires an API key with the `read:analytics` scope.
 
     Number of distinct conversations in the project. Null on aggregated rows where a distinct count cannot be computed.
 
-  - `Optional<String> product`
+  - `long distinctUserCount`
 
-    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, `office_agent`, or `chat_cowork_unified` (Chat and Cowork unified). These are the canonical Cost & Usage product names; an `office_agent` row's per-surface breakdown is in its `office_metrics`. On `/plugins` only `cowork`, `claude_code` and `chat_cowork_unified` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, `cowork` and `chat_cowork_unified` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+    Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `long messageCount`
+
+    Number of messages sent in the project on the requested day
+
+  - `String projectId`
+
+    Tagged project identifier (e.g. `claude_proj_...`)
+
+  - `String projectName`
+
+    Name of the project
 
   - `Optional<String> rbacGroupId`
 
@@ -99073,10 +100655,6 @@ public final class Main {
 {
   "data": [
     {
-      "distinct_user_count": 0,
-      "message_count": 0,
-      "project_id": "project_id",
-      "project_name": "project_name",
       "created_at": "2019-12-27T18:11:19.117Z",
       "created_by": {
         "id": "id",
@@ -99084,7 +100662,10 @@ public final class Main {
         "type": "user"
       },
       "distinct_conversation_count": 0,
-      "product": "product",
+      "distinct_user_count": 0,
+      "message_count": 0,
+      "project_id": "project_id",
+      "project_name": "project_name",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
       "user_id": "user_id"
@@ -99135,7 +100716,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     maxItems: 100
 
-  - `Optional<List<GroupBy>> groupBy` (query parameter)
+  - `Optional<List<BetaAnalyticsConnectorGroupBy>> groupBy` (query parameter)
 
     Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -99153,13 +100734,9 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     minimum: 1, maximum: 1000
 
-  - `Optional<Order> order` (query parameter)
+  - `Optional<BetaAnalyticsOrder> order` (query parameter)
 
     Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
-
-    - `ASC("asc")`
-
-    - `DESC("desc")`
 
   - `Optional<String> orderBy` (query parameter)
 
@@ -99197,6 +100774,10 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Number of distinct Claude Code sessions in which the connector was used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
+  - `Optional<String> connectorDisplayName`
+
+    Human-readable display name for rows whose `connector_name` is an opaque connector id rather than a readable name, resolved at request time from the organization's connectors (including connectors that have since been removed). `connector_name` remains the row's stable key for sorting and pagination, and `filter[]=connector_name:{value}` also matches these rows by display name. Display names are not unique, and the same connector's claude.ai usage can appear under a separate row with a readable `connector_name`. Null when `connector_name` is already a readable name, when the id cannot be resolved to one of the organization's connectors, or when display-name resolution is not enabled for this organization.
+
   - `String connectorName`
 
     Name of the connector. Some rows carry an opaque connector id here instead of a readable name; `connector_display_name` holds the resolved name for those rows.
@@ -99212,6 +100793,14 @@ organizations on a Claude Enterprise plan. Requires an API key with the
   - `long distinctUserCount`
 
     Number of distinct users who used the connector on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `Optional<Long> individualAuthDistinctUserCount`
+
+    Number of distinct users whose use of this connector on the requested day ran on their own individual credential, connected through their own consent flow. Companion bucket to `managed_auth_distinct_user_count`, which carries the measurement, attribution, and null rules. Users whose requests used no stored credential count in neither bucket.
+
+  - `Optional<Long> managedAuthDistinctUserCount`
+
+    Number of distinct users whose use of this connector on the requested day ran on Enterprise Managed Auth (an organization-managed credential provisioned through the organization's identity provider), read from the token record each request used. Null, never 0, when managed-auth reporting is not enabled for the organization, the value cannot be attributed to the row, no credentialed requests and no managed-token mint events (a managed credential being provisioned for a user's use of the connector) were observed that day, or the day predates 2026-07-01, the first day the backing data exists (forward-only data, no backfill). When credentialed requests or mint events were observed and attributed, both managed-auth fields populate, reporting 0 for a bucket with no users; the two counts are independent, not a partition — a user whose requests that day used both kinds of credential counts in both. Mint events carry user but not surface attribution, so they count as observed auth activity on `user_id` and `rbac_group_id` cuts — attributed to the user the credential was provisioned for — but never on a cut that references `product` (group or filter). Date-range rollup mode (`starting_date`/`ending_date`) computes both fields exactly over the window — distinct users with at least one qualifying day — when the whole window starts on or after 2026-07-01, with the null-versus-0 and mint-event rules applying with the window in place of the day; a range starting earlier reports every managed-auth field as null, never a partial-window value.
 
   - `BetaAnalyticsConnectorOfficeMetrics officeMetrics`
 
@@ -99237,7 +100826,19 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Office Agent activity metrics for a single connector on a given day within one Office product.
 
-  - `Optional<ChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
+  - `Optional<Long> readCallCount`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them read-only. Call count, not distinct users. Every call recorded on a classified surface lands in exactly one of `read_call_count`, `write_call_count`, or `unclassified_call_count`, so the three sum to the day's classified calls. Classification is forward-only per surface: claude.ai from 2026-06-01, Claude Code from 2026-05-30, Claude in Office from 2026-05-29, Cowork from 2026-06-02 (Cowork clients predating annotation forwarding land in `unclassified_call_count`). Null, never 0, when the value cannot be stated: the read/write split is not enabled for this organization, or the day predates 2026-05-29. For a date-range total, sum the per-day values, but treat a window that extends before 2026-05-29 as null rather than summing only its covered days — date-range rollup mode (`starting_date`/`ending_date`) applies both rules server-side.
+
+  - `Optional<Long> unclassifiedCallCount`
+
+    Number of connector tool calls on the requested day with no trusted read-only annotation — the annotation is optional in the MCP spec and is discarded when connector access controls are active, so unclassified calls are common. This field shows how much of the day's classified activity the read/write split actually covers. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+  - `Optional<Long> writeCallCount`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them not read-only. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+  - `Optional<BetaAnalyticsConnectorChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
 
     Connector use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
@@ -99259,18 +100860,6 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
         Same measure as `cowork_metrics.distinct_session_connector_used_count`, for activity recorded while members had Chat and Cowork unified turned on. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-  - `Optional<String> connectorDisplayName`
-
-    Human-readable display name for rows whose `connector_name` is an opaque connector id rather than a readable name, resolved at request time from the organization's connectors (including connectors that have since been removed). `connector_name` remains the row's stable key for sorting and pagination, and `filter[]=connector_name:{value}` also matches these rows by display name. Display names are not unique, and the same connector's claude.ai usage can appear under a separate row with a readable `connector_name`. Null when `connector_name` is already a readable name, when the id cannot be resolved to one of the organization's connectors, or when display-name resolution is not enabled for this organization.
-
-  - `Optional<Long> individualAuthDistinctUserCount`
-
-    Number of distinct users whose use of this connector on the requested day ran on their own individual credential, connected through their own consent flow. Companion bucket to `managed_auth_distinct_user_count`, which carries the measurement, attribution, and null rules. Users whose requests used no stored credential count in neither bucket.
-
-  - `Optional<Long> managedAuthDistinctUserCount`
-
-    Number of distinct users whose use of this connector on the requested day ran on Enterprise Managed Auth (an organization-managed credential provisioned through the organization's identity provider), read from the token record each request used. Null, never 0, when managed-auth reporting is not enabled for the organization, the value cannot be attributed to the row, no credentialed requests and no managed-token mint events (a managed credential being provisioned for a user's use of the connector) were observed that day, or the day predates 2026-07-01, the first day the backing data exists (forward-only data, no backfill). When credentialed requests or mint events were observed and attributed, both managed-auth fields populate, reporting 0 for a bucket with no users; the two counts are independent, not a partition — a user whose requests that day used both kinds of credential counts in both. Mint events carry user but not surface attribution, so they count as observed auth activity on `user_id` and `rbac_group_id` cuts — attributed to the user the credential was provisioned for — but never on a cut that references `product` (group or filter). Date-range rollup mode (`starting_date`/`ending_date`) computes both fields exactly over the window — distinct users with at least one qualifying day — when the whole window starts on or after 2026-07-01, with the null-versus-0 and mint-event rules applying with the window in place of the day; a range starting earlier reports every managed-auth field as null, never a partial-window value.
-
   - `Optional<String> product`
 
     Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, `office_agent`, or `chat_cowork_unified` (Chat and Cowork unified). These are the canonical Cost & Usage product names; an `office_agent` row's per-surface breakdown is in its `office_metrics`. On `/plugins` only `cowork`, `claude_code` and `chat_cowork_unified` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, `cowork` and `chat_cowork_unified` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
@@ -99283,21 +100872,9 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
 
-  - `Optional<Long> readCallCount`
-
-    Number of connector tool calls on the requested day whose trusted read-only annotation marked them read-only. Call count, not distinct users. Every call recorded on a classified surface lands in exactly one of `read_call_count`, `write_call_count`, or `unclassified_call_count`, so the three sum to the day's classified calls. Classification is forward-only per surface: claude.ai from 2026-06-01, Claude Code from 2026-05-30, Claude in Office from 2026-05-29, Cowork from 2026-06-02 (Cowork clients predating annotation forwarding land in `unclassified_call_count`). Null, never 0, when the value cannot be stated: the read/write split is not enabled for this organization, or the day predates 2026-05-29. For a date-range total, sum the per-day values, but treat a window that extends before 2026-05-29 as null rather than summing only its covered days — date-range rollup mode (`starting_date`/`ending_date`) applies both rules server-side.
-
-  - `Optional<Long> unclassifiedCallCount`
-
-    Number of connector tool calls on the requested day with no trusted read-only annotation — the annotation is optional in the MCP spec and is discarded when connector access controls are active, so unclassified calls are common. This field shows how much of the day's classified activity the read/write split actually covers. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
-
   - `Optional<String> userId`
 
     Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
-
-  - `Optional<Long> writeCallCount`
-
-    Number of connector tool calls on the requested day whose trusted read-only annotation marked them not read-only. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
 
 #### Example
 
@@ -99332,11 +100909,14 @@ public final class Main {
       "claude_code_metrics": {
         "distinct_session_connector_used_count": 0
       },
+      "connector_display_name": "connector_display_name",
       "connector_name": "connector_name",
       "cowork_metrics": {
         "distinct_session_connector_used_count": 0
       },
       "distinct_user_count": 0,
+      "individual_auth_distinct_user_count": 0,
+      "managed_auth_distinct_user_count": 0,
       "office_metrics": {
         "excel": {
           "distinct_session_connector_used_count": 0
@@ -99351,6 +100931,9 @@ public final class Main {
           "distinct_session_connector_used_count": 0
         }
       },
+      "read_call_count": 0,
+      "unclassified_call_count": 0,
+      "write_call_count": 0,
       "chat_cowork_unified_metrics": {
         "chat": {
           "distinct_conversation_connector_used_count": 0
@@ -99359,16 +100942,10 @@ public final class Main {
           "distinct_session_connector_used_count": 0
         }
       },
-      "connector_display_name": "connector_display_name",
-      "individual_auth_distinct_user_count": 0,
-      "managed_auth_distinct_user_count": 0,
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
-      "read_call_count": 0,
-      "unclassified_call_count": 0,
-      "user_id": "user_id",
-      "write_call_count": 0
+      "user_id": "user_id"
     }
   ],
   "next_page": "next_page"
@@ -99419,7 +100996,7 @@ range-rollup mode like `/skills`.
 
     maxItems: 100
 
-  - `Optional<List<GroupBy>> groupBy` (query parameter)
+  - `Optional<List<BetaAnalyticsPluginGroupBy>> groupBy` (query parameter)
 
     Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product` takes the values `chat_cowork_unified`, `claude_code`, or `cowork` only (the surfaces with plugin attribution). Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -99437,13 +101014,9 @@ range-rollup mode like `/skills`.
 
     minimum: 1, maximum: 1000
 
-  - `Optional<Order> order` (query parameter)
+  - `Optional<BetaAnalyticsOrder> order` (query parameter)
 
     Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
-
-    - `ASC("asc")`
-
-    - `DESC("desc")`
 
   - `Optional<String> orderBy` (query parameter)
 
@@ -99499,21 +101072,21 @@ range-rollup mode like `/skills`.
 
     Number of plugin invocations on the requested day
 
+  - `Optional<String> pluginId`
+
+    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+
   - `String pluginName`
 
     Name of the plugin
 
-  - `Optional<ChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
+  - `Optional<BetaAnalyticsPluginChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
 
     Plugin use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
     - `Optional<Long> distinctSessionPluginUsedCount`
 
       Same measure as `cowork_metrics.distinct_session_plugin_used_count`, for activity recorded while members had Chat and Cowork unified turned on. Null on aggregated rows where a distinct count cannot be computed.
-
-  - `Optional<String> pluginId`
-
-    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
 
   - `Optional<String> product`
 
@@ -99567,11 +101140,11 @@ public final class Main {
       "distinct_user_count": 0,
       "install_count": 0,
       "invocation_count": 0,
+      "plugin_id": "plugin_id",
       "plugin_name": "plugin_name",
       "chat_cowork_unified_metrics": {
         "distinct_session_plugin_used_count": 0
       },
-      "plugin_id": "plugin_id",
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
@@ -99621,7 +101194,7 @@ on a Claude Enterprise plan. Requires an API key with the
 
     maxItems: 100
 
-  - `Optional<List<GroupBy>> groupBy` (query parameter)
+  - `Optional<List<BetaAnalyticsSkillGroupBy>> groupBy` (query parameter)
 
     Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -99639,13 +101212,9 @@ on a Claude Enterprise plan. Requires an API key with the
 
     minimum: 1, maximum: 1000
 
-  - `Optional<Order> order` (query parameter)
+  - `Optional<BetaAnalyticsOrder> order` (query parameter)
 
     Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
-
-    - `ASC("asc")`
-
-    - `DESC("desc")`
 
   - `Optional<String> orderBy` (query parameter)
 
@@ -99666,6 +101235,10 @@ on a Claude Enterprise plan. Requires an API key with the
 - `class BetaAnalyticsSkillActivity`
 
   Per-skill activity data for a given day.
+
+  - `Optional<String> attributedListPrice`
+
+    List-price (rate-card) value of the member requests attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD), from Claude Code, Cowork, and Office Agent request-level attribution — the value of requests that involved the skill, not the skill's incremental cost. Unlike `estimated_overage_spend` this reflects usage value regardless of how it was funded — seat-covered usage counts — but it is undiscounted and does not tie to billed spend or the organization's spend reporting. claude.ai chat usage carries no request-level attribution and contributes nothing: the field is null on `chat` product rows and on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start), and on ungrouped rows it covers the Claude Code + Cowork + Office Agent share only (null when no attributable usage exists). Also null under the same conditions as `estimated_overage_spend` (spend reporting not enabled for this organization, `office_agent` product cuts before the 2026-06-18 data-start). "0" means attributable usage existed but none was attributed to this skill. Addable across days: date-range rollup mode returns the window's sum. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
 
   - `BetaAnalyticsSkillChatMetrics chatMetrics`
 
@@ -99691,9 +101264,25 @@ on a Claude Enterprise plan. Requires an API key with the
 
       Number of distinct Cowork sessions in which the skill was used. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
+  - `Optional<String> currency`
+
+    Currency for this row's monetary fields (`estimated_overage_spend` and `attributed_list_price`), as an uppercase ISO-4217 code. Always "USD" when either amount is populated; null whenever both amounts are null.
+
   - `long distinctUserCount`
 
     Number of distinct users who used the skill on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted.
+
+  - `Optional<Long> enableCount`
+
+    Distinct accounts that enabled this skill on the requested day (claude.ai only — the skill analog of plugin `install_count`). The count is org-wide: null when enable reporting is not enabled for this organization, or when the request scopes to `user_id` / `rbac_group_id` / `product` via `group_by[]` or `filter[]` (an org-wide count would be misleading on per-cut rows). A distinct count, not an event count: summing across days double-counts members who enable the skill on more than one day, so it is also null in date-range rollup mode (`starting_date`/`ending_date`).
+
+  - `Optional<String> estimatedOverageSpend`
+
+    Estimated overage spend attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD; "1250" is $12.50, fractional cents possible) — an allocation of each member's daily post-discount, pre-credit metered overage spend (the same cost basis as the organization's spend reporting and the Cost & Usage API, so per-skill figures are directly comparable; spend with no skill attribution — including any member-day without skill invocations — is not represented, so skill rows sum to at most those totals) across the skills the member used. Overage only: usage covered by included seat allowances bills nothing and allocates $0 here — see `attributed_list_price` for the funding-independent usage-value companion. Claude Code, Cowork, and Office Agent spend use request-level skill attribution; claude.ai chat spend is approximated proportionally to skill-invoking messages. An estimate, not a billing number — and the cost of the requests/messages that involved the skill, not the skill's incremental cost (the same request would still have cost something without the skill active). "0" means no overage spend was attributed; null when spend reporting is not enabled for this organization, on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start). Addable across days: date-range rollup mode (`starting_date`/`ending_date`) returns the window's sum. With `group_by[]=user_id` each row carries the user's own attributed spend. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
+
+  - `Optional<Long> invocationCount`
+
+    Total number of times this skill was invoked on the requested day (the skill analog of plugin `invocation_count`). Unlike `distinct_user_count` — which answers '\# of users' — this is the true '# of uses'. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Null when invocation reporting is not enabled for this organization. Sum across a date range for total uses in the window — date-range rollup mode (`starting_date`/`ending_date`) returns this sum directly.
 
   - `BetaAnalyticsSkillOfficeMetrics officeMetrics`
 
@@ -99719,15 +101308,25 @@ on a Claude Enterprise plan. Requires an API key with the
 
       Office Agent activity metrics for a single skill on a given day within one Office product.
 
+  - `Optional<ShareStatus> shareStatus`
+
+    Skill share status (claude.ai only): one of `private`, `organization`, or `public`. Null for skills used only in Claude Code or Office (no per-skill share-status concept) and when share-status reporting is not yet available for the organization. Filterable via `filter[]=share_status:{value}`.
+
+    - `ORGANIZATION("organization")`
+
+    - `PRIVATE("private")`
+
+    - `PUBLIC("public")`
+
+  - `Optional<String> skillDisplayName`
+
+    Human-readable display name for rows whose `skill_name` is an opaque skill id (user/organization skill types and plugin-delivered skills, whose user-defined names usage reports generally withhold). Organization-shared skills and skills delivered by the organization's own plugins (its plugin marketplaces and its library) resolve; plugin skill names are shown without their 'plugin:' prefix. The literal 'unknown' bucket row gets a fixed 'Unknown skill' label. For a member's own skill (private or personal-plugin) it is null, except when the skill's owner used it from Claude Code or Cowork in the requested period: then it shows the name that client reported at the time. Apart from that, the names of members' own skills are not disclosed to analytics-key holders. Also null for Anthropic-provided plugin skills (not resolved), for an organization skill or plugin whose name can no longer be found (for example, one since deleted), when `skill_name` is already a display name, or when display-name resolution is not enabled for this organization.
+
   - `String skillName`
 
     Name of the skill
 
-  - `Optional<String> attributedListPrice`
-
-    List-price (rate-card) value of the member requests attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD), from Claude Code, Cowork, and Office Agent request-level attribution — the value of requests that involved the skill, not the skill's incremental cost. Unlike `estimated_overage_spend` this reflects usage value regardless of how it was funded — seat-covered usage counts — but it is undiscounted and does not tie to billed spend or the organization's spend reporting. claude.ai chat usage carries no request-level attribution and contributes nothing: the field is null on `chat` product rows and on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start), and on ungrouped rows it covers the Claude Code + Cowork + Office Agent share only (null when no attributable usage exists). Also null under the same conditions as `estimated_overage_spend` (spend reporting not enabled for this organization, `office_agent` product cuts before the 2026-06-18 data-start). "0" means attributable usage existed but none was attributed to this skill. Addable across days: date-range rollup mode returns the window's sum. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
-
-  - `Optional<ChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
+  - `Optional<BetaAnalyticsSkillChatCoworkUnifiedMetrics> chatCoworkUnifiedMetrics`
 
     Skill use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
@@ -99749,22 +101348,6 @@ on a Claude Enterprise plan. Requires an API key with the
 
         Same measure as `cowork_metrics.distinct_session_skill_used_count`, for activity recorded while members had Chat and Cowork unified turned on. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-  - `Optional<String> currency`
-
-    Currency for this row's monetary fields (`estimated_overage_spend` and `attributed_list_price`), as an uppercase ISO-4217 code. Always "USD" when either amount is populated; null whenever both amounts are null.
-
-  - `Optional<Long> enableCount`
-
-    Distinct accounts that enabled this skill on the requested day (claude.ai only — the skill analog of plugin `install_count`). The count is org-wide: null when enable reporting is not enabled for this organization, or when the request scopes to `user_id` / `rbac_group_id` / `product` via `group_by[]` or `filter[]` (an org-wide count would be misleading on per-cut rows). A distinct count, not an event count: summing across days double-counts members who enable the skill on more than one day, so it is also null in date-range rollup mode (`starting_date`/`ending_date`).
-
-  - `Optional<String> estimatedOverageSpend`
-
-    Estimated overage spend attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD; "1250" is $12.50, fractional cents possible) — an allocation of each member's daily post-discount, pre-credit metered overage spend (the same cost basis as the organization's spend reporting and the Cost & Usage API, so per-skill figures are directly comparable; spend with no skill attribution — including any member-day without skill invocations — is not represented, so skill rows sum to at most those totals) across the skills the member used. Overage only: usage covered by included seat allowances bills nothing and allocates $0 here — see `attributed_list_price` for the funding-independent usage-value companion. Claude Code, Cowork, and Office Agent spend use request-level skill attribution; claude.ai chat spend is approximated proportionally to skill-invoking messages. An estimate, not a billing number — and the cost of the requests/messages that involved the skill, not the skill's incremental cost (the same request would still have cost something without the skill active). "0" means no overage spend was attributed; null when spend reporting is not enabled for this organization, on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start). Addable across days: date-range rollup mode (`starting_date`/`ending_date`) returns the window's sum. With `group_by[]=user_id` each row carries the user's own attributed spend. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
-
-  - `Optional<Long> invocationCount`
-
-    Total number of times this skill was invoked on the requested day (the skill analog of plugin `invocation_count`). Unlike `distinct_user_count` — which answers '\# of users' — this is the true '# of uses'. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Null when invocation reporting is not enabled for this organization. Sum across a date range for total uses in the window — date-range rollup mode (`starting_date`/`ending_date`) returns this sum directly.
-
   - `Optional<String> product`
 
     Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, `office_agent`, or `chat_cowork_unified` (Chat and Cowork unified). These are the canonical Cost & Usage product names; an `office_agent` row's per-surface breakdown is in its `office_metrics`. On `/plugins` only `cowork`, `claude_code` and `chat_cowork_unified` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, `cowork` and `chat_cowork_unified` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
@@ -99776,20 +101359,6 @@ on a Claude Enterprise plan. Requires an API key with the
   - `Optional<String> rbacGroupName`
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-
-  - `Optional<ShareStatus> shareStatus`
-
-    Skill share status (claude.ai only): one of `private`, `organization`, or `public`. Null for skills used only in Claude Code or Office (no per-skill share-status concept) and when share-status reporting is not yet available for the organization. Filterable via `filter[]=share_status:{value}`.
-
-    - `ORGANIZATION("organization")`
-
-    - `PRIVATE("private")`
-
-    - `PUBLIC("public")`
-
-  - `Optional<String> skillDisplayName`
-
-    Human-readable display name for rows whose `skill_name` is an opaque skill id (user/organization skill types and plugin-delivered skills, whose user-defined names usage reports generally withhold). Organization-shared skills and skills delivered by the organization's own plugins (its plugin marketplaces and its library) resolve; plugin skill names are shown without their 'plugin:' prefix. The literal 'unknown' bucket row gets a fixed 'Unknown skill' label. For a member's own skill (private or personal-plugin) it is null, except when the skill's owner used it from Claude Code or Cowork in the requested period: then it shows the name that client reported at the time. Apart from that, the names of members' own skills are not disclosed to analytics-key holders. Also null for Anthropic-provided plugin skills (not resolved), for an organization skill or plugin whose name can no longer be found (for example, one since deleted), when `skill_name` is already a display name, or when display-name resolution is not enabled for this organization.
 
   - `Optional<String> userId`
 
@@ -99822,6 +101391,7 @@ public final class Main {
 {
   "data": [
     {
+      "attributed_list_price": "attributed_list_price",
       "chat_metrics": {
         "distinct_conversation_skill_used_count": 0
       },
@@ -99831,7 +101401,11 @@ public final class Main {
       "cowork_metrics": {
         "distinct_session_skill_used_count": 0
       },
+      "currency": "currency",
       "distinct_user_count": 0,
+      "enable_count": 0,
+      "estimated_overage_spend": "estimated_overage_spend",
+      "invocation_count": 0,
       "office_metrics": {
         "excel": {
           "distinct_session_skill_used_count": 0
@@ -99846,8 +101420,9 @@ public final class Main {
           "distinct_session_skill_used_count": 0
         }
       },
+      "share_status": "organization",
+      "skill_display_name": "skill_display_name",
       "skill_name": "skill_name",
-      "attributed_list_price": "attributed_list_price",
       "chat_cowork_unified_metrics": {
         "chat": {
           "distinct_conversation_skill_used_count": 0
@@ -99856,15 +101431,9 @@ public final class Main {
           "distinct_session_skill_used_count": 0
         }
       },
-      "currency": "currency",
-      "enable_count": 0,
-      "estimated_overage_spend": "estimated_overage_spend",
-      "invocation_count": 0,
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
-      "share_status": "organization",
-      "skill_display_name": "skill_display_name",
       "user_id": "user_id"
     }
   ],
@@ -99904,7 +101473,7 @@ can be broken out per product, per member, or per RBAC group via
 
     maxItems: 100
 
-  - `Optional<List<GroupBy>> groupBy` (query parameter)
+  - `Optional<List<BetaAnalyticsArtifactGroupBy>> groupBy` (query parameter)
 
     Dimensions to break results out by: `product`, `user_id` and/or `rbac_group_id`. The ungrouped artifact-type cube is finite and returned in full; grouped queries multiply the cube and paginate via `next_page`. `product` takes the values `chat_cowork_unified`, `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts). `rbac_group_id` attributes a user to every group they held at any point during the requested UTC day, so grouped rows are not an exclusive partition. At most 100 entries.
 
@@ -103959,7 +105528,7 @@ organizations.
 
     Opaque cursor from a previous response's `next_page` field.
 
-  - `Optional<List<Period>> period` (query parameter)
+  - `Optional<List<BetaSpendLimitPeriod>> period` (query parameter)
 
     Restrict the report to these limit periods. Omit to return one row per period each member resolves a spend limit for.
 
@@ -104229,7 +105798,9 @@ Requests whose requester is no longer a member are excluded.
 
   - `String id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -104281,7 +105852,9 @@ Requests whose requester is no longer a member are excluded.
 
     format: date-time
 
-  - `Optional<ResolvedBy> resolvedBy`
+  - `Optional<BetaSpendLimitIncreaseRequestResolvedBy> resolvedBy`
+
+    Who approved or denied the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -104523,7 +106096,9 @@ requester at the request's period.
 
   - `String id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -104575,7 +106150,9 @@ requester at the request's period.
 
     format: date-time
 
-  - `Optional<ResolvedBy> resolvedBy`
+  - `Optional<BetaSpendLimitIncreaseRequestResolvedBy> resolvedBy`
+
+    Who approved or denied the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -104822,7 +106399,9 @@ the member was blocked on. Anthropic emails the requester unless
 
   - `String id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -104874,7 +106453,9 @@ the member was blocked on. Anthropic emails the requester unless
 
     format: date-time
 
-  - `Optional<ResolvedBy> resolvedBy`
+  - `Optional<BetaSpendLimitIncreaseRequestResolvedBy> resolvedBy`
+
+    Who approved or denied the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -104886,7 +106467,7 @@ the member was blocked on. Anthropic emails the requester unless
 
       A scoped Admin API key acting on behalf of the organization.
 
-  - `BetaSpendLimit spendLimit`
+  - `Optional<BetaSpendLimit> spendLimit`
 
     A configured spend limit: a cap on metered spend for one scope and period.
 
@@ -105199,7 +106780,9 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
   - `String id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -105251,7 +106834,9 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
     format: date-time
 
-  - `Optional<ResolvedBy> resolvedBy`
+  - `Optional<BetaSpendLimitIncreaseRequestResolvedBy> resolvedBy`
+
+    Who approved or denied the increase request.
 
     - `class BetaSpendLimitUserActor`
 
@@ -105878,7 +107463,7 @@ public final class Main {
 
 ### Delete RBAC Group
 
-`RbacGroupDeleteResponse beta().organization().rbacGroups().delete(params = RbacGroupDeleteParams.none(), requestOptions = RequestOptions.none())`
+`BetaDeletedRbacGroup beta().organization().rbacGroups().delete(params = RbacGroupDeleteParams.none(), requestOptions = RequestOptions.none())`
 
 **DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}`
 
@@ -105896,7 +107481,7 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 #### Returns
 
-- `class RbacGroupDeleteResponse`
+- `class BetaDeletedRbacGroup`
 
   - `JsonValue type = "rbac_group_deleted"`
 
@@ -105915,8 +107500,8 @@ package com.anthropic.example;
 
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.organization.rbacgroups.BetaDeletedRbacGroup;
 import com.anthropic.models.beta.organization.rbacgroups.RbacGroupDeleteParams;
-import com.anthropic.models.beta.organization.rbacgroups.RbacGroupDeleteResponse;
 
 public final class Main {
     private Main() {}
@@ -105924,7 +107509,7 @@ public final class Main {
     public static void main(String[] args) {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-        RbacGroupDeleteResponse rbacGroup = client.beta().organization().rbacGroups().delete("rbac_group_id");
+        BetaDeletedRbacGroup betaDeletedRbacGroup = client.beta().organization().rbacGroups().delete("rbac_group_id");
     }
 }
 ```
@@ -106126,7 +107711,7 @@ public final class Main {
 
 ### Remove RBAC Group Member
 
-`MemberRemoveResponse beta().organization().rbacGroups().members().remove(params, requestOptions = RequestOptions.none())`
+`BetaDeletedRbacGroupMember beta().organization().rbacGroups().members().remove(params, requestOptions = RequestOptions.none())`
 
 **DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`
 
@@ -106148,7 +107733,7 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 #### Returns
 
-- `class MemberRemoveResponse`
+- `class BetaDeletedRbacGroupMember`
 
   - `JsonValue type = "rbac_group_member_deleted"`
 
@@ -106169,8 +107754,8 @@ package com.anthropic.example;
 
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.organization.rbacgroups.members.BetaDeletedRbacGroupMember;
 import com.anthropic.models.beta.organization.rbacgroups.members.MemberRemoveParams;
-import com.anthropic.models.beta.organization.rbacgroups.members.MemberRemoveResponse;
 
 public final class Main {
     private Main() {}
@@ -106182,7 +107767,7 @@ public final class Main {
             .rbacGroupId("rbac_group_id")
             .userId("user_id")
             .build();
-        MemberRemoveResponse member = client.beta().organization().rbacGroups().members().remove(params);
+        BetaDeletedRbacGroupMember betaDeletedRbacGroupMember = client.beta().organization().rbacGroups().members().remove(params);
     }
 }
 ```
@@ -116129,7 +117714,7 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
 
   - `String id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `LocalDateTime createdAt`
 
@@ -116535,7 +118120,7 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
 
   - `String id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `LocalDateTime createdAt`
 
@@ -116928,7 +118513,7 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
 
   - `String id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `LocalDateTime createdAt`
 
@@ -117313,7 +118898,7 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `String id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `LocalDateTime createdAt`
 

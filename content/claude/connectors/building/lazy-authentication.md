@@ -318,6 +318,6 @@ See [Test a local server](https://claude.com/docs/connectors/building/testing.md
 ## Next steps
 
 * [Authentication for connectors](https://claude.com/docs/connectors/building/authentication.md): check the OAuth requirements your authorization server must meet, including redirect URIs and token refresh
-* [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md): let organizations with SSO answer the same `401` with a silent token exchange
+* [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md): let Claude answer the same `401` with a silent token exchange for organizations that set up auto-connect for your connector
 * [Test your connector](https://claude.com/docs/connectors/building/testing.md): expose the server through a tunnel and add it as a custom connector
 * [Troubleshoot your connector](https://claude.com/docs/connectors/building/troubleshooting.md): diagnose discovery and authorization failures

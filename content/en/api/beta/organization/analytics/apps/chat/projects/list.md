@@ -35,7 +35,7 @@ plan. Requires an API key with the `read:analytics` scope.
 
   maxItems: 100
 
-- `group_by: optional array of "rbac_group_id" or "user_id"`
+- `group_by: optional array of BetaAnalyticsProjectGroupBy`
 
   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -51,7 +51,7 @@ plan. Requires an API key with the `read:analytics` scope.
 
   minimum: 1, maximum: 1000
 
-- `order: optional "asc" or "desc"`
+- `order: optional BetaAnalyticsOrder`
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -85,29 +85,13 @@ plan. Requires an API key with the `read:analytics` scope.
 
 - `data: array of BetaAnalyticsProjectActivity`
 
-  - `distinct_user_count: number`
-
-    Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
-
-  - `message_count: number`
-
-    Number of messages sent in the project on the requested day
-
-  - `project_id: string`
-
-    Tagged project identifier (e.g. `claude_proj_...`)
-
-  - `project_name: string`
-
-    Name of the project
-
-  - `created_at: optional string or null`
+  - `created_at: string or null`
 
     Project creation timestamp in RFC 3339 format. Null if the project was deleted before attribution was recorded.
 
     format: date-time
 
-  - `created_by: optional BetaAnalyticsUser or null`
+  - `created_by: BetaAnalyticsUser or null`
 
     User who created the project. Null if the project was deleted before attribution was recorded, or if the creator's account no longer exists.
 
@@ -125,13 +109,25 @@ plan. Requires an API key with the `read:analytics` scope.
 
       Email address of the user
 
-  - `distinct_conversation_count: optional number or null`
+  - `distinct_conversation_count: number or null`
 
     Number of distinct conversations in the project. Null on aggregated rows where a distinct count cannot be computed.
 
-  - `product: optional string or null`
+  - `distinct_user_count: number`
 
-    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, `office_agent`, or `chat_cowork_unified` (Chat and Cowork unified). These are the canonical Cost & Usage product names; an `office_agent` row's per-surface breakdown is in its `office_metrics`. On `/plugins` only `cowork`, `claude_code` and `chat_cowork_unified` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, `cowork` and `chat_cowork_unified` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+    Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `message_count: number`
+
+    Number of messages sent in the project on the requested day
+
+  - `project_id: string`
+
+    Tagged project identifier (e.g. `claude_proj_...`)
+
+  - `project_name: string`
+
+    Name of the project
 
   - `rbac_group_id: optional string or null`
 
@@ -163,10 +159,6 @@ curl https://api.anthropic.com/v1/organizations/analytics/apps/chat/projects \
 {
   "data": [
     {
-      "distinct_user_count": 0,
-      "message_count": 0,
-      "project_id": "project_id",
-      "project_name": "project_name",
       "created_at": "2019-12-27T18:11:19.117Z",
       "created_by": {
         "id": "id",
@@ -174,7 +166,10 @@ curl https://api.anthropic.com/v1/organizations/analytics/apps/chat/projects \
         "type": "user"
       },
       "distinct_conversation_count": 0,
-      "product": "product",
+      "distinct_user_count": 0,
+      "message_count": 0,
+      "project_id": "project_id",
+      "project_name": "project_name",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
       "user_id": "user_id"

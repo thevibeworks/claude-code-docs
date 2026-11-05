@@ -37,7 +37,7 @@ You need a [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/o
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.5.0
+        VERSION=2.6.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;
@@ -106,7 +106,7 @@ To run the CLI examples, install the CLI:
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=2.5.0
+    VERSION=2.6.0
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;
@@ -152,6 +152,17 @@ Pre-built Agent Skills extend Claude’s capabilities with specialized expertise
 First, check what Skills are available. Use the Skills API to list all Anthropic-managed Skills. The example is an excerpt from one continuous script, with any imports and client setup at the top:
 
 <CodeGroup>
+  **CLI sign-in**
+
+  ```bash cURL
+  # List Anthropic-managed Skills
+  curl --fail-with-body -sS "https://api.anthropic.com/v1/skills?source=anthropic" \
+    -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+    -H "anthropic-version: 2026-10-21"
+  ```
+
+  **API key**
+
   ```bash cURL
   # List Anthropic-managed Skills
   curl --fail-with-body -sS "https://api.anthropic.com/v1/skills?source=anthropic" \
@@ -246,6 +257,31 @@ This API returns each Skill’s metadata: its name and description. Claude loads
 Use the PowerPoint Skill to create a presentation about renewable energy. Specify Skills using the `container` parameter in the Messages API:
 
 <CodeGroup>
+  **CLI sign-in**
+
+  ```bash cURL
+  # Create a message with the PowerPoint Skill
+  response=$(
+    curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
+      -H "content-type: application/json" \
+      -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+      -H "anthropic-version: 2026-10-21" \
+      -d '{
+        "model": "claude-opus-5-5",
+        "max_tokens": 16000,
+        "container": {
+          "skills": [{"type": "anthropic", "skill_id": "pptx", "version": "latest"}]
+        },
+        "messages": [
+          {"role": "user", "content": "Create a presentation about renewable energy with 5 slides"}
+        ],
+        "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
+      }'
+  )
+  ```
+
+  **API key**
+
   ```bash cURL
   # Create a message with the PowerPoint Skill
   response=$(
@@ -479,6 +515,33 @@ When you make this request, Claude automatically matches your task to the releva
 The presentation was created in the code execution container and saved as a file. The Step 2 `response` includes a file reference with a file ID. Extract the file ID and download the file with the Files API. The example saves it to your system temp directory:
 
 <CodeGroup>
+  **CLI sign-in**
+
+  ```bash cURL
+  # Extract the file ID. The code execution tool runs the Skill's code through
+  # its Bash sub-tool, and generated files appear as bash_code_execution_output
+  # items inside the bash_code_execution_tool_result block.
+  file_id=$(jq -r '
+    last(
+      .content[]
+      | select(.type == "bash_code_execution_tool_result")
+      | .content
+      | select(.type == "bash_code_execution_result")
+      | .content[].file_id
+    ) // empty
+  ' <<<"$response")
+
+  if [[ -n "$file_id" ]]; then
+    # Download the file and save it
+    curl --fail-with-body -sS "https://api.anthropic.com/v1/files/$file_id/content" \
+      -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+      -H "anthropic-version: 2026-10-21" \
+      -o "${TMPDIR:-/tmp}/renewable_energy.pptx"
+  fi
+  ```
+
+  **API key**
+
   ```bash cURL
   # Extract the file ID. The code execution tool runs the Skill's code through
   # its Bash sub-tool, and generated files appear as bash_code_execution_output
@@ -720,6 +783,28 @@ Try these variations:
 ### Create a spreadsheet
 
 <CodeGroup>
+  **CLI sign-in**
+
+  ```bash cURL
+  curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+    -H "anthropic-version: 2026-10-21" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 16000,
+      "container": {
+        "skills": [{"type": "anthropic", "skill_id": "xlsx", "version": "latest"}]
+      },
+      "messages": [
+        {"role": "user", "content": "Create a quarterly sales tracking spreadsheet with sample data"}
+      ],
+      "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
+    }'
+  ```
+
+  **API key**
+
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \
@@ -912,6 +997,28 @@ Try these variations:
 ### Create a Word document
 
 <CodeGroup>
+  **CLI sign-in**
+
+  ```bash cURL
+  curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+    -H "anthropic-version: 2026-10-21" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 16000,
+      "container": {
+        "skills": [{"type": "anthropic", "skill_id": "docx", "version": "latest"}]
+      },
+      "messages": [
+        {"role": "user", "content": "Write a 2-page report on the benefits of renewable energy"}
+      ],
+      "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
+    }'
+  ```
+
+  **API key**
+
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \
@@ -1104,6 +1211,28 @@ Try these variations:
 ### Generate a PDF
 
 <CodeGroup>
+  **CLI sign-in**
+
+  ```bash cURL
+  curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "Authorization: Bearer $(ant auth print-credentials --access-token)" \
+    -H "anthropic-version: 2026-10-21" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 16000,
+      "container": {
+        "skills": [{"type": "anthropic", "skill_id": "pdf", "version": "latest"}]
+      },
+      "messages": [
+        {"role": "user", "content": "Generate a PDF invoice template"}
+      ],
+      "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
+    }'
+  ```
+
+  **API key**
+
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \

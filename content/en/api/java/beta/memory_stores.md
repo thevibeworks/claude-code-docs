@@ -1595,7 +1595,7 @@ Create a Memory
 
     A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long.
 
-    minLength: 2, maxLength: 1024
+    minLength: 2, maxLength: 1024, pattern: ^(/[^/ ]+)+$
 
 #### Returns
 
@@ -1680,7 +1680,7 @@ public final class Main {
         MemoryCreateParams params = MemoryCreateParams.builder()
             .memoryStoreId("memory_store_id")
             .content("content")
-            .path("xx")
+            .path("/P")
             .build();
         BetaManagedAgentsMemory betaManagedAgentsMemory = client.beta().memoryStores().memories().create(params);
     }
@@ -2403,7 +2403,7 @@ Update a Memory
 
     The memory keeps its `id`. A path starts with `/` and has 1 to 20 segments. A segment can't be empty and can't be `.` or `..`. A path can't contain control characters, format characters, or the line and paragraph separators U+2028 and U+2029. It must be in Unicode Normalization Form C and at most 1,024 bytes long. Paths are case-sensitive.
 
-    minLength: 2, maxLength: 1024
+    minLength: 2, maxLength: 1024, pattern: ^(/[^/ ]+)+$
 
   - `Optional<BetaManagedAgentsPrecondition> precondition`
 
