@@ -324,7 +324,7 @@ A Conditional Access block shows up in one of three ways:
 
 - Members are asked to reconnect Microsoft 365 on a regular cycle, much more often than the normal 90-day expiry. This usually means a sign-in frequency policy.
 
-Connecting Microsoft 365 involves more than the sign-in the member sees. After the member signs in to Microsoft in their browser, Claude's servers exchange that sign-in for access tokens, and later exchange those tokens for Microsoft 365 access on the member's behalf. In our testing, Entra evaluates your Conditional Access policies against these server-side requests as coming from Anthropic's IP range, `160.79.104.0/21`. They identify the member and carry the device recorded when the member connected, not the member's current device or network. So a policy can pass the member's own sign-in and still block the connection a moment later, or block it days later. Learn more about **[Anthropic's IP addresses](https://platform.claude.com/docs/en/api/ip-addresses)**.
+Connecting Microsoft 365 involves more than the sign-in the member sees. After the member signs in to Microsoft in their browser, Claude's servers exchange that sign-in for access tokens, and later exchange those tokens for Microsoft 365 access on the member's behalf. In our testing, Entra evaluates your Conditional Access policies against these server-side requests as coming from Anthropic’s outbound IP addresses. They identify the member and carry the device recorded when the member connected, not the member's current device or network. So a policy can pass the member's own sign-in and still block the connection a moment later, or block it days later. Learn more about **[Anthropic’s outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses)**
 
 **Find the policy that's blocking the connection**
 
@@ -344,15 +344,15 @@ The error code tells you what kind of policy it is:
 
 - `AADSTS53000`: a policy requires a compliant device. The similar code `AADSTS530003` means a policy requires a managed device. In both cases the member needs to reconnect from a device that meets the policy. Learn more in the **[Microsoft 365 connector security guide](https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide)**.
 
-**Exclude Anthropic's IP range from sign-in frequency and location policies**
+**Exclude Anthropic’s IP ranges from sign-in frequency and location policies**
 
-Because the server-side requests come from Anthropic's IP range, a policy that limits sign-ins to your own network, or that enforces a sign-in frequency, blocks them for every member. Excluding the two Claude applications from the policy isn't enough on its own. We recommend excluding Anthropic's IP range from the policy as well.
+Because the server-side requests come from Anthropic’s IP ranges, a policy that limits sign-ins to your own network, or that enforces a sign-in frequency, blocks them for every member. Excluding the two Claude applications from the policy isn’t enough on its own. We recommend excluding Anthropic’s IP ranges from the policy as well.
 
-**Note:** Don't use this exclusion for a device compliance policy. The server-side requests carry the device recorded when the member connected, so a device policy still applies to them, and excluding Anthropic's IP range would turn the device check off for the connector. Members blocked by a device policy need to reconnect from a device that meets it. Learn more in the **[Microsoft 365 connector security guide](https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide)**.
+**Note:** Don't use this exclusion for a device compliance policy. The server-side requests carry the device recorded when the member connected, so a device policy still applies to them, and excluding Anthropic’s IP ranges would turn the device check off for the connector. Members blocked by a device policy need to reconnect from a device that meets it. Learn more in the **[Microsoft 365 connector security guide](https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide)**.
 
 If the policy that blocked the request is a sign-in frequency or location policy:
 
-1. In the Microsoft Entra admin center, go to **Conditional Access > Named locations** and create an IP range location containing `160.79.104.0/21`. Leave **Mark as trusted location** unchecked so the exclusion doesn't affect other policies that use trusted locations.
+1. In the Microsoft Entra admin center, go to **Conditional Access > Named locations** and create an IP range location. Add every current IPv4 range, in full, from Anthropic’s **[Outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses)** list. Leave **Mark as trusted location** unchecked so the exclusion doesn’t affect other policies that use trusted locations. If Anthropic adds a range to that list, add it to this location too.
 
 2. Open the policy that blocked the request and go to **Conditions > Locations > Exclude**.
 
@@ -362,7 +362,7 @@ If the policy that blocked the request is a sign-in frequency or location policy
 
 5. Have an affected member disconnect and reconnect Microsoft 365 in **Customize > Connectors**.
 
-**Note:** Excluding the range lifts the policy for every request that comes from Anthropic's addresses, which means all Microsoft 365 connector activity for all of your members. For a sign-in frequency policy, this also means the connector's background requests are no longer subject to it, so a connection stays signed in until it expires after 90 days of inactivity. If you'd rather keep the periodic reconnects, leave the policy as it is. Members who are asked to reconnect can sign out of Microsoft in their browser, or use a private browsing window, before reconnecting. If you want to check the effect of a change before making it, clone the policy in report-only mode first.
+**Note:** Excluding the ranges lifts the policy for every request that comes from Anthropic's addresses, which means all Microsoft 365 connector activity for all of your members. For a sign-in frequency policy, this also means the connector's background requests are no longer subject to it, so a connection stays signed in until it expires after 90 days of inactivity. If you'd rather keep the periodic reconnects, leave the policy as it is. Members who are asked to reconnect can sign out of Microsoft in their browser, or use a private browsing window, before reconnecting. If you want to check the effect of a change before making it, clone the policy in report-only mode first.
 
 ---
 

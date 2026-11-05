@@ -15,7 +15,7 @@ download the bytes.
 
 - `claude_file_id: string`
 
-  The file ID (tagged ID, e.g., claude_file_abc123)
+  The file ID (tagged ID, e.g., claude_file_abc123). Also use this endpoint for any id in `chat_messages[].generated_files[].id` that starts with `claude_file_`.
 
 ## Headers
 

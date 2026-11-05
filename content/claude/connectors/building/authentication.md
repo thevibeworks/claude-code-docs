@@ -26,7 +26,7 @@ If you already know MCP authorization, these are the places where Claude's OAuth
 > [!NOTE]
 >
 > * If some of your tools work without the user's account, see [Lazy authentication](https://claude.com/docs/connectors/building/lazy-authentication.md) to let people use those right away and sign in only when Claude reaches a tool that needs their account
-> * If you want enterprise users to connect through their organization's SSO without a consent screen, see [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md)
+> * If you want to support auto-connect, so that an organization's users connect without a consent screen, see [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md)
 
 Use this page to [pick an authentication type](#supported-authentication-types), [register Claude as an OAuth client](#register-claude-as-an-oauth-client), [make discovery and redirects work](#oauth-discovery-and-redirect-uris), and [meet the token endpoint requirements](#token-endpoint-requirements).
 
@@ -242,13 +242,13 @@ If your token endpoint depends on slow downstream calls, return the HTTP respons
 
 ## Enterprise and custom connector authentication
 
-You don't need a separate OAuth application for each enterprise customer, but a customer's organization can supply its own OAuth client or connect its users through SSO without a consent screen.
+You don't need a separate OAuth application for each enterprise customer, but a customer's organization can supply its own OAuth client or connect its users without a consent screen.
 
 ### Enterprise authentication
 
 Unless your listing asks for credentials at connection time, enterprise customers connect through the same OAuth application as everyone else. Scope what each user can reach with your service's own per-user permissions rather than with a per-tenant OAuth app. These cases work differently:
 
-* **SSO without a consent screen**: organizations using SSO can connect their users with an identity assertion signed by their identity provider instead of an interactive OAuth consent step. See [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md) for what your authorization server needs to support
+* **Auto-connect**: an organization can connect its users with an identity assertion signed by its identity provider or by Claude instead of an interactive OAuth consent step. See [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md) for what your authorization server needs to support
 * **Customer-supplied OAuth client**: a listing that asks for [credentials entered at connection time](#credentials-entered-at-connection-time) has each customer supply its own OAuth client, and an administrator who adds your server as a [custom connector](#custom-connectors) can enter one too
 
 ### Custom connectors
@@ -266,6 +266,6 @@ Anthropic's outbound traffic to your server originates from `160.79.104.0/21`. S
 ## Next steps
 
 * [Lazy authentication](https://claude.com/docs/connectors/building/lazy-authentication.md): let people use the tools that don't need their account right away, and ask them to sign in only when Claude reaches one that does
-* [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md): accept identity assertions from enterprise SSO instead of an interactive consent step
+* [Enterprise Managed Auth](https://claude.com/docs/connectors/building/enterprise-managed-auth.md): support auto-connect by accepting identity assertions from a customer's identity provider or from Claude instead of an interactive consent step
 * [Test your connector](https://claude.com/docs/connectors/building/testing.md): add your server as a custom connector and exercise the auth flow
 * [Troubleshoot your connector](https://claude.com/docs/connectors/building/troubleshooting.md): diagnose "Couldn't reach the MCP server" and "Authorization with the MCP server failed"

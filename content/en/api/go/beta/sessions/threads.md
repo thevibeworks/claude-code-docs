@@ -695,6 +695,8 @@ List Session Threads
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Region string Optional`
 
                   Region or state name.
@@ -968,6 +970,8 @@ List Session Threads
       - `Amount string`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `Currency BetaCurrency`
 
@@ -1794,6 +1798,8 @@ Get Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Region string Optional`
 
                   Region or state name.
@@ -2067,6 +2073,8 @@ Get Session Thread
       - `Amount string`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `Currency BetaCurrency`
 
@@ -2890,6 +2898,8 @@ Archive Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Region string Optional`
 
                   Region or state name.
@@ -3163,6 +3173,8 @@ Archive Session Thread
       - `Amount string`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `Currency BetaCurrency`
 
@@ -3838,6 +3850,8 @@ func main() {
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Region string Optional`
 
               Region or state name.
@@ -4474,6 +4488,8 @@ func main() {
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `Region string Optional`
 
                   Region or state name.
@@ -4748,6 +4764,8 @@ func main() {
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
 
+        pattern: ^(0|[1-9]\d*)$
+
       - `Currency BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
@@ -4861,6 +4879,8 @@ func main() {
     - `Amount string`
 
       Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      pattern: ^(0|[1-9]\d*)$
 
     - `Currency BetaCurrency`
 
@@ -5839,6 +5859,58 @@ func main() {
         - `VaultID string`
 
           ID of the vault containing the affected credential.
+
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
 
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
@@ -7130,6 +7202,8 @@ func main() {
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -7431,6 +7505,8 @@ func main() {
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 
@@ -8958,6 +9034,58 @@ List Session Thread Events
 
           ID of the vault containing the affected credential.
 
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -10248,6 +10376,8 @@ List Session Thread Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -10549,6 +10679,8 @@ List Session Thread Events
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 
@@ -12089,6 +12221,58 @@ Stream Session Thread Events
 
           ID of the vault containing the affected credential.
 
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -13379,6 +13563,8 @@ Stream Session Thread Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -13680,6 +13866,8 @@ Stream Session Thread Events
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 

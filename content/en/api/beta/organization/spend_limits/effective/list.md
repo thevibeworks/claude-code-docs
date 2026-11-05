@@ -27,7 +27,7 @@ organizations.
 
   Opaque cursor from a previous response's `next_page` field.
 
-- `period: optional array of "daily" or "monthly" or "weekly"`
+- `period: optional array of BetaSpendLimitPeriod`
 
   Restrict the report to these limit periods. Omit to return one row per period each member resolves a spend limit for.
 

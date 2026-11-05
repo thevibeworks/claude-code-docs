@@ -817,6 +817,8 @@ Get Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region: optional String`
 
               Region or state name.

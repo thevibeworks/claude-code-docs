@@ -36,7 +36,9 @@ requester at the request's period.
 
   - `id: string`
 
-  - `actor: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor`
+  - `actor: BetaSpendLimitIncreaseRequestActor`
+
+    Who submitted the increase request.
 
     - `BetaSpendLimitUserActor object`
 
@@ -94,7 +96,9 @@ requester at the request's period.
 
     format: date-time
 
-  - `resolved_by: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor or null`
+  - `resolved_by: BetaSpendLimitIncreaseRequestResolvedBy or null`
+
+    Who approved or denied the increase request.
 
     - `BetaSpendLimitUserActor object`
 

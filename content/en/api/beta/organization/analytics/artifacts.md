@@ -31,7 +31,7 @@ can be broken out per product, per member, or per RBAC group via
 
   maxItems: 100
 
-- `group_by: optional array of "product" or "rbac_group_id" or "user_id"`
+- `group_by: optional array of BetaAnalyticsArtifactGroupBy`
 
   Dimensions to break results out by: `product`, `user_id` and/or `rbac_group_id`. The ungrouped artifact-type cube is finite and returned in full; grouped queries multiply the cube and paginate via `next_page`. `product` takes the values `chat_cowork_unified`, `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts). `rbac_group_id` attributes a user to every group they held at any point during the requested UTC day, so grouped rows are not an exclusive partition. At most 100 entries.
 

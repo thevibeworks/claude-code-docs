@@ -130,7 +130,9 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
   model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
-  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
+  executionIdentity: [
+    'roleARN' => 'arn:aws:iam::228601553692:role/T', 'type' => 'aws_role'
+  ],
   mcpServers: [
     [
       'name' => 'example-mcp',

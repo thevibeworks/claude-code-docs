@@ -1391,7 +1391,7 @@ organizations.
 
   Opaque cursor from a previous response's `next_page` field.
 
-- `period: optional array of "daily" or "monthly" or "weekly"`
+- `period: optional array of BetaSpendLimitPeriod`
 
   Restrict the report to these limit periods. Omit to return one row per period each member resolves a spend limit for.
 
@@ -1682,7 +1682,9 @@ Requests whose requester is no longer a member are excluded.
 
   - `id: string`
 
-  - `actor: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor`
+  - `actor: BetaSpendLimitIncreaseRequestActor`
+
+    Who submitted the increase request.
 
     - `BetaSpendLimitUserActor object`
 
@@ -1740,7 +1742,9 @@ Requests whose requester is no longer a member are excluded.
 
     format: date-time
 
-  - `resolved_by: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor or null`
+  - `resolved_by: BetaSpendLimitIncreaseRequestResolvedBy or null`
+
+    Who approved or denied the increase request.
 
     - `BetaSpendLimitUserActor object`
 
@@ -1991,7 +1995,9 @@ requester at the request's period.
 
   - `id: string`
 
-  - `actor: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor`
+  - `actor: BetaSpendLimitIncreaseRequestActor`
+
+    Who submitted the increase request.
 
     - `BetaSpendLimitUserActor object`
 
@@ -2049,7 +2055,9 @@ requester at the request's period.
 
     format: date-time
 
-  - `resolved_by: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor or null`
+  - `resolved_by: BetaSpendLimitIncreaseRequestResolvedBy or null`
+
+    Who approved or denied the increase request.
 
     - `BetaSpendLimitUserActor object`
 
@@ -2309,7 +2317,9 @@ the member was blocked on. Anthropic emails the requester unless
 
 - `id: string`
 
-- `actor: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor`
+- `actor: BetaSpendLimitIncreaseRequestActor`
+
+  Who submitted the increase request.
 
   - `BetaSpendLimitUserActor object`
 
@@ -2367,7 +2377,9 @@ the member was blocked on. Anthropic emails the requester unless
 
   format: date-time
 
-- `resolved_by: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor or null`
+- `resolved_by: BetaSpendLimitIncreaseRequestResolvedBy or null`
+
+  Who approved or denied the increase request.
 
   - `BetaSpendLimitUserActor object`
 
@@ -2379,7 +2391,7 @@ the member was blocked on. Anthropic emails the requester unless
 
     A scoped Admin API key acting on behalf of the organization.
 
-- `spend_limit: BetaSpendLimit`
+- `spend_limit: BetaSpendLimit or null`
 
   A configured spend limit: a cap on metered spend for one scope and period.
 
@@ -2704,7 +2716,9 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
   - `id: string`
 
-  - `actor: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor`
+  - `actor: BetaSpendLimitIncreaseRequestActor`
+
+    Who submitted the increase request.
 
     - `BetaSpendLimitUserActor object`
 
@@ -2762,7 +2776,9 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
     format: date-time
 
-  - `resolved_by: BetaSpendLimitUserActor or BetaSpendLimitScopedAPIKeyActor or null`
+  - `resolved_by: BetaSpendLimitIncreaseRequestResolvedBy or null`
+
+    Who approved or denied the increase request.
 
     - `BetaSpendLimitUserActor object`
 

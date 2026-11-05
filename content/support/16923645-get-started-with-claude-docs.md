@@ -164,15 +164,15 @@ A few things are different for docs:
 
 - **Access levels:** People you share a doc with can view or edit it. Viewers can read the doc. Editors can read, edit, comment on, and export it. There's no comment-only access level yet.
 
-- **Outside your organization:** Docs can't be shared by email invitation on any plan. On Team and Enterprise plans, they can't be shared outside your organization by link either.
+- **Outside your organization:** Where your plan and your organization's settings allow it, you can invite people by email or turn on "Anyone with the link." People you invite sign in to Claude with the address you invited. People who use the link sign in to Claude and can only view the doc. Free plans can't send invitations, and email invitations are off by default on Enterprise plans.
 
 - **Renaming and deleting:** Only the owner can rename or delete a doc.
 
 ### Who you can share with
 
-- **Team and Enterprise plans:** Invite specific people or a group, or share with everyone in your organization. Docs can't be shared outside your organization yet.
+- **Team and Enterprise plans:** Invite specific people or a group, or share with everyone in your organization. You can also share outside your organization when an Owner allows it.
 
-- **Free, Pro, Max, and Ultra plans:** Share with anyone who has the link.
+    **Free, Pro, Max, and Ultra plans:** Share with anyone who has the link. On Pro, Max, and Ultra plans, you can also invite people by email.
 
 Opening a shared doc requires a Claude account.
 
@@ -216,7 +216,7 @@ Owners turn Claude Docs on or off in **[Organization settings > Artifacts](https
 
 ---
 
-## Known limitations
+## Current limitations
 
 A few things to be aware of:
 
@@ -225,8 +225,6 @@ A few things to be aware of:
 - **Access levels:** There's no comment-only access level.
 
 - **Charts and diagrams:** Charts and diagrams don't update automatically. Ask Claude to pull the latest data from your connected apps.
-
-- **External sharing:** On Team and Enterprise plans, docs can't be shared outside your organization, by link or by email invitation.
 
 - **Compliance logging:** Activity inside a doc, like edits and comments, isn't recorded in the Compliance API yet.
 

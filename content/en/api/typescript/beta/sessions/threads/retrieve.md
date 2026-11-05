@@ -675,6 +675,8 @@ Get Session Thread
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
+                  pattern: ^[A-Z]{2}$
+
                 - `region?: string | null`
 
                   Region or state name.
@@ -948,6 +950,8 @@ Get Session Thread
       - `amount: string`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `currency: BetaCurrency`
 

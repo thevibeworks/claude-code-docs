@@ -821,6 +821,8 @@ List Agent Versions
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `Optional<String> region`
 
               Region or state name.

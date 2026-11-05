@@ -53,6 +53,20 @@ Download the installer for your platform from [claude.com/download](https://clau
 
 For fleet rollouts, distribute the installer through your standard software-distribution mechanism. On the MDM and bootstrap paths, distribute it after the configuration reaches devices; [Choose a configuration delivery model](#choose-a-configuration-delivery-model) covers how the configuration gets there.
 
+On Windows, installing the `.msix` package requires administrator rights. Provision the package for all users of each device:
+
+* **Intune, with auto-update enabled**: deploy the package as a Win32 app with Anthropic's [install and detection scripts](https://downloads.claude.ai/releases/enterprise/intune/Claude-Intune-README.md), and set the app's **Install behavior** to **System**.
+* **Intune, with auto-update disabled** ([`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates)): deploy the package as a line-of-business app in device context, assigned to a device group.
+* **Other software-distribution tools**: from the system account or an elevated PowerShell session, run `Add-AppxProvisionedPackage -Online -PackagePath <path to .msix> -SkipLicense`.
+
+Users, including standard users, get the app after they next sign in to Windows.
+
+Provisioning leaves an existing legacy `.exe` install in place, and users who open it don't get Cowork. Remove it as each affected user:
+
+1. Quit Claude Desktop.
+2. In a Command Prompt, run `"%LOCALAPPDATA%\AnthropicClaude\Update.exe" --uninstall -s`.
+3. After the command finishes, delete the `%LOCALAPPDATA%\AnthropicClaude` folder and the Start menu shortcut `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Claude.lnk`.
+
 ## Choose a configuration delivery model
 
 Configuration reaches devices in one of three ways. With the Enterprise Admin Console, Anthropic hosts the configuration and users receive it by signing in to the app. With MDM or a bootstrap server, you typically push a profile to devices with your MDM tooling, and the two differ in what the profile contains.

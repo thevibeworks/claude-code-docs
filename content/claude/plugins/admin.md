@@ -42,7 +42,7 @@ The [**Requests**](https://claude.ai/admin-settings/skills?tab=requests) tab lis
 
 ### Policy
 
-The [**Policy**](https://claude.ai/admin-settings/skills?tab=policy) tab holds the switches for what members can do themselves: [create and add their own](#control-what-members-add-themselves), [share with each other](#let-members-share-plugins-with-each-other), and [publish to the organization](#review-plugins-that-members-publish). It also holds the **Skills and plugins scanning** switch, which turns on the security scan whose result the **Inventory** tab shows, and the switch that [turns plugins and skills off for everyone](#turn-plugins-and-skills-off-for-everyone).
+The [**Policy**](https://claude.ai/admin-settings/skills?tab=policy) tab holds the switches for what members can do themselves: [create and add their own](#control-what-members-add-themselves), [share with each other](#let-members-share-plugins-with-each-other), and [publish to the organization](#review-plugins-that-members-publish). It also holds the **Skill and plugin security scanning** switch, which turns on the security scan whose result the **Inventory** tab shows, and the switch that [turns plugins and skills off for everyone](#turn-plugins-and-skills-off-for-everyone).
 
 ## Review your organization's inventory
 
@@ -52,7 +52,7 @@ Each row has these columns. Read across a row to see where an item came from and
 
 * **Name**: the item's name, marked **Skill** or **Plugin**
 * **Source**: the marketplace or repository the item comes from, or **Member** for an item a member created
-* **Security scan**: the result of the item's security scan. You see this column when **Skills and plugins scanning** is on in the [**Policy**](https://claude.ai/admin-settings/skills?tab=policy) tab. Otherwise the column is **Version**
+* **Security scan**: the result of the item's security scan. You see this column when **Skill and plugin security scanning** is on in the [**Policy**](https://claude.ai/admin-settings/skills?tab=policy) tab. Otherwise the column is **Version**.
 * **Capabilities**: the connectors and tools the item uses
 * **Audience**: who can use the item, such as everyone or specific groups
 * **Users (30d)**: how many people in your organization used the item in the last 30 days
@@ -263,13 +263,7 @@ The **Publishing** setting decides whether members can publish to your organizat
 If nobody in your organization has chosen a **Publishing** value, your plan's default applies:
 
 * **Team**: **Open**
-* **Enterprise**: **Requires review**
-
-> [!NOTE]
->
-> Starting November 4, 2026, the Enterprise default changes to **Open** for organizations that have security scanning on. Published skills and plugins are then listed in the organization's library once they pass the automatic security scan, without waiting for admin approval. Members whose custom role doesn't allow publishing to the whole organization still need review.
->
-> To keep reviewing every submission, select **Requires review** before then. Your choice is saved when the label beside the setting changes from **Default** to **Set by admin**. Organizations that already chose a setting keep it.
+* **Enterprise**: **Open** if your organization has [security scanning](#policy) on, and **Requires review** otherwise. Where **Open** is the default, members whose custom role doesn't allow publishing to the whole organization still need review.
 
 #### Review a request
 

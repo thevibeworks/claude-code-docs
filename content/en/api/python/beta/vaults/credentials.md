@@ -33,7 +33,7 @@ Create a Credential
 
       The OAuth access token to send to the MCP server.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `mcp_server_url: str`
 
@@ -125,7 +125,7 @@ Create a Credential
 
       The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `mcp_server_url: str`
 
@@ -165,13 +165,13 @@ Create a Credential
 
       Name of the environment variable. Immutable after create.
 
-      minLength: 1, maxLength: 255
+      minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
     - `secret_value: str`
 
       The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-      minLength: 1, maxLength: 4096
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `injection_location: Optional[BetaManagedAgentsInjectionLocationParams]`
 
@@ -1233,7 +1233,7 @@ Update a Credential
 
       The new OAuth access token to replace the stored one.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `expires_at: Optional[Union[str, datetime, null]]`
 
@@ -1301,7 +1301,7 @@ Update a Credential
 
       The new static bearer token to replace the stored one.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `class BetaManagedAgentsEnvironmentVariableUpdateParams`
 
@@ -1347,7 +1347,7 @@ Update a Credential
 
       The new secret value to replace the stored one.
 
-      minLength: 1, maxLength: 4096
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
 - `display_name: Optional[str]`
 
@@ -2871,13 +2871,13 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     Name of the environment variable. Immutable after create.
 
-    minLength: 1, maxLength: 255
+    minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
   - `secret_value: str`
 
     The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `injection_location: Optional[BetaManagedAgentsInjectionLocationParams]`
 
@@ -2937,7 +2937,7 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     The new secret value to replace the stored one.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Injection Location Params
 
@@ -3083,7 +3083,7 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     The OAuth access token to send to the MCP server.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `mcp_server_url: str`
 
@@ -3335,7 +3335,7 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     The new OAuth access token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `expires_at: Optional[Union[str, datetime, null]]`
 
@@ -3521,7 +3521,7 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `mcp_server_url: str`
 
@@ -3541,7 +3541,7 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     The new static bearer token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Token Endpoint Auth Basic Param
 

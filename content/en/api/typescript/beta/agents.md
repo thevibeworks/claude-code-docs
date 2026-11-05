@@ -167,7 +167,7 @@ Create Agent
 
       - `speed?: "standard" | "fast" | null`
 
-        Inference speed mode. Defaults to `standard`.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `"standard"`
 
@@ -199,7 +199,7 @@ Create Agent
 
         The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
 
-        maxLength: 2048
+        maxLength: 2048, pattern: ^arn:aws(-[a-z]+)*:iam::[0-9]{12}:role/[\w+=,.@/-]+$
 
     - `interface BetaManagedAgentsServiceAccountExecutionIdentityParams`
 
@@ -831,6 +831,8 @@ Create Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -959,7 +961,7 @@ Create Agent
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-        minLength: 1, maxLength: 128
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
@@ -1754,6 +1756,8 @@ Create Agent
             - `country?: string | null`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `region?: string | null`
 
@@ -2822,6 +2826,8 @@ List Agents
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -3876,6 +3882,8 @@ Get Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -4146,7 +4154,7 @@ Update Agent
 
         The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
 
-        maxLength: 2048
+        maxLength: 2048, pattern: ^arn:aws(-[a-z]+)*:iam::[0-9]{12}:role/[\w+=,.@/-]+$
 
     - `interface BetaManagedAgentsServiceAccountExecutionIdentityParams`
 
@@ -4326,7 +4334,7 @@ Update Agent
 
       - `speed?: "standard" | "fast" | null`
 
-        Inference speed mode. Defaults to `standard`.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `"standard"`
 
@@ -4940,6 +4948,8 @@ Update Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -5068,7 +5078,7 @@ Update Agent
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-        minLength: 1, maxLength: 128
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `version?: number`
 
@@ -5869,6 +5879,8 @@ Update Agent
             - `country?: string | null`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `region?: string | null`
 
@@ -6915,6 +6927,8 @@ Archive Agent
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -7835,6 +7849,8 @@ console.log(betaManagedAgentsAgent.id);
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -8291,6 +8307,8 @@ console.log(betaManagedAgentsAgent.id);
 
         Two-letter ISO 3166-1 country code, uppercase.
 
+        pattern: ^[A-Z]{2}$
+
       - `region?: string | null`
 
         Region or state name.
@@ -8690,6 +8708,8 @@ console.log(betaManagedAgentsAgent.id);
       - `country?: string | null`
 
         Two-letter ISO 3166-1 country code, uppercase.
+
+        pattern: ^[A-Z]{2}$
 
       - `region?: string | null`
 
@@ -9092,6 +9112,8 @@ console.log(betaManagedAgentsAgent.id);
         - `country?: string | null`
 
           Two-letter ISO 3166-1 country code, uppercase.
+
+          pattern: ^[A-Z]{2}$
 
         - `region?: string | null`
 
@@ -9606,6 +9628,8 @@ console.log(betaManagedAgentsAgent.id);
 
           Two-letter ISO 3166-1 country code, uppercase.
 
+          pattern: ^[A-Z]{2}$
+
         - `region?: string | null`
 
           Region or state name.
@@ -9757,7 +9781,7 @@ console.log(betaManagedAgentsAgent.id);
 
     The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
 
-    maxLength: 2048
+    maxLength: 2048, pattern: ^arn:aws(-[a-z]+)*:iam::[0-9]{12}:role/[\w+=,.@/-]+$
 
 ### Beta Managed Agents Bash Tool Config
 
@@ -9925,7 +9949,7 @@ console.log(betaManagedAgentsAgent.id);
 
     Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-    minLength: 1, maxLength: 128
+    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
 ### Beta Managed Agents Edit Tool Config
 
@@ -10077,7 +10101,7 @@ console.log(betaManagedAgentsAgent.id);
 
       The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
 
-      maxLength: 2048
+      maxLength: 2048, pattern: ^arn:aws(-[a-z]+)*:iam::[0-9]{12}:role/[\w+=,.@/-]+$
 
   - `interface BetaManagedAgentsServiceAccountExecutionIdentityParams`
 
@@ -10853,7 +10877,7 @@ console.log(betaManagedAgentsAgent.id);
 
   - `speed?: "standard" | "fast" | null`
 
-    Inference speed mode. Defaults to `standard`.
+    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
     - `"standard"`
 
@@ -12409,6 +12433,8 @@ console.log(betaManagedAgentsAgent.id);
 
               Two-letter ISO 3166-1 country code, uppercase.
 
+              pattern: ^[A-Z]{2}$
+
             - `region?: string | null`
 
               Region or state name.
@@ -12598,6 +12624,8 @@ console.log(betaManagedAgentsAgent.id);
   - `country?: string | null`
 
     Two-letter ISO 3166-1 country code, uppercase.
+
+    pattern: ^[A-Z]{2}$
 
   - `region?: string | null`
 
@@ -13371,6 +13399,8 @@ console.log(betaManagedAgentsAgent.id);
 
       Two-letter ISO 3166-1 country code, uppercase.
 
+      pattern: ^[A-Z]{2}$
+
     - `region?: string | null`
 
       Region or state name.
@@ -13446,6 +13476,8 @@ console.log(betaManagedAgentsAgent.id);
     - `country?: string | null`
 
       Two-letter ISO 3166-1 country code, uppercase.
+
+      pattern: ^[A-Z]{2}$
 
     - `region?: string | null`
 
@@ -14352,6 +14384,8 @@ List Agent Versions
             - `country?: string | null`
 
               Two-letter ISO 3166-1 country code, uppercase.
+
+              pattern: ^[A-Z]{2}$
 
             - `region?: string | null`
 

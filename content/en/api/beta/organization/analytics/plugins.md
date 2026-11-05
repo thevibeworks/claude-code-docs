@@ -43,7 +43,7 @@ range-rollup mode like `/skills`.
 
   maxItems: 100
 
-- `group_by: optional array of "product" or "rbac_group_id" or "user_id"`
+- `group_by: optional array of BetaAnalyticsPluginGroupBy`
 
   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product` takes the values `chat_cowork_unified`, `claude_code`, or `cowork` only (the surfaces with plugin attribution). Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -61,7 +61,7 @@ range-rollup mode like `/skills`.
 
   minimum: 1, maximum: 1000
 
-- `order: optional "asc" or "desc"`
+- `order: optional BetaAnalyticsOrder`
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -123,21 +123,21 @@ range-rollup mode like `/skills`.
 
     Number of plugin invocations on the requested day
 
+  - `plugin_id: string or null`
+
+    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+
   - `plugin_name: string`
 
     Name of the plugin
 
-  - `chat_cowork_unified_metrics: optional object or null`
+  - `chat_cowork_unified_metrics: optional BetaAnalyticsPluginChatCoworkUnifiedMetrics or null`
 
     Plugin use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
     - `distinct_session_plugin_used_count: number or null`
 
       Same measure as `cowork_metrics.distinct_session_plugin_used_count`, for activity recorded while members had Chat and Cowork unified turned on. Null on aggregated rows where a distinct count cannot be computed.
-
-  - `plugin_id: optional string or null`
-
-    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
 
   - `product: optional string or null`
 
@@ -182,11 +182,11 @@ curl https://api.anthropic.com/v1/organizations/analytics/plugins \
       "distinct_user_count": 0,
       "install_count": 0,
       "invocation_count": 0,
+      "plugin_id": "plugin_id",
       "plugin_name": "plugin_name",
       "chat_cowork_unified_metrics": {
         "distinct_session_plugin_used_count": 0
       },
-      "plugin_id": "plugin_id",
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",

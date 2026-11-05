@@ -2676,7 +2676,9 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
   model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
-  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
+  executionIdentity: [
+    'roleARN' => 'arn:aws:iam::228601553692:role/T', 'type' => 'aws_role'
+  ],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -3374,7 +3376,9 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->update(
   'agent_011CZkYpogX7uDKUyvBTophP',
   description: 'updated',
-  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
+  executionIdentity: [
+    'roleARN' => 'arn:aws:iam::228601553692:role/T', 'type' => 'aws_role'
+  ],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -15473,7 +15477,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   auth: [
     'type' => 'mcp_oauth',
-    'accessToken' => 'x',
+    'accessToken' => 'access_token',
     'expiresAt' => new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
     'refresh' => [
       'refreshToken' => 'x',
@@ -16576,7 +16580,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
   'memory_store_id',
   content: 'content',
-  path: 'xx',
+  path: '/P',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
@@ -17012,9 +17016,10 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
   content: 'content',
-  path: 'xx',
+  path: '/P',
   precondition: [
-    'type' => 'content_sha256', 'contentSha256' => 'content_sha256'
+    'type' => 'content_sha256',
+    'contentSha256' => '210b9798eb53baa4e69d31c1071cf03d212b8ad0ca30cf321e0ea82e120aac26',
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
@@ -18985,6 +18990,113 @@ var_dump($betaDeletedSkillVersion);
 }
 ```
 
+## Beta › Webhooks
+
+### Unwrap
+
+`$client->beta->webhooks->unwrap(string body, array<string,string | list<string>> headers, ?string secret): BetaWebhookEvent`
+
+Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
+headers using your webhook signing key, then parses the payload into an event. Fails if the
+signature is missing or invalid.
+
+#### Parameters
+
+- `body: string`
+
+  The body of the incoming webhook request, exactly as received: the signature is computed over these bytes.
+
+- `headers: array<string,string | list<string>>`
+
+  The HTTP headers of the incoming webhook request. Verification reads `webhook-id`, `webhook-timestamp` and `webhook-signature`.
+
+- `secret: optional string`
+
+  The webhook signing key. Defaults to the client's `webhookKey` option.
+
+#### Returns
+
+- `class BetaWebhookEvent`
+
+  - `"event" type`
+
+    Object type. Always `event` for webhook payloads.
+
+  - `string id`
+
+    Unique event identifier for idempotency.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp when the event occurred.
+
+  - `BetaWebhookEventData data`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+// $body is the raw body of the incoming webhook request and $headers are its HTTP headers.
+$event = $client->beta->webhooks->unwrap($body, $headers);
+
+var_dump($event);
+```
+
+### Parse Unverified
+
+`$client->beta->webhooks->parseUnverified(string body): BetaWebhookEvent`
+
+Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
+you have already verified the signature yourself.
+
+#### Parameters
+
+- `body: string`
+
+  The raw JSON body of the incoming webhook request.
+
+#### Returns
+
+- `class BetaWebhookEvent`
+
+  - `"event" type`
+
+    Object type. Always `event` for webhook payloads.
+
+  - `string id`
+
+    Unique event identifier for idempotency.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp when the event occurred.
+
+  - `BetaWebhookEventData data`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+// $body is the raw body of the incoming webhook request.
+$event = $client->beta->webhooks->parseUnverified($body);
+
+var_dump($event);
+```
+
 ## Beta › User Profiles
 
 ### Create User Profile
@@ -19525,7 +19637,7 @@ $betaUserProfile = $client->beta->userProfiles->update(
   externalID: 'x',
   externalUserDetails: [
     'accountStatus' => 'suspended',
-    'country' => 'country',
+    'country' => 'SE',
     'emailHash' => 'x',
     'entityType' => 'individual',
     'nameHash' => 'x',
@@ -19816,7 +19928,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   In the object form, `speed` can only be `standard`.
 
-  The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=php#limits) lists the supported models.
+  The [Availability section of the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=php#feature-availability) lists the supported models.
 
 - `instructions?: optional string`
 
@@ -28500,7 +28612,7 @@ var_dump($page);
 
 ### List User Activity
 
-`$client->beta->organization->analytics->users->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsUserActivity>`
+`$client->beta->organization->analytics->users->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<AnalyticsUserGroupBy> groupBy, ?int limit, ?AnalyticsOrder order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsUserActivity>`
 
 **GET** `/v1/organizations/analytics/users`
 
@@ -28526,7 +28638,7 @@ the `read:analytics` scope.
 
   Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. A `project_id` filter limits each member's row to their claude.ai chat activity in that project and cannot be combined with `group_by[]` or an `rbac_group_id` filter. On these rows, every count in `chat_cowork_unified_metrics.sessions` is 0, because sessions are not measured per project. On any day a member sent a chat message in Chat and Cowork unified, all of that member's project activity for the day is counted in `chat_cowork_unified_metrics.chat` instead of `chat_metrics`.
 
-- `groupBy?: optional list<GroupBy>` (query parameter)
+- `groupBy?: optional list<AnalyticsUserGroupBy>` (query parameter)
 
   Dimensions to break results out by (e.g. `group_by[]=rbac_group_id`). Supported on this endpoint: `rbac_group_id`. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -28534,7 +28646,7 @@ the `read:analytics` scope.
 
   Number of results per page (1-1000, default 100).
 
-- `order?: optional Order` (query parameter)
+- `order?: optional AnalyticsOrder` (query parameter)
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -28570,6 +28682,10 @@ the `read:analytics` scope.
 
     Claude Design activity metrics for a single user on a given day.
 
+  - `?int distinctUserCount`
+
+    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
+
   - `AnalyticsOfficeMetrics officeMetrics`
 
     Office Agent activity metrics for a single user on a given day, broken out by Office product.
@@ -28578,17 +28694,17 @@ the `read:analytics` scope.
 
     Claude Science activity metrics for a single user on a given day.
 
+  - `?AnalyticsUser user`
+
+    The user this row describes. Null on rows aggregated across users.
+
   - `int webSearchCount`
 
     Number of web searches performed
 
-  - `?ChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
+  - `?AnalyticsChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
 
     Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response on deployments that do not offer Chat and Cowork unified.
-
-  - `?int distinctUserCount`
-
-    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
 
   - `?\Datetime lastActivityDate`
 
@@ -28602,10 +28718,6 @@ the `read:analytics` scope.
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
 
-  - `?AnalyticsUser user`
-
-    The user this row describes. Null on rows aggregated across users.
-
 #### Example
 
 ```php
@@ -28614,6 +28726,8 @@ the `read:analytics` scope.
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\Analytics\AnalyticsUserGroupBy;
+use Anthropic\Beta\Organization\Analytics\AnalyticsOrder;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -28621,9 +28735,9 @@ $page = $client->beta->organization->analytics->users->list(
   date: '2019-12-27',
   endingDate: '2019-12-27',
   filter: ['string'],
-  groupBy: ['rbac_group_id'],
+  groupBy: [AnalyticsUserGroupBy::RBAC_GROUP_ID],
   limit: 1,
-  order: 'asc',
+  order: AnalyticsOrder::ASC,
   orderBy: 'order_by',
   page: 'page',
   startingDate: '2019-12-27',
@@ -28688,17 +28802,17 @@ var_dump($page);
         "connectors_used_count": 0,
         "dispatch_turn_count": 0,
         "distinct_connectors_used_count": 0,
+        "distinct_plugins_used_count": 0,
         "distinct_session_count": 0,
         "distinct_skills_used_count": 0,
-        "message_count": 0,
-        "skills_used_count": 0,
-        "distinct_plugins_used_count": 0,
         "edit_tool_count": 0,
         "file_edit_count": 0,
+        "message_count": 0,
         "multi_edit_tool_count": 0,
         "notebook_edit_tool_count": 0,
         "plugins_used_count": 0,
         "sessions_with_file_edits_count": 0,
+        "skills_used_count": 0,
         "write_tool_count": 0
       },
       "design_metrics": {
@@ -28707,6 +28821,7 @@ var_dump($page);
         "distinct_session_count": 0,
         "message_count": 0
       },
+      "distinct_user_count": 0,
       "office_metrics": {
         "excel": {
           "connectors_used_count": 0,
@@ -28748,6 +28863,11 @@ var_dump($page);
         "remote_compute_job_count": 0,
         "skills_used_count": 0
       },
+      "user": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      },
       "web_search_count": 0,
       "chat_cowork_unified_metrics": {
         "chat": {
@@ -28784,15 +28904,9 @@ var_dump($page);
           "write_tool_count": 0
         }
       },
-      "distinct_user_count": 0,
       "last_activity_date": "2019-12-27",
       "rbac_group_id": "rbac_group_id",
-      "rbac_group_name": "rbac_group_name",
-      "user": {
-        "id": "id",
-        "email_address": "email_address",
-        "type": "user"
-      }
+      "rbac_group_name": "rbac_group_name"
     }
   ],
   "next_page": "next_page"
@@ -28803,7 +28917,7 @@ var_dump($page);
 
 ### Get Chat Project Usage
 
-`$client->beta->organization->analytics->apps->chat->projects->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsProjectActivity>`
+`$client->beta->organization->analytics->apps->chat->projects->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<AnalyticsProjectGroupBy> groupBy, ?int limit, ?AnalyticsOrder order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsProjectActivity>`
 
 **GET** `/v1/organizations/analytics/apps/chat/projects`
 
@@ -28829,7 +28943,7 @@ plan. Requires an API key with the `read:analytics` scope.
 
   Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
 
-- `groupBy?: optional list<GroupBy>` (query parameter)
+- `groupBy?: optional list<AnalyticsProjectGroupBy>` (query parameter)
 
   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -28837,7 +28951,7 @@ plan. Requires an API key with the `read:analytics` scope.
 
   Number of results per page (1-1000, default 100).
 
-- `order?: optional Order` (query parameter)
+- `order?: optional AnalyticsOrder` (query parameter)
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -28857,6 +28971,18 @@ plan. Requires an API key with the `read:analytics` scope.
 
 - `class AnalyticsProjectActivity`
 
+  - `?\Datetime createdAt`
+
+    Project creation timestamp in RFC 3339 format. Null if the project was deleted before attribution was recorded.
+
+  - `?AnalyticsUser createdBy`
+
+    User who created the project. Null if the project was deleted before attribution was recorded, or if the creator's account no longer exists.
+
+  - `?int distinctConversationCount`
+
+    Number of distinct conversations in the project. Null on aggregated rows where a distinct count cannot be computed.
+
   - `int distinctUserCount`
 
     Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
@@ -28872,22 +28998,6 @@ plan. Requires an API key with the `read:analytics` scope.
   - `string projectName`
 
     Name of the project
-
-  - `?\Datetime createdAt`
-
-    Project creation timestamp in RFC 3339 format. Null if the project was deleted before attribution was recorded.
-
-  - `?AnalyticsUser createdBy`
-
-    User who created the project. Null if the project was deleted before attribution was recorded, or if the creator's account no longer exists.
-
-  - `?int distinctConversationCount`
-
-    Number of distinct conversations in the project. Null on aggregated rows where a distinct count cannot be computed.
-
-  - `?string product`
-
-    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, `office_agent`, or `chat_cowork_unified` (Chat and Cowork unified). These are the canonical Cost & Usage product names; an `office_agent` row's per-surface breakdown is in its `office_metrics`. On `/plugins` only `cowork`, `claude_code` and `chat_cowork_unified` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, `cowork` and `chat_cowork_unified` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
 
   - `?string rbacGroupID`
 
@@ -28909,6 +29019,8 @@ plan. Requires an API key with the `read:analytics` scope.
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\Analytics\AnalyticsProjectGroupBy;
+use Anthropic\Beta\Organization\Analytics\AnalyticsOrder;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -28916,9 +29028,9 @@ $page = $client->beta->organization->analytics->apps->chat->projects->list(
   date: '2019-12-27',
   endingDate: '2019-12-27',
   filter: ['string'],
-  groupBy: ['rbac_group_id'],
+  groupBy: [AnalyticsProjectGroupBy::RBAC_GROUP_ID],
   limit: 1,
-  order: 'asc',
+  order: AnalyticsOrder::ASC,
   orderBy: 'order_by',
   page: 'page',
   startingDate: '2019-12-27',
@@ -28933,10 +29045,6 @@ var_dump($page);
 {
   "data": [
     {
-      "distinct_user_count": 0,
-      "message_count": 0,
-      "project_id": "project_id",
-      "project_name": "project_name",
       "created_at": "2019-12-27T18:11:19.117Z",
       "created_by": {
         "id": "id",
@@ -28944,7 +29052,10 @@ var_dump($page);
         "type": "user"
       },
       "distinct_conversation_count": 0,
-      "product": "product",
+      "distinct_user_count": 0,
+      "message_count": 0,
+      "project_id": "project_id",
+      "project_name": "project_name",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
       "user_id": "user_id"
@@ -28958,7 +29069,7 @@ var_dump($page);
 
 ### Get Connector Usage
 
-`$client->beta->organization->analytics->connectors->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsConnectorActivity>`
+`$client->beta->organization->analytics->connectors->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<AnalyticsConnectorGroupBy> groupBy, ?int limit, ?AnalyticsOrder order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsConnectorActivity>`
 
 **GET** `/v1/organizations/analytics/connectors`
 
@@ -28987,7 +29098,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `connector_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `connector_name` matches case-insensitively, a display name such as 'GitHub MCP' also matches its normalized stored form ('github'), and for rows whose `connector_name` is an opaque connector id the connector's display name (`connector_display_name`) also matches; `product` is one of `chat_cowork_unified`, `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
 
-- `groupBy?: optional list<GroupBy>` (query parameter)
+- `groupBy?: optional list<AnalyticsConnectorGroupBy>` (query parameter)
 
   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -28995,7 +29106,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Number of results per page (1-1000, default 100).
 
-- `order?: optional Order` (query parameter)
+- `order?: optional AnalyticsOrder` (query parameter)
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -29023,6 +29134,10 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     Claude Code activity metrics for a single connector on a given day.
 
+  - `?string connectorDisplayName`
+
+    Human-readable display name for rows whose `connector_name` is an opaque connector id rather than a readable name, resolved at request time from the organization's connectors (including connectors that have since been removed). `connector_name` remains the row's stable key for sorting and pagination, and `filter[]=connector_name:{value}` also matches these rows by display name. Display names are not unique, and the same connector's claude.ai usage can appear under a separate row with a readable `connector_name`. Null when `connector_name` is already a readable name, when the id cannot be resolved to one of the organization's connectors, or when display-name resolution is not enabled for this organization.
+
   - `string connectorName`
 
     Name of the connector. Some rows carry an opaque connector id here instead of a readable name; `connector_display_name` holds the resolved name for those rows.
@@ -29035,18 +29150,6 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     Number of distinct users who used the connector on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
 
-  - `AnalyticsConnectorOfficeMetrics officeMetrics`
-
-    Office Agent activity metrics for a single connector on a given day, broken out by Office product.
-
-  - `?ChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
-
-    Connector use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
-
-  - `?string connectorDisplayName`
-
-    Human-readable display name for rows whose `connector_name` is an opaque connector id rather than a readable name, resolved at request time from the organization's connectors (including connectors that have since been removed). `connector_name` remains the row's stable key for sorting and pagination, and `filter[]=connector_name:{value}` also matches these rows by display name. Display names are not unique, and the same connector's claude.ai usage can appear under a separate row with a readable `connector_name`. Null when `connector_name` is already a readable name, when the id cannot be resolved to one of the organization's connectors, or when display-name resolution is not enabled for this organization.
-
   - `?int individualAuthDistinctUserCount`
 
     Number of distinct users whose use of this connector on the requested day ran on their own individual credential, connected through their own consent flow. Companion bucket to `managed_auth_distinct_user_count`, which carries the measurement, attribution, and null rules. Users whose requests used no stored credential count in neither bucket.
@@ -29054,6 +29157,26 @@ organizations on a Claude Enterprise plan. Requires an API key with the
   - `?int managedAuthDistinctUserCount`
 
     Number of distinct users whose use of this connector on the requested day ran on Enterprise Managed Auth (an organization-managed credential provisioned through the organization's identity provider), read from the token record each request used. Null, never 0, when managed-auth reporting is not enabled for the organization, the value cannot be attributed to the row, no credentialed requests and no managed-token mint events (a managed credential being provisioned for a user's use of the connector) were observed that day, or the day predates 2026-07-01, the first day the backing data exists (forward-only data, no backfill). When credentialed requests or mint events were observed and attributed, both managed-auth fields populate, reporting 0 for a bucket with no users; the two counts are independent, not a partition — a user whose requests that day used both kinds of credential counts in both. Mint events carry user but not surface attribution, so they count as observed auth activity on `user_id` and `rbac_group_id` cuts — attributed to the user the credential was provisioned for — but never on a cut that references `product` (group or filter). Date-range rollup mode (`starting_date`/`ending_date`) computes both fields exactly over the window — distinct users with at least one qualifying day — when the whole window starts on or after 2026-07-01, with the null-versus-0 and mint-event rules applying with the window in place of the day; a range starting earlier reports every managed-auth field as null, never a partial-window value.
+
+  - `AnalyticsConnectorOfficeMetrics officeMetrics`
+
+    Office Agent activity metrics for a single connector on a given day, broken out by Office product.
+
+  - `?int readCallCount`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them read-only. Call count, not distinct users. Every call recorded on a classified surface lands in exactly one of `read_call_count`, `write_call_count`, or `unclassified_call_count`, so the three sum to the day's classified calls. Classification is forward-only per surface: claude.ai from 2026-06-01, Claude Code from 2026-05-30, Claude in Office from 2026-05-29, Cowork from 2026-06-02 (Cowork clients predating annotation forwarding land in `unclassified_call_count`). Null, never 0, when the value cannot be stated: the read/write split is not enabled for this organization, or the day predates 2026-05-29. For a date-range total, sum the per-day values, but treat a window that extends before 2026-05-29 as null rather than summing only its covered days — date-range rollup mode (`starting_date`/`ending_date`) applies both rules server-side.
+
+  - `?int unclassifiedCallCount`
+
+    Number of connector tool calls on the requested day with no trusted read-only annotation — the annotation is optional in the MCP spec and is discarded when connector access controls are active, so unclassified calls are common. This field shows how much of the day's classified activity the read/write split actually covers. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+  - `?int writeCallCount`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them not read-only. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+  - `?AnalyticsConnectorChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
+
+    Connector use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
 
   - `?string product`
 
@@ -29067,21 +29190,9 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
 
-  - `?int readCallCount`
-
-    Number of connector tool calls on the requested day whose trusted read-only annotation marked them read-only. Call count, not distinct users. Every call recorded on a classified surface lands in exactly one of `read_call_count`, `write_call_count`, or `unclassified_call_count`, so the three sum to the day's classified calls. Classification is forward-only per surface: claude.ai from 2026-06-01, Claude Code from 2026-05-30, Claude in Office from 2026-05-29, Cowork from 2026-06-02 (Cowork clients predating annotation forwarding land in `unclassified_call_count`). Null, never 0, when the value cannot be stated: the read/write split is not enabled for this organization, or the day predates 2026-05-29. For a date-range total, sum the per-day values, but treat a window that extends before 2026-05-29 as null rather than summing only its covered days — date-range rollup mode (`starting_date`/`ending_date`) applies both rules server-side.
-
-  - `?int unclassifiedCallCount`
-
-    Number of connector tool calls on the requested day with no trusted read-only annotation — the annotation is optional in the MCP spec and is discarded when connector access controls are active, so unclassified calls are common. This field shows how much of the day's classified activity the read/write split actually covers. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
-
   - `?string userID`
 
     Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
-
-  - `?int writeCallCount`
-
-    Number of connector tool calls on the requested day whose trusted read-only annotation marked them not read-only. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
 
 #### Example
 
@@ -29091,6 +29202,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\Analytics\AnalyticsConnectorGroupBy;
+use Anthropic\Beta\Organization\Analytics\AnalyticsOrder;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -29098,9 +29211,9 @@ $page = $client->beta->organization->analytics->connectors->list(
   date: '2019-12-27',
   endingDate: '2019-12-27',
   filter: ['string'],
-  groupBy: ['product'],
+  groupBy: [AnalyticsConnectorGroupBy::PRODUCT],
   limit: 1,
-  order: 'asc',
+  order: AnalyticsOrder::ASC,
   orderBy: 'order_by',
   page: 'page',
   startingDate: '2019-12-27',
@@ -29121,11 +29234,14 @@ var_dump($page);
       "claude_code_metrics": {
         "distinct_session_connector_used_count": 0
       },
+      "connector_display_name": "connector_display_name",
       "connector_name": "connector_name",
       "cowork_metrics": {
         "distinct_session_connector_used_count": 0
       },
       "distinct_user_count": 0,
+      "individual_auth_distinct_user_count": 0,
+      "managed_auth_distinct_user_count": 0,
       "office_metrics": {
         "excel": {
           "distinct_session_connector_used_count": 0
@@ -29140,6 +29256,9 @@ var_dump($page);
           "distinct_session_connector_used_count": 0
         }
       },
+      "read_call_count": 0,
+      "unclassified_call_count": 0,
+      "write_call_count": 0,
       "chat_cowork_unified_metrics": {
         "chat": {
           "distinct_conversation_connector_used_count": 0
@@ -29148,16 +29267,10 @@ var_dump($page);
           "distinct_session_connector_used_count": 0
         }
       },
-      "connector_display_name": "connector_display_name",
-      "individual_auth_distinct_user_count": 0,
-      "managed_auth_distinct_user_count": 0,
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
-      "read_call_count": 0,
-      "unclassified_call_count": 0,
-      "user_id": "user_id",
-      "write_call_count": 0
+      "user_id": "user_id"
     }
   ],
   "next_page": "next_page"
@@ -29168,7 +29281,7 @@ var_dump($page);
 
 ### Get Plugin Usage
 
-`$client->beta->organization->analytics->plugins->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsPluginActivity>`
+`$client->beta->organization->analytics->plugins->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<AnalyticsPluginGroupBy> groupBy, ?int limit, ?AnalyticsOrder order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsPluginActivity>`
 
 **GET** `/v1/organizations/analytics/plugins`
 
@@ -29200,7 +29313,7 @@ range-rollup mode like `/skills`.
 
   Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `plugin_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `plugin_name` matches case-insensitively; `product` is `chat_cowork_unified`, `claude_code`, or `cowork` (the only surfaces with plugin attribution); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
 
-- `groupBy?: optional list<GroupBy>` (query parameter)
+- `groupBy?: optional list<AnalyticsPluginGroupBy>` (query parameter)
 
   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product` takes the values `chat_cowork_unified`, `claude_code`, or `cowork` only (the surfaces with plugin attribution). Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -29208,7 +29321,7 @@ range-rollup mode like `/skills`.
 
   Number of results per page (1-1000, default 100).
 
-- `order?: optional Order` (query parameter)
+- `order?: optional AnalyticsOrder` (query parameter)
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -29248,17 +29361,17 @@ range-rollup mode like `/skills`.
 
     Number of plugin invocations on the requested day
 
+  - `?string pluginID`
+
+    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+
   - `string pluginName`
 
     Name of the plugin
 
-  - `?ChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
+  - `?AnalyticsPluginChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
 
     Plugin use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
-
-  - `?string pluginID`
-
-    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
 
   - `?string product`
 
@@ -29284,6 +29397,8 @@ range-rollup mode like `/skills`.
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\Analytics\AnalyticsPluginGroupBy;
+use Anthropic\Beta\Organization\Analytics\AnalyticsOrder;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -29291,9 +29406,9 @@ $page = $client->beta->organization->analytics->plugins->list(
   date: '2019-12-27',
   endingDate: '2019-12-27',
   filter: ['string'],
-  groupBy: ['product'],
+  groupBy: [AnalyticsPluginGroupBy::PRODUCT],
   limit: 1,
-  order: 'asc',
+  order: AnalyticsOrder::ASC,
   orderBy: 'order_by',
   page: 'page',
   startingDate: '2019-12-27',
@@ -29317,11 +29432,11 @@ var_dump($page);
       "distinct_user_count": 0,
       "install_count": 0,
       "invocation_count": 0,
+      "plugin_id": "plugin_id",
       "plugin_name": "plugin_name",
       "chat_cowork_unified_metrics": {
         "distinct_session_plugin_used_count": 0
       },
-      "plugin_id": "plugin_id",
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
@@ -29336,7 +29451,7 @@ var_dump($page);
 
 ### Get Skill Usage
 
-`$client->beta->organization->analytics->skills->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsSkillActivity>`
+`$client->beta->organization->analytics->skills->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<AnalyticsSkillGroupBy> groupBy, ?int limit, ?AnalyticsOrder order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsSkillActivity>`
 
 **GET** `/v1/organizations/analytics/skills`
 
@@ -29363,7 +29478,7 @@ on a Claude Enterprise plan. Requires an API key with the
 
   Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `product`, `rbac_group_id`, `share_status`, `skill_name`, `user_id`. Value forms: `product` is one of `chat_cowork_unified`, `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `share_status` is one of `organization`, `private`, or `public`; `skill_name` matches case-insensitively; `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
 
-- `groupBy?: optional list<GroupBy>` (query parameter)
+- `groupBy?: optional list<AnalyticsSkillGroupBy>` (query parameter)
 
   Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
@@ -29371,7 +29486,7 @@ on a Claude Enterprise plan. Requires an API key with the
 
   Number of results per page (1-1000, default 100).
 
-- `order?: optional Order` (query parameter)
+- `order?: optional AnalyticsOrder` (query parameter)
 
   Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
@@ -29391,6 +29506,10 @@ on a Claude Enterprise plan. Requires an API key with the
 
 - `class AnalyticsSkillActivity`
 
+  - `?string attributedListPrice`
+
+    List-price (rate-card) value of the member requests attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD), from Claude Code, Cowork, and Office Agent request-level attribution — the value of requests that involved the skill, not the skill's incremental cost. Unlike `estimated_overage_spend` this reflects usage value regardless of how it was funded — seat-covered usage counts — but it is undiscounted and does not tie to billed spend or the organization's spend reporting. claude.ai chat usage carries no request-level attribution and contributes nothing: the field is null on `chat` product rows and on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start), and on ungrouped rows it covers the Claude Code + Cowork + Office Agent share only (null when no attributable usage exists). Also null under the same conditions as `estimated_overage_spend` (spend reporting not enabled for this organization, `office_agent` product cuts before the 2026-06-18 data-start). "0" means attributable usage existed but none was attributed to this skill. Addable across days: date-range rollup mode returns the window's sum. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
+
   - `AnalyticsSkillChatMetrics chatMetrics`
 
     Claude.ai activity metrics for a single skill on a given day.
@@ -29403,29 +29522,13 @@ on a Claude Enterprise plan. Requires an API key with the
 
     Cowork activity metrics for a single skill on a given day.
 
-  - `int distinctUserCount`
-
-    Number of distinct users who used the skill on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted.
-
-  - `AnalyticsSkillOfficeMetrics officeMetrics`
-
-    Office Agent activity metrics for a single skill on a given day, broken out by Office product.
-
-  - `string skillName`
-
-    Name of the skill
-
-  - `?string attributedListPrice`
-
-    List-price (rate-card) value of the member requests attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD), from Claude Code, Cowork, and Office Agent request-level attribution — the value of requests that involved the skill, not the skill's incremental cost. Unlike `estimated_overage_spend` this reflects usage value regardless of how it was funded — seat-covered usage counts — but it is undiscounted and does not tie to billed spend or the organization's spend reporting. claude.ai chat usage carries no request-level attribution and contributes nothing: the field is null on `chat` product rows and on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start), and on ungrouped rows it covers the Claude Code + Cowork + Office Agent share only (null when no attributable usage exists). Also null under the same conditions as `estimated_overage_spend` (spend reporting not enabled for this organization, `office_agent` product cuts before the 2026-06-18 data-start). "0" means attributable usage existed but none was attributed to this skill. Addable across days: date-range rollup mode returns the window's sum. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
-
-  - `?ChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
-
-    Skill use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
-
   - `?string currency`
 
     Currency for this row's monetary fields (`estimated_overage_spend` and `attributed_list_price`), as an uppercase ISO-4217 code. Always "USD" when either amount is populated; null whenever both amounts are null.
+
+  - `int distinctUserCount`
+
+    Number of distinct users who used the skill on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted.
 
   - `?int enableCount`
 
@@ -29439,6 +29542,26 @@ on a Claude Enterprise plan. Requires an API key with the
 
     Total number of times this skill was invoked on the requested day (the skill analog of plugin `invocation_count`). Unlike `distinct_user_count` — which answers '\# of users' — this is the true '# of uses'. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Null when invocation reporting is not enabled for this organization. Sum across a date range for total uses in the window — date-range rollup mode (`starting_date`/`ending_date`) returns this sum directly.
 
+  - `AnalyticsSkillOfficeMetrics officeMetrics`
+
+    Office Agent activity metrics for a single skill on a given day, broken out by Office product.
+
+  - `?ShareStatus shareStatus`
+
+    Skill share status (claude.ai only): one of `private`, `organization`, or `public`. Null for skills used only in Claude Code or Office (no per-skill share-status concept) and when share-status reporting is not yet available for the organization. Filterable via `filter[]=share_status:{value}`.
+
+  - `?string skillDisplayName`
+
+    Human-readable display name for rows whose `skill_name` is an opaque skill id (user/organization skill types and plugin-delivered skills, whose user-defined names usage reports generally withhold). Organization-shared skills and skills delivered by the organization's own plugins (its plugin marketplaces and its library) resolve; plugin skill names are shown without their 'plugin:' prefix. The literal 'unknown' bucket row gets a fixed 'Unknown skill' label. For a member's own skill (private or personal-plugin) it is null, except when the skill's owner used it from Claude Code or Cowork in the requested period: then it shows the name that client reported at the time. Apart from that, the names of members' own skills are not disclosed to analytics-key holders. Also null for Anthropic-provided plugin skills (not resolved), for an organization skill or plugin whose name can no longer be found (for example, one since deleted), when `skill_name` is already a display name, or when display-name resolution is not enabled for this organization.
+
+  - `string skillName`
+
+    Name of the skill
+
+  - `?AnalyticsSkillChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
+
+    Skill use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
+
   - `?string product`
 
     Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, `office_agent`, or `chat_cowork_unified` (Chat and Cowork unified). These are the canonical Cost & Usage product names; an `office_agent` row's per-surface breakdown is in its `office_metrics`. On `/plugins` only `cowork`, `claude_code` and `chat_cowork_unified` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, `cowork` and `chat_cowork_unified` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
@@ -29450,14 +29573,6 @@ on a Claude Enterprise plan. Requires an API key with the
   - `?string rbacGroupName`
 
     Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-
-  - `?ShareStatus shareStatus`
-
-    Skill share status (claude.ai only): one of `private`, `organization`, or `public`. Null for skills used only in Claude Code or Office (no per-skill share-status concept) and when share-status reporting is not yet available for the organization. Filterable via `filter[]=share_status:{value}`.
-
-  - `?string skillDisplayName`
-
-    Human-readable display name for rows whose `skill_name` is an opaque skill id (user/organization skill types and plugin-delivered skills, whose user-defined names usage reports generally withhold). Organization-shared skills and skills delivered by the organization's own plugins (its plugin marketplaces and its library) resolve; plugin skill names are shown without their 'plugin:' prefix. The literal 'unknown' bucket row gets a fixed 'Unknown skill' label. For a member's own skill (private or personal-plugin) it is null, except when the skill's owner used it from Claude Code or Cowork in the requested period: then it shows the name that client reported at the time. Apart from that, the names of members' own skills are not disclosed to analytics-key holders. Also null for Anthropic-provided plugin skills (not resolved), for an organization skill or plugin whose name can no longer be found (for example, one since deleted), when `skill_name` is already a display name, or when display-name resolution is not enabled for this organization.
 
   - `?string userID`
 
@@ -29471,6 +29586,8 @@ on a Claude Enterprise plan. Requires an API key with the
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\Analytics\AnalyticsSkillGroupBy;
+use Anthropic\Beta\Organization\Analytics\AnalyticsOrder;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -29478,9 +29595,9 @@ $page = $client->beta->organization->analytics->skills->list(
   date: '2019-12-27',
   endingDate: '2019-12-27',
   filter: ['string'],
-  groupBy: ['product'],
+  groupBy: [AnalyticsSkillGroupBy::PRODUCT],
   limit: 1,
-  order: 'asc',
+  order: AnalyticsOrder::ASC,
   orderBy: 'order_by',
   page: 'page',
   startingDate: '2019-12-27',
@@ -29495,6 +29612,7 @@ var_dump($page);
 {
   "data": [
     {
+      "attributed_list_price": "attributed_list_price",
       "chat_metrics": {
         "distinct_conversation_skill_used_count": 0
       },
@@ -29504,7 +29622,11 @@ var_dump($page);
       "cowork_metrics": {
         "distinct_session_skill_used_count": 0
       },
+      "currency": "currency",
       "distinct_user_count": 0,
+      "enable_count": 0,
+      "estimated_overage_spend": "estimated_overage_spend",
+      "invocation_count": 0,
       "office_metrics": {
         "excel": {
           "distinct_session_skill_used_count": 0
@@ -29519,8 +29641,9 @@ var_dump($page);
           "distinct_session_skill_used_count": 0
         }
       },
+      "share_status": "organization",
+      "skill_display_name": "skill_display_name",
       "skill_name": "skill_name",
-      "attributed_list_price": "attributed_list_price",
       "chat_cowork_unified_metrics": {
         "chat": {
           "distinct_conversation_skill_used_count": 0
@@ -29529,15 +29652,9 @@ var_dump($page);
           "distinct_session_skill_used_count": 0
         }
       },
-      "currency": "currency",
-      "enable_count": 0,
-      "estimated_overage_spend": "estimated_overage_spend",
-      "invocation_count": 0,
       "product": "product",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
-      "share_status": "organization",
-      "skill_display_name": "skill_display_name",
       "user_id": "user_id"
     }
   ],
@@ -29549,7 +29666,7 @@ var_dump($page);
 
 ### Get Artifact Activity
 
-`$client->beta->organization->analytics->artifacts->list(\Datetime date, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?string page): PageCursor<AnalyticsArtifactActivity>`
+`$client->beta->organization->analytics->artifacts->list(\Datetime date, ?list<string> filter, ?list<AnalyticsArtifactGroupBy> groupBy, ?int limit, ?string page): PageCursor<AnalyticsArtifactActivity>`
 
 **GET** `/v1/organizations/analytics/artifacts`
 
@@ -29571,7 +29688,7 @@ can be broken out per product, per member, or per RBAC group via
 
   Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `artifact_type`, `is_shared`, `product`, `rbac_group_id`, `user_id`. Value forms: `artifact_type` is a canonical artifact MIME type (e.g. `text/markdown`) or `other`; `is_shared` is `true` or `false`; `product` is `chat_cowork_unified`, `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
 
-- `groupBy?: optional list<GroupBy>` (query parameter)
+- `groupBy?: optional list<AnalyticsArtifactGroupBy>` (query parameter)
 
   Dimensions to break results out by: `product`, `user_id` and/or `rbac_group_id`. The ungrouped artifact-type cube is finite and returned in full; grouped queries multiply the cube and paginate via `next_page`. `product` takes the values `chat_cowork_unified`, `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts). `rbac_group_id` attributes a user to every group they held at any point during the requested UTC day, so grouped rows are not an exclusive partition. At most 100 entries.
 
@@ -29631,13 +29748,14 @@ can be broken out per product, per member, or per RBAC group via
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\Analytics\AnalyticsArtifactGroupBy;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->organization->analytics->artifacts->list(
   date: '2019-12-27',
   filter: ['string'],
-  groupBy: ['product'],
+  groupBy: [AnalyticsArtifactGroupBy::PRODUCT],
   limit: 1,
   page: 'page',
 );
@@ -31470,7 +31588,7 @@ var_dump($page);
 
 ### List Effective Spend Limits
 
-`$client->beta->organization->spendLimits->effective->list(?int limit, ?string page, ?list<Period> period, ?list<string> userIDs): PageCursor<SpendSummary>`
+`$client->beta->organization->spendLimits->effective->list(?int limit, ?string page, ?list<SpendLimitPeriod> period, ?list<string> userIDs): PageCursor<SpendSummary>`
 
 **GET** `/v1/organizations/spend_limits/effective`
 
@@ -31494,7 +31612,7 @@ organizations.
 
   Opaque cursor from a previous response's `next_page` field.
 
-- `period?: optional list<Period>` (query parameter)
+- `period?: optional list<SpendLimitPeriod>` (query parameter)
 
   Restrict the report to these limit periods. Omit to return one row per period each member resolves a spend limit for.
 
@@ -31538,11 +31656,12 @@ organizations.
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
+use Anthropic\Beta\Organization\SpendLimits\SpendLimitPeriod;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->organization->spendLimits->effective->list(
-  limit: 1, page: 'page', period: ['daily'], userIDs: ['string']
+  limit: 1, page: 'page', period: [SpendLimitPeriod::DAILY], userIDs: ['string']
 );
 
 var_dump($page);
@@ -31619,7 +31738,9 @@ Requests whose requester is no longer a member are excluded.
 
   - `string id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
   - `\Datetime createdAt`
 
@@ -31627,7 +31748,9 @@ Requests whose requester is no longer a member are excluded.
 
   - `?\Datetime resolvedAt`
 
-  - `?ResolvedBy resolvedBy`
+  - `?BetaSpendLimitIncreaseRequestResolvedBy resolvedBy`
+
+    Who approved or denied the increase request.
 
   - `?SpendSummary spendSummary`
 
@@ -31736,7 +31859,9 @@ requester at the request's period.
 
   - `string id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
   - `\Datetime createdAt`
 
@@ -31744,7 +31869,9 @@ requester at the request's period.
 
   - `?\Datetime resolvedAt`
 
-  - `?ResolvedBy resolvedBy`
+  - `?BetaSpendLimitIncreaseRequestResolvedBy resolvedBy`
+
+    Who approved or denied the increase request.
 
   - `?SpendSummary spendSummary`
 
@@ -31857,7 +31984,9 @@ the member was blocked on. Anthropic emails the requester unless
 
   - `string id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
   - `\Datetime createdAt`
 
@@ -31865,9 +31994,11 @@ the member was blocked on. Anthropic emails the requester unless
 
   - `?\Datetime resolvedAt`
 
-  - `?ResolvedBy resolvedBy`
+  - `?BetaSpendLimitIncreaseRequestResolvedBy resolvedBy`
 
-  - `SpendLimit spendLimit`
+    Who approved or denied the increase request.
+
+  - `?SpendLimit spendLimit`
 
     A configured spend limit: a cap on metered spend for one scope and period.
 
@@ -31989,7 +32120,9 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
   - `string id`
 
-  - `Actor actor`
+  - `BetaSpendLimitIncreaseRequestActor actor`
+
+    Who submitted the increase request.
 
   - `\Datetime createdAt`
 
@@ -31997,7 +32130,9 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
   - `?\Datetime resolvedAt`
 
-  - `?ResolvedBy resolvedBy`
+  - `?BetaSpendLimitIncreaseRequestResolvedBy resolvedBy`
+
+    Who approved or denied the increase request.
 
   - `?SpendSummary spendSummary`
 
@@ -32433,7 +32568,7 @@ var_dump($betaRBACGroup);
 
 ### Delete RBAC Group
 
-`$client->beta->organization->rbacGroups->delete(string rbacGroupID): RBACGroupDeleteResponse`
+`$client->beta->organization->rbacGroups->delete(string rbacGroupID): DeletedRBACGroup`
 
 **DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}`
 
@@ -32449,7 +32584,7 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 #### Returns
 
-- `class RBACGroupDeleteResponse`
+- `class DeletedRBACGroup`
 
   - `"rbac_group_deleted" type`
 
@@ -32472,9 +32607,11 @@ use Anthropic\Client;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$rbacGroup = $client->beta->organization->rbacGroups->delete('rbac_group_id');
+$betaDeletedRBACGroup = $client->beta->organization->rbacGroups->delete(
+  'rbac_group_id'
+);
 
-var_dump($rbacGroup);
+var_dump($betaDeletedRBACGroup);
 ```
 
 ##### Response (200)
@@ -32656,7 +32793,7 @@ var_dump($betaRBACGroupMember);
 
 ### Remove RBAC Group Member
 
-`$client->beta->organization->rbacGroups->members->remove(string userID, string rbacGroupID): MemberRemoveResponse`
+`$client->beta->organization->rbacGroups->members->remove(string userID, string rbacGroupID): BetaDeletedRBACGroupMember`
 
 **DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`
 
@@ -32676,7 +32813,7 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 #### Returns
 
-- `class MemberRemoveResponse`
+- `class BetaDeletedRBACGroupMember`
 
   - `"rbac_group_member_deleted" type`
 
@@ -32701,11 +32838,14 @@ use Anthropic\Client;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$member = $client->beta->organization->rbacGroups->members->remove(
-  'user_id', rbacGroupID: 'rbac_group_id'
-);
+$betaDeletedRBACGroupMember = $client
+  ->beta
+  ->organization
+  ->rbacGroups
+  ->members
+  ->remove('user_id', rbacGroupID: 'rbac_group_id');
 
-var_dump($member);
+var_dump($betaDeletedRBACGroupMember);
 ```
 
 ##### Response (200)
@@ -37098,7 +37238,7 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
 
   - `string id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `\Datetime createdAt`
 
@@ -37242,7 +37382,7 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
 
   - `string id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `\Datetime createdAt`
 
@@ -37371,7 +37511,7 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
 
   - `string id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `\Datetime createdAt`
 
@@ -37497,7 +37637,7 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `string id`
 
-    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured gets a new one when claude.ai replaces its record, which happens only while the organization's read-only mode is off. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
+    The channel's identifier. Starts with `slch_`. It does not change for as long as the channel is set up, with one exception: a channel that is not configured can get a new one. A channel that is removed and set up again also has a new one. The old one keeps returning 404; look the channel up by its Slack identifiers for the new one.
 
   - `\Datetime createdAt`
 

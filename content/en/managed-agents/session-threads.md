@@ -528,7 +528,7 @@ A thread’s stream doesn’t replay earlier events. Right after `session.thread
               .build()
       )) {
           loop:
-          for (var event : (Iterable<BetaManagedAgentsStreamSessionThreadEvents>) streamResponse.stream()::iterator) {
+          for (var event : streamResponse) {
               switch (event.type().value()) {
                   case AGENT_MESSAGE -> {
                       for (var block : event.asAgentMessage().content()) {

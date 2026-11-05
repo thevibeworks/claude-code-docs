@@ -1217,6 +1217,58 @@ List Events
 
           ID of the vault containing the affected credential.
 
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -2507,6 +2559,8 @@ List Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -2808,6 +2862,8 @@ List Events
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 
@@ -5345,6 +5401,58 @@ Stream Events
 
           ID of the vault containing the affected credential.
 
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -6635,6 +6743,8 @@ Stream Events
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -6936,6 +7046,8 @@ Stream Events
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 
@@ -8738,6 +8850,40 @@ func main() {
     Human-readable error description.
 
   - `RetryStatus BetaManagedAgentsBillingErrorRetryStatusUnion`
+
+    What the client should do next.
+
+    - `type BetaManagedAgentsRetryStatusRetrying`
+
+      The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+      - `Type Retrying`
+
+    - `type BetaManagedAgentsRetryStatusExhausted`
+
+      This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+      - `Type Exhausted`
+
+    - `type BetaManagedAgentsRetryStatusTerminal`
+
+      The session encountered a terminal error and will transition to `terminated` state.
+
+      - `Type Terminal`
+
+### Beta Managed Agents Compaction Limit Reached Error
+
+- `type BetaManagedAgentsCompactionLimitReachedError`
+
+  The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+  - `Type CompactionLimitReachedError`
+
+  - `Message string`
+
+    Human-readable error description.
+
+  - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
 
     What the client should do next.
 
@@ -10579,6 +10725,58 @@ func main() {
 
         ID of the vault containing the affected credential.
 
+    - `type BetaManagedAgentsToolUseLimitReachedError`
+
+      The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+      - `Type ToolUseLimitReachedError`
+
+      - `Message string`
+
+        Human-readable error description.
+
+      - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+        What the client should do next.
+
+        - `type BetaManagedAgentsRetryStatusRetrying`
+
+          The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+        - `type BetaManagedAgentsRetryStatusExhausted`
+
+          This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+        - `type BetaManagedAgentsRetryStatusTerminal`
+
+          The session encountered a terminal error and will transition to `terminated` state.
+
+    - `type BetaManagedAgentsCompactionLimitReachedError`
+
+      The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+      - `Type CompactionLimitReachedError`
+
+      - `Message string`
+
+        Human-readable error description.
+
+      - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+        What the client should do next.
+
+        - `type BetaManagedAgentsRetryStatusRetrying`
+
+          The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+        - `type BetaManagedAgentsRetryStatusExhausted`
+
+          This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+        - `type BetaManagedAgentsRetryStatusTerminal`
+
+          The session encountered a terminal error and will transition to `terminated` state.
+
     - `type BetaManagedAgentsRepositoryAuthenticationError`
 
       The repository host rejected the credentials, or required credentials and received none.
@@ -11686,6 +11884,58 @@ func main() {
         - `VaultID string`
 
           ID of the vault containing the affected credential.
+
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
 
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
@@ -12977,6 +13227,8 @@ func main() {
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -13278,6 +13530,8 @@ func main() {
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 
@@ -14174,6 +14428,8 @@ func main() {
     - `Amount string`
 
       Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      pattern: ^(0|[1-9]\d*)$
 
     - `Currency BetaCurrency`
 
@@ -15403,6 +15659,58 @@ func main() {
 
           ID of the vault containing the affected credential.
 
+      - `type BetaManagedAgentsToolUseLimitReachedError`
+
+        The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type ToolUseLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
+      - `type BetaManagedAgentsCompactionLimitReachedError`
+
+        The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+        - `Type CompactionLimitReachedError`
+
+        - `Message string`
+
+          Human-readable error description.
+
+        - `RetryStatus BetaManagedAgentsCompactionLimitReachedErrorRetryStatusUnion`
+
+          What the client should do next.
+
+          - `type BetaManagedAgentsRetryStatusRetrying`
+
+            The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+          - `type BetaManagedAgentsRetryStatusExhausted`
+
+            This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+          - `type BetaManagedAgentsRetryStatusTerminal`
+
+            The session encountered a terminal error and will transition to `terminated` state.
+
       - `type BetaManagedAgentsRepositoryAuthenticationError`
 
         The repository host rejected the credentials, or required credentials and received none.
@@ -16693,6 +17001,8 @@ func main() {
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
+                          pattern: ^[A-Z]{2}$
+
                         - `Region string Optional`
 
                           Region or state name.
@@ -16994,6 +17304,8 @@ func main() {
         - `Amount string`
 
           Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          pattern: ^(0|[1-9]\d*)$
 
         - `Currency BetaCurrency`
 
@@ -17508,6 +17820,40 @@ func main() {
   - `Message string`
 
     Short explanation written by the server. It never contains content from the run or its agents.
+
+### Beta Managed Agents Tool Use Limit Reached Error
+
+- `type BetaManagedAgentsToolUseLimitReachedError`
+
+  The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
+
+  - `Type ToolUseLimitReachedError`
+
+  - `Message string`
+
+    Human-readable error description.
+
+  - `RetryStatus BetaManagedAgentsToolUseLimitReachedErrorRetryStatusUnion`
+
+    What the client should do next.
+
+    - `type BetaManagedAgentsRetryStatusRetrying`
+
+      The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
+
+      - `Type Retrying`
+
+    - `type BetaManagedAgentsRetryStatusExhausted`
+
+      This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
+
+      - `Type Exhausted`
+
+    - `type BetaManagedAgentsRetryStatusTerminal`
+
+      The session encountered a terminal error and will transition to `terminated` state.
+
+      - `Type Terminal`
 
 ### Beta Managed Agents Unknown Error
 

@@ -35,7 +35,7 @@ Create a Credential
 
         The OAuth access token to send to the MCP server.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `MCPServerURL string`
 
@@ -127,7 +127,7 @@ Create a Credential
 
         The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `MCPServerURL string`
 
@@ -167,13 +167,13 @@ Create a Credential
 
         Name of the environment variable. Immutable after create.
 
-        minLength: 1, maxLength: 255
+        minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
       - `SecretValue string`
 
         The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationParams Optional`
 
@@ -1273,7 +1273,7 @@ Update a Credential
 
         The new OAuth access token to replace the stored one.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
       - `ExpiresAt Time Optional`
 
@@ -1341,7 +1341,7 @@ Update a Credential
 
         The new static bearer token to replace the stored one.
 
-        minLength: 1, maxLength: 8192
+        minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `type BetaManagedAgentsEnvironmentVariableUpdateParams`
 
@@ -1387,7 +1387,7 @@ Update a Credential
 
         The new secret value to replace the stored one.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `DisplayName param.Opt[string] Optional`
 
@@ -2959,13 +2959,13 @@ func main() {
 
     Name of the environment variable. Immutable after create.
 
-    minLength: 1, maxLength: 255
+    minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
   - `SecretValue string`
 
     The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `InjectionLocation BetaManagedAgentsInjectionLocationParams Optional`
 
@@ -3025,7 +3025,7 @@ func main() {
 
     The new secret value to replace the stored one.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Injection Location Params
 
@@ -3171,7 +3171,7 @@ func main() {
 
     The OAuth access token to send to the MCP server.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `MCPServerURL string`
 
@@ -3423,7 +3423,7 @@ func main() {
 
     The new OAuth access token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `ExpiresAt Time Optional`
 
@@ -3609,7 +3609,7 @@ func main() {
 
     The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `MCPServerURL string`
 
@@ -3629,7 +3629,7 @@ func main() {
 
     The new static bearer token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Token Endpoint Auth Basic Param
 

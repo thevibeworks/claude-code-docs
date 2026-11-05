@@ -547,7 +547,7 @@ Pause Deployment
 
             Full commit SHA to check out.
 
-            minLength: 7, maxLength: 64
+            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
 
       - `mount_path: optional string`
 
@@ -652,6 +652,8 @@ Pause Deployment
       - `amount: string`
 
         Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        pattern: ^(0|[1-9]\d*)$
 
       - `currency: "USD"`
 

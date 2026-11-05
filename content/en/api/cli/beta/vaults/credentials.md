@@ -33,7 +33,7 @@ Create a Credential
 
       The OAuth access token to send to the MCP server.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `mcp_server_url: string`
 
@@ -125,7 +125,7 @@ Create a Credential
 
       The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `mcp_server_url: string`
 
@@ -165,13 +165,13 @@ Create a Credential
 
       Name of the environment variable. Immutable after create.
 
-      minLength: 1, maxLength: 255
+      minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
     - `secret_value: string`
 
       The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-      minLength: 1, maxLength: 4096
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `injection_location: optional object`
 
@@ -1200,7 +1200,7 @@ Update a Credential
 
       The new OAuth access token to replace the stored one.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
     - `expires_at: optional string`
 
@@ -1268,7 +1268,7 @@ Update a Credential
 
       The new static bearer token to replace the stored one.
 
-      minLength: 1, maxLength: 8192
+      minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `beta_managed_agents_environment_variable_update_params: object`
 
@@ -1314,7 +1314,7 @@ Update a Credential
 
       The new secret value to replace the stored one.
 
-      minLength: 1, maxLength: 4096
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
 - `--display-name: optional string`
 
@@ -2788,13 +2788,13 @@ ant beta:vaults:credentials mcp-oauth-validate \
 
     Name of the environment variable. Immutable after create.
 
-    minLength: 1, maxLength: 255
+    minLength: 1, maxLength: 255, pattern: ^[A-Z_][A-Z0-9_]*$
 
   - `secret_value: string`
 
     The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `injection_location: optional object`
 
@@ -2854,7 +2854,7 @@ ant beta:vaults:credentials mcp-oauth-validate \
 
     The new secret value to replace the stored one.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Injection Location Params
 
@@ -3000,7 +3000,7 @@ ant beta:vaults:credentials mcp-oauth-validate \
 
     The OAuth access token to send to the MCP server.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `mcp_server_url: string`
 
@@ -3252,7 +3252,7 @@ ant beta:vaults:credentials mcp-oauth-validate \
 
     The new OAuth access token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `expires_at: optional string`
 
@@ -3438,7 +3438,7 @@ ant beta:vaults:credentials mcp-oauth-validate \
 
     The static bearer token to send to the MCP server, such as an API key or personal access token.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
   - `mcp_server_url: string`
 
@@ -3458,7 +3458,7 @@ ant beta:vaults:credentials mcp-oauth-validate \
 
     The new static bearer token to replace the stored one.
 
-    minLength: 1, maxLength: 8192
+    minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
 ### Beta Managed Agents Token Endpoint Auth Basic Param
 

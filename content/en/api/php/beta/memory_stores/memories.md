@@ -115,7 +115,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
   'memory_store_id',
   content: 'content',
-  path: 'xx',
+  path: '/P',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
@@ -551,9 +551,10 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
   content: 'content',
-  path: 'xx',
+  path: '/P',
   precondition: [
-    'type' => 'content_sha256', 'contentSha256' => 'content_sha256'
+    'type' => 'content_sha256',
+    'contentSha256' => '210b9798eb53baa4e69d31c1071cf03d212b8ad0ca30cf321e0ea82e120aac26',
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',

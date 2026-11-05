@@ -772,9 +772,7 @@ The type mismatch between the initial `input: {}` (object) and `partial_json` (s
   Map<Long, StringBuilder> toolInputs = new HashMap<>();
 
   try (StreamResponse<RawMessageStreamEvent> streamResponse = client.messages().createStreaming(createParams)) {
-      var eventIterator = streamResponse.stream().iterator();
-      while (eventIterator.hasNext()) {
-          RawMessageStreamEvent event = eventIterator.next();
+      for (RawMessageStreamEvent event : streamResponse) {
           switch (event.type().value()) {
               case CONTENT_BLOCK_START -> {
                   var blockStart = event.asContentBlockStart();

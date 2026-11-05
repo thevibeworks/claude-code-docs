@@ -29912,13 +29912,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -30188,13 +30190,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved (the project's creation, or an automated change); events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved (the project's creation, or an automated change); events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -30452,13 +30456,15 @@ compliance activities that can be filtered by various criteria.
 
       Access level granted to organization members (read_only or full); only set when shared
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -31672,13 +31678,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -40786,13 +40794,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -41050,13 +41060,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when the change was made by an automated process, or when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when the change was made by an automated process, or when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -41312,13 +41324,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -41574,13 +41588,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -41836,13 +41852,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -42106,13 +42124,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -42368,13 +42388,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -42626,13 +42648,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -42884,13 +42908,15 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -43146,11 +43172,13 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "organization_admin" or "owner" or "unspecified" or null`
+    - `access_via: optional "organization_admin" or "organization_capability" or "owner" or "unspecified" or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner before the transfer) or "organization_admin" (an administrator of the organization's security scanning); absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner before the transfer), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace); absent when no project relationship was involved.
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"owner"`
 
@@ -44774,10 +44802,6 @@ compliance activities that can be filtered by various criteria.
 
       Tagged ID of the created survey, e.g. "srvy_01HX...".
 
-    - `survey_name: string`
-
-      The name the admin gave the survey. Not shown to members.
-
     - `id: optional string`
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
@@ -44807,6 +44831,12 @@ compliance activities that can be filtered by various criteria.
     - `organization_uuid: optional string or null`
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `survey_name: string`
+
+      **Deprecated**
+
+      Always empty: the survey's name is no longer recorded. Use `survey_id` to identify the survey.
 
   - `ClaudeSurveyDeleted object`
 
@@ -68798,11 +68828,27 @@ compliance activities that can be filtered by various criteria.
 
         Digest of the legal text that was accepted, identifying its version, as the actor's client reported it (not verified against a known document).
 
+    - `auth_method_type: optional "no_auth" or "oauth" or "static_headers" or "unspecified" or null`
+
+      How the connector authenticates, when the request declared it. Absent otherwise.
+
+      - `"no_auth"`
+
+      - `"oauth"`
+
+      - `"static_headers"`
+
+      - `"unspecified"`
+
     - `created_at: optional string`
 
       When this activity occurred.
 
       format: date-time
+
+    - `header_count: optional number or null`
+
+      How many request headers the request declared, when it declared an auth method or no auth. Absent otherwise.
 
     - `organization_id: optional string or null`
 
@@ -96680,7 +96726,7 @@ compliance activities that can be filtered by various criteria.
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 111 more`
+    - `updates: array of Name or Capabilities or RedactContent or 112 more`
 
       - `Name object`
 
@@ -98486,6 +98532,22 @@ compliance activities that can be filtered by various criteria.
         - `previous_value: optional boolean or null`
 
           Setting value immediately before this change
+
+      - `ClaudeSecurityOverlappingProjectsEnabled object`
+
+        The Claude Security "Overlapping projects" setting (whether more than one project may cover the same code) was changed for the organization.
+
+        - `type: optional "claude_security_overlapping_projects_enabled"`
+
+          default: claude_security_overlapping_projects_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change. Null means the setting is not set for the organization, so the default (off) applies.
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the default (off) applied.
 
       - `ArtifactTypeSlidesEnabled object`
 
@@ -173466,13 +173528,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -173742,13 +173806,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved (the project's creation, or an automated change); events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved (the project's creation, or an automated change); events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -174006,13 +174072,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Access level granted to organization members (read_only or full); only set when shared
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved (for example, an automated change); events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -175226,13 +175294,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -184340,13 +184410,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -184604,13 +184676,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when the change was made by an automated process, or when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when the change was made by an automated process, or when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -184866,13 +184940,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -185128,13 +185204,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -185390,13 +185468,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -185660,13 +185740,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved; events recorded before this field was introduced omit it.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -185922,13 +186004,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -186180,13 +186264,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -186438,13 +186524,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "member" or "organization_admin" or "organization_share" or 2 more or null`
+    - `access_via: optional "member" or "organization_admin" or "organization_capability" or 3 more or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), or "organization_admin" (an administrator of the organization's security scanning). Absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner), "member" (an individually added member), "organization_share" (the project is shared with the actor's organization), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace). Absent when no project relationship was involved.
 
       - `"member"`
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"organization_share"`
 
@@ -186700,11 +186788,13 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
-    - `access_via: optional "organization_admin" or "owner" or "unspecified" or null`
+    - `access_via: optional "organization_admin" or "organization_capability" or "owner" or "unspecified" or null`
 
-      How the actor was authorized to make this change: "owner" (the scan project's owner before the transfer) or "organization_admin" (an administrator of the organization's security scanning); absent when no project relationship was involved.
+      How the actor was authorized to make this change: "owner" (the scan project's owner before the transfer), "organization_admin" (an administrator of the organization's security scanning), or "organization_capability" (one of the organization's all-projects capabilities, such as "Manage all projects", which apply to every project in their workspace); absent when no project relationship was involved.
 
       - `"organization_admin"`
+
+      - `"organization_capability"`
 
       - `"owner"`
 
@@ -188328,10 +188418,6 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Tagged ID of the created survey, e.g. "srvy_01HX...".
 
-    - `survey_name: string`
-
-      The name the admin gave the survey. Not shown to members.
-
     - `id: optional string`
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
@@ -188361,6 +188447,12 @@ curl https://api.anthropic.com/v1/compliance/activities \
     - `organization_uuid: optional string or null`
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `survey_name: string`
+
+      **Deprecated**
+
+      Always empty: the survey's name is no longer recorded. Use `survey_id` to identify the survey.
 
   - `ClaudeSurveyDeleted object`
 
@@ -212352,11 +212444,27 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
         Digest of the legal text that was accepted, identifying its version, as the actor's client reported it (not verified against a known document).
 
+    - `auth_method_type: optional "no_auth" or "oauth" or "static_headers" or "unspecified" or null`
+
+      How the connector authenticates, when the request declared it. Absent otherwise.
+
+      - `"no_auth"`
+
+      - `"oauth"`
+
+      - `"static_headers"`
+
+      - `"unspecified"`
+
     - `created_at: optional string`
 
       When this activity occurred.
 
       format: date-time
+
+    - `header_count: optional number or null`
+
+      How many request headers the request declared, when it declared an auth method or no auth. Absent otherwise.
 
     - `organization_id: optional string or null`
 
@@ -240234,7 +240342,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 111 more`
+    - `updates: array of Name or Capabilities or RedactContent or 112 more`
 
       - `Name object`
 
@@ -242040,6 +242148,22 @@ curl https://api.anthropic.com/v1/compliance/activities \
         - `previous_value: optional boolean or null`
 
           Setting value immediately before this change
+
+      - `ClaudeSecurityOverlappingProjectsEnabled object`
+
+        The Claude Security "Overlapping projects" setting (whether more than one project may cover the same code) was changed for the organization.
+
+        - `type: optional "claude_security_overlapping_projects_enabled"`
+
+          default: claude_security_overlapping_projects_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change. Null means the setting is not set for the organization, so the default (off) applies.
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the default (off) applied.
 
       - `ArtifactTypeSlidesEnabled object`
 

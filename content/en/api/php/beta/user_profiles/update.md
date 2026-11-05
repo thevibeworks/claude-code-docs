@@ -117,7 +117,7 @@ $betaUserProfile = $client->beta->userProfiles->update(
   externalID: 'x',
   externalUserDetails: [
     'accountStatus' => 'suspended',
-    'country' => 'country',
+    'country' => 'SE',
     'emailHash' => 'x',
     'entityType' => 'individual',
     'nameHash' => 'x',

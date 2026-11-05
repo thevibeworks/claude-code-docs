@@ -8,7 +8,7 @@
 
 Import brings a copy of your claude.ai conversations and projects into Claude Desktop on third-party (3P), along with any Cowork and Claude Code sessions already on this machine from an earlier install. Everything lands in the local session store described in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md), so you can pick up work you started on claude.ai and continue it against your organization's own inference provider.
 
-Each import is a one-time copy. New activity on claude.ai after you import does not appear in Claude Desktop unless you import again, and re-running the import does not create duplicates.
+Each import is a one-time copy. New activity on claude.ai after you import does not appear in Claude Desktop unless you import again, and importing from claude.ai again does not create duplicates.
 
 ## Automatic import of earlier third-party sessions
 
@@ -107,13 +107,15 @@ Click **Continue**, or **Skip this step** if you only want to bring in local ses
 
 ## Step 2: local Cowork and Code sessions
 
-The wizard scans this machine for Cowork and Claude Code sessions from an earlier Claude Desktop install and lists what it finds. Choose how far back to include, and add any other folder that holds sessions (for example, a backup or a folder copied from another machine).
+The wizard scans this machine for Cowork and Claude Code sessions from an earlier Claude Desktop install and lists what it finds. Choose how far back to include, and add any other folder that holds sessions (for example, a backup or a folder copied from another machine). On Windows, the folder has to be on a local disk. The wizard can't import one from a network share or a mapped network drive, so copy it to the computer first.
 
-![Import from Claude wizard step 2, Cowork and Code, listing 5 local sessions with a time-range selector and an option to add another location.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-local-sessions.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=e17511922a814b0355cb540688a5c949)
+![Import from Claude wizard step 2, Cowork and Code, listing 5 local sessions with a time-range selector and an option to add another location.](https://mintcdn.com/claude-ai/RVrsc-fMoqOV1t9C/images/third-party/import/import-local-sessions.png?fit=max\&auto=format\&n=RVrsc-fMoqOV1t9C\&q=85\&s=24f96c7b665e4a82fa8f552c20c60312)
 
 Local sessions found on this machine.
 
 Sessions are copied, not moved. Your original history stays where it is.
+
+If you add the same folder again, the wizard skips the sessions it marks as already imported and copies the rest. A session that changed after you imported it is copied again as a separate session, and a project can arrive a second time with a number after its name, such as **Northwind (1)**. On Claude Desktop versions before 3.1623.0, the wizard copies every session again. To undo an import, go to **Settings → Import & export** and click **Remove** next to it under **Import history**.
 
 ## Step 3: review and import
 
@@ -123,7 +125,7 @@ The **Review** step summarizes what will be added. Click **Import** to copy ever
 
 The review summary before import.
 
-![Import from Claude wizard success screen showing a checkmark and the number of sessions imported, with a note that re-running import will not create duplicates.](https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-success.png?fit=max\&auto=format\&n=XDpDaIQ3J0Amhn8h\&q=85\&s=f0a01a38e52d841b66c4215f9cda2db4)
+![Import from Claude wizard success screen showing a checkmark and the number of sessions imported.](https://mintcdn.com/claude-ai/RVrsc-fMoqOV1t9C/images/third-party/import/import-success.png?fit=max\&auto=format\&n=RVrsc-fMoqOV1t9C\&q=85\&s=4c7be49e3961f082808af10edc50eb56)
 
 Import complete. Imported chats appear in the sidebar and imported projects appear on the Projects page.
 
@@ -135,7 +137,7 @@ When an imported project has the same name as a project already in Claude Deskto
 
 The Duplicates step, listing imported projects that match ones you already have.
 
-* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source land in the existing project as well.
+* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source land in the existing project as well, except from a folder or zip you added, where the wizard asks again.
 * **Keep separate** leaves both projects in place. The imported one keeps a numbered name, such as **Northwind (1)**, and Claude Desktop stops offering to merge it.
 
 The **Projects** page offers the same two choices, in a row under the duplicate project's card and at the top of the duplicate project's own page. Decide there if your history was brought over automatically when you signed in, so you never saw the wizard, or if you closed the wizard before choosing.
@@ -177,7 +179,7 @@ Your administrator can also limit which folders Claude reads. See [Project folde
 
 ## Export sessions to move them to another device
 
-When your administrator also sets `exportEnabled` to `true` under `claudeAiImport`, **Settings → Import & export** offers **Export…**, which writes this computer's chats, Cowork tasks, and Code sessions (not terminal Claude Code sessions) to a zip file. On the other device, open the import wizard and select that zip with **Choose file…**; the wizard lists its sessions in the [Cowork & Code step](#step-2-local-cowork-and-code-sessions). The export is a one-time snapshot, not a sync, and the zip contains full conversation content, so handle it as sensitive data.
+When your administrator also sets `exportEnabled` to `true` under `claudeAiImport`, **Settings → Import & export** offers **Export…**, which writes this computer's chats, Cowork tasks, and Code sessions (not terminal Claude Code sessions) to a zip file. On the other device, open the import wizard and select that zip with **Choose file…**; the wizard lists its sessions in the [Cowork & Code step](#step-2-local-cowork-and-code-sessions). Importing the same zip again works as it does for [an added folder](#step-2-local-cowork-and-code-sessions): sessions marked as already imported are skipped, and the rest are copied. The export is a one-time snapshot, not a sync, and the zip contains full conversation content, so handle it as sensitive data.
 
 The zip includes sessions, project names, and each session's output files when they total 100 MB or less. It leaves out project instructions, memory, scheduled tasks, skills, plugins, and attached files. To move those, your administrator can [copy your data to the new device](https://claude.com/docs/third-party/claude-desktop/data-storage.md#move-a-user-to-a-new-device). Sign-ins and connector connections don't move either way.
 
@@ -189,3 +191,36 @@ The zip includes sessions, project names, and each session's output files when t
 * **Project knowledge files and conversation attachments do not.** A member's own export never includes the contents of files uploaded to a project's knowledge or attached to a conversation. This is a security policy on claude.ai, and it applies to both the **Sign in to claude.ai** and **Choose a downloaded file** paths. Imported chats keep the messages that referenced an attachment, but not the file itself. The only export that includes file contents is an organization-level export, which only a workspace owner can request.
 * **One-time copy.** Imported history does not stay in sync with claude.ai. Run the import again to pick up newer conversations; existing imports are matched and skipped, so you won't get duplicates.
 * **Download links expire.** The email link from claude.ai is valid for 24 hours. Request a new export if it lapses.
+
+## Troubleshoot the import wizard
+
+Claude Desktop runs each claude.ai import through the Claude CLI binary, the [helper program](https://claude.com/docs/third-party/claude-desktop/installation.md#endpoint-security-software) that also runs your conversations. Unless your organization deploys the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation), Claude Desktop downloads the version of the binary it needs separately from the app, when you start a new conversation or task.
+
+### Importing a claude.ai export needs a newer version of this app
+
+The wizard shows this message, under **Update Claude to import from claude.ai**, when this computer has only an earlier version of the Claude CLI binary that can't import a claude.ai export. You don't need to update or reinstall Claude Desktop. To download the current version of the binary, follow these steps:
+
+**1. Start a new conversation or task**
+
+Close the wizard. Send any message in a new conversation or task, not in an existing one.
+
+**2. Wait for Claude's reply**
+
+The reply can be slow while Claude Desktop downloads the binary.
+
+**3. Open the import wizard again**
+
+Go to **Settings > Import & export** and click **Import…** to open the wizard. The **Chats** step shows its import options in place of the message.
+
+If the message is still there, ask your administrator to follow [Cowork workspace or Claude CLI fails to download](https://claude.com/docs/third-party/claude-desktop/installation.md#cowork-workspace-or-claude-cli-fails-to-download) and to leave the earlier version of the binary in place, because your conversations run on it until the download succeeds.
+
+### That doesn’t look like a claude.ai export
+
+If the message appears as soon as you choose a file, choose the `.zip` file of your [claude.ai export](#step-1-claude-ai-chats-and-projects) as you downloaded it. If the export came as more than one `.zip` file, choose all of them together.
+
+If the message appears after you click **Import** on the **Review** step, your export can still be valid. Claude Desktop 4.16336.0 and earlier shows this message for other failures too. Before you run the import again from **Settings > Import & export**, do the following:
+
+* **Check the export files**: if you imported with **Choose file…**, use each `.zip` file as you downloaded it, not renamed or compressed again. On Windows, keep its full path under 260 characters, for example by moving it to your Downloads folder.
+* **Start a new conversation or task**: close the wizard, send any message, and wait for the reply, so the import can run on the current version of the Claude CLI binary.
+
+If the import still fails, go to **Help > Troubleshooting > Generate Diagnostic Report** before you quit Claude Desktop, and click **Export to file**. Review [what the report contains](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting), then send the report's `.zip` file to your administrator, who can pass it to your Anthropic representative.
