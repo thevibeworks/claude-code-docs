@@ -39,4 +39,4 @@ Use the **Export** menu to generate deployment artifacts for a fleet:
 
 See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) or [Deploy with a bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) to distribute what you exported.
 
-When a managed profile is already present on the device, the window opens in read-only mode and shows the deployed values. Author new configurations from a device without a managed profile.
+When a managed profile is already present on the device, the window opens in read-only mode and shows the deployed values. Its **Export** menu offers **JSON config (redacted)**, a file to [import into the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file). This option requires Claude Desktop 4.23118.0 or later. Author new configurations from a device without a managed profile.

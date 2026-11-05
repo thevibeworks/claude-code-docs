@@ -6,14 +6,108 @@
 
 > Release notes for Claude for Government
 
+**2026.11.05.1**
+
+* (breaking) Changed what Claude Desktop opens for members who have **Chat in Claude Desktop**, **Cowork in Claude Desktop**, and **Code in Claude Desktop** all off and no **Claude Desktop home** chosen (**Separate settings** counts as none): Claude Desktop 1.52386.0 or later keeps Cowork on for them until November 9, 2026, 00:00 UTC (November 8 in US time zones, 7 PM Eastern); from then they may be asked to restart, after which it has nothing to open for them, and earlier versions keep Cowork on.
+* Changed seating for new members: group mappings now apply at first sign-in for members your directory has already synced with that email, and if the mapped or **New members start here** seat tier is full, a member who signs in gets no seat and directory sync (SCIM) doesn't add or re-enable the member.
+* Changed imports from Claude for Government Web into Claude Desktop to leave out uploaded files whose names end in `.wfm`, which a network filter may block: the chats and projects that held them still import, without those files.
+* Added a notice to **Claude Desktop home** in the Admin Console: from November 10, 2026, on Claude Desktop 4.29.0 or later, turning off **Chat in Claude Desktop** or **Advanced file analysis in Chat** has no effect for members who have Cowork.
+* Added **New members start here** to Anthropic-managed seat tiers: while it is on, new members in no mapped group start on that tier or get no seat.
+
+**2026.11.04.1**
+
+* Changed the pages after the U.S. Government notice: a second click by a member already signed in, and a sign-in with no page to return to, now open the member's start page in the Admin Console.
+* Changed the Admin Console's confirmation for adding a group mapping to warn that members already on an Anthropic-managed seat tier who are not in a mapped group may be moved to a different seat tier when a group is first mapped to it, and to give the group's size as "this group has N members".
+* Changed the API to end a long response when the client stops reading it for 30 seconds.
+
+**2026.11.03.1**
+
+* Fixed the most-used links to Claude for Government Web pages, such as saved chats, showing "Page not found" in the Admin Console: they now lead to the Admin Console's start page.
+* Fixed the setup wizards' Seat tiers step telling a tenant admin who belongs to no organization that Anthropic manages the organization's seat tiers when the organization can edit them.
+* (breaking) Changed the Admin Console's Group mappings page to refuse a seat tier that allows no models or has a \$0 spend limit, because the group's members could not have used Claude for Government; a mapping that already points at such a seat tier stays.
+* Changed the minimum version of the Claude Code command-line tool that the gateway accepts to 2.1.274: members on an older version are asked to update before they can send messages.
+* Changed how Claude Desktop and Claude Code connect to web search: Claude Desktop asks members with web search on to relaunch once after this release, and after **Sign out everywhere** a relaunch brings web search back; if a firewall or secure web gateway rule allows web search by URL path, add your Claude for Government address followed by `/gateway-api/mcp/web-search` to that rule.
+* Changed active user counts on the Analytics page and in the Organization Analytics connector to count a member only when Claude answered at least one of their requests in the period: opening Claude Desktop without sending a message no longer counts, and past periods are counted the same way.
+* Improved how quickly directory sync (SCIM) creates accounts for new members and restores members who return, in tenants with a large directory.
+* Added a confirmation on the Config pages before a save turns off Chat, Advanced file analysis, or Cowork in Claude Desktop for members who have them.
+* Added a confirmation before a save changes or replaces a connected identity provider on the tenant portal's Identity and access page and in the setup wizard.
+
+**Claude Desktop 4.16336.0**
+
+2026-11-03
+
+* (breaking) Changed Code sessions on Linux hosts where AppArmor stops the sandbox, such as Ubuntu 24.04 over SSH, on Claude Desktop 4.16336.0 or later. Shell commands that failed now run unsandboxed, so **Allowed network hosts** and **Allowed workspace folders** don't limit them. An AppArmor profile for bubblewrap on the host restores the sandbox.
+* (breaking) If your agency allows SSH remote sessions from Windows devices, read the changes to them in the [v4.16336.0 entry](https://claude.com/docs/cowork/changelog.md#v4-16336-0) of the Claude Desktop changelog. Setting `sshTransport` on a device has no effect in Claude for Government.
+* Changed sessions on Claude Desktop 4.16336.0 or later to ignore cross-certificates between old and renewed private root CAs in the certificate store. Where a proxy's or gateway's issuing CA names one by serial number, requests can fail with `UNABLE_TO_GET_ISSUER_CERT_LOCALLY`: add that issuing CA to the store.
+* Changed a project's page under the [**Standard** home](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#what-users-see-with-unified-claude) on Claude Desktop 4.16336.0 or later: it no longer offers a choice of Chat or Cowork. A message sent there starts a Cowork session, or a Chat conversation on a device that can't run Cowork.
+* Fixed the notice "Code has been disabled by your organization's administrator." appearing on its own at launch for members who have Chat on, and Cowork and Code off, in Claude Desktop; this needs Claude Desktop 4.16336.0 or later.
+
+**2026.11.02.3**
+
+* Fixed **Reset usage limits** being refused for seven days after a member moved off an Anthropic-managed seat tier.
+* Fixed the seat tier delete dialog refusing a name with a doubled space when typed as shown, and closing on Escape or a click outside while the deletion was still running.
+* Added confirmations in the Admin Console before saves that can change members' access or seat tiers: turning a product off, setting a \$0 spend cap, some seat tier changes, adding a group-to-seat-tier mapping or a provisioning rule for a directory group, and changing a directory group's priority.
+
+**2026.11.02.2**
+
+* Improved sign-in speed for existing members while a directory sync restores a deactivated member.
+
+**2026.11.02.1**
+
+* Removed browser access to Claude for Government Web, including its sign-in page and saved links to chats: your agency's Claude for Government address now opens the web portal.
+* Updated directory sync: a seat tier or role set by an admin against a group mapping usually returns to the mapped value sooner, except a primary owner role; if the mapped seat tier has no free seat, the member stays on the tier an admin set, and a member waiting for a seat can take the seat they left.
+* Improved how quickly changes to routing rules and group mappings take effect for members in tenants that sync a large directory with SCIM.
+
+**2026.10.30.1**
+
+* Changed **Claude Desktop home** under Config to ask in more cases before a save or a reset turns on Chat, Advanced file analysis, or Cowork.
+
+**2026.10.28.1**
+
+* Fixed directory sync not moving a member to another organization when one of their groups is mapped there to a self-managed seat tier with no seat limit; members it left behind move at the next directory sync that includes them.
+
+**Claude Desktop 4.29.0**
+
+2026-10-27
+
+* (breaking) Changed hooks on Windows devices without Git for Windows, on Claude Code 2.1.309 or later, which Claude Desktop 4.29.0 bundles. On such a device, a hook that checks a tool call blocks the call when PowerShell runs it and its command ends with a program that exits with code 2. By default it also blocks the call when it names PowerShell as its shell and fails. To change a hook, see [Hooks on Windows devices without Git for Windows](https://claude.com/docs/third-party/claude-desktop/extensions.md#hooks-on-windows-devices-without-git-for-windows).
+* (breaking) Changed Claude Desktop 4.29.0 or later for members who have **Cowork in Claude Desktop** on and no **Claude Desktop home** chosen, which is the default (**Separate settings** counts as none). At their first launch after 12:00 PM Pacific Time on November 10, 2026, they get the [**Standard** home](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#what-users-see-with-unified-claude). The app turns Chat on for them, and Advanced file analysis where **Shell commands** is on, even where **Chat in Claude Desktop** or **Advanced file analysis in Chat** is off or locked off. From then on, members whose settings give them Cowork also have Chat. To keep Advanced file analysis off, choose **Chat only** as their [**Claude Desktop home**](https://claude.com/docs/government/config/settings.md#claude-desktop-home). Where **Chat in Claude Desktop** or **Code in Claude Desktop** is on, you can instead turn [**Cowork in Claude Desktop**](https://claude.com/docs/government/config/settings.md#cowork-in-claude-desktop) off. To keep Chat off too, choose **Off** as their home, which leaves them Code only.
+* Changed the Microsoft 365 connector: after a device updates to Claude Desktop 4.29.0 or later, members who were connected to Microsoft 365 sign in to it again, once.
+
+**2026.10.23.2**
+
+* Changed directory sync (SCIM) to use your directory group order when choosing a seat tier: a member in several mapped groups gets the tier of the highest group, so some members may change seat tier.
+* Fixed new directory groups sometimes taking priority over existing ones: new groups now go to the bottom of the list.
+
+**2026.10.23.1**
+
+* Improved links and search on the Config page: the setting you open is outlined, and a link moves keyboard focus to it.
+
+**2026.10.22.1**
+
+* Added the **Check for updates on releases.claude.com** setting under Config > Compliance and telemetry for networks that block `api.anthropic.com`; it is off by default and needs Claude Desktop 1.26832.0 or later.
+
+**2026.10.21.2**
+
+* Changed directory sync (SCIM) so existing members can move to their provisioning rule's organization without signing in first; the move signs them out and resets their role and seat tier.
+
 **2026.10.21.1**
 
 * Fixed the tenant portal's Identity and access page so that it says its SCIM details couldn't load instead of looking as if SCIM had never been set up.
 * (breaking) Changed **Claude Desktop home** where a setting enforced at a higher level conflicts with the choice: members on Claude Desktop 1.52386.0 or later may lose Chat, Advanced file analysis or Cowork after a required relaunch.
-* Changed Claude Desktop for members who have **Chat in Claude Desktop** on, **Cowork in Claude Desktop** off, and no **Claude Desktop home** chosen: by November 9, 2026 (UTC), they may be asked to relaunch and then see the new home screen, still without Cowork.
+* Changed Claude Desktop for members who have **Chat in Claude Desktop** on, **Cowork in Claude Desktop** off, and no **Claude Desktop home** chosen: from November 9, 2026 (UTC), they may be asked to relaunch and then see the new home screen, still without Cowork.
 * Changed the Code tab in Claude Desktop to ask the member before each command Claude runs in its Terminal panel, even in bypass-permissions or Auto mode, while **Blocked shell commands** lists any command.
 * Improved directory sync (SCIM) so that one tenant's very large sync no longer holds up directory changes in other tenants.
 * Added a **Chat only** choice to the **Claude Desktop home** setting on the Config pages, which gives members Chat without Advanced file analysis or Cowork; with this choice the new home screen shows on Claude Desktop 2.2553.0 or later.
+
+**Claude Desktop 3.1623.0**
+
+2026-10-20
+
+* (breaking) Changed **Let members add their own connectors** on Claude Desktop 3.1623.0 or later: with the switch off, which is the default, local MCP servers from plugins you upload may not start. If one no longer starts after the update, check whether the switch is on under **Config > Integrations**.
+* (breaking) Changed SSH remote sessions on Claude Desktop 3.1623.0 or later: where your agency allows specific hosts with [`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostallowlist) in Claude Code's managed settings on the device, each `ProxyJump` host, and the host in a `ProxyCommand` written `ssh -W %h:%p host`, must be on that list too. The error on a refused session names the host to add; add each by its `HostName`, as [Jump hosts and the allowlist](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#jump-hosts-and-the-allowlist) describes.
+* (breaking) If your agency allows SSH remote sessions, read the other breaking changes to them in the [v3.1623.0 entry](https://claude.com/docs/cowork/changelog.md#v3-1623-0) of the Claude Desktop changelog. Those described there as "where claude.ai admin settings apply" do not change anything for Claude for Government.
+* Added nested sessions to Code sessions: Claude can start a task in a separate session, which reports back to the original session. Each nested session counts against the member's spend limits. To stop them, turn off **Code in Claude Desktop** under **Config > Product availability**, which also turns off all Code sessions.
 
 **2026.10.18.1**
 
@@ -25,6 +119,12 @@
 2026-10-16
 
 * Changed unattended runs of the Claude Code command-line tool, such as `claude -p`, where **Auto mode** is set to **Allowed**: on Claude Code 2.1.302 or later they start in Auto mode only when Auto mode is chosen for them.
+
+**Claude Desktop 2.42304.0**
+
+2026-10-15
+
+* Changed **Advanced file analysis in Chat** on Claude Desktop 2.42304.0 or later: the commands Claude runs for it can now reach the hosts on your **Allowed network hosts** list.
 
 **Claude Code 2.1.299**
 
@@ -45,6 +145,12 @@
 * Changed the tenant Config page to make a tenant admin choose whether organizations may set their own value the first time they set **Telemetry endpoint**, **Telemetry headers**, or **Connectors**; **Connectors** didn't offer this choice before.
 * Added a **Default model** setting to seat tiers, with an **Always start with the default model** option that needs Claude Desktop 2.110.0 or later; seat tier create and update activities from the Compliance API include both settings.
 * Added the **Scheduled tasks** setting under Config > Product availability, on by default; turning it off stops scheduled tasks in Cowork and Code on Claude Desktop 2.110.0 or later.
+
+**Claude Desktop 2.37337.1**
+
+2026-10-13
+
+* Changed `disableDeploymentModeChooser` from recommended to required: check that the configuration profile that sets `bootstrapUrl` also sets it to true (see [Deploy to your fleet](https://claude.com/docs/government/deploy-desktop/configure.md#deploy-to-your-fleet)).
 
 **2026.10.07.1**
 

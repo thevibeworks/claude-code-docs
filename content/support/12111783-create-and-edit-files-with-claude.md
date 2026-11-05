@@ -48,7 +48,7 @@ These capabilities make it easy to produce professional documents by simply chat
 
 To give Claude access to external data sources, toggle **Allow network egress** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1793865600&amp;signature=3578cee00bd2440674c307c62e63b2424bb7825d9b028e221396aa86bdf028ae&amp;req=diAiEs55mYFfXPMW1HO4zYFJyg5NCpzIPQVowIiib2kDVQN164P5zZJbgAl0%0AoD7%2Fc5DNKOhLIH%2F7L%2Bk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1794052800&amp;signature=3a6203a8f676fa0a92eaff06d81164042ac99d60dc480f87272debb51db57fa4&amp;req=diAiEs55mYFfXPMW3nq%2BgWwhvHahS%2FAX6eB%2BPMWT8DhSfMiWLaxCy1%2Fes6gV%0Aovz2Vsnv0k%2B5AeTD3Rjl8zHeSlE%3D%0A)
 
 ### Enabling on Claude Mobile
 
@@ -66,11 +66,11 @@ Team and Enterprise organization owners can control network access settings in *
 
 - **Allow network egress to package managers and specific domains:** Claude can access package managers plus additional domains you specify. Add domains individually to whitelist specific resources your organization needs:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1793865600&amp;signature=96bfaab0b65130c528ba5aa3af545af759b9fa1e7ff627e9b4a32c5f0ab86177&amp;req=dScvH8B6mIJZW%2FMW1HO4zXJcB25LkyxNpMW6Iph6YZcH1vk7jylksifkL7FR%0A3w%2FH4RNtlvkGb1sFo9o%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1794052800&amp;signature=732bfb6485d909192fbc3deebed287c9f7b5a1c3dd0bfa9fa3c2e0fc7ff3f25b&amp;req=dScvH8B6mIJZW%2FMW3nq%2BgdQoTgnuUNVdCpbNBj0zeZTDEwcC4RQmbu6y6lc0%0ATa4YFN7Rs5w75fdlw8c%2B8WBdm2E%3D%0A)
 
 **All domains:** Claude has full internet access except for domains on Anthropic's legal blocklist. While this provides maximum flexibility for file creation and analysis tasks, it’s also the riskiest option. Please review the **[security considerations below](#h_0ee9d698a1)** before enabling “All domains”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1793865600&amp;signature=f1df3cebc53363a680e786d2172a835516b6e0cc5a152e1fc07e9ef3a03ab2ba&amp;req=dScvH8B6mIJZWPMW1HO4zdnseRea6DqkqgKIA6CM1tprt6RupppR0jbApSSE%0AmigCkHFE%2B2xgwvkOVks%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1794052800&amp;signature=e8fd378ff8115a2611175fe4aa4a217eed01a1193f490b79d206a051acc4640f&amp;req=dScvH8B6mIJZWPMW3nq%2BgcDM0aePm5tIl%2B%2Bqj03ykB6qb9lTwjzQtPLvAPa8%0Ab5i4LNQMgC0WjlT4UXkTXPeaol8%3D%0A)
 
 ---
 
@@ -237,7 +237,7 @@ When network access is enabled, Claude can access the following approved domains
 Generate spreadsheets with working formulas and calculations by describing your needs. Try:
 
 ```
-Create a monthly budget tracker with income, expenses categories, and
+Create a monthly budget tracker with income, expense categories, and
 automatic calculations for savings.
 ```
 
@@ -305,6 +305,10 @@ Claude can handle multiple files in a single chat, allowing you to create compre
 
 File creation is supported on Claude for iOS and Android. Note that when you tap "Download" on Claude Mobile, the file will open in either the system preview or a separate app (for example, the Word app for .docx files).
 
+### Can Claude create files in a chat that uses my linked accounts?
+
+Claude can make plain text files (such as .csv, .md, and .html) and show text and tables in the chat. After Claude uses your linked accounts in Personal Finance in a chat, it may not be able to run code, make other files (Word, Excel, PowerPoint, or PDF), or publish an artifact. Learn more in **[Use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**.
+
 ### Do artifacts work with file creation?
 
-Yes you are still able to create artifacts (e.g., HTML or react apps, markdown documents, mermaid diagrams, SVGs) with file creation on. Claude now uses the computing environment to create artifacts so the user experience may look slightly different than users are used to. Please report any issues or feedback using the thumbs up/down functionality when chatting with Claude.
+Yes, you are still able to create artifacts (e.g., HTML or react apps, markdown documents, mermaid diagrams, SVGs) with file creation on. Claude now uses the computing environment to create artifacts so the user experience may look slightly different than users are used to. Please report any issues or feedback using the thumbs up/down functionality when chatting with Claude.

@@ -6,6 +6,8 @@ This article shows you how to permanently delete your account on the web and in 
 
 ## Before you delete a paid account
 
+**Note:** If you use Personal Finance, unlink your banks before your paid plan ends, even if you’ve already canceled it. You can’t open Personal Finance after your plan ends. If your plan has already ended, follow the steps in **[Use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)** before you delete your account.
+
 If you're on a Pro, Max, or Ultra plan:
 
 1. Cancel your subscription from your **[Billing settings](https://claude.ai/settings/billing)**.

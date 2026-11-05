@@ -30,6 +30,8 @@ Scheduled tasks have access to the same capabilities as regular Cowork tasks, in
 
 When you create a scheduled task, Claude saves your prompt as the task's instructions and runs them at the cadence you choose. Tasks can search Slack, query files, run web research, generate reports, and more—using any connectors and plugins you've set up in Cowork.
 
+Scheduled tasks can’t use your linked accounts in Personal Finance. Learn more in **[Use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**.
+
 Each scheduled task runs as its own Cowork session. You can review the results when they're ready, just like any other task.
 
 Scheduled tasks run remotely, so they run on their cadence even when your computer is asleep or the Claude Desktop app is closed. Review upcoming and past runs by clicking "Scheduled" in the left sidebar on any surface.

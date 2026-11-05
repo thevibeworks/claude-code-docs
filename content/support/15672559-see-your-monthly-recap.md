@@ -68,6 +68,8 @@ Some conversations are left out of your recap completely:
 
 - Conversations that use a health integration, such as Apple Health or Health Connect
 
+- Conversations that used your linked accounts in Personal Finance, including their titles
+
 - Activity in Claude Cowork and Claude Code
 
 Learn more about **[memory](https://support.claude.com/en/articles/11817273)**, **[incognito chats](https://support.claude.com/en/articles/12260368)**, and health features on **[iOS](https://support.claude.com/en/articles/11869619-use-claude-with-ios-apps#h_21f4b10d6d)** and **[Android](https://support.claude.com/en/articles/11869629-use-claude-with-android-apps#h_62b72ef926)**.

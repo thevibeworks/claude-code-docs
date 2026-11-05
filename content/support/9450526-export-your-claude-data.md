@@ -1,8 +1,8 @@
 # Export your Claude data
 
-Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include conversation data and the user data for your account.
+Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include conversation data and the user data for your account. Data exports don’t yet include your saved Personal Finance dashboard.
 
-If you’re on a Team or Enterprise plan, you can export your own data once an organization Owner or Primary Owner turn this on. Primary Owners export the whole organization’s data instead.
+If you’re on a Team or Enterprise plan, you can export your own data once an organization Owner or Primary Owner turns this on. Primary Owners export the whole organization’s data instead.
 
 Individual Claude users can export user information and chat history from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** on the web app or Claude Desktop. It's not possible to run an export from Claude for iOS or Android.
 
