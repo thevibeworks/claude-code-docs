@@ -106,6 +106,8 @@ During the research preview, keep these limits in mind:
 
 - Some connectors, such as Slack, work with limits in Claude Duet. Microsoft 365 isn't available yet.
 
+- Personal Finance isn’t available in Claude Duet.
+
 Claude Duet can also make mistakes, such as misreading a thread or misjudging what's urgent. Review drafts and approval requests before you confirm them.
 
 ## Pricing and usage limits

@@ -14,6 +14,8 @@ Public links are available on Free, Pro, Max, and Ultra plans. Team and Enterpri
 
 - Files you attached to the chat are not included.
 
+- If Claude used your linked accounts in Personal Finance, anyone with the link can see any figures from your accounts in your messages and Claude’s responses. They can also see a chart or artifact that Claude made, figures included. Learn more in **[Use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**.
+
 - You can turn it off at any time from the "Share" menu, or from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** under **Shared chats**. Once it's off, the link stops working.
 
 ## Can Google or other search engines index my shared chat?

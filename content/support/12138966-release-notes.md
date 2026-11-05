@@ -1,5 +1,13 @@
 # Release notes
 
+## November 2026
+
+### November 5, 2026
+
+**New security and admin controls for Enterprise plans**
+
+Claude Enterprise has new security and admin features, including a security center, inference hooks, centralized management, and additional access controls, several in beta. For more information, see our blog post: **[More visibility and control over Claude Enterprise for security teams](https://claude.com/resources/articles/claude-enterprise-security-updates).**
+
 ## October 2026
 
 ### October 21, 2026

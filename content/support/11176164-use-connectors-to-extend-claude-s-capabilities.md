@@ -4,6 +4,8 @@ This guide explains how to enable and use connectors with Claude to enhance its 
 
 Web connectors are available for all users on Claude, Cowork, Claude Desktop, and Claude Mobile (iOS and Android). Desktop extensions are available to all users on Claude Desktop.
 
+**Note:** Plaid is part of Personal Finance and has its own requirements and limits. Learn more about how to **[use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**.
+
 ## What are connectors?
 
 Connectors let Claude access your apps and services, retrieve your data, and take actions within connected services. Claude inherits each person's permissions from the connected service. If someone can't access a specific file, channel, or record in the source system, the connector can't reach it from Claude either. Custom connectors that use a shared credential reach whatever that credential can access.
@@ -188,7 +190,7 @@ In addition to directory connectors, you can add custom connectors:
 
 7. Under **Authentication**, choose how people connect to the server: “Sign in now,” “Sign in when needed,” or “No sign in.”
 
-8. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign" in under **Authentication**.
+8. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**.
 
 9. Under **Request headers**, add fixed credentials such as API keys that Claude sends on every request if your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth. Learn how to **[authenticate with request headers](https://claude.com/docs/connectors/custom/add-unlisted#authenticate-with-request-headers).**
 
@@ -242,4 +244,4 @@ Admins can learn more about **[restricting verified-domain connectors to your En
 
 Custom connectors (remote MCP servers) are reached from Anthropic's cloud infrastructure, not from your local machine. This is true even if you're using Cowork or Claude Desktop, which run locally on your computer. If your MCP server is behind a corporate firewall, on a private network, or not reachable over the public internet, the connection will fail.
 
-To resolve this, you can either allowlist Anthropic's IP ranges in your firewall to create a secure outbound-only connection from your network. For detailed guidance, see the network requirements section in **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166)**.
+To resolve this, you can allowlist Anthropic's IP ranges in your firewall to create a secure outbound-only connection from your network. For detailed guidance, see the network requirements section in **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166)**.

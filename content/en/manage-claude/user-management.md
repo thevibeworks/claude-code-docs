@@ -8,7 +8,7 @@ This page covers managing the people in your **Claude Enterprise** (claude.ai) o
 
 * List members and look them up by email address
 * Change a member’s role
-* Remove members
+* Remove members, or sign them out everywhere without removing them (beta)
 * Send and withdraw invites
 * Manage your enterprise’s groups and their membership
 * Read your organization’s custom roles
@@ -45,13 +45,13 @@ Members and invites are the same endpoints for both organization types; this pag
 
 This page covers five resources:
 
-| Resource          | Endpoints                                                                                                                                                                                                                                                    | Use for                                                                                                    |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| **Members**       | `GET /v1/organizations/users`<br />`GET /v1/organizations/users/{user_id}`<br />`POST /v1/organizations/users/{user_id}`<br />`DELETE /v1/organizations/users/{user_id}`                                                                                     | List the organization’s members or look one up by email; change a member’s role; remove a member.          |
-| **Invites**       | `POST /v1/organizations/invites`<br />`GET /v1/organizations/invites`<br />`GET /v1/organizations/invites/{invite_id}`<br />`DELETE /v1/organizations/invites/{invite_id}`                                                                                   | Invite a person to the organization, track the invitation’s status, and withdraw it before it is accepted. |
-| **Groups**        | `GET /v1/organizations/rbac_groups`<br />`GET /v1/organizations/rbac_groups/{rbac_group_id}`<br />`POST /v1/organizations/rbac_groups`<br />`POST /v1/organizations/rbac_groups/{rbac_group_id}`<br />`DELETE /v1/organizations/rbac_groups/{rbac_group_id}` | Read your enterprise’s groups and the custom roles attached to each; create, rename, and delete groups.    |
-| **Group members** | `GET /v1/organizations/rbac_groups/{rbac_group_id}/members`<br />`POST /v1/organizations/rbac_groups/{rbac_group_id}/members`<br />`DELETE /v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`                                                  | Read a group’s members; add and remove members.                                                            |
-| **Custom roles**  | `GET /v1/organizations/rbac_roles`<br />`GET /v1/organizations/rbac_roles/{rbac_role_id}`<br />`GET /v1/organizations/rbac_roles/{rbac_role_id}/permissions`                                                                                                 | Read your organization’s custom roles and the permissions each role grants.                                |
+| Resource          | Endpoints                                                                                                                                                                                                                                                    | Use for                                                                                                                         |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Members**       | `GET /v1/organizations/users`<br />`GET /v1/organizations/users/{user_id}`<br />`POST /v1/organizations/users/{user_id}`<br />`DELETE /v1/organizations/users/{user_id}`<br />`POST /v1/organizations/users/{user_id}/sign_out` (beta)                       | List the organization’s members or look one up by email; change a member’s role; remove a member; sign a member out everywhere. |
+| **Invites**       | `POST /v1/organizations/invites`<br />`GET /v1/organizations/invites`<br />`GET /v1/organizations/invites/{invite_id}`<br />`DELETE /v1/organizations/invites/{invite_id}`                                                                                   | Invite a person to the organization, track the invitation’s status, and withdraw it before it is accepted.                      |
+| **Groups**        | `GET /v1/organizations/rbac_groups`<br />`GET /v1/organizations/rbac_groups/{rbac_group_id}`<br />`POST /v1/organizations/rbac_groups`<br />`POST /v1/organizations/rbac_groups/{rbac_group_id}`<br />`DELETE /v1/organizations/rbac_groups/{rbac_group_id}` | Read your enterprise’s groups and the custom roles attached to each; create, rename, and delete groups.                         |
+| **Group members** | `GET /v1/organizations/rbac_groups/{rbac_group_id}/members`<br />`POST /v1/organizations/rbac_groups/{rbac_group_id}/members`<br />`DELETE /v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`                                                  | Read a group’s members; add and remove members.                                                                                 |
+| **Custom roles**  | `GET /v1/organizations/rbac_roles`<br />`GET /v1/organizations/rbac_roles/{rbac_role_id}`<br />`GET /v1/organizations/rbac_roles/{rbac_role_id}/permissions`                                                                                                 | Read your organization’s custom roles and the permissions each role grants.                                                     |
 
 Custom roles and their group attachments are managed in [claude.ai organization settings](https://claude.ai/admin-settings); the API reads them but cannot change them.
 
@@ -619,6 +619,114 @@ For complete parameter details and response schemas, see [Remove user](https://p
   "id": "user_01AbCdEfGhIjKlMnOpQrSt"
 }
 ```
+
+### Sign a member out everywhere
+
+`POST /v1/organizations/users/{user_id}/sign_out` signs a member out of Claude on every browser and device, without removing them from the organization. Use it when a member’s device is lost or stolen, during a security incident, or while you investigate an account before you decide whether to remove the member. Requires the `write:members` scope.
+
+<Note>
+  This endpoint is in **beta** for Claude Enterprise organizations.
+
+  Every request must include the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `anthropic-beta: admin-user-sign-out-2026-10-08`. A request without it returns 400, with a message that names the value.
+
+  If your version of the SDK or the `ant` CLI doesn’t have this endpoint, send the request over HTTP with this header.
+</Note>
+
+The sign-out reaches the person’s whole Claude account, including their sessions in other organizations and on an individual plan. The member keeps their seat and role and can sign in again right away. To keep someone out, [remove them](https://platform.claude.com/docs/en/manage-claude/user-management#remove-a-member) or, if your organization requires single sign-on, disable their account in your identity provider. Disabling stops new sign-ins but leaves them in your member list. If you remove someone and leave their identity provider account active, automatic provisioning can add them back at their next sign-in. If your identity provider manages membership, you can remove the member only there.
+
+Create the key before you need it. See [Create a key for a Claude Enterprise organization](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization). A `write:members` key works only in the organization it was created in, so each linked organization needs its own key. That organization’s primary owner creates it. To look members up by email address with the same key, also select the `read:members` scope.
+
+The request has no body. Pass the member’s `id`, which [List members](https://platform.claude.com/docs/en/manage-claude/user-management#list-members) returns:
+
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt/sign_out" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: admin-user-sign-out-2026-10-08"
+  ```
+</CodeGroup>
+
+A successful request returns 200 with the member, whose role and other fields are unchanged:
+
+```json
+{
+  "type": "user",
+  "id": "user_01AbCdEfGhIjKlMnOpQrSt",
+  "email": "jane@example.com",
+  "name": "Jane Smith",
+  "role": "user",
+  "added_at": "2026-06-12T09:14:03Z"
+}
+```
+
+If you have no key yet, an owner can use the **Sign out everywhere** action on the Members page of [claude.ai organization settings](https://claude.ai/admin-settings) instead. It ends the same sessions, trusted devices, and OAuth tokens, and removes the same push-notification registrations. An owner can’t use it on their own account: they sign out their own sessions from their account settings in claude.ai.
+
+#### What the request ends
+
+The request ends all of the following for the member:
+
+* **Sign-in sessions:** All of them for the person’s account, on every browser and device.
+* **Trusted devices:** Every browser, computer, or phone that the person registered as trusted for sensitive actions. The person must register each device again.
+* **OAuth tokens issued for this organization:** Whichever app holds them, such as Claude Code or a third-party app. Those apps must sign in again. A token almost always stops working at once, and within an hour at most.
+
+The request also clears the record of browsers on which the person chose to skip Claude’s two-step verification, so that the next sign-in there asks for the second step again. It also removes the push-notification registrations that Claude holds for the person’s phones, desktop apps, and browsers, so that Claude stops sending notifications to them. This removal runs asynchronously: it usually completes within a minute, but in rare cases can take longer. A 200 doesn’t confirm either of these two steps.
+
+Only the OAuth tokens are limited to this organization. Sessions, trusted devices, and push-notification registrations belong to the person’s account, so the sign-out also reaches their other organizations and any individual plan.
+
+The request doesn’t delete anything that is already stored on a device.
+
+#### What the request doesn’t end
+
+The request doesn’t end any of the following:
+
+* **API keys:** They keep working, including Admin API keys that the person created. To stop an Admin API key, delete it in the **Keys** section of [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access).
+* **OAuth tokens for other organizations:** To end them, send the request in each organization with that organization’s key. The person has the same `id` in every organization. OAuth tokens issued to the person’s account and not to an organization also keep working, and this request can’t end them.
+* **Claude Code cloud sessions and routines:** Sessions that run on Anthropic’s infrastructure, such as Claude Code on the web, or in one of your [self-hosted environments](https://code.claude.com/docs/en/self-hosted-environments) keep running. Work in progress when you send the request, or started soon after, can fail. The session then gets new credentials without the person signing in again, and continues. The person’s [routines](https://code.claude.com/docs/en/routines) that run on a schedule or on GitHub events keep starting new sessions. The **Sign out everywhere** action leaves these running too.
+* **Computers linked to Cowork:** They stay linked.
+* **A sign-in that is in progress:** One that’s already under way can finish during the request, or up to 5 minutes after it. If the [audit log export](https://platform.claude.com/docs/en/manage-claude/compliance-api#export-audit-logs) or [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) shows the person signing in after the request, send it again. Sign-ins to apps such as Claude Code aren’t recorded there, so if the person was signing in to one, send it again after 5 minutes.
+
+#### Who you can’t sign out
+
+The request can’t sign out the organization’s primary owner: it returns 400 with the error code `cannot_sign_out_primary_owner`. No one in your organization can sign out the primary owner, on the Members page either. The primary owner signs out their own sessions from their account settings in claude.ai.
+
+A key with the `write:members` scope can sign out everyone else. That includes owners, members whose custom roles include the permission to manage owners, and members with the `membership_admin` role. Owners and the primary owner can do the same with the **Sign out everywhere** action on the Members page. Only the member’s role in this organization counts, so you can sign out someone who is the primary owner of a different organization.
+
+The key keeps working after the person who created it changes role or leaves the organization. See [What happens to an Admin API key when the person who created it leaves?](https://platform.claude.com/docs/en/manage-claude/user-management#what-happens-to-an-admin-api-key-when-the-person-who-created-it-leaves).
+
+#### Responses
+
+| Status                                  | Meaning                                                                                                                                                                                                                               |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 200                                     | The sign-out completed. It’s safe to retry: a request that finds nothing left to end also returns 200, and a second request ends any session, trusted device, or OAuth token that the person has gained since the first.              |
+| 400 `cannot_sign_out_primary_owner`     | The member is the primary owner, who can’t be signed out. See [Who you can’t sign out](https://platform.claude.com/docs/en/manage-claude/user-management#who-you-cant-sign-out).                                                      |
+| 400 `organization_not_enrolled_in_beta` | The endpoint isn’t available to your organization.                                                                                                                                                                                    |
+| 400                                     | The request omits the `anthropic-beta` value, which the message names, or the `id` in the path doesn’t start with `user_`.                                                                                                            |
+| 401                                     | The key is missing, invalid, or deleted, or it was created for a parent organization and isn’t bound to one organization.                                                                                                             |
+| 403                                     | The key lacks the `write:members` scope.                                                                                                                                                                                              |
+| 404                                     | No member with that ID is in your organization.                                                                                                                                                                                       |
+| 429                                     | The organization is over the [rate limit](https://platform.claude.com/docs/en/manage-claude/user-management#rate-limits) that Admin API endpoints share. The `retry-after` header says when to retry. Sign-out has no separate limit. |
+| 503                                     | A service that the request needs is temporarily unavailable. What the request already ended stays ended. Send the request again to end the rest.                                                                                      |
+
+Error responses follow the standard shape documented in [Claude API errors](https://platform.claude.com/docs/en/api/errors), with the error code in `error.details.error_code`:
+
+```json
+{
+  "type": "error",
+  "error": {
+    "type": "invalid_request_error",
+    "message": "...",
+    "details": {
+      "error_code": "cannot_sign_out_primary_owner"
+    }
+  },
+  "request_id": "req_018EeWyXxfu5pfWkrYcMdjWG"
+}
+```
+
+#### Where the sign-out is recorded
+
+Each sign-out that completes is recorded as `org_user_trusted_devices_revoked`, the same event that the **Sign out everywhere** action records. It appears in the [audit log export](https://platform.claude.com/docs/en/manage-claude/compliance-api#export-audit-logs) that owners download in claude.ai. If your organization has the Compliance API, it also appears in the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), with counts of the trusted devices and sessions that the request ended. A request that stops partway appears in the Activity Feed too, with `completed` set to `false`, and not in the audit log.
 
 ## Invites
 
@@ -2455,6 +2563,22 @@ For complete parameter details and response schemas, see [List role permissions]
 
 3. If the person had not yet joined, the lookup returns no member; list invites and withdraw their `pending` invite instead.
 
+### Respond to a lost or stolen device
+
+Before you need this workflow, create a key with the `write:members` and `read:members` scopes for the [sign-out endpoint](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere). If you have no key yet, an owner can use the **Sign out everywhere** action on the Members page of [claude.ai organization settings](https://claude.ai/admin-settings) in place of steps 2 to 4. An owner can’t use it on their own account: they sign out their own sessions from their account settings in claude.ai.
+
+1. First, sign the person out of your identity provider, or disable their account there. Otherwise, whoever holds the lost device can sign in to Claude again through that device’s identity provider session or the person’s mailbox.
+
+2. Look up the member by email address, as in step 1 of [Offboard a departing employee](https://platform.claude.com/docs/en/manage-claude/user-management#offboard-a-departing-employee). The email match tolerates variants of the same address, so check that the response is the right person.
+
+3. Sign them out with `POST /v1/organizations/users/{user_id}/sign_out`, using the `id` from the response. [Sign a member out everywhere](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere) lists the headers that the request needs and what it ends.
+
+4. If the request returns 503, send it again until it returns 200. If it returns 400 with `cannot_sign_out_primary_owner`, see [Who you can’t sign out](https://platform.claude.com/docs/en/manage-claude/user-management#who-you-cant-sign-out).
+
+5. Check the [audit log export](https://platform.claude.com/docs/en/manage-claude/compliance-api#export-audit-logs) or [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) for a sign-in after the first request. If you find one, or the person was signing in to an app such as Claude Code, send the request again after 5 minutes. If you can’t send the request, use the **Sign out everywhere** action again instead. This also signs the member out of any session that they have started since, so tell them first.
+
+6. Confirm the sign-out [where it is recorded](https://platform.claude.com/docs/en/manage-claude/user-management#where-the-sign-out-is-recorded), and review [what the request doesn’t end](https://platform.claude.com/docs/en/manage-claude/user-management#what-the-request-doesnt-end).
+
 ### Audit group membership
 
 1. List groups and record each group’s `id`, `name`, and `role_ids`.
@@ -2485,7 +2609,11 @@ On plans with a finite seat pool, yes: a `pending` invite holds a seat. Withdraw
 
 ### My organization uses single sign-on. Which operations work?
 
-If your identity provider provisions users automatically (JIT or SCIM), invite creation returns 400. If it manages roles (advanced SSO or advanced SCIM provisioning), role updates return 400. If it manages membership (SCIM provisioning), member removals return 400. Reads work regardless.
+If your identity provider provisions users automatically (JIT or SCIM), invite creation returns 400. If it manages roles (advanced SSO or advanced SCIM provisioning), role updates return 400. If it manages membership (SCIM provisioning), member removals return 400. Reads work regardless. So does [signing a member out everywhere](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere), whichever single sign-on mode your organization uses.
+
+### Does signing a member out keep them out?
+
+No. [Signing a member out](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere) ends their sign-in sessions, trusted devices, and OAuth tokens for your organization, but they can sign in again right away. To keep someone out, [remove them](https://platform.claude.com/docs/en/manage-claude/user-management#remove-a-member) or, if your organization requires single sign-on, disable their account in your identity provider. Disabling the account alone might not end sessions that are already open, so first sign the person out of your identity provider, then sign them out of Claude, and then remove them or disable their account.
 
 ### What happens to an Admin API key when the person who created it leaves?
 

@@ -77,17 +77,18 @@ Sign in at [claude.ai](https://claude.ai), switch to the organization, and open 
 
 ### Start from an existing configuration file
 
-If you already deploy Claude Desktop with an MDM profile, a bootstrap server, or a configuration built in the app, upload that configuration instead of entering each setting again. On the **Connection** page, click **Import configuration…**, then choose a `.json` file or paste the JSON. Get the JSON from the place where your configuration is today:
+If you already deploy Claude Desktop with an MDM profile, a bootstrap server, or a configuration built in the app, upload that configuration instead of entering each setting again. On the **Connection** page, click **Import configuration…**, then choose the file or paste its text. The console reads JSON, `.reg` files, `.mobileconfig` profiles, and XML `.plist` files. Get the file from the place where your configuration is today:
 
-* **Configuration built in Claude Desktop**: on the macOS or Windows workstation where you built it, go to **Developer → Configure Third-Party Inference… → Export → JSON config**. If an MDM profile or registry policy sets the Claude Desktop configuration on a device, the configuration window is read-only and its **Export** menu doesn't offer **JSON config**. Get the JSON from the policy or profile instead.
-* **Windows registry policy**: the console doesn't read `.reg` files. On a device that has the policy, run this command in PowerShell, in a folder that doesn't sync to a cloud drive:
+* **Configuration built in Claude Desktop**: on the macOS or Windows workstation where you built it, go to **Developer → Configure Third-Party Inference… → Export → JSON config**
+* **Organization-managed device**: on a device where an MDM profile or registry policy sets the Claude Desktop configuration, open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window), then go to **Export → JSON config (redacted)**. This option requires Claude Desktop 4.23118.0 or later. If you don't see it, follow the **Windows registry policy** or **macOS profile** item instead. The file masks the values of API key, token, and header settings. Before you upload or share the file, check its URLs, arguments, and text fields for other secrets.
+* **Windows registry policy**: choose the `.reg` file that you deploy. If you set the policy with Group Policy or Intune, use a device that has the policy. Open Command Prompt in a folder that doesn't sync to a cloud drive, then run this command:
 
-  ```powershell PowerShell wrap theme={null}
-  Get-ItemProperty 'HKLM:\SOFTWARE\Policies\Claude' | Select-Object * -ExcludeProperty PS* | ConvertTo-Json | Set-Content -Encoding UTF8 claude-policy.json
+  ```bat Command Prompt theme={null}
+  reg export HKLM\SOFTWARE\Policies\Claude claude-policy.reg /y
   ```
 
-  The command writes the policy's values to `claude-policy.json` in the current folder. If PowerShell can't find the path, or writes no file, replace `HKLM:` with `HKCU:` in the command to read user policy. The file holds every value in plain text, including any credential that the policy sets, so delete it after the upload.
-* **macOS `.mobileconfig` profile**: in Terminal on a Mac, run `plutil -convert json -o config.json YourProfile.mobileconfig` to convert the profile to JSON. For a signed profile, first run `security cms -D -i SignedProfile.mobileconfig -o YourProfile.mobileconfig` to remove the signature.
+  The command writes `claude-policy.reg` to that folder. Choose that file. If the command doesn't write a file, or the console doesn't read any settings from the file, replace `HKLM` with `HKCU` in the command to read user policy. `claude-policy.reg` holds every value in plain text, including any credential that the policy sets, so delete it after the upload.
+* **macOS profile**: choose the `.mobileconfig` profile or XML `.plist` file that your MDM deploys. If the profile is signed or the `.plist` file is in binary format, the console shows the command that converts it.
 * **Bootstrap server**: use the JSON that your server returns
 * **Linux device**: use the `/etc/claude-desktop/managed-settings.json` file
 * **Another source**: write the JSON yourself. Put the keys at the top level, with names exactly as in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md).
@@ -323,6 +324,8 @@ These controls still apply when a user stops using your settings:
 * **Network**: at your firewall or secure web gateway, block inference endpoints other than your provider's. The app needs `api.anthropic.com` and `claude.ai`, so limit those hosts to your Claude organizations, including your admin console organization, with [tenant restrictions](https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions).
 * **Inference provider**: in your provider's access policies, set who can send model requests to your provider from any app or configuration.
 
+Without device management, you can [block other accounts in Claude Desktop](#block-other-accounts-in-claude-desktop) with a switch in the console. The person at the device can remove the block, so the switch doesn't enforce sign-in.
+
 ### Users in more than one Claude organization
 
 A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. When such a user signs in, the app opens in their other organization and asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** isn't asked again on that device and can switch later by choosing your organization from the account menu. Each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration. To go back, the user chooses **Sign out** and signs in to Claude again after the restart. From Claude Desktop 1.49585.0, they can instead pick their other organization from the account menu, which also restarts the app and asks them to sign in.
@@ -330,6 +333,12 @@ A user's Claude account can belong to your deployment's organization and to othe
 To remove **Not now**, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization then get the prompt the next time Claude Desktop starts or they sign in, and they can't dismiss it. While they are in your organization, the account menu lists another of their organizations only if that organization has the same setting on. Browsers are not affected.
 
 On a device whose managed profile sets an inference provider or bootstrap keys, no prompt appears while the app is open on the profile's configuration. If the profile is complete, this setting doesn't remove the profile from the prompt, as described under [Devices with a managed profile](#devices-with-a-managed-profile).
+
+> [!NOTE]
+>
+> Another Claude Enterprise organization can [block other accounts in Claude Desktop](#block-other-accounts-in-claude-desktop), even if it doesn't use the admin console. If it has the block on and yours doesn't, a user who uses Claude Desktop signed in to that organization can't then switch to your organization on the same computer login. The block applies from the app's next start at the latest. Devices already on your configuration stay on it until their user signs out or switches away.
+>
+> To keep your organization available, ask that organization's administrators to add your organization's ID to their **Allowed organizations** list. Copy the ID from **Value** under **Desktop sign-in** on the **Connection** page.
 
 ### Block other accounts in Claude Desktop
 
@@ -342,11 +351,14 @@ To keep personal accounts and other organizations' accounts out of Claude Deskto
 Check what the block covers:
 
 * **Accounts that stay allowed**: accounts in your organization and in the organizations on your **Allowed organizations** list. An account in your organization can also be in another organization that has this switch on. Where that account uses Claude Desktop, that organization and the organizations on its list stay allowed too.
-* **Outside the block**: sign-ins outside Claude Desktop, such as claude.ai in a browser and the mobile apps, and other computer logins on the same device. A person can also set up their own inference provider in the app, or use the [Claude API account sign-in](https://claude.com/docs/third-party/claude-desktop/claude-api.md#which-devices-offer-the-claude-api-account-sign-in).
+* **In-app inference providers**: from standard Claude Desktop or your configuration, people can't switch to an inference provider [set up in the app](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) or to the [Claude API account sign-in](https://claude.com/docs/third-party/claude-desktop/claude-api.md#which-devices-offer-the-claude-api-account-sign-in). Your members can't switch either. An app that already uses either one continues to use it. Configurations from a [managed profile](#devices-with-a-managed-profile) or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) stay available. Before Claude Desktop 4.23118.0, this limit doesn't apply.
+* **Outside the block**: sign-ins outside Claude Desktop, such as claude.ai in a browser and the mobile apps, and other computer logins on the same device. For device, network, and provider controls, see [Limit Claude Desktop to your organization](#limit-claude-desktop-to-your-organization).
 
 To turn on the block:
 
-1. Check that devices run Claude Desktop 4.29.0 or later. Devices on the [`staggered` release channel](https://claude.com/docs/third-party/claude-desktop/installation#updates) get releases later. Releases 3.6556.1 and 3.6556.2 apply the block but ignore the list, so they also block the organizations on it. Earlier releases ignore the switch.
+1. Check that devices run Claude Desktop 4.29.0 or later. Devices on the [`staggered` release channel](https://claude.com/docs/third-party/claude-desktop/installation#updates) get releases later.
+   * **Releases 3.6556.1 and 3.6556.2**: the app applies the block but ignores the list, so it also blocks the organizations on it. After an update to 4.29.0 or later, the device allows those organizations from the first app start after a user next uses Claude Desktop there signed in to your organization.
+   * **Releases before 3.6556.1**: the app ignores the block's switch.
 2. In the admin console, go to **Desktop sign-in** on the **Connection** page. Turn on the [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization) switch. Without that switch, the block's switch is unavailable.
 3. If people at your company use other Claude organizations, save the list before you turn on the block. Otherwise, a device can block those organizations until it gets the list and restarts. Click **Edit list** in the **Allowed organizations** row. Add each organization's ID on its own line, below your own organization's ID. Click **Copy list**. Then click **Save**.
 4. Turn on the **Block other accounts after a member signs in** switch. Then click **Block other accounts**.

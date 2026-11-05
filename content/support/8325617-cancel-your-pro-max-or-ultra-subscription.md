@@ -8,6 +8,8 @@ You may cancel your Pro, Max, or Ultra plan subscription at any time by followin
 
 - Monthly API credits included with Max, Ultra, and Team plans aren’t purchased, so they can’t be refunded. They expire at the end of each billing cycle. If you cancel or get a refund for your plan, new monthly credits stop, and credits you already have stay usable until they expire.
 
+- If you use Personal Finance, you can’t open it after your paid plan ends, and your banks stay linked until you unlink them. If you don’t plan to come back, unlink your banks before your plan ends. Learn more in **[Use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**.
+
 ## Cancel your Pro, Max, or Ultra subscription on Claude and Claude Desktop
 
 If you signed up for a paid plan on the web version of Claude (**[claude.ai](https://claude.ai)**) or Claude Desktop (Mac, Windows, or Linux), start by logging into your account on a web browser or opening the desktop app. Click on your initials or name in the lower left corner and select “Settings” from the menu. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)** and click the “Cancel” button.

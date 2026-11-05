@@ -52,13 +52,13 @@ The summary tiles show the number of requests, the input and output token counts
 
 The **Token usage** chart plots input and output tokens over the window. It shows hourly data when you select the 24-hour window and daily data for the longer windows.
 
-The **Active users over time** chart plots the number of distinct users who made at least one request in each period of the window, using the same hourly or daily buckets as the token chart.
+The **Active users over time** chart plots the number of distinct users who got at least one answer from Claude in each period of the window, using the same hourly or daily buckets as the token chart.
 
 The **By product** table breaks usage down by which Claude product it came from (for example, Claude Desktop or Claude Code), with the same request, token, and spend columns as the other tables. Chat and Cowork activity in Claude Desktop is counted together in a single Claude Desktop row. Code sessions in Claude Desktop run on Claude Code, so they are counted in the Claude Code row along with any use of the standalone Claude Code command-line tool. This table only appears once your deployment has recorded usage from at least one product.
 
 The **By model** table lists each model used in the window along with its request count, input tokens, output tokens, and, in the self-managed view, its spend.
 
-The **Top users** table lists the most active users in the window with the same columns, and each user's figures combine their usage across all products. The table starts with ten rows, and you can click **Show more** to reveal additional users. Up to 100 users are listed individually, and beyond that a note tells you how many more are not listed.
+The **Top users** table lists the users with the most usage in the window with the same columns, and each user's figures combine their usage across all products. The table starts with ten rows, and you can click **Show more** to reveal additional users. Up to 100 users are listed individually, and beyond that a note tells you how many more are not listed.
 
 ## CSV exports
 
@@ -75,7 +75,7 @@ The top users file lists every user the **Top users** table can show, whether or
 ## Things to know
 
 * Claude for Government does not currently offer a programmatic usage or analytics API. Usage data is available through this admin portal page. The [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) returns governance and audit events, not usage metrics.
-* A user counts as **active** in the selected window if they made at least one request in it, regardless of which seat tier they were on at the time.
+* A user counts as **active** in the selected window if Claude answered at least one of their requests in it, regardless of which seat tier they were on at the time. Opening Claude Desktop or another Claude app without sending a message does not count, and neither does a request that failed before Claude answered.
 * The **spend** column appears only in the self-managed view and is the amount debited from your billing account's balance. The managed view has no spend column because managed-tier usage is covered by the seat price rather than by credit drawdown.
 * To see how close each user is to their 5-hour and 7-day limits, use the **Usage** bars on the [Users](https://claude.com/docs/government/org-admin/users.md) page. The **Top users** table on this page shows how much each listed user consumed in the window, not how close they are to a limit.
 * If the credit panel is missing from the self-managed view, credit data for your organization's billing account is unavailable. The rest of the page will still load.
