@@ -8,7 +8,7 @@
 
 > **Who this is for:** Anyone who used Claude for Government Web (the web app) and now uses Claude Desktop connected to Claude for Government.
 
-The import copies your conversations, their attached files, and the projects you created, including each project's files and instructions.
+The import copies your conversations, their attached files, and the projects you created, with their instructions and the files you added to them.
 
 ## Before you begin
 
@@ -38,8 +38,8 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 >
 > If you can sign in but the model picker is empty, ask your organization's owner to check your seat tier and its models.
 
-* **Claude Desktop is up to date.** Update Claude Desktop to 3.1623.0 or later and restart it, or ask your IT administrator to update it.
-* **You have an account on the web app.** It must use the same work email address as your account in Claude Desktop.
+* **Claude Desktop is up to date.** Update Claude Desktop to 4.29.0 or later and restart it, or ask your IT administrator to update it.
+* **You had an account on the web app.** Its work email address must match the one on your account in Claude Desktop.
 
 > **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging) in the Windows fleet checklist.
 
@@ -91,19 +91,19 @@ Click **Continue**, review what will be added, then click **Import**. The import
 
 **5. Check the results**
 
-When the dialog reports what it brought over, click **Done**. Imported conversations appear in the sidebar, and imported projects appear under **Projects** with their files.
+When the dialog reports what it brought over, click **Done**. Imported conversations appear in the sidebar, and imported projects appear under **Projects**.
 
 ## Continue an imported conversation
 
-Imported conversations open in Chat. The first time you send a message in one, Claude Desktop shows a **Resume imported session?** prompt. Click **Trust and resume** to continue.
+The first time you send a message in an imported conversation, Claude Desktop shows a **Resume imported session?** prompt. Click **Trust and resume** to continue.
 
 ## Review imported project instructions
 
-If a project had instructions in the web app, open it after the import. Its page shows a notice that the instructions came from an import, and Claude does not follow them until you accept them. Click **Review instructions** to edit and save them, or **Use as is** to accept them unchanged. They then appear under **Instructions** on the project's page.
+If a project had instructions in the web app, open it after the import. Its page shows a notice that the instructions came from an import, and Claude does not follow them until you accept them. Click **Review instructions** to edit and save them, or **Use as is** to accept them unchanged. They then appear under **Instructions** on the project's page. Claude Desktop versions earlier than 1.25927.0 follow imported instructions straight away.
 
 ## Remove an import
 
-To delete what an import added, open **Settings**, then the **Import & export** page. Under **Import history**, click **Remove** next to the import, or **Remove all** to remove every import listed. Before you confirm, the dialog shows how many conversations and projects it will delete.
+To remove an import, open **Settings**, then the **Import & export** page. Under **Import history**, click **Remove** next to the import, or **Remove all** to remove every import listed. Before you confirm, the dialog shows how many conversations and projects it will delete. The files of imported projects stay on your computer, by default in `Claude/Projects` in your home folder, until you delete them yourself.
 
 > [!WARNING]
 >
@@ -113,14 +113,16 @@ To delete what an import added, open **Settings**, then the **Import & export** 
 
 | What you see | Likely cause | What to do |
 | - | - | - |
-| Your export exceeds the import size limit | You have more data than the import can bring over | Remove conversations or files you no longer need in the web app, in line with your organization's records policy, then run the import again |
-| The account does not match your organization | You signed in with a different account or organization | If your browser is signed in to the web app with a different account, sign out there. Then click **Sign in** in the dialog again and use your work account in the browser tab |
-| The **Import & export** page says import isn't enabled for this deployment | Your app is out of date, or Anthropic has not yet enabled the import for your organization | Update Claude Desktop to the latest version. If the page still says import isn't enabled, contact your administrator, who can ask Anthropic to enable it |
+| Your export exceeds the import size limit | You have more data than the import can bring over | Update Claude Desktop to 4.29.0 or later, then run the import again. If you still see this message, contact your administrator, who can ask Anthropic for help |
+| The account does not match your organization | You signed in with a different account or organization | Click **Sign in** in the dialog again and use your work account in the browser tab |
+| **Settings** has no **Import & export** page, or the page says import isn't enabled for this deployment | Your app is out of date, or Anthropic has not yet enabled the import for your organization | Update Claude Desktop to the latest version. If the page still says import isn't enabled, contact your administrator, who can ask Anthropic to enable it |
 
 For anything else, try the import again; if it keeps failing, contact your administrator.
 
 ## Things to know
 
 * **You can run the import again.** Conversations you already imported are skipped.
-* **Conversations can arrive as Cowork tasks.** If **Chat in Claude Desktop** is turned off for your organization under [Product availability](https://claude.com/docs/government/config/settings.md#product-availability) when you run the import, your conversations are imported as Cowork tasks instead and open only on computers where Cowork is available.
-* **Projects other people shared with you are not imported.** Only the projects you created come over, with their files and instructions.
+* **Conversations can arrive as Cowork tasks.** If your organization's [settings](https://claude.com/docs/government/config/settings.md#product-availability) do not give you Chat when you run the import, your conversations are imported as Cowork tasks instead and open only on computers where Cowork is available. Claude Desktop versions earlier than 1.28929.0 always import them as Cowork tasks.
+* **Projects other people shared with you are not imported.** Only the projects you created come over.
+* **When Claude Desktop is connected to Claude for Government, it does not offer an import from claude.ai.**
+* **In Chat, Claude can't read a folder that the import put on a project until you add the folder to the project again.** For the steps, see [Make an imported project folder readable in Chat](https://claude.com/docs/third-party/claude-desktop/import.md#make-an-imported-project-folder-readable-in-chat).

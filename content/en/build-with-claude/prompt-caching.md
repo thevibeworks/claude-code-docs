@@ -913,7 +913,7 @@ Here are three example requests, each with different cache hits and cache misses
 
 ## Pre-warming the cache
 
-Cache pre-warming lets you load your system prompt or tool definitions into the prompt cache before a user triggers a real request. This eliminates the cache-miss latency penalty on the first user interaction, reducing time-to-first-token (TTFT) for latency-sensitive applications.
+Cache pre-warming lets you load your system prompt or tool definitions into the prompt cache before a user triggers a real request. This can reduce the cache-miss latency penalty on the first user interaction, lowering time-to-first-token (TTFT) for latency-sensitive applications.
 
 ### How it works
 
