@@ -163,7 +163,7 @@ Upload File
 
     The format and length of IDs may change over time.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing when the file was created.
 
@@ -191,7 +191,7 @@ Upload File
 
     Whether the file can be downloaded.
 
-  - `Optional<LocalDateTime> expiresAt`
+  - `Optional<OffsetDateTime> expiresAt`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 

@@ -161,7 +161,7 @@ Update User Profile
 
     Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Not accepted under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers.
 
-  - `Optional<LocalDateTime> externalUserOnboardedAt`
+  - `Optional<OffsetDateTime> externalUserOnboardedAt`
 
     If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Legacy field, accepted only under the `user-profiles-2026-08-18` beta header; without a legacy header, send `external_user_details.onboarded_at`.
 
@@ -193,7 +193,7 @@ Update User Profile
 
     Unique identifier for this user profile, prefixed `uprof_`.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this user profile was created, in RFC 3339 format.
 
@@ -221,7 +221,7 @@ Update User Profile
 
       - `REJECTED("rejected")`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
@@ -287,7 +287,7 @@ Update User Profile
 
       The platform-computed hash of the entity's name. `null` until the platform supplies one.
 
-    - `Optional<LocalDateTime> onboardedAt`
+    - `Optional<OffsetDateTime> onboardedAt`
 
       When the entity opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one.
 
@@ -297,7 +297,7 @@ Update User Profile
 
       The platform's own reference for the entity. `null` until the platform supplies one.
 
-  - `Optional<LocalDateTime> externalUserOnboardedAt`
+  - `Optional<OffsetDateTime> externalUserOnboardedAt`
 
     When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 

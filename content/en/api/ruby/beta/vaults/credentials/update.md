@@ -31,13 +31,13 @@ Update a Credential
 
     - `type: :mcp_oauth`
 
-    - `access_token: optional String`
+    - `access_token: optional String | nil`
 
       The new OAuth access token to replace the stored one.
 
       minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
-    - `expires_at: optional Time`
+    - `expires_at: optional Time | nil`
 
       When the credential's access token expires, in RFC 3339. Leave it out to keep the stored expiry.
 
@@ -47,17 +47,17 @@ Update a Credential
 
       format: date-time
 
-    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams`
+    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams | nil`
 
       Updated refresh token configuration.
 
-      - `refresh_token: optional String`
+      - `refresh_token: optional String | nil`
 
         The new OAuth refresh token to replace the stored one.
 
         minLength: 1, maxLength: 8192
 
-      - `scope: optional String`
+      - `scope: optional String | nil`
 
         The new OAuth scope for refresh requests. Send an empty string to clear the stored scope.
 
@@ -71,7 +71,7 @@ Update a Credential
 
           - `type: :client_secret_basic`
 
-          - `client_secret: optional String`
+          - `client_secret: optional String | nil`
 
             A new OAuth client secret to replace the stored one.
 
@@ -85,7 +85,7 @@ Update a Credential
 
           - `type: :client_secret_post`
 
-          - `client_secret: optional String`
+          - `client_secret: optional String | nil`
 
             A new OAuth client secret to replace the stored one.
 
@@ -99,7 +99,7 @@ Update a Credential
 
     - `type: :static_bearer`
 
-    - `token: optional String`
+    - `token: optional String | nil`
 
       The new static bearer token to replace the stored one.
 
@@ -123,7 +123,7 @@ Update a Credential
 
         Substitute when the placeholder appears in a request header value.
 
-    - `networking: optional BetaManagedAgentsCredentialNetworkingParams`
+    - `networking: optional BetaManagedAgentsCredentialNetworkingParams | nil`
 
       The new networking scope, which replaces the stored one as a whole.
 
@@ -145,19 +145,19 @@ Update a Credential
 
           Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
 
-    - `secret_value: optional String`
+    - `secret_value: optional String | nil`
 
       The new secret value to replace the stored one.
 
       minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Updated human-readable name for the credential. 1-255 characters.
 
   minLength: 1, maxLength: 255
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -295,7 +295,7 @@ Update a Credential
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -315,13 +315,13 @@ Update a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -353,11 +353,11 @@ Update a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -435,7 +435,7 @@ Update a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 

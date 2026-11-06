@@ -149,7 +149,7 @@ Create Enrollment URL
 
     Object type. Always `enrollment_url`.
 
-  - `LocalDateTime expiresAt`
+  - `OffsetDateTime expiresAt`
 
     When this enrollment URL expires, in RFC 3339 format.
 

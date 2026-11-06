@@ -19,31 +19,31 @@ List Sessions
 
     Filter sessions created with this agent ID.
 
-  - `Optional<Long> agentVersion` (query parameter)
+  - `Optional<Integer> agentVersion` (query parameter)
 
     Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
-  - `Optional<LocalDateTime> createdAtGt` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGt` (query parameter)
 
     Return sessions created after this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGte` (query parameter)
 
     Return sessions created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLt` (query parameter)
 
     Return sessions created before this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLte` (query parameter)
 
     Return sessions created at or before this time (inclusive).
 
@@ -57,7 +57,7 @@ List Sessions
 
     When true, includes archived sessions. Default: false (exclude archived).
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum number of results to return.
 
@@ -733,7 +733,7 @@ List Sessions
 
                     - `Optional<List<String>> blockedDomains`
 
-                    - `Optional<Long> maxContentTokens`
+                    - `Optional<Integer> maxContentTokens`
 
                       format: int32
 
@@ -891,7 +891,7 @@ List Sessions
 
                 - `String name`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -985,7 +985,7 @@ List Sessions
 
               - `List<Tool> tools`
 
-              - `long version`
+              - `int version`
 
                 format: int32
 
@@ -1037,7 +1037,7 @@ List Sessions
 
               - `List<Tool> tools`
 
-              - `long version`
+              - `int version`
 
                 format: int32
 
@@ -1071,11 +1071,11 @@ List Sessions
 
         A custom tool as returned in API responses.
 
-    - `long version`
+    - `int version`
 
       format: int32
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the session was archived. Null if not archived.
 
@@ -1101,7 +1101,7 @@ List Sessions
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -1117,7 +1117,7 @@ List Sessions
 
     - `JsonValue type = "outcome_evaluation"`
 
-    - `Optional<LocalDateTime> completedAt`
+    - `Optional<OffsetDateTime> completedAt`
 
       When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
@@ -1131,7 +1131,7 @@ List Sessions
 
       Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
-    - `long iteration`
+    - `int iteration`
 
       0-indexed revision cycle the outcome is currently on.
 
@@ -1153,7 +1153,7 @@ List Sessions
 
       - `String id`
 
-      - `LocalDateTime createdAt`
+      - `OffsetDateTime createdAt`
 
         A timestamp in RFC 3339 format
 
@@ -1161,7 +1161,7 @@ List Sessions
 
       - `String mountPath`
 
-      - `LocalDateTime updatedAt`
+      - `OffsetDateTime updatedAt`
 
         A timestamp in RFC 3339 format
 
@@ -1197,7 +1197,7 @@ List Sessions
 
       - `String id`
 
-      - `LocalDateTime createdAt`
+      - `OffsetDateTime createdAt`
 
         A timestamp in RFC 3339 format
 
@@ -1207,7 +1207,7 @@ List Sessions
 
       - `String mountPath`
 
-      - `LocalDateTime updatedAt`
+      - `OffsetDateTime updatedAt`
 
         A timestamp in RFC 3339 format
 
@@ -1287,7 +1287,7 @@ List Sessions
 
   - `Optional<String> title`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
@@ -1307,25 +1307,25 @@ List Sessions
 
       Tokens used to create prompt cache entries, broken down by cache TTL.
 
-      - `Optional<Long> ephemeral1hInputTokens`
+      - `Optional<Integer> ephemeral1hInputTokens`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
         format: int32
 
-      - `Optional<Long> ephemeral5mInputTokens`
+      - `Optional<Integer> ephemeral5mInputTokens`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
         format: int32
 
-    - `Optional<Long> cacheReadInputTokens`
+    - `Optional<Integer> cacheReadInputTokens`
 
       Total tokens read from prompt cache.
 
       format: int32
 
-    - `Optional<Long> inputTokens`
+    - `Optional<Integer> inputTokens`
 
       Total input tokens consumed across all turns.
 
@@ -1335,7 +1335,7 @@ List Sessions
 
       Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
-    - `Optional<Long> outputTokens`
+    - `Optional<Integer> outputTokens`
 
       Total output tokens generated across all turns.
 
@@ -1345,13 +1345,13 @@ List Sessions
 
       Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
-      - `Optional<Long> webFetchRequests`
+      - `Optional<Integer> webFetchRequests`
 
         Number of server-executed web fetch requests.
 
         format: int32
 
-      - `Optional<Long> webSearchRequests`
+      - `Optional<Integer> webSearchRequests`
 
         Number of server-executed web search requests.
 

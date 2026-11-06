@@ -171,7 +171,7 @@ Create a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -408,7 +408,7 @@ List Memory Stores
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -626,7 +626,7 @@ Retrieve a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -709,19 +709,19 @@ Update a Memory Store
 
   The request fails with HTTP status 400 if the store is archived.
 
-- `description: optional String`
+- `description: optional String | nil`
 
   New description for the store, up to 1,024 characters. Pass an empty string to clear it.
 
   maxLength: 1024
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Changes to apply to the memory store's metadata. Keys you leave out keep their values.
 
   Set a key to a string to add or replace it, or to `null` to remove it. After the change, the metadata can hold at most 16 key-value pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `name: optional String`
+- `name: optional String | nil`
 
   The new name of the memory store, 1 to 255 characters long, without control characters.
 
@@ -863,7 +863,7 @@ Update a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -1251,7 +1251,7 @@ Archive a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -1344,7 +1344,7 @@ puts(beta_managed_agents_memory_store)
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -1398,7 +1398,7 @@ Create a Memory
 
   The ID of the memory store to create the memory in (`memstore_...`).
 
-- `content: String`
+- `content: String | nil`
 
   The UTF-8 text content of the new memory. Pass `""` to create an empty memory.
 
@@ -1606,7 +1606,7 @@ Create a Memory
 
     format: date-time
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -1879,7 +1879,7 @@ List Memories
 
       format: date-time
 
-    - `content: optional String`
+    - `content: optional String | nil`
 
       The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -2143,7 +2143,7 @@ Retrieve a Memory
 
     format: date-time
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -2210,11 +2210,11 @@ Update a Memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `content: optional String`
+- `content: optional String | nil`
 
   New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
-- `path: optional String`
+- `path: optional String | nil`
 
   The new path of the memory, which renames it. Omit it to keep the current path.
 
@@ -2416,7 +2416,7 @@ Update a Memory
 
     format: date-time
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 
@@ -2894,15 +2894,15 @@ List Memory Versions
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional String`
+  - `content_sha256: optional String | nil`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional Integer`
+  - `content_size_bytes: optional Integer | nil`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -2964,11 +2964,11 @@ List Memory Versions
 
         minLength: 1
 
-  - `path: optional String`
+  - `path: optional String | nil`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional Time`
+  - `redacted_at: optional Time | nil`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -3229,15 +3229,15 @@ Retrieve a Memory Version
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional String`
+  - `content_sha256: optional String | nil`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional Integer`
+  - `content_size_bytes: optional Integer | nil`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -3299,11 +3299,11 @@ Retrieve a Memory Version
 
         minLength: 1
 
-  - `path: optional String`
+  - `path: optional String | nil`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional Time`
+  - `redacted_at: optional Time | nil`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -3548,15 +3548,15 @@ Redact a Memory Version
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional String`
+  - `content_sha256: optional String | nil`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional Integer`
+  - `content_size_bytes: optional Integer | nil`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -3618,11 +3618,11 @@ Redact a Memory Version
 
         minLength: 1
 
-  - `path: optional String`
+  - `path: optional String | nil`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional Time`
+  - `redacted_at: optional Time | nil`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 

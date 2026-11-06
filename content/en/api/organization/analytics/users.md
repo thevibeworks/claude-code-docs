@@ -387,7 +387,7 @@ the `read:analytics` scope.
 
   - `chat_cowork_unified_metrics: optional AnalyticsChatCoworkUnifiedMetrics or null`
 
-    Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response where Chat and Cowork unified is not available.
 
     - `chat: AnalyticsChatCoworkUnifiedChatMetrics`
 

@@ -23,7 +23,7 @@ List Credentials
 
     Whether to include archived credentials in the results. Defaults to `false`.
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum number of credentials to return per page. Defaults to 20, maximum 100.
 
@@ -165,7 +165,7 @@ List Credentials
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the credential was archived. Null if not archived.
 
@@ -185,7 +185,7 @@ List Credentials
 
         URL of the MCP server this credential authenticates against.
 
-      - `Optional<LocalDateTime> expiresAt`
+      - `Optional<OffsetDateTime> expiresAt`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
@@ -285,7 +285,7 @@ List Credentials
 
         Name of the environment variable.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -295,7 +295,7 @@ List Credentials
 
     Arbitrary key-value metadata attached to the credential.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 

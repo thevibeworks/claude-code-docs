@@ -80,7 +80,7 @@ If a user belongs to more than one group with a pooled budget, the largest poole
 
 With a custom order, the first pooled budget in your list with budget remaining pays.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719736736/a4ec8e92af4975a87891357e5dbd/6f58b496-432d-4069-ba18-72a6390ab2ea?expires=1793904300&amp;signature=37f785678aa0c1cb26efd0a9cb83bdc77f23621cecc332605a7ad39f6e6d6fce&amp;req=dicmH859m4ZcX%2FMW1HO4zU9wBwcRUYwwTLR6JppsyjQBdhSKY5E%2FOLairkzB%0AfceLWhiaPfUqdBirbq0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719736736/a4ec8e92af4975a87891357e5dbd/6f58b496-432d-4069-ba18-72a6390ab2ea?expires=1793952000&amp;signature=fd7b763553d286e45af63665ff5f0e0af1b1cf7e78a6ad860f00fed031834937&amp;req=dicmH859m4ZcX%2FMW1HO4zU9wBwcRVIozTLR6JppsyjQrF3Ntkc6CiOI0Z00j%0ArwX%2BqXL58hC3fjZQWgY%3D%0A)
 
 **Note:** Budget priority only decides the order in which pooled budgets pay. To choose which group's member monthly limit applies to a user in more than one group, use the **Member limit from groups** setting under **Spending defaults**.
 

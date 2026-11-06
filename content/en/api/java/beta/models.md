@@ -321,13 +321,13 @@ The Models API response can be used to determine which models are available for 
 
           Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
     format: date-time
 
-  - `Optional<LocalDateTime> deprecatedAt`
+  - `Optional<OffsetDateTime> deprecatedAt`
 
     RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
 
@@ -373,7 +373,7 @@ The Models API response can be used to determine which models are available for 
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `Optional<LocalDateTime> retiresAt`
+  - `Optional<OffsetDateTime> retiresAt`
 
     RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
 
@@ -801,13 +801,13 @@ The Models API response can be used to determine information about a specific mo
 
           Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
     format: date-time
 
-  - `Optional<LocalDateTime> deprecatedAt`
+  - `Optional<OffsetDateTime> deprecatedAt`
 
     RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
 
@@ -853,7 +853,7 @@ The Models API response can be used to determine information about a specific mo
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `Optional<LocalDateTime> retiresAt`
+  - `Optional<OffsetDateTime> retiresAt`
 
     RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
 
@@ -1366,13 +1366,13 @@ public final class Main {
 
           Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
     format: date-time
 
-  - `Optional<LocalDateTime> deprecatedAt`
+  - `Optional<OffsetDateTime> deprecatedAt`
 
     RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
 
@@ -1418,7 +1418,7 @@ public final class Main {
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `Optional<LocalDateTime> retiresAt`
+  - `Optional<OffsetDateTime> retiresAt`
 
     RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
 

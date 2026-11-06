@@ -124,7 +124,7 @@ Skills can bundle additional materials:
   * `scripts/`
     * `fill_form.py` (utility script)
 
-**Instructions:** Additional markdown files (`FORMS.md`, `REFERENCE.md`) containing specialized guidance and workflows
+**Instructions:** Additional Markdown files (`FORMS.md`, `REFERENCE.md`) containing specialized guidance and workflows
 
 **Code:** Executable scripts (`fill_form.py`, `validate.py`) that Claude runs using bash, providing deterministic operations without loading their code into context
 
@@ -163,13 +163,13 @@ When a Skill is triggered, Claude uses bash to read `SKILL.md` from the filesyst
 Here’s how Claude loads and uses the custom `pdf-processing` Skill from the earlier examples (not the pre-built `pdf` Skill):
 
 1. **Startup:** System prompt includes: `pdf-processing - Extract text and tables from PDF files, fill forms, merge documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.`
-2. **User request:** “Extract the text from this PDF and summarize it”
-3. **Claude calls:** `bash: cat pdf-processing/SKILL.md` → Instructions loaded into context
-4. **Claude determines:** Form filling is not needed, so `FORMS.md` is not read
-5. **Claude executes:** Uses instructions from `SKILL.md` to complete the task
+2. **User request:** “Extract the text from this PDF and summarize it.”
+3. **Claude calls:** `bash: cat pdf-processing/SKILL.md` → Instructions loaded into context.
+4. **Claude determines:** Form filling is not needed, so Claude doesn’t read `FORMS.md`.
+5. **Claude completes the task:** Uses the instructions from `SKILL.md`.
 
 <Frame>
-  ![Skills loading into context window - showing the progressive loading of skill metadata and content](https://platform.claude.com/docs/images/agent-skills-context-window.svg)
+  ![Skills loading into the context window: the progressive loading of Skill metadata and content](https://platform.claude.com/docs/images/agent-skills-context-window.svg)
 </Frame>
 
 ## Where Skills work
@@ -208,7 +208,7 @@ To learn more, see [Use Skills in Claude Code](https://code.claude.com/docs/en/s
 
 **Pre-built Agent Skills:** These Skills are active when you create documents. Claude uses them with no setup required.
 
-**Custom Skills:** Upload your own Skills as zip files through **Settings > Features**. Available on Pro, Max, Ultra, Team, and Enterprise plans with [code execution enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude). Custom Skills are individual to each user. They are not shared organization-wide and cannot be centrally managed by admins.
+**Custom Skills:** Upload your own Skills as zip files. Available on Pro, Max, Ultra, Team, and Enterprise plans with [code execution enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude).
 
 To learn more about using Skills in claude.ai, see the following resources in the Claude Help Center:
 
@@ -304,7 +304,7 @@ For audit logging of Skills API operations, see [Audit logging](https://platform
 
 ## Limitations and constraints
 
-Claude Platform on AWS and Microsoft Foundry follow the same limitations as the Claude API in the following subsections. In addition, on Microsoft Foundry, the [Skill version download endpoint](https://platform.claude.com/docs/en/api/beta/skills/versions/download) (`GET /v1/skills/{skill_id}/versions/{version}/content`) is not supported.
+Claude Platform on AWS and Microsoft Foundry follow the same limitations as the Claude API in the following subsections. In addition, on Microsoft Foundry, the [Skill version download endpoint](https://platform.claude.com/docs/en/api/beta/skills/versions/download) (`GET /v1/skills/{skill_id}/versions/{version}/content`) is not available.
 
 ### Cross-surface availability
 
@@ -320,11 +320,8 @@ Manage and upload Skills separately for each surface where you want to use them.
 
 Skills have different sharing models depending on where you use them:
 
-* **claude.ai:** Individual user only. Each team member must upload separately.
 * **Claude API:** Workspace-wide. All workspace members can access uploaded Skills.
-* **Claude Code:** Personal (`~/.claude/skills/`) or project-based (`.claude/skills/`). Can also be shared through Claude Code Plugins.
-
-claude.ai does not support centralized admin management or org-wide distribution of custom Skills.
+* **Claude Code:** Personal (`~/.claude/skills/`) or project-based (`.claude/skills/`). Can also be shared through Claude Code plugins.
 
 ### Runtime environment constraints
 

@@ -27,7 +27,7 @@ On macOS and Windows, Cowork's sandboxed shell also follows the OS proxy setting
 A few limits apply to the agent regardless of how the proxy is chosen:
 
 * Only `http://` and `https://` proxies are handed to the agent. If the OS or PAC answer is a SOCKS proxy, the app skips it, and the agent connects directly or through the last `http://` or `https://` proxy named for the inference endpoint since Claude Desktop started.
-* There is no interactive proxy sign-in. If your proxy requires a username and password, neither the app nor the agent can prompt for them and requests fail. Run a local forwarding proxy that authenticates upstream on the device (for example, Cntlm or Px) and point the OS or the pinned key at it.
+* There is no interactive proxy sign-in. If your proxy requires a username and password, neither the app, the agent, nor the built-in GitHub connector's server can prompt for them and requests fail. The connector's server gets the proxy's address and no credential, so a proxy that signs devices in with NTLM or Kerberos refuses it too. Run a local forwarding proxy that authenticates upstream on the device (for example, Cntlm or Px) and point the OS or the pinned key at it.
 * If your proxy intercepts TLS, see [TLS-intercepting proxies](#tls-intercepting-proxies) below.
 
 ### PAC script for the sandboxed shell
@@ -87,6 +87,7 @@ The table summarizes which proxy source each kind of traffic follows. "App proxy
 | Web Fetch in Chat and Cowork sessions, and remote managed MCP servers | App proxy (the app makes these connections) |
 | Local (`stdio`) servers in [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) | The app gives the server no proxy variables. Set `HTTPS_PROXY` in the entry's `env`, or have its `envHelper` script print it. In the admin console, use the **Environment helper script** field. |
 | Sync of the plugin marketplaces you configure, and `aws` CLI calls the app makes for Bedrock sign-in | App proxy, resolved for the specific host |
+| The built-in [GitHub connector](https://claude.com/docs/third-party/claude-desktop/connectors-github.md#local-connector)'s calls to GitHub | App proxy, resolved for the host that serves the GitHub API (`api.github.com`, `api.<tenant>.ghe.com` for a tenant on `ghe.com`, or your GitHub Enterprise Server instance's own host) when the app starts the connector's server, such as at launch or after a sign-in. If the answer names only SOCKS proxies, the server connects directly. |
 | Cowork sandbox download from `downloads.claude.ai` | App proxy |
 | Telemetry and crash reports to Anthropic, if enabled | App proxy |
 | OpenTelemetry export to your collector | App proxy for the app's own events; the same single proxy as inference for Claude Code metrics and logs |
@@ -192,6 +193,7 @@ launchctl setenv NODE_EXTRA_CA_CERTS "$HOME/corp-ca.pem"
 * **Last proxy reused**: a `Keeping system proxy` line, when the OS answer was direct, SOCKS, or missing
 * **SOCKS answer from the OS**: a `Skipping SOCKS proxy entry` line
 * **Proxy variables from Claude Code managed settings**: a line that names the variables set or replaced, and the settings file they came from
+* **Proxy handed to the built-in GitHub connector**: a `[github-mcp] bundled server connected` line that lists `HTTPS_PROXY` under `envKeys`
 
 For Cowork's sandboxed shell, open `cowork_vm_node.log` in the same directory and look for these lines:
 
@@ -201,6 +203,8 @@ For Cowork's sandboxed shell, open `cowork_vm_node.log` in the same directory an
 **Agent connects directly while the app is proxied.** The OS or PAC answer for the inference endpoint was `DIRECT` or SOCKS-only. Adjust the PAC rule for the inference host, or pin `egressProxyUrl`.
 
 **New sessions keep using a proxy after the device leaves its network.** Once the app has been given a proxy for the inference endpoint, it keeps handing that proxy to new sessions while the OS or PAC answer is a direct connection, a SOCKS proxy, or no answer. Quit and reopen Claude Desktop.
+
+**The built-in GitHub connector's tools fail after the device changes networks.** The connector's server keeps the proxy that the app resolved when the server started. Quit and reopen Claude Desktop.
 
 **Cowork's sandboxed shell has no proxy on macOS while the app is proxied.** Check the PAC address in the OS proxy settings. The sandboxed shell uses its own copy of the PAC script. macOS refuses the download of that copy from a plain `http://` address unless the host is one of the exceptions listed under [PAC script for the sandboxed shell](#pac-script-for-the-sandboxed-shell). The app's logs then record `PAC fetch from … refused: macOS requires https for this address (App Transport Security)`, which you can search for in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md). Serve the script over `https://`.
 

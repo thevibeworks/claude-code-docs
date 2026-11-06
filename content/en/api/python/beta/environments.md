@@ -3069,7 +3069,7 @@ client = Anthropic(
 beta_self_hosted_work = client.beta.environments.work.poll(
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
 )
-print(beta_self_hosted_work.id)
+print(beta_self_hosted_work)
 ```
 
 ##### Response (200)

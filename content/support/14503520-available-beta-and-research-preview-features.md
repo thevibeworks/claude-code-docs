@@ -37,7 +37,7 @@ This table below lists the beta and research preview features currently availabl
 | **[Claude Dashboards](https://support.claude.com/en/articles/17454700)**                                                                                         | Artifacts         | Beta       |
 | **[Claude Motion](https://support.claude.com/en/articles/17454997)**                                                                                             | Artifacts         | Beta       |
 | **[Enterprise security center](https://support.claude.com/en/articles/18246629-review-your-organization-s-security-posture-with-the-security-center)**           | Enterprise admin  | Beta       |
-| **[Sign members out through the Admin API](https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans#h_3cba7d14e5)**           | Enterprise admin  | Beta       |
+| **[Sign members out through the Admin API](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere)**                     | Enterprise admin  | Beta       |
 | **[Self-serve IP allowlist](https://platform.claude.com/docs/en/manage-claude/ip-allowlist)**                                                                    | Enterprise admin  | Beta       |
 | **[Claude Desktop settings in Organization settings](https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop#h_21135034c8)** | Enterprise admin  | Beta       |
 | **[Centralized management](https://support.claude.com/en/articles/18232924)**                                                                                    | Enterprise admin  | Beta       |

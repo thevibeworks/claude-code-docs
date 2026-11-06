@@ -552,13 +552,12 @@ Keep the following in mind when working with summarized thinking:
 * On Claude Opus 4.6, Claude Sonnet 4.6, and earlier models, the first few lines of thinking output are more verbose, providing detailed reasoning that’s particularly helpful for prompt engineering purposes. [Claude Mythos Preview](https://anthropic.com/glasswing) summarizes from the first token, so its thinking blocks do not show this verbose preamble.
 * Summarization preserves the key ideas of Claude’s thinking process with minimal added latency, so summaries can stream as they arrive.
 * Summarization is processed by a different model from the one you target in your requests. The thinking model does not receive the summarized output.
-* As Anthropic seeks to improve the thinking feature, summarization behavior is subject to change.
 
 <Note>
   In rare cases where you need access to full thinking output, [contact Anthropic sales](mailto:sales@anthropic.com).
 </Note>
 
-To see the model’s reasoning, read the `thinking` blocks rather than prompting for reasoning in the response text. On Claude Fable 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Fable 5, a request that attempts to elicit the model’s internal reasoning as part of the response text may be refused with `stop_details.category: "reasoning_extraction"`. See [Refusal categories](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the field reference and [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks) for what to ask for instead.
+To see the model’s reasoning, read the `thinking` blocks rather than prompting for reasoning in the response text. On Claude Fable 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Fable 5, a request that attempts to elicit the model’s internal reasoning as part of the response text might be refused with `stop_details.category: "reasoning_extraction"`. See [What a refusal looks like](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the field reference and [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks) for what to ask for instead.
 
 ### Streaming thinking
 
@@ -1083,14 +1082,14 @@ Keep the following in mind when working with progress updates:
 * A progress-update block can come back with an empty `thinking` field under any `display` value. Render nothing for an empty block. Under `"updates"` it looks the same as an empty reasoning block and needs no separate handling.
 * When a response stops on `max_tokens`, `model_context_window_exceeded`, or `stop_sequence` soon after a tool call or tool result, its last block can be a progress-update block standing in for the work the model hadn’t completed. Under `"updates"` and `"summarized"` its text is exactly `This part of the response was interrupted before it finished.` and you can show it like any other update. Under `"omitted"` it’s empty. To continue, pass the assistant turn back unchanged and append a new `user` message (with a `tool_result` for each `tool_use` block in that turn).
 * When [streaming](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking), expect a pause of several seconds before a progress-update block opens. See the `"updates"` trace in [Streaming thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking).
-* These models write fewer progress updates at higher [effort](https://platform.claude.com/docs/en/build-with-claude/effort) and in long tool chains. If your interface depends on them, see [Ask for user-facing progress updates](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#ask-for-user-facing-progress-updates) or, for Claude Opus 5.5, [User-facing progress updates](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5#user-facing-progress-updates). For Claude Sonnet 5.5, see [User-facing progress updates](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#user-facing-progress-updates).
+* These models write fewer progress updates at higher [effort](https://platform.claude.com/docs/en/build-with-claude/effort) and in long tool chains. If your interface depends on them, see [Ask for user-facing progress updates](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#ask-for-user-facing-progress-updates). For Claude Opus 5.5 and Claude Sonnet 5.5, see User-facing progress updates in [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5#user-facing-progress-updates) or [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#user-facing-progress-updates).
 
 ### Thinking block preservation by model
 
 Whether thinking blocks from previous assistant turns stay in context by default depends on the model:
 
 * **Keep all prior turns:** Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Haiku 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview.
-* **Keep the last turn only:** earlier Opus and Sonnet models, and all Haiku models through Claude Haiku 4.5. When you pass older thinking blocks back, the API strips them automatically. You don’t need to remove them yourself.
+* **Keep only the turn in progress (last-turn-only models):** earlier Opus and Sonnet models, and all Haiku models through Claude Haiku 4.5. When you pass older thinking blocks back, the API strips them automatically. You don’t need to remove them yourself.
 
 Preservation brings two benefits:
 

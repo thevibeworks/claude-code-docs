@@ -157,19 +157,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string indicating when the certificate was registered.
 
     format: date-time
 
-  - `Optional<LocalDateTime> expiresAt`
+  - `Optional<OffsetDateTime> expiresAt`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 

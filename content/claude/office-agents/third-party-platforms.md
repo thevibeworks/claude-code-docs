@@ -211,7 +211,7 @@ The plugin exposes the following slash commands once installed.
 | `/claude-for-msft-365-install:setup` | Interactive wizard: provisions cloud resources, handles admin consent, writes manifest. |
 | `/claude-for-msft-365-install:manifest` | Generates a customized add-in manifest XML. |
 | `/claude-for-msft-365-install:consent` | Generates the Azure admin-consent URL for the add-in's app registration. |
-| `/claude-for-msft-365-install:update-user-attrs` | Writes per-user configuration via Microsoft Graph extension attributes. |
+| `/claude-for-msft-365-install:update-user-attrs` | Writes per-user connection values via Microsoft Graph extension attributes. |
 | `/claude-for-msft-365-install:bootstrap` | Builds a bootstrap endpoint for per-user MCP servers, skills, and dynamic config. |
 | `/claude-for-msft-365-install:debug` | Diagnoses deployment issues: stale config after a manifest update, connection failures, an add-in that does not appear, sign-in or admin-consent loops, and reading the add-in's error paste. |
 | `/claude-for-msft-365-install:export-data` | Makes a read-only copy of a user's chat history, skills, connector registrations, and settings before a device is rebuilt. See [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md). |
@@ -236,20 +236,50 @@ connection path you choose.
 
 ### Per-user configuration
 
-If values vary per user, such as different gateway tokens or AWS roles
-for different teams, run `/claude-for-msft-365-install:update-user-attrs`
-with per-user keys after initial setup to write configuration via
-Microsoft Graph extension attributes.
+If gateway, Bedrock, or Vertex AI connection values vary per user, such
+as different gateway tokens or AWS roles for different teams, run
+`/claude-for-msft-365-install:update-user-attrs` after initial setup to
+write them as Microsoft Graph extension attributes. Set `entra_sso=1` in
+the manifest so that the add-in reads them at sign-in, where they arrive
+as claims in the user's ID token.
 
-At load, the add-in resolves each configuration key from three sources in
-order of precedence: a bootstrap endpoint, Microsoft Entra ID extension
-attributes, then manifest parameters. Per-user attributes override the
+By default, the add-in signs in through
+[Anthropic's Microsoft Entra application](#identify-anthropic%E2%80%99s-microsoft-entra-application),
+which passes only these eight keys to the add-in:
+
+* **LLM gateway**: `gateway_url` and `gateway_token`
+* **Bedrock direct**: `aws_role_arn` and `aws_region`
+* **Vertex AI direct**: `gcp_project_id`, `gcp_region`,
+  `google_client_id`, and `google_client_secret`
+
+Deliver every other key, such as the Foundry direct keys or
+`disabled_features`, through the manifest. To vary one per user, return
+it from a bootstrap endpoint instead.
+
+If the add-in uses
+[your own Entra app registration](https://claude.com/docs/office-agents/outlook.md#use-your-own-entra-app-instead)
+through `graph_client_id`, you choose which keys it receives, and
+`entra_sso=1` is still required. Configure each one on that application
+as a directory extension attribute with an optional ID token claim, which
+reaches the add-in as `extn.<key>`, such as `extn.otlp_endpoint`. An
+attribute value holds at most 256 characters, so deliver a longer value,
+such as most `access_policies` values, through the manifest or a
+bootstrap endpoint.
+
+With either application, neither a claim nor a bootstrap response can set
+`entra_sso`, `graph_client_id`, `graph_cloud`, `entra_scope`, or
+`gateway_auth_source`, so keep them in the manifest. With Anthropic's
+application, `bootstrap_url` stays in the manifest too.
+
+At load, the add-in resolves configuration from three sources in order of
+precedence: a bootstrap endpoint, Microsoft Entra ID extension
+attributes, then manifest parameters. Per-user values override the
 manifest defaults, so one deployed manifest can serve teams with
 different settings.
 
-![The add-in resolves each configuration key from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=b6c750272cf3ad9765ec2563af436806)
+![The add-in resolves configuration from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=b6c750272cf3ad9765ec2563af436806)
 
-Configuration resolution at add-in load: bootstrap, Entra ID attributes, then manifest parameters.
+Configuration resolution at add-in load: bootstrap, Entra ID attributes, then manifest parameters. With Anthropic's Microsoft Entra application, Entra ID attributes carry only eight connection keys, not every configuration key.
 
 ### Keep credentials out of the manifest URL query string
 
@@ -275,10 +305,9 @@ after:  https://pivot.claude.ai/?gateway_url=https://ai-gateway.example.com/v1&a
 ### Admin feature controls
 
 The `disabled_features` configuration key turns off individual add-in
-features for your users. It travels over the same three channels as every
-other key: manifest parameters (comma-separated), Entra ID extension
-attributes (comma-separated), or a bootstrap endpoint (JSON array), so it
-can apply org-wide from one manifest or vary per user.
+features for your users. Set it as a comma-separated manifest parameter to
+apply one list org-wide, or return it from a bootstrap endpoint as a JSON
+array to vary it per user.
 
 | Slug | Effect |
 | - | - |
@@ -702,8 +731,8 @@ Users who connected before you set `azure_base_url` keep their direct
 connection until they log out and sign in again, as described in
 [Change or update your gateway connection](#change-or-update-your-gateway-connection).
 Until the setup wizard accepts this key, add `azure_base_url` to the
-generated manifest URL by hand, or deliver it per user through Microsoft
-Entra ID extension attributes or a bootstrap endpoint.
+generated manifest URL by hand, or deliver it per user through a bootstrap
+endpoint.
 
 The following manifest parameters configure this path.
 
@@ -743,8 +772,8 @@ Users who connected before you set `gcp_base_url` keep their direct
 connection until they log out and sign in again, as described in
 [Change or update your gateway connection](#change-or-update-your-gateway-connection).
 Until the setup wizard accepts this key, add `gcp_base_url` to the
-generated manifest URL by hand, or deliver it per user through Microsoft
-Entra ID extension attributes or a bootstrap endpoint.
+generated manifest URL by hand, or deliver it per user through a bootstrap
+endpoint.
 
 | Parameter | Value |
 | - | - |
@@ -992,18 +1021,20 @@ collector endpoint, and the full span reference.
 
 ## Why sign-in redirects through pivot.claude.ai
 
-During Google sign-in for Vertex AI, Anthropic sign-in, or Microsoft admin
-consent, your identity provider redirects the browser to
-`https://pivot.claude.ai/auth/callback`. Security reviewers sometimes ask
-whether this means access tokens for your cloud provider or mailbox pass
+During Google sign-in for Vertex AI, MCP connector authorization, or
+Microsoft admin consent, your identity provider redirects the browser to a
+page on `pivot.claude.ai`. Security reviewers sometimes ask whether this
+means access tokens for your cloud provider, connector, or mailbox pass
 through Anthropic's servers. They do not. This section explains what the
 redirect carries in each flow and why the page cannot obtain a token.
+[Claude account sign-in](#claude-account-sign-in-uses-no-redirect) involves
+no redirect.
 
 ### OAuth authorization-code redirects
 
-Google sign-in for Vertex AI and Anthropic sign-in use the OAuth 2.0
-authorization-code grant and redirect to `pivot.claude.ai/auth/callback`.
-MCP connector authorization uses the same grant with a dedicated
+Google sign-in for Vertex AI uses the OAuth 2.0 authorization-code grant
+and redirects to `pivot.claude.ai/auth/callback`. MCP connector
+authorization uses the same grant with a dedicated
 `pivot.claude.ai/auth/gateway-callback` redirect. In each case the URL
 contains two query parameters:
 
@@ -1019,12 +1050,11 @@ An authorization code on its own cannot be redeemed for an access token.
 The token endpoint requires an additional secret that only the add-in
 running on your machine holds:
 
-* **Anthropic sign-in and MCP connector authorization**: a Proof Key for
-  Code Exchange (PKCE) verifier. The add-in generates a random verifier
-  locally, sends only its SHA-256 hash to the identity provider when
-  sign-in starts, and keeps the verifier in browser session storage. The
-  token endpoint rejects any exchange that does not present the original
-  verifier.
+* **MCP connector authorization**: a Proof Key for Code Exchange (PKCE)
+  verifier. The add-in generates a random verifier locally, sends only its
+  SHA-256 hash to the identity provider when sign-in starts, and keeps the
+  verifier in browser session storage. The token endpoint rejects any
+  exchange that does not present the original verifier.
 * **Google sign-in for Vertex AI**: the `client_secret` belonging to the
   Google OAuth client your organization created during setup. This value
   is provisioned into the add-in's configuration on each user's machine
@@ -1037,10 +1067,10 @@ rejected. This prevents an attacker from tricking a user into completing
 a sign-in the attacker initiated.
 
 After the add-in exchanges the code, the resulting access and refresh
-tokens are held in the browser's local storage inside the Office add-in
-sandbox. The add-in presents the access token only to the inference or
-MCP-proxy endpoint for your sign-in path, and presents the refresh token
-only to the OAuth token endpoint. Each of these endpoints appears in the
+tokens are held in browser storage inside the Office add-in sandbox. The
+add-in presents the access token only to the inference endpoint or MCP
+server it was issued for, and presents the refresh token only to the OAuth
+token endpoint. Each of these endpoints appears in the
 [Network allowlist](#network-allowlist). These tokens never reach
 `pivot.claude.ai`.
 
@@ -1052,6 +1082,17 @@ browser tab that handles sign-in is isolated from the add-in frame's
 storage. The redirect must therefore target a registered HTTPS URL, and
 the callback page at `pivot.claude.ai` bridges the two contexts by
 displaying the code for you to paste back into the add-in.
+
+### Claude account sign-in uses no redirect
+
+Signing in with a Claude account uses the OAuth 2.0 device authorization
+grant, RFC 8628, instead of a redirect. The add-in requests a one-time
+sign-in code from `claude.ai`, shows it in the task pane, and sends you to
+`claude.ai` in your browser. It waits while you approve the sign-in there,
+then obtains the access and refresh tokens directly from the `claude.ai`
+token endpoint. During sign-in, no authorization code or token passes
+through `pivot.claude.ai`, and there is nothing to paste back into the
+add-in.
 
 ### Microsoft admin-consent redirects
 
@@ -1108,10 +1149,13 @@ machine:
   MCP connector the redirect to `pivot.claude.ai/auth/gateway-callback`
   carries `code` and `state`. No `access_token` parameter appears.
 * The `POST` that exchanges the code goes to `oauth2.googleapis.com` for
-  Vertex AI, to `claude.ai` for Anthropic sign-in, or to the connector
-  gateway's own origin for an MCP connector, originates from the add-in
-  frame, and includes the `code_verifier` or `client_secret` that never
-  appeared in any request to `pivot.claude.ai`.
+  Vertex AI or to the connector's authorization server for an MCP
+  connector, originates from the add-in frame, and includes the
+  `client_secret` or `code_verifier` that never appeared in any request to
+  `pivot.claude.ai`.
+* A Claude account sign-in produces requests from the add-in frame to
+  `claude.ai/v1/oauth/device_authorization` and `claude.ai/v1/oauth/token`,
+  and no request to `pivot.claude.ai/auth/callback`.
 * Microsoft Graph calls go directly to `graph.microsoft.com` with a
   bearer token that was issued by `login.microsoftonline.com` and never
   transited an Anthropic domain.

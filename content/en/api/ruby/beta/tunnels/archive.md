@@ -153,7 +153,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -165,7 +165,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 

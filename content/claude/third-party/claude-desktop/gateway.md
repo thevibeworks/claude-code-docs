@@ -707,9 +707,9 @@ Avoid phrases from the app's own error messages, such as "usage limit", "hit you
 
 ### Other status codes at a spend limit
 
-With these status codes, users see a general error or a card about a different problem, and Code's card hides or drops your message.
+With these status codes, users can see a general error or a card about a different problem, and Code's card can hide or drop your message.
 
-* **`429`**: Claude Desktop can retry for about three minutes or longer before it shows an error, unless the response carries `x-should-retry: false`. Code then shows **Server is temporarily limiting requests**.
+* **`429`**: Claude Desktop can retry for about three minutes or longer before it shows an error, unless the response carries `x-should-retry: false`. Code then shows **Server is temporarily limiting requests**. In Claude Desktop 4.23118.0 or later, when a [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) blocks a user at a spend limit, local Code sessions outside WSL show **Spend limit reached** with the gateway's message instead.
 * **`401` or `403`**: Code shows a card about credentials, sign-in, or permissions.
 * **`400`**: Code shows **Invalid request**.
 

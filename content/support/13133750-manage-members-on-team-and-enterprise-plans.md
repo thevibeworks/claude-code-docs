@@ -148,7 +148,7 @@ If a member loses a device or their account may be compromised, you can end thei
 
 - **In Organization settings:** Go to **[Organization settings > Members](https://claude.ai/admin-settings/members)**, click the three-dot “...” menu to the right of the member, then select "Sign out everywhere."
 
-- **Via the Admin API (Claude Enterprise, beta):** the Primary Owner creates an API key with the `write:members` scope, then calls `POST /v1/organizations/users/{user_id}/sign_out`.
+- **Via the Admin API (Claude Enterprise, beta):** the Primary Owner creates an API key with the `write:members` scope, then calls `POST /v1/organizations/users/{user_id}/sign_out`. Visit the Claude Platform Docs to learn more about **[signing a member out everywhere using the Admin API](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere)**.
 
 This ends the member's sessions on every device and revokes their trusted devices. Claude Code and Claude Desktop sessions authorized for your organization need to sign in again on next use. The member stays in your organization and keeps their role, and their chats and projects aren't deleted.
 

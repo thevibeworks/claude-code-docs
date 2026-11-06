@@ -163,7 +163,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -175,7 +175,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 

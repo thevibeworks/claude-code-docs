@@ -50,21 +50,21 @@ Deferred tools are not included in the system-prompt prefix. When the model disc
 
 This means adding tools dynamically through tool search does not break your cache. You can start a conversation with a small set of always-loaded tools (cached), let the model discover additional tools as needed, and keep the same cache hit across every turn.
 
-`defer_loading` also acts independently of grammar construction for [strict mode](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use). The grammar builds from the full toolset regardless of which tools are deferred, so prompt caching and grammar caching are both preserved when tools load dynamically.
+`defer_loading` also acts independently of grammar construction for [strict mode](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use). The grammar builds from the full list of tools regardless of which tools are deferred, so prompt caching and grammar caching are both preserved when tools load dynamically.
 
 ## What invalidates your cache
 
 The cache follows a prefix hierarchy (`tools` → `system` → `messages`), so a change at one level invalidates that level and everything after it:
 
-| Change                               | Invalidates                                                                                                                                                                                                              |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Modifying tool definitions           | Entire cache (tools, system, messages)                                                                                                                                                                                   |
-| Toggling web search or citations     | System and messages caches                                                                                                                                                                                               |
-| Changing `tool_choice`               | Messages cache                                                                                                                                                                                                           |
-| Changing `disable_parallel_tool_use` | Messages cache                                                                                                                                                                                                           |
-| Toggling images present/absent       | Messages cache                                                                                                                                                                                                           |
-| Changing thinking parameters         | Messages cache always; tool and system caches too on models that render the thinking configuration ahead of them ([details](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching)) |
-| Changing `output_config.effort`      | Same as thinking parameters; setting the model’s default explicitly is equivalent to omitting it                                                                                                                         |
+| Change                               | Invalidates                                                                                                                                                                                                                                      |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Modifying tool definitions           | Entire cache (tools, system, messages)                                                                                                                                                                                                           |
+| Toggling web search or citations     | System and messages caches                                                                                                                                                                                                                       |
+| Changing `tool_choice`               | Messages cache                                                                                                                                                                                                                                   |
+| Changing `disable_parallel_tool_use` | Messages cache                                                                                                                                                                                                                                   |
+| Toggling images present/absent       | Messages cache                                                                                                                                                                                                                                   |
+| Changing thinking parameters         | Messages cache always; tool and system caches too on models that render the thinking configuration ahead of them (see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching)) |
+| Changing `output_config.effort`      | Same as thinking parameters; setting the model’s default explicitly is equivalent to omitting it                                                                                                                                                 |
 
 <Note>
   If you need to vary `tool_choice` mid-conversation, consider placing cache breakpoints before the variation point.
@@ -99,7 +99,7 @@ This behavior only applies when your request already has at least one `cache_con
     Learn the full prompt caching model, including TTLs and pricing.
   </Card>
 
-  <Card title="Tool search" icon="magnifying-glass" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">
+  <Card title="Tool search tool" icon="magnifying-glass" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">
     Load tools on demand without breaking your cache.
   </Card>
 

@@ -15,13 +15,13 @@ List Memory Stores
 
 - `MemoryStoreListParams params`
 
-  - `Optional<LocalDateTime> createdAtGte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGte` (query parameter)
 
     Return only memory stores created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLte` (query parameter)
 
     Return only memory stores created at or before this time (inclusive).
 
@@ -31,7 +31,7 @@ List Memory Stores
 
     When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
@@ -173,7 +173,7 @@ List Memory Stores
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -183,7 +183,7 @@ List Memory Stores
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When the memory store was created, in RFC 3339.
 
@@ -203,7 +203,7 @@ List Memory Stores
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     When the memory store was last changed, in RFC 3339.
 

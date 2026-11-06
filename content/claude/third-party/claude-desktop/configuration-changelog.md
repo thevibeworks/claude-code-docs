@@ -8,6 +8,53 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v4.23118.0**
+
+2026-11-05
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`disableDesktopLocalSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledesktoplocalsessions) | `boolean` | Disable local Code sessions |
+| [`sshConfigs`](https://claude.com/docs/third-party/claude-desktop/configuration#sshconfigs) · Beta | `object[]` | SSH connections |
+| [`disableWslSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disablewslsessions) | `boolean` | Block WSL sessions |
+| [`claudeCodeProcessWrapperEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudecodeprocesswrapperenabled) | `boolean` | Use Claude Code’s corporate launcher |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "codeSurface": {
+    "disableDesktopLocalSessions": "<boolean>",
+    "sshConfigs": [
+      {
+        "id": "<string>",
+        "name": "<string>",
+        "sshHost": "<string>",
+        "sshPort": "<integer>",
+        "sshIdentityFile": "<string>"
+      }
+    ]
+  },
+  "workspace": {
+    "disableWslSessions": "<boolean>",
+    "claudeCodeProcessWrapperEnabled": "<boolean>"
+  }
+}
+```
+
+`disableWslSessions` is read from an MDM profile only. A value in a local configuration file, or served by a bootstrap server or the Admin Console, is ignored.
+
+Earlier versions already read these four keys. They are new in the configuration reference.
+
+**Changed:**
+
+* `claudeAiImport`: with `exportEnabled`, an export now also holds attached files, projects and their files, memory, scheduled tasks, saved skills, uploaded plugins, some app preferences and local MCP servers. Passwords or API keys in them are included. Sign-ins and the servers' variable values are not. With `enabled`, Import brings these from another device's export once the user confirms that it is their own. Tasks, plugins and skills arrive turned off.
+* `disableNonessentialServices`: also stops the Code tab from reading the status of GitLab merge requests and Gerrit changes. GitHub is not affected.
+
+**Removed:**
+
+* **Breaking:** `organizationPluginsUrl`: plugins it installed no longer load, even where the key is still set. Use `allowedPluginMarketplaces` instead.
+
 **v4.16336.0**
 
 2026-11-03

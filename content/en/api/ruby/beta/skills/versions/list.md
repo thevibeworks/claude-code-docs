@@ -19,7 +19,7 @@ List Skill Versions
 
   The format and length of IDs may change over time.
 
-- `limit: optional Integer` (query parameter)
+- `limit: optional Integer | nil` (query parameter)
 
   Number of results to return per page.
 
@@ -27,7 +27,7 @@ List Skill Versions
 
   minimum: 1, maximum: 1000
 
-- `page: optional String` (query parameter)
+- `page: optional String | nil` (query parameter)
 
   Optionally set to the `next_page` token from the previous response.
 

@@ -96,7 +96,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minLength: 1
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -117,7 +117,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `:"1h"`
 
-          - `citations: optional Array[TextCitationParam]`
+          - `citations: optional Array[TextCitationParam] | nil`
 
             - `class CitationCharLocationParam`
 
@@ -129,7 +129,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `document_title: String`
+              - `document_title: String | nil`
 
                 minLength: 1, maxLength: 500
 
@@ -149,7 +149,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `document_title: String`
+              - `document_title: String | nil`
 
                 minLength: 1, maxLength: 500
 
@@ -173,7 +173,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `document_title: String`
+              - `document_title: String | nil`
 
                 minLength: 1, maxLength: 500
 
@@ -197,7 +197,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `encrypted_index: String`
 
-              - `title: String`
+              - `title: String | nil`
 
                 minLength: 1, maxLength: 512
 
@@ -237,7 +237,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `title: String`
+              - `title: String | nil`
 
         - `class ImageBlockParam`
 
@@ -275,11 +275,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `file_id: String`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
-          - `transformations: optional ImageTransformationsParam`
+          - `transformations: optional ImageTransformationsParam | nil`
 
             Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -341,19 +341,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `file_id: String`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional CitationsConfigParam`
+          - `citations: optional CitationsConfigParam | nil`
 
             - `enabled: optional bool`
 
-          - `context: optional String`
+          - `context: optional String | nil`
 
             minLength: 1
 
-          - `title: optional String`
+          - `title: optional String | nil`
 
             minLength: 1, maxLength: 500
 
@@ -369,17 +369,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minLength: 1
 
-            - `cache_control: optional CacheControlEphemeral`
+            - `cache_control: optional CacheControlEphemeral | nil`
 
               Create a cache control breakpoint at this content block.
 
-            - `citations: optional Array[TextCitationParam]`
+            - `citations: optional Array[TextCitationParam] | nil`
 
           - `source: String`
 
           - `title: String`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -421,7 +421,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minLength: 1, maxLength: 200
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -451,7 +451,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `toolset_name: optional String`
+          - `toolset_name: optional String | nil`
 
             For a toolset member tool_use, the toolset family this member belongs to.
 
@@ -465,7 +465,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -493,7 +493,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `cache_control: optional CacheControlEphemeral`
+                - `cache_control: optional CacheControlEphemeral | nil`
 
                   Create a cache control breakpoint at this content block.
 
@@ -537,11 +537,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                - `cache_control: optional CacheControlEphemeral`
+                - `cache_control: optional CacheControlEphemeral | nil`
 
                   Create a cache control breakpoint at this content block.
 
-                - `state_changes: optional Array[BrowserStateChange]`
+                - `state_changes: optional Array[BrowserStateChange] | nil`
 
                   Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
@@ -604,13 +604,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `path: optional String`
+                    - `path: optional String | nil`
 
                       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `size_bytes: optional Integer`
+                    - `size_bytes: optional Integer | nil`
 
                       The completed download's size.
 
@@ -634,7 +634,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `error: optional String`
+                    - `error: optional String | nil`
 
                       The failure or cancellation detail, when known.
 
@@ -642,7 +642,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `is_error: optional bool`
 
-          - `toolset_name: optional String`
+          - `toolset_name: optional String | nil`
 
             For a toolset member tool_result, the toolset family of the paired tool_use.
 
@@ -674,7 +674,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `:tool_search_tool_bm25`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -706,7 +706,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `url: String`
 
-              - `page_age: optional String`
+              - `page_age: optional String | nil`
 
             - `class WebSearchToolRequestError`
 
@@ -730,7 +730,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -788,7 +788,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 Fetched content URL
 
-              - `retrieved_at: optional String`
+              - `retrieved_at: optional String | nil`
 
                 ISO 8601 timestamp when the content was retrieved
 
@@ -796,7 +796,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -870,7 +870,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -916,7 +916,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -942,7 +942,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `:file_not_found`
 
-              - `error_message: optional String`
+              - `error_message: optional String | nil`
 
             - `class TextEditorCodeExecutionViewResultBlockParam`
 
@@ -958,11 +958,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `:pdf`
 
-              - `num_lines: optional Integer`
+              - `num_lines: optional Integer | nil`
 
-              - `start_line: optional Integer`
+              - `start_line: optional Integer | nil`
 
-              - `total_lines: optional Integer`
+              - `total_lines: optional Integer | nil`
 
             - `class TextEditorCodeExecutionCreateResultBlockParam`
 
@@ -974,21 +974,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `type: :text_editor_code_execution_str_replace_result`
 
-              - `lines: optional Array[String]`
+              - `lines: optional Array[String] | nil`
 
-              - `new_lines: optional Integer`
+              - `new_lines: optional Integer | nil`
 
-              - `new_start: optional Integer`
+              - `new_start: optional Integer | nil`
 
-              - `old_lines: optional Integer`
+              - `old_lines: optional Integer | nil`
 
-              - `old_start: optional Integer`
+              - `old_start: optional Integer | nil`
 
           - `tool_use_id: String`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -1012,7 +1012,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `:execution_time_exceeded`
 
-              - `error_message: optional String`
+              - `error_message: optional String | nil`
 
             - `class ToolSearchToolSearchResultBlockParam`
 
@@ -1026,7 +1026,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `cache_control: optional CacheControlEphemeral`
+                - `cache_control: optional CacheControlEphemeral | nil`
 
                   Create a cache control breakpoint at this content block.
 
@@ -1034,7 +1034,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -1047,7 +1047,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `file_id: String`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral | nil`
 
             Create a cache control breakpoint at this content block.
 
@@ -1073,11 +1073,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minLength: 1
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral | nil`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional Array[TextCitationParam]`
+        - `citations: optional Array[TextCitationParam] | nil`
 
     - `role: :system`
 
@@ -1171,11 +1171,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `String = String`
 
-- `cache_control: optional CacheControlEphemeral`
+- `cache_control: optional CacheControlEphemeral | nil`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `container: optional MessageCreateParamsContainer`
+- `container: optional MessageCreateParamsContainer | nil`
 
   Container identifier for reuse across requests.
 
@@ -1183,11 +1183,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Container parameters with skills to be loaded.
 
-    - `id: optional String`
+    - `id: optional String | nil`
 
       Container id
 
-    - `skills: optional Array[SkillParams]`
+    - `skills: optional Array[SkillParams] | nil`
 
       List of skills to load in the container
 
@@ -1215,17 +1215,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `String = String`
 
-- `diagnostics: optional DiagnosticsParam`
+- `diagnostics: optional DiagnosticsParam | nil`
 
   Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
-  - `previous_message_id: optional String`
+  - `previous_message_id: optional String | nil`
 
     The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
     maxLength: 256
 
-- `inference_geo: optional String`
+- `inference_geo: optional String | nil`
 
   Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
@@ -1233,7 +1233,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   An object describing metadata about the request.
 
-  - `user_id: optional String`
+  - `user_id: optional String | nil`
 
     An external identifier for the user who is associated with the request.
 
@@ -1245,7 +1245,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Configuration options for the model's output, such as the output format.
 
-  - `effort: optional :low | :medium | :high | 2 more`
+  - `effort: optional :low | :medium | :high | 2 more | nil`
 
     How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
 
@@ -1261,7 +1261,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `:max`
 
-  - `format_: optional JSONOutputFormat`
+  - `format_: optional JSONOutputFormat | nil`
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs?sdk_languages=ruby)
 
@@ -1281,7 +1281,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `:standard_only`
 
-- `speed: optional :standard | :fast`
+- `speed: optional :standard | :fast | nil`
 
   The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
@@ -1299,12 +1299,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response `stop_sequence` value will contain the matched stop sequence.
 
-- `stream: optional bool`
-
-  Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
-
-  In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming?sdk_languages=ruby#streaming-with-sdks) for an example in each language.
-
 - `system_: optional String | Array[TextBlockParam]`
 
   System prompt.
@@ -1321,11 +1315,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       minLength: 1
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional Array[TextCitationParam]`
+    - `citations: optional Array[TextCitationParam] | nil`
 
 - `thinking: optional ThinkingConfigParam`
 
@@ -1349,7 +1343,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       minimum: 1024
 
-    - `display_: optional :summarized | :omitted`
+    - `display_: optional :summarized | :omitted | nil`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=ruby#controlling-thinking-display).
 
@@ -1369,7 +1363,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :adaptive`
 
-    - `display_: optional :summarized | :omitted`
+    - `display_: optional :summarized | :omitted | nil`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=ruby#controlling-thinking-display).
 
@@ -1493,7 +1487,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class Tool`
 
-    - `type: optional :custom`
+    - `type: optional :custom | nil`
 
     - `input_schema: InputSchema`
 
@@ -1503,9 +1497,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :object`
 
-      - `properties: optional Hash[Symbol, untyped]`
+      - `properties: optional Hash[Symbol, untyped] | nil`
 
-      - `required: optional Array[String]`
+      - `required: optional Array[String] | nil`
 
     - `name: String`
 
@@ -1525,7 +1519,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -1539,7 +1533,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-    - `eager_input_streaming: optional bool`
+    - `eager_input_streaming: optional bool | nil`
 
       Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -1569,7 +1563,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -1603,7 +1597,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -1635,7 +1629,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -1673,7 +1667,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -1707,7 +1701,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -1728,383 +1722,383 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :browser_toolset_20260801`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: optional BrowserToolsetConfigs`
+    - `configs: optional BrowserToolsetConfigs | nil`
 
       Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
-      - `type: optional BrowserTypeConfig`
+      - `type: optional BrowserTypeConfig | nil`
 
         `type`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `close_tab: optional BrowserCloseTabConfig`
+      - `close_tab: optional BrowserCloseTabConfig | nil`
 
         `close_tab`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `double_click: optional BrowserDoubleClickConfig`
+      - `double_click: optional BrowserDoubleClickConfig | nil`
 
         `double_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `file_upload: optional BrowserFileUploadConfig`
+      - `file_upload: optional BrowserFileUploadConfig | nil`
 
         `file_upload`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `find: optional BrowserFindConfig`
+      - `find: optional BrowserFindConfig | nil`
 
         `find`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `form_input: optional BrowserFormInputConfig`
+      - `form_input: optional BrowserFormInputConfig | nil`
 
         `form_input`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `get_page_text: optional BrowserGetPageTextConfig`
+      - `get_page_text: optional BrowserGetPageTextConfig | nil`
 
         `get_page_text`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hold_key: optional BrowserHoldKeyConfig`
+      - `hold_key: optional BrowserHoldKeyConfig | nil`
 
         `hold_key`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hover: optional BrowserHoverConfig`
+      - `hover: optional BrowserHoverConfig | nil`
 
         `hover`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `javascript_exec: optional BrowserJavascriptExecConfig`
+      - `javascript_exec: optional BrowserJavascriptExecConfig | nil`
 
         `javascript_exec`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `key: optional BrowserKeyConfig`
+      - `key: optional BrowserKeyConfig | nil`
 
         `key`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click: optional BrowserLeftClickConfig`
+      - `left_click: optional BrowserLeftClickConfig | nil`
 
         `left_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click_drag: optional BrowserLeftClickDragConfig`
+      - `left_click_drag: optional BrowserLeftClickDragConfig | nil`
 
         `left_click_drag`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_down: optional BrowserLeftMouseDownConfig`
+      - `left_mouse_down: optional BrowserLeftMouseDownConfig | nil`
 
         `left_mouse_down`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_up: optional BrowserLeftMouseUpConfig`
+      - `left_mouse_up: optional BrowserLeftMouseUpConfig | nil`
 
         `left_mouse_up`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `list_tabs: optional BrowserListTabsConfig`
+      - `list_tabs: optional BrowserListTabsConfig | nil`
 
         `list_tabs`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `middle_click: optional BrowserMiddleClickConfig`
+      - `middle_click: optional BrowserMiddleClickConfig | nil`
 
         `middle_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `mouse_move: optional BrowserMouseMoveConfig`
+      - `mouse_move: optional BrowserMouseMoveConfig | nil`
 
         `mouse_move`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `navigate: optional BrowserNavigateConfig`
+      - `navigate: optional BrowserNavigateConfig | nil`
 
         `navigate`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `new_tab: optional BrowserNewTabConfig`
+      - `new_tab: optional BrowserNewTabConfig | nil`
 
         `new_tab`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_console: optional BrowserReadConsoleConfig`
+      - `read_console: optional BrowserReadConsoleConfig | nil`
 
         `read_console`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_network: optional BrowserReadNetworkConfig`
+      - `read_network: optional BrowserReadNetworkConfig | nil`
 
         `read_network`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_page: optional BrowserReadPageConfig`
+      - `read_page: optional BrowserReadPageConfig | nil`
 
         `read_page`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `right_click: optional BrowserRightClickConfig`
+      - `right_click: optional BrowserRightClickConfig | nil`
 
         `right_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `screenshot: optional BrowserScreenshotConfig`
+      - `screenshot: optional BrowserScreenshotConfig | nil`
 
         `screenshot`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll: optional BrowserScrollConfig`
+      - `scroll: optional BrowserScrollConfig | nil`
 
         `scroll`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll_to: optional BrowserScrollToConfig`
+      - `scroll_to: optional BrowserScrollToConfig | nil`
 
         `scroll_to`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `switch_tab: optional BrowserSwitchTabConfig`
+      - `switch_tab: optional BrowserSwitchTabConfig | nil`
 
         `switch_tab`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `triple_click: optional BrowserTripleClickConfig`
+      - `triple_click: optional BrowserTripleClickConfig | nil`
 
         `triple_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `wait: optional BrowserWaitConfig`
+      - `wait: optional BrowserWaitConfig | nil`
 
         `wait`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `zoom: optional BrowserZoomConfig`
+      - `zoom: optional BrowserZoomConfig | nil`
 
         `zoom`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
@@ -2128,7 +2122,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2155,215 +2149,215 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :computer_toolset_20260801`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: optional ComputerToolsetConfigs`
+    - `configs: optional ComputerToolsetConfigs | nil`
 
       Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
-      - `type: optional ComputerTypeConfig`
+      - `type: optional ComputerTypeConfig | nil`
 
         `type`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `cursor_position: optional ComputerCursorPositionConfig`
+      - `cursor_position: optional ComputerCursorPositionConfig | nil`
 
         `cursor_position`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `double_click: optional ComputerDoubleClickConfig`
+      - `double_click: optional ComputerDoubleClickConfig | nil`
 
         `double_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hold_key: optional ComputerHoldKeyConfig`
+      - `hold_key: optional ComputerHoldKeyConfig | nil`
 
         `hold_key`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `key: optional ComputerKeyConfig`
+      - `key: optional ComputerKeyConfig | nil`
 
         `key`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click: optional ComputerLeftClickConfig`
+      - `left_click: optional ComputerLeftClickConfig | nil`
 
         `left_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click_drag: optional ComputerLeftClickDragConfig`
+      - `left_click_drag: optional ComputerLeftClickDragConfig | nil`
 
         `left_click_drag`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_down: optional ComputerLeftMouseDownConfig`
+      - `left_mouse_down: optional ComputerLeftMouseDownConfig | nil`
 
         `left_mouse_down`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_up: optional ComputerLeftMouseUpConfig`
+      - `left_mouse_up: optional ComputerLeftMouseUpConfig | nil`
 
         `left_mouse_up`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `middle_click: optional ComputerMiddleClickConfig`
+      - `middle_click: optional ComputerMiddleClickConfig | nil`
 
         `middle_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `mouse_move: optional ComputerMouseMoveConfig`
+      - `mouse_move: optional ComputerMouseMoveConfig | nil`
 
         `mouse_move`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `right_click: optional ComputerRightClickConfig`
+      - `right_click: optional ComputerRightClickConfig | nil`
 
         `right_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `screenshot: optional ComputerScreenshotConfig`
+      - `screenshot: optional ComputerScreenshotConfig | nil`
 
         `screenshot`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll: optional ComputerScrollConfig`
+      - `scroll: optional ComputerScrollConfig | nil`
 
         `scroll`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `triple_click: optional ComputerTripleClickConfig`
+      - `triple_click: optional ComputerTripleClickConfig | nil`
 
         `triple_click`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `wait: optional ComputerWaitConfig`
+      - `wait: optional ComputerWaitConfig | nil`
 
         `wait`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `zoom: optional ComputerZoomConfig`
+      - `zoom: optional ComputerZoomConfig | nil`
 
         `zoom`'s config overrides.
 
-        - `defer_loading: optional bool`
+        - `defer_loading: optional bool | nil`
 
           Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
@@ -2387,7 +2381,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2421,7 +2415,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2455,7 +2449,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2465,7 +2459,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `input_examples: optional Array[Hash[Symbol, untyped]]`
 
-    - `max_characters: optional Integer`
+    - `max_characters: optional Integer | nil`
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -2495,15 +2489,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2511,7 +2505,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2521,31 +2515,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional UserLocation`
+    - `user_location: optional UserLocation | nil`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
       - `type: :approximate`
 
-      - `city: optional String`
+      - `city: optional String | nil`
 
         The city of the user.
 
         minLength: 1, maxLength: 255
 
-      - `country: optional String`
+      - `country: optional String | nil`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
         minLength: 2, maxLength: 2
 
-      - `region: optional String`
+      - `region: optional String | nil`
 
         The region of the user.
 
         minLength: 1, maxLength: 255
 
-      - `timezone: optional String`
+      - `timezone: optional String | nil`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -2571,19 +2565,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam | nil`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2591,13 +2585,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional Integer`
+    - `max_content_tokens: optional Integer | nil`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
       minimum: 1
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2607,7 +2601,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: optional WebFetchURLSources`
+    - `url_sources: optional WebFetchURLSources | nil`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2713,15 +2707,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2729,7 +2723,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2739,7 +2733,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional UserLocation`
+    - `user_location: optional UserLocation | nil`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -2763,19 +2757,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam | nil`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2783,13 +2777,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional Integer`
+    - `max_content_tokens: optional Integer | nil`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
       minimum: 1
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2799,7 +2793,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: optional WebFetchURLSources`
+    - `url_sources: optional WebFetchURLSources | nil`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2825,19 +2819,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam | nil`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2845,13 +2839,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional Integer`
+    - `max_content_tokens: optional Integer | nil`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
       minimum: 1
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2861,7 +2855,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: optional WebFetchURLSources`
+    - `url_sources: optional WebFetchURLSources | nil`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2889,15 +2883,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -2905,7 +2899,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2923,7 +2917,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional UserLocation`
+    - `user_location: optional UserLocation | nil`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -2947,19 +2941,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `allowed_domains: optional Array[String]`
+    - `allowed_domains: optional Array[String] | nil`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional Array[String]`
+    - `blocked_domains: optional Array[String] | nil`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam | nil`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2967,13 +2961,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional Integer`
+    - `max_content_tokens: optional Integer | nil`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
       minimum: 1
 
-    - `max_uses: optional Integer`
+    - `max_uses: optional Integer | nil`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2991,7 +2985,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: optional WebFetchURLSources`
+    - `url_sources: optional WebFetchURLSources | nil`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -3023,7 +3017,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -3059,7 +3053,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:code_execution_20260521`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral | nil`
 
       Create a cache control breakpoint at this content block.
 
@@ -3097,7 +3091,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The format and length of IDs may change over time.
 
-  - `container: Container`
+  - `container: Container | nil`
 
     Information about the container used in this request.
 
@@ -3113,7 +3107,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `skills: Array[ContainerSkill]`
+    - `skills: Array[ContainerSkill] | nil`
 
       Skills loaded in the container
 
@@ -3170,7 +3164,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :text`
 
-      - `citations: Array[TextCitation]`
+      - `citations: Array[TextCitation] | nil`
 
         Citations supporting the text block.
 
@@ -3186,11 +3180,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `document_title: String`
+          - `document_title: String | nil`
 
           - `end_char_index: Integer`
 
-          - `file_id: String`
+          - `file_id: String | nil`
 
           - `start_char_index: Integer`
 
@@ -3206,11 +3200,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `document_title: String`
+          - `document_title: String | nil`
 
           - `end_page_number: Integer`
 
-          - `file_id: String`
+          - `file_id: String | nil`
 
           - `start_page_number: Integer`
 
@@ -3230,7 +3224,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `document_title: String`
+          - `document_title: String | nil`
 
           - `end_block_index: Integer`
 
@@ -3238,7 +3232,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: String`
+          - `file_id: String | nil`
 
           - `start_block_index: Integer`
 
@@ -3254,7 +3248,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `encrypted_index: String`
 
-          - `title: String`
+          - `title: String | nil`
 
             maxLength: 512
 
@@ -3292,7 +3286,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `title: String`
+          - `title: String | nil`
 
       - `text: String`
 
@@ -3364,7 +3358,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 1
 
-      - `toolset_name: optional String`
+      - `toolset_name: optional String | nil`
 
         For a toolset member tool_use, the toolset family.
 
@@ -3450,7 +3444,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `encrypted_content: String`
 
-          - `page_age: String`
+          - `page_age: String | nil`
 
           - `title: String`
 
@@ -3512,7 +3506,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :document`
 
-            - `citations: CitationsConfig`
+            - `citations: CitationsConfig | nil`
 
               Citation configuration for the document
 
@@ -3538,11 +3532,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `media_type: :"text/plain"`
 
-            - `title: String`
+            - `title: String | nil`
 
               The title of the document
 
-          - `retrieved_at: String`
+          - `retrieved_at: String | nil`
 
             ISO 8601 timestamp when the content was retrieved
 
@@ -3680,7 +3674,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `:file_not_found`
 
-          - `error_message: String`
+          - `error_message: String | nil`
 
         - `class TextEditorCodeExecutionViewResultBlock`
 
@@ -3696,11 +3690,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `:pdf`
 
-          - `num_lines: Integer`
+          - `num_lines: Integer | nil`
 
-          - `start_line: Integer`
+          - `start_line: Integer | nil`
 
-          - `total_lines: Integer`
+          - `total_lines: Integer | nil`
 
         - `class TextEditorCodeExecutionCreateResultBlock`
 
@@ -3712,15 +3706,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :text_editor_code_execution_str_replace_result`
 
-          - `lines: Array[String]`
+          - `lines: Array[String] | nil`
 
-          - `new_lines: Integer`
+          - `new_lines: Integer | nil`
 
-          - `new_start: Integer`
+          - `new_start: Integer | nil`
 
-          - `old_lines: Integer`
+          - `old_lines: Integer | nil`
 
-          - `old_start: Integer`
+          - `old_start: Integer | nil`
 
       - `tool_use_id: String`
 
@@ -3746,7 +3740,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `:execution_time_exceeded`
 
-          - `error_message: String`
+          - `error_message: String | nil`
 
         - `class ToolSearchToolSearchResultBlock`
 
@@ -3772,11 +3766,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `file_id: String`
 
-  - `diagnostics: Diagnostics`
+  - `diagnostics: Diagnostics | nil`
 
     Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
-    - `cache_miss_reason: CacheMissReason`
+    - `cache_miss_reason: CacheMissReason | nil`
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -3944,7 +3938,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This will always be `"assistant"`.
 
-  - `stop_details: RefusalStopDetails`
+  - `stop_details: RefusalStopDetails | nil`
 
     Structured information about why model output stopped.
 
@@ -3952,7 +3946,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :refusal`
 
-    - `category: :cyber | :bio | :frontier_llm | 2 more`
+    - `category: :cyber | :bio | :frontier_llm | 2 more | nil`
 
       The policy category that triggered the refusal.
 
@@ -3978,13 +3972,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-    - `explanation: String`
+    - `explanation: String | nil`
 
       Human-readable explanation of the refusal.
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-  - `stop_reason: StopReason`
+  - `stop_reason: StopReason | nil`
 
     The reason that we stopped.
 
@@ -4014,7 +4008,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `:model_context_window_exceeded`
 
-  - `stop_sequence: String`
+  - `stop_sequence: String | nil`
 
     Which custom stop sequence was generated, if any.
 
@@ -4032,7 +4026,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation: CacheCreation`
+    - `cache_creation: CacheCreation | nil`
 
       Breakdown of cached tokens by TTL
 
@@ -4048,19 +4042,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minimum: 0
 
-    - `cache_creation_input_tokens: Integer`
+    - `cache_creation_input_tokens: Integer | nil`
 
       The number of input tokens used to create the cache entry.
 
       minimum: 0
 
-    - `cache_read_input_tokens: Integer`
+    - `cache_read_input_tokens: Integer | nil`
 
       The number of input tokens read from the cache.
 
       minimum: 0
 
-    - `inference_geo: String`
+    - `inference_geo: String | nil`
 
       The geographic region where inference was performed for this request.
 
@@ -4076,7 +4070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       minimum: 0
 
-    - `output_tokens_details: OutputTokensDetails`
+    - `output_tokens_details: OutputTokensDetails | nil`
 
       Breakdown of output tokens by category.
 
@@ -4091,14 +4085,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
         minimum: 0
 
-    - `server_tool_use: ServerToolUsage`
+    - `server_tool_use: ServerToolUsage | nil`
 
       The number of server tool requests.
 
@@ -4114,7 +4107,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minimum: 0
 
-    - `service_tier: :standard | :priority | :batch`
+    - `service_tier: :standard | :priority | :batch | nil`
 
       If the request used the priority, standard, or batch tier.
 
@@ -4124,7 +4117,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:batch`
 
-    - `speed: :standard | :fast`
+    - `speed: :standard | :fast | nil`
 
       The inference speed mode used for this request.
 
@@ -4146,21 +4139,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `delta: Delta`
 
-      - `container: Container`
+      - `container: Container | nil`
 
         Information about the container used in this request.
 
         This will be non-null if a container tool (e.g. code execution) was used.
 
-      - `stop_details: RefusalStopDetails`
+      - `stop_details: RefusalStopDetails | nil`
 
         Structured information about why model output stopped.
 
         This is `null` when the `stop_reason` has no additional detail to report.
 
-      - `stop_reason: StopReason`
+      - `stop_reason: StopReason | nil`
 
-      - `stop_sequence: String`
+      - `stop_sequence: String | nil`
 
     - `usage: MessageDeltaUsage`
 
@@ -4174,19 +4167,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-      - `cache_creation_input_tokens: Integer`
+      - `cache_creation_input_tokens: Integer | nil`
 
         The cumulative number of input tokens used to create the cache entry.
 
         minimum: 0
 
-      - `cache_read_input_tokens: Integer`
+      - `cache_read_input_tokens: Integer | nil`
 
         The cumulative number of input tokens read from the cache.
 
         minimum: 0
 
-      - `input_tokens: Integer`
+      - `input_tokens: Integer | nil`
 
         The cumulative number of input tokens which were used.
 
@@ -4196,7 +4189,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The cumulative number of output tokens which were used.
 
-      - `output_tokens_details: OutputTokensDetails`
+      - `output_tokens_details: OutputTokensDetails | nil`
 
         Breakdown of output tokens by category.
 
@@ -4205,7 +4198,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         how many of the billed output tokens were spent on internal reasoning that may
         have been summarized before being returned to you.
 
-      - `server_tool_use: ServerToolUsage`
+      - `server_tool_use: ServerToolUsage | nil`
 
         The number of server tool requests.
 

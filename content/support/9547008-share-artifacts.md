@@ -47,8 +47,6 @@ Legacy artifacts show "Publish" or "Share & copy link" instead of "Share." To sh
 | **Commenter** | Everything in **Can view**, plus add comments and download any files the artifact offers. |
 | **Can edit**  | Everything in **Commenter**, plus make changes.                                           |
 
-The levels you can choose depend on the artifact. **Can view** or **Can edit**. Every other type of artifact offers all three levels.
-
 ---
 
 ## Invite people by email

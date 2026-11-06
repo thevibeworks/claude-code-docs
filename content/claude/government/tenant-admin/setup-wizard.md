@@ -4,139 +4,74 @@
 
 # Tenant setup wizard
 
-> Walk through the guided setup that takes a brand new tenant from first sign-in to ready for users.
+> Set up a new tenant in order: verify a domain, connect single sign-on, add an organization, give it seats, and add the routing rule that lets people sign in.
 
 > **Who this is for:** Tenant administrators who have just been given access to a new Claude for Government deployment and need to get it ready for the rest of their agency.
 
-When Anthropic first hands over your tenant, only you and any other administrators invited by email can sign in. The setup wizard walks you through the handful of things that need to be in place before everyone else can use Claude: a verified email domain, a connection to your identity provider, at least one organization, seats for that organization, and a routing rule that places people in it. Until setup is complete, a **Resume setup** banner appears at the top of the tenant and organization admin pages so you can pick up where you left off.
+The setup wizard walks you through the things that need to be in place before everyone else can use Claude: a verified email domain, a connection to your identity provider, at least one organization, seats for that organization, and a routing rule that places people in it.
 
-The wizard has a step list on the left and the current step on the right. Completed steps are ticked, and you can click any step in the list to jump to it. Every step has a **Continue later** link at the bottom that takes you back to the tenant admin portal; nothing is lost, and the **Resume setup** banner brings you back when you are ready. Steps marked **Optional** in the list can be skipped without blocking sign-in.
+Before single sign-on is connected, you sign in with a single-use link that the sign-in page emails to you on request. See [Emailed sign-in link](https://claude.com/docs/government/tenant-admin/identity-and-access.md#emailed-sign-in-link). Until the required steps are complete, a **Resume setup** banner appears at the top of the tenant admin pages, and its button opens the wizard. If you land in another view, use the footer links to reach the tenant view.
 
-## Step 1: Welcome
+Every step in the wizard edits the same settings as the matching page in the full admin portal. You can leave the wizard at any point using **Continue later**.
 
-The first step is a read-only summary of what Anthropic has already set up for you: your tenant's name, any email domains that Anthropic verified on your behalf during provisioning, and how many organizations already exist. There is nothing to fill in here. It is simply a chance to confirm that the tenant name is what you expect before you continue.
+## Wizard steps
 
-If a detail looks wrong (for example, the tenant name is misspelled), contact Anthropic before going further, because the tenant name cannot be changed from the portal.
+### Welcome step
 
-## Step 2: Domains
+The first step is a read-only summary of what Anthropic has already set up for you. If a detail looks wrong (for example, the tenant name is misspelled), contact Anthropic before going further, because the tenant name cannot be changed from the portal.
+
+### Domains step
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bf307a4d18d646cbce35d3c269be51b7" aria-label="Video walkthrough: Verify your domain and connect single sign-on" />
 
 Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
-> [accordion] Transcript
->
-> Before your members can sign in, your tenant needs a verified email domain and a connection to your identity provider.
->
-> Until single sign-on is connected, tenant administrators sign in with a link sent by email.
->
-> Enter your email, select Email me a sign-in link, and open the link from your inbox. Confirm with Sign in, then acknowledge the system-use notification.
->
-> Select Switch to tenant view in the footer, then Resume setup at the top, then Next.
->
-> Sign-in finds your tenant by email domain. Unless Anthropic already verified it, type your agency's domain and select Claim. The page shows a TXT record that proves ownership.
->
-> Your DNS administrator publishes the record. It can take a few minutes to an hour to appear.
->
-> Once the record is live, select Verify now. The domain now shows as Verified.
->
-> Next is Single sign-on. Copy the Redirect URI and the SP Entity ID. You will paste them into your provider.
->
-> In your provider, create an application and paste in those values. In return, OIDC gives you a client ID, a secret, and four endpoints. SAML gives one metadata file.
->
-> First, in another window, confirm you can sign in to your provider. This change applies to everyone, including you. Then enter the values and select Connect. The badge reads Connected. Administrators keep the emailed link as a fallback.
->
-> If your provider uses SAML instead, paste its metadata XML on the SAML tab. Saving one replaces the other.
->
-> Sign-in starts from Claude Desktop or the web portal. Starting from the app's tile in your provider's portal is not supported.
->
-> Both steps are now ticked. New people cannot sign in until a routing rule places them in an organization. That is the wizard's Routing step.
+[Transcript](https://claude.com/docs/government/video-walkthroughs.md#verify-your-domain-and-connect-single-sign-on)
 
-Claude for Government looks at the domain of a person's email address to decide which tenant they belong to, so at least one verified domain must be registered before anyone else can sign in. The table at the top of this step lists the domains already on your tenant, along with whether each one is verified and whether it was added by Anthropic or by you.
+The video also covers the Single sign-on step. For later steps, see [Video walkthroughs](https://claude.com/docs/government/video-walkthroughs.md#admin-series).
 
-If Anthropic already verified the domain you plan to use, you can move straight on to the next step. To add another domain, type it into the **Claim a domain** field and click **Claim**. You will be shown a DNS TXT record to publish on that domain. Once the record is live, click **Verify now** next to the pending claim and the domain becomes active. DNS changes can take anywhere from a few minutes to an hour to propagate, so try again shortly if verification does not succeed on the first attempt.
+Claude for Government looks at the domain of a person's email address to decide which tenant they belong to, so at least one verified domain must be registered before anyone else can sign in. If Anthropic already verified the domain you plan to use, you can move straight on to the next step. To add another domain, see [Domains](https://claude.com/docs/government/tenant-admin/identity-and-access.md#domains), and read its warning first, so that you can still sign in.
 
-For more detail on how domains work and how to remove one later, see the [Domains section of the Identity and access page](https://claude.com/docs/government/tenant-admin/identity-and-access.md#domains).
+### Single sign-on step
 
-## Step 3: Single sign-on
+Until single sign-on is connected, only tenant administrators and Primary Owners can sign in, by [emailed link](https://claude.com/docs/government/tenant-admin/identity-and-access.md#emailed-sign-in-link). The full field reference for both protocols is on the [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md#single-sign-on) page.
 
-This step connects Claude for Government to your agency's identity provider (for example, Microsoft Entra, Okta, or ADFS) so that everyone signs in with their existing agency credentials. A **Connected** or **Not connected** badge next to the heading shows the current state.
+Once single sign-on is connected, people [sign in from a Claude app or the web portal](https://claude.com/docs/government/tenant-admin/identity-and-access.md#where-sign-in-starts), and Claude for Government sends them to your provider from there. After connecting, use **Test sign-in** on this step to check that it works.
 
-This step is unavailable until you have verified at least one domain on the previous step. A banner on this step says so, because sign-in routes people to your tenant by the domain of their email address.
+### Provisioning step
 
-Setting this up is a two-way exchange:
+This step is optional, though highly recommended. If your identity provider supports SCIM, you can connect it here so that accounts are created automatically. To connect it, see [SCIM provisioning](https://claude.com/docs/government/tenant-admin/identity-and-access.md#scim-provisioning). This step labels the SCIM base URL **Tenant URL**.
 
-1. Copy the values shown on this step and register a new application in your identity provider using them. **Redirect URI / ACS URL** is where your provider sends the user back after authentication (providers call it the Redirect URI for OIDC, or the Assertion Consumer Service URL for SAML). **SP Entity ID / Audience** is the identifier your provider uses to recognize this application.
-2. Choose the **OIDC** or **SAML** tab to match what your provider supports, then fill in the form with the values your provider gives you for the new application. For OIDC these are the Client ID, Client secret, Authorization URL, Token URL, Issuer, and JWKS URL. For SAML this is a single IdP metadata XML document: paste the federation metadata from your provider, and the Entity ID and SSO URL are read from it and shown back to you once connected.
-3. Save the form. The badge changes to **Connected** once the connection has been verified.
+You do not have to finish the provider-side setup before moving on. Once your provider has pushed at least one group, you can add provisioning rules that place people by group membership on the [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md#provisioning-rules-scim) page.
 
-After you save a SAML connection, an **SP metadata URL** appears with the other values; most providers can import it to fill in the values automatically if you need to reconfigure.
+### Organizations step
 
-Until single sign-on is connected, only owners who were invited directly by email can sign in. The full field reference for both protocols is on the [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md#single-sign-on) page.
+You need at least one organization before you can route anyone anywhere. If Anthropic already created one, this step lists it and you can move on. To add one, fill in the **Add organization** form, described under [Adding an organization](https://claude.com/docs/government/tenant-admin/organizations.md#adding-an-organization). For **Primary Owner email**, choose someone on one of your verified domains who has no active account in your tenant yet. No invitation is sent, so let them know.
 
-Once single sign-on is connected, people sign in from Claude Desktop or the web portal, and Claude for Government sends them to your provider from there. Starting from the application's tile in your provider's app portal, or from a sign-in test in its admin console, is not supported.
+### Seats and spend caps step
 
-## Step 4: Provisioning (optional)
+This step lets you give each organization seats and, optionally, a spend cap. It shows a seat-count field for the first seat tier. For per-tier control, use the full [Seats](https://claude.com/docs/government/tenant-admin/seats.md) page after setup. If the step says there are no seats to distribute, continue. Each organization then needs [a seat tier of its own](#seat-tiers-and-products-steps) before its members can use Claude. You can adjust caps later from the tenant [Billing](https://claude.com/docs/government/tenant-admin/credits.md) page.
 
-This step is optional. If your identity provider supports SCIM, which is a standard way for directory systems to push users and group memberships into other applications, you can connect it here so that accounts are created automatically.
+### Routing step
 
-Like single sign-on, this step is unavailable until you have verified at least one domain on Step 2.
+Routing rules decide which organization a person lands in when they sign in. A new person who does not match any rule cannot sign in at all, so you need at least one rule that covers your users. A single rule that maps your main email domain to your main organization is enough to get started. To add one, use the form:
 
-Copy the **Tenant URL** shown on this step into your identity provider's SCIM connector, then click **Generate token** and paste the token into the connector's secret token field. The token is shown only once, so copy it before closing the page. If you need to rotate it later, generate a new one and revoke the old one with the **Revoke** button.
-
-You do not have to finish the provider-side setup before moving on. Once your provider has pushed at least one group, you can come back to the Routing step (or the [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md#scim-provisioning) page) and add rules that place people by group membership.
-
-## Step 5: Organizations
-
-An organization is a workspace with its own members, its own seat allocation, its own spend caps, and its own settings. You need at least one before you can route anyone anywhere, and many agencies only ever need one. You would add more if different bureaus or programs need separate usage reporting, separate budgets, or different product settings.
-
-Any organizations that already exist are listed at the top. To create one, fill in the **Add organization** form:
-
-* **Name** is the display name shown throughout the portal.
-* **Primary Owner email** is the person who will manage this organization's members and seats. They will be invited by email and land in the organization admin view when they sign in.
-* **Billing account** is the account this organization draws from for seats and billed usage. Several organizations can share one account if they should be funded from a single budget.
-
-Click **Add** and the new organization appears in the list. You can create as many as you need now and add more later from the [Organizations](https://claude.com/docs/government/tenant-admin/organizations.md) page.
-
-## Step 6: Seats and spend caps
-
-This step lets you give each organization seats and, optionally, a spend cap.
-
-Seats control how many people in each organization can use Claude. The table shows each organization with a seat-count field for the first seat tier. Enter the number of seats each organization should have and save. Saving an organization's first seats also seats its Primary Owner, and anyone else already in it who has no seat tier, automatically. For per-tier control, use the full [Seats](https://claude.com/docs/government/tenant-admin/seats.md) page after setup.
-
-Each organization's usage spends directly from its billing account's balance, and you can add a spend cap to limit how much any one organization can use in a rolling window. Caps are optional. If you leave them blank, the billing account's balance is the only limit. You can adjust both seats and caps later from the tenant [Seats](https://claude.com/docs/government/tenant-admin/seats.md) and [Billing](https://claude.com/docs/government/tenant-admin/credits.md) pages.
-
-## Step 7: Routing
-
-Routing rules decide which organization a person lands in when they sign in. A new person who does not match any rule cannot sign in at all, so you need at least one rule that covers your users. A single rule that maps your main email domain to your main organization is enough to get started.
-
-Each rule reads like a sentence: a condition on the left, an arrow, and the target organization on the right. To add one, use the form at the bottom:
-
-* In the **If** field, choose **Anyone with email domain** to match on the domain of the person's email address, or **Anyone with IdP group** to match on a group claim from your identity provider.
-* In the second field, pick the domain or type the group name.
+* In the **If** field, choose **Anyone with email domain**, and in the second field pick the domain.
 * In the **Then place in** field, pick the organization.
 * Click **Add rule**.
 
-Rules run from top to bottom and the first match wins, so move more specific rules above broader ones. Rules that match directory groups pushed over SCIM are managed on the full [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md#routing-rules) page, which also has a preview tool for testing where a specific email address would land.
+A domain rule that covers your own address places you in that organization too, as a User, at your next sign-in. You keep tenant administration. If no domain rule covers your address, see [how to join an organization yourself](https://claude.com/docs/government/tenant-admin/identity-and-access.md#accounts-in-no-organization).
 
-## Steps 8 and 9: Seat tiers and Products (single-organization tenants only)
+Rules that match directory groups pushed over SCIM are managed on the full [Identity and access](https://claude.com/docs/government/tenant-admin/identity-and-access.md#routing-rules) page, which also has a preview tool for testing where a specific email address would land.
 
-If your tenant has exactly one organization, the wizard includes two extra steps so that you can finish the organization-level setup without switching portals. You will only see these two steps in the step list if your tenant has a single organization. Tenants with more than one organization skip straight to the Finish step, and each organization's owner completes these two steps in their own [organization setup wizard](https://claude.com/docs/government/org-admin/setup-wizard.md) instead.
+### Seat tiers and Products steps
 
-* **Seat tiers** lists the seat tiers available to the organization. A seat tier bundles together which Claude models a user may access and how much they may spend. Anthropic-managed tiers are set up for you during provisioning; if your organization is allowed to create self-managed tiers, you can add one here. See the organization [Seat tiers](https://claude.com/docs/government/org-admin/seat-tiers.md) page for the full editor.
-* **Products** lets you choose which Claude products the organization's members can sign in to, for example Claude Desktop, Claude Code, and Claude for Microsoft 365. This is optional, and a product that is not available on your deployment is shown grayed out with a note to contact Anthropic.
+Unless your tenant has more than one organization, the wizard includes the **Seat tiers** and **Products** steps. In a tenant with more than one organization, each organization's owner completes them in their own [organization setup wizard](https://claude.com/docs/government/org-admin/setup-wizard.md), which describes both. The optional **Products** step sets which Claude products your members can sign in to, such as Claude Desktop, Claude Code, and Claude for Microsoft 365.
 
-## Final step: Finish
+Seat tiers set each person's spend limits. To [see or change your seat tiers](https://claude.com/docs/government/org-admin/seat-tiers.md) after setup, select **Switch to org view** in the page footer and go to **People > Tiers**.
 
-The last step shows a live readiness checklist. Each row is something that has to be in place before people can sign in, and it is ticked or crossed out as soon as you complete it. Items under the **Optional** heading do not block sign-in.
+### Finish step
 
-If anything required is still outstanding, a yellow banner tells you so, and the button at the bottom reads **Continue later** so you can come back. Once every required item is ticked, the button changes to **Go to tenant** and your deployment is ready. As colleagues sign in they will start appearing on each organization's Users page.
+The last step shows a live readiness checklist. For what the checks mean, see [Readiness](https://claude.com/docs/government/tenant-admin/readiness.md#tenant-level-checks). **Connect single sign-on** isn't a required step, but members can't sign in until you connect it.
 
-There is no separate "mark complete" action. The wizard reads the live state of your tenant, so if something changes later (for example, you remove your only routing rule), the **Resume setup** banner reappears on the tenant admin pages until the checklist is satisfied again.
-
-## Things to know
-
-* You can leave the wizard at any point using **Continue later**. Everything you have entered is saved, and the **Resume setup** banner on the tenant and organization admin pages brings you back to where you left off.
-* Every step in the wizard edits the same settings as the matching page in the full tenant admin portal. You can use either one, and changes made in one place show up in the other.
-* Steps tick automatically when the underlying condition is met. The **Provisioning** and **Products** steps are optional and never block the Finish step.
-* Single sign-on and at least one routing rule are the two things that actually gate sign-in for everyone else. If you only have a few minutes, do those two first and come back for the rest.
+The wizard reads the live state of your tenant, so if something changes later (for example, you remove your only routing rule), the **Resume setup** banner reappears on the tenant admin pages until the checklist is satisfied again.

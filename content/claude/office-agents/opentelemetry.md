@@ -128,9 +128,12 @@ channels described in
 | `otlp_headers` | `key1=value1,key2=value2` | Optional authentication headers |
 
 The `claude-for-msft-365-install` setup plugin writes these for you. To
-set them by hand, use any of the three channels below. Later channels override
-earlier ones: manifest parameters are read first, then Entra claims,
-then the bootstrap response.
+set them by hand, use either channel below. A value in the bootstrap
+response overrides the manifest parameter. If `entra_sso=1` is set and
+the add-in signs in through your own Entra app registration, you can also
+deliver these keys as ID token claims, as
+[Per-user configuration](https://claude.com/docs/office-agents/third-party-platforms.md#per-user-configuration)
+describes.
 
 **Manifest URL parameter.** Append the keys to the taskpane URL in your
 custom manifest, with `otlp_headers` after `#` so the credential stays out of [server request logs](https://claude.com/docs/office-agents/third-party-platforms.md#keep-credentials-out-of-the-manifest-url-query-string).
@@ -138,12 +141,6 @@ custom manifest, with `otlp_headers` after `#` so the credential stays out of [s
 ```text theme={null}
 https://pivot.claude.ai/taskpane.html?otlp_endpoint=https://otel-collector.example.com#otlp_headers=Authorization=Bearer%20<token>
 ```
-
-**Entra ID directory extension.** Register the keys as directory
-extension attributes and assign them per user through Microsoft Graph.
-The add-in reads them from the user's ID token via Nested App
-Authentication. `extn.otlp_endpoint` maps to `otlp_endpoint` and
-`extn.otlp_headers` maps to `otlp_headers`.
 
 **Bootstrap endpoint response.** Include the keys in the JSON body your
 bootstrap endpoint returns.

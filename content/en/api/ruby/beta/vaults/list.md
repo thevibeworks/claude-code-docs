@@ -161,7 +161,7 @@ List Vaults
 
     The unique ID of the vault (`vlt_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the vault was archived. Null if not archived.
 

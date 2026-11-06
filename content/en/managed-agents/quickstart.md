@@ -81,7 +81,7 @@ Let Claude Code set up your agent for you
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.6.0
+        VERSION=2.7.1
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;
@@ -95,13 +95,13 @@ Let Claude Code set up your agent for you
       </Tab>
 
       <Tab title="go install">
-        You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
+        You can also install the CLI from source with `go install`, which requires Go 1.26.10 or later.
 
         ```bash
         go install github.com/anthropics/anthropic-cli/v2/cmd/ant@latest
         ```
 
-        The binary is placed in `$(go env GOPATH)/bin`. Add it to your `PATH` if it isn’t already:
+        `go install` places the binary in `$(go env GOPATH)/bin`. Add that directory to your `PATH` if it isn’t already there:
 
         ```bash
         export PATH="$PATH:$(go env GOPATH)/bin"
@@ -150,7 +150,7 @@ To run the CLI examples, install the CLI:
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=2.6.0
+    VERSION=2.7.1
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;
@@ -164,13 +164,13 @@ To run the CLI examples, install the CLI:
   </Tab>
 
   <Tab title="go install">
-    You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
+    You can also install the CLI from source with `go install`, which requires Go 1.26.10 or later.
 
     ```bash
     go install github.com/anthropics/anthropic-cli/v2/cmd/ant@latest
     ```
 
-    The binary is placed in `$(go env GOPATH)/bin`. Add it to your `PATH` if it isn’t already:
+    `go install` places the binary in `$(go env GOPATH)/bin`. Add that directory to your `PATH` if it isn’t already there:
 
     ```bash
     export PATH="$PATH:$(go env GOPATH)/bin"
@@ -197,7 +197,7 @@ To run the CLI examples, install the CLI:
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.5.0")
+        implementation("com.anthropic:anthropic-java:3.6.0")
         ```
       </Tab>
 
@@ -206,7 +206,7 @@ To run the CLI examples, install the CLI:
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
         </dependency>
         ```
       </Tab>

@@ -157,7 +157,7 @@ Update Session Resource
 
     - `String id`
 
-    - `LocalDateTime createdAt`
+    - `OffsetDateTime createdAt`
 
       A timestamp in RFC 3339 format
 
@@ -165,7 +165,7 @@ Update Session Resource
 
     - `String mountPath`
 
-    - `LocalDateTime updatedAt`
+    - `OffsetDateTime updatedAt`
 
       A timestamp in RFC 3339 format
 
@@ -201,7 +201,7 @@ Update Session Resource
 
     - `String id`
 
-    - `LocalDateTime createdAt`
+    - `OffsetDateTime createdAt`
 
       A timestamp in RFC 3339 format
 
@@ -211,7 +211,7 @@ Update Session Resource
 
     - `String mountPath`
 
-    - `LocalDateTime updatedAt`
+    - `OffsetDateTime updatedAt`
 
       A timestamp in RFC 3339 format
 

@@ -187,7 +187,7 @@ List Session Threads
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -367,7 +367,7 @@ List Session Threads
 
           - `version: String`
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -565,11 +565,11 @@ List Session Threads
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `url_sources: BetaManagedAgentsWebFetchURLSources`
+              - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                 Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -625,11 +625,11 @@ List Session Threads
 
                         minLength: 1, maxLength: 128
 
-                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                   Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -645,7 +645,7 @@ List Session Threads
 
               - `blocked_domains: optional Array[String]`
 
-              - `max_content_tokens: optional Integer`
+              - `max_content_tokens: optional Integer | nil`
 
                 format: int32
 
@@ -679,7 +679,7 @@ List Session Threads
 
               - `blocked_domains: optional Array[String]`
 
-              - `user_location: optional BetaManagedAgentsUserLocation`
+              - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                 Approximate user location for search result localization.
 
@@ -687,25 +687,25 @@ List Session Threads
 
                   Location precision. Only "approximate" is supported.
 
-                - `city: optional String`
+                - `city: optional String | nil`
 
                   City name.
 
                   minLength: 1, maxLength: 255
 
-                - `country: optional String`
+                - `country: optional String | nil`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
                   pattern: ^[A-Z]{2}$
 
-                - `region: optional String`
+                - `region: optional String | nil`
 
                   Region or state name.
 
                   minLength: 1, maxLength: 255
 
-                - `timezone: optional String`
+                - `timezone: optional String | nil`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -797,9 +797,9 @@ List Session Threads
 
             - `type: :object`
 
-            - `properties: optional Hash[Symbol, untyped]`
+            - `properties: optional Hash[Symbol, untyped] | nil`
 
-            - `required: optional Array[String]`
+            - `required: optional Array[String] | nil`
 
           - `name: String`
 
@@ -823,7 +823,7 @@ List Session Threads
 
       - `type: :inline`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -855,7 +855,7 @@ List Session Threads
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -867,7 +867,7 @@ List Session Threads
 
           A custom tool as returned in API responses.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the thread was archived. Null if not archived.
 
@@ -879,7 +879,7 @@ List Session Threads
 
     format: date-time
 
-  - `parent_thread_id: String`
+  - `parent_thread_id: String | nil`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -887,7 +887,7 @@ List Session Threads
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats | nil`
 
     Timing statistics for this thread. Null until the thread's first status transition.
 
@@ -927,7 +927,7 @@ List Session Threads
 
     format: date-time
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage | nil`
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
@@ -965,7 +965,7 @@ List Session Threads
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -985,7 +985,7 @@ List Session Threads
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
@@ -1001,7 +1001,7 @@ List Session Threads
 
         format: int32
 
-  - `workflow_run_id: String`
+  - `workflow_run_id: String | nil`
 
     Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -1275,7 +1275,7 @@ Get Session Thread
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -1455,7 +1455,7 @@ Get Session Thread
 
           - `version: String`
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1653,11 +1653,11 @@ Get Session Thread
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `url_sources: BetaManagedAgentsWebFetchURLSources`
+              - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                 Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -1713,11 +1713,11 @@ Get Session Thread
 
                         minLength: 1, maxLength: 128
 
-                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                   Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -1733,7 +1733,7 @@ Get Session Thread
 
               - `blocked_domains: optional Array[String]`
 
-              - `max_content_tokens: optional Integer`
+              - `max_content_tokens: optional Integer | nil`
 
                 format: int32
 
@@ -1767,7 +1767,7 @@ Get Session Thread
 
               - `blocked_domains: optional Array[String]`
 
-              - `user_location: optional BetaManagedAgentsUserLocation`
+              - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                 Approximate user location for search result localization.
 
@@ -1775,25 +1775,25 @@ Get Session Thread
 
                   Location precision. Only "approximate" is supported.
 
-                - `city: optional String`
+                - `city: optional String | nil`
 
                   City name.
 
                   minLength: 1, maxLength: 255
 
-                - `country: optional String`
+                - `country: optional String | nil`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
                   pattern: ^[A-Z]{2}$
 
-                - `region: optional String`
+                - `region: optional String | nil`
 
                   Region or state name.
 
                   minLength: 1, maxLength: 255
 
-                - `timezone: optional String`
+                - `timezone: optional String | nil`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -1885,9 +1885,9 @@ Get Session Thread
 
             - `type: :object`
 
-            - `properties: optional Hash[Symbol, untyped]`
+            - `properties: optional Hash[Symbol, untyped] | nil`
 
-            - `required: optional Array[String]`
+            - `required: optional Array[String] | nil`
 
           - `name: String`
 
@@ -1911,7 +1911,7 @@ Get Session Thread
 
       - `type: :inline`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -1943,7 +1943,7 @@ Get Session Thread
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1955,7 +1955,7 @@ Get Session Thread
 
           A custom tool as returned in API responses.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the thread was archived. Null if not archived.
 
@@ -1967,7 +1967,7 @@ Get Session Thread
 
     format: date-time
 
-  - `parent_thread_id: String`
+  - `parent_thread_id: String | nil`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -1975,7 +1975,7 @@ Get Session Thread
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats | nil`
 
     Timing statistics for this thread. Null until the thread's first status transition.
 
@@ -2015,7 +2015,7 @@ Get Session Thread
 
     format: date-time
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage | nil`
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
@@ -2053,7 +2053,7 @@ Get Session Thread
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -2073,7 +2073,7 @@ Get Session Thread
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
@@ -2089,7 +2089,7 @@ Get Session Thread
 
         format: int32
 
-  - `workflow_run_id: String`
+  - `workflow_run_id: String | nil`
 
     Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -2361,7 +2361,7 @@ Archive Session Thread
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -2541,7 +2541,7 @@ Archive Session Thread
 
           - `version: String`
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -2739,11 +2739,11 @@ Archive Session Thread
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `url_sources: BetaManagedAgentsWebFetchURLSources`
+              - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                 Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -2799,11 +2799,11 @@ Archive Session Thread
 
                         minLength: 1, maxLength: 128
 
-                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                   Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -2819,7 +2819,7 @@ Archive Session Thread
 
               - `blocked_domains: optional Array[String]`
 
-              - `max_content_tokens: optional Integer`
+              - `max_content_tokens: optional Integer | nil`
 
                 format: int32
 
@@ -2853,7 +2853,7 @@ Archive Session Thread
 
               - `blocked_domains: optional Array[String]`
 
-              - `user_location: optional BetaManagedAgentsUserLocation`
+              - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                 Approximate user location for search result localization.
 
@@ -2861,25 +2861,25 @@ Archive Session Thread
 
                   Location precision. Only "approximate" is supported.
 
-                - `city: optional String`
+                - `city: optional String | nil`
 
                   City name.
 
                   minLength: 1, maxLength: 255
 
-                - `country: optional String`
+                - `country: optional String | nil`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
                   pattern: ^[A-Z]{2}$
 
-                - `region: optional String`
+                - `region: optional String | nil`
 
                   Region or state name.
 
                   minLength: 1, maxLength: 255
 
-                - `timezone: optional String`
+                - `timezone: optional String | nil`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -2971,9 +2971,9 @@ Archive Session Thread
 
             - `type: :object`
 
-            - `properties: optional Hash[Symbol, untyped]`
+            - `properties: optional Hash[Symbol, untyped] | nil`
 
-            - `required: optional Array[String]`
+            - `required: optional Array[String] | nil`
 
           - `name: String`
 
@@ -2997,7 +2997,7 @@ Archive Session Thread
 
       - `type: :inline`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -3029,7 +3029,7 @@ Archive Session Thread
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -3041,7 +3041,7 @@ Archive Session Thread
 
           A custom tool as returned in API responses.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the thread was archived. Null if not archived.
 
@@ -3053,7 +3053,7 @@ Archive Session Thread
 
     format: date-time
 
-  - `parent_thread_id: String`
+  - `parent_thread_id: String | nil`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -3061,7 +3061,7 @@ Archive Session Thread
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats | nil`
 
     Timing statistics for this thread. Null until the thread's first status transition.
 
@@ -3101,7 +3101,7 @@ Archive Session Thread
 
     format: date-time
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage | nil`
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
@@ -3139,7 +3139,7 @@ Archive Session Thread
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -3159,7 +3159,7 @@ Archive Session Thread
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
@@ -3175,7 +3175,7 @@ Archive Session Thread
 
         format: int32
 
-  - `workflow_run_id: String`
+  - `workflow_run_id: String | nil`
 
     Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -3297,7 +3297,7 @@ puts(beta_managed_agents_session_thread)
 
   - `type: :inline`
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -3479,7 +3479,7 @@ puts(beta_managed_agents_session_thread)
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -3677,11 +3677,11 @@ puts(beta_managed_agents_session_thread)
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -3737,11 +3737,11 @@ puts(beta_managed_agents_session_thread)
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -3757,7 +3757,7 @@ puts(beta_managed_agents_session_thread)
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -3791,7 +3791,7 @@ puts(beta_managed_agents_session_thread)
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -3799,25 +3799,25 @@ puts(beta_managed_agents_session_thread)
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -3909,9 +3909,9 @@ puts(beta_managed_agents_session_thread)
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -3939,7 +3939,7 @@ puts(beta_managed_agents_session_thread)
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -4119,7 +4119,7 @@ puts(beta_managed_agents_session_thread)
 
           - `version: String`
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -4317,11 +4317,11 @@ puts(beta_managed_agents_session_thread)
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `url_sources: BetaManagedAgentsWebFetchURLSources`
+              - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                 Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -4377,11 +4377,11 @@ puts(beta_managed_agents_session_thread)
 
                         minLength: 1, maxLength: 128
 
-                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                   Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -4397,7 +4397,7 @@ puts(beta_managed_agents_session_thread)
 
               - `blocked_domains: optional Array[String]`
 
-              - `max_content_tokens: optional Integer`
+              - `max_content_tokens: optional Integer | nil`
 
                 format: int32
 
@@ -4431,7 +4431,7 @@ puts(beta_managed_agents_session_thread)
 
               - `blocked_domains: optional Array[String]`
 
-              - `user_location: optional BetaManagedAgentsUserLocation`
+              - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                 Approximate user location for search result localization.
 
@@ -4439,25 +4439,25 @@ puts(beta_managed_agents_session_thread)
 
                   Location precision. Only "approximate" is supported.
 
-                - `city: optional String`
+                - `city: optional String | nil`
 
                   City name.
 
                   minLength: 1, maxLength: 255
 
-                - `country: optional String`
+                - `country: optional String | nil`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
                   pattern: ^[A-Z]{2}$
 
-                - `region: optional String`
+                - `region: optional String | nil`
 
                   Region or state name.
 
                   minLength: 1, maxLength: 255
 
-                - `timezone: optional String`
+                - `timezone: optional String | nil`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -4549,9 +4549,9 @@ puts(beta_managed_agents_session_thread)
 
             - `type: :object`
 
-            - `properties: optional Hash[Symbol, untyped]`
+            - `properties: optional Hash[Symbol, untyped] | nil`
 
-            - `required: optional Array[String]`
+            - `required: optional Array[String] | nil`
 
           - `name: String`
 
@@ -4575,7 +4575,7 @@ puts(beta_managed_agents_session_thread)
 
       - `type: :inline`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -4607,7 +4607,7 @@ puts(beta_managed_agents_session_thread)
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -4619,7 +4619,7 @@ puts(beta_managed_agents_session_thread)
 
           A custom tool as returned in API responses.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the thread was archived. Null if not archived.
 
@@ -4631,7 +4631,7 @@ puts(beta_managed_agents_session_thread)
 
     format: date-time
 
-  - `parent_thread_id: String`
+  - `parent_thread_id: String | nil`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -4639,7 +4639,7 @@ puts(beta_managed_agents_session_thread)
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats | nil`
 
     Timing statistics for this thread. Null until the thread's first status transition.
 
@@ -4679,7 +4679,7 @@ puts(beta_managed_agents_session_thread)
 
     format: date-time
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage | nil`
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
@@ -4717,7 +4717,7 @@ puts(beta_managed_agents_session_thread)
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -4737,7 +4737,7 @@ puts(beta_managed_agents_session_thread)
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
@@ -4753,7 +4753,7 @@ puts(beta_managed_agents_session_thread)
 
         format: int32
 
-  - `workflow_run_id: String`
+  - `workflow_run_id: String | nil`
 
     Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -4833,7 +4833,7 @@ puts(beta_managed_agents_session_thread)
 
     format: int32
 
-  - `list_cost: optional BetaMonetaryAmount`
+  - `list_cost: optional BetaMonetaryAmount | nil`
 
     Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -4853,7 +4853,7 @@ puts(beta_managed_agents_session_thread)
 
     format: int32
 
-  - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+  - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
     Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
@@ -5021,11 +5021,11 @@ puts(beta_managed_agents_session_thread)
 
               minLength: 1
 
-        - `context: optional String`
+        - `context: optional String | nil`
 
           Additional context about the document for the model.
 
-        - `title: optional String`
+        - `title: optional String | nil`
 
           The title of the document.
 
@@ -5035,7 +5035,7 @@ puts(beta_managed_agents_session_thread)
 
         - `type: :redacted`
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the agent finished processing this message.
 
@@ -5051,13 +5051,13 @@ puts(beta_managed_agents_session_thread)
 
       Unique identifier for this event.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the interrupt was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -5083,19 +5083,19 @@ puts(beta_managed_agents_session_thread)
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `deny_message: optional String`
+    - `deny_message: optional String | nil`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
       maxLength: 10000
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the confirmation was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
@@ -5167,17 +5167,17 @@ puts(beta_managed_agents_session_thread)
 
           minLength: 1
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this result was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -5205,7 +5205,7 @@ puts(beta_managed_agents_session_thread)
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
@@ -5347,7 +5347,7 @@ puts(beta_managed_agents_session_thread)
 
               maxLength: 64
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
@@ -5391,7 +5391,7 @@ puts(beta_managed_agents_session_thread)
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -5427,7 +5427,7 @@ puts(beta_managed_agents_session_thread)
 
       Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
@@ -5471,7 +5471,7 @@ puts(beta_managed_agents_session_thread)
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -5515,7 +5515,7 @@ puts(beta_managed_agents_session_thread)
 
       format: date-time
 
-    - `from_agent_name: optional String`
+    - `from_agent_name: optional String | nil`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -5559,7 +5559,7 @@ puts(beta_managed_agents_session_thread)
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `to_agent_name: optional String`
+    - `to_agent_name: optional String | nil`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -5883,7 +5883,7 @@ puts(beta_managed_agents_session_thread)
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -5913,7 +5913,7 @@ puts(beta_managed_agents_session_thread)
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -5943,7 +5943,7 @@ puts(beta_managed_agents_session_thread)
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -5973,7 +5973,7 @@ puts(beta_managed_agents_session_thread)
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -6003,7 +6003,7 @@ puts(beta_managed_agents_session_thread)
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -6077,13 +6077,13 @@ puts(beta_managed_agents_session_thread)
 
       format: date-time
 
-    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails`
+    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails | nil`
 
       Structured information about why the session stopped. `null` when there is nothing more to report.
 
       - `type: :refusal`
 
-      - `category: :cyber | :bio | :frontier_llm | 2 more`
+      - `category: :cyber | :bio | :frontier_llm | 2 more | nil`
 
         The policy category that triggered the refusal, or `null` when there is no named category. New values can be added over time.
 
@@ -6097,7 +6097,7 @@ puts(beta_managed_agents_session_thread)
 
         - `:general_harms`
 
-      - `explanation: String`
+      - `explanation: String | nil`
 
         Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it.
 
@@ -6177,7 +6177,7 @@ puts(beta_managed_agents_session_thread)
 
       Public `sthr_` ID of the newly created thread.
 
-    - `workflow_run_id: String`
+    - `workflow_run_id: String | nil`
 
       Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -6273,7 +6273,7 @@ puts(beta_managed_agents_session_thread)
 
         format: int32
 
-      - `speed: optional :standard | :fast`
+      - `speed: optional :standard | :fast | nil`
 
         Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
@@ -6307,7 +6307,7 @@ puts(beta_managed_agents_session_thread)
 
       Unique identifier for this event.
 
-    - `is_error: bool`
+    - `is_error: bool | nil`
 
       Whether the model request resulted in an error.
 
@@ -6365,7 +6365,7 @@ puts(beta_managed_agents_session_thread)
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: Integer`
+    - `max_iterations: Integer | nil`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -6469,7 +6469,7 @@ puts(beta_managed_agents_session_thread)
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails`
+    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails | nil`
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
@@ -6553,17 +6553,17 @@ puts(beta_managed_agents_session_thread)
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this result was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -6607,7 +6607,7 @@ puts(beta_managed_agents_session_thread)
 
       format: date-time
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent | nil`
 
       The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
@@ -6615,7 +6615,7 @@ puts(beta_managed_agents_session_thread)
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -6771,7 +6771,7 @@ puts(beta_managed_agents_session_thread)
 
           - `:fast`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagent`
+      - `multiagent: BetaManagedAgentsSessionMultiagent | nil`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -6793,7 +6793,7 @@ puts(beta_managed_agents_session_thread)
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -6835,7 +6835,7 @@ puts(beta_managed_agents_session_thread)
 
                   - `version: String`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -7033,11 +7033,11 @@ puts(beta_managed_agents_session_thread)
 
                           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                      - `url_sources: BetaManagedAgentsWebFetchURLSources`
+                      - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                         Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                           Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -7093,11 +7093,11 @@ puts(beta_managed_agents_session_thread)
 
                                 minLength: 1, maxLength: 128
 
-                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                           Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                           Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -7113,7 +7113,7 @@ puts(beta_managed_agents_session_thread)
 
                       - `blocked_domains: optional Array[String]`
 
-                      - `max_content_tokens: optional Integer`
+                      - `max_content_tokens: optional Integer | nil`
 
                         format: int32
 
@@ -7147,7 +7147,7 @@ puts(beta_managed_agents_session_thread)
 
                       - `blocked_domains: optional Array[String]`
 
-                      - `user_location: optional BetaManagedAgentsUserLocation`
+                      - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                         Approximate user location for search result localization.
 
@@ -7155,25 +7155,25 @@ puts(beta_managed_agents_session_thread)
 
                           Location precision. Only "approximate" is supported.
 
-                        - `city: optional String`
+                        - `city: optional String | nil`
 
                           City name.
 
                           minLength: 1, maxLength: 255
 
-                        - `country: optional String`
+                        - `country: optional String | nil`
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
                           pattern: ^[A-Z]{2}$
 
-                        - `region: optional String`
+                        - `region: optional String | nil`
 
                           Region or state name.
 
                           minLength: 1, maxLength: 255
 
-                        - `timezone: optional String`
+                        - `timezone: optional String | nil`
 
                           IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -7265,9 +7265,9 @@ puts(beta_managed_agents_session_thread)
 
                     - `type: :object`
 
-                    - `properties: optional Hash[Symbol, untyped]`
+                    - `properties: optional Hash[Symbol, untyped] | nil`
 
-                    - `required: optional Array[String]`
+                    - `required: optional Array[String] | nil`
 
                   - `name: String`
 
@@ -7345,7 +7345,7 @@ puts(beta_managed_agents_session_thread)
 
                 - `id: String`
 
-                - `description: String`
+                - `description: String | nil`
 
                 - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -7361,7 +7361,7 @@ puts(beta_managed_agents_session_thread)
 
                 - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-                - `system_: String`
+                - `system_: String | nil`
 
                 - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -7397,7 +7397,7 @@ puts(beta_managed_agents_session_thread)
 
                 - `id: String`
 
-                - `description: String`
+                - `description: String | nil`
 
                 - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -7413,7 +7413,7 @@ puts(beta_managed_agents_session_thread)
 
                 - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-                - `system_: String`
+                - `system_: String | nil`
 
                 - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -7439,7 +7439,7 @@ puts(beta_managed_agents_session_thread)
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -7455,7 +7455,7 @@ puts(beta_managed_agents_session_thread)
 
         format: int32
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
       The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
@@ -7479,7 +7479,7 @@ puts(beta_managed_agents_session_thread)
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional String`
+    - `title: optional String | nil`
 
       The session's new title. Present only when the update changed it.
 
@@ -7555,7 +7555,7 @@ puts(beta_managed_agents_session_thread)
 
         minLength: 1
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this system message was processed.
 
@@ -7641,7 +7641,7 @@ puts(beta_managed_agents_session_thread)
 
           format: int32
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
 
@@ -7655,7 +7655,7 @@ puts(beta_managed_agents_session_thread)
 
       Unique identifier for this event.
 
-    - `description: String`
+    - `description: String | nil`
 
       Description that the agent gave the run, passed on as written, or `null` if it gave none.
 
@@ -7671,7 +7671,7 @@ puts(beta_managed_agents_session_thread)
 
         Unique identifier for the phase.
 
-      - `description: String`
+      - `description: String | nil`
 
         Description that the agent gave the phase, passed on as written, or `null` if it gave none.
 
@@ -7897,7 +7897,7 @@ puts(beta_managed_agents_session_thread)
 
       format: date-time
 
-    - `workflow_run_id: String`
+    - `workflow_run_id: String | nil`
 
       Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
@@ -8197,11 +8197,11 @@ List Session Thread Events
 
               minLength: 1
 
-        - `context: optional String`
+        - `context: optional String | nil`
 
           Additional context about the document for the model.
 
-        - `title: optional String`
+        - `title: optional String | nil`
 
           The title of the document.
 
@@ -8211,7 +8211,7 @@ List Session Thread Events
 
         - `type: :redacted`
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the agent finished processing this message.
 
@@ -8227,13 +8227,13 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the interrupt was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -8259,19 +8259,19 @@ List Session Thread Events
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `deny_message: optional String`
+    - `deny_message: optional String | nil`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
       maxLength: 10000
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the confirmation was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
@@ -8343,17 +8343,17 @@ List Session Thread Events
 
           minLength: 1
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this result was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -8381,7 +8381,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
@@ -8523,7 +8523,7 @@ List Session Thread Events
 
               maxLength: 64
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
@@ -8567,7 +8567,7 @@ List Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -8603,7 +8603,7 @@ List Session Thread Events
 
       Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
@@ -8647,7 +8647,7 @@ List Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -8691,7 +8691,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `from_agent_name: optional String`
+    - `from_agent_name: optional String | nil`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -8735,7 +8735,7 @@ List Session Thread Events
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `to_agent_name: optional String`
+    - `to_agent_name: optional String | nil`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -9059,7 +9059,7 @@ List Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -9089,7 +9089,7 @@ List Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -9119,7 +9119,7 @@ List Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -9149,7 +9149,7 @@ List Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -9179,7 +9179,7 @@ List Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -9253,13 +9253,13 @@ List Session Thread Events
 
       format: date-time
 
-    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails`
+    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails | nil`
 
       Structured information about why the session stopped. `null` when there is nothing more to report.
 
       - `type: :refusal`
 
-      - `category: :cyber | :bio | :frontier_llm | 2 more`
+      - `category: :cyber | :bio | :frontier_llm | 2 more | nil`
 
         The policy category that triggered the refusal, or `null` when there is no named category. New values can be added over time.
 
@@ -9273,7 +9273,7 @@ List Session Thread Events
 
         - `:general_harms`
 
-      - `explanation: String`
+      - `explanation: String | nil`
 
         Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it.
 
@@ -9353,7 +9353,7 @@ List Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-    - `workflow_run_id: String`
+    - `workflow_run_id: String | nil`
 
       Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -9449,7 +9449,7 @@ List Session Thread Events
 
         format: int32
 
-      - `speed: optional :standard | :fast`
+      - `speed: optional :standard | :fast | nil`
 
         Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
@@ -9483,7 +9483,7 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `is_error: bool`
+    - `is_error: bool | nil`
 
       Whether the model request resulted in an error.
 
@@ -9541,7 +9541,7 @@ List Session Thread Events
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: Integer`
+    - `max_iterations: Integer | nil`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -9645,7 +9645,7 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails`
+    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails | nil`
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
@@ -9729,17 +9729,17 @@ List Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this result was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -9783,7 +9783,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent | nil`
 
       The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
@@ -9791,7 +9791,7 @@ List Session Thread Events
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -9947,7 +9947,7 @@ List Session Thread Events
 
           - `:fast`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagent`
+      - `multiagent: BetaManagedAgentsSessionMultiagent | nil`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -9969,7 +9969,7 @@ List Session Thread Events
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -10011,7 +10011,7 @@ List Session Thread Events
 
                   - `version: String`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -10209,11 +10209,11 @@ List Session Thread Events
 
                           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                      - `url_sources: BetaManagedAgentsWebFetchURLSources`
+                      - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                         Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                           Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -10269,11 +10269,11 @@ List Session Thread Events
 
                                 minLength: 1, maxLength: 128
 
-                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                           Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                           Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -10289,7 +10289,7 @@ List Session Thread Events
 
                       - `blocked_domains: optional Array[String]`
 
-                      - `max_content_tokens: optional Integer`
+                      - `max_content_tokens: optional Integer | nil`
 
                         format: int32
 
@@ -10323,7 +10323,7 @@ List Session Thread Events
 
                       - `blocked_domains: optional Array[String]`
 
-                      - `user_location: optional BetaManagedAgentsUserLocation`
+                      - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                         Approximate user location for search result localization.
 
@@ -10331,25 +10331,25 @@ List Session Thread Events
 
                           Location precision. Only "approximate" is supported.
 
-                        - `city: optional String`
+                        - `city: optional String | nil`
 
                           City name.
 
                           minLength: 1, maxLength: 255
 
-                        - `country: optional String`
+                        - `country: optional String | nil`
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
                           pattern: ^[A-Z]{2}$
 
-                        - `region: optional String`
+                        - `region: optional String | nil`
 
                           Region or state name.
 
                           minLength: 1, maxLength: 255
 
-                        - `timezone: optional String`
+                        - `timezone: optional String | nil`
 
                           IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -10441,9 +10441,9 @@ List Session Thread Events
 
                     - `type: :object`
 
-                    - `properties: optional Hash[Symbol, untyped]`
+                    - `properties: optional Hash[Symbol, untyped] | nil`
 
-                    - `required: optional Array[String]`
+                    - `required: optional Array[String] | nil`
 
                   - `name: String`
 
@@ -10521,7 +10521,7 @@ List Session Thread Events
 
                 - `id: String`
 
-                - `description: String`
+                - `description: String | nil`
 
                 - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -10537,7 +10537,7 @@ List Session Thread Events
 
                 - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-                - `system_: String`
+                - `system_: String | nil`
 
                 - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -10573,7 +10573,7 @@ List Session Thread Events
 
                 - `id: String`
 
-                - `description: String`
+                - `description: String | nil`
 
                 - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -10589,7 +10589,7 @@ List Session Thread Events
 
                 - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-                - `system_: String`
+                - `system_: String | nil`
 
                 - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -10615,7 +10615,7 @@ List Session Thread Events
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -10631,7 +10631,7 @@ List Session Thread Events
 
         format: int32
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
       The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
@@ -10655,7 +10655,7 @@ List Session Thread Events
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional String`
+    - `title: optional String | nil`
 
       The session's new title. Present only when the update changed it.
 
@@ -10681,7 +10681,7 @@ List Session Thread Events
 
         minLength: 1
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this system message was processed.
 
@@ -10767,7 +10767,7 @@ List Session Thread Events
 
           format: int32
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
 
@@ -10781,7 +10781,7 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `description: String`
+    - `description: String | nil`
 
       Description that the agent gave the run, passed on as written, or `null` if it gave none.
 
@@ -10797,7 +10797,7 @@ List Session Thread Events
 
         Unique identifier for the phase.
 
-      - `description: String`
+      - `description: String | nil`
 
         Description that the agent gave the phase, passed on as written, or `null` if it gave none.
 
@@ -11023,7 +11023,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `workflow_run_id: String`
+    - `workflow_run_id: String | nil`
 
       Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
@@ -11370,11 +11370,11 @@ Stream Session Thread Events
 
               minLength: 1
 
-        - `context: optional String`
+        - `context: optional String | nil`
 
           Additional context about the document for the model.
 
-        - `title: optional String`
+        - `title: optional String | nil`
 
           The title of the document.
 
@@ -11384,7 +11384,7 @@ Stream Session Thread Events
 
         - `type: :redacted`
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the agent finished processing this message.
 
@@ -11400,13 +11400,13 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the interrupt was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -11432,19 +11432,19 @@ Stream Session Thread Events
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `deny_message: optional String`
+    - `deny_message: optional String | nil`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
       maxLength: 10000
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when the confirmation was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
@@ -11516,17 +11516,17 @@ Stream Session Thread Events
 
           minLength: 1
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this result was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -11554,7 +11554,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
@@ -11696,7 +11696,7 @@ Stream Session Thread Events
 
               maxLength: 64
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
@@ -11740,7 +11740,7 @@ Stream Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -11776,7 +11776,7 @@ Stream Session Thread Events
 
       Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
@@ -11820,7 +11820,7 @@ Stream Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -11864,7 +11864,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `from_agent_name: optional String`
+    - `from_agent_name: optional String | nil`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -11908,7 +11908,7 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `to_agent_name: optional String`
+    - `to_agent_name: optional String | nil`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -12232,7 +12232,7 @@ Stream Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -12262,7 +12262,7 @@ Stream Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -12292,7 +12292,7 @@ Stream Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -12322,7 +12322,7 @@ Stream Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -12352,7 +12352,7 @@ Stream Session Thread Events
 
           Human-readable error description.
 
-        - `repository_url: String`
+        - `repository_url: String | nil`
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
@@ -12426,13 +12426,13 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails`
+    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails | nil`
 
       Structured information about why the session stopped. `null` when there is nothing more to report.
 
       - `type: :refusal`
 
-      - `category: :cyber | :bio | :frontier_llm | 2 more`
+      - `category: :cyber | :bio | :frontier_llm | 2 more | nil`
 
         The policy category that triggered the refusal, or `null` when there is no named category. New values can be added over time.
 
@@ -12446,7 +12446,7 @@ Stream Session Thread Events
 
         - `:general_harms`
 
-      - `explanation: String`
+      - `explanation: String | nil`
 
         Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it.
 
@@ -12526,7 +12526,7 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-    - `workflow_run_id: String`
+    - `workflow_run_id: String | nil`
 
       Identifier of the workflow run that created the thread, or `null` for any other thread.
 
@@ -12622,7 +12622,7 @@ Stream Session Thread Events
 
         format: int32
 
-      - `speed: optional :standard | :fast`
+      - `speed: optional :standard | :fast | nil`
 
         Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
@@ -12656,7 +12656,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `is_error: bool`
+    - `is_error: bool | nil`
 
       Whether the model request resulted in an error.
 
@@ -12714,7 +12714,7 @@ Stream Session Thread Events
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: Integer`
+    - `max_iterations: Integer | nil`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -12818,7 +12818,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails`
+    - `stop_details: BetaManagedAgentsSessionRefusalStopDetails | nil`
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
@@ -12902,17 +12902,17 @@ Stream Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this result was processed.
 
       format: date-time
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -12956,7 +12956,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent | nil`
 
       The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
@@ -12964,7 +12964,7 @@ Stream Session Thread Events
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -13120,7 +13120,7 @@ Stream Session Thread Events
 
           - `:fast`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagent`
+      - `multiagent: BetaManagedAgentsSessionMultiagent | nil`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -13142,7 +13142,7 @@ Stream Session Thread Events
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -13184,7 +13184,7 @@ Stream Session Thread Events
 
                   - `version: String`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -13382,11 +13382,11 @@ Stream Session Thread Events
 
                           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                      - `url_sources: BetaManagedAgentsWebFetchURLSources`
+                      - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                         Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                           Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -13442,11 +13442,11 @@ Stream Session Thread Events
 
                                 minLength: 1, maxLength: 128
 
-                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                           Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                           Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -13462,7 +13462,7 @@ Stream Session Thread Events
 
                       - `blocked_domains: optional Array[String]`
 
-                      - `max_content_tokens: optional Integer`
+                      - `max_content_tokens: optional Integer | nil`
 
                         format: int32
 
@@ -13496,7 +13496,7 @@ Stream Session Thread Events
 
                       - `blocked_domains: optional Array[String]`
 
-                      - `user_location: optional BetaManagedAgentsUserLocation`
+                      - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                         Approximate user location for search result localization.
 
@@ -13504,25 +13504,25 @@ Stream Session Thread Events
 
                           Location precision. Only "approximate" is supported.
 
-                        - `city: optional String`
+                        - `city: optional String | nil`
 
                           City name.
 
                           minLength: 1, maxLength: 255
 
-                        - `country: optional String`
+                        - `country: optional String | nil`
 
                           Two-letter ISO 3166-1 country code, uppercase.
 
                           pattern: ^[A-Z]{2}$
 
-                        - `region: optional String`
+                        - `region: optional String | nil`
 
                           Region or state name.
 
                           minLength: 1, maxLength: 255
 
-                        - `timezone: optional String`
+                        - `timezone: optional String | nil`
 
                           IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -13614,9 +13614,9 @@ Stream Session Thread Events
 
                     - `type: :object`
 
-                    - `properties: optional Hash[Symbol, untyped]`
+                    - `properties: optional Hash[Symbol, untyped] | nil`
 
-                    - `required: optional Array[String]`
+                    - `required: optional Array[String] | nil`
 
                   - `name: String`
 
@@ -13694,7 +13694,7 @@ Stream Session Thread Events
 
                 - `id: String`
 
-                - `description: String`
+                - `description: String | nil`
 
                 - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -13710,7 +13710,7 @@ Stream Session Thread Events
 
                 - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-                - `system_: String`
+                - `system_: String | nil`
 
                 - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -13746,7 +13746,7 @@ Stream Session Thread Events
 
                 - `id: String`
 
-                - `description: String`
+                - `description: String | nil`
 
                 - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -13762,7 +13762,7 @@ Stream Session Thread Events
 
                 - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-                - `system_: String`
+                - `system_: String | nil`
 
                 - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -13788,7 +13788,7 @@ Stream Session Thread Events
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -13804,7 +13804,7 @@ Stream Session Thread Events
 
         format: int32
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
       The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
@@ -13828,7 +13828,7 @@ Stream Session Thread Events
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional String`
+    - `title: optional String | nil`
 
       The session's new title. Present only when the update changed it.
 
@@ -13904,7 +13904,7 @@ Stream Session Thread Events
 
         minLength: 1
 
-    - `processed_at: optional Time`
+    - `processed_at: optional Time | nil`
 
       Timestamp when this system message was processed.
 
@@ -13990,7 +13990,7 @@ Stream Session Thread Events
 
           format: int32
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
 
@@ -14004,7 +14004,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `description: String`
+    - `description: String | nil`
 
       Description that the agent gave the run, passed on as written, or `null` if it gave none.
 
@@ -14020,7 +14020,7 @@ Stream Session Thread Events
 
         Unique identifier for the phase.
 
-      - `description: String`
+      - `description: String | nil`
 
         Description that the agent gave the phase, passed on as written, or `null` if it gave none.
 
@@ -14246,7 +14246,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `workflow_run_id: String`
+    - `workflow_run_id: String | nil`
 
       Identifier of the run that met the error, or `null` when the error kept a run from being created.
 

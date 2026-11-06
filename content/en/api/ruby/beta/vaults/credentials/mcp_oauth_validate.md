@@ -159,11 +159,11 @@ Validate an MCP OAuth Credential
 
     Whether the credential has a refresh token configured.
 
-  - `mcp_probe: BetaManagedAgentsMCPProbe`
+  - `mcp_probe: BetaManagedAgentsMCPProbe | nil`
 
     Details of the MCP probe step that failed, or `null` if the probe succeeded or there was no access token to test.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
       The HTTP error response from the MCP server, or `null` if the MCP server didn't return one for the failing step, for example after a timeout or a DNS or TLS failure.
 
@@ -189,11 +189,11 @@ Validate an MCP OAuth Credential
 
       The MCP method that failed (for example `initialize` or `tools/list`).
 
-  - `refresh: BetaManagedAgentsRefreshObject`
+  - `refresh: BetaManagedAgentsRefreshObject | nil`
 
     Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
       The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 

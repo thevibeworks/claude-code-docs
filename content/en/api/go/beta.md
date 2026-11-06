@@ -479,11 +479,11 @@ The Models API response can be used to determine which models are available for 
 
     maxItems: 3
 
-    - `const BetaModelListParamsLifecycleActive BetaModelListParamsLifecycle = "active"`
+    - `"active"`
 
-    - `const BetaModelListParamsLifecycleDeprecated BetaModelListParamsLifecycle = "deprecated"`
+    - `"deprecated"`
 
-    - `const BetaModelListParamsLifecycleRetired BetaModelListParamsLifecycle = "retired"`
+    - `"retired"`
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 
@@ -2719,13 +2719,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolAllowedCallerDirect BetaToolAllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolAllowedCallerCodeExecution20250825 BetaToolAllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeralParam Optional`
 
@@ -2763,13 +2763,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolBash20241022AllowedCallerDirect BetaToolBash20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20250825 BetaToolBash20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -2797,13 +2797,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolBash20250124AllowedCallerDirect BetaToolBash20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -2831,13 +2831,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerDirect BetaCodeExecutionTool20250522AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -2863,13 +2863,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerDirect BetaCodeExecutionTool20250825AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -2901,13 +2901,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerDirect BetaCodeExecutionTool20260120AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -2935,13 +2935,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3368,13 +3368,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerDirect BetaToolComputerUse20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20250825 BetaToolComputerUse20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3408,13 +3408,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaMemoryTool20250818AllowedCallerDirect BetaMemoryTool20250818AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3454,13 +3454,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerDirect BetaToolComputerUse20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20250825 BetaToolComputerUse20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3494,13 +3494,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerDirect BetaToolTextEditor20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3540,13 +3540,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerDirect BetaToolComputerUse20251124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20250825 BetaToolComputerUse20251124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3809,13 +3809,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerDirect BetaToolTextEditor20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20250825 BetaToolTextEditor20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3843,13 +3843,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerDirect BetaToolTextEditor20250429AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20250825 BetaToolTextEditor20250429AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3877,13 +3877,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerDirect BetaToolTextEditor20250728AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3917,13 +3917,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerDirect BetaWebSearchTool20250305AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -3993,13 +3993,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerDirect BetaWebFetchTool20250910AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20250825 BetaWebFetchTool20250910AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -4135,13 +4135,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerDirect BetaWebSearchTool20260209AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20250825 BetaWebSearchTool20260209AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -4185,13 +4185,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerDirect BetaWebFetchTool20260209AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -4247,13 +4247,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerDirect BetaWebFetchTool20260309AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20250825 BetaWebFetchTool20260309AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -4311,13 +4311,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -4369,13 +4369,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -4529,13 +4529,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerDirect BetaAdvisorTool20260301AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -4551,7 +4551,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `MaxTokens int64 Optional`
 
-                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                           minimum: 1024
 
@@ -4581,13 +4581,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerDirect BetaToolSearchToolBm25_20251119AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -4617,13 +4617,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerDirect BetaToolSearchToolRegex20251119AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -6388,13 +6388,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaResponseToolAllowedCallerDirect BetaResponseToolAllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaResponseToolAllowedCallerCodeExecution20250825 BetaResponseToolAllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaResponseToolAllowedCallerCodeExecution20260120 BetaResponseToolAllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaResponseToolAllowedCallerCodeExecution20260521 BetaResponseToolAllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `DeferLoading bool Optional`
 
@@ -6428,13 +6428,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolBash20241022AllowedCallerDirect BetaToolBash20241022AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolBash20241022AllowedCallerCodeExecution20250825 BetaToolBash20241022AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -6479,13 +6479,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolBash20250124AllowedCallerDirect BetaToolBash20250124AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -6513,13 +6513,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaCodeExecutionTool20250522AllowedCallerDirect BetaCodeExecutionTool20250522AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -6545,13 +6545,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaCodeExecutionTool20250825AllowedCallerDirect BetaCodeExecutionTool20250825AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -6583,13 +6583,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaCodeExecutionTool20260120AllowedCallerDirect BetaCodeExecutionTool20260120AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -6617,13 +6617,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7050,13 +7050,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolComputerUse20241022AllowedCallerDirect BetaToolComputerUse20241022AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20250825 BetaToolComputerUse20241022AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7090,13 +7090,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaMemoryTool20250818AllowedCallerDirect BetaMemoryTool20250818AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7136,13 +7136,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolComputerUse20250124AllowedCallerDirect BetaToolComputerUse20250124AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20250825 BetaToolComputerUse20250124AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7176,13 +7176,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolTextEditor20241022AllowedCallerDirect BetaToolTextEditor20241022AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7222,13 +7222,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolComputerUse20251124AllowedCallerDirect BetaToolComputerUse20251124AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20250825 BetaToolComputerUse20251124AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7491,13 +7491,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolTextEditor20250124AllowedCallerDirect BetaToolTextEditor20250124AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20250825 BetaToolTextEditor20250124AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7525,13 +7525,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolTextEditor20250429AllowedCallerDirect BetaToolTextEditor20250429AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20250825 BetaToolTextEditor20250429AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7559,13 +7559,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolTextEditor20250728AllowedCallerDirect BetaToolTextEditor20250728AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -7599,13 +7599,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebSearchTool20250305AllowedCallerDirect BetaWebSearchTool20250305AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -7675,13 +7675,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebFetchTool20250910AllowedCallerDirect BetaWebFetchTool20250910AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20250825 BetaWebFetchTool20250910AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -7819,13 +7819,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebSearchTool20260209AllowedCallerDirect BetaWebSearchTool20260209AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20250825 BetaWebSearchTool20260209AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -7869,13 +7869,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebFetchTool20260209AllowedCallerDirect BetaWebFetchTool20260209AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -7931,13 +7931,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebFetchTool20260309AllowedCallerDirect BetaWebFetchTool20260309AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20250825 BetaWebFetchTool20260309AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -7995,13 +7995,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -8053,13 +8053,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `AllowedDomains []string Optional`
 
@@ -8213,13 +8213,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaAdvisorTool20260301AllowedCallerDirect BetaAdvisorTool20260301AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -8235,7 +8235,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `MaxTokens int64 Optional`
 
-                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                     minimum: 1024
 
@@ -8265,13 +8265,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolSearchToolBm25_20251119AllowedCallerDirect BetaToolSearchToolBm25_20251119AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -8301,13 +8301,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `AllowedCallers []string Optional`
 
-                    - `const BetaToolSearchToolRegex20251119AllowedCallerDirect BetaToolSearchToolRegex20251119AllowedCaller = "direct"`
+                    - `"direct"`
 
-                    - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
+                    - `"code_execution_20250825"`
 
-                    - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+                    - `"code_execution_20260120"`
 
-                    - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+                    - `"code_execution_20260521"`
 
                   - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -9108,8 +9108,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -10946,13 +10945,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolAllowedCallerDirect BetaToolAllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolAllowedCallerCodeExecution20250825 BetaToolAllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeralParam Optional`
 
@@ -10990,13 +10989,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolBash20241022AllowedCallerDirect BetaToolBash20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20250825 BetaToolBash20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11024,13 +11023,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolBash20250124AllowedCallerDirect BetaToolBash20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11058,13 +11057,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerDirect BetaCodeExecutionTool20250522AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11090,13 +11089,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerDirect BetaCodeExecutionTool20250825AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11128,13 +11127,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerDirect BetaCodeExecutionTool20260120AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11162,13 +11161,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11595,13 +11594,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerDirect BetaToolComputerUse20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20250825 BetaToolComputerUse20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11635,13 +11634,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaMemoryTool20250818AllowedCallerDirect BetaMemoryTool20250818AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11681,13 +11680,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerDirect BetaToolComputerUse20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20250825 BetaToolComputerUse20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11721,13 +11720,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerDirect BetaToolTextEditor20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -11767,13 +11766,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerDirect BetaToolComputerUse20251124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20250825 BetaToolComputerUse20251124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -12036,13 +12035,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerDirect BetaToolTextEditor20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20250825 BetaToolTextEditor20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -12070,13 +12069,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerDirect BetaToolTextEditor20250429AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20250825 BetaToolTextEditor20250429AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -12104,13 +12103,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerDirect BetaToolTextEditor20250728AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -12144,13 +12143,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerDirect BetaWebSearchTool20250305AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12220,13 +12219,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerDirect BetaWebFetchTool20250910AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20250825 BetaWebFetchTool20250910AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12362,13 +12361,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerDirect BetaWebSearchTool20260209AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20250825 BetaWebSearchTool20260209AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12412,13 +12411,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerDirect BetaWebFetchTool20260209AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12474,13 +12473,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerDirect BetaWebFetchTool20260309AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20250825 BetaWebFetchTool20260309AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12538,13 +12537,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12596,13 +12595,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -12756,13 +12755,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerDirect BetaAdvisorTool20260301AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -12778,7 +12777,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `MaxTokens int64 Optional`
 
-                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                           minimum: 1024
 
@@ -12808,13 +12807,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerDirect BetaToolSearchToolBm25_20251119AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -12844,13 +12843,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerDirect BetaToolSearchToolRegex20251119AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -14838,13 +14837,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolAllowedCallerDirect BetaToolAllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolAllowedCallerCodeExecution20250825 BetaToolAllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeralParam Optional`
 
@@ -14882,13 +14881,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolBash20241022AllowedCallerDirect BetaToolBash20241022AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolBash20241022AllowedCallerCodeExecution20250825 BetaToolBash20241022AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -14916,13 +14915,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolBash20250124AllowedCallerDirect BetaToolBash20250124AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -14950,13 +14949,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaCodeExecutionTool20250522AllowedCallerDirect BetaCodeExecutionTool20250522AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -14982,13 +14981,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaCodeExecutionTool20250825AllowedCallerDirect BetaCodeExecutionTool20250825AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15020,13 +15019,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaCodeExecutionTool20260120AllowedCallerDirect BetaCodeExecutionTool20260120AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15054,13 +15053,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15487,13 +15486,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolComputerUse20241022AllowedCallerDirect BetaToolComputerUse20241022AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20250825 BetaToolComputerUse20241022AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15527,13 +15526,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaMemoryTool20250818AllowedCallerDirect BetaMemoryTool20250818AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15573,13 +15572,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolComputerUse20250124AllowedCallerDirect BetaToolComputerUse20250124AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20250825 BetaToolComputerUse20250124AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15613,13 +15612,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolTextEditor20241022AllowedCallerDirect BetaToolTextEditor20241022AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15659,13 +15658,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolComputerUse20251124AllowedCallerDirect BetaToolComputerUse20251124AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20250825 BetaToolComputerUse20251124AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15928,13 +15927,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolTextEditor20250124AllowedCallerDirect BetaToolTextEditor20250124AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20250825 BetaToolTextEditor20250124AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15962,13 +15961,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolTextEditor20250429AllowedCallerDirect BetaToolTextEditor20250429AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20250825 BetaToolTextEditor20250429AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -15996,13 +15995,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolTextEditor20250728AllowedCallerDirect BetaToolTextEditor20250728AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -16036,13 +16035,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebSearchTool20250305AllowedCallerDirect BetaWebSearchTool20250305AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16112,13 +16111,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebFetchTool20250910AllowedCallerDirect BetaWebFetchTool20250910AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20250825 BetaWebFetchTool20250910AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16254,13 +16253,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebSearchTool20260209AllowedCallerDirect BetaWebSearchTool20260209AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20250825 BetaWebSearchTool20260209AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16304,13 +16303,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebFetchTool20260209AllowedCallerDirect BetaWebFetchTool20260209AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16366,13 +16365,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebFetchTool20260309AllowedCallerDirect BetaWebFetchTool20260309AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20250825 BetaWebFetchTool20260309AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16430,13 +16429,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16488,13 +16487,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `AllowedDomains []string Optional`
 
@@ -16648,13 +16647,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaAdvisorTool20260301AllowedCallerDirect BetaAdvisorTool20260301AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -16670,7 +16669,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `MaxTokens int64 Optional`
 
-                              Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                              Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                               minimum: 1024
 
@@ -16700,13 +16699,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolSearchToolBm25_20251119AllowedCallerDirect BetaToolSearchToolBm25_20251119AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -16736,13 +16735,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `AllowedCallers []string Optional`
 
-                              - `const BetaToolSearchToolRegex20251119AllowedCallerDirect BetaToolSearchToolRegex20251119AllowedCaller = "direct"`
+                              - `"direct"`
 
-                              - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
+                              - `"code_execution_20250825"`
 
-                              - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+                              - `"code_execution_20260120"`
 
-                              - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+                              - `"code_execution_20260521"`
 
                             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -17440,9 +17439,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers?sdk_languages=go) for details.
 
-        - `const BetaMessageBatchNewParamsRequestParamsServiceTierAuto BetaMessageBatchNewParamsRequestParamsServiceTier = "auto"`
+        - `"auto"`
 
-        - `const BetaMessageBatchNewParamsRequestParamsServiceTierStandardOnly BetaMessageBatchNewParamsRequestParamsServiceTier = "standard_only"`
+        - `"standard_only"`
 
       - `Speed string Optional`
 
@@ -17450,9 +17449,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=go) for which models.
 
-        - `const BetaMessageBatchNewParamsRequestParamsSpeedStandard BetaMessageBatchNewParamsRequestParamsSpeed = "standard"`
+        - `"standard"`
 
-        - `const BetaMessageBatchNewParamsRequestParamsSpeedFast BetaMessageBatchNewParamsRequestParamsSpeed = "fast"`
+        - `"fast"`
 
       - `StopSequences []string Optional`
 
@@ -20309,13 +20308,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaResponseToolAllowedCallerDirect BetaResponseToolAllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaResponseToolAllowedCallerCodeExecution20250825 BetaResponseToolAllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaResponseToolAllowedCallerCodeExecution20260120 BetaResponseToolAllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaResponseToolAllowedCallerCodeExecution20260521 BetaResponseToolAllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `DeferLoading bool Optional`
 
@@ -20349,13 +20348,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolBash20241022AllowedCallerDirect BetaToolBash20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20250825 BetaToolBash20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -20400,13 +20399,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolBash20250124AllowedCallerDirect BetaToolBash20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -20434,13 +20433,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerDirect BetaCodeExecutionTool20250522AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -20466,13 +20465,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerDirect BetaCodeExecutionTool20250825AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -20504,13 +20503,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerDirect BetaCodeExecutionTool20260120AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -20538,13 +20537,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -20971,13 +20970,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerDirect BetaToolComputerUse20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20250825 BetaToolComputerUse20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21011,13 +21010,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaMemoryTool20250818AllowedCallerDirect BetaMemoryTool20250818AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21057,13 +21056,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerDirect BetaToolComputerUse20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20250825 BetaToolComputerUse20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21097,13 +21096,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerDirect BetaToolTextEditor20241022AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21143,13 +21142,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerDirect BetaToolComputerUse20251124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20250825 BetaToolComputerUse20251124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21412,13 +21411,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerDirect BetaToolTextEditor20250124AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20250825 BetaToolTextEditor20250124AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21446,13 +21445,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerDirect BetaToolTextEditor20250429AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20250825 BetaToolTextEditor20250429AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21480,13 +21479,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerDirect BetaToolTextEditor20250728AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -21520,13 +21519,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerDirect BetaWebSearchTool20250305AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -21596,13 +21595,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerDirect BetaWebFetchTool20250910AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20250825 BetaWebFetchTool20250910AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -21740,13 +21739,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerDirect BetaWebSearchTool20260209AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20250825 BetaWebSearchTool20260209AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -21790,13 +21789,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerDirect BetaWebFetchTool20260209AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -21852,13 +21851,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerDirect BetaWebFetchTool20260309AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20250825 BetaWebFetchTool20260309AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -21916,13 +21915,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -21974,13 +21973,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `AllowedDomains []string Optional`
 
@@ -22134,13 +22133,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerDirect BetaAdvisorTool20260301AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -22156,7 +22155,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `MaxTokens int64 Optional`
 
-                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                           minimum: 1024
 
@@ -22186,13 +22185,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerDirect BetaToolSearchToolBm25_20251119AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -22222,13 +22221,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `AllowedCallers []string Optional`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerDirect BetaToolSearchToolRegex20251119AllowedCaller = "direct"`
+                          - `"direct"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
+                          - `"code_execution_20250825"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+                          - `"code_execution_20260120"`
 
-                          - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+                          - `"code_execution_20260521"`
 
                         - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -23029,8 +23028,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               the thinking-block delimiter tokens.
 
               Reflects the raw reasoning the model produced, not the (possibly shorter)
-              summarized thinking text returned in the response body. Computed by
-              re-tokenizing the raw reasoning text, so it may differ from the model's exact
+              summarized thinking text returned in the response body. It may differ from the model's exact
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -33927,7 +33925,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", betaSelfHostedWork.ID)
+	fmt.Printf("%+v\n", betaSelfHostedWork)
 }
 ```
 
@@ -38206,19 +38204,19 @@ List Sessions
 
     Filter by session status. Repeat the parameter to match any of multiple statuses.
 
-    - `const BetaSessionListParamsStatusRescheduling BetaSessionListParamsStatus = "rescheduling"`
+    - `"rescheduling"`
 
       Transient error occurred, retrying automatically.
 
-    - `const BetaSessionListParamsStatusRunning BetaSessionListParamsStatus = "running"`
+    - `"running"`
 
       Agent is actively executing.
 
-    - `const BetaSessionListParamsStatusIdle BetaSessionListParamsStatus = "idle"`
+    - `"idle"`
 
       Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
 
-    - `const BetaSessionListParamsStatusTerminated BetaSessionListParamsStatus = "terminated"`
+    - `"terminated"`
 
       Session has ended, either due to an error or completion.
 
@@ -89770,7 +89768,7 @@ Create an external key config owned by the caller's organization.
 
   - `Geo string`
 
-    Data residency geo. Selects the region that handles this key's encrypt/decrypt roundtrips.
+    Data residency geo. Selects the region this key is used in.
 
   - `ProviderConfig BetaExternalKeyProviderConfigUnion`
 
@@ -89955,7 +89953,7 @@ Results are ordered by creation time (newest first). Use the
 
   - `Geo string`
 
-    Data residency geo. Selects the region that handles this key's encrypt/decrypt roundtrips.
+    Data residency geo. Selects the region this key is used in.
 
   - `ProviderConfig BetaExternalKeyProviderConfigUnion`
 
@@ -90130,7 +90128,7 @@ Retrieve a single external key config in the caller's organization by ID.
 
   - `Geo string`
 
-    Data residency geo. Selects the region that handles this key's encrypt/decrypt roundtrips.
+    Data residency geo. Selects the region this key is used in.
 
   - `ProviderConfig BetaExternalKeyProviderConfigUnion`
 
@@ -90372,7 +90370,7 @@ encrypted data requires the original key identity to decrypt.
 
   - `Geo string`
 
-    Data residency geo. Selects the region that handles this key's encrypt/decrypt roundtrips.
+    Data residency geo. Selects the region this key is used in.
 
   - `ProviderConfig BetaExternalKeyProviderConfigUnion`
 
@@ -95145,11 +95143,11 @@ List the organization's invites.
 
     Filter by Invite status. Repeatable; values are OR'ed together. Omit to return `pending`, `accepted`, and `expired` Invites alike.
 
-    - `const BetaOrganizationInviteListParamsStatusAccepted BetaOrganizationInviteListParamsStatus = "accepted"`
+    - `"accepted"`
 
-    - `const BetaOrganizationInviteListParamsStatusExpired BetaOrganizationInviteListParamsStatus = "expired"`
+    - `"expired"`
 
-    - `const BetaOrganizationInviteListParamsStatusPending BetaOrganizationInviteListParamsStatus = "pending"`
+    - `"pending"`
 
 #### Returns
 
@@ -101545,15 +101543,15 @@ Enterprise plan. Requires an API key with the `read:analytics` scope.
 
   - `ChatCoworkUnifiedDailyActiveUserCount int64 Optional`
 
-    Number of users with activity in Chat and Cowork unified on the requested day. Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Number of users with activity in Chat and Cowork unified on the requested day. Omitted from the response where Chat and Cowork unified is not available.
 
   - `ChatCoworkUnifiedMonthlyActiveUserCount int64 Optional`
 
-    Number of users with activity in Chat and Cowork unified in the 28-day rolling window (30 days when the request filters by `rbac_group_id`). Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Number of users with activity in Chat and Cowork unified in the 28-day rolling window (30 days when the request filters by `rbac_group_id`). Omitted from the response where Chat and Cowork unified is not available.
 
   - `ChatCoworkUnifiedWeeklyActiveUserCount int64 Optional`
 
-    Number of users with activity in Chat and Cowork unified in the 7-day rolling window. Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Number of users with activity in Chat and Cowork unified in the 7-day rolling window. Omitted from the response where Chat and Cowork unified is not available.
 
   - `ChatDailyActiveUserCount int64 Optional`
 
@@ -102071,7 +102069,7 @@ the `read:analytics` scope.
 
   - `ChatCoworkUnifiedMetrics BetaAnalyticsChatCoworkUnifiedMetrics Optional`
 
-    Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response where Chat and Cowork unified is not available.
 
     - `Chat BetaAnalyticsChatCoworkUnifiedChatMetrics`
 
@@ -102627,7 +102625,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `Filter []string Optional` (query parameter)
 
-    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `connector_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `connector_name` matches case-insensitively, a display name such as 'GitHub MCP' also matches its normalized stored form ('github'), and for rows whose `connector_name` is an opaque connector id the connector's display name (`connector_display_name`) also matches; `product` is one of `chat_cowork_unified`, `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `connector_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `connector_name` matches case-insensitively, a display name such as 'GitHub MCP' also matches its normalized stored form ('github'), and for rows whose `connector_name` is an opaque connector id the connector's display name (`connector_display_name`) also matches; `product` is one of `chat_cowork_unified`, `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only where Chat and Cowork unified is available.
 
     maxItems: 100
 
@@ -102755,7 +102753,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `ChatCoworkUnifiedMetrics BetaAnalyticsConnectorChatCoworkUnifiedMetrics Optional`
 
-    Connector use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Connector use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response where Chat and Cowork unified is not available.
 
     - `Chat BetaAnalyticsConnectorChatCoworkUnifiedChatMetrics`
 
@@ -102911,7 +102909,7 @@ range-rollup mode like `/skills`.
 
   - `Filter []string Optional` (query parameter)
 
-    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `plugin_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `plugin_name` matches case-insensitively; `product` is `chat_cowork_unified`, `claude_code`, or `cowork` (the only surfaces with plugin attribution); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `plugin_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `plugin_name` matches case-insensitively; `product` is `chat_cowork_unified`, `claude_code`, or `cowork` (the only surfaces with plugin attribution); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only where Chat and Cowork unified is available.
 
     maxItems: 100
 
@@ -103001,7 +102999,7 @@ range-rollup mode like `/skills`.
 
   - `ChatCoworkUnifiedMetrics BetaAnalyticsPluginChatCoworkUnifiedMetrics Optional`
 
-    Plugin use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Plugin use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on. A count is null in date-range mode where it cannot be computed. Omitted from the response where Chat and Cowork unified is not available.
 
     - `DistinctSessionPluginUsedCount int64`
 
@@ -103113,7 +103111,7 @@ on a Claude Enterprise plan. Requires an API key with the
 
   - `Filter []string Optional` (query parameter)
 
-    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `product`, `rbac_group_id`, `share_status`, `skill_name`, `user_id`. Value forms: `product` is one of `chat_cowork_unified`, `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `share_status` is one of `organization`, `private`, or `public`; `skill_name` matches case-insensitively; `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `product`, `rbac_group_id`, `share_status`, `skill_name`, `user_id`. Value forms: `product` is one of `chat_cowork_unified`, `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `share_status` is one of `organization`, `private`, or `public`; `skill_name` matches case-insensitively; `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only where Chat and Cowork unified is available.
 
     maxItems: 100
 
@@ -103251,7 +103249,7 @@ on a Claude Enterprise plan. Requires an API key with the
 
   - `ChatCoworkUnifiedMetrics BetaAnalyticsSkillChatCoworkUnifiedMetrics Optional`
 
-    Skill use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response on deployments that do not offer Chat and Cowork unified.
+    Skill use recorded while members had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into chat conversations and Cowork sessions. A count is null in date-range mode where it cannot be computed. Omitted from the response where Chat and Cowork unified is not available.
 
     - `Chat BetaAnalyticsSkillChatCoworkUnifiedChatMetrics`
 
@@ -103396,7 +103394,7 @@ can be broken out per product, per member, or per RBAC group via
 
   - `Filter []string Optional` (query parameter)
 
-    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `artifact_type`, `is_shared`, `product`, `rbac_group_id`, `user_id`. Value forms: `artifact_type` is a canonical artifact MIME type (e.g. `text/markdown`) or `other`; `is_shared` is `true` or `false`; `product` is `chat_cowork_unified`, `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only on deployments that offer Chat and Cowork unified.
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `artifact_type`, `is_shared`, `product`, `rbac_group_id`, `user_id`. Value forms: `artifact_type` is a canonical artifact MIME type (e.g. `text/markdown`) or `other`; `is_shared` is `true` or `false`; `product` is `chat_cowork_unified`, `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries. `chat_cowork_unified` is accepted as a `product` value only where Chat and Cowork unified is available.
 
     maxItems: 100
 
@@ -104094,7 +104092,7 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
     - `Product string`
 
-      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only on deployments that offer Chat and Cowork unified. Some unattributed usage is reported as "other".
+      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other".
 
     - `RBACGroupID string`
 
@@ -104889,7 +104887,7 @@ API key with the `read:analytics` scope, or an Admin API key.
 
     - `Product string`
 
-      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only on deployments that offer Chat and Cowork unified. Some unattributed usage is reported as "other".
+      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other".
 
     - `RBACGroupID string`
 
@@ -105112,23 +105110,23 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByClaudeTagCategory BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "claude_tag_category"`
+    - `"claude_tag_category"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByClaudeTagUserID BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "claude_tag_user_id"`
+    - `"claude_tag_user_id"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByContextWindow BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "context_window"`
+    - `"context_window"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByInferenceGeo BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "inference_geo"`
+    - `"inference_geo"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByModel BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "model"`
+    - `"model"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByProduct BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "product"`
+    - `"product"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupByRBACGroupID BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "rbac_group_id"`
+    - `"rbac_group_id"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupBySlackChannelID BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "slack_channel_id"`
+    - `"slack_channel_id"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsGroupBySpeed BetaOrganizationAnalyticsUsageReportListParamsGroupBy = "speed"`
+    - `"speed"`
 
   - `InferenceGeos []BetaAnalyticsInferenceGeoFilter Optional` (query parameter)
 
@@ -105198,9 +105196,9 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsSpeedFast BetaOrganizationAnalyticsUsageReportListParamsSpeed = "fast"`
+    - `"fast"`
 
-    - `const BetaOrganizationAnalyticsUsageReportListParamsSpeedStandard BetaOrganizationAnalyticsUsageReportListParamsSpeed = "standard"`
+    - `"standard"`
 
   - `UserIDs []string Optional` (query parameter)
 
@@ -105286,7 +105284,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     - `Product string`
 
-      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only on deployments that offer Chat and Cowork unified. Some unattributed usage is reported as "other".
+      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other".
 
     - `RBACGroupID string`
 
@@ -105477,23 +105475,23 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByClaudeTagCategory BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "claude_tag_category"`
+    - `"claude_tag_category"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByClaudeTagUserID BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "claude_tag_user_id"`
+    - `"claude_tag_user_id"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByContextWindow BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "context_window"`
+    - `"context_window"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByInferenceGeo BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "inference_geo"`
+    - `"inference_geo"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByModel BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "model"`
+    - `"model"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByProduct BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "product"`
+    - `"product"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupByRBACGroupID BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "rbac_group_id"`
+    - `"rbac_group_id"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupBySlackChannelID BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "slack_channel_id"`
+    - `"slack_channel_id"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsGroupBySpeed BetaOrganizationAnalyticsUserUsageReportListParamsGroupBy = "speed"`
+    - `"speed"`
 
   - `InferenceGeos []BetaAnalyticsInferenceGeoFilter Optional` (query parameter)
 
@@ -105583,9 +105581,9 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsSpeedFast BetaOrganizationAnalyticsUserUsageReportListParamsSpeed = "fast"`
+    - `"fast"`
 
-    - `const BetaOrganizationAnalyticsUserUsageReportListParamsSpeedStandard BetaOrganizationAnalyticsUserUsageReportListParamsSpeed = "standard"`
+    - `"standard"`
 
   - `UserIDs []string Optional` (query parameter)
 
@@ -105615,7 +105613,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     - `Name string`
 
-      The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"` for usage by Anthropic's security-patching service) or null.
+      The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"`) or null.
 
     - `UserID string`
 
@@ -105691,7 +105689,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
   - `Product string`
 
-    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only on deployments that offer Chat and Cowork unified. Some unattributed usage is reported as "other".
+    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other".
 
   - `RBACGroupID string`
 
@@ -105886,27 +105884,27 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByClaudeTagCategory BetaOrganizationAnalyticsCostReportListParamsGroupBy = "claude_tag_category"`
+    - `"claude_tag_category"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByClaudeTagUserID BetaOrganizationAnalyticsCostReportListParamsGroupBy = "claude_tag_user_id"`
+    - `"claude_tag_user_id"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByContextWindow BetaOrganizationAnalyticsCostReportListParamsGroupBy = "context_window"`
+    - `"context_window"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByCostType BetaOrganizationAnalyticsCostReportListParamsGroupBy = "cost_type"`
+    - `"cost_type"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByInferenceGeo BetaOrganizationAnalyticsCostReportListParamsGroupBy = "inference_geo"`
+    - `"inference_geo"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByModel BetaOrganizationAnalyticsCostReportListParamsGroupBy = "model"`
+    - `"model"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByProduct BetaOrganizationAnalyticsCostReportListParamsGroupBy = "product"`
+    - `"product"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByRBACGroupID BetaOrganizationAnalyticsCostReportListParamsGroupBy = "rbac_group_id"`
+    - `"rbac_group_id"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupBySlackChannelID BetaOrganizationAnalyticsCostReportListParamsGroupBy = "slack_channel_id"`
+    - `"slack_channel_id"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupBySpeed BetaOrganizationAnalyticsCostReportListParamsGroupBy = "speed"`
+    - `"speed"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsGroupByTokenType BetaOrganizationAnalyticsCostReportListParamsGroupBy = "token_type"`
+    - `"token_type"`
 
   - `InferenceGeos []BetaAnalyticsInferenceGeoFilter Optional` (query parameter)
 
@@ -105976,9 +105974,9 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsSpeedFast BetaOrganizationAnalyticsCostReportListParamsSpeed = "fast"`
+    - `"fast"`
 
-    - `const BetaOrganizationAnalyticsCostReportListParamsSpeedStandard BetaOrganizationAnalyticsCostReportListParamsSpeed = "standard"`
+    - `"standard"`
 
   - `UserIDs []string Optional` (query parameter)
 
@@ -106064,7 +106062,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     - `Product string`
 
-      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only on deployments that offer Chat and Cowork unified. Some unattributed usage is reported as "other".
+      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other".
 
     - `RBACGroupID string`
 
@@ -106252,27 +106250,27 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByClaudeTagCategory BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "claude_tag_category"`
+    - `"claude_tag_category"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByClaudeTagUserID BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "claude_tag_user_id"`
+    - `"claude_tag_user_id"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByContextWindow BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "context_window"`
+    - `"context_window"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByCostType BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "cost_type"`
+    - `"cost_type"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByInferenceGeo BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "inference_geo"`
+    - `"inference_geo"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByModel BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "model"`
+    - `"model"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByProduct BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "product"`
+    - `"product"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByRBACGroupID BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "rbac_group_id"`
+    - `"rbac_group_id"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupBySlackChannelID BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "slack_channel_id"`
+    - `"slack_channel_id"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupBySpeed BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "speed"`
+    - `"speed"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsGroupByTokenType BetaOrganizationAnalyticsUserCostReportListParamsGroupBy = "token_type"`
+    - `"token_type"`
 
   - `InferenceGeos []BetaAnalyticsInferenceGeoFilter Optional` (query parameter)
 
@@ -106358,9 +106356,9 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     maxItems: 100
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsSpeedFast BetaOrganizationAnalyticsUserCostReportListParamsSpeed = "fast"`
+    - `"fast"`
 
-    - `const BetaOrganizationAnalyticsUserCostReportListParamsSpeedStandard BetaOrganizationAnalyticsUserCostReportListParamsSpeed = "standard"`
+    - `"standard"`
 
   - `UserIDs []string Optional` (query parameter)
 
@@ -106390,7 +106388,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
     - `Name string`
 
-      The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"` for usage by Anthropic's security-patching service) or null.
+      The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"`) or null.
 
     - `UserID string`
 
@@ -106466,7 +106464,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
   - `Product string`
 
-    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only on deployments that offer Chat and Cowork unified. Some unattributed usage is reported as "other".
+    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other".
 
   - `RBACGroupID string`
 
@@ -107216,19 +107214,19 @@ come in a fixed order that is not creation order.
 
     maxItems: 100
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeOrganization BetaOrganizationSpendLimitListParamsScopeType = "organization"`
+    - `"organization"`
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeOrganizationService BetaOrganizationSpendLimitListParamsScopeType = "organization_service"`
+    - `"organization_service"`
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeRBACGroup BetaOrganizationSpendLimitListParamsScopeType = "rbac_group"`
+    - `"rbac_group"`
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeSeatTier BetaOrganizationSpendLimitListParamsScopeType = "seat_tier"`
+    - `"seat_tier"`
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeUsageTier BetaOrganizationSpendLimitListParamsScopeType = "usage_tier"`
+    - `"usage_tier"`
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeUser BetaOrganizationSpendLimitListParamsScopeType = "user"`
+    - `"user"`
 
-    - `const BetaOrganizationSpendLimitListParamsScopeTypeWorkspace BetaOrganizationSpendLimitListParamsScopeType = "workspace"`
+    - `"workspace"`
 
   - `WorkspaceID param.Opt[string] Optional` (query parameter)
 
@@ -116244,7 +116242,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
     Request headers that the API sends with every delivery, typically your collector's authentication header (for example `authorization`).
 
-    The API stores the values encrypted and never returns them. Reads show only `header_names`.
+    The API never returns the values. Reads show only `header_names`.
 
     At most 20 headers. Names are at most 128 characters. Two names can't differ only in case. Values are printable ASCII, at most 4,096 characters, and can't begin or end with a space. Names and values together are at most 16,384 bytes.
 
@@ -118774,9 +118772,9 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     The event types to deliver to the endpoint. Must list at least one.
 
-    - `const BetaOrganizationWebhookNewParamsEnabledEventUserProfileEnforcementActionOpened BetaOrganizationWebhookNewParamsEnabledEvent = "user_profile.enforcement_action_opened"`
+    - `"user_profile.enforcement_action_opened"`
 
-    - `const BetaOrganizationWebhookNewParamsEnabledEventUserProfileEnforcementActionResolved BetaOrganizationWebhookNewParamsEnabledEvent = "user_profile.enforcement_action_resolved"`
+    - `"user_profile.enforcement_action_resolved"`
 
   - `URL string`
 
@@ -118934,9 +118932,9 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     The event types delivered to the endpoint.
 
-    - `const BetaNewOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionOpened BetaNewOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_opened"`
+    - `"user_profile.enforcement_action_opened"`
 
-    - `const BetaNewOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionResolved BetaNewOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_resolved"`
+    - `"user_profile.enforcement_action_resolved"`
 
   - `Name string`
 
@@ -119193,9 +119191,9 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     The event types delivered to the endpoint.
 
-    - `const BetaOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionOpened BetaOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_opened"`
+    - `"user_profile.enforcement_action_opened"`
 
-    - `const BetaOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionResolved BetaOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_resolved"`
+    - `"user_profile.enforcement_action_resolved"`
 
   - `Name string`
 
@@ -119432,9 +119430,9 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     The event types delivered to the endpoint.
 
-    - `const BetaOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionOpened BetaOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_opened"`
+    - `"user_profile.enforcement_action_opened"`
 
-    - `const BetaOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionResolved BetaOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_resolved"`
+    - `"user_profile.enforcement_action_resolved"`
 
   - `Name string`
 
@@ -119533,9 +119531,9 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     The event types to deliver to the endpoint. Replaces the whole set; an empty list leaves it unchanged.
 
-    - `const BetaOrganizationWebhookUpdateParamsEnabledEventUserProfileEnforcementActionOpened BetaOrganizationWebhookUpdateParamsEnabledEvent = "user_profile.enforcement_action_opened"`
+    - `"user_profile.enforcement_action_opened"`
 
-    - `const BetaOrganizationWebhookUpdateParamsEnabledEventUserProfileEnforcementActionResolved BetaOrganizationWebhookUpdateParamsEnabledEvent = "user_profile.enforcement_action_resolved"`
+    - `"user_profile.enforcement_action_resolved"`
 
   - `Name param.Opt[string] Optional`
 
@@ -119698,9 +119696,9 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     The event types delivered to the endpoint.
 
-    - `const BetaOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionOpened BetaOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_opened"`
+    - `"user_profile.enforcement_action_opened"`
 
-    - `const BetaOrganizationWebhookEndpointEnabledEventUserProfileEnforcementActionResolved BetaOrganizationWebhookEndpointEnabledEvent = "user_profile.enforcement_action_resolved"`
+    - `"user_profile.enforcement_action_resolved"`
 
   - `Name string`
 

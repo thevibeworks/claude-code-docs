@@ -6,7 +6,7 @@
 
 > Give Claude access to your organization's GitHub repositories, issues, and pull requests, either through GitHub's hosted MCP server or a server built into the desktop app.
 
-When Claude Desktop is deployed on third-party inference, Claude can work with your organization's GitHub data (repositories, issues, pull requests, and more) through GitHub's open-source [github-mcp-server](https://github.com/github/github-mcp-server). Two connectors are available: a [remote connector](#remote-connector), where the desktop app connects to GitHub's hosted copy of the server, and a [local connector](#local-connector), a copy of the server built into the desktop app. In both cases the device talks to GitHub directly; no GitHub data or tokens pass through Anthropic's infrastructure.
+When Claude Desktop is deployed on third-party inference, Claude can work with your organization's GitHub data (repositories, issues, pull requests, and more) through GitHub's open-source [github-mcp-server](https://github.com/github/github-mcp-server). Two connectors are available: a [remote connector](#remote-connector), where the desktop app connects to GitHub's hosted copy of the server, and a [local connector](#local-connector), a copy of the server built into the desktop app. In both cases the device talks to GitHub; no GitHub data or tokens pass through Anthropic's infrastructure.
 
 ## Choose a connector
 
@@ -23,7 +23,7 @@ Both connectors expose the same family of GitHub tools; they differ in where the
 
 ## Remote connector
 
-GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Desktop on 3P connects to it as a standard remote [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) entry, authenticated with a GitHub personal access token: the device connects straight to GitHub's endpoint, and the token travels only in the request headers from the user's device.
+GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Desktop on 3P connects to it as a standard remote [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) entry, authenticated with a GitHub personal access token: the device connects to GitHub's endpoint, and the token travels only in the request headers from the user's device.
 
 ```json theme={null}
 {
@@ -40,7 +40,7 @@ Check the endpoint URL, the supported authentication methods, and the token scop
 
 ## Local connector
 
-Claude Desktop includes a built-in copy of github-mcp-server and runs it as a local process when a `managedMcpServers` entry sets `server` to `github`. The server calls github.com, or your GitHub Enterprise Server instance, directly from the device.
+Claude Desktop includes a built-in copy of github-mcp-server and runs it as a local process when a `managedMcpServers` entry sets `server` to `github`. The server calls github.com, your GitHub Enterprise Cloud tenant on `ghe.com`, or your GitHub Enterprise Server instance, from the device. Behind a proxy, the server's calls follow the proxy that the app resolves for the host that serves the GitHub API. See [What is and is not routed](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#what-is-and-is-not-routed).
 
 Users sign in to GitHub from the app through the OAuth device flow, so there are no personal access tokens to issue, distribute, or rotate. You register one OAuth app in your GitHub organization and ship its client ID in the entry; each user then authorizes their own sign-in.
 
@@ -76,7 +76,7 @@ If you manage configuration through JSON or a plist directly, add an entry to [`
 | `name` | Yes | Unique display name, shown to users in connector settings. |
 | `server` | Yes | Must be `github`. |
 | `clientId` | Yes | The client ID of the OAuth app (or GitHub App) from step 1. |
-| `host` | No | Base URL of your GitHub Enterprise Server instance, for example `https://github.example.com`. Leave unset for github.com. HTTPS is required. |
+| `host` | No | Base URL of your GitHub Enterprise Server instance, for example `https://github.example.com`, or of your GitHub Enterprise Cloud tenant on `ghe.com`, for example `https://<tenant>.ghe.com`. Leave unset for github.com. HTTPS is required. |
 | `scope` | No | Space-separated OAuth scopes to request at sign-in, for example `repo read:org`. Defaults to `repo read:org read:user`. Ignored for GitHub Apps. |
 | `toolsets` | No | Comma-separated [github-mcp-server toolsets](https://github.com/github/github-mcp-server) to enable, for example `context,repos,issues,pull_requests`. Defaults to the bundled server's default toolsets. |
 | `readOnly` | No | `true` starts the server with read tools only; write tools are not registered at all. |
@@ -86,14 +86,14 @@ In the in-app configuration window, the GitHub form offers the client ID, GitHub
 
 **3. Allow the required network hosts**
 
-The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
+The server and the sign-in flow call GitHub from the device, so in addition to the [base egress hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths), devices need outbound HTTPS access to:
 
 | Host | Purpose |
 | - | - |
 | `github.com` | OAuth device-flow sign-in |
 | `api.github.com` | GitHub API calls |
 
-GitHub Enterprise Server deployments need access to the instance's own host instead. No egress to any Anthropic host is needed for GitHub data.
+GitHub Enterprise Server deployments need access to the instance's own host instead. For a GitHub Enterprise Cloud tenant on `ghe.com`, devices need `<tenant>.ghe.com` and `api.<tenant>.ghe.com` instead. No egress to any Anthropic host is needed for GitHub data.
 
 ### How users sign in
 

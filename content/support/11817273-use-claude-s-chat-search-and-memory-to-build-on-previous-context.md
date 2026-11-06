@@ -52,7 +52,7 @@ Clicking the ghost icon will open an incognito chat, creating a temporary conver
 
 Claude can generate memory based on your chats. With the addition of memory, Claude transforms from a stateless chat interface into a knowledgeable collaborator that builds understanding over time.
 
-Memory is on by default for Free, Pro, Max, and Ultra plans on the web, Claude Desktop, and Claude Mobile (update to the latest version of the app). On Team and Enterprise plans, owners control whether memory is available, and it's off for each member until they turn it on. Memory is shared between Chat and Claude Cowork when Cowork runs in the cloud; Cowork sessions that run locally on your computer don't use memory.
+Memory is on by default for Free, Pro, Max, and Ultra plans on the web, Claude Desktop, and Claude Mobile (update to the latest version of the app). On Team and Enterprise plans, owners control whether memory is available. In most organizations created on or after October 31, 2026 (Pacific Time), memory starts on for each member unless they've turned it off before with the same account. In older organizations, it's off for each member until they turn it on. For the exceptions, see **[Controls for Team and Enterprise plan owners](#h_0feedd3ca9)**. Memory is shared between Chat and Claude Cowork when Cowork runs in the cloud; Cowork sessions that run locally on your computer don't use memory.
 
 ## How does Claude’s memory work?
 
@@ -80,9 +80,7 @@ To run a single chat or Cowork task without memory, open a new chat, click the �
 
 **Note:** Members of Team and Enterprise plans can turn memory on or off for themselves unless it's turned off for their organization. On Enterprise plans, members whose role is set to Custom also need memory in one of their custom roles. For more information, see **[Controls for Team and Enterprise plan owners](#h_0feedd3ca9)**.
 
-You can toggle Claude's memory on by navigating to Settings > Your Claude (or Settings > Memory in the older Settings layout) and turning on Generate memory from chats:
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1794052800&amp;signature=b804b9f283b4f2c0d66cc6a0703978e16da6338a29526e7132bb24ccaca447db&amp;req=diUkFc12n4VbWPMW3nq%2BgUSsLm4lbU6TFTdz1G74VAHsSwD3QnTFxgh1zwMV%0ATHxMcMobgyJcq0w%2BU3o%2BwfnlcXI%3D%0A)
+You can toggle Claude's memory on by navigating to **[Settings > Your Claude](https://claude.ai/settings/personalization)** (or **Settings > Memory** in the older Settings layout) and turning on Generate memory from chats.
 
 If you want to disable Claude’s memory, click the toggle and you'll see two options:
 
@@ -218,7 +216,7 @@ You can now transfer your memory between Claude and other AI services. This feat
 
 ## Controls for Team and Enterprise plan owners
 
-Memory and sensitive topics are two separate controls for your organization. Owners control whether memory is available, and it's off for each member until they turn it on.
+Memory and sensitive topics are two separate controls for your organization. Owners control whether memory is available. In organizations created on or after October 31, 2026 (Pacific Time), memory starts on for each member unless they've turned it off before with the same account, and they can turn it off at any time. In older organizations, it's off for each member until they turn it on. If your organization was upgraded from another plan, what counts is when it was first created, not the date of the upgrade. In HIPAA-enabled organizations, organizations on Claude's government platforms, and Claude for Teachers organizations, memory doesn't start on. Each member can check their own setting in **[Settings > Your Claude](https://claude.ai/settings/personalization)** (see **[Turn memory on or off for your account](#h_c9b905eb3f)**).
 
 ### Organization-level memory controls
 

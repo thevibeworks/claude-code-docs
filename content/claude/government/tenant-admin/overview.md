@@ -41,7 +41,7 @@ If your tenant has just been created, work through the pages in this order:
 
 > [!WARNING]
 >
-> There is a short setup period after Anthropic first creates your tenant. During that period, a banner appears on the Identity and access page and nobody at your agency can sign in yet, including people who would normally be routed to an organization. You can still use that time to configure your single sign-on connection and routing rules, and they will start working automatically as soon as the setup period ends.
+> There is a short setup period after Anthropic first creates your tenant. During that period, nobody at your agency can sign in yet, including people who would normally be routed to an organization.
 
 ## Pages in this portal
 

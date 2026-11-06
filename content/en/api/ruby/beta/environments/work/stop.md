@@ -163,7 +163,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: String`
+  - `acknowledged_at: String | nil`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -187,7 +187,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: String`
+  - `latest_heartbeat_at: String | nil`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -195,11 +195,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: String`
+  - `secret: String | nil`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: String`
+  - `started_at: String | nil`
 
     RFC 3339 timestamp when work execution started
 
@@ -217,11 +217,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `:stopped`
 
-  - `stop_requested_at: String`
+  - `stop_requested_at: String | nil`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: String`
+  - `stopped_at: String | nil`
 
     RFC 3339 timestamp when work execution stopped
 

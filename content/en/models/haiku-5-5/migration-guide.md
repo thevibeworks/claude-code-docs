@@ -14,7 +14,7 @@ Let Claude Code migrate your code for you
 /claude-api migrate this project to claude-haiku-5-5
 ```
 
-This guide covers moving code that calls Claude Haiku 4.5 to Claude Haiku 5.5. For code that calls Claude Haiku 3.5 or Claude Haiku 3, also make the changes in [Migrating to Claude Haiku 5.5 from Claude Haiku 3.5 and earlier Haiku models](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#migrating-from-haiku-35). To move up to a Sonnet or Opus model instead, see [Upgrade between model versions](https://platform.claude.com/docs/en/about-claude/models/migration-guide). For how long Claude Haiku 4.5 stays available, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
+This guide covers moving code that calls Claude Haiku 4.5 to Claude Haiku 5.5. For code that calls Claude Haiku 3.5 or Claude Haiku 3, also make the changes in [Migrating to Claude Haiku 5.5 from Claude Haiku 3.5 and earlier Haiku models](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#migrating-from-haiku-35). To move up to a Sonnet or Opus model instead, see [Migration guides](https://platform.claude.com/docs/en/about-claude/models/migration-guide). For how long Claude Haiku 4.5 stays available, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 
 ## Migration checklist by starting model
 
@@ -61,12 +61,12 @@ Replace the Claude Haiku 4.5 model ID with the Claude Haiku 5.5 ID for your plat
 
 ## Recount tokens
 
-Claude Haiku 5.5 uses the same newer tokenizer as Claude 4.7 and later models. As with all models that use this tokenizer, the same input text produces approximately 30 percent more tokens on Claude Haiku 5.5 than on Claude Haiku 4.5. The exact increase depends on the content. Requests, responses, and streaming events keep the same shape. What changes is anything you measure or budget in tokens:
+Claude Haiku 5.5 uses the same tokenizer as Claude 4.7 and later models. As with all models that use this tokenizer, the same input text produces approximately 30 percent more tokens on Claude Haiku 5.5 than on Claude Haiku 4.5. The exact increase depends on the content. Requests, responses, and streaming events keep the same shape. What changes is anything you measure or budget in tokens:
 
 * `usage` fields and [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) results are higher for the same text.
 * A given number of tokens holds less text.
 * A `max_tokens` limit tuned for Claude Haiku 4.5 might cut off equivalent output.
-* Cost estimates made from Claude Haiku 4.5’s token counts need recomputing with Claude Haiku 5.5’s counts and [prices](https://platform.claude.com/docs/en/about-claude/pricing), including its higher prices for long prompts. See [Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing).
+* Cost estimates made from Claude Haiku 4.5’s token counts need recomputing with Claude Haiku 5.5’s counts and prices, including its higher prices for long prompts. See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) and [Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing).
 
 Large images can also cost more tokens. Claude Haiku 5.5 uses the high-resolution image tier, which downscales images above 2,576 pixels on the long edge or 4,784 visual tokens. Claude Haiku 4.5 and earlier Haiku models use the standard tier, which downscales images above 1,568 pixels on the long edge or 1,568 visual tokens. An image of 2,000 by 1,500 pixels costs about 2.5 times as many visual tokens on Claude Haiku 5.5 as on Claude Haiku 4.5. See [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size).
 
@@ -144,13 +144,13 @@ A Claude Haiku 5.5 thinking block stays valid only while everything sent before 
 
 ## Migrating to Claude Haiku 5.5 from Claude Haiku 3.5 and earlier Haiku models
 
-Claude Haiku 3.5 is retired on the Claude API and Amazon Bedrock, and Claude Haiku 3 is retired on the Claude API and Claude Models on Google Cloud (Google managed). Requests to a retired model fail. Claude Models on Google Cloud (Google managed) lists Claude Haiku 3.5 as deprecated and available only to existing customers. See [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
+Claude Haiku 3.5 is retired on the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed). Claude Haiku 3 is retired on the Claude API and Claude Models on Google Cloud (Google managed). See [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 
 From either model, first apply every preceding section, then these changes:
 
 * **Model ID:** Replace `claude-3-5-haiku-20241022`, its alias `claude-3-5-haiku-latest`, or `claude-3-haiku-20240307` with `claude-haiku-5-5`. On Claude Models on Google Cloud (Google managed), replace `claude-3-5-haiku@20241022` with `claude-haiku-5-5`. On Amazon Bedrock, use the Claude Haiku 5.5 ID from [Use the Claude Haiku 5.5 model ID](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#use-the-claude-haiku-5-5-model-id).
 * **Code execution:** Claude Haiku 5.5 accepts `code_execution_20250825` and later versions. If you use the Python-only `code_execution_20250522`, move to one of them. See [Upgrade to latest tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version).
 * **Text editor:** If you use the text editor tool, move to `text_editor_20250728` (tool name `str_replace_based_edit_tool`), which has no `undo_edit` command. See [Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool).
-* **Stop reasons:** Handle `refusal` and `model_context_window_exceeded`. See [Handling stop reasons](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).
+* **Stop reasons:** Handle `refusal` and `model_context_window_exceeded`. See [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).
 * **Trailing newlines:** Claude 4.5 and later models keep trailing newlines in tool call string parameters. If your code matches those strings exactly, allow for them.
-* **Prompts:** Claude 4 and later models have a more concise, direct communication style and need explicit direction. Review your prompts against [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5) and [prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
+* **Prompts:** Claude 4 and later models have a more concise, direct communication style and need explicit direction. Review your prompts against [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5) and [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).

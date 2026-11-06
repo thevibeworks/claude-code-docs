@@ -19,11 +19,11 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `work_id: String` (path parameter)
 
-- `desired_ttl_seconds: optional Integer` (query parameter)
+- `desired_ttl_seconds: optional Integer | nil` (query parameter)
 
   Desired TTL in seconds
 
-- `expected_last_heartbeat: optional String` (query parameter)
+- `expected_last_heartbeat: optional String | nil` (query parameter)
 
   Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 

@@ -162,7 +162,7 @@ Get Skill Version
     Unique identifier for this Skill Version. The id addresses the version in
     paths and pins it in references.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     ISO 8601 timestamp of when the skill was created.
 

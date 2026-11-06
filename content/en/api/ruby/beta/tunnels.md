@@ -17,7 +17,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 ### Parameters
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Optional human-readable name for the tunnel (1-255 characters).
 
@@ -157,7 +157,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -169,7 +169,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -352,7 +352,7 @@ Fetches a tunnel by ID.
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -364,7 +364,7 @@ Fetches a tunnel by ID.
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -557,7 +557,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -569,7 +569,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -757,7 +757,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -769,7 +769,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -994,7 +994,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   ID of the tunnel (`tnl_...`).
 
-- `reason: optional String`
+- `reason: optional String | nil`
 
   Optional free-text reason for the rotation, recorded for audit.
 
@@ -1174,7 +1174,7 @@ puts(beta_tunnel_token)
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -1186,7 +1186,7 @@ puts(beta_tunnel_token)
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -1368,7 +1368,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
@@ -1380,7 +1380,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     format: date-time
 
-  - `expires_at: Time`
+  - `expires_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
@@ -1574,7 +1574,7 @@ Fetches a tunnel certificate by ID.
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
@@ -1586,7 +1586,7 @@ Fetches a tunnel certificate by ID.
 
     format: date-time
 
-  - `expires_at: Time`
+  - `expires_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
@@ -1790,7 +1790,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
@@ -1802,7 +1802,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     format: date-time
 
-  - `expires_at: Time`
+  - `expires_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
@@ -2001,7 +2001,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
@@ -2013,7 +2013,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     format: date-time
 
-  - `expires_at: Time`
+  - `expires_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 

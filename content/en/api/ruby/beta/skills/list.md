@@ -21,13 +21,13 @@ List Skills
 
   minimum: 1, maximum: 1000
 
-- `page: optional String` (query parameter)
+- `page: optional String | nil` (query parameter)
 
   Pagination token for fetching a specific page of results.
 
   Pass the value from a previous response's `next_page` field to get the next page of results.
 
-- `source: optional String` (query parameter)
+- `source: optional String | nil` (query parameter)
 
   Filter skills by source.
 

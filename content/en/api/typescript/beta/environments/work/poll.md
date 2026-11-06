@@ -240,7 +240,7 @@ const betaSelfHostedWork = await client.beta.environments.work.poll(
   "env_011CZkZ9X2dpNyB7HsEFoRfW"
 );
 
-console.log(betaSelfHostedWork.id);
+console.log(betaSelfHostedWork);
 ```
 
 ### Response (200)

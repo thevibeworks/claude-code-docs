@@ -87,10 +87,32 @@ arrangement already shares the browser profile, saved sessions, and local files
 between them, so the guidance is the same as for any browser-based tool: give
 each person their own operating system account.
 
-Claude for M365 also writes one value into the Office document itself: an opaque
-identifier that lets the add-in recognize the same file after a rename or a Save
-As. It holds no user information and no conversation content, and it travels
-with the file if the document is shared.
+Apart from the edits a user asks Claude to make, Claude for M365 writes two
+values into the Office document itself, as add-in settings, when its task pane
+opens in Excel, PowerPoint, or Word. The first, `claude.fileId`, is a random
+identifier that lets the add-in recognize the file after a rename or a Save As.
+A copy made with Save As keeps the same identifier. The second,
+`Office.AutoShowTaskpaneWithDocument`, asks Office to open the Claude task pane
+when the document opens. [Microsoft supports automatic opening](https://learn.microsoft.com/office/dev/add-ins/develop/automatically-open-a-task-pane-with-a-document)
+only for add-ins that are centrally deployed or sideloaded, and only for people
+who already have that add-in.
+
+Neither value holds user information or conversation content. Office stores
+both in the file together with a reference to the add-in, so they travel with
+the document if it is shared, and the file shows that the add-in was used with
+it.
+
+Session logging is a setting in Claude for Excel that writes conversation
+summaries into the workbook. It is off by default. A user turns it on in the
+add-in's settings or by asking Claude. The setting is saved in local storage,
+not in the workbook, so it applies to every workbook opened with that browser
+profile. While it is on, Claude keeps a sheet named `Claude Log` as the first
+tab of the workbook and adds a row for each exchange, with the date, a summary
+of what the user asked, what Claude did, and the result.
+
+The `Claude Log` sheet is ordinary workbook content. It travels with the file
+when the file is shared, and it stays in the workbook after session logging is
+turned off, until someone deletes it.
 
 ## Sign-in and credentials
 
@@ -259,7 +281,7 @@ review to the paths that carry content off the endpoint.
 | Conversation text, attachments, and the document content Claude is asked to work with | The model endpoint your deployment is configured for. In third-party platform deployments that is your own Vertex AI, Bedrock, Azure, or gateway endpoint |
 | Files that a user attaches, with a Claude account sign-in | Uploaded to Anthropic with the user's Claude sign-in when the user attaches them, before the message is sent. Each file expires 28 days after the add-in uploads it. If Anthropic does not accept an expiry for the user's organization, the add-in uploads the file with no expiry. The add-in does not delete files itself. Earlier versions of the add-in set no expiry on the files they uploaded. The add-in started setting an expiry on September 15, 2026 |
 | Chat history, uploaded skills, and connector registrations | Not synced between devices and not backed up on any server. The add-in still sends their contents to the model endpoint when Claude uses them, as the rows above describe. Every chat request includes the name and description of each skill that is turned on. With a Claude account sign-in, it also includes the name and description of each plugin the user has turned on, with the names of its skills and connectors, and the organization's Claude settings can turn skills off, which stops both. When Claude uses a skill, the add-in also sends the skill's instructions and Markdown files. With a Claude account sign-in, files attached in a chat are also uploaded to Anthropic |
-| Claude for Outlook writing style guide, draft preferences, and scratchpad | Not synced between devices and not backed up on any server. To build the style guide, the add-in sends recent sent mail, with the first recipient's address of each message, to the model endpoint. Learning draft preferences from the user's edits to drafts is off unless Anthropic turns it on. While it is on, the add-in saves the user's edits to drafts on the device, sends them to the model endpoint to build the draft preferences, and adds a summary of the draft preferences to the Instructions field in Settings. Turning it off does not delete edits to drafts or draft preferences already saved on the device, and does not remove a summary already added to the Instructions field. The user can delete that summary in Settings. Every Outlook chat request includes the style guide and the Instructions field, and every message the user sends in Outlook includes the scratchpad |
+| Claude for Outlook writing style guide, draft preferences, and scratchpad | Not synced between devices and not backed up on any server. To build the style guide, the add-in sends recent sent mail, with the first recipient's address of each message, to the model endpoint. Learning draft preferences from the user's edits to drafts is off unless Anthropic turns it on. While it is on, the add-in saves the user's edits to drafts on the device, sends them to the model endpoint to build the draft preferences, and adds a summary of the draft preferences to the Instructions field in Settings. Turning it off does not delete edits to drafts or draft preferences already saved on the device, and does not remove a summary already added to the Instructions field. The user can delete that summary in Settings. Every Outlook chat request includes the style guide and the Instructions field. The add-in puts that summary on one line between two marker lines. While learning draft preferences is off, chat requests leave out a summary that is still in that form. If those lines have been edited, the add-in may not recognize the summary, and then sends it with the rest of the Instructions field. Every message the user sends in Outlook includes the scratchpad |
 | Sign-in credentials | To the services the sign-in is for, with two exceptions described last. A Bedrock sign-in sends the Entra ID token to AWS, which exchanges it for short-lived credentials. A Claude account token also goes to `claude.ai` with feature-flag requests. The exceptions: a credential that you put in the query string of the manifest URL also reaches Anthropic's server at `pivot.claude.ai` each time the add-in loads, and the server's request logs record it. A Vertex AI sign-in also returns Google's one-time authorization code to `pivot.claude.ai` in the query string, where request logs can record it. The code cannot be exchanged for a token without your OAuth client secret, so keep the client secret out of the manifest URL query string too. See [Keep credentials out of the manifest URL query string](https://claude.com/docs/office-agents/third-party-platforms.md#keep-credentials-out-of-the-manifest-url-query-string) |
 | Identifiers on model requests | Each request for a model response carries the name of the add-in, a random identifier for the device, and a session ID. For a chat message, the session ID is the conversation's ID. The add-in also sends helper requests to the same endpoint. In every Office app, they summarize a long conversation, write the status line shown while Claude thinks, and, when memory is on, check an entry before Claude saves it. In Word and PowerPoint, they check how the document or a slide looks after Claude edits it, and in Word they also check Claude's reasoning before it edits legal language. In Outlook, they rewrite a passage the user selects in a draft, and learn the user's writing style from recent sent mail and, while learning draft preferences is on, from the user's edits to drafts. Each helper request carries a session ID made from the kind of helper request, the device identifier, and the date in UTC, so helper requests of one kind from one device on one day share a session ID. With a Claude account sign-in, requests also carry the user's account ID. In third-party platform deployments, requests carry no account ID and no email address. That includes deployments whose settings Anthropic serves, where members sign in with a Claude account. The short test requests that the add-in sends to check which models and features your endpoint supports, such as web search and code execution, carry none of these values |
 | Feature-flag requests | In every deployment, the add-in asks `claude.ai` which features to show. Each request includes the device identifier, the Office app, and, when the user is signed in to Office, the Entra ID tenant ID. With a Claude account sign-in, it also includes the user's email address, account ID, and organization ID. In every deployment, the add-in sends a usage event for each feature variant it showed. With a Claude account sign-in, the add-in also sends each variant it showed directly to Anthropic, with the organization ID |

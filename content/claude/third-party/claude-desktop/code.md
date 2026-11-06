@@ -20,7 +20,7 @@ These keys are passed directly to the Claude Code process as environment variabl
 
 | Claude Desktop on 3P key | Effect in Code sessions |
 | - | - |
-| `inferenceProvider` and all provider credential keys (`inferenceGateway*`, `inferenceAnthropicApiKey`, `inferenceVertex*`, `inferenceBedrock*`, `inferenceFoundry*`, `inferenceCredentialHelper*`) | Selects the inference backend and supplies credentials. Code sessions use the same provider, endpoint, and credentials as Cowork sessions. |
+| `inferenceProvider` and all provider credential keys (`inferenceGateway*`, `inferenceAnthropicApiKey`, `inferenceVertex*`, `inferenceBedrock*`, `inferenceFoundry*`, `inferenceCredentialHelper*`) | Selects the inference backend and supplies credentials. Code sessions use the same provider and endpoint as Cowork sessions, and the same credentials unless [your organization's launcher](#start-code-sessions-through-a-corporate-launcher) starts them. |
 | `inferenceModels` | Populates the model picker. The first entry is the default for new Code sessions. |
 | `autoModeEnabled` | Controls **Auto mode**. When the key isn't set, Code sessions offer **Auto mode** and new sessions start in it unless the user has already chosen another mode or a Claude Code `permissions.defaultMode` applies. Set it to `false` to remove **Auto mode** from Code and Cowork. Set it to `true` to also offer the mode in Cowork, where it appears as **Automatically approve**. In Code sessions, a separately deployed Claude Code [managed-settings file](#interaction-with-claude-code%E2%80%99s-own-managed-settings) that sets `disableAutoMode` to `"disable"` also keeps **Auto mode** hidden, whatever this key is set to. To change what **Auto mode** allows and blocks, see [Tune the Auto mode classifier](#tune-the-auto-mode-classifier). To have the model provider review actions on a gateway deployment, see [Auto mode checks](https://claude.com/docs/third-party/claude-desktop/gateway.md#auto-mode-checks). |
 | `scheduledTasksEnabled` | When `false`, the routines list in Code is hidden and Code sessions start without Claude Code's in-session scheduling tools, so the `/loop` command cannot schedule recurring work. Cowork's scheduled tasks are turned off by the same key. |
@@ -91,6 +91,25 @@ With `"merge"`, two Claude Code policy keys weaken `blockReadsOutsideWorkingDire
 > With the [Claude API](https://claude.com/docs/third-party/claude-desktop/claude-api.md) as the inference provider, Code sessions ask Anthropic for the server-managed settings of [the organization that owns the credential](https://code.claude.com/docs/en/server-managed-settings#platform-availability). This holds for an API key in your configuration, an API key from a credential helper, and **Sign in with Claude Console**. If that organization has server-managed settings, set [`parentSettingsBehavior`](https://code.claude.com/docs/en/managed-settings#let-an-embedding-host-add-policy) to `"merge"` in them to keep Claude Desktop's [policy values](#applied-as-managed-policy). While server-managed settings apply, Claude Code by default [ignores most keys](https://code.claude.com/docs/en/managed-settings#how-claude-code-combines-managed-sources) in a file or OS profile on the device, and a `"merge"` set there has no effect.
 >
 > Without a Claude Code `managed-settings.json` file, OS profile, or server-managed settings, Claude Desktop's policy applies automatically and you don't need to set `parentSettingsBehavior`.
+
+### Start Code sessions through a corporate launcher
+
+If your organization starts Claude Code through a [corporate launcher](https://code.claude.com/docs/en/corporate-launcher), Code sessions in Claude Desktop can go through it too. This takes two settings:
+
+1. In Claude Desktop's configuration, set [`claudeCodeProcessWrapperEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudecodeprocesswrapperenabled) to `true`. Without it, Claude Desktop starts Claude Code directly.
+2. In Claude Code's managed settings, name the launcher with `processWrapper`, or with `CLAUDE_CODE_PROCESS_WRAPPER` in the `env` block. If these are the first Claude Code managed settings on the device or host, also set `parentSettingsBehavior` to `"merge"` in them, or Claude Code ignores the [managed policy](#applied-as-managed-policy) values that Claude Desktop supplies.
+
+Name the launcher where the session runs:
+
+* **On a macOS or Linux device**: in that device's Claude Code managed settings, not in server-managed settings or the user's own settings
+* **On a macOS or Linux host over SSH**, from any device, Windows included: in the host's Claude Code `managed-settings.json` file or `managed-settings.d` folder, not in a configuration profile
+* **On a Windows device itself, in WSL, and on a Windows host over SSH**: sessions start without a launcher
+
+Code sessions still use the provider and endpoint in Claude Desktop's configuration, but Claude Desktop passes no inference credential and no [`inferenceCustomHeaders`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecustomheaders) to Claude Code when the launcher starts it. The launcher must set a credential in Claude Code's environment, such as `ANTHROPIC_AUTH_TOKEN` for a gateway or the variable that your provider's credential uses. With no credential, the session still starts, and each reply fails with a message that Claude Code has no working credentials. Cowork, the connection test, and session titles don't go through the launcher. They use the credential in Claude Desktop's configuration, so a passing connection test doesn't show that the launcher supplies one.
+
+A session doesn't start if Claude Desktop can't use the launcher you named: for example, if the file is missing or isn't executable, or the value doesn't follow Claude Code's [launcher value format](https://code.claude.com/docs/en/corporate-launcher#format-of-the-launcher-value).
+
+To keep users from turning the launcher off, set `claudeCodeProcessWrapperEnabled` in the device's [managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#devices-with-a-managed-profile), which users can't change. The key is an [app-behavior key](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), so add every other app-behavior key you use, such as the update keys, to the same profile. If the profile sets any other kind of key, also [keep the device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
 ## Tune the Auto mode classifier
 
@@ -167,14 +186,14 @@ Code sessions support Claude Code [mods](https://code.claude.com/docs/en/plugins
 In Cowork sessions and Chat conversations, this file also stops mods in plugins from your marketplaces.
 
 * **Keep `parentSettingsBehavior`.** Without it, Claude Code ignores the sandbox and the other [managed policy](#applied-as-managed-policy) values that Claude Desktop supplies, except [in a Code session that gets `code` settings from a Claude apps gateway](#interaction-with-claude-code%E2%80%99s-own-managed-settings). In Cowork sessions, without it, Claude doesn't ask for approval before a tool call that matches an argument-scoped [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy) rule such as `Read(//**/.env)` set to `"ask"`.
-* **Leave out `disableSideloadFlags`**, which a longer sample in the Claude Code docs includes. With it, Code sessions start without the skills and organization plugins that Claude Desktop delivers.
+* **Leave out `disableSideloadFlags`**, which a longer sample in the Claude Code docs includes. With it, Code sessions start without the skills, organization plugins, and uploaded plugins that Claude Desktop delivers.
 * **Optionally, remove the `/plugin-authoring` command**, which has Claude write a mod. Add `"enabledPlugins": { "cc-plugin-plugin-authoring@builtin": false }` to the file.
 
 [Manage mods for your organization](https://code.claude.com/docs/en/plugins/mods/admin) covers the other controls. For sessions on an SSH host, see [Managed configuration on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#managed-configuration-on-the-remote-host).
 
 ## Remote sessions over SSH
 
-A Code session can run its Claude Code engine on a remote host over SSH while the session's interface stays in Claude Desktop on the user's device. In a 3P deployment this is off until you set [`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostallowlist), because the app forwards the session's inference credential to the host. [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md) lists the credential kinds that work on a remote host and which of the keys above apply there.
+A Code session can run its Claude Code engine on a remote host over SSH while the session's interface stays in Claude Desktop on the user's device. In a 3P deployment this is off until you set [`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostallowlist), because the app forwards the session's inference credential to the host. It forwards none where [a launcher on the host](#start-code-sessions-through-a-corporate-launcher) starts Claude Code. [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md) lists the credential kinds that work on a remote host and which of the keys above apply there.
 
 ## Further reading
 
@@ -185,7 +204,5 @@ A Code session can run its Claude Code engine on a remote host over SSH while th
 ## Disabling Code
 
 To turn off Code, set `isClaudeCodeForDesktopEnabled` to `false` in your Claude Desktop on 3P configuration. Users can no longer open Code. Cowork is unaffected, and so is [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md#configuration) if you have enabled it.
-
-With Code off, Claude can't use a remote MCP server that requires OAuth sign-in if a marketplace plugin or a user-added plugin bundles it. With Code on, Claude can use such a server in local Code sessions that load the plugin, once the user has signed in, but still not in Cowork sessions or Chat conversations. To make it available in Cowork sessions and Chat conversations, with Code on or off, add a `managedMcpServers` entry with the same `url`, as described under [Remote MCP servers in plugins](https://claude.com/docs/third-party/claude-desktop/extensions.md#remote-mcp-servers-in-plugins).
 
 If you set `desktopHome` to `off`, keep Code on. For what `desktopHome` does, see [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md).

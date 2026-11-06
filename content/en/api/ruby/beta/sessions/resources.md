@@ -25,7 +25,7 @@ Add Session Resource
 
 - `type: :file`
 
-- `mount_path: optional String`
+- `mount_path: optional String | nil`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -376,7 +376,7 @@ List Session Resources
 
     - `url: String`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
       - `class BetaManagedAgentsBranchCheckout`
 
@@ -432,7 +432,7 @@ List Session Resources
 
       pattern: ^memstore_[a-zA-Z0-9_]+$
 
-    - `access: optional :read_write | :read_only`
+    - `access: optional :read_write | :read_only | nil`
 
       Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -444,17 +444,17 @@ List Session Resources
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional String`
+    - `instructions: optional String | nil`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
       maxLength: 4096
 
-    - `mount_path: optional String`
+    - `mount_path: optional String | nil`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional String`
+    - `name: optional String | nil`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -664,7 +664,7 @@ Get Session Resource
 
     - `url: String`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
       - `class BetaManagedAgentsBranchCheckout`
 
@@ -720,7 +720,7 @@ Get Session Resource
 
       pattern: ^memstore_[a-zA-Z0-9_]+$
 
-    - `access: optional :read_write | :read_only`
+    - `access: optional :read_write | :read_only | nil`
 
       Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -732,17 +732,17 @@ Get Session Resource
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional String`
+    - `instructions: optional String | nil`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
       maxLength: 4096
 
-    - `mount_path: optional String`
+    - `mount_path: optional String | nil`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional String`
+    - `name: optional String | nil`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -948,7 +948,7 @@ Update Session Resource
 
     - `url: String`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
       - `class BetaManagedAgentsBranchCheckout`
 
@@ -1004,7 +1004,7 @@ Update Session Resource
 
       pattern: ^memstore_[a-zA-Z0-9_]+$
 
-    - `access: optional :read_write | :read_only`
+    - `access: optional :read_write | :read_only | nil`
 
       Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1016,17 +1016,17 @@ Update Session Resource
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional String`
+    - `instructions: optional String | nil`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
       maxLength: 4096
 
-    - `mount_path: optional String`
+    - `mount_path: optional String | nil`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional String`
+    - `name: optional String | nil`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1293,7 +1293,7 @@ puts(beta_managed_agents_delete_session_resource)
 
   - `url: String`
 
-  - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+  - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
     - `class BetaManagedAgentsBranchCheckout`
 
@@ -1329,7 +1329,7 @@ puts(beta_managed_agents_delete_session_resource)
 
     pattern: ^memstore_[a-zA-Z0-9_]+$
 
-  - `access: optional :read_write | :read_only`
+  - `access: optional :read_write | :read_only | nil`
 
     Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1341,17 +1341,17 @@ puts(beta_managed_agents_delete_session_resource)
 
     Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-  - `instructions: optional String`
+  - `instructions: optional String | nil`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
     maxLength: 4096
 
-  - `mount_path: optional String`
+  - `mount_path: optional String | nil`
 
     Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-  - `name: optional String`
+  - `name: optional String | nil`
 
     Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1381,7 +1381,7 @@ puts(beta_managed_agents_delete_session_resource)
 
     - `url: String`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
       - `class BetaManagedAgentsBranchCheckout`
 
@@ -1437,7 +1437,7 @@ puts(beta_managed_agents_delete_session_resource)
 
       pattern: ^memstore_[a-zA-Z0-9_]+$
 
-    - `access: optional :read_write | :read_only`
+    - `access: optional :read_write | :read_only | nil`
 
       Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1449,17 +1449,17 @@ puts(beta_managed_agents_delete_session_resource)
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional String`
+    - `instructions: optional String | nil`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
       maxLength: 4096
 
-    - `mount_path: optional String`
+    - `mount_path: optional String | nil`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional String`
+    - `name: optional String | nil`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1491,7 +1491,7 @@ puts(beta_managed_agents_delete_session_resource)
 
     - `url: String`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
       - `class BetaManagedAgentsBranchCheckout`
 
@@ -1547,7 +1547,7 @@ puts(beta_managed_agents_delete_session_resource)
 
       pattern: ^memstore_[a-zA-Z0-9_]+$
 
-    - `access: optional :read_write | :read_only`
+    - `access: optional :read_write | :read_only | nil`
 
       Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1559,17 +1559,17 @@ puts(beta_managed_agents_delete_session_resource)
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional String`
+    - `instructions: optional String | nil`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
       maxLength: 4096
 
-    - `mount_path: optional String`
+    - `mount_path: optional String | nil`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional String`
+    - `name: optional String | nil`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1601,7 +1601,7 @@ puts(beta_managed_agents_delete_session_resource)
 
     - `url: String`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
       - `class BetaManagedAgentsBranchCheckout`
 
@@ -1657,7 +1657,7 @@ puts(beta_managed_agents_delete_session_resource)
 
       pattern: ^memstore_[a-zA-Z0-9_]+$
 
-    - `access: optional :read_write | :read_only`
+    - `access: optional :read_write | :read_only | nil`
 
       Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1669,16 +1669,16 @@ puts(beta_managed_agents_delete_session_resource)
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional String`
+    - `instructions: optional String | nil`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
       maxLength: 4096
 
-    - `mount_path: optional String`
+    - `mount_path: optional String | nil`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional String`
+    - `name: optional String | nil`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.

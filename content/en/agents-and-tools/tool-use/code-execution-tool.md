@@ -868,9 +868,7 @@ When Claude saves files to its output directory during code execution (see [How 
     file_ids = []
     response.content.each do |item|
       if item.type == :bash_code_execution_tool_result
-        # WORKAROUND for anthropic-sdk-ruby union coercion bug (SDK-636): item.content is a
-        # nested content union, so the typed accessors on `item.content` are unreliable.
-        # Read the raw response data through the public `BaseModel#[]` API instead.
+        # Collect the file IDs from the tool result
         content_item = item.content
         if content_item[:type].to_s == "bash_code_execution_result"
           Array(content_item[:content]).each do |output_block|

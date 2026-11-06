@@ -183,13 +183,13 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope | nil`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 

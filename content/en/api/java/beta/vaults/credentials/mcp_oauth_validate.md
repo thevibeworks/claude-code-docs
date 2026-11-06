@@ -179,7 +179,7 @@ Validate an MCP OAuth Credential
 
         Value of the `Content-Type` response header.
 
-      - `long statusCode`
+      - `int statusCode`
 
         HTTP status code.
 
@@ -233,7 +233,7 @@ Validate an MCP OAuth Credential
 
       The probe couldn't tell whether the credential works, for example because of a network error or because a refresh succeeded but the new access token wasn't tested. Validate the credential again to find out.
 
-  - `LocalDateTime validatedAt`
+  - `OffsetDateTime validatedAt`
 
     When the validation probe was performed.
 

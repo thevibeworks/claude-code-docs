@@ -155,7 +155,7 @@ Archive a Credential
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the credential was archived. Null if not archived.
 
@@ -175,7 +175,7 @@ Archive a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `Optional<LocalDateTime> expiresAt`
+      - `Optional<OffsetDateTime> expiresAt`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
@@ -275,7 +275,7 @@ Archive a Credential
 
         Name of the environment variable.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -285,7 +285,7 @@ Archive a Credential
 
     Arbitrary key-value metadata attached to the credential.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 

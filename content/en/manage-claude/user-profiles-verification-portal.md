@@ -141,7 +141,7 @@ Anyone who has the link can use it until it expires, so give it only to the end 
 
 If you’re using Claude Platform on AWS, create the link with `POST /v1/user_profiles/{id}/enrollment_url` instead, and send the `anthropic-beta: user-profiles-2026-08-18` header. That request takes no body, and the response has the same `url` and `expires_at` fields. In the SDK and the CLI, that call is in the beta namespace: `client.beta.user_profiles.create_enrollment_url()` (typescript: `client.beta.userProfiles.createEnrollmentURL()`; csharp: `client.Beta.UserProfiles.CreateEnrollmentUrl()`; go: `client.Beta.UserProfiles.NewEnrollmentURL()`; java: `client.beta().userProfiles().createEnrollmentUrl()`; php: `$client->beta->userProfiles->createEnrollmentURL()`; cli: `ant beta:user-profiles create-enrollment-url`).
 
-`POST /v1/user_profiles/{id}/action_urls` is not available on Microsoft Foundry.
+If your inference runs on a Microsoft Foundry deployment hosted on Anthropic, create the link from the organization on the Claude API that created the profile. `POST /v1/user_profiles/{id}/action_urls` is not available on Microsoft Foundry.
 
 ## What the end customer sees
 

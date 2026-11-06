@@ -34,7 +34,6 @@ The following table shows pricing for all Claude models:
 | Claude Haiku 5.5 (for prompts up to 100,000 tokens)                                                                                                                    | $0.10 / MTok          | $0.125 / MTok   | $0.20 / MTok    | $0.01 / MTok             | $0.50 / MTok           |
 | Claude Haiku 5.5 (for prompts over 100,000 tokens)                                                                                                                     | $0.50 / MTok          | $0.625 / MTok   | $1 / MTok       | $0.05 / MTok             | $2.50 / MTok           |
 | Claude Haiku 4.5                                                                                                                                                       | $1 / MTok             | $1.25 / MTok    | $2 / MTok       | $0.10 / MTok             | $5 / MTok              |
-| Claude Haiku 3.5 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations))            | $0.80 / MTok          | $1 / MTok       | $1.60 / MTok    | $0.08 / MTok             | $4 / MTok              |
 
 *<sup>1 Cache hits and refreshes on Claude Fable 5.1 and Claude Mythos 5.1 are priced at 0.025x the base input price.</sup>*
 
@@ -207,7 +206,6 @@ The Batch API allows asynchronous processing of large volumes of requests with a
 | Claude Haiku 5.5 (for prompts up to 100,000 tokens)                                                                                                                    | $0.05 / MTok | $0.25 / MTok  |
 | Claude Haiku 5.5 (for prompts over 100,000 tokens)                                                                                                                     | $0.25 / MTok | $1.25 / MTok  |
 | Claude Haiku 4.5                                                                                                                                                       | $0.50 / MTok | $2.50 / MTok  |
-| Claude Haiku 3.5 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations))            | $0.40 / MTok | $2 / MTok     |
 
 * **MTok:** Million tokens. $5 / MTok is $5 for every million tokens.
 * **Limited access:** Available only to organizations verified through Anthropic’s verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). To request access, apply to the program that covers your use case.
@@ -256,7 +254,6 @@ When you use `tools`, the API also automatically includes a special system promp
 | Claude Sonnet 4 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | 313 tokens                                | 315 tokens                               |
 | Claude Haiku 5.5                                                                                                                                                       | 286 tokens                                | 406 tokens                               |
 | Claude Haiku 4.5                                                                                                                                                       | 496 tokens                                | 588 tokens                               |
-| Claude Haiku 3.5 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations))            | 264 tokens                                | 355 tokens                               |
 
 * **auto, none:** The count when tool\_choice is auto or none.
 * **any, tool:** The count when tool\_choice is any or tool.
@@ -345,7 +342,7 @@ Web search usage is charged in addition to token usage:
 
 Web search is available on the Claude API for **$10 USD per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations run during a single turn and in subsequent conversation turns.
 
-Each web search counts as one use, regardless of the number of results returned. If an error occurs during web search, the web search will not be billed.
+Each web search counts as one use, regardless of the number of results returned. A web search that fails with an error is not billed.
 
 #### Web fetch tool
 

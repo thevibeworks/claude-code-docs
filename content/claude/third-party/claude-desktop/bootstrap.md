@@ -344,6 +344,7 @@ A small set of keys, labeled **MDM only** in the [configuration reference](https
 * `bootstrapUrl`, `bootstrapOidc`, `bootstrapHeaders`, `bootstrapHeadersHelper`, `bootstrapEnabled`, and `trustBootstrapDelivery`: the trust anchor cannot redirect itself, authenticate itself, or grant trust in itself.
 * `egressProxyUrl` and `egressProxyPacUrl`: the app may need the [network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration) to reach your endpoint in the first place, so these keys are read from device management or the local configuration file only.
 * [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode): the app reads it from the device only.
+* [`disableWslSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disablewslsessions): the app reads it from an MDM profile only.
 
 The app also ignores loopback hosts (`127.0.0.1`, `localhost`, `[::1]`) in any URL-valued key of a response, regardless of scheme.
 
@@ -399,7 +400,7 @@ When you supply `bootstrapOidc`, your configuration server and gateway are indep
 
 booleanDefault: true
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.10628.0
 
@@ -411,7 +412,7 @@ Since 1.10628.0
 
 string
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.10628.0
 
@@ -423,7 +424,7 @@ Since 1.10628.0
 
 object
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.10628.0
 
@@ -481,7 +482,7 @@ Since 1.10628.0
 
 object: name → value
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.32885.1
 
@@ -501,7 +502,7 @@ Since 1.32885.1
 
 string
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.32885.1
 
@@ -519,7 +520,7 @@ Since 1.32885.1
 
 booleanDefault: false
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.26832.0
 

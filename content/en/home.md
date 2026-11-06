@@ -422,11 +422,11 @@ with Claude"
         Interactive courses to master Claude.
       </Card>
 
-      <Card icon="book" title="Cookbook" href="https://platform.claude.com/cookbook">
+      <Card icon="book" title="Claude Cookbook" href="https://platform.claude.com/cookbook">
         Code samples and patterns.
       </Card>
 
-      <Card icon="play" title="Quickstarts" href="https://github.com/anthropics/anthropic-quickstarts">
+      <Card icon="play" title="Quickstarts" href="https://github.com/anthropics/claude-quickstarts">
         Deployable starter apps.
       </Card>
 

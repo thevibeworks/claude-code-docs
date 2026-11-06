@@ -164,7 +164,7 @@ Create Skill Version
     Unique identifier for this Skill Version. The id addresses the version in
     paths and pins it in references.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     ISO 8601 timestamp of when the skill was created.
 
@@ -393,7 +393,7 @@ List Skill Versions
     Unique identifier for this Skill Version. The id addresses the version in
     paths and pins it in references.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     ISO 8601 timestamp of when the skill was created.
 
@@ -785,7 +785,7 @@ Get Skill Version
     Unique identifier for this Skill Version. The id addresses the version in
     paths and pins it in references.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     ISO 8601 timestamp of when the skill was created.
 
@@ -1073,7 +1073,7 @@ public final class Main {
     Unique identifier for this Skill Version. The id addresses the version in
     paths and pins it in references.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     ISO 8601 timestamp of when the skill was created.
 

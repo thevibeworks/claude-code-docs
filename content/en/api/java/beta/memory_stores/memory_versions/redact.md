@@ -161,7 +161,7 @@ Redact a Memory Version
 
     Unique identifier for this version (a `memver_...` value).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this version was written, in RFC 3339 format.
 
@@ -201,7 +201,7 @@ Redact a Memory Version
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `Optional<Long> contentSizeBytes`
+  - `Optional<Integer> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -267,7 +267,7 @@ Redact a Memory Version
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `Optional<LocalDateTime> redactedAt`
+  - `Optional<OffsetDateTime> redactedAt`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 

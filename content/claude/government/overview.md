@@ -125,7 +125,7 @@ Users reach your deployment in one of two ways, both of which are configured by 
 * **Single sign-on.** The user enters their agency email address and is redirected to your identity provider (for example, Microsoft Entra, Okta, or ADFS). When they return authenticated, Claude for Government evaluates your tenant's routing rules to decide which organization they belong in.
 * **Directory provisioning.** If your identity provider supports SCIM, which is a standard way for directory systems to keep accounts in sync with other applications, you can connect it so that your directory pushes users and group memberships to Claude for Government automatically. Routing rules then place each provisioned user in an organization based on their group membership.
 
-Routing rules are the only way in. A new person who does not match any rule cannot sign in until a rule is added that covers them. Routing rules are also re-evaluated each time an existing member signs in, so a rule change can move someone to a different organization the next time they sign in.
+A new person who does not match any rule cannot sign in until a rule is added that covers them. Routing rules are also re-evaluated each time an existing member signs in, so a rule change can move someone to a different organization the next time they sign in.
 
 ## Where to go next
 

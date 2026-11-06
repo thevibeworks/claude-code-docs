@@ -363,10 +363,17 @@ proposes slots that respect working hours and existing holds. The invite
 is drafted into Outlook's native appointment form with attendees, subject,
 and agenda for you to review and send.
 
+To make a meeting repeat, open it for editing as the organizer and ask
+Claude. This works on a new invite, a saved meeting, or a whole series.
+Claude lists the pattern, dates, time, and time zone it will set and waits
+for you to allow the change. Nothing is saved or sent until you click Save
+or Send in Outlook. All-day events are not supported.
+
 Prompts to try:
 
 * "Find 30 minutes with Dana and the Fernwood team next week"
 * "Block Thursday afternoon for deep work"
+* "Make this weekly through the end of June"
 
 ## Prep for meetings
 
@@ -394,8 +401,10 @@ For setup instructions, see
 
 When you sign in with a Claude account, you can choose between Claude
 Opus 4.7, Opus 4.6, and Sonnet 4.6. When you connect through a
-third-party platform such as Vertex AI, Azure AI Foundry, or an LLM
-gateway, Opus 4.7 is the only officially supported model.
+third-party platform such as Amazon Bedrock, Vertex AI, Azure AI Foundry,
+or an LLM gateway, Claude for Outlook supports Claude Opus 4.7 and later
+and Claude Sonnet 5 and later. Earlier model generations are not available
+in Outlook on those platforms.
 
 ## How Claude accesses your mailbox
 

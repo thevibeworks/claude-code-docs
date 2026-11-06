@@ -157,7 +157,7 @@ Fetches a tunnel certificate by ID.
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
@@ -169,7 +169,7 @@ Fetches a tunnel certificate by ID.
 
     format: date-time
 
-  - `expires_at: Time`
+  - `expires_at: Time | nil`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 

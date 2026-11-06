@@ -215,7 +215,7 @@ Retrieve a Memory
 
     format: date-time
 
-  - `content: optional String`
+  - `content: optional String | nil`
 
     The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
 

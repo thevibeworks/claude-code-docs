@@ -153,13 +153,13 @@ Fetches a tunnel by ID.
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string indicating when the tunnel was created.
 

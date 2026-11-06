@@ -61,11 +61,11 @@ Update Session
 
             Must be "bash".
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -97,11 +97,11 @@ Update Session
 
             Must be "edit".
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -127,11 +127,11 @@ Update Session
 
             Must be "read".
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -157,11 +157,11 @@ Update Session
 
             Must be "write".
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -187,11 +187,11 @@ Update Session
 
             Must be "glob".
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -217,11 +217,11 @@ Update Session
 
             Must be "grep".
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -255,17 +255,17 @@ Update Session
 
             Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
             format: int32
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -281,11 +281,11 @@ Update Session
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
+          - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
             Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-            - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+            - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -353,11 +353,11 @@ Update Session
 
                       minLength: 1, maxLength: 128
 
-            - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+            - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-            - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+            - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -395,11 +395,11 @@ Update Session
 
             Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-          - `enabled: optional bool`
+          - `enabled: optional bool | nil`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -415,7 +415,7 @@ Update Session
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -423,39 +423,39 @@ Update Session
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
               minLength: 1, maxLength: 255
 
-      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams | nil`
 
         Default configuration applied to all tools in this set.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -493,11 +493,11 @@ Update Session
 
           minLength: 1, maxLength: 128
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled. Overrides the `default_config` setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -513,15 +513,15 @@ Update Session
 
             The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
         Default configuration for all tools from this server.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether tools are enabled by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Default permission policy for tools from this server.
 
@@ -555,9 +555,9 @@ Update Session
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -565,7 +565,7 @@ Update Session
 
         minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-- `budget: optional BetaManagedAgentsBudgetLimit`
+- `budget: optional BetaManagedAgentsBudgetLimit | nil`
 
   Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
 
@@ -585,11 +585,11 @@ Update Session
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
 
-- `title: optional String`
+- `title: optional String | nil`
 
   Human-readable session title.
 
@@ -739,7 +739,7 @@ Update Session
 
     - `id: String`
 
-    - `description: String`
+    - `description: String | nil`
 
     - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -895,7 +895,7 @@ Update Session
 
         - `:fast`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagent`
+    - `multiagent: BetaManagedAgentsSessionMultiagent | nil`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -917,7 +917,7 @@ Update Session
 
             - `id: String`
 
-            - `description: String`
+            - `description: String | nil`
 
             - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -959,7 +959,7 @@ Update Session
 
                 - `version: String`
 
-            - `system_: String`
+            - `system_: String | nil`
 
             - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1157,11 +1157,11 @@ Update Session
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                    - `url_sources: BetaManagedAgentsWebFetchURLSources`
+                    - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                       Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                         Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -1217,11 +1217,11 @@ Update Session
 
                               minLength: 1, maxLength: 128
 
-                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                         Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                         Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -1237,7 +1237,7 @@ Update Session
 
                     - `blocked_domains: optional Array[String]`
 
-                    - `max_content_tokens: optional Integer`
+                    - `max_content_tokens: optional Integer | nil`
 
                       format: int32
 
@@ -1271,7 +1271,7 @@ Update Session
 
                     - `blocked_domains: optional Array[String]`
 
-                    - `user_location: optional BetaManagedAgentsUserLocation`
+                    - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                       Approximate user location for search result localization.
 
@@ -1279,25 +1279,25 @@ Update Session
 
                         Location precision. Only "approximate" is supported.
 
-                      - `city: optional String`
+                      - `city: optional String | nil`
 
                         City name.
 
                         minLength: 1, maxLength: 255
 
-                      - `country: optional String`
+                      - `country: optional String | nil`
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
                         pattern: ^[A-Z]{2}$
 
-                      - `region: optional String`
+                      - `region: optional String | nil`
 
                         Region or state name.
 
                         minLength: 1, maxLength: 255
 
-                      - `timezone: optional String`
+                      - `timezone: optional String | nil`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -1389,9 +1389,9 @@ Update Session
 
                   - `type: :object`
 
-                  - `properties: optional Hash[Symbol, untyped]`
+                  - `properties: optional Hash[Symbol, untyped] | nil`
 
-                  - `required: optional Array[String]`
+                  - `required: optional Array[String] | nil`
 
                 - `name: String`
 
@@ -1469,7 +1469,7 @@ Update Session
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -1485,7 +1485,7 @@ Update Session
 
               - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1521,7 +1521,7 @@ Update Session
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -1537,7 +1537,7 @@ Update Session
 
               - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1563,7 +1563,7 @@ Update Session
 
         A resolved user-created custom skill.
 
-    - `system_: String`
+    - `system_: String | nil`
 
     - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1579,13 +1579,13 @@ Update Session
 
       format: int32
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the session was archived. Null if not archived.
 
     format: date-time
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit | nil`
 
     The session's enforced spend ceiling, or null when no budget is set.
 
@@ -1621,7 +1621,7 @@ Update Session
 
     - `type: :outcome_evaluation`
 
-    - `completed_at: Time`
+    - `completed_at: Time | nil`
 
       When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
@@ -1631,7 +1631,7 @@ Update Session
 
       What the agent should produce.
 
-    - `explanation: String`
+    - `explanation: String | nil`
 
       Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
@@ -1673,7 +1673,7 @@ Update Session
 
       - `url: String`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
         - `class BetaManagedAgentsBranchCheckout`
 
@@ -1729,7 +1729,7 @@ Update Session
 
         pattern: ^memstore_[a-zA-Z0-9_]+$
 
-      - `access: optional :read_write | :read_only`
+      - `access: optional :read_write | :read_only | nil`
 
         Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1741,17 +1741,17 @@ Update Session
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional String`
+      - `instructions: optional String | nil`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
         maxLength: 4096
 
-      - `mount_path: optional String`
+      - `mount_path: optional String | nil`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional String`
+      - `name: optional String | nil`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1789,7 +1789,7 @@ Update Session
 
       Session has ended, either due to an error or completion.
 
-  - `title: String`
+  - `title: String | nil`
 
   - `updated_at: Time`
 
@@ -1835,7 +1835,7 @@ Update Session
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
@@ -1845,7 +1845,7 @@ Update Session
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
@@ -1865,7 +1865,7 @@ Update Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional String`
+  - `deployment_id: optional String | nil`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 

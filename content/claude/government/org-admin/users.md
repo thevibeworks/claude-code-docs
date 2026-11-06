@@ -45,11 +45,11 @@ A **role** controls what a person can do in the admin portal. It has no effect o
 
 * A **User** can use the Claude products but has no admin access.
 * An **Owner** can access this organization admin portal and perform every action described in this guide except for granting or removing the Primary Owner role.
-* A **Primary Owner** has the same access as an Owner and is additionally protected so that an organization can never be left without one. Only a Primary Owner can promote another user to Primary Owner or demote an existing one.
+* A **Primary Owner** has the same access as an Owner and is additionally protected so that an organization can never be left without one. A Primary Owner can also promote another user to Primary Owner or demote an existing one.
 
 An organization must always have at least one active Primary Owner and may have up to three. Keep at least two so that when one leaves your agency or loses account access, a remaining Primary Owner can promote a replacement and demote the person who left.
 
-If your organization no longer has a Primary Owner who can sign in, contact Anthropic to have a new one appointed. A tenant administrator cannot grant the role for you, because opening your organization from the tenant portal gives them Owner access only. Until the new Primary Owner is in place, your Owners and tenant administrators can keep managing users, seats, and settings.
+If your organization no longer has a Primary Owner who can sign in, ask a tenant administrator to promote a replacement, unless your organization manages its own [billing account](https://claude.com/docs/government/org-admin/billing.md). If it does, contact Anthropic instead to have a new Primary Owner appointed. Until then, your Owners and tenant administrators can keep managing users and settings.
 
 ## Changing a user's role
 
@@ -58,14 +58,14 @@ Use the **Role** dropdown on a user's row to move them between User, Owner, and 
 The following safeguards apply and the dropdown will refuse the change if any of them would be violated.
 
 * You cannot change your own role. To be promoted or demoted, ask another Owner or Primary Owner to make the change for you.
-* Only a Primary Owner can grant or remove the Primary Owner role. An Owner can freely move people between User and Owner, but any change that crosses into or out of Primary Owner must be made by a Primary Owner.
+* An Owner can freely move people between User and Owner, but can't grant or remove the Primary Owner role. A Primary Owner can grant or remove it. A tenant administrator can too, unless your organization manages its own billing account.
 * You cannot demote the organization's only active Primary Owner. Promote a second person to Primary Owner first, then demote the original.
 * You cannot promote a deactivated user to Primary Owner. Reactivate them first.
 * You cannot add a fourth Primary Owner. Demote one of the existing Primary Owners first if you need to make room.
 
 > [!WARNING]
 >
-> If your organization uses directory provisioning with a group-to-role mapping, be aware that the next sync will re-apply the mapped role and may overwrite a manual change you make here. To make a permanent role change for a provisioned user, update their group membership in your identity provider instead.
+> If your organization uses directory provisioning with a group-to-role mapping, be aware that the next sync can re-apply the mapped role and may overwrite a manual change you make here. To make a permanent role change for a provisioned user, update their group membership in your identity provider instead.
 
 ## Assigning a seat tier
 
@@ -77,7 +77,7 @@ Changing a user's tier takes effect on their very next request. If you move some
 
 > [!WARNING]
 >
-> If your organization uses directory provisioning with a group-to-tier mapping, the next sync will re-apply the mapped tier. For provisioned users, adjust their directory group membership rather than changing the tier here.
+> If your organization uses directory provisioning with a group-to-tier mapping, the next sync can re-apply the mapped tier. For provisioned users, adjust their directory group membership rather than changing the tier here.
 
 ## Resetting a user's limits
 
@@ -91,7 +91,7 @@ If a user on a self-managed tier has hit a limit and you want them to continue w
 
 ## Deactivated users
 
-Accounts are deactivated through your directory's SCIM provisioning rather than from this page. A deactivated user cannot sign in and does not occupy a seat. Deactivating a user releases their seat immediately, and reactivating them later will attempt to place them back on a seat using the same automatic assignment logic described on the [Seats](https://claude.com/docs/government/org-admin/seats.md) page.
+Accounts are deactivated through your directory's SCIM provisioning rather than from this page. A deactivated user cannot sign in and does not occupy a seat. Deactivating a user releases their [seat](https://claude.com/docs/government/org-admin/seats.md). Reactivating them brings the account back if a seat is free for them, as described under [What your directory controls](https://claude.com/docs/government/org-admin/provisioning.md#what-your-directory-controls).
 
 Deactivated users keep their role, but a deactivated Primary Owner does not count toward the "at least one" rule or the limit of three. You must always have at least one *active* Primary Owner.
 

@@ -217,6 +217,8 @@ When the configured credential is a refused kind, the session fails at session s
 
 When the remote engine's credential expires during a turn, Claude Desktop obtains a new one on the device, by re-running a [credential helper](https://claude.com/docs/third-party/claude-desktop/credential-helper.md) or using a sign-in's refresh token, and sends it over the SSH connection. When the user signs out of the inference provider in the app, Claude Desktop ends the remote engine.
 
+Where the host's [launcher](https://claude.com/docs/third-party/claude-desktop/code.md#start-code-sessions-through-a-corporate-launcher) starts Claude Code, Claude Desktop passes no inference credential and refuses no credential kind. Claude Code uses the credential that the launcher or the SSH account's own environment sets, or, on Google Cloud's Agent Platform, the account's application default credentials.
+
 The host needs its own network route to the inference endpoint and must trust the endpoint's certificate. Claude Desktop passes the endpoint address to the remote engine but not the device's proxy settings, CA certificates, or the user's shell variables such as `AWS_*` or `GOOGLE_*`. A gateway at `localhost` on the device is refused for remote sessions, because the host cannot reach it.
 
 ## Managed configuration on the remote host

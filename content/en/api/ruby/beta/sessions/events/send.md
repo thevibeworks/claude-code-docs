@@ -161,11 +161,11 @@ Send Events
 
               minLength: 1
 
-        - `context: optional String`
+        - `context: optional String | nil`
 
           Additional context about the document for the model.
 
-        - `title: optional String`
+        - `title: optional String | nil`
 
           The title of the document.
 
@@ -181,7 +181,7 @@ Send Events
 
     - `type: :"user.interrupt"`
 
-    - `session_thread_id: optional String`
+    - `session_thread_id: optional String | nil`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -205,7 +205,7 @@ Send Events
 
       minLength: 1, maxLength: 128
 
-    - `deny_message: optional String`
+    - `deny_message: optional String | nil`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
@@ -277,7 +277,7 @@ Send Events
 
           minLength: 1
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -317,7 +317,7 @@ Send Events
 
           maxLength: 262144
 
-    - `max_iterations: optional Integer`
+    - `max_iterations: optional Integer | nil`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -355,7 +355,7 @@ Send Events
 
         A block containing a web search result.
 
-    - `is_error: optional bool`
+    - `is_error: optional bool | nil`
 
       Whether the tool execution resulted in an error.
 
@@ -655,11 +655,11 @@ Send Events
 
                 minLength: 1
 
-          - `context: optional String`
+          - `context: optional String | nil`
 
             Additional context about the document for the model.
 
-          - `title: optional String`
+          - `title: optional String | nil`
 
             The title of the document.
 
@@ -669,7 +669,7 @@ Send Events
 
           - `type: :redacted`
 
-      - `processed_at: optional Time`
+      - `processed_at: optional Time | nil`
 
         Timestamp when the agent finished processing this message.
 
@@ -685,13 +685,13 @@ Send Events
 
         Unique identifier for this event.
 
-      - `processed_at: optional Time`
+      - `processed_at: optional Time | nil`
 
         Timestamp when the interrupt was processed.
 
         format: date-time
 
-      - `session_thread_id: optional String`
+      - `session_thread_id: optional String | nil`
 
         If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -717,19 +717,19 @@ Send Events
 
         The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=ruby#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `deny_message: optional String`
+      - `deny_message: optional String | nil`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
         maxLength: 10000
 
-      - `processed_at: optional Time`
+      - `processed_at: optional Time | nil`
 
         Timestamp when the confirmation was processed.
 
         format: date-time
 
-      - `session_thread_id: optional String`
+      - `session_thread_id: optional String | nil`
 
         Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
@@ -801,17 +801,17 @@ Send Events
 
             minLength: 1
 
-      - `is_error: optional bool`
+      - `is_error: optional bool | nil`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: optional Time`
+      - `processed_at: optional Time | nil`
 
         Timestamp when this result was processed.
 
         format: date-time
 
-      - `session_thread_id: optional String`
+      - `session_thread_id: optional String | nil`
 
         Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -829,7 +829,7 @@ Send Events
 
         What the agent should produce. Copied from the input event.
 
-      - `max_iterations: Integer`
+      - `max_iterations: Integer | nil`
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -903,17 +903,17 @@ Send Events
 
           A block containing a web search result.
 
-      - `is_error: optional bool`
+      - `is_error: optional bool | nil`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: optional Time`
+      - `processed_at: optional Time | nil`
 
         Timestamp when this result was processed.
 
         format: date-time
 
-      - `session_thread_id: optional String`
+      - `session_thread_id: optional String | nil`
 
         Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
@@ -939,7 +939,7 @@ Send Events
 
           minLength: 1
 
-      - `processed_at: optional Time`
+      - `processed_at: optional Time | nil`
 
         Timestamp when this system message was processed.
 

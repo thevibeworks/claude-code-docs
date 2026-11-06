@@ -151,13 +151,13 @@ Archive a Vault
 
     The unique ID of the vault (`vlt_...`).
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the vault was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -171,7 +171,7 @@ Archive a Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 

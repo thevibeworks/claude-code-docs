@@ -41,7 +41,7 @@ Create a Credential
 
       minLength: 1, maxLength: 2047
 
-    - `expires_at: optional Time`
+    - `expires_at: optional Time | nil`
 
       When `access_token` expires, in RFC 3339.
 
@@ -49,7 +49,7 @@ Create a Credential
 
       format: date-time
 
-    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams`
+    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams | nil`
 
       Refresh token configuration, if the credential supports token refresh.
 
@@ -103,13 +103,13 @@ Create a Credential
 
             minLength: 1, maxLength: 512
 
-      - `resource: optional String`
+      - `resource: optional String | nil`
 
         OAuth resource indicator.
 
         minLength: 1, maxLength: 2047
 
-      - `scope: optional String`
+      - `scope: optional String | nil`
 
         OAuth scope for the refresh request.
 
@@ -185,7 +185,7 @@ Create a Credential
 
         Substitute when the placeholder appears in a request header value.
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Human-readable name for the credential. Up to 255 characters.
 
@@ -329,7 +329,7 @@ Create a Credential
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -349,13 +349,13 @@ Create a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -387,11 +387,11 @@ Create a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -469,7 +469,7 @@ Create a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 
@@ -675,7 +675,7 @@ List Credentials
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -695,13 +695,13 @@ List Credentials
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -733,11 +733,11 @@ List Credentials
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -815,7 +815,7 @@ List Credentials
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 
@@ -1009,7 +1009,7 @@ Retrieve a Credential
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -1029,13 +1029,13 @@ Retrieve a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -1067,11 +1067,11 @@ Retrieve a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -1149,7 +1149,7 @@ Retrieve a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 
@@ -1217,13 +1217,13 @@ Update a Credential
 
     - `type: :mcp_oauth`
 
-    - `access_token: optional String`
+    - `access_token: optional String | nil`
 
       The new OAuth access token to replace the stored one.
 
       minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
-    - `expires_at: optional Time`
+    - `expires_at: optional Time | nil`
 
       When the credential's access token expires, in RFC 3339. Leave it out to keep the stored expiry.
 
@@ -1233,17 +1233,17 @@ Update a Credential
 
       format: date-time
 
-    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams`
+    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams | nil`
 
       Updated refresh token configuration.
 
-      - `refresh_token: optional String`
+      - `refresh_token: optional String | nil`
 
         The new OAuth refresh token to replace the stored one.
 
         minLength: 1, maxLength: 8192
 
-      - `scope: optional String`
+      - `scope: optional String | nil`
 
         The new OAuth scope for refresh requests. Send an empty string to clear the stored scope.
 
@@ -1257,7 +1257,7 @@ Update a Credential
 
           - `type: :client_secret_basic`
 
-          - `client_secret: optional String`
+          - `client_secret: optional String | nil`
 
             A new OAuth client secret to replace the stored one.
 
@@ -1271,7 +1271,7 @@ Update a Credential
 
           - `type: :client_secret_post`
 
-          - `client_secret: optional String`
+          - `client_secret: optional String | nil`
 
             A new OAuth client secret to replace the stored one.
 
@@ -1285,7 +1285,7 @@ Update a Credential
 
     - `type: :static_bearer`
 
-    - `token: optional String`
+    - `token: optional String | nil`
 
       The new static bearer token to replace the stored one.
 
@@ -1309,7 +1309,7 @@ Update a Credential
 
         Substitute when the placeholder appears in a request header value.
 
-    - `networking: optional BetaManagedAgentsCredentialNetworkingParams`
+    - `networking: optional BetaManagedAgentsCredentialNetworkingParams | nil`
 
       The new networking scope, which replaces the stored one as a whole.
 
@@ -1331,19 +1331,19 @@ Update a Credential
 
           Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
 
-    - `secret_value: optional String`
+    - `secret_value: optional String | nil`
 
       The new secret value to replace the stored one.
 
       minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Updated human-readable name for the credential. 1-255 characters.
 
   minLength: 1, maxLength: 255
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -1481,7 +1481,7 @@ Update a Credential
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -1501,13 +1501,13 @@ Update a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -1539,11 +1539,11 @@ Update a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -1621,7 +1621,7 @@ Update a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 
@@ -1989,7 +1989,7 @@ Archive a Credential
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -2009,13 +2009,13 @@ Archive a Credential
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -2047,11 +2047,11 @@ Archive a Credential
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -2129,7 +2129,7 @@ Archive a Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 
@@ -2325,11 +2325,11 @@ Validate an MCP OAuth Credential
 
     Whether the credential has a refresh token configured.
 
-  - `mcp_probe: BetaManagedAgentsMCPProbe`
+  - `mcp_probe: BetaManagedAgentsMCPProbe | nil`
 
     Details of the MCP probe step that failed, or `null` if the probe succeeded or there was no access token to test.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
       The HTTP error response from the MCP server, or `null` if the MCP server didn't return one for the failing step, for example after a timeout or a DNS or TLS failure.
 
@@ -2355,11 +2355,11 @@ Validate an MCP OAuth Credential
 
       The MCP method that failed (for example `initialize` or `tools/list`).
 
-  - `refresh: BetaManagedAgentsRefreshObject`
+  - `refresh: BetaManagedAgentsRefreshObject | nil`
 
     Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
       The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 
@@ -2469,7 +2469,7 @@ puts(beta_managed_agents_credential_validation)
 
     The unique ID of the credential (`vcrd_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the credential was archived. Null if not archived.
 
@@ -2489,13 +2489,13 @@ puts(beta_managed_agents_credential_validation)
 
         URL of the MCP server this credential authenticates against.
 
-      - `expires_at: optional Time`
+      - `expires_at: optional Time | nil`
 
         When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
         Refresh token configuration, if the credential supports token refresh.
 
@@ -2527,11 +2527,11 @@ puts(beta_managed_agents_credential_validation)
 
             - `type: :client_secret_post`
 
-        - `resource: optional String`
+        - `resource: optional String | nil`
 
           OAuth resource indicator.
 
-        - `scope: optional String`
+        - `scope: optional String | nil`
 
           OAuth scope for the refresh request.
 
@@ -2609,7 +2609,7 @@ puts(beta_managed_agents_credential_validation)
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional String`
+  - `display_name: optional String | nil`
 
     Human-readable name for the credential.
 
@@ -2651,11 +2651,11 @@ puts(beta_managed_agents_credential_validation)
 
     Whether the credential has a refresh token configured.
 
-  - `mcp_probe: BetaManagedAgentsMCPProbe`
+  - `mcp_probe: BetaManagedAgentsMCPProbe | nil`
 
     Details of the MCP probe step that failed, or `null` if the probe succeeded or there was no access token to test.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
       The HTTP error response from the MCP server, or `null` if the MCP server didn't return one for the failing step, for example after a timeout or a DNS or TLS failure.
 
@@ -2681,11 +2681,11 @@ puts(beta_managed_agents_credential_validation)
 
       The MCP method that failed (for example `initialize` or `tools/list`).
 
-  - `refresh: BetaManagedAgentsRefreshObject`
+  - `refresh: BetaManagedAgentsRefreshObject | nil`
 
     Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
       The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 
@@ -2885,7 +2885,7 @@ puts(beta_managed_agents_credential_validation)
 
       Substitute when the placeholder appears in a request header value.
 
-  - `networking: optional BetaManagedAgentsCredentialNetworkingParams`
+  - `networking: optional BetaManagedAgentsCredentialNetworkingParams | nil`
 
     The new networking scope, which replaces the stored one as a whole.
 
@@ -2907,7 +2907,7 @@ puts(beta_managed_agents_credential_validation)
 
         Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
 
-  - `secret_value: optional String`
+  - `secret_value: optional String | nil`
 
     The new secret value to replace the stored one.
 
@@ -2999,13 +2999,13 @@ puts(beta_managed_agents_credential_validation)
 
     URL of the MCP server this credential authenticates against.
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
     format: date-time
 
-  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse | nil`
 
     Refresh token configuration, if the credential supports token refresh.
 
@@ -3037,11 +3037,11 @@ puts(beta_managed_agents_credential_validation)
 
         - `type: :client_secret_post`
 
-    - `resource: optional String`
+    - `resource: optional String | nil`
 
       OAuth resource indicator.
 
-    - `scope: optional String`
+    - `scope: optional String | nil`
 
       OAuth scope for the refresh request.
 
@@ -3065,7 +3065,7 @@ puts(beta_managed_agents_credential_validation)
 
     minLength: 1, maxLength: 2047
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     When `access_token` expires, in RFC 3339.
 
@@ -3073,7 +3073,7 @@ puts(beta_managed_agents_credential_validation)
 
     format: date-time
 
-  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams`
+  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams | nil`
 
     Refresh token configuration, if the credential supports token refresh.
 
@@ -3127,13 +3127,13 @@ puts(beta_managed_agents_credential_validation)
 
           minLength: 1, maxLength: 512
 
-    - `resource: optional String`
+    - `resource: optional String | nil`
 
       OAuth resource indicator.
 
       minLength: 1, maxLength: 2047
 
-    - `scope: optional String`
+    - `scope: optional String | nil`
 
       OAuth scope for the refresh request.
 
@@ -3195,13 +3195,13 @@ puts(beta_managed_agents_credential_validation)
 
         minLength: 1, maxLength: 512
 
-  - `resource: optional String`
+  - `resource: optional String | nil`
 
     OAuth resource indicator.
 
     minLength: 1, maxLength: 2047
 
-  - `scope: optional String`
+  - `scope: optional String | nil`
 
     OAuth scope for the refresh request.
 
@@ -3241,11 +3241,11 @@ puts(beta_managed_agents_credential_validation)
 
       - `type: :client_secret_post`
 
-  - `resource: optional String`
+  - `resource: optional String | nil`
 
     OAuth resource indicator.
 
-  - `scope: optional String`
+  - `scope: optional String | nil`
 
     OAuth scope for the refresh request.
 
@@ -3255,13 +3255,13 @@ puts(beta_managed_agents_credential_validation)
 
   Parameters for updating OAuth refresh token configuration.
 
-  - `refresh_token: optional String`
+  - `refresh_token: optional String | nil`
 
     The new OAuth refresh token to replace the stored one.
 
     minLength: 1, maxLength: 8192
 
-  - `scope: optional String`
+  - `scope: optional String | nil`
 
     The new OAuth scope for refresh requests. Send an empty string to clear the stored scope.
 
@@ -3275,7 +3275,7 @@ puts(beta_managed_agents_credential_validation)
 
       - `type: :client_secret_basic`
 
-      - `client_secret: optional String`
+      - `client_secret: optional String | nil`
 
         A new OAuth client secret to replace the stored one.
 
@@ -3289,7 +3289,7 @@ puts(beta_managed_agents_credential_validation)
 
       - `type: :client_secret_post`
 
-      - `client_secret: optional String`
+      - `client_secret: optional String | nil`
 
         A new OAuth client secret to replace the stored one.
 
@@ -3305,13 +3305,13 @@ puts(beta_managed_agents_credential_validation)
 
   - `type: :mcp_oauth`
 
-  - `access_token: optional String`
+  - `access_token: optional String | nil`
 
     The new OAuth access token to replace the stored one.
 
     minLength: 1, maxLength: 8192, pattern: ^[^\x00-\x1f\x7f]*$
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     When the credential's access token expires, in RFC 3339. Leave it out to keep the stored expiry.
 
@@ -3321,17 +3321,17 @@ puts(beta_managed_agents_credential_validation)
 
     format: date-time
 
-  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams`
+  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams | nil`
 
     Updated refresh token configuration.
 
-    - `refresh_token: optional String`
+    - `refresh_token: optional String | nil`
 
       The new OAuth refresh token to replace the stored one.
 
       minLength: 1, maxLength: 8192
 
-    - `scope: optional String`
+    - `scope: optional String | nil`
 
       The new OAuth scope for refresh requests. Send an empty string to clear the stored scope.
 
@@ -3345,7 +3345,7 @@ puts(beta_managed_agents_credential_validation)
 
         - `type: :client_secret_basic`
 
-        - `client_secret: optional String`
+        - `client_secret: optional String | nil`
 
           A new OAuth client secret to replace the stored one.
 
@@ -3359,7 +3359,7 @@ puts(beta_managed_agents_credential_validation)
 
         - `type: :client_secret_post`
 
-        - `client_secret: optional String`
+        - `client_secret: optional String | nil`
 
           A new OAuth client secret to replace the stored one.
 
@@ -3373,7 +3373,7 @@ puts(beta_managed_agents_credential_validation)
 
   The failing step of an MCP validation probe.
 
-  - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+  - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
     The HTTP error response from the MCP server, or `null` if the MCP server didn't return one for the failing step, for example after a timeout or a DNS or TLS failure.
 
@@ -3429,7 +3429,7 @@ puts(beta_managed_agents_credential_validation)
 
   Outcome of a refresh-token exchange attempted during credential validation.
 
-  - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+  - `http_response: BetaManagedAgentsRefreshHTTPResponse | nil`
 
     The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 
@@ -3511,7 +3511,7 @@ puts(beta_managed_agents_credential_validation)
 
   - `type: :static_bearer`
 
-  - `token: optional String`
+  - `token: optional String | nil`
 
     The new static bearer token to replace the stored one.
 
@@ -3547,7 +3547,7 @@ puts(beta_managed_agents_credential_validation)
 
   - `type: :client_secret_basic`
 
-  - `client_secret: optional String`
+  - `client_secret: optional String | nil`
 
     A new OAuth client secret to replace the stored one.
 
@@ -3601,7 +3601,7 @@ puts(beta_managed_agents_credential_validation)
 
   - `type: :client_secret_post`
 
-  - `client_secret: optional String`
+  - `client_secret: optional String | nil`
 
     A new OAuth client secret to replace the stored one.
 
