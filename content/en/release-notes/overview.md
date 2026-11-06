@@ -644,9 +644,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 ### August 5, 2025
 
-* We’ve launched [Claude Opus 4.1](https://www.anthropic.com/news/claude-opus-4-1), an incremental update to Claude Opus 4 with enhanced capabilities and performance improvements.<sup>\*</sup> Learn more in [Models overview](https://platform.claude.com/docs/en/models/overview).
-
-*<sup>\*Opus 4.1 does not allow both `temperature` and `top_p` parameters to be specified. Use only one.</sup>*
+* We’ve launched [Claude Opus 4.1](https://www.anthropic.com/news/claude-opus-4-1), an incremental update to Claude Opus 4 with enhanced capabilities and performance improvements. Opus 4.1 does not allow both `temperature` and `top_p` parameters to be specified. Use only one. Learn more in [Models overview](https://platform.claude.com/docs/en/models/overview).
 
 ### July 28, 2025
 
@@ -704,22 +702,22 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 * Cache control must now be specified directly in the parent `content` block of `tool_result` and `document.source`. For backwards compatibility, if cache control is detected on the last block in `tool_result.content` or `document.source.content`, it will be automatically applied to the parent block instead. Cache control on any other blocks within `tool_result.content` and `document.source.content` will result in a validation error.
 
-### April 9th, 2025
+### April 9, 2025
 
 * We launched a beta version of the [Ruby SDK](https://github.com/anthropics/anthropic-sdk-ruby).
 
-### March 31st, 2025
+### March 31, 2025
 
 * Our [Java SDK](https://github.com/anthropics/anthropic-sdk-java) has moved from beta to its first stable release.
 * We’ve moved our [Go SDK](https://github.com/anthropics/anthropic-sdk-go) from alpha to beta.
 
-### February 27th, 2025
+### February 27, 2025
 
 * We’ve added URL source blocks for images and PDFs in the Messages API. You can now reference images and PDFs directly through a URL instead of having to base64-encode them. Learn more in [Vision](https://platform.claude.com/docs/en/build-with-claude/vision) and [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support).
 * We’ve added support for a `none` option to the `tool_choice` parameter in the Messages API that prevents Claude from calling any tools. Additionally, you’re no longer required to provide any `tools` when including `tool_use` and `tool_result` blocks.
 * We’ve launched an OpenAI-compatible API endpoint, allowing you to test Claude models by changing just your API key, base URL, and model name in existing OpenAI integrations. This compatibility layer supports core chat completions functionality. Learn more in [OpenAI SDK compatibility](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk).
 
-### February 24th, 2025
+### February 24, 2025
 
 * We’ve launched [Claude Sonnet 3.7](https://www.anthropic.com/news/claude-3-7-sonnet), our most intelligent model yet. Claude Sonnet 3.7 can produce near-instant responses or show its extended thinking step-by-step. One model, two ways to think. Learn more about all Claude models in [Models overview](https://platform.claude.com/docs/en/models/overview).
 
@@ -735,139 +733,139 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
   * `text_editor_20250124`: Same functionality as previous version but is independent from computer use. Does not require a beta header.
   * `computer_20250124`: Updated computer use tool with new command options including `hold_key`, `left_mouse_down`, `left_mouse_up`, `scroll`, `triple_click`, and `wait`. This tool requires the `computer-use-2025-01-24` anthropic-beta header. Learn more in [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview).
 
-### February 10th, 2025
+### February 10, 2025
 
 * We’ve added the `anthropic-organization-id` response header to all API responses. This header provides the organization ID associated with the API key used in the request.
 
-### January 31st, 2025
+### January 31, 2025
 
 * We’ve moved our [Java SDK](https://github.com/anthropics/anthropic-sdk-java) from alpha to beta.
 
-### January 23rd, 2025
+### January 23, 2025
 
 * We’ve launched citations capability in the API, allowing Claude to provide source attribution for information. Learn more in [Citations](https://platform.claude.com/docs/en/build-with-claude/citations).
 * We’ve added support for plain text documents and custom content documents in the Messages API.
 
-### January 21st, 2025
+### January 21, 2025
 
 * We announced the deprecation of the Claude 2, Claude 2.1, and Claude Sonnet 3 models. Read more in [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 
-### January 15th, 2025
+### January 15, 2025
 
 * We’ve updated [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) to be easier to use. Now, when you set a cache breakpoint, we’ll automatically read from your longest previously cached prefix.
 * You can now prefill Claude’s response when using tools.
 
-### January 10th, 2025
+### January 10, 2025
 
 * We’ve optimized support for [prompt caching in the Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing#using-prompt-caching-with-message-batches) to improve cache hit rate.
 
-### December 19th, 2024
+### December 19, 2024
 
 * We’ve added support for a [delete endpoint](https://platform.claude.com/docs/en/api/messages/batches/delete) in the Message Batches API.
 
-### December 17th, 2024
+### December 17, 2024
 
-The following features are now available in the Claude API without a beta header:
+* The following features are now available in the Claude API without a beta header:
 
-* [Models API](https://platform.claude.com/docs/en/api/models/list): Query available models, validate model IDs, and resolve [model aliases](https://platform.claude.com/docs/en/models/overview) to their canonical model IDs.
-* [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing): Process large batches of messages asynchronously at 50% of the standard API cost.
-* [Token counting API](https://platform.claude.com/docs/en/build-with-claude/token-counting): Calculate token counts for Messages before sending them to Claude.
-* [Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching): Reduce costs by up to 90% and latency by up to 80% by caching and reusing prompt content.
-* [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support): Process PDFs to analyze both text and visual content within documents.
+  * [Models API](https://platform.claude.com/docs/en/api/models/list): Query available models, validate model IDs, and resolve [model aliases](https://platform.claude.com/docs/en/models/overview) to their canonical model IDs.
+  * [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing): Process large batches of messages asynchronously at 50% of the standard API cost.
+  * [Token counting API](https://platform.claude.com/docs/en/build-with-claude/token-counting): Calculate token counts for Messages before sending them to Claude.
+  * [Prompt Caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching): Reduce costs by up to 90% and latency by up to 80% by caching and reusing prompt content.
+  * [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support): Process PDFs to analyze both text and visual content within documents.
 
-We also released new official SDKs:
+* We also released new official SDKs:
 
-* [Java SDK](https://github.com/anthropics/anthropic-sdk-java) (alpha)
-* [Go SDK](https://github.com/anthropics/anthropic-sdk-go) (alpha)
+  * [Java SDK](https://github.com/anthropics/anthropic-sdk-java) (alpha)
+  * [Go SDK](https://github.com/anthropics/anthropic-sdk-go) (alpha)
 
-### December 4th, 2024
+### December 4, 2024
 
 * We’ve added the ability to group by API key on the [Usage](https://console.anthropic.com/settings/usage) and [Cost](https://console.anthropic.com/settings/cost) pages of the [Developer Console](https://console.anthropic.com).
 * We’ve added two new **Last used at** and **Cost** columns and the ability to sort by any column on the [API keys](https://console.anthropic.com/settings/keys) page of the [Developer Console](https://console.anthropic.com).
 
-### November 21st, 2024
+### November 21, 2024
 
 * We’ve released the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), allowing users to programmatically manage their organization’s resources.
 
-### November 20th, 2024
+### November 20, 2024
 
 * We’ve updated our rate limits for the Messages API. We’ve replaced the tokens per minute rate limit with new input and output tokens per minute rate limits. Read more in [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
 * We’ve added support for [tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) in the [Console Workbench](https://console.anthropic.com/workbench).
 
-### November 13th, 2024
+### November 13, 2024
 
 * We’ve added PDF support for all Claude Sonnet 3.5 models. Read more in [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support).
 
-### November 6th, 2024
+### November 6, 2024
 
 * We’ve retired the Claude 1 and Instant models. Read more in [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 
-### November 4th, 2024
+### November 4, 2024
 
 * [Claude Haiku 3.5](https://www.anthropic.com/claude/haiku) is now available on the Claude API as a text-only model.
 
-### November 1st, 2024
+### November 1, 2024
 
 * We’ve added PDF support for use with the new Claude Sonnet 3.5. Read more in [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support).
 * We’ve also added token counting, which allows you to determine the total number of tokens in a Message prior to sending it to Claude. Read more in [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting).
 
-### October 22nd, 2024
+### October 22, 2024
 
 * We’ve added Anthropic-defined computer use tools to our API for use with the new Claude Sonnet 3.5. Read more in [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool).
 * Claude Sonnet 3.5, our most intelligent model yet, just got an upgrade and is now available on the Claude API. Read more in the [Claude Sonnet documentation](https://www.anthropic.com/claude/sonnet).
 
-### October 8th, 2024
+### October 8, 2024
 
 * The Message Batches API is now available in beta. Process large batches of queries asynchronously in the Claude API for 50% less cost. Read more in [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing).
 * We’ve loosened restrictions on the ordering of `user`/`assistant` turns in our Messages API. Consecutive `user`/`assistant` messages will be combined into a single message instead of erroring, and we no longer require the first input message to be a `user` message.
 * We’ve deprecated the Build and Scale plans in favor of a standard feature suite (formerly referred to as Build), along with additional features that are available through sales. Read more in our [API pricing information](https://claude.com/platform/api).
 
-### October 3rd, 2024
+### October 3, 2024
 
 * We’ve added the ability to disable parallel tool use in the API. Set `disable_parallel_tool_use: true` in the `tool_choice` field to ensure that Claude uses at most one tool. Read more in [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use).
 
-### September 10th, 2024
+### September 10, 2024
 
 * We’ve added Workspaces to the [Developer Console](https://console.anthropic.com). Workspaces allow you to set custom spend or rate limits, group API keys, track usage by project, and control access with user roles. Read more in our [Workspaces blog post](https://www.anthropic.com/news/workspaces).
 
-### September 4th, 2024
+### September 4, 2024
 
 * We announced the deprecation of the Claude 1 models. Read more in [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 
-### August 22nd, 2024
+### August 22, 2024
 
 * We’ve added support for usage of the SDK in browsers by returning CORS headers in the API responses. Set `dangerouslyAllowBrowser: true` in the SDK instantiation to enable this feature.
 
-### August 19th, 2024
+### August 19, 2024
 
 * 8,192-token outputs on Claude Sonnet 3.5 are out of beta and no longer require the `max-tokens-3-5-sonnet-2024-07-15` header.
 
-### August 14th, 2024
+### August 14, 2024
 
 * [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) is now available as a beta feature in the Claude API. Cache and re-use prompts to reduce latency by up to 80% and costs by up to 90%.
 
-### July 15th, 2024
+### July 15, 2024
 
 * Generate outputs up to 8,192 tokens in length from Claude Sonnet 3.5 with the new `anthropic-beta: max-tokens-3-5-sonnet-2024-07-15` header.
 
-### July 9th, 2024
+### July 9, 2024
 
 * Automatically generate test cases for your prompts using Claude in the [Developer Console](https://console.anthropic.com).
 * Compare the outputs from different prompts side by side in the new output comparison mode in the [Developer Console](https://console.anthropic.com).
 
-### June 27th, 2024
+### June 27, 2024
 
 * View API usage and billing broken down by dollar amount, token count, and API keys in the new [Usage](https://console.anthropic.com/settings/usage) and [Cost](https://console.anthropic.com/settings/cost) tabs in the [Developer Console](https://console.anthropic.com).
 * View your current API rate limits in the new [Rate Limits tab](https://console.anthropic.com/settings/limits) in the [Developer Console](https://console.anthropic.com).
 
-### June 20th, 2024
+### June 20, 2024
 
 * [Claude Sonnet 3.5](https://www.anthropic.com/news/claude-3-5-sonnet), our most intelligent model yet, is now available across the Claude API, Amazon Bedrock, and Vertex AI.
 
-### May 30th, 2024
+### May 30, 2024
 
 * [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) is out of beta across the Claude API, Amazon Bedrock, and Vertex AI, with no beta header required.
 
-### May 10th, 2024
+### May 10, 2024
 
 * Our prompt generator tool is now available in the [Developer Console](https://console.anthropic.com). The prompt generator helps you guide Claude to generate high-quality prompts tailored to your specific tasks. Read more in our [prompt generator blog post](https://www.anthropic.com/news/prompt-generator).

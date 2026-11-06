@@ -20,7 +20,7 @@ Where **Applies to** gives a version, earlier versions ignore the setting. The *
 | **Claude Desktop home** | Chooses what members see in Claude Desktop: **Standard** (Chat and Cowork combined), **Simple** (Chat), **Chat only** (Chat without Advanced file analysis), or **Off** (Code only). **Separate settings** leaves it to the Chat, file analysis, and Cowork switches. Any other choice your agency makes overrides them, unless a level above has locked one. | Set by Anthropic | Claude Desktop 1.52386.0 or later |
 | **Chat in Claude Desktop** | Lets members chat with Claude in Claude Desktop, for quick questions and drafting. Without Chat, members cannot open their existing chats. | On | Claude Desktop |
 | **Advanced file analysis in Chat** | Lets Claude run code in a sandbox for data analysis in Chat. Only takes effect where **Shell commands** and **Chat in Claude Desktop** are both on. Without this setting, Claude cannot read Word, Excel, or PowerPoint files that members attach in Chat. | On | Claude Desktop |
-| **Cowork in Claude Desktop** | Lets members give Claude longer tasks, such as research, analysis, and drafting documents, which it works through on its own in Claude Desktop. Without Cowork, members cannot continue their Cowork tasks. | On | Claude Desktop |
+| **Cowork in Claude Desktop** | Lets members give Claude longer tasks, such as research, analysis, and drafting documents, which it works through on its own in Claude Desktop. Without Cowork, members cannot continue their Cowork tasks. Claude Desktop versions earlier than 1.30096.1 can still show Cowork while it is off, but do not run its tasks. | On | Claude Desktop |
 | **Code in Claude Desktop** | Lets members use Claude Code inside Claude Desktop to write and run code. Without Code, members cannot open their existing Code sessions. | On | Claude Desktop |
 | **Scheduled tasks** | Lets members set up [tasks that Claude runs on a schedule](https://claude.com/docs/third-party/claude-desktop/configuration.md#scheduledtasksenabled). Turning it off also turns off scheduling in Claude Code, such as `/loop`. | On | Claude Desktop 2.110.0 or later, Claude Code |
 | **Claude Code** | Makes the [Claude Code command-line tool](https://claude.com/docs/government/deploy-claude-code/configure.md) available. | Off | Claude Code |
@@ -28,32 +28,30 @@ Where **Applies to** gives a version, earlier versions ignore the setting. The *
 
 Turning off **Claude Desktop**, **Claude Code**, or **Claude for Microsoft 365** stops the members the setting applies to from using that application. An organization cannot turn on a product that the tenant has turned off. These switches turn applications off, not accounts, and are not a security boundary: to cut one member off from everything at once, deactivate their account (see [Deactivated users](https://claude.com/docs/government/org-admin/users.md#deactivated-users)).
 
-From November 10, 2026, members whose settings give them Cowork get the [**Standard** home](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#what-users-see-with-unified-claude) in Claude Desktop 4.29.0 or later, even where Chat or Advanced file analysis is off. To change the home, use the **Config** page, not `desktopHome` in a device management profile.
+From November 10, 2026, members whose settings give them Cowork get the [**Standard** home](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#what-users-see-with-unified-claude) in Claude Desktop 4.29.0 or later: turning off Chat or Advanced file analysis has no effect for them. To change the home, use the **Config** page, not `desktopHome` in a device management profile.
 
 ## Sessions and access
 
-These settings cover session limits, the network hosts and folders Claude Desktop may use, and Claude for Microsoft 365 features.
-
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
-| **Session idle timeout** | How long a member can stay inactive before being signed out, from 15 to 5,760 minutes (96 hours). Organizations and groups can only set a shorter timeout than the tenant. | 1,440 minutes (24 hours) | All products |
+| **Session idle timeout** | How long a member can stay inactive before being signed out, from 15 to 5,760 minutes (96 hours). An organization's or group's value longer than the tenant's has no effect. | 1,440 minutes (24 hours) | All products |
 | **Maximum session length** | The longest a member can stay signed in, even while active, before they have to sign in again, from 60 to 525,600 minutes (365 days). Each level can set or shorten the maximum but not lengthen it past what the level above allows. | No maximum | All products |
-| [**Allowed network hosts**](#allowed-network-hosts) | A list of hostnames that tools in Claude Desktop may reach, for example to install packages or fetch web pages. | **Claude connection only** | Claude Desktop |
+| [**Allowed network hosts**](#allowed-network-hosts) | A list of hostnames that tools may reach, for example to install packages or fetch web pages. | **Claude connection only** | Claude Desktop, Claude Code |
 | **IPv6 in the sandbox** | Lets tools in the sandbox [reach IPv6-only hosts](https://claude.com/docs/third-party/claude-desktop/configuration.md#coworkvmipv6enabled) through the computer's own IPv6 connection. **Allowed network hosts** still applies. | Off | Claude Desktop 1.52386.0 or later on macOS and Windows |
 | [**Allowed workspace folders**](#allowed-workspace-folders) | Which folders members can pick as a project folder in Claude Desktop. | **Any folder** | Claude Desktop |
 | **Block reads outside workspace folders** | Stops Claude's file tools in Code sessions in Claude Desktop from reading files outside the session's project folder and any folders listed in **Allowed workspace folders**. Its effect on the shell commands Claude runs [differs by operating system](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy). | Off | Claude Desktop 1.46388.1 or later |
 | **Attach files to chat**, on the **Microsoft 365 features** card | Lets members attach files to chat by picking, dragging, or pasting them. | On | Claude for Microsoft 365 |
 | **Accept all edits**, on the **Microsoft 365 features** card | Lets members switch to **Accept all edits**, where Claude makes most edits to the open file without asking. Turning it off also turns off **Skip all permissions**. | On | Claude for Microsoft 365 |
-| **File access rules (Microsoft 365)** | Rules that block Claude on files with chosen Microsoft sensitivity labels, or block attaching them. A rule can **Block** matching files or **Allow only matching files**. If the add-in cannot read a file's label, the file counts as blocked for every feature that has a rule covering it. | None | Claude for Microsoft 365 |
+| **File access rules (Microsoft 365)** | Rules that block Claude on files with chosen Microsoft Purview sensitivity labels, or block attaching them. On a blocked file, members see "Claude is unavailable for this document". A rule can **Block** matching files or **Allow only matching files**. If the add-in cannot read a file's label, the file counts as blocked for every feature that has a rule covering it. | None | Claude for Microsoft 365 |
 | **Request headers (Claude for Microsoft 365)** | Extra headers Claude for Microsoft 365 sends with each request to Claude. Each member's add-in receives them. Headers are hidden after you save them. | None | Claude for Microsoft 365 |
 
 **Maximum session length** always counts from when the member originally signed in, so a session that is already older than the new maximum ends when it [picks up the change](https://claude.com/docs/government/config/overview.md#when-changes-take-effect) and the member is prompted to sign in again. Your identity provider decides whether that sign-in asks the member to authenticate again or passes them straight through.
 
 ### Allowed network hosts
 
-The list covers [web fetch and shell commands](https://claude.com/docs/third-party/claude-desktop/configuration.md#coworkegressallowedhosts) in Chat and Cowork, and the [sandboxed shell commands](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop) of Code sessions on macOS and Linux. Web search, connectors, and the app's own connections do not use this list.
+The list covers [web fetch and shell commands](https://claude.com/docs/third-party/claude-desktop/configuration.md#coworkegressallowedhosts) in Chat and Cowork, the [sandboxed shell commands](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop) of Code sessions on macOS and Linux, and those of the Claude Code command-line tool while [**Shell command sandbox**](#shell-command-sandbox) is **On**. Web search, connectors, and the app's own connections do not use this list.
 
-Entries are hostnames or wildcard patterns such as `*.example.com`, and match by name, not by the address a name resolves to.
+Entries are hostnames or wildcard patterns such as `*.example.com`, not IP addresses or ports, and match by name, not by the address a name resolves to. Claude Desktop ignores a wildcard for a top-level domain such as `*.gov`, so list each domain and its subdomains, as in `example.gov` and `*.example.gov`. The list holds up to 200 entries, including each hostname that **Add package registries** adds. **Allow all** adds `*`, which allows every host. On macOS and Linux, Claude Desktop then does not turn on the [sandbox](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop) for shell commands in Code sessions while [**Allowed workspace folders**](#allowed-workspace-folders) is **Any folder**, its default.
 
 ### Allowed workspace folders
 
@@ -69,22 +67,20 @@ Claude for Government delivers these settings to the command-line tool after a m
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
 | **Blocked shell commands** | Command names, such as `curl` or `ssh`, that Claude Code applies as [deny rules](https://code.claude.com/docs/en/permissions#bash) for its Bash and PowerShell tools. | None blocked | Claude Code |
-| **Managed hooks** | [Hooks](https://code.claude.com/docs/en/hooks) that run in every member's Claude Code sessions, such as a command that writes an audit record after each tool use. | None | Claude Code |
+| **Managed hooks** | [Hooks](https://code.claude.com/docs/en/hooks) that run in every member's Claude Code sessions, such as a command that writes an audit record after a tool use. | None | Claude Code |
 | **Member-added hooks** | Whether hooks and custom status lines that members set up in their own or their projects' settings run as well. Managed hooks still run, and in Claude Desktop so do hooks inside plugins. | **Blocked** | Claude Code |
-| **Plugin sources** | Where members can install Claude Code plugins from, one of **None**, **Approved sources only** with an **Approved plugin sources** list, or **Any source** with a **Blocked plugin sources** list. | **None** | Claude Code |
+| **Plugin sources** | Which [marketplaces](https://code.claude.com/docs/en/plugins/org#restrict-what-users-can-install) members can install Claude Code plugins from, one of **None**, **Approved sources only** with an **Approved plugin sources** list, or **Any source** with a **Blocked plugin sources** list. | **None** | Claude Code |
 | **Sideloaded plugins** | Whether members can load plugins, agents, or connector files with a command-line flag. | **Blocked** | Claude Code command-line tool |
 | **Minimum Claude Code version** | Claude Code below this version does not start and tells the member to update. | No minimum | Claude Code |
-| **Maximum Claude Code version** | Claude Code above this version does not start. | No maximum | Claude Code |
+| **Maximum Claude Code version** | Claude Code above this version does not start. | No maximum | Claude Code command-line tool |
 | **Opening from the browser** | Whether Claude Code sets itself up to open from links in web pages and editors, with a prompt filled in. | **Blocked** | Claude Code |
-| **Shell command sandbox** | Lets you turn off [Claude Code's sandbox](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop) for workspaces where it cannot start, such as containers. | **Claude Code default**, which leaves that to Claude Code's own settings | Claude Code |
+| **Shell command sandbox** | Turns [Claude Code's sandbox](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop) on or off. **On** takes effect in the command-line tool on macOS, Linux, and WSL devices that can run the sandbox, and holds sandboxed shell commands to [**Allowed network hosts**](#allowed-network-hosts). On a device that cannot run the sandbox, shell commands can run outside it. | **Left to the device** | Claude Code |
 
-Two switches under [Integrations](#integrations) narrow **Any source**: while **Let members add plugin marketplaces** is off, members install only from the **Approved plugin sources** list, and while **Let members add their own plugins** is off, they cannot add a source of their own from a file or folder on their machine.
+Two switches under [Integrations](#integrations) narrow **Any source**: while **Let members add plugin marketplaces** is off, members install only from marketplaces the **Approved plugin sources** list allows, and while **Let members add their own plugins** is off, they cannot add their own marketplace from a file or folder on their machine.
 
 Settings in other categories govern Claude Code too, such as **Scheduled tasks** under [Product availability](#product-availability) and **Member-added connectors** under [Integrations](#integrations).
 
 ## Claude behavior
-
-This setting shapes how Claude responds.
 
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
@@ -93,8 +89,6 @@ This setting shapes how Claude responds.
 Organization instructions guide how Claude responds, and they are not an enforced restriction. Members do not see the instructions in their applications. Instructions set at the organization level replace the tenant's instructions for that organization rather than adding to them. A change takes effect from each member's next message.
 
 ## Appearance
-
-These settings change what members see in Claude Desktop.
 
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
@@ -116,19 +110,19 @@ The tool and connector cards and related settings cover connectors, plugins, and
 | **Member-added connectors**, on the **Connectors** card | Which other connectors members can use in Claude Code, beyond web search and the ones you add: **None**, **Only these**, or **Any connector**. | **None** | Claude Code, Claude Desktop 2.2553.0 or later |
 | **Blocked connectors**, under **Any connector** | Connectors that Claude Code does not connect. Entries by server URL also block plugins' servers in Claude Desktop. An entry by **Server name** matches [the name a connector is given](https://code.claude.com/docs/en/managed-mcp#how-servername-entries-match), not the server it reaches. | None | Claude Code, Claude Desktop 2.16120.0 or later |
 | **Plugins** | [Plugin packages](https://claude.com/docs/government/config/plugins-and-connectors.md) you upload and deliver to members in Claude Desktop. | None | Claude Desktop |
-| **Let members add plugin marketplaces** | Lets members add plugin marketplaces and install plugins from them. While it is off, it also narrows [**Plugin sources**](#plugin-sources) in Claude Code. Marketplaces that members added earlier are hidden while it is off, which needs Claude Desktop 2.16120.0 or later. | Off | Claude Desktop, Claude Code |
-| **Let members add their own plugins** | Lets members upload plugin files or have Claude create a plugin for them. While it is off, it also narrows [**Plugin sources**](#plugin-sources) in Claude Code. Plugins that members uploaded or created earlier stay installed. | Off | Claude Desktop, Claude Code |
+| **Let members add plugin marketplaces** | Lets members add plugin marketplaces and install plugins from them. While it is off, it also narrows [**Plugin sources**](#plugin-sources) in Claude Code. Marketplaces that members added earlier are hidden while it is off, which needs Claude Desktop 2.16120.0 or later. | Off | Claude Desktop 1.37937.0 or later, Claude Code |
+| **Let members add their own plugins** | Lets members upload plugin files or have Claude create a plugin for them. While it is off, it also narrows [**Plugin sources**](#plugin-sources) in Claude Code. Plugins that members uploaded or created earlier stay installed. | Off | Claude Desktop 1.37937.0 or later, Claude Code |
 | **Let members add their own connectors** | Lets members add connectors of their own in Claude Desktop, as local MCP servers under **Settings**, then **Developer**. While the switch is off, Claude Desktop ignores connectors that members already added under **Developer**. | Off | Claude Desktop |
-| **Let members create skills** | Lets members [create or upload skills](https://claude.com/docs/third-party/claude-desktop/configuration.md#skillcreationenabled) of their own. Skills that members already made keep working. | On | Claude Desktop, Claude for Microsoft 365 |
+| **Let members create skills** | Lets members [create or upload skills](https://claude.com/docs/third-party/claude-desktop/configuration.md#skillcreationenabled) of their own. Skills that members already made keep working. | On | Claude Desktop 1.25927.0 or later, Claude for Microsoft 365 |
 | **Web fetch** | Lets Claude fetch web pages. See [**Allowed network hosts**](#allowed-network-hosts). | On | Claude Desktop, Claude Code |
 | **Require approval for each fetch** | Asks the member to approve every page fetch before it runs. When this is off, fetches in Chat and Cowork run without asking, and Code sessions follow [Claude Code's usual permission rules](https://code.claude.com/docs/en/permissions). | Off | Claude Desktop, Claude Code |
 | **Shell commands** | Lets Claude run shell commands during tasks. Turning this off also turns off **Advanced file analysis in Chat**. | On | Claude Desktop, Claude Code |
-| **Require approval for each command** | In Claude Desktop, asks the member to approve every shell command before it runs. When this is off, commands [can run without asking](https://claude.com/docs/government/security/security-and-data-handling.md#approvals-and-auto-mode). | Off | Claude Desktop, Claude Code |
-| **Terminal panel tools** | Lets Claude run commands in the Code tab's Terminal panel in Claude Desktop. These commands [run as the user outside of Claude's sandbox](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop). Turning off **Shell commands** turns these tools off as well. | On | Claude Desktop |
-| **Bypass-permissions mode** | Whether members can use the mode that skips permission prompts: bypass-permissions mode in Claude Code, **Skip all permissions** in Claude for Microsoft 365. | **Blocked** | Claude Code, Claude for Microsoft 365 |
+| **Require approval for each command** | In Claude Desktop, asks the member before Claude uses its shell tool. When this is off, commands [can run without asking](https://claude.com/docs/government/security/security-and-data-handling.md#approvals-and-auto-mode). | Off | Claude Desktop, Claude Code |
+| **Terminal panel tools** | Lets Claude run commands in the Code tab's Terminal panel in Claude Desktop. These commands [run as the user outside of Claude's sandbox](https://claude.com/docs/government/security/security-and-data-handling.md#code-in-claude-desktop). Turning off **Shell commands** turns these tools off as well. On macOS and Linux, Claude Desktop 4.23118.0 or later lets Claude only read the panel in local sessions wherever **Allowed network hosts** or **Allowed workspace folders** restricts access. | On | Claude Desktop |
+| **Bypass-permissions mode** | Whether members can use the mode that skips permission prompts: bypass-permissions mode in Claude Code, **Skip all permissions** in Claude for Microsoft 365. | **Blocked** | Claude Code, Claude Desktop 1.46388.1 or later, Claude for Microsoft 365 |
 | **Auto mode** | Whether members can switch to [Auto mode](https://code.claude.com/docs/en/permission-modes). [Approvals and Auto mode](https://claude.com/docs/government/security/security-and-data-handling.md#approvals-and-auto-mode) says which sessions start in it. | **Blocked** | Claude Code, Claude Desktop |
 
-* **Member-added connectors**: in Claude Desktop it also governs connectors delivered inside plugins. A plugin's connector can connect only under **Any connector** or when listed under **Only these**.
+* **Member-added connectors**: in Claude Desktop it also governs connectors delivered inside plugins. A plugin's connector can connect only under **Any connector** or when listed under **Only these**, by server URL in Chat and Cowork.
 * **Member-added connectors**, **Bypass-permissions mode**, and **Auto mode**: these take effect once your agency has the [**Claude Code**](#claude-code) section. In Claude for Microsoft 365, **Bypass-permissions mode** instead takes effect once your agency has the [**Microsoft 365 features**](#microsoft-365-features) card.
 
 ## Compliance and telemetry
@@ -137,15 +131,15 @@ These settings cover usage telemetry export to your own collector and Claude Des
 
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
-| [**Telemetry endpoint**](#telemetry-endpoint) | The base address of your [OpenTelemetry](https://opentelemetry.io/) collector, such as `https://otel-collector.example.gov:4318`. Each product adds its own paths and sends its telemetry directly from members' devices, so the collector must be reachable from their networks. | Empty, which turns telemetry off | All products |
+| [**Telemetry endpoint**](#telemetry-endpoint) | The base address of your [OpenTelemetry](https://opentelemetry.io/) collector, such as `https://otel-collector.example.gov:4318`. Each product adds its own paths and sends OTLP over HTTP, not gRPC, directly from members' devices, so the collector must be reachable from their networks. | Empty, which turns telemetry off | All products |
 | **Telemetry headers** | Headers each product sends with every telemetry request, such as an Authorization header carrying your collector's token. Each member's app receives these headers and sends its telemetry directly, so use a credential that can only send data to your collector. | None | All products |
 | **Telemetry content capture** | [Content](https://claude.com/docs/third-party/claude-desktop/telemetry.md#content-capture) each product adds to the telemetry it sends to your collector: **Prompts**, **Claude's responses**, **Tool inputs**, **Tool results**, and **Full requests and responses**. Captured content goes only to your collector and is never sent to Anthropic. | No content captured | All products |
 | **Application event level (Claude Desktop)** | How much of [Claude Desktop's own event log](https://claude.com/docs/third-party/claude-desktop/configuration.md#otlpdesktoploglevel) is sent to your collector, in addition to usage telemetry: **Off**, **Errors only**, **Warnings and errors**, **Informational**, or **Debug**. | **Errors only** | Claude Desktop |
 | **Telemetry resource attributes** | Labels added to every telemetry record each product sends, such as your agency or environment name, so your collector can tell where each record comes from. | Not set | All products |
 | **Telemetry traces** (beta) | Adds [traces](https://claude.com/docs/third-party/claude-desktop/telemetry.md#traces-beta), so that the events of one request can be followed together. Traces carry message and tool content only for the categories selected in **Telemetry content capture**. | Off | All products; Claude Desktop 1.22209.0 or later |
 | **Block automatic updates** | Stops Claude Desktop from downloading and installing updates automatically. Turn this on only if your organization distributes Claude Desktop updates itself. For devices where no member is signed in, and for Linux, see [Automatic updates](https://claude.com/docs/government/deploy-desktop/configure.md#automatic-updates). | Off | Claude Desktop on macOS and Windows |
-| **Restart deadline for updates** | How long a member can put off restarting Claude Desktop to install a downloaded update, from 1 to 72 hours. | [Claude Desktop's default](https://claude.com/docs/third-party/claude-desktop/configuration.md#autoupdaterenforcementhours) | Claude Desktop |
-| **Restart deadline for configuration changes** | How long a member can put off restarting Claude Desktop after the app detects a configuration change, from 0 to 336 hours (14 days). | [Claude Desktop's default](https://claude.com/docs/third-party/claude-desktop/configuration.md#relaunchenforcementhours) | Claude Desktop |
+| **Restart deadline for updates** | How long a downloaded update can wait before Claude Desktop restarts to install it, from 1 to 72 hours. | [Claude Desktop's default](https://claude.com/docs/third-party/claude-desktop/configuration.md#autoupdaterenforcementhours) | Claude Desktop |
+| **Restart deadline for configuration changes** | How long a member can put off restarting Claude Desktop after the app detects a configuration change, from 0 to 336 hours (14 days). | [Claude Desktop's default](https://claude.com/docs/third-party/claude-desktop/configuration.md#relaunchenforcementhours) | Claude Desktop 1.40609.0 or later |
 
 * **Telemetry headers**: the headers you enter replace all of the saved ones when you save, so enter every header again when you add or change one.
 * **Telemetry content capture**: **Tool results** adds tool output only while **Telemetry traces** is on. **Full requests and responses** can carry tool output with traces on or off.

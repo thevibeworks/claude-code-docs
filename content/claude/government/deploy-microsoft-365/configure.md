@@ -10,20 +10,18 @@
 
 In Claude for Government, Claude for Microsoft 365 is in early access. To request access for your agency, contact your Anthropic representative.
 
-Claude for Microsoft 365 is an Office add-in that opens Claude in a pane beside the workbook, document, or presentation a user is editing. In Claude for Government, Office loads the add-in from your Claude for Government host, and the add-in sends its sign-in and chat traffic to that host. The host is written into the add-in's manifest, a small XML file that tells Office where to load the add-in from. You make the add-in available from the Microsoft 365 admin center by uploading the manifest and assigning it to users.
+Claude for Microsoft 365 is an Office add-in that opens Claude in a pane beside the workbook, document, or presentation a user is editing. In Claude for Government, Office loads the add-in from your Claude for Government host, and the add-in sends its sign-in and chat traffic to that host. The host is written into the add-in's manifest, a small XML file that tells Office where to load the add-in from. You make the add-in available from the Microsoft 365 admin center by uploading the manifest and assigning it to users. Microsoft 365 Government tenants can't use the public add-in store, so you deploy the manifest yourself (see Microsoft's [guidance for Office Add-ins on government clouds](https://learn.microsoft.com/en-us/office/dev/add-ins/publish/government-cloud-guidance)).
 
-Microsoft 365 Government tenants can't use the public add-in store, so you deploy the manifest yourself (see Microsoft's [guidance for Office Add-ins on government clouds](https://learn.microsoft.com/en-us/office/dev/add-ins/publish/government-cloud-guidance)).
-
-This page covers the add-in that runs inside Office. The [Microsoft 365 connector](https://claude.com/docs/government/connectors/microsoft-365.md), which lets Claude Desktop read your agency's Outlook, OneDrive, SharePoint, and Teams content, is a separate feature with its own setup.
+The [Microsoft 365 connector](https://claude.com/docs/government/connectors/microsoft-365.md), which lets Claude Desktop read your agency's Outlook, OneDrive, SharePoint, and Teams content, is a separate feature with its own setup.
 
 ## Before you begin
 
-Confirm each of the following before you deploy the manifest.
+Confirm each of the following before you deploy the manifest. Your agency's Claude for Government administrators handle the first two.
 
 * **Claude for Microsoft 365 is turned on for the organization.** Check the **Claude for Microsoft 365** switch under [Product availability](https://claude.com/docs/government/config/settings.md#product-availability). It is off by default. While it is off, users who sign in from the add-in are told that Claude for Microsoft 365 is not turned on for their organization.
-* **User accounts exist.** The add-in signs users in to the same accounts as this portal. Each user needs a [routing rule](https://claude.com/docs/government/tenant-admin/identity-and-access.md) that covers them and a [seat tier](https://claude.com/docs/government/org-admin/seat-tiers.md) with at least one model enabled.
+* **User accounts exist.** The add-in signs users in to their Claude for Government accounts. Each user needs a [routing rule](https://claude.com/docs/government/tenant-admin/identity-and-access.md) that covers them and a [seat tier](https://claude.com/docs/government/org-admin/seat-tiers.md) with at least one model enabled.
 * **Office is a supported version.** The add-in needs the Office builds listed under supported versions for [Excel](https://claude.com/docs/office-agents/excel.md#supported-versions), [Word](https://claude.com/docs/office-agents/word.md#supported-versions), and [PowerPoint](https://claude.com/docs/office-agents/powerpoint.md#supported-versions).
-* **Devices can reach your Claude for Government host.** Office on every device must reach your Claude for Government host over HTTPS (port 443). That host serves the add-in and carries its sign-in requests and chat traffic.
+* **Devices can reach your Claude for Government host.** Office on every device must reach your Claude for Government host over HTTPS (port 443).
 * **Devices can reach Microsoft's Office add-in library.** At startup the pane loads Microsoft's `office.js` library from one of these Microsoft hosts, chosen by the `?officecdn=` parameter you add when you [download the manifest](#download-the-manifest):
   * no `?officecdn=` parameter: `appsforoffice.microsoft.com`
   * `?officecdn=gcc`: `appsforoffice.gcc.cdn.office.net`
@@ -42,87 +40,27 @@ Your Claude for Government host serves the manifest at the fixed path `/office/m
 https://<claude-for-government-host>/office/manifest-fedstart.xml
 ```
 
-If your tenant is in GCC High or DoD, add `?officecdn=gcch` or `?officecdn=dod` to the end of the address, and in GCC you can add `?officecdn=gcc`. The pane then loads Microsoft's `office.js` library from the Office CDN inside your cloud, as Microsoft's [guidance for Office Add-ins on government clouds](https://learn.microsoft.com/en-us/office/dev/add-ins/publish/government-cloud-guidance) recommends.
+If your tenant is in GCC High or DoD, add `?officecdn=gcch` or `?officecdn=dod` to the end of the address, and in GCC you can add `?officecdn=gcc`. Choose the cloud before your first deployment. To change it later, remove the add-in in the admin center, download the file again with the new parameter, and deploy the new file.
 
-```text theme={null}
-https://<claude-for-government-host>/office/manifest-fedstart.xml?officecdn=gcch
-```
-
-Choose the cloud before your first deployment. To change it later, remove the add-in in the admin center, download the file again with the new parameter, and deploy the new file.
-
-Open the address in a browser and save the file. Open the saved file and check that the `SourceLocation` line names your Claude for Government host. If it doesn't, contact your Anthropic representative.
-
-If your host answers to more than one name, pick one name and always download from it. The add-in's identity follows the host name in the address, so files downloaded under two names install as two separate add-ins.
+Open the address in a browser and save the file. Open the saved file and check that the `SourceLocation` line names your Claude for Government host. If it doesn't, contact your Anthropic representative. If your host answers to more than one name, pick one name and always download from it. The add-in's identity follows the host name in the address, so files downloaded under two names install as two separate add-ins.
 
 The manifest installs Claude in Excel, Word, and PowerPoint and asks Office for permission to read and change the open document, which is how Claude edits the file a user is working in. The admin center and Office list the add-in as **Claude for Government**, and the ribbon button is labeled **Claude**.
 
 ## Deploy from the Microsoft 365 admin center
 
-Microsoft doesn't offer its **Integrated apps** page in its [government clouds](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/test-and-deploy-microsoft-365-apps), so GCC, GCC High, and DoD tenants deploy from **Settings** > **Add-ins** (Microsoft's [Centralized Deployment](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-of-add-ins)). If your admin center shows **Integrated apps** instead, follow [Deploy from Integrated apps](#deploy-from-integrated-apps). In either case, upload the file you saved rather than entering its web address, so that Microsoft's service doesn't have to reach your Claude for Government host.
+Microsoft doesn't offer its **Integrated apps** page in its [government clouds](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/test-and-deploy-microsoft-365-apps), so GCC, GCC High, and DoD tenants deploy from **Settings > Add-ins** (Microsoft's [Centralized Deployment](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-of-add-ins)). If your admin center shows **Integrated apps** instead, select **Settings > Integrated apps**, select **Upload custom apps**, and choose **Office Add-in** as the app type. In either case, upload the file you saved rather than entering its web address, so that Microsoft's service doesn't have to reach your Claude for Government host.
 
 ### Deploy from the Add-ins page
 
-**1. Open the Microsoft 365 admin center**
+1. Sign in to the Microsoft 365 admin center for your cloud with an account that can deploy add-ins.
+2. In the left pane, select **Show all**, then select **Settings > Add-ins**.
+3. Select **Deploy Add-in**, then select **Next**.
+4. Under **Deploy a custom add-in**, select **Upload custom apps**.
+5. Choose the option to upload a manifest file from your device, browse to the `manifest-fedstart.xml` file you saved, and select **Upload**.
+6. On the **Configure add-in** page, choose who gets the add-in: **Everyone**, **Specific users/groups**, or **Just me**. Deploying to yourself or a small group first lets you confirm the add-in works on a representative device before a wider rollout.
+7. Select **Deploy**.
 
-Sign in to the Microsoft 365 admin center for your cloud with an account that can deploy add-ins.
-
-**2. Open the Add-ins page**
-
-In the left pane, select **Show all**, then select **Settings** > **Add-ins**.
-
-**3. Start a custom deployment**
-
-Select **Deploy Add-in**, then select **Next**.
-
-**4. Choose a custom upload**
-
-Under **Deploy a custom add-in**, select **Upload custom apps**.
-
-**5. Upload the manifest**
-
-Choose the option to upload a manifest file from your device, browse to the `manifest-fedstart.xml` file you saved, and select **Upload**.
-
-**6. Choose users**
-
-On the **Configure add-in** page, choose who gets the add-in: **Everyone**, **Specific users/groups**, or **Just me**. Deploying to yourself or a small group first lets you confirm the add-in works on a representative device before a wider rollout.
-
-**7. Deploy**
-
-Select **Deploy**.
-
-### Deploy from Integrated apps
-
-**1. Open the Microsoft 365 admin center**
-
-Sign in to the Microsoft 365 admin center with an account that can deploy add-ins.
-
-**2. Open Integrated apps**
-
-Select **Settings** > **Integrated apps**.
-
-**3. Start a custom upload**
-
-Select **Upload custom apps** and choose **Office Add-in** as the app type.
-
-**4. Upload the manifest**
-
-Choose the option to upload the manifest file from your device and upload `manifest-fedstart.xml`.
-
-**5. Choose users**
-
-Assign the add-in to everyone, specific users or groups, or just yourself. A small group first lets you confirm it works before a wider rollout.
-
-**6. Review the summary**
-
-Select **Next** through the remaining pages and review the summary.
-
-**7. Finish the deployment**
-
-Select **Finish deployment**.
-
-A deployment can take up to 24 hours to reach every assigned user, and users may need to restart the Office application before the add-in appears.
-
-To change who has the add-in or to remove it later, see Microsoft's [Manage add-ins in the Microsoft 365 admin center](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center).
+A deployment can take up to 24 hours to reach every assigned user, and users may need to restart the Office application before the add-in appears. To change who has the add-in or to remove it later, see Microsoft's [Manage add-ins in the Microsoft 365 admin center](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center).
 
 ## What users see
 
@@ -135,18 +73,6 @@ When the user selects **Log in**, the pane shows a short code and opens the Clau
 3. Acknowledges the U.S. Government system-use notification.
 4. Checks that the code shown matches the one in the pane, then selects **Approve**.
 
-When the user returns to the pane it shows **You're signed in**, and selecting **Continue** opens Claude. On a user's first sign-in the pane shows a short welcome and a notice to acknowledge before the chat box appears. For what users can do once signed in, see the Claude for Microsoft 365 guides for [Excel](https://claude.com/docs/office-agents/excel.md), [Word](https://claude.com/docs/office-agents/word.md), and [PowerPoint](https://claude.com/docs/office-agents/powerpoint.md).
+When the user returns to the pane it shows **You're signed in**, and selecting **Continue** opens Claude. On a user's first sign-in the pane shows a short welcome and a notice to acknowledge before the chat box appears. For what users can do once signed in, see the Claude for Microsoft 365 guides for [Excel](https://claude.com/docs/office-agents/excel.md), [Word](https://claude.com/docs/office-agents/word.md), and [PowerPoint](https://claude.com/docs/office-agents/powerpoint.md). For the settings that apply to the add-in, see [Available settings](https://claude.com/docs/government/config/settings.md).
 
-## Confirm the deployment
-
-**1. Open the pane**
-
-As a user you assigned the add-in to, open Excel, Word, or PowerPoint, select the **Claude** button on the **Home** tab of the ribbon, then select **Log in** in the pane.
-
-**2. Sign in**
-
-Complete sign-in in the browser as described under [What users see](#what-users-see), select **Continue** if the pane shows it, and step through the welcome screens.
-
-**3. Ask Claude about the file**
-
-Ask Claude a question about the open file and confirm it answers.
+To confirm the deployment, sign in as a user you assigned the add-in to, then ask Claude a question about the open file and confirm it answers.

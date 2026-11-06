@@ -4,70 +4,82 @@
 
 # Manage plugins and connectors
 
-> Choose between plugins and connectors in Claude for Government, prepare plugin archives for upload, decide how plugins install for members, update and remove plugins, and understand how connector tool policies apply to members.
+> Upload plugins in Claude for Government: archive rules, size limits, skills packaged as plugins, the Runs code marker, install behavior, updates, and removal.
 
 > **Who this is for:** Tenant administrators and organization owners who deliver plugins and connectors to the members they manage.
 
-You add plugins on the **Plugins** card and connectors on the **Connectors** card of the **Config** page in the admin portal. The cards themselves are listed under [Integrations](https://claude.com/docs/government/config/settings.md#integrations) in Available settings, and this page covers the tasks around them, from choosing between a plugin and a connector to keeping plugins up to date. To distribute skills to members, bundle them in a plugin, as described under [Skills for administrators](https://claude.com/docs/government/desktop/skills.md#skills-for-administrators).
+You add plugins on the **Plugins** card and connectors on the **Connectors** card, under **Settings > Config** in the admin portal. The cards themselves are listed under [Integrations](https://claude.com/docs/government/config/settings.md#integrations) in Available settings.
 
 ## Plugins versus connectors
 
-A connector gives Claude access to another service, such as a search tool your agency runs, and the **Connectors** card is the way to deliver a connector to members. A plugin is a package that changes how Claude works. It can add skills, slash commands, and sub-agents, and it can carry hooks, which are scripts a plugin author includes to run automatically at defined points during a session, such as when a session starts. For adding a connector, see [Connectors](https://claude.com/docs/government/connectors/overview.md). For what a plugin can contain across Claude products, see the [Plugins overview](https://claude.com/docs/plugins/overview.md); the Claude for Government differences are covered below.
+A connector gives Claude access to another service, such as a search tool your agency runs. For adding a connector, see [Connectors](https://claude.com/docs/government/connectors/overview.md), and for what its tool policy means for members, see [Tool policy](https://claude.com/docs/government/connectors/overview.md#adding-a-connector).
 
-A plugin you upload on the **Plugins** card delivers its skills, slash commands, sub-agents, and hooks to members, and its hooks run on the member's machine. A plugin can also declare [MCP servers](https://claude.com/docs/connectors/getting-started.md) of its own, and [Plugins that run code](#plugins-that-run-code) describes how they behave. To deliver a connector to members, add it on the **Connectors** card.
+A plugin is a package that changes how Claude works. It can add skills, slash commands, and sub-agents, and it can carry [hooks](https://code.claude.com/docs/en/hooks), which a plugin author sets to run automatically at defined points during a session, such as a command that runs when a session starts. Its hooks run on the member's machine. A plugin can also declare MCP servers of its own, and [Plugins that run code](#plugins-that-run-code) describes how they behave.
 
 ## Plugin archive formats
 
-The **Plugins** card accepts a single `.zip` file. The file can be one plugin package or a marketplace archive that holds several plugins, such as the downloaded ZIP of a repository that publishes a set of plugins. A single plugin package can be up to 10 MB, and a marketplace archive can be up to 15 MB.
+On the **Config** page, open the **Plugins** card, click **Add plugins**, and drop the zip. The preview shows the plugin's name, version, description, and any [**Runs code**](#plugins-that-run-code) marker. For one plugin, choose its [install behavior](#install-behavior). The add button saves at once.
 
-When you upload a marketplace archive, the preview lists the plugins it found, and you select which ones to add. Only plugins whose files are packaged inside the archive are added, so an entry in the marketplace listing that points to a plugin hosted elsewhere is skipped. The plugins you add from one archive are grouped under a **Tag**, prefilled from the marketplace's name, which lets you identify the set later.
+The **Plugins** card accepts a single `.zip` file. The file can be one plugin package or a marketplace archive that holds several plugins, such as the downloaded ZIP of a repository that publishes a set of plugins. A single plugin package can be up to 10 MB, and a marketplace archive can be up to 15 MB. A plugin package can hold up to 50 MB of uncompressed content, whether you upload it on its own or inside a marketplace archive.
 
-To refresh the set, upload a new version of the same marketplace archive with the same **Tag**. The preview lists any plugin you added from that marketplace before that the new version no longer contains, and you can remove those plugins in the same step.
+From a marketplace archive you select which plugins to add:
+
+* **Plugins hosted elsewhere**: Only plugins whose files are packaged inside the archive are added, so an entry in the marketplace listing that points to a plugin hosted elsewhere is skipped.
+* **Layout**: In a marketplace archive, each plugin sits in its own subdirectory, and the marketplace listing points at those subdirectories. A listing entry whose source is the archive root itself, `./`, is not supported and adds nothing, so for a repository laid out as a single plugin with its own marketplace file, remove the marketplace file and upload it as one plugin.
 
 ### What a plugin archive can contain
 
-A plugin package is laid out around a manifest at `.claude-plugin/plugin.json`. The [plugins reference](https://code.claude.com/docs/en/plugins-reference) describes the general plugin format. Claude for Government accepts the narrower set described here, so a package that follows only the general reference can be rejected. The manifest is a JSON object, saved as UTF-8 without a byte-order mark, which some Windows editors add unless told otherwise. It has two required keys. `name` becomes the plugin's identity everywhere it appears, in lowercase letters, digits, hyphens, and underscores, up to 64 characters and starting with a letter or digit. `version` is 1 to 64 characters. Add a short `description` for the preview and the plugin's row. Uploading an archive whose name matches a plugin you already added replaces that plugin, whatever the two versions say.
+A plugin package is laid out around a manifest at `.claude-plugin/plugin.json`. The [plugins reference](https://code.claude.com/docs/en/plugins-reference) describes the general plugin format. Claude for Government accepts the narrower set described here, so a package that follows only the general reference can be rejected.
 
-Content sits in a fixed set of folders, all lowercase and case-sensitive: `skills/`, `commands/`, `agents/`, `hooks/`, and `monitors/`, plus `.claude-plugin/` for the manifest and an optional `icon.png`. Each folder accepts specific file types. `commands/` and `agents/` take `.md` files, `hooks/` and `monitors/` take `.json` files, and `skills/` takes six text formats (`.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.csv`). The root can also hold `README.md`, `LICENSE`, `LICENSE.txt`, `CLAUDE.md`, `CONNECTORS.md`, and `.mcp.json`. Other text files in those six formats, at the root or in folders of your own, are accepted but not used by Claude. Any other file type, anywhere in the archive, is rejected.
+* **Manifest**: The manifest is a JSON object, saved as UTF-8 without a byte-order mark. `name` and `version` are required. `name` becomes the plugin's identity everywhere it appears, in lowercase letters, digits, hyphens, and underscores, up to 64 characters and starting with a letter or digit. Add a short `description`.
+* **Folders**: Content sits in a fixed set of folders, all lowercase and case-sensitive: `skills/`, `commands/`, `agents/`, `hooks/`, and `monitors/`, plus `.claude-plugin/` for the manifest and an optional `icon.png`. `commands/` and `agents/` take `.md` files, `hooks/` and `monitors/` take `.json` files, and `skills/` takes text files in these formats: `.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.csv`.
+* **Other files**: The root can also hold files such as `README.md`, `LICENSE`, and `CONNECTORS.md`. Other text files in those formats, at the root or in folders of your own, are accepted. Any other file type, anywhere in the package, is rejected.
+* **Text only**: Apart from the optional icon, everything in a package must be text in UTF-8.
+* **Names**: File and folder names must be ASCII. Nothing in the package may start with a dot apart from `.claude-plugin/` and a root `.mcp.json`: repository files such as `.github/` or `.gitattributes` must be left out, while `.gitignore`, `.DS_Store`, and Apple's `__MACOSX/` folders are dropped for you.
+* **Zip paths**: Paths inside the zip must use forward slashes. File Explorer's **Compress to ZIP file** writes them, while Windows PowerShell 5.1's `Compress-Archive` can write backslash paths, which the upload rejects. A zip that wraps everything in one top folder, which is what zipping the plugin folder or downloading a repository as a ZIP produces, works, as long as the plugin holds no other dot-prefixed files.
 
-Apart from the optional icon, everything in an archive must be text in UTF-8. There is no way to ship a script, or any other binary asset such as an image, through the card. File and folder names must be ASCII. Nothing in the archive may start with a dot apart from `.claude-plugin/` and a root `.mcp.json`: repository files such as `.github/` or `.gitattributes` must be left out, while `.gitignore` and `.DS_Store` are dropped for you.
+### Package a skill as a plugin
 
-Paths inside the zip must use forward slashes: File Explorer's **Compress to ZIP file**, 7-Zip, `tar.exe`, PowerShell 7, and Python's `zipfile` all write them, while Windows PowerShell 5.1's `Compress-Archive` can write backslash paths, which the upload rejects. A zip that wraps everything in one top folder, which is what zipping the plugin folder or downloading a repository as a ZIP produces, works, as long as the repository holds no other dot-prefixed files. The upload looks inside the wrapper. Apple's `__MACOSX/` folders are dropped quietly too. A plugin package can hold up to 50 MB of uncompressed content, whether you upload it on its own or inside a marketplace archive.
+To distribute skills to members, bundle them in a plugin. The smallest valid package is the manifest plus your skill folder under `skills/`:
 
-Inside `skills/`, each skill is one folder holding a `SKILL.md` whose frontmatter `name` matches the folder name, with any reference files beside it. A bare skill archive, such as a zip of just the skill folder or a `.skill` file from Claude Desktop, is not a plugin: add the manifest and move the folder under `skills/` to convert it. For the path from writing a skill to delivering it, see [Building and deploying your own skills](https://claude.com/docs/government/desktop/skills.md#building-and-deploying-your-own-skills).
+```text theme={null}
+acme-skills.zip
+├── .claude-plugin/
+│   └── plugin.json
+└── skills/
+    └── brand-guidelines/
+        ├── SKILL.md
+        └── palette.csv
+```
 
-In a marketplace archive, each plugin sits in its own subdirectory, and the marketplace listing points at those subdirectories. A listing entry whose source is the archive root itself, `./`, is not supported and adds nothing, so for a repository laid out as a single plugin with its own marketplace file, remove the marketplace file and upload it as one plugin.
+Here `plugin.json` can be `{"name": "acme-skills", "version": "1.0.0", "description": "Agency writing skills"}`. Inside `skills/`, each skill is one folder holding a `SKILL.md` whose frontmatter carries a `description` and a `name` that matches the folder name, with any reference files beside it. One plugin can carry several skills, one folder per skill. The [skill authoring guide](https://claude.com/docs/skills/how-to.md) covers the format, but an upload that contains the scripts or binary assets it describes is rejected. [What a plugin archive can contain](#what-a-plugin-archive-can-contain) has the full rules.
 
-A package is marked **Runs code** when it declares components that can run code on members' machines. That means any file under `hooks/` or `monitors/`, a `.mcp.json` at the root, or a manifest key that declares them, such as `hooks` or `mcpServers`. Manifest keys that describe the plugin, such as `name`, `version`, `description`, `author`, and `license`, leave the marker off, as do the keys that point to its skills, commands, and agents. A manifest key that the upload does not recognize turns the marker on as a precaution.
+A bare skill archive, such as a zip of the skill folder alone or a `.skill` file from [Claude Desktop](https://claude.com/docs/government/desktop/skills.md), which is a zip of the bare skill folder, is not a plugin: add the manifest and move the folder under `skills/` to convert it.
+
+The upload checks packaging, not skill content. After [adding the plugin](#plugin-archive-formats), open Claude Desktop as a member: install the plugin if you chose [**Members choose**](#install-behavior), then give Claude a task the skill should match and confirm Claude picks it up.
 
 ## Plugins that run code
 
-The upload preview marks any plugin that declares components that can run code on the member's machine, for example hooks or an [MCP server](https://claude.com/docs/connectors/getting-started.md), and you confirm that you trust such a package before it is added. For a marketplace archive, one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps a **Runs code** marker, so you can see at a glance which of the plugins you have added contain these components.
+A **Runs code** marker in the upload preview warns that the plugin can run code on the member's machine, for example through hooks or an MCP server. You confirm that you trust a marked package before it is added, and for a marketplace archive one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps the marker. You are responsible for the plugins you distribute to members, so read each plugin's contents before you upload it, marked or not.
 
-The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one. If a plugin's remote MCP server does not connect, check [**Member-added connectors**](https://claude.com/docs/government/config/settings.md#member-added-connectors) and the **Blocked connectors** list on the **Connectors** card.
-
-Treat the marker as a prompt to review the package yourself. You are responsible for the plugins you distribute to members, so read each plugin's contents before you upload it.
+Claude Desktop can run a local MCP server that the plugin declares on the member's machine, or connect to a remote one. If the server does not start or connect, check [**Let members add their own connectors**](https://claude.com/docs/government/config/settings.md#let-members-add-their-own-connectors), [**Member-added connectors**](https://claude.com/docs/government/config/settings.md#member-added-connectors), and [**Blocked connectors**](https://claude.com/docs/government/config/settings.md#blocked-connectors).
 
 ## Install behavior
 
-Each plugin on the **Plugins** card has an install behavior that you set when you add it and can change later on its row. **Auto-install** installs the plugin on every member's Claude Desktop without the member doing anything. **Members choose** offers the plugin to members, who install it themselves from their organization's plugins in Claude Desktop, as described in [Plugins in Claude Desktop](https://claude.com/docs/government/desktop/plugins.md).
+Each plugin on the **Plugins** card has an install behavior. To change it, set it on the plugin's row and save the change. **Auto-install** installs the plugin on every member's Claude Desktop without the member doing anything. **Members choose** offers the plugin to members, who install it themselves from their organization's plugins in Claude Desktop, as described in [Plugins in Claude Desktop](https://claude.com/docs/government/desktop/plugins.md). Plugins you add from a marketplace archive start as **Members choose**.
 
-You do not need to push anything for a plugin to reach members. Claude Desktop syncs your organization's plugin list when it starts and periodically while it runs, so an auto-installed plugin appears on its own, and a member who already has the application open receives it at the next sync. A member can remove a plugin you installed automatically, and it stays removed on the device where they removed it.
+Claude Desktop syncs your organization's plugin list when it starts and periodically while it runs, so you do not need to push anything. A member can remove a plugin you installed automatically, and it stays removed on the device where they removed it.
 
-Two switches, **Let members add plugin marketplaces** and **Let members add their own plugins**, control whether members can also add plugins of their own in Claude Desktop, as described under [Integrations](https://claude.com/docs/government/config/settings.md#member-added-plugins-and-marketplaces) in Available settings. Both are off by default. Plugins that members add are separate from the ones you add and do not appear on the **Plugins** card.
+**Let members add plugin marketplaces** and **Let members add their own plugins** control whether members can also add plugins of their own, as described under [Integrations](https://claude.com/docs/government/config/settings.md#member-added-plugins-and-marketplaces) in Available settings. Both are off by default. Plugins that members add are separate from the ones you add and do not appear on the **Plugins** card.
 
 ## Where plugins are added
 
-Plugins are added at the tenant or organization level. Plugins the tenant adds flow to every organization and appear on each organization's **Plugins** card under **From levels above**. A tenant administrator can lock the plugin list, which makes it read-only for organizations, following the lock behavior in [How Config works](https://claude.com/docs/government/config/overview.md#locks). [Group levels](https://claude.com/docs/government/config/overview.md#group-specific-settings) inherit the plugins of their tenant or organization, so the **Plugins** card is read-only when you view a group.
+Plugins are added at the tenant or organization level. Plugins the tenant adds flow to every organization and appear on each organization's **Plugins** card under **From levels above**. A plugin an organization adds with the same name takes priority over the tenant's for that organization's members.
+
+A tenant administrator can lock the plugin list, under **Advanced: raw configuration** on the card, which makes it read-only for organizations, following the lock behavior in [How Config works](https://claude.com/docs/government/config/overview.md#locks).
 
 ## Update or remove a plugin
 
-To update a plugin, upload the new version's archive. Because its name matches the plugin you added, the upload updates that plugin, the preview marks the update before you save, and members who have the plugin receive the new version automatically.
+To update a plugin, go to **Settings > Config**, open the **Plugins** card, click **Add plugins**, and upload the new version's archive. An archive whose manifest `name` matches a plugin you already added replaces that plugin, whatever the two versions say, and members who have the plugin receive the new version automatically. Give each upload a new `version`, so that older Claude Desktop versions pick it up. To refresh the plugins you added from a marketplace archive, upload a new version of it with the same **Tag**, which the preview fills in from the marketplace's name. Plugins under that tag that the new archive lacks are removed unless you choose in the preview to keep them.
 
-To remove a plugin, click its remove icon and save the change. Claude for Government stops delivering the plugin, and Claude Desktop removes it for members who have it the next time it [syncs your organization's plugin list](#install-behavior). After that sync the plugin's hooks no longer run. A new chat cannot use the plugin's skills or commands, but a chat the member was using at the time can still use them.
-
-## Connector tool policies for members
-
-You add and edit connectors on the **Connectors** card, and for each one you choose the products that receive it and set a policy for each of its tools. See [Connectors](https://claude.com/docs/government/connectors/overview.md) for the three-step wizard.
-
-On Claude Desktop, that tool policy shapes what members experience. A tool you switch off is blocked, so Claude cannot use it. A tool you switch on is available and asks the member on every use, and members are not offered a lasting approval for it. A tool you do not list is left to the member to turn on or off, and its approval prompts follow the member's own choices, which can include lasting approval.
+To remove a plugin, click its remove icon and save the change. Claude for Government stops delivering the plugin, and Claude Desktop removes it for members who have it the next time it [syncs your organization's plugin list](#install-behavior). After that sync the plugin's hooks no longer run. A new chat cannot use the plugin's skills or commands, but a chat the member was using at the time can still use them. Claude Desktop versions earlier than 1.46388.1 keep the plugin, hooks included, until the member removes it.

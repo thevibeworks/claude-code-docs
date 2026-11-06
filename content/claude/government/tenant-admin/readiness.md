@@ -10,9 +10,9 @@
 
 The **Readiness** page shows what is blocking your organizations from using Claude and where each item is resolved. To open it, go to **Settings > Readiness** in the tenant admin portal. You would normally work through it once during initial setup and then return whenever the **Settings** menu shows a notification dot. The dot means a required step is unfinished.
 
-An open step shows why it is blocked, and either offers a button that takes you to the page where the fix is made or names who it is waiting on. A step that isn't required doesn't raise the dot, but people can still be stuck until it is done.
+In each checklist, the first unfinished required step shows why it is blocked, and either offers a button that takes you to the page where the fix is made or names who it is waiting on, such as **Waiting on Anthropic**. A step that isn't required doesn't raise the dot, but people can still be stuck until it is done.
 
-When a step is something only Anthropic can do, such as adding credits or reactivating an organization, the page shows **Waiting on Anthropic**. Contact your Anthropic representative to move it forward.
+When a step is something only Anthropic can do, such as adding credits or reactivating an organization, contact your Anthropic representative to move it forward.
 
 ## Tenant-level checks
 

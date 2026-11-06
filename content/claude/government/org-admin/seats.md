@@ -23,12 +23,12 @@ The **Seats** page shows how many seats your organization has for each [seat tie
 Someone who joins your organization gets the first of these that applies:
 
 1. The tier one of their directory groups is [mapped to](https://claude.com/docs/government/org-admin/provisioning.md#group-to-seat-tier).
-2. The tier marked [**New members start here**](https://claude.com/docs/government/org-admin/seat-tiers.md#creating-a-self-managed-tier).
+2. The tier marked **New members start here** on the [Tiers](https://claude.com/docs/government/org-admin/seat-tiers.md) page.
 3. The tier with a **Limit**, a free seat, and the lowest **Sort order**.
 
-If their mapped or marked tier is full, they get no seat, even if another tier has one free. If a full tier is the reason, someone new from your directory isn't added yet.
+If their mapped or marked tier is full, they get no seat, even if another tier has one free. If a full tier is the reason, someone new from your directory [isn't added yet](https://claude.com/docs/government/org-admin/provisioning.md#how-mappings-are-applied).
 
-Anyone else with no seat is **Unassigned** and has no model access. An owner can [choose a tier for them](https://claude.com/docs/government/org-admin/users.md#assigning-a-seat-tier), and so can a tenant administrator from your organization's admin view.
+Anyone else with no seat is **Unassigned** and has no model access. Adding more seats later seats only those of them in a mapped group. For the rest, an owner can [choose a tier](https://claude.com/docs/government/org-admin/users.md#assigning-a-seat-tier), and so can a tenant administrator from your organization's admin view.
 
 > [!NOTE]
 >

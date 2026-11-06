@@ -14,7 +14,7 @@ The API is available to every Claude for Government organization by default, and
 
 ## Managing API keys
 
-To create and manage keys for your organization, open **Compliance API** under **Settings** in the organization admin portal. To create and manage keys that return events for every organization in your tenant, open **Compliance API keys** under **Settings** in the [tenant admin portal](https://claude.com/docs/government/tenant-admin/overview.md). Only tenant administrators can open the tenant admin portal.
+To create and manage keys for your organization, open **Compliance API** under **Settings** in the [organization admin portal](https://claude.com/docs/government/org-admin/overview.md#who-can-access-it). To create and manage keys that return events for every organization in your tenant, open **Compliance API keys** under **Settings** in the [tenant admin portal](https://claude.com/docs/government/tenant-admin/overview.md). Only tenant administrators can open the tenant admin portal.
 
 Both pages list only their own keys, showing each key's name, a hint with the last few characters of the key so you can tell keys apart, when the key was created, and whether it is active or revoked.
 
@@ -30,10 +30,10 @@ Each key is scoped to the organization or tenant it was created in. A key create
 
 ## Calling the API
 
-Send a GET request to your Claude for Government host followed by the fixed path `/gateway-api/v1/compliance/activities`, with your key in the `x-api-key` header. The Claude for Government host is the address of your organization admin portal. If you are unsure of it, ask your Anthropic representative.
+Send a GET request to your Claude for Government host followed by the fixed path `/gateway-api/v1/compliance/activities`, with your key in the `x-api-key` header. The Claude for Government host is the domain name in the address of your organization admin portal. If you are unsure of it, ask your Anthropic representative.
 
 ```http theme={null}
-GET https://<claude-for-government-host>/gateway-api/v1/compliance/activities?since=2026-07-01T00:00:00Z&limit=500
+GET https://<claude-for-government-host>/gateway-api/v1/compliance/activities?since=<start-time>&limit=500
 x-api-key: <your-compliance-api-key>
 ```
 
@@ -84,7 +84,6 @@ The response is a JSON envelope containing a page of events and the cursors for 
 The `actor` object identifies who performed the action. Its `type` is one of:
 
 * `user_actor` for a person acting through the product or admin portal.
-* `admin_api_key_actor` for an action taken through an administrative API key.
 * `anthropic_actor` for an action performed by Anthropic personnel or systems on your behalf, such as initial provisioning. No individual identity is included.
 
 Each event also carries fields specific to its type, such as the role a user was changed to or the name of a key that was created.
@@ -138,7 +137,7 @@ New types may be added over time, so a collector should forward unfamiliar types
 
 Most deployments run a small scheduled worker that polls the API on a fixed interval, forwards each event to the SIEM's HTTP ingest endpoint, and records a time watermark so the next run picks up where the last one left off. A worker that falls more than 30 days behind cannot recover the gap.
 
-A typical run requests `since=<watermark>`, forwards every event returned, and if `has_more` is true, follows `after_id=<last_id>` for each further page until `has_more` is false. After all pages are drained, advance your watermark to the newest `created_at` you saw. Event `id` values are stable and unique, so your collector can deduplicate on `id` and safely retry a page or use an overlapping `since` without creating duplicate records in the SIEM.
+A typical run requests `since=<watermark>`, forwards every event returned, and if `has_more` is true, follows `after_id=<last_id>` for each further page until `has_more` is false. After all pages are drained, advance your watermark to one hour before the newest `created_at` you saw, because an event can reach the feed after a newer one. Event `id` values are stable and unique, so your collector should deduplicate on `id`, and can then safely retry a page or use an overlapping `since` without creating duplicate records in the SIEM.
 
 ## When the API is disabled
 

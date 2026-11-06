@@ -120,7 +120,7 @@ Have your identity provider send, as the primary SCIM email, the address each pe
 
 ### Directory groups
 
-Once your identity provider has pushed groups over SCIM, they appear here with their member counts. The order you set here is the priority used for group-level configuration on the [Config](https://claude.com/docs/government/config/overview.md#group-specific-settings) page and for [seat-tier mappings](https://claude.com/docs/government/org-admin/provisioning.md#how-mappings-are-applied).
+Once your identity provider has pushed groups over SCIM, they appear here with their member counts. The order you set here is the priority used for group-level configuration on the [Config](https://claude.com/docs/government/config/overview.md#group-specific-settings) page and for [seat-tier mappings](https://claude.com/docs/government/org-admin/provisioning.md#how-mappings-are-applied). Reordering groups can change the seat tier of members who belong to more than one group mapped to a seat tier in their organization, without waiting for the next directory sync.
 
 ## Routing rules
 
@@ -174,7 +174,7 @@ Because sign-in rules run every time, a rule change has these effects on people 
 * If a person now matches a rule that points to a different organization, they are moved on their next sign-in, unless another case in this list applies.
 * If a person is a [Primary Owner](https://claude.com/docs/government/org-admin/users.md#understanding-roles) of their organization, they are moved only when they are also a [tenant administrator](https://claude.com/docs/government/tenant-admin/admins.md) and that organization has another active Primary Owner.
 * Removing an identity provider group rule (listed as **Anyone with IdP group**), or moving it lower, can move people already in its organization at their next sign-in.
-* If a person no longer matches any rule (for example, you removed the only rule that covered them), they keep their current organization and can still sign in. The no-match refusal applies only to people who have never been placed.
+* If a person no longer matches any rule (for example, you removed the only rule that covered them), they keep their current organization and can still sign in. The no-match refusal applies only to people who have no account yet.
 * If a person's account is managed by your directory (that is, it was created or linked through SCIM), sign-in rules do **not** move them. Directory-managed accounts are moved only by provisioning rules.
 
 ## When someone cannot sign in
@@ -204,6 +204,6 @@ The table shows what a person may see when sign-in fails, and what to do about i
 | **Signed in with a different account** | Your identity provider returned another address than the one they typed | They can continue as the returned address. If sign-in then finds no organization, verify that address's domain, or correct the address your provider sends |
 | **Email address missing** | Your identity provider didn't send an email address | Add an email attribute or claim in your identity provider, or name it under [Attribute mapping](#attribute-mapping-advanced) |
 | **Account deactivated** | Their account or directory entry is deactivated | Reactivate them in your directory: see [Deactivated users](https://claude.com/docs/government/org-admin/users.md#deactivated-users). If your directory doesn't manage them, contact your Anthropic representative |
-| "Invalid signature in response from identity provider" | Your provider doesn't sign the assertion (which is required once you save the SAML section), or your saved SAML metadata no longer matches the certificate your provider signs with | For an unsigned assertion, set your provider to sign it, and sign-in works again with no change in Claude for Government. For a changed certificate, paste the new metadata under [Connect with SAML](#connect-with-saml) |
+| "Invalid signature in response from identity provider" | Your provider doesn't sign the assertion (required once you save the SAML section), or its signing certificate expired or isn't the one in your saved metadata | For an unsigned assertion, set your provider to sign it; no change is needed in Claude for Government. Otherwise renew the certificate if it expired, then paste the new metadata under [Connect with SAML](#connect-with-saml) |
 | "Login timeout. Please sign in again." | A SAML response that arrives outside its validity period, or names the wrong audience, can produce this page right after the person signs in at your provider | Check the clock on each identity provider server you run, and set the audience in your provider to your [**SP Entity ID / Audience**](#register-in-your-identity-provider) |
 | **Sign-in not completed** | The sign-in was canceled, or the exchange with your identity provider failed | Run **Test sign-in**, which names the likely cause |

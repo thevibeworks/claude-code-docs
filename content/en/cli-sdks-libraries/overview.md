@@ -7,7 +7,7 @@ description: "Official tools for building with the Claude API: client SDKs in se
 Anthropic provides three kinds of official tooling for building with the Claude API:
 
 * **CLI:** The `ant` command-line tool for shell scripting and interactive use.
-* **Client SDKs:** General-purpose Messages API clients for Python, TypeScript, C#, Go, Java, PHP, and Ruby. They also cover most of the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api). Each SDK provides idiomatic interfaces, type safety, and built-in support for streaming, retries, error handling, and [OpenTelemetry tracing](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+* **Client SDKs:** General-purpose Messages API clients for Python, TypeScript, C#, Go, Java, PHP, and Ruby. They also cover [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) and most of the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api). Each SDK provides idiomatic interfaces, type safety, and built-in support for streaming, retries, error handling, and [OpenTelemetry tracing](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
 * **Libraries and integrations:** Packages and compatibility layers that expose Claude inside another framework’s API surface rather than the Messages API directly.
 
 <Info>
@@ -54,7 +54,7 @@ Anthropic provides three kinds of official tooling for building with the Claude 
   </Card>
 </CardGroup>
 
-Each major version of a client SDK sends one [API version](https://platform.claude.com/docs/en/api/versioning) by default, and a new major version comes with each new API version. To move to `2026-10-21`, see [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
+Each major version of a client SDK sends one [API version](https://platform.claude.com/docs/en/api/versioning) by default. To move to a new API version, upgrade to a new major version. For `2026-10-21`, see [Switch to 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
 
 ## Latest versions
 
@@ -87,7 +87,7 @@ Libraries and integrations expose Claude through another framework’s API surfa
 
 ## Building agents or using Claude Code?
 
-The CLI, client SDKs, and libraries are for calling the Claude API yourself: you send each request and handle each response. Claude Code, the Claude Agent SDK, and Claude Managed Agents work at a higher level, providing the agent loop, tool execution, and runtime.
+The CLI, client SDKs, and libraries are for calling the Claude API yourself. You send each request and handle each response. Claude Code, the Claude Agent SDK, and Claude Managed Agents work at a higher level, providing the agent loop, tool execution, and runtime.
 
 <CardGroup cols={3}>
   <Card title="Claude Code" href="https://code.claude.com/docs/en/overview">

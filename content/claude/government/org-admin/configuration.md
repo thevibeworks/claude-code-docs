@@ -4,22 +4,10 @@
 
 # Config at the organization level
 
-> View and change the product settings that apply to everyone in your organization, and see where each effective value comes from.
+> Set product settings for everyone in your organization on the Config page, and see how connectors and plugins inherited from your tenant behave there.
 
-> **Who this is for:** Organization owners who set product behavior, such as the session timeout, Claude Desktop banner, and product availability, for everyone in their organization.
+> **Who this is for:** Organization owners who set product behavior for everyone in their organization.
 
-Use this page to view and change the product settings that apply to everyone in your organization, and to see where each effective value comes from.
+In the organization view of the admin portal, go to **Settings > Config**. The Config page works the same way at the tenant and organization levels, with the same list of settings. See [How Config works](https://claude.com/docs/government/config/overview.md) for how levels, locks, and groups combine, and [Available settings](https://claude.com/docs/government/config/settings.md) for what each setting does.
 
-The Config page works the same way at the tenant and organization levels, with the same list of settings. See [How Config works](https://claude.com/docs/government/config/overview.md) for the levels model, locks, groups, comparing across levels, and looking up one person's settings, and [Available settings](https://claude.com/docs/government/config/settings.md) for what each setting does. This page covers only what is specific to the organization level.
-
-## What is specific to the organization level
-
-**Managed settings.** A setting that your tenant has locked shows as **Managed** and is read-only here. Any value you had previously set is ignored while the lock is in place, and it comes back into effect if the tenant later removes the lock. See [Locks](https://claude.com/docs/government/config/overview.md#locks).
-
-**Settings only the tenant can change.** [Let organizations manage their own seat tiers](https://claude.com/docs/government/config/settings.md#let-organizations-manage-their-own-seat-tiers) and [Compliance API](https://claude.com/docs/government/config/settings.md#compliance-api) are always read-only here, regardless of whether they are locked.
-
-**Inherited connectors and plugins.** Connectors and plugins the tenant has added are labeled **Inherited from your tenant** and cannot be changed from here. A connector or plugin you add with the same name takes priority over the inherited one for your members. See [The Connectors card](https://claude.com/docs/government/connectors/overview.md#the-connectors-card) and [Tool and connector cards](https://claude.com/docs/government/config/settings.md#tool-and-connector-cards).
-
-**Group settings within your organization.** A value you set for a directory group at this level applies only to people who are both a member of the group and a member of your organization, and it is the most specific level in the chain. Group priority is set by your tenant administrator and is shown here for reference; you cannot reorder it from the organization portal. See [Group-specific settings](https://claude.com/docs/government/config/overview.md#group-specific-settings).
-
-**Your own organization only.** Organization owners manage only their own organization's Config page. Tenant administrators can open any organization's Config page and act on that organization's behalf.
+A setting marked **Locked by your tenant** can be changed only by a tenant administrator; see [Locks](https://claude.com/docs/government/config/overview.md#locks). Connectors and plugins the tenant has added are labeled **Inherited from your tenant** and cannot be changed from here. A connector or plugin you add with the same name takes priority over the inherited one for your members. See [Change or stop an inherited connector](https://claude.com/docs/government/connectors/overview.md#the-connectors-card) and [Where plugins are added](https://claude.com/docs/government/config/plugins-and-connectors.md#where-plugins-are-added).
