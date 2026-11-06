@@ -193,13 +193,13 @@ Upload File
 
     Whether the file can be downloaded.
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope | nil`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -252,7 +252,7 @@ List Files
 
 ### Parameters
 
-- `ids: optional Array[String]` (query parameter)
+- `ids: optional Array[String] | nil` (query parameter)
 
   Restrict the result set to Files whose `id` is in this list. At most 100 entries (after de-duplication). Mutually exclusive with `page` and `limit`. When supplied, the response is always a single page (`next_page` is null). IDs that do not resolve to a visible File — including deleted Files — are silently omitted.
 
@@ -264,7 +264,7 @@ List Files
 
   minimum: 1, maximum: 1000
 
-- `page: optional String` (query parameter)
+- `page: optional String | nil` (query parameter)
 
   Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
@@ -438,13 +438,13 @@ List Files
 
     Whether the file can be downloaded.
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope | nil`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -824,13 +824,13 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope | nil`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -1104,13 +1104,13 @@ puts(beta_deleted_file)
 
     Whether the file can be downloaded.
 
-  - `expires_at: optional Time`
+  - `expires_at: optional Time | nil`
 
     RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
 
     format: date-time
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope | nil`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 

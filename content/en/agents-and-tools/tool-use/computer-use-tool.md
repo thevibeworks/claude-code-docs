@@ -64,7 +64,7 @@ Computer use has unique risks distinct from standard API features. These risks a
 
 In some circumstances, Claude follows commands found in content even when they conflict with your instructions. For example, instructions on webpages or contained in images might override your instructions or cause Claude to make mistakes. Take precautions to isolate Claude from sensitive data and actions to avoid risks related to prompt injection.
 
-Anthropic has trained the model to resist these prompt injections and has added an extra layer of defense. If you use the computer use tools, classifiers will automatically scan what the tools return, such as screenshots, to flag potential prompt injections. When these classifiers identify a potential prompt injection, they will automatically steer the model to check whether the instruction really came from you before acting on it.
+Anthropic has trained the model to resist these prompt injections and has added an extra layer of defense. If you use the computer use tool, classifiers automatically scan what the tool returns, such as screenshots, to flag potential prompt injections. When these classifiers identify a potential prompt injection, they steer the model to check whether the instruction really came from you before acting on it.
 
 This extra protection isn’t ideal for every use case (for example, use cases without a human in the loop), so if you’d like to opt out and turn it off, [contact support](https://support.claude.com/en/). The precautions listed earlier remain important even with these classifiers in place.
 
@@ -341,7 +341,7 @@ Your application runs each call in order in your own environment, returns one `t
   </Step>
 </Steps>
 
-The repetition of steps 3 and 4 without user input is referred to as the “agent loop” (that is, Claude responding with a tool use request and your application responding to Claude with the results of evaluating that request).
+Steps 3 and 4, repeated without user input, form the “agent loop”: Claude responds with a tool use request, and your application responds to Claude with the results of evaluating that request.
 
 ### Batch actions
 
@@ -443,7 +443,7 @@ Computer use requires a sandboxed computing environment where Claude can safely 
 
 2. **Desktop environment:** A lightweight UI with window manager (Mutter) and panel (Tint2) running on Linux, which provides a consistent graphical interface for Claude to interact with.
 
-3. **Applications:** Pre-installed Linux applications such as Firefox, LibreOffice, text editors, and file managers that Claude can use to complete tasks.
+3. **Applications:** Preinstalled Linux applications such as Firefox, LibreOffice, text editors, and file managers that Claude can use to complete tasks.
 
 4. **Tool implementations:** Integration code that translates Claude’s abstract tool requests (such as “move mouse” or “take screenshot”) into actual operations in the virtual environment.
 
@@ -451,10 +451,10 @@ Computer use requires a sandboxed computing environment where Claude can safely 
 
 When you use computer use, Claude doesn’t directly connect to this environment. Instead, your application:
 
-1. Receives Claude’s tool use requests
-2. Translates them into actions in your computing environment
-3. Captures the results (such as screenshots and command outputs)
-4. Returns these results to Claude
+1. Receives Claude’s tool use requests.
+2. Translates them into actions in your computing environment.
+3. Captures the results (such as screenshots and command outputs).
+4. Returns these results to Claude.
 
 For security and isolation, the reference implementation runs all of this inside a Docker container with appropriate port mappings for viewing and interacting with the environment.
 
@@ -465,7 +465,7 @@ For security and isolation, the reference implementation runs all of this inside
 Upgrading an existing `computer_20251124` integration? Start with [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124); the rest of this section applies to both new and migrated integrations.
 
 <Tip>
-  The [computer use reference implementation](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo) is a complete working example: a [containerized environment](https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-demo/Dockerfile) suitable for computer use, implementations of [the computer use tools](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo/computer_use_demo/tools), an [agent loop](https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-demo/computer_use_demo/loop.py) that calls the Claude API and runs the tools, and a web interface for the container, loop, and tools.
+  The [computer use reference implementation](https://github.com/anthropics/claude-quickstarts/tree/main/computer-use-demo) is a complete working example: a [containerized environment](https://github.com/anthropics/claude-quickstarts/blob/main/computer-use-demo/Dockerfile) suitable for computer use, implementations of [the computer use tools](https://github.com/anthropics/claude-quickstarts/tree/main/computer-use-demo/computer_use_demo/tools), an [agent loop](https://github.com/anthropics/claude-quickstarts/blob/main/computer-use-demo/computer_use_demo/loop.py) that calls the Claude API and runs the tools, and a web interface for the container, loop, and tools. To use `computer_toolset_20260801`, choose a [model that supports it](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#availability-feature-support), then select the toolset under **Tool Versions** in the web interface’s sidebar.
 </Tip>
 
 ### Understand the agent loop
@@ -893,7 +893,7 @@ For tasks that stay inside webpages, you can also [declare the browser use tool 
 
 ### Build a custom computer use environment
 
-The [reference implementation](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo) is meant to help you get started with computer use. It includes all of the components needed to have Claude use a computer. However, you can build your own environment for computer use to suit your needs. You need:
+The [reference implementation](https://github.com/anthropics/claude-quickstarts/tree/main/computer-use-demo) is meant to help you get started with computer use. It includes all of the components needed to have Claude use a computer. However, you can build your own environment for computer use to suit your needs. You need:
 
 * A virtualized or containerized environment suitable for computer use with Claude
 * An implementation of the computer use tool’s actions
@@ -906,7 +906,7 @@ The computer use tool is implemented as a schema-less tool. When using this tool
 
 <Steps>
   <Step title="Set up your computing environment">
-    Create a virtual display or connect to an existing display that Claude will interact with. This typically involves setting up Xvfb (X Virtual Framebuffer) or similar technology.
+    Create a virtual display or connect to an existing display that Claude interacts with. This typically involves setting up Xvfb (X Virtual Framebuffer) or similar technology.
   </Step>
 
   <Step title="Implement action handlers">
@@ -2188,7 +2188,7 @@ On Amazon Bedrock, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 also
 
 ## Limitations
 
-1. **Latency:** The current computer use latency for human-AI interactions might be too slow compared to regular human-directed computer actions. Focus on use cases where speed isn’t critical (for example, background information gathering, automated software testing) in trusted environments.
+1. **Latency:** Computer use latency for human-AI interactions might be too slow compared with regular human-directed computer actions. Focus on use cases where speed isn’t critical (for example, background information gathering, automated software testing) in trusted environments.
 2. **Computer vision accuracy and reliability:** Claude might make mistakes or hallucinate when outputting specific coordinates while generating actions. Claude’s [summarized thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking) output can help you understand the model’s reasoning and identify potential issues; set `display: "summarized"` on the thinking configuration, because the models that support the toolset omit thinking text by default.
 3. **Tool selection accuracy and reliability:** Claude might make mistakes or hallucinate when selecting tools while generating actions or take unexpected actions to solve problems. Additionally, reliability might be lower when interacting with niche applications or multiple applications at once. Prompt the model carefully when requesting complex tasks.
 4. **Scrolling reliability:** The scroll action supports direction control (up, down, left, right) and a specified amount. In applications where scrolling doesn’t take effect, keyboard alternatives such as Page Down can help.
@@ -2236,8 +2236,8 @@ Computer use follows the standard [tool use pricing](https://platform.claude.com
     Fix the most common tool-use errors with symptom-to-fix diagnostic tables.
   </Card>
 
-  <Card title="Reference implementation" icon="github-logo" href="https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo">
-    Get started with the complete Docker-based implementation
+  <Card title="Reference implementation" icon="github-logo" href="https://github.com/anthropics/claude-quickstarts/tree/main/computer-use-demo">
+    Get started with the complete Docker-based implementation.
   </Card>
 
   <Card title="Tool use with Claude" icon="tool" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">
@@ -2245,7 +2245,7 @@ Computer use follows the standard [tool use pricing](https://platform.claude.com
   </Card>
 
   <Card title="Best practices in detail" icon="book" href="https://claude.com/blog/best-practices-for-computer-and-browser-use-with-claude">
-    Benchmarked recommendations for resolution, thinking effort, and context management
+    Benchmarked recommendations for resolution, thinking effort, and context management.
   </Card>
 
   <Card title="Browser use tool" icon="browser" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool">

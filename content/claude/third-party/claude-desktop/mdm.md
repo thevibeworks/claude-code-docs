@@ -52,7 +52,7 @@ To turn on [Unified Claude](https://claude.com/docs/third-party/claude-desktop/u
 
 > [!NOTE]
 >
-> When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only app-behavior keys](#update-keys-and-managed-precedence) (the update, configuration re-check, relaunch window, and network proxy keys) leave the window editable.
+> When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only app-behavior keys](#update-keys-and-managed-precedence) leave the window editable.
 
 ## 2. Export the profile
 
@@ -159,6 +159,7 @@ A small group of **app-behavior keys** is treated specially, so you can set an u
 * The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `installedUpdateEnforcementEnabled`, `installedUpdateEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](https://claude.com/docs/third-party/claude-desktop/configuration#releasechannel).
 * The configuration lifecycle keys [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes), which MDM can set from version 1.46388.1.
 * The network proxy keys `egressProxyUrl` and `egressProxyPacUrl`. See [Network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
+* The Code session keys [`disableWslSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disablewslsessions) and [`claudeCodeProcessWrapperEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudecodeprocesswrapperenabled). See [Start Code sessions through a corporate launcher](https://claude.com/docs/third-party/claude-desktop/code.md#start-code-sessions-through-a-corporate-launcher).
 
 When a managed source sets only keys from this group (any of them), the device keeps its locally authored configuration and the configuration window stays editable. The group is still enforced as a unit: every key in it is resolved from the managed source alone, so a locally set or bootstrap-served value for any of them is ignored even if the profile sets only one. A profile that sets the update keys but not `relaunchEnforcementHours` or `configRecheckIntervalMinutes` therefore runs their defaults (24 hours and 10 minutes) on those devices, so set them in the same profile when you want other values.
 

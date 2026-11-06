@@ -3158,7 +3158,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", betaSelfHostedWork.ID)
+	fmt.Printf("%+v\n", betaSelfHostedWork)
 }
 ```
 

@@ -6,6 +6,22 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+**0.1.72**
+
+November 5, 2026
+
+* LaTeX previews now show tables and text more accurately. A note above the preview says some text and numbers can differ from a compiled PDF
+* If Claude Science opens in its own window, on Windows or a Mac, connecting a Directory connector such as Google Drive now finishes in your browser. Use the same Claude account and organization there, or it won't show as connected
+* After you update, Claude Science removes old local artifact entries for credential files and folders the sandbox hides, such as `.env` files and SSH keys. The files themselves aren't touched. Comments on those entries are deleted, and comments on the files can lose their highlight. A recovery file in the data folder keeps their words for 90 days
+* Enterprise: Claude can now save memories when Claude Sonnet 4.6 is turned off for your organization or custom role, if Claude Sonnet 5.5 or Claude Sonnet 5 is on
+* Mac: an update can switch Claude Science from a browser tab to its own window, where it updates itself when you quit. [See what changes](https://claude.com/docs/claude-science/mac-app-window.md)
+* Mac: libraries that cache numba-compiled code, such as pynndescent (used by UMAP and Scanpy's neighbors step), no longer fail to import in code cells
+* Mac and Linux: the sandbox now protects more programs, startup files, and caches that developer tools keep in your home folder, even if you've granted those folders. Writes there from the sandbox fail or, on Linux, can be lost. To install a tool there, use your own terminal
+* Linux: the starter Python and R environments, and those for connectors and compute providers, now keep their own copies of package files, using about 5 GB more disk space with the default packages. The first start after you update makes the copies in the background
+* Windows: R's sf and units packages and Python's iris and cf-units can install again
+* Package mirrors: new starter environments and installs for connectors and compute providers now need `ca-certificates` and `certifi`, both 2026.10.18. [Mirror setup](https://claude.com/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror)
+* Bug fixes and reliability improvements
+
 **0.1.71**
 
 October 27, 2026

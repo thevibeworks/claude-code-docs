@@ -23,7 +23,7 @@ Add Session Resource
 
 - `type: :file`
 
-- `mount_path: optional String`
+- `mount_path: optional String | nil`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 

@@ -179,11 +179,11 @@ The Models API response can be used to determine which models are available for 
 
     Unique model identifier.
 
-  - `allowed_fallback_models: Array[String]`
+  - `allowed_fallback_models: Array[String] | nil`
 
     Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
 
-  - `capabilities: BetaModelCapabilities`
+  - `capabilities: BetaModelCapabilities | nil`
 
     Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
@@ -203,7 +203,7 @@ The Models API response can be used to determine which models are available for 
 
       Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
-    - `compaction: BetaCompactionCapability`
+    - `compaction: BetaCompactionCapability | nil`
 
       Server-side compaction support (the top-level `compaction` parameter) and the accepted `compaction.type` values.
 
@@ -219,15 +219,15 @@ The Models API response can be used to determine which models are available for 
 
       Context management support and available strategies.
 
-      - `clear_thinking_20251015: BetaCapabilitySupport`
+      - `clear_thinking_20251015: BetaCapabilitySupport | nil`
 
         Whether the clear_thinking_20251015 strategy is supported.
 
-      - `clear_tool_uses_20250919: BetaCapabilitySupport`
+      - `clear_tool_uses_20250919: BetaCapabilitySupport | nil`
 
         Whether the clear_tool_uses_20250919 strategy is supported.
 
-      - `compact_20260112: BetaCapabilitySupport`
+      - `compact_20260112: BetaCapabilitySupport | nil`
 
         Whether the compact_20260112 strategy is supported.
 
@@ -259,7 +259,7 @@ The Models API response can be used to determine which models are available for 
 
         Whether this capability is supported by the model.
 
-      - `xhigh: BetaCapabilitySupport`
+      - `xhigh: BetaCapabilitySupport | nil`
 
         Whether the model supports xhigh effort level.
 
@@ -325,7 +325,7 @@ The Models API response can be used to determine which models are available for 
 
     format: date-time
 
-  - `deprecated_at: Time`
+  - `deprecated_at: Time | nil`
 
     RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
 
@@ -349,7 +349,7 @@ The Models API response can be used to determine which models are available for 
 
     - `:retired`
 
-  - `line: BetaModelLine`
+  - `line: BetaModelLine | nil`
 
     The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
 
@@ -363,15 +363,15 @@ The Models API response can be used to determine which models are available for 
 
     - `:mythos`
 
-  - `max_input_tokens: Integer`
+  - `max_input_tokens: Integer | nil`
 
     Maximum input context window size in tokens for this model.
 
-  - `max_tokens: Integer`
+  - `max_tokens: Integer | nil`
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `retires_at: Time`
+  - `retires_at: Time | nil`
 
     RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
 

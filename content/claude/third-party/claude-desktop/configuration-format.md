@@ -87,7 +87,7 @@ On Windows, write registry values as `REG_SZ`, directly under the policy key rat
 
 ### The Linux configuration file
 
-The managed source on Linux is a single JSON file, `/etc/claude-desktop/managed-settings.json`, with keys at the top level exactly as named in the [reference](https://claude.com/docs/third-party/claude-desktop/configuration.md), with no wrapper object and no nesting:
+The managed source on Linux is a single JSON file, `/etc/claude-desktop/managed-settings.json`. To use a configuration built in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#apply-locally-or-export-for-a-fleet), click **Export**, choose **JSON config**, and save that file at this path without editing it. Earlier versions of Claude Desktop reject the exported file, so update the device first. To write the file yourself, put keys at the top level exactly as named in the [reference](https://claude.com/docs/third-party/claude-desktop/configuration.md), with no wrapper object and no nesting:
 
 ```json theme={null}
 {

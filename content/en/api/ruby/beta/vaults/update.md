@@ -17,13 +17,13 @@ Update a Vault
 
   Unique identifier of the vault to update.
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Updated human-readable name for the vault. 1-255 characters.
 
   minLength: 1, maxLength: 255
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -161,7 +161,7 @@ Update a Vault
 
     The unique ID of the vault (`vlt_...`).
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the vault was archived. Null if not archived.
 

@@ -7,7 +7,7 @@ description: Access Claude's full platform capabilities through AWS with Anthrop
 Claude Platform on AWS gives you the full Anthropic platform experience, including the Messages API, Agent Skills, code execution, and beta features, accessible through your AWS account. Unlike [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), where AWS operates the inference stack, Anthropic operates Claude Platform on AWS. AWS provides the authentication layer (SigV4 or API key), IAM-based access control, and billing integration through AWS Marketplace.
 
 <Note>
-  The Anthropic SDKs support Claude Platform on AWS.
+  The SDK supports Claude Platform on AWS.
 </Note>
 
 ## How the platform integration works
@@ -27,7 +27,6 @@ Both offerings let you use Claude through AWS, but they differ in architecture, 
 | **Who operates the stack**   | Anthropic                                                                                                                                                                                         | AWS                                                                                                        | AWS                                                                                                                            |
 | **API surface**              | Claude API (`/v1/{endpoint}`)                                                                                                                                                                     | Messages API at `/anthropic/v1/messages`                                                                   | Bedrock Converse / InvokeModel                                                                                                 |
 | **Feature availability**     | Typically same-day as Claude API (see [feature limitations](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#features-not-supported))                                 | Follows the Amazon Bedrock release schedule                                                                | Follows the Amazon Bedrock release schedule                                                                                    |
-| **Agent Skills**             | Available                                                                                                                                                                                         | Not available (requires code execution)                                                                    | Not available                                                                                                                  |
 | **Beta features**            | Pass through with `anthropic-beta` headers (see [feature limitations](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#features-not-supported))                       | The beta features Amazon Bedrock supports, through the `anthropic-beta` header                             | The beta features Amazon Bedrock supports, through the `anthropic_beta` field of the InvokeModel request body                  |
 | **Authentication**           | AWS IAM / SigV4 or API key                                                                                                                                                                        | AWS IAM / SigV4                                                                                            | AWS IAM / SigV4 or bearer token                                                                                                |
 | **Billing**                  | AWS Marketplace                                                                                                                                                                                   | AWS (native service)                                                                                       | AWS (native service)                                                                                                           |
@@ -41,7 +40,7 @@ If you need AWS-operated Claude, see [Claude in Amazon Bedrock](https://platform
 
 [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) is supported for connecting your VPC to the Claude Platform on AWS endpoint (see [Connect through AWS PrivateLink](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#connect-through-aws-privatelink)).
 
-**When to choose Bedrock:** Organizations in regulated industries that require FedRAMP High, IL4, IL5, or HIPAA-ready compliance, or that need AWS to be the sole data processor, should use [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). Bedrock runs entirely on AWS-controlled infrastructure with AWS as the operating party.
+**When to choose Bedrock:** Organizations in regulated industries that require FedRAMP High, IL4, IL5, or HIPAA readiness, or that need AWS to be the sole data processor, should use [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). Bedrock runs entirely on AWS-controlled infrastructure with AWS as the operating party.
 
 **Which offering are you using?** Claude is available through several distinct products:
 
@@ -136,12 +135,12 @@ For Claude Enterprise (claude.ai) organizations, which behave differently, see t
 
 Ensure you have:
 
-1. An active AWS account with a subscription to Claude Platform on AWS (see [Set up your account](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#set-up-your-account))
-2. The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) installed and configured
-3. **Outbound web identity federation enabled** on your AWS account, a one-time setup step (see [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation))
-4. Your workspace ID (see [Obtain your workspace ID](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#obtain-your-workspace-id))
-5. IAM permission to call the API: the `aws-external-anthropic:CreateInference` action on your workspace, plus the `sts:GetWebIdentityToken` and `sts:TagGetWebIdentityToken` actions (see [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies))
-6. IAM permission for the `aws-external-anthropic:CallWithBearerToken` action if you authenticate with an API key (see [API key authentication](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication))
+1. An active AWS account with a subscription to Claude Platform on AWS (see [Set up your account](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#set-up-your-account)).
+2. The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) installed and configured.
+3. **Outbound web identity federation enabled** on your AWS account, a one-time setup step (see [Enable outbound web identity federation](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation)).
+4. Your workspace ID (see [Obtain your workspace ID](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#obtain-your-workspace-id)).
+5. IAM permission to call the API: the `aws-external-anthropic:CreateInference` action on your workspace, plus the `sts:GetWebIdentityToken` and `sts:TagGetWebIdentityToken` actions (see [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies)).
+6. IAM permission for the `aws-external-anthropic:CallWithBearerToken` action if you authenticate with an API key (see [API key authentication](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication)).
 
 ### Enable outbound web identity federation
 
@@ -172,7 +171,7 @@ export ANTHROPIC_AWS_WORKSPACE_ID='wrkspc_01AbCdEf23GhIj'
 export AWS_REGION='us-west-2'  # Your workspace's AWS region
 ```
 
-The region is required. The SDK client raises an error if no region is set. Pass `aws_region` (typescript, php: `awsRegion`; go: `AWSRegion`; java: `.region()`; csharp: `AwsClientOptions.AwsRegion`) when you create the client, or set `AWS_REGION` (or `AWS_DEFAULT_REGION`). All AWS commercial regions are supported.
+Pass `aws_region` (typescript, php: `awsRegion`; go: `AWSRegion`; java: `.region()`; csharp: `AwsClientOptions.AwsRegion`) when you create the client, or set `AWS_REGION`. All AWS commercial regions are supported. For how the client finds a region, see [Region resolution](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#region-resolution).
 
 ## Authentication
 
@@ -180,7 +179,7 @@ Claude Platform on AWS supports two authentication methods: AWS IAM with Signatu
 
 ### SigV4 authentication
 
-SigV4 is the enterprise-native path and integrates with your existing AWS IAM policies, roles, and auditing. Configure AWS credentials using any method supported by the [AWS default credential provider chain](https://docs.aws.amazon.com/sdkref/latest/guide/standardized-credentials.html):
+SigV4 is the enterprise-native path and integrates with your existing AWS IAM policies, roles, and auditing. Configure AWS credentials using a method that the SDK supports. The [AWS default credential provider chain](https://docs.aws.amazon.com/sdkref/latest/guide/standardized-credentials.html) includes:
 
 * Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`)
 * Shared credentials file (`~/.aws/credentials`)
@@ -273,11 +272,13 @@ The platform-specific client resolves authentication in the following order, sta
 
 ### Region resolution
 
-The client reads `AWS_REGION` from the environment if you don’t set `aws_region` (typescript, php: `awsRegion`; go: `AWSRegion`; java: `.region()`; csharp: `AwsClientOptions.AwsRegion`), falling back to `AWS_DEFAULT_REGION` for compatibility with the standard AWS SDKs. Region is required and there is no default: `AnthropicAWS` (typescript: `AnthropicAws`; csharp: `AnthropicAwsClient`; go: `anthropicaws.NewClient()`; java: `AwsBackend`; php: `Anthropic\Aws\Client`; ruby: `Anthropic::AWSClient`) raises an error if neither the constructor argument nor an environment variable is set.
+If you don’t set `aws_region` (typescript, php: `awsRegion`; go: `AWSRegion`; java: `.region()`; csharp: `AwsClientOptions.AwsRegion`), the client reads `AWS_REGION` from the environment. The Python, TypeScript, C#, Go, PHP, and Ruby SDKs then try `AWS_DEFAULT_REGION`. The TypeScript SDK then checks your AWS config file. The Java SDK reads the environment only when you call `AwsBackend.fromEnv()`, which uses the [default AWS Region provider chain](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html). That chain also checks your AWS config file and EC2 instance metadata.
+
+The client needs a region to sign requests with SigV4 and to build the base URL. There is no default, so `AnthropicAWS` (typescript: `AnthropicAws`; csharp: `AnthropicAwsClient`; go: `anthropicaws.NewClient()`; java: `AwsBackend`; php: `Anthropic\Aws\Client`; ruby: `Anthropic::AWSClient`) fails with an error if it needs a region and can’t find one. With an API key and a base URL in the `ANTHROPIC_AWS_BASE_URL` environment variable, it doesn’t need a region.
 
 ## Install an SDK
 
-Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Claude Platform on AWS. Your SDK provides `AnthropicAWS` (typescript: `AnthropicAws`; csharp: `AnthropicAwsClient`; go: `anthropicaws.NewClient()`; java: `AwsBackend`; php: `Anthropic\Aws\Client`; ruby: `Anthropic::AWSClient`), which handles SigV4 signing, region-based base URL construction, and the `anthropic-workspace-id` header.
+The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) supports Claude Platform on AWS and provides `AnthropicAWS` (typescript: `AnthropicAws`; csharp: `AnthropicAwsClient`; go: `anthropicaws.NewClient()`; java: `AwsBackend`; php: `Anthropic\Aws\Client`; ruby: `Anthropic::AWSClient`), which handles SigV4 signing, region-based base URL construction, and the `anthropic-workspace-id` header.
 
 <Tabs>
   <Tab title="Python">
@@ -312,8 +313,8 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.5.0")
-        implementation("com.anthropic:anthropic-java-aws:3.5.0")
+        implementation("com.anthropic:anthropic-java:3.6.0")
+        implementation("com.anthropic:anthropic-java-aws:3.6.0")
         ```
       </Tab>
 
@@ -322,12 +323,12 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-aws</artifactId>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
         </dependency>
         ```
       </Tab>
@@ -512,11 +513,12 @@ Before running these examples, complete the steps in [Before making API calls](h
 
   ```php PHP
   use Anthropic\Aws\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
   $message = $client->messages->create(
-      model: 'claude-sonnet-5-5',
+      model: Model::CLAUDE_SONNET_5_5,
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Hello!']],
   );
@@ -530,7 +532,7 @@ Before running these examples, complete the steps in [Before making API calls](h
   client = Anthropic::AWSClient.new
 
   message = client.messages.create(
-    model: "claude-sonnet-5-5",
+    model: Anthropic::Model::CLAUDE_SONNET_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello!" }]
   )
@@ -539,7 +541,7 @@ Before running these examples, complete the steps in [Before making API calls](h
   ```
 </CodeGroup>
 
-The client reads `AWS_REGION` (or `AWS_DEFAULT_REGION`) and `ANTHROPIC_AWS_WORKSPACE_ID` from the environment. You can override either by passing `aws_region` (typescript, php: `awsRegion`; go: `AWSRegion`; java: `.region()`; csharp: `AwsClientOptions.AwsRegion`) or `workspace_id` (typescript, php: `workspaceId`; go: `WorkspaceID`; java: `.workspaceId()`; csharp: `AwsClientOptions.WorkspaceId`) when you create the client. Both region and workspace ID are required. The constructor raises an error if either cannot be resolved.
+The client reads `AWS_REGION` and `ANTHROPIC_AWS_WORKSPACE_ID` from the environment. You can override either by passing `aws_region` (typescript, php: `awsRegion`; go: `AWSRegion`; java: `.region()`; csharp: `AwsClientOptions.AwsRegion`) or `workspace_id` (typescript, php: `workspaceId`; go: `WorkspaceID`; java: `.workspaceId()`; csharp: `AwsClientOptions.WorkspaceId`) when you create the client. The client fails with an error if it can’t find the workspace ID, or if it needs a region and can’t find one.
 
 <Note>
   The `x-amz-security-token` header (cURL) is only required for temporary credentials such as IAM roles, SSO, or STS. Omit it when using long-term IAM user credentials. The SDK clients handle this automatically based on the credential source.
@@ -594,8 +596,8 @@ See the [comparison table](https://platform.claude.com/docs/en/build-with-claude
 
 Sessions and self-hosted workers on Claude Platform on AWS differ from first-party Claude Managed Agents in three ways:
 
-* **Autonomous-session reauthentication:** A session can run autonomously, without any [user events](https://platform.claude.com/docs/en/managed-agents/reference#event-types), for up to 6 hours. After 6 hours, the session requires reauthentication before it continues. To reauthenticate, send any user-role event to the session (see [Events and streaming](https://platform.claude.com/docs/en/managed-agents/events-and-streaming)). First-party Claude Managed Agents has no autonomous-session runtime limit.
-* **[Memory stores on self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory):** A session that runs on a self-hosted environment cannot attach memory stores; a session that includes one is rejected at creation. Sessions on cloud environments attach memory stores as usual. On first-party Claude Managed Agents, sessions on both cloud and self-hosted environments can attach memory stores.
+* **Autonomous-session reauthentication:** A session can run autonomously, without any [user events](https://platform.claude.com/docs/en/managed-agents/reference#event-types), for up to 6 hours. After 6 hours, the session requires reauthentication before it continues. To reauthenticate, send any user-role event to the session (see [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming)). First-party Claude Managed Agents has no autonomous-session runtime limit.
+* **[Memory stores in self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory):** A session that runs on a self-hosted environment cannot attach memory stores; a session that includes one is rejected at creation. Sessions on cloud environments attach memory stores as usual. On first-party Claude Managed Agents, sessions on both cloud and self-hosted environments can attach memory stores.
 * **[Worker authentication on self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prerequisites):** A worker authenticates with AWS IAM (SigV4) or an [API key generated in the AWS Console](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication), not an environment key. Environment keys generated in the Claude Console don’t work with the Claude Platform on AWS endpoint.
 
 ### Features not supported
@@ -756,11 +758,12 @@ Set the inference geography for each request with the `inference_geo` parameter:
 
   ```php PHP
   use Anthropic\Aws\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
   $message = $client->messages->create(
-      model: 'claude-sonnet-5-5',
+      model: Model::CLAUDE_SONNET_5_5,
       maxTokens: 1024,
       inferenceGeo: 'us',
       messages: [['role' => 'user', 'content' => 'Hello!']],
@@ -775,7 +778,7 @@ Set the inference geography for each request with the `inference_geo` parameter:
   client = Anthropic::AWSClient.new
 
   message = client.messages.create(
-    model: "claude-sonnet-5-5",
+    model: Anthropic::Model::CLAUDE_SONNET_5_5,
     max_tokens: 1024,
     inference_geo: "us",
     messages: [{ role: "user", content: "Hello!" }]
@@ -870,7 +873,7 @@ To request higher limits, contact your Anthropic account representative or [Anth
 
 * The models you need raised
 * Peak input tokens per minute and output tokens per minute for each model (not daily totals)
-* The approximate share of your input that is cached or repeated context (cache reads don’t count toward input-token limits for most models; see [cache-aware ITPM](https://platform.claude.com/docs/en/api/rate-limits#cache-aware-itpm))
+* The approximate share of your input that is cached or repeated context (cache reads don’t count toward input-token limits; see [Cache-aware ITPM](https://platform.claude.com/docs/en/api/rate-limits#cache-aware-itpm))
 
 Usage tiers are fixed steps: each tier pairs rate limits with a [monthly spend cap](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#spend-limits), and moving to a higher tier raises both. For tier details and per-model limits, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
 
@@ -1053,11 +1056,12 @@ Each response includes two request IDs in the response headers:
 
   ```php PHP
   use Anthropic\Aws\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
   $response = $client->messages->raw->create([
-      'model' => 'claude-sonnet-5-5',
+      'model' => Model::CLAUDE_SONNET_5_5,
       'maxTokens' => 1024,
       'messages' => [['role' => 'user', 'content' => 'Hello!']],
   ]);
@@ -1085,7 +1089,7 @@ Each response includes two request IDs in the response headers:
   end
 
   message = client.messages.create(
-    model: "claude-sonnet-5-5",
+    model: Anthropic::Model::CLAUDE_SONNET_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello!" }],
     request_options: { middleware: [read_request_ids] }

@@ -171,13 +171,13 @@ Retrieve a Memory
 
     Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
 
-  - `long contentSizeBytes`
+  - `int contentSizeBytes`
 
     The size of the memory's `content` in UTF-8 bytes. It is set regardless of `view`.
 
     format: int32
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this memory was created, in RFC 3339 format.
 
@@ -199,7 +199,7 @@ Retrieve a Memory
 
     Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     When the memory was last changed, in RFC 3339.
 

@@ -25,7 +25,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Whether to include archived certificates in the results. Defaults to false.
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
@@ -167,19 +167,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string indicating when the certificate was registered.
 
     format: date-time
 
-  - `Optional<LocalDateTime> expiresAt`
+  - `Optional<OffsetDateTime> expiresAt`
 
     RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 

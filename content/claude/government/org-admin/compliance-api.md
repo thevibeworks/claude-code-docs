@@ -100,7 +100,7 @@ On every `user.*` activity, two top-level fields identify the user the event is 
 | `user_id` | The Claude for Government user ID, in the same `usr_` format as `actor.user_id`. |
 | `user_email` | The user's email address at the time of the event. |
 
-The user an event is about is not always the actor. When an owner changes someone's role, the `actor` block names the owner and these fields name the user whose role changed.
+The user an event is about is not always the actor. When an owner changes someone's role, the `actor` block names the owner and these fields name the user whose role changed. When a tenant administrator who isn't one of the organization's Primary Owners grants or removes the Primary Owner role, the `user.role_changed` event also carries a `by_tenant_admin` field set to `true`.
 
 ```json theme={null}
 {

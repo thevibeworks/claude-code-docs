@@ -197,7 +197,7 @@ List User Profiles
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `name: String`
+  - `name: String | nil`
 
     Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
 
@@ -233,7 +233,7 @@ List User Profiles
 
       The user profile represents a company that the platform resells Claude access to.
 
-  - `external_id: optional String`
+  - `external_id: optional String | nil`
 
     Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
@@ -241,7 +241,7 @@ List User Profiles
 
     Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
-    - `account_status: :active | :suspended | :blocked`
+    - `account_status: :active | :suspended | :blocked | nil`
 
       The status of the entity's account on the platform: `active`, `suspended` or `blocked`. `null` until the platform supplies one.
 
@@ -257,15 +257,15 @@ List User Profiles
 
         The platform has barred the account of the entity that the user profile represents.
 
-    - `country: String`
+    - `country: String | nil`
 
       The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
 
-    - `email_hash: String`
+    - `email_hash: String | nil`
 
       The platform-computed hash of the entity's email address. `null` until the platform supplies one.
 
-    - `entity_type: :individual | :business | :non_profit | :government`
+    - `entity_type: :individual | :business | :non_profit | :government | nil`
 
       What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`. `null` until the platform supplies one.
 
@@ -277,21 +277,21 @@ List User Profiles
 
       - `:government`
 
-    - `name_hash: String`
+    - `name_hash: String | nil`
 
       The platform-computed hash of the entity's name. `null` until the platform supplies one.
 
-    - `onboarded_at: Time`
+    - `onboarded_at: Time | nil`
 
       When the entity opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one.
 
       format: date-time
 
-    - `reference_id: String`
+    - `reference_id: String | nil`
 
       The platform's own reference for the entity. `null` until the platform supplies one.
 
-  - `external_user_onboarded_at: optional Time`
+  - `external_user_onboarded_at: optional Time | nil`
 
     When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 

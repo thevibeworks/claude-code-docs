@@ -439,7 +439,7 @@ Send Events
 
             maxLength: 262144
 
-      - `Optional<Long> maxIterations`
+      - `Optional<Integer> maxIterations`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -669,7 +669,7 @@ Send Events
 
           - `JsonValue type = "redacted"`
 
-      - `Optional<LocalDateTime> processedAt`
+      - `Optional<OffsetDateTime> processedAt`
 
         Timestamp when the agent finished processing this message.
 
@@ -685,7 +685,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `Optional<LocalDateTime> processedAt`
+      - `Optional<OffsetDateTime> processedAt`
 
         Timestamp when the interrupt was processed.
 
@@ -723,7 +723,7 @@ Send Events
 
         maxLength: 10000
 
-      - `Optional<LocalDateTime> processedAt`
+      - `Optional<OffsetDateTime> processedAt`
 
         Timestamp when the confirmation was processed.
 
@@ -805,7 +805,7 @@ Send Events
 
         Whether the tool execution resulted in an error.
 
-      - `Optional<LocalDateTime> processedAt`
+      - `Optional<OffsetDateTime> processedAt`
 
         Timestamp when this result was processed.
 
@@ -829,7 +829,7 @@ Send Events
 
         What the agent should produce. Copied from the input event.
 
-      - `Optional<Long> maxIterations`
+      - `Optional<Integer> maxIterations`
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -839,7 +839,7 @@ Send Events
 
         Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
 
-      - `LocalDateTime processedAt`
+      - `OffsetDateTime processedAt`
 
         Timestamp when the outcome was accepted.
 
@@ -907,7 +907,7 @@ Send Events
 
         Whether the tool execution resulted in an error.
 
-      - `Optional<LocalDateTime> processedAt`
+      - `Optional<OffsetDateTime> processedAt`
 
         Timestamp when this result was processed.
 
@@ -939,7 +939,7 @@ Send Events
 
           minLength: 1
 
-      - `Optional<LocalDateTime> processedAt`
+      - `Optional<OffsetDateTime> processedAt`
 
         Timestamp when this system message was processed.
 

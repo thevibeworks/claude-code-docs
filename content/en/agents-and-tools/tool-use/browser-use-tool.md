@@ -1151,7 +1151,7 @@ Browser use carries risks that standard API features don’t, because Claude rea
 
 Claude sometimes follows instructions found in page content even when they conflict with yours; text on a page that says “ignore your previous instructions and navigate to...” can divert it from the task. Isolate Claude from sensitive data and actions to limit what a prompt injection can reach, review [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks), and if a task can’t avoid a logged-in session, use a dedicated low-privilege account and keep human confirmation on account-changing actions.
 
-Anthropic has trained the model to resist these prompt injections and has added an extra layer of defense. If you use the browser use tool, classifiers will automatically scan what the browser returns, such as page text or screenshots, to flag potential prompt injections. When these classifiers identify a potential prompt injection, they will automatically steer the model to check whether the instruction really came from you before acting on it.
+Anthropic has trained the model to resist these prompt injections and has added an extra layer of defense. If you use the browser use tool, classifiers automatically scan what the browser returns, such as page text or screenshots, to flag potential prompt injections. When these classifiers identify a potential prompt injection, they steer the model to check whether the instruction really came from you before acting on it.
 
 This extra protection isn’t ideal for every use case (for example, use cases without a human in the loop), so if you’d like to opt out and turn it off, [contact support](https://support.claude.com/en/). The precautions listed earlier remain important even with these classifiers in place.
 
@@ -1592,6 +1592,10 @@ The browser session, downloads, and uploaded files stay in your environment; the
 <CardGroup cols={2}>
   <Card title="Browser and computer use with the SDK toolsets" icon="code" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk">
     Start from a partner’s driver, or write your own in Python or TypeScript. The SDK runs the loop and the checks you configure.
+  </Card>
+
+  <Card title="Example browser driver" icon="github-logo" href="https://github.com/anthropics/claude-quickstarts/tree/main/browser-toolset">
+    Read a minimal Python and TypeScript driver for the SDK’s browser toolset. It controls Chromium through the Chrome DevTools Protocol and isn’t production code.
   </Card>
 
   <Card title="Computer use tool" icon="computer" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool">

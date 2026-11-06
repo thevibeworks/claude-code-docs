@@ -21,7 +21,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Whether to include archived tunnels in the results. Defaults to false.
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
@@ -163,13 +163,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string indicating when the tunnel was created.
 

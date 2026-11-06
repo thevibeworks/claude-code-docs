@@ -41,7 +41,7 @@ signature is missing or invalid.
 
     Unique event identifier for idempotency.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 timestamp when the event occurred.
 
@@ -684,7 +684,7 @@ you have already verified the signature yourself.
 
     Unique event identifier for idempotency.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 timestamp when the event occurred.
 
@@ -1549,7 +1549,7 @@ public final class Main {
 
     Unique event identifier for idempotency.
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 timestamp when the event occurred.
 

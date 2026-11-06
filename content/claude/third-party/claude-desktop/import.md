@@ -4,11 +4,13 @@
 
 # Import history from claude.ai
 
-> Bring conversations, projects, and local Cowork and Code sessions into Claude Desktop on 3P from a claude.ai workspace or an earlier install
+> Bring conversations, projects, and local Cowork and Code sessions into Claude Desktop on 3P from a claude.ai workspace, an earlier install, or another device
 
 Import brings a copy of your claude.ai conversations and projects into Claude Desktop on third-party (3P), along with any Cowork and Claude Code sessions already on this machine from an earlier install. Everything lands in the local session store described in [User identity and local data](https://claude.com/docs/third-party/claude-desktop/data-storage.md), so you can pick up work you started on claude.ai and continue it against your organization's own inference provider.
 
 Each import is a one-time copy. New activity on claude.ai after you import does not appear in Claude Desktop unless you import again, and importing from claude.ai again does not create duplicates.
+
+To take your Claude Desktop data to a new device, see [Move your data to another device](#move-your-data-to-another-device).
 
 ## Automatic import of earlier third-party sessions
 
@@ -137,7 +139,7 @@ When an imported project has the same name as a project already in Claude Deskto
 
 The Duplicates step, listing imported projects that match ones you already have.
 
-* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source land in the existing project as well, except from a folder or zip you added, where the wizard asks again.
+* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source go into the existing project as well, except from a folder you added, where the wizard asks again. For a [Claude Desktop export](#move-your-data-to-another-device), the wizard also asks again unless you click **Import as my own** each time.
 * **Keep separate** leaves both projects in place. The imported one keeps a numbered name, such as **Northwind (1)**, and Claude Desktop stops offering to merge it.
 
 The **Projects** page offers the same two choices, in a row under the duplicate project's card and at the top of the duplicate project's own page. Decide there if your history was brought over automatically when you signed in, so you never saw the wizard, or if you closed the wizard before choosing.
@@ -177,13 +179,102 @@ Importing the project again doesn't make its folder readable. If you remove the 
 
 Your administrator can also limit which folders Claude reads. See [Project folders in Chat](https://claude.com/docs/third-party/claude-desktop/chat.md#project-folders-in-chat).
 
-## Export sessions to move them to another device
+## Move your data to another device
 
-When your administrator also sets `exportEnabled` to `true` under `claudeAiImport`, **Settings → Import & export** offers **Export…**, which writes this computer's chats, Cowork tasks, and Code sessions (not terminal Claude Code sessions) to a zip file. On the other device, open the import wizard and select that zip with **Choose file…**; the wizard lists its sessions in the [Cowork & Code step](#step-2-local-cowork-and-code-sessions). Importing the same zip again works as it does for [an added folder](#step-2-local-cowork-and-code-sessions): sessions marked as already imported are skipped, and the rest are copied. The export is a one-time snapshot, not a sync, and the zip contains full conversation content, so handle it as sensitive data.
+There are two ways to take your work to a new device. Your administrator [copies your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#move-a-user-to-a-new-device), or you export it to a zip file and import the file on the new device. Ask your administrator which way your organization uses. For an export, they must first [turn on export and import](https://claude.com/docs/third-party/claude-desktop/data-storage.md#turn-on-export-and-import). Your data stays on the old device, so keep that device until you finish the move.
 
-The zip includes sessions, project names, and each session's output files when they total 100 MB or less. It leaves out project instructions, memory, scheduled tasks, skills, plugins, and attached files. To move those, your administrator can [copy your data to the new device](https://claude.com/docs/third-party/claude-desktop/data-storage.md#move-a-user-to-a-new-device). Sign-ins and connector connections don't move either way.
+For an export, both devices need Claude Desktop 4.23118.0 or later, the same operating system (macOS, Windows, or Linux), and the same organization. If either device runs an earlier version, update it first. Otherwise, the export moves only sessions, their output files, and project names.
 
-## What is and isn't included
+### What a Claude Desktop export moves
+
+**Moves:**
+
+* Chats and Cowork tasks
+* Their attached files and output files. If a session has more than 100 MB of either, those files don't move.
+* Memory, including project memory. If you paused memory on the old device, it's in the file but isn't imported.
+* Some app preferences, such as keep-awake settings and prompt suggestions
+
+**Moves, but needs a step from you:**
+
+* Projects. Accept each project's instructions on the project's page.
+* The files of each project whose folder is in the default location, `~/Claude/Projects`, if they total under 100 MB and 10,000 items. To use them in Chat, [add the folder to the project again](#make-an-imported-project-folder-readable-in-chat). Hidden files and symbolic links don't move, and some files arrive under another name, such as `CLAUDE.md.txt`.
+* Code sessions and Code scheduled tasks. [Copy and trust their folders](#import-your-data-on-the-new-device) before you import.
+* Skills you saved, plugins you uploaded, and scheduled tasks. [Turn on the ones you want](#turn-on-imported-plugins-skills-and-scheduled-tasks).
+* Local MCP servers that you added, if your organization allows them. [Enter the values of their environment variables again](#set-up-imported-local-mcp-servers).
+
+**Doesn't move:**
+
+* Other folders that your projects, Cowork tasks, and Cowork scheduled tasks use. Copy them yourself, then choose them again, or ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
+* The settings **Global instructions** (**Settings > Cowork**) and **Instructions for Claude** (**Settings > General**). Copy their text to the new device yourself.
+* Artifacts
+* Sign-ins, saved API keys, connectors, and tool permissions such as **Always allow** and **Blocked**
+* Desktop extensions, other plugins and marketplaces, plugin settings, other app preferences such as language, theme, and notifications, environment variables for Code sessions, and the values of environment variables for the local MCP servers that you added
+* Plugins that you uploaded in the **Code** tab on a version before 4.23118.0. Upload them again on the new device.
+* On Windows, Code sessions and Code scheduled tasks whose folder is on a mapped network drive
+* Claude Code sessions that you started in a terminal, and Claude Code's own settings and plugins
+
+### Export your data from the old device
+
+> [!WARNING]
+>
+> The zip file isn't encrypted. Anyone who opens it can read your data, including any passwords or API keys written in it. Keep the file private, and delete every copy when you no longer need it.
+
+1. Go to **Settings > Import & export** and click **Export…**.
+2. Select how far back to include sessions, then click **Export**.
+3. Choose where to save the zip file.
+4. Check the last screen, which lists what the export left out.
+5. Copy the zip file to the new device in a way that your organization allows.
+
+![Export your data dialog with the date ranges Last 30 days, Last 90 days, and Everything, a count of 10 sessions, a list headed Export will include, a paragraph on what is not included, and Cancel and Export buttons.](https://mintcdn.com/claude-ai/5RBVEK3ZkxHd5OHc/images/third-party/import/export-dialog.png?fit=max\&auto=format\&n=5RBVEK3ZkxHd5OHc\&q=85\&s=27457ab6a32130509d3e3289fe6d1f94)
+
+The export dialog, with the date range and what the export includes.
+
+If the export shows an error or leaves out something that you need, see [Problems when you move to another device](#problems-when-you-move-to-another-device).
+
+### Import your data on the new device
+
+Set up Claude Desktop on the new device first. The import adds to the data there and replaces nothing. If you import the same file again, you don't get duplicates. If you export again, a session that changed on the old device since the last export arrives as a separate session.
+
+1. If you use the **Code** tab, copy the folders of your Code sessions and Code scheduled tasks to the same paths on the new device, or to the same place under your new home folder if its path changed. Then open each folder in the **Code** tab and click **Trust workspace**.
+2. Go to **Settings > Import & export**, click **Import…**, click **Choose file…**, and select the zip file.
+3. Continue to the **Review** step and click **Import**.
+4. When Claude Desktop asks whether the file is your own export, click **Import as my own**. Click it only for a file that you made yourself. **Import sessions only** imports the sessions, and only the projects and attached files that they use.
+5. If the file has local MCP servers, a second dialog lists up to five of them with their commands. If you click **Add**, Claude Desktop tries to start all the listed servers right away, so click it only if you recognize every command. If a message then says that a server couldn't start, close it and finish the import. If you click **Don’t add**, the rest of the import continues.
+6. Note the folders that the last screen lists. If it lists **Local MCP servers not imported yet**, import the same file again.
+7. Finish the setup:
+   * Accept each project's instructions.
+   * Copy your folders, and add them again under **Context** in each project.
+   * [Turn on the plugins, skills, and scheduled tasks that you want](#turn-on-imported-plugins-skills-and-scheduled-tasks).
+   * [Set up your local MCP servers](#set-up-imported-local-mcp-servers).
+   * Reconnect your connectors.
+
+If the import shows an error, or something is missing afterward, see [Problems when you move to another device](#problems-when-you-move-to-another-device).
+
+### Turn on imported plugins, skills, and scheduled tasks
+
+Plugins, skills, and scheduled tasks from an export file are turned off, even if they were on before. The import's last screen names the ones that were on. Before you turn on a scheduled task, turn it off on the old device, or it runs on both devices.
+
+Turn on the ones you want:
+
+* **Plugins**: go to **Customize > Plugins**. Enter any keys or settings the plugin needs.
+* **Skills**: go to **Customize > Skills**
+* **Cowork scheduled tasks**: go to **Scheduled** in Cowork. If a task used folders or files, choose them again.
+* **Code scheduled tasks**: go to **Routines** in the **Code** tab
+
+### Set up imported local MCP servers
+
+The programs that the servers run don't move, and each server's command keeps the paths of the old device. Install the programs at the same paths, or change the paths in the config file. Tools that you blocked on the old device aren't blocked on the new one. To block them again, go to **Customize > Connectors**.
+
+The export leaves the values of these servers' environment variables empty. Until you enter the values, a server might not work, or might run without a limit that you set in a variable. To enter the values or change a path:
+
+1. Go to **Settings > Developer** and click **Edit config** to find the config file.
+2. Quit Claude Desktop. If you edit the file while the app is open, the app can overwrite your changes.
+3. Open the file in a text editor, make your changes, and save it. The values are in the same file on the old device.
+4. Open Claude Desktop again.
+
+## What a claude.ai import includes
+
+For an export file from another device, see [What a Claude Desktop export moves](#what-a-claude-desktop-export-moves).
 
 * **Your data only.** An export contains your own conversations, projects, and memory. Other workspace members' content is not included.
 * **Chats and projects come over.** Each imported project appears on the **Projects** page. If the project has custom instructions, Claude Desktop shows them in the project for you to review and accept before they take effect. In Chat, Claude can't read a folder that the import put on a project until you [add the folder to the project again](#make-an-imported-project-folder-readable-in-chat).
@@ -192,13 +283,35 @@ The zip includes sessions, project names, and each session's output files when t
 * **One-time copy.** Imported history does not stay in sync with claude.ai. Run the import again to pick up newer conversations; existing imports are matched and skipped, so you won't get duplicates.
 * **Download links expire.** The email link from claude.ai is valid for 24 hours. Request a new export if it lapses.
 
-## Troubleshoot the import wizard
+## Troubleshoot an import or export
 
-Claude Desktop runs each claude.ai import through the Claude CLI binary, the [helper program](https://claude.com/docs/third-party/claude-desktop/installation.md#endpoint-security-software) that also runs your conversations. Unless your organization deploys the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation), Claude Desktop downloads the version of the binary it needs separately from the app, when you start a new conversation or task.
+Claude Desktop runs each claude.ai import through the Claude CLI binary, the [helper program](https://claude.com/docs/third-party/claude-desktop/installation.md#endpoint-security-software) that also runs your conversations. Unless your organization deploys the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation), Claude Desktop downloads the version of the binary it needs separately from the app, when you start a new conversation or task. If this computer doesn't have that version when you click **Import**, Claude Desktop 4.23118.0 or later tries to download it first, and the wizard shows **Downloading the program that converts your chats…** while you wait.
+
+### The import can’t start until a one-time download finishes
+
+The wizard shows this message when this computer has no version of the Claude CLI binary that can import a claude.ai export, and the download isn't finished. A running download continues after the message appears. Running the import again retries a failed download. Wait a few minutes, then run the import again.
+
+If the message comes back, ask your administrator to follow [Cowork workspace or Claude CLI fails to download](https://claude.com/docs/third-party/claude-desktop/installation.md#cowork-workspace-or-claude-cli-fails-to-download) and to leave any earlier version of the binary in place.
+
+### Import failed with a code under the message
+
+When an import fails and the wizard has no specific message for the cause, it shows a code, such as `IMPORTER_EXIT`, with **Import failed**, **Your claude.ai export didn’t import**, or **Couldn’t import this export**. If you can import only by signing in, the message asks you to sign in and fetch the export again. On Claude Desktop versions before 4.23118.0, the wizard shows no code, and if you can choose a file, it shows [That doesn’t look like a claude.ai export](#that-doesn%E2%80%99t-look-like-a-claude-ai-export) for these failures.
+
+Your export can still be valid. If you import with **Choose file…**, use each `.zip` file as you downloaded it, not renamed or compressed again. On Windows, keep each file's full path under 260 characters, for example by moving it to your Downloads folder.
+
+If you signed in to fetch the export and the wizard still shows **Import**, click it again without closing the wizard. Closing the wizard deletes the fetched export. There's a limit on how often you can fetch an export. In any other case, run the import again from **Settings > Import & export**.
+
+If the import still fails, go to **Help > Troubleshooting > Generate Diagnostic Report** before you quit Claude Desktop, and click **Export to file**. Review [what the report contains](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting), then send your administrator the report's `.zip` file and the code, if the wizard shows one. Your administrator can pass them to your Anthropic representative.
+
+### That doesn’t look like a claude.ai export
+
+Choose the `.zip` file of your [claude.ai export](#step-1-claude-ai-chats-and-projects) as you downloaded it. If the export came as more than one `.zip` file, choose all of them together.
+
+On Claude Desktop versions before 4.23118.0, the message can also appear after you click **Import** on the **Review** step. Your export can still be valid. Close the wizard, send any message in a new conversation or task, and wait for the reply, so the import can run on the current version of the Claude CLI binary. Closing the wizard deletes an export that you fetched by signing in, so fetch it again. Then follow the steps in [Import failed with a code under the message](#import-failed-with-a-code-under-the-message). These versions show no code.
 
 ### Importing a claude.ai export needs a newer version of this app
 
-The wizard shows this message, under **Update Claude to import from claude.ai**, when this computer has only an earlier version of the Claude CLI binary that can't import a claude.ai export. You don't need to update or reinstall Claude Desktop. To download the current version of the binary, follow these steps:
+On Claude Desktop versions before 4.23118.0, the wizard shows this message, under **Update Claude to import from claude.ai**, when this computer has only an earlier version of the Claude CLI binary that can't import a claude.ai export. You don't need to update or reinstall Claude Desktop. To download the current version of the binary, follow these steps:
 
 **1. Start a new conversation or task**
 
@@ -214,13 +327,16 @@ Go to **Settings > Import & export** and click **Import…** to open the wizard.
 
 If the message is still there, ask your administrator to follow [Cowork workspace or Claude CLI fails to download](https://claude.com/docs/third-party/claude-desktop/installation.md#cowork-workspace-or-claude-cli-fails-to-download) and to leave the earlier version of the binary in place, because your conversations run on it until the download succeeds.
 
-### That doesn’t look like a claude.ai export
+### Problems when you move to another device
 
-If the message appears as soon as you choose a file, choose the `.zip` file of your [claude.ai export](#step-1-claude-ai-chats-and-projects) as you downloaded it. If the export came as more than one `.zip` file, choose all of them together.
+If a [move to another device](#move-your-data-to-another-device) goes wrong, find the message or the problem that you see:
 
-If the message appears after you click **Import** on the **Review** step, your export can still be valid. Claude Desktop 4.16336.0 and earlier shows this message for other failures too. Before you run the import again from **Settings > Import & export**, do the following:
-
-* **Check the export files**: if you imported with **Choose file…**, use each `.zip` file as you downloaded it, not renamed or compressed again. On Windows, keep its full path under 260 characters, for example by moving it to your Downloads folder.
-* **Start a new conversation or task**: close the wizard, send any message, and wait for the reply, so the import can run on the current version of the Claude CLI binary.
-
-If the import still fails, go to **Help > Troubleshooting > Generate Diagnostic Report** before you quit Claude Desktop, and click **Export to file**. Review [what the report contains](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting), then send the report's `.zip` file to your administrator, who can pass it to your Anthropic representative.
+* **Settings > Import & export has no Export… button.** Ask your administrator to [turn on export and import](https://claude.com/docs/third-party/claude-desktop/data-storage.md#turn-on-export-and-import).
+* **This export is over the import limit of 20 GB or 5,000,000 files.** If the dialog offers **Shorten date range**, click it, select a shorter range, and click **Export**. If it doesn't, delete sessions from the last 30 days that you no longer need and export again. To move all your sessions, ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
+* **The export stopped before it finished, and no file was saved.** Click **Try again**. If it stops again, ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
+* **The export's last screen lists items that you need.** On Windows, close other programs and export again, because the export can leave out a file that another program has open. If the items are still listed, ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
+* **Couldn’t read that file. Choose a different zip.** On Windows, if you chose the file from a network path such as `\\server\share`, copy the file to a local folder on the new device, or choose it from a mapped network drive such as `Z:\`. Otherwise, copy the file from the old device again, or export again.
+* **That export was made in another organization. Choose an export made in this organization.** Ask your administrator to check that both devices are in the same organization.
+* **Only your sessions were imported.** Import the same file again, and click **Import as my own** when Claude Desktop asks. If it doesn't ask, update both devices to Claude Desktop 4.23118.0 or later and export again.
+* **Sessions that you imported before are missing their attached files.** An export from a version before 4.23118.0 has no attached files, and a later import doesn't add files to a session that's already there. Under **Import history** in **Settings > Import & export**, remove the earlier import, then import the new file. This also deletes the projects that the earlier import made and anything that you added to those sessions since. A session that isn't in the new file doesn't come back.
+* **A Code session or a Code scheduled task is missing.** On Windows, if its folder is on a mapped network drive, it doesn't move. Ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device), or create the task again. Otherwise, [copy its folder and trust it](#import-your-data-on-the-new-device), then import the file again. If a Code scheduled task is still missing, create it again.

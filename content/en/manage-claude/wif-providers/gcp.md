@@ -126,7 +126,7 @@ The wizard creates these resources for you. Use the following values whether you
 
 ## Acquire and use the token
 
-Inside your Google Cloud workload, fetch the identity token from the metadata server, exchange it at `POST /v1/oauth/token`, and use the returned bearer token to call the Claude API. The Claude SDK handles the exchange and refresh loop for you when you supply `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider()`; java: `IdentityTokenConfig`), as shown in the following examples. Except in Java (see the comment in that example), that option takes a token provider that returns a fresh identity token from the metadata server.
+Inside your Google Cloud workload, fetch the identity token from the metadata server, exchange it at `POST /v1/oauth/token`, and use the returned bearer token to call the Claude API. The Claude SDK handles the exchange and refresh loop for you when you supply `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider()`; java: `IdentityTokenConfig`), as shown in the following examples. Except in Java, where `IdentityTokenConfig` takes a token or a file path, that option takes a token provider that returns a fresh identity token from the metadata server.
 
 <CodeGroup>
   ```bash cURL
@@ -169,8 +169,10 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
     "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://api.anthropic.com&format=full" \
     > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
 
-  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment.
+  # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID, and
+  # ANTHROPIC_SERVICE_ACCOUNT_ID are read from the environment.
+  # For a rule enabled for all workspaces or more than one, set ANTHROPIC_PROFILE
+  # to a federation profile that sets workspace_id.
   ant messages create \
     --model claude-opus-5-5 \
     --max-tokens 1024 \
@@ -453,7 +455,7 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
   ```
 </CodeGroup>
 
-Google identity tokens expire after roughly 1 hour. Except in Java (see the comment in that example), the SDK calls the token provider again and re-exchanges automatically before expiry. For shell scripts that run longer than the access token’s `expires_in`, refresh on a timer and repeat the exchange.
+Google identity tokens expire after roughly 1 hour. Except in Java, where `IdentityTokenConfig` takes a token or a file path, the SDK calls the token provider again and repeats the exchange automatically before expiry. For shell scripts that run longer than the access token’s `expires_in`, refresh on a timer and repeat the exchange.
 
 ## Verify the setup
 

@@ -151,7 +151,7 @@ Get statistics about the work queue for an environment.
 
     Number of work items waiting to be picked up
 
-  - `oldest_queued_at: String`
+  - `oldest_queued_at: String | nil`
 
     RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
 
@@ -159,7 +159,7 @@ Get statistics about the work queue for an environment.
 
     Number of work items being processed (polled but not acknowledged)
 
-  - `workers_polling: Integer`
+  - `workers_polling: Integer | nil`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 

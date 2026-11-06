@@ -16,16 +16,16 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
     -H "content-type: application/json" \
     -d '{
       "model": "claude-opus-5-5",
-      "max_tokens": 1024,
+      "max_tokens": 4096,
       "tools": [{"type": "web_search_20260209", "name": "web_search"}],
-      "messages": [{"role": "user", "content": "What'\''s the latest on the Mars rover?"}]
+      "messages": [{"role": "user", "content": "What is the latest on the Mars rover?"}]
     }'
   ```
 
   ```bash CLI
   ant messages create \
     --model claude-opus-5-5 \
-    --max-tokens 1024 \
+    --max-tokens 4096 \
     --tool '{type: web_search_20260209, name: web_search}' \
     --message '{role: user, content: "What is the latest on the Mars rover?"}'
   ```
@@ -34,9 +34,9 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
   client = anthropic.Anthropic()
   response = client.messages.create(
       model="claude-opus-5-5",
-      max_tokens=1024,
+      max_tokens=4096,
       tools=[{"type": "web_search_20260209", "name": "web_search"}],
-      messages=[{"role": "user", "content": "What's the latest on the Mars rover?"}],
+      messages=[{"role": "user", "content": "What is the latest on the Mars rover?"}],
   )
   print(response.content)
   ```
@@ -45,9 +45,9 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
   const client = new Anthropic();
   const response = await client.messages.create({
     model: "claude-opus-5-5",
-    max_tokens: 1024,
+    max_tokens: 4096,
     tools: [{ type: "web_search_20260209", name: "web_search" }],
-    messages: [{ role: "user", content: "What's the latest on the Mars rover?" }]
+    messages: [{ role: "user", content: "What is the latest on the Mars rover?" }]
   });
   console.log(response.content);
   ```
@@ -58,9 +58,9 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
   var parameters = new MessageCreateParams
   {
       Model = Model.ClaudeOpus5_5,
-      MaxTokens = 1024,
+      MaxTokens = 4096,
       Tools = [new ToolUnion(new WebSearchTool20260209())],
-      Messages = [new UserMessageParam { Content = "What's the latest on the Mars rover?" }]
+      Messages = [new UserMessageParam { Content = "What is the latest on the Mars rover?" }]
   };
 
   var message = await client.Messages.Create(parameters);
@@ -72,12 +72,12 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
 
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5_5,
-  	MaxTokens: 1024,
+  	MaxTokens: 4096,
   	Tools: []anthropic.ToolUnionParam{
   		{OfWebSearchTool20260209: &anthropic.WebSearchTool20260209Param{}},
   	},
   	Messages: []anthropic.MessageParam{
-  		anthropic.NewUserMessage(anthropic.NewTextBlock("What's the latest on the Mars rover?")),
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("What is the latest on the Mars rover?")),
   	},
   })
   if err != nil {
@@ -94,9 +94,9 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
 
       MessageCreateParams params = MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024L)
+          .maxTokens(4096L)
           .addTool(WebSearchTool20260209.builder().build())
-          .addUserMessage("What's the latest on the Mars rover?")
+          .addUserMessage("What is the latest on the Mars rover?")
           .build();
 
       Message response = client.messages().create(params);
@@ -109,12 +109,12 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
 
   $message = $client->messages->create(
       model: 'claude-opus-5-5',
-      maxTokens: 1024,
+      maxTokens: 4096,
       tools: [
           ['type' => 'web_search_20260209', 'name' => 'web_search'],
       ],
       messages: [
-          ['role' => 'user', 'content' => "What's the latest on the Mars rover?"],
+          ['role' => 'user', 'content' => 'What is the latest on the Mars rover?'],
       ],
   );
 
@@ -126,9 +126,9 @@ Here’s a minimal example using a server tool, the [Web search tool](https://pl
 
   message = client.messages.create(
     model: Anthropic::Model::CLAUDE_OPUS_5_5,
-    max_tokens: 1024,
+    max_tokens: 4096,
     tools: [{ type: "web_search_20260209", name: "web_search" }],
-    messages: [{ role: "user", content: "What's the latest on the Mars rover?" }]
+    messages: [{ role: "user", content: "What is the latest on the Mars rover?" }]
   )
   puts message.content
   ```
@@ -779,7 +779,6 @@ When you use `tools`, the API also automatically includes a special system promp
 | Claude Sonnet 4 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | 313 tokens                                | 315 tokens                               |
 | Claude Haiku 5.5                                                                                                                                                       | 286 tokens                                | 406 tokens                               |
 | Claude Haiku 4.5                                                                                                                                                       | 496 tokens                                | 588 tokens                               |
-| Claude Haiku 3.5 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations))            | 264 tokens                                | 355 tokens                               |
 
 * **auto, none:** The count when tool\_choice is auto or none.
 * **any, tool:** The count when tool\_choice is any or tool.

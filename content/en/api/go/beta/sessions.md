@@ -2710,19 +2710,19 @@ List Sessions
 
     Filter by session status. Repeat the parameter to match any of multiple statuses.
 
-    - `const BetaSessionListParamsStatusRescheduling BetaSessionListParamsStatus = "rescheduling"`
+    - `"rescheduling"`
 
       Transient error occurred, retrying automatically.
 
-    - `const BetaSessionListParamsStatusRunning BetaSessionListParamsStatus = "running"`
+    - `"running"`
 
       Agent is actively executing.
 
-    - `const BetaSessionListParamsStatusIdle BetaSessionListParamsStatus = "idle"`
+    - `"idle"`
 
       Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
 
-    - `const BetaSessionListParamsStatusTerminated BetaSessionListParamsStatus = "terminated"`
+    - `"terminated"`
 
       Session has ended, either due to an error or completion.
 

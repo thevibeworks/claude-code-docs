@@ -44,7 +44,7 @@ Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with 
 
 ## The page footer
 
-At the bottom of every page in this portal you will find your email address and a **Sign out** button. Signing out from the footer ends the session you are currently using and, where your agency uses single sign-on, also ends your session with the identity provider so that you will be prompted for credentials the next time you visit.
+At the bottom of every page in this portal you will find your email address and a **Sign out** button. Signing out from the footer ends the session you are currently using. Whether your next sign-in asks for your credentials depends on your agency's single sign-on setup.
 
 > **For organization owners and tenant administrators:** The footer also includes a **Switch to admin view** link that takes you back to the administrative area.
 

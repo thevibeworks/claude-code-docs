@@ -19,7 +19,7 @@ Get Agent
 
     Unique identifier of the agent to retrieve.
 
-  - `Optional<Long> version` (query parameter)
+  - `Optional<Integer> version` (query parameter)
 
     Agent version. Omit for the most recent version. Must be at least 1 if specified.
 
@@ -155,13 +155,13 @@ Get Agent
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -345,7 +345,7 @@ Get Agent
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -419,7 +419,7 @@ Get Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -451,7 +451,7 @@ Get Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -763,7 +763,7 @@ Get Agent
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -921,13 +921,13 @@ Get Agent
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 

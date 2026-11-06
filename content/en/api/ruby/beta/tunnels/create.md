@@ -15,7 +15,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 ## Parameters
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Optional human-readable name for the tunnel (1-255 characters).
 
@@ -155,7 +155,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
@@ -167,7 +167,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     format: date-time
 
-  - `display_name: String`
+  - `display_name: String | nil`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 

@@ -11,7 +11,7 @@ kubectl get --raw /.well-known/openid-configuration | jq -r .issuer
 ```
 
 <Note>
-  The mechanism on this page (projected service-account token, cluster API server as the OIDC issuer) is native to Kubernetes itself, so it underlies every Kubernetes distribution. If you run on a managed Kubernetes service, the cloud provider guides walk through where to find the provider-managed issuer URL: [AWS (EKS)](https://platform.claude.com/docs/en/manage-claude/wif-providers/aws#use-eks-projected-service-account-tokens), [Google Cloud (GKE)](https://platform.claude.com/docs/en/manage-claude/wif-providers/gcp), or [Azure (AKS)](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure). If your cluster runs SPIRE, the SPIRE OIDC Discovery Provider is the issuer rather than the cluster API server; see [SPIFFE](https://platform.claude.com/docs/en/manage-claude/wif-providers/spiffe). For any other distribution or a managed provider not listed there, follow this guide and use the issuer URL your cluster reports.
+  The mechanism on this page (projected service account token, cluster API server as the OIDC issuer) is native to Kubernetes itself, so it underlies every Kubernetes distribution. If you run on a managed Kubernetes service, the cloud provider guides walk through where to find the provider-managed issuer URL: [AWS (EKS)](https://platform.claude.com/docs/en/manage-claude/wif-providers/aws#use-eks-projected-service-account-tokens), [Google Cloud (GKE)](https://platform.claude.com/docs/en/manage-claude/wif-providers/gcp), or [Azure (AKS)](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure). If your cluster runs SPIRE, the SPIRE OIDC Discovery Provider is the issuer rather than the cluster API server; see [Use WIF with SPIFFE](https://platform.claude.com/docs/en/manage-claude/wif-providers/spiffe). For any other distribution or a managed provider not listed there, follow this guide and use the issuer URL your cluster reports.
 </Note>
 
 ## Prerequisites
@@ -157,7 +157,9 @@ The pod spec in [Configure Kubernetes](https://platform.claude.com/docs/en/manag
 
   ```bash CLI
   # Reads ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  # ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_WORKSPACE_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
+  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE.
+  # For a rule enabled for all workspaces or more than one, set ANTHROPIC_PROFILE
+  # to a federation profile that sets workspace_id.
   ant messages create \
     --model claude-opus-5-5 \
     --max-tokens 1024 \

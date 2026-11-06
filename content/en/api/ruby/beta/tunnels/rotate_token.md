@@ -19,7 +19,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   ID of the tunnel (`tnl_...`).
 
-- `reason: optional String`
+- `reason: optional String | nil`
 
   Optional free-text reason for the rotation, recorded for audit.
 

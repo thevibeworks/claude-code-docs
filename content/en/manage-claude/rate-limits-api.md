@@ -8,7 +8,7 @@ description: Programmatically read your organization's API rate limits and set w
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization on the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`) in the Claude Console.
 </Tip>
 
-The Rate Limits API provides programmatic access to the rate limits configured for your organization and its workspaces. This is the same information shown on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console. You can also use it to set and clear a workspace’s rate limits.
+The Rate Limits API provides programmatic access to the rate limits configured for your organization and its workspaces. This is the same information shown on the [Rate limits page in the Claude Console](https://platform.claude.com/usage/limits). You can also use it to set and clear a workspace’s rate limits.
 
 Use this API to:
 
@@ -21,7 +21,7 @@ Use this API to:
   **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn’t scoped to a workspace; workspace API keys don’t work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
 </Check>
 
-The SDK and CLI examples on this page construct the default client, which reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable. The SDKs expose these endpoints as `client.organization.rate_limits` (typescript: `client.organization.rateLimits`; csharp, go: `client.Organization.RateLimits`; java: `client.organization().rateLimits()`; php: `$client->organization->rateLimits`) and `client.organization.workspaces.rate_limits` (typescript: `client.organization.workspaces.rateLimits`; csharp, go: `client.Organization.Workspaces.RateLimits`; java: `client.organization().workspaces().rateLimits()`; php: `$client->organization->workspaces->rateLimits`); the Python, TypeScript, C#, Go, and Java list methods return an iterator that follows `next_page` for you, while the PHP, Ruby, and curl examples read one page.
+The SDK’s default client and the CLI read the Admin API key from the `ANTHROPIC_API_KEY` environment variable. The SDK exposes these endpoints as `client.organization.rate_limits` (typescript: `client.organization.rateLimits`; csharp, go: `client.Organization.RateLimits`; java: `client.organization().rateLimits()`; php: `$client->organization->rateLimits`) and `client.organization.workspaces.rate_limits` (typescript: `client.organization.workspaces.rateLimits`; csharp, go: `client.Organization.Workspaces.RateLimits`; java: `client.organization().workspaces().rateLimits()`; php: `$client->organization->workspaces->rateLimits`). The comments in each list example say whether it fetches more pages or reads only the first.
 
 ## Quick start
 
@@ -29,12 +29,14 @@ List the rate limits configured for your organization:
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page, which holds every entry when `limit` is omitted.
   curl "https://api.anthropic.com/v1/organizations/rate_limits" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # Automatically fetches more pages as needed.
   ant organization:rate-limits list
   ```
 
@@ -43,6 +45,7 @@ List the rate limits configured for your organization:
 
   rate_limits = client.organization.rate_limits.list()
 
+  # Automatically fetches more pages as needed.
   for entry in rate_limits:
       models = f" ({', '.join(entry.models)})" if entry.models else ""
       print(f"{entry.group.type}{models}")
@@ -55,6 +58,7 @@ List the rate limits configured for your organization:
 
   const rateLimits = await client.organization.rateLimits.list();
 
+  // Automatically fetches more pages as needed.
   for await (const entry of rateLimits) {
     const models = entry.models ? ` (${entry.models.join(", ")})` : "";
     console.log(`${entry.group.type}${models}`);
@@ -69,6 +73,7 @@ List the rate limits configured for your organization:
 
   var rateLimits = await client.Organization.RateLimits.List();
 
+  // Automatically fetches more pages as needed.
   await foreach (var entry in rateLimits.Paginate())
   {
       var models = entry.Models is null ? "" : $" ({string.Join(", ", entry.Models)})";
@@ -85,6 +90,7 @@ List the rate limits configured for your organization:
 
   rateLimits := client.Organization.RateLimits.ListAutoPaging(context.Background(), anthropic.OrganizationRateLimitListParams{})
 
+  // Automatically fetches more pages as needed.
   for rateLimits.Next() {
   	entry := rateLimits.Current()
   	models := ""
@@ -106,6 +112,7 @@ List the rate limits configured for your organization:
 
   var rateLimits = client.organization().rateLimits().list();
 
+  // Automatically fetches more pages as needed.
   for (var entry : rateLimits.autoPager()) {
       var models = entry.models()
           .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
@@ -122,6 +129,7 @@ List the rate limits configured for your organization:
 
   $rateLimits = $client->organization->rateLimits->list();
 
+  // Reads only the first page, which holds every entry when `limit` is omitted.
   foreach ($rateLimits->data as $entry) {
       $models = $entry->models ? ' (' . implode(', ', $entry->models) . ')' : '';
       echo "{$entry->group->type}{$models}\n";
@@ -136,6 +144,7 @@ List the rate limits configured for your organization:
 
   rate_limits = client.organization.rate_limits.list
 
+  # Reads only the first page, which holds every entry when `limit` is omitted.
   rate_limits.data.each do |entry|
     models = entry.models ? " (#{entry.models.join(", ")})" : ""
     puts "#{entry.group.type}#{models}"
@@ -152,8 +161,8 @@ The `/v1/organizations/rate_limits` endpoint returns the rate limits applied at 
 
 ### Key concepts
 
-* **Rate limit groups:** Each entry in the response represents one rate limit group. Model rate limits are grouped so that several model versions share a single set of limits, and other groups cover resources such as the Message Batches API, the Files API, the Token Counting API, agent skills, and the web search tool.
-* **`group` object:** Present on every entry, it identifies the rate limit group the entry applies to. It always has `type`, which is one of the `group_type` values, and `id`, an opaque identifier with the `rlg_` prefix. On `model_group` entries it also has `display_name`, Anthropic’s current label for the group, such as `Claude Sonnet 4.x`. The label is for display only and may change. Other group types have no `display_name`.
+* **Rate limit groups:** Each entry in the response represents one rate limit group. Model rate limits are grouped so that several model versions share a single set of limits. The other groups cover the Message Batches API and the web search tool.
+* **`group` object:** Present on every entry, it identifies the rate limit group the entry applies to. It always has `type`, which is one of the `group_type` values, and `id`, an opaque identifier with the `rlg_` prefix. On `model_group` entries it also has `display_name`, Anthropic’s current label for the group, such as `Claude Sonnet 4.x`. The label is for display only and might change. Other group types have no `display_name`.
 * **The `id` inside `group`:** A group has the same `id` in every organization and on every workspace override, and it never changes. Use it to match entries across organizations or against your own catalog. The entry’s own `id` differs for each organization, and `models` changes when Anthropic moves a model between groups. Neither is a stable key for the group.
 * **`group_type`:** The query parameter that restricts the list to one group type. See [Filtering by group type](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#filtering-by-group-type) for the values.
 * **`models` list:** For `model_group` entries, the `models` field lists every model ID and alias that counts against that group’s limits. Use this list to look up which group any model string falls under. For other group types, `models` is `null`.
@@ -166,12 +175,14 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page, which holds every entry when `limit` is omitted.
   curl "https://api.anthropic.com/v1/organizations/rate_limits" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # Automatically fetches more pages as needed.
   ant organization:rate-limits list
   ```
 
@@ -180,6 +191,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   rate_limits = client.organization.rate_limits.list()
 
+  # Automatically fetches more pages as needed.
   for entry in rate_limits:
       models = f" ({', '.join(entry.models)})" if entry.models else ""
       print(f"{entry.group.type}{models}")
@@ -192,6 +204,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   const rateLimits = await client.organization.rateLimits.list();
 
+  // Automatically fetches more pages as needed.
   for await (const entry of rateLimits) {
     const models = entry.models ? ` (${entry.models.join(", ")})` : "";
     console.log(`${entry.group.type}${models}`);
@@ -206,6 +219,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   var rateLimits = await client.Organization.RateLimits.List();
 
+  // Automatically fetches more pages as needed.
   await foreach (var entry in rateLimits.Paginate())
   {
       var models = entry.Models is null ? "" : $" ({string.Join(", ", entry.Models)})";
@@ -222,6 +236,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   rateLimits := client.Organization.RateLimits.ListAutoPaging(context.Background(), anthropic.OrganizationRateLimitListParams{})
 
+  // Automatically fetches more pages as needed.
   for rateLimits.Next() {
   	entry := rateLimits.Current()
   	models := ""
@@ -243,6 +258,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   var rateLimits = client.organization().rateLimits().list();
 
+  // Automatically fetches more pages as needed.
   for (var entry : rateLimits.autoPager()) {
       var models = entry.models()
           .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
@@ -259,6 +275,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   $rateLimits = $client->organization->rateLimits->list();
 
+  // Reads only the first page, which holds every entry when `limit` is omitted.
   foreach ($rateLimits->data as $entry) {
       $models = $entry->models ? ' (' . implode(', ', $entry->models) . ')' : '';
       echo "{$entry->group->type}{$models}\n";
@@ -273,6 +290,7 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
   rate_limits = client.organization.rate_limits.list
 
+  # Reads only the first page, which holds every entry when `limit` is omitted.
   rate_limits.data.each do |entry|
     models = entry.models ? " (#{entry.models.join(", ")})" : ""
     puts "#{entry.group.type}#{models}"
@@ -340,12 +358,14 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page, which holds every entry when `limit` is omitted.
   curl "https://api.anthropic.com/v1/organizations/rate_limits?model=claude-opus-5-5" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # Automatically fetches more pages as needed.
   ant organization:rate-limits list --model claude-opus-5-5
   ```
 
@@ -354,6 +374,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
 
   rate_limits = client.organization.rate_limits.list(model="claude-opus-5-5")
 
+  # Automatically fetches more pages as needed.
   for entry in rate_limits:
       models = f" ({', '.join(entry.models)})" if entry.models else ""
       print(f"{entry.group.type}{models}")
@@ -368,6 +389,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
     model: "claude-opus-5-5"
   });
 
+  // Automatically fetches more pages as needed.
   for await (const entry of rateLimits) {
     const models = entry.models ? ` (${entry.models.join(", ")})` : "";
     console.log(`${entry.group.type}${models}`);
@@ -385,6 +407,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
       Model = "claude-opus-5-5"
   });
 
+  // Automatically fetches more pages as needed.
   await foreach (var entry in rateLimits.Paginate())
   {
       var models = entry.Models is null ? "" : $" ({string.Join(", ", entry.Models)})";
@@ -403,6 +426,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
   	Model: anthropic.String(anthropic.ModelClaudeOpus5_5),
   })
 
+  // Automatically fetches more pages as needed.
   for rateLimits.Next() {
   	entry := rateLimits.Current()
   	models := ""
@@ -431,6 +455,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
           .build();
       var rateLimits = client.organization().rateLimits().list(params);
 
+      // Automatically fetches more pages as needed.
       for (var entry : rateLimits.autoPager()) {
           var models = entry.models()
               .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
@@ -452,6 +477,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
       model: Model::CLAUDE_OPUS_5_5->value,
   );
 
+  // Reads only the first page, which holds every entry when `limit` is omitted.
   foreach ($rateLimits->data as $entry) {
       $models = $entry->models ? ' (' . implode(', ', $entry->models) . ')' : '';
       echo "{$entry->group->type}{$models}\n";
@@ -466,6 +492,7 @@ Pass any model ID or alias as the `model` query parameter to return only the ent
 
   rate_limits = client.organization.rate_limits.list(model: Anthropic::Model::CLAUDE_OPUS_5_5)
 
+  # Reads only the first page, which holds every entry when `limit` is omitted.
   rate_limits.data.each do |entry|
     models = entry.models ? " (#{entry.models.join(", ")})" : ""
     puts "#{entry.group.type}#{models}"
@@ -496,12 +523,14 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page, which holds every entry when `limit` is omitted.
   curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/rate_limits" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # Automatically fetches more pages as needed.
   ant organization:workspaces:rate-limits list \
     --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ
   ```
@@ -513,6 +542,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
       "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   )
 
+  # Automatically fetches more pages as needed.
   for entry in rate_limits:
       models = f" ({', '.join(entry.models)})" if entry.models else ""
       print(f"{entry.group.type}{models}")
@@ -527,6 +557,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
     "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   );
 
+  // Automatically fetches more pages as needed.
   for await (const entry of rateLimits) {
     const models = entry.models ? ` (${entry.models.join(", ")})` : "";
     console.log(`${entry.group.type}${models}`);
@@ -543,6 +574,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
       "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   );
 
+  // Automatically fetches more pages as needed.
   await foreach (var entry in rateLimits.Paginate())
   {
       var models = entry.Models is null ? "" : $" ({string.Join(", ", entry.Models)})";
@@ -563,6 +595,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
   	anthropic.OrganizationWorkspaceRateLimitListParams{},
   )
 
+  // Automatically fetches more pages as needed.
   for rateLimits.Next() {
   	entry := rateLimits.Current()
   	models := ""
@@ -585,6 +618,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
   var rateLimits = client.organization().workspaces().rateLimits()
       .list("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ");
 
+  // Automatically fetches more pages as needed.
   for (var entry : rateLimits.autoPager()) {
       var models = entry.models()
           .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
@@ -603,6 +637,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
       workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
   );
 
+  // Reads only the first page, which holds every entry when `limit` is omitted.
   foreach ($rateLimits->data as $entry) {
       $models = $entry->models ? ' (' . implode(', ', $entry->models) . ')' : '';
       echo "{$entry->group->type}{$models}\n";
@@ -618,6 +653,7 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
   workspace_id = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   rate_limits = client.organization.workspaces.rate_limits.list(workspace_id)
 
+  # Reads only the first page, which holds every entry when `limit` is omitted.
   rate_limits.data.each do |entry|
     models = entry.models ? " (#{entry.models.join(", ")})" : ""
     puts "#{entry.group.type}#{models}"
@@ -702,12 +738,14 @@ To read a workspace’s applicable limits in one request, add the optional `incl
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page, which holds every entry when `limit` is omitted.
   curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/rate_limits?include_inherited=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # Automatically fetches more pages as needed.
   ant organization:workspaces:rate-limits list \
     --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ \
     --include-inherited
@@ -721,6 +759,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
       include_inherited=True,
   )
 
+  # Automatically fetches more pages as needed.
   for entry in rate_limits:
       models = f" ({', '.join(entry.models)})" if entry.models else ""
       print(f"{entry.group.type}{models}")
@@ -736,6 +775,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
     { include_inherited: true }
   );
 
+  // Automatically fetches more pages as needed.
   for await (const entry of rateLimits) {
     const models = entry.models ? ` (${entry.models.join(", ")})` : "";
     console.log(`${entry.group.type}${models}`);
@@ -753,6 +793,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
       new() { IncludeInherited = true }
   );
 
+  // Automatically fetches more pages as needed.
   await foreach (var entry in rateLimits.Paginate())
   {
       var models = entry.Models is null ? "" : $" ({string.Join(", ", entry.Models)})";
@@ -775,6 +816,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
   	},
   )
 
+  // Automatically fetches more pages as needed.
   for rateLimits.Next() {
   	entry := rateLimits.Current()
   	models := ""
@@ -803,6 +845,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
       var rateLimits = client.organization().workspaces().rateLimits()
           .list("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ", params);
 
+      // Automatically fetches more pages as needed.
       for (var entry : rateLimits.autoPager()) {
           var models = entry.models()
               .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
@@ -824,6 +867,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
       includeInherited: true,
   );
 
+  // Reads only the first page, which holds every entry when `limit` is omitted.
   foreach ($rateLimits->data as $entry) {
       $models = $entry->models ? ' (' . implode(', ', $entry->models) . ')' : '';
       echo "{$entry->group->type}{$models}\n";
@@ -839,6 +883,7 @@ To read a workspace’s applicable limits in one request, add the optional `incl
   workspace_id = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   rate_limits = client.organization.workspaces.rate_limits.list(workspace_id, include_inherited: true)
 
+  # Reads only the first page, which holds every entry when `limit` is omitted.
   rate_limits.data.each do |entry|
     models = entry.models ? " (#{entry.models.join(", ")})" : ""
     puts "#{entry.group.type}#{models}"
@@ -956,7 +1001,7 @@ You can set these limiter types: `requests_per_minute`, `input_tokens_per_minute
 * `web_search`: `tool_uses_per_second` only
 * `batch`: `requests_per_minute` only
 
-Other group types don’t accept any limiter type. You can clear any of the limiter types listed earlier on any group. The list endpoints can return limiter types that you can’t set, such as `enqueued_batch_requests`; sending one returns a 400 error.
+You can clear any of the limiter types listed earlier on any of these groups. The list endpoints can return limiter types that you can’t set, such as `enqueued_batch_requests`; sending one returns a 400 error.
 
 The API stores a value above the organization’s limit for the same limiter type, but it enforces the lower of the two. The response’s `org_limit` shows the organization’s value.
 
@@ -965,7 +1010,7 @@ Changes take effect within about an hour. Until a change takes effect, the works
 The API checks the whole request before it changes anything, so an invalid entry fails the request with a 400 error and changes nothing. If a request passes validation, the API then applies the entries one at a time. If applying one fails, the request returns an error and the entries before it stay applied. Each entry sets or clears an absolute value, so you can safely send the same request again. A resend replaces any change that someone else made in between to the limiter types it names.
 
 <Note>
-  Setting workspace rate limits isn’t available on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) yet.
+  Setting workspace rate limits is not available on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
 </Note>
 
 Raise the workspace’s requests per minute for the Claude Opus 5.5 group to 2,000 and clear its input tokens per minute override:
@@ -1054,25 +1099,36 @@ Raise the workspace’s requests per minute for the Claude Opus 5.5 group to 2,0
   ```
 
   ```go Go
-  client := anthropic.NewClient()
+  import (
+  	"context"
+  	"fmt"
+  	"log"
 
-  entry, err := client.Organization.Workspaces.RateLimits.Update(
-  	context.Background(),
-  	"rlt_01NwFawrTvAijwqn8AjKVBPS",
-  	anthropic.OrganizationWorkspaceRateLimitUpdateParams{
-  		WorkspaceID: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
-  		Limits: []anthropic.WorkspaceRateLimitUpdateValueParam{
-  			{Type: "requests_per_minute", Value: anthropic.Int(2000)},
-  			{Type: "input_tokens_per_minute", Value: param.Null[int64]()},
-  		},
-  	},
+  	"github.com/anthropics/anthropic-sdk-go/v2"
+  	"github.com/anthropics/anthropic-sdk-go/v2/packages/param"
   )
-  if err != nil {
-  	log.Fatal(err)
-  }
 
-  for _, limit := range entry.Limits {
-  	fmt.Printf("%s: %d\n", limit.Type, limit.Value)
+  func main() {
+  	client := anthropic.NewClient()
+
+  	entry, err := client.Organization.Workspaces.RateLimits.Update(
+  		context.Background(),
+  		"rlt_01NwFawrTvAijwqn8AjKVBPS",
+  		anthropic.OrganizationWorkspaceRateLimitUpdateParams{
+  			WorkspaceID: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  			Limits: []anthropic.WorkspaceRateLimitUpdateValueParam{
+  				{Type: "requests_per_minute", Value: anthropic.Int(2000)},
+  				{Type: "input_tokens_per_minute", Value: param.Null[int64]()},
+  			},
+  		},
+  	)
+  	if err != nil {
+  		log.Fatal(err)
+  	}
+
+  	for _, limit := range entry.Limits {
+  		fmt.Printf("%s: %d\n", limit.Type, limit.Value)
+  	}
   }
   ```
 
@@ -1175,12 +1231,14 @@ Both list endpoints accept an optional `group_type` query parameter that restric
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page, which holds every entry when `limit` is omitted.
   curl "https://api.anthropic.com/v1/organizations/rate_limits?group_type=batch" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # Automatically fetches more pages as needed.
   ant organization:rate-limits list --group-type batch
   ```
 
@@ -1189,6 +1247,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
 
   rate_limits = client.organization.rate_limits.list(group_type="batch")
 
+  # Automatically fetches more pages as needed.
   for entry in rate_limits:
       models = f" ({', '.join(entry.models)})" if entry.models else ""
       print(f"{entry.group.type}{models}")
@@ -1201,6 +1260,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
 
   const rateLimits = await client.organization.rateLimits.list({ group_type: "batch" });
 
+  // Automatically fetches more pages as needed.
   for await (const entry of rateLimits) {
     const models = entry.models ? ` (${entry.models.join(", ")})` : "";
     console.log(`${entry.group.type}${models}`);
@@ -1220,6 +1280,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
       GroupType = GroupType.Batch
   });
 
+  // Automatically fetches more pages as needed.
   await foreach (var entry in rateLimits.Paginate())
   {
       var models = entry.Models is null ? "" : $" ({string.Join(", ", entry.Models)})";
@@ -1238,6 +1299,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
   	GroupType: anthropic.OrganizationRateLimitListParamsGroupTypeBatch,
   })
 
+  // Automatically fetches more pages as needed.
   for rateLimits.Next() {
   	entry := rateLimits.Current()
   	models := ""
@@ -1265,6 +1327,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
           .build();
       var rateLimits = client.organization().rateLimits().list(params);
 
+      // Automatically fetches more pages as needed.
       for (var entry : rateLimits.autoPager()) {
           var models = entry.models()
               .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
@@ -1287,6 +1350,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
       groupType: GroupType::BATCH,
   );
 
+  // Reads only the first page, which holds every entry when `limit` is omitted.
   foreach ($rateLimits->data as $entry) {
       $models = $entry->models ? ' (' . implode(', ', $entry->models) . ')' : '';
       echo "{$entry->group->type}{$models}\n";
@@ -1301,6 +1365,7 @@ Both list endpoints accept an optional `group_type` query parameter that restric
 
   rate_limits = client.organization.rate_limits.list(group_type: :batch)
 
+  # Reads only the first page, which holds every entry when `limit` is omitted.
   rate_limits.data.each do |entry|
     models = entry.models ? " (#{entry.models.join(", ")})" : ""
     puts "#{entry.group.type}#{models}"
@@ -1311,11 +1376,11 @@ Both list endpoints accept an optional `group_type` query parameter that restric
   ```
 </CodeGroup>
 
-Valid values are `model_group`, `batch`, `token_count`, `files`, `skills`, and `web_search`.
+Valid values are `model_group`, `batch`, `token_count`, `files`, `skills`, and `web_search`. The `token_count`, `files`, and `skills` values return an empty `data` list, because neither list endpoint returns the limits for the Token Counting API, the Files API, or the Skills API.
 
 ## Pagination
 
-Both endpoints accept a `page` query parameter and return a `next_page` field. Responses are currently always a single page, so `next_page` is `null`. Loop on `next_page` so your client paginates correctly without changes when the response grows.
+Both list endpoints accept optional `limit` and `page` query parameters and return a `next_page` field. `limit` ranges from 1 to 1,000. If you omit it, the response contains every remaining entry and `next_page` is `null`. If `limit` cuts the list short, `next_page` holds a cursor: pass it as `page`, with the same filters, to get the next entries. Loop on `next_page` so your client gets every entry.
 
 ## Frequently asked questions
 
@@ -1329,9 +1394,9 @@ The list covers the models your organization has access to, so it can differ amo
 
 By default, the workspace response lists only overrides, so a missing group has no workspace override and inherits the organization-level limit. Pass `include_inherited=true` to see inherited values on the workspace endpoint, or query the organization endpoint. With `include_inherited=true`, a group is missing only when it doesn’t apply to the workspace or the organization has no limit set for it.
 
-### Can I update rate limits with this API?
+### Can you update rate limits with this API?
 
-**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace’s overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint’s response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. For the request body and an example, see [this page’s section on setting workspace rate limits](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#set-workspace-rate-limits). You can also set workspace rate limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console: select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
+**For a workspace:** Yes. The [Set Workspace Rate Limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update) endpoint sets or clears a workspace’s overrides for one rate limit group. Pass the top-level `id` of the matching entry in the [organization endpoint’s response](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#list-all-organization-rate-limits) as `rate_limit_id`, not the `rlg_` `id` inside its `group`. The lower of the workspace override and the organization-level limit applies, and a change takes effect within about an hour. For the request body and an example, see [Set workspace rate limits](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#set-workspace-rate-limits). You can also set workspace rate limits on the [Rate limits page in the Claude Console](https://platform.claude.com/usage/limits): select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 **For an organization:** No. To request higher limits, see [Requesting higher limits](https://platform.claude.com/docs/en/api/rate-limits#requesting-higher-limits).
 

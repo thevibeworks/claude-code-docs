@@ -153,7 +153,7 @@ Create Deployment
 
         minLength: 1, maxLength: 128
 
-      - `Optional<Long> version`
+      - `Optional<Integer> version`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -361,7 +361,7 @@ Create Deployment
 
             maxLength: 262144
 
-      - `Optional<Long> maxIterations`
+      - `Optional<Integer> maxIterations`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -529,17 +529,17 @@ Create Deployment
 
     - `String id`
 
-    - `long version`
+    - `int version`
 
       format: int32
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     Time the deployment was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     Time the deployment was created.
 
@@ -747,7 +747,7 @@ Create Deployment
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
 
-      - `Optional<Long> maxIterations`
+      - `Optional<Integer> maxIterations`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -979,13 +979,13 @@ Create Deployment
 
       minLength: 1
 
-    - `Optional<LocalDateTime> lastRunAt`
+    - `Optional<OffsetDateTime> lastRunAt`
 
       Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this.
 
       format: date-time
 
-    - `Optional<List<LocalDateTime>> upcomingRunsAt`
+    - `Optional<List<OffsetDateTime>> upcomingRunsAt`
 
       Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
 
@@ -1001,7 +1001,7 @@ Create Deployment
 
       The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     Time the deployment was last updated.
 

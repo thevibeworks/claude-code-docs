@@ -169,7 +169,7 @@ Create a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 

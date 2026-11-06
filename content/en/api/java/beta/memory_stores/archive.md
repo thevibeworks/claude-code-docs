@@ -153,7 +153,7 @@ Archive a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 
@@ -163,7 +163,7 @@ Archive a Memory Store
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When the memory store was created, in RFC 3339.
 
@@ -183,7 +183,7 @@ Archive a Memory Store
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     When the memory store was last changed, in RFC 3339.
 

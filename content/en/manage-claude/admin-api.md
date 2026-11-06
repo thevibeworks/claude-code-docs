@@ -31,7 +31,7 @@ The Admin API accepts any of these three credentials:
 
 An Admin API key covers most endpoints. The service-account, federation-issuer, and federation-rule endpoints accept only an `org:admin` OAuth token. Send a personal key or service account key in the `x-api-key` header, as you would an Admin API key. The following examples call the [organization info endpoint](https://platform.claude.com/docs/en/manage-claude/admin-api#accessing-organization-info) with an OAuth token and with an Admin API key.
 
-In Python, TypeScript, C#, Go, Java, PHP, and Ruby, the SDK exposes the endpoints on this page under `client.organization` (csharp, go: `client.Organization`; java: `client.organization()`; php: `$client->organization`), and the `ant` CLI under `ant organization`. The examples on this page use the default client, which reads an Admin API key from `ANTHROPIC_API_KEY` or an OAuth bearer token from `ANTHROPIC_AUTH_TOKEN`. SDK list methods in Python, TypeScript, C#, Go, and Java return an iterator that fetches more pages on demand, so `limit` sets the page size, not the total. The PHP, Ruby, and curl examples return one page. In the CLI, `--limit` caps the results on the member, invite, workspace, workspace-member, and API-key lists. For each endpoint’s parameters and responses, see the [Admin API reference](https://platform.claude.com/docs/en/api/organization).
+The SDK exposes the endpoints on this page under `client.organization` (csharp, go: `client.Organization`; java: `client.organization()`; php: `$client->organization`), and the `ant` CLI under `ant organization`. The examples on this page use the default client, which reads an Admin API key from `ANTHROPIC_API_KEY` or an OAuth bearer token from `ANTHROPIC_AUTH_TOKEN`. The comments in each list example say whether it fetches more pages or reads only the first. For each endpoint’s parameters and responses, see the [Admin API reference](https://platform.claude.com/docs/en/api/organization).
 
 ### OAuth bearer token
 
@@ -42,9 +42,9 @@ ant auth login --profile admin --scope "org:admin"
 export ANTHROPIC_AUTH_TOKEN=$(ant auth print-credentials --profile admin --access-token)
 ```
 
-Interactive tokens are short-lived. If requests start returning 401, re-run the `export` command to refresh the token.
+Interactive tokens are short-lived. If requests start returning 401, rerun the `export` command to refresh the token.
 
-The SDK and the `ant` CLI read `ANTHROPIC_AUTH_TOKEN` automatically. Leave `ANTHROPIC_API_KEY` unset in the same shell so they send the bearer token. Automated workloads skip the login: they authenticate through workload identity federation, and the SDK and CLI perform the token exchange from the federation environment variables. See [Bootstrap a workload to manage WIF](https://platform.claude.com/docs/en/manage-claude/wif-admin-api#bootstrap-a-workload-to-manage-wif).
+The SDK and the `ant` CLI read `ANTHROPIC_AUTH_TOKEN` automatically. Leave `ANTHROPIC_API_KEY` unset in the same shell so they send the bearer token. Automated workloads skip the login: they authenticate through Workload Identity Federation, and the SDK and CLI perform the token exchange from the federation environment variables. See [Bootstrap a workload to manage WIF](https://platform.claude.com/docs/en/manage-claude/wif-admin-api#bootstrap-a-workload-to-manage-wif).
 
 Call the Admin API with the exported token:
 
@@ -248,12 +248,14 @@ List the members of your organization:
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page.
   curl "https://api.anthropic.com/v1/organizations/users?limit=10" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # At a terminal, the view fetches more pages as you scroll. When piped or with `--format json`, `--limit` caps the results.
   ant organization:users list --limit 10
   ```
 
@@ -262,7 +264,7 @@ List the members of your organization:
 
   users = client.organization.users.list(limit=10)
 
-  # Automatically fetches more pages as needed.
+  # Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for user in users:
       print(f"{user.id}: {user.email} ({user.role})")
   ```
@@ -272,6 +274,7 @@ List the members of your organization:
 
   const users = await client.organization.users.list({ limit: 10 });
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for await (const user of users) {
     console.log(`${user.id}: ${user.email} (${user.role})`);
   }
@@ -282,6 +285,7 @@ List the members of your organization:
 
   var page = await client.Organization.Users.List(new() { Limit = 10 });
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   await foreach (var user in page.Paginate())
   {
       Console.WriteLine($"{user.ID}: {user.Email} ({user.Role.Raw()})");
@@ -295,6 +299,7 @@ List the members of your organization:
   	Limit: anthropic.Int(10),
   })
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for users.Next() {
   	user := users.Current()
   	fmt.Printf("%s: %s (%s)\n", user.ID, user.Email, user.Role)
@@ -315,6 +320,7 @@ List the members of your organization:
           .build();
       var users = client.organization().users().list(params);
 
+      // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
       for (var user : users.autoPager()) {
           IO.println(user.id() + ": " + user.email() + " (" + user.role().asString() + ")");
       }
@@ -326,6 +332,7 @@ List the members of your organization:
 
   $users = $client->organization->users->list(limit: 10);
 
+  // Reads only the first page.
   foreach ($users->getItems() as $user) {
       echo "{$user->id}: {$user->email} ({$user->role})\n";
   }
@@ -336,6 +343,7 @@ List the members of your organization:
 
   users = client.organization.users.list(limit: 10)
 
+  # Reads only the first page.
   users.data.each do |user|
     puts "#{user.id}: #{user.email} (#{user.role})"
   end
@@ -664,16 +672,18 @@ Invite a user to your organization:
   ```
 </CodeGroup>
 
-List pending invites:
+List pending, accepted, and expired invites:
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page.
   curl "https://api.anthropic.com/v1/organizations/invites?limit=10" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # At a terminal, the view fetches more pages as you scroll. When piped or with `--format json`, `--limit` caps the results.
   ant organization:invites list --limit 10
   ```
 
@@ -682,7 +692,7 @@ List pending invites:
 
   invites = client.organization.invites.list(limit=10)
 
-  # Automatically fetches more pages as needed.
+  # Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for invite in invites:
       print(f"{invite.id}: {invite.email} ({invite.status})")
   ```
@@ -692,6 +702,7 @@ List pending invites:
 
   const invites = await client.organization.invites.list({ limit: 10 });
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for await (const invite of invites) {
     console.log(`${invite.id}: ${invite.email} (${invite.status})`);
   }
@@ -702,6 +713,7 @@ List pending invites:
 
   var page = await client.Organization.Invites.List(new() { Limit = 10 });
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   await foreach (var invite in page.Paginate())
   {
       Console.WriteLine($"{invite.ID}: {invite.Email} ({invite.Status.Raw()})");
@@ -715,6 +727,7 @@ List pending invites:
   	Limit: anthropic.Int(10),
   })
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for invites.Next() {
   	invite := invites.Current()
   	fmt.Printf("%s: %s (%s)\n", invite.ID, invite.Email, invite.Status)
@@ -735,6 +748,7 @@ List pending invites:
           .build();
       var invites = client.organization().invites().list(params);
 
+      // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
       for (var invite : invites.autoPager()) {
           IO.println(invite.id() + ": " + invite.email() + " (" + invite.status().asString() + ")");
       }
@@ -746,6 +760,7 @@ List pending invites:
 
   $invites = $client->organization->invites->list(limit: 10);
 
+  // Reads only the first page.
   foreach ($invites->getItems() as $invite) {
       echo "{$invite->id}: {$invite->email} ({$invite->status})\n";
   }
@@ -756,6 +771,7 @@ List pending invites:
 
   invites = client.organization.invites.list(limit: 10)
 
+  # Reads only the first page.
   invites.data.each do |invite|
     puts "#{invite.id}: #{invite.email} (#{invite.status})"
   end
@@ -849,7 +865,7 @@ See [Workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces) f
 
 ### Workspace members
 
-Manage [user access to specific workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/members/retrieve):
+Manage [user access to specific workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/members/retrieve).
 
 Add a member to a workspace:
 
@@ -991,12 +1007,14 @@ List the members of a workspace:
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page.
   curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/members?limit=10" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # At a terminal, the view fetches more pages as you scroll. When piped or with `--format json`, `--limit` caps the results.
   ant organization:workspaces:members list \
     --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ \
     --limit 10
@@ -1009,7 +1027,7 @@ List the members of a workspace:
       "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ", limit=10
   )
 
-  # Automatically fetches more pages as needed.
+  # Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for member in members:
       print(f"{member.user_id}: {member.workspace_role}")
   ```
@@ -1022,6 +1040,7 @@ List the members of a workspace:
     { limit: 10 }
   );
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for await (const member of members) {
     console.log(`${member.user_id}: ${member.workspace_role}`);
   }
@@ -1035,6 +1054,7 @@ List the members of a workspace:
       new() { Limit = 10 }
   );
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   await foreach (var member in page.Paginate())
   {
       Console.WriteLine($"{member.UserID}: {member.WorkspaceRole.Raw()}");
@@ -1052,6 +1072,7 @@ List the members of a workspace:
   	},
   )
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for members.Next() {
   	member := members.Current()
   	fmt.Printf("%s: %s\n", member.UserID, member.WorkspaceRole)
@@ -1073,6 +1094,7 @@ List the members of a workspace:
       var members = client.organization().workspaces().members()
           .list("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ", params);
 
+      // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
       for (var member : members.autoPager()) {
           IO.println(member.userId() + ": " + member.workspaceRole().asString());
       }
@@ -1087,6 +1109,7 @@ List the members of a workspace:
       limit: 10,
   );
 
+  // Reads only the first page.
   foreach ($members->getItems() as $member) {
       echo "{$member->userID}: {$member->workspaceRole}\n";
   }
@@ -1098,6 +1121,7 @@ List the members of a workspace:
   workspace_id = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   members = client.organization.workspaces.members.list(workspace_id, limit: 10)
 
+  # Reads only the first page.
   members.data.each do |member|
     puts "#{member.user_id}: #{member.workspace_role}"
   end
@@ -1349,12 +1373,14 @@ List the active API keys in a workspace:
 
 <CodeGroup>
   ```bash cURL
+  # Returns one page.
   curl "https://api.anthropic.com/v1/organizations/api_keys?limit=10&status=active&workspace_id=wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21"
   ```
 
   ```bash CLI
+  # At a terminal, the view fetches more pages as you scroll. When piped or with `--format json`, `--limit` caps the results.
   ant organization:api-keys list \
     --limit 10 \
     --status active \
@@ -1368,7 +1394,7 @@ List the active API keys in a workspace:
       limit=10, status="active", workspace_id="wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   )
 
-  # Automatically fetches more pages as needed.
+  # Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for api_key in api_keys:
       print(f"{api_key.id}: {api_key.name} ({api_key.status})")
   ```
@@ -1382,6 +1408,7 @@ List the active API keys in a workspace:
     workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   });
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for await (const apiKey of apiKeys) {
     console.log(`${apiKey.id}: ${apiKey.name} (${apiKey.status})`);
   }
@@ -1399,6 +1426,7 @@ List the active API keys in a workspace:
       WorkspaceID = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   });
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   await foreach (var apiKey in page.Paginate())
   {
       Console.WriteLine($"{apiKey.ID}: {apiKey.Name} ({apiKey.Status.Raw()})");
@@ -1414,6 +1442,7 @@ List the active API keys in a workspace:
   	WorkspaceID: anthropic.String("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"),
   })
 
+  // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
   for apiKeys.Next() {
   	apiKey := apiKeys.Current()
   	fmt.Printf("%s: %s (%s)\n", apiKey.ID, apiKey.Name, apiKey.Status)
@@ -1436,6 +1465,7 @@ List the active API keys in a workspace:
           .build();
       var apiKeys = client.organization().apiKeys().list(params);
 
+      // Automatically fetches more pages as needed, so `limit` sets the page size, not the total.
       for (var apiKey : apiKeys.autoPager()) {
           IO.println(apiKey.id() + ": " + apiKey.name() + " (" + apiKey.status().asString() + ")");
       }
@@ -1454,6 +1484,7 @@ List the active API keys in a workspace:
       workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
   );
 
+  // Reads only the first page.
   foreach ($apiKeys->getItems() as $apiKey) {
       echo "{$apiKey->id}: {$apiKey->name} ({$apiKey->status})\n";
   }
@@ -1468,6 +1499,7 @@ List the active API keys in a workspace:
     workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   )
 
+  # Reads only the first page.
   api_keys.data.each do |api_key|
     puts "#{api_key.id}: #{api_key.name} (#{api_key.status})"
   end
@@ -1740,7 +1772,7 @@ Register webhook endpoints for events about enforcement actions on your organiza
 * Use meaningful names and descriptions for workspaces and API keys
 * Handle errors from failed operations
 * Regularly audit member roles and permissions
-* Clean up unused workspaces and expired invites
+* Archive unused workspaces and delete pending invites you no longer need
 * Monitor API key usage, audit each key’s [`expires_at`](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration), and rotate keys periodically
 
 ## FAQ
@@ -1750,7 +1782,7 @@ Register webhook endpoints for events about enforcement actions on your organiza
     The Admin API accepts an Admin API key (starting with `sk-ant-admin`), an OAuth bearer token with the `org:admin` scope, or a personal key or service account key that isn’t scoped to a specific workspace. Only organization members with the admin role can provision Admin API keys, and only members with the admin, owner, or primary owner role can obtain `org:admin` tokens. A personal key or service account key has the same permissions as the linked account. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication).
   </Accordion>
 
-  <Accordion title="Can I create new API keys through the Admin API?">
+  <Accordion title="Can the Admin API create API keys?">
     No. You create API keys in the Claude Console. The Admin API can only read, rename, and change the status of existing keys.
   </Accordion>
 

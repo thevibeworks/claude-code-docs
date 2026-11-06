@@ -155,7 +155,7 @@ Archive Session
 
     - `id: String`
 
-    - `description: String`
+    - `description: String | nil`
 
     - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -311,7 +311,7 @@ Archive Session
 
         - `:fast`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagent`
+    - `multiagent: BetaManagedAgentsSessionMultiagent | nil`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -333,7 +333,7 @@ Archive Session
 
             - `id: String`
 
-            - `description: String`
+            - `description: String | nil`
 
             - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -375,7 +375,7 @@ Archive Session
 
                 - `version: String`
 
-            - `system_: String`
+            - `system_: String | nil`
 
             - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -573,11 +573,11 @@ Archive Session
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                    - `url_sources: BetaManagedAgentsWebFetchURLSources`
+                    - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                       Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                         Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -633,11 +633,11 @@ Archive Session
 
                               minLength: 1, maxLength: 128
 
-                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                         Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                         Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -653,7 +653,7 @@ Archive Session
 
                     - `blocked_domains: optional Array[String]`
 
-                    - `max_content_tokens: optional Integer`
+                    - `max_content_tokens: optional Integer | nil`
 
                       format: int32
 
@@ -687,7 +687,7 @@ Archive Session
 
                     - `blocked_domains: optional Array[String]`
 
-                    - `user_location: optional BetaManagedAgentsUserLocation`
+                    - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                       Approximate user location for search result localization.
 
@@ -695,25 +695,25 @@ Archive Session
 
                         Location precision. Only "approximate" is supported.
 
-                      - `city: optional String`
+                      - `city: optional String | nil`
 
                         City name.
 
                         minLength: 1, maxLength: 255
 
-                      - `country: optional String`
+                      - `country: optional String | nil`
 
                         Two-letter ISO 3166-1 country code, uppercase.
 
                         pattern: ^[A-Z]{2}$
 
-                      - `region: optional String`
+                      - `region: optional String | nil`
 
                         Region or state name.
 
                         minLength: 1, maxLength: 255
 
-                      - `timezone: optional String`
+                      - `timezone: optional String | nil`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -805,9 +805,9 @@ Archive Session
 
                   - `type: :object`
 
-                  - `properties: optional Hash[Symbol, untyped]`
+                  - `properties: optional Hash[Symbol, untyped] | nil`
 
-                  - `required: optional Array[String]`
+                  - `required: optional Array[String] | nil`
 
                 - `name: String`
 
@@ -885,7 +885,7 @@ Archive Session
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -901,7 +901,7 @@ Archive Session
 
               - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -937,7 +937,7 @@ Archive Session
 
               - `id: String`
 
-              - `description: String`
+              - `description: String | nil`
 
               - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -953,7 +953,7 @@ Archive Session
 
               - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-              - `system_: String`
+              - `system_: String | nil`
 
               - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -979,7 +979,7 @@ Archive Session
 
         A resolved user-created custom skill.
 
-    - `system_: String`
+    - `system_: String | nil`
 
     - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -995,13 +995,13 @@ Archive Session
 
       format: int32
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the session was archived. Null if not archived.
 
     format: date-time
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit | nil`
 
     The session's enforced spend ceiling, or null when no budget is set.
 
@@ -1037,7 +1037,7 @@ Archive Session
 
     - `type: :outcome_evaluation`
 
-    - `completed_at: Time`
+    - `completed_at: Time | nil`
 
       When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
@@ -1047,7 +1047,7 @@ Archive Session
 
       What the agent should produce.
 
-    - `explanation: String`
+    - `explanation: String | nil`
 
       Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
@@ -1089,7 +1089,7 @@ Archive Session
 
       - `url: String`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | nil`
 
         - `class BetaManagedAgentsBranchCheckout`
 
@@ -1145,7 +1145,7 @@ Archive Session
 
         pattern: ^memstore_[a-zA-Z0-9_]+$
 
-      - `access: optional :read_write | :read_only`
+      - `access: optional :read_write | :read_only | nil`
 
         Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
@@ -1157,17 +1157,17 @@ Archive Session
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional String`
+      - `instructions: optional String | nil`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
         maxLength: 4096
 
-      - `mount_path: optional String`
+      - `mount_path: optional String | nil`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional String`
+      - `name: optional String | nil`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -1205,7 +1205,7 @@ Archive Session
 
       Session has ended, either due to an error or completion.
 
-  - `title: String`
+  - `title: String | nil`
 
   - `updated_at: Time`
 
@@ -1251,7 +1251,7 @@ Archive Session
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
@@ -1261,7 +1261,7 @@ Archive Session
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
@@ -1281,7 +1281,7 @@ Archive Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional String`
+  - `deployment_id: optional String | nil`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 

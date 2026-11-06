@@ -114,9 +114,15 @@ Claude Duet can also make mistakes, such as misreading a thread or misjudging wh
 
 **Pricing.** During the research preview, Claude Duet is included with Pro, Max, and Ultra plans at no extra cost.
 
-**Usage limits.** Claude Duet uses your plan's usage limits, including any five-hour session limit and your weekly limits, at the same rate as chats in Claude. Work it does in the background, like the morning brief and check-ins, also counts, so you may reach your limits sooner than with chat alone. Claude Duet checks your accounts at set intervals to keep that background work from using up your limits. Learn more about **[usage limits](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work#h_673be3815f)**.
+**Usage limits.** Claude Duet uses your plan's usage limits, including any five-hour session limit and your weekly limits, at the same rate as chats in Claude. Work it does in the background, like the morning brief and check-ins, also counts, so you may reach your limits sooner than with chat alone. Learn more about **[usage limits](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work#h_673be3815f)**.
 
-**Limit reset.** When you're admitted to the Claude Duet research preview, you get one full limit reset, which resets both your five-hour session and weekly limits. This limit reset is available until November 30, 2026. Learn more about **[limit resets](https://support.claude.com/en/articles/17007452-what-is-a-limit-reset)**.
+**Limit resets.** During the research preview, we add full limit resets to your account so you have room to try Claude Duet. Each one refills both your five-hour session and weekly limits when you choose to use it in **[Settings > Usage](https://claude.ai/settings/usage)** on the web or in Claude Desktop. The number you get depends on your plan:
+
+- Pro: three limit resets
+
+- Max and Ultra: one limit reset
+
+Unused limit resets expire on December 15, 2026. Learn more about **[limit resets](https://support.claude.com/en/articles/17007452-what-is-a-limit-reset)**.
 
 ## Privacy, safety, and control
 

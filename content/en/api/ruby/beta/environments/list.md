@@ -23,7 +23,7 @@ List environments with pagination support.
 
   minimum: 1, maximum: 1000
 
-- `page: optional String` (query parameter)
+- `page: optional String | nil` (query parameter)
 
   Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
@@ -163,7 +163,7 @@ List environments with pagination support.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: String`
+  - `archived_at: String | nil`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -255,7 +255,7 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was created
 
-  - `description: String`
+  - `description: String | nil`
 
     User-provided description for the environment; null when unset
 

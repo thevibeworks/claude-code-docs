@@ -15,7 +15,7 @@ Update an existing environment's configuration.
 
 - `environment_id: String` (path parameter)
 
-- `config: optional BetaCloudConfigParams | BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams | BetaSelfHostedConfigParams | nil`
 
   Updated environment configuration
 
@@ -30,7 +30,7 @@ Update an existing environment's configuration.
 
       Environment type
 
-    - `networking: optional BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork | BetaLimitedNetworkParams | nil`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -53,19 +53,19 @@ Update an existing environment's configuration.
 
           Network policy type
 
-        - `allow_mcp_servers: optional bool`
+        - `allow_mcp_servers: optional bool | nil`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: optional bool`
+        - `allow_package_managers: optional bool | nil`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-        - `allowed_hosts: optional Array[String]`
+        - `allowed_hosts: optional Array[String] | nil`
 
           Specifies domains the container can reach.
 
-    - `packages: optional BetaPackagesParams`
+    - `packages: optional BetaPackagesParams | nil`
 
       Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
@@ -73,27 +73,27 @@ Update an existing environment's configuration.
 
         Package configuration type
 
-      - `apt: optional Array[String]`
+      - `apt: optional Array[String] | nil`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: optional Array[String]`
+      - `cargo: optional Array[String] | nil`
 
         Rust packages to install
 
-      - `gem_: optional Array[String]`
+      - `gem_: optional Array[String] | nil`
 
         Ruby packages to install
 
-      - `go: optional Array[String]`
+      - `go: optional Array[String] | nil`
 
         Go packages to install
 
-      - `npm: optional Array[String]`
+      - `npm: optional Array[String] | nil`
 
         Node.js packages to install
 
-      - `pip: optional Array[String]`
+      - `pip: optional Array[String] | nil`
 
         Python packages to install
 
@@ -105,23 +105,23 @@ Update an existing environment's configuration.
 
       Environment type
 
-- `description: optional String`
+- `description: optional String | nil`
 
   Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
   maxLength: 1024
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil]`
 
   User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-- `name: optional String`
+- `name: optional String | nil`
 
   Updated name for the environment
 
   minLength: 1, maxLength: 256
 
-- `scope: optional :organization | :account`
+- `scope: optional :organization | :account | nil`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -265,7 +265,7 @@ Update an existing environment's configuration.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: String`
+  - `archived_at: String | nil`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -357,7 +357,7 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `description: String`
+  - `description: String | nil`
 
     User-provided description for the environment; null when unset
 

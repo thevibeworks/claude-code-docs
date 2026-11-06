@@ -105,7 +105,7 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `effort: optional :low | :medium | :high | 2 more | BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | 3 more`
+    - `effort: optional :low | :medium | :high | 2 more | BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | 3 more | nil`
 
       How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -163,11 +163,11 @@ Create Agent
 
         - `type: :max`
 
-    - `inference_geo: optional String`
+    - `inference_geo: optional String | nil`
 
       Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-    - `speed: optional :standard | :fast`
+    - `speed: optional :standard | :fast | nil`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -181,13 +181,13 @@ Create Agent
 
   minLength: 1, maxLength: 256
 
-- `description: optional String`
+- `description: optional String | nil`
 
   Description of what the agent does.
 
   maxLength: 2048
 
-- `execution_identity: optional BetaManagedAgentsExecutionIdentityParams`
+- `execution_identity: optional BetaManagedAgentsExecutionIdentityParams | nil`
 
   Execution principal for runs of this agent. Omitting it, sending null, or sending `{"type": "service_account"}` stores the default.
 
@@ -231,7 +231,7 @@ Create Agent
 
   Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-- `multiagent: optional BetaManagedAgentsMultiagentParams`
+- `multiagent: optional BetaManagedAgentsMultiagentParams | nil`
 
   Multiagent orchestration configuration.
 
@@ -289,7 +289,7 @@ Create Agent
 
     - `type: :multiagent_20261001`
 
-    - `advisor: optional BetaManagedAgentsMultiagentAdvisorParams`
+    - `advisor: optional BetaManagedAgentsMultiagentAdvisorParams | nil`
 
       Whether the session's primary thread can consult an advisor model. Defaults to disabled.
 
@@ -311,7 +311,7 @@ Create Agent
 
         - `type: :disabled`
 
-    - `subagents: optional BetaManagedAgentsMultiagentSubagentsParams`
+    - `subagents: optional BetaManagedAgentsMultiagentSubagentsParams | nil`
 
       Whether the agent can spawn session threads. Defaults to enabled.
 
@@ -321,7 +321,7 @@ Create Agent
 
         - `type: :enabled`
 
-        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
           Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
 
@@ -337,7 +337,7 @@ Create Agent
 
             - `type: :disabled`
 
-        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
           Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -357,7 +357,7 @@ Create Agent
 
         - `type: :disabled`
 
-    - `workflows: optional BetaManagedAgentsMultiagentWorkflowsParams`
+    - `workflows: optional BetaManagedAgentsMultiagentWorkflowsParams | nil`
 
       Whether the agent can start workflow runs. Defaults to enabled.
 
@@ -367,11 +367,11 @@ Create Agent
 
         - `type: :enabled`
 
-        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
           Whether a run's plan can define inline agents. Defaults to enabled.
 
-        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
           Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -407,7 +407,7 @@ Create Agent
 
       minLength: 1, maxLength: 64
 
-    - `version: optional String`
+    - `version: optional String | nil`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -425,13 +425,13 @@ Create Agent
 
       minLength: 1, maxLength: 64
 
-    - `version: optional String`
+    - `version: optional String | nil`
 
       Version to pin. Defaults to latest if omitted.
 
       minLength: 1, maxLength: 64
 
-- `system_: optional String`
+- `system_: optional String | nil`
 
   System prompt for the agent.
 
@@ -461,11 +461,11 @@ Create Agent
 
           Must be "bash".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -497,11 +497,11 @@ Create Agent
 
           Must be "edit".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -527,11 +527,11 @@ Create Agent
 
           Must be "read".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -557,11 +557,11 @@ Create Agent
 
           Must be "write".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -587,11 +587,11 @@ Create Agent
 
           Must be "glob".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -617,11 +617,11 @@ Create Agent
 
           Must be "grep".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -655,17 +655,17 @@ Create Agent
 
           Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `max_content_tokens: optional Integer`
+        - `max_content_tokens: optional Integer | nil`
 
           Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
           format: int32
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -681,11 +681,11 @@ Create Agent
 
             The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-        - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
+        - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
           Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-          - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+          - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
             Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -753,11 +753,11 @@ Create Agent
 
                     minLength: 1, maxLength: 128
 
-          - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+          - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
             Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-          - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+          - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
             Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -795,11 +795,11 @@ Create Agent
 
           Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -815,7 +815,7 @@ Create Agent
 
             The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-        - `user_location: optional BetaManagedAgentsUserLocation`
+        - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
           Approximate user location for search result localization.
 
@@ -823,39 +823,39 @@ Create Agent
 
             Location precision. Only "approximate" is supported.
 
-          - `city: optional String`
+          - `city: optional String | nil`
 
             City name.
 
             minLength: 1, maxLength: 255
 
-          - `country: optional String`
+          - `country: optional String | nil`
 
             Two-letter ISO 3166-1 country code, uppercase.
 
             pattern: ^[A-Z]{2}$
 
-          - `region: optional String`
+          - `region: optional String | nil`
 
             Region or state name.
 
             minLength: 1, maxLength: 255
 
-          - `timezone: optional String`
+          - `timezone: optional String | nil`
 
             IANA timezone identifier, e.g. "America/Los_Angeles".
 
             minLength: 1, maxLength: 255
 
-    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams | nil`
 
       Default configuration applied to all tools in this set.
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -893,11 +893,11 @@ Create Agent
 
         minLength: 1, maxLength: 128
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled. Overrides the `default_config` setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -913,15 +913,15 @@ Create Agent
 
           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
       Default configuration for all tools from this server.
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether tools are enabled by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Default permission policy for tools from this server.
 
@@ -955,9 +955,9 @@ Create Agent
 
       - `type: :object`
 
-      - `properties: optional Hash[Symbol, untyped]`
+      - `properties: optional Hash[Symbol, untyped] | nil`
 
-      - `required: optional Array[String]`
+      - `required: optional Array[String] | nil`
 
     - `name: String`
 
@@ -1097,7 +1097,7 @@ Create Agent
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -1109,7 +1109,7 @@ Create Agent
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -1267,7 +1267,7 @@ Create Agent
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -1429,7 +1429,7 @@ Create Agent
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -1627,11 +1627,11 @@ Create Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -1687,11 +1687,11 @@ Create Agent
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -1707,7 +1707,7 @@ Create Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -1741,7 +1741,7 @@ Create Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -1749,25 +1749,25 @@ Create Agent
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -1859,9 +1859,9 @@ Create Agent
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -2162,7 +2162,7 @@ List Agents
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -2174,7 +2174,7 @@ List Agents
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -2332,7 +2332,7 @@ List Agents
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -2494,7 +2494,7 @@ List Agents
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -2692,11 +2692,11 @@ List Agents
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -2752,11 +2752,11 @@ List Agents
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -2772,7 +2772,7 @@ List Agents
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -2806,7 +2806,7 @@ List Agents
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -2814,25 +2814,25 @@ List Agents
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -2924,9 +2924,9 @@ List Agents
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -3213,7 +3213,7 @@ Get Agent
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -3225,7 +3225,7 @@ Get Agent
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -3383,7 +3383,7 @@ Get Agent
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -3545,7 +3545,7 @@ Get Agent
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -3743,11 +3743,11 @@ Get Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -3803,11 +3803,11 @@ Get Agent
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -3823,7 +3823,7 @@ Get Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -3857,7 +3857,7 @@ Get Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -3865,25 +3865,25 @@ Get Agent
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -3975,9 +3975,9 @@ Get Agent
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -4121,13 +4121,13 @@ Update Agent
 
   Unique identifier of the agent to update.
 
-- `description: optional String`
+- `description: optional String | nil`
 
   Description. Omit to preserve; send empty string or null to clear.
 
   maxLength: 2048
 
-- `execution_identity: optional BetaManagedAgentsExecutionIdentityParams`
+- `execution_identity: optional BetaManagedAgentsExecutionIdentityParams | nil`
 
   Execution principal for runs of this agent. Full replacement. Omit to preserve; send null or `{"type": "service_account"}` to restore the default.
 
@@ -4149,7 +4149,7 @@ Update Agent
 
     - `type: :service_account`
 
-- `mcp_servers: optional Array[BetaManagedAgentsURLMCPServerParams]`
+- `mcp_servers: optional Array[BetaManagedAgentsURLMCPServerParams] | nil`
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=ruby).
 
@@ -4167,7 +4167,7 @@ Update Agent
 
     maxLength: 2048
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
@@ -4261,7 +4261,7 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `effort: optional :low | :medium | :high | 2 more | BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | 3 more`
+    - `effort: optional :low | :medium | :high | 2 more | BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | 3 more | nil`
 
       How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -4319,11 +4319,11 @@ Update Agent
 
         - `type: :max`
 
-    - `inference_geo: optional String`
+    - `inference_geo: optional String | nil`
 
       Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-    - `speed: optional :standard | :fast`
+    - `speed: optional :standard | :fast | nil`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -4331,7 +4331,7 @@ Update Agent
 
       - `:fast`
 
-- `multiagent: optional BetaManagedAgentsMultiagentParams`
+- `multiagent: optional BetaManagedAgentsMultiagentParams | nil`
 
   Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
@@ -4389,7 +4389,7 @@ Update Agent
 
     - `type: :multiagent_20261001`
 
-    - `advisor: optional BetaManagedAgentsMultiagentAdvisorParams`
+    - `advisor: optional BetaManagedAgentsMultiagentAdvisorParams | nil`
 
       Whether the session's primary thread can consult an advisor model. Defaults to disabled.
 
@@ -4411,7 +4411,7 @@ Update Agent
 
         - `type: :disabled`
 
-    - `subagents: optional BetaManagedAgentsMultiagentSubagentsParams`
+    - `subagents: optional BetaManagedAgentsMultiagentSubagentsParams | nil`
 
       Whether the agent can spawn session threads. Defaults to enabled.
 
@@ -4421,7 +4421,7 @@ Update Agent
 
         - `type: :enabled`
 
-        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
           Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
 
@@ -4437,7 +4437,7 @@ Update Agent
 
             - `type: :disabled`
 
-        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
           Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -4457,7 +4457,7 @@ Update Agent
 
         - `type: :disabled`
 
-    - `workflows: optional BetaManagedAgentsMultiagentWorkflowsParams`
+    - `workflows: optional BetaManagedAgentsMultiagentWorkflowsParams | nil`
 
       Whether the agent can start workflow runs. Defaults to enabled.
 
@@ -4467,11 +4467,11 @@ Update Agent
 
         - `type: :enabled`
 
-        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
           Whether a run's plan can define inline agents. Defaults to enabled.
 
-        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+        - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
           Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -4497,7 +4497,7 @@ Update Agent
 
   maxLength: 256
 
-- `skills: optional Array[BetaManagedAgentsSkillParams]`
+- `skills: optional Array[BetaManagedAgentsSkillParams] | nil`
 
   Skills. Full replacement. Omit to preserve; send empty array or null to clear.
 
@@ -4513,7 +4513,7 @@ Update Agent
 
       minLength: 1, maxLength: 64
 
-    - `version: optional String`
+    - `version: optional String | nil`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -4531,19 +4531,19 @@ Update Agent
 
       minLength: 1, maxLength: 64
 
-    - `version: optional String`
+    - `version: optional String | nil`
 
       Version to pin. Defaults to latest if omitted.
 
       minLength: 1, maxLength: 64
 
-- `system_: optional String`
+- `system_: optional String | nil`
 
   System prompt. Omit to preserve; send empty string or null to clear.
 
   maxLength: 100000
 
-- `tools: optional Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams]`
+- `tools: optional Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams] | nil`
 
   Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
@@ -4567,11 +4567,11 @@ Update Agent
 
           Must be "bash".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4603,11 +4603,11 @@ Update Agent
 
           Must be "edit".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4633,11 +4633,11 @@ Update Agent
 
           Must be "read".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4663,11 +4663,11 @@ Update Agent
 
           Must be "write".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4693,11 +4693,11 @@ Update Agent
 
           Must be "glob".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4723,11 +4723,11 @@ Update Agent
 
           Must be "grep".
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4761,17 +4761,17 @@ Update Agent
 
           Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `max_content_tokens: optional Integer`
+        - `max_content_tokens: optional Integer | nil`
 
           Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
           format: int32
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4787,11 +4787,11 @@ Update Agent
 
             The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-        - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
+        - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
           Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-          - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+          - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
             Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -4859,11 +4859,11 @@ Update Agent
 
                     minLength: 1, maxLength: 128
 
-          - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+          - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
             Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-          - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+          - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
             Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -4901,11 +4901,11 @@ Update Agent
 
           Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-        - `enabled: optional bool`
+        - `enabled: optional bool | nil`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
           Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4921,7 +4921,7 @@ Update Agent
 
             The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-        - `user_location: optional BetaManagedAgentsUserLocation`
+        - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
           Approximate user location for search result localization.
 
@@ -4929,39 +4929,39 @@ Update Agent
 
             Location precision. Only "approximate" is supported.
 
-          - `city: optional String`
+          - `city: optional String | nil`
 
             City name.
 
             minLength: 1, maxLength: 255
 
-          - `country: optional String`
+          - `country: optional String | nil`
 
             Two-letter ISO 3166-1 country code, uppercase.
 
             pattern: ^[A-Z]{2}$
 
-          - `region: optional String`
+          - `region: optional String | nil`
 
             Region or state name.
 
             minLength: 1, maxLength: 255
 
-          - `timezone: optional String`
+          - `timezone: optional String | nil`
 
             IANA timezone identifier, e.g. "America/Los_Angeles".
 
             minLength: 1, maxLength: 255
 
-    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams | nil`
 
       Default configuration applied to all tools in this set.
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -4999,11 +4999,11 @@ Update Agent
 
         minLength: 1, maxLength: 128
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled. Overrides the `default_config` setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -5019,15 +5019,15 @@ Update Agent
 
           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
       Default configuration for all tools from this server.
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether tools are enabled by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Default permission policy for tools from this server.
 
@@ -5061,9 +5061,9 @@ Update Agent
 
       - `type: :object`
 
-      - `properties: optional Hash[Symbol, untyped]`
+      - `properties: optional Hash[Symbol, untyped] | nil`
 
-      - `required: optional Array[String]`
+      - `required: optional Array[String] | nil`
 
     - `name: String`
 
@@ -5209,7 +5209,7 @@ Update Agent
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -5221,7 +5221,7 @@ Update Agent
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -5379,7 +5379,7 @@ Update Agent
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -5541,7 +5541,7 @@ Update Agent
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -5739,11 +5739,11 @@ Update Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -5799,11 +5799,11 @@ Update Agent
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -5819,7 +5819,7 @@ Update Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -5853,7 +5853,7 @@ Update Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -5861,25 +5861,25 @@ Update Agent
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -5971,9 +5971,9 @@ Update Agent
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -6249,7 +6249,7 @@ Archive Agent
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -6261,7 +6261,7 @@ Archive Agent
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -6419,7 +6419,7 @@ Archive Agent
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -6581,7 +6581,7 @@ Archive Agent
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -6779,11 +6779,11 @@ Archive Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -6839,11 +6839,11 @@ Archive Agent
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -6859,7 +6859,7 @@ Archive Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -6893,7 +6893,7 @@ Archive Agent
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -6901,25 +6901,25 @@ Archive Agent
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -7011,9 +7011,9 @@ Archive Agent
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -7167,7 +7167,7 @@ puts(beta_managed_agents_agent)
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -7179,7 +7179,7 @@ puts(beta_managed_agents_agent)
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -7337,7 +7337,7 @@ puts(beta_managed_agents_agent)
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -7499,7 +7499,7 @@ puts(beta_managed_agents_agent)
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -7697,11 +7697,11 @@ puts(beta_managed_agents_agent)
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -7757,11 +7757,11 @@ puts(beta_managed_agents_agent)
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -7777,7 +7777,7 @@ puts(beta_managed_agents_agent)
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -7811,7 +7811,7 @@ puts(beta_managed_agents_agent)
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -7819,25 +7819,25 @@ puts(beta_managed_agents_agent)
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -7929,9 +7929,9 @@ puts(beta_managed_agents_agent)
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -8155,11 +8155,11 @@ puts(beta_managed_agents_agent)
 
         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-    - `url_sources: BetaManagedAgentsWebFetchURLSources`
+    - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
       Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
         Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -8215,11 +8215,11 @@ puts(beta_managed_agents_agent)
 
               minLength: 1, maxLength: 128
 
-      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
         Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
         Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -8235,7 +8235,7 @@ puts(beta_managed_agents_agent)
 
     - `blocked_domains: optional Array[String]`
 
-    - `max_content_tokens: optional Integer`
+    - `max_content_tokens: optional Integer | nil`
 
       format: int32
 
@@ -8269,7 +8269,7 @@ puts(beta_managed_agents_agent)
 
     - `blocked_domains: optional Array[String]`
 
-    - `user_location: optional BetaManagedAgentsUserLocation`
+    - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
       Approximate user location for search result localization.
 
@@ -8277,25 +8277,25 @@ puts(beta_managed_agents_agent)
 
         Location precision. Only "approximate" is supported.
 
-      - `city: optional String`
+      - `city: optional String | nil`
 
         City name.
 
         minLength: 1, maxLength: 255
 
-      - `country: optional String`
+      - `country: optional String | nil`
 
         Two-letter ISO 3166-1 country code, uppercase.
 
         pattern: ^[A-Z]{2}$
 
-      - `region: optional String`
+      - `region: optional String | nil`
 
         Region or state name.
 
         minLength: 1, maxLength: 255
 
-      - `timezone: optional String`
+      - `timezone: optional String | nil`
 
         IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -8317,11 +8317,11 @@ puts(beta_managed_agents_agent)
 
       Must be "bash".
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8353,11 +8353,11 @@ puts(beta_managed_agents_agent)
 
       Must be "edit".
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8383,11 +8383,11 @@ puts(beta_managed_agents_agent)
 
       Must be "read".
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8413,11 +8413,11 @@ puts(beta_managed_agents_agent)
 
       Must be "write".
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8443,11 +8443,11 @@ puts(beta_managed_agents_agent)
 
       Must be "glob".
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8473,11 +8473,11 @@ puts(beta_managed_agents_agent)
 
       Must be "grep".
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8511,17 +8511,17 @@ puts(beta_managed_agents_agent)
 
       Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `max_content_tokens: optional Integer`
+    - `max_content_tokens: optional Integer | nil`
 
       Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
       format: int32
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8537,11 +8537,11 @@ puts(beta_managed_agents_agent)
 
         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-    - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
+    - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
       Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-      - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+      - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
         Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -8609,11 +8609,11 @@ puts(beta_managed_agents_agent)
 
                 minLength: 1, maxLength: 128
 
-      - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+      - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
         Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-      - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+      - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
         Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -8651,11 +8651,11 @@ puts(beta_managed_agents_agent)
 
       Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8671,7 +8671,7 @@ puts(beta_managed_agents_agent)
 
         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-    - `user_location: optional BetaManagedAgentsUserLocation`
+    - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
       Approximate user location for search result localization.
 
@@ -8679,25 +8679,25 @@ puts(beta_managed_agents_agent)
 
         Location precision. Only "approximate" is supported.
 
-      - `city: optional String`
+      - `city: optional String | nil`
 
         City name.
 
         minLength: 1, maxLength: 255
 
-      - `country: optional String`
+      - `country: optional String | nil`
 
         Two-letter ISO 3166-1 country code, uppercase.
 
         pattern: ^[A-Z]{2}$
 
-      - `region: optional String`
+      - `region: optional String | nil`
 
         Region or state name.
 
         minLength: 1, maxLength: 255
 
-      - `timezone: optional String`
+      - `timezone: optional String | nil`
 
         IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -8739,11 +8739,11 @@ puts(beta_managed_agents_agent)
 
   Default configuration for all tools in a toolset.
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -8961,11 +8961,11 @@ puts(beta_managed_agents_agent)
 
           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-      - `url_sources: BetaManagedAgentsWebFetchURLSources`
+      - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
         Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
           Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -9021,11 +9021,11 @@ puts(beta_managed_agents_agent)
 
                 minLength: 1, maxLength: 128
 
-        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
           Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+        - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
           Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -9041,7 +9041,7 @@ puts(beta_managed_agents_agent)
 
       - `blocked_domains: optional Array[String]`
 
-      - `max_content_tokens: optional Integer`
+      - `max_content_tokens: optional Integer | nil`
 
         format: int32
 
@@ -9075,7 +9075,7 @@ puts(beta_managed_agents_agent)
 
       - `blocked_domains: optional Array[String]`
 
-      - `user_location: optional BetaManagedAgentsUserLocation`
+      - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
         Approximate user location for search result localization.
 
@@ -9083,25 +9083,25 @@ puts(beta_managed_agents_agent)
 
           Location precision. Only "approximate" is supported.
 
-        - `city: optional String`
+        - `city: optional String | nil`
 
           City name.
 
           minLength: 1, maxLength: 255
 
-        - `country: optional String`
+        - `country: optional String | nil`
 
           Two-letter ISO 3166-1 country code, uppercase.
 
           pattern: ^[A-Z]{2}$
 
-        - `region: optional String`
+        - `region: optional String | nil`
 
           Region or state name.
 
           minLength: 1, maxLength: 255
 
-        - `timezone: optional String`
+        - `timezone: optional String | nil`
 
           IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -9236,11 +9236,11 @@ puts(beta_managed_agents_agent)
 
         Must be "bash".
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9272,11 +9272,11 @@ puts(beta_managed_agents_agent)
 
         Must be "edit".
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9302,11 +9302,11 @@ puts(beta_managed_agents_agent)
 
         Must be "read".
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9332,11 +9332,11 @@ puts(beta_managed_agents_agent)
 
         Must be "write".
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9362,11 +9362,11 @@ puts(beta_managed_agents_agent)
 
         Must be "glob".
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9392,11 +9392,11 @@ puts(beta_managed_agents_agent)
 
         Must be "grep".
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9430,17 +9430,17 @@ puts(beta_managed_agents_agent)
 
         Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `max_content_tokens: optional Integer`
+      - `max_content_tokens: optional Integer | nil`
 
         Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
         format: int32
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9456,11 +9456,11 @@ puts(beta_managed_agents_agent)
 
           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-      - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
+      - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
         Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-        - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+        - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
           Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -9528,11 +9528,11 @@ puts(beta_managed_agents_agent)
 
                   minLength: 1, maxLength: 128
 
-        - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+        - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
           Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-        - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+        - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
           Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -9570,11 +9570,11 @@ puts(beta_managed_agents_agent)
 
         Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-      - `enabled: optional bool`
+      - `enabled: optional bool | nil`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
         Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9590,7 +9590,7 @@ puts(beta_managed_agents_agent)
 
           The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-      - `user_location: optional BetaManagedAgentsUserLocation`
+      - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
         Approximate user location for search result localization.
 
@@ -9598,39 +9598,39 @@ puts(beta_managed_agents_agent)
 
           Location precision. Only "approximate" is supported.
 
-        - `city: optional String`
+        - `city: optional String | nil`
 
           City name.
 
           minLength: 1, maxLength: 255
 
-        - `country: optional String`
+        - `country: optional String | nil`
 
           Two-letter ISO 3166-1 country code, uppercase.
 
           pattern: ^[A-Z]{2}$
 
-        - `region: optional String`
+        - `region: optional String | nil`
 
           Region or state name.
 
           minLength: 1, maxLength: 255
 
-        - `timezone: optional String`
+        - `timezone: optional String | nil`
 
           IANA timezone identifier, e.g. "America/Los_Angeles".
 
           minLength: 1, maxLength: 255
 
-  - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+  - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams | nil`
 
     Default configuration applied to all tools in this set.
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9723,7 +9723,7 @@ puts(beta_managed_agents_agent)
 
     minLength: 1, maxLength: 64
 
-  - `version: optional String`
+  - `version: optional String | nil`
 
     Version to pin. Defaults to latest if omitted.
 
@@ -9809,11 +9809,11 @@ puts(beta_managed_agents_agent)
 
     Must be "bash".
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -9861,7 +9861,7 @@ puts(beta_managed_agents_agent)
 
     minLength: 1, maxLength: 64
 
-  - `version: optional String`
+  - `version: optional String | nil`
 
     Version to pin. Defaults to latest if omitted.
 
@@ -9883,9 +9883,9 @@ puts(beta_managed_agents_agent)
 
     - `type: :object`
 
-    - `properties: optional Hash[Symbol, untyped]`
+    - `properties: optional Hash[Symbol, untyped] | nil`
 
-    - `required: optional Array[String]`
+    - `required: optional Array[String] | nil`
 
   - `name: String`
 
@@ -9897,9 +9897,9 @@ puts(beta_managed_agents_agent)
 
   - `type: :object`
 
-  - `properties: optional Hash[Symbol, untyped]`
+  - `properties: optional Hash[Symbol, untyped] | nil`
 
-  - `required: optional Array[String]`
+  - `required: optional Array[String] | nil`
 
 ### Beta Managed Agents Custom Tool Params
 
@@ -9921,9 +9921,9 @@ puts(beta_managed_agents_agent)
 
     - `type: :object`
 
-    - `properties: optional Hash[Symbol, untyped]`
+    - `properties: optional Hash[Symbol, untyped] | nil`
 
-    - `required: optional Array[String]`
+    - `required: optional Array[String] | nil`
 
   - `name: String`
 
@@ -9977,11 +9977,11 @@ puts(beta_managed_agents_agent)
 
     Must be "edit".
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -10135,11 +10135,11 @@ puts(beta_managed_agents_agent)
 
     Must be "glob".
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -10207,11 +10207,11 @@ puts(beta_managed_agents_agent)
 
     Must be "grep".
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -10289,11 +10289,11 @@ puts(beta_managed_agents_agent)
 
     minLength: 1, maxLength: 128
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled. Overrides the `default_config` setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -10409,11 +10409,11 @@ puts(beta_managed_agents_agent)
 
   Default configuration for all tools from an MCP server.
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether tools are enabled by default. Defaults to true if not specified.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Default permission policy for tools from this server.
 
@@ -10459,11 +10459,11 @@ puts(beta_managed_agents_agent)
 
       minLength: 1, maxLength: 128
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether this tool is enabled. Overrides the `default_config` setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -10485,15 +10485,15 @@ puts(beta_managed_agents_agent)
 
         - `type: :auto`
 
-  - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+  - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
     Default configuration for all tools from this server.
 
-    - `enabled: optional bool`
+    - `enabled: optional bool | nil`
 
       Whether tools are enabled by default. Defaults to true if not specified.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
       Default permission policy for tools from this server.
 
@@ -10797,7 +10797,7 @@ puts(beta_managed_agents_agent)
 
     - `String = String`
 
-  - `effort: optional :low | :medium | :high | 2 more | BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | 3 more`
+  - `effort: optional :low | :medium | :high | 2 more | BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | 3 more | nil`
 
     How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -10855,11 +10855,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :max`
 
-  - `inference_geo: optional String`
+  - `inference_geo: optional String | nil`
 
     Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-  - `speed: optional :standard | :fast`
+  - `speed: optional :standard | :fast | nil`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -11253,7 +11253,7 @@ puts(beta_managed_agents_agent)
 
   - `type: :enabled`
 
-  - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+  - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
     Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
 
@@ -11269,7 +11269,7 @@ puts(beta_managed_agents_agent)
 
       - `type: :disabled`
 
-  - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+  - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
     Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -11311,7 +11311,7 @@ puts(beta_managed_agents_agent)
 
     - `type: :enabled`
 
-    - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+    - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
       Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
 
@@ -11327,7 +11327,7 @@ puts(beta_managed_agents_agent)
 
         - `type: :disabled`
 
-    - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+    - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
       Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -11469,7 +11469,7 @@ puts(beta_managed_agents_agent)
 
   - `type: :enabled`
 
-  - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+  - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
     Whether a run's plan can define inline agents. Defaults to enabled.
 
@@ -11485,7 +11485,7 @@ puts(beta_managed_agents_agent)
 
       - `type: :disabled`
 
-  - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+  - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
     Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -11527,7 +11527,7 @@ puts(beta_managed_agents_agent)
 
     - `type: :enabled`
 
-    - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+    - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
       Whether a run's plan can define inline agents. Defaults to enabled.
 
@@ -11543,7 +11543,7 @@ puts(beta_managed_agents_agent)
 
         - `type: :disabled`
 
-    - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+    - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
       Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -11691,7 +11691,7 @@ puts(beta_managed_agents_agent)
 
   - `type: :multiagent_20261001`
 
-  - `advisor: optional BetaManagedAgentsMultiagentAdvisorParams`
+  - `advisor: optional BetaManagedAgentsMultiagentAdvisorParams | nil`
 
     Whether the session's primary thread can consult an advisor model. Defaults to disabled.
 
@@ -11713,7 +11713,7 @@ puts(beta_managed_agents_agent)
 
       - `type: :disabled`
 
-  - `subagents: optional BetaManagedAgentsMultiagentSubagentsParams`
+  - `subagents: optional BetaManagedAgentsMultiagentSubagentsParams | nil`
 
     Whether the agent can spawn session threads. Defaults to enabled.
 
@@ -11723,7 +11723,7 @@ puts(beta_managed_agents_agent)
 
       - `type: :enabled`
 
-      - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+      - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
         Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
 
@@ -11739,7 +11739,7 @@ puts(beta_managed_agents_agent)
 
           - `type: :disabled`
 
-      - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+      - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
         Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -11775,7 +11775,7 @@ puts(beta_managed_agents_agent)
 
       - `type: :disabled`
 
-  - `workflows: optional BetaManagedAgentsMultiagentWorkflowsParams`
+  - `workflows: optional BetaManagedAgentsMultiagentWorkflowsParams | nil`
 
     Whether the agent can start workflow runs. Defaults to enabled.
 
@@ -11785,11 +11785,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :enabled`
 
-      - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams`
+      - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsParams | nil`
 
         Whether a run's plan can define inline agents. Defaults to enabled.
 
-      - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams]`
+      - `predefined_agents: optional Array[BetaManagedAgentsMultiagentPredefinedAgentParams] | nil`
 
         Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
 
@@ -11855,11 +11855,11 @@ puts(beta_managed_agents_agent)
 
     Must be "read".
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -11907,7 +11907,7 @@ puts(beta_managed_agents_agent)
 
   - `id: String`
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -12087,7 +12087,7 @@ puts(beta_managed_agents_agent)
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -12285,11 +12285,11 @@ puts(beta_managed_agents_agent)
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -12345,11 +12345,11 @@ puts(beta_managed_agents_agent)
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -12365,7 +12365,7 @@ puts(beta_managed_agents_agent)
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -12399,7 +12399,7 @@ puts(beta_managed_agents_agent)
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -12407,25 +12407,25 @@ puts(beta_managed_agents_agent)
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -12517,9 +12517,9 @@ puts(beta_managed_agents_agent)
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 
@@ -12545,7 +12545,7 @@ puts(beta_managed_agents_agent)
 
       minLength: 1, maxLength: 64
 
-    - `version: optional String`
+    - `version: optional String | nil`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -12563,7 +12563,7 @@ puts(beta_managed_agents_agent)
 
       minLength: 1, maxLength: 64
 
-    - `version: optional String`
+    - `version: optional String | nil`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -12599,25 +12599,25 @@ puts(beta_managed_agents_agent)
 
     Location precision. Only "approximate" is supported.
 
-  - `city: optional String`
+  - `city: optional String | nil`
 
     City name.
 
     minLength: 1, maxLength: 255
 
-  - `country: optional String`
+  - `country: optional String | nil`
 
     Two-letter ISO 3166-1 country code, uppercase.
 
     pattern: ^[A-Z]{2}$
 
-  - `region: optional String`
+  - `region: optional String | nil`
 
     Region or state name.
 
     minLength: 1, maxLength: 255
 
-  - `timezone: optional String`
+  - `timezone: optional String | nil`
 
     IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -12657,11 +12657,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :auto`
 
-  - `url_sources: BetaManagedAgentsWebFetchURLSources`
+  - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
     Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
       Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -12717,11 +12717,11 @@ puts(beta_managed_agents_agent)
 
             minLength: 1, maxLength: 128
 
-    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
       Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-    - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+    - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
       Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -12737,7 +12737,7 @@ puts(beta_managed_agents_agent)
 
   - `blocked_domains: optional Array[String]`
 
-  - `max_content_tokens: optional Integer`
+  - `max_content_tokens: optional Integer | nil`
 
     format: int32
 
@@ -12761,17 +12761,17 @@ puts(beta_managed_agents_agent)
 
     Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `max_content_tokens: optional Integer`
+  - `max_content_tokens: optional Integer | nil`
 
     Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
     format: int32
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -12793,11 +12793,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :auto`
 
-  - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams`
+  - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
     Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-    - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+    - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
       Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -12865,11 +12865,11 @@ puts(beta_managed_agents_agent)
 
               minLength: 1, maxLength: 128
 
-    - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+    - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
       Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-    - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+    - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
       Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -13157,7 +13157,7 @@ puts(beta_managed_agents_agent)
 
   Which sources contribute URLs the web_fetch tool may fetch. A key that is null was not set and allows every URL from that source.
 
-  - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+  - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
     Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -13213,11 +13213,11 @@ puts(beta_managed_agents_agent)
 
           minLength: 1, maxLength: 128
 
-  - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+  - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
     Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-  - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+  - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
     Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -13235,7 +13235,7 @@ puts(beta_managed_agents_agent)
 
   Which sources contribute URLs the web_fetch tool may fetch. When web_fetch is limited to URLs the conversation has already shown the model (in a user message, a custom tool's result, or an earlier web_search or web_fetch result), each key narrows one of those sources and defaults to "all". Setting all three keys to "none" is rejected.
 
-  - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+  - `client_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
     Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -13303,11 +13303,11 @@ puts(beta_managed_agents_agent)
 
             minLength: 1, maxLength: 128
 
-  - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams`
+  - `server_tool_results: optional BetaManagedAgentsWebFetchURLSourceToolFilterParams | nil`
 
     Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-  - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams`
+  - `user_input: optional BetaManagedAgentsWebFetchURLSourceUserInputParams | nil`
 
     Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -13365,7 +13365,7 @@ puts(beta_managed_agents_agent)
 
   - `blocked_domains: optional Array[String]`
 
-  - `user_location: optional BetaManagedAgentsUserLocation`
+  - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
     Approximate user location for search result localization.
 
@@ -13373,25 +13373,25 @@ puts(beta_managed_agents_agent)
 
       Location precision. Only "approximate" is supported.
 
-    - `city: optional String`
+    - `city: optional String | nil`
 
       City name.
 
       minLength: 1, maxLength: 255
 
-    - `country: optional String`
+    - `country: optional String | nil`
 
       Two-letter ISO 3166-1 country code, uppercase.
 
       pattern: ^[A-Z]{2}$
 
-    - `region: optional String`
+    - `region: optional String | nil`
 
       Region or state name.
 
       minLength: 1, maxLength: 255
 
-    - `timezone: optional String`
+    - `timezone: optional String | nil`
 
       IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -13417,11 +13417,11 @@ puts(beta_managed_agents_agent)
 
     Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -13443,7 +13443,7 @@ puts(beta_managed_agents_agent)
 
       - `type: :auto`
 
-  - `user_location: optional BetaManagedAgentsUserLocation`
+  - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
     Approximate user location for search result localization.
 
@@ -13451,25 +13451,25 @@ puts(beta_managed_agents_agent)
 
       Location precision. Only "approximate" is supported.
 
-    - `city: optional String`
+    - `city: optional String | nil`
 
       City name.
 
       minLength: 1, maxLength: 255
 
-    - `country: optional String`
+    - `country: optional String | nil`
 
       Two-letter ISO 3166-1 country code, uppercase.
 
       pattern: ^[A-Z]{2}$
 
-    - `region: optional String`
+    - `region: optional String | nil`
 
       Region or state name.
 
       minLength: 1, maxLength: 255
 
-    - `timezone: optional String`
+    - `timezone: optional String | nil`
 
       IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -13521,11 +13521,11 @@ puts(beta_managed_agents_agent)
 
     Must be "write".
 
-  - `enabled: optional bool`
+  - `enabled: optional bool | nil`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | nil`
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -13705,7 +13705,7 @@ List Agent Versions
 
   - `id: String`
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the agent was archived. Null if not archived.
 
@@ -13717,7 +13717,7 @@ List Agent Versions
 
     format: date-time
 
-  - `description: String`
+  - `description: String | nil`
 
   - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -13875,7 +13875,7 @@ List Agent Versions
 
       - `:fast`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent | nil`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
@@ -14037,7 +14037,7 @@ List Agent Versions
 
       - `version: String`
 
-  - `system_: String`
+  - `system_: String | nil`
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -14235,11 +14235,11 @@ List Agent Versions
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `url_sources: BetaManagedAgentsWebFetchURLSources`
+          - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
             Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -14295,11 +14295,11 @@ List Agent Versions
 
                     minLength: 1, maxLength: 128
 
-            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+            - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+            - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
               Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -14315,7 +14315,7 @@ List Agent Versions
 
           - `blocked_domains: optional Array[String]`
 
-          - `max_content_tokens: optional Integer`
+          - `max_content_tokens: optional Integer | nil`
 
             format: int32
 
@@ -14349,7 +14349,7 @@ List Agent Versions
 
           - `blocked_domains: optional Array[String]`
 
-          - `user_location: optional BetaManagedAgentsUserLocation`
+          - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
             Approximate user location for search result localization.
 
@@ -14357,25 +14357,25 @@ List Agent Versions
 
               Location precision. Only "approximate" is supported.
 
-            - `city: optional String`
+            - `city: optional String | nil`
 
               City name.
 
               minLength: 1, maxLength: 255
 
-            - `country: optional String`
+            - `country: optional String | nil`
 
               Two-letter ISO 3166-1 country code, uppercase.
 
               pattern: ^[A-Z]{2}$
 
-            - `region: optional String`
+            - `region: optional String | nil`
 
               Region or state name.
 
               minLength: 1, maxLength: 255
 
-            - `timezone: optional String`
+            - `timezone: optional String | nil`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -14467,9 +14467,9 @@ List Agent Versions
 
         - `type: :object`
 
-        - `properties: optional Hash[Symbol, untyped]`
+        - `properties: optional Hash[Symbol, untyped] | nil`
 
-        - `required: optional Array[String]`
+        - `required: optional Array[String] | nil`
 
       - `name: String`
 

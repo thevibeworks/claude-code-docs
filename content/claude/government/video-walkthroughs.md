@@ -96,7 +96,7 @@ Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with
 
 ### Organizations, seats, and routing rules
 
-Adding a sign-in routing rule that places new people in the right organization, adding an organization, and giving it seats. Read more: [Routing rules](https://claude.com/docs/government/tenant-admin/identity-and-access.md#routing-rules).
+Adding a sign-in routing rule that places new people in the right organization, adding an organization, and giving it seats. To send people to an organization by group, use a [provisioning rule](https://claude.com/docs/government/tenant-admin/identity-and-access.md#provisioning-rules-scim) rather than the identity provider group rule shown in the video. Read more: [Routing rules](https://claude.com/docs/government/tenant-admin/identity-and-access.md#routing-rules).
 
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 

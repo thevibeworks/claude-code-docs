@@ -1291,9 +1291,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers?sdk_languages=go) for details.
 
-        - `const MessageBatchNewParamsRequestParamsServiceTierAuto MessageBatchNewParamsRequestParamsServiceTier = "auto"`
+        - `"auto"`
 
-        - `const MessageBatchNewParamsRequestParamsServiceTierStandardOnly MessageBatchNewParamsRequestParamsServiceTier = "standard_only"`
+        - `"standard_only"`
 
       - `Speed string Optional`
 
@@ -1301,9 +1301,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=go) for which models.
 
-        - `const MessageBatchNewParamsRequestParamsSpeedStandard MessageBatchNewParamsRequestParamsSpeed = "standard"`
+        - `"standard"`
 
-        - `const MessageBatchNewParamsRequestParamsSpeedFast MessageBatchNewParamsRequestParamsSpeed = "fast"`
+        - `"fast"`
 
       - `StopSequences []string Optional`
 
@@ -1529,13 +1529,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolAllowedCallerDirect ToolAllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolAllowedCallerCodeExecution20250825 ToolAllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -1573,13 +1573,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolBash20250124AllowedCallerDirect ToolBash20250124AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolBash20250124AllowedCallerCodeExecution20250825 ToolBash20250124AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -1607,13 +1607,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const CodeExecutionTool20250522AllowedCallerDirect CodeExecutionTool20250522AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const CodeExecutionTool20250522AllowedCallerCodeExecution20250825 CodeExecutionTool20250522AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -1639,13 +1639,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const CodeExecutionTool20250825AllowedCallerDirect CodeExecutionTool20250825AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const CodeExecutionTool20250825AllowedCallerCodeExecution20250825 CodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -1677,13 +1677,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const CodeExecutionTool20260120AllowedCallerDirect CodeExecutionTool20260120AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const CodeExecutionTool20260120AllowedCallerCodeExecution20250825 CodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -1711,13 +1711,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -2132,13 +2132,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const MemoryTool20250818AllowedCallerDirect MemoryTool20250818AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const MemoryTool20250818AllowedCallerCodeExecution20250825 MemoryTool20250818AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -2391,13 +2391,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolTextEditor20250124AllowedCallerDirect ToolTextEditor20250124AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolTextEditor20250124AllowedCallerCodeExecution20250825 ToolTextEditor20250124AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -2425,13 +2425,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolTextEditor20250429AllowedCallerDirect ToolTextEditor20250429AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolTextEditor20250429AllowedCallerCodeExecution20250825 ToolTextEditor20250429AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -2459,13 +2459,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolTextEditor20250728AllowedCallerDirect ToolTextEditor20250728AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolTextEditor20250728AllowedCallerCodeExecution20250825 ToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -2499,13 +2499,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebSearchTool20250305AllowedCallerDirect WebSearchTool20250305AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebSearchTool20250305AllowedCallerCodeExecution20250825 WebSearchTool20250305AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -2575,13 +2575,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebFetchTool20250910AllowedCallerDirect WebFetchTool20250910AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebFetchTool20250910AllowedCallerCodeExecution20250825 WebFetchTool20250910AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -2717,13 +2717,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebSearchTool20260209AllowedCallerDirect WebSearchTool20260209AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebSearchTool20260209AllowedCallerCodeExecution20250825 WebSearchTool20260209AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -2767,13 +2767,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebFetchTool20260209AllowedCallerDirect WebFetchTool20260209AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebFetchTool20260209AllowedCallerCodeExecution20250825 WebFetchTool20260209AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -2829,13 +2829,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebFetchTool20260309AllowedCallerDirect WebFetchTool20260309AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebFetchTool20260309AllowedCallerCodeExecution20250825 WebFetchTool20260309AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -2893,13 +2893,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -2951,13 +2951,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `AllowedDomains []string Optional`
 
@@ -3027,13 +3027,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolSearchToolBm25_20251119AllowedCallerDirect ToolSearchToolBm25_20251119AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 
@@ -3063,13 +3063,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `AllowedCallers []string Optional`
 
-            - `const ToolSearchToolRegex20251119AllowedCallerDirect ToolSearchToolRegex20251119AllowedCaller = "direct"`
+            - `"direct"`
 
-            - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
+            - `"code_execution_20250825"`
 
-            - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+            - `"code_execution_20260120"`
 
-            - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+            - `"code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeralParam Optional`
 

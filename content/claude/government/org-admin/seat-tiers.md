@@ -18,13 +18,13 @@ Tiers are listed with Anthropic-managed tiers first, followed by your organizati
 
 ## Anthropic-managed versus self-managed tiers
 
-**Anthropic-managed tiers** are defined by Anthropic and allocated to you through your tenant's billing account. On the detail page you can see the tier's **Allowed models**, its **Default model**, and whether **Always start with the default model** is on. The spend limits aren't shown, and you can't change the tier's settings or delete it. These tiers are paid for as seats rather than through credit drawdown, so their per-user spend limits are an internal detail that Anthropic manages on your behalf.
+**Anthropic-managed tiers** are defined by Anthropic and allocated to you through your tenant's billing account. On the detail page you can see the tier's **Allowed models**, its **Default model**, and whether **Always start with the default model** is on. The spend limits aren't shown, and you can't delete the tier or change what it allows. These tiers are paid for as seats rather than through credit drawdown, so their per-user spend limits are an internal detail that Anthropic manages on your behalf.
 
 **Self-managed tiers** are created by your organization. They draw from the billing account your organization spends from instead of a fixed seat count, and you have full control over their settings. A self-managed tier may or may not have a seat limit, depending on how it was allocated; when it has no limit, you can place as many users on it as you wish and the account's balance and any spend cap set on your organization are the effective constraint.
 
 ## Creating a self-managed tier
 
-Click **New seat tier** and fill in the form.
+You can create, edit, and delete self-managed tiers only if your tenant has [allowed organizations to manage their own seat tiers](https://claude.com/docs/government/config/settings.md#let-organizations-manage-their-own-seat-tiers). Go to **People > Tiers**, click **New seat tier**, and fill in the form. If you don't see the button, a tenant administrator can turn on that setting. If it is already on, contact your Anthropic representative.
 
 * **Name** sets what the tier is called, for example *Analyst* or *Reviewer*. Names must be unique within your organization, and cannot duplicate the name of any Anthropic-managed tier.
 * **Five-hour spend limit** sets the most each user on this tier can spend in any rolling 5-hour window, expressed in dollars. When a user reaches this amount, further requests are refused until the window rolls forward. Set it to zero to allow no usage at all.
@@ -33,12 +33,9 @@ Click **New seat tier** and fill in the form.
 * **Default model** sets the model that new chats, tasks, and Code sessions in Claude Desktop start on, chosen from the tier's allowed models. It applies to users who haven't picked a model or effort level in the model picker.
 * Select **Always start with the default model** to start every new chat, task, and Code session on the default model. Requires a **Default model** and Claude Desktop 2.110.0 or later.
 * **Sort order** is a number that controls the order in which a seat is automatically chosen for a newly provisioned user (lowest number is tried first). If two tiers share the same sort order they are ordered consistently, but it is clearer to give each tier a distinct value.
+* **New members start here** makes this the tier that people start on when they join your organization, as described under [How seats are assigned automatically](https://claude.com/docs/government/org-admin/seats.md#how-seats-are-assigned-automatically). Turning it on here turns it off for any other tier.
 
 An organization may create up to 50 self-managed tiers.
-
-> [!WARNING]
->
-> The **New seat tier** button only appears if your tenant has allowed organizations to manage their own seat tiers. This permission is controlled by the **Let organizations manage their own seat tiers** setting on the tenant's Config page. If you don't see the button, ask a tenant administrator.
 
 ## Viewing and editing a tier
 
@@ -46,7 +43,7 @@ A tier's detail page shows its current values along with an **Allowed models** s
 
 > [!NOTE]
 >
-> The **Edit** form and **Delete** button only appear on self-managed tiers. For an Anthropic-managed tier the page is read-only.
+> The **Edit** form and **Delete** button only appear on self-managed tiers.
 
 For a self-managed tier the **Edit** form lets you update any of the fields above. Changes to spend limits and allowed models take effect immediately for every user on the tier: if you lower the spend limit, a user who is already over the new limit will be blocked on their next request until their window rolls forward, and if you remove a model from the allowlist it becomes unavailable to every user on the tier straight away. Changes to **Default model** and **Always start with the default model** reach users when Claude Desktop next [refreshes its configuration](https://claude.com/docs/government/config/overview.md#when-changes-take-effect), and a new default appears the next time they start Claude Desktop.
 
@@ -60,7 +57,6 @@ You can only delete a tier that nothing references. If any users are still assig
 
 ## Things to know
 
-* Changing a tier's **Sort order** affects where newly provisioned users land, but it does not move anyone who already has a seat.
 * The spend limits are per user, not per tier. Ten users on a tier with a \$20 seven-day limit can together spend up to \$200 from the billing account over seven days.
 * Moving a user between tiers does not reset their usage counters. A user who has spent \$15 in the current 5-hour window carries that spend with them, and it is measured against the new tier's limit on their next request.
 * Users choose among a tier's allowed models in the Claude Desktop model picker, described in [Models in Claude Desktop](https://claude.com/docs/government/desktop/models.md). Some models also offer a 1M context window, which Anthropic sets per model and which is not part of the tier.

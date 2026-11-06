@@ -163,7 +163,7 @@ Archive Session Thread
 
       - `id: String`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -343,7 +343,7 @@ Archive Session Thread
 
           - `version: String`
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -541,11 +541,11 @@ Archive Session Thread
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `url_sources: BetaManagedAgentsWebFetchURLSources`
+              - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
                 Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
 
-                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
 
@@ -601,11 +601,11 @@ Archive Session Thread
 
                         minLength: 1, maxLength: 128
 
-                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | nil`
 
                   Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
 
-                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+                - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput | nil`
 
                   Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
 
@@ -621,7 +621,7 @@ Archive Session Thread
 
               - `blocked_domains: optional Array[String]`
 
-              - `max_content_tokens: optional Integer`
+              - `max_content_tokens: optional Integer | nil`
 
                 format: int32
 
@@ -655,7 +655,7 @@ Archive Session Thread
 
               - `blocked_domains: optional Array[String]`
 
-              - `user_location: optional BetaManagedAgentsUserLocation`
+              - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
                 Approximate user location for search result localization.
 
@@ -663,25 +663,25 @@ Archive Session Thread
 
                   Location precision. Only "approximate" is supported.
 
-                - `city: optional String`
+                - `city: optional String | nil`
 
                   City name.
 
                   minLength: 1, maxLength: 255
 
-                - `country: optional String`
+                - `country: optional String | nil`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
                   pattern: ^[A-Z]{2}$
 
-                - `region: optional String`
+                - `region: optional String | nil`
 
                   Region or state name.
 
                   minLength: 1, maxLength: 255
 
-                - `timezone: optional String`
+                - `timezone: optional String | nil`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
@@ -773,9 +773,9 @@ Archive Session Thread
 
             - `type: :object`
 
-            - `properties: optional Hash[Symbol, untyped]`
+            - `properties: optional Hash[Symbol, untyped] | nil`
 
-            - `required: optional Array[String]`
+            - `required: optional Array[String] | nil`
 
           - `name: String`
 
@@ -799,7 +799,7 @@ Archive Session Thread
 
       - `type: :inline`
 
-      - `description: String`
+      - `description: String | nil`
 
       - `execution_identity: BetaManagedAgentsExecutionIdentity`
 
@@ -831,7 +831,7 @@ Archive Session Thread
 
           A resolved user-created custom skill.
 
-      - `system_: String`
+      - `system_: String | nil`
 
       - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
 
@@ -843,7 +843,7 @@ Archive Session Thread
 
           A custom tool as returned in API responses.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the thread was archived. Null if not archived.
 
@@ -855,7 +855,7 @@ Archive Session Thread
 
     format: date-time
 
-  - `parent_thread_id: String`
+  - `parent_thread_id: String | nil`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -863,7 +863,7 @@ Archive Session Thread
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats | nil`
 
     Timing statistics for this thread. Null until the thread's first status transition.
 
@@ -903,7 +903,7 @@ Archive Session Thread
 
     format: date-time
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage | nil`
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
@@ -941,7 +941,7 @@ Archive Session Thread
 
       format: int32
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount | nil`
 
       Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
@@ -961,7 +961,7 @@ Archive Session Thread
 
       format: int32
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage | nil`
 
       Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
@@ -977,7 +977,7 @@ Archive Session Thread
 
         format: int32
 
-  - `workflow_run_id: String`
+  - `workflow_run_id: String | nil`
 
     Identifier of the workflow run that created the thread, or `null` for any other thread.
 

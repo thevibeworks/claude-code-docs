@@ -21,7 +21,7 @@ Create Skill
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-- `display_name: optional String`
+- `display_name: optional String | nil`
 
   Human-readable, single-line label for the Skill. Maximum 255 characters.
   Always set: derived from the SKILL.md frontmatter `name` when omitted at
@@ -263,13 +263,13 @@ List Skills
 
   minimum: 1, maximum: 1000
 
-- `page: optional String` (query parameter)
+- `page: optional String | nil` (query parameter)
 
   Pagination token for fetching a specific page of results.
 
   Pass the value from a previous response's `next_page` field to get the next page of results.
 
-- `source: optional String` (query parameter)
+- `source: optional String | nil` (query parameter)
 
   Filter skills by source.
 
@@ -1246,7 +1246,7 @@ List Skill Versions
 
   The format and length of IDs may change over time.
 
-- `limit: optional Integer` (query parameter)
+- `limit: optional Integer | nil` (query parameter)
 
   Number of results to return per page.
 
@@ -1254,7 +1254,7 @@ List Skill Versions
 
   minimum: 1, maximum: 1000
 
-- `page: optional String` (query parameter)
+- `page: optional String | nil` (query parameter)
 
   Optionally set to the `next_page` token from the previous response.
 

@@ -18,7 +18,7 @@ Organizations share the tenant's sign-in and provisioning setup. You configure s
 
 ## The organization list
 
-Each organization appears with its name and ID. Clicking an organization's name opens its organization admin view. When you do this you are acting as an Owner of that organization and can manage its users, seats, and settings. You cannot grant or remove its [Primary Owner role](https://claude.com/docs/government/org-admin/users.md#understanding-roles), which stays with that organization's own Primary Owners.
+Each organization appears with its name and ID. Clicking an organization's name opens its organization admin view. When you do this you are acting as an Owner of that organization and can manage its users, seats, and settings. Unless the organization manages its own billing account, you can also grant or remove its Primary Owner role on its [Users](https://claude.com/docs/government/org-admin/users.md) page.
 
 To email everyone in your tenant, or in one organization, click **Copy user email addresses** at the top of the page. The page that opens lists the email addresses of everyone except deactivated users, for the whole tenant and for each organization, each with its own **Copy** button. Any list of more than 450 addresses appears in parts of up to 450 that you can copy separately.
 
@@ -50,7 +50,7 @@ The new organization appears in the list immediately and you can click through t
 
 ## Things to know
 
-* You choose an organization's first Primary Owner when you create it. After that, only that organization's Primary Owners can grant or remove the role. If an organization no longer has a Primary Owner who can sign in, for example because that person left your agency, contact Anthropic to have a new one appointed.
+* You choose an organization's first Primary Owner when you create it. In an organization that manages its own billing account, only its Primary Owners can grant or remove the role after that. If none of them can sign in, contact Anthropic to have a new one appointed.
 * You cannot delete an organization from this page. If an organization is no longer needed, contact Anthropic to have it deactivated. Routing rules that target a deactivated organization stop matching, and users in a deactivated organization cannot sign in until it is reactivated or they are moved.
 * Organization names can be changed later from the organization's own admin view.
 * There is no fixed limit on the number of organizations you can create, but each one adds a row to your seat distribution and configuration surfaces, so create only as many as you need to keep administration manageable.

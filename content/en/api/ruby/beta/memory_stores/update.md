@@ -19,19 +19,19 @@ Update a Memory Store
 
   The request fails with HTTP status 400 if the store is archived.
 
-- `description: optional String`
+- `description: optional String | nil`
 
   New description for the store, up to 1,024 characters. Pass an empty string to clear it.
 
   maxLength: 1024
 
-- `metadata: optional Hash[Symbol, String]`
+- `metadata: optional Hash[Symbol, String | nil] | nil`
 
   Changes to apply to the memory store's metadata. Keys you leave out keep their values.
 
   Set a key to a string to add or replace it, or to `null` to remove it. After the change, the metadata can hold at most 16 key-value pairs. Keys are 1 to 64 characters long and values at most 512 characters.
 
-- `name: optional String`
+- `name: optional String | nil`
 
   The new name of the memory store, 1 to 255 characters long, without control characters.
 
@@ -173,7 +173,7 @@ Update a Memory Store
 
     The unique ID of the memory store (`memstore_...`). Use it to attach the store to a session.
 
-  - `archived_at: Time`
+  - `archived_at: Time | nil`
 
     When the memory store was archived, in RFC 3339, or `null` if it hasn't been.
 

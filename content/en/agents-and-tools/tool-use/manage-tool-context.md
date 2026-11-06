@@ -10,16 +10,16 @@ Tool definitions and accumulated `tool_result` blocks consume your context windo
 
 Each approach targets a different source of context pressure. Pick the one that matches where your tokens are going.
 
-| Approach                  | What it reduces                         | When it fits                                                         | Learn more                                                                                                                 |
-| ------------------------- | --------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Tool search               | Tool definitions loaded upfront         | Large toolsets (20+ tools) where most tools aren’t needed every turn | [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)                         |
-| Programmatic tool calling | `tool_result` roundtrips                | Chains of tool calls that can run as a single script                 | [Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)       |
-| Prompt caching            | Token cost of repeated tool definitions | Stable toolsets across many requests                                 | [Tool use with prompt caching](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching) |
-| Context editing           | Old `tool_result` blocks in history     | Long conversations where early results are no longer relevant        | [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing)                                   |
+| Approach                  | What it reduces                         | When it fits                                                  | Learn more                                                                                                                 |
+| ------------------------- | --------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Tool search               | Tool definitions loaded upfront         | Many tools (10+), most of which aren’t needed every turn      | [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)                         |
+| Programmatic tool calling | `tool_result` roundtrips                | Chains of tool calls that can run as a single script          | [Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)       |
+| Prompt caching            | Token cost of repeated tool definitions | Stable tool definitions across many requests                  | [Tool use with prompt caching](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching) |
+| Context editing           | Old `tool_result` blocks in history     | Long conversations where early results are no longer relevant | [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing)                                   |
 
 ### Tool search
 
-Tool search keeps tool definitions out of the context window until Claude asks for them. Instead of sending 50 tool schemas upfront, you send a single `tool_search` tool and let Claude discover the rest on demand. This trades a small amount of latency (one extra turn to look up a tool) for a large reduction in baseline context usage.
+Tool search keeps tool definitions out of the context window until Claude asks for them. Instead of loading 50 tool schemas into context upfront, you mark them with `defer_loading: true`, add a tool search tool, and let Claude discover them on demand. This trades a small amount of latency (one extra turn to look up a tool) for a large reduction in baseline context usage.
 
 ### Programmatic tool calling
 
@@ -27,7 +27,7 @@ Programmatic tool calling collapses a sequence of tool calls into a single code 
 
 ### Prompt caching
 
-Prompt caching doesn’t reduce the number of tokens in context, but it reduces what you pay for them on subsequent requests. If your tool definitions are stable, cache them once and reuse the cached prefix across thousands of requests. This is the right choice when the toolset is large but fixed.
+Prompt caching doesn’t reduce the number of tokens in context, but it reduces what you pay for them on subsequent requests. If your tool definitions are stable, cache them once and reuse the cached prefix across thousands of requests. This is the right choice when your list of tools is large but fixed.
 
 ### Context editing
 
@@ -35,12 +35,12 @@ Context editing removes old `tool_result` blocks from the conversation history o
 
 ## Combining approaches
 
-These approaches compose. A long-running agent might use tool search to keep the toolset lean, prompt caching to amortize the cost of the remaining definitions, and context editing to trim stale results as the conversation grows. Each solves a different part of the problem, so there’s no conflict in using them together.
+You can use these approaches together, because each solves a different part of the problem. A long-running agent might use tool search to load fewer tool definitions, prompt caching to amortize the cost of the remaining definitions, and context editing to trim stale results as the conversation grows.
 
 A reasonable starting point for a high-volume agent:
 
 1. Enable prompt caching on your tool definitions from the start. Cache writes carry a 25 percent markup over base input pricing, which pays back on the second request that hits the cache.
-2. Add tool search once your toolset grows past roughly 20 tools or your baseline context usage becomes noticeable.
+2. Add tool search once you have 10 or more tools or your baseline context usage becomes noticeable.
 3. Add context editing once individual conversations start running long enough that early results become irrelevant.
 4. Consider programmatic tool calling if you notice repetitive chains of small tool calls that could run as a single batch.
 

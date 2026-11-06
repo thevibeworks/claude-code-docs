@@ -64,23 +64,23 @@ Context editing allows you to selectively clear specific content from conversati
 
 The `clear_tool_uses_20250919` strategy clears tool results when conversation context grows beyond your configured threshold. This is particularly useful for agentic workflows with heavy tool use. Older tool results (such as file contents or search results) are no longer needed once Claude has processed them.
 
-When activated, the API automatically clears the oldest tool results in chronological order. The API replaces each cleared result with placeholder text indicating to Claude that it was removed. By default, only tool results are cleared. You can optionally clear both tool results and tool calls (the tool use parameters) by setting `clear_tool_inputs` to true.
+When activated, the API automatically clears the oldest tool results in chronological order. The API replaces each cleared result with placeholder text indicating to Claude that it was removed. By default, only tool results are cleared. You can optionally clear both tool results and tool calls (the tool use parameters) by setting `clear_tool_inputs` to `true`.
 
 ### Thinking block clearing
 
 The `clear_thinking_20251015` strategy manages `thinking` blocks from earlier assistant turns. This strategy gives you control over thinking preservation: you can choose to keep more thinking blocks to maintain reasoning continuity, or clear them more aggressively to save context space.
 
 <Tip>
-  **Default behavior:** The default varies by model class.
+  **Default behavior:** When a request doesn’t include the `clear_thinking_20251015` strategy, the default varies by model class.
 
-  | Model class      | Keep all prior thinking     | Keep only the last turn’s thinking         |
-  | ---------------- | --------------------------- | ------------------------------------------ |
-  | Opus             | Claude Opus 4.5 and later   | Claude Opus 4.1 and earlier                |
-  | Sonnet           | Claude Sonnet 4.6 and later | Claude Sonnet 4.5 (deprecated) and earlier |
-  | Haiku            | Claude Haiku 5.5 and later  | Claude Haiku 4.5 and earlier               |
-  | Fable and Mythos | All models                  | (none)                                     |
+  | Model class      | Keep all prior thinking     | Keep thinking only for the turn in progress |
+  | ---------------- | --------------------------- | ------------------------------------------- |
+  | Opus             | Claude Opus 4.5 and later   | Claude Opus 4.1 and earlier                 |
+  | Sonnet           | Claude Sonnet 4.6 and later | Claude Sonnet 4.5 (deprecated) and earlier  |
+  | Haiku            | Claude Haiku 5.5 and later  | Claude Haiku 4.5 and earlier                |
+  | Fable and Mythos | All models                  | (none)                                      |
 
-  Use this strategy to override the default. If your code runs across multiple model tiers, set `keep` explicitly rather than relying on the per-model default.
+  Use this strategy to override the default. If your code runs across multiple model classes, include this strategy and set `keep` explicitly rather than relying on the per-model default.
 </Tip>
 
 An assistant conversation turn might include multiple content blocks (for example, when using tools) and multiple thinking blocks (for example, with [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)).
@@ -278,7 +278,7 @@ The simplest way to enable tool result clearing is to specify only the strategy 
       messages: [
           ['role' => 'user', 'content' => 'Search for recent developments in AI']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       tools: [
           ['type' => 'web_search_20250305', 'name' => 'web_search']
@@ -630,7 +630,7 @@ You can customize the tool result clearing behavior with additional parameters:
               'content' => 'Create a simple command line calculator app using Python'
           ]
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       tools: [
           [
@@ -673,7 +673,7 @@ You can customize the tool result clearing behavior with additional parameters:
   client = Anthropic::Client.new
 
   response = client.beta.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
     messages: [
       {
@@ -944,13 +944,17 @@ Use thinking block clearing to manage context and prompt caching in conversation
 
 The `clear_thinking_20251015` strategy supports the following configuration:
 
-| Configuration option | Default        | Description                                                                                                                                                                                                                                                                                                                                                             |
-| -------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `keep`               | Model-specific | Defines how many recent assistant turns with thinking blocks to preserve. Use `{type: "thinking_turns", value: N}` where N must be > 0 to keep the last N turns, or `"all"` to keep all thinking blocks. Opus 4.5+, Sonnet 4.6+, and Haiku 5.5+: all turns. Fable and Mythos models: all turns. Earlier Opus/Sonnet and Haiku through Claude Haiku 4.5: last turn only. |
+| Configuration option | Default                              | Description                                                                                                                                                                                        |
+| -------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `keep`               | `{type: "thinking_turns", value: 1}` | Defines how many recent assistant turns keep their thinking blocks. Use `{type: "thinking_turns", value: N}` where N must be > 0 to keep the last N turns, or `"all"` to keep all thinking blocks. |
+
+A request that includes this strategy without `keep` gets `{type: "thinking_turns", value: 1}` on every model, including models whose [per-model default](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing) keeps all thinking. A request without this strategy gets the per-model default.
+
+N counts the assistant turn in progress and turns without thinking blocks. A user message that contains only `tool_result` blocks continues the turn in progress. Any other user message starts a new turn. When a request ends with a message that starts a new turn, a value of 1 clears the thinking from every earlier assistant turn.
 
 **Example configurations:**
 
-Keep thinking blocks from the last 3 assistant turns:
+Keep thinking blocks from the last 3 assistant turns, counting the turn in progress:
 
 <CodeGroup>
   ```bash cURL
@@ -1665,7 +1669,7 @@ You can use both thinking block clearing and tool result clearing together:
               'content' => 'Search for the latest developments in quantum error correction and summarize the key breakthroughs.'
           ]
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       tools: [
           [
@@ -1750,13 +1754,13 @@ You can use both thinking block clearing and tool result clearing together:
 
 ## Configuration options for tool result clearing
 
-| Configuration option | Default              | Description                                                                                                                                                                                                                                           |
-| -------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `trigger`            | 100,000 input tokens | Defines when the context editing strategy activates. Once the prompt exceeds this threshold, clearing starts. You can specify this value in either `input_tokens` or `tool_uses`.                                                                     |
-| `keep`               | 3 tool uses          | Defines how many recent tool use/result pairs to keep after clearing occurs. The API removes the oldest tool interactions first, preserving the most recent ones.                                                                                     |
-| `clear_at_least`     | None                 | Ensures a minimum number of tokens is cleared each time the strategy activates. If the API can’t clear at least the specified amount, the strategy will not be applied. This helps determine if context clearing is worth breaking your prompt cache. |
-| `exclude_tools`      | None                 | List of tool names whose tool uses and results should never be cleared. Useful for preserving important context.                                                                                                                                      |
-| `clear_tool_inputs`  | `false`              | Controls whether the tool call parameters are cleared along with the tool results. By default, only the tool results are cleared while keeping Claude’s original tool calls visible.                                                                  |
+| Configuration option | Default              | Description                                                                                                                                                                                                                                          |
+| -------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `trigger`            | 100,000 input tokens | Defines when the context editing strategy activates. Once the prompt exceeds this threshold, clearing starts. You can specify this value in either `input_tokens` or `tool_uses`.                                                                    |
+| `keep`               | 3 tool uses          | Defines how many recent tool use/result pairs to keep after clearing occurs. The API removes the oldest tool interactions first, preserving the most recent ones.                                                                                    |
+| `clear_at_least`     | None                 | Ensures a minimum number of tokens is cleared each time the strategy activates. If the API can’t clear at least the specified amount, the strategy isn’t applied. This helps determine whether context clearing is worth breaking your prompt cache. |
+| `exclude_tools`      | None                 | List of tool names whose tool uses and results should never be cleared. Useful for preserving important context.                                                                                                                                     |
+| `clear_tool_inputs`  | `false`              | Controls whether the tool call parameters are cleared along with the tool results. By default, only the tool results are cleared while keeping Claude’s original tool calls visible.                                                                 |
 
 ## Context editing response
 
@@ -2040,7 +2044,7 @@ The [token counting](https://platform.claude.com/docs/en/build-with-claude/token
       messages: [
           ['role' => 'user', 'content' => 'Continue our conversation...']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       betas: ['context-management-2025-06-27'],
       contextManagement: [
           'edits' => [

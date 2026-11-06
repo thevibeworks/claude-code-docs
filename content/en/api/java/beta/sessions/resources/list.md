@@ -17,7 +17,7 @@ List Session Resources
 
   - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
@@ -157,7 +157,7 @@ List Session Resources
 
     - `String id`
 
-    - `LocalDateTime createdAt`
+    - `OffsetDateTime createdAt`
 
       A timestamp in RFC 3339 format
 
@@ -165,7 +165,7 @@ List Session Resources
 
     - `String mountPath`
 
-    - `LocalDateTime updatedAt`
+    - `OffsetDateTime updatedAt`
 
       A timestamp in RFC 3339 format
 
@@ -201,7 +201,7 @@ List Session Resources
 
     - `String id`
 
-    - `LocalDateTime createdAt`
+    - `OffsetDateTime createdAt`
 
       A timestamp in RFC 3339 format
 
@@ -211,7 +211,7 @@ List Session Resources
 
     - `String mountPath`
 
-    - `LocalDateTime updatedAt`
+    - `OffsetDateTime updatedAt`
 
       A timestamp in RFC 3339 format
 

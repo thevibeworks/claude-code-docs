@@ -605,7 +605,7 @@ Create Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
@@ -921,13 +921,13 @@ Create Agent
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -1111,7 +1111,7 @@ Create Agent
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -1185,7 +1185,7 @@ Create Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -1217,7 +1217,7 @@ Create Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -1529,7 +1529,7 @@ Create Agent
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -1687,13 +1687,13 @@ Create Agent
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
@@ -1839,13 +1839,13 @@ List Agents
 
 - `AgentListParams params`
 
-  - `Optional<LocalDateTime> createdAtGte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGte` (query parameter)
 
     Return agents created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLte` (query parameter)
 
     Return agents created at or before this time (inclusive).
 
@@ -1855,7 +1855,7 @@ List Agents
 
     Include archived agents in results. Defaults to false.
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum results per page. Default 20, maximum 100.
 
@@ -1995,13 +1995,13 @@ List Agents
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -2185,7 +2185,7 @@ List Agents
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -2259,7 +2259,7 @@ List Agents
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -2291,7 +2291,7 @@ List Agents
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -2603,7 +2603,7 @@ List Agents
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -2761,13 +2761,13 @@ List Agents
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
@@ -2917,7 +2917,7 @@ Get Agent
 
     Unique identifier of the agent to retrieve.
 
-  - `Optional<Long> version` (query parameter)
+  - `Optional<Integer> version` (query parameter)
 
     Agent version. Omit for the most recent version. Must be at least 1 if specified.
 
@@ -3053,13 +3053,13 @@ Get Agent
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -3243,7 +3243,7 @@ Get Agent
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -3317,7 +3317,7 @@ Get Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -3349,7 +3349,7 @@ Get Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -3661,7 +3661,7 @@ Get Agent
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -3819,13 +3819,13 @@ Get Agent
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
@@ -4558,7 +4558,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
@@ -4864,7 +4864,7 @@ Update Agent
 
         minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-  - `Optional<Long> version`
+  - `Optional<Integer> version`
 
     The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
 
@@ -4880,13 +4880,13 @@ Update Agent
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -5070,7 +5070,7 @@ Update Agent
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -5144,7 +5144,7 @@ Update Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -5176,7 +5176,7 @@ Update Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -5488,7 +5488,7 @@ Update Agent
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -5646,13 +5646,13 @@ Update Agent
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
@@ -5927,13 +5927,13 @@ Archive Agent
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -6117,7 +6117,7 @@ Archive Agent
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -6191,7 +6191,7 @@ Archive Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -6223,7 +6223,7 @@ Archive Agent
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -6535,7 +6535,7 @@ Archive Agent
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -6693,13 +6693,13 @@ Archive Agent
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
@@ -6852,13 +6852,13 @@ public final class Main {
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -7042,7 +7042,7 @@ public final class Main {
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -7116,7 +7116,7 @@ public final class Main {
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -7148,7 +7148,7 @@ public final class Main {
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -7460,7 +7460,7 @@ public final class Main {
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -7618,13 +7618,13 @@ public final class Main {
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
@@ -7640,7 +7640,7 @@ public final class Main {
 
   - `String id`
 
-  - `long version`
+  - `int version`
 
     format: int32
 
@@ -7918,7 +7918,7 @@ public final class Main {
 
     - `Optional<List<String>> blockedDomains`
 
-    - `Optional<Long> maxContentTokens`
+    - `Optional<Integer> maxContentTokens`
 
       format: int32
 
@@ -8198,7 +8198,7 @@ public final class Main {
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `Optional<Long> maxContentTokens`
+    - `Optional<Integer> maxContentTokens`
 
       Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
@@ -8724,7 +8724,7 @@ public final class Main {
 
       - `Optional<List<String>> blockedDomains`
 
-      - `Optional<Long> maxContentTokens`
+      - `Optional<Integer> maxContentTokens`
 
         format: int32
 
@@ -9117,7 +9117,7 @@ public final class Main {
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `Optional<Long> maxContentTokens`
+      - `Optional<Integer> maxContentTokens`
 
         Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
@@ -10652,7 +10652,7 @@ public final class Main {
 
       - `String id`
 
-      - `long version`
+      - `int version`
 
         format: int32
 
@@ -10692,7 +10692,7 @@ public final class Main {
 
         minLength: 1, maxLength: 128
 
-      - `Optional<Long> version`
+      - `Optional<Integer> version`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -10804,7 +10804,7 @@ public final class Main {
 
       minLength: 1, maxLength: 128
 
-    - `Optional<Long> version`
+    - `Optional<Integer> version`
 
       The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -10860,7 +10860,7 @@ public final class Main {
 
       - `String id`
 
-      - `long version`
+      - `int version`
 
         format: int32
 
@@ -10918,7 +10918,7 @@ public final class Main {
 
     - `String id`
 
-    - `long version`
+    - `int version`
 
       format: int32
 
@@ -10964,7 +10964,7 @@ public final class Main {
 
         minLength: 1, maxLength: 128
 
-      - `Optional<Long> version`
+      - `Optional<Integer> version`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -11022,7 +11022,7 @@ public final class Main {
 
           minLength: 1, maxLength: 128
 
-        - `Optional<Long> version`
+        - `Optional<Integer> version`
 
           The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -11076,7 +11076,7 @@ public final class Main {
 
       - `String id`
 
-      - `long version`
+      - `int version`
 
         format: int32
 
@@ -11134,7 +11134,7 @@ public final class Main {
 
     - `String id`
 
-    - `long version`
+    - `int version`
 
       format: int32
 
@@ -11180,7 +11180,7 @@ public final class Main {
 
         minLength: 1, maxLength: 128
 
-      - `Optional<Long> version`
+      - `Optional<Integer> version`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -11238,7 +11238,7 @@ public final class Main {
 
           minLength: 1, maxLength: 128
 
-        - `Optional<Long> version`
+        - `Optional<Integer> version`
 
           The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -11318,7 +11318,7 @@ public final class Main {
 
         - `String id`
 
-        - `long version`
+        - `int version`
 
           format: int32
 
@@ -11350,7 +11350,7 @@ public final class Main {
 
         - `String id`
 
-        - `long version`
+        - `int version`
 
           format: int32
 
@@ -11434,7 +11434,7 @@ public final class Main {
 
             minLength: 1, maxLength: 128
 
-          - `Optional<Long> version`
+          - `Optional<Integer> version`
 
             The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
@@ -12040,7 +12040,7 @@ public final class Main {
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -12198,7 +12198,7 @@ public final class Main {
 
       - `String name`
 
-  - `long version`
+  - `int version`
 
     format: int32
 
@@ -12412,7 +12412,7 @@ public final class Main {
 
   - `Optional<List<String>> blockedDomains`
 
-  - `Optional<Long> maxContentTokens`
+  - `Optional<Integer> maxContentTokens`
 
     format: int32
 
@@ -12440,7 +12440,7 @@ public final class Main {
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `Optional<Long> maxContentTokens`
+  - `Optional<Integer> maxContentTokens`
 
     Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
@@ -13240,7 +13240,7 @@ List Agent Versions
 
     Agent ID to list versions for.
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum results per page. Default 20, maximum 100.
 
@@ -13380,13 +13380,13 @@ List Agent Versions
 
   - `String id`
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     When the agent was archived. Null if not archived.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
@@ -13570,7 +13570,7 @@ List Agent Versions
 
           - `String id`
 
-          - `long version`
+          - `int version`
 
             format: int32
 
@@ -13644,7 +13644,7 @@ List Agent Versions
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -13676,7 +13676,7 @@ List Agent Versions
 
             - `String id`
 
-            - `long version`
+            - `int version`
 
               format: int32
 
@@ -13988,7 +13988,7 @@ List Agent Versions
 
           - `Optional<List<String>> blockedDomains`
 
-          - `Optional<Long> maxContentTokens`
+          - `Optional<Integer> maxContentTokens`
 
             format: int32
 
@@ -14146,13 +14146,13 @@ List Agent Versions
 
       - `String name`
 
-  - `LocalDateTime updatedAt`
+  - `OffsetDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `long version`
+  - `int version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 

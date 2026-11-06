@@ -4,10 +4,10 @@ url: https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedr
 description: Access Claude models through Amazon Bedrock with AWS-native authentication, billing, and security boundaries.
 ---
 
-This guide walks you through setting up and making API calls to Claude in Amazon Bedrock. Claude in Amazon Bedrock runs on AWS-managed infrastructure with zero operator access (Anthropic personnel have no access to the inference infrastructure), letting you build sensitive applications entirely inside the AWS security boundary while using the same Messages API shape you use with Anthropic’s first-party API.
+This guide walks you through setting up and making API calls to Claude in Amazon Bedrock. Claude in Amazon Bedrock runs on AWS-managed infrastructure with zero operator access: Anthropic personnel have no access to the inference infrastructure. You can build sensitive applications entirely inside the AWS security boundary, with the same Messages API shape you use with the Claude API.
 
 <Note>
-  This page covers Claude in Amazon Bedrock, which serves Claude through the Messages API at `/anthropic/v1/messages` on AWS-managed infrastructure. The previous Amazon Bedrock integration (the `InvokeModel` and `Converse` APIs with ARN-versioned model identifiers) remains available and is documented at [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy). For an Anthropic-operated alternative on AWS with AWS Marketplace billing and typically same-day feature access, see [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
+  This page covers Claude in Amazon Bedrock, which serves Claude through the Messages API at `/anthropic/v1/messages` on AWS-managed infrastructure. The `InvokeModel` and `Converse` APIs with ARN-versioned model identifiers are documented at [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy). For an Anthropic-operated alternative on AWS with AWS Marketplace billing, see [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
 </Note>
 
 ## Access
@@ -69,7 +69,7 @@ For short-term access without IAM roles (12-hour maximum, least preferred):
 
 ## Install an SDK
 
-Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Claude in Amazon Bedrock through a Bedrock-specific package or module.
+The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) supports Claude in Amazon Bedrock through a Bedrock-specific package or module.
 
 <Tabs>
   <Tab title="Python">
@@ -100,8 +100,8 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.5.0")
-        implementation("com.anthropic:anthropic-java-bedrock:3.5.0")
+        implementation("com.anthropic:anthropic-java:3.6.0")
+        implementation("com.anthropic:anthropic-java-bedrock:3.6.0")
         ```
       </Tab>
 
@@ -110,12 +110,12 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-bedrock</artifactId>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
         </dependency>
         ```
       </Tab>
@@ -139,9 +139,11 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
 
 ## Making your first request
 
-The endpoint follows the pattern `https://bedrock-mantle.{region}.api.aws/anthropic/v1/messages`. Unlike the `InvokeModel`-based integration, this endpoint uses standard SSE streaming and the same request body shape as Anthropic’s first-party API.
+The endpoint follows the pattern `https://bedrock-mantle.{region}.api.aws/anthropic/v1/messages`. It uses standard SSE streaming and the same request body shape as the Claude API.
 
-The SDK resolves credentials and region using the standard AWS precedence: constructor arguments, then environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`, `AWS_REGION`), then the AWS config file and credential chain (SSO, assumed roles, ECS task role, IMDS).
+Pass the region when you create the client, or set the `AWS_REGION` environment variable. If you do neither, the Python, TypeScript, C#, Go, PHP, and Ruby SDKs try `AWS_DEFAULT_REGION`. The Java SDK reads the environment only when you call `BedrockMantleBackend.fromEnv()`, which uses the [default AWS Region provider chain](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html). That chain also checks your AWS config file and EC2 instance metadata.
+
+For credentials, the client uses what you pass when you create it. Otherwise, the `AWS_BEARER_TOKEN_BEDROCK` environment variable takes priority over the client’s AWS credential chain, which includes the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN` environment variables.
 
 <Tabs>
   <Tab title="cURL">

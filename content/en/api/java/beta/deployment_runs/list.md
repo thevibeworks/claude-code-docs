@@ -15,25 +15,25 @@ List Deployment Runs
 
 - `DeploymentRunListParams params`
 
-  - `Optional<LocalDateTime> createdAtGt` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGt` (query parameter)
 
     Return runs created strictly after this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGte` (query parameter)
 
     Return runs created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLt` (query parameter)
 
     Return runs created strictly before this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLte` (query parameter)
 
     Return runs created at or before this time (inclusive).
 
@@ -47,7 +47,7 @@ List Deployment Runs
 
     Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     Maximum results per page. Default 20, maximum 1000.
 
@@ -201,11 +201,11 @@ List Deployment Runs
 
     - `String id`
 
-    - `long version`
+    - `int version`
 
       format: int32
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     Time this run record was persisted.
 
@@ -393,7 +393,7 @@ List Deployment Runs
 
       - `JsonValue type = "schedule"`
 
-      - `LocalDateTime scheduledAt`
+      - `OffsetDateTime scheduledAt`
 
         The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 

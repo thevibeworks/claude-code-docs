@@ -3234,7 +3234,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `Optional<Long> maxTokens`
 
-                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                           minimum: 1024
 
@@ -3971,7 +3971,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Identifier for the container used in this request
 
-    - `LocalDateTime expiresAt`
+    - `OffsetDateTime expiresAt`
 
       The time at which the container will expire.
 
@@ -6692,7 +6692,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `Optional<Long> maxTokens`
 
-                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                     minimum: 1024
 
@@ -7525,8 +7525,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -11308,7 +11307,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `Optional<Long> maxTokens`
 
-                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                           minimum: 1024
 
@@ -12274,7 +12273,7 @@ public final class Main {
 
   - `Optional<Long> maxTokens`
 
-    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
     minimum: 1024
 
@@ -15491,7 +15490,7 @@ public final class Main {
 
                     - `Optional<Long> maxTokens`
 
-                      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                       minimum: 1024
 
@@ -24804,7 +24803,7 @@ public final class Main {
 
               - `Optional<Long> maxTokens`
 
-                Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                 minimum: 1024
 
@@ -26944,7 +26943,7 @@ public final class Main {
 
               - `Optional<Long> maxTokens`
 
-                Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                 minimum: 1024
 
@@ -29612,7 +29611,7 @@ public final class Main {
 
     Identifier for the container used in this request
 
-  - `LocalDateTime expiresAt`
+  - `OffsetDateTime expiresAt`
 
     The time at which the container will expire.
 
@@ -32412,7 +32411,7 @@ public final class Main {
 
                 - `Optional<Long> maxTokens`
 
-                  Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                  Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                   minimum: 1024
 
@@ -35683,7 +35682,7 @@ public final class Main {
 
                 - `Optional<Long> maxTokens`
 
-                  Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                  Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                   minimum: 1024
 
@@ -38861,7 +38860,7 @@ public final class Main {
 
       Identifier for the container used in this request
 
-    - `LocalDateTime expiresAt`
+    - `OffsetDateTime expiresAt`
 
       The time at which the container will expire.
 
@@ -41582,7 +41581,7 @@ public final class Main {
 
                   - `Optional<Long> maxTokens`
 
-                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                     minimum: 1024
 
@@ -42415,8 +42414,7 @@ public final class Main {
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -45574,7 +45572,7 @@ public final class Main {
 
                   - `Optional<Long> maxTokens`
 
-                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                     minimum: 1024
 
@@ -46226,8 +46224,7 @@ public final class Main {
       the thinking-block delimiter tokens.
 
       Reflects the raw reasoning the model produced, not the (possibly shorter)
-      summarized thinking text returned in the response body. Computed by
-      re-tokenizing the raw reasoning text, so it may differ from the model's exact
+      summarized thinking text returned in the response body. It may differ from the model's exact
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -49417,7 +49414,7 @@ public final class Main {
 
                       - `Optional<Long> maxTokens`
 
-                        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                         minimum: 1024
 
@@ -49864,8 +49861,7 @@ public final class Main {
     the thinking-block delimiter tokens.
 
     Reflects the raw reasoning the model produced, not the (possibly shorter)
-    summarized thinking text returned in the response body. Computed by
-    re-tokenizing the raw reasoning text, so it may differ from the model's exact
+    summarized thinking text returned in the response body. It may differ from the model's exact
     generation count by a small number of tokens. Always ≤ `output_tokens`;
     `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -52897,7 +52893,7 @@ public final class Main {
 
                   - `Optional<Long> maxTokens`
 
-                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                     minimum: 1024
 
@@ -53218,7 +53214,7 @@ public final class Main {
 
         Identifier for the container used in this request
 
-      - `LocalDateTime expiresAt`
+      - `OffsetDateTime expiresAt`
 
         The time at which the container will expire.
 
@@ -53752,8 +53748,7 @@ public final class Main {
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -53897,7 +53892,7 @@ public final class Main {
 
         Identifier for the container used in this request
 
-      - `LocalDateTime expiresAt`
+      - `OffsetDateTime expiresAt`
 
         The time at which the container will expire.
 
@@ -56618,7 +56613,7 @@ public final class Main {
 
                     - `Optional<Long> maxTokens`
 
-                      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                       minimum: 1024
 
@@ -57451,8 +57446,7 @@ public final class Main {
           the thinking-block delimiter tokens.
 
           Reflects the raw reasoning the model produced, not the (possibly shorter)
-          summarized thinking text returned in the response body. Computed by
-          re-tokenizing the raw reasoning text, so it may differ from the model's exact
+          summarized thinking text returned in the response body. It may differ from the model's exact
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -57622,7 +57616,7 @@ public final class Main {
 
           Identifier for the container used in this request
 
-        - `LocalDateTime expiresAt`
+        - `OffsetDateTime expiresAt`
 
           The time at which the container will expire.
 
@@ -60343,7 +60337,7 @@ public final class Main {
 
                       - `Optional<Long> maxTokens`
 
-                        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                         minimum: 1024
 
@@ -61176,8 +61170,7 @@ public final class Main {
             the thinking-block delimiter tokens.
 
             Reflects the raw reasoning the model produced, not the (possibly shorter)
-            summarized thinking text returned in the response body. Computed by
-            re-tokenizing the raw reasoning text, so it may differ from the model's exact
+            summarized thinking text returned in the response body. It may differ from the model's exact
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -64112,7 +64105,7 @@ public final class Main {
 
           - `Optional<Long> maxTokens`
 
-            Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+            Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
             minimum: 1024
 
@@ -66315,7 +66308,7 @@ public final class Main {
 
           - `Optional<Long> maxTokens`
 
-            Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+            Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
             minimum: 1024
 
@@ -68433,7 +68426,7 @@ public final class Main {
 
     - `Optional<Long> maxTokens`
 
-      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
       minimum: 1024
 
@@ -71105,7 +71098,7 @@ public final class Main {
 
                 - `Optional<Long> maxTokens`
 
-                  Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                  Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                   minimum: 1024
 
@@ -74583,7 +74576,7 @@ public final class Main {
 
       - `Optional<Long> maxTokens`
 
-        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
         minimum: 1024
 
@@ -76611,7 +76604,7 @@ public final class Main {
 
       - `Optional<Long> maxTokens`
 
-        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+        Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
         minimum: 1024
 
@@ -80013,7 +80006,7 @@ public final class Main {
 
     - `Optional<Long> maxTokens`
 
-      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
       minimum: 1024
 
@@ -82267,8 +82260,7 @@ public final class Main {
       the thinking-block delimiter tokens.
 
       Reflects the raw reasoning the model produced, not the (possibly shorter)
-      summarized thinking text returned in the response body. Computed by
-      re-tokenizing the raw reasoning text, so it may differ from the model's exact
+      summarized thinking text returned in the response body. It may differ from the model's exact
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -85366,7 +85358,7 @@ public final class Main {
 
                     - `Optional<Long> maxTokens`
 
-                      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                       minimum: 1024
 
@@ -91170,7 +91162,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `Optional<Long> maxTokens`
 
-                              Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                              Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                               minimum: 1024
 
@@ -92251,25 +92243,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
     format: date-time
 
-  - `Optional<LocalDateTime> cancelInitiatedAt`
+  - `Optional<OffsetDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
     format: date-time
 
-  - `Optional<LocalDateTime> endedAt`
+  - `Optional<OffsetDateTime> endedAt`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -92277,7 +92269,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     format: date-time
 
-  - `LocalDateTime expiresAt`
+  - `OffsetDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
 
@@ -92542,25 +92534,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
     format: date-time
 
-  - `Optional<LocalDateTime> cancelInitiatedAt`
+  - `Optional<OffsetDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
     format: date-time
 
-  - `Optional<LocalDateTime> endedAt`
+  - `Optional<OffsetDateTime> endedAt`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -92568,7 +92560,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     format: date-time
 
-  - `LocalDateTime expiresAt`
+  - `OffsetDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
 
@@ -92834,25 +92826,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
     format: date-time
 
-  - `Optional<LocalDateTime> cancelInitiatedAt`
+  - `Optional<OffsetDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
     format: date-time
 
-  - `Optional<LocalDateTime> endedAt`
+  - `Optional<OffsetDateTime> endedAt`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -92860,7 +92852,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     format: date-time
 
-  - `LocalDateTime expiresAt`
+  - `OffsetDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
 
@@ -93123,25 +93115,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `Optional<LocalDateTime> archivedAt`
+  - `Optional<OffsetDateTime> archivedAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
     format: date-time
 
-  - `Optional<LocalDateTime> cancelInitiatedAt`
+  - `Optional<OffsetDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
     format: date-time
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
     format: date-time
 
-  - `Optional<LocalDateTime> endedAt`
+  - `Optional<OffsetDateTime> endedAt`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -93149,7 +93141,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     format: date-time
 
-  - `LocalDateTime expiresAt`
+  - `OffsetDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
 
@@ -93619,7 +93611,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Identifier for the container used in this request
 
-          - `LocalDateTime expiresAt`
+          - `OffsetDateTime expiresAt`
 
             The time at which the container will expire.
 
@@ -96340,7 +96332,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `Optional<Long> maxTokens`
 
-                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+                          Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the API also passes the advisor its remaining-token budget, so the advisor shapes its output toward the cap. When omitted, the advisor model's default output cap applies and the API doesn't pass a budget.
 
                           minimum: 1024
 
@@ -97173,8 +97165,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               the thinking-block delimiter tokens.
 
               Reflects the raw reasoning the model produced, not the (possibly shorter)
-              summarized thinking text returned in the response body. Computed by
-              re-tokenizing the raw reasoning text, so it may differ from the model's exact
+              summarized thinking text returned in the response body. It may differ from the model's exact
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 

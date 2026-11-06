@@ -209,7 +209,9 @@ The Claude SDK can read the JWT-SVID from the file that spiffe-helper maintains 
       ```bash CLI
       # Reads the JWT-SVID that spiffe-helper writes to
       # ANTHROPIC_IDENTITY_TOKEN_FILE, plus ANTHROPIC_FEDERATION_RULE_ID,
-      # ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID.
+      # ANTHROPIC_ORGANIZATION_ID, and ANTHROPIC_SERVICE_ACCOUNT_ID.
+      # For a rule enabled for all workspaces or more than one, set ANTHROPIC_PROFILE
+      # to a federation profile that sets workspace_id.
       ant messages create \
         --model claude-opus-5-5 \
         --max-tokens 1024 \
@@ -466,7 +468,7 @@ spire-agent api fetch jwt \
   | jq -rR 'split(".")[1] | gsub("-";"+") | gsub("_";"/") | @base64d | fromjson'
 ```
 
-The `-output json` flag returns the SVID response and bundle response as a two-element JSON array, so `jq -r '.[0].svids[0].svid'` extracts the bare token. On older SPIRE versions without `-output`, the command prints a labeled block instead. In that case, pipe the default output through `awk '/^[[:space:]]*eyJ/{print $1; exit}'` to extract the token line. Check that `iss` is the OIDC Discovery Provider URL you registered, `sub` is the workload’s SPIFFE ID, and `aud` contains `https://api.anthropic.com`. Then run the cURL example from [Acquire and use the token](https://platform.claude.com/docs/en/manage-claude/wif-providers/spiffe#acquire-and-use-the-token). A successful exchange returns an `access_token` starting with `sk-ant-oat01-`. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange). The most common SPIRE-side cause is a mismatch between SPIRE Server’s `jwt_issuer` and the URL registered as the federation issuer.
+The `-output json` flag returns the SVID response and bundle response as a two-element JSON array, so `jq -r '.[0].svids[0].svid'` extracts the bare token. On older SPIRE versions without `-output`, the command prints a labeled block instead. In that case, pipe the default output through `awk '/^[[:space:]]*eyJ/{print $1; exit}'` to extract the token line. Check that `iss` is the OIDC Discovery Provider URL you registered, `sub` is the workload’s SPIFFE ID, and `aud` contains `https://api.anthropic.com`. Then run the sample in [Acquire and use the token](https://platform.claude.com/docs/en/manage-claude/wif-providers/spiffe#acquire-and-use-the-token). A successful exchange returns an `access_token` starting with `sk-ant-oat01-`. If the exchange fails with the opaque `401` `authentication_error` response (message `Authentication failed`), check the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console for the deny reason and see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange). The most common SPIRE-side cause is a mismatch between SPIRE Server’s `jwt_issuer` and the URL registered as the federation issuer.
 
 ## Scope your rule
 

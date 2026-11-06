@@ -73,7 +73,9 @@
 | [`modelCatalogUrl`](#modelcatalogurl) | Model catalog URL | Connection | |
 | [`coworkTabEnabled`](#coworktabenabled) | Allow Cowork | Capabilities | Admin Console |
 | [`isClaudeCodeForDesktopEnabled`](#isclaudecodefordesktopenabled) | Allow Code | Capabilities | Admin Console |
+| [`disableDesktopLocalSessions`](#disabledesktoplocalsessions) | Disable local Code sessions | Capabilities | Admin Console |
 | [`sshHostAllowlist`](#sshhostallowlist) | SSH host allowlist | Capabilities | Admin Console |
+| [`sshConfigs`](#sshconfigs) | SSH connections | Capabilities | Admin Console |
 | [`sshClientPath`](#sshclientpath) | SSH client program | Capabilities | Admin Console |
 | [`sshTransport`](#sshtransport) | SSH connection engine | Capabilities | Admin Console |
 | [`chatTabEnabled`](#chattabenabled) | Allow Chat | Capabilities | Admin Console |
@@ -100,6 +102,8 @@
 | [`builtinToolPolicy`](#builtintoolpolicy) | Built-in tool policy | Capabilities | Admin Console |
 | [`disabledBuiltinTools`](#disabledbuiltintools) | Disabled built-in tools | Capabilities | Admin Console |
 | [`toolSearchEnabled`](#toolsearchenabled) | Enable tool search | Capabilities | Admin Console |
+| [`disableWslSessions`](#disablewslsessions) | Block WSL sessions | Capabilities | |
+| [`claudeCodeProcessWrapperEnabled`](#claudecodeprocesswrapperenabled) | Use Claude Code’s corporate launcher | Capabilities | Admin Console |
 | [`organizationInstructions`](#organizationinstructions) | Organization instructions | Capabilities | Admin Console |
 | [`requireCoworkFullVmSandbox`](#requirecoworkfullvmsandbox) | Require full VM sandbox | Capabilities | |
 | [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | Disable Claude.ai sign-in | Capabilities | |
@@ -178,7 +182,7 @@ One of: `gateway`, `anthropic`, `bedrock`, `mantle`, `vertex`, `foundry`
 
 > [accordion] More detail
 >
-> The app opens in third-party mode unless the user chose to sign in to Claude.ai at the login screen. `disableDeploymentModeChooser` removes that choice.
+> The app opens in third-party mode unless the user chose to sign in to Claude.ai at the login screen. `deploymentMode` at `3p`, or `disableDeploymentModeChooser`, removes that choice.
 >
 > When this key is unset, the app opens in standard mode unless another key, such as `bootstrapUrl`, asks for third-party mode.
 >
@@ -321,7 +325,7 @@ Since 1.10628.0
 
 string
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.44121.1
 
@@ -347,7 +351,7 @@ Since 1.44121.1
 
 string
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.44121.1
 
@@ -1344,6 +1348,24 @@ booleanDefault: trueSince 1.2581.0
 
 ***
 
+#### `disableDesktopLocalSessions`
+
+booleanSince 2.42304.0
+
+**Disable local Code sessions.** Turn off Code sessions that run on the device, WSL included, so Code offers only remote environments such as SSH.
+
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
+
+> [accordion] More detail
+>
+> Set `sshHostAllowlist` too. While it allows no host, Code has nowhere to start a session. SSH to `localhost` counts as local. Other names for this device are blocked only by leaving them out of `sshHostAllowlist`.
+>
+> Chat and Cowork still run on the device. A running session goes on until its process stops, and then cannot be resumed. Claude Code started from a terminal ignores this key. Code routines set to run on the device are held while the key is set.
+>
+> `false` does not undo a `true` in Claude Code's managed setting of the same name. Where a bootstrap server or the Admin Console delivers configuration, set this key there. Its configuration replaces the MDM profile's value, even if it leaves this key out.
+
+***
+
 #### `sshHostAllowlist`
 
 string\[]
@@ -1364,6 +1386,52 @@ Since 1.40609.0
 > * **Aliases:** list the `HostName` that the user's `~/.ssh/config` gives for a host, not its alias. List jump hosts too.
 >
 > This key governs which hosts the app offers, not network access. A host's own Claude Code managed settings replace the rules the app sends, unless they set `parentSettingsBehavior` to `"merge"`.
+
+***
+
+#### `sshConfigs`
+
+object\[]
+
+Beta (The feature that the key configures is in beta.)
+
+Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
+
+Since 2.42304.0
+
+**SSH connections.** SSH connections offered to everyone in Code’s environment menu. In Code, users can select them but not edit or remove them.
+
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
+
+> [accordion] More detail
+>
+> Every connection is still checked against `sshHostAllowlist`. While that list allows no host, the SSH section is hidden.
+>
+> For a connection from this list, the app does not first ask the user to confirm the host. SSH's own host-key checks still apply, so a first connection to a host missing from the user's `known_hosts` may ask the user or fail. Users can still add connections of their own.
+>
+> While `disableDesktopLocalSessions` is on, new sessions default to the first SSH connection in the user's list, which can be one of these.
+
+> [accordion] Child attributes (5)
+>
+> **id** `string` *required*
+>
+> Identifier of your choice, unique in the list. A user’s entry with the same ID in Claude Code’s user settings replaces yours.
+>
+> **name** `string` *required*
+>
+> Shown in Code’s environment menu.
+>
+> **sshHost** `string` *required*
+>
+> host, user\@host, or a host alias from the user’s \~/.ssh/config.
+>
+> **sshPort** `integer`
+>
+> A number from 1 to 65535.
+>
+> **sshIdentityFile** `string`
+>
+> Path of a private key file on the user’s device.
 
 ***
 
@@ -1519,7 +1587,7 @@ object\[]Since 1.2581.0
 >
 > > [accordion] More detail
 > >
-> > Desktop checks this list inside the distro for a WSL session that starts under it. `~` also means the distro user's home. The session needs both bubblewrap and socat there to start. Shell commands can read the Windows drives under `/mnt`. To hide them, apart from listed `/mnt` folders, set `blockReadsOutsideWorkingDirectories`. Users can re-open them. Claude Code's server-managed settings, managed settings in the distro or a Windows policy with `wslInheritsWindowsSettings` replace Desktop's session settings. A session can then run with no sandbox, with or without those programs. Shell commands can read the drives and write outside the list after a prompt, or with none in bypass mode. If the one in force sets `parentSettingsBehavior` to `merge`, those settings stay, but it can undo them.
+> > Desktop checks this list inside the distro for a WSL session that starts under it. `~` also means the distro user's home. The session needs both bubblewrap and socat there to start. Shell commands can read the Windows drives under `/mnt`. To hide them, apart from listed `/mnt` folders, set `blockReadsOutsideWorkingDirectories`. Users can re-open them. Claude Code's server-managed settings, managed settings in the distro or a Windows policy with `wslInheritsWindowsSettings` replace Desktop's session settings. A session can then run with no sandbox, with or without those programs. Shell commands can read the drives and write outside the list, with no prompt in Auto or bypass mode. If the one in force sets `parentSettingsBehavior` to `merge`, those settings stay, but it can undo them.
 >
 > **isDefaultSelected** `boolean`
 >
@@ -1641,7 +1709,7 @@ booleanSince 1.37937.0
 > * It does not limit Claude Code in a terminal.
 > * Claude Code's own managed settings, where a session has any, take priority by default. Restrict marketplaces in those settings as well.
 >
-> Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
+> Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `deploymentMode` to `3p`, or `disableDeploymentModeChooser`.
 
 ***
 
@@ -1655,7 +1723,7 @@ booleanSince 1.37937.0
 >
 > Plugins that are already installed, or placed on disk outside the app, are not removed or blocked.
 >
-> Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
+> Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `deploymentMode` to `3p`, or `disableDeploymentModeChooser`.
 
 ***
 
@@ -1814,6 +1882,49 @@ booleanDefault: falseSince 1.21459.0
 
 ***
 
+#### `disableWslSessions`
+
+boolean
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
+
+Since 1.19367.0
+
+**Block WSL sessions.** Block Code sessions inside WSL, where Windows endpoint policy does not reach. Unset: blocked on managed devices.
+
+[Admin Console](#the-works-with-column): Not available.
+
+> [accordion] More detail
+>
+> MDM profile only. Only a machine-wide `false` (`HKLM`) allows WSL sessions on a device with any managed configuration.
+>
+> For a WSL session that starts under `allowedWorkspaceFolders`, Desktop checks it inside the distro, so `~` also means the distro user's home. The session needs both bubblewrap and socat there to start. Shell commands can read the Windows drives under `/mnt`. `blockReadsOutsideWorkingDirectories` hides them, apart from listed `/mnt` folders. Users can re-open them. Claude Code's server-managed settings, among others, can take away that read limit and the sandbox: see the list's Path help.
+>
+> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+
+***
+
+#### `claudeCodeProcessWrapperEnabled`
+
+booleanSince 2.7032.0
+
+**Use Claude Code’s corporate launcher.** Start Claude Code through the launcher named in Claude Code’s managed settings (processWrapper).
+
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings)
+
+> [accordion] More detail
+>
+> The launcher comes from the device's managed settings, not server-managed settings. SSH sessions to Linux or macOS hosts use the one in the host's managed-settings files.
+>
+> * **Credentials:** the app passes the launcher no inference credential. The launcher must supply one, such as `ANTHROPIC_AUTH_TOKEN`, or every reply fails.
+> * **Not used:** on Windows for sessions on the device, in WSL, in Cowork, and for the connection test and title generation.
+>
+> To stop users bypassing the launcher, set this key in your MDM profile, with `disableDeploymentModeChooser` if that profile sets more than app-behavior keys.
+>
+> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+
+***
+
 #### `organizationInstructions`
 
 stringSince 1.37937.0
@@ -1866,7 +1977,7 @@ booleanDefault: falseSince 1.3834.0
 
 enum
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 4.16336.0
 
@@ -1878,7 +1989,7 @@ One of: `any`, `3p`, `1p`
 
 > [accordion] More detail
 >
-> Replaces `disableDeploymentModeChooser`, whose `true` means `3p`. `3p` or `1p` wins over that key. A bootstrap server's value is ignored. Earlier versions do not read this key.
+> Replaces `disableDeploymentModeChooser`: use `3p` for its `true`. `3p` or `1p` wins over it. A bootstrap server can change it, not this key. Earlier versions do not read this key.
 >
 > * `3p`: keeps the app on the connection this configuration names, with no Claude.ai sign-in. With no connection, Claude.ai sign-in opens. To block Claude.ai sign-in, name a connection.
 > * `1p`: always Claude.ai sign-in, even where a connection is named. No Claude API account sign-in and no setup of the user's own.
@@ -1895,6 +2006,10 @@ One of: `any`, `3p`, `1p`
 booleanDefault: falseSince 1.6889.0
 
 **Disable claude:// deep-link handling.** Stop external apps and websites from opening Claude Desktop via claude:// links.
+
+> [accordion] More detail
+>
+> Cowork and Chat then offer no sign-in to a connector that a plugin brings. That sign-in returns to the app by a claude:// link.
 
 ***
 
@@ -1983,7 +2098,11 @@ objectSince 1.10628.0
 >
 > **enabled** `boolean` (default: false)
 >
-> Lets users import a Claude.ai data export and earlier Claude sessions on this device from Settings → Import.
+> Lets users import a Claude.ai data export, earlier sessions here, or another device’s Claude Desktop export, in Settings → Import & export.
+>
+> > [accordion] More detail
+> >
+> > The user confirms another device’s export is their own. Memory and some app preferences apply at once. Tasks, plugins, and skills arrive turned off. Local MCP servers start when the user adds them in a dialog. Each needs its setting on: `scheduledTasksEnabled`, `userPluginUploadsEnabled`, `skillCreationEnabled`, `isLocalDevMcpEnabled`.
 >
 > **allowedOrganizationUuids** `string[]`
 >
@@ -2012,11 +2131,11 @@ objectSince 1.10628.0
 >
 > **exportEnabled** `boolean` (default: false)
 >
-> Lets users export this device’s chats, Cowork tasks and Code sessions as a zip to import elsewhere. No effect unless Enable import is on.
+> Lets users export their Claude data on this device as a zip file, to import on another device. No effect unless Enable import is on.
 >
 > > [accordion] More detail
 > >
-> > Transcripts contain conversation content including tool outputs. Treat exported zips as sensitive data.
+> > The zip contains sessions, projects and their files, memory, scheduled tasks, saved skills, uploaded plugins, some app preferences, and local MCP servers. Passwords or API keys in them are included. Sign-ins and the servers’ variable values are not. Treat it as sensitive data.
 >
 > **bannerBehavior** `enum`
 >
@@ -2844,7 +2963,7 @@ booleanDefault: falseSince 1.2581.0
 >
 > The product-usage analytics come from the app and from Claude Code. Turning this on also stops Claude Code's error reports and its other nonessential requests to Anthropic.
 >
-> Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
+> Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `deploymentMode` to `3p`, or `disableDeploymentModeChooser`.
 
 ***
 
@@ -2852,7 +2971,7 @@ booleanDefault: falseSince 1.2581.0
 
 booleanDefault: falseSince 1.2581.0
 
-**Block nonessential services.** Connector icons, hosted artifact previews, MCP Apps widgets and the Linux spellcheck dictionary. Widgets fall back to text.
+**Block nonessential services.** Connector icons, hosted artifact previews, MCP Apps widgets and the Linux spellcheck dictionary. A blocked widget shows an error.
 
 > [accordion] More detail
 >
@@ -3076,7 +3195,9 @@ integerRange: 1–72Since 1.2581.0
 > * **Unset:** after 72 hours the app restarts once the device has been idle for 10 minutes.
 > * **Any number, even 72:** the app restarts when the time is up, whether or not the user is active.
 >
-> In both cases the restart waits while Claude is mid-task on the device.
+> In both cases the restart waits while Claude is mid-task on the device, or while the update server gives no answer.
+>
+> These hours do not delay an update. It usually installs sooner, after 10 minutes with no Claude window in use and no task running.
 >
 > This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
 
@@ -3623,7 +3744,7 @@ object\[]Since 1.8089.0
 
 booleanDefault: true
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.10628.0
 
@@ -3637,7 +3758,7 @@ Since 1.10628.0
 
 string
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.10628.0
 
@@ -3651,7 +3772,7 @@ Since 1.10628.0
 
 object
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.10628.0
 
@@ -3713,7 +3834,7 @@ Since 1.10628.0
 
 object: name → value
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.32885.1
 
@@ -3737,7 +3858,7 @@ Since 1.32885.1
 
 string
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.32885.1
 
@@ -3759,7 +3880,7 @@ Since 1.32885.1
 
 booleanDefault: false
 
-MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response.)
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
 
 Since 1.26832.0
 
@@ -3776,7 +3897,7 @@ Since 1.26832.0
 The labels under a key start with its type and, where one is recorded, its default, and end with the Claude Desktop version that added the key. Between those, a label appears only where the key differs from most keys.
 
 * **No MDM only or Admin Console only label**: You can set the key in an MDM profile or the local configuration file, or return it from a bootstrap server.
-* **MDM only**: You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#response-schema).
+* **MDM only**: You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either. [Read more](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#response-schema).
 * **Admin Console only**: Only the Enterprise Admin Console can set the key. Claude Desktop ignores it in an MDM profile, in the local configuration file and in a bootstrap server's response. [Read more](https://claude.com/docs/third-party/claude-desktop/admin-console.md).
 * **Beta**: The feature that the key configures is in beta.
 * **Deprecated**: On third-party deployments Claude Desktop no longer reads the key and ignores any value set for it. Remove it from your configuration.

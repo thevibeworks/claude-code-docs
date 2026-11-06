@@ -4071,8 +4071,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -21438,8 +21437,7 @@ ant messages count-tokens \
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -23165,8 +23163,7 @@ ant messages count-tokens \
       the thinking-block delimiter tokens.
 
       Reflects the raw reasoning the model produced, not the (possibly shorter)
-      summarized thinking text returned in the response body. Computed by
-      re-tokenizing the raw reasoning text, so it may differ from the model's exact
+      summarized thinking text returned in the response body. It may differ from the model's exact
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -24241,8 +24238,7 @@ ant messages count-tokens \
     the thinking-block delimiter tokens.
 
     Reflects the raw reasoning the model produced, not the (possibly shorter)
-    summarized thinking text returned in the response body. Computed by
-    re-tokenizing the raw reasoning text, so it may differ from the model's exact
+    summarized thinking text returned in the response body. It may differ from the model's exact
     generation count by a small number of tokens. Always ≤ `output_tokens`;
     `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -25355,8 +25351,7 @@ ant messages count-tokens \
         the thinking-block delimiter tokens.
 
         Reflects the raw reasoning the model produced, not the (possibly shorter)
-        summarized thinking text returned in the response body. Computed by
-        re-tokenizing the raw reasoning text, so it may differ from the model's exact
+        summarized thinking text returned in the response body. It may differ from the model's exact
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -26390,8 +26385,7 @@ ant messages count-tokens \
           the thinking-block delimiter tokens.
 
           Reflects the raw reasoning the model produced, not the (possibly shorter)
-          summarized thinking text returned in the response body. Computed by
-          re-tokenizing the raw reasoning text, so it may differ from the model's exact
+          summarized thinking text returned in the response body. It may differ from the model's exact
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -27451,8 +27445,7 @@ ant messages count-tokens \
             the thinking-block delimiter tokens.
 
             Reflects the raw reasoning the model produced, not the (possibly shorter)
-            summarized thinking text returned in the response body. Computed by
-            re-tokenizing the raw reasoning text, so it may differ from the model's exact
+            summarized thinking text returned in the response body. It may differ from the model's exact
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -33858,8 +33851,7 @@ ant messages count-tokens \
       the thinking-block delimiter tokens.
 
       Reflects the raw reasoning the model produced, not the (possibly shorter)
-      summarized thinking text returned in the response body. Computed by
-      re-tokenizing the raw reasoning text, so it may differ from the model's exact
+      summarized thinking text returned in the response body. It may differ from the model's exact
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
@@ -41986,8 +41978,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               the thinking-block delimiter tokens.
 
               Reflects the raw reasoning the model produced, not the (possibly shorter)
-              summarized thinking text returned in the response body. Computed by
-              re-tokenizing the raw reasoning text, so it may differ from the model's exact
+              summarized thinking text returned in the response body. It may differ from the model's exact
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 

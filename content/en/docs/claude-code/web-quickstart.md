@@ -138,7 +138,7 @@ At claude.ai/code, to start Claude from a feature branch instead of the default,
 
 The [permission mode control](https://code.claude.com/docs/en/permission-modes.md#switch-permission-modes) shows the permission mode the session will run in:
 
-* **Auto**: a classifier reviews Claude's actions instead of asking you. Appears when your organization allows auto mode and the selected model supports it
+* **Auto**: a classifier reviews Claude's actions instead of asking you. Appears unless your organization turns off [auto mode](https://code.claude.com/docs/en/permission-modes.md#eliminate-prompts-with-auto-mode). On claude.ai/code, if it's grayed out, select a model that supports auto mode
 * **Accept edits**: Claude makes changes and pushes a branch without stopping for approval
 * **Plan**: Claude proposes an approach and waits for you to approve it before editing files
 
@@ -242,13 +242,15 @@ Cloud session features create a default cloud environment automatically if you d
 
 ### Setup script failed
 
-The setup script exited with a non-zero status, which blocks the session from starting. Common causes:
+The [setup script](https://code.claude.com/docs/en/cloud-environments.md#setup-scripts) exited with a non-zero status, so the session failed to start or started without whatever the script failed to install. If the session started, you can keep working in it.
+
+Common causes:
 
 * A package install failed because the registry isn't in your [network access level](https://code.claude.com/docs/en/cloud-environments.md#access-levels). `Trusted` covers most package managers; `None` blocks them all.
 * The script references a file or path that doesn't exist in a fresh clone.
 * A command that works locally needs a different invocation on Ubuntu.
 
-To debug, add `set -x` at the top of the script to see which command failed. For non-critical commands, append `|| true` so they don't block session start.
+To debug, add `set -x` at the top of the script to see which command failed. For non-critical commands, append `|| true` so they don't fail the script. After you fix the cause, start a new session so the script runs again. If what failed to start was a run of a [cloud scheduled task](https://code.claude.com/docs/en/routines.md), click **Run now** on the task's detail page instead of starting a new session.
 
 ### New sessions hang or time out during setup
 

@@ -31,11 +31,11 @@ The Models API response can be used to determine which models are available for 
 
     maxItems: 3
 
-    - `const ModelListParamsLifecycleActive ModelListParamsLifecycle = "active"`
+    - `"active"`
 
-    - `const ModelListParamsLifecycleDeprecated ModelListParamsLifecycle = "deprecated"`
+    - `"deprecated"`
 
-    - `const ModelListParamsLifecycleRetired ModelListParamsLifecycle = "retired"`
+    - `"retired"`
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 

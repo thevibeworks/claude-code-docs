@@ -25,19 +25,19 @@ List Memory Versions
 
     Return only versions written with the API key that has this ID.
 
-  - `Optional<LocalDateTime> createdAtGte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtGte` (query parameter)
 
     Return versions created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte` (query parameter)
+  - `Optional<OffsetDateTime> createdAtLte` (query parameter)
 
     Return versions created at or before this time (inclusive).
 
     format: date-time
 
-  - `Optional<Long> limit` (query parameter)
+  - `Optional<Integer> limit` (query parameter)
 
     The maximum number of versions to return per page, from 1 to 100. Defaults to 20.
 
@@ -211,7 +211,7 @@ List Memory Versions
 
     Unique identifier for this version (a `memver_...` value).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this version was written, in RFC 3339 format.
 
@@ -251,7 +251,7 @@ List Memory Versions
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `Optional<Long> contentSizeBytes`
+  - `Optional<Integer> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -317,7 +317,7 @@ List Memory Versions
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `Optional<LocalDateTime> redactedAt`
+  - `Optional<OffsetDateTime> redactedAt`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -547,7 +547,7 @@ Retrieve a Memory Version
 
     Unique identifier for this version (a `memver_...` value).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this version was written, in RFC 3339 format.
 
@@ -587,7 +587,7 @@ Retrieve a Memory Version
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `Optional<Long> contentSizeBytes`
+  - `Optional<Integer> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -653,7 +653,7 @@ Retrieve a Memory Version
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `Optional<LocalDateTime> redactedAt`
+  - `Optional<OffsetDateTime> redactedAt`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -876,7 +876,7 @@ Redact a Memory Version
 
     Unique identifier for this version (a `memver_...` value).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this version was written, in RFC 3339 format.
 
@@ -916,7 +916,7 @@ Redact a Memory Version
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `Optional<Long> contentSizeBytes`
+  - `Optional<Integer> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -982,7 +982,7 @@ Redact a Memory Version
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `Optional<LocalDateTime> redactedAt`
+  - `Optional<OffsetDateTime> redactedAt`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 
@@ -1135,7 +1135,7 @@ public final class Main {
 
     Unique identifier for this version (a `memver_...` value).
 
-  - `LocalDateTime createdAt`
+  - `OffsetDateTime createdAt`
 
     When this version was written, in RFC 3339 format.
 
@@ -1175,7 +1175,7 @@ public final class Main {
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `Optional<Long> contentSizeBytes`
+  - `Optional<Integer> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -1241,7 +1241,7 @@ public final class Main {
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `Optional<LocalDateTime> redactedAt`
+  - `Optional<OffsetDateTime> redactedAt`
 
     When the version was redacted, in RFC 3339, or `null` if it hasn't been.
 

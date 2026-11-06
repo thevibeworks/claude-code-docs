@@ -109,7 +109,7 @@ Be as specific as the workload allows. Loosen `subject_prefix` to `repo:your-org
 
 ## Acquire and use a token
 
-Set the federation environment variables on the job and call the SDK normally. `Anthropic()` (typescript: `new Anthropic()`; csharp: `new AnthropicClient()`; go: `anthropic.NewClient()`; java: `AnthropicOkHttpClient.fromEnv()`; php: `new Client()`; ruby: `Anthropic::Client.new`) reads `ANTHROPIC_IDENTITY_TOKEN_FILE`, exchanges the JWT on the first request, and refreshes the access token automatically before it expires.
+Set the federation environment variables on the job. In the SDK, `anthropic.Anthropic()` (typescript: `new Anthropic()`; csharp: `new AnthropicClient()`; go: `anthropic.NewClient()`; java: `AnthropicOkHttpClient.fromEnv()`; php: `new Client()`; ruby: `Anthropic::Client.new`) reads `ANTHROPIC_IDENTITY_TOKEN_FILE`, exchanges the JWT on the first request, and refreshes the access token automatically before it expires.
 
 <CodeGroup>
   ```yaml Workflow
@@ -172,8 +172,10 @@ Set the federation environment variables on the job and call the SDK normally. `
 
   ```bash CLI
   # Reads ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID,
-  # ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_WORKSPACE_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
+  # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_IDENTITY_TOKEN_FILE
   # from the job environment.
+  # For a rule enabled for all workspaces or more than one, set ANTHROPIC_PROFILE
+  # to a federation profile that sets workspace_id.
   ant messages create \
     --model claude-opus-5-5 \
     --max-tokens 1024 \
@@ -307,11 +309,11 @@ Set the federation environment variables on the job and call the SDK normally. `
   ```
 </CodeGroup>
 
-Each GitHub-issued identity token expires roughly 5 minutes after issuance. The token-request endpoint (`ACTIONS_ID_TOKEN_REQUEST_URL`) stays valid for the entire job, so you can fetch a fresh token at any point. The SDK exchanges the token on first use and caches the resulting Anthropic access token. For jobs that run longer than the Anthropic token’s lifetime, the SDK re-reads `ANTHROPIC_IDENTITY_TOKEN_FILE` on each refresh, so re-run the fetch step periodically (or wrap it in a background loop) to keep the file current. Alternatively, except in Java, pass the SDK a token provider that calls `ACTIONS_ID_TOKEN_REQUEST_URL` directly instead of using the file path.
+Each GitHub-issued identity token expires roughly 5 minutes after issuance. The token-request endpoint (`ACTIONS_ID_TOKEN_REQUEST_URL`) stays valid for the entire job, so you can fetch a fresh token at any point. The SDK exchanges the token on first use and caches the resulting Anthropic access token. On each refresh, the SDK rereads `ANTHROPIC_IDENTITY_TOKEN_FILE`. For jobs that run longer than the Anthropic token’s lifetime, rerun the fetch step periodically (or wrap it in a background loop) to keep the file current. Alternatively, except in Java, pass the SDK a token provider that calls `ACTIONS_ID_TOKEN_REQUEST_URL` directly instead of using the file path.
 
 ## Verify the setup
 
-A successful exchange returns an `access_token` starting with `sk-ant-oat01-` and an `expires_in` value in seconds. A denied exchange returns an opaque `401` `authentication_error` with the fixed message `Authentication failed`, whichever check failed; in most cases the deny reason is recorded on the attempt’s entry in the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console, and [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange) walks the checks in order. The most common GitHub Actions-side cause is the `sub` claim format not matching (its trailing segment varies among `ref:...`, `environment:...`, and `pull_request` events); the history entry shows reason `match_subject_prefix`.
+A successful exchange returns an `access_token` starting with `sk-ant-oat01-` and an `expires_in` value in seconds. A denied exchange returns an opaque `401` `authentication_error` with the fixed message `Authentication failed`, whichever check failed. In most cases the deny reason is recorded on the attempt’s entry in the [authentication history page](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console. [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange) walks the checks in order. The most common GitHub Actions-side cause is the `sub` claim format not matching (its trailing segment varies among `ref:...`, `environment:...`, and `pull_request` events); the history entry shows reason `match_subject_prefix`.
 
 ## Restrict which workflows can authenticate
 
