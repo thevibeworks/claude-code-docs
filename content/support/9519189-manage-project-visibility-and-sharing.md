@@ -44,7 +44,7 @@ Click “Only people invited” under General access and select “Everyone at [
 
   - **Can view:** Members can see project contents, knowledge, and instructions, and chat within the project, but cannot edit it.
 
-  - **Can edit:** Members can modify project instructions and knowledge, update member settings, and actively contribute to the project.
+  - **Can edit:** Members can modify project instructions and knowledge, update member settings, add project tags (beta) on Enterprise plans, and actively contribute to the project. Tag names and values are visible to all users in your organization, so keep sensitive information out of them.
 
 This will share the project and knowledge base with the member, but your chats will remain private unless you choose to share them.
 

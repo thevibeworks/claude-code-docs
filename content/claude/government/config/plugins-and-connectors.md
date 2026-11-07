@@ -12,7 +12,7 @@ You add plugins on the **Plugins** card and connectors on the **Connectors** car
 
 ## Plugins versus connectors
 
-A connector gives Claude access to another service, such as a search tool your agency runs. For adding a connector, see [Connectors](https://claude.com/docs/government/connectors/overview.md), and for what its tool policy means for members, see [Tool policy](https://claude.com/docs/government/connectors/overview.md#adding-a-connector).
+A connector gives Claude access to another service, such as a search tool your agency runs. For adding a connector, see [Connectors](https://claude.com/docs/government/connectors/overview.md), and for what its tool policy means for members, see [Tool policy](https://claude.com/docs/government/connectors/overview.md#tool-policy).
 
 A plugin is a package that changes how Claude works. It can add skills, slash commands, and sub-agents, and it can carry [hooks](https://code.claude.com/docs/en/hooks), which a plugin author sets to run automatically at defined points during a session, such as a command that runs when a session starts. Its hooks run on the member's machine. A plugin can also declare MCP servers of its own, and [Plugins that run code](#plugins-that-run-code) describes how they behave.
 

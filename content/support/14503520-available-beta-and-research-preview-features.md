@@ -41,6 +41,7 @@ This table below lists the beta and research preview features currently availabl
 | **[Self-serve IP allowlist](https://platform.claude.com/docs/en/manage-claude/ip-allowlist)**                                                                    | Enterprise admin  | Beta       |
 | **[Claude Desktop settings in Organization settings](https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop#h_21135034c8)** | Enterprise admin  | Beta       |
 | **[Centralized management](https://support.claude.com/en/articles/18232924)**                                                                                    | Enterprise admin  | Beta       |
+| **[Track spend by cost code with project tags](https://support.claude.com/en/articles/18251257-track-spend-by-project-with-tags)**                               | Enterprise admin  | Beta       |
 | **[Personal Finance](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**                                                         | Connectors        | Beta       |
 
 **Note:** Availability varies by plan. Check each linked article to confirm which plans support the feature.

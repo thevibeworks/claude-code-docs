@@ -48,7 +48,7 @@ Within the application-data directory:
 
 Other standard OS accounts on the same machine can't read the files in this directory, but administrators can. On macOS and Linux, the app creates the directory with owner-only permissions. On Windows, the directory takes the permissions of the user's profile.
 
-Apart from the user's sign-ins to plugin servers on Windows and Linux, the app encrypts stored sign-in tokens, API keys saved from the in-app configuration window, and similar secrets with the operating system's secure storage (see [Credentials](#credentials)). It doesn't encrypt conversations, settings, the rest of the locally applied configuration, or, on Windows and Linux, the user's sign-ins to plugin servers. Protection at rest for those files depends on the device's full-disk encryption, such as FileVault or BitLocker.
+The app doesn't encrypt conversations, settings, or the locally applied configuration other than its API keys. On Windows and Linux, it also doesn't encrypt the user's sign-ins to plugin servers or secret plugin settings entered in **Code**. Protection at rest for those files depends on the device's full-disk encryption, such as FileVault or BitLocker. The app encrypts some credentials with the operating system's secure storage, such as API keys saved from the in-app configuration window and the OAuth tokens of managed MCP servers (see [Credentials](#credentials)).
 
 The logs directory contains `main.log` (application and configuration-validation events), `ssh.log` (SSH connection events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
@@ -116,6 +116,9 @@ Credentials are handled according to how they're delivered:
   * **macOS**: the login keychain, or that file if the keychain rejects the write
 
   The tokens from a sign-in in **Code** are in [Claude Code's own credential store](https://code.claude.com/docs/en/authentication#credential-management).
+* **Secret plugin settings**: a plugin can ask the user for a value that it marks as sensitive, such as an API key. A value entered in **Code** is in [Claude Code's own credential store](https://code.claude.com/docs/en/authentication#credential-management):
+  * **Linux, and Windows by default**: an unencrypted file
+  * **macOS**: the login keychain, or that file if the keychain rejects the write
 * **Credential-helper output**: held in memory for `inferenceCredentialHelperTtlSec` seconds, then discarded and re-fetched.
 
 ### Transient credential files
@@ -322,10 +325,10 @@ For a copy, the new device needs:
      Also leave out `plugin-mcp-auth/` and `connectors/*/plugin-mcp/`, which on Windows and Linux hold the user's sign-ins to plugin servers. The user signs in to those servers again on the new device.
 
      If you copied any of these files or folders, quit Claude Desktop on the new device, then delete them.
-   * `~/Claude/`, or `~/Documents/Claude/` on legacy installs
+   * The user's Cowork files folder: `~/Claude/`, or `~/Documents/Claude/` on legacy installs. If the user changed it, note the folder shown under **Cowork files** in **Settings > Cowork** on the old device before step 1, and copy that folder instead.
    * `~/.claude/` and `~/.claude.json`
    * The folders and repositories that the user's projects, scheduled tasks, and Code sessions use
-4. Make the user the owner of the copied files, with read and write access. Give no other user account access to the application-data directory, `~/Claude/` or `~/Documents/Claude/`, `~/.claude/`, or `~/.claude.json`.
+4. Make the user the owner of the copied files, with read and write access. Give no other user account access to the application-data directory, the user's Cowork files folder, `~/.claude/`, or `~/.claude.json`.
 5. Have the user launch Claude Desktop, sign in if the app asks, and confirm that their chats, Cowork tasks, Code sessions, and projects appear. If any are missing, check that:
    * The user owns the copied files
    * The [`ant-did`](#identity) file in the application-data directory has the same contents as on the old device. If it doesn't, start again from step 1.

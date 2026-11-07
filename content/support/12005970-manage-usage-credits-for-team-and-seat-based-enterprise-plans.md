@@ -70,19 +70,13 @@ After navigating to **[Organization settings > Usage](https://claude.ai/admin-se
 
 The **Usage and spend limits** section will show the current limit (if any) or **Unlimited**. Clicking on "Adjust limit" opens a modal where you can either input an amount and click "Set spend limit," or click "Set to unlimited" to remove the organization-wide monthly spend limit.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149347604/936ac4eb025d3ef1f00c3b8a26b0/image.png?expires=1793988900&amp;signature=c4cf575cdf17b3414a1cd8d15be2a3c7b6dffda6e2d01baf9d9e562571cbbd5d&amp;req=diEjH8p6modfXfMW1HO4zQHwgqLeniav6DwhVVpk1mBU0tX23Zo5CXoPNUvG%0AFCP1sQ0V5CR9exTYh1s%3D%0A)
-
 Changes to your organization’s overall spend limit go into effect immediately.
 
 ### Seat spend limits for seat-based Enterprise plans
 
 Owners and Primary Owners on **seat-based Enterprise plans only** can set spend limits that apply to all users within a specific seat tier.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149351600/c5b979c366ac2738f60ea84e85b3/CleanShot+2026-03-10+at+15_37_41%402x.png?expires=1793988900&amp;signature=18ba84d1e4ac27231c683df1355b2e2874963183555c91dedc58b6da261dc3c3&amp;req=diEjH8p7nIdfWfMW1HO4zYnqMYadK3iA0wfO62ivdG%2BoUmMIyaKBCWEQhhDj%0AmXpA7BXiQI3PnkqkWuQ%3D%0A)
-
 Select the "By group" tab to see **Standard seats** and **Premium seats** groups. Click the "..." icon next to the current limit, then "Edit limit." This opens a modal where you can either select "Set dollar amount" and input an amount, or click "Unlimited" to remove the limit for that seat type. Click "Set limit" to save your changes.
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149362056/44993661ca2db771fe924d0346f6/image.png?expires=1793988900&amp;signature=4c85b5e4a152d26ff6ed0953f58b6e838f1f6f6148695140333f06a87318d95c&amp;req=diEjH8p4n4FaX%2FMW1HO4zRzvvYYCeEVPq7nEDCGq9G71uF%2BsX7SoWpDwJt03%0AFJYpo4m6Ck%2BpsBC4934%3D%0A)
 
 ---
 
@@ -90,11 +84,7 @@ Select the "By group" tab to see **Standard seats** and **Premium seats** groups
 
 Owners and Primary Owners can also set individual monthly spend limits for each member by finding **Spend limits by user** and clicking the "..." button next to the user, then "Edit limit."
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149370853/db66f5cd03683b9cc119d0dcd6b8/image.png?expires=1793988900&amp;signature=c8eae0027b27015168e3a8ab2436a8f97c7eaeae25112036db89cdbc2a02e340&amp;req=diEjH8p5nYlaWvMW1HO4zaPdGAReXSdPe9HwvwG7ubgZtWH03mJfpMgnyUv8%0A68u6cIf3Vl8VE%2Flp2zk%3D%0A)
-
 Enter the amount and click "Set limit." Alternatively, selecting "Set to unlimited" will remove that member's monthly spend limit (they will still be subject to any organization or seat-level spend limits).
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149374028/97813fe3b515c2e839d8d92abd79/image.png?expires=1793988900&amp;signature=d3844e5657f45f1d0ebda34d7c2344ab16492a542fda1eef14b9e78aac854dd7&amp;req=diEjH8p5mYFdUfMW1HO4zevsA%2FSDO%2BODw6z2wGSwkbtGAWCa6E8%2FltrWfxlt%0AR383jPJyvPeEJ6%2FIyHQ%3D%0A)
 
 This allows owners fine control over usage credits, so you can set limits for different members based on their roles or individual needs. Once a user reaches their defined spend limit, this will automatically pause their usage credits until the end of the month. They will need to wait for their usage limits to reset before using Claude again.
 
@@ -131,6 +121,10 @@ If you want to prevent users from submitting requests for usage credits, an orga
 ---
 
 ## Frequently asked questions
+
+### Do usage credits expire or get refunded?
+
+Usage credits purchased for Team and seat-based Enterprise plans expire 12 months after purchase, and purchases are non-refundable. See the **[Supplemental Credit Terms](https://www.anthropic.com/legal/credit-terms)** for details. If your organization moves from Team to Enterprise, any unused balance carries over. Learn more about **[migrating your organization from Team to Enterprise](https://support.claude.com/en/articles/13779868)**.
 
 ### What happens when I reach my spend limit?
 

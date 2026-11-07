@@ -6,7 +6,7 @@ Groups and group spend limits are available for Enterprise plan organizations. O
 
 Groups let you organize members into logical collections—by team, department, or any other grouping that fits your organization. Once groups are set up, you can:
 
-- **Set spend limits for groups**, so all members of a group share a per-user spend limit, and optionally give the group one shared monthly budget (beta).
+- **Set spend limits for groups**, so all members of a group share a per-user spend limit, and optionally give the group one shared monthly budget.
 
 - **Control member access through group memberships and custom roles**, so their capabilities and permissions are determined entirely by the groups they belong to. For additional details, see **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
@@ -158,7 +158,7 @@ A pooled budget only starts counting spend after it is created and resets each m
 
 2. Select the "By group/tier" tab.
 
-3. Find the group and click the menu button to the right, then "Edit limits."
+3. Find the group and click the menu button to the right, then "Edit limit."
 
 4. Select "No member limit" or "Member limit" and enter an amount.
 

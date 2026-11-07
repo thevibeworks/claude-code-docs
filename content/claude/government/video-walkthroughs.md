@@ -18,9 +18,9 @@ The videos follow the order of a first setup.
 
 How a tenant, its organizations, and their users fit together, how administrators sign in to the web portal, and how to move between the admin, tenant, and account views. Read more: [The three views](https://claude.com/docs/government/overview.md#the-three-views).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-01-finding-your-way-around.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e815e7d6b488de1c9629bfaa2f1354ab" aria-label="Video walkthrough: Finding your way around" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/mGbOjjHMKV3LYuqi/images/government/videos/admin-01-finding-your-way-around-v2.mp4?fit=max&auto=format&n=mGbOjjHMKV3LYuqi&q=85&s=4aaba8c318c1a044b343874cc64c95c3" aria-label="Video walkthrough: Finding your way around" />
 
-Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Finding your way around (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
@@ -28,7 +28,7 @@ Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice
 >
 > This video shows the web portal, which you open in a browser. Members use Claude in the Claude Desktop app, with Chat, Cowork, and Code.
 >
-> In a browser, open your agency's Claude for Government address and enter your work email.
+> In a browser, open your agency's Claude for Government address followed by /gateway, and enter your work email.
 >
 > Select Continue, and your agency's usual sign-in page opens.
 >
@@ -98,7 +98,7 @@ Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with
 
 Adding a sign-in routing rule that places new people in the right organization, adding an organization, and giving it seats. To send people to an organization by group, use a [provisioning rule](https://claude.com/docs/government/tenant-admin/identity-and-access.md#provisioning-rules-scim) rather than the identity provider group rule shown in the video. Read more: [Routing rules](https://claude.com/docs/government/tenant-admin/identity-and-access.md#routing-rules).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-03-organizations-seats-and-routing-rules-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=c327b48633e8619e07ced55a9765ede5" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -124,13 +124,13 @@ Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI
 >
 > On Seats, the billing account shows its pool and the organizations it funds. Give Research Office seats and select Save. Its first seats also seat its Primary Owner, and the setup banner clears.
 >
-> To send people to Research Office, add an identity provider group rule for them and drag it above the domain rule. Each person belongs to exactly one organization.
+> Each person belongs to exactly one organization.
 
 ### Directory sync (SCIM) and group mappings
 
 Connecting SCIM provisioning, routing directory groups to organizations, and mapping groups to seat tiers and roles. Read more: [SCIM provisioning](https://claude.com/docs/government/tenant-admin/identity-and-access.md#scim-provisioning) and [Group mappings](https://claude.com/docs/government/org-admin/provisioning.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e254e02786c5f309b5c5c240c7752c4e" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-04-directory-sync-scim-and-group-mappings-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=44cfafd3709ce812b546449ea1dc0752" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
 
 Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -150,7 +150,7 @@ Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI
 >
 > Once a rule covers them, they are placed in its organization, and the list clears on its own.
 >
-> In the organization's admin view, People now includes Group mappings. Map claude-users to a seat tier, here Standard, and claude-owners to the Owner role. Each change is applied right away.
+> In the organization's admin view, People now includes Group mappings. Map claude-users to a seat tier, here Standard, and claude-owners to the Owner role.
 >
 > On Users, the provisioned members now hold their mapped seat tier and role.
 >
@@ -160,7 +160,7 @@ Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI
 
 Checking the **Readiness** page, assigning seat tiers and roles on the **Users** page, and reviewing the **Tiers** page. Read more: [Organization administration](https://claude.com/docs/government/org-admin/overview.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=d235ae566a0056c409a1b59b2a9623e7" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/MtPmUtGcabx4sJAO/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness-v2.mp4?fit=max&auto=format&n=MtPmUtGcabx4sJAO&q=85&s=fbfcdaca92e3c17ff358af64f4f81ae5" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
 
 Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -178,7 +178,7 @@ Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narra
 >
 > Roles are User, Owner, and Primary Owner. Keep at least two Primary Owners, so one can always promote a replacement. From Priya's Role dropdown, Marcus chooses Primary Owner.
 >
-> Tiers lists the seat tiers available to your organization. Anthropic-managed tiers are read-only, and your tenant can let you create your own.
+> Tiers lists the seat tiers available to your organization, and your tenant can let you create your own.
 >
 > Model access comes from the seat tier, never from the role. Tenant administrator is separate from these roles. If directory groups set roles or tiers, change the group in your provider, because the group mappings overwrite edits made by hand.
 
@@ -186,7 +186,7 @@ Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narra
 
 Editing settings on the **Config** page for an organization or for one directory group, turning on web search, reviewing the session idle timeout, and locking a value for every organization from the tenant. Read more: [How Config works](https://claude.com/docs/government/config/overview.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-06-config-essentials.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=8624805f501e6ca7e01e12e6e94602ab" aria-label="Video walkthrough: Config essentials" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/QW2rDqtpaxS9YU5m/images/government/videos/admin-06-config-essentials-v2.mp4?fit=max&auto=format&n=QW2rDqtpaxS9YU5m&q=85&s=96c86f606126bba3b006c1950d4fa19d" aria-label="Video walkthrough: Config essentials" />
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -202,13 +202,13 @@ Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with
 >
 > Under Integrations, Web search is off by default. Turning it on asks you to acknowledge how search works. Require approval for each search stays on, so members approve every search.
 >
-> Under Sessions and access, Session idle timeout signs out inactive members after 24 hours by default. Lower levels can only shorten it, and lowering it applies from the next sign-in.
+> Under Sessions and access, Session idle timeout signs out inactive members after 24 hours by default. Lower levels can only shorten it.
 >
 > In the tenant view, open the same page and set the Claude Desktop banner for everyone. Choose Must use this value, open Preview impact, then save. Every organization now uses this value.
 >
 > Back in the organization's Config, the banner shows Locked by your tenant and cannot be changed there.
 >
-> You do not need to push anything. Claude Desktop checks for changes at launch and about every 10 minutes while it runs, or every 30 minutes on older versions, and prompts members to relaunch when something changed.
+> You do not need to push anything. Claude Desktop checks for changes at launch and about every 10 minutes while it runs, or every 30 minutes on older versions.
 
 ### Connectors and plugins
 
@@ -242,7 +242,7 @@ Video: Connectors and plugins (2 min 8 s). Narrated with an AI-generated voice, 
 
 Connecting one copy of Claude Desktop to Claude for Government with the bootstrap address, signing in, and exporting the configuration for your fleet. Read more: [Configure a single machine](https://claude.com/docs/government/deploy-desktop/configure.md#configure-a-single-machine).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-08-pilot-claude-desktop-on-one-machine.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=753d21fb976775a19f3cca9521b738b3" aria-label="Video walkthrough: Pilot Claude Desktop on one machine" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/f0r7JXkdrdWXuNu4/images/government/videos/admin-08-pilot-claude-desktop-on-one-machine-v2.mp4?fit=max&auto=format&n=f0r7JXkdrdWXuNu4&q=85&s=ea3b436b903baf714ef2cb0a7279c8ca" aria-label="Video walkthrough: Pilot Claude Desktop on one machine" />
 
 Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -260,7 +260,7 @@ Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-gen
 >
 > Then a small window, Apply settings from your organization, lists a Gateway base URL. Confirm it is on your host and select Allow.
 >
-> For your fleet, turn on Disable Claude.ai sign-in under Workspace, keep the trust switch off, and use Export for the macOS, Jamf, Intune, or Group Policy files.
+> For your fleet, keep the trust switch off, and use Export for the macOS, Jamf, Intune, or Group Policy files.
 >
 > One end-to-end check is a short Claude Desktop banner on the Config page. If it appears in the app after sign-in, per-user delivery works.
 
@@ -290,7 +290,7 @@ Video: Deploy to your fleet (1 min 31 s). Narrated with an AI-generated voice, w
 
 What a correctly managed device shows, and the usual causes of an empty model picker, a claude.ai sign-in screen, a repeated settings prompt, and an expired session. Read more: [Confirm it worked](https://claude.com/docs/government/deploy-desktop/configure.md#confirm-it-worked) and [Troubleshooting](https://claude.com/docs/government/deploy-desktop/configure.md#troubleshooting).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3a725133f700322bdfcf0d684f9fd1c8" aria-label="Video walkthrough: Verify a managed device and spot common failures" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/f0r7JXkdrdWXuNu4/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures-v2.mp4?fit=max&auto=format&n=f0r7JXkdrdWXuNu4&q=85&s=03c3b66f877fa1a3e80ce7a23b1176e8" aria-label="Video walkthrough: Verify a managed device and spot common failures" />
 
 Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.
 

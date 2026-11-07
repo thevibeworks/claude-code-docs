@@ -40,9 +40,9 @@ A **billing account** is where your agency's credits and seats live. Anthropic s
 
 ## The three views
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-01-finding-your-way-around.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e815e7d6b488de1c9629bfaa2f1354ab" aria-label="Video walkthrough: Finding your way around" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/mGbOjjHMKV3LYuqi/images/government/videos/admin-01-finding-your-way-around-v2.mp4?fit=max&auto=format&n=mGbOjjHMKV3LYuqi&q=85&s=4aaba8c318c1a044b343874cc64c95c3" aria-label="Video walkthrough: Finding your way around" />
 
-Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Finding your way around (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
 [Transcript](https://claude.com/docs/government/video-walkthroughs.md#finding-your-way-around)
 

@@ -12,7 +12,7 @@ This article covers Team plans purchased directly on the web.
 
 Learn more about **[how your Team plan bill is calculated](https://support.claude.com/en/articles/9267289)**.
 
-**Usage credit receipts.** If your organization has enabled usage credits, each purchase of funds is charged separately from your subscription and has its own receipt. This includes purchases made automatically by auto-reload and any usage bundles an owner buys.
+**Usage credit receipts.** If your organization has enabled usage credits, each usage credit purchase is charged separately from your subscription and has its own receipt. This includes purchases made automatically by auto-reload and any usage bundles an owner buys.
 
 Learn more about **[managing usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970)**.
 

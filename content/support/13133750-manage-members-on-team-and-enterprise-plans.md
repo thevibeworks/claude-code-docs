@@ -168,7 +168,7 @@ Before you use it:
 
 ### Can I invite someone who already uses Claude personally with their work email?
 
-Yes. Once they join your team, they'll have both a personal account and a Team or Enterprise plan account. They can toggle between accounts through the menu by clicking their initials or name in the lower left corner.
+Yes. Once they join your team, they'll have both a personal account and a Team or Enterprise plan account. They can toggle between accounts through the menu by clicking their initials or name in the lower left corner. They can keep both accounts (unless your organization has claimed their account) or close the personal one. Not everything moves. Learn more in **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
 
 ### How do I add a member that I previously removed?
 

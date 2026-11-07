@@ -410,7 +410,7 @@ Browser sign-in works on tenants without device-based Conditional Access policie
 > ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID
 > ```
 >
-> If a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself carries the device identity (see above); fix the broker requirement that caused the fallback and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
+> If a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically.
 >
 > A missing broker redirect URI does not trigger the fallback on Windows. The broker shows Entra error `AADSTS50011` in its own sign-in dialog, and closing that dialog counts as canceling, so every sign-in attempt ends at the same error until you register the URI above. To have users sign in through the browser instead of the broker, set [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `disabled` in the managed configuration. Tokens from browser sign-in carry no device identity claim unless the browser itself provides one (see above), so device-based Conditional Access policies block them.
 >
@@ -431,7 +431,9 @@ Browser sign-in works on tenants without device-based Conditional Access policie
 >
 > If the app registration also lists `msauth.com.anthropic.claudefordesktop.helper://auth`, remove that entry. Claude Desktop does not use it.
 >
-> If the broker rejects the app's sign-in request, or a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself is signed in through the device's SSO integration; fix the broker requirement that caused the fallback (most often a missing broker redirect URI or SSO profile) and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
+> If the broker rejects the app's sign-in request, or a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically. A fallback most often comes from a missing broker redirect URI or SSO profile.
+
+After a brokered attempt falls back to the system browser, the connector stays on the browser flow until Claude Desktop restarts. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself carries the device identity. Fix the broker requirement that caused the fallback, then restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event. A user canceling the broker dialog doesn't trigger the fallback.
 
 ### Token storage and sign-out
 

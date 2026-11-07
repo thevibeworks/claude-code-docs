@@ -1,6 +1,6 @@
 # Request a refund for a paid Claude plan
 
-**Important:** Except as expressly provided in our **[Consumer Terms of Service](https://www.anthropic.com/legal/consumer-terms)** or where required by law, all payments are non-refundable.
+**Important:** Except as expressly provided in our **[Consumer Terms of Service](https://www.anthropic.com/legal/consumer-terms)**, where required by law, or in cases of fraud, all payments are non-refundable.
 
 To request a refund for a payment defined as refundable in our Terms of Service, follow these instructions:
 
@@ -27,6 +27,14 @@ To request a refund for a payment defined as refundable in our Terms of Service,
 In the European Economic Area and the United Kingdom, you may receive a refund within 14 days of purchase. You may find this option available in your **Settings**. Your refunds will be prorated according to your use.
 
 ---
+
+## Refunds for usage credits
+
+Usage credit purchases are non-refundable, including when you cancel your subscription or delete your account. Credits you've already used are never refunded.
+
+The exceptions are where local law gives you a refund right for unused credits, and cases of fraud.
+
+If you're eligible, follow the refund request steps at the top of this article. Learn more about **[managing usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409)**.
 
 ## What should I do if I can't access the account I'm requesting a refund for?
 

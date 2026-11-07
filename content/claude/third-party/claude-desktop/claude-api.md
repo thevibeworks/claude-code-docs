@@ -30,6 +30,10 @@ On Claude Desktop 4.16336.0 or later, to stop the sign-in on devices that use st
 
 Under a profile that manages the configuration, the app ignores any configuration that an earlier Claude API account sign-in saved. A profile can itself select the Claude API with no static key or credential helper. Users then sign in with **Sign in with Claude Console**, and each selects the Console organization that their usage is billed to, as described under [Choose an authentication approach](#choose-an-authentication-approach). A user who already signed in with Claude Console keeps that sign-in, and the Console organization they chose, until the app next asks them to sign in.
 
+> [!NOTE]
+>
+> If the profile also sets `forceLoginOrgUUID`, [add the ID of each Console organization that you allow](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile) to that key.
+
 ## Configure the app
 
 ### Configuration keys

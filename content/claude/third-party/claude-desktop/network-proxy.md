@@ -101,7 +101,7 @@ The table summarizes which proxy source each kind of traffic follows. "App proxy
 
 ## Traffic that bypasses the app proxy
 
-Some traffic never uses the pinned key or the proxy the app resolved.
+Some traffic doesn't follow the pinned key or the proxy the app resolved, or follows them only in some cases.
 
 * **App updates.** Checking for and downloading Claude Desktop updates is handled by the OS-native updater on macOS and Windows, which follows the OS proxy settings only. This is the one app-controlled path with no admin-side option other than the OS proxy: neither the pinned key nor Claude Code managed settings reach it. If updates must not traverse a direct path, configure the OS proxy on the device or distribute updates yourself with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration) and your software-distribution tool. On Linux, updates come from your package manager, which has its own proxy configuration.
 * **Commands in Cowork's sandboxed shell.** No proxy settings reach the Cowork sandbox on Linux, so `curl`, `pip`, `npm`, `git`, and anything else the agent runs there connect directly. On macOS and Windows those commands follow the pinned key, or the OS proxy settings when no key is set. When the key or the OS settings name a PAC script, the commands follow it only while the sandbox has [its copy of the script](#pac-script-for-the-sandboxed-shell). If the download of a pinned PAC script fails when the sandbox starts, the commands connect directly until the sandbox next starts. On every platform, [`coworkEgressAllowedHosts`](https://claude.com/docs/third-party/claude-desktop/web-tools) still applies inside the sandbox and sits in front of any proxy.
@@ -164,7 +164,7 @@ These settings reach the agent process only. The app itself and Cowork's sandbox
 
 ## TLS-intercepting proxies
 
-If your proxy performs TLS interception, it presents its own certificate authority. The app trusts the operating system's certificate store. On macOS, the app also configures the agent to trust the System keychain in addition to the bundled CA roots, so a corporate CA installed there normally works without extra setup.
+If your proxy performs TLS interception, it presents its own certificate authority. The app trusts the operating system's certificate store. On macOS, the app also configures the agent to trust the System keychain in addition to the bundled CA roots, so a corporate CA installed there normally works without extra setup. To clone a [git plugin marketplace](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), the app runs the device's `git`, which reads git's system-level configuration, not the user's own.
 
 If inference or tool requests still fail certificate verification, the CA was likely added with policy-restricted trust: certificates installed via `security add-trusted-cert -p ssl …` are trusted by Safari and Chrome but are not picked up by the agent's keychain reader. Re-add the CA with full root trust (omit `-p`):
 

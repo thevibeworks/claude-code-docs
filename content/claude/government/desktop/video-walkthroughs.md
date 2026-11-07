@@ -48,9 +48,9 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 
 Copying your conversations and projects from Claude for Government Web into Claude Desktop. Read more: [Run the import](https://claude.com/docs/government/desktop/import.md#run-the-import).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/E-5jO-7jUk7PUSA3/images/government/videos/user-02-bringing-your-chats-and-projects-over-v3.mp4?fit=max&auto=format&n=E-5jO-7jUk7PUSA3&q=85&s=ad5cab0c028626b511eac61a29653fbf" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/G8LW177rlshvdwBY/images/government/videos/user-02-bringing-your-chats-and-projects-over-v4.mp4?fit=max&auto=format&n=G8LW177rlshvdwBY&q=85&s=6e910cb7502932bbc23e9a0e43a5ae91" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
 
-Video: Bringing your chats and projects over from Claude for Government Web (2 min 11 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 9 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
@@ -66,33 +66,33 @@ Video: Bringing your chats and projects over from Claude for Government Web (2 m
 >
 > Select Continue, review what will be added, then select Import. When it finishes, the dialog reports what came over. Select Done.
 >
-> Your conversations appear in the sidebar with their files, and your projects under Projects with their files and instructions. Projects other people shared with you do not come over.
+> Your conversations appear in the sidebar, and your projects under Projects. Projects other people shared with you do not come over.
 >
 > Imported chats open in Chat. The first time you continue one, Claude asks whether to resume the imported session. Select Trust and resume to continue the conversation.
 >
 > A project that had instructions shows a notice. Claude won't follow imported instructions until you accept them: select Review instructions, check them, and save, or choose Use as is.
 >
-> The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
+> The import only copies. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
 
 ### Connectors, plugins, and skills from your agency
 
 Connecting Microsoft 365, installing plugins your organization offers, and adding a skill, all from **Customize** in the sidebar. Read more: [Plugins in Claude Desktop](https://claude.com/docs/government/desktop/plugins.md) and [Skills in Claude Desktop](https://claude.com/docs/government/desktop/skills.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/z_GoItRVM-_PvPPB/images/government/videos/user-04-connectors-plugins-and-skills-v2.mp4?fit=max&auto=format&n=z_GoItRVM-_PvPPB&q=85&s=eaffd949e3db69655dc5f51403a9978b" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
 
-Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Connectors, plugins, and skills from your agency (2 min). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
 > Open Customize in the sidebar for your skills, connectors, and plugins. A connector lets Claude reach another service. The ones you can use come from your organization: here, Microsoft 365 and Web Search.
 >
-> If your organization has set up Microsoft 365, select Connect and sign in with your Microsoft work account. Claude can then search your mail, calendar, files, and Teams chats, reaching only what you can already open.
+> If your organization has set up Microsoft 365, select Connect and sign in with your Microsoft work account. Claude can then search your mail, calendar, and files, and can read your chats in Teams, reaching only what you can already open.
 >
-> In a chat, ask about your mail, and Claude asks before it searches. The card shows the search it wants to run. Allow it once, allow it for this task, or deny it.
+> In a chat, ask about your mail, and Claude asks before it searches. You can allow it once, always allow it, or deny it.
 >
 > A plugin packages skills and commands from your organization. Plugins lists the ones already installed. Some install automatically. Open one to see its skills and switch it on or off.
 >
-> To find the rest, select Browse and open the Organization tab, which lists everything your organization offers you. Each plugin's plus sign installs it, and it then appears under Plugins.
+> To find the rest, select Discover and open the Organization tab, which lists everything your organization offers you. Select a plugin's plus sign to install it, and it then appears under Plugins.
 >
 > A skill teaches Claude one task your way, set up once and reused. If your organization allows it, select Add under Skills. Upload skill takes a skill file you have, and Create a skill lets you write one.
 >
@@ -106,15 +106,15 @@ Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated wi
 
 The **Account**, **Usage**, and **Sessions** pages, signing in again after an idle timeout, the diagnostic report, and who to ask for what. Read more: [Your account](https://claude.com/docs/government/account/overview.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-05-your-account-usage-limits-and-getting-help.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=691f1dc9497295c364c0e8f81020b942" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gRdviWIlfWMOOdqO/images/government/videos/user-05-your-account-usage-limits-and-getting-help-v3.mp4?fit=max&auto=format&n=gRdviWIlfWMOOdqO&q=85&s=51cbb68408f3ca928c1c4266f54b313f" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
 
-Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Your account, usage limits, and getting help (1 min 54 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
-> Your account pages are in the web portal. In a browser, open your agency's Claude for Government address and sign in. Account shows your email, organization, role, and seat tier, all read-only.
+> Your account pages are in the web portal. In a browser, open your agency's Claude for Government address followed by /gateway, and sign in. Account shows your email, organization, role, and seat tier, all read-only.
 >
-> Usage shows your allowance: a 5-hour window and a 7-day window, each with the share you have used and when it resets. If either reaches 100 percent, Claude pauses until that window resets. Claude Desktop itself does not show this allowance.
+> Usage shows your allowance: a 5-hour window and a 7-day window, each with the share you have used and when it resets. If either reaches 100 percent, Claude pauses until that window resets.
 >
 > Sessions lists every place you are signed in, whether in a browser or in Claude Desktop, and when each sign-in began. To sign out a computer you no longer have, select Sign out on its row.
 >
@@ -124,6 +124,6 @@ Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with 
 >
 > If something isn't working, your help desk may ask for a diagnostic report. From Help, choose Troubleshooting, then Generate Diagnostic Report.
 >
-> The dialog lists what goes in: app and system details, your configuration with secrets removed, network checks, and recent errors. It never includes your conversations. Select Export to file and attach the file to your ticket.
+> In the dialog that opens, select Export to file. Then review the files in the saved .zip file before you attach it to your ticket, so you know what you are sharing.
 >
 > Who to ask: your organization's owner for a seat, a larger allowance, or a wrong organization or role. Your IT help desk for anything about the app on your computer. Your administrators can take it from there.

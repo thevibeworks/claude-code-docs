@@ -48,6 +48,10 @@ Once usage credits are enabled:
 
 Your bundle balance appears in your usage dashboard and draws down as you use Claude beyond your plan's included limits.
 
+## Expiration and refunds
+
+Bundle purchases are non-refundable. When a bundle expires depends on your plan and where you live. For more information, see **[usage credit expiration and refunds](https://support.claude.com/en/articles/12429409)** for Pro, Max, and Ultra plans, or **[managing usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970)**.
+
 ---
 
 ## Frequently asked questions

@@ -1,6 +1,6 @@
 # Export your Claude data
 
-Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include conversation data and the user data for your account. Data exports don’t yet include your saved Personal Finance dashboard.
+Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include your chats, projects, memory, and account data. They don't include the original files you uploaded. Data exports don’t yet include your saved Personal Finance dashboard.
 
 If you’re on a Team or Enterprise plan, you can export your own data once an organization Owner or Primary Owner turns this on. Primary Owners export the whole organization’s data instead.
 
@@ -22,9 +22,9 @@ Please note:
 
 - You must be signed in to your account to download your data using this link.
 
-- The download link will expire 24 hours after delivery.
+- The download link will expire 24 hours after it's created, and it may work only once, so download the file right away.
 
-- If your link expires, you can always request a new one by repeating the export process.
+- If your link expires, you can request a new one by repeating the export process. If the link was emailed to you because your personal account closed, you can't repeat the export. If it has expired or won't open, **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support#h_d6fc679aa4)** soon: once the account's data is deleted, the export can't be sent again. An owner of your organization may need to reach out for you.
 
 ---
 
@@ -40,4 +40,4 @@ If you’re on a Team or Enterprise plan, you can export your own chats by follo
 
 Exported data can't be imported into another personal Claude account, and we don't support migrating data between personal accounts.
 
-If you're joining a Team or Enterprise organization, you don't need an export to bring your work with you—you can migrate your personal account directly into the organization's workspace. For details, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
+If you're joining a Team or Enterprise organization, you can bring much of your work directly into the organization's workspace without an export. Not everything moves. You can do this only if you use the same email address for your personal account and your organization. For details, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.

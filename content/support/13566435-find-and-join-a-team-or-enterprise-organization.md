@@ -66,9 +66,9 @@ If you have a Free, Pro, Max, or Ultra account on the same email address as the 
 
 - **Keep both accounts.** Your personal account stays active, and you switch between it and your organization account from your account menu.
 
-- **Use your organization account only.** Your personal account closes. You choose whether to bring your data with you or delete it.
+- **Use your organization only.** You choose "Bring what you can" or "Start fresh" (nothing moves). Then your personal account closes and will be deleted, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
 
-Some things don't move either way, including custom skills and your connected apps. Before you choose, review **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
+Even with "Bring what you can," not everything moves. For example, custom skills, Claude Docs, and your connected apps don't. Before you choose, review **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
 
 On Team plans, you're prompted when you accept the invite. On Team and Enterprise plans, you can start the migration from **[Settings > Account](https://claude.ai/settings/account)** at any time after joining. Start from your organization account rather than your personal one—if you're signed in to the personal account, switch first by clicking your initials or name in the lower left corner.
 

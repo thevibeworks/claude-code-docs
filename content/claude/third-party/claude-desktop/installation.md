@@ -22,6 +22,7 @@ On Windows, Cowork requires the `.msix` package: fleets provisioned with the leg
 
 Check these on Windows devices before rollout:
 
+* **Apps from outside the Microsoft Store**: make sure Windows policy allows trusted app packages to install from outside the Microsoft Store. If your security baseline configures **Allow all trusted apps to install** (the `ApplicationManagement/AllowAllTrustedApps` policy), set it to enabled. Windows Developer Mode isn't required. If provisioning the `.msix` package fails with error `0x80073CFF`, check this policy.
 * **Log on as a service**: Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace).
 * **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](https://claude.com/docs/third-party/claude-desktop/extensions.md#hooks-on-windows-devices-without-git-for-windows).
 * **Virtual desktops**: on virtual desktop infrastructure, Windows itself runs in a virtual machine, so Cowork's virtual machine starts only where the hosting platform exposes nested virtualization to that virtual machine. Run the [readiness check](#check-device-readiness) on one desktop in each pool.
@@ -134,15 +135,28 @@ The report contains the configuration state, application logs, and environment d
 
 ### Cowork workspace or Claude CLI fails to download
 
-Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude CLI binary (the agent helper described under [Endpoint security software](#endpoint-security-software)) from `downloads.claude.ai` whenever a device does not have the versions the app needs. When the workspace download fails or the downloaded file does not pass verification, the app shows **Couldn't download Claude's workspace** or **Failed to start Claude's workspace**, with the download error under it, for example a message that begins "Claude's workspace download was not the expected file", "Claude's workspace download could not be unpacked on this computer", "Checksum mismatch", "Download failed", or "Request error". When the Claude CLI download fails on a device that has no earlier copy, Chat conversations and Cowork tasks fail to start with "Host Claude Code binary not available. Check that the download completed."
+Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude CLI binary (the agent helper described under [Endpoint security software](#endpoint-security-software)) from `downloads.claude.ai` whenever a device does not have the versions the app needs. A failed download has these signs:
 
-Restarting the app tries the download again, which is enough when an earlier attempt was only interrupted. When the same message returns on every attempt, the usual cause is a proxy, secure web gateway, or web filter between the device and `downloads.claude.ai`. Such equipment can block the app's requests, cut off the transfer partway (the workspace bundle is more than 1 GB), or return its own page in place of the file. Less often, security software on the device locks or quarantines the downloaded files.
+* **Workspace**: when the download fails or the downloaded file does not pass verification, the app shows **Couldn't download Claude's workspace** or **Failed to start Claude's workspace**, with the download error under it, for example a message that begins "Claude's workspace download was not the expected file", "Claude's workspace download could not be unpacked on this computer", "Checksum mismatch", "Download failed", or "Request error".
+* **Claude CLI binary, no earlier version on the device**: Chat conversations and Cowork tasks fail to start with "Host Claude Code binary not available. Check that the download completed."
+* **Claude CLI binary, earlier version on the device**: Chat conversations and Cowork tasks still run on that version. The first sign of the failure can be a message in the [claude.ai import wizard](https://claude.com/docs/third-party/claude-desktop/import.md#troubleshoot-an-import-or-export). Don't remove that version. Conversations and tasks need it until the download succeeds.
+
+If an earlier attempt was only interrupted, another attempt is enough. To start another attempt, have the user do one of these for the download that failed:
+
+* **Workspace**: start or open a Cowork task, or click **Retry** on the **Couldn't download Claude's workspace** message. Where Cowork is on, the app also tries this download after a restart, unless [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) is `true`.
+* **Claude CLI binary**: start a new conversation or task. The app also tries this download after a restart, unless [`isClaudeCodeForDesktopEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isclaudecodefordesktopenabled) is `false`, which turns Code off. Claude Desktop 4.23118.0 or later also tries this download when the user clicks **Import** in the import wizard.
+
+When the same message returns on every attempt, the usual cause is a proxy, secure web gateway, or web filter between the device and `downloads.claude.ai`. Such equipment can block the app's requests, cut off the transfer partway (the workspace bundle is more than 1 GB), or return its own page in place of the file. Less often, security software on the device locks or quarantines the downloaded files.
+
+To see whether the app reaches `downloads.claude.ai`, generate the [diagnostic report](#troubleshooting) on the device and open `reachability.txt` in the `.zip` file. The line for `downloads.claude.ai` starts with `✗` when the app's request failed and with `✓` when the app got any answer. That answer can come from a proxy. A `✓` doesn't show that files arrive complete.
+
+Make the change that fits your network:
 
 * Allow Claude Desktop itself, not only browsers, to reach `downloads.claude.ai`, as listed under [Required egress paths](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths). The download follows the app's proxy settings, described under [Network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md).
 * If a proxy or secure web gateway inspects this traffic, make sure files from `downloads.claude.ai` reach the device complete and unchanged.
 * On a network that cannot allow these downloads, deploy the [offline installer](#offline-installation), which includes both components.
 
-Once the device can download from `downloads.claude.ai`, have the user restart Claude Desktop and start a new conversation or task, so that the app downloads what is missing. If the messages persist, generate the diagnostic report described under [Troubleshooting](#troubleshooting) and send it to your Anthropic representative. It includes the errors the app logged for these downloads.
+Once the device can download from `downloads.claude.ai`, have the user restart Claude Desktop and then start another attempt at each download that failed. If the messages persist, generate the diagnostic report described under [Troubleshooting](#troubleshooting) and send it to your Anthropic representative. It includes the errors the app logged for these downloads.
 
 ### Windows security policy blocks the Cowork workspace
 
@@ -235,7 +249,7 @@ The host still has to reach your inference endpoint and, if configured, your OTL
 
 By default, Claude Desktop downloads updates from Anthropic's update server automatically. On macOS and Windows, it then restarts itself to install the update after 10 minutes with no Claude window in use and no task running. On macOS it reopens by itself; on Windows, it may stay closed until someone opens it.
 
-If the update still isn't installed 72 hours after the download, the app restarts itself, waiting for 10 minutes of user inactivity before doing so. This enforcement is always on and offers no in-app prompt to defer the restart; the `autoUpdaterEnforcementHours` key tunes the 72-hour window rather than enabling it. With or without the key, the restart waits while Claude is working on a task or the update server gives no answer.
+If the update still isn't installed 72 hours after the download, the app restarts itself, waiting for 10 minutes of user inactivity before doing so. This enforcement is always on and offers no in-app prompt to defer the restart; the `autoUpdaterEnforcementHours` key tunes the 72-hour window rather than enabling it. The hours count only while the app is open and the computer is awake. With or without the key, the restart waits while Claude is working on a task or the update server gives no answer.
 
 In 3P deployments you can:
 
@@ -245,12 +259,12 @@ In 3P deployments you can:
 
 > [!WARNING]
 >
-> `stable` is the default. Moving a device from `staggered` to `stable` updates it to a newer release, and setting `staggered` again doesn't move it back to the older one. Removing `releaseChannel`, or setting it only where the device doesn't read it, does the same.
+> `stable` is the default. Moving a device from `staggered` to `stable` updates it to a newer release, and setting `staggered` again doesn't move it back to the older one. Removing `releaseChannel`, or setting it only where the device doesn't read it, does the same. A device on `staggered` that's ahead of the `staggered` release gets no updates until `staggered` passes its version.
 
 Set `releaseChannel` in:
 
 * **An MDM profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)**: put the key in that profile, even if the device also has a bootstrap server or the admin console
-* **A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)**: return the key from the server
+* **A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)**: return the key from the server, because [its response replaces the value in the profile that sets `bootstrapUrl`](https://claude.com/docs/third-party/claude-desktop/configuration-format#which-configuration-source-applies-on-a-device)
 * **The [admin console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: open **Organization settings**, go to the **Telemetry & updates** page, and set the **Release channel**
 * **Any other configuration, with no bootstrap server and no admin console**, such as an MDM profile that sets the inference provider: put the key with the rest of that configuration
 

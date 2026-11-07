@@ -64,7 +64,7 @@ Configuration takes effect **at launch**, so fully quit and reopen the app after
 
 ### Value types in a profile or registry policy
 
-Write every value as a **string** in the OS preference store, even booleans and arrays. This rule applies to plist and registry sources. [The Linux file](#the-linux-configuration-file) and a [bootstrap response](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#response-schema) take JSON values. Each key's entry in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) gives the key's type and the values or fields it accepts.
+In a plist or registry source, every value can be a **string**, even booleans and arrays. The app also reads a native boolean or integer (`<true/>`, `<false/>`, or `<integer>` in a profile, `REG_DWORD` in the registry), which is what its own export writes. [The Linux file](#the-linux-configuration-file) and a [bootstrap response](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#response-schema) take JSON values. Each key's entry in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) gives the key's type and the values or fields it accepts.
 
 | Documented type | What to write | Example |
 | - | - | - |

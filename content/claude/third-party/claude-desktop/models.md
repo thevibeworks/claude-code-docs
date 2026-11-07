@@ -43,6 +43,8 @@ In Code sessions, the cap also limits Claude Code's own effort settings, such as
 
 [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort) sets the effort level the default model starts at, in place of its recommended level. Other models keep their recommended level. If you set a level the default model doesn't offer, or one above its `maxEffort`, the default model starts at the nearest lower level it offers.
 
+In Code, the `CLAUDE_CODE_EFFORT_LEVEL` environment variable or `effortLevel` in Claude Code's settings takes priority.
+
 `defaultModelEffort` also applies when [model discovery](https://claude.com/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
 
 ### Map an unrecognized model ID to a Claude model

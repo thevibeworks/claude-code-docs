@@ -6,6 +6,8 @@ You may cancel your Pro, Max, or Ultra plan subscription at any time by followin
 
 - To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
 
+- Cancelling doesn't refund any usage credits you've purchased. Your balance stays on your account, but usage credits can only be used with an active paid plan. Learn more about **[usage credit expiration and refunds](https://support.claude.com/en/articles/12429409-manage-usage-credits-for-paid-claude-plans#h_3499c80e6a)**.
+
 - Monthly API credits included with Max, Ultra, and Team plans aren’t purchased, so they can’t be refunded. They expire at the end of each billing cycle. If you cancel or get a refund for your plan, new monthly credits stop, and credits you already have stay usable until they expire.
 
 - If you use Personal Finance, you can’t open it after your paid plan ends, and your banks stay linked until you unlink them. If you don’t plan to come back, unlink your banks before your plan ends. Learn more in **[Use Personal Finance in Claude](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**.
