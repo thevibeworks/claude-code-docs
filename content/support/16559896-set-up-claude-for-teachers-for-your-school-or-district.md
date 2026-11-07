@@ -30,7 +30,7 @@ You'll need your school or district email, a document showing your role (such as
 
 4. **Set up SSO and automatic account creation.** Connect your identity provider, turn on Require SSO, turn on just-in-time or SCIM provisioning, and turn on Restrict organization creation so district emails can't create personal Claude accounts. Once automatic account creation is on, email invitations are disabled. See **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
 
-5. **Bring your teachers in.** Click Migrate accounts to start a 30-day window. Every existing Claude account on your domain, including individual Claude for Teachers accounts, is notified and chooses to move everything, start over, or do nothing (the account closes at the deadline; data is kept so Support can recover it). Teachers who join later sign in with SSO and land in your organization directly. See Claim and migrate accounts on your domain.
+5. **Bring your teachers in.** Click Migrate accounts to start a 30-day window. Every existing Claude account on your domain, including individual Claude for Teachers accounts, is notified and chooses to move everything, start over, or do nothing. Teachers who join later sign in with SSO and land in your organization directly. See Claim and migrate accounts on your domain.
 
 ## Manage your organization
 

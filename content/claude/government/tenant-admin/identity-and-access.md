@@ -89,7 +89,7 @@ Until your tenant has a verified domain, only tenant administrators can get a li
 
 ## SCIM provisioning
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e254e02786c5f309b5c5c240c7752c4e" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-04-directory-sync-scim-and-group-mappings-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=44cfafd3709ce812b546449ea1dc0752" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
 
 Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -124,7 +124,7 @@ Once your identity provider has pushed groups over SCIM, they appear here with t
 
 ## Routing rules
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-03-organizations-seats-and-routing-rules-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=c327b48633e8619e07ced55a9765ede5" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 

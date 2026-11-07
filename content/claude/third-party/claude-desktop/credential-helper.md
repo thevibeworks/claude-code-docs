@@ -21,7 +21,7 @@ Claude Desktop runs the executable at the configured path and reads stdout. The 
 Stdout must contain exactly one of the following, with no banners, prompts, or log lines mixed in:
 
 * **A single bare token.** The whole trimmed stdout becomes the bearer token.
-* **A JSON object**, when per-request headers are needed:
+* **A JSON object**, when the helper also supplies request headers:
 
   ```json theme={null}
   { "token": "...", "headers": { "X-Org-Route": "prod" } }

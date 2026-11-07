@@ -62,7 +62,7 @@ The configuration that the app downloads for a user includes [product availabili
 
 ## Configure a single machine
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-08-pilot-claude-desktop-on-one-machine.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=753d21fb976775a19f3cca9521b738b3" aria-label="Video walkthrough: Pilot Claude Desktop on one machine" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/f0r7JXkdrdWXuNu4/images/government/videos/admin-08-pilot-claude-desktop-on-one-machine-v2.mp4?fit=max&auto=format&n=f0r7JXkdrdWXuNu4&q=85&s=ea3b436b903baf714ef2cb0a7279c8ca" aria-label="Video walkthrough: Pilot Claude Desktop on one machine" />
 
 Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -202,7 +202,7 @@ On Linux, apt installs Claude Desktop updates, and the app does not download or 
 
 ## Confirm it worked
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3a725133f700322bdfcf0d684f9fd1c8" aria-label="Video walkthrough: Verify a managed device and spot common failures" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/f0r7JXkdrdWXuNu4/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures-v2.mp4?fit=max&auto=format&n=f0r7JXkdrdWXuNu4&q=85&s=03c3b66f877fa1a3e80ce7a23b1176e8" aria-label="Video walkthrough: Verify a managed device and spot common failures" />
 
 Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.
 

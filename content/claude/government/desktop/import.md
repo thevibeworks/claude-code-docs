@@ -45,9 +45,9 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 
 ## Run the import
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/E-5jO-7jUk7PUSA3/images/government/videos/user-02-bringing-your-chats-and-projects-over-v3.mp4?fit=max&auto=format&n=E-5jO-7jUk7PUSA3&q=85&s=ad5cab0c028626b511eac61a29653fbf" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/G8LW177rlshvdwBY/images/government/videos/user-02-bringing-your-chats-and-projects-over-v4.mp4?fit=max&auto=format&n=G8LW177rlshvdwBY&q=85&s=6e910cb7502932bbc23e9a0e43a5ae91" aria-label="Video walkthrough: Bringing your chats and projects over from Claude for Government Web" />
 
-Video: Bringing your chats and projects over from Claude for Government Web (2 min 11 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Bringing your chats and projects over from Claude for Government Web (2 min 9 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
@@ -63,13 +63,13 @@ Video: Bringing your chats and projects over from Claude for Government Web (2 m
 >
 > Select Continue, review what will be added, then select Import. When it finishes, the dialog reports what came over. Select Done.
 >
-> Your conversations appear in the sidebar with their files, and your projects under Projects with their files and instructions. Projects other people shared with you do not come over.
+> Your conversations appear in the sidebar, and your projects under Projects. Projects other people shared with you do not come over.
 >
 > Imported chats open in Chat. The first time you continue one, Claude asks whether to resume the imported session. Select Trust and resume to continue the conversation.
 >
 > A project that had instructions shows a notice. Claude won't follow imported instructions until you accept them: select Review instructions, check them, and save, or choose Use as is.
 >
-> The import only copies. Your chats and projects stay in the web app too. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
+> The import only copies. You can run it again, and chats already imported are skipped. If the Import and export page says import isn't enabled, update Claude Desktop. If it still says so, ask your administrator.
 
 You start the import yourself from **Settings**, whenever you are ready. If Claude Desktop's home screen shows a **Pick up where you left off in Claude for Government Web** banner, its **Start import** button takes you to the **Import & export** page in **Settings**. If you click **Skip for now** or close the banner, it can come back a few days later, until you run the import or have skipped it a few times. Claude Desktop versions earlier than 2.16120.0 hide the banner permanently after one skip.
 

@@ -16,13 +16,13 @@ If you are a regular user with no administrative role, this is where you land im
 
 ## What's here
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-05-your-account-usage-limits-and-getting-help.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=691f1dc9497295c364c0e8f81020b942" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gRdviWIlfWMOOdqO/images/government/videos/user-05-your-account-usage-limits-and-getting-help-v3.mp4?fit=max&auto=format&n=gRdviWIlfWMOOdqO&q=85&s=51cbb68408f3ca928c1c4266f54b313f" aria-label="Video walkthrough: Your account, usage limits, and getting help" />
 
-Video: Your account, usage limits, and getting help (1 min 57 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Your account, usage limits, and getting help (1 min 54 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
-> Your account pages are in the web portal. In a browser, open your agency's Claude for Government address and sign in. Account shows your email, organization, role, and seat tier, all read-only.
+> Your account pages are in the web portal. In a browser, open your agency's Claude for Government address followed by /gateway, and sign in. Account shows your email, organization, role, and seat tier, all read-only.
 >
 > Usage shows your allowance: a 5-hour window and a 7-day window, each with the share you have used and when it resets. If either reaches 100 percent, Claude pauses until that window resets.
 >

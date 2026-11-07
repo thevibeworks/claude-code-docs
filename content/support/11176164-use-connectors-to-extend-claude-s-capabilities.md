@@ -214,9 +214,7 @@ When connecting to services from the directory, review what access the service i
 
 - Access permissions are enforced at the user level. Users need to authenticate with the third-party service when first using the connector, even after an Owner or Primary Owner enables it, unless the connector uses a shared credential.
 
-- Connectors are only available in private projects.
-
-- Chats with synced content can't be shared.
+- If your organization turns off **Share chats that use connectors**, users can’t share chats that use connectors or synced content. This includes every chat in a project that has synced content.
 
 ---
 

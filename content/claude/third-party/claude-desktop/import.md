@@ -285,11 +285,13 @@ For an export file from another device, see [What a Claude Desktop export moves]
 
 ## Troubleshoot an import or export
 
+For an export file from another device, see [Problems when you move to another device](#problems-when-you-move-to-another-device).
+
 Claude Desktop runs each claude.ai import through the Claude CLI binary, the [helper program](https://claude.com/docs/third-party/claude-desktop/installation.md#endpoint-security-software) that also runs your conversations. Unless your organization deploys the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#offline-installation), Claude Desktop downloads the version of the binary it needs separately from the app, when you start a new conversation or task. If this computer doesn't have that version when you click **Import**, Claude Desktop 4.23118.0 or later tries to download it first, and the wizard shows **Downloading the program that converts your chats…** while you wait.
 
 ### The import can’t start until a one-time download finishes
 
-The wizard shows this message when this computer has no version of the Claude CLI binary that can import a claude.ai export, and the download isn't finished. A running download continues after the message appears. Running the import again retries a failed download. Wait a few minutes, then run the import again.
+The wizard shows this message when this computer has no version of the Claude CLI binary that can import a claude.ai export, and the download isn't finished. If you sign in to fetch the export, the message can appear right after you click **Fetch export**, under **Couldn’t fetch your export**. A running download continues after the message appears. Running the import again retries a failed download. Wait a few minutes, then run the import again.
 
 If the message comes back, ask your administrator to follow [Cowork workspace or Claude CLI fails to download](https://claude.com/docs/third-party/claude-desktop/installation.md#cowork-workspace-or-claude-cli-fails-to-download) and to leave any earlier version of the binary in place.
 
@@ -297,7 +299,7 @@ If the message comes back, ask your administrator to follow [Cowork workspace or
 
 When an import fails and the wizard has no specific message for the cause, it shows a code, such as `IMPORTER_EXIT`, with **Import failed**, **Your claude.ai export didn’t import**, or **Couldn’t import this export**. If you can import only by signing in, the message asks you to sign in and fetch the export again. On Claude Desktop versions before 4.23118.0, the wizard shows no code, and if you can choose a file, it shows [That doesn’t look like a claude.ai export](#that-doesn%E2%80%99t-look-like-a-claude-ai-export) for these failures.
 
-Your export can still be valid. If you import with **Choose file…**, use each `.zip` file as you downloaded it, not renamed or compressed again. On Windows, keep each file's full path under 260 characters, for example by moving it to your Downloads folder.
+Your claude.ai export can still be valid. If you import with **Choose file…**, use each `.zip` file as you downloaded it, not renamed or compressed again. On Windows, keep each file's full path under 260 characters, for example by moving it to your Downloads folder.
 
 If you signed in to fetch the export and the wizard still shows **Import**, click it again without closing the wizard. Closing the wizard deletes the fetched export. There's a limit on how often you can fetch an export. In any other case, run the import again from **Settings > Import & export**.
 
@@ -307,7 +309,7 @@ If the import still fails, go to **Help > Troubleshooting > Generate Diagnostic 
 
 Choose the `.zip` file of your [claude.ai export](#step-1-claude-ai-chats-and-projects) as you downloaded it. If the export came as more than one `.zip` file, choose all of them together.
 
-On Claude Desktop versions before 4.23118.0, the message can also appear after you click **Import** on the **Review** step. Your export can still be valid. Close the wizard, send any message in a new conversation or task, and wait for the reply, so the import can run on the current version of the Claude CLI binary. Closing the wizard deletes an export that you fetched by signing in, so fetch it again. Then follow the steps in [Import failed with a code under the message](#import-failed-with-a-code-under-the-message). These versions show no code.
+On Claude Desktop versions before 4.23118.0, the message can also appear after you click **Import** on the **Review** step. Your claude.ai export can still be valid. Close the wizard, send any message in a new conversation or task, and wait for the reply, so the import can run on the current version of the Claude CLI binary. Closing the wizard deletes an export that you fetched by signing in, so fetch it again. Then follow the steps in [Import failed with a code under the message](#import-failed-with-a-code-under-the-message). These versions show no code.
 
 ### Importing a claude.ai export needs a newer version of this app
 

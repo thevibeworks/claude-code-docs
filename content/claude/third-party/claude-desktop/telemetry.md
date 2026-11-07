@@ -46,7 +46,7 @@ Cosmetic third-party fetches: favicons for connectors shown in the UI, the sandb
 
 | Setting | Default | Effect when `true` |
 | - | - | - |
-| `disableNonessentialServices` | `false` | Favicon, artifact-preview, and MCP App widget fetches are blocked. In place of an MCP App widget, the conversation shows "There was a problem displaying content from" and the connector's name. On Linux, the setting also applies to the spellcheck dictionary download. Without the dictionary, misspelled words aren't underlined. |
+| `disableNonessentialServices` | `false` | Favicon, artifact-preview, and MCP App widget fetches are blocked. In place of an MCP App widget, the conversation shows "There was a problem displaying content from" and the connector's name. On Linux, the setting also applies to the spellcheck dictionary download. Without the dictionary, misspelled words aren't underlined. In Code sessions, the app doesn't read the status of GitLab merge requests or Gerrit changes. GitHub pull requests aren't affected. |
 
 ### Auto-updates
 

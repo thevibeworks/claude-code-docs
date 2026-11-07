@@ -2,6 +2,12 @@
 
 ## November 2026
 
+### November 6, 2026
+
+**Track spend by cost code with project tags (beta)**
+
+Eligible Enterprise organizations can now tag projects with the codes they already use, like a charge code or client-matter number, and see most spend in those projects by tag. This feature is available in beta. For more information, see **[Track spend by cost code with project tags](https://support.claude.com/en/articles/18251257-track-spend-by-project-with-tags)**.
+
 ### November 5, 2026
 
 **New security and admin controls for Enterprise plans**

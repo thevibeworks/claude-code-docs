@@ -54,10 +54,12 @@ These steps apply to Claude for Android, listed on Google Play as Claude by Anth
 
 ## What happens when you delete your account
 
-When you delete your account, you’ll no longer have access to your conversations, projects, and account information. Learn more about **[how long Anthropic stores your data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
+When you delete your account, you’ll no longer have access to your conversations, projects, account information, or any remaining usage credits. Learn more about **[how long Anthropic stores your data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
 
 ## When you need to contact support
 
 In some scenarios you'll need to contact our team to delete your account. If this applies to you, it'll be noted in your account settings. Learn more about **[how to get support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+
+If you're in a Team or Enterprise organization and only want to close your personal account, you can usually do it yourself. Switch to your organization, go to **[Settings > Account > Close your personal account](https://claude.ai/settings/account)**, and see **[Close your personal account without moving your work](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_ca32360002)**.
 
 If you have multiple accounts associated with the same email address, you'll need to specify which accounts you want to delete when you contact us.

@@ -2463,7 +2463,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mintlify/mintlify-claude-plugin.git",
-        "sha": "acd6d2e0128c4f235d55cfb8d8c91ecbdd5df8cc"
+        "sha": "c1c1700d405dc375c2d90a1d4f8b283e6422b7ec"
       },
       "homepage": "https://www.mintlify.com/"
     },
@@ -3499,7 +3499,7 @@
     {
       "name": "security-guidance",
       "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
-      "version": "2.0.17",
+      "version": "2.0.18",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"

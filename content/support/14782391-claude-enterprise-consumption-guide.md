@@ -88,15 +88,15 @@ Note the following precedence rules:
 
 **How to configure:** Organization settings → Usage → By group/tier. Set limits to either a specific dollar amount or "Unlimited."
 
-### Pooled group budgets (beta)
+### Pooled group budgets
 
 A group spend cap gives each member the same individual limit. A pooled budget gives the whole group one shared monthly amount that every member draws from. Use it when a team has a fixed budget but uneven usage across members.
 
-Every request counts against both the member's own monthly limit and the group's pool. The member stops at whichever runs out first. Usage can go slightly over a limit before it pauses. Set the per-member limit as a guardrail, not an equal share of the pool. **When the pool runs out, usage pauses for every member of the group** until an admin raises it or it resets the next month. Billing admins get email alerts at 50%, 75%, 95%, and 100% of the pool.
+Every request counts against both the member's own monthly limit and the group's pool. The member stops when their own limit runs out, or when every pooled budget they can use is used up. Usage can go slightly over a limit before it pauses. Set the per-member limit as a guardrail, not an equal share of the pool. **When the pool runs out, usage pauses for group members with no other pooled budget left** until an admin raises the pool or it resets the next month. Billing admins get email alerts at 50%, 75%, 95%, and 100% of the pool.
 
 If a member belongs to more than one pooled group, the largest pool is used first. You can set a custom order under **Pooled budget priority**.
 
-**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
+**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, select "Edit limit," and set a **Monthly pooled budget**. A **Member monthly limit** is optional. If the group doesn't have a spend limit yet, click the add button on the same tab and set the pooled budget when you add the group. Owners, Primary Owners, the Billing role, and custom roles with Billing (Can manage) can set pools. The Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
 
 ### User-level spend caps
 
@@ -141,7 +141,7 @@ You have two options:
 
 This setting applies to new conversations in chat, Claude Cowork, Claude Code (CLI 2.1.199 or later), and Claude for Microsoft 365. If the selected model isn't available in a product, Anthropic's recommended default is used. If you also pin a model for Claude Code through managed settings, that setting takes precedence for the CLI and IDE. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-**Sticky defaults - always start with the default model and effort level (beta).** By default, the model picker is sticky: new conversations start on whatever model a member last used. To change that, turn on **Always start with the default model and effort level** in **Organization settings > Models**. Every new conversation then starts on the org's default model and default effort level. Members can still change both within a conversation.
+**Sticky defaults - always start with the default model and effort level.** By default, the model picker is sticky: new conversations start on whatever model a member last used. To change that, turn on **Always start with the default model and effort level** in **Organization settings > Models**. Every new conversation then starts on the org's default model and default effort level. Members can still change both within a conversation.
 
 Sticky defaults upgrade automatically. When a launch changes the default model, the sticky model moves to the new default, so no one is left on an older model. Roles that set their own default model have the same switch in the role editor. It works in chat, Claude Cowork, Claude Code, Claude for Microsoft 365, Claude Design, and Claude Science. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
@@ -225,6 +225,10 @@ The calculation currently happens outside the product, but the CSV export makes 
 
 If you need a one-off detailed breakdown, you can export a per-user, per-model spend report as a CSV from the Analytics page: in the spend section ("How much is Claude costing?") on the Overview tab, click "Export spend report" and choose MTD, last month, last 90 days, or a custom range up to 90 days back.
 
+### Spend by project (beta)
+
+Eligible organizations can add project tags, such as a WBS code or client-matter number, to see spend by tag in **Organization settings > Usage > Spend by project**. Project tags only work inside projects, and not every Claude product is covered. Tag names and values are visible to all users in your organization, and amounts may not match your invoice. Learn more about **[tracking spend by cost code with project tags](https://support.claude.com/en/articles/18251257-track-spend-by-project-with-tags)**.
+
 ### Analytics chat
 
 Analytics chat lets you ask questions about your org's usage in plain language. Type a question—"show me daily spend for the last 30 days," "who are our top spenders," "what's our seat utilization rate"—and Claude returns a chart and a short written summary of what it found. You can follow up to refine, drill in, or pivot without starting over.
@@ -235,7 +239,7 @@ Use this when you have a specific question and don't want to navigate the dashbo
 
 For programmatic access, use the Claude Enterprise Analytics API. Pull a ranked list of users by tokens used or dollars spent, or look at usage and cost trends over time broken down by product, model, RBAC group, context window, region, or service tier (standard vs. fast). Grouping the cost report by RBAC group gives per-department spend for chargeback without exporting per-user rows. Each request is capped at 31 days wide, starting within the last 365 days, and no earlier than January 1, 2026.
 
-Your Primary Owner can create a key with the read:analytics scope under **Organization settings > API**. Cost and usage data typically lands within about four hours (occasionally up to 24) and can be revised until seven days after the end of the month it belongs to. For invoicing-grade totals, wait until that window closes before you query a month. Engagement endpoints such as users, skills, plugins, and connectors update daily with roughly a one-day lag. **[Learn more](https://platform.claude.com/docs/en/manage-claude/analytics-api)** and review the **[API reference guide](https://platform.claude.com/docs/en/api/admin/analytics)**.
+Your Primary Owner can create a key with the read:analytics scope under **Organization settings > API**. Cost and usage data typically lands within about four hours (occasionally up to 24) and can be revised until seven days after the end of the month it belongs to. For final totals, wait until that window closes before you query a month. Engagement endpoints such as users, skills, plugins, and connectors update daily with roughly a one-day lag. **[Learn more](https://platform.claude.com/docs/en/manage-claude/analytics-api)** and review the **[API reference guide](https://platform.claude.com/docs/en/api/admin/analytics)**.
 
 ### Per-user skills, plugin, and connector usage
 
@@ -246,6 +250,8 @@ This is useful for the same per-skill ROI questions above, just broken down by i
 ### Admin API
 
 For organizations managing limits across many groups, the **[Admin API](https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide)** moves cost-control workflows into scripts — automating increase-request reviews, flagging members near their limits, and surfacing rapidly changing usage at scale. The API reads every member's effective limit and month-to-date spend and sets or clears per-user overrides. Group, seat-type, org-level limits, and pooled group budgets are still configured in Organization settings. The Admin API's user-management endpoints (currently in beta for Enterprise organizations) also let you create groups, add or remove members, and read your custom roles programmatically. See **[User management](https://platform.claude.com/docs/en/manage-claude/user-management)**.
+
+The Admin API can also list project tags (beta), add values to a tag's list, and set a project's tags. Learn more about **[tracking spend by cost code with project tags](https://support.claude.com/en/articles/18251257-track-spend-by-project-with-tags)**.
 
 ### Spend-threshold alerts
 
@@ -261,17 +267,17 @@ The Usage page in **Organization settings > Usage** opens with a view of how oft
 
 Use this view as your check on whether limits fit how people work. Rising time at limit means members are getting blocked mid-task. You can adjust limits from the same page: raise a default, or increase the limits of the members who reached them.
 
-### Smart reports (beta)
+### Smart reports
 
-Analytics shows how much each team spends. Smart reports show what that spend is producing. Scope a report to a team, a date range, and the products you want to include. Claude reviews a sample of transcripts and breaks spend down by workstream and output type.
+Analytics shows how much each team spends. Smart reports show what that spend is producing. Scope a report to a team, a date range, and the products you want to include. Claude reviews a sample of transcripts and breaks down spend, at list price, by workstream and output type.
 
 For consumption management, focus on these sections:
 
 - **Cost per session by type of output.** See which kinds of work are expensive to produce, and whether that cost matches their value.
 
-- **Most common frictions and inefficiencies.** Rework loops and sessions with no usable output are spend with no return. Repeated friction often points to a connector or setting you can turn on in minutes.
+- **Most common frictions** and **Inefficiencies.** Rework loops and sessions with no usable output are spend with no return. Repeated friction often points to a connector or setting you can turn on in minutes.
 
-- **Reusable skills and workflows to build.** Packaging repeated work as a shared skill gets the whole team a consistent result faster. Once it's rolled out, track its cost and ROI in the Skills view.
+- **Recommendations.** See the recurring workflows you can turn into skills. Packaging repeated work as a shared skill gets the whole team a consistent result faster. Once it's rolled out, track its cost and ROI in the Skills view.
 
 - **Most expensive sessions.** See where spend concentrates.
 
@@ -329,7 +335,7 @@ When you onboard users, share the following:
 
 - Nothing they've already produced is lost. The request that's already in flight completes, but further requests are blocked, so a multi-step Claude Code or Claude Cowork task may pause before it finishes. They can pick the work back up as soon as an admin raises the limit, or when limits reset at 00:00 UTC on the 1st of the month.
 
-- If your group uses a pooled budget, usage can pause for the whole group when the shared pool runs out, even if you haven't reached your own limit.
+- If your group uses a pooled budget, usage can pause when the shared pool runs out, even if you haven't reached your own limit.
 
 **Resources to share with users**
 

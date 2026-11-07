@@ -10,9 +10,9 @@
 
 A plugin is a package that adds capabilities to Claude in a single step, such as skills, slash commands, sub-agents, and hooks. Plugins work in Cowork and in Code. Skills from your organization's plugins also work in Chat, on Claude Desktop 1.44121.4 or later. [What a Chat conversation can reach](https://claude.com/docs/third-party/claude-desktop/chat.md#what-a-chat-conversation-can-reach) says what else a plugin adds there.
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/z_GoItRVM-_PvPPB/images/government/videos/user-04-connectors-plugins-and-skills-v2.mp4?fit=max&auto=format&n=z_GoItRVM-_PvPPB&q=85&s=eaffd949e3db69655dc5f51403a9978b" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
 
-Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Connectors, plugins, and skills from your agency (2 min). Narrated with an AI-generated voice, with on-screen captions.
 
 [Transcript](https://claude.com/docs/government/desktop/video-walkthroughs.md#connectors-plugins-and-skills-from-your-agency)
 

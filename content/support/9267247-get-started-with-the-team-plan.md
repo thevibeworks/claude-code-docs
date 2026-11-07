@@ -16,11 +16,13 @@
 
 To get started with the Team plan, navigate to **[claude.ai/login](https://claude.ai/login)** and enter your work email address. Follow the onboarding prompts and select the Team plan.
 
+**Note:** If you already use Claude with a personal email address, your Team is a separate account under your work email address. Your existing chats and projects stay under your personal email address. Log in with that address to see them. Learn more in **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_909699092e)**.
+
 ## Upgrade from an individual plan to the Team plan
 
 If you already have a Free, Pro, Max, or Ultra account on your work email and want to upgrade to Team, sign in to your account and visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
 
-If you see the **Keep your personal account separate** checkbox, then upgrading to Team upgrades your existing organization in place by default. Your organization ID stays the same and some of your content carries over to your new Team plan. For a full list of what does and doesn’t migrate, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
+If you see the **Keep your personal account separate** checkbox, then upgrading to Team upgrades your existing organization in place by default. Your organization ID stays the same and your content stays.
 
 **Note:** Once content has been moved into an organization, it can't be moved back to a personal account.
 
@@ -28,9 +30,9 @@ If you don’t see the **Keep your personal account separate** checkbox, then th
 
 What else happens during an in-place upgrade:
 
-- Your individual Pro, Max, or Ultra subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
+- If you bought it directly from us, your individual Pro, Max, or Ultra subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. For Google Play, see "Google Play Store subscribers" below.
 
-- Any prepaid usage credits on your individual account are refunded.
+- Any credits you bought directly from us are refunded.
 
 - Public projects in your account become private once the upgrade is complete. Project owners can give others in their organization access to the project from its **Share** menu. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)**.
 
@@ -44,13 +46,15 @@ Because Apple doesn't allow third-party cancellation of App Store subscriptions,
 
 ### Google Play Store subscribers
 
-Subscriptions purchased through the Google Play Store are eligible for in-place upgrade. Your refund doesn't have the 24-hour wait, but it can take a few days to appear.
+Subscriptions purchased through the Google Play Store are eligible for in-place upgrade. We ask Google Play to cancel your subscription and refund your unused time. Refunds usually take 1 to 2 weeks. Check Google Play, and cancel there if your plan is still active.
 
 ### If you decline the in-place upgrade
 
 If you choose to keep your personal account, your Team plan creates a separate Claude organization. You can switch between your personal account and the Team org by clicking your initials or name in the lower left corner and selecting the account you want to access. Data isn't shared between separate accounts.
 
-To use only your Team plan after upgrading separately, you'll need to **[cancel your paid subscription](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)** and **[delete your individual Claude account](https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account)**.
+To use only your Team plan after upgrading separately, switch to your Team and go to **[Settings > Account > Close your personal account](https://claude.ai/settings/account)**. Choose "Bring what you can" (what can move goes into your Team) or "Start fresh" (nothing moves). Either way, your personal account closes and will be deleted, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
+
+If you bought your personal subscription directly from us, it's canceled for you. If you bought it through Google Play, we ask Google Play to cancel it. Check Google Play, and cancel there if your plan is still active. If you subscribed through the Apple App Store, **[the steps differ](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_02f3b1af17)**. See **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
 
 ## Claim your team’s API credits
 

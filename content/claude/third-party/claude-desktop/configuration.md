@@ -3929,7 +3929,7 @@ Unless a label in its entry says otherwise, a key can be set in an MDM profile o
 
 ### Recommended security profiles
 
-The profiles below are illustrative examples rather than built-in presets, and the labels are descriptive only. Use them as starting points and adjust for your environment. Layer the inference-provider keys for your cloud on top of whichever profile you choose.
+These profiles are examples, not built-in presets. Adjust them for your environment, and add the inference-provider keys for your cloud to the profile you choose.
 
 > [tab] Standard
 >

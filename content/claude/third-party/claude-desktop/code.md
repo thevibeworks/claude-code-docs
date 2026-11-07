@@ -82,7 +82,7 @@ To have Claude Desktop's restrictions apply on top of your Claude Code policy, s
 }
 ```
 
-With `"merge"`, Claude Desktop's policy values are layered under your Claude Code policy. Your values win any conflict, deny and allow lists are unioned, and Claude Desktop's values are filtered so they can only tighten policy, never loosen it. See [`parentSettingsBehavior`](https://code.claude.com/docs/en/settings-reference#parentsettingsbehavior) in the Claude Code settings reference. Requires Claude Code v2.1.133 or later, which ships with Claude Desktop on 3P.
+With `"merge"`, Claude Desktop's policy values are layered under your Claude Code policy. For how Claude Code combines the two policies, see [Let an embedding host add policy](https://code.claude.com/docs/en/managed-settings#let-an-embedding-host-add-policy) in the Claude Code documentation. Requires Claude Code v2.1.133 or later, which ships with Claude Desktop on 3P.
 
 With `"merge"`, two Claude Code policy keys weaken `blockReadsOutsideWorkingDirectories`. `sandbox.filesystem.allowManagedReadPathsOnly` limits the block to Claude's file tools, so a shell command that reads outside the working directories asks for approval instead of failing, and `allowManagedPermissionRulesOnly` removes the session's read access to its plugin and attachment folders, so skills that read their own files stop working. Leave both out of your Claude Code policy if you rely on the block.
 

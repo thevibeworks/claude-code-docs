@@ -19,27 +19,27 @@ Once a SCIM connection is in place, your directory groups appear here and you ca
 
 ## Group to seat tier
 
-To add a mapping, choose a group and a tier and click **Add**. Members of the group are moved to that tier, existing users included. To change a group's tier, click **Remove** on its mapping and add a new one. Each group can be mapped to at most one tier, and you can only select tiers that are available to this organization (either an Anthropic-managed tier you have been allocated or a self-managed tier you created on the [Tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#creating-a-self-managed-tier) page).
+To add a mapping, choose a group and a tier and click **Add**. Members of the group are moved to that tier, existing users included. To change a group's tier, click **Remove** on its mapping and add a new one. Each group can be mapped to at most one tier.
 
-* **Someone who leaves a mapped group** keeps the tier, with its models and spend limits, until another mapping or an owner moves them. On a tier with a seat limit, a [reconciliation](#how-mappings-are-applied) can move them too.
-* **Mapping a group to a tier with a [seat limit](https://claude.com/docs/government/org-admin/seats.md#how-seats-are-assigned-automatically)** can move other people off it. At a reconciliation, provisioned users on it who are in no mapped group can be moved to another tier with a free seat. If none is free, they stay.
+* **Someone who leaves a mapped group, or whose group's mapping is removed,** keeps the tier, with its models and spend limits, until another mapping or an owner moves them. On a tier with a seat limit, a [reconciliation](#how-mappings-are-applied) can move them too.
+* **Mapping a group to a tier with a seat limit** can move other people off it. At a reconciliation, provisioned users on it who are in no mapped group can be moved to the tier in [step 3](https://claude.com/docs/government/org-admin/seats.md#how-seats-are-assigned-automatically) if it comes before theirs. On the tier marked **New members start here**, they stay.
 
 If no groups have appeared at all, ask your tenant administrator to assign groups to the Claude for Government application in your identity provider and run a provisioning sync first.
 
 ## Group to role
 
-Map a directory group to **User** or **Owner**, and members of that group receive that role when they are provisioned. You cannot map a group to Primary Owner; that role must always be granted manually on the [Users](https://claude.com/docs/government/org-admin/users.md) page.
+Make your first role mapping a group that holds all your Owners, mapped to **Owner**. An Owner left out of it can lose access to this portal. You cannot map a group to Primary Owner; grant that role on the [Users](https://claude.com/docs/government/org-admin/users.md) page.
 
-Once this organization has any group-to-role mapping, every provisioned member except a Primary Owner gets their mapped role, or **User** if none of their groups is mapped. Map your Owners' group first, so that they keep access to this portal.
+While this organization has no group-to-role mapping, members keep their roles unless a rule [moves them to another organization](https://claude.com/docs/government/tenant-admin/identity-and-access.md#when-rules-move-people). Once it has one, every member [linked to your directory](https://claude.com/docs/government/tenant-admin/identity-and-access.md#existing-accounts-when-you-connect-scim) except a Primary Owner gets their mapped role, or **User** if none of their groups is mapped. So you don't need to map any group to **User**.
 
 ## How mappings are applied
 
 Each push from your identity provider is applied to your user list by a reconciliation pass.
 
-* **After a mapping change.** Adding or removing a mapping starts a full reconciliation, so existing users are re-evaluated against the new mapping without waiting for your identity provider's next sync. In a very large directory, a full reconciliation can take hours.
-* **Several mapped groups.** When a provisioned user belongs to several groups mapped to a seat tier, the one highest in your tenant's [group priority](https://claude.com/docs/government/tenant-admin/identity-and-access.md#directory-groups) decides. Role mappings follow a fixed order, so avoid mapping groups that share members to different roles.
+* **After a mapping change.** Adding or removing a mapping starts a full reconciliation, so existing users are re-evaluated without waiting for your identity provider's next sync. In a very large directory, it can take hours.
+* **Several mapped groups.** When a provisioned user belongs to several groups mapped to a seat tier, the one highest in your tenant's [group priority](https://claude.com/docs/government/tenant-admin/identity-and-access.md#directory-groups) decides. For roles, an order you can't see or change decides, and **User** can win over **Owner**. So don't map a group that includes your Owners, such as an all-staff group, to **User**.
 * **No mapped group.** See [How seats are assigned automatically](https://claude.com/docs/government/org-admin/seats.md#how-seats-are-assigned-automatically).
-* **No free seats.** If a user's mapped tier has no free seats, provisioning doesn't add a new person yet, and an existing member keeps their current seat tier or stays **Unassigned**. Increasing the tier's allocation places them, up to the new limit.
+* **No free seats.** If a new person's mapped or marked tier is full, provisioning doesn't add them yet. An existing member whose mapped tier is full keeps their current tier or stays **Unassigned**. They are tried again at each full reconciliation, which changing seat allocations or mappings starts, and when your directory updates their entry.
 
 ## What your directory controls
 

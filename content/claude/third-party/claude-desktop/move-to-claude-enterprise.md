@@ -80,6 +80,8 @@ Leave other keys in place. In Claude Enterprise, the desktop extensions feature 
 
 For either option, copy the **Organization ID** from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization). Set `importThirdPartyHistoryIntoOrgUUID` to this ID, without braces or quotation marks. To keep Claude on these computers from using another organization or a personal account, where nothing migrates, you can also set `forceLoginOrgUUID` to the same ID. The app then blocks Claude accounts that aren't in that organization.
 
+If you keep the cloud provider keys and users click **Sign in with Claude Console**, also add the ID of each Claude Console organization that you allow, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
+
 On Windows, in an elevated PowerShell window:
 
 ```powershell theme={null}

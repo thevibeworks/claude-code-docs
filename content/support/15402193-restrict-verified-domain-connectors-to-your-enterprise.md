@@ -100,7 +100,7 @@ If someone tries to make a connection that’s restricted, the connection fails 
 
 ### How is this different from domain claiming?
 
-Domain claiming moves existing personal Claude accounts on your domain into your Enterprise workspace. This setting leaves Claude accounts where they are, and makes it so that only Claude accounts in your Enterprise organization can connect supported connectors using an email address on your verified domains. Learn more about **[claiming and migrating accounts on your domain](https://support.claude.com/en/articles/14625619-claim-and-migrate-accounts-on-your-domain)**.
+Domain claiming closes existing personal Claude accounts on your domain and lets each person bring what they can into your Enterprise workspace. This setting leaves Claude accounts where they are, and makes it so that only Claude accounts in your Enterprise organization can connect supported connectors using an email address on your verified domains. Learn more about **[claiming and migrating accounts on your domain](https://support.claude.com/en/articles/14625619-claim-and-migrate-accounts-on-your-domain)**.
 
 ### What should someone do if their connection is blocked?
 
