@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794122100&amp;signature=e038eedac30123a50a830b064df99feee2e6e6451235327e403e372f15eca631&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZM%2FoC2gN0ADj5oqFCIiTkRXwcWSIJRZNGd%0AyqxsBWGAy3lzQKl%2BPyE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794158100&amp;signature=282807df25cb247158f7b313b901cbebbd787ab482de1fb2f558d16e52594f7e&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZM%2BYq2gN0ADj5oqFB5HxTAeVA7bNK3aR4v%0AEo%2ByMvi1StjAa1nEfpU%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794122100&amp;signature=91b83eb98e90f7bc8da485315fa32c9c5429348618c584d8370680f17659adea&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2Jxii7t7A4lHPBihAXOXHjx93yQYMW%2FwnYy%0Ai%2BBhaZ5jqR0Mr5%2FbrdM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794158100&amp;signature=555c15c39ce9861cc5086291001e6f995ee4de61ddd5e5382f543fe2f77cf34c&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2JxjSTt7A4lHPBihAWl5ki0f%2BKjJuu6k8d7%0AnfnF3jGnelJ5HthJeYQ%3D%0A)
 
 ### Permission options
 
