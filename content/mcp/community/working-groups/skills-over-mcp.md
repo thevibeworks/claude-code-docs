@@ -129,7 +129,7 @@ Discord: [#skills-over-mcp-wg](https://discord.com/channels/1358869848138059966/
 ### Completed Milestones
 
 * [SEP-2640](https://modelcontextprotocol.io/seps/2640-skills-extension.md) is **Final**, merged on September 13, 2026.
-* The official specification is published in [ext-skills](https://github.com/modelcontextprotocol/ext-skills/blob/main/specification/stable/skills.mdx), with a [website overview](https://modelcontextprotocol.io/extensions/skills/overview.md).
+* The official specification is published in [ext-skills](https://github.com/modelcontextprotocol/ext-skills/blob/main/specification/beta/skills.mdx), with a [website overview](https://modelcontextprotocol.io/extensions/skills/overview.md).
 * [Skills conformance scenarios](https://github.com/modelcontextprotocol/conformance/pull/330) were merged on September 11, 2026.
 
 ### Current Work
