@@ -154,7 +154,7 @@ Make the change that fits your network:
 
 * Allow Claude Desktop itself, not only browsers, to reach `downloads.claude.ai`, as listed under [Required egress paths](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths). The download follows the app's proxy settings, described under [Network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md).
 * If a proxy or secure web gateway inspects this traffic, make sure files from `downloads.claude.ai` reach the device complete and unchanged.
-* On a network that cannot allow these downloads, deploy the [offline installer](#offline-installation), which includes both components.
+* On a network that cannot allow these downloads, deploy the [offline installer](#offline-installation), which includes both components. On a Windows device that already has the standard package, follow [Replace the standard package with the offline package on Windows](#replace-the-standard-package-with-the-offline-package-on-windows).
 
 Once the device can download from `downloads.claude.ai`, have the user restart Claude Desktop and then start another attempt at each download that failed. If the messages persist, generate the diagnostic report described under [Troubleshooting](#troubleshooting) and send it to your Anthropic representative. It includes the errors the app logged for these downloads.
 
@@ -234,6 +234,68 @@ If the offline installer for the version the URL serves is not yet available, th
 Download the installer from a connected machine and bring it across your boundary with your usual software-distribution process.
 
 Pair the offline installer with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates). The app cannot reach the update feed from an air-gapped network, and you update the fleet by distributing each new offline installer through your MDM. Also set [`modelCatalogEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false`, or point [`modelCatalogUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogurl) at a mirror inside your network. Otherwise the app tries to fetch the signed model catalog from `downloads.claude.ai` at launch and every 5 to 15 minutes after that, and while those requests fail the model picker keeps the names and effort options that ship with the app. With updates and the catalog fetch handled this way, the only egress an air-gapped deployment needs is your inference provider; see [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths).
+
+### Replace the standard package with the offline package on Windows
+
+In an elevated Windows PowerShell session, list the installed and provisioned packages:
+
+```powershell theme={null}
+Get-AppxPackage -AllUsers -Name Claude
+Get-AppxProvisionedPackage -Online | Where-Object DisplayName -eq 'Claude'
+```
+
+* **One installed package, provisioned, an older `Version` than your offline package**: remove nothing. Have each signed-in user select **☰ > File > Exit** in Claude Desktop. Then run `Add-AppxProvisionedPackage -Online -PackagePath <path to offline .msix> -SkipLicense`. Users get the new version after they next sign in to Windows.
+* **One installed package, the same `Version`**: follow [Replace a package when the versions match](#replace-a-package-when-the-versions-match). `Add-AppxProvisionedPackage` alone fails with error `0x80073CFB` ("The provided package is already installed") and removes the standard package's provisioning. If the package is provisioned, Anthropic's [`Install-Claude.ps1`](https://downloads.claude.ai/releases/enterprise/intune/Claude-Intune-README.md) prints "Nothing to do.", exits with code 0, and leaves the standard package in place.
+* **More than one installed package**: have each user sign out of Windows, sign in, start Claude Desktop, and select **☰ > File > Exit**. Then list again.
+* **Anything else, or still more than one**: remove nothing and contact your Anthropic representative.
+
+#### Replace a package when the versions match
+
+Copy the offline `.msix` to each device. Complete these steps on one device first.
+
+> [!WARNING]
+>
+> Once you remove the standard package, no user has Claude Desktop until you provision the offline package. In that time, Windows can delete each user's `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc` folder, for example when the user signs in. Make sure nobody signs in to Windows, signs out, or restarts the device until provisioning succeeds.
+>
+> * **Windows 11**: Windows leaves the [conversations and settings](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) of Claude Desktop on 3P in `%LOCALAPPDATA%\Claude-3p`. The `Claude_pzs8sxrjxfjjc` folder can hold data from Claude Desktop used outside 3P.
+> * **Before Windows 11 (builds below 22000)**: the `Claude_pzs8sxrjxfjjc` folder can also hold the 3P conversations and settings. Contact your Anthropic representative before you start.
+
+**1. Quit Claude Desktop**
+
+Have each signed-in user select **☰ > File > Exit**. The removal doesn't close an open app, and the provisioning then fails.
+
+List the `claude` processes:
+
+```powershell theme={null}
+Get-Process -Name claude -ErrorAction SilentlyContinue
+```
+
+Go on only when it lists nothing.
+
+**2. Remove the standard package**
+
+From the system account, run [`Uninstall-Claude.ps1`](https://downloads.claude.ai/releases/enterprise/intune/Claude-Intune-README.md). Otherwise, run these commands with the `PackageFullName` that `Get-AppxPackage` listed:
+
+```powershell theme={null}
+Get-AppxProvisionedPackage -Online | Where-Object DisplayName -eq 'Claude' | Remove-AppxProvisionedPackage -Online
+Remove-AppxPackage -Package <PackageFullName> -AllUsers
+```
+
+Run `Get-AppxPackage -AllUsers -Name Claude` again. If it still lists a package, don't provision, don't have users sign out, and contact your Anthropic representative.
+
+**3. Provision the offline package**
+
+Right after the removal, run `Install-Claude.ps1 -MsixPath <path to offline .msix>` from the system account, or this command from an elevated session:
+
+```powershell theme={null}
+Add-AppxProvisionedPackage -Online -PackagePath <path to offline .msix> -SkipLicense
+```
+
+If the command fails with error `0x80070005` ("Access is denied"), or the script prints "ERROR: Access is denied." and exits with code 1, have each signed-in user select **☰ > File > Exit**. Then run it again right away. If it fails again or with another error, don't restart or have users sign out, and contact your Anthropic representative.
+
+**4. Check the result**
+
+Users get the app after they next sign in to Windows. Have a user without administrator rights who has used Claude Desktop sign in and confirm that a conversation and a Cowork task start and that earlier conversations are listed. If they don't, contact your Anthropic representative.
 
 ### SSH remote sessions with the offline installer
 
