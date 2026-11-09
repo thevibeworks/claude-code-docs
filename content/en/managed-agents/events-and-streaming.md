@@ -12,6 +12,8 @@ featureMetadata:
     eligibility: not-eligible
     note: Sessions are stateful resources; transcripts persist until you delete them. Applies to all Managed Agents sub-features, including Self-hosted sandboxes.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
@@ -1748,6 +1750,8 @@ The event’s `content` (csharp, go: `Content`) accepts 1–1,000 text items. Th
 
 `system.message` is supported by these models:
 
+* Claude Fable 5.2
+* Claude Mythos 5.2
 * Claude Fable 5.1
 * Claude Mythos 5.1
 * Claude Fable 5

@@ -146,6 +146,8 @@ In addition to the [base egress hosts](https://claude.com/docs/third-party/claud
 | `login.microsoftonline.com` | Microsoft Entra sign-in |
 | `microsoft365.mcp.claude.com` | The connector service (substitute your deployment's hostname) |
 
+If your firewall or secure web gateway filters traffic by application, also allow Model Context Protocol (MCP) traffic to the connector service's host. Such equipment can classify the connection as MCP traffic and block it even when the host is allowed.
+
 ### Control write actions on the remote connector
 
 Claude can take a write action for a user through the remote connector once the matching write scope is approved for that user on the Anthropic connector app. The Entra admin center lists that app under **Enterprise applications** as **M365 MCP Server for Claude**.
@@ -232,10 +234,11 @@ A block doesn't change the scopes approved in Microsoft Entra. On a device witho
 
 ### Troubleshoot sign-in errors
 
-The errors below are the ones most commonly seen during setup. Each maps to a specific step that was missed or misconfigured.
+These errors can appear during setup.
 
 | Error | Cause | Fix |
 | - | - | - |
+| `Connection to server failed. You can try again.` with no Microsoft sign-in page, and the user's [`main.log`](https://claude.com/docs/third-party/claude-desktop/data-storage#where-data-lives) shows an HTML block page from your network, starting at the `[error]` line that contains the entry's `name` (`m365` unless you changed it) and the word `failed` | A firewall or secure web gateway blocked the request to the connector service before sign-in started | Send the block page to your network team and ask them to [allow MCP traffic to the connector service's host](#allow-the-required-network-hosts) |
 | `AADSTS50011` redirect mismatch | Redirect URI is not exactly `http://127.0.0.1/callback`, or was registered under *Web* instead of *Mobile and desktop applications* | Re-check step 2.1 |
 | `AADSTS50194` multi-tenant required | Tenant ID is missing from the configuration | Add Tenant ID in step 4 |
 | `AADSTS65001` admin consent required | Step 1 was not completed, or step 2.4 was skipped | Complete admin consent |

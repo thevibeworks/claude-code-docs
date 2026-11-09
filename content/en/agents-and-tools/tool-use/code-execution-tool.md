@@ -8,6 +8,8 @@ featureMetadata:
     eligibility: not-eligible
     note: Container data retained up to 30 days.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

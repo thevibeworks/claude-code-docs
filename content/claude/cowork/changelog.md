@@ -6,6 +6,33 @@
 
 > Release notes for Claude Desktop
 
+**v4.23118.1**
+
+2026-11-09
+
+Bundled Claude Code version: 2.1.321.
+
+**General**
+
+* Changed how Claude Code finds the programs it starts itself on Windows, such as git: it no longer finds them through network (UNC) or relative PATH entries, or behind a link to a network share. Where Git is found only that way, sessions use PowerShell instead of Git Bash.
+* Changed the certificate that signs Claude Code on macOS to a newer Developer ID certificate of the same Anthropic team (Team ID Q6L2SF6YDW). Rules that match the Team ID are unaffected; rules that pin the certificate itself need the new certificate added beside the old one.
+* Fixed replies stopping with "API Error: EPROTO: The TLS handshake failed" when the connection broke partway through a reply. Claude now keeps what arrived and continues.
+
+**Code**
+
+* Changed skills in a subfolder's `.claude/skills` folder to no longer load during a session when Claude Code's sandbox is on. To use them, start the session in that subfolder.
+* Fixed Bash commands sometimes running in the wrong folder when Claude sent several at once and an earlier one changed folders.
+* Fixed the project's skills, commands and agents that a worktree lacks, such as files git does not track, disappearing from the menu after Claude entered that worktree. While there, the main project folder's copies are listed and run.
+
+**Cowork**
+
+* Fixed a task or chat showing "Claude Code crashed" at the next message when its saved state file was cut short.
+
+**3P**
+
+* Changed tool calls made by a plugin's own code (a mod), rather than by Claude, to never show an approval card. They now run where only the user's approval or Auto mode would have stopped them, including connector tools with no `toolPolicy` entry. Such calls to a tool set to `ask` are refused.
+* Fixed Cowork's Progress panel not ticking steps that a subagent marked done.
+
 **v4.23118.0**
 
 2026-11-05

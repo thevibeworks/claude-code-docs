@@ -4,7 +4,7 @@
 
 **[Claude Security](https://claude.com/product/claude-security)** is a capability built into Claude that continuously watches your codebases for security vulnerabilities, tracks each finding until it is fixed, and suggests targeted patches for human review. It helps teams find and fix issues that traditional methods often miss.
 
-Claude Security is now available in public beta for users on Enterprise plans.
+Claude Security is available in beta for users on Enterprise plans.
 
 Learn how to get started and how leading enterprises use the tool here: **[Getting started with Claude Security](https://academy.claude.com/tutorials/getting-started-with-claude-security)**.
 
@@ -27,30 +27,6 @@ Claude Security allows you to:
 8. **Integrate into your workflow** — Read and resolve findings through the Claude Security API or the Claude Security connector (MCP) in Claude and Claude Code, and get a webhook when a new finding is added.
 
 9. **Control access** — Share each project with a Full, Triage, or View role. Admins can decide who can create projects and who can view, triage, or manage all projects with RBAC.
-
----
-
-## Finding types
-
-Findings fall into these example categories below.
-
-**Injection (SQL, Command, Code, XSS):** Untrusted input changes query structure or gets executed. E.g., `' OR 1=1--, ; rm -rf /`, `<script>` in a comment.
-
-**Injection (XXE, ReDoS):** Parsers or regex abused by crafted input. E.g., XML `<!ENTITY>` reading `/etc/passwd`.
-
-**Path & Network (Path traversal, SSRF, Open redirect):** Input controls file paths, request destinations, or redirects. E.g., `../../etc/passwd`, fetching `http://169.254.169.254/`.
-
-**Auth & Access (AuthN bypass, PrivEsc, IDOR/BOLA, CSRF, Race):** Access checks missing, skippable, or racy. E.g., `GET /orders/123` returns someone else's order.
-
-**Memory Safety (Buffer/integer overflow, UAF, unsafe misuse):** Input writes past bounds, wraps arithmetic, or hits freed memory. Mostly C/C++/Rust `unsafe`.
-
-**Cryptography (Timing leaks, algorithm confusion, weak primitives):** Secret-dependent branches, JWT `alg=none`, or MD5/SHA-1/DES/ECB in security paths.
-
-**Deserialization (Arbitrary type instantiation):** Untrusted bytes drive object construction — pickle, Java `readObject`, YAML load. Often equals RCE.
-
-**Protocol & Encoding (Cache safety, encoding confusion, length-prefix trust):** Layers disagree or trust declared sizes. E.g., cache poisoning via `Host` header.
-
----
 
 ## Severities
 
@@ -101,22 +77,6 @@ Each finding contains the following fields:
 
 ---
 
-## Troubleshooting
-
-### The security page keeps redirecting to "Install GitHub App"
-
-The claude.ai/security page runs a per-user check against your own connected GitHub account, so this can fail for you even though the organization-wide installation is working for others. There are a few potential causes:
-
-- **No GitHub account connected in Claude.** Go to[**Customize > Connectors**](https://claude.ai/customize/connectors) to check this.
-
-- **The connected GitHub account isn’t a member of the GitHub organization** where the app is installed. Connect the account that belongs to that organization.
-
-- **SSO isn't authorized for that organization.** If your GitHub organization requires SSO, you must authorize the Claude app for it separately. Follow the steps in **[Use the GitHub integration](https://support.claude.com/en/articles/10167454-use-the-github-integration#h_e169a34a57)**.
-
-- **Your GitHub organization's IP allow list is blocking the check.** GitHub's "Enable IP allow list configuration for installed GitHub Apps" setting covers traffic from the App itself, such as Code Review, but it doesn't cover this per-user check. To allow it, manually add every current IPv4 range, in full, from Anthropic’s **[Outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses)** list to the organization-level allow list, with one entry for each range.
-
----
-
 ## Frequently asked questions
 
 ### Getting started
@@ -127,7 +87,7 @@ An active Claude Enterprise plan, a premium seat for each user, and usage credit
 
 **How do I give Claude Security access to my repositories?**
 
-For GitHub.com and GitHub Enterprise Server, an owner installs the **[Claude GitHub App](https://github.com/apps/claude)** and grants it access to the repositories you want to scan. For other Git providers, such as GitLab and Bitbucket, you need the repository’s address and an auth token.
+For GitHub.com and GitHub Enterprise Server, an owner installs the **[Claude GitHub App](https://github.com/apps/claude)** and grants it access to the repositories you want to scan. For other Git providers, such as GitLab, Azure DevOps, and Bitbucket, enter the repository's https address and an auth token that can read the repository. Write the address in lower case, with no user name, password, query or port, for example: `https://gitlab.com/group/project`.
 
 **Can I scan repositories that aren’t on GitHub?**
 
@@ -135,7 +95,7 @@ Yes. Projects can be created with repositories hosted on GitHub.com and GitHub E
 
 **Which IP addresses do I need to allow?**
 
-Use the **[Outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses)** list on Anthropic’s IP addresses page. If you use GitHub Enterprise Server or another Git provider, your instance must allow connections from every current IPv4 range in that list so Claude Security can reach your repositories.
+Use the **[Outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses)** list for IP address allowlisting. If you use GitHub Enterprise Server or another Git provider, your instance must allow inbound traffic from these IP addresses so Claude Security can reach your repositories.
 
 **Does Claude Security support Zero Data Retention (ZDR)?**
 
@@ -147,7 +107,7 @@ Existing projects keep running as they do today and are still available from the
 
 **Can I migrate my existing projects?**
 
-Yes, if you own the project. Open it and click "Migrate project", or click "Migrate your projects" on the Claude Security home page to migrate every project you own. Claude Security creates a new project, copies the findings to it, and archives the original. Members, webhooks, excluded directories, scan history, and scheduled scans aren't copied. GitHub Enterprise projects can't be migrated.
+Yes, if you own the project. Open it and click "Migrate project", or click "Migrate your projects" on the Claude Security home page to migrate every project you own. Claude Security creates a new project, copies the findings to it, and archives the original. Members, excluded directories, scan history, and scheduled scans aren’t copied. Migrate project copies the project’s webhooks where it can and tells you what changes for them. GitHub Enterprise projects can't be migrated.
 
 ### Continuous monitoring
 
@@ -155,13 +115,17 @@ Yes, if you own the project. Open it and click "Migrate project", or click "Migr
 
 Depending on the size of the repositories, the baseline scan may take several minutes or hours. You can leave the page while it runs. If you have enabled email notifications for Claude Security, you will receive an email when your project’s scan completes and it has new findings.
 
+**How often does Claude scan after the first scan?**
+
+Claude checks for new commits and scans changes regularly, based on their risk and complexity. There is no fixed schedule.
+
 **How long does a follow-up scan take?**
 
 Scan time varies based on the repository and the agent’s actions.
 
-**How often does Claude scan after the baseline scan?**
+**What does a follow-up scan read?**
 
-Claude checks for new commits and scans changes regularly, based on their risk and complexity. There is no fixed schedule.
+Claude checks for changes, reviews them, and intelligently determines the scan scope based upon risk, complexity and your scan effort. Depending upon your settings, scope, and how long it has been, Claude may choose a full or incremental scan. You can see in the Activity tab whether it has run a full or incremental scan with the specific changes scoped.
 
 **Why can two scans of the same code return different results?**
 
@@ -177,7 +141,7 @@ Up to eight. A repository can be in scope, so Claude scans it and reports findin
 
 **How do I tell Claude about my environment?**
 
-Open the project’s Knowledge tab to edit the threat model and add documents such as architecture docs. Claude uses them to decide what to flag and how to rate it.
+Open the project’s Resources tab to edit the threat model and add documents such as architecture docs. Claude uses them to decide what to flag and how to rate it.
 
 **Which models does Claude Security use?**
 
@@ -195,15 +159,15 @@ Claude writes the threat model from your code, so it can miss deployment context
 
 **How do I fix a finding?**
 
-Click “Fix” on a finding to open Claude Code and fix that specific vulnerability. Without **[Claude Code in the cloud](https://code.claude.com/docs/en/claude-code-on-the-web)**, you copy a prompt into your own Claude Code.
+Click “Fix” on a finding to open Claude Code and fix that specific vulnerability. Without **[Claude Code in the cloud](https://code.claude.com/docs/en/claude-code-on-the-web)**, you copy a prompt into your own Claude Code. Claude will detect the code fixes in future scans and automatically resolve the finding. Additionally, you can always manually mark findings as fixed in the UI.
 
 **How does fix tracking work?**
 
-Claude re-checks findings when the code changes on the repository. A finding marked fixed reopens automatically if Claude later finds the issue again.
+Claude re-checks findings when the code changes on the repository. Regardless if the finding was manually or automatically marked as fixed, Claude reopens the finding automatically if it later finds the issue is unresolved.
 
 **What happens when I dismiss a finding?**
 
-Dismissed findings will not reappear in future scans. You can dismiss a finding as a false positive, an accepted risk, a duplicate, or for another reason, and add a triage note.
+You can dismiss a finding as a false positive, an accepted risk, a duplicate, or for another reason, and add a triage note. A dismissed finding stays closed. When a later scan reports the same issue, Claude matches it to the dismissed finding and keeps it closed. You can reopen a dismissed finding yourself at any time.
 
 ### Integrations and notifications
 
@@ -245,7 +209,7 @@ You can set a separate spend limit for Claude Security. Open Usage in a project�
 
 **Is there a launch offer for the updated Claude Security?**
 
-Yes, eligible Claude Enterprise organizations receive free usage credits up to $25,000 a month, for two months, through Dec 31, 2026. Full **[launch offer terms](#h_07eed9f41c)** below.
+Yes, eligible Claude Enterprise organizations receive free usage credits up to $25,000 a month, for two months, through December 31, 2026. This appears as a credit in **Organization settings > Usage**. Full **[launch offer terms](#h_07eed9f41c)** below.
 
 **Does the launch offer also apply to the old experience?**
 

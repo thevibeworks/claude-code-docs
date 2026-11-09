@@ -13,11 +13,11 @@ To use Claude Models on Google Cloud (Google managed), you need:
 1. A Google Cloud project that can use Agent Platform. For setup steps, see Google Cloud’s [Anthropic Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude) page.
 2. The [gcloud CLI](https://cloud.google.com/sdk/docs/install) installed, for local development.
 3. For the identity making the calls, an IAM role that includes the `aiplatform.endpoints.predict` permission, such as Agent Platform User (`roles/aiplatform.user`). For details, see Google Cloud’s [Agent Platform partner models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/use-partner-models) page.
-4. Google Cloud credentials for that identity. For the SDK examples, you might need to run `gcloud auth application-default login` to authenticate with Google Cloud. The cURL examples for Claude Models on Google Cloud (Google managed) get their token with `gcloud auth print-access-token`. That command uses the gcloud CLI’s own login, not Application Default Credentials. For those examples, run `gcloud auth login` or `gcloud init` first.
+4. Google Cloud credentials for that identity. To authenticate the SDK with Google Cloud, you might need to run `gcloud auth application-default login`. A cURL request to Claude Models on Google Cloud (Google managed) can get its token from `gcloud auth print-access-token`. That command uses the gcloud CLI’s own login, not Application Default Credentials, so run `gcloud auth login` or `gcloud init` before you use it.
 
 ### Install an SDK
 
-Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Claude Models on Google Cloud (Google managed) through `AnthropicVertex` (csharp: `AnthropicVertexClient`; go: `vertex.WithGoogleAuth()`; java: `VertexBackend`; php: `Anthropic\Vertex\Client`; ruby: `Anthropic::VertexClient`). Install the package that provides it:
+The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) supports Claude Models on Google Cloud (Google managed) through `AnthropicVertex` (csharp: `AnthropicVertexClient`; go: `vertex.WithGoogleAuth()`; java: `VertexBackend`; php: `Anthropic\Vertex\Client`; ruby: `Anthropic::VertexClient`). Install the package that provides it:
 
 <Tabs>
   <Tab title="Python">
@@ -49,8 +49,8 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.6.0")
-        implementation("com.anthropic:anthropic-java-vertex:3.6.0")
+        implementation("com.anthropic:anthropic-java:3.7.0")
+        implementation("com.anthropic:anthropic-java-vertex:3.7.0")
         ```
       </Tab>
 
@@ -59,12 +59,12 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-vertex</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
         ```
       </Tab>
@@ -243,8 +243,7 @@ The following examples use the global endpoint. For the other endpoint types, se
   ```
 
   ```php PHP
-  <?php
-
+  use Anthropic\Messages\Model;
   use Anthropic\Messages\TextBlock;
   use Anthropic\Vertex;
 
@@ -258,7 +257,7 @@ The following examples use the global endpoint. For the other endpoint types, se
       messages: [
           ['role' => 'user', 'content' => 'Hey Claude!']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
   );
 
   foreach ($message->content as $block) {
@@ -277,12 +276,12 @@ The following examples use the global endpoint. For the other endpoint types, se
   )
 
   message = client.messages.create(
-    model: "claude-opus-5-5",
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 100,
-    messages: [{role: "user", content: "Hey Claude!"}]
+    messages: [{ role: "user", content: "Hey Claude!" }]
   )
 
-  puts message.content.find { it.type == :text }.text
+  puts message.content.find { |block| block.is_a?(Anthropic::Models::TextBlock) }.text
   ```
 </CodeGroup>
 
@@ -290,6 +289,8 @@ The following examples use the global endpoint. For the other endpoint types, se
 
 | Model                                                                                                 | Agent Platform API model ID  |
 | :---------------------------------------------------------------------------------------------------- | :--------------------------- |
+| Claude Fable 5.2                                                                                      | `claude-fable-5-2`           |
+| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-2`          |
 | Claude Fable 5.1                                                                                      | `claude-fable-5-1`           |
 | Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-1`          |
 | Claude Fable 5                                                                                        | `claude-fable-5`             |
@@ -473,6 +474,8 @@ Features supported on Claude Models on Google Cloud (Google managed) include the
 
 * [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+* [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) on [supported models](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability)
+
 [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview) lists every feature. Each feature’s page shows whether Claude Models on Google Cloud (Google managed) supports it.
 
 ### Features not supported
@@ -492,8 +495,12 @@ Instead of server-side fallback, use the [client-side fallback pattern](https://
 
 Claude Models on Google Cloud (Google managed) offers a [1M-token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) for these models:
 
+* Claude Fable 5.2
+* Claude Mythos 5.2
 * Claude Fable 5.1
+* Claude Mythos 5.1
 * Claude Fable 5
+* Claude Mythos 5
 * Claude Opus 5.5
 * Claude Opus 5
 * Claude Opus 4.8

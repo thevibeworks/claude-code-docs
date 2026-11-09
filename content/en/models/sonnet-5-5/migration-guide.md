@@ -852,7 +852,7 @@ If you send the `fine-grained-tool-streaming-2025-05-14` beta header, remove it 
 
 ### The advisor tool accepts fewer advisors
 
-With the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool), a Claude Sonnet 5.5 executor needs one of these advisors: Claude Opus 5, Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5, Claude Fable 5.1, Claude Mythos 5, or Claude Mythos 5.1. Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, Claude Sonnet 4.6, and Claude Haiku 5.5 advisors return a 400 error. The advice comes back encrypted as an `advisor_redacted_result` block, so its text isn’t readable in the response. See [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility).
+With the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool), a Claude Sonnet 5.5 executor needs one of these advisors: Claude Opus 5, Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5, Claude Fable 5.1, Claude Fable 5.2, Claude Mythos 5, Claude Mythos 5.1, or Claude Mythos 5.2. Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, Claude Sonnet 4.6, and Claude Haiku 5.5 advisors return a 400 error. The advice comes back encrypted as an `advisor_redacted_result` block, so its text isn’t readable in the response. See [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility).
 
 ### Text between tool calls is returned in thinking blocks
 

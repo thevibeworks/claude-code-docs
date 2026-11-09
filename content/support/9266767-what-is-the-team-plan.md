@@ -22,7 +22,7 @@ Users with Standard seats on the Team plan can access the following:
 
   - **Role-based permissioning:** Customize access levels and control user privileges across your organization.
 
-- **Spend controls:** Set spending caps at organization and individual user levels.
+- **Spend controls:** Set spending caps for your organization, and for individual users where available.
 
 - **Enterprise search capabilities:** Dedicated search project for unified knowledge access.
 

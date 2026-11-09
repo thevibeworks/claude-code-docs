@@ -147,7 +147,7 @@ On a device that has the Claude Code CLI, run `claude auto-mode config` in a ter
 
 ### Run vetted connector tools without classifier review
 
-In Cowork's [**Automatically approve**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), the safety classifier reviews calls to a connector tool whose [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers) in `managedMcpServers` is `"allow"`, and can block them. To run a tool without that review, add a `permissions.allow` rule for it to your Claude Code managed settings, beside any `autoMode` block:
+In Cowork's [**Automatically approve**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), the safety classifier reviews Claude's calls to a connector tool whose [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers) in `managedMcpServers` is `"allow"`, and can block them. To run a tool without that review, add a `permissions.allow` rule for it to your Claude Code managed settings, beside any `autoMode` block:
 
 ```json managed-settings.json theme={null}
 {
@@ -168,7 +168,26 @@ Write the rule as [`mcp__<server>__<tool>`](https://code.claude.com/docs/en/perm
 
 ## Claude Code mods
 
-Code sessions support Claude Code [mods](https://code.claude.com/docs/en/plugins/mods/overview), code that a plugin runs inside Claude Code, and users can load their own. Cowork sessions and [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md) conversations load mods from plugins users add themselves and [plugins from your marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin). To stop users' own mods from loading in local Code sessions, Cowork sessions, and Chat conversations, deploy this Claude Code managed-settings file on each device:
+Code sessions support Claude Code [mods](https://code.claude.com/docs/en/plugins/mods/overview), code that a plugin runs inside Claude Code, and users can load their own. Cowork sessions and [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md) conversations load mods from plugins users add themselves and [plugins from your marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin).
+
+### What a mod can do without approval
+
+A [mod](https://code.claude.com/docs/en/plugins/mods/overview) is code that a plugin runs inside Claude Code. That code runs as the user, [outside the sandbox](https://code.claude.com/docs/en/sandboxing#what-runs-outside-the-sandbox). It can read and write files, run programs, and make network requests itself, and your tool policies don't apply to those actions. For example, in a Code session it can reach hosts that aren't in [`coworkEgressAllowedHosts`](https://claude.com/docs/third-party/claude-desktop/configuration#coworkegressallowedhosts).
+
+A mod can also call the session's tools, such as the shell tool (`Bash`) or a connector tool. Claude Code doesn't ask the user to approve a call that a mod makes, and treats the call according to your policy for the tool:
+
+* **No policy**: the mod's call can run with no prompt
+* **`"allow"`** in [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers): the mod's call can run with no prompt, even in Code sessions, where `"allow"` doesn't pre-approve Claude's own calls
+* **`"ask"`** in `toolPolicy`: under the `permissions.ask` rule that [Claude Desktop supplies](#applied-as-managed-policy), Claude Code refuses the mod's call, and the user sees no prompt. In a Code session, the same holds for a built-in tool set to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy). Claude's own calls to the tool still prompt the user each time.
+* **Blocked**, by `"blocked"` in `toolPolicy` or by the tool's name in [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools): a mod can't call the tool
+
+Claude Code's own managed settings can [replace the policy](#interaction-with-claude-code%E2%80%99s-own-managed-settings) that holds the `permissions.ask` rule. For a tool that a mod must never call, block the tool, which removes it from the session.
+
+In **Auto mode** and in Cowork's **Automatically approve**, the safety classifier doesn't review a mod's calls, so your [`autoMode` rules](#tune-the-auto-mode-classifier) don't apply to them.
+
+### Stop user-installed mods from loading
+
+To stop users' own mods from loading in local Code sessions, Cowork sessions, and Chat conversations, deploy this Claude Code managed-settings file on each device:
 
 ```json managed-settings.json theme={null}
 {
@@ -185,6 +204,7 @@ Code sessions support Claude Code [mods](https://code.claude.com/docs/en/plugins
 
 In Cowork sessions and Chat conversations, this file also stops mods in plugins from your marketplaces.
 
+* **Deploy it to [Claude Code's policy locations](https://code.claude.com/docs/en/managed-settings#where-each-mechanism-stores-the-policy)**, not to [Claude Desktop's configuration locations](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#where-claude-desktop-reads-configuration-on-a-device). If the device already has Claude Code managed settings, such as an [`autoMode` block](#tune-the-auto-mode-classifier), add these keys to them and leave their `parentSettingsBehavior` as it is.
 * **Keep `parentSettingsBehavior`.** Without it, Claude Code ignores the sandbox and the other [managed policy](#applied-as-managed-policy) values that Claude Desktop supplies, except [in a Code session that gets `code` settings from a Claude apps gateway](#interaction-with-claude-code%E2%80%99s-own-managed-settings). In Cowork sessions, without it, Claude doesn't ask for approval before a tool call that matches an argument-scoped [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy) rule such as `Read(//**/.env)` set to `"ask"`.
 * **Leave out `disableSideloadFlags`**, which a longer sample in the Claude Code docs includes. With it, Code sessions start without the skills, organization plugins, and uploaded plugins that Claude Desktop delivers.
 * **Optionally, remove the `/plugin-authoring` command**, which has Claude write a mod. Add `"enabledPlugins": { "cc-plugin-plugin-authoring@builtin": false }` to the file.

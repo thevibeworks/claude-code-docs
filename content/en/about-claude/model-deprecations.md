@@ -68,6 +68,8 @@ Current and recently retired models are listed in the following table with their
 
 | API model name             | Current state | Deprecated         | Tentative retirement date          |
 | :------------------------- | :------------ | :----------------- | :--------------------------------- |
+| claude-fable-5-2           | Active        | N/A                | Not sooner than November 9, 2027   |
+| claude-mythos-5-2          | Active        | N/A                | Not sooner than November 9, 2027   |
 | claude-fable-5-1           | Active        | N/A                | Not sooner than September 1, 2027  |
 | claude-mythos-5-1          | Active        | N/A                | Not sooner than September 1, 2027  |
 | claude-fable-5             | Active        | N/A                | Not sooner than June 9, 2027       |

@@ -9,6 +9,8 @@ featureMetadata:
     eligibility: not-eligible
     note: Data retained according to standard policy.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
@@ -1302,8 +1304,8 @@ Install both the Anthropic SDK and the MCP SDK:
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.6.0")
-        implementation("com.anthropic:anthropic-java-mcp:3.6.0")
+        implementation("com.anthropic:anthropic-java:3.7.0")
+        implementation("com.anthropic:anthropic-java-mcp:3.7.0")
         ```
       </Tab>
 
@@ -1312,12 +1314,12 @@ Install both the Anthropic SDK and the MCP SDK:
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-mcp</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
         ```
       </Tab>

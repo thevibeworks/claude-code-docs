@@ -4,7 +4,7 @@ To ensure we’re responsibly deploying covered models, **we are requiring limit
 
 This applies to Mythos-class models and future models with similar capabilities that we designate as **[covered models](https://support.claude.com/en/articles/15425695)**. For all other models, everything you use is unaffected and stays under the current terms.
 
-This policy, described below, goes into effect on June 9, 2026.
+This policy, described below, went into effect on June 9, 2026.
 
 ## Who this applies to
 
@@ -14,7 +14,7 @@ This change only applies to organizations that have set up workspaces with **[ze
 
 ## Why we’re doing this
 
-Mythos-class models represent a substantial increase in model capabilities, some of which can be used for both benign and malicious purposes. Claude Fable 5 and Claude Fable 5.1 share the same underlying model as Claude Mythos 5 and Claude Mythos 5.1, but with additional safeguards, particularly in the cyber and bio domains. While these safeguards allow us to share this intelligence more broadly, we are taking a conservative approach that allows us to look for patterns of misuse with this class of model and future models we release that are similarly or more capable. Some attacks only become visible across multiple requests. **[Best-of-N jailbreaking](https://arxiv.org/abs/2412.03556)**, for example, sends hundreds of slight variations of a prompt in the hope that one will work. Larger patterns of misuse, such as **[state-sponsored espionage](https://www.anthropic.com/news/disrupting-AI-espionage)** or **[data extortion campaigns](https://www.anthropic.com/news/detecting-countering-misuse-aug-2025)**, only surface when our safeguards classifiers can zoom out across many requests. Detecting these threats requires temporarily retaining prompts and outputs so they can be analyzed together, rather than one at a time.
+Mythos-class models represent a substantial increase in model capabilities, some of which can be used for both benign and malicious purposes. Claude Fable 5.2, Claude Fable 5.1, and Claude Fable 5 share the same underlying model as Claude Mythos 5.2, Claude Mythos 5.1, and Claude Mythos 5, but with additional safeguards, particularly in the cyber and bio domains. While these safeguards allow us to share this intelligence more broadly, we are taking a conservative approach that allows us to look for patterns of misuse with this class of model and future models we release that are similarly or more capable. Some attacks only become visible across multiple requests. **[Best-of-N jailbreaking](https://arxiv.org/abs/2412.03556)**, for example, sends hundreds of slight variations of a prompt in the hope that one will work. Larger patterns of misuse, such as **[state-sponsored espionage](https://www.anthropic.com/news/disrupting-AI-espionage)** or **[data extortion campaigns](https://www.anthropic.com/news/detecting-countering-misuse-aug-2025)**, only surface when our safeguards classifiers can zoom out across many requests. Detecting these threats requires temporarily retaining prompts and outputs so they can be analyzed together, rather than one at a time.
 
 ## How we protect your data
 

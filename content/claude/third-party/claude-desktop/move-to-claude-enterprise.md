@@ -12,7 +12,7 @@ Move Claude Desktop from your cloud provider, where the app is named Claude (thi
 
 ## What is migrated
 
-The migration never changes or deletes the Claude (third-party) data.
+The migration never changes or deletes the Claude (third-party) data. Nothing migrates until you turn the migration on, as described under [Migrate your fleet](#migrate-your-fleet).
 
 **Migrated automatically:**
 
@@ -72,7 +72,7 @@ Make one change to the policy or profile that carries your Claude settings: an `
 Choose one option for the keys that connect Claude to your cloud provider, such as keys that start with `inference` or `bootstrap`:
 
 * **To move everyone to Claude Enterprise**, remove those keys. Also remove [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser), [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode), and [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). If your settings come from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), copy the keys you want to keep into the policy or profile itself.
-* **To let each user switch between your cloud provider and Claude Enterprise**, keep those keys and `deploymentOrganizationUuid`. They must be in the same `HKEY_LOCAL_MACHINE` policy or configuration profile as `importThirdPartyHistoryIntoOrgUUID`, because on Windows Claude [reads one policy location](https://claude.com/docs/third-party/claude-desktop/mdm.md#4-deploy-the-configuration). Make sure [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) isn't set in the policy or profile, or by your bootstrap server, and that [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode) is unset or `any`. Claude's welcome screen then offers **Or sign in with Claude.ai**. Your cloud provider settings still apply while a user works with your cloud provider.
+* **To let each user switch between your cloud provider and Claude Enterprise**, keep those keys and `deploymentOrganizationUuid`. They must be in the same `HKEY_LOCAL_MACHINE` policy or configuration profile as `importThirdPartyHistoryIntoOrgUUID`, because on Windows Claude [reads one policy location](https://claude.com/docs/third-party/claude-desktop/mdm.md#4-deploy-the-configuration). Make sure [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) isn't set in the policy or profile, or by your bootstrap server, and that [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode) is unset or `any`. Claude's welcome screen then offers **Or sign in with Claude.ai**. Your cloud provider settings still apply while a user works with your cloud provider. With your cloud provider and with Claude Enterprise, Claude uses some of the same folders on the computer, as described under [Data shared with standard Claude Desktop](https://claude.com/docs/third-party/claude-desktop/data-storage.md#data-shared-with-standard-claude-desktop).
 
 Leave other keys in place. In Claude Enterprise, the desktop extensions feature is on unless [`isDesktopExtensionEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
 

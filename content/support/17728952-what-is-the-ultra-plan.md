@@ -56,7 +56,7 @@ Additional usage limits may apply to manage capacity and ensure fair access to a
 
 Learn more about **[usage and length limits](https://support.claude.com/en/articles/11647753)** and **[usage limit best practices](https://support.claude.com/en/articles/9797557)**.
 
-**Note:** If you have a limit reset, you can use it to reset your weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
+**Note:** If you have a limit reset, you can use it to restore your usage. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
 
 ## What is a verified Ultra account?
 

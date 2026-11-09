@@ -748,9 +748,9 @@ Server tools run on Anthropic’s infrastructure, with no handler code in your a
 
 Tool use requests are priced based on:
 
-1. The total number of input tokens sent to the model (including in the `tools` parameter)
-2. The number of output tokens generated
-3. For server-side tools, additional usage-based pricing (for example, web search charges per search performed)
+1. The total number of input tokens sent to the model (including in the `tools` parameter).
+2. The number of output tokens generated.
+3. For server-side tools, additional usage-based pricing (for example, web search charges per search performed).
 
 Client-side tools are priced the same as any other Claude API request, although server-side tools can incur additional charges based on their specific usage.
 
@@ -760,7 +760,7 @@ The additional tokens from tool use come from:
 * `tool_use` content blocks in API requests and responses
 * `tool_result` content blocks in API requests
 
-When you use `tools`, the API also automatically includes a special system prompt for the model that enables tool use. The number of tool use tokens required for each model is listed in the following table (excluding the additional tokens listed earlier). Note that the table assumes at least 1 tool is provided. If no `tools` are provided, then a tool choice of `none` uses 0 additional system prompt tokens.
+When you use `tools`, the API also automatically includes a special system prompt for the model that enables tool use. The following table lists the number of tool use tokens that each model requires (excluding the additional tokens listed earlier). The table assumes that you provide at least one tool. If you provide no `tools`, a tool choice of `none` uses 0 additional system prompt tokens.
 
 | Model                                                                                                                                                                  | Tool use system prompt tokens: auto, none | Tool use system prompt tokens: any, tool |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------- | :--------------------------------------- |

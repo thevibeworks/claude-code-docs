@@ -28,7 +28,7 @@ Server metadata is stored in a standardized [`server.json` format](https://githu
 
 The MCP Registry is part of an ecosystem that looks something like:
 
-![The MCP Registry ecosystem](https://mintcdn.com/mcp/jWyXLg8iLYJ-g6Lo/registry/ecosystem-diagram.excalidraw.svg?fit=max\&auto=format\&n=jWyXLg8iLYJ-g6Lo\&q=85\&s=06fcebbf5a33d3ef1fed72279f01f321)
+![The MCP Registry ecosystem](https://mintcdn.com/mcp/TuKtsYL1h-25zu1M/registry/ecosystem-diagram.excalidraw.svg?fit=max\&auto=format\&n=TuKtsYL1h-25zu1M\&q=85\&s=7e700f8b72398e303666dfe17ed3d25b)
 
 ### Relationship with Package Registries
 

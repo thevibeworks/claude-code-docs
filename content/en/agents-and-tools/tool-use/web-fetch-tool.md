@@ -8,6 +8,8 @@ featureMetadata:
     eligibility: eligible
     note: Excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Fetched web content returned in the API response. Dynamic filtering for web fetch is not eligible for ZDR or HIPAA. Website publishers might retain request data (such as fetched URLs and request metadata) according to their own policies.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

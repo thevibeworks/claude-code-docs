@@ -1143,7 +1143,7 @@ object\[]Since 1.2581.0
 >
 > Each entry is a model ID string or an object:
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
 > [
 >   {"name": "claude-sonnet-5",
 >    "supports1m": true},
@@ -3991,7 +3991,11 @@ Each [`managedMcpServers`](#managedmcpservers) entry can carry a `toolPolicy` th
 
 In Cowork's [**Automatically approve**](#automodeenabled), a safety classifier still reviews calls to a tool set to `"allow"`, and can block them. See [Run vetted connector tools without classifier review](https://claude.com/docs/third-party/claude-desktop/code.md#run-vetted-connector-tools-without-classifier-review).
 
-Tools with no policy entry stay user-controlled (built-in connectors apply default policies to some tools): the user is prompted and can approve once, approve for the rest of the task (offered for tools that can modify data), or grant a standing approval unless [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `false`. The app reads a `toolPolicy` value other than `"allow"`, `"ask"`, or `"blocked"`, such as `"ask-session"`, as `"blocked"` for that tool and reports a configuration error, so write `"ask"` in place of `"ask-session"`. Managed policies take precedence over user grants, and enforcement happens in the desktop host process, not only in the prompt UI. A deny-by-default posture, `"*": "blocked"` plus exact `"allow"` entries for approved tools, is supported, including in Code sessions. See the [`managedMcpServers` reference](#managedmcpservers) for wildcard matching, precedence rules, and built-in connector defaults.
+Claude's calls to a tool with no policy entry stay under the user's control (built-in connectors apply default policies to some tools): outside [**Auto mode**](#automodeenabled) and bypass permissions mode, the user is prompted and can approve once, approve for the rest of the task (offered for tools that can modify data), or grant a standing approval unless [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `false`. The app reads a `toolPolicy` value other than `"allow"`, `"ask"`, or `"blocked"`, such as `"ask-session"`, as `"blocked"` for that tool and reports a configuration error, so write `"ask"` in place of `"ask-session"`. Managed policies take precedence over user grants, and enforcement happens in the desktop host process, not only in the prompt UI. A deny-by-default posture, `"*": "blocked"` plus exact `"allow"` entries for approved tools, is supported, including in Code sessions. See the [`managedMcpServers` reference](#managedmcpservers) for wildcard matching, precedence rules, and built-in connector defaults.
+
+> [!WARNING]
+>
+> Approval prompts, and the safety classifier's review in **Auto mode**, cover calls that Claude makes. Claude Code gives neither to a call from a [mod](https://claude.com/docs/third-party/claude-desktop/code.md#what-a-mod-can-do-without-approval), which is code that a plugin runs inside Claude Code. A mod's call to a tool with no policy entry, or to one set to `"allow"`, can run without the user's approval. To stop mods from calling a tool, set it to `"blocked"`.
 
 On a scheduled Cowork task, the prompt can also offer an **Allow for all scheduled runs** option. See [Tool approvals on scheduled tasks](#tool-approvals-on-scheduled-tasks).
 

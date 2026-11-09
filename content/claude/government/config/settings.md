@@ -150,6 +150,8 @@ These settings cover usage telemetry export to your own collector and Claude Des
 
 Once a member has signed in and the app has loaded their configuration from Claude for Government, it takes its telemetry settings from that configuration alone and ignores any set on the device itself. Claude Desktop keeps working when the collector refuses requests or cannot be reached, and members see no error. For what the collector must accept, and how to confirm that telemetry is arriving, see [Collector endpoint and headers](https://claude.com/docs/third-party/claude-desktop/telemetry.md#collector-endpoint-and-headers). For Claude for Microsoft 365, the collector must also accept [cross-origin requests from your Claude for Government host](https://claude.com/docs/government/deploy-microsoft-365/configure.md#before-you-begin).
 
+To send a credential to your collector, enter it in [**Telemetry headers**](#telemetry-headers). Claude for Government does not deliver `otlpHeadersHelper` or `otlpAuthMode`, the keys that [Collector endpoint and headers](https://claude.com/docs/third-party/claude-desktop/telemetry.md#collector-endpoint-and-headers) lists for a credential.
+
 Each record [identifies the member](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution). See what [Claude Desktop](https://claude.com/docs/cowork/monitoring.md#events), [Claude for Microsoft 365](https://claude.com/docs/office-agents/opentelemetry.md#what-the-collector-receives), and [Claude Code](https://code.claude.com/docs/en/monitoring-usage) send.
 
 ## Admin Console

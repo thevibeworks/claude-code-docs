@@ -141,7 +141,7 @@ Claude Desktop on 3P runs on the inference provider or bootstrap server in your 
 
 * **`3p`**: the app uses the connection that the managed source sets, such as an inference provider or bootstrap keys. The sign-in screen doesn't offer **Or sign in with Claude.ai**. With nothing to connect to in the same managed source, the app opens standard Claude Desktop, so set a connection there to keep users from signing in to claude.ai.
 * **`1p`**: the app always runs as standard Claude Desktop and ignores inference provider and bootstrap keys.
-* **`any`**: the same as leaving the key unset.
+* **`any`**: the same as leaving the key unset. Where users can switch, the two modes [share some data on the device](https://claude.com/docs/third-party/claude-desktop/data-storage.md#data-shared-with-standard-claude-desktop).
 
 With `3p` or `1p`, a user can't [move the device to an Enterprise Admin Console organization](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile), and the app doesn't offer or accept the [Claude API account sign-in](https://claude.com/docs/third-party/claude-desktop/claude-api.md#which-devices-offer-the-claude-api-account-sign-in). To allow the move only to your organization, set [`forceLoginOrgUUID`](https://claude.com/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile) instead. The app ignores `deploymentMode` in a bootstrap response. It treats a misspelled value as `3p`.
 

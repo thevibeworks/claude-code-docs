@@ -9,6 +9,8 @@ featureMetadata:
     eligibility: not-eligible
     note: Research preview. The MCP tunnels security page describes the data-flow boundary and subprocessor details.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

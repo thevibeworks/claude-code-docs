@@ -36,7 +36,9 @@ After an organization Owner or Primary Owner configures your account for usage c
 
 6. Set a monthly spend limit to apply organization-wide.
 
-7. Enable usage credits for specific users or the entire organization.
+7. Enable usage credits for the entire organization, or for specific users where available.
+
+**Note:** Spend limits for individual members aren't available to every Team organization. If usage credits are on and **Organization settings > Usage** shows **Spend by org member** instead of **Spend limits by user**, they aren't available for yours. Owners and Primary Owners can still set an organization-wide spend limit.
 
 ### For seat-based Enterprise owners
 
@@ -82,13 +84,15 @@ Select the "By group" tab to see **Standard seats** and **Premium seats** groups
 
 ## User-level spend limits
 
-Owners and Primary Owners can also set individual monthly spend limits for each member by finding **Spend limits by user** and clicking the "..." button next to the user, then "Edit limit."
+Owners and Primary Owners can also set individual monthly spend limits, where available, for each member by finding **Spend limits by user** and clicking the "..." button next to the user, then "Edit limit."
 
 Enter the amount and click "Set limit." Alternatively, selecting "Set to unlimited" will remove that member's monthly spend limit (they will still be subject to any organization or seat-level spend limits).
 
 This allows owners fine control over usage credits, so you can set limits for different members based on their roles or individual needs. Once a user reaches their defined spend limit, this will automatically pause their usage credits until the end of the month. They will need to wait for their usage limits to reset before using Claude again.
 
 Note that the **Spend limits by user** section has a **MTD Spend** column, so you can track members' usage patterns and optimize seat assignments.
+
+**Note:** Spend limits for individual members aren't available to every Team organization. If usage credits are on and **Organization settings > Usage** shows **Spend by org member** instead of **Spend limits by user**, they aren't available for yours. Owners and Primary Owners can still set an organization-wide spend limit.
 
 ---
 

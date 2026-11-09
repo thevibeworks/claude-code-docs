@@ -8,6 +8,8 @@ featureMetadata:
     url: https://platform.claude.com/docs/en/manage-claude/opentelemetry
   status: beta
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

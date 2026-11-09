@@ -37,7 +37,7 @@ You need a [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/o
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.7.1
+        VERSION=2.8.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;
@@ -106,7 +106,7 @@ To run the CLI examples, install the CLI:
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=2.7.1
+    VERSION=2.8.0
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;

@@ -20,6 +20,8 @@ The table lists what each model supports, what it defaults to, and which `thinki
 
 | Model                 | Thinking types                              | Default   | Rejected with 400                     |
 | --------------------- | ------------------------------------------- | --------- | ------------------------------------- |
+| Claude Fable 5.2      | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
+| Claude Mythos 5.2     | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
 | Claude Fable 5.1      | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
 | Claude Mythos 5.1     | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
 | Claude Fable 5        | Adaptive only                               | Always on | `"enabled"`, `"disabled"`             |
@@ -44,7 +46,7 @@ The table lists what each model supports, what it defaults to, and which `thinki
 
 Models marked `Always on` cannot turn thinking off. Models marked `On` default to thinking. Claude Opus 5, Claude Sonnet 5, and Claude Haiku 5.5 accept `thinking: {type: "disabled"}`. On Claude Sonnet 5.5, send `thinking: {type: "between_tools"}` to turn off up-front thinking.
 
-Earlier Claude 4 models (Claude Opus 4.1, Claude Sonnet 4, and Claude Opus 4) support extended thinking only. See [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) for their availability. Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5 are not available under [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements) unless expressly authorized by Anthropic.
+Earlier Claude 4 models (Claude Opus 4.1, Claude Sonnet 4, and Claude Opus 4) support extended thinking only. See [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) for their availability. Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5 are not available under [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements) unless expressly authorized by Anthropic.
 
 ## A 400 error says `"thinking.type.enabled"` is not supported
 
@@ -60,7 +62,7 @@ Switch the request to `thinking: {type: "adaptive"}` and steer thinking depth wi
 
 ## A 400 error after sending `thinking: {type: "disabled"}`
 
-The request fails with a 400 error. On Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Opus 5.5, and Claude Mythos 5, the message reads:
+The request fails with a 400 error. On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Opus 5.5, and Claude Mythos 5, the message reads:
 
 ```text wrap
 "thinking.type.disabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
@@ -152,7 +154,7 @@ Echo the assistant turn back verbatim, thinking blocks included. See [Preserving
 
 ## A 400 error says a thinking block signature is invalid
 
-A request that replays earlier thinking blocks to a Claude 5.1 or later model can fail with a 400 `invalid_request_error` whose message reads:
+A request that replays earlier thinking blocks to Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Haiku 5.5 can fail with a 400 `invalid_request_error` whose message reads:
 
 ```text wrap
 messages.{i}.content.{j}: Invalid `signature` in `thinking` block. The block is bound to a different conversation. Remove the block, or set `thinking.block_binding.prefix_mismatch_behavior` to "drop_block".
@@ -171,7 +173,7 @@ These models accept a replayed thinking block only while the `system` prompt, `t
 * A rebuilt `system` prompt or `tools` array
 * Client-side compaction that kept recent turns and their thinking verbatim
 
-Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger this error. For requests that don’t set `thinking.block_binding.prefix_mismatch_behavior`, see [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
+Server-side [compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger this error. With [on-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand), thinking in the turns you keep after the summary triggers it when one of the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) doesn’t hold. For requests that don’t set `thinking.block_binding.prefix_mismatch_behavior`, see [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
 
 Retrying the same request body doesn’t clear the error. Neither does fixing your code, because the stored history holds the edit. To continue the conversation, do one of the following:
 

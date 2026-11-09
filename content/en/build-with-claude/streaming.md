@@ -5,6 +5,8 @@ description: Stream Messages API responses incrementally with server-sent events
 featureMetadata:
   status: stable
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

@@ -456,7 +456,7 @@ With tool use, pass back every `thinking` and `redacted_thinking` block from the
 
 ### Extended thinking not supported
 
-Claude 4.7 and later models have removed extended thinking. Sending `thinking: {"type": "enabled"}` to any of these models returns a 400 `invalid_request_error`:
+Claude 4.7 and later models don’t support extended thinking. Sending `thinking: {"type": "enabled"}` to any of these models returns a 400 `invalid_request_error`:
 
 ```text wrap
 "thinking.type.enabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
@@ -476,7 +476,7 @@ Use `thinking: {"type": "enabled", "budget_tokens": N}` on these models; see [Ex
 
 ### Thinking cannot be disabled
 
-On Claude Fable 5.1, [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), Claude Fable 5, [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Opus 5.5, and [Claude Mythos Preview](https://anthropic.com/glasswing), thinking is always on. Sending `thinking: {"type": "disabled"}` to any of these models returns a 400 `invalid_request_error`. On all of these models except Claude Mythos Preview, the message reads:
+On Claude Fable 5.2, [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), Claude Fable 5.1, [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), Claude Fable 5, [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Opus 5.5, and [Claude Mythos Preview](https://anthropic.com/glasswing), thinking is always on. Sending `thinking: {"type": "disabled"}` to any of these models returns a 400 `invalid_request_error`. On all of these models except Claude Mythos Preview, the message reads:
 
 ```text wrap
 "thinking.type.disabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
@@ -508,7 +508,7 @@ messages.N: output_config.effort 'low' differs from the 'high' in effect before 
 
 Claude Haiku 5.5 accepts `thinking: {"type": "disabled"}` and holds it to the same two effort limits that apply to `between_tools`: at `xhigh` or `max` effort, or with a per-message `output_config.effort` that differs from the level in effect, the request returns a 400 `invalid_request_error` with the matching message shown earlier.
 
-In both messages, “enable thinking” means adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. Claude Sonnet 5.5 and Claude Haiku 5.5 reject `"enabled"` with a 400 error. To vary effort for each turn, use adaptive thinking.
+In both messages, “enable thinking” means adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. Claude Sonnet 5.5 and Claude Haiku 5.5 also reject `"enabled"` with a 400 error. To vary effort for each turn, use adaptive thinking.
 
 Sending `thinking: {"type": "between_tools"}` to any model other than Claude Sonnet 5.5 returns a 400 `invalid_request_error`:
 
@@ -522,7 +522,7 @@ Omit the `thinking` parameter and the request runs with adaptive thinking. To ke
 
 ### Forced tool use not supported
 
-Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) don’t support forced tool use. Sending `tool_choice: {"type": "any"}` or `tool_choice: {"type": "tool", "name": "..."}` to any of these models, including on the [token counting endpoint](https://platform.claude.com/docs/en/build-with-claude/token-counting), returns a 400 `invalid_request_error`:
+Claude Fable 5.2, [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) don’t support forced tool use. Sending `tool_choice: {"type": "any"}` or `tool_choice: {"type": "tool", "name": "..."}` to any of these models, including on the [token counting endpoint](https://platform.claude.com/docs/en/build-with-claude/token-counting), returns a 400 `invalid_request_error`:
 
 ```text wrap
 tool_choice: type "tool" and "any" are not supported for this model.
@@ -532,19 +532,19 @@ tool_choice: type "tool" and "any" are not supported for this model.
 
 ### Computer use tool version not supported
 
-Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 return a 400 error for any [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) tool version they don’t accept. On the Claude API, that includes `computer_20251124` with its beta header. They don’t accept `computer_20250124` on any platform. The Claude API’s `invalid_request_error` message names the rejected type and, after `Did you mean one of`, lists the tool types the model accepts. For Claude Opus 5.5, the message begins:
+Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 return a 400 error for any [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) tool version they don’t accept. On the Claude API, that includes `computer_20251124` with its beta header. They don’t accept `computer_20250124` on any platform. The Claude API’s `invalid_request_error` message names the rejected type and, after `Did you mean one of`, lists the tool types the model accepts. For Claude Opus 5.5, the message begins:
 
 ```text wrap
 'claude-opus-5-5' does not support tool types: computer_20251124.
 ```
 
-The Claude API returns the same message for any Anthropic-defined tool type that the requested model doesn’t support. Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 support computer use through the `computer_toolset_20260801` toolset. Declare `{"type": "computer_toolset_20260801"}` without the beta header and update your agent loop as described in [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124). To move from `computer_20250124`, see [Move computer use to the toolset](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#computer-use-toolset) in the Claude Haiku 5.5 migration guide.
+The Claude API returns the same message for any Anthropic-defined tool type that the requested model doesn’t support. Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 support computer use through the `computer_toolset_20260801` toolset. Declare `{"type": "computer_toolset_20260801"}` without the beta header and update your agent loop as described in [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124). To move from `computer_20250124`, see [Move computer use to the toolset](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#computer-use-toolset) in the Claude Haiku 5.5 migration guide.
 
-On Amazon Bedrock, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 also accept the `computer_20251124` tool with the `computer-use-2025-11-24` beta header. [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) lists the models to use with each earlier version.
+On Amazon Bedrock, Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 also accept the `computer_20251124` tool with the `computer-use-2025-11-24` beta header. [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) lists the models to use with each earlier version.
 
 ### Thinking block bound to a different conversation
 
-This 400 `invalid_request_error` usually means a thinking block you sent back failed the prefix check: something before the block changed after the block was produced, such as the `system` prompt, `tools`, or an earlier message. Claude 5.1 and later models run this check. For requests that don’t set `prefix_mismatch_behavior`, [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) shows which ones get this error. The message starts with the position of the first failing block:
+This 400 `invalid_request_error` usually means a thinking block you sent back failed the prefix check: something before the block changed after the block was produced, such as the `system` prompt, `tools`, or an earlier message. Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 run this check. For requests that don’t set `prefix_mismatch_behavior`, [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) shows which ones get this error. The message starts with the position of the first failing block:
 
 ```text wrap
 messages.{i}.content.{j}: Invalid `signature` in `thinking` block. The block is bound to a different conversation. Remove the block, or set `thinking.block_binding.prefix_mismatch_behavior` to "drop_block".
