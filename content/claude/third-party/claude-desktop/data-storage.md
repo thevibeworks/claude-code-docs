@@ -16,7 +16,7 @@ The OpenTelemetry export to your own collector is the exception: it identifies t
 
 ## Where data lives
 
-Claude Desktop on 3P stores everything under a dedicated directory, separate from standard Claude Desktop, so the two modes can coexist on one machine without interfering.
+Claude Desktop on 3P keeps its application data and logs in directories of its own, separate from those of standard Claude Desktop. A few locations in the user's home directory are outside these directories, and [standard Claude Desktop uses them too](#data-shared-with-standard-claude-desktop).
 
 | Platform | Application data | Logs |
 | - | - | - |
@@ -53,6 +53,23 @@ The app doesn't encrypt conversations, settings, or the locally applied configur
 The logs directory contains `main.log` (application and configuration-validation events), `ssh.log` (SSH connection events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
 Separately from the application-data directory, Claude Desktop writes user-visible outputs (Artifacts and scheduled-task results) to `~/Claude/` in your home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for you to browse directly and is not removed when you delete the application-data directory. To back up a user's data, copy every location listed under [Copy the data to the new device](#copy-the-data-to-the-new-device).
+
+### Data shared with standard Claude Desktop
+
+Unless you [restrict a device to one deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode), a user can switch, in the same OS user account, between Claude Desktop on 3P and standard Claude Desktop, where users sign in to claude.ai. On a device where you haven't turned on the [migration to Claude Enterprise](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise.md), the two modes handle the user's data as follows:
+
+* **Chats, Cowork tasks, projects, and memory**: standard Claude Desktop doesn't show, import, or upload those stored in the 3P [application-data directory](#where-data-lives). It reads and writes some settings files in that directory, such as the user's choice of mode. It also reads the Code session records in `claude-code-sessions/`, so that it doesn't list those sessions or delete their folders.
+* **Code sessions**: each mode lists only its own, but **Code** in both modes and Claude Code in the terminal keep their transcripts in the same folder, `~/.claude/`. Each mode reads the transcripts there to count usage, and the figures that standard Claude Desktop shows for `/stats` in **Code** include sessions from both modes and the terminal. Claude Code in the terminal can resume a session from either mode, and then sends the earlier conversation to the provider that the terminal uses.
+* **Claude Code setup**: `~/.claude/` and `~/.claude.json` also hold Claude Code's setup, such as skills, plugins, hooks, permission rules, trusted folders, and MCP servers, shared by **Code** in both modes and Claude Code in the terminal. Sign-ins to MCP servers made in **Code** are in [Claude Code's own credential store](https://code.claude.com/docs/en/authentication#credential-management), which they share too.
+* **Connectors**: standard Claude Desktop doesn't load the connectors, plugins, or extensions that users added outside **Code**. From your [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) entries, it loads only a built-in Microsoft 365 connector set in the device's managed profile.
+* **Connector sign-ins**: on a device configured by MDM, a local file, or a bootstrap server, switching modes leaves [connector sign-ins](#credentials) made outside **Code** in place and doesn't revoke them. Standard Claude Desktop doesn't use them, and Claude Desktop on 3P uses them again when the user switches back.
+* **Files in `~/Claude/`**: by default, both modes write Artifacts, scheduled tasks, and project files here, and each lists only its own. To give Claude Desktop on 3P a folder of its own, have the user go to **Settings > Cowork** and click **Change** next to **Cowork files**. The app copies everything in the current folder, the other mode's files included, to the new location and leaves the old folder in place.
+
+With the migration on, standard Claude Desktop also copies what [What is migrated](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise.md#what-is-migrated) lists, and `~/.claude/`, `~/.claude.json`, and `~/Claude/` are still shared.
+
+No configuration key moves these three locations. They are in the user's home directory, so each OS user account has its own.
+
+A [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting), or the `.zip` file from **Help > Troubleshooting > Show Logs in Finder** (**Show Logs in File Explorer** on Windows), includes app log lines from both modes, whichever mode the user creates it in.
 
 ### Session audit log
 
@@ -340,6 +357,8 @@ For a copy, the new device needs:
 ## Removing data
 
 To fully reset a device's Claude Desktop on 3P state, delete the application-data directory above and the `~/Claude/` user-files folder. Code session transcripts are in Claude Code's store at `~/.claude/projects/`, which Claude Code in the terminal also uses, so delete them there separately if you need to remove them. For [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements), transcripts are in `~/.claude/projects/` and attached files in `~/.claude/uploads/` in the SSH user's home directory on the remote host. Claude Desktop also copies those transcripts to the device, into folders in `~/.claude/projects/` whose names start with `ssh-`, so delete them in both places.
+
+On a device that also runs standard Claude Desktop, `~/Claude/` and `~/.claude/` hold that mode's files too, so deleting them deletes those as well. See [Data shared with standard Claude Desktop](#data-shared-with-standard-claude-desktop).
 
 > [!NOTE]
 >

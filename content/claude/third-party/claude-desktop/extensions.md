@@ -476,13 +476,57 @@ The lists and the sign-ins have these limits:
 
 With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a Cowork session started from the home screen runs the same hooks as any other Cowork session.
 
-A `UserPromptSubmit` hook that blocks a prompt stops that turn and shows the hook's reason to the user. When a conversation or session is created, Claude Desktop also sends its first message to your inference provider in a separate request, without tools, to generate the title shown in the sidebar. That request does not pass through plugin hooks, so a first message that a hook blocks still reaches your provider for titling.
+A `UserPromptSubmit` hook that blocks a prompt stops that turn and shows the hook's reason to the user. When a conversation or session is created, Claude Desktop also sends its first message to your inference provider in a separate request, without tools, to generate the title shown in the sidebar. That request does not pass through hooks, so a first message that a hook blocks still reaches your provider for titling.
 
-Claude Code [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) deployed on the device govern these hooks as they do in the Claude Code CLI: `disableAllHooks` turns them off, and `allowManagedHooksOnly` keeps only the hooks those managed settings define.
+Claude Code [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) deployed on the device govern these hooks as they do in the Claude Code CLI: `disableAllHooks` turns them off, and `allowManagedHooksOnly` keeps only the hooks that those managed settings define and the hooks of plugins that they install and turn on. See [Turn off user hooks](#turn-off-user-hooks).
 
 > [!NOTE]
 >
-> To stop users' own [mods](https://code.claude.com/docs/en/plugins/mods/overview) from loading, see [Claude Code mods](https://claude.com/docs/third-party/claude-desktop/code.md#claude-code-mods).
+> For what a plugin's [mod](https://code.claude.com/docs/en/plugins/mods/overview) can do without the user's approval, and how to stop users' own mods from loading, see [Claude Code mods](https://claude.com/docs/third-party/claude-desktop/code.md#claude-code-mods).
+
+### Run a hook for every user
+
+You can deliver a hook that has to run for every user, such as one that logs each prompt, in a plugin or in Claude Code managed settings:
+
+* **In a plugin**: add the plugin's marketplace to [`allowedPluginMarketplaces`](#configure-the-marketplace) with `installationPreference` set to [`"required"`](#marketplace-installation-preferences). Once Claude Desktop has fetched the marketplace, the plugin's hooks run from the first message of each Cowork session, Chat conversation, and local Code session. In a local Code session, a user can turn them off with [`disableAllHooks`](https://code.claude.com/docs/en/settings-reference#disableallhooks) in their own or a project's Claude Code settings.
+* **In Claude Code managed settings**: write the hooks under the [`hooks`](https://code.claude.com/docs/en/settings-reference#hooks) key of the Claude Code [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) on each device, and put any script that they call on the device too, where users can't change it. These hooks run in Cowork sessions, Chat conversations, and local Code sessions with no plugin to install, and a user's `disableAllHooks` doesn't stop them. If these are the device's first Claude Code managed settings, also set `parentSettingsBehavior` to `"merge"` in them, or Claude Code ignores the [managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy) values that Claude Desktop supplies.
+
+Neither way reaches an [SSH remote session](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#managed-configuration-on-the-remote-host). To run hooks there, deploy Claude Code managed settings [on the host](https://code.claude.com/docs/en/managed-settings#where-each-mechanism-stores-the-policy) in the same way. To turn off users' own hooks there too, deploy the example under [Turn off user hooks](#turn-off-user-hooks).
+
+### Turn off user hooks
+
+To stop users' own hooks, set [`allowManagedHooksOnly`](https://code.claude.com/docs/en/settings-reference#what-runs-under-allowmanagedhooksonly) to `true` in the Claude Code [managed settings](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) on each device. The setting also stops the hooks of the plugins that Claude Desktop delivers, including plugins from a `"required"` marketplace. Hooks under the managed settings' own `hooks` key keep running, and so do the hooks of a plugin that the same managed settings install and turn on, as this file does:
+
+```json managed-settings.json theme={null}
+{
+  "parentSettingsBehavior": "merge",
+  "allowManagedHooksOnly": true,
+  "extraKnownMarketplaces": {
+    "acme-internal": {
+      "source": { "source": "git", "url": "https://git.acme.example.com/claude-plugins.git" }
+    }
+  },
+  "enabledPlugins": {
+    "prompt-guard@acme-internal": true
+  },
+  "env": {
+    "CLAUDE_CODE_SYNC_PLUGIN_INSTALL": "1"
+  }
+}
+```
+
+Replace `acme-internal` with the `name` in your marketplace's `marketplace.json`, and `prompt-guard` with the plugin's name in that file. Keep the plugin's files in the marketplace repository, under a [relative `source` path](#create-the-marketplace-repository). For other marketplace source types, and for the git credentials that a private repository needs, see [Require a marketplace and its plugins](https://code.claude.com/docs/en/plugins/org#require-a-marketplace-and-its-plugins).
+
+* **Deploy the file to [Claude Code's policy locations](https://code.claude.com/docs/en/managed-settings#where-each-mechanism-stores-the-policy)**, not to [Claude Desktop's](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#where-claude-desktop-reads-configuration-on-a-device). If the device or host already has Claude Code managed settings, add the keys to them and leave their `parentSettingsBehavior` as it is.
+* **Keep `CLAUDE_CODE_SYNC_PLUGIN_INSTALL`.** It makes a session's first message wait until Claude Code has cloned the marketplace and installed the plugin. Without it, Claude Code installs from a git marketplace in the background, for a later session, and the plugin's hooks don't run in a user's first Code sessions or in any new Cowork session or Chat conversation. With it, each new Cowork session and Chat conversation clones the marketplace before its first reply, so keep the repository small.
+* **Keep `extraKnownMarketplaces` even if the marketplace is already in `allowedPluginMarketplaces`.** Claude Code [ignores the copy that Claude Desktop delivers](https://code.claude.com/docs/en/plugins/loading#name-conflicts) of a plugin named in `enabledPlugins`, so without the entry the plugin doesn't load. Claude Code's own clone follows a branch or tag, not the commit that you pinned for Claude Desktop.
+* **If [`userPluginMarketplacesEnabled`](#controlling-user-extensions) is `false`**, or the managed settings already have a `strictKnownMarketplaces` list, also add the same `source` object to [`strictKnownMarketplaces`](https://code.claude.com/docs/en/settings-reference#strictknownmarketplaces) in this file, or Claude Code refuses the marketplace. That list [replaces the one that Claude Desktop supplies](https://code.claude.com/docs/en/managed-settings#let-an-embedding-host-add-policy), which admits [skills-directory plugins](https://code.claude.com/docs/en/plugins/org#keep-skills-directory-plugins-loading).
+
+To confirm the setup, sign in to a device as a user who has never loaded the plugin. Send a first message in a new Cowork session and in a new Code session, and check that your hook ran each time.
+
+> [!WARNING]
+>
+> If Claude Code can't clone the marketplace, the session continues without the plugin and its hooks, and nothing in the conversation says so. A git server that never answers delays the first message by about two minutes, or less if you set [`CLAUDE_CODE_SYNC_PLUGIN_INSTALL_TIMEOUT_MS`](https://code.claude.com/docs/en/env-vars). Put a hook that has to run even when the clone fails, or that users must not be able to change, under the managed settings' `hooks` key.
 
 ### Hooks on Windows devices without Git for Windows
 

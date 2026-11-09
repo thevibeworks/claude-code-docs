@@ -9,6 +9,8 @@ featureMetadata:
     eligibility: not-eligible
     note: A thread's contents (the conversation, system prompt, and tools) are held in memory, encrypted under a server-managed key, never written to durable storage, and deleted no more than 1 hour after the thread's last use. Using this feature does not affect your use of other ZDR eligible features.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
@@ -600,7 +602,7 @@ If you use [server-side fallback](https://platform.claude.com/docs/en/build-with
 
 To change a create-only or fixed field, start a new thread: send the full conversation in a create request with the new values.
 
-On Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, changing `system` or `tools` makes the `thinking` and `redacted_thinking` blocks already in the conversation invalid, and the create request can return a 400 error. To avoid it, leave every `thinking` and `redacted_thinking` block out of the conversation you send. The model then answers without that earlier reasoning. See [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit), [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement), and [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior).
+On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, changing `system` or `tools` makes the `thinking` and `redacted_thinking` blocks already in the conversation invalid, and the create request can return a 400 error. To avoid it, leave every `thinking` and `redacted_thinking` block out of the conversation you send. The model then answers without that earlier reasoning. See [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit), [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement), and [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior).
 
 Send only the new messages on a continue request. The API doesn’t check them against the messages it already has. A message you send again can appear twice in the conversation, or the request can return an error. For example, a continue request that starts with the previous response returns an error.
 

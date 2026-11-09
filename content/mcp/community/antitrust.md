@@ -8,13 +8,7 @@
 
 **Effective: September 29, 2025**
 
-> [!NOTE]
->
-> This policy applies when participating in MCP meetings, Working Groups,
-> Interest Groups, and other collaborative forums where competitors may be
-> present. Most individual contributors working on code or documentation don't
-> need to worry about this in day-to-day work - it's primarily relevant for
-> group discussions about standards and specifications.
+This policy applies to MCP meetings, working groups, interest groups, and any other project forum where competitors may be present. See [Meetings and channels](https://modelcontextprotocol.io/community/working-interest-groups.md#meetings-and-channels) for how group meetings are run.
 
 ## Introduction
 

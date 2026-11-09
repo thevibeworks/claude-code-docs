@@ -8,6 +8,8 @@ featureMetadata:
     url: https://platform.claude.com/docs/en/managed-agents/overview
   betaHeader: managed-agents-2026-04-01
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

@@ -38,7 +38,7 @@ Use the two levers together in this order:
 2. Add prompt guidance only if Claude’s triggering still doesn’t match your needs at that level.
 
 <Note>
-  To get less thinking on Claude Sonnet 5.5 and Claude Haiku 5.5, lower the effort level. Asking Claude Sonnet 5.5 in the system prompt to think less doesn’t reliably reduce its thinking, and in Anthropic’s testing, telling Claude Haiku 5.5 in the prompt to answer directly didn’t stop it from thinking. See [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort) and [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking).
+  To get less thinking on Claude Sonnet 5.5 and Claude Haiku 5.5, lower the effort level. Asking Claude Sonnet 5.5 in the system prompt to think less doesn’t reliably reduce its thinking. In Anthropic’s testing, telling Claude Haiku 5.5 in the prompt to answer directly didn’t stop it from thinking. See [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort) and [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking). To get less thinking on Claude Fable 5.2, lower the effort level too. In Anthropic’s testing, an instruction to answer directly without deliberating didn’t stop the model from thinking at `medium` effort and above. See [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#calibrate-effort).
 </Note>
 
 For broader prompting guidance with thinking, see [leverage thinking and interleaved thinking capabilities](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#leverage-thinking-and-interleaved-thinking-capabilities).
@@ -96,7 +96,7 @@ You can also steer thinking on a per-message basis from the user turn, independe
 
 Per-message steering is useful when only some requests in a conversation warrant extended reasoning. An agent harness, for example, can append the encouraging phrase on planning steps and the discouraging phrase on routine confirmations, without touching the system prompt or changing any request parameters between turns.
 
-On Claude Haiku 5.5, the discouraging phrase doesn’t reliably reduce thinking. Where your platform supports it, run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache.
+On Claude Haiku 5.5, the discouraging phrase doesn’t reliably reduce thinking. Where your platform supports it, run routine turns on that model with less thinking by using a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which also keeps the prompt cache. The same holds for Claude Fable 5.2. In Anthropic’s testing, the discouraging phrase didn’t stop the model from thinking at `medium` effort and above. Where your platform supports it, use a per-message effort change for those turns.
 
 ### Verify steering on your workload
 

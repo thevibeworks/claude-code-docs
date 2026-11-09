@@ -5,6 +5,8 @@ description: Use the SDK's tool runner to handle the agentic loop, error wrappin
 featureMetadata:
   status: beta
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

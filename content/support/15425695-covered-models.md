@@ -14,6 +14,8 @@ Anthropic may designate certain models as "Covered Models" when their capabiliti
 
 | **Model**         | **Designation date** | **Status**               | **Availability**                                                                                     |
 | ----------------- | -------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| Claude Mythos 5.2 | November 9, 2026     | Limited availability     | Limited access (approved partners)                                                                   |
+| Claude Fable 5.2  | November 9, 2026     | Generally available      | Claude applications, Claude Platform, Amazon Bedrock, Google Cloud Agent Platform, Microsoft Foundry |
 | Claude Mythos 5.1 | August 31, 2026      | Limited availability     | Limited access (approved partners)                                                                   |
 | Claude Fable 5.1  | August 31, 2026      | Generally available      | Claude applications, Claude Platform, Amazon Bedrock, Google Cloud Agent Platform, Microsoft Foundry |
 | Claude Mythos 5   | June 9, 2026         | Limited availability<br> | Limited access (approved partners)                                                                   |
@@ -27,7 +29,7 @@ The following policies apply to every Covered Model listed above, on every platf
 
 ### Data retention
 
-- **30-day minimum retention by default.** Prompts and model completions are retained for at least 30 days and then automatically deleted, unless they are subject to a safety investigation or we are legally required to maintain them. Accordingly, zero data retention is not available in workspaces, Claude Enterprise organizations, or third-party platforms (e.g., Azure Subscriptions) where Covered Models can be accessed. Customers who are eligible for zero data retention can continue to use prior Claude models under their existing settings and agreements. Learn more about data retention practices for Covered Models here: **[Data retention practices for Mythos-class models](https://support.claude.com/en/articles/15425996).**
+- **30-day minimum retention by default.** Prompts and model completions are retained for at least 30 days and then automatically deleted, unless they are subject to a safety investigation or we are legally required to maintain them. Accordingly, zero data retention is not available in workspaces, Claude Enterprise organizations, or third-party platforms (e.g., Azure Subscriptions) where Covered Models can be accessed. Customers who are eligible for zero data retention can continue to use prior Claude models under their existing settings and agreements. Learn more about data retention practices for Covered Models here: **[Data retention practices for Covered Models](https://support.claude.com/en/articles/15425996)**.
 
 ### Use and review of retained data
 
@@ -55,9 +57,9 @@ The following policies apply to every Covered Model listed above, on every platf
 
 ## Zero data retention and Enterprise Frontier Safeguards
 
-All commercial customers can use Claude Fable 5 and Fable 5.1 today under the standard policies described above. For organizations whose privacy or regulatory obligations make Anthropic-held data retention difficult, we are introducing **[Enterprise Frontier Safeguards](https://www.anthropic.com/news/enterprise-frontier-safeguards)** (EFS), which combines automated safety monitoring with the option to keep retained monitoring data in cloud infrastructure the customer controls. EFS will roll out in phases beginning in fall 2026.
+All commercial customers can use Claude Fable 5.2, Fable 5.1, and Fable 5 today under the standard policies described above. For organizations whose privacy or regulatory obligations make Anthropic-held data retention difficult, we are introducing **[Enterprise Frontier Safeguards](https://www.anthropic.com/news/enterprise-frontier-safeguards)** (EFS), which combines automated safety monitoring with the option to keep retained monitoring data in cloud infrastructure the customer controls. EFS will roll out in phases beginning in Fall 2026.
 
-To make the transition smooth, eligible customers will receive the option to use ZDR with Fable 5 and Fable 5.1 for their own internal business applications. This arrangement is available for a limited time, and intended to be a transition to EFS. Anthropic or your cloud provider will contact eligible organizations directly; you can also request consideration using **[this form](https://claude.com/form/enterprise-frontier-safeguards)**.
+To make the transition smooth, eligible customers will receive the option to use ZDR with Fable 5.2, Fable 5.1, and Fable 5 for their own internal business applications. This arrangement is available for a limited time, and intended to be a transition to EFS. Anthropic or your cloud provider will contact eligible organizations directly; you can also request consideration using **[this form](https://claude.com/form/enterprise-frontier-safeguards)**.
 
 Certain products built on Claude may extend the option to use ZDR with these models to their own eligible business customers under terms agreed with Anthropic, and we are working to broaden product support over time.
 

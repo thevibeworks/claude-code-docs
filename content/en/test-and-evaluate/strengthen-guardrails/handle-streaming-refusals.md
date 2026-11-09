@@ -4,6 +4,8 @@ url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails
 description: Detect and handle refusal stop reasons in streaming responses, and retry refused requests on a fallback model.
 featureMetadata:
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

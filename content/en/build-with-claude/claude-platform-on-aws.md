@@ -313,8 +313,8 @@ The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.6.0")
-        implementation("com.anthropic:anthropic-java-aws:3.6.0")
+        implementation("com.anthropic:anthropic-java:3.7.0")
+        implementation("com.anthropic:anthropic-java-aws:3.7.0")
         ```
       </Tab>
 
@@ -323,12 +323,12 @@ The [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-aws</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
         ```
       </Tab>
@@ -358,6 +358,7 @@ The following models are available on Claude Platform on AWS:
 
 | Model                                                                                                 | Model ID            |
 | :---------------------------------------------------------------------------------------------------- | :------------------ |
+| Claude Fable 5.2                                                                                      | `claude-fable-5-2`  |
 | Claude Fable 5.1                                                                                      | `claude-fable-5-1`  |
 | Claude Fable 5                                                                                        | `claude-fable-5`    |
 | Claude Opus 5.5                                                                                       | `claude-opus-5-5`   |

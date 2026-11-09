@@ -2,6 +2,8 @@
 
 You can have Claude search the internet to provide you with up-to-date information and insights when using the following models:
 
+- Fable 5.2
+
 - Haiku 5.5
 
 - Sonnet 5.5

@@ -8,6 +8,8 @@ featureMetadata:
     eligibility: not-eligible
     note: 29-day retention; async storage required.
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
@@ -107,6 +109,8 @@ The Batches API offers significant cost savings. All usage is charged at 50 perc
 
 | Model                                                                                                                                                                  | Batch input  | Batch output  |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- | :------------ |
+| Claude Fable 5.2                                                                                                                                                       | $4 / MTok    | $20 / MTok    |
+| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842))                                                                            | $4 / MTok    | $20 / MTok    |
 | Claude Fable 5.1                                                                                                                                                       | $5 / MTok    | $25 / MTok    |
 | Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842))                                                                            | $5 / MTok    | $25 / MTok    |
 | Claude Fable 5                                                                                                                                                         | $5 / MTok    | $25 / MTok    |

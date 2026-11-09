@@ -4,6 +4,8 @@ url: https://platform.claude.com/docs/en/cli-sdks-libraries/middleware
 description: Intercept and modify the SDK's requests and responses.
 featureMetadata:
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

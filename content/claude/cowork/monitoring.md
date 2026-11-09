@@ -16,25 +16,30 @@ See [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-cl
 
 ## Setup
 
-Configure monitoring from the Cowork admin settings:
+Configure monitoring from **Organization settings > Data and privacy**:
 
-1. Navigate to **Admin settings > Cowork**
+1. Go to **Organization settings > Data and privacy**
 
-2. Configure the following fields:
+2. Under **Monitoring**, find the **Cowork and Cowork in the cloud** item
+
+3. Configure the following fields:
 
    | Field | Description | Example |
    | - | - | - |
    | **OTLP endpoint** | Your OpenTelemetry collector URL | `http://collector.example.com:4318` |
    | **OTLP protocol** | Transport protocol | `http/json` or `http/protobuf` |
    | **OTLP headers** | Authentication headers for your collector | `Authorization=Bearer your-token` |
+   | **Resource attributes** | OTel resource attributes attached to exported events | `deployment.environment=prod,team=platform` |
 
-3. Save your settings
+4. Save your settings
 
-4. Start a new Cowork session — settings are loaded at session start, so existing sessions won't pick up the new configuration
+5. Start a new Cowork session — settings are loaded at session start, so existing sessions won't pick up the new configuration
 
 > [!NOTE]
 >
-> The OTel exporter runs inside the Cowork VM, so it is subject to the session's egress rules. If your organization restricts network egress, Cowork automatically adds your collector's hostname to the session's egress allowlist. You don't need to add it at **Admin settings > Capabilities > Network egress**.
+> By default, Cowork runs the OTel exporter on the user's device and sends events over that device's network connection. Make sure your collector is reachable from users' devices.
+>
+> You don't need to add your collector to the **Additional allowed domains** field in **Organization settings > Capabilities**. If sessions run in the Cowork VM and your organization restricts network egress, Cowork adds your collector's hostname to the session's allowlist for you.
 
 ## Events
 

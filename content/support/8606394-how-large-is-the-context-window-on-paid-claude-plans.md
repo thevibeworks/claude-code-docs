@@ -6,6 +6,7 @@ This article explains how large the context window is on paid Claude plans (Pro,
 
 | **Model**         | **Context window** |
 | ----------------- | ------------------ |
+| Claude Fable 5.2  | 1M tokens          |
 | Claude Fable 5.1  | 1M tokens          |
 | Claude Fable 5    | 500K tokens        |
 | Claude Opus 5.5   | 1M tokens          |
@@ -24,6 +25,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 
 | **Model**         | **Context window**                                                                                                                                                                       |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Fable 5.2  | 1M tokens                                                                                                                                                                                |
 | Claude Fable 5.1  | 1M tokens                                                                                                                                                                                |
 | Claude Fable 5    | 1M tokens                                                                                                                                                                                |
 | Claude Opus 5.5   | 1M tokens                                                                                                                                                                                |
@@ -40,6 +42,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 
 | **Model**         | **Context window**                                                                     |
 | ----------------- | -------------------------------------------------------------------------------------- |
+| Claude Fable 5.2  | 1M tokens                                                                              |
 | Claude Fable 5.1  | 1M tokens                                                                              |
 | Claude Fable 5    | 1M tokens                                                                              |
 | Claude Opus 5.5   | 1M tokens                                                                              |

@@ -5,6 +5,8 @@ description: Use Claude on Apple platforms through the Foundation Models framewo
 featureMetadata:
   status: beta
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5

@@ -1,12 +1,12 @@
 ---
 title: Claude Fable 5
 url: https://platform.claude.com/docs/en/models/fable-5/overview
-description: "Claude Fable 5 reference: lifecycle status, model IDs on every platform, context window, output limits, pricing, and migration resources. Claude Fable 5 is a legacy model, and Claude Fable 5.1 is the current Fable model."
+description: "Claude Fable 5 reference: lifecycle status, model IDs on every platform, context window, output limits, pricing, and migration resources. Claude Fable 5 is a legacy model, and Claude Fable 5.2 is the current Fable model."
 ---
 
 **Legacy.** Released June 9, 2026.
 
-Although Claude Fable 5 is still available, you should consider migrating to Claude Fable 5.1. [See Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview) · [Migrate to Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1)
+Although Claude Fable 5 is still available, you should consider migrating to Claude Fable 5.2. [See Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview) · [Migrate to Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide)
 
 Model ID: `claude-fable-5`
 
@@ -22,7 +22,7 @@ Context window: 1M tokens · Max output: 128K tokens · Input pricing: $10 / MTo
 
 | Model                                                                               | Context | Max output | Price / MTok       | Thinking             | Default effort | Knowledge cutoff |
 | :---------------------------------------------------------------------------------- | :------ | :--------- | :----------------- | :------------------- | :------------- | :--------------- |
-| [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview)   | 1M      | 128K       | $10 / $50          | Adaptive (always on) | `high`         | Jun 2026         |
+| [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview)   | 1M      | 128K       | $8 / $40           | Adaptive (always on) | `high`         | Jun 2026         |
 | **Claude Fable 5** (this model)                                                     | 1M      | 128K       | $10 / $50          | Adaptive (always on) | `high`         | Jan 2026         |
 | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)     | 1M      | 128K       | $4 / $20           | Adaptive (always on) | `medium`       | Jun 2026         |
 | [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) | 1M      | 128K       | $2 / $10           | Adaptive             | `high`         | Jun 2026         |
@@ -30,7 +30,7 @@ Context window: 1M tokens · Max output: 128K tokens · Input pricing: $10 / MTo
 
 * **Context:** 1M tokens is roughly 555k words or 2.5M Unicode characters on the current tokenizer (introduced with Claude Opus 4.7); models before it fit about 750k words in 1M tokens. 200k tokens is roughly 150k words.
 * **Max output:** Synchronous Messages API limit. On the Message Batches API, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Haiku 5.5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, and Claude Sonnet 4.6 support up to 300k output tokens with the output-300k-2026-03-24 beta header.
-* **Price / MTok:** Input / output, base price per million tokens. Batch API requests are 50% off; prompt caching reads cost 10% of the base input price (2.5% on Claude Fable 5.1 and Claude Mythos 5.1, 5% on Claude Opus 5.5 and Claude Sonnet 5.5). See Pricing for the full list.
+* **Price / MTok:** Input / output, base price per million tokens. Batch API requests are 50% off; prompt caching reads cost 10% of the base input price (2.5% on Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, and Claude Mythos 5.1, 5% on Claude Opus 5.5 and Claude Sonnet 5.5). See Pricing for the full list.
 * **Thinking:** Adaptive thinking lets the model decide how much to think, steered by effort. Extended thinking is the manual budget\_tokens mode on earlier models.
 * **Default effort:** The effort parameter’s default on the Claude API. Models without a value don’t support the parameter.
 * **Knowledge cutoff:** Reliable knowledge cutoff: the date through which the model’s knowledge is most extensive and reliable.
@@ -85,11 +85,11 @@ Context window: 1M tokens · Max output: 128K tokens · Input pricing: $10 / MTo
 ## Resources
 
 <CardGroup cols={3}>
-  <Card title="Migrate to Claude Fable 5.1" icon="arrows-left-right" href="https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1">
-    What changes when moving from Claude Fable 5 to Claude Fable 5.1.
+  <Card title="Migrate to Claude Fable 5.2" icon="arrows-left-right" href="https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-2">
+    What changes when moving from Claude Fable 5 to Claude Fable 5.2.
   </Card>
 
-  <Card title="Claude Fable 5.1" icon="arrow-right" href="https://platform.claude.com/docs/en/models/fable-5-1/overview">
+  <Card title="Claude Fable 5.2" icon="arrow-right" href="https://platform.claude.com/docs/en/models/fable-5-2/overview">
     The current Fable model: overview, specs, and resources.
   </Card>
 

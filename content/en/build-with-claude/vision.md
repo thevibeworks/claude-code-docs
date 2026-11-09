@@ -5,6 +5,8 @@ description: Claude's vision capabilities allow it to process and analyze images
 featureMetadata:
   status: stable
   supportedModels:
+    - claude-fable-5-2
+    - claude-mythos-5-2
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
